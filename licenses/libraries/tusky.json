@@ -1,0 +1,16 @@
+{
+    "uniqueId": "com.github.tuskyapp:tusky",
+    "developers": [
+        {
+            "name": "Tusky Contributors",
+            "organisationUrl": "https://github.com/tuskyapp/tusky"
+        }
+    ],
+    "artifactVersion": "10a6b161",
+    "description": "Tusky code",
+    "name": "Tusky code",
+    "licenses": [
+        "GPL_3_0_or_later"
+    ],
+    "website": "https://tusky.app/"
+}

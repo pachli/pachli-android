@@ -294,9 +294,6 @@
     <string name="reblog_private">Del til opprinnelig publikum</string>
     <string name="unreblog_private">Fjern deling</string>
     <string name="license_description">Tusky inneholder programkode og elementer fra følgende åpen kildekode-prosjekter:</string>
-    <string name="license_apache_2">Lisensiert under Apache License (kopi under)</string>
-    <string name="license_cc_by_4">CC-BY 4.0</string>
-    <string name="license_cc_by_sa_4">CC-BY-SA 4.0</string>
     <string name="profile_metadata_label">Profilmetadata</string>
     <string name="profile_metadata_add">legg til data</string>
     <string name="profile_metadata_label_label">Ledetekst</string>

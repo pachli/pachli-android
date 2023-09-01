@@ -1,29 +1,26 @@
-/* Copyright 2018 Conny Duck
+/*
+ * Copyright 2023 Pachli Association
  *
- * This file is a part of Tusky.
+ * This file is a part of Pachli.
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation; either version 3 of the
  * License, or (at your option) any later version.
  *
- * Tusky is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package com.keylesspalace.tusky
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
-import androidx.annotation.RawRes
+import androidx.fragment.app.commit
 import com.keylesspalace.tusky.databinding.ActivityLicenseBinding
-import com.keylesspalace.tusky.util.closeQuietly
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
+import com.mikepenz.aboutlibraries.LibsBuilder
 
 class LicenseActivity : BaseActivity() {
 
@@ -40,27 +37,12 @@ class LicenseActivity : BaseActivity() {
 
         setTitle(R.string.title_licenses)
 
-        loadFileIntoTextView(R.raw.apache, binding.licenseApacheTextView)
-    }
-
-    private fun loadFileIntoTextView(@RawRes fileId: Int, textView: TextView) {
-        val sb = StringBuilder()
-
-        val br = BufferedReader(InputStreamReader(resources.openRawResource(fileId)))
-
-        try {
-            var line: String? = br.readLine()
-            while (line != null) {
-                sb.append(line)
-                sb.append('\n')
-                line = br.readLine()
+        val fragment = LibsBuilder().supportFragment()
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                add(R.id.fragment_licenses, fragment)
             }
-        } catch (e: IOException) {
-            Log.w("LicenseActivity", e)
         }
-
-        br.closeQuietly()
-
-        textView.text = sb.toString()
     }
 }
