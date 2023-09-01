@@ -19,7 +19,7 @@
         errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="932"
+            line="954"
             column="42"/>
     </issue>
 
@@ -30,7 +30,7 @@
         errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="959"
+            line="981"
             column="42"/>
     </issue>
 
@@ -41,7 +41,7 @@
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="359"
+            line="363"
             column="25"/>
     </issue>
 
@@ -157,7 +157,7 @@
         errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="530"
+            line="534"
             column="28"/>
     </issue>
 
@@ -773,7 +773,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="329"
+            line="330"
             column="5"/>
     </issue>
 
@@ -1543,7 +1543,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="32"
+            line="52"
             column="19"/>
     </issue>
 
@@ -1554,7 +1554,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="283"
+            line="303"
             column="19"/>
     </issue>
 
@@ -1565,7 +1565,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="288"
+            line="308"
             column="19"/>
     </issue>
 
@@ -1829,7 +1829,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="319"
+            line="320"
             column="13"/>
     </issue>
 
@@ -2093,7 +2093,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="178"
+            line="206"
             column="12"/>
     </issue>
 
@@ -3050,7 +3050,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="234"
+            line="238"
             column="37"/>
     </issue>
 
@@ -3061,7 +3061,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="238"
+            line="242"
             column="37"/>
     </issue>
 
@@ -3072,7 +3072,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="342"
+            line="346"
             column="25"/>
     </issue>
 
@@ -3083,7 +3083,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="343"
+            line="347"
             column="29"/>
     </issue>
 
@@ -3094,7 +3094,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="345"
+            line="349"
             column="25"/>
     </issue>
 
@@ -3105,7 +3105,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="346"
+            line="350"
             column="29"/>
     </issue>
 
@@ -3116,7 +3116,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="548"
+            line="552"
             column="17"/>
     </issue>
 
@@ -3127,7 +3127,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="551"
+            line="555"
             column="21"/>
     </issue>
 
@@ -3136,31 +3136,9 @@
         message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
         errorLine1="                primaryDrawerItem {"
         errorLine2="                ~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="556"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    onClick = {"
-        errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
             line="560"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                primaryDrawerItem {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="565"
             column="17"/>
     </issue>
 
@@ -3171,7 +3149,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="568"
+            line="564"
             column="21"/>
     </issue>
 
@@ -3182,7 +3160,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="573"
+            line="569"
             column="17"/>
     </issue>
 
@@ -3193,7 +3171,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="576"
+            line="572"
             column="21"/>
     </issue>
 
@@ -3204,7 +3182,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="581"
+            line="577"
             column="17"/>
     </issue>
 
@@ -3215,7 +3193,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="584"
+            line="580"
             column="21"/>
     </issue>
 
@@ -3224,20 +3202,20 @@
         message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
         errorLine1="                primaryDrawerItem {"
         errorLine2="                ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
+            line="585"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    onClick = {"
+        errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
             line="588"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    onClick = {"
-        errorLine2="                    ~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="591"
             column="21"/>
     </issue>
 
@@ -3248,7 +3226,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="596"
+            line="592"
             column="17"/>
     </issue>
 
@@ -3259,7 +3237,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="599"
+            line="595"
             column="21"/>
     </issue>
 
@@ -3268,31 +3246,31 @@
         message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
         errorLine1="                primaryDrawerItem {"
         errorLine2="                ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
+            line="600"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    onClick = {"
+        errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
             line="603"
-            column="17"/>
+            column="21"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    onClick = {"
-        errorLine2="                    ~~~~~~~">
+        message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                primaryDrawerItem {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
             line="607"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                secondaryDrawerItem {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="616"
             column="17"/>
     </issue>
 
@@ -3303,7 +3281,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="619"
+            line="611"
             column="21"/>
     </issue>
 
@@ -3314,7 +3292,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="624"
+            line="620"
             column="17"/>
     </issue>
 
@@ -3325,7 +3303,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="627"
+            line="623"
             column="21"/>
     </issue>
 
@@ -3336,7 +3314,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="632"
+            line="628"
             column="17"/>
     </issue>
 
@@ -3347,7 +3325,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="635"
+            line="631"
             column="21"/>
     </issue>
 
@@ -3358,7 +3336,29 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="640"
+            line="636"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    onClick = {"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
+            line="639"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                secondaryDrawerItem {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
+            line="644"
             column="17"/>
     </issue>
 
@@ -3369,7 +3369,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="643"
+            line="647"
             column="21"/>
     </issue>
 
@@ -3380,7 +3380,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="650"
+            line="654"
             column="21"/>
     </issue>
 
@@ -3391,7 +3391,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="653"
+            line="657"
             column="25"/>
     </issue>
 
@@ -3402,7 +3402,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="662"
+            line="666"
             column="17"/>
     </issue>
 
@@ -3413,7 +3413,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="665"
+            line="669"
             column="21"/>
     </issue>
 
@@ -3424,7 +3424,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="678"
+            line="682"
             column="17"/>
     </issue>
 
@@ -3435,7 +3435,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="682"
+            line="686"
             column="21"/>
     </issue>
 
@@ -3446,7 +3446,7 @@
         errorLine2="                ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="774"
+            line="796"
             column="17"/>
     </issue>
 
@@ -3457,7 +3457,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="776"
+            line="798"
             column="17"/>
     </issue>
 
@@ -3468,7 +3468,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="787"
+            line="809"
             column="17"/>
     </issue>
 
@@ -5719,7 +5719,7 @@
         errorLine2="           ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/BaseActivity.java"
-            line="65"
+            line="67"
             column="12"/>
     </issue>
 
@@ -5730,7 +5730,7 @@
         errorLine2="                                                  ~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/BaseActivity.java"
-            line="167"
+            line="174"
             column="51"/>
     </issue>
 
@@ -5741,7 +5741,7 @@
         errorLine2="                                         ~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/BaseActivity.java"
-            line="173"
+            line="180"
             column="42"/>
     </issue>
 
@@ -5752,7 +5752,7 @@
         errorLine2="                                   ~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/BaseActivity.java"
-            line="201"
+            line="208"
             column="36"/>
     </issue>
 
@@ -5763,7 +5763,7 @@
         errorLine2="                                                                                                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/BaseActivity.java"
-            line="201"
+            line="208"
             column="105"/>
     </issue>
 
@@ -5774,7 +5774,7 @@
         errorLine2="                                         ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/BaseActivity.java"
-            line="209"
+            line="216"
             column="42"/>
     </issue>
 
@@ -5785,7 +5785,7 @@
         errorLine2="                                                                                              ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/BaseActivity.java"
-            line="209"
+            line="216"
             column="95"/>
     </issue>
 
@@ -5796,7 +5796,7 @@
         errorLine2="                                   ~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/BaseActivity.java"
-            line="276"
+            line="283"
             column="36"/>
     </issue>
 
@@ -5807,7 +5807,7 @@
         errorLine2="                                                         ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/BaseActivity.java"
-            line="276"
+            line="283"
             column="58"/>
     </issue>
 

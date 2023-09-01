@@ -154,7 +154,7 @@ class PreferencesActivity :
                 restartActivitiesOnBackPressedCallback.isEnabled = true
                 this.restartCurrentActivity()
             }
-            PrefKeys.UI_TEXT_SCALE_RATIO -> {
+            PrefKeys.FONT_FAMILY, PrefKeys.UI_TEXT_SCALE_RATIO -> {
                 restartActivitiesOnBackPressedCallback.isEnabled = true
                 this.restartCurrentActivity()
             }
