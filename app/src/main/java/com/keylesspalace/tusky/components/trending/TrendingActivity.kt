@@ -33,7 +33,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.keylesspalace.tusky.BottomSheetActivity
 import com.keylesspalace.tusky.R
 import com.keylesspalace.tusky.components.timeline.TimelineFragment
-import com.keylesspalace.tusky.components.timeline.viewmodel.TimelineViewModel
+import com.keylesspalace.tusky.components.timeline.TimelineKind
 import com.keylesspalace.tusky.databinding.ActivityTrendingBinding
 import com.keylesspalace.tusky.util.reduceSwipeSensitivity
 import com.keylesspalace.tusky.util.viewBinding
@@ -101,7 +101,7 @@ class TrendingFragmentAdapter(val activity: FragmentActivity) : FragmentStateAda
         return when (position) {
             0 -> TrendingTagsFragment.newInstance()
             1 -> TrendingLinksFragment.newInstance()
-            2 -> TimelineFragment.newInstance(TimelineViewModel.Kind.TRENDING_STATUSES)
+            2 -> TimelineFragment.newInstance(TimelineKind.TrendingStatuses)
             else -> throw IllegalStateException()
         }
     }

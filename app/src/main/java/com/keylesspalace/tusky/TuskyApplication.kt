@@ -147,6 +147,13 @@ class TuskyApplication : Application(), HasAndroidInjector {
                 editor.putString(APP_THEME, THEME_NIGHT)
             }
         }
+
+        if (oldVersion < 2023090201) {
+            // Deleting the "Reading order" preference, as the need to "Load more" has been
+            // removed.
+            editor.remove(PrefKeys.Deprecated.READING_ORDER)
+        }
+
         editor.putInt(PrefKeys.SCHEMA_VERSION, newVersion)
         editor.apply()
     }

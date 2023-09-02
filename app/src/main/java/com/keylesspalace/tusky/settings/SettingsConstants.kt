@@ -41,7 +41,7 @@ enum class AppTheme(val value: String) {
  *
  * - Adding a new preference that does not change the interpretation of an existing preference
  */
-const val SCHEMA_VERSION = 2023082301
+const val SCHEMA_VERSION = 2023090201
 
 /** The schema version for fresh installs */
 const val NEW_INSTALL_SCHEMA_VERSION = 0
@@ -57,7 +57,6 @@ object PrefKeys {
     const val LANGUAGE = "language"
     const val FONT_FAMILY = "fontFamily"
     const val STATUS_TEXT_SIZE = "statusTextSize"
-    const val READING_ORDER = "readingOrder"
     const val MAIN_NAV_POSITION = "mainNavPosition"
     const val HIDE_TOP_TOOLBAR = "hideTopToolbar"
     const val ABSOLUTE_TIME_VIEW = "absoluteTimeView"
@@ -111,5 +110,6 @@ object PrefKeys {
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         const val SHOW_NOTIFICATIONS_FILTER = "showNotificationsFilter"
+        const val READING_ORDER = "readingOrder"
     }
 }

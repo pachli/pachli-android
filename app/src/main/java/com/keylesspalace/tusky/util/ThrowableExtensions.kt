@@ -43,7 +43,7 @@ fun Throwable.getDrawableRes(): Int = when (this) {
 
 /** @return A string error message for this throwable */
 fun Throwable.getErrorString(context: Context): String = getServerErrorMessage() ?: when (this) {
-    is IOException -> context.getString(R.string.error_network)
+    is IOException -> context.getString(R.string.error_network_fmt, this.message)
     is HttpException -> if (this.code() == 404) context.getString(R.string.error_404_not_found) else context.getString(R.string.error_generic)
-    else -> context.getString(R.string.error_generic)
+    else -> context.getString(R.string.error_generic_fmt, this.message)
 }

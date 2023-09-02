@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment
 import com.keylesspalace.tusky.components.conversation.ConversationsFragment
 import com.keylesspalace.tusky.components.notifications.NotificationsFragment
 import com.keylesspalace.tusky.components.timeline.TimelineFragment
-import com.keylesspalace.tusky.components.timeline.viewmodel.TimelineViewModel
+import com.keylesspalace.tusky.components.timeline.TimelineKind
 import com.keylesspalace.tusky.components.trending.TrendingLinksFragment
 import com.keylesspalace.tusky.components.trending.TrendingTagsFragment
 import java.util.Objects
@@ -70,7 +70,7 @@ fun createTabDataFromId(id: String, arguments: List<String> = emptyList()): TabD
             id = HOME,
             text = R.string.title_home,
             icon = R.drawable.ic_home_24dp,
-            fragment = { TimelineFragment.newInstance(TimelineViewModel.Kind.HOME) }
+            fragment = { TimelineFragment.newInstance(TimelineKind.Home) }
         )
         NOTIFICATIONS -> TabData(
             id = NOTIFICATIONS,
@@ -82,13 +82,13 @@ fun createTabDataFromId(id: String, arguments: List<String> = emptyList()): TabD
             id = LOCAL,
             text = R.string.title_public_local,
             icon = R.drawable.ic_local_24dp,
-            fragment = { TimelineFragment.newInstance(TimelineViewModel.Kind.PUBLIC_LOCAL) }
+            fragment = { TimelineFragment.newInstance(TimelineKind.PublicLocal) }
         )
         FEDERATED -> TabData(
             id = FEDERATED,
             text = R.string.title_public_federated,
             icon = R.drawable.ic_public_24dp,
-            fragment = { TimelineFragment.newInstance(TimelineViewModel.Kind.PUBLIC_FEDERATED) }
+            fragment = { TimelineFragment.newInstance(TimelineKind.PublicFederated) }
         )
         DIRECT -> TabData(
             id = DIRECT,
@@ -112,13 +112,13 @@ fun createTabDataFromId(id: String, arguments: List<String> = emptyList()): TabD
             id = TRENDING_STATUSES,
             text = R.string.title_public_trending_statuses,
             icon = R.drawable.ic_trending_up_24px,
-            fragment = { TimelineFragment.newInstance(TimelineViewModel.Kind.TRENDING_STATUSES) }
+            fragment = { TimelineFragment.newInstance(TimelineKind.TrendingStatuses) }
         )
         HASHTAG -> TabData(
             id = HASHTAG,
             text = R.string.hashtags,
             icon = R.drawable.ic_hashtag,
-            fragment = { args -> TimelineFragment.newHashtagInstance(args) },
+            fragment = { args -> TimelineFragment.newInstance(TimelineKind.Tag(args)) },
             arguments = arguments,
             title = { context -> arguments.joinToString(separator = " ") { context.getString(R.string.title_tag, it) } }
         )
@@ -126,7 +126,7 @@ fun createTabDataFromId(id: String, arguments: List<String> = emptyList()): TabD
             id = LIST,
             text = R.string.list,
             icon = R.drawable.ic_list,
-            fragment = { args -> TimelineFragment.newInstance(TimelineViewModel.Kind.LIST, args.getOrNull(0).orEmpty()) },
+            fragment = { args -> TimelineFragment.newInstance(TimelineKind.UserList(args.first(), args.last())) },
             arguments = arguments,
             title = { arguments.getOrNull(1).orEmpty() }
         )
@@ -134,7 +134,7 @@ fun createTabDataFromId(id: String, arguments: List<String> = emptyList()): TabD
             id = BOOKMARKS,
             text = R.string.title_bookmarks,
             icon = R.drawable.ic_bookmark_active_24dp,
-            fragment = { TimelineFragment.newInstance(TimelineViewModel.Kind.BOOKMARKS) }
+            fragment = { TimelineFragment.newInstance(TimelineKind.Bookmarks) }
         )
         else -> throw IllegalArgumentException("unknown tab type")
     }
