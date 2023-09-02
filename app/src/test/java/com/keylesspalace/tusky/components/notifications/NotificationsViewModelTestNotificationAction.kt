@@ -53,7 +53,7 @@ class NotificationsViewModelTestNotificationAction : NotificationsViewModelTestB
         subscribing = null,
         blockingDomain = false,
         note = null,
-        notifying = null
+        notifying = null,
     )
 
     /** Action to accept a follow request */

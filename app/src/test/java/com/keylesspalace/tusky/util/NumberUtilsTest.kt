@@ -75,7 +75,7 @@ class NumberUtilsTest(private val input: Long, private val want: String) {
                 arrayOf(3500 * 1000.0.pow(2).toLong(), "3.5G"),
                 arrayOf(3500 * 1000.0.pow(3).toLong(), "3.5T"),
                 arrayOf(3500 * 1000.0.pow(4).toLong(), "3.5P"),
-                arrayOf(3500 * 1000.0.pow(5).toLong(), "3.5E")
+                arrayOf(3500 * 1000.0.pow(5).toLong(), "3.5E"),
             )
         }
     }

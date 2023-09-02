@@ -91,21 +91,23 @@ class TrendingTagsFragment :
         setupSwipeRefreshLayout()
         setupRecyclerView()
 
-        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-            @SuppressLint("SyntheticAccessor")
-            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                if (positionStart == 0 && adapter.itemCount != itemCount) {
-                    binding.recyclerView.post {
-                        if (getView() != null) {
-                            binding.recyclerView.scrollBy(
-                                0,
-                                Utils.dpToPx(requireContext(), -30)
-                            )
+        adapter.registerAdapterDataObserver(
+            object : RecyclerView.AdapterDataObserver() {
+                @SuppressLint("SyntheticAccessor")
+                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                    if (positionStart == 0 && adapter.itemCount != itemCount) {
+                        binding.recyclerView.post {
+                            if (getView() != null) {
+                                binding.recyclerView.scrollBy(
+                                    0,
+                                    Utils.dpToPx(requireContext(), -30),
+                                )
+                            }
                         }
                     }
                 }
-            }
-        })
+            },
+        )
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collectLatest { trendingState ->
@@ -177,8 +179,8 @@ class TrendingTagsFragment :
         (requireActivity() as BaseActivity).startActivityWithSlideInAnimation(
             StatusListActivity.newHashtagIntent(
                 requireContext(),
-                tag
-            )
+                tag,
+            ),
         )
     }
 
@@ -205,7 +207,7 @@ class TrendingTagsFragment :
             binding.messageView.setup(
                 R.drawable.elephant_friend_empty,
                 R.string.message_empty,
-                null
+                null,
             )
         } else {
             binding.recyclerView.show()
@@ -238,7 +240,7 @@ class TrendingTagsFragment :
         binding.swipeRefreshLayout.isRefreshing = false
         binding.messageView.setup(
             R.drawable.errorphant_offline,
-            R.string.error_network
+            R.string.error_network,
         ) { refreshContent() }
     }
 
@@ -250,7 +252,7 @@ class TrendingTagsFragment :
         binding.swipeRefreshLayout.isRefreshing = false
         binding.messageView.setup(
             R.drawable.errorphant_error,
-            R.string.error_generic
+            R.string.error_generic,
         ) { refreshContent() }
     }
 

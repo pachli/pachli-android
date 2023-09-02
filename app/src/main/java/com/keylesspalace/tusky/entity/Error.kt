@@ -20,5 +20,5 @@ package com.keylesspalace.tusky.entity
 /** @see [Error](https://docs.joinmastodon.org/entities/Error/) */
 data class Error(
     val error: String,
-    val error_description: String?
+    val error_description: String?,
 )

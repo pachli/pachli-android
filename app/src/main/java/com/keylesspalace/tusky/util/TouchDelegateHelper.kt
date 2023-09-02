@@ -45,7 +45,7 @@ fun ViewGroup.expandTouchSizeToFillRow(children: List<View>) {
                     rect.right += (right.left - view.right) / 2
                 }
                 TouchDelegate(rect, view)
-            }
+            },
         )
     }
 }

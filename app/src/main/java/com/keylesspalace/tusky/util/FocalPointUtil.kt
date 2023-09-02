@@ -59,7 +59,7 @@ object FocalPointUtil {
         imageWidth: Float,
         imageHeight: Float,
         focus: Focus,
-        mat: Matrix
+        mat: Matrix,
     ) {
         // Reset the cached matrix:
         mat.reset()
@@ -89,7 +89,7 @@ object FocalPointUtil {
         viewWidth: Float,
         viewHeight: Float,
         imageWidth: Float,
-        imageHeight: Float
+        imageHeight: Float,
     ): Float {
         return if (isVerticalCrop(viewWidth, viewHeight, imageWidth, imageHeight)) {
             viewWidth / imageWidth
@@ -105,7 +105,7 @@ object FocalPointUtil {
         viewWidth: Float,
         viewHeight: Float,
         imageWidth: Float,
-        imageHeight: Float
+        imageHeight: Float,
     ): Boolean {
         val viewRatio = viewWidth / viewHeight
         val imageRatio = imageWidth / imageHeight
@@ -148,7 +148,7 @@ object FocalPointUtil {
         view: Float,
         image: Float,
         scale: Float,
-        focal: Float
+        focal: Float,
     ): Float {
         // The fraction of the image that will be in view:
         val inView = view / (scale * image)

@@ -56,7 +56,7 @@ class CaptionDialog : DialogFragment() {
         input.hint = resources.getQuantityString(
             R.plurals.hint_describe_for_visually_impaired,
             MEDIA_DESCRIPTION_CHARACTER_LIMIT,
-            MEDIA_DESCRIPTION_CHARACTER_LIMIT
+            MEDIA_DESCRIPTION_CHARACTER_LIMIT,
         )
         input.filters = arrayOf(InputFilter.LengthFilter(MEDIA_DESCRIPTION_CHARACTER_LIMIT))
         input.setText(arguments?.getString(EXISTING_DESCRIPTION_ARG))
@@ -79,18 +79,20 @@ class CaptionDialog : DialogFragment() {
         Glide.with(this)
             .load(previewUri)
             .downsample(DownsampleStrategy.CENTER_INSIDE)
-            .into(object : CustomTarget<Drawable>(4096, 4096) {
-                override fun onLoadCleared(placeholder: Drawable?) {
-                    imageView.setImageDrawable(placeholder)
-                }
+            .into(
+                object : CustomTarget<Drawable>(4096, 4096) {
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        imageView.setImageDrawable(placeholder)
+                    }
 
-                override fun onResourceReady(
-                    resource: Drawable,
-                    transition: Transition<in Drawable>?
-                ) {
-                    imageView.setImageDrawable(resource)
-                }
-            })
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: Transition<in Drawable>?,
+                    ) {
+                        imageView.setImageDrawable(resource)
+                    }
+                },
+            )
 
         return dialog
     }
@@ -103,7 +105,7 @@ class CaptionDialog : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         savedInstanceState?.getString(DESCRIPTION_KEY)?.let {
             input.setText(it)
@@ -124,12 +126,12 @@ class CaptionDialog : DialogFragment() {
         fun newInstance(
             localId: Int,
             existingDescription: String?,
-            previewUri: Uri
+            previewUri: Uri,
         ) = CaptionDialog().apply {
             arguments = bundleOf(
                 LOCAL_ID_ARG to localId,
                 EXISTING_DESCRIPTION_ARG to existingDescription,
-                PREVIEW_URI_ARG to previewUri
+                PREVIEW_URI_ARG to previewUri,
             )
         }
 

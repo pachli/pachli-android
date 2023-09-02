@@ -27,7 +27,7 @@ import kotlinx.coroutines.withContext
 
 class StatusesPagingSource(
     private val accountId: String,
-    private val mastodonApi: MastodonApi
+    private val mastodonApi: MastodonApi,
 ) : PagingSource<String, Status>() {
 
     override fun getRefreshKey(state: PagingState<String, Status>): String? {
@@ -63,7 +63,7 @@ class StatusesPagingSource(
             return LoadResult.Page(
                 data = result,
                 prevKey = result.firstOrNull()?.id,
-                nextKey = result.lastOrNull()?.id
+                nextKey = result.lastOrNull()?.id,
             )
         } catch (e: Exception) {
             Log.w("StatusesPagingSource", "failed to load statuses", e)
@@ -82,7 +82,7 @@ class StatusesPagingSource(
             sinceId = null,
             minId = minId,
             limit = limit,
-            excludeReblogs = true
+            excludeReblogs = true,
         ).await()
     }
 }

@@ -37,7 +37,7 @@ import javax.inject.Inject
 class AnnouncementsViewModel @Inject constructor(
     private val instanceInfoRepo: InstanceInfoRepository,
     private val mastodonApi: MastodonApi,
-    private val eventHub: EventHub
+    private val eventHub: EventHub,
 ) : ViewModel() {
 
     private val announcementsMutable = MutableLiveData<Resource<List<Announcement>>>()
@@ -70,15 +70,15 @@ class AnnouncementsViewModel @Inject constructor(
                                             Log.d(
                                                 TAG,
                                                 "Failed to mark announcement as read.",
-                                                throwable
+                                                throwable,
                                             )
-                                        }
+                                        },
                                     )
                             }
                     },
                     {
                         announcementsMutable.postValue(Error(cause = it))
-                    }
+                    },
                 )
         }
     }
@@ -98,7 +98,7 @@ class AnnouncementsViewModel @Inject constructor(
                                                     if (reaction.name == name) {
                                                         reaction.copy(
                                                             count = reaction.count + 1,
-                                                            me = true
+                                                            me = true,
                                                         )
                                                     } else {
                                                         reaction
@@ -113,22 +113,22 @@ class AnnouncementsViewModel @Inject constructor(
                                                             1,
                                                             true,
                                                             url,
-                                                            staticUrl
+                                                            staticUrl,
                                                         )
-                                                    }
+                                                    },
                                                 )
-                                            }
+                                            },
                                         )
                                     } else {
                                         announcement
                                     }
-                                }
-                            )
+                                },
+                            ),
                         )
                     },
                     {
                         Log.w(TAG, "Failed to add reaction to the announcement.", it)
-                    }
+                    },
                 )
         }
     }
@@ -148,7 +148,7 @@ class AnnouncementsViewModel @Inject constructor(
                                                     if (reaction.count > 1) {
                                                         reaction.copy(
                                                             count = reaction.count - 1,
-                                                            me = false
+                                                            me = false,
                                                         )
                                                     } else {
                                                         null
@@ -156,18 +156,18 @@ class AnnouncementsViewModel @Inject constructor(
                                                 } else {
                                                     reaction
                                                 }
-                                            }
+                                            },
                                         )
                                     } else {
                                         announcement
                                     }
-                                }
-                            )
+                                },
+                            ),
                         )
                     },
                     {
                         Log.w(TAG, "Failed to remove reaction from the announcement.", it)
-                    }
+                    },
                 )
         }
     }

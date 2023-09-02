@@ -28,7 +28,7 @@ import com.keylesspalace.tusky.viewdata.StatusViewData
 class StatusesAdapter(
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusViewState: StatusViewState,
-    private val adapterHandler: AdapterHandler
+    private val adapterHandler: AdapterHandler,
 ) : PagingDataAdapter<StatusViewData, StatusViewHolder>(STATUS_COMPARATOR) {
 
     private val statusForPosition: (Int) -> StatusViewData? = { position: Int ->
@@ -42,7 +42,7 @@ class StatusesAdapter(
             statusDisplayOptions,
             statusViewState,
             adapterHandler,
-            statusForPosition
+            statusForPosition,
         )
     }
 

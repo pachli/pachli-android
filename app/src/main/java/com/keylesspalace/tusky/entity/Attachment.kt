@@ -32,7 +32,7 @@ data class Attachment(
     val meta: MetaData?,
     val type: Type,
     val description: String?,
-    val blurhash: String?
+    val blurhash: String?,
 ) : Parcelable {
 
     @JsonAdapter(MediaTypeDeserializer::class)
@@ -50,7 +50,7 @@ data class Attachment(
         AUDIO,
 
         @SerializedName("unknown")
-        UNKNOWN
+        UNKNOWN,
     }
 
     class MediaTypeDeserializer : JsonDeserializer<Type> {
@@ -74,7 +74,7 @@ data class Attachment(
         val focus: Focus?,
         val duration: Float?,
         val original: Size?,
-        val small: Size?
+        val small: Size?,
     ) : Parcelable
 
     /**
@@ -86,7 +86,7 @@ data class Attachment(
     @Parcelize
     data class Focus(
         val x: Float,
-        val y: Float
+        val y: Float,
     ) : Parcelable {
         fun toMastodonApiString(): String = "$x,$y"
     }
@@ -98,6 +98,6 @@ data class Attachment(
     data class Size(
         val width: Int,
         val height: Int,
-        val aspect: Double
+        val aspect: Double,
     ) : Parcelable
 }

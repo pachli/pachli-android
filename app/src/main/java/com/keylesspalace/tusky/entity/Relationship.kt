@@ -35,5 +35,5 @@ data class Relationship(
     @JsonAdapter(GuardedBooleanAdapter::class) val subscribing: Boolean? = null,
     @SerializedName("domain_blocking") val blockingDomain: Boolean,
     val note: String?, // nullable for backward compatibility / feature detection
-    val notifying: Boolean? // since 3.3.0rc
+    val notifying: Boolean?, // since 3.3.0rc
 )

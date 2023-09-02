@@ -41,12 +41,12 @@ import com.keylesspalace.tusky.entity.Status
             ForeignKey(
                 entity = TimelineAccountEntity::class,
                 parentColumns = ["serverId", "timelineUserId"],
-                childColumns = ["authorServerId", "timelineUserId"]
-            )
+                childColumns = ["authorServerId", "timelineUserId"],
+            ),
         ]
         ),
     // Avoiding rescanning status table when accounts table changes. Recommended by Room(c).
-    indices = [Index("authorServerId", "timelineUserId")]
+    indices = [Index("authorServerId", "timelineUserId")],
 )
 @TypeConverters(Converters::class)
 data class TimelineStatusEntity(
@@ -84,11 +84,11 @@ data class TimelineStatusEntity(
     val pinned: Boolean,
     val card: String?,
     val language: String?,
-    val filtered: List<FilterResult>?
+    val filtered: List<FilterResult>?,
 )
 
 @Entity(
-    primaryKeys = ["serverId", "timelineUserId"]
+    primaryKeys = ["serverId", "timelineUserId"],
 )
 data class TimelineAccountEntity(
     val serverId: String,
@@ -99,7 +99,7 @@ data class TimelineAccountEntity(
     val url: String,
     val avatar: String,
     val emojis: String,
-    val bot: Boolean
+    val bot: Boolean,
 )
 
 data class TimelineStatusWithAccount(
@@ -108,5 +108,5 @@ data class TimelineStatusWithAccount(
     @Embedded(prefix = "a_")
     val account: TimelineAccountEntity,
     @Embedded(prefix = "rb_")
-    val reblogAccount: TimelineAccountEntity? = null // null when no reblog
+    val reblogAccount: TimelineAccountEntity? = null, // null when no reblog
 )

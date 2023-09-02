@@ -23,11 +23,11 @@ import androidx.paging.LoadStateAdapter
 
 /** Show load state and retry options when loading timelines */
 class TimelineLoadStateAdapter(
-    private val retry: () -> Unit
+    private val retry: () -> Unit,
 ) : LoadStateAdapter<TimelineLoadStateViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        loadState: LoadState
+        loadState: LoadState,
     ): TimelineLoadStateViewHolder {
         return TimelineLoadStateViewHolder.create(parent, retry)
     }

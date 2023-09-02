@@ -111,20 +111,22 @@ class AccountsInListFragment : DialogFragment(), Injectable {
         }
 
         binding.searchView.isSubmitButtonEnabled = true
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.search(query.orEmpty())
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                // Close event is not sent so we use this instead
-                if (newText.isNullOrBlank()) {
-                    viewModel.search("")
+        binding.searchView.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    viewModel.search(query.orEmpty())
+                    return true
                 }
-                return true
-            }
-        })
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    // Close event is not sent so we use this instead
+                    if (newText.isNullOrBlank()) {
+                        viewModel.search("")
+                    }
+                    return true
+                }
+            },
+        )
     }
 
     private fun setupSearchView(state: State) {

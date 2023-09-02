@@ -70,7 +70,7 @@ import javax.inject.Inject
 /** Timeline repository where the timeline information is backed by an in-memory cache. */
 class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val accountManager: AccountManager
+    private val accountManager: AccountManager,
 ) {
     private val pageCache = PageCache()
 
@@ -82,7 +82,7 @@ class NetworkTimelineRepository @Inject constructor(
         viewModelScope: CoroutineScope,
         kind: TimelineKind,
         pageSize: Int = PAGE_SIZE,
-        initialKey: String? = null
+        initialKey: String? = null,
     ): Flow<PagingData<Status>> {
         Log.d(TAG, "getStatusStream(): key: $initialKey")
 
@@ -98,9 +98,9 @@ class NetworkTimelineRepository @Inject constructor(
                 accountManager,
                 factory!!,
                 pageCache,
-                kind
+                kind,
             ),
-            pagingSourceFactory = factory!!
+            pagingSourceFactory = factory!!,
         ).flow
     }
 

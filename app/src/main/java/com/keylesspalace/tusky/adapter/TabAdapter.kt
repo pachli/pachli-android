@@ -46,7 +46,7 @@ class TabAdapter(
     private var data: List<TabData>,
     private val small: Boolean,
     private val listener: ItemInteractionListener,
-    private var removeButtonEnabled: Boolean = false
+    private var removeButtonEnabled: Boolean = false,
 ) : RecyclerView.Adapter<BindingHolder<ViewBinding>>() {
 
     fun updateData(newData: List<TabData>) {
@@ -103,7 +103,7 @@ class TabAdapter(
             setDrawableTint(
                 holder.itemView.context,
                 binding.removeButton.drawable,
-                (if (removeButtonEnabled) android.R.attr.textColorTertiary else R.attr.textColorDisabled)
+                (if (removeButtonEnabled) android.R.attr.textColorTertiary else R.attr.textColorDisabled),
             )
 
             if (tab.id == HASHTAG) {

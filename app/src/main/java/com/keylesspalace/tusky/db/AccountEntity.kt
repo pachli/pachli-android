@@ -29,9 +29,9 @@ import com.keylesspalace.tusky.entity.Status
     indices = [
         Index(
             value = ["domain", "accountId"],
-            unique = true
-        )
-    ]
+            unique = true,
+        ),
+    ],
 )
 @TypeConverters(Converters::class)
 data class AccountEntity(
@@ -104,7 +104,7 @@ data class AccountEntity(
 
     /** true if the connected Mastodon account is locked (has to manually approve all follow requests **/
     @ColumnInfo(defaultValue = "0")
-    var locked: Boolean = false
+    var locked: Boolean = false,
 ) {
 
     val identifier: String

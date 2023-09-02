@@ -19,7 +19,7 @@ class FocusIndicatorView
 @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : View(context, attrs, defStyleAttr) {
     private var focus: Attachment.Focus? = null
     private var imageSize: Point? = null

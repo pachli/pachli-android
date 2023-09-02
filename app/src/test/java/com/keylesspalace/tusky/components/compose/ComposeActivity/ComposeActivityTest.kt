@@ -85,7 +85,7 @@ class ComposeActivityTest {
         notificationsFavorited = true,
         notificationSound = true,
         notificationVibration = true,
-        notificationLight = true
+        notificationLight = true,
     )
     private var instanceResponseCallback: (() -> Instance)? = null
     private var composeOptions: ComposeActivity.ComposeOptions? = null
@@ -129,7 +129,7 @@ class ComposeActivityTest {
             mock(),
             mock(),
             mock(),
-            instanceInfoRepo
+            instanceInfoRepo,
         )
         activity.intent = Intent(activity, ComposeActivity::class.java).apply {
             putExtra(ComposeActivity.COMPOSE_OPTIONS_EXTRA, composeOptions)
@@ -501,7 +501,7 @@ class ComposeActivityTest {
             maxMediaAttachments = null,
             pleroma = null,
             uploadLimit = null,
-            rules = emptyList()
+            rules = emptyList(),
         )
     }
 
@@ -510,10 +510,10 @@ class ComposeActivityTest {
             statuses = StatusConfiguration(
                 maxCharacters = maximumStatusCharacters,
                 maxMediaAttachments = null,
-                charactersReservedPerUrl = charactersReservedPerUrl
+                charactersReservedPerUrl = charactersReservedPerUrl,
             ),
             mediaAttachments = null,
-            polls = null
+            polls = null,
         )
     }
 }

@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class FiltersViewModel @Inject constructor(
     private val api: MastodonApi,
-    private val eventHub: EventHub
+    private val eventHub: EventHub,
 ) : ViewModel() {
 
     enum class LoadingState {
@@ -49,13 +49,13 @@ class FiltersViewModel @Inject constructor(
                                 // TODO log errors (also below)
 
                                 this@FiltersViewModel._state.value = _state.value.copy(loadingState = LoadingState.ERROR_OTHER)
-                            }
+                            },
                         )
                         this@FiltersViewModel._state.value = _state.value.copy(loadingState = LoadingState.ERROR_OTHER)
                     } else {
                         this@FiltersViewModel._state.value = _state.value.copy(loadingState = LoadingState.ERROR_NETWORK)
                     }
-                }
+                },
             )
         }
     }
@@ -77,12 +77,12 @@ class FiltersViewModel @Inject constructor(
                             },
                             {
                                 Snackbar.make(parent, "Error deleting filter '${filter.title}'", Snackbar.LENGTH_SHORT).show()
-                            }
+                            },
                         )
                     } else {
                         Snackbar.make(parent, "Error deleting filter '${filter.title}'", Snackbar.LENGTH_SHORT).show()
                     }
-                }
+                },
             )
         }
     }
@@ -94,7 +94,7 @@ class FiltersViewModel @Inject constructor(
             FilterV1.NOTIFICATIONS,
             FilterV1.THREAD,
             FilterV1.PUBLIC,
-            FilterV1.ACCOUNT
+            FilterV1.ACCOUNT,
         )
     }
 }

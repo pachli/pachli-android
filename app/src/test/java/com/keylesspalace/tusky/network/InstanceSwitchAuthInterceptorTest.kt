@@ -62,7 +62,7 @@ class InstanceSwitchAuthInterceptorTest {
                     accessToken = "fakeToken",
                     clientId = "fakeId",
                     clientSecret = "fakeSecret",
-                    isActive = true
+                    isActive = true,
                 )
             }
         }
@@ -96,7 +96,7 @@ class InstanceSwitchAuthInterceptorTest {
                     accessToken = "fakeToken",
                     clientId = "fakeId",
                     clientSecret = "fakeSecret",
-                    isActive = true
+                    isActive = true,
                 )
             }
         }

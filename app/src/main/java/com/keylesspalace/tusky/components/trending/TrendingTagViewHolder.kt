@@ -22,12 +22,12 @@ import com.keylesspalace.tusky.util.formatNumber
 import com.keylesspalace.tusky.viewdata.TrendingViewData
 
 class TrendingTagViewHolder(
-    private val binding: ItemTrendingCellBinding
+    private val binding: ItemTrendingCellBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun setup(
         tagViewData: TrendingViewData.Tag,
-        onViewTag: (String) -> Unit
+        onViewTag: (String) -> Unit,
     ) {
         binding.tag.text = binding.root.context.getString(R.string.title_tag, tagViewData.name)
 
@@ -51,7 +51,7 @@ class TrendingTagViewHolder(
             itemView.context.getString(
                 R.string.accessibility_talking_about_tag,
                 totalAccounts,
-                tagViewData.name
+                tagViewData.name,
             )
     }
 }

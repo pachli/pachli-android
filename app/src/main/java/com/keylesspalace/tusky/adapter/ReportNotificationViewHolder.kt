@@ -37,13 +37,13 @@ import java.util.Date
 
 class ReportNotificationViewHolder(
     private val binding: ItemReportNotificationBinding,
-    private val notificationActionListener: NotificationActionListener
+    private val notificationActionListener: NotificationActionListener,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
 
     override fun bind(
         viewData: NotificationViewData,
         payloads: List<*>?,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         // Skip updates with payloads. That indicates a timestamp update, and
         // this view does not have timestamps.
@@ -53,13 +53,13 @@ class ReportNotificationViewHolder(
             viewData.account,
             viewData.report!!,
             statusDisplayOptions.animateAvatars,
-            statusDisplayOptions.animateEmojis
+            statusDisplayOptions.animateEmojis,
         )
         setupActionListener(
             notificationActionListener,
             viewData.report.targetAccount.id,
             viewData.account.id,
-            viewData.report.id
+            viewData.report.id,
         )
     }
 
@@ -67,17 +67,17 @@ class ReportNotificationViewHolder(
         reporter: TimelineAccount,
         report: Report,
         animateAvatar: Boolean,
-        animateEmojis: Boolean
+        animateEmojis: Boolean,
     ) {
         val reporterName = reporter.name.unicodeWrap().emojify(
             reporter.emojis,
             binding.root,
-            animateEmojis
+            animateEmojis,
         )
         val reporteeName = report.targetAccount.name.unicodeWrap().emojify(
             report.targetAccount.emojis,
             itemView,
-            animateEmojis
+            animateEmojis,
         )
         val icon = ContextCompat.getDrawable(binding.root.context, R.drawable.ic_flag_24dp)
 
@@ -85,12 +85,12 @@ class ReportNotificationViewHolder(
         binding.notificationTopText.text = itemView.context.getString(
             R.string.notification_header_report_format,
             reporterName,
-            reporteeName
+            reporteeName,
         )
         binding.notificationSummary.text = itemView.context.getString(
             R.string.notification_summary_report_format,
             getRelativeTimeSpanString(itemView.context, report.createdAt.time, Date().time),
-            report.status_ids?.size ?: 0
+            report.status_ids?.size ?: 0,
         )
         binding.notificationCategory.text = getTranslatedCategory(itemView.context, report.category)
 
@@ -102,13 +102,13 @@ class ReportNotificationViewHolder(
             report.targetAccount.avatar,
             binding.notificationReporteeAvatar,
             itemView.context.resources.getDimensionPixelSize(R.dimen.avatar_radius_36dp),
-            animateAvatar
+            animateAvatar,
         )
         loadAvatar(
             reporter.avatar,
             binding.notificationReporterAvatar,
             itemView.context.resources.getDimensionPixelSize(R.dimen.avatar_radius_24dp),
-            animateAvatar
+            animateAvatar,
         )
     }
 
@@ -116,7 +116,7 @@ class ReportNotificationViewHolder(
         listener: NotificationActionListener,
         reporteeId: String,
         reporterId: String,
-        reportId: String
+        reportId: String,
     ) {
         binding.notificationReporteeAvatar.setOnClickListener {
             val position = bindingAdapterPosition

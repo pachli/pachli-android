@@ -11,5 +11,5 @@ data class StatusEdit(
     val account: TimelineAccount,
     val poll: Poll?,
     @SerializedName("media_attachments") val mediaAttachments: List<Attachment>,
-    val emojis: List<Emoji>
+    val emojis: List<Emoji>,
 )

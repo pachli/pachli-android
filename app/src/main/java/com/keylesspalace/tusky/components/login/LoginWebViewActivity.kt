@@ -88,7 +88,7 @@ class OauthLogin : ActivityResultContract<LoginData, LoginResult>() {
 data class LoginData(
     val domain: String,
     val url: Uri,
-    val oauthRedirectUrl: Uri
+    val oauthRedirectUrl: Uri,
 ) : Parcelable
 
 sealed class LoginResult : Parcelable {
@@ -149,7 +149,7 @@ class LoginWebViewActivity : BaseActivity(), Injectable {
             override fun onReceivedError(
                 view: WebView,
                 request: WebResourceRequest,
-                error: WebResourceError
+                error: WebResourceError,
             ) {
                 Log.d("LoginWeb", "Failed to load ${data.url}: $error")
                 sendResult(LoginResult.Err(getString(R.string.error_could_not_load_login_page)))
@@ -157,7 +157,7 @@ class LoginWebViewActivity : BaseActivity(), Injectable {
 
             override fun shouldOverrideUrlLoading(
                 view: WebView,
-                request: WebResourceRequest
+                request: WebResourceRequest,
             ): Boolean {
                 return shouldOverrideUrlLoading(request.url)
             }
@@ -204,7 +204,7 @@ class LoginWebViewActivity : BaseActivity(), Injectable {
                     AlertDialog.Builder(this@LoginWebViewActivity)
                         .setTitle(getString(R.string.instance_rule_title, data.domain))
                         .setMessage(
-                            instanceRules.joinToString(separator = "\n\n") { "• $it" }
+                            instanceRules.joinToString(separator = "\n\n") { "• $it" },
                         )
                         .setPositiveButton(android.R.string.ok, null)
                         .show()

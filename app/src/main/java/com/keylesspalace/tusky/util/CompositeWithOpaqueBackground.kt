@@ -73,7 +73,7 @@ class CompositeWithOpaqueBackground(val view: View) : BitmapTransformation() {
         pool: BitmapPool,
         toTransform: Bitmap,
         outWidth: Int,
-        outHeight: Int
+        outHeight: Int,
     ): Bitmap {
         // If the input bitmap has no alpha channel then there's nothing to do
         if (!toTransform.hasAlpha()) return toTransform
@@ -137,9 +137,9 @@ class CompositeWithOpaqueBackground(val view: View) : BitmapTransformation() {
                         0f, 0f, 0f, 0f, 0f,
                         0f, 0f, 0f, 0f, 0f,
                         0f, 0f, 0f, 0f, 0f,
-                        0f, 0f, 0f, 255f, 0f
-                    )
-                )
+                        0f, 0f, 0f, 255f, 0f,
+                    ),
+                ),
             )
             isAntiAlias = false
         }

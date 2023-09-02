@@ -97,18 +97,18 @@ class PreferencesActivity :
 
         onBackPressedDispatcher.addCallback(this, restartActivitiesOnBackPressedCallback)
         restartActivitiesOnBackPressedCallback.isEnabled = intent.extras?.getBoolean(
-            EXTRA_RESTART_ON_BACK
+            EXTRA_RESTART_ON_BACK,
         ) ?: savedInstanceState?.getBoolean(EXTRA_RESTART_ON_BACK, false) ?: false
     }
 
     override fun onPreferenceStartFragment(
         caller: PreferenceFragmentCompat,
-        pref: Preference
+        pref: Preference,
     ): Boolean {
         val args = pref.extras
         val fragment = supportFragmentManager.fragmentFactory.instantiate(
             classLoader,
-            pref.fragment!!
+            pref.fragment!!,
         )
         fragment.arguments = args
         fragment.setTargetFragment(caller, 0)
@@ -117,7 +117,7 @@ class PreferencesActivity :
                 R.anim.slide_from_right,
                 R.anim.slide_to_left,
                 R.anim.slide_from_left,
-                R.anim.slide_to_right
+                R.anim.slide_to_right,
             )
             replace(R.id.fragment_container, fragment)
             addToBackStack(null)
@@ -160,7 +160,8 @@ class PreferencesActivity :
             }
             "statusTextSize", "absoluteTimeView", "showBotOverlay", "animateGifAvatars", "useBlurhash",
             "showSelfUsername", "showCardsInTimelines", "confirmReblogs", "confirmFavourites",
-            "enableSwipeForTabs", "mainNavPosition", PrefKeys.HIDE_TOP_TOOLBAR, PrefKeys.SHOW_STATS_INLINE -> {
+            "enableSwipeForTabs", "mainNavPosition", PrefKeys.HIDE_TOP_TOOLBAR, PrefKeys.SHOW_STATS_INLINE,
+            -> {
                 restartActivitiesOnBackPressedCallback.isEnabled = true
             }
         }

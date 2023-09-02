@@ -28,7 +28,7 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
     protected val accountActionListener: AccountActionListener,
     protected val animateAvatar: Boolean,
     protected val animateEmojis: Boolean,
-    protected val showBotOverlay: Boolean
+    protected val showBotOverlay: Boolean,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
     protected var accountList: MutableList<TimelineAccount> = mutableListOf()
@@ -51,7 +51,7 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
 
     final override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_ACCOUNT -> this.createAccountViewHolder(parent)
@@ -61,7 +61,7 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
     }
 
     private fun createFooterViewHolder(
-        parent: ViewGroup
+        parent: ViewGroup,
     ): RecyclerView.ViewHolder {
         val binding = ItemFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BindingHolder(binding)

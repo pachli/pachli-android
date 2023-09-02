@@ -45,7 +45,7 @@ class NotificationsViewModelTestStatusAction : NotificationsViewModelTestBase() 
         status = status,
         isExpanded = true,
         isShowingContent = false,
-        isCollapsed = false
+        isCollapsed = false,
     )
 
     /** Action to bookmark a status */
@@ -61,7 +61,7 @@ class NotificationsViewModelTestStatusAction : NotificationsViewModelTestBase() 
     private val voteInPollAction = StatusAction.VoteInPoll(
         poll = status.poll!!,
         choices = listOf(1, 0, 0),
-        statusViewData
+        statusViewData,
     )
 
     /** Captors for status ID and state arguments */

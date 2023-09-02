@@ -30,7 +30,7 @@ import androidx.emoji2.viewsintegration.EmojiEditTextHelper
 
 class EditTextTyped @JvmOverloads constructor(
     context: Context,
-    attributeSet: AttributeSet? = null
+    attributeSet: AttributeSet? = null,
 ) :
     AppCompatMultiAutoCompleteTextView(context, attributeSet) {
 
@@ -60,7 +60,7 @@ class EditTextTyped @JvmOverloads constructor(
         EditorInfoCompat.setContentMimeTypes(editorInfo, arrayOf("image/*"))
         return emojiEditTextHelper.onCreateInputConnection(
             InputConnectionCompat.createWrapper(this, connection, editorInfo),
-            editorInfo
+            editorInfo,
         )!!
     }
 

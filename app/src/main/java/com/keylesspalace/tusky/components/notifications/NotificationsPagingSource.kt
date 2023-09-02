@@ -37,7 +37,7 @@ private val INVALID = LoadResult.Invalid<String, Notification>()
 class NotificationsPagingSource @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val gson: Gson,
-    private val notificationFilter: Set<Notification.Type>
+    private val notificationFilter: Set<Notification.Type>,
 ) : PagingSource<String, Notification>() {
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Notification> {
         Log.d(TAG, "load() with ${params.javaClass.simpleName} for key: ${params.key}")
@@ -50,12 +50,12 @@ class NotificationsPagingSource @Inject constructor(
                 is LoadParams.Append -> mastodonApi.notifications(
                     maxId = params.key,
                     limit = params.loadSize,
-                    excludes = notificationFilter
+                    excludes = notificationFilter,
                 )
                 is LoadParams.Prepend -> mastodonApi.notifications(
                     minId = params.key,
                     limit = params.loadSize,
-                    excludes = notificationFilter
+                    excludes = notificationFilter,
                 )
             }
 
@@ -92,7 +92,7 @@ class NotificationsPagingSource @Inject constructor(
             return LoadResult.Page(
                 data = response.body()!!,
                 nextKey = links.next,
-                prevKey = links.prev
+                prevKey = links.prev,
             )
         } catch (e: Exception) {
             return LoadResult.Error(e)
@@ -116,7 +116,7 @@ class NotificationsPagingSource @Inject constructor(
         val key = params.key
             ?: return@coroutineScope mastodonApi.notifications(
                 limit = params.loadSize,
-                excludes = notificationFilter
+                excludes = notificationFilter,
             )
 
         // It's important to return *something* from this state. If an empty page is returned
@@ -193,7 +193,7 @@ class NotificationsPagingSource @Inject constructor(
         // Everything failed -- fallback to fetching the most recent notifications
         return@coroutineScope mastodonApi.notifications(
             limit = params.loadSize,
-            excludes = notificationFilter
+            excludes = notificationFilter,
         )
     }
 

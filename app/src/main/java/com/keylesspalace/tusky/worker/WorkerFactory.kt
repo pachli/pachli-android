@@ -43,12 +43,12 @@ interface ChildWorkerFactory {
  */
 @Singleton
 class WorkerFactory @Inject constructor(
-    private val workerFactories: Map<Class<out ListenableWorker>, @JvmSuppressWildcards Provider<ChildWorkerFactory>>
+    private val workerFactories: Map<Class<out ListenableWorker>, @JvmSuppressWildcards Provider<ChildWorkerFactory>>,
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
         workerClassName: String,
-        workerParameters: WorkerParameters
+        workerParameters: WorkerParameters,
     ): ListenableWorker? {
         val key = try {
             Class.forName(workerClassName)

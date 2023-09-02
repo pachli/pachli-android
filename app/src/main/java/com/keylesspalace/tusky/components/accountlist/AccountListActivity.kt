@@ -38,7 +38,7 @@ class AccountListActivity : BottomSheetActivity(), HasAndroidInjector {
         MUTES,
         FOLLOW_REQUESTS,
         REBLOGGED,
-        FAVOURITED
+        FAVOURITED,
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

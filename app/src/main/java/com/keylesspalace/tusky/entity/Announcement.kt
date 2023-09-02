@@ -31,7 +31,7 @@ data class Announcement(
     val statuses: List<Status>,
     val tags: List<HashTag>,
     val emojis: List<Emoji>,
-    val reactions: List<Reaction>
+    val reactions: List<Reaction>,
 ) {
 
     override fun equals(other: Any?): Boolean {
@@ -51,6 +51,6 @@ data class Announcement(
         val count: Int,
         val me: Boolean,
         val url: String?,
-        @SerializedName("static_url") val staticUrl: String?
+        @SerializedName("static_url") val staticUrl: String?,
     )
 }

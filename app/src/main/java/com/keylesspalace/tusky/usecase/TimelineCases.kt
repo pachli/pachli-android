@@ -45,7 +45,7 @@ import javax.inject.Inject
 
 class TimelineCases @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val eventHub: EventHub
+    private val eventHub: EventHub,
 ) {
 
     suspend fun reblog(statusId: String, reblog: Boolean): NetworkResult<Status> {
@@ -123,7 +123,7 @@ class TimelineCases @Inject constructor(
         }, { e ->
             Log.w(TAG, "Failed to change pin state", e)
             NetworkResult.failure(TimelineError(e.getServerErrorMessage()))
-        })
+        },)
     }
 
     suspend fun voteInPoll(statusId: String, pollId: String, choices: List<Int>): NetworkResult<Poll> {

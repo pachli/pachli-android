@@ -23,7 +23,7 @@ data class ConversationViewData(
     val order: Int,
     val accounts: List<ConversationAccountEntity>,
     val unread: Boolean,
-    val lastStatus: StatusViewData
+    val lastStatus: StatusViewData,
 ) {
     fun toEntity(
         accountId: Long,
@@ -33,7 +33,7 @@ data class ConversationViewData(
         poll: Poll? = lastStatus.status.poll,
         expanded: Boolean = lastStatus.isExpanded,
         collapsed: Boolean = lastStatus.isCollapsed,
-        showingHiddenContent: Boolean = lastStatus.isShowingContent
+        showingHiddenContent: Boolean = lastStatus.isShowingContent,
     ): ConversationEntity {
         return ConversationEntity(
             accountId = accountId,
@@ -48,8 +48,8 @@ data class ConversationViewData(
                 poll = poll,
                 expanded = expanded,
                 collapsed = collapsed,
-                showingHiddenContent = showingHiddenContent
-            )
+                showingHiddenContent = showingHiddenContent,
+            ),
         )
     }
 }
@@ -61,7 +61,7 @@ fun StatusViewData.toConversationStatusEntity(
     poll: Poll? = status.poll,
     expanded: Boolean = isExpanded,
     collapsed: Boolean = isCollapsed,
-    showingHiddenContent: Boolean = isShowingContent
+    showingHiddenContent: Boolean = isShowingContent,
 ): ConversationStatusEntity {
     return ConversationStatusEntity(
         id = id,
@@ -87,6 +87,6 @@ fun StatusViewData.toConversationStatusEntity(
         collapsed = collapsed,
         muted = muted,
         poll = poll,
-        language = status.language
+        language = status.language,
     )
 }

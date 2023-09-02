@@ -27,7 +27,7 @@ data class AttachmentViewData(
     val statusId: String,
     val statusUrl: String,
     val sensitive: Boolean,
-    val isRevealed: Boolean
+    val isRevealed: Boolean,
 ) : Parcelable {
 
     @IgnoredOnParcel
@@ -43,7 +43,7 @@ data class AttachmentViewData(
                     statusId = actionable.id,
                     statusUrl = actionable.url!!,
                     sensitive = actionable.sensitive,
-                    isRevealed = alwaysShowSensitiveMedia || !actionable.sensitive
+                    isRevealed = alwaysShowSensitiveMedia || !actionable.sensitive,
                 )
             }
         }

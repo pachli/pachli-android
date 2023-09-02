@@ -16,7 +16,7 @@ import com.keylesspalace.tusky.network.MastodonApi
 import javax.inject.Inject
 
 class FollowedTagsViewModel @Inject constructor(
-    private val api: MastodonApi
+    private val api: MastodonApi,
 ) : ViewModel(), Injectable {
     val tags: MutableList<HashTag> = mutableListOf()
     var nextKey: String? = null
@@ -28,11 +28,11 @@ class FollowedTagsViewModel @Inject constructor(
         remoteMediator = FollowedTagsRemoteMediator(api, this),
         pagingSourceFactory = {
             FollowedTagsPagingSource(
-                viewModel = this
+                viewModel = this,
             ).also { source ->
                 currentSource = source
             }
-        }
+        },
     ).flow.cachedIn(viewModelScope)
 
     fun searchAutocompleteSuggestions(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {
@@ -42,7 +42,7 @@ class FollowedTagsViewModel @Inject constructor(
             }, { e ->
                 Log.e(TAG, "Autocomplete search for $token failed.", e)
                 emptyList()
-            })
+            },)
     }
 
     companion object {

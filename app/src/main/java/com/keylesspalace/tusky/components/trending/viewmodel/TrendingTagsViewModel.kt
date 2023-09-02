@@ -37,7 +37,7 @@ import javax.inject.Inject
 
 class TrendingTagsViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val eventHub: EventHub
+    private val eventHub: EventHub,
 ) : ViewModel() {
     enum class LoadingState {
         INITIAL, LOADING, REFRESHING, LOADED, ERROR_NETWORK, ERROR_OTHER
@@ -45,7 +45,7 @@ class TrendingTagsViewModel @Inject constructor(
 
     data class TrendingTagsUiState(
         val trendingViewData: List<TrendingViewData>,
-        val loadingState: LoadingState
+        val loadingState: LoadingState,
     )
 
     val uiState: Flow<TrendingTagsUiState> get() = _uiState
@@ -110,7 +110,7 @@ class TrendingTagsViewModel @Inject constructor(
                 } else {
                     _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.ERROR_OTHER)
                 }
-            }
+            },
         )
     }
 

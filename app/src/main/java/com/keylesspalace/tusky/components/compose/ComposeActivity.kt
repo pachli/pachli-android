@@ -191,7 +191,7 @@ class ComposeActivity :
                         size,
                         itemOld.description,
                         null, // Intentionally reset focus when cropping
-                        itemOld
+                        itemOld,
                     )
                 }
             }
@@ -230,7 +230,7 @@ class ComposeActivity :
                 // TODO this is inconsistent to CaptionDialog (device rotation)?
             },
             onEditImage = this::editImageInQueue,
-            onRemove = this::removeMediaFromQueue
+            onRemove = this::removeMediaFromQueue,
         )
         binding.composeMediaPreviewBar.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -248,7 +248,7 @@ class ComposeActivity :
         if (accountManager.shouldDisplaySelfUsername(this)) {
             binding.composeUsernameView.text = getString(
                 R.string.compose_active_account_description,
-                activeAccount.fullName
+                activeAccount.fullName,
             )
             binding.composeUsernameView.show()
         } else {
@@ -380,8 +380,8 @@ class ComposeActivity :
                 this,
                 preferences.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false),
                 preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
-                preferences.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true)
-            )
+                preferences.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true),
+            ),
         )
         binding.composeEditField.setTokenizer(ComposeTokenizer())
 
@@ -473,8 +473,8 @@ class ComposeActivity :
                     displayTransientMessage(
                         getString(
                             R.string.error_media_upload_sending_fmt,
-                            throwable.message
-                        )
+                            throwable.message,
+                        ),
                     )
                 }
             }
@@ -542,7 +542,7 @@ class ComposeActivity :
 
                     handleCloseButton()
                 }
-            }
+            },
         )
     }
 
@@ -583,11 +583,11 @@ class ComposeActivity :
             activeAccount.profilePictureUrl,
             binding.composeAvatar,
             avatarSize / 8,
-            animateAvatars
+            animateAvatars,
         )
         binding.composeAvatar.contentDescription = getString(
             R.string.compose_active_account_description,
-            activeAccount.fullName
+            activeAccount.fullName,
         )
     }
 
@@ -821,7 +821,7 @@ class ComposeActivity :
                             ActivityCompat.requestPermissions(
                                 this@ComposeActivity,
                                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                                PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
+                                PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE,
                             )
                         } else {
                             pickMediaFile.launch(true)
@@ -830,7 +830,7 @@ class ComposeActivity :
                 }
 
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-            }
+            },
         )
         addMediaBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
@@ -845,7 +845,7 @@ class ComposeActivity :
             maxOptionLength = instanceParams.pollMaxLength,
             minDuration = instanceParams.pollMinDuration,
             maxDuration = instanceParams.pollMaxDuration,
-            onUpdatePoll = viewModel::updatePoll
+            onUpdatePoll = viewModel::updatePoll,
         )
     }
 
@@ -889,7 +889,7 @@ class ComposeActivity :
         return statusLength(
             binding.composeEditField.text,
             binding.composeContentWarningField.text,
-            charactersReservedPerUrl
+            charactersReservedPerUrl,
         )
     }
 
@@ -935,7 +935,7 @@ class ComposeActivity :
                 for (i in 0 until content.clip.itemCount) {
                     pickMedia(
                         content.clip.getItemAt(i).uri,
-                        contentInfo.clip.description.label as String?
+                        contentInfo.clip.description.label as String?,
                     )
                 }
             }
@@ -976,7 +976,7 @@ class ComposeActivity :
                 Snackbar.make(
                     binding.activityCompose,
                     R.string.error_media_upload_permission,
-                    Snackbar.LENGTH_SHORT
+                    Snackbar.LENGTH_SHORT,
                 ).apply {
                     setAction(R.string.action_retry) { onMediaPick() }
                     // necessary so snackbar is shown over everything
@@ -1001,7 +1001,7 @@ class ComposeActivity :
         photoUploadUri = FileProvider.getUriForFile(
             this,
             BuildConfig.APPLICATION_ID + ".fileprovider",
-            photoFile
+            photoFile,
         )
         takePicture.launch(photoUploadUri)
     }
@@ -1015,7 +1015,7 @@ class ComposeActivity :
                 android.R.attr.textColorTertiary
             } else {
                 R.attr.textColorDisabled
-            }
+            },
         )
     }
 
@@ -1027,7 +1027,7 @@ class ComposeActivity :
                 android.R.attr.textColorTertiary
             } else {
                 R.attr.textColorDisabled
-            }
+            },
         )
         binding.addPollTextActionTextView.setTextColor(textColor)
         binding.addPollTextActionTextView.compoundDrawablesRelative[0].colorFilter = PorterDuffColorFilter(textColor, PorterDuff.Mode.SRC_IN)
@@ -1049,7 +1049,7 @@ class ComposeActivity :
             options(uri = item.uri) {
                 setOutputUri(uriNew)
                 setOutputCompressFormat(if (isPng) Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG)
-            }
+            },
         )
     }
 
@@ -1227,7 +1227,7 @@ class ComposeActivity :
                     null,
                     getString(R.string.saving_draft),
                     true,
-                    false
+                    false,
                 )
             } else {
                 null
@@ -1263,7 +1263,7 @@ class ComposeActivity :
         val id: String? = null,
         val description: String? = null,
         val focus: Attachment.Focus? = null,
-        val state: State
+        val state: State,
     ) {
         enum class Type {
             IMAGE, VIDEO, AUDIO;
@@ -1306,7 +1306,7 @@ class ComposeActivity :
         EDIT_DRAFT,
 
         /** Editing an an existing scheduled status */
-        EDIT_SCHEDULED
+        EDIT_SCHEDULED,
     }
 
     @Parcelize
@@ -1332,7 +1332,7 @@ class ComposeActivity :
         var modifiedInitialState: Boolean? = null,
         var language: String? = null,
         var statusId: String? = null,
-        var kind: ComposeKind? = null
+        var kind: ComposeKind? = null,
     ) : Parcelable
 
     companion object {
@@ -1352,7 +1352,7 @@ class ComposeActivity :
         @JvmStatic
         fun startIntent(
             context: Context,
-            options: ComposeOptions
+            options: ComposeOptions,
         ): Intent {
             return Intent(context, ComposeActivity::class.java).apply {
                 putExtra(COMPOSE_OPTIONS_EXTRA, options)

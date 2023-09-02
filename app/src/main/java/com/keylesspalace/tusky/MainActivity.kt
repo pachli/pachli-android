@@ -242,7 +242,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                                     changeAccount(requestedId, intent)
                                 }
                             }
-                        }
+                        },
                     )
                 }
             } else if (openDrafts) {
@@ -293,7 +293,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
 
         setupDrawer(
             savedInstanceState,
-            addSearchButton = hideTopToolbar
+            addSearchButton = hideTopToolbar,
         )
 
         /* Fetch user info while we're doing other things. This has to be done after setting up the
@@ -317,7 +317,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                     is ProfileEditedEvent -> onFetchUserInfoSuccess(event.newProfileData)
                     is MainTabsChangedEvent -> {
                         refreshMainDrawerItems(
-                            addSearchButton = hideTopToolbar
+                            addSearchButton = hideTopToolbar,
                         )
 
                         setupTabs(false)
@@ -354,14 +354,14 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                         }
                     }
                 }
-            }
+            },
         )
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                1
+                1,
             )
         }
 
@@ -404,7 +404,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
             Log.d(
                 TAG,
                 "onResume: EmojiPack has been changed from %s to %s"
-                    .format(selectedEmojiPack, currentEmojiPack)
+                    .format(selectedEmojiPack, currentEmojiPack),
             )
             selectedEmojiPack = currentEmojiPack
             recreate()
@@ -478,7 +478,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
 
     private fun setupDrawer(
         savedInstanceState: Bundle?,
-        addSearchButton: Boolean
+        addSearchButton: Boolean,
     ) {
         val drawerOpenClickListener = View.OnClickListener { binding.mainDrawerLayout.open() }
 
@@ -497,7 +497,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                     descriptionRes = R.string.add_account_description
                     iconicsIcon = GoogleMaterial.Icon.gmd_add
                 },
-                0
+                0,
             )
             attachToSliderView(binding.mainDrawer)
             dividerBelowHeader = false
@@ -511,32 +511,34 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
         header.accountHeaderBackground.setBackgroundColor(MaterialColors.getColor(header, R.attr.colorBackgroundAccent))
         val animateAvatars = preferences.getBoolean("animateGifAvatars", false)
 
-        DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
-            override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable, tag: String?) {
-                if (animateAvatars) {
-                    glide.load(uri)
-                        .placeholder(placeholder)
-                        .into(imageView)
-                } else {
-                    glide.asBitmap()
-                        .load(uri)
-                        .placeholder(placeholder)
-                        .into(imageView)
-                }
-            }
-
-            override fun cancel(imageView: ImageView) {
-                glide.clear(imageView)
-            }
-
-            override fun placeholder(ctx: Context, tag: String?): Drawable {
-                if (tag == DrawerImageLoader.Tags.PROFILE.name || tag == DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name) {
-                    return ctx.getDrawable(R.drawable.avatar_default)!!
+        DrawerImageLoader.init(
+            object : AbstractDrawerImageLoader() {
+                override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable, tag: String?) {
+                    if (animateAvatars) {
+                        glide.load(uri)
+                            .placeholder(placeholder)
+                            .into(imageView)
+                    } else {
+                        glide.asBitmap()
+                            .load(uri)
+                            .placeholder(placeholder)
+                            .into(imageView)
+                    }
                 }
 
-                return super.placeholder(ctx, tag)
-            }
-        })
+                override fun cancel(imageView: ImageView) {
+                    glide.clear(imageView)
+                }
+
+                override fun placeholder(ctx: Context, tag: String?): Drawable {
+                    if (tag == DrawerImageLoader.Tags.PROFILE.name || tag == DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name) {
+                        return ctx.getDrawable(R.drawable.avatar_default)!!
+                    }
+
+                    return super.placeholder(ctx, tag)
+                }
+            },
+        )
 
         binding.mainDrawer.apply {
             refreshMainDrawerItems(addSearchButton)
@@ -645,7 +647,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                     nameRes = R.string.action_logout
                     iconRes = R.drawable.ic_logout
                     onClick = ::logout
-                }
+                },
             )
 
             if (addSearchButton) {
@@ -657,7 +659,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                         onClick = {
                             startActivityWithSlideInAnimation(SearchActivity.getIntent(context))
                         }
-                    }
+                    },
                 )
             }
 
@@ -669,7 +671,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                     onClick = {
                         startActivityWithSlideInAnimation(TrendingActivity.getIntent(context))
                     }
-                }
+                },
             )
         }
 
@@ -686,7 +688,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                     onClick = {
                         buildDeveloperToolsDialog().show()
                     }
-                }
+                },
             )
         }
 
@@ -699,8 +701,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
             .setItems(
                 arrayOf(
                     "Clear home timeline cache",
-                    "Remove first 40 statuses"
-                )
+                    "Remove first 40 statuses",
+                ),
             ) { _, which ->
                 Log.d(TAG, "Developer tools: $which")
                 when (which) {
@@ -912,7 +914,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
             },
             { throwable ->
                 Log.e(TAG, "Failed to fetch user info. " + throwable.message)
-            }
+            },
         )
     }
 
@@ -962,57 +964,61 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                 .apply {
                     if (showPlaceholder) placeholder(R.drawable.avatar_default)
                 }
-                .into(object : CustomTarget<Drawable>(navIconSize, navIconSize) {
+                .into(
+                    object : CustomTarget<Drawable>(navIconSize, navIconSize) {
 
-                    override fun onLoadStarted(placeholder: Drawable?) {
-                        placeholder?.let {
-                            activeToolbar.navigationIcon = FixedSizeDrawable(it, navIconSize, navIconSize)
+                        override fun onLoadStarted(placeholder: Drawable?) {
+                            placeholder?.let {
+                                activeToolbar.navigationIcon = FixedSizeDrawable(it, navIconSize, navIconSize)
+                            }
                         }
-                    }
 
-                    override fun onResourceReady(
-                        resource: Drawable,
-                        transition: Transition<in Drawable>?
-                    ) {
-                        if (resource is Animatable) resource.start()
-                        activeToolbar.navigationIcon = FixedSizeDrawable(resource, navIconSize, navIconSize)
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                        placeholder?.let {
-                            activeToolbar.navigationIcon = FixedSizeDrawable(it, navIconSize, navIconSize)
+                        override fun onResourceReady(
+                            resource: Drawable,
+                            transition: Transition<in Drawable>?,
+                        ) {
+                            if (resource is Animatable) resource.start()
+                            activeToolbar.navigationIcon = FixedSizeDrawable(resource, navIconSize, navIconSize)
                         }
-                    }
-                })
+
+                        override fun onLoadCleared(placeholder: Drawable?) {
+                            placeholder?.let {
+                                activeToolbar.navigationIcon = FixedSizeDrawable(it, navIconSize, navIconSize)
+                            }
+                        }
+                    },
+                )
         } else {
             glide.asBitmap().load(avatarUrl).transform(RoundedCorners(resources.getDimensionPixelSize(R.dimen.avatar_radius_36dp)))
                 .apply {
                     if (showPlaceholder) placeholder(R.drawable.avatar_default)
                 }
-                .into(object : CustomTarget<Bitmap>(navIconSize, navIconSize) {
-                    override fun onLoadStarted(placeholder: Drawable?) {
-                        placeholder?.let {
-                            activeToolbar.navigationIcon = FixedSizeDrawable(it, navIconSize, navIconSize)
+                .into(
+                    object : CustomTarget<Bitmap>(navIconSize, navIconSize) {
+                        override fun onLoadStarted(placeholder: Drawable?) {
+                            placeholder?.let {
+                                activeToolbar.navigationIcon = FixedSizeDrawable(it, navIconSize, navIconSize)
+                            }
                         }
-                    }
 
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        activeToolbar.navigationIcon = FixedSizeDrawable(
-                            BitmapDrawable(resources, resource),
-                            navIconSize,
-                            navIconSize
-                        )
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                        placeholder?.let {
-                            activeToolbar.navigationIcon = FixedSizeDrawable(it, navIconSize, navIconSize)
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: Transition<in Bitmap>?,
+                        ) {
+                            activeToolbar.navigationIcon = FixedSizeDrawable(
+                                BitmapDrawable(resources, resource),
+                                navIconSize,
+                                navIconSize,
+                            )
                         }
-                    }
-                })
+
+                        override fun onLoadCleared(placeholder: Drawable?) {
+                            placeholder?.let {
+                                activeToolbar.navigationIcon = FixedSizeDrawable(it, navIconSize, navIconSize)
+                            }
+                        }
+                    },
+                )
         }
     }
 
@@ -1026,7 +1032,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                     },
                     { throwable ->
                         Log.w(TAG, "Failed to fetch announcements.", throwable)
-                    }
+                    },
                 )
         }
     }
@@ -1114,7 +1120,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
             options: ComposeActivity.ComposeOptions,
             tuskyAccountId: Long = -1,
             notificationTag: String? = null,
-            notificationId: Int = -1
+            notificationId: Int = -1,
         ): Intent {
             return accountSwitchIntent(context, tuskyAccountId).apply {
                 action = Intent.ACTION_SEND // so it can be opened via shortcuts

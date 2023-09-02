@@ -68,7 +68,7 @@ class NetworkModule {
     fun providesHttpClient(
         accountManager: AccountManager,
         context: Context,
-        preferences: SharedPreferences
+        preferences: SharedPreferences,
     ): OkHttpClient {
         val httpProxyEnabled = preferences.getBoolean(HTTP_PROXY_ENABLED, false)
         val httpServer = preferences.getNonNullString(HTTP_PROXY_SERVER, "")
@@ -84,7 +84,7 @@ class NetworkModule {
                 val requestWithUserAgent = chain.request().newBuilder()
                     .header(
                         "User-Agent",
-                        "Tusky/${BuildConfig.VERSION_NAME} Android/${Build.VERSION.RELEASE} OkHttp/${OkHttp.VERSION}"
+                        "Tusky/${BuildConfig.VERSION_NAME} Android/${Build.VERSION.RELEASE} OkHttp/${OkHttp.VERSION}",
                     )
                     .build()
                 chain.proceed(requestWithUserAgent)
@@ -114,7 +114,7 @@ class NetworkModule {
     @Singleton
     fun providesRetrofit(
         httpClient: OkHttpClient,
-        gson: Gson
+        gson: Gson,
     ): Retrofit {
         return Retrofit.Builder().baseUrl("https://" + MastodonApi.PLACEHOLDER_DOMAIN)
             .client(httpClient)

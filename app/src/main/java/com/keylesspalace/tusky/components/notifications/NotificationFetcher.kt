@@ -46,7 +46,7 @@ import kotlin.time.Duration.Companion.milliseconds
 class NotificationFetcher @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val accountManager: AccountManager,
-    private val context: Context
+    private val context: Context,
 ) {
     suspend fun fetchAndShow() {
         for (account in accountManager.getAllAccountsOrderedByActive()) {
@@ -93,7 +93,7 @@ class NotificationFetcher @Inject constructor(
                             notificationManager,
                             notification,
                             account,
-                            index == 0
+                            index == 0,
                         )
                         notificationManager.notify(notification.id, account.id.toInt(), androidNotification)
                         // Android will rate limit / drop notifications if they're posted too
@@ -105,7 +105,7 @@ class NotificationFetcher @Inject constructor(
                     NotificationHelper.updateSummaryNotifications(
                         context,
                         notificationManager,
-                        account
+                        account,
                     )
 
                     accountManager.saveAccount(account)
@@ -161,7 +161,7 @@ class NotificationFetcher @Inject constructor(
                 val response = mastodonApi.notificationsWithAuth(
                     authHeader,
                     account.domain,
-                    minId = minId
+                    minId = minId,
                 )
                 if (!response.isSuccessful) break
 
@@ -185,7 +185,7 @@ class NotificationFetcher @Inject constructor(
             mastodonApi.updateMarkersWithAuth(
                 auth = authHeader,
                 domain = account.domain,
-                notificationsLastReadId = newMarkerId
+                notificationsLastReadId = newMarkerId,
             )
             account.notificationMarkerId = newMarkerId
             accountManager.saveAccount(account)
@@ -199,7 +199,7 @@ class NotificationFetcher @Inject constructor(
             val allMarkers = mastodonApi.markersWithAuth(
                 authHeader,
                 account.domain,
-                listOf("notifications")
+                listOf("notifications"),
             )
             val notificationMarker = allMarkers["notifications"]
             Log.d(TAG, "Fetched marker for ${account.fullName}: $notificationMarker")

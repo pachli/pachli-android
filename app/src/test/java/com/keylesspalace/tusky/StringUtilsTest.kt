@@ -13,11 +13,11 @@ class StringUtilsTest {
             "abc" to "bcd",
             "ab" to "abc",
             "cb" to "abc",
-            "1" to "2"
+            "1" to "2",
         )
         lessList.forEach { (l, r) -> assertTrue("$l < $r", l.isLessThan(r)) }
         val notLessList = lessList.map { (l, r) -> r to l } + listOf(
-            "abc" to "abc"
+            "abc" to "abc",
         )
         notLessList.forEach { (l, r) -> assertFalse("not $l < $r", l.isLessThan(r)) }
     }
@@ -29,7 +29,7 @@ class StringUtilsTest {
             "ab" to "abc",
             "cb" to "abc",
             "1" to "2",
-            "abc" to "abc"
+            "abc" to "abc",
         )
         lessList.forEach { (l, r) -> assertTrue("$l < $r", l.isLessThanOrEqual(r)) }
         val notLessList = lessList.filterNot { (l, r) -> l == r }.map { (l, r) -> r to l }

@@ -54,14 +54,14 @@ internal data class ProfileDataInUi(
     val displayName: String,
     val note: String,
     val locked: Boolean,
-    val fields: List<StringField>
+    val fields: List<StringField>,
 )
 
 class EditProfileViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
     private val application: Application,
-    private val instanceInfoRepo: InstanceInfoRepository
+    private val instanceInfoRepo: InstanceInfoRepository,
 ) : ViewModel() {
 
     val profileData = MutableLiveData<Resource<Account>>()
@@ -85,7 +85,7 @@ class EditProfileViewModel @Inject constructor(
                 },
                 {
                     profileData.postValue(Error())
-                }
+                },
             )
         }
     }
@@ -140,7 +140,7 @@ class EditProfileViewModel @Inject constructor(
                 diff.field3?.first?.toRequestBody(MultipartBody.FORM),
                 diff.field3?.second?.toRequestBody(MultipartBody.FORM),
                 diff.field4?.first?.toRequestBody(MultipartBody.FORM),
-                diff.field4?.second?.toRequestBody(MultipartBody.FORM)
+                diff.field4?.second?.toRequestBody(MultipartBody.FORM),
             ).fold(
                 { newAccountData ->
                     saveData.postValue(Success())
@@ -148,7 +148,7 @@ class EditProfileViewModel @Inject constructor(
                 },
                 { throwable ->
                     saveData.postValue(Error(errorMessage = throwable.getServerErrorMessage()))
-                }
+                },
             )
         }
     }
@@ -160,7 +160,7 @@ class EditProfileViewModel @Inject constructor(
             val newProfile = profileData.value?.data?.copy(
                 displayName = newProfileData.displayName,
                 locked = newProfileData.locked,
-                source = newProfileSource
+                source = newProfileSource,
             )
 
             profileData.value = Success(newProfile)
@@ -212,7 +212,7 @@ class EditProfileViewModel @Inject constructor(
         val field4 = calculateFieldToUpdate(newProfileData.fields.getOrNull(3), allFieldsUnchanged)
 
         return DiffProfileData(
-            displayName, note, locked, field1, field2, field3, field4, headerFile, avatarFile
+            displayName, note, locked, field1, field2, field3, field4, headerFile, avatarFile,
         )
     }
 
@@ -222,7 +222,7 @@ class EditProfileViewModel @Inject constructor(
         }
         return Pair(
             newField.name,
-            newField.value
+            newField.value,
         )
     }
 
@@ -239,7 +239,7 @@ class EditProfileViewModel @Inject constructor(
         val field3: Pair<String, String>?,
         val field4: Pair<String, String>?,
         val headerFile: File?,
-        val avatarFile: File?
+        val avatarFile: File?,
     ) {
         fun hasChanges() = displayName != null || note != null || locked != null ||
             avatarFile != null || headerFile != null || field1 != null || field2 != null ||

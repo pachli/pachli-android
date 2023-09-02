@@ -56,7 +56,7 @@ class ProxyPreferencesFragment : PreferenceFragmentCompat() {
                 val portErrorMessage = getString(
                     R.string.pref_title_http_proxy_port_message,
                     MIN_PROXY_PORT,
-                    MAX_PROXY_PORT
+                    MAX_PROXY_PORT,
                 )
 
                 validatedEditTextPreference(portErrorMessage, ProxyConfiguration::isValidProxyPort) {

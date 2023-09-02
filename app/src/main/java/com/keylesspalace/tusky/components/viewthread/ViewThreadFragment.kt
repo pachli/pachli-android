@@ -114,7 +114,7 @@ class ViewThreadFragment :
             animateEmojis = preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
             showStatsInline = preferences.getBoolean(PrefKeys.SHOW_STATS_INLINE, false),
             showSensitiveMedia = accountManager.activeAccount!!.alwaysShowSensitiveMedia,
-            openSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler
+            openSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler,
         )
         adapter = ThreadAdapter(statusDisplayOptions, this)
     }
@@ -122,7 +122,7 @@ class ViewThreadFragment :
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_view_thread, container, false)
     }
@@ -138,8 +138,8 @@ class ViewThreadFragment :
         binding.recyclerView.setAccessibilityDelegateCompat(
             ListStatusAccessibilityDelegate(
                 binding.recyclerView,
-                this
-            ) { index -> adapter.currentList.getOrNull(index) }
+                this,
+            ) { index -> adapter.currentList.getOrNull(index) },
         )
         val divider = DividerItemDecoration(context, LinearLayout.VERTICAL)
         binding.recyclerView.addItemDecoration(divider)
@@ -218,7 +218,7 @@ class ViewThreadFragment :
                                 // Ensure the top of the status is visible
                                 (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
                                     uiState.detailedStatusPosition,
-                                    0
+                                    0,
                                 )
                             }
                         }
@@ -258,7 +258,7 @@ class ViewThreadFragment :
             when (revealButtonState) {
                 RevealButtonState.REVEAL -> R.drawable.ic_eye_24dp
                 else -> R.drawable.ic_hide_media_24dp
-            }
+            },
         )
     }
 
@@ -296,7 +296,7 @@ class ViewThreadFragment :
      */
     @CheckResult
     private fun getProgressBarJob(view: View, delayMs: Long) = viewLifecycleOwner.lifecycleScope.launch(
-        start = CoroutineStart.LAZY
+        start = CoroutineStart.LAZY,
     ) {
         try {
             delay(delayMs)
@@ -339,7 +339,7 @@ class ViewThreadFragment :
         super.viewMedia(
             attachmentIndex,
             list(status, alwaysShowSensitiveMedia),
-            view
+            view,
         )
     }
 

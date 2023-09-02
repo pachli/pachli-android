@@ -29,7 +29,7 @@ fun interface StatusProvider {
 class ListStatusAccessibilityDelegate(
     private val recyclerView: RecyclerView,
     private val statusActionListener: StatusActionListener,
-    private val statusProvider: StatusProvider
+    private val statusProvider: StatusProvider,
 ) : RecyclerViewAccessibilityDelegate(recyclerView) {
     private val a11yManager = context.getSystemService(Context.ACCESSIBILITY_SERVICE)
         as AccessibilityManager
@@ -41,7 +41,7 @@ class ListStatusAccessibilityDelegate(
     private val itemDelegate = object : ItemDelegate(this) {
         override fun onInitializeAccessibilityNodeInfo(
             host: View,
-            info: AccessibilityNodeInfoCompat
+            info: AccessibilityNodeInfoCompat,
         ) {
             super.onInitializeAccessibilityNodeInfo(host, info)
 
@@ -65,15 +65,15 @@ class ListStatusAccessibilityDelegate(
                     R.id.action_open_media_1,
                     R.id.action_open_media_2,
                     R.id.action_open_media_3,
-                    R.id.action_open_media_4
+                    R.id.action_open_media_4,
                 )
                 val attachmentCount = min(actionable.attachments.size, MAX_MEDIA_ATTACHMENTS)
                 for (i in 0 until attachmentCount) {
                     info.addAction(
                         AccessibilityActionCompat(
                             mediaActions[i],
-                            context.getString(R.string.action_open_media_n, i + 1)
-                        )
+                            context.getString(R.string.action_open_media_n, i + 1),
+                        ),
                     )
                 }
 
@@ -97,7 +97,7 @@ class ListStatusAccessibilityDelegate(
         override fun performAccessibilityAction(
             host: View,
             action: Int,
-            args: Bundle?
+            args: Bundle?,
         ): Boolean {
             val pos = recyclerView.getChildAdapterPosition(host)
             when (action) {
@@ -114,7 +114,7 @@ class ListStatusAccessibilityDelegate(
                 R.id.action_open_profile -> {
                     interrupt()
                     statusActionListener.onViewAccount(
-                        (statusProvider.getStatus(pos) as StatusViewData).actionable.account.id
+                        (statusProvider.getStatus(pos) as StatusViewData).actionable.account.id,
                     )
                 }
                 R.id.action_open_media_1 -> {
@@ -180,8 +180,8 @@ class ListStatusAccessibilityDelegate(
                     ArrayAdapter(
                         host.context,
                         android.R.layout.simple_list_item_1,
-                        textLinks
-                    )
+                        textLinks,
+                    ),
                 ) { _, which -> host.context.openLink(links[which].link) }
                 .show()
                 .let { forceFocus(it.listView) }
@@ -197,8 +197,8 @@ class ListStatusAccessibilityDelegate(
                     ArrayAdapter<CharSequence>(
                         host.context,
                         android.R.layout.simple_list_item_1,
-                        stringMentions
-                    )
+                        stringMentions,
+                    ),
                 ) { _, which ->
                     statusActionListener.onViewAccount(mentions[which].id)
                 }
@@ -215,8 +215,8 @@ class ListStatusAccessibilityDelegate(
                     ArrayAdapter(
                         host.context,
                         android.R.layout.simple_list_item_1,
-                        tags
-                    )
+                        tags,
+                    ),
                 ) { _, which ->
                     statusActionListener.onViewTag(tags[which].toString())
                 }
@@ -237,7 +237,7 @@ class ListStatusAccessibilityDelegate(
                 .map { span ->
                     val text = content.subSequence(
                         content.getSpanStart(span),
-                        content.getSpanEnd(span)
+                        content.getSpanEnd(span),
                     )
                     if (isHashtag(text)) null else LinkSpanInfo(text.toString(), span.url)
                 }
@@ -272,87 +272,87 @@ class ListStatusAccessibilityDelegate(
 
     private val collapseCwAction = AccessibilityActionCompat(
         R.id.action_collapse_cw,
-        context.getString(R.string.post_content_warning_show_less)
+        context.getString(R.string.post_content_warning_show_less),
     )
 
     private val expandCwAction = AccessibilityActionCompat(
         R.id.action_expand_cw,
-        context.getString(R.string.post_content_warning_show_more)
+        context.getString(R.string.post_content_warning_show_more),
     )
 
     private val replyAction = AccessibilityActionCompat(
         R.id.action_reply,
-        context.getString(R.string.action_reply)
+        context.getString(R.string.action_reply),
     )
 
     private val unreblogAction = AccessibilityActionCompat(
         R.id.action_unreblog,
-        context.getString(R.string.action_unreblog)
+        context.getString(R.string.action_unreblog),
     )
 
     private val reblogAction = AccessibilityActionCompat(
         R.id.action_reblog,
-        context.getString(R.string.action_reblog)
+        context.getString(R.string.action_reblog),
     )
 
     private val unfavouriteAction = AccessibilityActionCompat(
         R.id.action_unfavourite,
-        context.getString(R.string.action_unfavourite)
+        context.getString(R.string.action_unfavourite),
     )
 
     private val favouriteAction = AccessibilityActionCompat(
         R.id.action_favourite,
-        context.getString(R.string.action_favourite)
+        context.getString(R.string.action_favourite),
     )
 
     private val bookmarkAction = AccessibilityActionCompat(
         R.id.action_bookmark,
-        context.getString(R.string.action_bookmark)
+        context.getString(R.string.action_bookmark),
     )
 
     private val unbookmarkAction = AccessibilityActionCompat(
         R.id.action_unbookmark,
-        context.getString(R.string.action_bookmark)
+        context.getString(R.string.action_bookmark),
     )
 
     private val openProfileAction = AccessibilityActionCompat(
         R.id.action_open_profile,
-        context.getString(R.string.action_view_profile)
+        context.getString(R.string.action_view_profile),
     )
 
     private val linksAction = AccessibilityActionCompat(
         R.id.action_links,
-        context.getString(R.string.action_links)
+        context.getString(R.string.action_links),
     )
 
     private val mentionsAction = AccessibilityActionCompat(
         R.id.action_mentions,
-        context.getString(R.string.action_mentions)
+        context.getString(R.string.action_mentions),
     )
 
     private val hashtagsAction = AccessibilityActionCompat(
         R.id.action_hashtags,
-        context.getString(R.string.action_hashtags)
+        context.getString(R.string.action_hashtags),
     )
 
     private val openRebloggerAction = AccessibilityActionCompat(
         R.id.action_open_reblogger,
-        context.getString(R.string.action_open_reblogger)
+        context.getString(R.string.action_open_reblogger),
     )
 
     private val openRebloggedByAction = AccessibilityActionCompat(
         R.id.action_open_reblogged_by,
-        context.getString(R.string.action_open_reblogged_by)
+        context.getString(R.string.action_open_reblogged_by),
     )
 
     private val openFavsAction = AccessibilityActionCompat(
         R.id.action_open_faved_by,
-        context.getString(R.string.action_open_faved_by)
+        context.getString(R.string.action_open_faved_by),
     )
 
     private val moreAction = AccessibilityActionCompat(
         R.id.action_more,
-        context.getString(R.string.action_more)
+        context.getString(R.string.action_more),
     )
 
     private data class LinkSpanInfo(val text: String, val link: String)

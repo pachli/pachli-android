@@ -27,7 +27,7 @@ import javax.inject.Inject
  * in debug mode.
  */
 class DeveloperToolsUseCase @Inject constructor(
-    private val db: AppDatabase
+    private val db: AppDatabase,
 ) {
 
     private var timelineDao: TimelineDao = db.timelineDao()

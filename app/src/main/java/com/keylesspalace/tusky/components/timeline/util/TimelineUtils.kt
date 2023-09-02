@@ -7,7 +7,7 @@ fun Throwable.isExpected() = this is IOException || this is HttpException
 
 inline fun <T> ifExpected(
     t: Throwable,
-    cb: () -> T
+    cb: () -> T,
 ): T {
     if (t.isExpected()) {
         return cb()

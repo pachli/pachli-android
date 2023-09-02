@@ -30,14 +30,14 @@ import javax.inject.Inject
 
 class ScheduledStatusViewModel @Inject constructor(
     val mastodonApi: MastodonApi,
-    val eventHub: EventHub
+    val eventHub: EventHub,
 ) : ViewModel() {
 
     private val pagingSourceFactory = ScheduledStatusPagingSourceFactory(mastodonApi)
 
     val data = Pager(
         config = PagingConfig(pageSize = 20, initialLoadSize = 20),
-        pagingSourceFactory = pagingSourceFactory
+        pagingSourceFactory = pagingSourceFactory,
     ).flow
         .cachedIn(viewModelScope)
 
@@ -49,7 +49,7 @@ class ScheduledStatusViewModel @Inject constructor(
                 },
                 { throwable ->
                     Log.w("ScheduledTootViewModel", "Error deleting scheduled status", throwable)
-                }
+                },
             )
         }
     }

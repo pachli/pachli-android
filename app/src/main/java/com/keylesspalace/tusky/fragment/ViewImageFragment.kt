@@ -75,7 +75,7 @@ class ViewImageFragment : ViewMediaFragment() {
         url: String,
         previewUrl: String?,
         description: String?,
-        showingDescription: Boolean
+        showingDescription: Boolean,
     ) {
         binding.photoView.transitionName = url
         binding.mediaDescription.text = description
@@ -119,104 +119,106 @@ class ViewImageFragment : ViewMediaFragment() {
                     photoActionsListener.onPhotoTap()
                     return false
                 }
-            }
+            },
         )
 
-        binding.photoView.setOnTouchCoordinatesListener(object : OnTouchCoordinatesListener {
-            /** Y coordinate of the last single-finger drag */
-            var lastDragY: Float? = null
+        binding.photoView.setOnTouchCoordinatesListener(
+            object : OnTouchCoordinatesListener {
+                /** Y coordinate of the last single-finger drag */
+                var lastDragY: Float? = null
 
-            override fun onTouchCoordinate(view: View, event: MotionEvent, bitmapPoint: PointF) {
-                singleTapDetector.onTouchEvent(event)
+                override fun onTouchCoordinate(view: View, event: MotionEvent, bitmapPoint: PointF) {
+                    singleTapDetector.onTouchEvent(event)
 
-                // Two fingers have gone down after a single finger drag. Finish the drag
-                if (event.pointerCount == 2 && lastDragY != null) {
-                    onGestureEnd(view)
-                    lastDragY = null
-                }
-
-                // Stop the parent view from handling touches if either (a) the user has 2+
-                // fingers on the screen, or (b) the image has been zoomed in, and can be scrolled
-                // horizontally in both directions.
-                //
-                // This stops things like ViewPager2 from trying to intercept a left/right swipe
-                // and ensures that the image does not appear to "stick" to the screen as different
-                // views fight over who should be handling the swipe.
-                //
-                // If the view can be scrolled in one direction it's OK to let the parent intercept,
-                // which allows the user to swipe between images even if one or more of them have
-                // been zoomed in.
-                if (event.pointerCount >= 2 || view.canScrollHorizontally(1) && view.canScrollHorizontally(-1)) {
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
-                            view.parent.requestDisallowInterceptTouchEvent(true)
-                        }
-
-                        MotionEvent.ACTION_UP -> {
-                            view.parent.requestDisallowInterceptTouchEvent(false)
-                        }
-                    }
-                    return
-                }
-
-                // The user is dragging the image around
-                if (event.pointerCount == 1) {
-                    // If the image is zoomed then the swipe-to-dismiss functionality is disabled
-                    if ((view as TouchImageView).isZoomed) return
-
-                    // The user's finger just went down, start recording where they are dragging from
-                    if (event.action == MotionEvent.ACTION_DOWN) {
-                        lastDragY = event.rawY
-                        return
-                    }
-
-                    // The user is dragging the un-zoomed image to possibly fling it up or down
-                    // to dismiss.
-                    if (event.action == MotionEvent.ACTION_MOVE) {
-                        // lastDragY may be null; e.g., the user was performing a two-finger drag,
-                        // and has lifted one finger. In this case do nothing
-                        lastDragY ?: return
-
-                        // Compute the Y offset of the drag, and scale/translate the photoview
-                        // accordingly.
-                        val diff = event.rawY - lastDragY!!
-                        if (view.translationY != 0f || abs(diff) > 40) {
-                            // Drag has definitely started, stop the parent from interfering
-                            view.parent.requestDisallowInterceptTouchEvent(true)
-                            view.translationY += diff
-                            val scale = (-abs(view.translationY) / 720 + 1).coerceAtLeast(0.5f)
-                            view.scaleY = scale
-                            view.scaleX = scale
-                            lastDragY = event.rawY
-                        }
-                        return
-                    }
-
-                    // The user has finished dragging. Allow the parent to handle touch events if
-                    // appropriate, and end the gesture.
-                    if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
-                        view.parent.requestDisallowInterceptTouchEvent(false)
-                        if (lastDragY != null) onGestureEnd(view)
+                    // Two fingers have gone down after a single finger drag. Finish the drag
+                    if (event.pointerCount == 2 && lastDragY != null) {
+                        onGestureEnd(view)
                         lastDragY = null
+                    }
+
+                    // Stop the parent view from handling touches if either (a) the user has 2+
+                    // fingers on the screen, or (b) the image has been zoomed in, and can be scrolled
+                    // horizontally in both directions.
+                    //
+                    // This stops things like ViewPager2 from trying to intercept a left/right swipe
+                    // and ensures that the image does not appear to "stick" to the screen as different
+                    // views fight over who should be handling the swipe.
+                    //
+                    // If the view can be scrolled in one direction it's OK to let the parent intercept,
+                    // which allows the user to swipe between images even if one or more of them have
+                    // been zoomed in.
+                    if (event.pointerCount >= 2 || view.canScrollHorizontally(1) && view.canScrollHorizontally(-1)) {
+                        when (event.action) {
+                            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
+                                view.parent.requestDisallowInterceptTouchEvent(true)
+                            }
+
+                            MotionEvent.ACTION_UP -> {
+                                view.parent.requestDisallowInterceptTouchEvent(false)
+                            }
+                        }
                         return
                     }
-                }
-            }
 
-            /**
-             * Handle the end of the user's gesture.
-             *
-             * If the user was previously dragging, and the image has been dragged a sufficient
-             * distance then we are done. Otherwise, animate the image back to its starting position.
-             */
-            private fun onGestureEnd(view: View) {
-                if (abs(view.translationY) > 180) {
-                    photoActionsListener.onDismiss()
-                } else {
-                    view.animate().translationY(0f).scaleX(1f).start()
+                    // The user is dragging the image around
+                    if (event.pointerCount == 1) {
+                        // If the image is zoomed then the swipe-to-dismiss functionality is disabled
+                        if ((view as TouchImageView).isZoomed) return
+
+                        // The user's finger just went down, start recording where they are dragging from
+                        if (event.action == MotionEvent.ACTION_DOWN) {
+                            lastDragY = event.rawY
+                            return
+                        }
+
+                        // The user is dragging the un-zoomed image to possibly fling it up or down
+                        // to dismiss.
+                        if (event.action == MotionEvent.ACTION_MOVE) {
+                            // lastDragY may be null; e.g., the user was performing a two-finger drag,
+                            // and has lifted one finger. In this case do nothing
+                            lastDragY ?: return
+
+                            // Compute the Y offset of the drag, and scale/translate the photoview
+                            // accordingly.
+                            val diff = event.rawY - lastDragY!!
+                            if (view.translationY != 0f || abs(diff) > 40) {
+                                // Drag has definitely started, stop the parent from interfering
+                                view.parent.requestDisallowInterceptTouchEvent(true)
+                                view.translationY += diff
+                                val scale = (-abs(view.translationY) / 720 + 1).coerceAtLeast(0.5f)
+                                view.scaleY = scale
+                                view.scaleX = scale
+                                lastDragY = event.rawY
+                            }
+                            return
+                        }
+
+                        // The user has finished dragging. Allow the parent to handle touch events if
+                        // appropriate, and end the gesture.
+                        if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+                            view.parent.requestDisallowInterceptTouchEvent(false)
+                            if (lastDragY != null) onGestureEnd(view)
+                            lastDragY = null
+                            return
+                        }
+                    }
                 }
-            }
-        })
+
+                /**
+                 * Handle the end of the user's gesture.
+                 *
+                 * If the user was previously dragging, and the image has been dragged a sufficient
+                 * distance then we are done. Otherwise, animate the image back to its starting position.
+                 */
+                private fun onGestureEnd(view: View) {
+                    if (abs(view.translationY) > 180) {
+                        photoActionsListener.onDismiss()
+                    } else {
+                        view.animate().translationY(0f).scaleX(1f).start()
+                    }
+                }
+            },
+        )
 
         finalizeViewSetup(url, attachment?.previewUrl, description)
     }
@@ -227,13 +229,15 @@ class ViewImageFragment : ViewMediaFragment() {
         isDescriptionVisible = showingDescription && visible
         val alpha = if (isDescriptionVisible) 1.0f else 0.0f
         binding.captionSheet.animate().alpha(alpha)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    view ?: return
-                    binding.captionSheet.visible(isDescriptionVisible)
-                    animation.removeListener(this)
-                }
-            })
+            .setListener(
+                object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        view ?: return
+                        binding.captionSheet.visible(isDescriptionVisible)
+                        animation.removeListener(this)
+                    }
+                },
+            )
             .start()
     }
 
@@ -262,7 +266,7 @@ class ViewImageFragment : ViewMediaFragment() {
                             .dontAnimate()
                             .onlyRetrieveFromCache(true)
                             .centerInside()
-                            .addListener(ImageRequestListener(true, isThumbnailRequest = true))
+                            .addListener(ImageRequestListener(true, isThumbnailRequest = true)),
                     )
                 } else {
                     it
@@ -272,7 +276,7 @@ class ViewImageFragment : ViewMediaFragment() {
             .error(
                 glide.load(url)
                     .centerInside()
-                    .addListener(ImageRequestListener(false, isThumbnailRequest = false))
+                    .addListener(ImageRequestListener(false, isThumbnailRequest = false)),
             )
             .centerInside()
             .addListener(ImageRequestListener(true, isThumbnailRequest = false))
@@ -301,14 +305,14 @@ class ViewImageFragment : ViewMediaFragment() {
      */
     private inner class ImageRequestListener(
         private val isCacheRequest: Boolean,
-        private val isThumbnailRequest: Boolean
+        private val isThumbnailRequest: Boolean,
     ) : RequestListener<Drawable> {
 
         override fun onLoadFailed(
             e: GlideException?,
             model: Any,
             target: Target<Drawable>,
-            isFirstResource: Boolean
+            isFirstResource: Boolean,
         ): Boolean {
             // If cache for full image failed complete transition
             if (isCacheRequest && !isThumbnailRequest && shouldStartTransition &&
@@ -328,7 +332,7 @@ class ViewImageFragment : ViewMediaFragment() {
             model: Any,
             target: Target<Drawable>,
             dataSource: DataSource,
-            isFirstResource: Boolean
+            isFirstResource: Boolean,
         ): Boolean {
             binding.progressBar.hide() // Always hide the progress bar on success
 

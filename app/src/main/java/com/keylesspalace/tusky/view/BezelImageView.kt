@@ -29,7 +29,7 @@ import com.mikepenz.materialdrawer.view.BezelImageView
 class BezelImageView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyle: Int = 0
+    defStyle: Int = 0,
 ) : BezelImageView(context, attrs, defStyle) {
     override fun onSizeChanged(w: Int, h: Int, old_w: Int, old_h: Int) {
         outlineProvider = CustomOutline(w, h)
@@ -43,7 +43,7 @@ class BezelImageView @JvmOverloads constructor(
                 0,
                 width,
                 height,
-                if (width < height) width / 8f else height / 8f
+                if (width < height) width / 8f else height / 8f,
             )
         }
     }

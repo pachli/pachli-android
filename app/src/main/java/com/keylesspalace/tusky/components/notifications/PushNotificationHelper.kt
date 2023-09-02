@@ -55,7 +55,7 @@ fun showMigrationNoticeIfNecessary(
     context: Context,
     parent: View,
     anchorView: View?,
-    accountManager: AccountManager
+    accountManager: AccountManager,
 ) {
     // No point showing anything if we cannot enable it
     if (!isUnifiedPushAvailable(context)) return
@@ -163,7 +163,7 @@ suspend fun registerUnifiedPushEndpoint(
     api: MastodonApi,
     accountManager: AccountManager,
     account: AccountEntity,
-    endpoint: String
+    endpoint: String,
 ) = withContext(Dispatchers.IO) {
     // Generate a prime256v1 key pair for WebPush
     // Decryption is unimplemented for now, since Mastodon uses an old WebPush
@@ -179,7 +179,7 @@ suspend fun registerUnifiedPushEndpoint(
         endpoint,
         keyPair.pubkey,
         auth,
-        buildSubscriptionData(context, account)
+        buildSubscriptionData(context, account),
     ).onFailure { throwable ->
         Log.w(TAG, "Error setting push endpoint for account ${account.id}", throwable)
         disableUnifiedPushNotificationsForAccount(context, account)
@@ -201,7 +201,7 @@ suspend fun updateUnifiedPushSubscription(context: Context, api: MastodonApi, ac
         api.updatePushNotificationSubscription(
             "Bearer ${account.accessToken}",
             account.domain,
-            buildSubscriptionData(context, account)
+            buildSubscriptionData(context, account),
         ).onSuccess {
             Log.d(TAG, "UnifiedPush subscription updated for account ${account.id}")
 

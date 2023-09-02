@@ -40,7 +40,7 @@ class SpanUtilsTest {
                     "#tag",
                     "#tåg",
                     "https://thr.ee/meh?foo=bar&wat=@at#hmm",
-                    "http://thr.ee/meh?foo=bar&wat=@at#hmm"
+                    "http://thr.ee/meh?foo=bar&wat=@at#hmm",
                 )
             }
         }
@@ -98,7 +98,7 @@ class SpanUtilsTest {
     class HighlightingTestsForTag(
         private val text: String,
         private val expectedStartIndex: Int,
-        private val expectedEndIndex: Int
+        private val expectedEndIndex: Int,
     ) {
         companion object {
             @Parameterized.Parameters(name = "{0}")
@@ -111,7 +111,7 @@ class SpanUtilsTest {
                     arrayOf("@#after_at", 1, 10),
                     arrayOf("あいうえお#after_hiragana", 5, 20),
                     arrayOf("##DoubleHash", 1, 12),
-                    arrayOf("###TripleHash", 2, 13)
+                    arrayOf("###TripleHash", 2, 13),
                 )
             }
         }

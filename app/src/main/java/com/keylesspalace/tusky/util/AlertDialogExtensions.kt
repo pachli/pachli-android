@@ -34,7 +34,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 suspend fun AlertDialog.await(
     positiveText: String,
     negativeText: String? = null,
-    neutralText: String? = null
+    neutralText: String? = null,
 ) = suspendCancellableCoroutine<Int> { cont ->
     val listener = DialogInterface.OnClickListener { _, which ->
         cont.resume(which) { dismiss() }
@@ -55,9 +55,9 @@ suspend fun AlertDialog.await(
 suspend fun AlertDialog.await(
     @StringRes positiveTextResource: Int,
     @StringRes negativeTextResource: Int? = null,
-    @StringRes neutralTextResource: Int? = null
+    @StringRes neutralTextResource: Int? = null,
 ) = await(
     context.getString(positiveTextResource),
     negativeTextResource?.let { context.getString(it) },
-    neutralTextResource?.let { context.getString(it) }
+    neutralTextResource?.let { context.getString(it) },
 )

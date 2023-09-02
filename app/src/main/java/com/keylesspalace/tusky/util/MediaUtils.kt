@@ -135,7 +135,7 @@ fun reorientBitmap(bitmap: Bitmap?, orientation: Int): Bitmap? {
             bitmap.width,
             bitmap.height,
             matrix,
-            true
+            true,
         )
         if (!bitmap.sameAs(result)) {
             bitmap.recycle()

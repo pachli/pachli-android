@@ -30,7 +30,7 @@ import com.keylesspalace.tusky.viewdata.StatusViewData
 
 class TimelinePagingAdapter(
     private val statusListener: StatusActionListener,
-    var statusDisplayOptions: StatusDisplayOptions
+    var statusDisplayOptions: StatusDisplayOptions,
 ) : PagingDataAdapter<StatusViewData, RecyclerView.ViewHolder>(TimelineDifferCallback) {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
@@ -52,7 +52,7 @@ class TimelinePagingAdapter(
     override fun onBindViewHolder(
         viewHolder: RecyclerView.ViewHolder,
         position: Int,
-        payloads: List<*>
+        payloads: List<*>,
     ) {
         bindViewHolder(viewHolder, position, payloads)
     }
@@ -60,14 +60,14 @@ class TimelinePagingAdapter(
     private fun bindViewHolder(
         viewHolder: RecyclerView.ViewHolder,
         position: Int,
-        payloads: List<*>?
+        payloads: List<*>?,
     ) {
         getItem(position)?.let {
             (viewHolder as StatusViewHolder).setupWithStatus(
                 it,
                 statusListener,
                 statusDisplayOptions,
-                payloads?.getOrNull(0)
+                payloads?.getOrNull(0),
             )
         }
     }
@@ -91,21 +91,21 @@ class TimelinePagingAdapter(
         val TimelineDifferCallback = object : DiffUtil.ItemCallback<StatusViewData>() {
             override fun areItemsTheSame(
                 oldItem: StatusViewData,
-                newItem: StatusViewData
+                newItem: StatusViewData,
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
                 oldItem: StatusViewData,
-                newItem: StatusViewData
+                newItem: StatusViewData,
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun getChangePayload(
                 oldItem: StatusViewData,
-                newItem: StatusViewData
+                newItem: StatusViewData,
             ): Any? {
                 return if (oldItem == newItem) {
                     // If items are equal - update timestamp only

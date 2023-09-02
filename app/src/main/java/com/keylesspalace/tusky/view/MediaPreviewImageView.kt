@@ -41,7 +41,7 @@ open class MediaPreviewImageView
 @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : AppCompatImageView(context, attrs, defStyleAttr), RequestListener<Drawable> {
     private var focus: Attachment.Focus? = null
     private var focalMatrix: Matrix? = null
@@ -124,7 +124,7 @@ open class MediaPreviewImageView
                 drawable.intrinsicWidth.toFloat(),
                 drawable.intrinsicHeight.toFloat(),
                 focus as Attachment.Focus,
-                focalMatrix as Matrix
+                focalMatrix as Matrix,
             )
             imageMatrix = focalMatrix
         }

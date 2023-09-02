@@ -29,7 +29,7 @@ import javax.inject.Singleton
 
 @Singleton
 class LocaleManager @Inject constructor(
-    val context: Context
+    val context: Context,
 ) : PreferenceDataStore() {
 
     private var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)

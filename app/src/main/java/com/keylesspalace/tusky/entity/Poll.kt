@@ -12,7 +12,7 @@ data class Poll(
     @SerializedName("voters_count") val votersCount: Int?, // nullable for compatibility with Pleroma
     val options: List<PollOption>,
     val voted: Boolean,
-    @SerializedName("own_votes") val ownVotes: List<Int>?
+    @SerializedName("own_votes") val ownVotes: List<Int>?,
 ) {
 
     fun votedCopy(choices: List<Int>): Poll {
@@ -28,7 +28,7 @@ data class Poll(
             options = newOptions,
             votesCount = votesCount + choices.size,
             votersCount = votersCount?.plus(1),
-            voted = true
+            voted = true,
         )
     }
 
@@ -37,11 +37,11 @@ data class Poll(
         expiresAt?.let {
             ((it.time - creationDate.time) / 1000).toInt() + 1
         } ?: 3600,
-        multiple
+        multiple,
     )
 }
 
 data class PollOption(
     val title: String,
-    @SerializedName("votes_count") val votesCount: Int
+    @SerializedName("votes_count") val votesCount: Int,
 )

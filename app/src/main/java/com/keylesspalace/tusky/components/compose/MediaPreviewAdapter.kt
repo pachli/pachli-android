@@ -34,7 +34,7 @@ class MediaPreviewAdapter(
     private val onAddCaption: (ComposeActivity.QueuedMedia) -> Unit,
     private val onAddFocus: (ComposeActivity.QueuedMedia) -> Unit,
     private val onEditImage: (ComposeActivity.QueuedMedia) -> Unit,
-    private val onRemove: (ComposeActivity.QueuedMedia) -> Unit
+    private val onRemove: (ComposeActivity.QueuedMedia) -> Unit,
 ) : RecyclerView.Adapter<MediaPreviewAdapter.PreviewViewHolder>() {
 
     fun submitList(list: List<ComposeActivity.QueuedMedia>) {
@@ -120,7 +120,7 @@ class MediaPreviewAdapter(
             override fun areContentsTheSame(oldItem: ComposeActivity.QueuedMedia, newItem: ComposeActivity.QueuedMedia): Boolean {
                 return oldItem == newItem
             }
-        }
+        },
     )
 
     inner class PreviewViewHolder(val progressImageView: ProgressImageView) :

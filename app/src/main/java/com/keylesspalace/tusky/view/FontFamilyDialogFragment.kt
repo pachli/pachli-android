@@ -68,7 +68,7 @@ class FontFamilyDialogFragment : ListPreferenceDialogFragmentCompat() {
             null,
             R.styleable.AlertDialog,
             R.attr.alertDialogStyle,
-            0
+            0,
         )
         val layout = a.getResourceId(R.styleable.AlertDialog_singleChoiceItemLayout, 0)
         a.recycle()

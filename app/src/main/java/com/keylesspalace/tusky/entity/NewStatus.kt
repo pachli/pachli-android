@@ -29,14 +29,14 @@ data class NewStatus(
     @SerializedName("media_attributes") val mediaAttributes: List<MediaAttribute>?,
     @SerializedName("scheduled_at") val scheduledAt: String?,
     val poll: NewPoll?,
-    val language: String?
+    val language: String?,
 )
 
 @Parcelize
 data class NewPoll(
     val options: List<String>,
     @SerializedName("expires_in") val expiresIn: Int,
-    val multiple: Boolean
+    val multiple: Boolean,
 ) : Parcelable
 
 // It would be nice if we could reuse MediaToSend,
@@ -46,5 +46,5 @@ data class MediaAttribute(
     val id: String,
     val description: String?,
     val focus: String?,
-    val thumbnail: String?
+    val thumbnail: String?,
 ) : Parcelable

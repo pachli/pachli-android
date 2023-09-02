@@ -26,14 +26,14 @@ import com.keylesspalace.tusky.util.StatusDisplayOptions
 
 class ConversationAdapter(
     private var statusDisplayOptions: StatusDisplayOptions,
-    private val listener: StatusActionListener
+    private val listener: StatusActionListener,
 ) : PagingDataAdapter<ConversationViewData, ConversationViewHolder>(CONVERSATION_COMPARATOR) {
 
     var mediaPreviewEnabled: Boolean
         get() = statusDisplayOptions.mediaPreviewEnabled
         set(mediaPreviewEnabled) {
             statusDisplayOptions = statusDisplayOptions.copy(
-                mediaPreviewEnabled = mediaPreviewEnabled
+                mediaPreviewEnabled = mediaPreviewEnabled,
             )
         }
 
@@ -49,7 +49,7 @@ class ConversationAdapter(
     override fun onBindViewHolder(
         holder: ConversationViewHolder,
         position: Int,
-        payloads: List<Any>
+        payloads: List<Any>,
     ) {
         getItem(position)?.let { conversationViewData ->
             holder.setupWithConversation(conversationViewData, payloads.firstOrNull())

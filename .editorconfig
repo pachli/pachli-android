@@ -8,10 +8,13 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 # Disable wildcard imports
-[*.{java, kt}]
+[*.{java,kt}]
 ij_kotlin_name_count_to_use_star_import = 999
 ij_kotlin_name_count_to_use_star_import_for_members = 999
 ij_java_class_count_to_use_import_on_demand = 999
+# Require trailing comma
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
 
 [*.{yml,yaml}]
 indent_size = 2

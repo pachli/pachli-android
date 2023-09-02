@@ -27,7 +27,7 @@ import com.keylesspalace.tusky.viewdata.StatusViewData
 
 class SearchStatusesAdapter(
     private val statusDisplayOptions: StatusDisplayOptions,
-    private val statusListener: StatusActionListener
+    private val statusListener: StatusActionListener,
 ) : PagingDataAdapter<StatusViewData, StatusViewHolder>(STATUS_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder {

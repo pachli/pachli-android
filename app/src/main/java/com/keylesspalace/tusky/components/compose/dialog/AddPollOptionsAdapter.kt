@@ -30,7 +30,7 @@ class AddPollOptionsAdapter(
     private var options: MutableList<String>,
     private val maxOptionLength: Int,
     private val onOptionRemoved: (Boolean) -> Unit,
-    private val onOptionChanged: (Boolean) -> Unit
+    private val onOptionChanged: (Boolean) -> Unit,
 ) : RecyclerView.Adapter<BindingHolder<ItemAddPollOptionBinding>>() {
 
     val pollOptions: List<String>

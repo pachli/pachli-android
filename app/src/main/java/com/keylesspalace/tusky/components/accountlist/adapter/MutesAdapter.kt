@@ -31,12 +31,12 @@ class MutesAdapter(
     accountActionListener: AccountActionListener,
     animateAvatar: Boolean,
     animateEmojis: Boolean,
-    showBotOverlay: Boolean
+    showBotOverlay: Boolean,
 ) : AccountAdapter<BindingHolder<ItemMutedUserBinding>>(
     accountActionListener = accountActionListener,
     animateAvatar = animateAvatar,
     animateEmojis = animateEmojis,
-    showBotOverlay = showBotOverlay
+    showBotOverlay = showBotOverlay,
 ) {
 
     private val mutingNotificationsMap = HashMap<String, Boolean>()
@@ -83,7 +83,7 @@ class MutesAdapter(
                 false,
                 account.id,
                 viewHolder.bindingAdapterPosition,
-                false
+                false,
             )
         }
         binding.mutedUserMuteNotifications.setOnCheckedChangeListener { _, isChecked ->
@@ -91,7 +91,7 @@ class MutesAdapter(
                 true,
                 account.id,
                 viewHolder.bindingAdapterPosition,
-                isChecked
+                isChecked,
             )
         }
         binding.root.setOnClickListener { accountActionListener.onViewAccount(account.id) }

@@ -53,8 +53,8 @@ class FocalPointUtilTest {
                 2f,
                 1f,
                 1f,
-                2f
-            )
+                2f,
+            ),
         )
     }
 
@@ -65,8 +65,8 @@ class FocalPointUtilTest {
                 1f,
                 2f,
                 2f,
-                1f
-            )
+                1f,
+            ),
         )
     }
 
@@ -76,7 +76,7 @@ class FocalPointUtilTest {
             3f,
             1f,
             6f,
-            2f
+            2f,
         )
     }
 
@@ -88,10 +88,10 @@ class FocalPointUtilTest {
                 2f,
                 5f,
                 5f,
-                12.5f
+                12.5f,
             ),
             0.4f,
-            eps
+            eps,
         )
     }
 
@@ -102,10 +102,10 @@ class FocalPointUtilTest {
                 2f,
                 5f,
                 1f,
-                2.5f
+                2.5f,
             ),
             2f,
-            eps
+            eps,
         )
     }
 
@@ -116,10 +116,10 @@ class FocalPointUtilTest {
                 2f,
                 1f,
                 1f,
-                2f
+                2f,
             ),
             2f,
-            eps
+            eps,
         )
     }
 
@@ -130,10 +130,10 @@ class FocalPointUtilTest {
                 4f,
                 3f,
                 8f,
-                24f
+                24f,
             ),
             0.5f,
-            eps
+            eps,
         )
     }
 
@@ -144,10 +144,10 @@ class FocalPointUtilTest {
                 1f,
                 2f,
                 2f,
-                1f
+                1f,
             ),
             2f,
-            eps
+            eps,
         )
     }
 
@@ -158,10 +158,10 @@ class FocalPointUtilTest {
                 3f,
                 4f,
                 24f,
-                8f
+                8f,
             ),
             0.5f,
-            eps
+            eps,
         )
     }
 
@@ -171,7 +171,7 @@ class FocalPointUtilTest {
         assertEquals(
             FocalPointUtil.focalOffset(2f, 8f, 1f, 0.05f),
             0f,
-            eps
+            eps,
         )
     }
 
@@ -180,7 +180,7 @@ class FocalPointUtilTest {
         assertEquals(
             FocalPointUtil.focalOffset(2f, 4f, 2f, 0.95f),
             -6f,
-            eps
+            eps,
         )
     }
 
@@ -189,7 +189,7 @@ class FocalPointUtilTest {
         assertEquals(
             FocalPointUtil.focalOffset(2f, 4f, 2f, 0.7f),
             -4.6f,
-            eps
+            eps,
         )
     }
 }

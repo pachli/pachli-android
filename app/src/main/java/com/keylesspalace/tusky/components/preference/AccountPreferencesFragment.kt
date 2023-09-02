@@ -99,7 +99,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat(), Injectable {
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
-                        R.anim.slide_to_left
+                        R.anim.slide_to_left,
                     )
                     true
                 }
@@ -113,7 +113,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat(), Injectable {
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
-                        R.anim.slide_to_left
+                        R.anim.slide_to_left,
                     )
                     true
                 }
@@ -128,7 +128,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat(), Injectable {
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
-                        R.anim.slide_to_left
+                        R.anim.slide_to_left,
                     )
                     true
                 }
@@ -146,7 +146,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat(), Injectable {
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
-                        R.anim.slide_to_left
+                        R.anim.slide_to_left,
                     )
                     true
                 }
@@ -160,7 +160,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat(), Injectable {
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
-                        R.anim.slide_to_left
+                        R.anim.slide_to_left,
                     )
                     true
                 }
@@ -294,28 +294,30 @@ class AccountPreferencesFragment : PreferenceFragmentCompat(), Injectable {
         // TODO these could also be "datastore backed" preferences (a ServerPreferenceDataStore); follow-up of issue #3204
 
         mastodonApi.accountUpdateSource(visibility, sensitive, language)
-            .enqueue(object : Callback<Account> {
-                override fun onResponse(call: Call<Account>, response: Response<Account>) {
-                    val account = response.body()
-                    if (response.isSuccessful && account != null) {
-                        accountManager.activeAccount?.let {
-                            it.defaultPostPrivacy = account.source?.privacy
-                                ?: Status.Visibility.PUBLIC
-                            it.defaultMediaSensitivity = account.source?.sensitive ?: false
-                            it.defaultPostLanguage = language.orEmpty()
-                            accountManager.saveAccount(it)
+            .enqueue(
+                object : Callback<Account> {
+                    override fun onResponse(call: Call<Account>, response: Response<Account>) {
+                        val account = response.body()
+                        if (response.isSuccessful && account != null) {
+                            accountManager.activeAccount?.let {
+                                it.defaultPostPrivacy = account.source?.privacy
+                                    ?: Status.Visibility.PUBLIC
+                                it.defaultMediaSensitivity = account.source?.sensitive ?: false
+                                it.defaultPostLanguage = language.orEmpty()
+                                accountManager.saveAccount(it)
+                            }
+                        } else {
+                            Log.e("AccountPreferences", "failed updating settings on server")
+                            showErrorSnackbar(visibility, sensitive)
                         }
-                    } else {
-                        Log.e("AccountPreferences", "failed updating settings on server")
+                    }
+
+                    override fun onFailure(call: Call<Account>, t: Throwable) {
+                        Log.e("AccountPreferences", "failed updating settings on server", t)
                         showErrorSnackbar(visibility, sensitive)
                     }
-                }
-
-                override fun onFailure(call: Call<Account>, t: Throwable) {
-                    Log.e("AccountPreferences", "failed updating settings on server", t)
-                    showErrorSnackbar(visibility, sensitive)
-                }
-            })
+                },
+            )
     }
 
     private fun showErrorSnackbar(visibility: String?, sensitive: Boolean?) {

@@ -21,7 +21,7 @@ import com.keylesspalace.tusky.network.MastodonApi
 import javax.inject.Inject
 
 class TrendingLinksRepository @Inject constructor(
-    private val api: MastodonApi
+    private val api: MastodonApi,
 ) {
     suspend fun getTrendingLinks() = api.trendingLinks()
 }

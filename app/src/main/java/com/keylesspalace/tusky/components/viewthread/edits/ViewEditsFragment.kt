@@ -114,7 +114,7 @@ class ViewEditsFragment :
                             is ViewEditsViewModel.MissingEditsException -> {
                                 binding.statusView.setup(
                                     R.drawable.elephant_friend_empty,
-                                    R.string.error_missing_edits
+                                    R.string.error_missing_edits,
                                 )
                             }
                             else -> {
@@ -135,7 +135,7 @@ class ViewEditsFragment :
                             animateAvatars = animateAvatars,
                             animateEmojis = animateEmojis,
                             useBlurhash = useBlurhash,
-                            listener = this@ViewEditsFragment
+                            listener = this@ViewEditsFragment,
                         )
 
                         // Focus on the most recent version

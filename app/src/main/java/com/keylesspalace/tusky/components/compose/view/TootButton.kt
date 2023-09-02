@@ -30,7 +30,7 @@ class TootButton
 @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : MaterialButton(context, attrs, defStyleAttr) {
 
     private val smallStyle: Boolean = context.resources.getBoolean(R.bool.show_small_toot_button)
@@ -58,7 +58,8 @@ class TootButton
                     null
                 }
                 Status.Visibility.PRIVATE,
-                Status.Visibility.DIRECT -> {
+                Status.Visibility.DIRECT,
+                -> {
                     setText(R.string.action_send)
                     IconicsDrawable(context, GoogleMaterial.Icon.gmd_lock).apply { sizeDp = 18; colorInt = Color.WHITE }
                 }

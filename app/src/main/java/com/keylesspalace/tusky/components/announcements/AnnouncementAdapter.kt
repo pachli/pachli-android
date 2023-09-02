@@ -47,7 +47,7 @@ class AnnouncementAdapter(
     private var items: List<Announcement> = emptyList(),
     private val listener: AnnouncementActionListener,
     private val wellbeingEnabled: Boolean = false,
-    private val animateEmojis: Boolean = false
+    private val animateEmojis: Boolean = false,
 ) : RecyclerView.Adapter<BindingHolder<ItemAnnouncementBinding>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemAnnouncementBinding> {

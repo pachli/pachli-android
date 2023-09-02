@@ -27,7 +27,7 @@ import com.keylesspalace.tusky.entity.NewPoll
 class PollPreviewView @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) :
     LinearLayout(context, attrs, defStyleAttr) {
 

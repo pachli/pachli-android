@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class EmojiPicker @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null
+    attrs: AttributeSet? = null,
 ) : RecyclerView(context, attrs) {
 
     init {

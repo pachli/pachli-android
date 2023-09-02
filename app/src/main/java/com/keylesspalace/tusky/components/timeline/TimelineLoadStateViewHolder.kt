@@ -38,7 +38,7 @@ import java.net.SocketTimeoutException
  */
 class TimelineLoadStateViewHolder(
     private val binding: ItemLoadStateFooterViewBinding,
-    retry: () -> Unit
+    retry: () -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     init {
         binding.retryButton.setOnClickListener { retry.invoke() }
@@ -65,7 +65,7 @@ class TimelineLoadStateViewHolder(
             val binding = ItemLoadStateFooterViewBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
+                false,
             )
             return TimelineLoadStateViewHolder(binding, retry)
         }

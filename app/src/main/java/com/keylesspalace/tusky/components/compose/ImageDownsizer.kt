@@ -39,7 +39,7 @@ fun downsizeImage(
     uri: Uri,
     sizeLimit: Int,
     contentResolver: ContentResolver,
-    tempFile: File
+    tempFile: File,
 ): Boolean {
     val decodeBoundsInputStream = try {
         contentResolver.openInputStream(uri)

@@ -66,7 +66,7 @@ class AccountManager @Inject constructor(val db: AppDatabase) {
         clientId: String,
         clientSecret: String,
         oauthScopes: String,
-        newAccount: Account
+        newAccount: Account,
     ) {
         activeAccount?.let {
             it.isActive = false
@@ -84,7 +84,7 @@ class AccountManager @Inject constructor(val db: AppDatabase) {
                 clientId = clientId,
                 clientSecret = clientSecret,
                 oauthScopes = oauthScopes,
-                isActive = true
+                isActive = true,
             ).also { accounts[existingAccountIndex] = it }
         } else {
             val maxAccountId = accounts.maxByOrNull { it.id }?.id ?: 0
@@ -97,7 +97,7 @@ class AccountManager @Inject constructor(val db: AppDatabase) {
                 clientSecret = clientSecret,
                 oauthScopes = oauthScopes,
                 isActive = true,
-                accountId = newAccount.id
+                accountId = newAccount.id,
             ).also { accounts.add(it) }
         }
 

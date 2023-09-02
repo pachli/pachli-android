@@ -32,7 +32,7 @@ import javax.inject.Inject
 class InstanceInfoRepository @Inject constructor(
     private val api: MastodonApi,
     db: AppDatabase,
-    accountManager: AccountManager
+    accountManager: AccountManager,
 ) {
 
     private val dao = db.instanceDao()
@@ -76,7 +76,7 @@ class InstanceInfoRepository @Inject constructor(
                         maxMediaAttachments = instance.configuration?.statuses?.maxMediaAttachments ?: instance.maxMediaAttachments,
                         maxFields = instance.pleroma?.metadata?.fieldLimits?.maxFields,
                         maxFieldNameLength = instance.pleroma?.metadata?.fieldLimits?.nameLength,
-                        maxFieldValueLength = instance.pleroma?.metadata?.fieldLimits?.valueLength
+                        maxFieldValueLength = instance.pleroma?.metadata?.fieldLimits?.valueLength,
                     )
                     dao.upsert(instanceEntity)
                     instanceEntity
@@ -84,7 +84,7 @@ class InstanceInfoRepository @Inject constructor(
                 { throwable ->
                     Log.w(TAG, "failed to instance, falling back to cache and default values", throwable)
                     dao.getInstanceInfo(instanceName)
-                }
+                },
             ).let { instanceInfo: InstanceInfoEntity? ->
                 InstanceInfo(
                     maxChars = instanceInfo?.maximumTootCharacters ?: DEFAULT_CHARACTER_LIMIT,
@@ -100,7 +100,7 @@ class InstanceInfoRepository @Inject constructor(
                     maxFields = instanceInfo?.maxFields ?: DEFAULT_MAX_ACCOUNT_FIELDS,
                     maxFieldNameLength = instanceInfo?.maxFieldNameLength,
                     maxFieldValueLength = instanceInfo?.maxFieldValueLength,
-                    version = instanceInfo?.version
+                    version = instanceInfo?.version,
                 )
             }
     }

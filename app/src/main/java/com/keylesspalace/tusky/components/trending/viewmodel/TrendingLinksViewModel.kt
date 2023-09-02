@@ -61,7 +61,7 @@ class TrendingLinksViewModel @Inject constructor(
     private val repository: TrendingLinksRepository,
     preferences: SharedPreferences,
     accountManager: AccountManager,
-    private val eventHub: EventHub
+    private val eventHub: EventHub,
 ) : ViewModel() {
     val account = accountManager.activeAccount!!
 
@@ -69,7 +69,7 @@ class TrendingLinksViewModel @Inject constructor(
     val loadState = _loadState.asStateFlow()
 
     private val _statusDisplayOptions = MutableStateFlow(
-        StatusDisplayOptions.from(preferences, account)
+        StatusDisplayOptions.from(preferences, account),
     )
     val statusDisplayOptions = _statusDisplayOptions.asStateFlow()
 
@@ -100,7 +100,7 @@ class TrendingLinksViewModel @Inject constructor(
         val response = repository.getTrendingLinks()
         response.fold(
             { list -> _loadState.update { LoadState.Success(list) } },
-            { throwable -> _loadState.update { LoadState.Error(throwable) } }
+            { throwable -> _loadState.update { LoadState.Error(throwable) } },
         )
     }
 

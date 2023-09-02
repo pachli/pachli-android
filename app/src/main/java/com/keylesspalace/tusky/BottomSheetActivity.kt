@@ -53,15 +53,17 @@ abstract class BottomSheetActivity : BaseActivity() {
         val bottomSheetLayout: LinearLayout = findViewById(R.id.item_status_bottom_sheet)
         bottomSheet = BottomSheetBehavior.from(bottomSheetLayout)
         bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
-        bottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                    cancelActiveSearch()
+        bottomSheet.addBottomSheetCallback(
+            object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                        cancelActiveSearch()
+                    }
                 }
-            }
 
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-        })
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+            },
+        )
     }
 
     open fun viewUrl(url: String, lookupFallbackBehavior: PostLookupFallbackBehavior = PostLookupFallbackBehavior.OPEN_IN_BROWSER) {
@@ -72,7 +74,7 @@ abstract class BottomSheetActivity : BaseActivity() {
 
         mastodonApi.searchObservable(
             query = url,
-            resolve = true
+            resolve = true,
         ).observeOn(AndroidSchedulers.mainThread())
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe(
@@ -101,7 +103,7 @@ abstract class BottomSheetActivity : BaseActivity() {
                         onEndSearch(url)
                         performUrlFallbackAction(url, lookupFallbackBehavior)
                     }
-                }
+                },
             )
 
         onBeginSearch(url)
@@ -177,5 +179,5 @@ abstract class BottomSheetActivity : BaseActivity() {
 
 enum class PostLookupFallbackBehavior {
     OPEN_IN_BROWSER,
-    DISPLAY_ERROR
+    DISPLAY_ERROR,
 }

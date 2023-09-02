@@ -52,20 +52,24 @@ enum class NotificationViewKind {
     FOLLOW,
     FOLLOW_REQUEST,
     REPORT,
-    UNKNOWN;
+    UNKNOWN,
+    ;
 
     companion object {
         fun from(kind: Notification.Type?): NotificationViewKind {
             return when (kind) {
                 Notification.Type.MENTION,
                 Notification.Type.POLL,
-                Notification.Type.UNKNOWN -> STATUS
+                Notification.Type.UNKNOWN,
+                -> STATUS
                 Notification.Type.FAVOURITE,
                 Notification.Type.REBLOG,
                 Notification.Type.STATUS,
-                Notification.Type.UPDATE -> NOTIFICATION
+                Notification.Type.UPDATE,
+                -> NOTIFICATION
                 Notification.Type.FOLLOW,
-                Notification.Type.SIGN_UP -> FOLLOW
+                Notification.Type.SIGN_UP,
+                -> FOLLOW
                 Notification.Type.FOLLOW_REQUEST -> FOLLOW_REQUEST
                 Notification.Type.REPORT -> REPORT
                 null -> UNKNOWN
@@ -106,7 +110,7 @@ class NotificationsPagingAdapter(
     private val statusActionListener: StatusActionListener,
     private val notificationActionListener: NotificationActionListener,
     private val accountActionListener: AccountActionListener,
-    var statusDisplayOptions: StatusDisplayOptions
+    var statusDisplayOptions: StatusDisplayOptions,
 ) : PagingDataAdapter<NotificationViewData, RecyclerView.ViewHolder>(diffCallback) {
 
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
@@ -117,7 +121,7 @@ class NotificationsPagingAdapter(
         fun bind(
             viewData: NotificationViewData,
             payloads: List<*>?,
-            statusDisplayOptions: StatusDisplayOptions
+            statusDisplayOptions: StatusDisplayOptions,
         )
     }
 
@@ -138,14 +142,14 @@ class NotificationsPagingAdapter(
                 StatusViewHolder(
                     ItemStatusBinding.inflate(inflater, parent, false),
                     statusActionListener,
-                    accountId
+                    accountId,
                 )
             }
             NotificationViewKind.STATUS_FILTERED -> {
                 StatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
                     statusActionListener,
-                    accountId
+                    accountId,
                 )
             }
             NotificationViewKind.NOTIFICATION -> {
@@ -153,14 +157,14 @@ class NotificationsPagingAdapter(
                     ItemStatusNotificationBinding.inflate(inflater, parent, false),
                     statusActionListener,
                     notificationActionListener,
-                    absoluteTimeFormatter
+                    absoluteTimeFormatter,
                 )
             }
             NotificationViewKind.FOLLOW -> {
                 FollowViewHolder(
                     ItemFollowBinding.inflate(inflater, parent, false),
                     notificationActionListener,
-                    statusActionListener
+                    statusActionListener,
                 )
             }
             NotificationViewKind.FOLLOW_REQUEST -> {
@@ -168,18 +172,18 @@ class NotificationsPagingAdapter(
                     ItemFollowRequestBinding.inflate(inflater, parent, false),
                     accountActionListener,
                     statusActionListener,
-                    showHeader = true
+                    showHeader = true,
                 )
             }
             NotificationViewKind.REPORT -> {
                 ReportNotificationViewHolder(
                     ItemReportNotificationBinding.inflate(inflater, parent, false),
-                    notificationActionListener
+                    notificationActionListener,
                 )
             }
             else -> {
                 FallbackNotificationViewHolder(
-                    SimpleListItem1Binding.inflate(inflater, parent, false)
+                    SimpleListItem1Binding.inflate(inflater, parent, false),
                 )
             }
         }
@@ -192,7 +196,7 @@ class NotificationsPagingAdapter(
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         position: Int,
-        payloads: MutableList<Any>
+        payloads: MutableList<Any>,
     ) {
         bindViewHolder(holder, position, payloads)
     }
@@ -200,7 +204,7 @@ class NotificationsPagingAdapter(
     private fun bindViewHolder(
         holder: RecyclerView.ViewHolder,
         position: Int,
-        payloads: List<*>?
+        payloads: List<*>?,
     ) {
         getItem(position)?.let { (holder as ViewHolder).bind(it, payloads, statusDisplayOptions) }
     }
@@ -210,12 +214,12 @@ class NotificationsPagingAdapter(
      * be used, but is useful when migrating code.
      */
     private class FallbackNotificationViewHolder(
-        val binding: SimpleListItem1Binding
+        val binding: SimpleListItem1Binding,
     ) : ViewHolder, RecyclerView.ViewHolder(binding.root) {
         override fun bind(
             viewData: NotificationViewData,
             payloads: List<*>?,
-            statusDisplayOptions: StatusDisplayOptions
+            statusDisplayOptions: StatusDisplayOptions,
         ) {
             binding.text1.text = viewData.statusViewData?.content
         }

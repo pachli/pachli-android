@@ -53,8 +53,8 @@ class NetworkTimelinePagingSourceTest {
                     prevKey = null,
                     nextKey = null,
                     itemsBefore = 0,
-                    itemsAfter = 0
-                )
+                    itemsAfter = 0,
+                ),
             )
     }
 
@@ -80,8 +80,8 @@ class NetworkTimelinePagingSourceTest {
                     prevKey = "2",
                     nextKey = "0",
                     itemsBefore = 1,
-                    itemsAfter = 1
-                )
+                    itemsAfter = 1,
+                ),
             )
     }
 
@@ -107,8 +107,8 @@ class NetworkTimelinePagingSourceTest {
                     prevKey = "2",
                     nextKey = "0",
                     itemsBefore = 1,
-                    itemsAfter = 1
-                )
+                    itemsAfter = 1,
+                ),
             )
     }
 
@@ -134,8 +134,8 @@ class NetworkTimelinePagingSourceTest {
                     prevKey = "2",
                     nextKey = "0",
                     itemsBefore = 1,
-                    itemsAfter = 1
-                )
+                    itemsAfter = 1,
+                ),
             )
     }
 
@@ -161,8 +161,8 @@ class NetworkTimelinePagingSourceTest {
                     prevKey = null,
                     nextKey = "1",
                     itemsBefore = 0,
-                    itemsAfter = 2
-                )
+                    itemsAfter = 2,
+                ),
             )
     }
 
@@ -188,8 +188,8 @@ class NetworkTimelinePagingSourceTest {
                     prevKey = null,
                     nextKey = null,
                     itemsBefore = 0,
-                    itemsAfter = 0
-                )
+                    itemsAfter = 0,
+                ),
             )
     }
 
@@ -215,8 +215,8 @@ class NetworkTimelinePagingSourceTest {
                     prevKey = null,
                     nextKey = null,
                     itemsBefore = 0,
-                    itemsAfter = 0
-                )
+                    itemsAfter = 0,
+                ),
             )
     }
 }

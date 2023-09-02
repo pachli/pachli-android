@@ -54,7 +54,7 @@ data class Language(
     val displayName: String,
 
     /** Name of the language in English */
-    val displayNameEnglish: String
+    val displayNameEnglish: String,
 ) {
     companion object {
         private val toTitle = CaseMap.toTitle()
@@ -63,7 +63,7 @@ data class Language(
         fun from(locale: ULocale) = Language(
             locale.name.replace("_", "-"),
             toTitle.apply(locale.toLocale(), null, locale.getDisplayName(locale)),
-            locale.getDisplayName(ULocale.ENGLISH)
+            locale.getDisplayName(ULocale.ENGLISH),
         )
     }
 }

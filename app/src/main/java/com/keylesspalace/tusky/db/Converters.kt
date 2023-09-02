@@ -38,7 +38,7 @@ import javax.inject.Singleton
 @ProvidedTypeConverter
 @Singleton
 class Converters @Inject constructor(
-    private val gson: Gson
+    private val gson: Gson,
 ) {
 
     @TypeConverter

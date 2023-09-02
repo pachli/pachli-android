@@ -31,7 +31,7 @@ class SearchAccountsAdapter(private val linkListener: LinkListener, private val 
         val binding = ItemAccountBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false
+            false,
         )
         return AccountViewHolder(binding)
     }

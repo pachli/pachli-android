@@ -10,5 +10,5 @@ class Error<T> (
     override val data: T? = null,
     val errorMessage: String? = null,
     var consumed: Boolean = false,
-    val cause: Throwable? = null
+    val cause: Throwable? = null,
 ) : Resource<T>(data)

@@ -21,5 +21,5 @@ data class ScheduledStatus(
     val id: String,
     @SerializedName("scheduled_at") val scheduledAt: String,
     val params: StatusParams,
-    @SerializedName("media_attachments") val mediaAttachments: ArrayList<Attachment>
+    @SerializedName("media_attachments") val mediaAttachments: ArrayList<Attachment>,
 )

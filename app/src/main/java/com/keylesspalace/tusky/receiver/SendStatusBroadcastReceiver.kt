@@ -97,8 +97,8 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                         idempotencyKey = randomAlphanumericString(16),
                         retries = 0,
                         language = null,
-                        statusId = null
-                    )
+                        statusId = null,
+                    ),
                 )
 
                 context.startService(sendIntent)

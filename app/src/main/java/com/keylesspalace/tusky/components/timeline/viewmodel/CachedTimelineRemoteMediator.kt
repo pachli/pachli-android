@@ -45,7 +45,7 @@ class CachedTimelineRemoteMediator(
     accountManager: AccountManager,
     private val factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>,
     private val db: AppDatabase,
-    private val gson: Gson
+    private val gson: Gson,
 ) : RemoteMediator<Int, TimelineStatusWithAccount>() {
 
     private val timelineDao = db.timelineDao()
@@ -54,7 +54,7 @@ class CachedTimelineRemoteMediator(
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, TimelineStatusWithAccount>
+        state: PagingState<Int, TimelineStatusWithAccount>,
     ): MediatorResult {
         if (!activeAccount.isLoggedIn()) {
             return MediatorResult.Success(endOfPaginationReached = true)
@@ -74,7 +74,7 @@ class CachedTimelineRemoteMediator(
                         remoteKeyDao.remoteKeyForKind(
                             activeAccount.id,
                             TIMELINE_ID,
-                            RemoteKeyKind.NEXT
+                            RemoteKeyKind.NEXT,
                         )
                     } ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Log.d(TAG, "Loading from remoteKey: $rke")
@@ -85,7 +85,7 @@ class CachedTimelineRemoteMediator(
                         remoteKeyDao.remoteKeyForKind(
                             activeAccount.id,
                             TIMELINE_ID,
-                            RemoteKeyKind.PREV
+                            RemoteKeyKind.PREV,
                         )
                     } ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Log.d(TAG, "Loading from remoteKey: $rke")
@@ -118,16 +118,16 @@ class CachedTimelineRemoteMediator(
                                 activeAccount.id,
                                 TIMELINE_ID,
                                 RemoteKeyKind.NEXT,
-                                links.next
-                            )
+                                links.next,
+                            ),
                         )
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 activeAccount.id,
                                 TIMELINE_ID,
                                 RemoteKeyKind.PREV,
-                                links.prev
-                            )
+                                links.prev,
+                            ),
                         )
                     }
                     // links.prev may be null if there are no statuses, only set if non-null,
@@ -138,8 +138,8 @@ class CachedTimelineRemoteMediator(
                                 activeAccount.id,
                                 TIMELINE_ID,
                                 RemoteKeyKind.PREV,
-                                prev
-                            )
+                                prev,
+                            ),
                         )
                     }
                     // links.next may be null if there are no statuses, only set if non-null,
@@ -150,8 +150,8 @@ class CachedTimelineRemoteMediator(
                                 activeAccount.id,
                                 TIMELINE_ID,
                                 RemoteKeyKind.NEXT,
-                                next
-                            )
+                                next,
+                            ),
                         )
                     }
                 }
@@ -206,8 +206,8 @@ class CachedTimelineRemoteMediator(
                     gson = gson,
                     expanded = expanded,
                     contentShowing = contentShowing,
-                    contentCollapsed = contentCollapsed
-                )
+                    contentCollapsed = contentCollapsed,
+                ),
             )
         }
         return overlappedStatuses

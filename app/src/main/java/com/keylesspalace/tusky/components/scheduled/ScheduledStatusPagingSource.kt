@@ -23,7 +23,7 @@ import com.keylesspalace.tusky.network.MastodonApi
 import kotlinx.coroutines.rx3.await
 
 class ScheduledStatusPagingSourceFactory(
-    private val mastodonApi: MastodonApi
+    private val mastodonApi: MastodonApi,
 ) : () -> ScheduledStatusPagingSource {
 
     private val scheduledTootsCache = mutableListOf<ScheduledStatus>()
@@ -44,7 +44,7 @@ class ScheduledStatusPagingSourceFactory(
 
 class ScheduledStatusPagingSource(
     private val mastodonApi: MastodonApi,
-    private val scheduledStatusesCache: MutableList<ScheduledStatus>
+    private val scheduledStatusesCache: MutableList<ScheduledStatus>,
 ) : PagingSource<String, ScheduledStatus>() {
 
     override fun getRefreshKey(state: PagingState<String, ScheduledStatus>): String? {
@@ -56,19 +56,19 @@ class ScheduledStatusPagingSource(
             LoadResult.Page(
                 data = scheduledStatusesCache,
                 prevKey = null,
-                nextKey = scheduledStatusesCache.lastOrNull()?.id
+                nextKey = scheduledStatusesCache.lastOrNull()?.id,
             )
         } else {
             try {
                 val result = mastodonApi.scheduledStatuses(
                     maxId = params.key,
-                    limit = params.loadSize
+                    limit = params.loadSize,
                 ).await()
 
                 LoadResult.Page(
                     data = result,
                     prevKey = null,
-                    nextKey = result.lastOrNull()?.id
+                    nextKey = result.lastOrNull()?.id,
                 )
             } catch (e: Exception) {
                 Log.w("ScheduledStatuses", "Error loading scheduled statuses", e)

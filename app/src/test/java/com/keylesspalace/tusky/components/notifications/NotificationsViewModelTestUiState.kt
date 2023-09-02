@@ -35,7 +35,7 @@ class NotificationsViewModelTestUiState : NotificationsViewModelTestBase() {
 
     private val initialUiState = UiState(
         activeFilter = setOf(Notification.Type.FOLLOW),
-        showFabWhileScrolling = true
+        showFabWhileScrolling = true,
     )
 
     @Test

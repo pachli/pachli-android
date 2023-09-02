@@ -45,7 +45,7 @@ import javax.inject.Inject
 class DraftHelper @Inject constructor(
     val context: Context,
     private val okHttpClient: OkHttpClient,
-    db: AppDatabase
+    db: AppDatabase,
 ) {
 
     private val draftDao = db.draftDao()
@@ -66,7 +66,7 @@ class DraftHelper @Inject constructor(
         failedToSendAlert: Boolean,
         scheduledAt: String?,
         language: String?,
-        statusId: String?
+        statusId: String?,
     ) = withContext(Dispatchers.IO) {
         val externalFilesDir = context.getExternalFilesDir("Tusky")
 
@@ -108,8 +108,8 @@ class DraftHelper @Inject constructor(
                     uriString = uris[i].toString(),
                     description = mediaDescriptions[i],
                     focus = mediaFocus[i],
-                    type = types[i]
-                )
+                    type = types[i],
+                ),
             )
         }
 
@@ -127,7 +127,7 @@ class DraftHelper @Inject constructor(
             failedToSendNew = failedToSendAlert,
             scheduledAt = scheduledAt,
             language = language,
-            statusId = statusId
+            statusId = statusId,
         )
 
         draftDao.insertOrReplace(draft)

@@ -158,7 +158,7 @@ class ViewVideoFragment : ViewMediaFragment(), Injectable {
                         e1: MotionEvent,
                         e2: MotionEvent,
                         velocityX: Float,
-                        velocityY: Float
+                        velocityY: Float,
                     ): Boolean {
                         if (abs(velocityY) > abs(velocityX)) {
                             videoActionsListener.onDismiss()
@@ -166,7 +166,7 @@ class ViewVideoFragment : ViewMediaFragment(), Injectable {
                         }
                         return false
                     }
-                }
+                },
             )
 
             @SuppressLint("ClickableViewAccessibility")
@@ -231,7 +231,7 @@ class ViewVideoFragment : ViewMediaFragment(), Injectable {
                 binding.progressBar.hide()
                 val message = getString(
                     R.string.error_media_playback,
-                    error.cause?.message ?: error.message
+                    error.cause?.message ?: error.message,
                 )
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
                     .setTextMaxLines(10)
@@ -324,22 +324,24 @@ class ViewVideoFragment : ViewMediaFragment(), Injectable {
         // Audio-only files might have a preview image. If they do, set it as the artwork
         if (isAudio) {
             mediaAttachment.previewUrl?.let { url ->
-                Glide.with(this).load(url).into(object : CustomTarget<Drawable>() {
-                    @SuppressLint("SyntheticAccessor")
-                    override fun onResourceReady(
-                        resource: Drawable,
-                        transition: Transition<in Drawable>?
-                    ) {
-                        view ?: return
-                        binding.videoView.defaultArtwork = resource
-                    }
+                Glide.with(this).load(url).into(
+                    object : CustomTarget<Drawable>() {
+                        @SuppressLint("SyntheticAccessor")
+                        override fun onResourceReady(
+                            resource: Drawable,
+                            transition: Transition<in Drawable>?,
+                        ) {
+                            view ?: return
+                            binding.videoView.defaultArtwork = resource
+                        }
 
-                    @SuppressLint("SyntheticAccessor")
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                        view ?: return
-                        binding.videoView.defaultArtwork = null
-                    }
-                })
+                        @SuppressLint("SyntheticAccessor")
+                        override fun onLoadCleared(placeholder: Drawable?) {
+                            view ?: return
+                            binding.videoView.defaultArtwork = null
+                        }
+                    },
+                )
             }
         }
     }
@@ -349,7 +351,7 @@ class ViewVideoFragment : ViewMediaFragment(), Injectable {
         url: String,
         previewUrl: String?,
         description: String?,
-        showingDescription: Boolean
+        showingDescription: Boolean,
     ) {
         binding.mediaDescription.text = description
         binding.mediaDescription.visible(showingDescription)
@@ -385,14 +387,16 @@ class ViewVideoFragment : ViewMediaFragment(), Injectable {
         }
 
         binding.mediaDescription.animate().alpha(alpha)
-            .setListener(object : AnimatorListenerAdapter() {
-                @SuppressLint("SyntheticAccessor")
-                override fun onAnimationEnd(animation: Animator) {
-                    view ?: return
-                    binding.mediaDescription.visible(isDescriptionVisible)
-                    animation.removeListener(this)
-                }
-            })
+            .setListener(
+                object : AnimatorListenerAdapter() {
+                    @SuppressLint("SyntheticAccessor")
+                    override fun onAnimationEnd(animation: Animator) {
+                        view ?: return
+                        binding.mediaDescription.visible(isDescriptionVisible)
+                        animation.removeListener(this)
+                    }
+                },
+            )
             .start()
 
         if (visible && (binding.videoView.player?.isPlaying == true) && !isAudio) {

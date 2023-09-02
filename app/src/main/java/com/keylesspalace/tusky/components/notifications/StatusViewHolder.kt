@@ -27,13 +27,13 @@ import com.keylesspalace.tusky.viewdata.NotificationViewData
 internal class StatusViewHolder(
     binding: ViewBinding,
     private val statusActionListener: StatusActionListener,
-    private val accountId: String
+    private val accountId: String,
 ) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder(binding.root) {
 
     override fun bind(
         viewData: NotificationViewData,
         payloads: List<*>?,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         val statusViewData = viewData.statusViewData
         if (statusViewData == null) {
@@ -48,7 +48,7 @@ internal class StatusViewHolder(
                 statusViewData,
                 statusActionListener,
                 statusDisplayOptions,
-                payloads?.firstOrNull()
+                payloads?.firstOrNull(),
             )
         }
         if (viewData.type == Notification.Type.POLL) {

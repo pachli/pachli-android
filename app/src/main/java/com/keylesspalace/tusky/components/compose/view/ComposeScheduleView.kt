@@ -40,7 +40,7 @@ class ComposeScheduleView
 @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     interface OnTimeSetListener {
         fun onTimeSet(time: String?)
@@ -48,14 +48,14 @@ class ComposeScheduleView
 
     private var binding = ViewComposeScheduleBinding.inflate(
         (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater),
-        this
+        this,
     )
     private var listener: OnTimeSetListener? = null
     private var dateFormat = SimpleDateFormat.getDateInstance()
     private var timeFormat = SimpleDateFormat.getTimeInstance()
     private var iso8601 = SimpleDateFormat(
         "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-        Locale.getDefault()
+        Locale.getDefault(),
     ).apply {
         timeZone = TimeZone.getTimeZone("UTC")
     }
@@ -85,7 +85,7 @@ class ComposeScheduleView
         binding.scheduledDateTime.text = String.format(
             "%s %s",
             dateFormat.format(scheduled),
-            timeFormat.format(scheduled)
+            timeFormat.format(scheduled),
         )
         verifyScheduledTime(scheduled)
     }
@@ -184,7 +184,7 @@ class ComposeScheduleView
             val minimumScheduledTime = calendar()
             minimumScheduledTime.add(
                 Calendar.SECOND,
-                MINIMUM_SCHEDULED_SECONDS
+                MINIMUM_SCHEDULED_SECONDS,
             )
             scheduledTime.after(minimumScheduledTime.time)
         } else {

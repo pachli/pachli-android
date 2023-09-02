@@ -25,7 +25,7 @@ import com.keylesspalace.tusky.databinding.ItemTrendingDateBinding
 import com.keylesspalace.tusky.viewdata.TrendingViewData
 
 class TrendingTagsAdapter(
-    private val onViewTag: (String) -> Unit
+    private val onViewTag: (String) -> Unit,
 ) : ListAdapter<TrendingViewData, RecyclerView.ViewHolder>(TrendingDifferCallback) {
 
     init {
@@ -76,14 +76,14 @@ class TrendingTagsAdapter(
         val TrendingDifferCallback = object : DiffUtil.ItemCallback<TrendingViewData>() {
             override fun areItemsTheSame(
                 oldItem: TrendingViewData,
-                newItem: TrendingViewData
+                newItem: TrendingViewData,
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
                 oldItem: TrendingViewData,
-                newItem: TrendingViewData
+                newItem: TrendingViewData,
             ): Boolean {
                 return oldItem == newItem
             }

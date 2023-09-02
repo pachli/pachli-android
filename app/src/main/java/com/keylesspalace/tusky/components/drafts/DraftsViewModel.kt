@@ -33,12 +33,12 @@ class DraftsViewModel @Inject constructor(
     val database: AppDatabase,
     val accountManager: AccountManager,
     val api: MastodonApi,
-    private val draftHelper: DraftHelper
+    private val draftHelper: DraftHelper,
 ) : ViewModel() {
 
     val drafts = Pager(
         config = PagingConfig(pageSize = 20),
-        pagingSourceFactory = { database.draftDao().draftsPagingSource(accountManager.activeAccount?.id!!) }
+        pagingSourceFactory = { database.draftDao().draftsPagingSource(accountManager.activeAccount?.id!!) },
     ).flow
         .cachedIn(viewModelScope)
 

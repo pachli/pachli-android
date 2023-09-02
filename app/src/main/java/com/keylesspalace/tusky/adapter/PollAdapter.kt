@@ -49,7 +49,7 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
         mode: Int,
         resultClickListener: View.OnClickListener?,
         animateEmojis: Boolean,
-        enabled: Boolean = true
+        enabled: Boolean = true,
     ) {
         this.pollOptions = options
         this.voteCount = voteCount

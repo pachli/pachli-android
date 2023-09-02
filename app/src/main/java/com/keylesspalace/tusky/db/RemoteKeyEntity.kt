@@ -24,14 +24,14 @@ enum class RemoteKeyKind {
     NEXT,
 
     /** Key to load the previous (chronologically newer) page of data for this timeline */
-    PREV
+    PREV,
 }
 
 /**
  * The next and previous keys for the given timeline.
  */
 @Entity(
-    primaryKeys = ["accountId", "timelineId", "kind"]
+    primaryKeys = ["accountId", "timelineId", "kind"],
 )
 data class RemoteKeyEntity(
     /** User account these keys relate to. */
@@ -50,5 +50,5 @@ data class RemoteKeyEntity(
      */
     val timelineId: String,
     val kind: RemoteKeyKind,
-    val key: String? = null
+    val key: String? = null,
 )

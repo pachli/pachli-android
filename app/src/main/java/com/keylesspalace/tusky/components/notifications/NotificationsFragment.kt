@@ -114,14 +114,14 @@ class NotificationsFragment :
             statusActionListener = this,
             notificationActionListener = this,
             accountActionListener = this,
-            statusDisplayOptions = viewModel.statusDisplayOptions.value
+            statusDisplayOptions = viewModel.statusDisplayOptions.value,
         )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         return inflater.inflate(R.layout.fragment_timeline_notifications, container, false)
     }
@@ -149,7 +149,7 @@ class NotificationsFragment :
         binding.recyclerView.setAccessibilityDelegateCompat(
             ListStatusAccessibilityDelegate(
                 binding.recyclerView,
-                this
+                this,
             ) { pos: Int ->
                 val notification = adapter.snapshot().getOrNull(pos)
                 // We support replies only for now
@@ -158,49 +158,51 @@ class NotificationsFragment :
                 } else {
                     null
                 }
-            }
+            },
         )
         binding.recyclerView.addItemDecoration(
             DividerItemDecoration(
                 context,
-                DividerItemDecoration.VERTICAL
-            )
+                DividerItemDecoration.VERTICAL,
+            ),
         )
 
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            val actionButton = (activity as ActionButtonActivity).actionButton
+        binding.recyclerView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                val actionButton = (activity as ActionButtonActivity).actionButton
 
-            override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
-                actionButton?.let { fab ->
-                    if (!viewModel.uiState.value.showFabWhileScrolling) {
-                        if (dy > 0 && fab.isShown) {
-                            fab.hide() // Hide when scrolling down
-                        } else if (dy < 0 && !fab.isShown) {
-                            fab.show() // Show when scrolling up
+                override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
+                    actionButton?.let { fab ->
+                        if (!viewModel.uiState.value.showFabWhileScrolling) {
+                            if (dy > 0 && fab.isShown) {
+                                fab.hide() // Hide when scrolling down
+                            } else if (dy < 0 && !fab.isShown) {
+                                fab.show() // Show when scrolling up
+                            }
+                        } else if (!fab.isShown) {
+                            fab.show()
                         }
-                    } else if (!fab.isShown) {
-                        fab.show()
                     }
                 }
-            }
 
-            @Suppress("SyntheticAccessor")
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                newState != SCROLL_STATE_IDLE && return
+                @Suppress("SyntheticAccessor")
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    newState != SCROLL_STATE_IDLE && return
 
-                // Save the ID of the first notification visible in the list, so the user's
-                // reading position is always restorable.
-                layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
-                    adapter.snapshot().getOrNull(position)?.id?.let { id ->
-                        viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = id))
+                    // Save the ID of the first notification visible in the list, so the user's
+                    // reading position is always restorable.
+                    layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
+                        adapter.snapshot().getOrNull(position)?.id?.let { id ->
+                            viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = id))
+                        }
                     }
                 }
-            }
-        })
+            },
+        )
 
         binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
             header = TimelineLoadStateAdapter { adapter.retry() },
-            footer = TimelineLoadStateAdapter { adapter.retry() }
+            footer = TimelineLoadStateAdapter { adapter.retry() },
         )
 
         (binding.recyclerView.itemAnimator as SimpleItemAnimator?)!!.supportsChangeAnimations =
@@ -241,13 +243,13 @@ class NotificationsFragment :
                         val message = getString(
                             error.message,
                             error.throwable.localizedMessage
-                                ?: getString(R.string.ui_error_unknown)
+                                ?: getString(R.string.ui_error_unknown),
                         )
                         val snackbar = Snackbar.make(
                             // Without this the FAB will not move out of the way
                             (activity as ActionButtonActivity).actionButton ?: binding.root,
                             message,
-                            Snackbar.LENGTH_INDEFINITE
+                            Snackbar.LENGTH_INDEFINITE,
                         ).setTextMaxLines(5)
                         error.action?.let { action ->
                             snackbar.setAction(R.string.action_retry) {
@@ -281,14 +283,15 @@ class NotificationsFragment :
                             Snackbar.make(
                                 (activity as ActionButtonActivity).actionButton ?: binding.root,
                                 getString(it.msg),
-                                Snackbar.LENGTH_SHORT
+                                Snackbar.LENGTH_SHORT,
                             ).show()
 
                             when (it) {
                                 // The follow request is no longer valid, refresh the adapter to
                                 // remove it.
                                 is NotificationActionSuccess.AcceptFollowRequest,
-                                is NotificationActionSuccess.RejectFollowRequest -> adapter.refresh()
+                                is NotificationActionSuccess.RejectFollowRequest,
+                                -> adapter.refresh()
                             }
                         }
                 }
@@ -318,11 +321,11 @@ class NotificationsFragment :
                                     statusViewData.status.copy(reblogged = it.action.state)
                                 is StatusActionSuccess.VoteInPoll ->
                                     statusViewData.status.copy(
-                                        poll = it.action.poll.votedCopy(it.action.choices)
+                                        poll = it.action.poll.votedCopy(it.action.choices),
                                     )
                             }
                             indexedViewData.value?.statusViewData = statusViewData.copy(
-                                status = status
+                                status = status,
                             )
 
                             adapter.notifyItemChanged(indexedViewData.index)
@@ -402,7 +405,7 @@ class NotificationsFragment :
                                     getView() ?: return@post
                                     binding.recyclerView.smoothScrollBy(
                                         0,
-                                        Utils.dpToPx(requireContext(), -30)
+                                        Utils.dpToPx(requireContext(), -30),
                                     )
                                 }
                                 peeked = true
@@ -441,7 +444,7 @@ class NotificationsFragment :
                             if (adapter.itemCount == 0) {
                                 binding.statusView.setup(
                                     R.drawable.elephant_friend_empty,
-                                    R.string.message_empty
+                                    R.string.message_empty,
                                 )
                                 binding.recyclerView.hide()
                                 binding.statusView.show()
@@ -559,7 +562,7 @@ class NotificationsFragment :
         super.viewMedia(
             attachmentIndex,
             list(status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
-            view
+            view,
         )
     }
 
@@ -576,7 +579,7 @@ class NotificationsFragment :
     override fun onExpandedChange(expanded: Boolean, position: Int) {
         val notificationViewData = adapter.snapshot()[position] ?: return
         notificationViewData.statusViewData = notificationViewData.statusViewData?.copy(
-            isExpanded = expanded
+            isExpanded = expanded,
         )
         adapter.notifyItemChanged(position)
     }
@@ -584,7 +587,7 @@ class NotificationsFragment :
     override fun onContentHiddenChange(isShowing: Boolean, position: Int) {
         val notificationViewData = adapter.snapshot()[position] ?: return
         notificationViewData.statusViewData = notificationViewData.statusViewData?.copy(
-            isShowingContent = isShowing
+            isShowingContent = isShowing,
         )
         adapter.notifyItemChanged(position)
     }
@@ -592,7 +595,7 @@ class NotificationsFragment :
     override fun onContentCollapsedChange(isCollapsed: Boolean, position: Int) {
         val notificationViewData = adapter.snapshot()[position] ?: return
         notificationViewData.statusViewData = notificationViewData.statusViewData?.copy(
-            isCollapsed = isCollapsed
+            isCollapsed = isCollapsed,
         )
         adapter.notifyItemChanged(position)
     }
@@ -604,7 +607,7 @@ class NotificationsFragment :
     override fun clearWarningAction(position: Int) {
         val notificationViewData = adapter.snapshot()[position] ?: return
         notificationViewData.statusViewData = notificationViewData.statusViewData?.copy(
-            filterAction = Filter.Action.NONE
+            filterAction = Filter.Action.NONE,
         )
         adapter.notifyItemChanged(position)
     }
@@ -654,7 +657,7 @@ class NotificationsFragment :
 
     override fun onViewReport(reportId: String) {
         requireContext().openLink(
-            "https://${viewModel.account.domain}/admin/reports/$reportId"
+            "https://${viewModel.account.domain}/admin/reports/$reportId",
         )
     }
 
@@ -676,21 +679,21 @@ class NotificationsFragment :
             object : DiffUtil.ItemCallback<NotificationViewData>() {
                 override fun areItemsTheSame(
                     oldItem: NotificationViewData,
-                    newItem: NotificationViewData
+                    newItem: NotificationViewData,
                 ): Boolean {
                     return oldItem.id == newItem.id
                 }
 
                 override fun areContentsTheSame(
                     oldItem: NotificationViewData,
-                    newItem: NotificationViewData
+                    newItem: NotificationViewData,
                 ): Boolean {
                     return false
                 }
 
                 override fun getChangePayload(
                     oldItem: NotificationViewData,
-                    newItem: NotificationViewData
+                    newItem: NotificationViewData,
                 ): Any? {
                     return if (oldItem == newItem) {
                         //  If items are equal - update timestamp only
@@ -706,7 +709,7 @@ class NotificationsFragment :
 
 class FilterDialogFragment(
     private val activeFilter: Set<Notification.Type>,
-    private val listener: ((filter: Set<Notification.Type>) -> Unit)
+    private val listener: ((filter: Set<Notification.Type>) -> Unit),
 ) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val context = requireContext()

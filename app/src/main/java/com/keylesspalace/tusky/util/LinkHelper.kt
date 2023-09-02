@@ -112,7 +112,7 @@ fun setClickableText(
     builder: SpannableStringBuilder,
     mentions: List<Mention>,
     tags: List<HashTag>?,
-    listener: LinkListener
+    listener: LinkListener,
 ) = builder.apply {
     val start = getSpanStart(span)
     val end = getSpanEnd(span)

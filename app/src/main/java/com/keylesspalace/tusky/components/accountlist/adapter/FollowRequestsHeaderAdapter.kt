@@ -24,7 +24,7 @@ import com.keylesspalace.tusky.util.BindingHolder
 
 class FollowRequestsHeaderAdapter(
     private val instanceName: String,
-    private val accountLocked: Boolean
+    private val accountLocked: Boolean,
 ) : RecyclerView.Adapter<BindingHolder<ItemFollowRequestsHeaderBinding>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemFollowRequestsHeaderBinding> {

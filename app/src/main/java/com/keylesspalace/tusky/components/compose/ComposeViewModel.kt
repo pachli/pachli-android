@@ -58,7 +58,7 @@ class ComposeViewModel @Inject constructor(
     private val mediaUploader: MediaUploader,
     private val serviceClient: ServiceClient,
     private val draftHelper: DraftHelper,
-    instanceInfoRepo: InstanceInfoRepository
+    instanceInfoRepo: InstanceInfoRepository,
 ) : ViewModel() {
 
     private var replyingStatusAuthor: String? = null
@@ -124,7 +124,7 @@ class ComposeViewModel @Inject constructor(
         mediaSize: Long,
         description: String? = null,
         focus: Attachment.Focus? = null,
-        replaceItem: QueuedMedia? = null
+        replaceItem: QueuedMedia? = null,
     ): QueuedMedia {
         var stashMediaItem: QueuedMedia? = null
 
@@ -136,7 +136,7 @@ class ComposeViewModel @Inject constructor(
                 mediaSize = mediaSize,
                 description = description,
                 focus = focus,
-                state = QueuedMedia.State.UPLOADING
+                state = QueuedMedia.State.UPLOADING,
             )
             stashMediaItem = mediaItem
 
@@ -164,7 +164,7 @@ class ComposeViewModel @Inject constructor(
                             item.copy(
                                 id = event.mediaId,
                                 uploadPercent = -1,
-                                state = if (event.processed) { QueuedMedia.State.PROCESSED } else { QueuedMedia.State.UNPROCESSED }
+                                state = if (event.processed) { QueuedMedia.State.PROCESSED } else { QueuedMedia.State.UNPROCESSED },
                             )
                         is UploadEvent.ErrorEvent -> {
                             media.update { mediaList -> mediaList.filter { it.localId != mediaItem.localId } }
@@ -197,7 +197,7 @@ class ComposeViewModel @Inject constructor(
                 id = id,
                 description = description,
                 focus = focus,
-                state = QueuedMedia.State.PUBLISHED
+                state = QueuedMedia.State.PUBLISHED,
             )
             mediaList + mediaItem
         }
@@ -297,7 +297,7 @@ class ComposeViewModel @Inject constructor(
             failedToSendAlert = false,
             scheduledAt = scheduledAt.value,
             language = postLanguage,
-            statusId = originalStatusId
+            statusId = originalStatusId,
         )
     }
 
@@ -308,7 +308,7 @@ class ComposeViewModel @Inject constructor(
     suspend fun sendStatus(
         content: String,
         spoilerText: String,
-        accountId: Long
+        accountId: Long,
     ) {
         if (!scheduledTootId.isNullOrEmpty()) {
             api.deleteScheduledStatus(scheduledTootId!!)
@@ -321,7 +321,7 @@ class ComposeViewModel @Inject constructor(
                 uri = item.uri.toString(),
                 description = item.description,
                 focus = item.focus,
-                processed = item.state == QueuedMedia.State.PROCESSED || item.state == QueuedMedia.State.PUBLISHED
+                processed = item.state == QueuedMedia.State.PROCESSED || item.state == QueuedMedia.State.PUBLISHED,
             )
         }
         val tootToSend = StatusToSend(
@@ -340,7 +340,7 @@ class ComposeViewModel @Inject constructor(
             idempotencyKey = randomAlphanumericString(16),
             retries = 0,
             language = postLanguage,
-            statusId = originalStatusId
+            statusId = originalStatusId,
         )
 
         serviceClient.sendToot(tootToSend)
@@ -379,7 +379,7 @@ class ComposeViewModel @Inject constructor(
                     }, { e ->
                         Log.e(TAG, "Autocomplete search for $token failed.", e)
                         emptyList()
-                    })
+                    },)
             }
             '#' -> {
                 return api.searchSync(query = token, type = SearchType.Hashtag.apiParameter, limit = 10)
@@ -388,7 +388,7 @@ class ComposeViewModel @Inject constructor(
                     }, { e ->
                         Log.e(TAG, "Autocomplete search for $token failed.", e)
                         emptyList()
-                    })
+                    },)
             }
             ':' -> {
                 val emojiList = emoji.replayCache.firstOrNull() ?: return emptyList()
@@ -420,7 +420,7 @@ class ComposeViewModel @Inject constructor(
 
         val replyVisibility = composeOptions?.replyVisibility ?: Status.Visibility.UNKNOWN
         startingVisibility = Status.Visibility.byNum(
-            preferredVisibility.num.coerceAtLeast(replyVisibility.num)
+            preferredVisibility.num.coerceAtLeast(replyVisibility.num),
         )
 
         inReplyToId = composeOptions?.inReplyToId
@@ -516,7 +516,7 @@ class ComposeViewModel @Inject constructor(
         SAVE_OR_DISCARD,
         UPDATE_OR_DISCARD,
         CONTINUE_EDITING_OR_DISCARD_CHANGES, // editing post
-        CONTINUE_EDITING_OR_DISCARD_DRAFT // edit draft
+        CONTINUE_EDITING_OR_DISCARD_DRAFT, // edit draft
     }
 }
 

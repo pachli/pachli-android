@@ -65,7 +65,7 @@ internal class ListsViewModel @Inject constructor(private val api: MastodonApi) 
                     updateState {
                         copy(
                             lists = lists,
-                            loadingState = LoadingState.LOADED
+                            loadingState = LoadingState.LOADED,
                         )
                     }
                 },
@@ -76,10 +76,10 @@ internal class ListsViewModel @Inject constructor(private val api: MastodonApi) 
                                 LoadingState.ERROR_NETWORK
                             } else {
                                 LoadingState.ERROR_OTHER
-                            }
+                            },
                         )
                     }
-                }
+                },
             )
         }
     }
@@ -94,7 +94,7 @@ internal class ListsViewModel @Inject constructor(private val api: MastodonApi) 
                 },
                 {
                     sendEvent(Event.CREATE_ERROR)
-                }
+                },
             )
         }
     }
@@ -109,7 +109,7 @@ internal class ListsViewModel @Inject constructor(private val api: MastodonApi) 
                 },
                 {
                     sendEvent(Event.UPDATE_ERROR)
-                }
+                },
             )
         }
     }
@@ -124,7 +124,7 @@ internal class ListsViewModel @Inject constructor(private val api: MastodonApi) 
                 },
                 {
                     sendEvent(Event.DELETE_ERROR)
-                }
+                },
             )
         }
     }

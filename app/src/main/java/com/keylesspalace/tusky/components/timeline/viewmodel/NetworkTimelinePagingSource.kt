@@ -28,7 +28,7 @@ private val INVALID = LoadResult.Invalid<String, Status>()
 
 /** [PagingSource] for Mastodon Status, identified by the Status ID */
 class NetworkTimelinePagingSource @Inject constructor(
-    private val pageCache: PageCache
+    private val pageCache: PageCache,
 ) : PagingSource<String, Status>() {
 
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Status> {
@@ -139,7 +139,7 @@ class NetworkTimelinePagingSource @Inject constructor(
             nextKey = page?.nextKey,
             prevKey = page?.prevKey,
             itemsAfter = itemsAfter,
-            itemsBefore = itemsBefore
+            itemsBefore = itemsBefore,
         )
     }
 

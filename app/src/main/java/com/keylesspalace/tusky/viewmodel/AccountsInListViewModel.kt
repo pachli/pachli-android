@@ -48,7 +48,7 @@ class AccountsInListViewModel @Inject constructor(private val api: MastodonApi) 
                     },
                     { e ->
                         updateState { copy(accounts = Left(e)) }
-                    }
+                    },
                 )
             }
         }
@@ -66,9 +66,9 @@ class AccountsInListViewModel @Inject constructor(private val api: MastodonApi) 
                     {
                         Log.i(
                             javaClass.simpleName,
-                            "Failed to add account to list: ${account.username}"
+                            "Failed to add account to list: ${account.username}",
                         )
-                    }
+                    },
                 )
         }
     }
@@ -82,16 +82,16 @@ class AccountsInListViewModel @Inject constructor(private val api: MastodonApi) 
                             copy(
                                 accounts = accounts.map { accounts ->
                                     accounts.withoutFirstWhich { it.id == accountId }
-                                }
+                                },
                             )
                         }
                     },
                     {
                         Log.i(
                             javaClass.simpleName,
-                            "Failed to remove account from list: $accountId"
+                            "Failed to remove account from list: $accountId",
                         )
-                    }
+                    },
                 )
         }
     }
@@ -108,7 +108,7 @@ class AccountsInListViewModel @Inject constructor(private val api: MastodonApi) 
                         },
                         {
                             updateState { copy(searchResult = listOf()) }
-                        }
+                        },
                     )
             }
         }

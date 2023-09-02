@@ -64,7 +64,7 @@ class ListsForAccountFragment : DialogFragment(), Injectable {
         dialog?.apply {
             window?.setLayout(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
+                LinearLayout.LayoutParams.MATCH_PARENT,
             )
         }
     }
@@ -72,7 +72,7 @@ class ListsForAccountFragment : DialogFragment(), Injectable {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_lists_for_account, container, false)
     }
@@ -145,14 +145,14 @@ class ListsForAccountFragment : DialogFragment(), Injectable {
     private object Differ : DiffUtil.ItemCallback<AccountListState>() {
         override fun areItemsTheSame(
             oldItem: AccountListState,
-            newItem: AccountListState
+            newItem: AccountListState,
         ): Boolean {
             return oldItem.list.id == newItem.list.id
         }
 
         override fun areContentsTheSame(
             oldItem: AccountListState,
-            newItem: AccountListState
+            newItem: AccountListState,
         ): Boolean {
             return oldItem == newItem
         }
@@ -162,7 +162,7 @@ class ListsForAccountFragment : DialogFragment(), Injectable {
         ListAdapter<AccountListState, BindingHolder<ItemAddOrRemoveFromListBinding>>(Differ) {
         override fun onCreateViewHolder(
             parent: ViewGroup,
-            viewType: Int
+            viewType: Int,
         ): BindingHolder<ItemAddOrRemoveFromListBinding> {
             val binding =
                 ItemAddOrRemoveFromListBinding.inflate(LayoutInflater.from(parent.context), parent, false)

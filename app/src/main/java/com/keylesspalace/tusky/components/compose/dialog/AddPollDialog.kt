@@ -33,7 +33,7 @@ fun showAddPollDialog(
     maxOptionLength: Int,
     minDuration: Int,
     maxDuration: Int,
-    onUpdatePoll: (NewPoll) -> Unit
+    onUpdatePoll: (NewPoll) -> Unit,
 ) {
     val binding = DialogAddPollBinding.inflate(LayoutInflater.from(context))
 
@@ -54,7 +54,7 @@ fun showAddPollDialog(
         },
         onOptionChanged = { valid ->
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = valid
-        }
+        },
     )
 
     binding.pollChoices.adapter = adapter
@@ -94,8 +94,8 @@ fun showAddPollDialog(
                 NewPoll(
                     options = adapter.pollOptions,
                     expiresIn = durations[selectedPollDurationId],
-                    multiple = binding.multipleChoicesCheckBox.isChecked
-                )
+                    multiple = binding.multipleChoicesCheckBox.isChecked,
+                ),
             )
 
             dialog.dismiss()

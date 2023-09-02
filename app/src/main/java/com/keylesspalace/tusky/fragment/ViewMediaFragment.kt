@@ -30,7 +30,7 @@ abstract class ViewMediaFragment : Fragment() {
         url: String,
         previewUrl: String?,
         description: String?,
-        showingDescription: Boolean
+        showingDescription: Boolean,
     )
 
     abstract fun onToolbarVisibilityChange(visible: Boolean)
@@ -59,7 +59,8 @@ abstract class ViewMediaFragment : Fragment() {
                 Attachment.Type.IMAGE -> ViewImageFragment()
                 Attachment.Type.VIDEO,
                 Attachment.Type.GIFV,
-                Attachment.Type.AUDIO -> ViewVideoFragment()
+                Attachment.Type.AUDIO,
+                -> ViewVideoFragment()
                 else -> ViewImageFragment() // it probably won't show anything, but its better than crashing
             }
             fragment.arguments = arguments

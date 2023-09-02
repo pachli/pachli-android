@@ -36,8 +36,8 @@ import javax.inject.Singleton
         ServicesModule::class,
         BroadcastReceiverModule::class,
         ViewModelModule::class,
-        WorkerModule::class
-    ]
+        WorkerModule::class,
+    ],
 )
 interface AppComponent {
     @Component.Builder

@@ -58,7 +58,7 @@ class BottomSheetActivityTest {
         displayName = "Ad Min",
         note = "This is their bio",
         url = "http://mastodon.foo.bar/@User",
-        avatar = ""
+        avatar = "",
     )
     private val accountSingle = Single.just(SearchResult(listOf(account), emptyList(), emptyList()))
 
@@ -91,7 +91,7 @@ class BottomSheetActivityTest {
         poll = null,
         card = null,
         language = null,
-        filtered = null
+        filtered = null,
     )
     private val statusSingle = Single.just(SearchResult(emptyList(), listOf(status), emptyList()))
 

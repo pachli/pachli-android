@@ -38,13 +38,13 @@ data class InstanceEntity(
     val maxMediaAttachments: Int?,
     val maxFields: Int?,
     val maxFieldNameLength: Int?,
-    val maxFieldValueLength: Int?
+    val maxFieldValueLength: Int?,
 )
 
 @TypeConverters(Converters::class)
 data class EmojisEntity(
     @PrimaryKey val instance: String,
-    val emojiList: List<Emoji>?
+    val emojiList: List<Emoji>?,
 )
 
 data class InstanceInfoEntity(
@@ -62,5 +62,5 @@ data class InstanceInfoEntity(
     val maxMediaAttachments: Int?,
     val maxFields: Int?,
     val maxFieldNameLength: Int?,
-    val maxFieldValueLength: Int?
+    val maxFieldValueLength: Int?,
 )

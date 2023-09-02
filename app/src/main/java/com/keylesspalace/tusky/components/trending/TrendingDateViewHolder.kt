@@ -24,7 +24,7 @@ import java.util.Locale
 import java.util.TimeZone
 
 class TrendingDateViewHolder(
-    private val binding: ItemTrendingDateBinding
+    private val binding: ItemTrendingDateBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private val dateFormat = SimpleDateFormat("EEE dd MMM yyyy", Locale.getDefault()).apply {
@@ -35,7 +35,7 @@ class TrendingDateViewHolder(
         binding.dates.text = itemView.context.getString(
             R.string.date_range,
             dateFormat.format(start),
-            dateFormat.format(end)
+            dateFormat.format(end),
         )
     }
 }

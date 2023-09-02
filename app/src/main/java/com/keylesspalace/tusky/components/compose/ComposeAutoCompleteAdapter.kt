@@ -37,7 +37,7 @@ class ComposeAutoCompleteAdapter(
     private val autocompletionProvider: AutocompletionProvider,
     private val animateAvatar: Boolean,
     private val animateEmojis: Boolean,
-    private val showBotBadge: Boolean
+    private val showBotBadge: Boolean,
 ) : BaseAdapter(), Filterable {
 
     private var resultList: List<AutocompleteResult> = emptyList()
@@ -113,7 +113,7 @@ class ComposeAutoCompleteAdapter(
                     account.avatar,
                     binding.avatar,
                     avatarRadius,
-                    animateAvatar
+                    animateAvatar,
                 )
                 binding.avatarBadge.visible(showBotBadge && account.bot)
             }

@@ -52,7 +52,7 @@ class CachedTimelineViewModelTestStatusDisplayOptions : CachedTimelineViewModelT
         animateEmojis = false,
         showStatsInline = false,
         showSensitiveMedia = true, // setting in NotificationsViewModelTestBase
-        openSpoiler = true // setting in NotificationsViewModelTestBase
+        openSpoiler = true, // setting in NotificationsViewModelTestBase
     )
 
     @Test
@@ -75,7 +75,7 @@ class CachedTimelineViewModelTestStatusDisplayOptions : CachedTimelineViewModelT
         val updatedOptions = defaultStatusDisplayOptions.make(
             sharedPreferences,
             PrefKeys.ANIMATE_GIF_AVATARS,
-            accountManager.activeAccount!!
+            accountManager.activeAccount!!,
         )
 
         // Then, should be true

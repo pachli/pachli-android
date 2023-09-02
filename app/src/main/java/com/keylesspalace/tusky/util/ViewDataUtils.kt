@@ -46,7 +46,7 @@ fun Status.toViewData(
     isExpanded: Boolean,
     isCollapsed: Boolean,
     isDetailed: Boolean = false,
-    filterAction: Filter.Action = Filter.Action.NONE
+    filterAction: Filter.Action = Filter.Action.NONE,
 ): StatusViewData {
     return StatusViewData(
         status = this,
@@ -54,7 +54,7 @@ fun Status.toViewData(
         isCollapsed = isCollapsed,
         isExpanded = isExpanded,
         isDetailed = isDetailed,
-        filterAction = filterAction
+        filterAction = filterAction,
     )
 }
 
@@ -62,7 +62,7 @@ fun Notification.toViewData(
     isShowingContent: Boolean,
     isExpanded: Boolean,
     isCollapsed: Boolean,
-    filterAction: Filter.Action
+    filterAction: Filter.Action,
 ): NotificationViewData {
     return NotificationViewData(
         this.type,
@@ -72,9 +72,9 @@ fun Notification.toViewData(
             isShowingContent,
             isExpanded,
             isCollapsed,
-            filterAction = filterAction
+            filterAction = filterAction,
         ),
-        this.report
+        this.report,
     )
 }
 
@@ -91,7 +91,7 @@ fun List<TrendingTag>.toViewData(): List<TrendingViewData.Tag> {
             name = tag.name,
             usage = reversedHistory.mapNotNull { it.uses.toLongOrNull() },
             accounts = reversedHistory.mapNotNull { it.accounts.toLongOrNull() },
-            maxTrendingValue = maxTrendingValue
+            maxTrendingValue = maxTrendingValue,
         )
     }
 }

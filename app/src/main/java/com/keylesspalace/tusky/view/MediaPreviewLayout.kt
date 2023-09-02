@@ -116,7 +116,7 @@ class MediaPreviewLayout(context: Context, attrs: AttributeSet? = null) :
 
         super.onMeasure(
             widthMeasureSpec,
-            MeasureSpec.makeMeasureSpec(totalHeight, MeasureSpec.EXACTLY)
+            MeasureSpec.makeMeasureSpec(totalHeight, MeasureSpec.EXACTLY),
         )
     }
 
@@ -136,7 +136,7 @@ class MediaPreviewLayout(context: Context, attrs: AttributeSet? = null) :
                         0,
                         y + spacing,
                         width,
-                        y + spacing + getChildAt(1).measuredHeight
+                        y + spacing + getChildAt(1).measuredHeight,
                     )
                 } else {
                     getChildAt(0).layout(0, 0, halfWidth, height)
@@ -158,7 +158,7 @@ class MediaPreviewLayout(context: Context, attrs: AttributeSet? = null) :
                         halfWidth + spacing,
                         halfHeight + spacing,
                         width,
-                        colHeight
+                        colHeight,
                     )
                 }
             }
@@ -172,13 +172,13 @@ class MediaPreviewLayout(context: Context, attrs: AttributeSet? = null) :
                     0,
                     topHeight + spacing,
                     halfWidth,
-                    topHeight + spacing + bottomHeight
+                    topHeight + spacing + bottomHeight,
                 )
                 getChildAt(3).layout(
                     halfWidth + spacing,
                     topHeight + spacing,
                     width,
-                    topHeight + spacing + bottomHeight
+                    topHeight + spacing + bottomHeight,
                 )
             }
         }
@@ -190,7 +190,7 @@ class MediaPreviewLayout(context: Context, attrs: AttributeSet? = null) :
             action(
                 index,
                 wrapper.findViewById(R.id.preview_image_view) as MediaPreviewImageView,
-                wrapper.findViewById(R.id.preview_media_description_indicator) as TextView
+                wrapper.findViewById(R.id.preview_media_description_indicator) as TextView,
             )
         }
     }
@@ -209,6 +209,6 @@ private fun View.measureToAspect(width: Int, aspect: Double): Int {
 private fun View.measureExactly(width: Int, height: Int) {
     measure(
         View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-        View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY)
+        View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY),
     )
 }

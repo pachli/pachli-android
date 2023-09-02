@@ -20,7 +20,7 @@ import androidx.paging.PagingState
 import com.keylesspalace.tusky.viewdata.AttachmentViewData
 
 class AccountMediaPagingSource(
-    private val viewModel: AccountMediaViewModel
+    private val viewModel: AccountMediaViewModel,
 ) : PagingSource<String, AttachmentViewData>() {
 
     override fun getRefreshKey(state: PagingState<String, AttachmentViewData>): String? = null

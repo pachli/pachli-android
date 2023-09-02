@@ -82,17 +82,17 @@ data class UiState(
     val activeFilter: Set<Notification.Type> = emptySet(),
 
     /** True if the FAB should be shown while scrolling */
-    val showFabWhileScrolling: Boolean = true
+    val showFabWhileScrolling: Boolean = true,
 )
 
 /** Preferences the UI reacts to */
 data class UiPrefs(
-    val showFabWhileScrolling: Boolean
+    val showFabWhileScrolling: Boolean,
 ) {
     companion object {
         /** Relevant preference keys. Changes to any of these trigger a display update */
         val prefKeys = setOf(
-            PrefKeys.FAB_HIDE
+            PrefKeys.FAB_HIDE,
         )
     }
 }
@@ -164,7 +164,7 @@ sealed class NotificationActionSuccess(
      * The original action, in case additional information is required from it to display the
      * message.
      */
-    open val action: NotificationAction
+    open val action: NotificationAction,
 ) : UiSuccess() {
     data class AcceptFollowRequest(override val action: NotificationAction) :
         NotificationActionSuccess(R.string.ui_success_accepted_follow_request, action)
@@ -181,7 +181,7 @@ sealed class NotificationActionSuccess(
 
 /** Actions the user can trigger on an individual status */
 sealed class StatusAction(
-    open val statusViewData: StatusViewData
+    open val statusViewData: StatusViewData,
 ) : FallibleUiAction() {
     /** Set the bookmark state for a status */
     data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) :
@@ -199,7 +199,7 @@ sealed class StatusAction(
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
-        override val statusViewData: StatusViewData
+        override val statusViewData: StatusViewData,
     ) : StatusAction(statusViewData)
 }
 
@@ -236,45 +236,45 @@ sealed class UiError(
     @StringRes val message: Int,
 
     /** The action that failed. Can be resent to retry the action */
-    open val action: UiAction? = null
+    open val action: UiAction? = null,
 ) {
     data class ClearNotifications(override val throwable: Throwable) : UiError(
         throwable,
-        R.string.ui_error_clear_notifications
+        R.string.ui_error_clear_notifications,
     )
 
     data class Bookmark(
         override val throwable: Throwable,
-        override val action: StatusAction.Bookmark
+        override val action: StatusAction.Bookmark,
     ) : UiError(throwable, R.string.ui_error_bookmark, action)
 
     data class Favourite(
         override val throwable: Throwable,
-        override val action: StatusAction.Favourite
+        override val action: StatusAction.Favourite,
     ) : UiError(throwable, R.string.ui_error_favourite, action)
 
     data class Reblog(
         override val throwable: Throwable,
-        override val action: StatusAction.Reblog
+        override val action: StatusAction.Reblog,
     ) : UiError(throwable, R.string.ui_error_reblog, action)
 
     data class VoteInPoll(
         override val throwable: Throwable,
-        override val action: StatusAction.VoteInPoll
+        override val action: StatusAction.VoteInPoll,
     ) : UiError(throwable, R.string.ui_error_vote, action)
 
     data class AcceptFollowRequest(
         override val throwable: Throwable,
-        override val action: NotificationAction.AcceptFollowRequest
+        override val action: NotificationAction.AcceptFollowRequest,
     ) : UiError(throwable, R.string.ui_error_accept_follow_request, action)
 
     data class RejectFollowRequest(
         override val throwable: Throwable,
-        override val action: NotificationAction.RejectFollowRequest
+        override val action: NotificationAction.RejectFollowRequest,
     ) : UiError(throwable, R.string.ui_error_reject_follow_request, action)
 
     data class GetFilters(
-        override val throwable: Throwable
+        override val throwable: Throwable,
     ) : UiError(throwable, R.string.ui_error_filter_v1_load, null)
 
     companion object {
@@ -298,7 +298,7 @@ class NotificationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
     private val filtersRepository: FiltersRepository,
-    private val filterModel: FilterModel
+    private val filterModel: FilterModel,
 ) : ViewModel() {
     /** The account to display notifications for */
     val account = accountManager.activeAccount!!
@@ -355,8 +355,8 @@ class NotificationsViewModel @Inject constructor(
             .onStart {
                 emit(
                     InfallibleUiAction.ApplyFilter(
-                        filter = deserialize(account.notificationsFilter)
-                    )
+                        filter = deserialize(account.notificationsFilter),
+                    ),
                 )
             }
 
@@ -391,8 +391,8 @@ class NotificationsViewModel @Inject constructor(
         statusDisplayOptions = MutableStateFlow(
             StatusDisplayOptions.from(
                 preferences,
-                account
-            )
+                account,
+            ),
         )
 
         viewModelScope.launch {
@@ -403,7 +403,7 @@ class NotificationsViewModel @Inject constructor(
                     statusDisplayOptions.value.make(
                         preferences,
                         it.preferenceKey,
-                        account
+                        account,
                     )
                 }
                 .collect {
@@ -458,23 +458,23 @@ class NotificationsViewModel @Inject constructor(
                             is StatusAction.Bookmark ->
                                 timelineCases.bookmark(
                                     action.statusViewData.actionableId,
-                                    action.state
+                                    action.state,
                                 )
                             is StatusAction.Favourite ->
                                 timelineCases.favourite(
                                     action.statusViewData.actionableId,
-                                    action.state
+                                    action.state,
                                 )
                             is StatusAction.Reblog ->
                                 timelineCases.reblog(
                                     action.statusViewData.actionableId,
-                                    action.state
+                                    action.state,
                                 )
                             is StatusAction.VoteInPoll ->
                                 timelineCases.voteInPoll(
                                     action.statusViewData.actionableId,
                                     action.poll.id,
-                                    action.choices
+                                    action.choices,
                                 )
                         }.getOrThrow()
                         uiSuccess.emit(StatusActionSuccess.from(action))
@@ -516,18 +516,18 @@ class NotificationsViewModel @Inject constructor(
         uiState = combine(notificationFilter, getUiPrefs()) { filter, prefs ->
             UiState(
                 activeFilter = filter.filter,
-                showFabWhileScrolling = prefs.showFabWhileScrolling
+                showFabWhileScrolling = prefs.showFabWhileScrolling,
             )
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-            initialValue = UiState()
+            initialValue = UiState(),
         )
     }
 
     private fun getNotifications(
         filters: Set<Notification.Type>,
-        initialKey: String? = null
+        initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
         Log.d(TAG, "getNotifications: $initialKey")
         return repository.getNotificationsStream(filter = filters, initialKey = initialKey)
@@ -539,7 +539,7 @@ class NotificationsViewModel @Inject constructor(
                             !(notification.status?.actionableStatus?.sensitive ?: false),
                         isExpanded = statusDisplayOptions.value.openSpoiler,
                         isCollapsed = true,
-                        filterAction = filterAction
+                        filterAction = filterAction,
                     )
                 }.filter {
                     it.statusViewData?.filterAction != Filter.Action.HIDE
@@ -561,7 +561,7 @@ class NotificationsViewModel @Inject constructor(
                     filterModel.initWithFilters(
                         filters.filters.filter {
                             it.context.contains("notifications")
-                        }
+                        },
                     )
                     repository.invalidate()
                 }
@@ -594,7 +594,7 @@ class NotificationsViewModel @Inject constructor(
         .onStart { emit(toPrefs()) }
 
     private fun toPrefs() = UiPrefs(
-        showFabWhileScrolling = !preferences.getBoolean(PrefKeys.FAB_HIDE, false)
+        showFabWhileScrolling = !preferences.getBoolean(PrefKeys.FAB_HIDE, false),
     )
 
     companion object {

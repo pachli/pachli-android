@@ -115,44 +115,46 @@ class TabPreferenceActivity : BaseActivity(), Injectable, ItemInteractionListene
         binding.addTabRecyclerView.adapter = addTabAdapter
         binding.addTabRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        touchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
-            override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-                return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.END)
-            }
-
-            override fun isLongPressDragEnabled(): Boolean {
-                return true
-            }
-
-            override fun isItemViewSwipeEnabled(): Boolean {
-                return MIN_TAB_COUNT < currentTabs.size
-            }
-
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                val temp = currentTabs[viewHolder.bindingAdapterPosition]
-                currentTabs[viewHolder.bindingAdapterPosition] = currentTabs[target.bindingAdapterPosition]
-                currentTabs[target.bindingAdapterPosition] = temp
-
-                currentTabsAdapter.notifyItemMoved(viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
-                saveTabs()
-                return true
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                onTabRemoved(viewHolder.bindingAdapterPosition)
-            }
-
-            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-                if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
-                    viewHolder?.itemView?.elevation = selectedItemElevation
+        touchHelper = ItemTouchHelper(
+            object : ItemTouchHelper.Callback() {
+                override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+                    return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.END)
                 }
-            }
 
-            override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-                super.clearView(recyclerView, viewHolder)
-                viewHolder.itemView.elevation = 0f
-            }
-        })
+                override fun isLongPressDragEnabled(): Boolean {
+                    return true
+                }
+
+                override fun isItemViewSwipeEnabled(): Boolean {
+                    return MIN_TAB_COUNT < currentTabs.size
+                }
+
+                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                    val temp = currentTabs[viewHolder.bindingAdapterPosition]
+                    currentTabs[viewHolder.bindingAdapterPosition] = currentTabs[target.bindingAdapterPosition]
+                    currentTabs[target.bindingAdapterPosition] = temp
+
+                    currentTabsAdapter.notifyItemMoved(viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
+                    saveTabs()
+                    return true
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    onTabRemoved(viewHolder.bindingAdapterPosition)
+                }
+
+                override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+                    if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+                        viewHolder?.itemView?.elevation = selectedItemElevation
+                    }
+                }
+
+                override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+                    super.clearView(recyclerView, viewHolder)
+                    viewHolder.itemView.elevation = 0f
+                }
+            },
+        )
 
         touchHelper.attachToRecyclerView(binding.currentTabsRecyclerView)
 
@@ -327,13 +329,13 @@ class TabPreferenceActivity : BaseActivity(), Injectable, ItemInteractionListene
                     dialog.hide()
                     Log.e("TabPreferenceActivity", "failed to load lists", throwable)
                     Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_LONG).show()
-                }
+                },
             )
         }
     }
 
     private fun getProgressBarJob(progressView: View, delayMs: Long) = this.lifecycleScope.launch(
-        start = CoroutineStart.LAZY
+        start = CoroutineStart.LAZY,
     ) {
         try {
             delay(delayMs)

@@ -51,7 +51,7 @@ class FilterV1Test {
                 context = listOf(FilterV1.HOME),
                 expiresAt = null,
                 irreversible = false,
-                wholeWord = false
+                wholeWord = false,
             ),
             FilterV1(
                 id = "123",
@@ -59,7 +59,7 @@ class FilterV1Test {
                 context = listOf(FilterV1.HOME, FilterV1.PUBLIC),
                 expiresAt = null,
                 irreversible = false,
-                wholeWord = true
+                wholeWord = true,
             ),
             FilterV1(
                 id = "123",
@@ -67,7 +67,7 @@ class FilterV1Test {
                 context = listOf(FilterV1.HOME),
                 expiresAt = null,
                 irreversible = false,
-                wholeWord = true
+                wholeWord = true,
             ),
             FilterV1(
                 id = "123",
@@ -75,7 +75,7 @@ class FilterV1Test {
                 context = listOf(FilterV1.HOME),
                 expiresAt = null,
                 irreversible = false,
-                wholeWord = true
+                wholeWord = true,
             ),
             FilterV1(
                 id = "123",
@@ -83,7 +83,7 @@ class FilterV1Test {
                 context = listOf(FilterV1.HOME),
                 expiresAt = Date.from(Instant.now().minusSeconds(10)),
                 irreversible = false,
-                wholeWord = true
+                wholeWord = true,
             ),
             FilterV1(
                 id = "123",
@@ -91,7 +91,7 @@ class FilterV1Test {
                 context = listOf(FilterV1.HOME),
                 expiresAt = Date.from(Instant.now().plusSeconds(3600)),
                 irreversible = false,
-                wholeWord = true
+                wholeWord = true,
             ),
             FilterV1(
                 id = "123",
@@ -99,8 +99,8 @@ class FilterV1Test {
                 context = listOf(FilterV1.HOME),
                 expiresAt = null,
                 irreversible = false,
-                wholeWord = false
-            )
+                wholeWord = false,
+            ),
         )
 
         filterModel.initWithFilters(filters)
@@ -111,8 +111,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.NONE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "should not be filtered")
-            )
+                mockStatus(content = "should not be filtered"),
+            ),
         )
     }
 
@@ -121,8 +121,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.HIDE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "one two badWord three")
-            )
+                mockStatus(content = "one two badWord three"),
+            ),
         )
     }
 
@@ -131,8 +131,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.HIDE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "one two badWordPart three")
-            )
+                mockStatus(content = "one two badWordPart three"),
+            ),
         )
     }
 
@@ -141,8 +141,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.HIDE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "one two badWholeWord three")
-            )
+                mockStatus(content = "one two badWholeWord three"),
+            ),
         )
     }
 
@@ -151,8 +151,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.NONE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "one two badWholeWordTest three")
-            )
+                mockStatus(content = "one two badWholeWordTest three"),
+            ),
         )
     }
 
@@ -163,9 +163,9 @@ class FilterV1Test {
             filterModel.shouldFilterStatus(
                 mockStatus(
                     content = "should not be filtered",
-                    spoilerText = "badWord should be filtered"
-                )
-            )
+                    spoilerText = "badWord should be filtered",
+                ),
+            ),
         )
     }
 
@@ -177,9 +177,9 @@ class FilterV1Test {
                 mockStatus(
                     content = "should not be filtered",
                     spoilerText = "should not be filtered",
-                    pollOptions = listOf("should not be filtered", "badWord")
-                )
-            )
+                    pollOptions = listOf("should not be filtered", "badWord"),
+                ),
+            ),
         )
     }
 
@@ -191,9 +191,9 @@ class FilterV1Test {
                 mockStatus(
                     content = "should not be filtered",
                     spoilerText = "should not be filtered",
-                    attachmentsDescriptions = listOf("should not be filtered", "badWord")
-                )
-            )
+                    attachmentsDescriptions = listOf("should not be filtered", "badWord"),
+                ),
+            ),
         )
     }
 
@@ -202,8 +202,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.HIDE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "one two someone@twitter.com three")
-            )
+                mockStatus(content = "one two someone@twitter.com three"),
+            ),
         )
     }
 
@@ -212,8 +212,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.HIDE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "#hashtag one two three")
-            )
+                mockStatus(content = "#hashtag one two three"),
+            ),
         )
     }
 
@@ -222,8 +222,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.HIDE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "<p><a href=\"https://foo.bar/tags/hashtag\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>hashtag</span></a>one two three</p>")
-            )
+                mockStatus(content = "<p><a href=\"https://foo.bar/tags/hashtag\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>hashtag</span></a>one two three</p>"),
+            ),
         )
     }
 
@@ -232,8 +232,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.NONE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "<p><a href=\"https://foo.bar/\">https://foo.bar/</a> one two three</p>")
-            )
+                mockStatus(content = "<p><a href=\"https://foo.bar/\">https://foo.bar/</a> one two three</p>"),
+            ),
         )
     }
 
@@ -242,8 +242,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.NONE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "content matching expired filter should not be filtered")
-            )
+                mockStatus(content = "content matching expired filter should not be filtered"),
+            ),
         )
     }
 
@@ -252,8 +252,8 @@ class FilterV1Test {
         assertEquals(
             Filter.Action.HIDE,
             filterModel.shouldFilterStatus(
-                mockStatus(content = "content matching unexpired filter should be filtered")
-            )
+                mockStatus(content = "content matching unexpired filter should be filtered"),
+            ),
         )
     }
 
@@ -278,7 +278,7 @@ class FilterV1Test {
             content: String = "",
             spoilerText: String = "",
             pollOptions: List<String>? = null,
-            attachmentsDescriptions: List<String>? = null
+            attachmentsDescriptions: List<String>? = null,
         ): Status {
             return Status(
                 id = "123",
@@ -310,9 +310,9 @@ class FilterV1Test {
                                 meta = null,
                                 type = Attachment.Type.IMAGE,
                                 description = it,
-                                blurhash = null
+                                blurhash = null,
                             )
-                        }
+                        },
                     )
                 } else {
                     arrayListOf()
@@ -334,14 +334,14 @@ class FilterV1Test {
                             PollOption(it, 0)
                         },
                         voted = false,
-                        ownVotes = null
+                        ownVotes = null,
                     )
                 } else {
                     null
                 },
                 card = null,
                 language = null,
-                filtered = null
+                filtered = null,
             )
         }
     }

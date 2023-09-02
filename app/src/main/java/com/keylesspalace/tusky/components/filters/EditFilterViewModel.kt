@@ -98,7 +98,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
             title = title,
             context = contexts,
             filterAction = action,
-            expiresInSeconds = expiresInSeconds
+            expiresInSeconds = expiresInSeconds,
         ).fold(
             { newFilter ->
                 // This is _terrible_, but the all-in-one update filter api Just Doesn't Work
@@ -112,7 +112,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
                         // Endpoint not found, fall back to v1 api
                         createFilterV1(contexts, expiresInSeconds)
                     )
-            }
+            },
         )
     }
 
@@ -123,7 +123,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
             title = title,
             context = contexts,
             filterAction = action,
-            expiresInSeconds = expiresInSeconds
+            expiresInSeconds = expiresInSeconds,
         ).fold(
             {
                 // This is _terrible_, but the all-in-one update filter api Just Doesn't Work
@@ -148,7 +148,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
                     }
                 }
                 return false
-            }
+            },
         )
     }
 
@@ -166,7 +166,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
                     context = context,
                     irreversible = false,
                     wholeWord = keyword.wholeWord,
-                    expiresInSeconds = expiresInSeconds
+                    expiresInSeconds = expiresInSeconds,
                 )
             } else {
                 api.updateFilterV1(
@@ -175,7 +175,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
                     context = context,
                     irreversible = false,
                     wholeWord = keyword.wholeWord,
-                    expiresInSeconds = expiresInSeconds
+                    expiresInSeconds = expiresInSeconds,
                 )
             }
         }

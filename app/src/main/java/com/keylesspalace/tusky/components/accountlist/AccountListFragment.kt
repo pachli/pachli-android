@@ -115,7 +115,7 @@ class AccountListFragment :
             Type.FOLLOW_REQUESTS -> {
                 val headerAdapter = FollowRequestsHeaderAdapter(
                     instanceName = activeAccount.domain,
-                    accountLocked = activeAccount.locked
+                    accountLocked = activeAccount.locked,
                 )
                 val followRequestsAdapter = FollowRequestsAdapter(this, this, animateAvatar, animateEmojis, showBotOverlay)
                 binding.recyclerView.adapter = ConcatAdapter(headerAdapter, followRequestsAdapter)
@@ -247,7 +247,7 @@ class AccountListFragment :
     override fun onRespondToFollowRequest(
         accept: Boolean,
         accountId: String,
-        position: Int
+        position: Int,
     ) {
         if (accept) {
             api.authorizeFollowRequest(accountId)
@@ -266,7 +266,7 @@ class AccountListFragment :
                         "reject"
                     }
                     Log.e(TAG, "Failed to $verb account id $accountId.", throwable)
-                }
+                },
             )
     }
 
@@ -365,7 +365,7 @@ class AccountListFragment :
             binding.messageView.setup(
                 R.drawable.elephant_friend_empty,
                 R.string.message_empty,
-                null
+                null,
             )
         } else {
             binding.messageView.hide()

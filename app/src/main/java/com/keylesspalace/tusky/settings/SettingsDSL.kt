@@ -18,7 +18,7 @@ import de.c1710.filemojicompat_ui.views.picker.preference.EmojiPickerPreference
 
 class PreferenceParent(
     val context: Context,
-    val addPref: (pref: Preference) -> Unit
+    val addPref: (pref: Preference) -> Unit,
 )
 
 inline fun PreferenceParent.preference(builder: Preference.() -> Unit): Preference {
@@ -44,7 +44,7 @@ inline fun <A> PreferenceParent.emojiPreference(activity: A, builder: EmojiPicke
 }
 
 inline fun PreferenceParent.sliderPreference(
-    builder: SliderPreference.() -> Unit
+    builder: SliderPreference.() -> Unit,
 ): SliderPreference {
     val pref = SliderPreference(context)
     builder(pref)
@@ -53,7 +53,7 @@ inline fun PreferenceParent.sliderPreference(
 }
 
 inline fun PreferenceParent.switchPreference(
-    builder: SwitchPreference.() -> Unit
+    builder: SwitchPreference.() -> Unit,
 ): SwitchPreference {
     val pref = SwitchPreference(context)
     builder(pref)
@@ -64,7 +64,7 @@ inline fun PreferenceParent.switchPreference(
 inline fun PreferenceParent.validatedEditTextPreference(
     errorMessage: String?,
     crossinline isValid: (a: String) -> Boolean,
-    builder: EditTextPreference.() -> Unit
+    builder: EditTextPreference.() -> Unit,
 ): EditTextPreference {
     val pref = EditTextPreference(context)
     pref.setOnBindEditTextListener { editText ->
@@ -87,7 +87,7 @@ inline fun PreferenceParent.validatedEditTextPreference(
 
 inline fun PreferenceParent.preferenceCategory(
     @StringRes title: Int? = null,
-    builder: PreferenceParent.(PreferenceCategory) -> Unit
+    builder: PreferenceParent.(PreferenceCategory) -> Unit,
 ) {
     val category = PreferenceCategory(context)
     addPref(category)
@@ -97,7 +97,7 @@ inline fun PreferenceParent.preferenceCategory(
 }
 
 inline fun PreferenceFragmentCompat.makePreferenceScreen(
-    builder: PreferenceParent.() -> Unit
+    builder: PreferenceParent.() -> Unit,
 ): PreferenceScreen {
     val context = requireContext()
     val screen = preferenceManager.createPreferenceScreen(context)

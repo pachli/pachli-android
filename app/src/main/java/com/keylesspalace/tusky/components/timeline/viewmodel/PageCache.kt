@@ -41,7 +41,7 @@ data class Page(
      * Key for next page (older results, APPEND operation) if more data can be loaded in that
      * direction, `null` otherwise.
      */
-    val nextKey: String? = null
+    val nextKey: String? = null,
 ) {
     override fun toString() = "k: ${data.lastOrNull()?.id}, prev: $prevKey, next: $nextKey, size: ${"%2d".format(data.size)}, range: ${data.firstOrNull()?.id}..${data.lastOrNull()?.id}"
 
@@ -87,7 +87,7 @@ data class Page(
         return Page(
             data = d,
             nextKey = next,
-            prevKey = prev
+            prevKey = prev,
         )
     }
 
@@ -108,8 +108,8 @@ data class Page(
                 Page(
                     data = statuses.toMutableList(),
                     nextKey = links.next,
-                    prevKey = links.prev
-                )
+                    prevKey = links.prev,
+                ),
             )
         }
     }

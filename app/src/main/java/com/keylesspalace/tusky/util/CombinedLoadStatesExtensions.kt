@@ -49,7 +49,9 @@ enum class PresentationState {
     ERROR,
 
     /** The first request page of results is visible via the adapter */
-    PRESENTED;
+    PRESENTED,
+
+    ;
 
     /**
      * Take the next step in the PresentationState state machine, given [loadState]
@@ -118,7 +120,9 @@ enum class UserRefreshState {
     COMPLETE,
 
     /** A refresh or prepend operation was [LoadState.Error] */
-    ERROR;
+    ERROR,
+
+    ;
 }
 
 /**

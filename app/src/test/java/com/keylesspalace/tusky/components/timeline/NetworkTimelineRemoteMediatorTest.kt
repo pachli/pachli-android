@@ -59,7 +59,7 @@ class NetworkTimelineRemoteMediatorTest {
             accessToken = "token",
             clientId = "id",
             clientSecret = "secret",
-            isActive = true
+            isActive = true,
         )
     }
 
@@ -80,7 +80,7 @@ class NetworkTimelineRemoteMediatorTest {
             accountManager = accountManager,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
-            timelineKind = TimelineKind.Home
+            timelineKind = TimelineKind.Home,
         )
 
         // When
@@ -102,7 +102,7 @@ class NetworkTimelineRemoteMediatorTest {
             accountManager,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
-            timelineKind = TimelineKind.Home
+            timelineKind = TimelineKind.Home,
         )
 
         // When
@@ -125,14 +125,14 @@ class NetworkTimelineRemoteMediatorTest {
                     listOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     Headers.headersOf(
                         "Link",
-                        "<https://mastodon.example/api/v1/timelines/home?max_id=5>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=7>; rel=\"prev\""
-                    )
+                        "<https://mastodon.example/api/v1/timelines/home?max_id=5>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=7>; rel=\"prev\"",
+                    ),
                 )
             },
             accountManager = accountManager,
             factory = pagingSourceFactory,
             pageCache = pages,
-            timelineKind = TimelineKind.Home
+            timelineKind = TimelineKind.Home,
         )
 
         val state = state(
@@ -140,9 +140,9 @@ class NetworkTimelineRemoteMediatorTest {
                 PagingSource.LoadResult.Page(
                     data = emptyList(),
                     prevKey = null,
-                    nextKey = null
-                )
-            )
+                    nextKey = null,
+                ),
+            ),
         )
 
         // When
@@ -154,8 +154,8 @@ class NetworkTimelineRemoteMediatorTest {
                 Page(
                     data = mutableListOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
-                    nextKey = "5"
-                )
+                    nextKey = "5",
+                ),
             )
         }
 
@@ -176,8 +176,8 @@ class NetworkTimelineRemoteMediatorTest {
                 Page(
                     data = mutableListOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
-                    nextKey = "5"
-                )
+                    nextKey = "5",
+                ),
             )
         }
 
@@ -188,14 +188,14 @@ class NetworkTimelineRemoteMediatorTest {
                     listOf(mockStatus("10"), mockStatus("9"), mockStatus("8")),
                     Headers.headersOf(
                         "Link",
-                        "<https://mastodon.example/api/v1/timelines/home?max_id=8>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=10>; rel=\"prev\""
-                    )
+                        "<https://mastodon.example/api/v1/timelines/home?max_id=8>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=10>; rel=\"prev\"",
+                    ),
                 )
             },
             accountManager = accountManager,
             factory = pagingSourceFactory,
             pageCache = pages,
-            timelineKind = TimelineKind.Home
+            timelineKind = TimelineKind.Home,
         )
 
         val state = state(
@@ -203,9 +203,9 @@ class NetworkTimelineRemoteMediatorTest {
                 PagingSource.LoadResult.Page(
                     data = listOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
-                    nextKey = "5"
-                )
-            )
+                    nextKey = "5",
+                ),
+            ),
         )
 
         // When
@@ -217,15 +217,15 @@ class NetworkTimelineRemoteMediatorTest {
                 Page(
                     data = mutableListOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
-                    nextKey = "5"
-                )
+                    nextKey = "5",
+                ),
             )
             upsert(
                 Page(
                     data = mutableListOf(mockStatus("10"), mockStatus("9"), mockStatus("8")),
                     prevKey = "10",
-                    nextKey = "8"
-                )
+                    nextKey = "8",
+                ),
             )
         }
 
@@ -246,8 +246,8 @@ class NetworkTimelineRemoteMediatorTest {
                 Page(
                     data = mutableListOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
-                    nextKey = "5"
-                )
+                    nextKey = "5",
+                ),
             )
         }
 
@@ -258,14 +258,14 @@ class NetworkTimelineRemoteMediatorTest {
                     listOf(mockStatus("4"), mockStatus("3"), mockStatus("2")),
                     Headers.headersOf(
                         "Link",
-                        "<https://mastodon.example/api/v1/timelines/home?max_id=2>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=4>; rel=\"prev\""
-                    )
+                        "<https://mastodon.example/api/v1/timelines/home?max_id=2>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=4>; rel=\"prev\"",
+                    ),
                 )
             },
             accountManager = accountManager,
             factory = pagingSourceFactory,
             pageCache = pages,
-            timelineKind = TimelineKind.Home
+            timelineKind = TimelineKind.Home,
         )
 
         val state = state(
@@ -273,9 +273,9 @@ class NetworkTimelineRemoteMediatorTest {
                 PagingSource.LoadResult.Page(
                     data = listOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
-                    nextKey = "5"
-                )
-            )
+                    nextKey = "5",
+                ),
+            ),
         )
 
         // When
@@ -287,15 +287,15 @@ class NetworkTimelineRemoteMediatorTest {
                 Page(
                     data = mutableListOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
-                    nextKey = "5"
-                )
+                    nextKey = "5",
+                ),
             )
             upsert(
                 Page(
                     data = mutableListOf(mockStatus("4"), mockStatus("3"), mockStatus("2")),
                     prevKey = "4",
-                    nextKey = "2"
-                )
+                    nextKey = "2",
+                ),
             )
         }
 
@@ -316,9 +316,9 @@ class NetworkTimelineRemoteMediatorTest {
                 anchorPosition = null,
                 config = PagingConfig(
                     pageSize = PAGE_SIZE,
-                    initialLoadSize = PAGE_SIZE
+                    initialLoadSize = PAGE_SIZE,
                 ),
-                leadingPlaceholderCount = 0
+                leadingPlaceholderCount = 0,
             )
     }
 }

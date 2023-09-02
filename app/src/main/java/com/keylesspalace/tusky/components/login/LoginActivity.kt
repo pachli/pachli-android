@@ -100,7 +100,7 @@ class LoginActivity : BaseActivity(), Injectable {
 
         preferences = getSharedPreferences(
             getString(R.string.preferences_file_key),
-            Context.MODE_PRIVATE
+            Context.MODE_PRIVATE,
         )
 
         binding.loginButton.setOnClickListener { onLoginClick(true) }
@@ -173,7 +173,7 @@ class LoginActivity : BaseActivity(), Injectable {
                 getString(R.string.app_name),
                 oauthRedirectUri,
                 OAUTH_SCOPES,
-                getString(R.string.tusky_website)
+                getString(R.string.tusky_website),
             ).fold(
                 { credentials ->
                     // Before we open browser page we save the data.
@@ -196,7 +196,7 @@ class LoginActivity : BaseActivity(), Injectable {
                     setLoading(false)
                     Log.e(TAG, Log.getStackTraceString(e))
                     return@launch
-                }
+                },
             )
         }
     }
@@ -282,7 +282,7 @@ class LoginActivity : BaseActivity(), Injectable {
             clientSecret,
             oauthRedirectUri,
             code,
-            "authorization_code"
+            "authorization_code",
         ).fold(
             { accessToken ->
                 fetchAccountDetails(accessToken, domain, clientId, clientSecret)
@@ -292,7 +292,7 @@ class LoginActivity : BaseActivity(), Injectable {
                 binding.domainTextInputLayout.error =
                     getString(R.string.error_retrieving_oauth_token)
                 Log.e(TAG, getString(R.string.error_retrieving_oauth_token), e)
-            }
+            },
         )
     }
 
@@ -300,11 +300,11 @@ class LoginActivity : BaseActivity(), Injectable {
         accessToken: AccessToken,
         domain: String,
         clientId: String,
-        clientSecret: String
+        clientSecret: String,
     ) {
         mastodonApi.accountVerifyCredentials(
             domain = domain,
-            auth = "Bearer ${accessToken.accessToken}"
+            auth = "Bearer ${accessToken.accessToken}",
         ).fold({ newAccount ->
             accountManager.addAccount(
                 accessToken = accessToken.accessToken,
@@ -312,7 +312,7 @@ class LoginActivity : BaseActivity(), Injectable {
                 clientId = clientId,
                 clientSecret = clientSecret,
                 oauthScopes = OAUTH_SCOPES,
-                newAccount = newAccount
+                newAccount = newAccount,
             )
 
             val intent = Intent(this, MainActivity::class.java)
@@ -325,7 +325,7 @@ class LoginActivity : BaseActivity(), Injectable {
             binding.domainTextInputLayout.error =
                 getString(R.string.error_loading_account_details)
             Log.e(TAG, getString(R.string.error_loading_account_details), e)
-        })
+        },)
     }
 
     private fun setLoading(loadingState: Boolean) {

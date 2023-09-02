@@ -78,7 +78,7 @@ class FiltersActivity : BaseActivity(), FiltersListener {
                             binding.messageView.setup(
                                 R.drawable.elephant_friend_empty,
                                 R.string.message_empty,
-                                null
+                                null,
                             )
                             binding.messageView.show()
                         } else {

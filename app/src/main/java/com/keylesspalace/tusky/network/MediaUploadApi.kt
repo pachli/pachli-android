@@ -16,6 +16,6 @@ interface MediaUploadApi {
     suspend fun uploadMedia(
         @Part file: MultipartBody.Part,
         @Part description: MultipartBody.Part? = null,
-        @Part focus: MultipartBody.Part? = null
+        @Part focus: MultipartBody.Part? = null,
     ): Response<MediaUploadResult>
 }

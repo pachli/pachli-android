@@ -30,7 +30,7 @@ enum class PreviewCardKind {
     VIDEO,
 
     @SerializedName("rich")
-    RICH
+    RICH,
 }
 
 /**
@@ -56,7 +56,7 @@ interface PreviewCard {
 data class LinkHistory(
     val day: String,
     val accounts: Int,
-    val uses: Int
+    val uses: Int,
 )
 
 /** Represents a https://docs.joinmastodon.org/entities/PreviewCard/#trends-link */
@@ -75,5 +75,5 @@ data class TrendsLink(
     override val image: String? = null,
     @SerializedName("embed_url") override val embedUrl: String,
     override val blurhash: String? = null,
-    val history: List<LinkHistory>
+    val history: List<LinkHistory>,
 ) : PreviewCard

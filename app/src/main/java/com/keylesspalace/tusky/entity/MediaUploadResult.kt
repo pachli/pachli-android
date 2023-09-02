@@ -5,5 +5,5 @@ package com.keylesspalace.tusky.entity
  * We are only interested in the id, so other attributes are omitted
  */
 data class MediaUploadResult(
-    val id: String
+    val id: String,
 )

@@ -96,7 +96,7 @@ class ListsActivity : BaseActivity(), Injectable, HasAndroidInjector {
         binding.listsRecycler.adapter = adapter
         binding.listsRecycler.layoutManager = LinearLayoutManager(this)
         binding.listsRecycler.addItemDecoration(
-            DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+            DividerItemDecoration(this, DividerItemDecoration.VERTICAL),
         )
 
         binding.swipeRefreshLayout.setOnRefreshListener { viewModel.retryLoading() }
@@ -132,7 +132,7 @@ class ListsActivity : BaseActivity(), Injectable, HasAndroidInjector {
                     R.string.action_create_list
                 } else {
                     R.string.action_rename_list
-                }
+                },
             ) { _, _ ->
                 onPickedDialogName(binding.nameText.text.toString(), list?.id, binding.exclusiveCheckbox.isChecked)
             }
@@ -190,7 +190,7 @@ class ListsActivity : BaseActivity(), Injectable, HasAndroidInjector {
                     binding.messageView.setup(
                         R.drawable.elephant_friend_empty,
                         R.string.message_empty,
-                        null
+                        null,
                     )
                 } else {
                     binding.messageView.hide()
@@ -202,13 +202,13 @@ class ListsActivity : BaseActivity(), Injectable, HasAndroidInjector {
         Snackbar.make(
             binding.listsRecycler,
             messageId,
-            Snackbar.LENGTH_SHORT
+            Snackbar.LENGTH_SHORT,
         ).show()
     }
 
     private fun onListSelected(listId: String, listTitle: String) {
         startActivityWithSlideInAnimation(
-            StatusListActivity.newListIntent(this, listId, listTitle)
+            StatusListActivity.newListIntent(this, listId, listTitle),
         )
     }
 

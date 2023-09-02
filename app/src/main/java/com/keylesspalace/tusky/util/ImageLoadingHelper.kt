@@ -21,7 +21,7 @@ fun loadAvatar(
     imageView: ImageView,
     @Px radius: Int,
     animate: Boolean,
-    transforms: List<Transformation<Bitmap>>? = null
+    transforms: List<Transformation<Bitmap>>? = null,
 ) {
     if (url.isNullOrBlank()) {
         Glide.with(imageView)
@@ -33,7 +33,7 @@ fun loadAvatar(
                 transforms?.let { this.addAll(it) }
                 add(centerCropTransformation)
                 add(RoundedCorners(radius))
-            }
+            },
         )
 
         if (animate) {

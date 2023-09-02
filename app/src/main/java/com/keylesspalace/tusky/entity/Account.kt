@@ -36,7 +36,7 @@ data class Account(
     val bot: Boolean = false,
     val emojis: List<Emoji>? = emptyList(), // nullable for backward compatibility
     val fields: List<Field>? = emptyList(), // nullable for backward compatibility
-    val moved: Account? = null
+    val moved: Account? = null,
 
 ) {
 
@@ -55,16 +55,16 @@ data class AccountSource(
     val sensitive: Boolean?,
     val note: String?,
     val fields: List<StringField>?,
-    val language: String?
+    val language: String?,
 )
 
 data class Field(
     val name: String,
     val value: String,
-    @SerializedName("verified_at") val verifiedAt: Date?
+    @SerializedName("verified_at") val verifiedAt: Date?,
 )
 
 data class StringField(
     val name: String,
-    val value: String
+    val value: String,
 )

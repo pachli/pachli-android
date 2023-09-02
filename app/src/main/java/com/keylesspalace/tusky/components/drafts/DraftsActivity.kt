@@ -119,7 +119,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                             scheduledAt = draft.scheduledAt,
                             language = draft.language,
                             statusId = draft.statusId,
-                            kind = ComposeActivity.ComposeKind.EDIT_DRAFT
+                            kind = ComposeActivity.ComposeKind.EDIT_DRAFT,
                         )
 
                         bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
@@ -140,7 +140,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                             Snackbar.make(binding.root, getString(R.string.drafts_failed_loading_reply), Snackbar.LENGTH_SHORT)
                                 .show()
                         }
-                    }
+                    },
                 )
         }
     }
@@ -157,7 +157,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
             scheduledAt = draft.scheduledAt,
             language = draft.language,
             statusId = draft.statusId,
-            kind = ComposeActivity.ComposeKind.EDIT_DRAFT
+            kind = ComposeActivity.ComposeKind.EDIT_DRAFT,
         )
 
         startActivity(ComposeActivity.startIntent(this, composeOptions))

@@ -45,13 +45,13 @@ class StatusComparisonTest {
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
-            isCollapsed = false
+            isCollapsed = false,
         )
         val viewdata2 = StatusViewData(
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
-            isCollapsed = false
+            isCollapsed = false,
         )
         assertEquals(viewdata1, viewdata2)
     }
@@ -62,13 +62,13 @@ class StatusComparisonTest {
             status = createStatus(),
             isExpanded = true,
             isShowingContent = false,
-            isCollapsed = false
+            isCollapsed = false,
         )
         val viewdata2 = StatusViewData(
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
-            isCollapsed = false
+            isCollapsed = false,
         )
         assertNotEquals(viewdata1, viewdata2)
     }
@@ -79,13 +79,13 @@ class StatusComparisonTest {
             status = createStatus(content = "whatever"),
             isExpanded = true,
             isShowingContent = false,
-            isCollapsed = false
+            isCollapsed = false,
         )
         val viewdata2 = StatusViewData(
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
-            isCollapsed = false
+            isCollapsed = false,
         )
         assertNotEquals(viewdata1, viewdata2)
     }
@@ -95,7 +95,7 @@ class StatusComparisonTest {
         content: String = """
             \u003cp\u003e\u003cspan class=\"h-card\"\u003e\u003ca href=\"https://mastodon.social/@ConnyDuck\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"\u003e@\u003cspan\u003eConnyDuck@mastodon.social\u003c/span\u003e\u003c/a\u003e\u003c/span\u003e Hi\u003c/p\u003e
         """.trimIndent(),
-        note: String = ""
+        note: String = "",
     ): Status {
         val statusJson = """
             {

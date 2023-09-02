@@ -11,5 +11,5 @@ data class Marker(
     val lastReadId: String,
     val version: Int,
     @SerializedName("updated_at")
-    val updatedAt: Date
+    val updatedAt: Date,
 )

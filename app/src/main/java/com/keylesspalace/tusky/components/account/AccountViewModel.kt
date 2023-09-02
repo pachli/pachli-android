@@ -28,7 +28,7 @@ import javax.inject.Inject
 class AccountViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
-    accountManager: AccountManager
+    accountManager: AccountManager,
 ) : ViewModel() {
 
     val accountData = MutableLiveData<Resource<Account>>()
@@ -79,7 +79,7 @@ class AccountViewModel @Inject constructor(
                             accountData.postValue(Error(cause = t))
                             isDataLoading = false
                             isRefreshing.postValue(false)
-                        }
+                        },
                     )
             }
         }
@@ -98,7 +98,7 @@ class AccountViewModel @Inject constructor(
                         { t ->
                             Log.w(TAG, "failed obtaining relationships", t)
                             relationshipData.postValue(Error(cause = t))
-                        }
+                        },
                     )
             }
         }
@@ -150,7 +150,7 @@ class AccountViewModel @Inject constructor(
                 }
             }, { e ->
                 Log.e(TAG, "Error muting $instance", e)
-            })
+            },)
         }
     }
 
@@ -163,7 +163,7 @@ class AccountViewModel @Inject constructor(
                 }
             }, { e ->
                 Log.e(TAG, "Error unmuting $instance", e)
-            })
+            },)
         }
     }
 
@@ -181,7 +181,7 @@ class AccountViewModel @Inject constructor(
     private fun changeRelationship(
         relationshipAction: RelationShipAction,
         parameter: Boolean? = null,
-        duration: Int? = null
+        duration: Int? = null,
     ) = viewModelScope.launch {
         val relation = relationshipData.value?.data
         val account = accountData.value?.data
@@ -224,7 +224,7 @@ class AccountViewModel @Inject constructor(
         val relationshipCall = when (relationshipAction) {
             RelationShipAction.FOLLOW -> mastodonApi.followAccount(
                 accountId,
-                showReblogs = parameter ?: true
+                showReblogs = parameter ?: true,
             )
             RelationShipAction.UNFOLLOW -> mastodonApi.unfollowAccount(accountId)
             RelationShipAction.BLOCK -> mastodonApi.blockAccount(accountId)
@@ -232,7 +232,7 @@ class AccountViewModel @Inject constructor(
             RelationShipAction.MUTE -> mastodonApi.muteAccount(
                 accountId,
                 parameter ?: true,
-                duration
+                duration,
             )
             RelationShipAction.UNMUTE -> mastodonApi.unmuteAccount(accountId)
             RelationShipAction.SUBSCRIBE -> {
@@ -265,7 +265,7 @@ class AccountViewModel @Inject constructor(
             { t ->
                 Log.w(TAG, "failed loading relationship", t)
                 relationshipData.postValue(Error(relation, cause = t))
-            }
+            },
         )
     }
 
@@ -283,7 +283,7 @@ class AccountViewModel @Inject constructor(
                     },
                     { t ->
                         Log.w(TAG, "Error updating note", t)
-                    }
+                    },
                 )
         }
     }

@@ -28,7 +28,7 @@ import androidx.core.net.toUri
 class HttpHeaderLink
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 constructor(
-    uri: String
+    uri: String,
 ) {
     data class Parameter(val name: String, val value: String?)
 
@@ -126,7 +126,7 @@ constructor(
          */
         fun findByRelationType(
             links: List<HttpHeaderLink>,
-            relationType: String
+            relationType: String,
         ): HttpHeaderLink? {
             return links.find { link ->
                 link.parameters.any { parameter ->

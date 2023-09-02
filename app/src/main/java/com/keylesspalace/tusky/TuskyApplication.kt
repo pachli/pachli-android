@@ -105,7 +105,7 @@ class TuskyApplication : Application(), HasAndroidInjector {
             this,
             androidx.work.Configuration.Builder()
                 .setWorkerFactory(workerFactory)
-                .build()
+                .build(),
         )
 
         // Prune the database every ~ 12 hours when the device is idle.
@@ -115,7 +115,7 @@ class TuskyApplication : Application(), HasAndroidInjector {
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             PruneCacheWorker.PERIODIC_WORK_TAG,
             ExistingPeriodicWorkPolicy.KEEP,
-            pruneCacheWorker
+            pruneCacheWorker,
         )
     }
 

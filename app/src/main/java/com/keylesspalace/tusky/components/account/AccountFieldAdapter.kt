@@ -30,7 +30,7 @@ import com.keylesspalace.tusky.util.setClickableText
 
 class AccountFieldAdapter(
     private val linkListener: LinkListener,
-    private val animateEmojis: Boolean
+    private val animateEmojis: Boolean,
 ) : RecyclerView.Adapter<BindingHolder<ItemAccountFieldBinding>>() {
 
     var emojis: List<Emoji> = emptyList()

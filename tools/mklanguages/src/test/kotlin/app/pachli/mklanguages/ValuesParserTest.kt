@@ -42,7 +42,7 @@ internal class ValuesParserTest {
                 Params("values-en-rGB", Locale(lang = "en", region = "GB")),
                 Params("values-b+tzm+Tfng", Locale(lang = "tzm", script = "Tfng")),
                 Params("values-mcc001", null),
-                Params("values-land", null)
+                Params("values-land", null),
             )
         }
 

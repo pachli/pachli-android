@@ -41,7 +41,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     mastodonApi: MastodonApi,
     private val timelineCases: TimelineCases,
-    private val accountManager: AccountManager
+    private val accountManager: AccountManager,
 ) : ViewModel() {
 
     var currentQuery: String = ""
@@ -61,7 +61,7 @@ class SearchViewModel @Inject constructor(
             status.toViewData(
                 isShowingContent = alwaysShowSensitiveMedia || !status.actionableStatus.sensitive,
                 isExpanded = alwaysOpenSpoiler,
-                isCollapsed = true
+                isCollapsed = true,
             )
         }.apply {
             loadedStatuses.addAll(this)
@@ -76,19 +76,19 @@ class SearchViewModel @Inject constructor(
 
     val statusesFlow = Pager(
         config = PagingConfig(pageSize = DEFAULT_LOAD_SIZE, initialLoadSize = DEFAULT_LOAD_SIZE),
-        pagingSourceFactory = statusesPagingSourceFactory
+        pagingSourceFactory = statusesPagingSourceFactory,
     ).flow
         .cachedIn(viewModelScope)
 
     val accountsFlow = Pager(
         config = PagingConfig(pageSize = DEFAULT_LOAD_SIZE, initialLoadSize = DEFAULT_LOAD_SIZE),
-        pagingSourceFactory = accountsPagingSourceFactory
+        pagingSourceFactory = accountsPagingSourceFactory,
     ).flow
         .cachedIn(viewModelScope)
 
     val hashtagsFlow = Pager(
         config = PagingConfig(pageSize = DEFAULT_LOAD_SIZE, initialLoadSize = DEFAULT_LOAD_SIZE),
-        pagingSourceFactory = hashtagsPagingSourceFactory
+        pagingSourceFactory = hashtagsPagingSourceFactory,
     ).flow
         .cachedIn(viewModelScope)
 
@@ -119,12 +119,12 @@ class SearchViewModel @Inject constructor(
                 updateStatus(
                     statusViewData.status.copy(
                         reblogged = reblog,
-                        reblog = statusViewData.status.reblog?.copy(reblogged = reblog)
-                    )
+                        reblog = statusViewData.status.reblog?.copy(reblogged = reblog),
+                    ),
                 )
             }, { t ->
                 Log.d(TAG, "Failed to reblog status ${statusViewData.id}", t)
-            })
+            },)
         }
     }
 

@@ -24,7 +24,7 @@ data class FilterV1(
     val context: List<String>,
     @SerializedName("expires_at") val expiresAt: Date?,
     val irreversible: Boolean,
-    @SerializedName("whole_word") val wholeWord: Boolean
+    @SerializedName("whole_word") val wholeWord: Boolean,
 ) {
     companion object {
         const val HOME = "home"
@@ -57,9 +57,9 @@ data class FilterV1(
                 FilterKeyword(
                     id = id,
                     keyword = phrase,
-                    wholeWord = wholeWord
-                )
-            )
+                    wholeWord = wholeWord,
+                ),
+            ),
         )
     }
 }

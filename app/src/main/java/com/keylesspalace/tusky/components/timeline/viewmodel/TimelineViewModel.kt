@@ -83,19 +83,19 @@ data class UiState(
     val showFabWhileScrolling: Boolean = true,
 
     /** True if media previews should be shown */
-    val showMediaPreview: Boolean = true
+    val showMediaPreview: Boolean = true,
 )
 
 /** Preferences the UI reacts to */
 data class UiPrefs(
     val showFabWhileScrolling: Boolean,
-    val showMediaPreview: Boolean
+    val showMediaPreview: Boolean,
 ) {
     companion object {
         /** Relevant preference keys. Changes to any of these trigger a display update */
         val prefKeys = setOf(
             PrefKeys.FAB_HIDE,
-            PrefKeys.MEDIA_PREVIEW_ENABLED
+            PrefKeys.MEDIA_PREVIEW_ENABLED,
         )
     }
 }
@@ -173,7 +173,7 @@ sealed class StatusAction(open val statusViewData: StatusViewData) : FallibleUiA
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
-        override val statusViewData: StatusViewData
+        override val statusViewData: StatusViewData,
     ) : StatusAction(statusViewData)
 }
 
@@ -218,30 +218,30 @@ sealed class UiError(
     @StringRes val message: Int,
 
     /** The action that failed. Can be resent to retry the action */
-    open val action: UiAction? = null
+    open val action: UiAction? = null,
 ) {
     data class Bookmark(
         override val throwable: Throwable,
-        override val action: StatusAction.Bookmark
+        override val action: StatusAction.Bookmark,
     ) : UiError(throwable, R.string.ui_error_bookmark, action)
 
     data class Favourite(
         override val throwable: Throwable,
-        override val action: StatusAction.Favourite
+        override val action: StatusAction.Favourite,
     ) : UiError(throwable, R.string.ui_error_favourite, action)
 
     data class Reblog(
         override val throwable: Throwable,
-        override val action: StatusAction.Reblog
+        override val action: StatusAction.Reblog,
     ) : UiError(throwable, R.string.ui_error_reblog, action)
 
     data class VoteInPoll(
         override val throwable: Throwable,
-        override val action: StatusAction.VoteInPoll
+        override val action: StatusAction.VoteInPoll,
     ) : UiError(throwable, R.string.ui_error_vote, action)
 
     data class GetFilters(
-        override val throwable: Throwable
+        override val throwable: Throwable,
     ) : UiError(throwable, R.string.ui_error_filter_v1_load, null)
 
     companion object {
@@ -262,7 +262,7 @@ abstract class TimelineViewModel(
     protected val accountManager: AccountManager,
     private val sharedPreferences: SharedPreferences,
     private val accountPreferenceDataStore: AccountPreferenceDataStore,
-    private val filterModel: FilterModel
+    private val filterModel: FilterModel,
 ) : ViewModel() {
     val uiState: StateFlow<UiState>
 
@@ -327,8 +327,8 @@ abstract class TimelineViewModel(
         statusDisplayOptions = MutableStateFlow(
             StatusDisplayOptions.from(
                 sharedPreferences,
-                activeAccount
-            )
+                activeAccount,
+            ),
         )
 
         viewModelScope.launch {
@@ -339,7 +339,7 @@ abstract class TimelineViewModel(
                     statusDisplayOptions.value.make(
                         sharedPreferences,
                         it.preferenceKey,
-                        activeAccount
+                        activeAccount,
                     )
                 }
                 .collect {
@@ -357,23 +357,23 @@ abstract class TimelineViewModel(
                             is StatusAction.Bookmark ->
                                 timelineCases.bookmark(
                                     action.statusViewData.actionableId,
-                                    action.state
+                                    action.state,
                                 )
                             is StatusAction.Favourite ->
                                 timelineCases.favourite(
                                     action.statusViewData.actionableId,
-                                    action.state
+                                    action.state,
                                 )
                             is StatusAction.Reblog ->
                                 timelineCases.reblog(
                                     action.statusViewData.actionableId,
-                                    action.state
+                                    action.state,
                                 )
                             is StatusAction.VoteInPoll ->
                                 timelineCases.voteInPoll(
                                     action.statusViewData.actionableId,
                                     action.poll.id,
-                                    action.choices
+                                    action.choices,
                                 )
                         }.getOrThrow()
                         uiSuccess.emit(StatusActionSuccess.from(action))
@@ -399,12 +399,12 @@ abstract class TimelineViewModel(
         uiState = getUiPrefs().map { prefs ->
             UiState(
                 showFabWhileScrolling = prefs.showFabWhileScrolling,
-                showMediaPreview = prefs.showMediaPreview
+                showMediaPreview = prefs.showMediaPreview,
             )
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-            initialValue = UiState()
+            initialValue = UiState(),
         )
     }
 
@@ -421,7 +421,7 @@ abstract class TimelineViewModel(
 
     private fun toPrefs() = UiPrefs(
         showFabWhileScrolling = !sharedPreferences.getBoolean(PrefKeys.FAB_HIDE, false),
-        showMediaPreview = accountPreferenceDataStore.getBoolean(PrefKeys.MEDIA_PREVIEW_ENABLED, true)
+        showMediaPreview = accountPreferenceDataStore.getBoolean(PrefKeys.MEDIA_PREVIEW_ENABLED, true),
     )
 
     @CallSuper
@@ -566,7 +566,7 @@ abstract class TimelineViewModel(
                         filterModel.initWithFilters(
                             filters.filters.filter {
                                 filterContextMatchesKind(timelineKind, it.context)
-                            }
+                            },
                         )
                         invalidate()
                     }
@@ -650,7 +650,7 @@ abstract class TimelineViewModel(
 
         fun filterContextMatchesKind(
             timelineKind: TimelineKind,
-            filterContext: List<String>
+            filterContext: List<String>,
         ): Boolean {
             return filterContext.contains(Filter.Kind.from(timelineKind).kind)
         }

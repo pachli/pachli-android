@@ -34,7 +34,7 @@ data class Instance(
     @SerializedName("max_media_attachments") val maxMediaAttachments: Int?,
     val pleroma: PleromaConfiguration?,
     @SerializedName("upload_limit") val uploadLimit: Int?,
-    val rules: List<InstanceRules>?
+    val rules: List<InstanceRules>?,
 ) {
     override fun hashCode(): Int {
         return uri.hashCode()
@@ -54,19 +54,19 @@ data class PollConfiguration(
     @SerializedName("max_option_chars") val maxOptionChars: Int?,
     @SerializedName("max_characters_per_option") val maxCharactersPerOption: Int?,
     @SerializedName("min_expiration") val minExpiration: Int?,
-    @SerializedName("max_expiration") val maxExpiration: Int?
+    @SerializedName("max_expiration") val maxExpiration: Int?,
 )
 
 data class InstanceConfiguration(
     val statuses: StatusConfiguration?,
     @SerializedName("media_attachments") val mediaAttachments: MediaAttachmentConfiguration?,
-    val polls: PollConfiguration?
+    val polls: PollConfiguration?,
 )
 
 data class StatusConfiguration(
     @SerializedName("max_characters") val maxCharacters: Int?,
     @SerializedName("max_media_attachments") val maxMediaAttachments: Int?,
-    @SerializedName("characters_reserved_per_url") val charactersReservedPerUrl: Int?
+    @SerializedName("characters_reserved_per_url") val charactersReservedPerUrl: Int?,
 )
 
 data class MediaAttachmentConfiguration(
@@ -75,24 +75,24 @@ data class MediaAttachmentConfiguration(
     @SerializedName("image_matrix_limit") val imageMatrixLimit: Int?,
     @SerializedName("video_size_limit") val videoSizeLimit: Int?,
     @SerializedName("video_frame_rate_limit") val videoFrameRateLimit: Int?,
-    @SerializedName("video_matrix_limit") val videoMatrixLimit: Int?
+    @SerializedName("video_matrix_limit") val videoMatrixLimit: Int?,
 )
 
 data class PleromaConfiguration(
-    val metadata: PleromaMetadata?
+    val metadata: PleromaMetadata?,
 )
 
 data class PleromaMetadata(
-    @SerializedName("fields_limits") val fieldLimits: PleromaFieldLimits
+    @SerializedName("fields_limits") val fieldLimits: PleromaFieldLimits,
 )
 
 data class PleromaFieldLimits(
     @SerializedName("max_fields") val maxFields: Int?,
     @SerializedName("name_length") val nameLength: Int?,
-    @SerializedName("value_length") val valueLength: Int?
+    @SerializedName("value_length") val valueLength: Int?,
 )
 
 data class InstanceRules(
     val id: String,
-    val text: String
+    val text: String,
 )

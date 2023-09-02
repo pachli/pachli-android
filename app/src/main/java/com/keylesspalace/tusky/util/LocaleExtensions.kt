@@ -31,6 +31,6 @@ fun Locale.getTuskyDisplayName(context: Context): String {
     return context.getString(
         R.string.language_display_name_format,
         displayLanguage,
-        getDisplayLanguage(this)
+        getDisplayLanguage(this),
     )
 }

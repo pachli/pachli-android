@@ -23,7 +23,7 @@ class SearchPagingSourceFactory<T : Any>(
     private val mastodonApi: MastodonApi,
     private val searchType: SearchType,
     private val initialItems: List<T>? = null,
-    private val parser: (SearchResult) -> List<T>
+    private val parser: (SearchResult) -> List<T>,
 ) : () -> SearchPagingSource<T> {
 
     private var searchRequest: String = ""
@@ -36,7 +36,7 @@ class SearchPagingSourceFactory<T : Any>(
             searchType = searchType,
             searchRequest = searchRequest,
             initialItems = initialItems,
-            parser = parser
+            parser = parser,
         ).also { source ->
             currentSource = source
         }

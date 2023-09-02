@@ -28,7 +28,8 @@ enum class EmbeddedFontFamily(@FontRes val font: Int, @StyleRes val style: Int) 
     ESTEDAD(R.font.estedad, R.style.FontEstedad),
     LEXEND(R.font.lexend, R.style.FontLexend),
     LUCIOLE(R.font.luciole, R.style.FontLuciole),
-    OPENDYSLEXIC(R.font.opendyslexic, R.style.FontOpenDyslexic);
+    OPENDYSLEXIC(R.font.opendyslexic, R.style.FontOpenDyslexic),
+    ;
 
     companion object {
         fun from(s: String?): EmbeddedFontFamily {

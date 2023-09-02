@@ -33,7 +33,7 @@ class ProgressImageView
 @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : MediaPreviewImageView(context, attrs, defStyleAttr) {
     private var progress = -1
     private val progressRect = RectF()
@@ -52,7 +52,7 @@ class ProgressImageView
     }
     private val captionDrawable = AppCompatResources.getDrawable(
         context,
-        R.drawable.spellcheck
+        R.drawable.spellcheck,
     )!!.apply {
         setTint(Color.WHITE)
     }
@@ -98,7 +98,7 @@ class ProgressImageView
             width - circleMargin - circleRadius,
             height - circleMargin - circleRadius,
             width - circleMargin,
-            height - circleMargin
+            height - circleMargin,
         )
         captionDrawable.draw(canvas)
     }

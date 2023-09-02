@@ -19,7 +19,7 @@
         errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="963"
+            line="965"
             column="42"/>
     </issue>
 
@@ -30,7 +30,7 @@
         errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="990"
+            line="994"
             column="42"/>
     </issue>
 
@@ -153,12 +153,12 @@
     <issue
         id="UseCompatLoadingForDrawables"
         message="Use `AppCompatResources.getDrawable()`"
-        errorLine1="                    return ctx.getDrawable(R.drawable.avatar_default)!!"
-        errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="                        return ctx.getDrawable(R.drawable.avatar_default)!!"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="534"
-            column="28"/>
+            line="535"
+            column="32"/>
     </issue>
 
     <issue
@@ -927,7 +927,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/account/AccountActivity.kt"
-            line="475"
+            line="479"
             column="9"/>
     </issue>
 
@@ -1521,7 +1521,7 @@
         errorLine2="^">
         <location
             file="src/main/res/menu/activity_scheduled_status.xml"
-            line="2"
+            line="19"
             column="1"/>
     </issue>
 
@@ -1576,7 +1576,7 @@
         errorLine2="^">
         <location
             file="src/main/res/menu/fragment_search.xml"
-            line="2"
+            line="19"
             column="1"/>
     </issue>
 
@@ -2221,67 +2221,67 @@
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `AccountActivity` requires synthetic accessor"
-        errorLine1="                        binding.accountFloatingActionButton.show()"
-        errorLine2="                        ~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/components/account/AccountActivity.kt"
-            line="364"
-            column="25"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `AccountActivity` requires synthetic accessor"
-        errorLine1="                        binding.accountFloatingActionButton.hide()"
-        errorLine2="                        ~~~~~~~">
+        errorLine1="                            binding.accountFloatingActionButton.show()"
+        errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/account/AccountActivity.kt"
             line="367"
-            column="25"/>
+            column="29"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `AccountActivity` requires synthetic accessor"
-        errorLine1="                binding.accountAvatarImageView.scaleX = scaledAvatarSize"
-        errorLine2="                ~~~~~~~">
+        errorLine1="                            binding.accountFloatingActionButton.hide()"
+        errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/account/AccountActivity.kt"
-            line="373"
-            column="17"/>
+            line="370"
+            column="29"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `AccountActivity` requires synthetic accessor"
-        errorLine1="                binding.accountAvatarImageView.scaleY = scaledAvatarSize"
-        errorLine2="                ~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/components/account/AccountActivity.kt"
-            line="374"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `AccountActivity` requires synthetic accessor"
-        errorLine1="                binding.accountAvatarImageView.visible(scaledAvatarSize > 0)"
-        errorLine2="                ~~~~~~~">
+        errorLine1="                    binding.accountAvatarImageView.scaleX = scaledAvatarSize"
+        errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/account/AccountActivity.kt"
             line="376"
-            column="17"/>
+            column="21"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `AccountActivity` requires synthetic accessor"
-        errorLine1="                binding.swipeToRefreshLayout.isEnabled = verticalOffset == 0"
-        errorLine2="                ~~~~~~~">
+        errorLine1="                    binding.accountAvatarImageView.scaleY = scaledAvatarSize"
+        errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/account/AccountActivity.kt"
-            line="386"
-            column="17"/>
+            line="377"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getBinding` of class `AccountActivity` requires synthetic accessor"
+        errorLine1="                    binding.accountAvatarImageView.visible(scaledAvatarSize > 0)"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/components/account/AccountActivity.kt"
+            line="379"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getBinding` of class `AccountActivity` requires synthetic accessor"
+        errorLine1="                    binding.swipeToRefreshLayout.isEnabled = verticalOffset == 0"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/components/account/AccountActivity.kt"
+            line="389"
+            column="21"/>
     </issue>
 
     <issue
@@ -2298,45 +2298,45 @@
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `showErrorSnackbar` of class `AccountPreferencesFragment` requires synthetic accessor"
-        errorLine1="                        showErrorSnackbar(visibility, sensitive)"
-        errorLine2="                        ~~~~~~~~~~~~~~~~~">
+        errorLine1="                            showErrorSnackbar(visibility, sensitive)"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/preference/AccountPreferencesFragment.kt"
-            line="310"
-            column="25"/>
+            line="311"
+            column="29"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `showErrorSnackbar` of class `AccountPreferencesFragment` requires synthetic accessor"
-        errorLine1="                    showErrorSnackbar(visibility, sensitive)"
-        errorLine2="                    ~~~~~~~~~~~~~~~~~">
+        errorLine1="                        showErrorSnackbar(visibility, sensitive)"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/preference/AccountPreferencesFragment.kt"
-            line="316"
-            column="21"/>
+            line="317"
+            column="25"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getViewModel` of class `AccountsInListFragment` requires synthetic accessor"
-        errorLine1="                viewModel.search(query.orEmpty())"
-        errorLine2="                ~~~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="116"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getViewModel` of class `AccountsInListFragment` requires synthetic accessor"
-        errorLine1="                    viewModel.search(&quot;&quot;)"
+        errorLine1="                    viewModel.search(query.orEmpty())"
         errorLine2="                    ~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="123"
+            line="117"
             column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getViewModel` of class `AccountsInListFragment` requires synthetic accessor"
+        errorLine1="                        viewModel.search(&quot;&quot;)"
+        errorLine2="                        ~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
+            line="124"
+            column="25"/>
     </issue>
 
     <issue
@@ -2346,7 +2346,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="181"
+            line="183"
             column="17"/>
     </issue>
 
@@ -2357,7 +2357,7 @@
         errorLine2="                                                                                                                               ~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="191"
+            line="193"
             column="128"/>
     </issue>
 
@@ -2368,7 +2368,7 @@
         errorLine2="                                                                                                                               ~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="191"
+            line="193"
             column="128"/>
     </issue>
 
@@ -2379,7 +2379,7 @@
         errorLine2="                                                                      ~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="193"
+            line="195"
             column="71"/>
     </issue>
 
@@ -2390,7 +2390,7 @@
         errorLine2="                                                              ~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="193"
+            line="195"
             column="63"/>
     </issue>
 
@@ -2401,7 +2401,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="218"
+            line="220"
             column="21"/>
     </issue>
 
@@ -2412,7 +2412,7 @@
         errorLine2="                    ~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="220"
+            line="222"
             column="21"/>
     </issue>
 
@@ -2423,7 +2423,7 @@
         errorLine2="                                                                                                                               ~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="230"
+            line="232"
             column="128"/>
     </issue>
 
@@ -2434,7 +2434,7 @@
         errorLine2="                                                                                                                               ~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="230"
+            line="232"
             column="128"/>
     </issue>
 
@@ -2445,7 +2445,7 @@
         errorLine2="                                                                      ~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="232"
+            line="234"
             column="71"/>
     </issue>
 
@@ -2456,19 +2456,19 @@
         errorLine2="                                                              ~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/AccountsInListFragment.kt"
-            line="232"
+            line="234"
             column="63"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `handleActivity` of class `AppInjector` requires synthetic accessor"
-        errorLine1="                handleActivity(activity)"
-        errorLine2="                ~~~~~~~~~~~~~~">
+        errorLine1="                    handleActivity(activity)"
+        errorLine2="                    ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/di/AppInjector.kt"
-            line="41"
-            column="17"/>
+            line="42"
+            column="21"/>
     </issue>
 
     <issue
@@ -2562,111 +2562,111 @@
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `ConversationsFragment` requires synthetic accessor"
-        errorLine1="                    binding.recyclerView.post {"
-        errorLine2="                    ~~~~~~~">
+        errorLine1="                        binding.recyclerView.post {"
+        errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/conversation/ConversationsFragment.kt"
-            line="153"
-            column="21"/>
+            line="154"
+            column="25"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `ConversationsFragment` requires synthetic accessor"
-        errorLine1="                            binding.recyclerView.scrollBy(0, Utils.dpToPx(requireContext(), -30))"
-        errorLine2="                            ~~~~~~~">
+        errorLine1="                                binding.recyclerView.scrollBy(0, Utils.dpToPx(requireContext(), -30))"
+        errorLine2="                                ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/conversation/ConversationsFragment.kt"
-            line="155"
+            line="156"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getViewModel` of class `EditFilterActivity` requires synthetic accessor"
+        errorLine1="                viewModel.setDuration("
+        errorLine2="                ~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/components/filters/EditFilterActivity.kt"
+            line="118"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getViewModel` of class `EditFilterActivity` requires synthetic accessor"
+        errorLine1="                viewModel.setDuration("
+        errorLine2="                ~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/components/filters/EditFilterActivity.kt"
+            line="118"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getViewModel` of class `EditFilterActivity` requires synthetic accessor"
+        errorLine1="                viewModel.setDuration(0)"
+        errorLine2="                ~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/components/filters/EditFilterActivity.kt"
+            line="128"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getViewModel` of class `EditFilterActivity` requires synthetic accessor"
+        errorLine1="                viewModel.setDuration(0)"
+        errorLine2="                ~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/components/filters/EditFilterActivity.kt"
+            line="128"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
+        errorLine1="                        if (dy > 0 &amp;&amp; binding.fab.isShown) {"
+        errorLine2="                                      ~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/components/followedtags/FollowedTagsActivity.kt"
+            line="92"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
+        errorLine1="                            binding.fab.hide()"
+        errorLine2="                            ~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/components/followedtags/FollowedTagsActivity.kt"
+            line="93"
             column="29"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
-        message="Access to `private` method `getViewModel` of class `EditFilterActivity` requires synthetic accessor"
-        errorLine1="                viewModel.setDuration("
-        errorLine2="                ~~~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/components/filters/EditFilterActivity.kt"
-            line="118"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getViewModel` of class `EditFilterActivity` requires synthetic accessor"
-        errorLine1="                viewModel.setDuration("
-        errorLine2="                ~~~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/components/filters/EditFilterActivity.kt"
-            line="118"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getViewModel` of class `EditFilterActivity` requires synthetic accessor"
-        errorLine1="                viewModel.setDuration(0)"
-        errorLine2="                ~~~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/components/filters/EditFilterActivity.kt"
-            line="128"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getViewModel` of class `EditFilterActivity` requires synthetic accessor"
-        errorLine1="                viewModel.setDuration(0)"
-        errorLine2="                ~~~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/components/filters/EditFilterActivity.kt"
-            line="128"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
-        errorLine1="                    if (dy > 0 &amp;&amp; binding.fab.isShown) {"
-        errorLine2="                                  ~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/components/followedtags/FollowedTagsActivity.kt"
-            line="91"
-            column="35"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
-        errorLine1="                        binding.fab.hide()"
-        errorLine2="                        ~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/components/followedtags/FollowedTagsActivity.kt"
-            line="92"
-            column="25"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
-        errorLine1="                    } else if (dy &lt; 0 &amp;&amp; !binding.fab.isShown) {"
-        errorLine2="                                          ~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/components/followedtags/FollowedTagsActivity.kt"
-            line="93"
-            column="43"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
-        errorLine1="                        binding.fab.show()"
-        errorLine2="                        ~~~~~~~">
+        errorLine1="                        } else if (dy &lt; 0 &amp;&amp; !binding.fab.isShown) {"
+        errorLine2="                                              ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/followedtags/FollowedTagsActivity.kt"
             line="94"
-            column="25"/>
+            column="47"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
+        errorLine1="                            binding.fab.show()"
+        errorLine2="                            ~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/components/followedtags/FollowedTagsActivity.kt"
+            line="95"
+            column="29"/>
     </issue>
 
     <issue
@@ -2676,7 +2676,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/followedtags/FollowedTagsActivity.kt"
-            line="202"
+            line="204"
             column="21"/>
     </issue>
 
@@ -2716,7 +2716,7 @@
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getContext` of class `ListStatusAccessibilityDelegate` requires synthetic accessor"
-        errorLine1="                            context.getString(R.string.action_open_media_n, i + 1)"
+        errorLine1="                            context.getString(R.string.action_open_media_n, i + 1),"
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/util/ListStatusAccessibilityDelegate.kt"
@@ -3138,7 +3138,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="552"
+            line="554"
             column="17"/>
     </issue>
 
@@ -3149,7 +3149,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="555"
+            line="557"
             column="21"/>
     </issue>
 
@@ -3160,7 +3160,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="560"
+            line="562"
             column="17"/>
     </issue>
 
@@ -3171,7 +3171,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="564"
+            line="566"
             column="21"/>
     </issue>
 
@@ -3182,7 +3182,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="569"
+            line="571"
             column="17"/>
     </issue>
 
@@ -3193,7 +3193,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="572"
+            line="574"
             column="21"/>
     </issue>
 
@@ -3204,7 +3204,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="577"
+            line="579"
             column="17"/>
     </issue>
 
@@ -3215,7 +3215,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="580"
+            line="582"
             column="21"/>
     </issue>
 
@@ -3226,7 +3226,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="585"
+            line="587"
             column="17"/>
     </issue>
 
@@ -3237,7 +3237,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="588"
+            line="590"
             column="21"/>
     </issue>
 
@@ -3248,7 +3248,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="592"
+            line="594"
             column="17"/>
     </issue>
 
@@ -3259,7 +3259,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="595"
+            line="597"
             column="21"/>
     </issue>
 
@@ -3270,7 +3270,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="600"
+            line="602"
             column="17"/>
     </issue>
 
@@ -3281,7 +3281,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="603"
+            line="605"
             column="21"/>
     </issue>
 
@@ -3292,7 +3292,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="607"
+            line="609"
             column="17"/>
     </issue>
 
@@ -3303,7 +3303,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="611"
+            line="613"
             column="21"/>
     </issue>
 
@@ -3314,7 +3314,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="620"
+            line="622"
             column="17"/>
     </issue>
 
@@ -3325,7 +3325,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="623"
+            line="625"
             column="21"/>
     </issue>
 
@@ -3336,7 +3336,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="628"
+            line="630"
             column="17"/>
     </issue>
 
@@ -3347,7 +3347,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="631"
+            line="633"
             column="21"/>
     </issue>
 
@@ -3358,7 +3358,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="636"
+            line="638"
             column="17"/>
     </issue>
 
@@ -3369,7 +3369,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="639"
+            line="641"
             column="21"/>
     </issue>
 
@@ -3380,7 +3380,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="644"
+            line="646"
             column="17"/>
     </issue>
 
@@ -3391,7 +3391,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="647"
+            line="649"
             column="21"/>
     </issue>
 
@@ -3402,7 +3402,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="654"
+            line="656"
             column="21"/>
     </issue>
 
@@ -3413,7 +3413,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="657"
+            line="659"
             column="25"/>
     </issue>
 
@@ -3424,7 +3424,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="666"
+            line="668"
             column="17"/>
     </issue>
 
@@ -3435,7 +3435,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="669"
+            line="671"
             column="21"/>
     </issue>
 
@@ -3446,7 +3446,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="682"
+            line="684"
             column="17"/>
     </issue>
 
@@ -3457,7 +3457,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="686"
+            line="688"
             column="21"/>
     </issue>
 
@@ -3466,17 +3466,6 @@
         message="Access to `private` method `getBinding` of class `MainActivity` requires synthetic accessor"
         errorLine1="                binding.mainToolbar.title = tab.contentDescription"
         errorLine2="                ~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="805"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `refreshComposeButtonState` of class `MainActivity` requires synthetic accessor"
-        errorLine1="                refreshComposeButtonState(tabAdapter, tab.position)"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
             line="807"
@@ -3490,7 +3479,18 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
-            line="818"
+            line="809"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `refreshComposeButtonState` of class `MainActivity` requires synthetic accessor"
+        errorLine1="                refreshComposeButtonState(tabAdapter, tab.position)"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/MainActivity.kt"
+            line="820"
             column="17"/>
     </issue>
 
@@ -3717,12 +3717,12 @@
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getViewModel` of class `NotificationsFragment` requires synthetic accessor"
-        errorLine1="                    if (!viewModel.uiState.value.showFabWhileScrolling) {"
-        errorLine2="                         ~~~~~~~~~">
+        errorLine1="                        if (!viewModel.uiState.value.showFabWhileScrolling) {"
+        errorLine2="                             ~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/notifications/NotificationsFragment.kt"
-            line="174"
-            column="26"/>
+            line="176"
+            column="30"/>
     </issue>
 
     <issue
@@ -3772,56 +3772,56 @@
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `saveTabs` of class `TabPreferenceActivity` requires synthetic accessor"
-        errorLine1="                saveTabs()"
-        errorLine2="                ~~~~~~~~">
+        errorLine1="                    saveTabs()"
+        errorLine2="                    ~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/TabPreferenceActivity.kt"
-            line="137"
-            column="17"/>
+            line="138"
+            column="21"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getSelectedItemElevation` of class `TabPreferenceActivity` requires synthetic accessor"
-        errorLine1="                    viewHolder?.itemView?.elevation = selectedItemElevation"
-        errorLine2="                                                      ~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="                        viewHolder?.itemView?.elevation = selectedItemElevation"
+        errorLine2="                                                          ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/TabPreferenceActivity.kt"
-            line="147"
-            column="55"/>
+            line="148"
+            column="59"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getSelectedItemElevation` of class `TabPreferenceActivity` requires synthetic accessor"
-        errorLine1="                    viewHolder?.itemView?.elevation = selectedItemElevation"
-        errorLine2="                                                      ~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="                        viewHolder?.itemView?.elevation = selectedItemElevation"
+        errorLine2="                                                          ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/TabPreferenceActivity.kt"
-            line="147"
-            column="55"/>
+            line="148"
+            column="59"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getViewModel` of class `TimelineFragment` requires synthetic accessor"
-        errorLine1="                        if (!viewModel.uiState.value.showFabWhileScrolling) {"
-        errorLine2="                             ~~~~~~~~~">
+        errorLine1="                            if (!viewModel.uiState.value.showFabWhileScrolling) {"
+        errorLine2="                                 ~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/components/timeline/TimelineFragment.kt"
-            line="171"
-            column="30"/>
+            line="174"
+            column="34"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `ViewImageFragment` requires synthetic accessor"
-        errorLine1="                    binding.captionSheet.visible(isDescriptionVisible)"
-        errorLine2="                    ~~~~~~~">
+        errorLine1="                        binding.captionSheet.visible(isDescriptionVisible)"
+        errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/fragment/ViewImageFragment.kt"
-            line="233"
-            column="21"/>
+            line="236"
+            column="25"/>
     </issue>
 
     <issue
@@ -3831,7 +3831,7 @@
         errorLine2="                                 ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/fragment/ViewImageFragment.kt"
-            line="320"
+            line="324"
             column="34"/>
     </issue>
 
@@ -3842,7 +3842,7 @@
         errorLine2="            ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/fragment/ViewImageFragment.kt"
-            line="333"
+            line="337"
             column="13"/>
     </issue>
 
@@ -3853,63 +3853,63 @@
         errorLine2="                ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/fragment/ViewImageFragment.kt"
-            line="340"
+            line="344"
             column="17"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `ViewMediaActivity` requires synthetic accessor"
-        errorLine1="                binding.toolbar.title = getPageTitle(position)"
-        errorLine2="                ~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/ViewMediaActivity.kt"
-            line="126"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getPageTitle` of class `ViewMediaActivity` requires synthetic accessor"
-        errorLine1="                binding.toolbar.title = getPageTitle(position)"
-        errorLine2="                                        ~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/ViewMediaActivity.kt"
-            line="126"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getPageTitle` of class `ViewMediaActivity` requires synthetic accessor"
-        errorLine1="                binding.toolbar.title = getPageTitle(position)"
-        errorLine2="                                        ~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/ViewMediaActivity.kt"
-            line="126"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `ViewMediaActivity` requires synthetic accessor"
-        errorLine1="                adapter.onTransitionEnd(binding.viewPager.currentItem)"
-        errorLine2="                                        ~~~~~~~">
-        <location
-            file="src/main/java/com/keylesspalace/tusky/ViewMediaActivity.kt"
-            line="154"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `ViewMediaActivity` requires synthetic accessor"
-        errorLine1="                    binding.toolbar.visibility = visibility"
+        errorLine1="                    binding.toolbar.title = getPageTitle(position)"
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/ViewMediaActivity.kt"
-            line="197"
+            line="127"
             column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getPageTitle` of class `ViewMediaActivity` requires synthetic accessor"
+        errorLine1="                    binding.toolbar.title = getPageTitle(position)"
+        errorLine2="                                            ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/ViewMediaActivity.kt"
+            line="127"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getPageTitle` of class `ViewMediaActivity` requires synthetic accessor"
+        errorLine1="                    binding.toolbar.title = getPageTitle(position)"
+        errorLine2="                                            ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/ViewMediaActivity.kt"
+            line="127"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getBinding` of class `ViewMediaActivity` requires synthetic accessor"
+        errorLine1="                    adapter.onTransitionEnd(binding.viewPager.currentItem)"
+        errorLine2="                                            ~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/ViewMediaActivity.kt"
+            line="157"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getBinding` of class `ViewMediaActivity` requires synthetic accessor"
+        errorLine1="                        binding.toolbar.visibility = visibility"
+        errorLine2="                        ~~~~~~~">
+        <location
+            file="src/main/java/com/keylesspalace/tusky/ViewMediaActivity.kt"
+            line="202"
+            column="25"/>
     </issue>
 
     <issue
@@ -5972,7 +5972,7 @@
         errorLine2="                                   ~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="134"
+            line="133"
             column="36"/>
     </issue>
 
@@ -5983,7 +5983,7 @@
         errorLine2="                                  ~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="195"
+            line="194"
             column="35"/>
     </issue>
 
@@ -5994,7 +5994,7 @@
         errorLine2="                                               ~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="195"
+            line="194"
             column="48"/>
     </issue>
 
@@ -6005,7 +6005,7 @@
         errorLine2="                                                                         ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="195"
+            line="194"
             column="74"/>
     </issue>
 
@@ -6016,7 +6016,7 @@
         errorLine2="                               ~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="202"
+            line="201"
             column="32"/>
     </issue>
 
@@ -6027,7 +6027,7 @@
         errorLine2="                                              ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="214"
+            line="213"
             column="47"/>
     </issue>
 
@@ -6038,7 +6038,7 @@
         errorLine2="                               ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="344"
+            line="343"
             column="32"/>
     </issue>
 
@@ -6049,7 +6049,7 @@
         errorLine2="                                                              ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="344"
+            line="343"
             column="63"/>
     </issue>
 
@@ -6060,7 +6060,7 @@
         errorLine2="                                                                                                         ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="344"
+            line="343"
             column="106"/>
     </issue>
 
@@ -6071,7 +6071,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="495"
+            line="494"
             column="19"/>
     </issue>
 
@@ -6082,7 +6082,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="497"
+            line="496"
             column="19"/>
     </issue>
 
@@ -6093,7 +6093,7 @@
         errorLine2="                                 ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="588"
+            line="587"
             column="34"/>
     </issue>
 
@@ -6104,7 +6104,7 @@
         errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="589"
+            line="588"
             column="40"/>
     </issue>
 
@@ -6115,7 +6115,7 @@
         errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="634"
+            line="633"
             column="39"/>
     </issue>
 
@@ -6126,7 +6126,7 @@
         errorLine2="                                      ~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="635"
+            line="634"
             column="39"/>
     </issue>
 
@@ -6137,7 +6137,7 @@
         errorLine2="                                      ~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="636"
+            line="635"
             column="39"/>
     </issue>
 
@@ -6148,7 +6148,7 @@
         errorLine2="                                ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="637"
+            line="636"
             column="33"/>
     </issue>
 
@@ -6159,7 +6159,7 @@
         errorLine2="                                ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="756"
+            line="755"
             column="33"/>
     </issue>
 
@@ -6170,7 +6170,7 @@
         errorLine2="                                                             ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="756"
+            line="755"
             column="62"/>
     </issue>
 
@@ -6181,7 +6181,7 @@
         errorLine2="                                ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="757"
+            line="756"
             column="33"/>
     </issue>
 
@@ -6192,7 +6192,7 @@
         errorLine2="                                                      ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="847"
+            line="846"
             column="55"/>
     </issue>
 
@@ -6203,7 +6203,7 @@
         errorLine2="                     ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="922"
+            line="921"
             column="22"/>
     </issue>
 
@@ -6214,7 +6214,7 @@
         errorLine2="                                                           ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="922"
+            line="921"
             column="60"/>
     </issue>
 
@@ -6225,7 +6225,7 @@
         errorLine2="                                                                            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="922"
+            line="921"
             column="77"/>
     </issue>
 
@@ -6236,7 +6236,7 @@
         errorLine2="              ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="971"
+            line="970"
             column="15"/>
     </issue>
 
@@ -6247,7 +6247,7 @@
         errorLine2="                                       ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="971"
+            line="970"
             column="40"/>
     </issue>
 
@@ -6258,7 +6258,7 @@
         errorLine2="              ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="980"
+            line="979"
             column="15"/>
     </issue>
 
@@ -6269,7 +6269,7 @@
         errorLine2="                                          ~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="980"
+            line="979"
             column="43"/>
     </issue>
 
@@ -6280,7 +6280,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="1088"
+            line="1075"
             column="19"/>
     </issue>
 
@@ -6291,7 +6291,7 @@
         errorLine2="                  ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="1090"
+            line="1077"
             column="19"/>
     </issue>
 
@@ -6302,7 +6302,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="1091"
+            line="1078"
             column="19"/>
     </issue>
 
@@ -6313,7 +6313,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/keylesspalace/tusky/adapter/StatusBaseViewHolder.java"
-            line="1092"
+            line="1079"
             column="19"/>
     </issue>
 

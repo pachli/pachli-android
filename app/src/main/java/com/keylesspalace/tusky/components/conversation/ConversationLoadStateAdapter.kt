@@ -24,7 +24,7 @@ import com.keylesspalace.tusky.util.BindingHolder
 import com.keylesspalace.tusky.util.visible
 
 class ConversationLoadStateAdapter(
-    private val retryCallback: () -> Unit
+    private val retryCallback: () -> Unit,
 ) : LoadStateAdapter<BindingHolder<ItemNetworkStateBinding>>() {
 
     override fun onBindViewHolder(holder: BindingHolder<ItemNetworkStateBinding>, loadState: LoadState) {
@@ -45,7 +45,7 @@ class ConversationLoadStateAdapter(
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        loadState: LoadState
+        loadState: LoadState,
     ): BindingHolder<ItemNetworkStateBinding> {
         val binding = ItemNetworkStateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BindingHolder(binding)

@@ -55,7 +55,7 @@ import kotlin.time.TimeSource
  */
 fun <T> Flow<T>.throttleFirst(
     timeout: Duration,
-    timeSource: TimeSource = TimeSource.Monotonic
+    timeSource: TimeSource = TimeSource.Monotonic,
 ) = flow {
     var marker: TimeMark? = null
     collect {

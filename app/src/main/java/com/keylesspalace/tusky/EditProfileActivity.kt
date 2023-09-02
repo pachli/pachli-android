@@ -81,7 +81,7 @@ class EditProfileActivity : BaseActivity(), Injectable {
 
     private enum class PickType {
         AVATAR,
-        HEADER
+        HEADER,
     }
 
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
@@ -105,7 +105,7 @@ class EditProfileActivity : BaseActivity(), Injectable {
             displayName = binding.displayNameEditText.text.toString(),
             note = binding.noteEditText.text.toString(),
             locked = binding.lockedCheckBox.isChecked,
-            fields = accountFieldEditAdapter.getFieldData()
+            fields = accountFieldEditAdapter.getFieldData(),
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -162,7 +162,7 @@ class EditProfileActivity : BaseActivity(), Injectable {
                                 .placeholder(R.drawable.avatar_default)
                                 .transform(
                                     FitCenter(),
-                                    RoundedCorners(resources.getDimensionPixelSize(R.dimen.avatar_radius_80dp))
+                                    RoundedCorners(resources.getDimensionPixelSize(R.dimen.avatar_radius_80dp)),
                                 )
                                 .into(binding.avatarPreview)
                         }
@@ -198,7 +198,7 @@ class EditProfileActivity : BaseActivity(), Injectable {
         observeImage(viewModel.headerData, binding.headerPreview, false)
 
         viewModel.saveData.observe(
-            this
+            this,
         ) {
             when (it) {
                 is Success -> {
@@ -238,10 +238,10 @@ class EditProfileActivity : BaseActivity(), Injectable {
     private fun observeImage(
         liveData: LiveData<Uri>,
         imageView: ImageView,
-        roundedCorners: Boolean
+        roundedCorners: Boolean,
     ) {
         liveData.observe(
-            this
+            this,
         ) { imageUri ->
 
             // skipping all caches so we can always reuse the same uri
@@ -253,7 +253,7 @@ class EditProfileActivity : BaseActivity(), Injectable {
             if (roundedCorners) {
                 glide.transform(
                     FitCenter(),
-                    RoundedCorners(resources.getDimensionPixelSize(R.dimen.avatar_radius_80dp))
+                    RoundedCorners(resources.getDimensionPixelSize(R.dimen.avatar_radius_80dp)),
                 ).into(imageView)
             } else {
                 glide.into(imageView)
@@ -276,7 +276,7 @@ class EditProfileActivity : BaseActivity(), Injectable {
                         setImageSource(includeGallery = true, includeCamera = false)
                         setOutputUri(viewModel.getAvatarUri())
                         setOutputCompressFormat(Bitmap.CompressFormat.PNG)
-                    }
+                    },
                 )
             }
             PickType.HEADER -> {
@@ -287,7 +287,7 @@ class EditProfileActivity : BaseActivity(), Injectable {
                         setImageSource(includeGallery = true, includeCamera = false)
                         setOutputUri(viewModel.getHeaderUri())
                         setOutputCompressFormat(Bitmap.CompressFormat.PNG)
-                    }
+                    },
                 )
             }
         }

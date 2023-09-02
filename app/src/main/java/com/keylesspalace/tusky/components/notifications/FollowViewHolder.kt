@@ -34,16 +34,16 @@ import com.keylesspalace.tusky.viewdata.NotificationViewData
 class FollowViewHolder(
     private val binding: ItemFollowBinding,
     private val notificationActionListener: NotificationActionListener,
-    private val linkListener: LinkListener
+    private val linkListener: LinkListener,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
     private val avatarRadius42dp = itemView.context.resources.getDimensionPixelSize(
-        R.dimen.avatar_radius_42dp
+        R.dimen.avatar_radius_42dp,
     )
 
     override fun bind(
         viewData: NotificationViewData,
         payloads: List<*>?,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         // Skip updates with payloads. That indicates a timestamp update, and
         // this view does not have timestamps.
@@ -53,7 +53,7 @@ class FollowViewHolder(
             viewData.account,
             viewData.type === Notification.Type.SIGN_UP,
             statusDisplayOptions.animateAvatars,
-            statusDisplayOptions.animateEmojis
+            statusDisplayOptions.animateEmojis,
         )
         setupButtons(notificationActionListener, viewData.account.id)
     }
@@ -62,7 +62,7 @@ class FollowViewHolder(
         account: TimelineAccount,
         isSignUp: Boolean,
         animateAvatars: Boolean,
-        animateEmojis: Boolean
+        animateEmojis: Boolean,
     ) {
         val context = binding.notificationText.context
         val format =
@@ -71,7 +71,7 @@ class FollowViewHolder(
                     R.string.notification_sign_up_format
                 } else {
                     R.string.notification_follow_format
-                }
+                },
             )
         val wrappedDisplayName = account.name.unicodeWrap()
         val wholeMessage = String.format(format, wrappedDisplayName)
@@ -79,7 +79,7 @@ class FollowViewHolder(
             wholeMessage.emojify(
                 account.emojis,
                 binding.notificationText,
-                animateEmojis
+                animateEmojis,
             )
         binding.notificationText.text = emojifiedMessage
         val username = context.getString(R.string.post_username_format, account.username)
@@ -87,20 +87,20 @@ class FollowViewHolder(
         val emojifiedDisplayName = wrappedDisplayName.emojify(
             account.emojis,
             binding.notificationUsername,
-            animateEmojis
+            animateEmojis,
         )
         binding.notificationDisplayName.text = emojifiedDisplayName
         loadAvatar(
             account.avatar,
             binding.notificationAvatar,
             avatarRadius42dp,
-            animateAvatars
+            animateAvatars,
         )
 
         val emojifiedNote = account.note.parseAsMastodonHtml().emojify(
             account.emojis,
             binding.notificationAccountNote,
-            animateEmojis
+            animateEmojis,
         )
         setClickableText(binding.notificationAccountNote, emojifiedNote, emptyList(), null, linkListener)
     }

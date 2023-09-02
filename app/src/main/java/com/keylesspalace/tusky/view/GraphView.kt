@@ -32,7 +32,7 @@ import kotlin.math.max
 class GraphView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : View(context, attrs, defStyleAttr) {
     @get:ColorInt
     @ColorInt
@@ -75,7 +75,7 @@ class GraphView @JvmOverloads constructor(
             80,
             130,
             190,
-            80
+            80,
         )
     } else {
         listOf(
@@ -85,7 +85,7 @@ class GraphView @JvmOverloads constructor(
             1,
             1,
             1,
-            1
+            1,
         )
     }
         set(value) {
@@ -102,7 +102,7 @@ class GraphView @JvmOverloads constructor(
             60,
             100,
             132,
-            20
+            20,
         )
     } else {
         listOf(
@@ -112,7 +112,7 @@ class GraphView @JvmOverloads constructor(
             1,
             1,
             1,
-            1
+            1,
         )
     }
         set(value) {
@@ -130,39 +130,39 @@ class GraphView @JvmOverloads constructor(
             primaryLineColor = context.getColor(
                 a.getResourceId(
                     R.styleable.GraphView_primaryLineColor,
-                    R.color.tusky_blue
-                )
+                    R.color.tusky_blue,
+                ),
             )
 
             secondaryLineColor = context.getColor(
                 a.getResourceId(
                     R.styleable.GraphView_secondaryLineColor,
-                    R.color.tusky_red
-                )
+                    R.color.tusky_red,
+                ),
             )
 
             lineWidth = a.getDimensionPixelSize(
                 R.styleable.GraphView_lineWidth,
-                R.dimen.graph_line_thickness
+                R.dimen.graph_line_thickness,
             ).toFloat()
 
             graphColor = context.getColor(
                 a.getResourceId(
                     R.styleable.GraphView_graphColor,
-                    R.color.colorBackground
-                )
+                    R.color.colorBackground,
+                ),
             )
 
             metaColor = context.getColor(
                 a.getResourceId(
                     R.styleable.GraphView_metaColor,
-                    R.color.dividerColor
-                )
+                    R.color.dividerColor,
+                ),
             )
 
             proportionalTrending = a.getBoolean(
                 R.styleable.GraphView_proportionalTrending,
-                proportionalTrending
+                proportionalTrending,
             )
         }
 
@@ -284,7 +284,7 @@ class GraphView @JvmOverloads constructor(
                     height.toFloat(),
                     i * pointDistance,
                     height - (height.toFloat() / 20),
-                    metaPaint
+                    metaPaint,
                 )
             }
 
@@ -297,14 +297,14 @@ class GraphView @JvmOverloads constructor(
                 linePath = secondaryLinePath,
                 linePaint = secondaryLinePaint,
                 circlePaint = secondaryCirclePaint,
-                lineThickness = lineWidth
+                lineThickness = lineWidth,
             )
             drawLine(
                 canvas = canvas,
                 linePath = primaryLinePath,
                 linePaint = primaryLinePaint,
                 circlePaint = primaryCirclePaint,
-                lineThickness = lineWidth
+                lineThickness = lineWidth,
             )
         }
     }
@@ -314,12 +314,12 @@ class GraphView @JvmOverloads constructor(
         linePath: Path,
         linePaint: Paint,
         circlePaint: Paint,
-        lineThickness: Float
+        lineThickness: Float,
     ) {
         canvas.apply {
             drawPath(
                 linePath,
-                linePaint
+                linePaint,
             )
 
             val pm = PathMeasure(linePath, false)

@@ -43,13 +43,13 @@ class FollowRequestViewHolder(
     private val binding: ItemFollowRequestBinding,
     private val accountActionListener: AccountActionListener,
     private val linkListener: LinkListener,
-    private val showHeader: Boolean
+    private val showHeader: Boolean,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
 
     override fun bind(
         viewData: NotificationViewData,
         payloads: List<*>?,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         // Skip updates with payloads. That indicates a timestamp update, and
         // this view does not have timestamps.
@@ -59,7 +59,7 @@ class FollowRequestViewHolder(
             viewData.account,
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
-            statusDisplayOptions.showBotOverlay
+            statusDisplayOptions.showBotOverlay,
         )
 
         setupActionListener(accountActionListener, viewData.account.id)
@@ -69,26 +69,26 @@ class FollowRequestViewHolder(
         account: TimelineAccount,
         animateAvatar: Boolean,
         animateEmojis: Boolean,
-        showBotOverlay: Boolean
+        showBotOverlay: Boolean,
     ) {
         val wrappedName = account.name.unicodeWrap()
         val emojifiedName: CharSequence = wrappedName.emojify(
             account.emojis,
             itemView,
-            animateEmojis
+            animateEmojis,
         )
         binding.displayNameTextView.text = emojifiedName
         if (showHeader) {
             val wholeMessage: String = itemView.context.getString(
                 R.string.notification_follow_request_format,
-                wrappedName
+                wrappedName,
             )
             binding.notificationTextView.text = SpannableStringBuilder(wholeMessage).apply {
                 setSpan(
                     StyleSpan(Typeface.BOLD),
                     0,
                     wrappedName.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
                 )
             }.emojify(account.emojis, itemView, animateEmojis)
         }

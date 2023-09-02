@@ -59,7 +59,7 @@ class NotificationsPagingSourceTest {
         assertTrue(loadResult is PagingSource.LoadResult.Error)
         assertEquals(
             "HTTP 429: This is an error",
-            (loadResult as PagingSource.LoadResult.Error).throwable.message
+            (loadResult as PagingSource.LoadResult.Error).throwable.message,
         )
     }
 
@@ -85,7 +85,7 @@ class NotificationsPagingSourceTest {
         assertTrue(loadResult is PagingSource.LoadResult.Error)
         assertEquals(
             "HTTP 429: This is an error: Description of the error",
-            (loadResult as PagingSource.LoadResult.Error).throwable.message
+            (loadResult as PagingSource.LoadResult.Error).throwable.message,
         )
     }
 
@@ -111,7 +111,7 @@ class NotificationsPagingSourceTest {
         assertTrue(loadResult is PagingSource.LoadResult.Error)
         assertEquals(
             "HTTP 429: no reason given",
-            (loadResult as PagingSource.LoadResult.Error).throwable.message
+            (loadResult as PagingSource.LoadResult.Error).throwable.message,
         )
     }
 
@@ -137,7 +137,7 @@ class NotificationsPagingSourceTest {
         assertTrue(loadResult is PagingSource.LoadResult.Error)
         assertEquals(
             "HTTP 429: {'malformedjson} (com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Unterminated string at line 1 column 17 path \$.)",
-            (loadResult as PagingSource.LoadResult.Error).throwable.message
+            (loadResult as PagingSource.LoadResult.Error).throwable.message,
         )
     }
 }

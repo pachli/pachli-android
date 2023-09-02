@@ -15,7 +15,7 @@ import retrofit2.HttpException
 class ConversationsRemoteMediator(
     private val api: MastodonApi,
     private val db: AppDatabase,
-    accountManager: AccountManager
+    accountManager: AccountManager,
 ) : RemoteMediator<Int, ConversationEntity>() {
 
     private var nextKey: String? = null
@@ -26,7 +26,7 @@ class ConversationsRemoteMediator(
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, ConversationEntity>
+        state: PagingState<Int, ConversationEntity>,
     ): MediatorResult {
         if (loadType == LoadType.PREPEND) {
             return MediatorResult.Success(endOfPaginationReached = true)
@@ -68,9 +68,9 @@ class ConversationsRemoteMediator(
                                 order = order++,
                                 expanded = expanded,
                                 contentShowing = contentShowing,
-                                contentCollapsed = contentCollapsed
+                                contentCollapsed = contentCollapsed,
                             )
-                        }
+                        },
                 )
             }
             return MediatorResult.Success(endOfPaginationReached = nextKey == null)

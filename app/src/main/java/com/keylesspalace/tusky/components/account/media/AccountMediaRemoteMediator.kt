@@ -29,11 +29,11 @@ import retrofit2.HttpException
 class AccountMediaRemoteMediator(
     private val api: MastodonApi,
     private val activeAccount: AccountEntity,
-    private val viewModel: AccountMediaViewModel
+    private val viewModel: AccountMediaViewModel,
 ) : RemoteMediator<String, AttachmentViewData>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<String, AttachmentViewData>
+        state: PagingState<String, AttachmentViewData>,
     ): MediatorResult {
         try {
             val statusResponse = when (loadType) {

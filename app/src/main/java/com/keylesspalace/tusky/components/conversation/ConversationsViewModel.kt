@@ -37,7 +37,7 @@ class ConversationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
     private val database: AppDatabase,
     private val accountManager: AccountManager,
-    private val api: MastodonApi
+    private val api: MastodonApi,
 ) : ViewModel() {
 
     @OptIn(ExperimentalPagingApi::class)
@@ -51,7 +51,7 @@ class ConversationsViewModel @Inject constructor(
             } else {
                 database.conversationDao().conversationsForAccount(activeAccount.id)
             }
-        }
+        },
     )
         .flow
         .map { pagingData ->
@@ -64,13 +64,13 @@ class ConversationsViewModel @Inject constructor(
             timelineCases.favourite(conversation.lastStatus.id, favourite).fold({
                 val newConversation = conversation.toEntity(
                     accountId = accountManager.activeAccount!!.id,
-                    favourited = favourite
+                    favourited = favourite,
                 )
 
                 saveConversationToDb(newConversation)
             }, { e ->
                 Log.w(TAG, "failed to favourite status", e)
-            })
+            },)
         }
     }
 
@@ -79,13 +79,13 @@ class ConversationsViewModel @Inject constructor(
             timelineCases.bookmark(conversation.lastStatus.id, bookmark).fold({
                 val newConversation = conversation.toEntity(
                     accountId = accountManager.activeAccount!!.id,
-                    bookmarked = bookmark
+                    bookmarked = bookmark,
                 )
 
                 saveConversationToDb(newConversation)
             }, { e ->
                 Log.w(TAG, "failed to bookmark status", e)
-            })
+            },)
         }
     }
 
@@ -95,13 +95,13 @@ class ConversationsViewModel @Inject constructor(
                 .fold({ poll ->
                     val newConversation = conversation.toEntity(
                         accountId = accountManager.activeAccount!!.id,
-                        poll = poll
+                        poll = poll,
                     )
 
                     saveConversationToDb(newConversation)
                 }, { e ->
                     Log.w(TAG, "failed to vote in poll", e)
-                })
+                },)
         }
     }
 
@@ -109,7 +109,7 @@ class ConversationsViewModel @Inject constructor(
         viewModelScope.launch {
             val newConversation = conversation.toEntity(
                 accountId = accountManager.activeAccount!!.id,
-                expanded = expanded
+                expanded = expanded,
             )
             saveConversationToDb(newConversation)
         }
@@ -119,7 +119,7 @@ class ConversationsViewModel @Inject constructor(
         viewModelScope.launch {
             val newConversation = conversation.toEntity(
                 accountId = accountManager.activeAccount!!.id,
-                collapsed = collapsed
+                collapsed = collapsed,
             )
             saveConversationToDb(newConversation)
         }
@@ -129,7 +129,7 @@ class ConversationsViewModel @Inject constructor(
         viewModelScope.launch {
             val newConversation = conversation.toEntity(
                 accountId = accountManager.activeAccount!!.id,
-                showingHiddenContent = showing
+                showingHiddenContent = showing,
             )
             saveConversationToDb(newConversation)
         }
@@ -142,7 +142,7 @@ class ConversationsViewModel @Inject constructor(
 
                 database.conversationDao().delete(
                     id = conversation.id,
-                    accountId = accountManager.activeAccount!!.id
+                    accountId = accountManager.activeAccount!!.id,
                 )
             } catch (e: Exception) {
                 Log.w(TAG, "failed to delete conversation", e)
@@ -155,12 +155,12 @@ class ConversationsViewModel @Inject constructor(
             try {
                 timelineCases.muteConversation(
                     conversation.lastStatus.id,
-                    !(conversation.lastStatus.status.muted ?: false)
+                    !(conversation.lastStatus.status.muted ?: false),
                 )
 
                 val newConversation = conversation.toEntity(
                     accountId = accountManager.activeAccount!!.id,
-                    muted = !(conversation.lastStatus.status.muted ?: false)
+                    muted = !(conversation.lastStatus.status.muted ?: false),
                 )
 
                 database.conversationDao().insert(newConversation)

@@ -111,7 +111,7 @@ class ConversationsFragment :
             animateEmojis = preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
             showStatsInline = preferences.getBoolean(PrefKeys.SHOW_STATS_INLINE, false),
             showSensitiveMedia = accountManager.activeAccount!!.alwaysShowSensitiveMedia,
-            openSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler
+            openSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler,
         )
 
         adapter = ConversationAdapter(statusDisplayOptions, this)
@@ -147,35 +147,39 @@ class ConversationsFragment :
             }
         }
 
-        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                if (positionStart == 0 && adapter.itemCount != itemCount) {
-                    binding.recyclerView.post {
-                        if (getView() != null) {
-                            binding.recyclerView.scrollBy(0, Utils.dpToPx(requireContext(), -30))
+        adapter.registerAdapterDataObserver(
+            object : RecyclerView.AdapterDataObserver() {
+                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                    if (positionStart == 0 && adapter.itemCount != itemCount) {
+                        binding.recyclerView.post {
+                            if (getView() != null) {
+                                binding.recyclerView.scrollBy(0, Utils.dpToPx(requireContext(), -30))
+                            }
                         }
                     }
                 }
-            }
-        })
+            },
+        )
 
         hideFab = preferences.getBoolean(PrefKeys.FAB_HIDE, false)
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
-                val composeButton = (activity as ActionButtonActivity).actionButton
-                if (composeButton != null) {
-                    if (hideFab) {
-                        if (dy > 0 && composeButton.isShown) {
-                            composeButton.hide() // hides the button if we're scrolling down
-                        } else if (dy < 0 && !composeButton.isShown) {
-                            composeButton.show() // shows it if we are scrolling up
+        binding.recyclerView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
+                    val composeButton = (activity as ActionButtonActivity).actionButton
+                    if (composeButton != null) {
+                        if (hideFab) {
+                            if (dy > 0 && composeButton.isShown) {
+                                composeButton.hide() // hides the button if we're scrolling down
+                            } else if (dy < 0 && !composeButton.isShown) {
+                                composeButton.show() // shows it if we are scrolling up
+                            }
+                        } else if (!composeButton.isShown) {
+                            composeButton.show()
                         }
-                    } else if (!composeButton.isShown) {
-                        composeButton.show()
                     }
                 }
-            }
-        })
+            },
+        )
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.conversationFlow.collectLatest { pagingData ->
@@ -190,7 +194,7 @@ class ConversationsFragment :
                     adapter.notifyItemRangeChanged(
                         0,
                         adapter.itemCount,
-                        listOf(StatusBaseViewHolder.Key.KEY_CREATED)
+                        listOf(StatusBaseViewHolder.Key.KEY_CREATED),
                     )
                     delay(1.toDuration(DurationUnit.MINUTES))
                 }

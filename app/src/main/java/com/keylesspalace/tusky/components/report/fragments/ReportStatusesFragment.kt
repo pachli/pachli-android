@@ -159,7 +159,7 @@ class ReportStatusesFragment :
             animateEmojis = preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
             showStatsInline = preferences.getBoolean(PrefKeys.SHOW_STATS_INLINE, false),
             showSensitiveMedia = accountManager.activeAccount!!.alwaysShowSensitiveMedia,
-            openSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler
+            openSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler,
         )
 
         adapter = StatusesAdapter(statusDisplayOptions, viewModel.statusViewState, this)

@@ -26,7 +26,7 @@ import java.util.Random
 class AccountMediaGridAdapter(
     private val useBlurhash: Boolean,
     context: Context,
-    private val onAttachmentClickListener: (AttachmentViewData, View) -> Unit
+    private val onAttachmentClickListener: (AttachmentViewData, View) -> Unit,
 ) : PagingDataAdapter<AttachmentViewData, BindingHolder<ItemAccountMediaBinding>>(
     object : DiffUtil.ItemCallback<AttachmentViewData>() {
         override fun areItemsTheSame(oldItem: AttachmentViewData, newItem: AttachmentViewData): Boolean {
@@ -36,7 +36,7 @@ class AccountMediaGridAdapter(
         override fun areContentsTheSame(oldItem: AttachmentViewData, newItem: AttachmentViewData): Boolean {
             return oldItem == newItem
         }
-    }
+    },
 ) {
 
     private val baseItemBackgroundColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK)

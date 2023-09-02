@@ -28,7 +28,7 @@ import com.keylesspalace.tusky.util.loadAvatar
 import com.keylesspalace.tusky.util.visible
 
 class AccountViewHolder(
-    private val binding: ItemAccountBinding
+    private val binding: ItemAccountBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
     private lateinit var accountId: String
 
@@ -36,19 +36,19 @@ class AccountViewHolder(
         account: TimelineAccount,
         animateAvatar: Boolean,
         animateEmojis: Boolean,
-        showBotOverlay: Boolean
+        showBotOverlay: Boolean,
     ) {
         accountId = account.id
 
         binding.accountUsername.text = binding.accountUsername.context.getString(
             R.string.post_username_format,
-            account.username
+            account.username,
         )
 
         val emojifiedName = account.name.emojify(
             account.emojis,
             binding.accountDisplayName,
-            animateEmojis
+            animateEmojis,
         )
         binding.accountDisplayName.text = emojifiedName
 
@@ -66,7 +66,7 @@ class AccountViewHolder(
     fun setupLinkListener(listener: LinkListener) {
         itemView.setOnClickListener {
             listener.onViewAccount(
-                accountId
+                accountId,
             )
         }
     }

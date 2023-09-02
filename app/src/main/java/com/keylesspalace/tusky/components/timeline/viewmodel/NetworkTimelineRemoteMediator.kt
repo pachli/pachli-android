@@ -41,7 +41,7 @@ class NetworkTimelineRemoteMediator(
     accountManager: AccountManager,
     private val factory: InvalidatingPagingSourceFactory<String, Status>,
     private val pageCache: PageCache,
-    private val timelineKind: TimelineKind
+    private val timelineKind: TimelineKind,
 ) : RemoteMediator<String, Status>() {
 
     private val activeAccount = accountManager.activeAccount!!
@@ -115,7 +115,7 @@ class NetworkTimelineRemoteMediator(
                     pageCache.upsert(page)
                     Log.d(
                         TAG,
-                        "  Page $loadType complete for $timelineKind, now got ${pageCache.size} pages"
+                        "  Page $loadType complete for $timelineKind, now got ${pageCache.size} pages",
                     )
                     pageCache.debug()
                 }
@@ -162,7 +162,7 @@ class NetworkTimelineRemoteMediator(
                 limit = loadSize,
                 excludeReplies = null,
                 onlyMedia = null,
-                pinned = true
+                pinned = true,
             )
             is TimelineKind.User.Posts -> api.accountStatuses(
                 timelineKind.id,
@@ -171,7 +171,7 @@ class NetworkTimelineRemoteMediator(
                 limit = loadSize,
                 excludeReplies = true,
                 onlyMedia = null,
-                pinned = null
+                pinned = null,
             )
             is TimelineKind.User.Replies -> api.accountStatuses(
                 timelineKind.id,
@@ -180,13 +180,13 @@ class NetworkTimelineRemoteMediator(
                 limit = loadSize,
                 excludeReplies = null,
                 onlyMedia = null,
-                pinned = null
+                pinned = null,
             )
             is TimelineKind.UserList -> api.listTimeline(
                 timelineKind.id,
                 maxId = maxId,
                 minId = minId,
-                limit = loadSize
+                limit = loadSize,
             )
         }
     }

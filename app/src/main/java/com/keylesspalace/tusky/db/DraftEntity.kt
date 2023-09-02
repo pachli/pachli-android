@@ -43,7 +43,7 @@ data class DraftEntity(
     val failedToSendNew: Boolean,
     val scheduledAt: String?,
     val language: String?,
-    val statusId: String?
+    val statusId: String?,
 )
 
 /**
@@ -56,7 +56,7 @@ data class DraftAttachment(
     @SerializedName(value = "uriString", alternate = ["e", "i"]) val uriString: String,
     @SerializedName(value = "description", alternate = ["f", "j"]) val description: String?,
     @SerializedName(value = "focus") val focus: Attachment.Focus?,
-    @SerializedName(value = "type", alternate = ["g", "k"]) val type: Type
+    @SerializedName(value = "type", alternate = ["g", "k"]) val type: Type,
 ) : Parcelable {
     val uri: Uri
         get() = uriString.toUri()

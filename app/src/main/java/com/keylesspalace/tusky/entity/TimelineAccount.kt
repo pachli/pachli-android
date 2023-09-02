@@ -30,7 +30,7 @@ data class TimelineAccount(
     val avatar: String,
     val note: String,
     val bot: Boolean = false,
-    val emojis: List<Emoji>? = emptyList() // nullable for backward compatibility
+    val emojis: List<Emoji>? = emptyList(), // nullable for backward compatibility
 ) {
 
     val name: String

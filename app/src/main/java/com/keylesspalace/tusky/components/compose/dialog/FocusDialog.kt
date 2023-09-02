@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
 fun <T> T.makeFocusDialog(
     existingFocus: Focus?,
     previewUri: Uri,
-    onUpdateFocus: suspend (Focus) -> Unit
+    onUpdateFocus: suspend (Focus) -> Unit,
 ) where T : AppCompatActivity, T : LifecycleOwner {
     val focus = existingFocus ?: Focus(0.0f, 0.0f) // Default to center
 
@@ -48,31 +48,33 @@ fun <T> T.makeFocusDialog(
     Glide.with(this)
         .load(previewUri)
         .downsample(DownsampleStrategy.CENTER_INSIDE)
-        .listener(object : RequestListener<Drawable> {
-            override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<Drawable?>?, p3: Boolean): Boolean {
-                return false
-            }
-
-            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable?>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                val width = resource!!.intrinsicWidth
-                val height = resource.intrinsicHeight
-
-                dialogBinding.focusIndicator.setImageSize(width, height)
-
-                // We want the dialog to be a little taller than the image, so you can slide your thumb past the image border,
-                // but if it's *too* much taller that looks weird. See if a threshold has been crossed:
-                if (width > height) {
-                    val maxHeight = dialogBinding.focusIndicator.maxAttractiveHeight()
-
-                    if (dialogBinding.imageView.height > maxHeight) {
-                        val verticalShrinkLayout = FrameLayout.LayoutParams(width, maxHeight)
-                        dialogBinding.imageView.layoutParams = verticalShrinkLayout
-                        dialogBinding.focusIndicator.layoutParams = verticalShrinkLayout
-                    }
+        .listener(
+            object : RequestListener<Drawable> {
+                override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<Drawable?>?, p3: Boolean): Boolean {
+                    return false
                 }
-                return false // Pass through
-            }
-        })
+
+                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable?>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                    val width = resource!!.intrinsicWidth
+                    val height = resource.intrinsicHeight
+
+                    dialogBinding.focusIndicator.setImageSize(width, height)
+
+                    // We want the dialog to be a little taller than the image, so you can slide your thumb past the image border,
+                    // but if it's *too* much taller that looks weird. See if a threshold has been crossed:
+                    if (width > height) {
+                        val maxHeight = dialogBinding.focusIndicator.maxAttractiveHeight()
+
+                        if (dialogBinding.imageView.height > maxHeight) {
+                            val verticalShrinkLayout = FrameLayout.LayoutParams(width, maxHeight)
+                            dialogBinding.imageView.layoutParams = verticalShrinkLayout
+                            dialogBinding.focusIndicator.layoutParams = verticalShrinkLayout
+                        }
+                    }
+                    return false // Pass through
+                }
+            },
+        )
         .into(dialogBinding.imageView)
 
     val okListener = { dialog: DialogInterface, _: Int ->
@@ -90,7 +92,7 @@ fun <T> T.makeFocusDialog(
 
     val window = dialog.window
     window?.setSoftInputMode(
-        WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+        WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE,
     )
 
     dialog.show()

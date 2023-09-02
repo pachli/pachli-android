@@ -49,7 +49,7 @@ class AboutActivity : BottomSheetActivity(), Injectable {
             Build.MANUFACTURER,
             Build.MODEL,
             Build.VERSION.RELEASE,
-            Build.VERSION.SDK_INT
+            Build.VERSION.SDK_INT,
         )
 
         lifecycleScope.launch {
@@ -59,7 +59,7 @@ class AboutActivity : BottomSheetActivity(), Injectable {
                     R.string.about_account_info,
                     account.username,
                     account.domain,
-                    instanceInfo.version
+                    instanceInfo.version,
                 )
                 binding.accountInfoTitle.show()
                 binding.accountInfo.show()

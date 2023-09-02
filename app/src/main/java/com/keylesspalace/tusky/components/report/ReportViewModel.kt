@@ -46,7 +46,7 @@ import javax.inject.Inject
 
 class ReportViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val eventHub: EventHub
+    private val eventHub: EventHub,
 ) : ViewModel() {
 
     private val navigationMutable = MutableLiveData<Screen?>()
@@ -66,14 +66,14 @@ class ReportViewModel @Inject constructor(
 
     private val accountIdFlow = MutableSharedFlow<String>(
         replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
 
     val statusesFlow = accountIdFlow.flatMapLatest { accountId ->
         Pager(
             initialKey = statusId,
             config = PagingConfig(pageSize = 20, initialLoadSize = 20),
-            pagingSourceFactory = { StatusesPagingSource(accountId, mastodonApi) }
+            pagingSourceFactory = { StatusesPagingSource(accountId, mastodonApi) },
         ).flow
     }
         .map { pagingData ->
@@ -134,7 +134,7 @@ class ReportViewModel @Inject constructor(
                 },
                 {
                     updateRelationship(null)
-                }
+                },
             )
         }
     }
@@ -166,7 +166,7 @@ class ReportViewModel @Inject constructor(
                 },
                 { t ->
                     muteStateMutable.value = Error(false, t.message)
-                }
+                },
             )
         }
 
@@ -188,7 +188,7 @@ class ReportViewModel @Inject constructor(
                 }
             }, { t ->
                 blockStateMutable.value = Error(false, t.message)
-            })
+            },)
         }
         blockStateMutable.value = Loading()
     }
@@ -201,7 +201,7 @@ class ReportViewModel @Inject constructor(
                     reportingStateMutable.value = Success(true)
                 }, { error ->
                     reportingStateMutable.value = Error(cause = error)
-                })
+                },)
         }
     }
 

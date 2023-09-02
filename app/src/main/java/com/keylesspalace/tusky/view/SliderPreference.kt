@@ -50,7 +50,7 @@ class SliderPreference @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = androidx.preference.R.attr.preferenceStyle,
-    defStyleRes: Int = 0
+    defStyleRes: Int = 0,
 ) : Preference(context, attrs, defStyleAttr, defStyleRes),
     Slider.OnChangeListener,
     Slider.OnSliderTouchListener {

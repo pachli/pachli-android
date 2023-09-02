@@ -23,14 +23,14 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 class GridSpacingItemDecoration(
     private val spanCount: Int,
     private val spacing: Int,
-    private val topOffset: Int
+    private val topOffset: Int,
 ) : ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
         parent: RecyclerView,
-        state: RecyclerView.State
+        state: RecyclerView.State,
     ) {
         val position = parent.getChildAdapterPosition(view) // item position
         if (position < topOffset) return

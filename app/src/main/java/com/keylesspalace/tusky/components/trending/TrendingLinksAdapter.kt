@@ -28,7 +28,7 @@ import com.keylesspalace.tusky.util.StatusDisplayOptions
 
 class TrendingLinksAdapter(
     statusDisplayOptions: StatusDisplayOptions,
-    private val onViewLink: (String) -> Unit
+    private val onViewLink: (String) -> Unit,
 ) : ListAdapter<TrendsLink, TrendingLinkViewHolder>(diffCallback) {
     var statusDisplayOptions = statusDisplayOptions
         set(value) {
@@ -43,7 +43,7 @@ class TrendingLinksAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingLinkViewHolder {
         return TrendingLinkViewHolder(
             ItemTrendingLinkBinding.inflate(LayoutInflater.from(parent.context)),
-            onViewLink
+            onViewLink,
         )
     }
 

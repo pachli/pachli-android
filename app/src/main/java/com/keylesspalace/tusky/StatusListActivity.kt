@@ -114,7 +114,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                     },
                     {
                         Log.w(TAG, "Failed to query tag #$tag", it)
-                    }
+                    },
                 )
             }
         }
@@ -134,7 +134,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                     {
                         Snackbar.make(binding.root, getString(R.string.error_following_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
                         Log.e(TAG, "Failed to follow #$tag", it)
-                    }
+                    },
                 )
             }
         }
@@ -154,7 +154,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                     {
                         Snackbar.make(binding.root, getString(R.string.error_unfollowing_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
                         Log.e(TAG, "Failed to unfollow #$tag", it)
-                    }
+                    },
                 )
             }
         }
@@ -193,12 +193,12 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                             },
                             { throwable ->
                                 Log.e(TAG, "Error getting filters: $throwable")
-                            }
+                            },
                         )
                     } else {
                         Log.e(TAG, "Error getting filters: $throwable")
                     }
-                }
+                },
             )
         }
     }
@@ -223,7 +223,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                 title = "#$tag",
                 context = listOf(FilterV1.HOME),
                 filterAction = Filter.Action.WARN.action,
-                expiresInSeconds = null
+                expiresInSeconds = null,
             ).fold(
                 { filter ->
                     if (mastodonApi.addFilterKeyword(filterId = filter.id, keyword = tag, wholeWord = true).isSuccess) {
@@ -242,7 +242,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                             listOf(FilterV1.HOME),
                             irreversible = false,
                             wholeWord = true,
-                            expiresInSeconds = null
+                            expiresInSeconds = null,
                         ).fold(
                             { filter ->
                                 mutedFilterV1 = filter
@@ -252,13 +252,13 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                             { throwable ->
                                 Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
                                 Log.e(TAG, "Failed to mute #$tag", throwable)
-                            }
+                            },
                         )
                     } else {
                         Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
                         Log.e(TAG, "Failed to mute #$tag", throwable)
                     }
-                }
+                },
             )
         }
 
@@ -274,7 +274,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                     // This filter exists in multiple contexts, just remove the home context
                     mastodonApi.updateFilter(
                         id = filter.id,
-                        context = filter.context.filter { it != Filter.Kind.HOME.kind }
+                        context = filter.context.filter { it != Filter.Kind.HOME.kind },
                     )
                 } else {
                     mastodonApi.deleteFilter(filter.id)
@@ -289,7 +289,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                             context = filter.context.filter { it != FilterV1.HOME },
                             irreversible = null,
                             wholeWord = null,
-                            expiresInSeconds = null
+                            expiresInSeconds = null,
                         )
                     } else {
                         mastodonApi.deleteFilterV1(filter.id)
@@ -309,7 +309,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                 { throwable ->
                     Snackbar.make(binding.root, getString(R.string.error_unmuting_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
                     Log.e(TAG, "Failed to unmute #$tag", throwable)
-                }
+                },
             )
         }
 

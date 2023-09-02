@@ -152,7 +152,7 @@ class TimelineFragment :
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_timeline, container, false)
     }
@@ -166,27 +166,29 @@ class TimelineFragment :
         setupRecyclerView()
 
         if (actionButtonPresent()) {
-            binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
-                    val composeButton = (activity as ActionButtonActivity).actionButton
-                    if (composeButton != null) {
-                        if (!viewModel.uiState.value.showFabWhileScrolling) {
-                            if (dy > 0 && composeButton.isShown) {
-                                composeButton.hide() // hides the button if we're scrolling down
-                            } else if (dy < 0 && !composeButton.isShown) {
-                                composeButton.show() // shows it if we are scrolling up
+            binding.recyclerView.addOnScrollListener(
+                object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
+                        val composeButton = (activity as ActionButtonActivity).actionButton
+                        if (composeButton != null) {
+                            if (!viewModel.uiState.value.showFabWhileScrolling) {
+                                if (dy > 0 && composeButton.isShown) {
+                                    composeButton.hide() // hides the button if we're scrolling down
+                                } else if (dy < 0 && !composeButton.isShown) {
+                                    composeButton.show() // shows it if we are scrolling up
+                                }
+                            } else if (!composeButton.isShown) {
+                                composeButton.show()
                             }
-                        } else if (!composeButton.isShown) {
-                            composeButton.show()
                         }
                     }
-                }
 
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    newState != SCROLL_STATE_IDLE && return
-                    saveVisibleId()
-                }
-            })
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        newState != SCROLL_STATE_IDLE && return
+                        saveVisibleId()
+                    }
+                },
+            )
         }
 
         /**
@@ -225,13 +227,13 @@ class TimelineFragment :
                         val message = getString(
                             error.message,
                             error.throwable.localizedMessage
-                                ?: getString(R.string.ui_error_unknown)
+                                ?: getString(R.string.ui_error_unknown),
                         )
                         snackbar = Snackbar.make(
                             // Without this the FAB will not move out of the way
                             (activity as ActionButtonActivity).actionButton ?: binding.root,
                             message,
-                            Snackbar.LENGTH_INDEFINITE
+                            Snackbar.LENGTH_INDEFINITE,
                         ).setTextMaxLines(5)
                         error.action?.let { action ->
                             snackbar!!.setAction(R.string.action_retry) {
@@ -278,7 +280,7 @@ class TimelineFragment :
                                     statusViewData.status.copy(reblogged = it.action.state)
                                 is StatusActionSuccess.VoteInPoll ->
                                     statusViewData.status.copy(
-                                        poll = it.action.poll.votedCopy(it.action.choices)
+                                        poll = it.action.poll.votedCopy(it.action.choices),
                                     )
                             }
                             (indexedViewData.value as StatusViewData).status = status
@@ -293,7 +295,8 @@ class TimelineFragment :
                         when (it) {
                             is UiSuccess.Block,
                             is UiSuccess.Mute,
-                            is UiSuccess.MuteConversation ->
+                            is UiSuccess.MuteConversation,
+                            ->
                                 adapter.refresh()
 
                             is UiSuccess.StatusSent -> handleStatusSentOrEdit(it.status)
@@ -316,7 +319,7 @@ class TimelineFragment :
                                 adapter.notifyItemRangeChanged(
                                     first,
                                     count,
-                                    null
+                                    null,
                                 )
                             }
 
@@ -389,7 +392,7 @@ class TimelineFragment :
                                     getView() ?: return@post
                                     binding.recyclerView.smoothScrollBy(
                                         0,
-                                        Utils.dpToPx(requireContext(), -30)
+                                        Utils.dpToPx(requireContext(), -30),
                                     )
                                 }
                                 peeked = true
@@ -428,7 +431,7 @@ class TimelineFragment :
                                 PresentationState.ERROR -> {
                                     val message =
                                         (loadState.refresh as LoadState.Error).error.getErrorString(
-                                            requireContext()
+                                            requireContext(),
                                         )
 
                                     // Show errors as a snackbar if there is existing content to show
@@ -439,7 +442,7 @@ class TimelineFragment :
                                             (activity as ActionButtonActivity).actionButton
                                                 ?: binding.root,
                                             message,
-                                            Snackbar.LENGTH_INDEFINITE
+                                            Snackbar.LENGTH_INDEFINITE,
                                         )
                                             .setTextMaxLines(5)
                                             .setAction(R.string.action_retry) { adapter.retry() }
@@ -460,7 +463,7 @@ class TimelineFragment :
                                     if (adapter.itemCount == 0) {
                                         binding.statusView.setup(
                                             R.drawable.elephant_friend_empty,
-                                            R.string.message_empty
+                                            R.string.message_empty,
                                         )
                                         if (timelineKind == TimelineKind.Home) {
                                             binding.statusView.showHelp(R.string.help_empty_home)
@@ -547,7 +550,7 @@ class TimelineFragment :
                 } else {
                     null
                 }
-            }
+            },
         )
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = layoutManager
@@ -559,7 +562,7 @@ class TimelineFragment :
 
         binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
             header = TimelineLoadStateAdapter { adapter.retry() },
-            footer = TimelineLoadStateAdapter { adapter.retry() }
+            footer = TimelineLoadStateAdapter { adapter.retry() },
         )
     }
 
@@ -595,7 +598,7 @@ class TimelineFragment :
             Snackbar.make(
                 binding.root,
                 "null at adapter.peek($position)",
-                Snackbar.LENGTH_INDEFINITE
+                Snackbar.LENGTH_INDEFINITE,
             ).show()
             null
         } ?: return
@@ -603,7 +606,7 @@ class TimelineFragment :
             Snackbar.make(
                 binding.root,
                 "statusViewData had null poll",
-                Snackbar.LENGTH_INDEFINITE
+                Snackbar.LENGTH_INDEFINITE,
             ).show()
             null
         } ?: return
@@ -657,7 +660,7 @@ class TimelineFragment :
         super.viewMedia(
             attachmentIndex,
             AttachmentViewData.list(status.actionable),
-            view
+            view,
         )
     }
 
@@ -703,7 +706,8 @@ class TimelineFragment :
 
             is TimelineKind.Home,
             is TimelineKind.PublicFederated,
-            is TimelineKind.PublicLocal -> adapter.refresh()
+            is TimelineKind.PublicLocal,
+            -> adapter.refresh()
             is TimelineKind.User -> if (status.account.id == (timelineKind as TimelineKind.User).id) {
                 adapter.refresh()
             }
@@ -711,7 +715,8 @@ class TimelineFragment :
             is TimelineKind.Favourites,
             is TimelineKind.Tag,
             is TimelineKind.TrendingStatuses,
-            is TimelineKind.UserList -> return
+            is TimelineKind.UserList,
+            -> return
         }
     }
 
@@ -771,7 +776,7 @@ class TimelineFragment :
 
         fun newInstance(
             timelineKind: TimelineKind,
-            enableSwipeToRefresh: Boolean = true
+            enableSwipeToRefresh: Boolean = true,
         ): TimelineFragment {
             val fragment = TimelineFragment()
             val arguments = Bundle(2)

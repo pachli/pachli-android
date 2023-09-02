@@ -51,21 +51,21 @@ class StatusViewHelper(private val itemView: View) {
         sensitive: Boolean,
         previewListener: MediaPreviewListener,
         showingContent: Boolean,
-        mediaPreviewHeight: Int
+        mediaPreviewHeight: Int,
     ) {
         val context = itemView.context
         val mediaPreviews = arrayOf<MediaPreviewImageView>(
             itemView.findViewById(R.id.status_media_preview_0),
             itemView.findViewById(R.id.status_media_preview_1),
             itemView.findViewById(R.id.status_media_preview_2),
-            itemView.findViewById(R.id.status_media_preview_3)
+            itemView.findViewById(R.id.status_media_preview_3),
         )
 
         val mediaOverlays = arrayOf<ImageView>(
             itemView.findViewById(R.id.status_media_overlay_0),
             itemView.findViewById(R.id.status_media_overlay_1),
             itemView.findViewById(R.id.status_media_overlay_2),
-            itemView.findViewById(R.id.status_media_overlay_3)
+            itemView.findViewById(R.id.status_media_overlay_3),
         )
 
         val sensitiveMediaWarning = itemView.findViewById<TextView>(R.id.status_sensitive_media_warning)
@@ -191,7 +191,7 @@ class StatusViewHelper(private val itemView: View) {
                     sensitive,
                     previewListener,
                     false,
-                    mediaPreviewHeight
+                    mediaPreviewHeight,
                 )
             }
             sensitiveMediaWarning.setOnClickListener { v ->
@@ -204,7 +204,7 @@ class StatusViewHelper(private val itemView: View) {
                     sensitive,
                     previewListener,
                     true,
-                    mediaPreviewHeight
+                    mediaPreviewHeight,
                 )
             }
         }
@@ -219,7 +219,7 @@ class StatusViewHelper(private val itemView: View) {
         mediaLabel: TextView,
         attachments: List<Attachment>,
         sensitive: Boolean,
-        listener: MediaPreviewListener
+        listener: MediaPreviewListener,
     ) {
         if (attachments.isEmpty()) {
             mediaLabel.visibility = View.GONE
@@ -267,7 +267,7 @@ class StatusViewHelper(private val itemView: View) {
             itemView.findViewById(R.id.status_poll_option_result_0),
             itemView.findViewById(R.id.status_poll_option_result_1),
             itemView.findViewById(R.id.status_poll_option_result_2),
-            itemView.findViewById(R.id.status_poll_option_result_3)
+            itemView.findViewById(R.id.status_poll_option_result_3),
         )
 
         val pollDescription = itemView.findViewById<TextView>(R.id.status_poll_description)

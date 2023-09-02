@@ -88,7 +88,7 @@ class AccountMediaFragment :
         adapter = AccountMediaGridAdapter(
             useBlurhash = useBlurhash,
             context = view.context,
-            onAttachmentClickListener = ::onAttachmentClick
+            onAttachmentClickListener = ::onAttachmentClick,
         )
 
         val columnCount = view.context.resources.getInteger(R.integer.profile_media_column_count)
@@ -174,7 +174,8 @@ class AccountMediaFragment :
             Attachment.Type.IMAGE,
             Attachment.Type.GIFV,
             Attachment.Type.VIDEO,
-            Attachment.Type.AUDIO -> {
+            Attachment.Type.AUDIO,
+            -> {
                 val intent = ViewMediaActivity.newIntent(context, attachmentsFromSameStatus, currentIndex)
                 if (activity != null) {
                     val url = selected.attachment.url

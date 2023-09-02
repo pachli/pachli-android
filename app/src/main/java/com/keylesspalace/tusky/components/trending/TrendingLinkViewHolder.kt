@@ -34,7 +34,7 @@ import com.keylesspalace.tusky.util.hide
 
 class TrendingLinkViewHolder(
     private val binding: ItemTrendingLinkBinding,
-    private val onClick: (String) -> Unit
+    private val onClick: (String) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     private var link: TrendsLink? = null
 

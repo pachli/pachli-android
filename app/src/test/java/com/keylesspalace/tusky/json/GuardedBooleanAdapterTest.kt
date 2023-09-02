@@ -43,9 +43,9 @@ class GuardedBooleanAdapterTest {
                 subscribing = true,
                 blockingDomain = false,
                 note = "Hi",
-                notifying = false
+                notifying = false,
             ),
-            gson.fromJson(jsonInput, Relationship::class.java)
+            gson.fromJson(jsonInput, Relationship::class.java),
         )
     }
 
@@ -83,9 +83,9 @@ class GuardedBooleanAdapterTest {
                 subscribing = null,
                 blockingDomain = false,
                 note = "Hi",
-                notifying = false
+                notifying = false,
             ),
-            gson.fromJson(jsonInput, Relationship::class.java)
+            gson.fromJson(jsonInput, Relationship::class.java),
         )
     }
 
@@ -122,9 +122,9 @@ class GuardedBooleanAdapterTest {
                 subscribing = null,
                 blockingDomain = false,
                 note = "Hi",
-                notifying = false
+                notifying = false,
             ),
-            gson.fromJson(jsonInput, Relationship::class.java)
+            gson.fromJson(jsonInput, Relationship::class.java),
         )
     }
 }

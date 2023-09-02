@@ -49,7 +49,7 @@ class CachedTimelineRepository @Inject constructor(
     private val accountManager: AccountManager,
     private val appDatabase: AppDatabase,
     private val gson: Gson,
-    @ApplicationScope private val externalScope: CoroutineScope
+    @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
 
@@ -60,7 +60,7 @@ class CachedTimelineRepository @Inject constructor(
     fun getStatusStream(
         kind: TimelineKind,
         pageSize: Int = PAGE_SIZE,
-        initialKey: String? = null
+        initialKey: String? = null,
     ): Flow<PagingData<TimelineStatusWithAccount>> {
         Log.d(TAG, "getStatusStream(): key: $initialKey")
 
@@ -90,9 +90,9 @@ class CachedTimelineRepository @Inject constructor(
                 accountManager,
                 factory!!,
                 appDatabase,
-                gson
+                gson,
             ),
-            pagingSourceFactory = factory!!
+            pagingSourceFactory = factory!!,
         ).flow
     }
 

@@ -37,7 +37,7 @@ import javax.inject.Inject
 class NotificationsRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val gson: Gson,
-    @ApplicationScope private val externalScope: CoroutineScope
+    @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     private var factory: InvalidatingPagingSourceFactory<String, Notification>? = null
 
@@ -48,7 +48,7 @@ class NotificationsRepository @Inject constructor(
     fun getNotificationsStream(
         filter: Set<Notification.Type>,
         pageSize: Int = PAGE_SIZE,
-        initialKey: String? = null
+        initialKey: String? = null,
     ): Flow<PagingData<Notification>> {
         Log.d(TAG, "getNotificationsStream(), filtering: $filter")
 
@@ -59,7 +59,7 @@ class NotificationsRepository @Inject constructor(
         return Pager(
             config = PagingConfig(pageSize = pageSize, initialLoadSize = pageSize),
             initialKey = initialKey,
-            pagingSourceFactory = factory!!
+            pagingSourceFactory = factory!!,
         ).flow
     }
 

@@ -90,7 +90,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             animateEmojis = preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
             showStatsInline = preferences.getBoolean(PrefKeys.SHOW_STATS_INLINE, false),
             showSensitiveMedia = accountManager.activeAccount!!.alwaysShowSensitiveMedia,
-            openSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler
+            openSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler,
         )
 
         binding.searchRecyclerView.addItemDecoration(DividerItemDecoration(binding.searchRecyclerView.context, DividerItemDecoration.VERTICAL))
@@ -136,7 +136,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     val intent = ViewMediaActivity.newIntent(
                         context,
                         attachments,
-                        attachmentIndex
+                        attachmentIndex,
                     )
                     if (view != null) {
                         val url = actionable.attachments[attachmentIndex].url
@@ -144,7 +144,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                             requireActivity(),
                             view,
-                            url
+                            url,
                         )
                         startActivity(intent, options.toBundle())
                     } else {
@@ -226,8 +226,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 replyingStatusAuthor = actionableStatus.account.localUsername,
                 replyingStatusContent = status.content.toString(),
                 language = actionableStatus.language,
-                kind = ComposeActivity.ComposeKind.NEW
-            )
+                kind = ComposeActivity.ComposeKind.NEW,
+            ),
         )
         bottomSheetActivity?.startActivityWithSlideInAnimation(intent)
     }
@@ -284,7 +284,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     R.string.action_unmute_conversation
                 } else {
                     R.string.action_mute_conversation
-                }
+                },
             )
         }
 
@@ -384,7 +384,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(
             this.requireActivity(),
-            accountUsername
+            accountUsername,
         ) { notifications, duration ->
             viewModel.muteAccount(accountId, notifications, duration)
         }
@@ -404,7 +404,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 override fun onAccountSelected(account: AccountEntity) {
                     bottomSheetActivity?.openAsAccount(statusUrl, account)
                 }
-            }
+            },
         )
     }
 
@@ -431,7 +431,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     Toast.makeText(
                         context,
                         R.string.error_media_download_permission,
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_SHORT,
                     ).show()
                 }
             }
@@ -484,15 +484,15 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                                         sensitive = redraftStatus.sensitive,
                                         poll = redraftStatus.poll?.toNewPoll(status.createdAt),
                                         language = redraftStatus.language,
-                                        kind = ComposeActivity.ComposeKind.NEW
-                                    )
+                                        kind = ComposeActivity.ComposeKind.NEW,
+                                    ),
                                 )
                                 startActivity(intent)
                             },
                             { error ->
                                 Log.w("SearchStatusesFragment", "error deleting status", error)
                                 Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT).show()
-                            }
+                            },
                         )
                     }
                 }
@@ -515,7 +515,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                         language = status.language,
                         statusId = source.id,
                         poll = status.poll?.toNewPoll(status.createdAt),
-                        kind = ComposeActivity.ComposeKind.EDIT_POSTED
+                        kind = ComposeActivity.ComposeKind.EDIT_POSTED,
                     )
                     startActivity(ComposeActivity.startIntent(requireContext(), composeOptions))
                 },
@@ -523,9 +523,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     Snackbar.make(
                         requireView(),
                         getString(R.string.error_status_source_load),
-                        Snackbar.LENGTH_SHORT
+                        Snackbar.LENGTH_SHORT,
                     ).show()
-                }
+                },
             )
         }
     }

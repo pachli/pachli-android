@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 class AccountMediaViewModel @Inject constructor(
     private val accountManager: AccountManager,
-    api: MastodonApi
+    api: MastodonApi,
 ) : ViewModel() {
 
     lateinit var accountId: String
@@ -43,16 +43,16 @@ class AccountMediaViewModel @Inject constructor(
     val media = Pager(
         config = PagingConfig(
             pageSize = LOAD_AT_ONCE,
-            prefetchDistance = LOAD_AT_ONCE * 2
+            prefetchDistance = LOAD_AT_ONCE * 2,
         ),
         pagingSourceFactory = {
             AccountMediaPagingSource(
-                viewModel = this
+                viewModel = this,
             ).also { source ->
                 currentSource = source
             }
         },
-        remoteMediator = AccountMediaRemoteMediator(api, activeAccount, this)
+        remoteMediator = AccountMediaRemoteMediator(api, activeAccount, this),
     ).flow
         .cachedIn(viewModelScope)
 

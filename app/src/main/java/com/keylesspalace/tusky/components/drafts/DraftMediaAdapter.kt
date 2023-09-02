@@ -28,7 +28,7 @@ import com.keylesspalace.tusky.db.DraftAttachment
 import com.keylesspalace.tusky.view.MediaPreviewImageView
 
 class DraftMediaAdapter(
-    private val attachmentClick: () -> Unit
+    private val attachmentClick: () -> Unit,
 ) : ListAdapter<DraftAttachment, DraftMediaAdapter.DraftMediaViewHolder>(
     object : DiffUtil.ItemCallback<DraftAttachment>() {
         override fun areItemsTheSame(oldItem: DraftAttachment, newItem: DraftAttachment): Boolean {
@@ -38,7 +38,7 @@ class DraftMediaAdapter(
         override fun areContentsTheSame(oldItem: DraftAttachment, newItem: DraftAttachment): Boolean {
             return oldItem == newItem
         }
-    }
+    },
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DraftMediaViewHolder {

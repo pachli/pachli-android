@@ -196,7 +196,7 @@ class SendStatusService : Service(), Injectable {
                                 failOrRetry(throwable, statusId)
 
                                 return@launch
-                            })
+                            },)
                     }
                 }
             }
@@ -217,9 +217,9 @@ class SendStatusService : Service(), Injectable {
                         id = media.id!!,
                         description = media.description,
                         focus = media.focus?.toMastodonApiString(),
-                        thumbnail = null
+                        thumbnail = null,
                     )
-                }
+                },
             )
 
             val sendResult = if (isNew) {
@@ -227,7 +227,7 @@ class SendStatusService : Service(), Injectable {
                     "Bearer " + account.accessToken,
                     account.domain,
                     statusToSend.idempotencyKey,
-                    newStatus
+                    newStatus,
                 )
             } else {
                 mastodonApi.editStatus(
@@ -235,7 +235,7 @@ class SendStatusService : Service(), Injectable {
                     "Bearer " + account.accessToken,
                     account.domain,
                     statusToSend.idempotencyKey,
-                    newStatus
+                    newStatus,
                 )
             }
 
@@ -262,7 +262,7 @@ class SendStatusService : Service(), Injectable {
             }, { throwable ->
                 Log.w(TAG, "failed sending status", throwable)
                 failOrRetry(throwable, statusId)
-            })
+            },)
             stopSelfWhenDone()
         }
     }
@@ -305,7 +305,7 @@ class SendStatusService : Service(), Injectable {
                 R.string.send_post_notification_error_title,
                 R.string.send_post_notification_saved_content,
                 failedStatus.accountId,
-                statusId
+                statusId,
             )
 
             notificationManager.cancel(statusId)
@@ -330,7 +330,7 @@ class SendStatusService : Service(), Injectable {
                 R.string.send_post_notification_cancel_title,
                 R.string.send_post_notification_saved_content,
                 statusToCancel.accountId,
-                statusId
+                statusId,
             )
 
             notificationManager.notify(statusId, notification)
@@ -358,7 +358,7 @@ class SendStatusService : Service(), Injectable {
             failedToSendAlert = failedToSendAlert,
             scheduledAt = status.scheduledAt,
             language = status.language,
-            statusId = status.statusId
+            statusId = status.statusId,
         )
     }
 
@@ -369,7 +369,7 @@ class SendStatusService : Service(), Injectable {
             this,
             statusId,
             intent,
-            NotificationHelper.pendingIntentFlags(false)
+            NotificationHelper.pendingIntentFlags(false),
         )
     }
 
@@ -377,7 +377,7 @@ class SendStatusService : Service(), Injectable {
         @StringRes title: Int,
         @StringRes content: Int,
         accountId: Long,
-        statusId: Int
+        statusId: Int,
     ): Notification {
         val intent = MainActivity.draftIntent(this, accountId)
 
@@ -385,7 +385,7 @@ class SendStatusService : Service(), Injectable {
             this,
             statusId,
             intent,
-            NotificationHelper.pendingIntentFlags(false)
+            NotificationHelper.pendingIntentFlags(false),
         )
 
         return NotificationCompat.Builder(this@SendStatusService, CHANNEL_ID)
@@ -418,7 +418,7 @@ class SendStatusService : Service(), Injectable {
 
         fun sendStatusIntent(
             context: Context,
-            statusToSend: StatusToSend
+            statusToSend: StatusToSend,
         ): Intent {
             val intent = Intent(context, SendStatusService::class.java)
             intent.putExtra(KEY_STATUS, statusToSend)
@@ -428,7 +428,7 @@ class SendStatusService : Service(), Injectable {
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 val uriClip = ClipData(
                     ClipDescription("Status Media", arrayOf("image/*", "video/*")),
-                    ClipData.Item(statusToSend.media[0].uri)
+                    ClipData.Item(statusToSend.media[0].uri),
                 )
                 statusToSend.media
                     .drop(1)
@@ -461,7 +461,7 @@ data class StatusToSend(
     val idempotencyKey: String,
     var retries: Int,
     val language: String?,
-    val statusId: String?
+    val statusId: String?,
 ) : Parcelable
 
 @Parcelize
@@ -471,5 +471,5 @@ data class MediaToSend(
     val uri: String,
     val description: String?,
     val focus: Attachment.Focus?,
-    var processed: Boolean
+    var processed: Boolean,
 ) : Parcelable

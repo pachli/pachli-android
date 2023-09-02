@@ -92,7 +92,7 @@ abstract class NetworkTimelineViewModelTestBase {
             PrefKeys.CONFIRM_REBLOGS to true,
             PrefKeys.CONFIRM_FAVOURITES to false,
             PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
-            PrefKeys.FAB_HIDE to false
+            PrefKeys.FAB_HIDE to false,
         )
 
         // Any getBoolean() call looks for the result in sharedPreferencesMap
@@ -104,7 +104,7 @@ abstract class NetworkTimelineViewModelTestBase {
         accountPreferencesMap = mutableMapOf(
             PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA to false,
             PrefKeys.ALWAYS_OPEN_SPOILER to false,
-            PrefKeys.MEDIA_PREVIEW_ENABLED to true
+            PrefKeys.MEDIA_PREVIEW_ENABLED to true,
         )
 
         // Any getBoolean() call looks for the result in accountPreferencesMap.
@@ -129,7 +129,7 @@ abstract class NetworkTimelineViewModelTestBase {
                 notificationsFilter = "['follow']",
                 mediaPreviewEnabled = true,
                 alwaysShowSensitiveMedia = true,
-                alwaysOpenSpoiler = true
+                alwaysOpenSpoiler = true,
             )
         }
         eventHub = EventHub()
@@ -145,7 +145,7 @@ abstract class NetworkTimelineViewModelTestBase {
             accountManager,
             sharedPreferences,
             accountPreferenceDataStore,
-            filterModel
+            filterModel,
         )
         // Initialisation with any timeline kind, as long as it's not Home
         // (Home uses CachedTimelineViewModel)

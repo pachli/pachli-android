@@ -61,7 +61,7 @@ class CachedTimelineViewModel @Inject constructor(
     preferences: SharedPreferences,
     accountPreferenceDataStore: AccountPreferenceDataStore,
     filterModel: FilterModel,
-    private val gson: Gson
+    private val gson: Gson,
 ) : TimelineViewModel(
     timelineCases,
     eventHub,
@@ -69,7 +69,7 @@ class CachedTimelineViewModel @Inject constructor(
     accountManager,
     preferences,
     accountPreferenceDataStore,
-    filterModel
+    filterModel,
 ) {
 
     override lateinit var statuses: Flow<PagingData<StatusViewData>>
@@ -90,7 +90,7 @@ class CachedTimelineViewModel @Inject constructor(
     /** @return Flow of statuses that make up the timeline of [kind] */
     private fun getStatuses(
         kind: TimelineKind,
-        initialKey: String? = null
+        initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
         Log.d(TAG, "getStatuses: kind: $kind, initialKey: $initialKey")
         return repository.getStatusStream(kind = kind, initialKey = initialKey)

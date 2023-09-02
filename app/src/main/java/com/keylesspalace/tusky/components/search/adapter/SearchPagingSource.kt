@@ -27,7 +27,7 @@ class SearchPagingSource<T : Any>(
     private val searchType: SearchType,
     private val searchRequest: String,
     private val initialItems: List<T>?,
-    private val parser: (SearchResult) -> List<T>
+    private val parser: (SearchResult) -> List<T>,
 ) : PagingSource<Int, T>() {
 
     override fun getRefreshKey(state: PagingState<Int, T>): Int? {
@@ -39,7 +39,7 @@ class SearchPagingSource<T : Any>(
             return LoadResult.Page(
                 data = emptyList(),
                 prevKey = null,
-                nextKey = null
+                nextKey = null,
             )
         }
 
@@ -47,7 +47,7 @@ class SearchPagingSource<T : Any>(
             return LoadResult.Page(
                 data = initialItems.toList(),
                 prevKey = null,
-                nextKey = initialItems.size
+                nextKey = initialItems.size,
             )
         }
 
@@ -60,7 +60,7 @@ class SearchPagingSource<T : Any>(
                 resolve = true,
                 limit = params.loadSize,
                 offset = currentKey,
-                following = false
+                following = false,
             ).await()
 
             val res = parser(data)
@@ -74,7 +74,7 @@ class SearchPagingSource<T : Any>(
             return LoadResult.Page(
                 data = res,
                 prevKey = null,
-                nextKey = nextKey
+                nextKey = nextKey,
             )
         } catch (e: Exception) {
             return LoadResult.Error(e)

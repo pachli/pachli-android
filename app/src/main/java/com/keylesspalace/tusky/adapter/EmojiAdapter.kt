@@ -28,7 +28,7 @@ import java.util.Locale
 class EmojiAdapter(
     emojiList: List<Emoji>,
     private val onEmojiSelectedListener: OnEmojiSelectedListener,
-    private val animate: Boolean
+    private val animate: Boolean,
 ) : RecyclerView.Adapter<BindingHolder<ItemEmojiButtonBinding>>() {
 
     private val emojiList: List<Emoji> = emojiList.filter { emoji -> emoji.visibleInPicker == null || emoji.visibleInPicker }

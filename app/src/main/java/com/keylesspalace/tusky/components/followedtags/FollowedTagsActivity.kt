@@ -86,15 +86,17 @@ class FollowedTagsActivity :
 
         val hideFab = sharedPreferences.getBoolean(PrefKeys.FAB_HIDE, false)
         if (hideFab) {
-            binding.followedTagsView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    if (dy > 0 && binding.fab.isShown) {
-                        binding.fab.hide()
-                    } else if (dy < 0 && !binding.fab.isShown) {
-                        binding.fab.show()
+            binding.followedTagsView.addOnScrollListener(
+                object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        if (dy > 0 && binding.fab.isShown) {
+                            binding.fab.hide()
+                        } else if (dy < 0 && !binding.fab.isShown) {
+                            binding.fab.show()
+                        }
                     }
-                }
-            })
+                },
+            )
         }
     }
 
@@ -133,10 +135,10 @@ class FollowedTagsActivity :
                         this@FollowedTagsActivity,
                         binding.followedTagsView,
                         getString(R.string.error_following_hashtag_format, tagName),
-                        Snackbar.LENGTH_SHORT
+                        Snackbar.LENGTH_SHORT,
                     )
                         .show()
-                }
+                },
             )
         }
     }
@@ -150,7 +152,7 @@ class FollowedTagsActivity :
                         this@FollowedTagsActivity,
                         binding.followedTagsView,
                         getString(R.string.confirmation_hashtag_unfollowed, tagName),
-                        Snackbar.LENGTH_LONG
+                        Snackbar.LENGTH_LONG,
                     )
                         .setAction(R.string.action_undo) {
                             follow(tagName, position)
@@ -164,12 +166,12 @@ class FollowedTagsActivity :
                         binding.followedTagsView,
                         getString(
                             R.string.error_unfollowing_hashtag_format,
-                            tagName
+                            tagName,
                         ),
-                        Snackbar.LENGTH_SHORT
+                        Snackbar.LENGTH_SHORT,
                     )
                         .show()
-                }
+                },
             )
         }
     }
@@ -191,8 +193,8 @@ class FollowedTagsActivity :
                     requireActivity() as FollowedTagsActivity,
                     animateAvatar = false,
                     animateEmojis = false,
-                    showBotBadge = false
-                )
+                    showBotBadge = false,
+                ),
             )
 
             return AlertDialog.Builder(requireActivity())
@@ -200,7 +202,7 @@ class FollowedTagsActivity :
                 .setView(layout)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     (requireActivity() as FollowedTagsActivity).follow(
-                        autoCompleteTextView.text.toString().removePrefix("#")
+                        autoCompleteTextView.text.toString().removePrefix("#"),
                     )
                 }
                 .setNegativeButton(android.R.string.cancel) { _: DialogInterface, _: Int -> }

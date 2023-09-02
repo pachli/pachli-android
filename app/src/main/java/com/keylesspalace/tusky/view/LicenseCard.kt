@@ -31,7 +31,7 @@ class LicenseCard
 @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
     init {
@@ -43,12 +43,12 @@ class LicenseCard
             attrs,
             R.styleable.LicenseCard,
             0,
-            0
+            0,
         ).use { a ->
             Triple(
                 a.getString(R.styleable.LicenseCard_name),
                 a.getString(R.styleable.LicenseCard_license),
-                a.getString(R.styleable.LicenseCard_link)
+                a.getString(R.styleable.LicenseCard_link),
             )
         }
 

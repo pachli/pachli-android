@@ -13,13 +13,14 @@ data class Filter(
     val context: List<String>,
     @SerializedName("expires_at") val expiresAt: Date?,
     @SerializedName("filter_action") private val filterAction: String,
-    val keywords: List<FilterKeyword>
+    val keywords: List<FilterKeyword>,
     // val statuses: List<FilterStatus>,
 ) : Parcelable {
     enum class Action(val action: String) {
         NONE("none"),
         WARN("warn"),
-        HIDE("hide");
+        HIDE("hide"),
+        ;
 
         companion object {
             fun from(action: String): Action = values().firstOrNull { it.action == action } ?: WARN
@@ -30,7 +31,8 @@ data class Filter(
         NOTIFICATIONS("notifications"),
         PUBLIC("public"),
         THREAD("thread"),
-        ACCOUNT("account");
+        ACCOUNT("account"),
+        ;
 
         companion object {
             fun from(kind: String): Kind = values().firstOrNull { it.kind == kind } ?: PUBLIC
@@ -40,7 +42,8 @@ data class Filter(
                 is TimelineKind.PublicFederated,
                 is TimelineKind.PublicLocal,
                 is TimelineKind.Tag,
-                is TimelineKind.Favourites -> Filter.Kind.PUBLIC
+                is TimelineKind.Favourites,
+                -> Filter.Kind.PUBLIC
                 is TimelineKind.User -> Filter.Kind.ACCOUNT
                 else -> Filter.Kind.PUBLIC
             }

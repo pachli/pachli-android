@@ -37,7 +37,7 @@ data class ConversationEntity(
     val order: Int,
     val accounts: List<ConversationAccountEntity>,
     val unread: Boolean,
-    @Embedded(prefix = "s_") val lastStatus: ConversationStatusEntity
+    @Embedded(prefix = "s_") val lastStatus: ConversationStatusEntity,
 ) {
     fun toViewData(): ConversationViewData {
         return ConversationViewData(
@@ -45,7 +45,7 @@ data class ConversationEntity(
             order = order,
             accounts = accounts,
             unread = unread,
-            lastStatus = lastStatus.toViewData()
+            lastStatus = lastStatus.toViewData(),
         )
     }
 }
@@ -56,7 +56,7 @@ data class ConversationAccountEntity(
     val username: String,
     val displayName: String,
     val avatar: String,
-    val emojis: List<Emoji>
+    val emojis: List<Emoji>,
 ) {
     fun toAccount(): TimelineAccount {
         return TimelineAccount(
@@ -67,7 +67,7 @@ data class ConversationAccountEntity(
             note = "",
             url = "",
             avatar = avatar,
-            emojis = emojis
+            emojis = emojis,
         )
     }
 }
@@ -97,7 +97,7 @@ data class ConversationStatusEntity(
     val collapsed: Boolean,
     val muted: Boolean,
     val poll: Poll?,
-    val language: String?
+    val language: String?,
 ) {
 
     fun toViewData(): StatusViewData {
@@ -131,11 +131,11 @@ data class ConversationStatusEntity(
                 poll = poll,
                 card = null,
                 language = language,
-                filtered = null
+                filtered = null,
             ),
             isExpanded = expanded,
             isShowingContent = showingHiddenContent,
-            isCollapsed = collapsed
+            isCollapsed = collapsed,
         )
     }
 }
@@ -147,13 +147,13 @@ fun TimelineAccount.toEntity() =
         username = username,
         displayName = name,
         avatar = avatar,
-        emojis = emojis.orEmpty()
+        emojis = emojis.orEmpty(),
     )
 
 fun Status.toEntity(
     expanded: Boolean,
     contentShowing: Boolean,
-    contentCollapsed: Boolean
+    contentCollapsed: Boolean,
 ) =
     ConversationStatusEntity(
         id = id,
@@ -179,7 +179,7 @@ fun Status.toEntity(
         collapsed = contentCollapsed,
         muted = muted ?: false,
         poll = poll,
-        language = language
+        language = language,
     )
 
 fun Conversation.toEntity(
@@ -187,7 +187,7 @@ fun Conversation.toEntity(
     order: Int,
     expanded: Boolean,
     contentShowing: Boolean,
-    contentCollapsed: Boolean
+    contentCollapsed: Boolean,
 ) =
     ConversationEntity(
         accountId = accountId,
@@ -198,6 +198,6 @@ fun Conversation.toEntity(
         lastStatus = lastStatus!!.toEntity(
             expanded = expanded,
             contentShowing = contentShowing,
-            contentCollapsed = contentCollapsed
-        )
+            contentCollapsed = contentCollapsed,
+        ),
     )

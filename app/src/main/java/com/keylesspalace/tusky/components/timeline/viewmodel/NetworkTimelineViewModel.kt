@@ -58,7 +58,7 @@ class NetworkTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     sharedPreferences: SharedPreferences,
     accountPreferenceDataStore: AccountPreferenceDataStore,
-    filterModel: FilterModel
+    filterModel: FilterModel,
 ) : TimelineViewModel(
     timelineCases,
     eventHub,
@@ -66,7 +66,7 @@ class NetworkTimelineViewModel @Inject constructor(
     accountManager,
     sharedPreferences,
     accountPreferenceDataStore,
-    filterModel
+    filterModel,
 ) {
     private val modifiedViewData = mutableMapOf<String, StatusViewData>()
 
@@ -84,7 +84,7 @@ class NetworkTimelineViewModel @Inject constructor(
     /** @return Flow of statuses that make up the timeline of [kind] */
     private fun getStatuses(
         kind: TimelineKind,
-        initialKey: String? = null
+        initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
         Log.d(TAG, "getStatuses: kind: $kind, initialKey: $initialKey")
         return repository.getStatusStream(viewModelScope, kind = kind, initialKey = initialKey)
@@ -93,7 +93,7 @@ class NetworkTimelineViewModel @Inject constructor(
                     modifiedViewData[it.id] ?: it.toViewData(
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia || !it.actionableStatus.sensitive,
                         isExpanded = statusDisplayOptions.value.openSpoiler,
-                        isCollapsed = true
+                        isCollapsed = true,
                     )
                 }.filter {
                     shouldFilterStatus(it) != Filter.Action.HIDE
@@ -103,21 +103,21 @@ class NetworkTimelineViewModel @Inject constructor(
 
     override fun updatePoll(newPoll: Poll, status: StatusViewData) {
         modifiedViewData[status.id] = status.copy(
-            status = status.status.copy(poll = newPoll)
+            status = status.status.copy(poll = newPoll),
         )
         repository.invalidate()
     }
 
     override fun changeExpanded(expanded: Boolean, status: StatusViewData) {
         modifiedViewData[status.id] = status.copy(
-            isExpanded = expanded
+            isExpanded = expanded,
         )
         repository.invalidate()
     }
 
     override fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
         modifiedViewData[status.id] = status.copy(
-            isShowingContent = isShowing
+            isShowingContent = isShowing,
         )
         repository.invalidate()
     }
@@ -126,7 +126,7 @@ class NetworkTimelineViewModel @Inject constructor(
         Log.d(TAG, "changeContentCollapsed: $isCollapsed")
         Log.d(TAG, "  " + status.content)
         modifiedViewData[status.id] = status.copy(
-            isCollapsed = isCollapsed
+            isCollapsed = isCollapsed,
         )
         repository.invalidate()
     }

@@ -32,8 +32,8 @@ class SearchAccountsFragment : SearchFragment<TimelineAccount>() {
         binding.searchRecyclerView.addItemDecoration(
             DividerItemDecoration(
                 binding.searchRecyclerView.context,
-                DividerItemDecoration.VERTICAL
-            )
+                DividerItemDecoration.VERTICAL,
+            ),
         )
     }
 
@@ -44,7 +44,7 @@ class SearchAccountsFragment : SearchFragment<TimelineAccount>() {
             this,
             preferences.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false),
             preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
-            preferences.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true)
+            preferences.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true),
         )
     }
 

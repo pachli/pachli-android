@@ -28,7 +28,7 @@ data class Notification(
     val id: String,
     val account: TimelineAccount,
     val status: Status?,
-    val report: Report?
+    val report: Report?,
 ) {
 
     /** From https://docs.joinmastodon.org/entities/Notification/#type */
@@ -64,7 +64,8 @@ data class Notification(
         UPDATE("update", R.string.notification_update_name),
 
         /** A new report has been filed */
-        REPORT("admin.report", R.string.notification_report_name);
+        REPORT("admin.report", R.string.notification_report_name),
+        ;
 
         companion object {
             @JvmStatic
@@ -104,7 +105,7 @@ data class Notification(
         override fun deserialize(
             json: JsonElement,
             typeOfT: java.lang.reflect.Type,
-            context: JsonDeserializationContext
+            context: JsonDeserializationContext,
         ): Type {
             return Type.byString(json.asString)
         }

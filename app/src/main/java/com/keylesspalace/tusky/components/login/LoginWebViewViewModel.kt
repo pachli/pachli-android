@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginWebViewViewModel @Inject constructor(
-    private val api: MastodonApi
+    private val api: MastodonApi,
 ) : ViewModel() {
 
     val instanceRules: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
@@ -40,7 +40,7 @@ class LoginWebViewViewModel @Inject constructor(
                     instanceRules.value = instance.rules?.map { rule -> rule.text }.orEmpty()
                 }, { throwable ->
                     Log.w("LoginWebViewViewModel", "failed to load instance info", throwable)
-                })
+                },)
             }
         }
     }

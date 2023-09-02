@@ -54,7 +54,7 @@ class CachedTimelineRemoteMediatorTest {
             accessToken = "token",
             clientId = "id",
             clientSecret = "secret",
-            isActive = true
+            isActive = true,
         )
     }
 
@@ -91,7 +91,7 @@ class CachedTimelineRemoteMediatorTest {
             },
             factory = pagingSourceFactory,
             db = db,
-            gson = Gson()
+            gson = Gson(),
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state()) }
@@ -111,7 +111,7 @@ class CachedTimelineRemoteMediatorTest {
             },
             factory = pagingSourceFactory,
             db = db,
-            gson = Gson()
+            gson = Gson(),
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state()) }
@@ -128,19 +128,19 @@ class CachedTimelineRemoteMediatorTest {
             api = mock(),
             factory = pagingSourceFactory,
             db = db,
-            gson = Gson()
+            gson = Gson(),
         )
 
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
                     data = listOf(
-                        mockStatusEntityWithAccount("3")
+                        mockStatusEntityWithAccount("3"),
                     ),
                     prevKey = null,
-                    nextKey = 1
-                )
-            )
+                    nextKey = 1,
+                ),
+            ),
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.PREPEND, state) }
@@ -155,7 +155,7 @@ class CachedTimelineRemoteMediatorTest {
         val statusesAlreadyInDb = listOf(
             mockStatusEntityWithAccount("3"),
             mockStatusEntityWithAccount("2"),
-            mockStatusEntityWithAccount("1")
+            mockStatusEntityWithAccount("1"),
         )
 
         db.insert(statusesAlreadyInDb)
@@ -167,20 +167,20 @@ class CachedTimelineRemoteMediatorTest {
                     listOf(
                         mockStatus("8"),
                         mockStatus("7"),
-                        mockStatus("5")
-                    )
+                        mockStatus("5"),
+                    ),
                 )
                 onBlocking { homeTimeline(maxId = "3", limit = 20) } doReturn Response.success(
                     listOf(
                         mockStatus("3"),
                         mockStatus("2"),
-                        mockStatus("1")
-                    )
+                        mockStatus("1"),
+                    ),
                 )
             },
             factory = pagingSourceFactory,
             db = db,
-            gson = Gson()
+            gson = Gson(),
         )
 
         val state = state(
@@ -188,9 +188,9 @@ class CachedTimelineRemoteMediatorTest {
                 PagingSource.LoadResult.Page(
                     data = statusesAlreadyInDb,
                     prevKey = null,
-                    nextKey = 0
-                )
-            )
+                    nextKey = 0,
+                ),
+            ),
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state) }
@@ -205,8 +205,8 @@ class CachedTimelineRemoteMediatorTest {
                 mockStatusEntityWithAccount("5"),
                 mockStatusEntityWithAccount("3"),
                 mockStatusEntityWithAccount("2"),
-                mockStatusEntityWithAccount("1")
-            )
+                mockStatusEntityWithAccount("1"),
+            ),
         )
     }
 
@@ -216,7 +216,7 @@ class CachedTimelineRemoteMediatorTest {
         val statusesAlreadyInDb = listOf(
             mockStatusEntityWithAccount("3"),
             mockStatusEntityWithAccount("2"),
-            mockStatusEntityWithAccount("1")
+            mockStatusEntityWithAccount("1"),
         )
 
         db.insert(statusesAlreadyInDb)
@@ -228,20 +228,20 @@ class CachedTimelineRemoteMediatorTest {
                     listOf(
                         mockStatus("6"),
                         mockStatus("4"),
-                        mockStatus("3")
-                    )
+                        mockStatus("3"),
+                    ),
                 )
                 onBlocking { homeTimeline(maxId = "3", limit = 3) } doReturn Response.success(
                     listOf(
                         mockStatus("3"),
                         mockStatus("2"),
-                        mockStatus("1")
-                    )
+                        mockStatus("1"),
+                    ),
                 )
             },
             factory = pagingSourceFactory,
             db = db,
-            gson = Gson()
+            gson = Gson(),
         )
 
         val state = state(
@@ -249,10 +249,10 @@ class CachedTimelineRemoteMediatorTest {
                 PagingSource.LoadResult.Page(
                     data = statusesAlreadyInDb,
                     prevKey = null,
-                    nextKey = 0
-                )
+                    nextKey = 0,
+                ),
             ),
-            pageSize = 3
+            pageSize = 3,
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state) }
@@ -266,8 +266,8 @@ class CachedTimelineRemoteMediatorTest {
                 mockStatusEntityWithAccount("4"),
                 mockStatusEntityWithAccount("3"),
                 mockStatusEntityWithAccount("2"),
-                mockStatusEntityWithAccount("1")
-            )
+                mockStatusEntityWithAccount("1"),
+            ),
         )
     }
 
@@ -281,13 +281,13 @@ class CachedTimelineRemoteMediatorTest {
                     listOf(
                         mockStatus("5"),
                         mockStatus("4"),
-                        mockStatus("3")
-                    )
+                        mockStatus("3"),
+                    ),
                 )
             },
             factory = pagingSourceFactory,
             db = db,
-            gson = Gson()
+            gson = Gson(),
         )
 
         val state = state(
@@ -295,9 +295,9 @@ class CachedTimelineRemoteMediatorTest {
                 PagingSource.LoadResult.Page(
                     data = emptyList(),
                     prevKey = null,
-                    nextKey = 0
-                )
-            )
+                    nextKey = 0,
+                ),
+            ),
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state) }
@@ -309,8 +309,8 @@ class CachedTimelineRemoteMediatorTest {
             listOf(
                 mockStatusEntityWithAccount("5"),
                 mockStatusEntityWithAccount("4"),
-                mockStatusEntityWithAccount("3")
-            )
+                mockStatusEntityWithAccount("3"),
+            ),
         )
     }
 
@@ -322,7 +322,7 @@ class CachedTimelineRemoteMediatorTest {
         val statusesAlreadyInDb = listOf(
             mockStatusEntityWithAccount("3", expanded = true),
             mockStatusEntityWithAccount("2"),
-            mockStatusEntityWithAccount("1", expanded = false)
+            mockStatusEntityWithAccount("1", expanded = false),
         )
 
         db.insert(statusesAlreadyInDb)
@@ -333,13 +333,13 @@ class CachedTimelineRemoteMediatorTest {
                 onBlocking { homeTimeline(limit = 20) } doReturn Response.success(
                     listOf(
                         mockStatus("3"),
-                        mockStatus("1")
-                    )
+                        mockStatus("1"),
+                    ),
                 )
             },
             factory = pagingSourceFactory,
             db = db,
-            gson = Gson()
+            gson = Gson(),
         )
 
         val state = state(
@@ -347,9 +347,9 @@ class CachedTimelineRemoteMediatorTest {
                 PagingSource.LoadResult.Page(
                     data = statusesAlreadyInDb,
                     prevKey = null,
-                    nextKey = 0
-                )
-            )
+                    nextKey = 0,
+                ),
+            ),
         )
 
         // When
@@ -363,8 +363,8 @@ class CachedTimelineRemoteMediatorTest {
                 // id="2" was in the database initially, but not in the results returned
                 // from the API, so it should have been deleted here.
                 mockStatusEntityWithAccount("3", expanded = true),
-                mockStatusEntityWithAccount("1", expanded = false)
-            )
+                mockStatusEntityWithAccount("1", expanded = false),
+            ),
         )
     }
 
@@ -374,7 +374,7 @@ class CachedTimelineRemoteMediatorTest {
         val statusesAlreadyInDb = listOf(
             mockStatusEntityWithAccount("8"),
             mockStatusEntityWithAccount("7"),
-            mockStatusEntityWithAccount("5")
+            mockStatusEntityWithAccount("5"),
         )
 
         db.insert(statusesAlreadyInDb)
@@ -388,16 +388,16 @@ class CachedTimelineRemoteMediatorTest {
                     listOf(
                         mockStatus("3"),
                         mockStatus("2"),
-                        mockStatus("1")
+                        mockStatus("1"),
                     ),
                     Headers.Builder().add(
-                        "Link: <http://example.com/?min_id=3>; rel=\"prev\", <http://example.com/?max_id=1>; rel=\"next\""
-                    ).build()
+                        "Link: <http://example.com/?min_id=3>; rel=\"prev\", <http://example.com/?max_id=1>; rel=\"next\"",
+                    ).build(),
                 )
             },
             factory = pagingSourceFactory,
             db = db,
-            gson = Gson()
+            gson = Gson(),
         )
 
         val state = state(
@@ -405,9 +405,9 @@ class CachedTimelineRemoteMediatorTest {
                 PagingSource.LoadResult.Page(
                     data = statusesAlreadyInDb,
                     prevKey = null,
-                    nextKey = 0
-                )
-            )
+                    nextKey = 0,
+                ),
+            ),
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.APPEND, state) }
@@ -421,21 +421,21 @@ class CachedTimelineRemoteMediatorTest {
                 mockStatusEntityWithAccount("5"),
                 mockStatusEntityWithAccount("3"),
                 mockStatusEntityWithAccount("2"),
-                mockStatusEntityWithAccount("1")
-            )
+                mockStatusEntityWithAccount("1"),
+            ),
         )
     }
 
     private fun state(
         pages: List<PagingSource.LoadResult.Page<Int, TimelineStatusWithAccount>> = emptyList(),
-        pageSize: Int = 20
+        pageSize: Int = 20,
     ) = PagingState(
         pages = pages,
         anchorPosition = null,
         config = PagingConfig(
-            pageSize = pageSize
+            pageSize = pageSize,
         ),
-        leadingPlaceholderCount = 0
+        leadingPlaceholderCount = 0,
     )
 
     private fun AppDatabase.insert(statuses: List<TimelineStatusWithAccount>) {
@@ -454,7 +454,7 @@ class CachedTimelineRemoteMediatorTest {
 
     private fun AppDatabase.assertStatuses(
         expected: List<TimelineStatusWithAccount>,
-        forAccount: Long = 1
+        forAccount: Long = 1,
     ) {
         val pagingSource = timelineDao().getStatuses(forAccount)
 

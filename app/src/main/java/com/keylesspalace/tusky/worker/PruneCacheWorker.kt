@@ -36,7 +36,7 @@ class PruneCacheWorker(
     appContext: Context,
     workerParams: WorkerParameters,
     private val appDatabase: AppDatabase,
-    private val accountManager: AccountManager
+    private val accountManager: AccountManager,
 ) : CoroutineWorker(appContext, workerParams) {
     val notification: Notification = NotificationHelper.createWorkerNotification(applicationContext, R.string.notification_prune_cache)
 
@@ -58,7 +58,7 @@ class PruneCacheWorker(
 
     class Factory @Inject constructor(
         private val appDatabase: AppDatabase,
-        private val accountManager: AccountManager
+        private val accountManager: AccountManager,
     ) : ChildWorkerFactory {
         override fun createWorker(appContext: Context, params: WorkerParameters): ListenableWorker {
             return PruneCacheWorker(appContext, params, appDatabase, accountManager)

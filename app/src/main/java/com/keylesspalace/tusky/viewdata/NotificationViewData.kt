@@ -26,5 +26,5 @@ data class NotificationViewData(
     val id: String,
     val account: TimelineAccount,
     var statusViewData: StatusViewData?,
-    val report: Report?
+    val report: Report?,
 )

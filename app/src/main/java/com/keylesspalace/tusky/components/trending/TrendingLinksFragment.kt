@@ -81,7 +81,7 @@ class TrendingLinksFragment :
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         binding.recyclerView.layoutManager = getLayoutManager(
-            requireContext().resources.getInteger(R.integer.trending_column_count)
+            requireContext().resources.getInteger(R.integer.trending_column_count),
         )
     }
 
@@ -116,7 +116,7 @@ class TrendingLinksFragment :
                             binding.messageView.setup(
                                 R.drawable.elephant_friend_empty,
                                 R.string.message_empty,
-                                null
+                                null,
                             )
                             binding.messageView.show()
                         } else {
@@ -133,7 +133,7 @@ class TrendingLinksFragment :
                             val snackbar = Snackbar.make(
                                 binding.root,
                                 it.throwable.message ?: "Error",
-                                Snackbar.LENGTH_INDEFINITE
+                                Snackbar.LENGTH_INDEFINITE,
                             )
 
                             if (it.throwable !is HttpException || it.throwable.code() != 404) {

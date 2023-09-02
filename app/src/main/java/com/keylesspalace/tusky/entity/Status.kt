@@ -50,7 +50,7 @@ data class Status(
     val poll: Poll?,
     val card: Card?,
     val language: String?,
-    val filtered: List<FilterResult>?
+    val filtered: List<FilterResult>?,
 ) {
 
     val actionableId: String
@@ -79,7 +79,8 @@ data class Status(
         PRIVATE(3),
 
         @SerializedName("direct")
-        DIRECT(4);
+        DIRECT(4),
+        ;
 
         fun serverString(): String {
             return when (this) {
@@ -137,7 +138,7 @@ data class Status(
             attachments = attachments,
             poll = poll,
             createdAt = createdAt,
-            language = language
+            language = language,
         )
     }
 
@@ -164,12 +165,12 @@ data class Status(
         val id: String,
         val url: String,
         @SerializedName("acct") val username: String,
-        @SerializedName("username") val localUsername: String
+        @SerializedName("username") val localUsername: String,
     )
 
     data class Application(
         val name: String,
-        val website: String?
+        val website: String?,
     )
 
     companion object {

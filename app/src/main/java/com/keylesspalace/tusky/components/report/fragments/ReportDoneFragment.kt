@@ -60,7 +60,7 @@ class ReportDoneFragment : Fragment(R.layout.fragment_report_done), Injectable {
                 when (it.data) {
                     true -> R.string.action_unmute
                     else -> R.string.action_mute
-                }
+                },
             )
         }
 
@@ -76,7 +76,7 @@ class ReportDoneFragment : Fragment(R.layout.fragment_report_done), Injectable {
                 when (it.data) {
                     true -> R.string.action_unblock
                     else -> R.string.action_block
-                }
+                },
             )
         }
     }

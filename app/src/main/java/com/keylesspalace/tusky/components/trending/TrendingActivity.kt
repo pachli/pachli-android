@@ -75,7 +75,7 @@ class TrendingActivity : BottomSheetActivity(), HasAndroidInjector, MenuProvider
                 override fun handleOnBackPressed() {
                     if (binding.pager.currentItem != 0) binding.pager.currentItem = 0 else finish()
                 }
-            }
+            },
         )
     }
 

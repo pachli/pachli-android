@@ -48,21 +48,21 @@ fun getDimension(context: Context, @AttrRes attribute: Int): Int {
 fun setDrawableTint(context: Context, drawable: Drawable, @AttrRes attribute: Int) {
     drawable.setColorFilter(
         MaterialColors.getColor(context, attribute, Color.BLACK),
-        PorterDuff.Mode.SRC_IN
+        PorterDuff.Mode.SRC_IN,
     )
 }
 
 fun setAppNightMode(flavor: String?) {
     when (flavor) {
         THEME_NIGHT, THEME_BLACK -> AppCompatDelegate.setDefaultNightMode(
-            AppCompatDelegate.MODE_NIGHT_YES
+            AppCompatDelegate.MODE_NIGHT_YES,
         )
         THEME_DAY -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         THEME_AUTO -> AppCompatDelegate.setDefaultNightMode(
-            AppCompatDelegate.MODE_NIGHT_AUTO_TIME
+            AppCompatDelegate.MODE_NIGHT_AUTO_TIME,
         )
         THEME_SYSTEM -> AppCompatDelegate.setDefaultNightMode(
-            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
         )
         else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }

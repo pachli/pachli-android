@@ -69,14 +69,14 @@ class TimelineDaoTest {
             makeStatus(statusId = 5),
             makeStatus(statusId = 3, authorServerId = "4"),
             makeStatus(statusId = 2, accountId = 2, authorServerId = "5"),
-            makeStatus(statusId = 1, authorServerId = "5")
+            makeStatus(statusId = 1, authorServerId = "5"),
         )
 
         val statusesAfterCleanup = listOf(
             makeStatus(statusId = 100),
             makeStatus(statusId = 10, authorServerId = "3"),
             makeStatus(statusId = 8, reblog = true, authorServerId = "10"),
-            makeStatus(statusId = 2, accountId = 2, authorServerId = "5")
+            makeStatus(statusId = 2, accountId = 2, authorServerId = "5"),
         )
 
         for ((status, author, reblogAuthor) in statusesBeforeCleanup) {
@@ -111,7 +111,7 @@ class TimelineDaoTest {
             1L to "20",
             1L to "3",
             1L to "R10",
-            2L to "5"
+            2L to "5",
         )
 
         assertEquals(expectedAccounts, loadedAccounts)
@@ -122,7 +122,7 @@ class TimelineDaoTest {
         val oldStatuses = listOf(
             makeStatus(statusId = 3),
             makeStatus(statusId = 2),
-            makeStatus(statusId = 1)
+            makeStatus(statusId = 1),
         )
 
         for ((status, author, reblogAuthor) in oldStatuses) {
@@ -136,7 +136,7 @@ class TimelineDaoTest {
         // status 2 gets deleted, newly loaded status contain only 1 + 3
         val newStatuses = listOf(
             makeStatus(statusId = 3),
-            makeStatus(statusId = 1)
+            makeStatus(statusId = 1),
         )
 
         val deletedCount = timelineDao.deleteRange(1, newStatuses.last().first.serverId, newStatuses.first().first.serverId)
@@ -172,7 +172,7 @@ class TimelineDaoTest {
             makeStatus(statusId = 13, accountId = 2),
             makeStatus(statusId = 12),
             makeStatus(statusId = 11),
-            makeStatus(statusId = 9)
+            makeStatus(statusId = 9),
         )
 
         for ((status, author, reblogAuthor) in statuses) {
@@ -199,11 +199,11 @@ class TimelineDaoTest {
             makeStatus(statusId = 100),
             makeStatus(statusId = 15),
             makeStatus(statusId = 11),
-            makeStatus(statusId = 9)
+            makeStatus(statusId = 9),
         )
 
         val remainingStatusesAccount2 = listOf(
-            makeStatus(statusId = 13, accountId = 2)
+            makeStatus(statusId = 13, accountId = 2),
         )
 
         assertStatuses(remainingStatusesAccount1, statusesAccount1)
@@ -216,37 +216,37 @@ class TimelineDaoTest {
             statusId = 15,
             accountId = 1,
             domain = "mastodon.red",
-            authorServerId = "1"
+            authorServerId = "1",
         )
         val statusWithRedDomain2 = makeStatus(
             statusId = 14,
             accountId = 1,
             domain = "mastodon.red",
-            authorServerId = "2"
+            authorServerId = "2",
         )
         val statusWithRedDomainOtherAccount = makeStatus(
             statusId = 12,
             accountId = 2,
             domain = "mastodon.red",
-            authorServerId = "2"
+            authorServerId = "2",
         )
         val statusWithBlueDomain = makeStatus(
             statusId = 10,
             accountId = 1,
             domain = "mastodon.blue",
-            authorServerId = "4"
+            authorServerId = "4",
         )
         val statusWithBlueDomainOtherAccount = makeStatus(
             statusId = 10,
             accountId = 2,
             domain = "mastodon.blue",
-            authorServerId = "5"
+            authorServerId = "5",
         )
         val statusWithGreenDomain = makeStatus(
             statusId = 8,
             accountId = 1,
             domain = "mastodon.green",
-            authorServerId = "6"
+            authorServerId = "6",
         )
 
         for ((status, author, reblogAuthor) in listOf(statusWithRedDomain1, statusWithRedDomain2, statusWithRedDomainOtherAccount, statusWithBlueDomain, statusWithBlueDomainOtherAccount, statusWithGreenDomain)) {
@@ -299,7 +299,7 @@ class TimelineDaoTest {
         createdAt: Long = statusId,
         authorServerId: String = "20",
         domain: String = "mastodon.example",
-        cardUrl: String? = null
+        cardUrl: String? = null,
     ): Triple<TimelineStatusEntity, TimelineAccountEntity, TimelineAccountEntity?> {
         val author = TimelineAccountEntity(
             serverId = authorServerId,
@@ -310,7 +310,7 @@ class TimelineDaoTest {
             url = "blah",
             avatar = "avatar",
             emojis = "[\"tusky\": \"http://tusky.cool/emoji.jpg\"]",
-            bot = false
+            bot = false,
         )
 
         val reblogAuthor = if (reblog) {
@@ -323,7 +323,7 @@ class TimelineDaoTest {
                 url = "Rblah",
                 avatar = "Ravatar",
                 emojis = "[]",
-                bot = false
+                bot = false,
             )
         } else {
             null
@@ -368,14 +368,14 @@ class TimelineDaoTest {
             pinned = false,
             card = card,
             language = null,
-            filtered = null
+            filtered = null,
         )
         return Triple(status, author, reblogAuthor)
     }
 
     private fun assertStatuses(
         expected: List<Triple<TimelineStatusEntity, TimelineAccountEntity, TimelineAccountEntity?>>,
-        provided: List<TimelineStatusWithAccount>
+        provided: List<TimelineStatusWithAccount>,
     ) {
         for ((exp, prov) in expected.zip(provided)) {
             val (status, author, reblogger) = exp

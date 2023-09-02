@@ -14,7 +14,7 @@ class CacheUpdater @Inject constructor(
     eventHub: EventHub,
     accountManager: AccountManager,
     appDatabase: AppDatabase,
-    gson: Gson
+    gson: Gson,
 ) {
 
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())

@@ -69,7 +69,7 @@ class InstanceListFragment : Fragment(R.layout.fragment_instance_list), Injectab
                     adapter.addItem(instance)
                 }, { e ->
                     Log.e(TAG, "Error muting domain $instance", e)
-                })
+                },)
             } else {
                 api.unblockDomain(instance).fold({
                     adapter.removeItem(position)
@@ -80,7 +80,7 @@ class InstanceListFragment : Fragment(R.layout.fragment_instance_list), Injectab
                         .show()
                 }, { e ->
                     Log.e(TAG, "Error unmuting domain $instance", e)
-                })
+                },)
             }
         }
     }
@@ -111,7 +111,7 @@ class InstanceListFragment : Fragment(R.layout.fragment_instance_list), Injectab
                 },
                 { throwable ->
                     onFetchInstancesFailure(throwable)
-                }
+                },
             )
     }
 
@@ -131,7 +131,7 @@ class InstanceListFragment : Fragment(R.layout.fragment_instance_list), Injectab
             binding.messageView.setup(
                 R.drawable.elephant_friend_empty,
                 R.string.message_empty,
-                null
+                null,
             )
         } else {
             binding.messageView.hide()

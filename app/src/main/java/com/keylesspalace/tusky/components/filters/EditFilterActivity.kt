@@ -60,7 +60,7 @@ class EditFilterActivity : BaseActivity() {
                 filterContextNotifications to Filter.Kind.NOTIFICATIONS,
                 filterContextPublic to Filter.Kind.PUBLIC,
                 filterContextThread to Filter.Kind.THREAD,
-                filterContextAccount to Filter.Kind.ACCOUNT
+                filterContextAccount to Filter.Kind.ACCOUNT,
             )
         }
 
@@ -77,7 +77,7 @@ class EditFilterActivity : BaseActivity() {
                 R.string.filter_addition_title
             } else {
                 R.string.filter_edit_title
-            }
+            },
         )
 
         binding.actionChip.setOnClickListener { showAddKeywordDialog() }
@@ -110,7 +110,7 @@ class EditFilterActivity : BaseActivity() {
                     Filter.Action.WARN
                 } else {
                     Filter.Action.HIDE
-                }
+                },
             )
         }
         binding.filterDurationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -120,7 +120,7 @@ class EditFilterActivity : BaseActivity() {
                         position
                     } else {
                         position - 1
-                    }
+                    },
                 )
             }
 
@@ -192,7 +192,7 @@ class EditFilterActivity : BaseActivity() {
             chip.text = if (filterKeyword.wholeWord) {
                 binding.root.context.getString(
                     R.string.filter_keyword_display_format,
-                    filterKeyword.keyword
+                    filterKeyword.keyword,
                 )
             } else {
                 filterKeyword.keyword
@@ -225,8 +225,8 @@ class EditFilterActivity : BaseActivity() {
                     FilterKeyword(
                         "",
                         binding.phraseEditText.text.toString(),
-                        binding.phraseWholeWord.isChecked
-                    )
+                        binding.phraseWholeWord.isChecked,
+                    ),
                 )
             }
             .setNegativeButton(android.R.string.cancel, null)
@@ -246,8 +246,8 @@ class EditFilterActivity : BaseActivity() {
                     keyword,
                     keyword.copy(
                         keyword = binding.phraseEditText.text.toString(),
-                        wholeWord = binding.phraseWholeWord.isChecked
-                    )
+                        wholeWord = binding.phraseWholeWord.isChecked,
+                    ),
                 )
             }
             .setNegativeButton(android.R.string.cancel, null)
@@ -285,12 +285,12 @@ class EditFilterActivity : BaseActivity() {
                                 },
                                 {
                                     Snackbar.make(binding.root, "Error deleting filter '${filter.title}'", Snackbar.LENGTH_SHORT).show()
-                                }
+                                },
                             )
                         } else {
                             Snackbar.make(binding.root, "Error deleting filter '${filter.title}'", Snackbar.LENGTH_SHORT).show()
                         }
-                    }
+                    },
                 )
             }
         }

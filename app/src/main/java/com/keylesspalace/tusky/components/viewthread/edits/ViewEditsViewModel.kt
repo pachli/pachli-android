@@ -91,7 +91,7 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
                 loader.config = DiffConfig(
                     false,
                     WhiteSpaceProcessing.PRESERVE,
-                    TextGranularity.SPACE_WORD
+                    TextGranularity.SPACE_WORD,
                 )
                 val processor = OptimisticXMLProcessor()
                 processor.setCoalesce(true)
@@ -107,13 +107,13 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
                     for (i in 1 until sortedEdits.size) {
                         processor.diff(previousContent, currentContent, output)
                         sortedEdits[i - 1] = sortedEdits[i - 1].copy(
-                            content = output.xml.toString()
+                            content = output.xml.toString(),
                         )
 
                         if (i < sortedEdits.size - 1) {
                             currentContent = previousContent
                             previousContent = loader.load(
-                                sortedEdits[i + 1].content.replace("<br>", "<br/>")
+                                sortedEdits[i + 1].content.replace("<br>", "<br/>"),
                             )
                         }
                     }
@@ -142,7 +142,7 @@ sealed interface EditsUiState {
     data object Refreshing : EditsUiState
     class Error(val throwable: Throwable) : EditsUiState
     data class Success(
-        val edits: List<StatusEdit>
+        val edits: List<StatusEdit>,
     ) : EditsUiState
 }
 

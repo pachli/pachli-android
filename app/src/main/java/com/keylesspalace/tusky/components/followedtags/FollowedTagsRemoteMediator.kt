@@ -13,11 +13,11 @@ import retrofit2.Response
 @OptIn(ExperimentalPagingApi::class)
 class FollowedTagsRemoteMediator(
     private val api: MastodonApi,
-    private val viewModel: FollowedTagsViewModel
+    private val viewModel: FollowedTagsViewModel,
 ) : RemoteMediator<String, String>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<String, String>
+        state: PagingState<String, String>,
     ): MediatorResult {
         return try {
             val response = request(loadType)

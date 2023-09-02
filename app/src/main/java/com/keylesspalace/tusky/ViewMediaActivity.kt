@@ -121,11 +121,13 @@ class ViewMediaActivity : BaseActivity(), HasAndroidInjector, ViewImageFragment.
 
         binding.viewPager.adapter = adapter
         binding.viewPager.setCurrentItem(initialPosition, false)
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                binding.toolbar.title = getPageTitle(position)
-            }
-        })
+        binding.viewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    binding.toolbar.title = getPageTitle(position)
+                }
+            },
+        )
 
         // Setup the toolbar.
         setSupportActionBar(binding.toolbar)
@@ -149,12 +151,14 @@ class ViewMediaActivity : BaseActivity(), HasAndroidInjector, ViewImageFragment.
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
 
         window.statusBarColor = Color.BLACK
-        window.sharedElementEnterTransition.addListener(object : NoopTransitionListener {
-            override fun onTransitionEnd(transition: Transition) {
-                adapter.onTransitionEnd(binding.viewPager.currentItem)
-                window.sharedElementEnterTransition.removeListener(this)
-            }
-        })
+        window.sharedElementEnterTransition.addListener(
+            object : NoopTransitionListener {
+                override fun onTransitionEnd(transition: Transition) {
+                    adapter.onTransitionEnd(binding.viewPager.currentItem)
+                    window.sharedElementEnterTransition.removeListener(this)
+                }
+            },
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -192,12 +196,14 @@ class ViewMediaActivity : BaseActivity(), HasAndroidInjector, ViewImageFragment.
         }
 
         binding.toolbar.animate().alpha(alpha)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    binding.toolbar.visibility = visibility
-                    animation.removeListener(this)
-                }
-            })
+            .setListener(
+                object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        binding.toolbar.visibility = visibility
+                        animation.removeListener(this)
+                    }
+                },
+            )
             .start()
     }
 
@@ -228,7 +234,7 @@ class ViewMediaActivity : BaseActivity(), HasAndroidInjector, ViewImageFragment.
                     showErrorDialog(
                         binding.toolbar,
                         R.string.error_media_download_permission,
-                        R.string.action_retry
+                        R.string.action_retry,
                     ) { requestDownloadMedia() }
                 }
             }
@@ -263,7 +269,8 @@ class ViewMediaActivity : BaseActivity(), HasAndroidInjector, ViewImageFragment.
                 Attachment.Type.IMAGE -> shareImage(directory, attachment.url)
                 Attachment.Type.AUDIO,
                 Attachment.Type.VIDEO,
-                Attachment.Type.GIFV -> shareMediaFile(directory, attachment.url)
+                Attachment.Type.GIFV,
+                -> shareMediaFile(directory, attachment.url)
                 else -> Log.e(TAG, "Unknown media format for sharing.")
             }
         }
@@ -321,7 +328,7 @@ class ViewMediaActivity : BaseActivity(), HasAndroidInjector, ViewImageFragment.
                     invalidateOptionsMenu()
                     binding.progressBarShare.visibility = View.GONE
                     Log.e(TAG, "Failed to download image", error)
-                }
+                },
             )
     }
 

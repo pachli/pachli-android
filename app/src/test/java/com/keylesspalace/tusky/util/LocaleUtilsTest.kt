@@ -40,11 +40,11 @@ class LocaleUtilsTest {
 
         Assert.assertEquals(
             defaultLanguage,
-            getMockedInitialLanguages(arrayOf(defaultLanguage, defaultLanguage, "fr", defaultLanguage, "kab", defaultLanguage))[0]
+            getMockedInitialLanguages(arrayOf(defaultLanguage, defaultLanguage, "fr", defaultLanguage, "kab", defaultLanguage))[0],
         )
         Assert.assertEquals(
             defaultLanguage,
-            getMockedInitialLanguages(arrayOf(null, defaultLanguage, "fr", defaultLanguage, "kab", defaultLanguage))[0]
+            getMockedInitialLanguages(arrayOf(null, defaultLanguage, "fr", defaultLanguage, "kab", defaultLanguage))[0],
         )
     }
 
@@ -73,8 +73,8 @@ class LocaleUtilsTest {
                         clientId = null,
                         clientSecret = null,
                         isActive = true,
-                        defaultPostLanguage = configuredLanguages[1].orEmpty()
-                    )
+                        defaultPostLanguage = configuredLanguages[1].orEmpty(),
+                    ),
                 )
             }
         }

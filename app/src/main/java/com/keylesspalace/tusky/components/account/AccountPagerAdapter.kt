@@ -25,7 +25,7 @@ import com.keylesspalace.tusky.util.CustomFragmentStateAdapter
 
 class AccountPagerAdapter(
     activity: FragmentActivity,
-    private val accountId: String
+    private val accountId: String,
 ) : CustomFragmentStateAdapter(activity) {
 
     override fun getItemCount() = TAB_COUNT

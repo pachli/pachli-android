@@ -10,7 +10,7 @@ import java.lang.ref.WeakReference
 class ImagePagerAdapter(
     activity: FragmentActivity,
     private val attachments: List<Attachment>,
-    private val initialPosition: Int
+    private val initialPosition: Int,
 ) : ViewMediaAdapter(activity) {
 
     private var didTransition = false
@@ -26,7 +26,7 @@ class ImagePagerAdapter(
             // transition and wait until it's over and it will never take place.
             val fragment = ViewMediaFragment.newInstance(
                 attachment = attachments[position],
-                shouldStartPostponedTransition = !didTransition && position == initialPosition
+                shouldStartPostponedTransition = !didTransition && position == initialPosition,
             )
             fragments[position] = WeakReference(fragment)
             return fragment

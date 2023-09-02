@@ -45,7 +45,7 @@ class ViewEditsAdapter(
     private val animateAvatars: Boolean,
     private val animateEmojis: Boolean,
     private val useBlurhash: Boolean,
-    private val listener: LinkListener
+    private val listener: LinkListener,
 ) : RecyclerView.Adapter<BindingHolder<ItemStatusEditBinding>>() {
 
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
@@ -58,7 +58,7 @@ class ViewEditsAdapter(
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): BindingHolder<ItemStatusEditBinding> {
         val binding = ItemStatusEditBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
@@ -112,7 +112,7 @@ class ViewEditsAdapter(
             binding.statusEditContentWarningDescription.text = edit.spoilerText.emojify(
                 edit.emojis,
                 binding.statusEditContentWarningDescription,
-                animateEmojis
+                animateEmojis,
             )
         }
 
@@ -149,7 +149,7 @@ class ViewEditsAdapter(
                 },
                 resultClickListener = null,
                 animateEmojis = animateEmojis,
-                enabled = false
+                enabled = false,
             )
         }
 
@@ -240,7 +240,7 @@ class TuskyTagHandler(val context: Context) : Html.TagHandler {
                     end(
                         output as SpannableStringBuilder,
                         Del::class.java,
-                        DeletedTextSpan(context)
+                        DeletedTextSpan(context),
                     )
                 }
             }
@@ -251,7 +251,7 @@ class TuskyTagHandler(val context: Context) : Html.TagHandler {
                     end(
                         output as SpannableStringBuilder,
                         Ins::class.java,
-                        InsertedTextSpan(context)
+                        InsertedTextSpan(context),
                     )
                 }
             }

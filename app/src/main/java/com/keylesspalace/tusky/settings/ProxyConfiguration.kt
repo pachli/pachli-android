@@ -4,7 +4,7 @@ import java.net.IDN
 
 class ProxyConfiguration private constructor(
     val hostname: String,
-    val port: Int
+    val port: Int,
 ) {
     companion object {
         fun create(hostname: String, port: Int): ProxyConfiguration? {
@@ -18,7 +18,7 @@ class ProxyConfiguration private constructor(
                 true
             } else {
                 value.runCatching(String::toInt).map(
-                    PROXY_RANGE::contains
+                    PROXY_RANGE::contains,
                 ).getOrDefault(false)
             }
             is Int -> PROXY_RANGE.contains(value)

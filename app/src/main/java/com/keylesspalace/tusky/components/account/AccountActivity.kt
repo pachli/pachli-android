@@ -155,7 +155,7 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
     private enum class FollowState {
         NOT_FOLLOWING,
         FOLLOWING,
-        REQUESTED
+        REQUESTED,
     }
 
     private lateinit var adapter: AccountPagerAdapter
@@ -273,17 +273,19 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
         val enableSwipeForTabs = preferences.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
         binding.accountFragmentViewPager.isUserInputEnabled = enableSwipeForTabs
 
-        binding.accountTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                tab?.position?.let { position ->
-                    (adapter.getFragment(position) as? ReselectableFragment)?.onReselect()
+        binding.accountTabLayout.addOnTabSelectedListener(
+            object : TabLayout.OnTabSelectedListener {
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    tab?.position?.let { position ->
+                        (adapter.getFragment(position) as? ReselectableFragment)?.onReselect()
+                    }
                 }
-            }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+                override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {}
-        })
+                override fun onTabSelected(tab: TabLayout.Tab?) {}
+            },
+        )
     }
 
     private fun handleWindowInsets() {
@@ -323,14 +325,14 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
         binding.accountToolbar.navigationIcon = LayerDrawable(
             arrayOf(
                 backgroundCircle,
-                binding.accountToolbar.navigationIcon
-            )
+                binding.accountToolbar.navigationIcon,
+            ),
         )
         binding.accountToolbar.overflowIcon = LayerDrawable(
             arrayOf(
                 backgroundCircle,
-                binding.accountToolbar.overflowIcon
-            )
+                binding.accountToolbar.overflowIcon,
+            ),
         )
 
         binding.accountHeaderInfoContainer.background = MaterialShapeDrawable.createWithElevationOverlay(this, appBarElevation)
@@ -345,47 +347,49 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
         binding.accountAvatarImageView.background = avatarBackground
 
         // Add a listener to change the toolbar icon color when it enters/exits its collapsed state.
-        binding.accountAppBarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
+        binding.accountAppBarLayout.addOnOffsetChangedListener(
+            object : AppBarLayout.OnOffsetChangedListener {
 
-            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
-                if (verticalOffset == oldOffset) {
-                    return
-                }
-                oldOffset = verticalOffset
-
-                if (titleVisibleHeight + verticalOffset < 0) {
-                    supportActionBar?.setDisplayShowTitleEnabled(true)
-                } else {
-                    supportActionBar?.setDisplayShowTitleEnabled(false)
-                }
-
-                if (hideFab && !blocking) {
-                    if (verticalOffset > oldOffset) {
-                        binding.accountFloatingActionButton.show()
+                override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+                    if (verticalOffset == oldOffset) {
+                        return
                     }
-                    if (verticalOffset < oldOffset) {
-                        binding.accountFloatingActionButton.hide()
+                    oldOffset = verticalOffset
+
+                    if (titleVisibleHeight + verticalOffset < 0) {
+                        supportActionBar?.setDisplayShowTitleEnabled(true)
+                    } else {
+                        supportActionBar?.setDisplayShowTitleEnabled(false)
                     }
+
+                    if (hideFab && !blocking) {
+                        if (verticalOffset > oldOffset) {
+                            binding.accountFloatingActionButton.show()
+                        }
+                        if (verticalOffset < oldOffset) {
+                            binding.accountFloatingActionButton.hide()
+                        }
+                    }
+
+                    val scaledAvatarSize = (avatarSize + verticalOffset) / avatarSize
+
+                    binding.accountAvatarImageView.scaleX = scaledAvatarSize
+                    binding.accountAvatarImageView.scaleY = scaledAvatarSize
+
+                    binding.accountAvatarImageView.visible(scaledAvatarSize > 0)
+
+                    val transparencyPercent = (abs(verticalOffset) / titleVisibleHeight.toFloat()).coerceAtMost(1f)
+
+                    window.statusBarColor = argbEvaluator.evaluate(transparencyPercent, statusBarColorTransparent, statusBarColorOpaque) as Int
+
+                    val evaluatedToolbarColor = argbEvaluator.evaluate(transparencyPercent, Color.TRANSPARENT, toolbarColor) as Int
+
+                    toolbarBackground.fillColor = ColorStateList.valueOf(evaluatedToolbarColor)
+
+                    binding.swipeToRefreshLayout.isEnabled = verticalOffset == 0
                 }
-
-                val scaledAvatarSize = (avatarSize + verticalOffset) / avatarSize
-
-                binding.accountAvatarImageView.scaleX = scaledAvatarSize
-                binding.accountAvatarImageView.scaleY = scaledAvatarSize
-
-                binding.accountAvatarImageView.visible(scaledAvatarSize > 0)
-
-                val transparencyPercent = (abs(verticalOffset) / titleVisibleHeight.toFloat()).coerceAtMost(1f)
-
-                window.statusBarColor = argbEvaluator.evaluate(transparencyPercent, statusBarColorTransparent, statusBarColorOpaque) as Int
-
-                val evaluatedToolbarColor = argbEvaluator.evaluate(transparencyPercent, Color.TRANSPARENT, toolbarColor) as Int
-
-                toolbarBackground.fillColor = ColorStateList.valueOf(evaluatedToolbarColor)
-
-                binding.swipeToRefreshLayout.isEnabled = verticalOffset == 0
-            }
-        })
+            },
+        )
     }
 
     private fun makeNotificationBarTransparent() {
@@ -439,7 +443,7 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
     private fun setupRefreshLayout() {
         binding.swipeToRefreshLayout.setOnRefreshListener { onRefresh() }
         viewModel.isRefreshing.observe(
-            this
+            this,
         ) { isRefreshing ->
             binding.swipeToRefreshLayout.isRefreshing = isRefreshing == true
         }
@@ -496,7 +500,7 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
             try {
                 binding.accountDateJoined.text = resources.getString(
                     R.string.account_date_joined,
-                    SimpleDateFormat("MMMM, yyyy", Locale.getDefault()).format(account.createdAt)
+                    SimpleDateFormat("MMMM, yyyy", Locale.getDefault()).format(account.createdAt),
                 )
                 binding.accountDateJoined.visibility = View.VISIBLE
             } catch (e: ParseException) {
@@ -515,7 +519,7 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
                 account.avatar,
                 binding.accountAvatarImageView,
                 resources.getDimensionPixelSize(R.dimen.avatar_radius_94dp),
-                animateAvatar
+                animateAvatar,
             )
 
             Glide.with(this)
@@ -537,7 +541,7 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
         view.transitionName = uri
         startActivity(
             ViewMediaActivity.newSingleImageIntent(view.context, uri),
-            ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, uri).toBundle()
+            ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, uri).toBundle(),
         )
     }
 
@@ -863,7 +867,7 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
             loadedAccount?.let {
                 showMuteAccountDialog(
                     this,
-                    it.username
+                    it.username,
                 ) { notifications, duration ->
                     viewModel.muteAccount(notifications, duration)
                 }
@@ -880,7 +884,7 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
             } else {
                 ComposeActivity.ComposeOptions(
                     mentionedUsernames = setOf(it.username),
-                    kind = ComposeActivity.ComposeKind.NEW
+                    kind = ComposeActivity.ComposeKind.NEW,
                 )
             }
             val intent = ComposeActivity.startIntent(this, options)
@@ -921,7 +925,7 @@ class AccountActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvide
                             override fun onAccountSelected(account: AccountEntity) {
                                 openAsAccount(loadedAccount.url, account)
                             }
-                        }
+                        },
                     )
                 }
             }

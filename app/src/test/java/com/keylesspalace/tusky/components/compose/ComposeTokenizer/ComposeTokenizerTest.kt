@@ -25,7 +25,7 @@ import org.junit.runners.Parameterized
 class ComposeTokenizerTest(
     private val text: CharSequence,
     private val expectedStartIndex: Int,
-    private val expectedEndIndex: Int
+    private val expectedEndIndex: Int,
 ) {
 
     companion object {
@@ -81,7 +81,7 @@ class ComposeTokenizerTest(
                 arrayOf("@:mastodon", 10, 10),
                 arrayOf(" @:mastodon", 11, 11),
                 arrayOf("#@:mastodon", 11, 11),
-                arrayOf(" #@:mastodon", 12, 12)
+                arrayOf(" #@:mastodon", 12, 12),
             )
         }
     }

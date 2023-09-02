@@ -20,7 +20,7 @@ class MigrationsTest {
     var helper: MigrationTestHelper = MigrationTestHelper(
         InstrumentationRegistry.getInstrumentation(),
         AppDatabase::class.java.canonicalName,
-        FrameworkSQLiteOpenHelperFactory()
+        FrameworkSQLiteOpenHelperFactory(),
     )
 
     @Test
@@ -37,7 +37,7 @@ class MigrationsTest {
             id, domain, token, active, accountId, username, "Display Name",
             "https://picture.url", true, true, true, true, true, true, true,
             true, "1000", "[]", "[{\"shortcode\": \"emoji\", \"url\": \"yes\"}]", 0, false,
-            false, true
+            false, true,
         )
 
         db.execSQL(
@@ -49,7 +49,7 @@ class MigrationsTest {
                 "`defaultPostPrivacy`,`defaultMediaSensitivity`,`alwaysShowSensitiveMedia`," +
                 "`mediaPreviewEnabled`) " +
                 "VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            values
+            values,
         )
 
         db.close()

@@ -47,7 +47,7 @@ class StatusViewHolder(
     private val statusDisplayOptions: StatusDisplayOptions,
     private val viewState: StatusViewState,
     private val adapterHandler: AdapterHandler,
-    private val getStatusForPosition: (Int) -> StatusViewData?
+    private val getStatusForPosition: (Int) -> StatusViewData?,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private val mediaViewHeight = itemView.context.resources.getDimensionPixelSize(R.dimen.status_media_preview_height)
@@ -90,7 +90,7 @@ class StatusViewHolder(
             sensitive,
             previewListener,
             viewState.isMediaShow(viewData.id, viewData.status.sensitive),
-            mediaViewHeight
+            mediaViewHeight,
         )
 
         statusViewHelper.setupPollReadonly(viewData.status.poll.toViewData(), viewData.status.emojis, statusDisplayOptions)
@@ -103,7 +103,7 @@ class StatusViewHolder(
                 shouldTrimStatus(viewdata.content),
                 viewState.isCollapsed(viewdata.id, true),
                 viewState.isContentShow(viewdata.id, viewdata.status.sensitive),
-                viewdata.spoilerText
+                viewdata.spoilerText,
             )
 
             if (viewdata.spoilerText.isBlank()) {
@@ -144,7 +144,7 @@ class StatusViewHolder(
         mentions: List<Status.Mention>,
         tags: List<HashTag>?,
         emojis: List<Emoji>,
-        listener: LinkListener
+        listener: LinkListener,
     ) {
         if (expanded) {
             val emojifiedText = content.emojify(emojis, binding.statusContent, statusDisplayOptions.animateEmojis)

@@ -83,7 +83,7 @@ class ValuesParser : Grammar<ConfigurationQualifier>() {
         Locale(
             lang = this.t1.text.split("+")[1],
             script = this.t2.getOrNull(0)?.text?.split("+")?.get(1),
-            region = this.t2.getOrNull(1)?.text?.split("+")?.get(1)
+            region = this.t2.getOrNull(1)?.text?.split("+")?.get(1),
         )
     }
 
@@ -113,7 +113,7 @@ class ValuesParser : Grammar<ConfigurationQualifier>() {
     private val qualifierParser by qualifier use {
         ConfigurationQualifier(
             mobileCodes = this.t1,
-            locale = this.t2
+            locale = this.t2,
         )
     }
 

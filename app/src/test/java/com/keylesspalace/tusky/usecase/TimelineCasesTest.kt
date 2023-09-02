@@ -59,15 +59,15 @@ class TimelineCasesTest {
                 HttpException(
                     Response.error<Status>(
                         422,
-                        "{\"error\":\"Validation Failed: You have already pinned the maximum number of toots\"}".toResponseBody()
-                    )
-                )
+                        "{\"error\":\"Validation Failed: You have already pinned the maximum number of toots\"}".toResponseBody(),
+                    ),
+                ),
             )
         }
         runBlocking {
             assertEquals(
                 "Validation Failed: You have already pinned the maximum number of toots",
-                timelineCases.pin(statusId, true).exceptionOrNull()?.message
+                timelineCases.pin(statusId, true).exceptionOrNull()?.message,
             )
         }
     }
@@ -102,7 +102,7 @@ class TimelineCasesTest {
             poll = null,
             card = null,
             language = null,
-            filtered = null
+            filtered = null,
         )
     }
 }

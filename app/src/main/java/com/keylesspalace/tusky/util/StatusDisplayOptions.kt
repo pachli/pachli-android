@@ -47,7 +47,7 @@ data class StatusDisplayOptions(
     @get:JvmName("showSensitiveMedia")
     val showSensitiveMedia: Boolean,
     @get:JvmName("openSpoiler")
-    val openSpoiler: Boolean
+    val openSpoiler: Boolean,
 ) {
 
     /**
@@ -56,46 +56,46 @@ data class StatusDisplayOptions(
     fun make(
         preferences: SharedPreferences,
         key: String,
-        account: AccountEntity
+        account: AccountEntity,
     ) = when (key) {
         PrefKeys.ANIMATE_GIF_AVATARS -> copy(
-            animateAvatars = preferences.getBoolean(key, false)
+            animateAvatars = preferences.getBoolean(key, false),
         )
         PrefKeys.MEDIA_PREVIEW_ENABLED -> copy(
-            mediaPreviewEnabled = account.mediaPreviewEnabled
+            mediaPreviewEnabled = account.mediaPreviewEnabled,
         )
         PrefKeys.ABSOLUTE_TIME_VIEW -> copy(
-            useAbsoluteTime = preferences.getBoolean(key, false)
+            useAbsoluteTime = preferences.getBoolean(key, false),
         )
         PrefKeys.SHOW_BOT_OVERLAY -> copy(
-            showBotOverlay = preferences.getBoolean(key, true)
+            showBotOverlay = preferences.getBoolean(key, true),
         )
         PrefKeys.USE_BLURHASH -> copy(
-            useBlurhash = preferences.getBoolean(key, true)
+            useBlurhash = preferences.getBoolean(key, true),
         )
         PrefKeys.SHOW_CARDS_IN_TIMELINES -> copy(
-            cardViewMode = if (preferences.getBoolean(key, false)) CardViewMode.INDENTED else CardViewMode.NONE
+            cardViewMode = if (preferences.getBoolean(key, false)) CardViewMode.INDENTED else CardViewMode.NONE,
         )
         PrefKeys.CONFIRM_FAVOURITES -> copy(
-            confirmFavourites = preferences.getBoolean(key, false)
+            confirmFavourites = preferences.getBoolean(key, false),
         )
         PrefKeys.CONFIRM_REBLOGS -> copy(
-            confirmReblogs = preferences.getBoolean(key, true)
+            confirmReblogs = preferences.getBoolean(key, true),
         )
         PrefKeys.WELLBEING_HIDE_STATS_POSTS -> copy(
-            hideStats = preferences.getBoolean(key, false)
+            hideStats = preferences.getBoolean(key, false),
         )
         PrefKeys.ANIMATE_CUSTOM_EMOJIS -> copy(
-            animateEmojis = preferences.getBoolean(key, false)
+            animateEmojis = preferences.getBoolean(key, false),
         )
         PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> copy(
-            showSensitiveMedia = account.alwaysShowSensitiveMedia
+            showSensitiveMedia = account.alwaysShowSensitiveMedia,
         )
         PrefKeys.ALWAYS_OPEN_SPOILER -> copy(
-            openSpoiler = account.alwaysOpenSpoiler
+            openSpoiler = account.alwaysOpenSpoiler,
         )
         PrefKeys.SHOW_STATS_INLINE -> copy(
-            showStatsInline = preferences.getBoolean(key, false)
+            showStatsInline = preferences.getBoolean(key, false),
         )
         else -> { this }
     }
@@ -114,7 +114,7 @@ data class StatusDisplayOptions(
             PrefKeys.SHOW_BOT_OVERLAY,
             PrefKeys.USE_BLURHASH,
             PrefKeys.WELLBEING_HIDE_STATS_POSTS,
-            PrefKeys.SHOW_STATS_INLINE
+            PrefKeys.SHOW_STATS_INLINE,
         )
 
         fun from(preferences: SharedPreferences, account: AccountEntity) = StatusDisplayOptions(
@@ -134,7 +134,7 @@ data class StatusDisplayOptions(
             hideStats = preferences.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, false),
             showStatsInline = preferences.getBoolean(PrefKeys.SHOW_STATS_INLINE, false),
             showSensitiveMedia = account.alwaysShowSensitiveMedia,
-            openSpoiler = account.alwaysOpenSpoiler
+            openSpoiler = account.alwaysOpenSpoiler,
         )
     }
 }

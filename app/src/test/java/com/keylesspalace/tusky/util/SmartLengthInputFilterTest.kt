@@ -33,9 +33,9 @@ class SmartLengthInputFilterTest {
                         "mmqPwQgtatbMykTW4RZdKTE46nzlbD3mXHdWQkf4uVPYhVT1CMvVbCPMaimfQ0xuU8CpxyVqA8a6lCL3YX9" +
                         "pNnZjD7DoCg2FCejANnjXsTF6vuqPSHjQZDjy696nSAFy95p9kBeJkc70fHzX5TcfUqSaNtvx3LUtpIkwh4" +
                         "q2EYmKISPsxlANaspEMPuX6r9fSACiEwmHsitZkp4RMKZq5NqRsGPCiAXcNIN3jj9fCYVGxUwVxVeCescDG" +
-                        "5naEEszIR3FT1RO4MSn9c2ZZi0UdLizd8ciJAIuwwmcVyYyyM4"
-                )
-            )
+                        "5naEEszIR3FT1RO4MSn9c2ZZi0UdLizd8ciJAIuwwmcVyYyyM4",
+                ),
+            ),
         )
     }
 
@@ -52,9 +52,9 @@ class SmartLengthInputFilterTest {
                         "bOPeanGMBmeI9YRdiD4MmuTUkJfVLkA9rrpRtiEYw8RS3Jf9iqDkTpES9aLQODMip5xTsT4liIcUbLo0Z1d" +
                         "NhHk7YKubigNQIm1mmh2iU3Q0ZEm8TraDpKu2o27gIwSKbAnTllrOokprPxWQWDVrN9bIliwGHzgTKPI5z8" +
                         "gUybaqewxUYe12GvxnzqpfPFvvHricyZAC9i6Fkil5VmFdae75tLFWRBfE8Wfep0dSjL751m2yzvzZTc6uZ" +
-                        "RTcUiipvl42DaY8Z5eG2b6xPVhvXshMORvHzwhJhPkHSbnwXX5K"
-                )
-            )
+                        "RTcUiipvl42DaY8Z5eG2b6xPVhvXshMORvHzwhJhPkHSbnwXX5K",
+                ),
+            ),
         )
     }
 
@@ -71,9 +71,9 @@ class SmartLengthInputFilterTest {
                         "bOPeanGMBmeI9YRdiD4MmuTUkJfVLkA9rrpRtiEYw8RS3Jf9iqDkTpES9aLQODMip5xTsT4liIcUbLo0Z1d" +
                         "NhHk7YKubigNQIm1mmh2iU3Q0ZEm8TraDpKu2o27gIwSKbAnTllrOokprPxWQWDVrN9bIliwGHzgTKPI5z8" +
                         "gUybaqewxUYe12GvxnzqpfPFvvHricyZAC9i6Fkil5VmFdae75tLFWRBfE8Wfep0dSjL751m2yzvzZTc6uZ" +
-                        "RTcUiipvl42DaY8Z5eG2b6xPVhvXshMORvHzwhJhPkHSbnwXX5K1"
-                )
-            )
+                        "RTcUiipvl42DaY8Z5eG2b6xPVhvXshMORvHzwhJhPkHSbnwXX5K1",
+                ),
+            ),
         )
     }
 
@@ -95,9 +95,9 @@ class SmartLengthInputFilterTest {
                         "mmqPwQgtatbMykTW4RZdKTE46nzlbD3mXHdWQkf4uVPYhVT1CMvVbCPMaimfQ0xuU8CpxyVqA8a6lCL3YX9" +
                         "pNnZjD7DoCg2FCejANnjXsTF6vuqPSHjQZDjy696nSAFy95p9kBeJkc70fHzX5TcfUqSaNtvx3LUtpIkwh4" +
                         "q2EYmKISPsxlANaspEMPuX6r9fSACiEwmHsitZkp4RMKZq5NqRsGPCiAXcNIN3jj9fCYVGxUwVxVeCescDG" +
-                        "5naEEszIR3FT1RO4MSn9c2ZZi0UdLizd8ciJAIuwwmcVyYyyM4"
-                )
-            )
+                        "5naEEszIR3FT1RO4MSn9c2ZZi0UdLizd8ciJAIuwwmcVyYyyM4",
+                ),
+            ),
         )
     }
 }

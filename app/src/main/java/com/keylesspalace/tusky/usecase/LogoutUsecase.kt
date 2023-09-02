@@ -15,7 +15,7 @@ class LogoutUsecase @Inject constructor(
     private val api: MastodonApi,
     private val db: AppDatabase,
     private val accountManager: AccountManager,
-    private val draftHelper: DraftHelper
+    private val draftHelper: DraftHelper,
 ) {
 
     /**
@@ -33,7 +33,7 @@ class LogoutUsecase @Inject constructor(
                 api.revokeOAuthToken(
                     clientId = clientId,
                     clientSecret = clientSecret,
-                    token = activeAccount.accessToken
+                    token = activeAccount.accessToken,
                 )
             }
 

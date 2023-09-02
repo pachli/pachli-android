@@ -71,7 +71,7 @@ sealed class UploadEvent {
 
 data class UploadData(
     val flow: Flow<UploadEvent>,
-    val scope: CoroutineScope
+    val scope: CoroutineScope,
 )
 
 fun createNewImageFile(context: Context, suffix: String = ".jpg"): File {
@@ -82,7 +82,7 @@ fun createNewImageFile(context: Context, suffix: String = ".jpg"): File {
     return File.createTempFile(
         imageFileName, /* prefix */
         suffix, /* suffix */
-        storageDir /* directory */
+        storageDir, /* directory */
     )
 }
 
@@ -96,7 +96,7 @@ class UploadServerError(val errorMessage: String) : Exception()
 @Singleton
 class MediaUploader @Inject constructor(
     private val context: Context,
-    private val mediaUploadApi: MediaUploadApi
+    private val mediaUploadApi: MediaUploadApi,
 ) {
 
     private val uploads = mutableMapOf<Int, UploadData>()
@@ -175,7 +175,7 @@ class MediaUploader @Inject constructor(
                             uri = FileProvider.getUriForFile(
                                 context,
                                 BuildConfig.APPLICATION_ID + ".fileprovider",
-                                file
+                                file,
                             )
                             mediaSize = getMediaSize(contentResolver, uri)
                         }
@@ -198,7 +198,7 @@ class MediaUploader @Inject constructor(
                         uri = FileProvider.getUriForFile(
                             context,
                             BuildConfig.APPLICATION_ID + ".fileprovider",
-                            file
+                            file,
                         )
                         mediaSize = getMediaSize(contentResolver, uri)
                     }
@@ -268,7 +268,7 @@ class MediaUploader @Inject constructor(
                 context.getString(R.string.app_name),
                 Date().time.toString(),
                 randomAlphanumericString(10),
-                fileExtension
+                fileExtension,
             )
 
             val stream = contentResolver.openInputStream(media.uri)
@@ -279,7 +279,7 @@ class MediaUploader @Inject constructor(
             val fileBody = ProgressRequestBody(
                 stream!!,
                 media.mediaSize,
-                mimeType.toMediaTypeOrNull()!!
+                mimeType.toMediaTypeOrNull()!!,
             ) { percentage ->
                 if (percentage != lastProgress) {
                     trySend(UploadEvent.ProgressEvent(percentage))

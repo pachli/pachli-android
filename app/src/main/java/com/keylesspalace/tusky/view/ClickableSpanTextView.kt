@@ -52,7 +52,7 @@ import kotlin.math.abs
 class ClickableSpanTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = android.R.attr.textViewStyle
+    defStyleAttr: Int = android.R.attr.textViewStyle,
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
     /**
      * Map of [RectF] that enclose the [ClickableSpan] without any additional touchable area. A span
@@ -111,7 +111,7 @@ class ClickableSpanTextView @JvmOverloads constructor(
         text: CharSequence?,
         start: Int,
         lengthBefore: Int,
-        lengthAfter: Int
+        lengthAfter: Int,
     ) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter)
 

@@ -35,7 +35,7 @@ sealed class FilterKind {
 
 /** Repository for filter information */
 class FiltersRepository @Inject constructor(
-    private val mastodonApi: MastodonApi
+    private val mastodonApi: MastodonApi,
 ) {
     /**
      * Get the current set of filters.
@@ -54,7 +54,7 @@ class FiltersRepository @Inject constructor(
             } else {
                 throw throwable
             }
-        }
+        },
     )
 
     companion object {

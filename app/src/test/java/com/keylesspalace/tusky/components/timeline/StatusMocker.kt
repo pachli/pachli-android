@@ -16,7 +16,7 @@ fun mockStatus(
     spoilerText: String = "",
     reblogged: Boolean = false,
     favourited: Boolean = true,
-    bookmarked: Boolean = true
+    bookmarked: Boolean = true,
 ) = Status(
     id = id,
     url = "https://mastodon.example/@ConnyDuck/$id",
@@ -27,7 +27,7 @@ fun mockStatus(
         displayName = "Conny Duck",
         note = "This is their bio",
         url = "https://mastodon.example/@ConnyDuck",
-        avatar = "https://mastodon.example/system/accounts/avatars/000/150/486/original/ab27d7ddd18a10ea.jpg"
+        avatar = "https://mastodon.example/system/accounts/avatars/000/150/486/original/ab27d7ddd18a10ea.jpg",
     ),
     inReplyToId = inReplyToId,
     inReplyToAccountId = inReplyToAccountId,
@@ -54,7 +54,7 @@ fun mockStatus(
     poll = null,
     card = null,
     language = null,
-    filtered = null
+    filtered = null,
 )
 
 fun mockStatusViewData(
@@ -68,7 +68,7 @@ fun mockStatusViewData(
     isCollapsed: Boolean = !isDetailed,
     reblogged: Boolean = false,
     favourited: Boolean = true,
-    bookmarked: Boolean = true
+    bookmarked: Boolean = true,
 ) = StatusViewData(
     status = mockStatus(
         id = id,
@@ -77,18 +77,18 @@ fun mockStatusViewData(
         spoilerText = spoilerText,
         reblogged = reblogged,
         favourited = favourited,
-        bookmarked = bookmarked
+        bookmarked = bookmarked,
     ),
     isExpanded = isExpanded,
     isShowingContent = isShowingContent,
     isCollapsed = isCollapsed,
-    isDetailed = isDetailed
+    isDetailed = isDetailed,
 )
 
 fun mockStatusEntityWithAccount(
     id: String = "100",
     userId: Long = 1,
-    expanded: Boolean = false
+    expanded: Boolean = false,
 ): TimelineStatusWithAccount {
     val mockedStatus = mockStatus(id)
     val gson = Gson()
@@ -99,11 +99,11 @@ fun mockStatusEntityWithAccount(
             gson = gson,
             expanded = expanded,
             contentShowing = false,
-            contentCollapsed = true
+            contentCollapsed = true,
         ),
         account = mockedStatus.account.toEntity(
             accountId = userId,
-            gson = gson
-        )
+            gson = gson,
+        ),
     )
 }

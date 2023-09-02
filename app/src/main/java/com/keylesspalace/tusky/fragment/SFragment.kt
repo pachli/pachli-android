@@ -122,7 +122,7 @@ abstract class SFragment : Fragment(), Injectable {
             loggedInUsername = activeAccount.username
         }
         val mentionedUsernames = LinkedHashSet(
-            listOf(account.username) + actionableStatus.mentions.map { it.username }
+            listOf(account.username) + actionableStatus.mentions.map { it.username },
         ).apply { remove(loggedInUsername) }
 
         val composeOptions = ComposeOptions(
@@ -133,7 +133,7 @@ abstract class SFragment : Fragment(), Injectable {
             replyingStatusAuthor = account.localUsername,
             replyingStatusContent = actionableStatus.content.parseAsMastodonHtml().toString(),
             language = actionableStatus.language,
-            kind = ComposeActivity.ComposeKind.NEW
+            kind = ComposeActivity.ComposeKind.NEW,
         )
 
         val intent = startIntent(requireContext(), composeOptions)
@@ -188,7 +188,7 @@ abstract class SFragment : Fragment(), Injectable {
                     R.string.action_mute_conversation
                 } else {
                     R.string.action_unmute_conversation
-                }
+                },
             )
         }
         popup.setOnMenuItemClickListener { item: MenuItem ->
@@ -200,15 +200,15 @@ abstract class SFragment : Fragment(), Injectable {
                         type = "text/plain"
                         putExtra(
                             Intent.EXTRA_TEXT,
-                            "${statusToShare.account.username} - ${statusToShare.content.parseAsMastodonHtml()}"
+                            "${statusToShare.account.username} - ${statusToShare.content.parseAsMastodonHtml()}",
                         )
                         putExtra(Intent.EXTRA_SUBJECT, statusUrl)
                     }
                     startActivity(
                         Intent.createChooser(
                             sendIntent,
-                            resources.getText(R.string.send_post_content_to)
-                        )
+                            resources.getText(R.string.send_post_content_to),
+                        ),
                     )
                     return@setOnMenuItemClickListener true
                 }
@@ -221,8 +221,8 @@ abstract class SFragment : Fragment(), Injectable {
                     startActivity(
                         Intent.createChooser(
                             sendIntent,
-                            resources.getText(R.string.send_post_link_to)
-                        )
+                            resources.getText(R.string.send_post_link_to),
+                        ),
                     )
                     return@setOnMenuItemClickListener true
                 }
@@ -325,7 +325,7 @@ abstract class SFragment : Fragment(), Injectable {
                     val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         requireActivity(),
                         view,
-                        url
+                        url,
                     )
                     startActivity(intent, options.toBundle())
                 } else {
@@ -394,7 +394,7 @@ abstract class SFragment : Fragment(), Injectable {
                                 modifiedInitialState = true,
                                 language = sourceStatus.language,
                                 poll = sourceStatus.poll?.toNewPoll(sourceStatus.createdAt),
-                                kind = ComposeActivity.ComposeKind.NEW
+                                kind = ComposeActivity.ComposeKind.NEW,
                             )
                             startActivity(startIntent(requireContext(), composeOptions))
                         },
@@ -402,7 +402,7 @@ abstract class SFragment : Fragment(), Injectable {
                             Log.w("SFragment", "error deleting status", error)
                             Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT)
                                 .show()
-                        }
+                        },
                     )
                 }
             }
@@ -424,7 +424,7 @@ abstract class SFragment : Fragment(), Injectable {
                         language = status.language,
                         statusId = source.id,
                         poll = status.poll?.toNewPoll(status.createdAt),
-                        kind = ComposeActivity.ComposeKind.EDIT_POSTED
+                        kind = ComposeActivity.ComposeKind.EDIT_POSTED,
                     )
                     startActivity(startIntent(requireContext(), composeOptions))
                 },
@@ -432,9 +432,9 @@ abstract class SFragment : Fragment(), Injectable {
                     Snackbar.make(
                         requireView(),
                         getString(R.string.error_status_source_load),
-                        Snackbar.LENGTH_SHORT
+                        Snackbar.LENGTH_SHORT,
                     ).show()
-                }
+                },
             )
         }
     }
@@ -452,7 +452,7 @@ abstract class SFragment : Fragment(), Injectable {
                     override fun onAccountSelected(account: AccountEntity) {
                         openAsAccount(statusUrl, account)
                     }
-                }
+                },
             )
         }
     }
@@ -466,7 +466,7 @@ abstract class SFragment : Fragment(), Injectable {
             downloadManager.enqueue(
                 DownloadManager.Request(uri).apply {
                     setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, uri.lastPathSegment)
-                }
+                },
             )
         }
     }
@@ -481,7 +481,7 @@ abstract class SFragment : Fragment(), Injectable {
                     Toast.makeText(
                         context,
                         R.string.error_media_download_permission,
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_SHORT,
                     ).show()
                 }
             }

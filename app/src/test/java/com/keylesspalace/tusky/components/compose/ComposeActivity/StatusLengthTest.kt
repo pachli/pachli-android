@@ -28,7 +28,7 @@ import org.junit.runners.Parameterized
 @RunWith(Parameterized::class)
 class StatusLengthTest(
     private val text: String,
-    private val expectedLength: Int
+    private val expectedLength: Int,
 ) {
     companion object {
         @Parameterized.Parameters(name = "{0}")
@@ -47,7 +47,7 @@ class StatusLengthTest(
                 // Short hashtags are treated as is
                 arrayOf("123 #basictag", 13),
                 // Long hashtags are *also* treated as is (not treated as 23, like URLs)
-                arrayOf("123 #atagthatislongerthan23characters", 37)
+                arrayOf("123 #atagthatislongerthan23characters", 37),
             )
         }
     }
@@ -59,7 +59,7 @@ class StatusLengthTest(
 
         assertEquals(
             expectedLength,
-            ComposeActivity.statusLength(spannedText, null, 23)
+            ComposeActivity.statusLength(spannedText, null, 23),
         )
     }
 
@@ -69,11 +69,11 @@ class StatusLengthTest(
         highlightSpans(spannedText, 0)
 
         val cwText = SpanUtilsTest.FakeSpannable(
-            "a @example@example.org #hashtagmention and http://example.org URL"
+            "a @example@example.org #hashtagmention and http://example.org URL",
         )
         assertEquals(
             expectedLength + cwText.length,
-            ComposeActivity.statusLength(spannedText, cwText, 23)
+            ComposeActivity.statusLength(spannedText, cwText, 23),
         )
     }
 }

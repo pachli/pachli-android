@@ -23,7 +23,7 @@ import com.keylesspalace.tusky.util.visible
 class BackgroundMessageView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private val binding = ViewBackgroundMessageBinding.inflate(LayoutInflater.from(context), this)
@@ -44,7 +44,7 @@ class BackgroundMessageView @JvmOverloads constructor(
     fun setup(
         @DrawableRes imageRes: Int,
         @StringRes messageRes: Int,
-        clickListener: ((v: View) -> Unit)? = null
+        clickListener: ((v: View) -> Unit)? = null,
     ) = setup(imageRes, context.getString(messageRes), clickListener)
 
     /**
@@ -54,7 +54,7 @@ class BackgroundMessageView @JvmOverloads constructor(
     fun setup(
         @DrawableRes imageRes: Int,
         message: String,
-        clickListener: ((v: View) -> Unit)? = null
+        clickListener: ((v: View) -> Unit)? = null,
     ) {
         binding.messageTextView.text = message
         binding.messageTextView.movementMethod = LinkMovementMethod.getInstance()

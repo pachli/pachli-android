@@ -48,7 +48,7 @@ class NotificationsViewModelTestStatusDisplayOptions : NotificationsViewModelTes
         animateEmojis = false,
         showStatsInline = false,
         showSensitiveMedia = true, // setting in NotificationsViewModelTestBase
-        openSpoiler = true // setting in NotificationsViewModelTestBase
+        openSpoiler = true, // setting in NotificationsViewModelTestBase
     )
 
     @Test
@@ -71,7 +71,7 @@ class NotificationsViewModelTestStatusDisplayOptions : NotificationsViewModelTes
         val updatedOptions = defaultStatusDisplayOptions.make(
             sharedPreferences,
             PrefKeys.ANIMATE_GIF_AVATARS,
-            accountManager.activeAccount!!
+            accountManager.activeAccount!!,
         )
 
         // Then, should be true
