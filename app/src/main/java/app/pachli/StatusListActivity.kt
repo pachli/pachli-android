@@ -41,6 +41,10 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
 
+/**
+ * Show a list of statuses of a particular type; containing a particular hashtag,
+ * the user's favourites, bookmarks, etc.
+ */
 class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
 
     @Inject
@@ -51,6 +55,11 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
 
     private val binding: ActivityStatuslistBinding by viewBinding(ActivityStatuslistBinding::inflate)
     private lateinit var timelineKind: TimelineKind
+
+    /**
+     * If showing statuses with a hashtag, the hashtag being used, without the
+     * leading `#`.
+     */
     private var hashtag: String? = null
     private var followTagItem: MenuItem? = null
     private var unfollowTagItem: MenuItem? = null
@@ -168,7 +177,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
      * Determine if the current hashtag is muted, and update the UI state accordingly.
      */
     private fun updateMuteTagMenuItems() {
-        val tag = hashtag ?: return
+        val tagWithHash = hashtag?.let { "#$it" } ?: return
 
         muteTagItem?.isVisible = true
         muteTagItem?.isEnabled = false
@@ -179,7 +188,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                 { filters ->
                     mutedFilter = filters.firstOrNull { filter ->
                         filter.context.contains(Filter.Kind.HOME.kind) && filter.keywords.any {
-                            it.keyword == tag
+                            it.keyword == tagWithHash
                         }
                     }
                     updateTagMuteState(mutedFilter != null)
@@ -189,7 +198,7 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                         mastodonApi.getFiltersV1().fold(
                             { filters ->
                                 mutedFilterV1 = filters.firstOrNull { filter ->
-                                    tag == filter.phrase && filter.context.contains(FilterV1.HOME)
+                                    tagWithHash == filter.phrase && filter.context.contains(FilterV1.HOME)
                                 }
                                 updateTagMuteState(mutedFilterV1 != null)
                             },
@@ -218,29 +227,30 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
     }
 
     private fun muteTag(): Boolean {
-        val tag = hashtag ?: return true
+        val tagWithHash = hashtag?.let { "#$it" } ?: return true
 
         lifecycleScope.launch {
             mastodonApi.createFilter(
-                title = "#$tag",
+                title = tagWithHash,
                 context = listOf(FilterV1.HOME),
                 filterAction = Filter.Action.WARN.action,
                 expiresInSeconds = null,
             ).fold(
                 { filter ->
-                    if (mastodonApi.addFilterKeyword(filterId = filter.id, keyword = tag, wholeWord = true).isSuccess) {
+                    if (mastodonApi.addFilterKeyword(filterId = filter.id, keyword = tagWithHash, wholeWord = true).isSuccess) {
                         mutedFilter = filter
                         updateTagMuteState(true)
                         eventHub.dispatch(PreferenceChangedEvent(filter.context[0]))
+                        Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_muted, hashtag), Snackbar.LENGTH_SHORT).show()
                     } else {
-                        Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
-                        Log.e(TAG, "Failed to mute #$tag")
+                        Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
+                        Log.e(TAG, "Failed to mute $tagWithHash")
                     }
                 },
                 { throwable ->
                     if (throwable is HttpException && throwable.code() == 404) {
                         mastodonApi.createFilterV1(
-                            tag,
+                            tagWithHash,
                             listOf(FilterV1.HOME),
                             irreversible = false,
                             wholeWord = true,
@@ -250,15 +260,16 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
                                 mutedFilterV1 = filter
                                 updateTagMuteState(true)
                                 eventHub.dispatch(PreferenceChangedEvent(filter.context[0]))
+                                Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_muted, hashtag), Snackbar.LENGTH_SHORT).show()
                             },
                             { throwable ->
-                                Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
-                                Log.e(TAG, "Failed to mute #$tag", throwable)
+                                Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
+                                Log.e(TAG, "Failed to mute $tagWithHash", throwable)
                             },
                         )
                     } else {
-                        Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
-                        Log.e(TAG, "Failed to mute #$tag", throwable)
+                        Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
+                        Log.e(TAG, "Failed to mute $tagWithHash", throwable)
                     }
                 },
             )
@@ -269,7 +280,8 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
 
     private fun unmuteTag(): Boolean {
         lifecycleScope.launch {
-            val tag = hashtag
+            val tagWithHash = hashtag?.let { "#$it" } ?: return@launch
+
             val result = if (mutedFilter != null) {
                 val filter = mutedFilter!!
                 if (filter.context.size > 1) {
@@ -304,13 +316,14 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
             result?.fold(
                 {
                     updateTagMuteState(false)
+                    Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_unmuted, hashtag), Snackbar.LENGTH_SHORT).show()
                     eventHub.dispatch(PreferenceChangedEvent(Filter.Kind.HOME.kind))
                     mutedFilterV1 = null
                     mutedFilter = null
                 },
                 { throwable ->
-                    Snackbar.make(binding.root, getString(R.string.error_unmuting_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
-                    Log.e(TAG, "Failed to unmute #$tag", throwable)
+                    Snackbar.make(binding.root, getString(R.string.error_unmuting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
+                    Log.e(TAG, "Failed to unmute $tagWithHash", throwable)
                 },
             )
         }
