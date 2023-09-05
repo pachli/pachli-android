@@ -102,7 +102,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="14"
+            line="17"
             column="9"/>
     </issue>
 
@@ -113,7 +113,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"
+            line="24"
             column="9"/>
     </issue>
 
@@ -806,7 +806,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"
+            line="24"
             column="31"/>
     </issue>
 
@@ -817,7 +817,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"
+            line="24"
             column="31"/>
     </issue>
 
@@ -828,7 +828,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"
+            line="24"
             column="31"/>
     </issue>
 
@@ -839,7 +839,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"
+            line="24"
             column="31"/>
     </issue>
 
@@ -850,7 +850,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"
+            line="24"
             column="31"/>
     </issue>
 
@@ -861,7 +861,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"
+            line="24"
             column="31"/>
     </issue>
 
@@ -872,7 +872,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"
+            line="24"
             column="31"/>
     </issue>
 
@@ -883,7 +883,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"
+            line="24"
             column="31"/>
     </issue>
 
@@ -894,7 +894,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"
+            line="24"
             column="31"/>
     </issue>
 
@@ -905,7 +905,7 @@
         errorLine2="                             ~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="15"
+            line="18"
             column="30"/>
     </issue>
 
