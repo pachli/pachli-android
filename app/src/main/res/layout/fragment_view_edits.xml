@@ -100,13 +100,13 @@
         android:layout_gravity="center"
         android:contentDescription="@string/a11y_label_loading_thread" />
 
-    <com.keylesspalace.tusky.view.BackgroundMessageView
+    <app.pachli.view.BackgroundMessageView
         android:id="@+id/statusView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone" >
 
-    </com.keylesspalace.tusky.view.BackgroundMessageView>
+    </app.pachli.view.BackgroundMessageView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

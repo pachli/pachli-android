@@ -30,7 +30,7 @@
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <com.keylesspalace.tusky.view.BackgroundMessageView
+        <app.pachli.view.BackgroundMessageView
             android:id="@+id/messageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
 
     <Button
         android:id="@+id/doneButton"
-        style="@style/TuskyButton.TextButton"
+        style="@style/AppButton.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"

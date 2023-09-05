@@ -58,7 +58,7 @@
     <string name="action_favourite">Favorito</string>
     <string name="action_more">Más</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_login">Iniciar sesión con Tusky</string>
+    <string name="action_login">Iniciar sesión con Pachli</string>
     <string name="action_logout">Cerrar sesión</string>
     <string name="action_logout_confirm">¿Seguro que quiere cerrar la sesión de %1$s?</string>
     <string name="action_follow">Seguir</string>
@@ -208,8 +208,8 @@
     </plurals>
     <string name="description_account_locked">Cuenta protegida</string>
     <string name="about_title_activity">Acerca de</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_tusky_license">Tusky es un software libre y de código abierto.
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_pachli_license">Pachli es un software libre y de código abierto.
         Está licenciado bajo la licencia \"GNU General Public License Version 3\".
         Puedes leer sobre la misma en: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
@@ -219,12 +219,12 @@
          * the url can be changed to link to the localized version of the license.
     -->
     <string name="about_project_site">        Sitio del proyecto:\n
-        https://tusky.app
+        https://pachli.app
     </string>
     <string name="about_bug_feature_request_site">        Reporte de errores y peticiones de características:\n
-        https://github.com/tuskyapp/Tusky/issues
+        https://github.com/pachli/pachli-android/issues
     </string>
-    <string name="about_tusky_account">Perfil de Tusky</string>
+    <string name="about_pachli_account">Perfil de Pachli</string>
     <string name="post_share_content">Compartir contenido</string>
     <string name="post_share_link">Compartir enlace</string>
     <string name="post_media_images">Imágenes</string>
@@ -289,7 +289,7 @@
     <string name="account_moved_description">%1$s se trasladó a:</string>
     <string name="reblog_private">Volver a compartir</string>
     <string name="unreblog_private">Dejar de compartir</string>
-    <string name="license_description">Tusky contiene código y recursos de los siguientes proyectos:</string>
+    <string name="license_description">Pachli contiene código y recursos de los siguientes proyectos:</string>
     <string name="profile_metadata_label">Información adicional</string>
     <string name="profile_metadata_add">añadir campo</string>
     <string name="profile_metadata_label_label">Etiqueta</string>
@@ -444,7 +444,7 @@
     <string name="action_schedule_post">Programar estado</string>
     <string name="action_reset_schedule">Reiniciar</string>
     <string name="post_lookup_error_format">Error al buscar el post %s</string>
-    <string name="about_powered_by_tusky">Potenciado por Tusky</string>
+    <string name="about_powered_by_pachli">Potenciado por Pachli</string>
     <string name="title_bookmarks">Marcadores</string>
     <string name="action_bookmark">Marcador</string>
     <string name="action_view_bookmarks">Marcadores</string>
@@ -547,7 +547,7 @@
     <string name="duration_14_days">14 días</string>
     <string name="duration_365_days">365 días</string>
     <string name="tips_push_notification_migration">Inicia sesión de nuevo en todas las cuentas para activar las notificaciones push.</string>
-    <string name="dialog_push_notification_migration">Para poder usar las notificaciones push con UnifiedPush, Tusky necesita permiso para suscribirse a las notificaciones de tu servidor de Mastodon. Es necesario volver a acceder para cambiar los parámetros OAuth concedidos a Tusky. Usar aquí, o en las Preferencias de la cuenta, la opción de volver a acceder conservará los borradores y la caché.</string>
+    <string name="dialog_push_notification_migration">Para poder usar las notificaciones push con UnifiedPush, Pachli necesita permiso para suscribirse a las notificaciones de tu servidor de Mastodon. Es necesario volver a acceder para cambiar los parámetros OAuth concedidos a Pachli. Usar aquí, o en las Preferencias de la cuenta, la opción de volver a acceder conservará los borradores y la caché.</string>
     <string name="failed_to_pin">Fallo al fijar</string>
     <string name="failed_to_unpin">Fallo al quitarlo</string>
     <string name="pref_show_self_username_disambiguate">Cuando hay varias cuentas ingresadas</string>
@@ -564,9 +564,9 @@
     <string name="duration_90_days">90 días</string>
     <string name="duration_180_days">180 días</string>
     <string name="duration_no_change">(Sin cambios)</string>
-    <string name="tusky_compose_post_quicksetting_label">Escribir publicación</string>
+    <string name="pachli_compose_post_quicksetting_label">Escribir publicación</string>
     <string name="saving_draft">Guardando borrador…</string>
-    <string name="dialog_push_notification_migration_other_accounts">Has vuelto a iniciar sesión en esta cuenta para dar permiso de notificaciones push a Tusky. Sin embargo, aún hay otras cuentas que no tienen este permiso. Cambia a estas cuentas y vuelve a iniciar sesión, una a una, para activar el soporte de notificaciones de UnifiedPush.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Has vuelto a iniciar sesión en esta cuenta para dar permiso de notificaciones push a Pachli. Sin embargo, aún hay otras cuentas que no tienen este permiso. Cambia a estas cuentas y vuelve a iniciar sesión, una a una, para activar el soporte de notificaciones de UnifiedPush.</string>
     <string name="instance_rule_info">Al iniciar sesión aceptas las normas de %s.</string>
     <string name="instance_rule_title">Normas de %s</string>
     <string name="notification_sign_up_name">Creación de cuentas</string>
@@ -645,7 +645,7 @@
     <string name="select_list_empty">Todavía no tienes listas</string>
     <string name="help_empty_home">Esta es tu <b> cronología de inicio</b>. Muestra las publicaciones recientes de las cuentas que sigues.
 \n
-\nPara encontrar cuentas, puedes mirar en alguna de las otras cronologías. Por ejemplo, la cronología local de tu instancia [iconics gmd_group]. O puedes buscarlas por nombre [iconics gmd_search]; por ejemplo, busca Tusky para encontrar nuestra cuenta de Mastodon.</string>
+\nPara encontrar cuentas, puedes mirar en alguna de las otras cronologías. Por ejemplo, la cronología local de tu instancia [iconics gmd_group]. O puedes buscarlas por nombre [iconics gmd_search]; por ejemplo, busca Pachli para encontrar nuestra cuenta de Mastodon.</string>
     <string name="ui_error_bookmark">Fallo al añadir a marcadores: %s</string>
     <string name="select_list_manage">Gestionar listas</string>
     <string name="error_list_load">Error al cargar listas</string>

@@ -12,8 +12,8 @@
     <string name="error_compose_character_limit">嘟文太長了！</string>
     <string name="error_media_upload_type">無法上傳此類型的檔案。</string>
     <string name="error_media_upload_opening">此檔案無法開啟。</string>
-    <string name="error_media_upload_permission">需要授予 Tusky 讀取媒體檔案的權限。</string>
-    <string name="error_media_download_permission">需要授予 Tusky 寫入儲存空間的權限。</string>
+    <string name="error_media_upload_permission">需要授予 Pachli 讀取媒體檔案的權限。</string>
+    <string name="error_media_download_permission">需要授予 Pachli 寫入儲存空間的權限。</string>
     <string name="error_media_upload_image_or_video">無法在嘟文中同時插入影片和圖片。</string>
     <string name="error_media_upload_sending">媒體檔案上傳失敗。</string>
     <string name="error_sender_account_gone">嘟文發送時出錯。</string>
@@ -225,8 +225,8 @@
         <item quantity="other">%d 個新互動</item>
     </plurals>
     <string name="description_account_locked">鎖嘟用戶</string>
-    <string name="about_title_activity">關於 Tusky</string>
-    <string name="about_tusky_license">Tusky 是基於 GNU General Public License Version 3 許可證開源的自由軟體完整的許可證協議：https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_title_activity">關於 Pachli</string>
+    <string name="about_pachli_license">Pachli 是基於 GNU General Public License Version 3 許可證開源的自由軟體完整的許可證協議：https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -235,13 +235,13 @@
     -->
     <string name="about_project_site">
         專案網站：\n
-        https://tusky.app
+        https://pachli.app
     </string>
     <string name="about_bug_feature_request_site">
         問題回報：\n
-        https://github.com/tuskyapp/Tusky/issues
+        https://github.com/pachli/pachli-android/issues
     </string>
-    <string name="about_tusky_account">Tusky 官方帳號</string>
+    <string name="about_pachli_account">Pachli 官方帳號</string>
     <string name="post_share_content">分享嘟文內容</string>
     <string name="post_share_link">分享嘟文連結</string>
     <string name="post_media_images">照片</string>
@@ -305,7 +305,7 @@
     <string name="expand_collapse_all_posts">展開/摺疊所有嘟文</string>
     <string name="action_open_post">開啟嘟文</string>
     <string name="restart_required">需要重啟應用程式</string>
-    <string name="restart_emoji">你需要重啟 Tusky 才能生效</string>
+    <string name="restart_emoji">你需要重啟 Pachli 才能生效</string>
     <string name="later">稍後</string>
     <string name="restart">立即重啟</string>
     <string name="caption_systememoji">系統預設的表情符號包</string>
@@ -317,7 +317,7 @@
     <string name="account_moved_description">%1$s 已遷移到：</string>
     <string name="reblog_private">轉嘟（可見者不變）</string>
     <string name="unreblog_private">取消轉嘟</string>
-    <string name="license_description">Tusky 使用了以下開源專案的原始碼：</string>
+    <string name="license_description">Pachli 使用了以下開源專案的原始碼：</string>
     <string name="profile_metadata_label">個人資料附加資訊</string>
     <string name="profile_metadata_add">新增資訊</string>
     <string name="profile_metadata_label_label">標籤</string>
@@ -485,8 +485,8 @@
     <string name="pref_title_alway_open_spoiler">總是顯示被標注為內容警告的嘟文</string>
     <string name="post_media_attachments">附件</string>
     <string name="post_media_audio">錄音</string>
-    <string name="about_powered_by_tusky">由 Tusky 提供</string>
-    <string name="about_tusky_version">Tusky %s</string>
+    <string name="about_powered_by_pachli">由 Pachli 提供</string>
+    <string name="about_pachli_version">Pachli %s</string>
     <string name="notification_subscription_description">當你關注的人發布新嘟文時通知</string>
     <string name="notification_subscription_name">新嘟文</string>
     <string name="notification_follow_request_description">關注請求的通知</string>

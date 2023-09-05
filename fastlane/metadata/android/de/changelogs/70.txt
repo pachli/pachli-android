@@ -1,8 +1,0 @@
-Tusky v10.0
-
-- Du kannst jetzt Lesezeichen hinzufügen und ansehen
-- Du kannst jetzt Beiträge vorausplanen. Achtung, der geplante Zeitpunkt muss mindestens 5 Minuten in der Zukunft liegen!
-- Du kannst jetzt Listen auf dem Hauptbildschirm anzeigen.
-- Du kannst jetzt Audio-Anhänge versenden.
-
-Und viele andere Verbesserungen und Fehlerkorrekturen!

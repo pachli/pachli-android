@@ -1,1 +1,0 @@
-Ein Client für das soziale Netzwerk Mastodon, der mehrere Konten unterstützt

@@ -60,7 +60,7 @@
     <string name="action_unfavourite">Ta bort favorit</string>
     <string name="action_more">Mer</string>
     <string name="action_compose">Skriv</string>
-    <string name="action_login">Logga in med Tusky</string>
+    <string name="action_login">Logga in med Pachli</string>
     <string name="action_logout">Logga ut</string>
     <string name="action_logout_confirm">Är du säker på att du vill logga ut från kontot %1$s?</string>
     <string name="action_follow">Följ</string>
@@ -221,21 +221,21 @@
     </plurals>
     <string name="description_account_locked">Låst konto</string>
     <string name="about_title_activity">Om</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_tusky_license">Tusky är fri programvara med öppen källkod. Det är licensierat under GNU General Public License version 3. Du kan läsa mer om licensen här: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_pachli_license">Pachli är fri programvara med öppen källkod. Det är licensierat under GNU General Public License version 3. Du kan läsa mer om licensen här: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">        Tuskys webbsida:\n
-        https://tusky.app
+    <string name="about_project_site">        Pachlis webbsida:\n
+        https://pachli.app
     </string>
     <string name="about_bug_feature_request_site">        Buggrapporter &amp; funktionsförslag:\n
-        https://github.com/tuskyapp/Tusky/issues
+        https://github.com/pachli/pachli-android/issues
     </string>
-    <string name="about_tusky_account">Tuskys Profil</string>
+    <string name="about_pachli_account">Pachlis Profil</string>
     <string name="post_share_content">Dela innehåll av toot</string>
     <string name="post_share_link">Dela länk till toot</string>
     <string name="post_media_images">Bilder</string>
@@ -300,7 +300,7 @@
     <string name="expand_collapse_all_posts">Expandera/Dölj alla statusar</string>
     <string name="action_open_post">Öppna toot</string>
     <string name="restart_required">Omstart av appen krävs</string>
-    <string name="restart_emoji">Du måste starta om Tusky för att tillämpa ändringarna</string>
+    <string name="restart_emoji">Du måste starta om Pachli för att tillämpa ändringarna</string>
     <string name="later">Senare</string>
     <string name="restart">Starta om</string>
     <string name="caption_systememoji">Standard-emojis för din enhet</string>
@@ -311,7 +311,7 @@
     <string name="account_moved_description">%1$s har flyttat till:</string>
     <string name="reblog_private">Knuffa till ursprunglig målgrupp</string>
     <string name="unreblog_private">Ta bort knuff</string>
-    <string name="license_description">Tusky innehåller kod och tillgångar från följande öppen källkodsprojekt:</string>
+    <string name="license_description">Pachli innehåller kod och tillgångar från följande öppen källkodsprojekt:</string>
     <string name="profile_metadata_label">Profil-metadata</string>
     <string name="profile_metadata_add">Spara ändringar</string>
     <string name="profile_metadata_label_label">Etikett</string>
@@ -437,7 +437,7 @@
     <string name="title_bookmarks">Bokmärken</string>
     <string name="action_bookmark">Bokmärk</string>
     <string name="action_view_bookmarks">Bokmärken</string>
-    <string name="about_powered_by_tusky">Drivs av Tusky</string>
+    <string name="about_powered_by_pachli">Drivs av Pachli</string>
     <string name="description_post_bookmarked">Bokmärkt</string>
     <string name="select_list_title">Välj lista</string>
     <string name="list">Lista</string>
@@ -499,11 +499,11 @@
     <string name="error_unfollowing_hashtag_format">Kunde inte avfölja #%s</string>
     <string name="dialog_delete_conversation_warning">Radera denna konversation\?</string>
     <string name="pref_show_self_username_always">Alltid</string>
-    <string name="dialog_push_notification_migration">För att använda pushnotiser via UnifiedPush behöver Tusky din tillåtelse att prenumerera på notiser på din Mastodon-server. Detta kräver att du loggar in igen för att ändra vilka OAuth-scopes Tusky har tillgång till. Genom använda alternativet logga in igen här eller i Kontoinställningarna behåller du alla dina lokala utkast och data i cache.</string>
+    <string name="dialog_push_notification_migration">För att använda pushnotiser via UnifiedPush behöver Pachli din tillåtelse att prenumerera på notiser på din Mastodon-server. Detta kräver att du loggar in igen för att ändra vilka OAuth-scopes Pachli har tillgång till. Genom använda alternativet logga in igen här eller i Kontoinställningarna behåller du alla dina lokala utkast och data i cache.</string>
     <string name="set_focus_description">Tryck eller dra cirkeln för att välja fokuspunkten som alltid kommer synas i miniatyrbilder.</string>
     <string name="label_duration">Varaktighet</string>
     <string name="duration_indefinite">Oändligt</string>
-    <string name="dialog_push_notification_migration_other_accounts">Du har loggat in igen på ditt konto för att ge Tusky tillgång till push-prenumeration. Dock har du andra konton som inte har migrerats såhär ännu. Växla till dem och logga in igen för att aktivera stöd för UnifiedPush-notiser.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Du har loggat in igen på ditt konto för att ge Pachli tillgång till push-prenumeration. Dock har du andra konton som inte har migrerats såhär ännu. Växla till dem och logga in igen för att aktivera stöd för UnifiedPush-notiser.</string>
     <string name="action_unsubscribe_account">Sluta prenumerera</string>
     <string name="description_post_language">Inläggsspråk</string>
     <string name="url_domain_notifier">%s (🔗 %s)</string>
@@ -529,7 +529,7 @@
     <string name="drafts_post_reply_removed">Inlägget du skrev ett utkast till svar på har raderats</string>
     <string name="follow_requests_info">Även om ditt konto inte är låst så tänker administratörerna på %1$s att du kanske ändå vill granska följförfrågan från dessa konton manuellt.</string>
     <string name="action_subscribe_account">Prenumerera</string>
-    <string name="tusky_compose_post_quicksetting_label">Skriv inlägg</string>
+    <string name="pachli_compose_post_quicksetting_label">Skriv inlägg</string>
     <string name="account_date_joined">Gick med i %1$s</string>
     <string name="saving_draft">Sparar utkast…</string>
     <string name="tips_push_notification_migration">Logga in igen på alla konton för att tillåta pushnotiser.</string>
@@ -648,10 +648,10 @@
     <string name="filter_keyword_display_format">%s (helt ord)</string>
     <string name="help_empty_home">Detta är din <b>hemtidslinje</b>. Den visar de senaste inläggen för konton du följer.
 \n
-\nFör att utforska konton kan du antingen upptäcka dem i någon av de andra tidslinjerna. Till exempel den lokala tidslinjen för din instans [iconics gmd_group]. Eller så kan du söka efter dem efter namn [ikonics gmd_search]; sök till exempel efter Tusky för att hitta vårt Mastodon-konto.</string>
+\nFör att utforska konton kan du antingen upptäcka dem i någon av de andra tidslinjerna. Till exempel den lokala tidslinjen för din instans [iconics gmd_group]. Eller så kan du söka efter dem efter namn [ikonics gmd_search]; sök till exempel efter Pachli för att hitta vårt Mastodon-konto.</string>
     <string name="pref_ui_text_size">UI textstorlek</string>
     <string name="notification_listenable_worker_name">Bakgrundsaktivitet</string>
-    <string name="notification_listenable_worker_description">Aviseringar när Tusky arbetar i bakgrunden</string>
+    <string name="notification_listenable_worker_description">Aviseringar när Pachli arbetar i bakgrunden</string>
     <string name="notification_notification_worker">Hämtar aviseringar…</string>
     <string name="notification_prune_cache">Cacheunderhåll…</string>
     <string name="action_refresh">Uppdatera</string>

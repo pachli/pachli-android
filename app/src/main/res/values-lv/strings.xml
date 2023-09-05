@@ -40,7 +40,7 @@
     <string name="post_media_alt">ALT</string>
     <string name="action_quick_reply">Ātrā atbilde</string>
     <string name="action_reply">Atbildēt</string>
-    <string name="action_login">Pieslēgties ar Tusky</string>
+    <string name="action_login">Pieslēgties ar Pachli</string>
     <string name="action_bookmark">Atzīmēt ar grāmatzīmi</string>
     <string name="action_unbookmark">Noņemt grāmatzīmi</string>
     <string name="action_follow">Sekot</string>
@@ -112,7 +112,7 @@
     <string name="pref_show_self_username_never">Nekad</string>
     <string name="notification_poll_name">Aptaujas</string>
     <string name="notification_report_name">Ziņojumi</string>
-    <string name="about_tusky_version">Tusky %s</string>
+    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_audio">Audio</string>
     <string name="post_media_attachments">Pielikumi</string>
@@ -236,7 +236,7 @@
     <string name="saving_draft">Saglabā melnrakstu…</string>
     <string name="post_sensitive_media_directions">Klikšķini, lai apskatītu</string>
     <string name="error_network">Radās tīkla kļūda! Lūdzu, pārbaudiet savienojumu un mēģiniet vēlreiz!</string>
-    <string name="about_tusky_license">Tusky ir bezmaksas un atvērtā pirmkoda programmatūra. Tā ir licencēta saskaņā ar GNU vispārējās publiskās licences 3. versiju. Licenci var apskatīt šeit: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_pachli_license">Pachli ir bezmaksas un atvērtā pirmkoda programmatūra. Tā ir licencēta saskaņā ar GNU vispārējās publiskās licences 3. versiju. Licenci var apskatīt šeit: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="report_description_1">Ziņojums tiks nosūtīts jūsu servera moderatoram. Zemāk var sniegt skaidrojumu, kāpēc ziņojat par šo kontu:</string>
     <string name="filter_dialog_whole_word_description">Ja atslēgvārds vai frāze ir tikai burtciparu, to pielietos tikai tad, ja tas atbildīs visam vārdam</string>
     <string name="label_remote_account">Tālāk norādītā informācija var nepilnīgi atspoguļot lietotāja profilu. Nospiediet, lai pārlūkprogrammā atvērtu pilnu profilu.</string>
@@ -260,7 +260,7 @@
     <string name="url_domain_notifier">%s (🔗 %s)</string>
     <string name="mute_domain_warning">Vai tiešām vēlaties bloķēt visu %s\? Šī domēna saturs netiks rādīts ne publiskajās laika līnijās, ne paziņojumos. Jūsu sekotāji no šī domēna tiks noņemti.</string>
     <string name="send_post_notification_saved_content">Ieraksta kopija tika saglabāta tavos melnrakstos</string>
-    <string name="restart_emoji">Lai pielietotu šīs izmaiņas, ir jāpārstartē Tusky</string>
+    <string name="restart_emoji">Lai pielietotu šīs izmaiņas, ir jāpārstartē Pachli</string>
     <string name="error_status_source_load">Neizdevās ielādēt statusa avotu no servera.</string>
     <string name="error_sender_account_gone">Sūtot ziņu, radās kļūda.</string>
     <string name="title_login">Pieslēgties</string>
@@ -303,7 +303,7 @@
     <string name="unpin_action">Atspraust</string>
     <string name="pin_action">Piespraust</string>
     <string name="action_unfollow_hashtag_format">Vai pārtraukt sekot #%s\?</string>
-    <string name="about_tusky_account">Tusky profils</string>
+    <string name="about_pachli_account">Pachli profils</string>
     <string name="performing_lookup_title">Meklē…</string>
     <string name="mute_notifications_switch">Apklusināt paziņojumus</string>
     <string name="action_reblog">Pastiprināt</string>
@@ -361,7 +361,7 @@
     <string name="action_compose_shortcut">Rakstīt</string>
     <string name="caption_blobmoji">Blob emocijzīmes no Android 4.4–7.1</string>
     <string name="caption_systememoji">Tavas ierīces noklusējuma emocijzīmju komplekts</string>
-    <string name="license_description">Tusky satur kodu un sastāvdaļas no šādiem atvērtā pirmkoda projektiem:</string>
+    <string name="license_description">Pachli satur kodu un sastāvdaļas no šādiem atvērtā pirmkoda projektiem:</string>
     <string name="warning_scheduling_interval">Mastodon minimālais ieplānošanas intervāls ir 5 minūtes.</string>
     <string name="no_scheduled_posts">Tev nav ieplānotu ziņu.</string>
     <string name="account_note_hint">Tava privātā piezīme par šo kontu</string>
@@ -384,9 +384,9 @@
     <string name="notification_clear_text">Vai tiešām vēlies neatgriezeniski notīrīt visus paziņojumus\?</string>
     <string name="poll_ended_created">Tevis izveidotā aptauja ir noslēgusies</string>
     <string name="compose_preview_image_description">Darības ar attēlu %s</string>
-    <string name="tusky_compose_post_quicksetting_label">Rakstīt ziņu</string>
+    <string name="pachli_compose_post_quicksetting_label">Rakstīt ziņu</string>
     <string name="about_bug_feature_request_site">"Kļūdu ziņojumi un jaunas funkcionalitātes pieprasījumi:
-\n  https://github.com/tuskyapp/Tusky/issues"</string>
+\n  https://github.com/pachli/pachli-android/issues"</string>
     <string name="action_mention">Pieminēt</string>
     <string name="pref_title_gradient_for_media">Rādīt krāsainus gradientus paslēptajai multividei</string>
     <string name="pref_title_show_media_preview">Lejupielādēt multivides priekšskatījumus</string>
@@ -438,7 +438,7 @@
     <string name="action_dismiss">Aizvākt</string>
     <string name="dialog_message_cancel_follow_request">Vai atcelt sekošanas pieprasījumu\?</string>
     <string name="dialog_redraft_post_warning">Vai dzēst šo ierakstu un sākt no jauna\?</string>
-    <string name="about_powered_by_tusky">Darbību nodrošina Tusky</string>
+    <string name="about_powered_by_pachli">Darbību nodrošina Pachli</string>
     <string name="hint_search_people_list">Meklēt personas, kurām seko</string>
     <string name="send_post_notification_error_title">Sūtot ziņu, radās kļūda</string>
     <string name="account_moved_description">%1$s ir pārcēlies uz:</string>
@@ -459,7 +459,7 @@
     <string name="conversation_2_recipients">%1$s un %2$s</string>
     <string name="description_post_cw">Satura brīdinājums: %s</string>
     <string name="about_project_site">Projekta vietne:
-\n https://tusky.app</string>
+\n https://pachli.app</string>
     <string name="a11y_label_loading_thread">Ielādē pavedienu</string>
     <string name="confirmation_hashtag_unfollowed">pārtraukta sekošana #%s</string>
     <string name="confirmation_domain_unmuted">%s atcelta slēpšana</string>

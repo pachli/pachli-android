@@ -1,9 +1,0 @@
-Tusky v9.0
-
-- Ora puoi creare sondaggi da Tusky
-- Ricerca migliorata
-- Nuova opzione in Preferenze Account per espandere sempre i contenuti sensibili
-- Gli avatar nel cassetto di navigazione ora hanno una forma quadrata arrotondata
-- Ora è possibile segnalare gli utenti anche quando non hanno mai pubblicato uno stato
-- Tusky ora rifiuterà di connettersi tramite connessioni in chiaro su Android 6+
-- Molti altri piccoli miglioramenti e correzioni di bug

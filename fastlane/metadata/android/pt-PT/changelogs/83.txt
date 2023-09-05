@@ -1,3 +1,0 @@
-Tusky v15.1
-
-O Tusky já não crasha ao adicionar descrição às imagens

@@ -5,7 +5,7 @@
 
     <Button
         android:id="@+id/resetScheduleButton"
-        style="@style/TuskyButton.Outlined"
+        style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

@@ -118,8 +118,8 @@
     <string name="notification_follow_description">Notifikasi tentang pengikut baru</string>
     <string name="notification_sign_up_name">Daftar</string>
     <string name="about_title_activity">Tentang</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_powered_by_tusky">Dipersembahkan oleh Tusky</string>
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_powered_by_pachli">Dipersembahkan oleh Pachli</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_audio">Audio</string>
     <string name="post_media_attachments">Lampiran</string>
@@ -164,7 +164,7 @@
     <string name="error_create_list">Tidak dapat membuat daftar</string>
     <string name="later">Nanti</string>
     <string name="error_failed_app_registration">Gagal mengautentikasi dengan instance tersebut. Jika ini berlanjut, coba Masuk di Browser dari menu.</string>
-    <string name="tusky_compose_post_quicksetting_label">Tulis Postingan</string>
+    <string name="pachli_compose_post_quicksetting_label">Tulis Postingan</string>
     <string name="error_media_upload_image_or_video">Gambar dan video tidak dapat disematkan ke dalam post yang sama.</string>
     <string name="title_public_federated">Federasi</string>
     <string name="title_migration_relogin">Login ulang untuk notifikasi push</string>

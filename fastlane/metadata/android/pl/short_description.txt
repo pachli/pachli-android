@@ -1,1 +1,0 @@
-Klient do sieci Mastodon wspierający kilka kont na raz

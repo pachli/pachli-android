@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.keylesspalace.tusky.components.preference.PreferencesActivity">
+    tools:context="app.pachli.components.preference.PreferencesActivity">
 
     <include
         android:id="@+id/includedToolbar"

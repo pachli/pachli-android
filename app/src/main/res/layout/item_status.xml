@@ -22,7 +22,6 @@
         android:gravity="center_vertical"
         android:importantForAccessibility="no"
         android:paddingStart="38dp"
-        android:textColor="?android:textColorTertiary"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
@@ -66,7 +65,6 @@
         android:importantForAccessibility="no"
         android:maxLines="1"
         android:paddingEnd="@dimen/status_display_name_padding_end"
-        android:textColor="?android:textColorPrimary"
         android:textSize="?attr/status_text_medium"
         android:textStyle="normal|bold"
         app:layout_constrainedWidth="true"
@@ -83,7 +81,6 @@
         android:ellipsize="end"
         android:importantForAccessibility="no"
         android:maxLines="1"
-        android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintEnd_toStartOf="@id/status_meta_info"
         app:layout_constraintStart_toEndOf="@id/status_display_name"
@@ -97,13 +94,12 @@
         android:layout_marginStart="4dp"
         android:layout_marginEnd="14dp"
         android:importantForAccessibility="no"
-        android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBaseline_toBaselineOf="@id/status_display_name"
         tools:text="13:37" />
 
-    <com.keylesspalace.tusky.view.ClickableSpanTextView
+    <app.pachli.view.ClickableSpanTextView
         android:id="@+id/status_content_warning_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -111,7 +107,6 @@
         android:hyphenationFrequency="full"
         android:importantForAccessibility="no"
         android:lineSpacingMultiplier="1.1"
-        android:textColor="?android:textColorPrimary"
         android:textSize="?attr/status_text_medium"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,7 +117,7 @@
 
     <Button
         android:id="@+id/status_content_warning_button"
-        style="@style/TuskyButton.Outlined"
+        style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -144,7 +139,7 @@
         tools:text="@string/post_content_warning_show_more"
         tools:visibility="visible" />
 
-    <com.keylesspalace.tusky.view.ClickableSpanTextView
+    <app.pachli.view.ClickableSpanTextView
         android:id="@+id/status_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -154,7 +149,6 @@
         android:hyphenationFrequency="full"
         android:importantForAccessibility="no"
         android:lineSpacingMultiplier="1.1"
-        android:textColor="?android:textColorPrimary"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/status_content_warning_button"
@@ -204,7 +198,6 @@
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-medium"
                 android:lines="1"
-                android:textColor="?android:textColorSecondary"
                 android:textSize="?attr/status_text_medium" />
 
             <TextView
@@ -215,7 +208,6 @@
                 android:ellipsize="end"
                 android:lineSpacingMultiplier="1.1"
                 android:maxLines="2"
-                android:textColor="?android:textColorSecondary"
                 android:textSize="?attr/status_text_medium" />
 
             <TextView
@@ -224,14 +216,13 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="1"
-                android:textColor="?android:textColorTertiary"
                 android:textSize="?attr/status_text_medium" />
         </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/button_toggle_content"
-        style="@style/TuskyButton.Outlined"
+        style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -282,7 +273,7 @@
 
     <Button
         android:id="@+id/status_poll_button"
-        style="@style/TuskyButton.Outlined"
+        style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -312,7 +303,7 @@
 
     <ImageButton
         android:id="@+id/status_reply"
-        style="@style/TuskyImageButton"
+        style="@style/AppImageButton"
         android:layout_width="52dp"
         android:layout_height="48dp"
         android:layout_marginStart="-14dp"
@@ -350,8 +341,8 @@
         sparkbutton:activeImage="@drawable/ic_reblog_active_24dp"
         sparkbutton:iconSize="28dp"
         sparkbutton:inactiveImage="@drawable/ic_reblog_24dp"
-        sparkbutton:primaryColor="@color/tusky_blue"
-        sparkbutton:secondaryColor="@color/tusky_blue_light" />
+        sparkbutton:primaryColor="?colorPrimary"
+        sparkbutton:secondaryColor="?colorPrimaryContainer" />
 
     <TextView
         android:id="@+id/status_insets"
@@ -411,7 +402,7 @@
 
     <ImageButton
         android:id="@+id/status_more"
-        style="@style/TuskyImageButton"
+        style="@style/AppImageButton"
         android:layout_width="52dp"
         android:layout_height="48dp"
         android:layout_gravity="end"

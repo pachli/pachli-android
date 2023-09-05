@@ -222,8 +222,8 @@
     </plurals>
     <string name="description_account_locked">Ŝlosita konto</string>
     <string name="about_title_activity">Pri</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_tusky_license">Tusky estas libera kaj malfermitkoda programo.
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_pachli_license">Pachli estas libera kaj malfermitkoda programo.
         Ĝi estas publikigita laŭ la permesilo «GNU General Public License Version 3».
         Vi povas vidi la permesilon ĉi tie: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
@@ -233,10 +233,10 @@
          * the url can be changed to link to the localized version of the license.
     -->
     <string name="about_project_site">Paĝaro de la projekto:
-\n https://tusky.app</string>
+\n https://pachli.app</string>
     <string name="about_bug_feature_request_site">Raportoj de cimoj kaj petoj de funkcioj:
-\n https://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_tusky_account">Profilo de Tusky</string>
+\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Profilo de Pachli</string>
     <string name="post_share_content">Konigi enhavon de la mesaĝo</string>
     <string name="post_share_link">Konigi ligilon al mesaĝo</string>
     <string name="post_media_images">Bildoj</string>
@@ -302,7 +302,7 @@
     <string name="expand_collapse_all_posts">Pligrandigi/malgrandigi ĉiujn mesaĝojn</string>
     <string name="action_open_post">Malfermi mesaĝon</string>
     <string name="restart_required">Restartigo necesas</string>
-    <string name="restart_emoji">Vi devos restartigi Tusky por apliki ĉi tiujn ŝanĝojn</string>
+    <string name="restart_emoji">Vi devos restartigi Pachli por apliki ĉi tiujn ŝanĝojn</string>
     <string name="later">Poste</string>
     <string name="restart">Restartigi</string>
     <string name="caption_systememoji">Dekomenca emoĝiaro de via aparato</string>
@@ -313,7 +313,7 @@
     <string name="account_moved_description">%1$s moviĝis al:</string>
     <string name="reblog_private">Diskonigi al la originala atentaro</string>
     <string name="unreblog_private">Maldiskonigi</string>
-    <string name="license_description">Tusky enhavas kodon kaj risurcojn el la sekvantaj malfermitkodaj projetkoj:</string>
+    <string name="license_description">Pachli enhavas kodon kaj risurcojn el la sekvantaj malfermitkodaj projetkoj:</string>
     <string name="profile_metadata_label">Profilaj metadatumoj</string>
     <string name="profile_metadata_add">aldoni datumon</string>
     <string name="profile_metadata_label_label">Etikedo</string>
@@ -421,7 +421,7 @@
     <string name="action_access_scheduled_posts">Planitaj mesaĝoj</string>
     <string name="action_schedule_post">Plani mesaĝon</string>
     <string name="action_reset_schedule">Restarigi</string>
-    <string name="about_powered_by_tusky">Funkciigita de Tusky</string>
+    <string name="about_powered_by_pachli">Funkciigita de Pachli</string>
     <string name="description_post_bookmarked">Aldonita al la legosignoj</string>
     <string name="select_list_title">Elekti la liston</string>
     <string name="list">Listo</string>
@@ -535,7 +535,7 @@
     <string name="duration_90_days">90 tagoj</string>
     <string name="duration_180_days">180 tagoj</string>
     <string name="duration_365_days">365 tagoj</string>
-    <string name="tusky_compose_post_quicksetting_label">Ekverki mesaĝon</string>
+    <string name="pachli_compose_post_quicksetting_label">Ekverki mesaĝon</string>
     <string name="account_date_joined">Aliĝis je %1$s</string>
     <string name="saving_draft">Konservado de la malneto…</string>
     <string name="tips_push_notification_migration">Ensalutu denove al ĉiuj kontoj por ŝalti sciigojn.</string>
@@ -551,7 +551,7 @@
     <string name="pref_show_self_username_never">Neniam</string>
     <string name="pref_title_show_self_username">Montri uzantnomon en ilobreto</string>
     <string name="description_post_language">Mesaĝolingvo</string>
-    <string name="dialog_push_notification_migration">Por ricevi sciigoj per UnifiedPush, Tusky bezonas taŭgan permeson el Mastodon-servilo. Tio postulas re-ensaluton por ŝanĝi OAuth-rajtoj donitaj al Tusky. Se vi uzas la opcion re-ensaluti ĉi tie aŭ en la agordoj de la konto, viaj malnetoj kaj kaŝmemoroj estos konservitaj.</string>
-    <string name="dialog_push_notification_migration_other_accounts">Vi re-ensalutis en tiu konto por doni sciigo-permeson al Tusky. Vi havas tamen aliajn kontojn, ĉe kiuj vi devas re-sensaluti. Iru al ili, kaj re-ensalutu por ebligi ricevon de sciigoj per UnifiedPush.</string>
+    <string name="dialog_push_notification_migration">Por ricevi sciigoj per UnifiedPush, Pachli bezonas taŭgan permeson el Mastodon-servilo. Tio postulas re-ensaluton por ŝanĝi OAuth-rajtoj donitaj al Pachli. Se vi uzas la opcion re-ensaluti ĉi tie aŭ en la agordoj de la konto, viaj malnetoj kaj kaŝmemoroj estos konservitaj.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Vi re-ensalutis en tiu konto por doni sciigo-permeson al Pachli. Vi havas tamen aliajn kontojn, ĉe kiuj vi devas re-sensaluti. Iru al ili, kaj re-ensalutu por ebligi ricevon de sciigoj per UnifiedPush.</string>
     <string name="url_domain_notifier">%s (🔗 %s)</string>
 </resources>

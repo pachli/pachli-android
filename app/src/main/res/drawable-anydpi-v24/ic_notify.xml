@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2023 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="94"
+    android:viewportHeight="206.22656"
+    android:tint="#FFFFFF">
+  <group android:scaleX="0.6130769"
+      android:scaleY="1.3450292"
+      android:translateX="15.551368"
+      android:translateY="-35.577095">
+    <group android:translateY="150.1875">
+      <path android:pathData="M86.984375,-70.3125Q86.984375,-62.015625,82.546875,-55.0625Q78.046875,-48.09375,70.140625,-44.015625Q62.234375,-39.9375,53.15625,-39.9375L38.890625,-39.9375L38.890625,-0L14,-0L14,-99.078125L51.265625,-99.078125Q68.625,-99.078125,77.796875,-91.65625Q86.984375,-84.234375,86.984375,-70.3125ZM21.59375,-7.671875L31.21875,-7.671875L31.21875,-91.484375L21.59375,-91.484375L21.59375,-7.671875ZM38.890625,-47.53125L58.921875,-47.53125L58.921875,-91.484375L38.890625,-91.484375L38.890625,-47.53125ZM66.65625,-50Q72.984375,-52.875,75.796875,-57.859375Q78.609375,-62.859375,78.609375,-70.3125Q78.609375,-85.71875,66.65625,-89.71875L66.65625,-50Z"
+          android:fillColor="#000000"/>
+    </group>
+  </group>
+</vector>

@@ -58,7 +58,7 @@
     <string name="action_favourite">Gözdele</string>
     <string name="action_more">Devamı</string>
     <string name="action_compose">Oluştur</string>
-    <string name="action_login">Tusky ile giriş yap</string>
+    <string name="action_login">Pachli ile giriş yap</string>
     <string name="action_logout">Oturumu kapat</string>
     <string name="action_logout_confirm">Bu oturumu sonlandırmak istediğinizden emin misiniz%1$s\? Bu, taslaklar ve tercihler dahil olmak üzere hesabın tüm yerel verilerini silecektir.</string>
     <string name="action_follow">Takip et</string>
@@ -205,18 +205,18 @@
     </plurals>
     <string name="description_account_locked">Kilitli Hesap</string>
     <string name="about_title_activity">Hakkında</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_tusky_license">Tusky özgür ve açık kaynak bir yazılımdır. GNU Genel Kamu Lisansı sürüm 3 altında lisanslanmıştır. Lisansı buradan görüntüleyebilirsiniz: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_pachli_license">Pachli özgür ve açık kaynak bir yazılımdır. GNU Genel Kamu Lisansı sürüm 3 altında lisanslanmıştır. Lisansı buradan görüntüleyebilirsiniz: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Proje web sayfası: https://tusky.app</string>
+    <string name="about_project_site">Proje web sayfası: https://pachli.app</string>
     <string name="about_bug_feature_request_site">"Hata raporları ve özellik istekleri:
-\nhttps://github.com/tuskyapp/Tusky/issues"</string>
-    <string name="about_tusky_account">Tusky\'nin Profili</string>
+\nhttps://github.com/pachli/pachli-android/issues"</string>
+    <string name="about_pachli_account">Pachli\'nin Profili</string>
     <string name="post_share_content">Gönderinin içeriğini paylaş</string>
     <string name="post_share_link">Gönderinin adresini paylaş</string>
     <string name="post_media_images">Görseller</string>
@@ -264,7 +264,7 @@
     <string name="expand_collapse_all_posts">Tüm durumları Genişlet/Küçült</string>
     <string name="action_open_post">Gönderiyi aç</string>
     <string name="restart_required">Uygulamayı yeniden başlatmanız lazım</string>
-    <string name="restart_emoji">Bu değişiklikleri uygulamak için Tusky\'yi yeniden başlatmanız gerekecek</string>
+    <string name="restart_emoji">Bu değişiklikleri uygulamak için Pachli\'yi yeniden başlatmanız gerekecek</string>
     <string name="later">Sonra</string>
     <string name="restart">Yeniden başlat</string>
     <string name="caption_systememoji">Cihazınızın varsayılan ifade paketi</string>
@@ -273,7 +273,7 @@
     <string name="download_failed">İndirme başarısız</string>
     <string name="account_moved_description">%1$s buraya taşındı:</string>
     <string name="unreblog_private">Yeniden paylaşımı iptal et</string>
-    <string name="license_description">Tusky aşağıdakı açık kaynaklı projelerden kod ve materyal içeriyor:</string>
+    <string name="license_description">Pachli aşağıdakı açık kaynaklı projelerden kod ve materyal içeriyor:</string>
     <string name="profile_metadata_label">Profil meta verileri</string>
     <string name="profile_metadata_add">veri ekle</string>
     <string name="profile_metadata_label_label">Etiket</string>
@@ -404,7 +404,7 @@
     <string name="action_reset_schedule">Sıfırla</string>
     <string name="dialog_redraft_post_warning">Bu durumu silip yeniden düzenlemek istiyor musunuz\?</string>
     <string name="pref_title_bot_overlay">Botlar için işaret göster</string>
-    <string name="about_powered_by_tusky">Tusky tarafından desteklenmektedir</string>
+    <string name="about_powered_by_pachli">Pachli tarafından desteklenmektedir</string>
     <string name="description_post_bookmarked">Yerimine eklendi</string>
     <string name="select_list_title">Liste seç</string>
     <string name="list">Liste</string>
@@ -526,7 +526,7 @@
 \nBesleme bildirimleri etkilenmeyecek , ama manuel olarak tercihlerinizi gözden geçirebilirsiniz.</string>
     <string name="dialog_delete_list_warning">%s listesini gerçekten silmek istiyor musunuz\?</string>
     <string name="wellbeing_hide_stats_profile">Profillerdeki niceliksel istatistikleri gizle</string>
-    <string name="tusky_compose_post_quicksetting_label">Gönderi Oluştur</string>
+    <string name="pachli_compose_post_quicksetting_label">Gönderi Oluştur</string>
     <string name="saving_draft">Taslağı kaydediyor…</string>
     <string name="action_set_focus">Odak noktasını ayarla</string>
     <string name="action_edit_image">Görseli düzenle</string>
@@ -548,7 +548,7 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_violation">Kural ihlali</string>
     <string name="description_post_language">Gönderi dili</string>
-    <string name="dialog_push_notification_migration">UnifiedPush aracılığıyla push bildirimlerini kullanmak için Tusky\'nin Mastodon sunucundaki bildirimlere abone olma iznine ihtiyacı var. Bu, Tusky\'ye verilen OAuth kapsamlarını değiştirmek için yeniden oturum açmayı gerektirir. Burada veya Hesap tercihleri bölümünde yeniden giriş yapma seçeneğini kullanman tüm yerel taslaklarını ve önbelleğini koruyacaktır.</string>
+    <string name="dialog_push_notification_migration">UnifiedPush aracılığıyla push bildirimlerini kullanmak için Pachli\'nin Mastodon sunucundaki bildirimlere abone olma iznine ihtiyacı var. Bu, Pachli\'ye verilen OAuth kapsamlarını değiştirmek için yeniden oturum açmayı gerektirir. Burada veya Hesap tercihleri bölümünde yeniden giriş yapma seçeneğini kullanman tüm yerel taslaklarını ve önbelleğini koruyacaktır.</string>
     <string name="confirmation_hashtag_unfollowed">#%s takip edilmeyenler</string>
     <string name="action_subscribe_account">Abone Ol</string>
     <string name="follow_requests_info">Hesabınız kilitli olmasa da, %1$s kadro bu hesaplardan gelen takip isteklerini elle gözden geçirmek isteyebileceğinizi düşündü.</string>
@@ -565,7 +565,7 @@
     <string name="duration_indefinite">Tanımsız</string>
     <string name="description_post_edited">Düzenlendi</string>
     <string name="action_unsubscribe_account">Abonelikten Çık</string>
-    <string name="dialog_push_notification_migration_other_accounts">Tusky\'ye bildirim aboneliği izni vermek için mevcut hesabınıza yeniden giriş yaptınız. Ancak, yine de bu şekilde geçirilmemiş başka hesaplarınız var. UnifiedPush bildirimleri desteğini etkinleştirmek için bunlara geçin ve tek tek yeniden giriş yapın.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Pachli\'ye bildirim aboneliği izni vermek için mevcut hesabınıza yeniden giriş yaptınız. Ancak, yine de bu şekilde geçirilmemiş başka hesaplarınız var. UnifiedPush bildirimleri desteğini etkinleştirmek için bunlara geçin ve tek tek yeniden giriş yapın.</string>
     <string name="error_following_hashtags_unsupported">Bu sunucu aşağıdaki etiketleri desteklemez.</string>
     <string name="notification_subscription_format">%s az önce paylaşım yaptı</string>
     <string name="notification_update_format">%s gönderilerini düzenledi</string>
@@ -580,7 +580,7 @@
     <string name="a11y_label_loading_thread">Konu yükleniyor</string>
     <string name="help_empty_home">Bu senin <b>ana ağ akışın</b>. Takip ettiğin hesapların son gönderileri burada yer alacak.
 \n
-\nTakip edebileceğin hesapları diğer zaman tünellerinden keşfedebilirsin, örneğin kendi sunucunun yerel zaman tünelinden [iconics gmd_group]. Veya hesapları adlarıyla arayabilirsin [iconics gmd_search], örneğin Mastodon hesabımızı bulmak için Tusky adıyla araman yeterli.</string>
+\nTakip edebileceğin hesapları diğer zaman tünellerinden keşfedebilirsin, örneğin kendi sunucunun yerel zaman tünelinden [iconics gmd_group]. Veya hesapları adlarıyla arayabilirsin [iconics gmd_search], örneğin Mastodon hesabımızı bulmak için Pachli adıyla araman yeterli.</string>
     <string name="pref_summary_http_proxy_missing">&lt;ayarlanmadı&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;geçersiz&gt;</string>
     <string name="pref_summary_http_proxy_disabled">Etkisizleştirildi</string>
@@ -652,7 +652,7 @@
     <string name="accessibility_talking_about_tag">%1$d kişi %2$s etiketi hakkında konuşuyor</string>
     <string name="pref_ui_text_size">UI yazı boyutu</string>
     <string name="notification_listenable_worker_name">Arkaplan etkinliği</string>
-    <string name="notification_listenable_worker_description">Tusky arka planda çalışırken gelen bildirimler</string>
+    <string name="notification_listenable_worker_description">Pachli arka planda çalışırken gelen bildirimler</string>
     <string name="notification_notification_worker">Bildirimler getiriliyor…</string>
     <string name="notification_prune_cache">Önbellek bakımı…</string>
     <string name="load_newest_notifications">En yeni bildirimleri yükle</string>

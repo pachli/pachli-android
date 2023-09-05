@@ -10,4 +10,4 @@
     android:paddingVertical="12dp"
     android:textSize="?attr/status_text_medium"
     android:textStyle="normal|bold"
-    tools:text="#Tusky" />
+    tools:text="#Pachli" />

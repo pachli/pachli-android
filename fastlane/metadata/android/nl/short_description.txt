@@ -1,1 +1,0 @@
-Een multi-accountclient voor het sociale netwerk Mastodon

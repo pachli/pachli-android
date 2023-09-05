@@ -1,1 +1,0 @@
-Víceúčtový klient pro sociální síť Mastodon

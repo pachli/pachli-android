@@ -61,7 +61,7 @@
     <string name="action_unfavourite">Aus Favoriten entfernen</string>
     <string name="action_more">Mehr</string>
     <string name="action_compose">Beitrag erstellen</string>
-    <string name="action_login">Mit Tusky anmelden</string>
+    <string name="action_login">Mit Pachli anmelden</string>
     <string name="action_logout">Abmelden</string>
     <string name="action_logout_confirm">Möchtest du %1$s wirklich abmelden\? Dadurch werden alle lokalen Daten des Profils, wie Entwürfe und Einstellungen, gelöscht.</string>
     <string name="action_follow">Folgen</string>
@@ -222,17 +222,17 @@
     </plurals>
     <string name="description_account_locked">Geschütztes Profil</string>
     <string name="about_title_activity">Über</string>
-    <string name="about_tusky_license">Tusky ist eine freie und quelloffene Software und ist lizenziert unter der GNU General Public License Version 3. Du kannst die Lizenz hier einsehen: https://www.gnu.org/licenses/gpl-3.0.de.html</string>
+    <string name="about_pachli_license">Pachli ist eine freie und quelloffene Software und ist lizenziert unter der GNU General Public License Version 3. Du kannst die Lizenz hier einsehen: https://www.gnu.org/licenses/gpl-3.0.de.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Website des Projekts: https://tusky.app</string>
+    <string name="about_project_site">Website des Projekts: https://pachli.app</string>
     <string name="about_bug_feature_request_site">Fehlermeldungen und Verbesserungsvorschläge:
-\nhttps://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_tusky_account">Profil von Tusky</string>
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Profil von Pachli</string>
     <string name="post_share_content">Inhalt des Beitrags teilen</string>
     <string name="post_share_link">Link zum Beitrag teilen</string>
     <string name="post_media_images">Bilder</string>
@@ -280,7 +280,7 @@
     <string name="expand_collapse_all_posts">Alle Beiträge aus-/einklappen</string>
     <string name="action_open_post">Beitrag öffnen</string>
     <string name="restart_required">App-Neustart erforderlich</string>
-    <string name="restart_emoji">Du musst Tusky neu starten, damit die Änderungen übernommen werden</string>
+    <string name="restart_emoji">Du musst Pachli neu starten, damit die Änderungen übernommen werden</string>
     <string name="later">Später</string>
     <string name="restart">Neu starten</string>
     <string name="caption_systememoji">Die Standard-Emojis deines Geräts</string>
@@ -292,7 +292,7 @@
     <string name="account_moved_description">%1$s ist umgezogen auf:</string>
     <string name="reblog_private">An ursprüngliches Publikum teilen</string>
     <string name="unreblog_private">Nicht mehr teilen</string>
-    <string name="license_description">Tusky enthält Code und Inhalte von den folgenden Open-Source-Projekten:</string>
+    <string name="license_description">Pachli enthält Code und Inhalte von den folgenden Open-Source-Projekten:</string>
     <string name="profile_metadata_label">Profil-Metadaten</string>
     <string name="profile_metadata_add">Feld hinzufügen</string>
     <string name="profile_metadata_label_label">Bezeichnung</string>
@@ -396,7 +396,7 @@
     <string name="duration_3_days">3 Tage</string>
     <string name="duration_7_days">7 Tage</string>
     <string name="edit_poll">Bearbeiten</string>
-    <string name="about_tusky_version">Tusky %s</string>
+    <string name="about_pachli_version">Pachli %s</string>
     <string name="action_add_poll">Umfrage hinzufügen</string>
     <string name="pref_title_alway_open_spoiler">Beiträge mit Inhaltswarnungen immer ausklappen</string>
     <string name="description_poll">Umfrage mit den Möglichkeiten: %1$s, %2$s, %3$s, %4$s; %5$s</string>
@@ -415,7 +415,7 @@
     <string name="title_bookmarks">Lesezeichen</string>
     <string name="action_bookmark">Lesezeichen</string>
     <string name="action_view_bookmarks">Lesezeichen</string>
-    <string name="about_powered_by_tusky">Unterstützt von Tusky</string>
+    <string name="about_powered_by_pachli">Unterstützt von Pachli</string>
     <string name="description_post_bookmarked">Als Lesezeichen gespeichert</string>
     <string name="select_list_title">Liste auswählen</string>
     <string name="select_list_empty">Du hast noch keine Listen</string>
@@ -512,7 +512,7 @@
     <string name="duration_365_days">365 Tage</string>
     <string name="duration_14_days">14 Tage</string>
     <string name="duration_180_days">180 Tage</string>
-    <string name="tusky_compose_post_quicksetting_label">Beitrag erstellen</string>
+    <string name="pachli_compose_post_quicksetting_label">Beitrag erstellen</string>
     <string name="notification_update_format">%s hat den Beitrag bearbeitet</string>
     <string name="pref_title_notification_filter_updates">ein Beitrag, mit dem ich interagiert habe, bearbeitet wurde</string>
     <string name="notification_sign_up_name">Registrierungen</string>
@@ -525,8 +525,8 @@
     <string name="notification_update_name">Beitragsbearbeitungen</string>
     <string name="title_migration_relogin">Neuanmeldung für Push-Benachrichtigungen</string>
     <string name="action_dismiss">Ablehnen</string>
-    <string name="dialog_push_notification_migration_other_accounts">Du hast dich erneut in dein aktuelles Konto angemeldet, um Tusky die Genehmigung für Push-Abonnements zu erteilen. Du hast jedoch noch andere Konten, die nicht auf diese Weise migriert wurden. Wechsel zu diesen Konten und melde dich nacheinander neu an, um die Unterstützung für UnifiedPush-Benachrichtigungen zu aktivieren.</string>
-    <string name="dialog_push_notification_migration">Um Push-Benachrichtigungen über UnifiedPush verwenden zu können, benötigt Tusky die Erlaubnis, Benachrichtigungen auf dem Mastodon-Server zu abonnieren. Dies erfordert eine erneute Anmeldung, um die Tusky gewährten OAuth-Bereiche zu ändern. Wenn du die Option zum erneuten Anmelden hier oder in den Profileinstellungen verwendest, bleiben alle deine lokalen Entwürfe und der Cache erhalten.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Du hast dich erneut in dein aktuelles Konto angemeldet, um Pachli die Genehmigung für Push-Abonnements zu erteilen. Du hast jedoch noch andere Konten, die nicht auf diese Weise migriert wurden. Wechsel zu diesen Konten und melde dich nacheinander neu an, um die Unterstützung für UnifiedPush-Benachrichtigungen zu aktivieren.</string>
+    <string name="dialog_push_notification_migration">Um Push-Benachrichtigungen über UnifiedPush verwenden zu können, benötigt Pachli die Erlaubnis, Benachrichtigungen auf dem Mastodon-Server zu abonnieren. Dies erfordert eine erneute Anmeldung, um die Pachli gewährten OAuth-Bereiche zu ändern. Wenn du die Option zum erneuten Anmelden hier oder in den Profileinstellungen verwendest, bleiben alle deine lokalen Entwürfe und der Cache erhalten.</string>
     <string name="tips_push_notification_migration">Melde alle Konten neu an, um die Unterstützung für Push-Benachrichtigungen zu aktivieren.</string>
     <string name="account_date_joined">%1$s beigetreten</string>
     <string name="status_count_one_plus">1+</string>
@@ -647,12 +647,12 @@
     <string name="status_filtered_show_anyway">Trotzdem anzeigen</string>
     <string name="help_empty_home">Dies ist deine <b>Startseite</b>. Sie zeigt die neuesten Beiträge von Konten, denen du folgst.
 \n
-\nDamit du andere Konten entdeckst, kannst du entweder andere Timelines lesen – z. B. die Lokale Timeline deiner Instanz [iconics gmd_group] – oder du suchst nach Namen [iconics gmd_search] – z. B. Tusky, um unser Mastodon-Konto zu finden.</string>
+\nDamit du andere Konten entdeckst, kannst du entweder andere Timelines lesen – z. B. die Lokale Timeline deiner Instanz [iconics gmd_group] – oder du suchst nach Namen [iconics gmd_search] – z. B. Pachli, um unser Mastodon-Konto zu finden.</string>
     <string name="post_media_image">Bild</string>
     <string name="pref_title_show_stat_inline">Beitragsstatistiken in der Timeline anzeigen</string>
     <string name="pref_ui_text_size">Schriftgröße der Oberfläche</string>
     <string name="notification_prune_cache">Cache-Wartung …</string>
-    <string name="notification_listenable_worker_description">Benachrichtigungen, wenn Tusky im Hintergrund aktiv ist</string>
+    <string name="notification_listenable_worker_description">Benachrichtigungen, wenn Pachli im Hintergrund aktiv ist</string>
     <string name="notification_listenable_worker_name">Hintergrundaktivität</string>
     <string name="notification_notification_worker">Benachrichtigungen werden abgerufen …</string>
     <string name="load_newest_notifications">Neueste Benachrichtigungen laden</string>

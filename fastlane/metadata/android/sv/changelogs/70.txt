@@ -1,8 +1,0 @@
-Tusky v10.0
-
-- Du kan nu bokmärka inlägg & lista dina bokmärken i Tusky.
-- Du kan nu schemalägga inlägg med Tusky. Observera att tiden du väljer måste vara minst 5 minuter framåt i tiden.
-- Du kan nu fästa listor på huvudvyn.
-- Du kan nu skicka ljudbilagor med Tusky.
-
-Och många andra mindre förbättringar och buggfixar!

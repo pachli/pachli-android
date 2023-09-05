@@ -2,7 +2,7 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeToRefreshLayout"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:layout_alignTop="@+id/account_header_info"
-                    android:background="?attr/colorPrimaryDark"
+                    android:background="?colorSurface"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="180dp"
+                    android:backgroundTint="?colorPrimaryContainer"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp">
 
@@ -57,7 +58,7 @@
 
                     <Button
                         android:id="@+id/accountFollowButton"
-                        style="@style/TuskyButton"
+                        style="@style/AppButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
@@ -74,7 +75,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/accountSubscribeButton"
-                        style="@style/TuskyButton.Outlined"
+                        style="@style/AppButton.Outlined"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginStart="16dp"
@@ -94,7 +95,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/accountMuteButton"
-                        style="@style/TuskyButton.Outlined"
+                        style="@style/AppButton.Outlined"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginStart="16dp"
@@ -119,12 +120,12 @@
                         android:layout_marginTop="62dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textColor="?android:textColorPrimary"
                         android:textSize="?attr/status_text_large"
                         android:textStyle="normal|bold"
+                        android:textColor="?colorOnPrimaryContainer"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Tusky Mastodon Client " />
+                        tools:text="Pachli Mastodon Client " />
 
                     <TextView
                         android:id="@+id/accountUsernameTextView"
@@ -133,11 +134,11 @@
                         android:layout_gravity="center_horizontal"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textColor="?android:textColorSecondary"
                         android:textSize="?attr/status_text_medium"
+                        android:textColor="?colorOnPrimaryContainer"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/accountDisplayNameTextView"
-                        tools:text="\@Tusky" />
+                        tools:text="\@Pachli" />
 
                     <ImageView
                         android:id="@+id/accountLockedImageView"
@@ -150,7 +151,6 @@
                         app:layout_constraintStart_toEndOf="@+id/accountUsernameTextView"
                         app:layout_constraintTop_toTopOf="@+id/accountUsernameTextView"
                         app:srcCompat="@drawable/ic_reblog_private_24dp"
-                        app:tint="?android:textColorSecondary"
                         tools:visibility="visible" />
 
                     <TextView
@@ -161,6 +161,7 @@
                         android:background="@drawable/profile_badge_background"
                         android:text="@string/follows_you"
                         android:textSize="?attr/status_text_small"
+                        android:textColor="?colorOnPrimaryContainer"
                         android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/accountUsernameTextView"
@@ -173,6 +174,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="6dp"
                         android:background="@drawable/profile_badge_background"
+                        android:textColor="?colorOnPrimaryContainer"
                         android:text="@string/profile_badge_bot_text"
                         android:textSize="?attr/status_text_small"
                         android:visibility="gone"
@@ -201,6 +203,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="?colorSecondaryContainer"
+                            android:color="?colorOnSecondaryContainer"
                             android:hint="@string/account_note_hint"
                             android:textDirection="firstStrong" />
 
@@ -211,21 +215,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/account_note_saved"
-                        android:textColor="@color/tusky_blue"
+                        android:textColor="?colorAccent"
                         android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/accountNoteTextInputLayout" />
 
-                    <com.keylesspalace.tusky.view.ClickableSpanTextView
+                    <app.pachli.view.ClickableSpanTextView
                         android:id="@+id/accountNoteTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hyphenationFrequency="full"
                         android:lineSpacingMultiplier="1.1"
                         android:paddingTop="2dp"
-                        android:textColor="?android:textColorTertiary"
                         android:textIsSelectable="true"
                         android:textSize="?attr/status_text_medium"
+                        android:textColor="?colorOnPrimaryContainer"
                         android:textDirection="firstStrong"
                         app:layout_constraintTop_toBottomOf="@id/saveNoteInfo"
                         tools:text="This is a test description. Descriptions can be quite looooong." />
@@ -244,8 +248,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
+                        android:textColor="?colorOnPrimaryContainer"
                         tools:text="April, 1971"
-                        android:textColor="@color/textColorSecondary"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/accountFieldList"
@@ -259,6 +263,7 @@
                         android:layout_marginBottom="8dp"
                         android:hyphenationFrequency="full"
                         android:lineSpacingMultiplier="1.1"
+                        android:textColor="?colorOnPrimaryContainer"
                         android:text="@string/label_remote_account"
                         android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@id/accountDateJoined"
@@ -281,6 +286,7 @@
                             android:drawablePadding="6dp"
                             android:drawableStart="@drawable/ic_briefcase"
                             android:textSize="?attr/status_text_medium"
+                            android:textColor="?colorOnPrimaryContainer"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="Account has moved" />
@@ -306,9 +312,9 @@
                             android:layout_marginStart="16dp"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:textColor="?android:textColorPrimary"
                             android:textSize="?attr/status_text_large"
                             android:textStyle="normal|bold"
+                            android:textColor="?colorOnPrimaryContainer"
                             app:layout_constraintBottom_toTopOf="@id/accountMovedUsername"
                             app:layout_constraintStart_toEndOf="@id/accountMovedAvatar"
                             app:layout_constraintTop_toTopOf="@id/accountMovedAvatar"
@@ -321,8 +327,8 @@
                             android:layout_marginStart="16dp"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:textColor="?android:textColorSecondary"
                             android:textSize="?attr/status_text_medium"
+                            android:textColor="?colorOnPrimaryContainer"
                             app:layout_constraintBottom_toBottomOf="@id/accountMovedAvatar"
                             app:layout_constraintStart_toEndOf="@id/accountMovedAvatar"
                             app:layout_constraintTop_toBottomOf="@id/accountMovedDisplayName"
@@ -347,8 +353,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:fontFamily="sans-serif-medium"
-                            android:textColor="@color/account_tab_font_color"
                             android:textSize="?attr/status_text_medium"
+                            android:textColor="?colorOnPrimaryContainer"
                             tools:text="3000" />
 
                         <TextView
@@ -356,7 +362,7 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="6dp"
                             android:text="@string/title_posts"
-                            android:textColor="@color/account_tab_font_color"
+                            android:textColor="?colorOnPrimaryContainer"
                             android:textSize="?attr/status_text_medium" />
 
                     </LinearLayout>
@@ -378,8 +384,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:fontFamily="sans-serif-medium"
-                            android:textColor="@color/account_tab_font_color"
                             android:textSize="?attr/status_text_medium"
+                            android:textColor="?colorOnPrimaryContainer"
                             tools:text="500" />
 
                         <TextView
@@ -387,7 +393,7 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="6dp"
                             android:text="@string/title_follows"
-                            android:textColor="@color/account_tab_font_color"
+                            android:textColor="?colorOnPrimaryContainer"
                             android:textSize="?attr/status_text_medium" />
                     </LinearLayout>
 
@@ -408,7 +414,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:fontFamily="sans-serif-medium"
-                            android:textColor="@color/account_tab_font_color"
+                            android:textColor="?colorOnPrimaryContainer"
                             android:textSize="?attr/status_text_medium"
                             tools:text="1234" />
 
@@ -417,7 +423,7 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="6dp"
                             android:text="@string/title_followers"
-                            android:textColor="@color/account_tab_font_color"
+                            android:textColor="?colorOnPrimaryContainer"
                             android:textSize="?attr/status_text_medium" />
                     </LinearLayout>
 
@@ -438,7 +444,6 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/accountTabLayout"
-                style="@style/TuskyTabAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorSurface"

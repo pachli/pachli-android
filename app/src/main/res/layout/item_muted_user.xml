@@ -61,7 +61,7 @@
 
     <ImageButton
         android:id="@+id/muted_user_unmute"
-        style="@style/TuskyImageButton"
+        style="@style/AppImageButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="12dp"

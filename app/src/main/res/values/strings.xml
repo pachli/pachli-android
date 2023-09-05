@@ -1,13 +1,13 @@
 <!--
   ~ Copyright 2023 Tusky Contributors
   ~
-  ~ This file is a part of Tusky.
+  ~ This file is a part of Pachli.
   ~
   ~ This program is free software; you can redistribute it and/or modify it under the terms of the
   ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
   ~ License, or (at your option) any later version.
   ~
-  ~ Tusky is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
   ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
   ~ Public License for more details.
   ~
@@ -127,7 +127,7 @@
     <string name="action_unbookmark">Remove bookmark</string>
     <string name="action_more">More</string>
     <string name="action_compose">Compose</string>
-    <string name="action_login">Login with Tusky</string>
+    <string name="action_login">Login with Pachli</string>
     <string name="action_browser_login">Login with Browser</string>
     <string name="action_logout">Log out</string>
     <string name="action_logout_confirm">Are you sure you want to log out of %1$s? This will delete all local data of the account, including drafts and preferences.</string>
@@ -307,7 +307,7 @@
     <string name="app_theme_light">Light</string>
     <string name="app_theme_black">Black</string>
     <string name="app_theme_auto">Automatic at sunset</string>
-    <string name="app_theme_system">Use System Design</string>
+    <string name="app_theme_system">Use system design</string>
 
     <string name="pref_title_browser_settings">Browser</string>
     <string name="pref_title_custom_tabs">Use Chrome Custom Tabs</string>
@@ -382,7 +382,7 @@
     <string name="notification_report_name">Reports</string>
     <string name="notification_report_description">Notifications about moderation reports</string>
     <string name="notification_listenable_worker_name">Background activity</string>
-    <string name="notification_listenable_worker_description">Notifications when Tusky is working in the background</string>
+    <string name="notification_listenable_worker_description">Notifications when Pachli is working in the background</string>
     <string name="notification_unknown_name">Unknown</string>
 
     <string name="notification_mention_format">%s mentioned you</string>
@@ -399,13 +399,13 @@
     <string name="description_account_locked">Locked Account</string>
 
     <string name="about_title_activity">About</string>
-    <string name="about_tusky_version">Tusky %s</string>
+    <string name="about_pachli_version">Pachli %s</string>
     <string name="about_device_info_title">Your device</string>
     <string name="about_device_info">%s %s\nAndroid version: %s\nSDK version: %d</string>
     <string name="about_account_info_title">Your account</string>
     <string name="about_account_info">\@%s\@%s\nVersion: %s</string>
-    <string name="about_powered_by_tusky">Powered by Tusky</string>
-    <string name="about_tusky_license">Tusky is free and open-source software.
+    <string name="about_powered_by_pachli">Powered by Pachli</string>
+    <string name="about_pachli_license">Pachli is free and open-source software.
         It is licensed under the GNU General Public License Version 3.
         You can view the license here: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
@@ -414,9 +414,9 @@
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Project website: https://tusky.app</string>
-    <string name="about_bug_feature_request_site">Bug reports &amp; feature requests:\nhttps://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_tusky_account">Tusky\'s Profile</string>
+    <string name="about_project_site">Project website: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Bug reports &amp; feature requests:\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Pachli\'s Profile</string>
 
     <string name="post_share_content">Share content of post</string>
     <string name="post_share_link">Share link to post</string>
@@ -511,7 +511,7 @@
     <string name="expand_collapse_all_posts">Expand/Collapse all posts</string>
     <string name="action_open_post">Open post</string>
     <string name="restart_required">App restart required</string>
-    <string name="restart_emoji">You\'ll need to restart Tusky in order to apply these changes</string>
+    <string name="restart_emoji">You\'ll need to restart Pachli in order to apply these changes</string>
     <string name="later">Later</string>
     <string name="restart">Restart</string>
     <string name="caption_systememoji">Your device\'s default emoji set</string>
@@ -527,7 +527,7 @@
     <string name="reblog_private">Boost to original audience</string>
     <string name="unreblog_private">Unboost</string>
 
-    <string name="license_description">Tusky contains code and assets from the following open source projects:</string>
+    <string name="license_description">Pachli contains code and assets from the following open source projects:</string>
 
     <string name="profile_metadata_label">Profile metadata</string>
     <string name="profile_metadata_add">add data</string>
@@ -738,15 +738,15 @@
     <string name="action_subscribe_account">Subscribe</string>
     <string name="action_unsubscribe_account">Unsubscribe</string>
 
-    <string name="tusky_compose_post_quicksetting_label">Compose Post</string>
+    <string name="pachli_compose_post_quicksetting_label">Compose Post</string>
 
     <string name="account_date_joined">Joined %1$s</string>
 
     <string name="saving_draft">Saving draft…</string>
 
     <string name="tips_push_notification_migration">Re-login all accounts to enable push notification support.</string>
-    <string name="dialog_push_notification_migration">In order to use push notifications via UnifiedPush, Tusky needs permission to subscribe to notifications on your Mastodon server. This requires a re-login to change the OAuth scopes granted to Tusky. Using the re-login option here or in "Account preferences" will preserve all of your local drafts and cache.</string>
-    <string name="dialog_push_notification_migration_other_accounts">You have re-logged into your current account to grant push subscription permission to Tusky. However, you still have other accounts that have not been migrated this way. Switch to them and re-login one by one in order to enable UnifiedPush notifications support.</string>
+    <string name="dialog_push_notification_migration">In order to use push notifications via UnifiedPush, Pachli needs permission to subscribe to notifications on your Mastodon server. This requires a re-login to change the OAuth scopes granted to Pachli. Using the re-login option here or in "Account preferences" will preserve all of your local drafts and cache.</string>
+    <string name="dialog_push_notification_migration_other_accounts">You have re-logged into your current account to grant push subscription permission to Pachli. However, you still have other accounts that have not been migrated this way. Switch to them and re-login one by one in order to enable UnifiedPush notifications support.</string>
     <string name="url_domain_notifier">%s (🔗 %s)</string>
 
     <string name="delete_scheduled_post_warning">Delete this scheduled post?</string>
@@ -811,9 +811,9 @@
     <string name="help_empty_home">This is your <b>home timeline</b>. It shows the recent posts of the accounts
         you follow.\n\nTo explore accounts you can either discover them in one of the other timelines.
         For example the local timeline of your instance [iconics gmd_group]. Or you can search them
-        by name [iconics gmd_search]; for example search for Tusky to find our Mastodon account.</string>
+        by name [iconics gmd_search]; for example search for Pachli to find our Mastodon account.</string>
     <string name="load_newest_notifications">Load newest notifications</string>
-    <string name="load_newest_statuses">Load newest posts</string>    
+    <string name="load_newest_statuses">Load newest posts</string>
     <string name="about_copy">Copy version and device information</string>
     <string name="about_copied">Copied version and device information</string>
     <string name="error_media_playback">Playback failed: %s</string>

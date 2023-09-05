@@ -1,35 +1,64 @@
-[![Translate - with Weblate](https://img.shields.io/badge/translate%20with-Weblate-green.svg?style=flat)](https://weblate.tusky.app/) [![OpenCollective](https://opencollective.com/tusky/backers/badge.svg)](https://opencollective.com/tusky/)
-# Tusky
+<!--
+
+TODO: Update when Weblate is configured:
+
+[![Translate - with Weblate](https://img.shields.io/badge/translate%20with-Weblate-green.svg?style=flat)](https://weblate.tusky.app/)
+-->
+
+<!--
+
+TODO: Update when deployed to the different stores.
+
+[<img src="/assets/fdroid_badge.png" alt="Get it on F-Droid" height="80" />](https://f-droid.org/repository/browse/?fdid=app.pachli)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80" />](https://play.google.com/store/apps/details?id=app.pachli)
+
+-->
+# Pachli
 
 <img src="/fastlane/metadata/android/en-US/images/icon.png" width="120" height="120"/>
 
-Tusky is a beautiful Android client for [Mastodon](https://github.com/mastodon/mastodon). Mastodon is an ActivityPub federated social network. That means no single entity controls the whole network, rather, like e-mail, volunteers and organisations operate their own independent servers, users from which can all interact with each other seamlessly.
+Pachli is a full-featured Android client for Mastodon, with a cooperative development model.
 
-[<img src="/assets/fdroid_badge.png" alt="Get it on F-Droid" height="80" />](https://f-droid.org/repository/browse/?fdid=com.keylesspalace.tusky)
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80" />](https://play.google.com/store/apps/details?id=com.keylesspalace.tusky&utm_source=github&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
+Features include:
 
-## Features
+- Read, reply, filter, post, favourite, and boost posts
+- Your timeline is cached locally, so you can read when offline
+- Draft posts now to finish them later
+- Write posts now and schedule them to send later
+- Read and post from multiple accounts
+- Manage who you follow with multiple lists
+- Use different themes to customise the UI
+- A variety of accessible fonts in different sizes
+- Full control over how and when you receive notifications
+- Explore trending posts, links, and hashtags
 
-- Material Design
-- Most Mastodon APIs implemented
-- Multi-Account support
-- Dark, light and black themes with the possibility to auto-switch based on the time of day
-- Drafts - compose posts and save them for later
-- Choose between different emoji styles 
-- Optimized for all screen sizes
-- Completely open-source - no non-free dependencies like Google services
+Pachli is open source.
 
-### Testing
+Install the newest release from the [list of releases](https://github.com/tuskyapp/Tusky/releases) (links to Google Play and F-Droid will be here as soon as Pachli is available in those app stores)
 
-The nightly build containing the newest development code is [available on Google Play](https://play.google.com/store/apps/details?id=com.keylesspalace.tusky.test). 
+## Support
 
-### Support
+<!-- TODO: Link to rewritten FAQ when complete -->
 
-Check out our [FAQs](https://github.com/tuskyapp/faq/blob/main/README.md), your question may already be answered.
-If you have any bug reports, feature requests or questions please open an issue or send us a message at [Tusky@mastodon.social](https://mastodon.social/@Tusky)!
+- Say "hi" on Mastodon, we're [@pachli@mastodon.social](https://mastodon.social/@pachli)
+- Join the ongoing [discussions](https://github.com/pachli/pachli-android/discussions)
+- Report a bug or make a feature request as a [new issue](https://github.com/pachli/pachli-android/issues)
+
+<!--
+
+TODO: Rewrite and restore this section when the contributing guide is up to date
 
 ### Contributing
 We always welcome new contributors! Please read our [contribution guide](https://github.com/tuskyapp/Tusky/blob/develop/CONTRIBUTING.md) to get started.
 
-### Development chatroom
-https://riot.im/app/#/room/#Tusky:matrix.org
+-->
+
+## Contributing
+
+We actively welcome new contributors. `CONTRIBUTING.md` in this repository is functional but out of date at the moment, but should be fully fleshed out by the middle of September 2023.
+
+If you want to contribute in the meantime please don't hesitate to ask questions.
+
+## More information
+
+More information about the application and the principals underpinning its development are at https://pachli.app.

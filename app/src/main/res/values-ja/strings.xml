@@ -56,7 +56,7 @@
     <string name="action_favourite">お気に入り</string>
     <string name="action_more">その他</string>
     <string name="action_compose">投稿する</string>
-    <string name="action_login">TUsky でログイン</string>
+    <string name="action_login">Pachli でログイン</string>
     <string name="action_logout">ログアウト</string>
     <string name="action_logout_confirm">アカウント %1$s からログアウトしてもよろしいですか？ログアウトすると、下書きや詳細設定を含めて、ローカルに保存されているアカウントの全てのデータが削除されます。</string>
     <string name="action_follow">フォローする</string>
@@ -209,8 +209,8 @@
     </plurals>
     <string name="description_account_locked">非公開アカウント</string>
     <string name="about_title_activity">このアプリについて</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_tusky_license">Tuskyは無料のオープンソースソフトウェアです。<!--
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_pachli_license">Pachliは無料のオープンソースソフトウェアです。<!--
      -->GNU General Public License Version 3 の下で使用許諾されています。<!--
      -->ライセンスはここからご覧いただけます： https://www.gnu.org/licenses/gpl-3.0.ja.html</string>
     <!-- note to translators:
@@ -220,12 +220,12 @@
          * the url can be changed to link to the localized version of the license.
     -->
     <string name="about_project_site">        プロジェクトのWebサイト（英語）：\n
-        https://tusky.app
+        https://pachli.app
     </string>
     <string name="about_bug_feature_request_site">        バグ報告 &amp; 機能リクエスト（英語）：\n
-        https://github.com/tuskyapp/Tusky/issues
+        https://github.com/pachli/pachli-android/issues
     </string>
-    <string name="about_tusky_account">Tusky公式アカウント</string>
+    <string name="about_pachli_account">Pachli公式アカウント</string>
     <string name="post_share_content">投稿の内容を共有</string>
     <string name="post_share_link">投稿へのリンクを共有</string>
     <string name="post_media_images">画像</string>
@@ -278,7 +278,7 @@
     <string name="expand_collapse_all_posts">全て開く/閉じる</string>
     <string name="action_open_post">投稿を開く</string>
     <string name="restart_required">アプリの再起動が必要です</string>
-    <string name="restart_emoji">これらの変更を適用するには、Tuskyの再起動が必要になります</string>
+    <string name="restart_emoji">これらの変更を適用するには、Pachliの再起動が必要になります</string>
     <string name="later">後で</string>
     <string name="restart">再起動</string>
     <string name="caption_systememoji">あなたのデバイスのデフォルト絵文字セットです</string>
@@ -289,7 +289,7 @@
     <string name="account_moved_description">%1$s は引っ越しました:</string>
     <string name="reblog_private">ブースト</string>
     <string name="unreblog_private">ブーストを解除</string>
-    <string name="license_description">Tuskyは、以下のオープンソース プロジェクトからのコードとアセットを含んでいます:</string>
+    <string name="license_description">Pachliは、以下のオープンソース プロジェクトからのコードとアセットを含んでいます:</string>
     <string name="profile_metadata_label">プロフィール メタデータ</string>
     <string name="profile_metadata_add">データを追加</string>
     <string name="profile_metadata_label_label">ラベル</string>
@@ -451,7 +451,7 @@
     <string name="mute_domain_warning">本当に %s のすべてをブロックするのですか？ そのドメインからのコンテンツは、公開タイムラインや通知に表示されなくなります。また、そのドメインのフォロワーは削除されます。</string>
     <string name="post_media_audio">音声</string>
     <string name="mute_domain_warning_dialog_ok">ドメイン全体を非表示</string>
-    <string name="about_powered_by_tusky">Tuskyによって提供されています</string>
+    <string name="about_powered_by_pachli">Pachliによって提供されています</string>
     <string name="delete_scheduled_post_warning">この予約投稿を削除しますか？</string>
     <string name="instance_rule_info">ログインにより %s のルールに同意することになります。</string>
     <string name="action_unbookmark">ブックマークを削除</string>
@@ -499,7 +499,7 @@
     <string name="error_following_hashtags_unsupported">このインスタンスはハッシュタグのフォローに対応していません。</string>
     <string name="title_followed_hashtags">フォローしたハッシュタグ</string>
     <string name="confirmation_domain_unmuted">%s のミュートが解除されました</string>
-    <string name="dialog_push_notification_migration_other_accounts">プッシュ通知の購読許可を Tusky に与えるための現在のアカウントへの再ログインが完了しました。しかし、まだ他のアカウントはマイグレーションができていません。UnifiedPush 通知ｗ有効にするには、他のアカウントにも切り替えて、それぞれ再ログインをしてください。</string>
+    <string name="dialog_push_notification_migration_other_accounts">プッシュ通知の購読許可を Pachli に与えるための現在のアカウントへの再ログインが完了しました。しかし、まだ他のアカウントはマイグレーションができていません。UnifiedPush 通知ｗ有効にするには、他のアカウントにも切り替えて、それぞれ再ログインをしてください。</string>
     <string name="action_unfollow_hashtag_format">#%s をフォロー解除しますか？</string>
     <string name="notification_sign_up_description">新規ユーザーに関する通知</string>
     <string name="notification_update_name">投稿の編集</string>
@@ -551,8 +551,8 @@
     <string name="report_category_violation">ルール違反</string>
     <string name="report_category_spam">スパム</string>
     <string name="report_category_other">その他</string>
-    <string name="tusky_compose_post_quicksetting_label">投稿する</string>
-    <string name="dialog_push_notification_migration">UnifiedPush 経由でプッシュ通知を使用するには、Tusky に Mastodon サーバー上での購読許可が必要です。そのため、Tusky に与えられた OAuth スコープを変更するための再ログインが必要になります。ここかアカウント設定で再ログインのオプションを選んでも、ローカルの下書きとキャッシュは保存されます。</string>
+    <string name="pachli_compose_post_quicksetting_label">投稿する</string>
+    <string name="dialog_push_notification_migration">UnifiedPush 経由でプッシュ通知を使用するには、Pachli に Mastodon サーバー上での購読許可が必要です。そのため、Pachli に与えられた OAuth スコープを変更するための再ログインが必要になります。ここかアカウント設定で再ログインのオプションを選んでも、ローカルの下書きとキャッシュは保存されます。</string>
     <string name="error_following_hashtag_format">#%s のフォローエラー</string>
     <string name="title_migration_relogin">プッシュ通知受け取るには再ログインしてください</string>
     <string name="error_unfollowing_hashtag_format">#%s のフォロー解除エラー</string>
@@ -613,7 +613,7 @@
     <string name="pref_title_show_stat_inline">タイムラインに投稿の統計情報を表示する</string>
     <string name="pref_ui_text_size">UI のテキストサイズ</string>
     <string name="notification_listenable_worker_name">バックグラウンドアクティビティ</string>
-    <string name="notification_listenable_worker_description">Tusky がバックグラウンドで動作中の通知</string>
+    <string name="notification_listenable_worker_description">Pachli がバックグラウンドで動作中の通知</string>
     <string name="notification_notification_worker">通知を取得中…</string>
     <string name="notification_prune_cache">キャッシュの整理中…</string>
     <string name="label_filter_context">フィルターコンテキスト</string>

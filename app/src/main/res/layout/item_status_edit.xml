@@ -22,9 +22,9 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="\@Tusky edited 18th December 2022" />
+        tools:text="\@Pachli edited 18th December 2022" />
 
-    <com.keylesspalace.tusky.view.ClickableSpanTextView
+    <app.pachli.view.ClickableSpanTextView
         android:id="@+id/status_edit_content_warning_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@id/status_edit_content_warning_separator"
         tools:text="This is an edited status" />
 
-    <com.keylesspalace.tusky.view.MediaPreviewLayout
+    <app.pachli.view.MediaPreviewLayout
         android:id="@+id/status_edit_media_preview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

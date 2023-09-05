@@ -60,7 +60,7 @@
     <string name="action_unfavourite">إزالة المفضلة</string>
     <string name="action_more">المزيد</string>
     <string name="action_compose">حرر</string>
-    <string name="action_login">الولوج باستخدام Tusky</string>
+    <string name="action_login">الولوج باستخدام Pachli</string>
     <string name="action_logout">خروج</string>
     <string name="action_logout_confirm">متأكد مِن أنك تود الخروج من الحساب %1$s؟</string>
     <string name="action_follow">إتبع</string>
@@ -222,8 +222,8 @@
     </plurals>
     <string name="description_account_locked">حساب مقفل</string>
     <string name="about_title_activity">عن التطبيق</string>
-    <string name="about_tusky_version">توسكي %s</string>
-    <string name="about_tusky_license">Tuksy برنامج حر و مفتوح المصدر.         مطور تحت رخصة GNU General Public License Version 3.         يمكنكم الإطلاع على الرخصة على : https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_pachli_version">توسكي %s</string>
+    <string name="about_pachli_license">Tuksy برنامج حر و مفتوح المصدر.         مطور تحت رخصة GNU General Public License Version 3.         يمكنكم الإطلاع على الرخصة على : https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -231,10 +231,10 @@
          * the url can be changed to link to the localized version of the license.
     -->
     <string name="about_project_site">موقع المشروع :\n
-                   https://tusky.app</string>
+                   https://pachli.app</string>
     <string name="about_bug_feature_request_site">تقارير الأخطاء و طلبات التحسينات على  :\n
-                   https://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_tusky_account">الملف الشخصي لتوسكي</string>
+                   https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">الملف الشخصي لتوسكي</string>
     <string name="post_share_content">شارك محتوى التبويق</string>
     <string name="post_share_link">شارك الرابط إلى التبويق</string>
     <string name="post_media_images">صور</string>
@@ -470,7 +470,7 @@
     <string name="title_bookmarks">الفواصل المرجعية</string>
     <string name="action_bookmark">أضفه إلى الفواصل المرجعية</string>
     <string name="action_view_bookmarks">الفواصل المرجعية</string>
-    <string name="about_powered_by_tusky">مدعوم بِـ Tusky</string>
+    <string name="about_powered_by_pachli">مدعوم بِـ Pachli</string>
     <string name="description_post_bookmarked">أضيف إلى الفواصل المرجعية</string>
     <string name="select_list_title">اختر قائمة</string>
     <string name="list">القائمة</string>
@@ -539,7 +539,7 @@
     <string name="duration_90_days">90 يومًا</string>
     <string name="duration_180_days">180 يومًا</string>
     <string name="duration_365_days">365 يومًا</string>
-    <string name="tusky_compose_post_quicksetting_label">تحرير منشور</string>
+    <string name="pachli_compose_post_quicksetting_label">تحرير منشور</string>
     <string name="notification_sign_up_name">حسابات جديدة</string>
     <string name="title_login">تسجيل الدخول</string>
     <string name="notification_sign_up_format">قام %s بإنشاء حساب</string>
@@ -589,7 +589,7 @@
         <item quantity="other">لا يمكنك رفع أكثر من %1$d مرفقات.</item>
     </plurals>
     <string name="saving_draft">جار حفظ المسودة …</string>
-    <string name="dialog_push_notification_migration_other_accounts">لقد قمت بإعادة تسجيل الدخول إلى حسابك الجاري لمنح إذن الاشعارات لـ Tusky. ومع ذلك، لا يزال لديك حسابات أخرى لم يتم ترحيلها بهذه الطريقة. قم بالتبديل إليهم وإعادة تسجيل الدخول واحدًا تلو الآخر لتمكين دعم إشعارات UnifiedPush.</string>
+    <string name="dialog_push_notification_migration_other_accounts">لقد قمت بإعادة تسجيل الدخول إلى حسابك الجاري لمنح إذن الاشعارات لـ Pachli. ومع ذلك، لا يزال لديك حسابات أخرى لم يتم ترحيلها بهذه الطريقة. قم بالتبديل إليهم وإعادة تسجيل الدخول واحدًا تلو الآخر لتمكين دعم إشعارات UnifiedPush.</string>
     <string name="instance_rule_title">%s شروط</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="pref_default_post_language">لغة النشر الافتراضية</string>
@@ -632,7 +632,7 @@
     <string name="title_followed_hashtags">الوسوم المتابَعة</string>
     <string name="error_status_source_load">فشل تحميل مصدر المنشور من الخادم.</string>
     <string name="report_category_violation">انتهاك الشروط</string>
-    <string name="dialog_push_notification_migration">من أجل استخدام الإشعارات عبر UnifiedPush ، يحتاج Tusky إلى إذن للإشتراك في الإشعارات على خادم Mastodon الخاص بك. يتطلب هذا إعادة تسجيل الدخول لتغيير نطاقات OAuth الممنوحة لـ Tusky. سيؤدي استخدام خيار إعادة تسجيل الدخول هنا أو في اعدادات الحساب إلى الاحتفاظ بجميع المسودات المحلية وذاكرة التخزين المؤقت.</string>
+    <string name="dialog_push_notification_migration">من أجل استخدام الإشعارات عبر UnifiedPush ، يحتاج Pachli إلى إذن للإشتراك في الإشعارات على خادم Mastodon الخاص بك. يتطلب هذا إعادة تسجيل الدخول لتغيير نطاقات OAuth الممنوحة لـ Pachli. سيؤدي استخدام خيار إعادة تسجيل الدخول هنا أو في اعدادات الحساب إلى الاحتفاظ بجميع المسودات المحلية وذاكرة التخزين المؤقت.</string>
     <string name="pref_title_wellbeing_mode">الرفاهية</string>
     <string name="account_date_joined">انضم في %1$s</string>
     <string name="title_migration_relogin">أعد تسجيل الدخول لاستلام الاشعارات</string>

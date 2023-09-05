@@ -60,7 +60,7 @@
     <string name="action_unfavourite">Rimuovi apprezzamento</string>
     <string name="action_more">Di più</string>
     <string name="action_compose">Componi</string>
-    <string name="action_login">Accedi con Tusky</string>
+    <string name="action_login">Accedi con Pachli</string>
     <string name="action_logout">Disconnettiti</string>
     <string name="action_logout_confirm">Sei sicuro di volerti disconnettere dall\'account %1$s?</string>
     <string name="action_follow">Segui</string>
@@ -221,8 +221,8 @@
     </plurals>
     <string name="description_account_locked">Account bloccato</string>
     <string name="about_title_activity">A proposito</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_tusky_license">Tusky è un programma libero ed open source.
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_pachli_license">Pachli è un programma libero ed open source.
 		È distribuito con licenza GNU General Public License Version 3.
 		Puoi leggere la licenza qui: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
@@ -232,10 +232,10 @@
          * the url can be changed to link to the localized version of the license.
     -->
     <string name="about_project_site">Sito web del progetto:\n
-		https://tusky.app</string>
+		https://pachli.app</string>
     <string name="about_bug_feature_request_site">Segnala problemi e richiedi funzionalità:
-\n https://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_tusky_account">Profilo di Tusky</string>
+\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Profilo di Pachli</string>
     <string name="post_share_content">Condividi contenuto del messaggio</string>
     <string name="post_share_link">Condividi collegamento al messaggio</string>
     <string name="post_media_images">Immagini</string>
@@ -304,7 +304,7 @@
     <string name="expand_collapse_all_posts">Espandi/riduci tutti i messaggi</string>
     <string name="action_open_post">Apri messaggio</string>
     <string name="restart_required">Riavvio dell\'app richiesto</string>
-    <string name="restart_emoji">Devi riavviare Tusky per applicare queste modifiche</string>
+    <string name="restart_emoji">Devi riavviare Pachli per applicare queste modifiche</string>
     <string name="later">Più tardi</string>
     <string name="restart">Riavvia</string>
     <string name="caption_systememoji">Le emoji predefinite del tuo dispositivo</string>
@@ -315,7 +315,7 @@
     <string name="account_moved_description">%1$s si è spostato su:</string>
     <string name="reblog_private">Condividi con la visibilità del messaggio originale</string>
     <string name="unreblog_private">Annulla condivisione</string>
-    <string name="license_description">Tusky contiene codice e risorse dai seguenti progetti open source:</string>
+    <string name="license_description">Pachli contiene codice e risorse dai seguenti progetti open source:</string>
     <string name="profile_metadata_label">Metadati del profilo</string>
     <string name="profile_metadata_add">aggiungi dati</string>
     <string name="profile_metadata_label_label">Etichetta</string>
@@ -389,7 +389,7 @@
     <string name="action_edit">Modifica</string>
     <string name="action_view_bookmarks">Segnalibri</string>
     <string name="action_add_poll">Aggiungi sondaggio</string>
-    <string name="about_powered_by_tusky">Fatto usando Tusky</string>
+    <string name="about_powered_by_pachli">Fatto usando Pachli</string>
     <string name="pref_title_alway_open_spoiler">Espandi sempre i messaggi segnalati come contenuto sensibile</string>
     <string name="description_post_bookmarked">Messo nei segnalibri</string>
     <string name="description_poll">Sondaggio con scelte: %1$s, %2$s, %3$s, %4$s; %5$s</string>
@@ -530,7 +530,7 @@
     <string name="title_login">Accesso</string>
     <string name="notification_update_format">%s ha modificato il suo messaggio</string>
     <string name="pref_title_notification_filter_updates">un messaggio con cui ho interagito è stato modificato</string>
-    <string name="tusky_compose_post_quicksetting_label">Componi messaggio</string>
+    <string name="pachli_compose_post_quicksetting_label">Componi messaggio</string>
     <string name="notification_sign_up_name">Registrazioni</string>
     <string name="notification_sign_up_description">Notifiche di quando qualcuno si è registrato</string>
     <string name="notification_update_name">Modifiche ai messaggi</string>
@@ -541,9 +541,9 @@
     <string name="action_dismiss">Scartare</string>
     <string name="action_details">Dettagli</string>
     <string name="tips_push_notification_migration">Riaccedi a tutti le utenze per attivare il supporto delle notifiche.</string>
-    <string name="dialog_push_notification_migration">Al fine di utilizzare le notifiche tramite UnifiedPush, Tusky ha bisogno del permesso di sottoscrivere alle notifiche nella tua istanza Mastodon. Questo richiede un nuovo accesso per cambiare l\'OAuth precedentemente concesso a Tusky. Usare questa opzione qui o nelle preferenze dell\'account preserva tutte le tue bozze locali e la memoria temporanea (cache).</string>
+    <string name="dialog_push_notification_migration">Al fine di utilizzare le notifiche tramite UnifiedPush, Pachli ha bisogno del permesso di sottoscrivere alle notifiche nella tua istanza Mastodon. Questo richiede un nuovo accesso per cambiare l\'OAuth precedentemente concesso a Pachli. Usare questa opzione qui o nelle preferenze dell\'account preserva tutte le tue bozze locali e la memoria temporanea (cache).</string>
     <string name="filter_expiration_format">%s (%s)</string>
-    <string name="dialog_push_notification_migration_other_accounts">Nuovo accesso eseguito per l\'utenza corrente al fine di garantire il permesso delle notifiche a Tusky. Però hai altre utenze che non sono state migrate in questo modo. Cambia utenza e riaccedi una alla volta per abilitare il supporto alle notifiche UnifiedPush.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Nuovo accesso eseguito per l\'utenza corrente al fine di garantire il permesso delle notifiche a Pachli. Però hai altre utenze che non sono state migrate in questo modo. Cambia utenza e riaccedi una alla volta per abilitare il supporto alle notifiche UnifiedPush.</string>
     <string name="account_date_joined">Registrato da %1$s</string>
     <string name="error_multimedia_size_limit">Video and audio files non possono eccedere %s MB in dimensione.</string>
     <string name="error_image_edit_failed">L\'immagine non può essere modificata.</string>
@@ -633,7 +633,7 @@
     <string name="title_public_trending_hashtags">Hashtag di tendenza</string>
     <string name="help_empty_home">Questa è la tua <b>Timeline principale</b>. Mostra i post più recenti degli account che segui.
 \n
-\nPer esplorare gli account puoi scopririli in una delle altre timeline. Per esempio la timeline locale della tua istanza [iconica gmd_group]. O puoi cercarli per fine [iconica gmd_search]; per esempio cerca “Tusky” per trovare il nostro account Mastodon.</string>
+\nPer esplorare gli account puoi scopririli in una delle altre timeline. Per esempio la timeline locale della tua istanza [iconica gmd_group]. O puoi cercarli per fine [iconica gmd_search]; per esempio cerca “Pachli” per trovare il nostro account Mastodon.</string>
     <string name="hint_description">Descrizione</string>
     <string name="notification_unknown_name">Sconosciuto</string>
     <string name="post_media_image">Immagine</string>

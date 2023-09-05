@@ -1,8 +1,0 @@
-Tusky v12.0 
- 
-- Förbättrat gränssnitt - nu kan du flytta flikarna till botten 
-- Nu kan du när du tystar en användare också bestämma om du vill tysta deras aviseringar 
-- Nu kan du följa så många hashtaggar du vill i en enda hashtagg-flik 
-- Sättet mediebeskrivningar visas på har förbättrats så de fungerar även för superlånga beskrivningar 
-     
-Hela ändringsloggen: https://github.com/tuskyapp/Tusky/releases

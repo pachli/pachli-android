@@ -52,7 +52,7 @@
     <string name="action_favourite">Hoffi</string>
     <string name="action_more">Mwy</string>
     <string name="action_compose">Creu</string>
-    <string name="action_login">Mewngofnodi â Tusky</string>
+    <string name="action_login">Mewngofnodi â Pachli</string>
     <string name="action_logout">Allgofnodi</string>
     <string name="action_logout_confirm">Ydych chi\'n siŵr eich bod am allgofnodi o\'r cyfrif %1$s\? Bydd hyn yn dileu\'r holl ddata lleol, gan gynnwys drafftiau a chyfeiriadau.</string>
     <string name="action_follow">Dilyn</string>
@@ -196,17 +196,17 @@
     </plurals>
     <string name="description_account_locked">Cyfrif wedi\'i gloi</string>
     <string name="about_title_activity">Ynghylch</string>
-    <string name="about_tusky_license">Mae Tusky yn feddalwedd cod agored rhydd. Mae\'n cael ei drwyddedu o dan Drwydded Cyhoeddus Cyffredinol GNU Fersiwn 3. Gallwch weld y drwydded yma: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_pachli_license">Mae Pachli yn feddalwedd cod agored rhydd. Mae\'n cael ei drwyddedu o dan Drwydded Cyhoeddus Cyffredinol GNU Fersiwn 3. Gallwch weld y drwydded yma: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Gwefan y project: https://tusky.app</string>
+    <string name="about_project_site">Gwefan y project: https://pachli.app</string>
     <string name="about_bug_feature_request_site">Adrodd ar wallau a cheisiadau nodweddion:
-\nhttps://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_tusky_account">Proffil Tusky</string>
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Proffil Pachli</string>
     <string name="post_share_content">Rhannu cynnwys y neges</string>
     <string name="post_share_link">Rhannu dolen i\'r neges</string>
     <string name="post_media_images">Delweddau</string>
@@ -251,7 +251,7 @@
     <string name="expand_collapse_all_posts">Chwyddo/lleihau pob neges</string>
     <string name="action_open_post">Agor y neges</string>
     <string name="restart_required">Angen ailddechrau\'r ap</string>
-    <string name="restart_emoji">Bydd angen ailddechrau Tusky i roi\'r newidiadau ar waith</string>
+    <string name="restart_emoji">Bydd angen ailddechrau Pachli i roi\'r newidiadau ar waith</string>
     <string name="later">Hwyrach</string>
     <string name="restart">Ailddechrau</string>
     <string name="caption_systememoji">Set emoji ragosodedig eich dyfais</string>
@@ -261,7 +261,7 @@
     <string name="account_moved_description">Mae %1$s wedi symud i:</string>
     <string name="reblog_private">Hybu i\'r gynulleidfa wreiddiol</string>
     <string name="unreblog_private">Dad-hybu</string>
-    <string name="license_description">Mae Tusky yn cynnwys cod ac asedau o\'r projectau cod agored canlynol:</string>
+    <string name="license_description">Mae Pachli yn cynnwys cod ac asedau o\'r projectau cod agored canlynol:</string>
     <string name="profile_metadata_label">Metadata\'r proffil</string>
     <string name="profile_metadata_add">ychwanegu data</string>
     <string name="profile_metadata_content_label">Cynnwys</string>
@@ -371,7 +371,7 @@
     <string name="pref_title_gradient_for_media">Dangos graddiannau lliwgar ar gyfer cyfryngau cudd</string>
     <string name="pref_failed_to_sync">Methu cydweddu gosodiadau</string>
     <string name="pref_main_nav_position_option_top">Brig</string>
-    <string name="about_tusky_version">Tusky %s</string>
+    <string name="about_pachli_version">Pachli %s</string>
     <string name="title_hashtags_dialog">Hashnodau</string>
     <string name="pref_main_nav_position_option_bottom">Gwaelod</string>
     <string name="action_open_faved_by">Dangos ffefrynnau</string>
@@ -440,7 +440,7 @@
     <string name="pref_main_nav_position">Prif lleoliad y panel llywio</string>
     <string name="pref_title_animate_gif_avatars">Animeiddio lluniau proffil GIF</string>
     <string name="pref_default_media_sensitivity">Nodi cyfryngau yn sensitif bob tro</string>
-    <string name="about_powered_by_tusky">Pwerir gan Tusky</string>
+    <string name="about_powered_by_pachli">Pwerir gan Pachli</string>
     <string name="title_accounts">Cyfrifon</string>
     <string name="create_poll_title">Pôl</string>
     <string name="action_delete_list">Dileu\'r rhestr</string>
@@ -449,9 +449,9 @@
     <string name="post_media_audio">Sain</string>
     <string name="compose_shortcut_long_label">Ysgrifennu neges</string>
     <string name="drafts_post_failed_to_send">Methodd anfon y neges hon!</string>
-    <string name="tusky_compose_post_quicksetting_label">Ysgrifennu Neges</string>
+    <string name="pachli_compose_post_quicksetting_label">Ysgrifennu Neges</string>
     <string name="tips_push_notification_migration">Ailfewngofnodwch i\'ch cyfrifon er mwyn galluogi hysbysiadau i\'ch ffôn.</string>
-    <string name="dialog_push_notification_migration">Er mwyn derbyn hysbysiadau i\'ch ffôn drwy UnifiedPush, mae angen caniatâd ar Tusky i danysgrifio i hysbysiadau ar eich gweinydd Mastodon. Bydd rhaid i chi fewngofnodi eto i newid y sgôp OAuth sy\'n cael ei roi i Tusky. Bydd defnyddio\'r opsiwn ailfewngofnodi yma neu yn newisiadau Cyfrif yn cadw\'ch holl ddrafftiau a\'ch storfa leol.</string>
+    <string name="dialog_push_notification_migration">Er mwyn derbyn hysbysiadau i\'ch ffôn drwy UnifiedPush, mae angen caniatâd ar Pachli i danysgrifio i hysbysiadau ar eich gweinydd Mastodon. Bydd rhaid i chi fewngofnodi eto i newid y sgôp OAuth sy\'n cael ei roi i Pachli. Bydd defnyddio\'r opsiwn ailfewngofnodi yma neu yn newisiadau Cyfrif yn cadw\'ch holl ddrafftiau a\'ch storfa leol.</string>
     <string name="mute_domain_warning">Ydych chi\'n siŵr yr hoffech chi flocio %s gyfan\? Fyddwch chi ddim yn gweld dim cynnwys o\'r parth hwnnw mewn unrhyw ffrwd gyhoeddus na chwaith yn eich hysbysiadau. Bydd eich dilynwyr o\'r parth hwnnw yn cael eu dileu.</string>
     <string name="duration_indefinite">Dim diwedd</string>
     <plurals name="favs">
@@ -469,7 +469,7 @@
     <string name="instance_rule_info">Drwy fewngofnodi rydych yn cytuno i reolau %s.</string>
     <string name="compose_save_draft_loses_media">Cadw drafft\? (Bydd atodiadau\'n cael eu lanlwytho eto pan fyddwch chi\'n adfer y drafft.)</string>
     <string name="description_post_reblogged">Ailflogiwyd</string>
-    <string name="dialog_push_notification_migration_other_accounts">Rydych wedi ail-fewngofnodi i\'ch cyfrif cyfredol i roi caniatâd tanysgrifio gwthio i Tusky. Fodd bynnag, mae gennych gyfrifon eraill o hyd nad ydyn nhw wedi\'u mudo fel hyn. Newidiwch atyn nhw ac ail-fewngofnodi fesul un er mwyn galluogi cefnogaeth hysbysiadau UnifiedPush.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Rydych wedi ail-fewngofnodi i\'ch cyfrif cyfredol i roi caniatâd tanysgrifio gwthio i Pachli. Fodd bynnag, mae gennych gyfrifon eraill o hyd nad ydyn nhw wedi\'u mudo fel hyn. Newidiwch atyn nhw ac ail-fewngofnodi fesul un er mwyn galluogi cefnogaeth hysbysiadau UnifiedPush.</string>
     <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
     <string name="hint_media_description_missing">Dylai fod gan y cyfryngau ddisgrifiad.</string>
     <string name="description_post_cw">Rhybudd cynnwys: %s</string>
@@ -692,11 +692,11 @@
     <string name="error_list_load">Gwall wrth lwytho rhestrau</string>
     <string name="help_empty_home">Hwn yw\'ch <b>ffrwd cartref</b>. Mae\'n dangos negeseuon diweddar y cyfrifon rydych yn eu dilyn.
 \n
-\nI archwilio cyfrifon gallwch un ai eu darganfod o fewn un o\'r llinellau amser eraill. Er enghraifft, mae llinell amser eich enghraifft chi [iconics gmd_group]. Neu gallwch eu chwilio yn ôl eu henw [iconics gmd_search]; er enghraifft, chwilio am Tusky i ganfod ein cyfrif Mastodon.</string>
+\nI archwilio cyfrifon gallwch un ai eu darganfod o fewn un o\'r llinellau amser eraill. Er enghraifft, mae llinell amser eich enghraifft chi [iconics gmd_group]. Neu gallwch eu chwilio yn ôl eu henw [iconics gmd_search]; er enghraifft, chwilio am Pachli i ganfod ein cyfrif Mastodon.</string>
     <string name="pref_title_show_stat_inline">Dangos ystadegau negeseuon mewn llinell amser</string>
     <string name="pref_ui_text_size">Maint testun rhyngwyneb</string>
     <string name="notification_listenable_worker_name">Gweithgaredd cefndirol</string>
-    <string name="notification_listenable_worker_description">Hysbysiadau pan fydd Tusky\'n gweithio\'n y cefndir</string>
+    <string name="notification_listenable_worker_description">Hysbysiadau pan fydd Pachli\'n gweithio\'n y cefndir</string>
     <string name="notification_notification_worker">Yn estyn hysbysiadau…</string>
     <string name="notification_prune_cache">Cynnal a chadw\'r storfan…</string>
     <string name="error_missing_edits">Mae\'ch gweinydd yn gwybod fod y neges hon wedi ei olygu, ond nid oes ganddo gopi o\'r golygiadau, felly nid oes modd eu dangos i chi.

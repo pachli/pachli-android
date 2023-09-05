@@ -44,7 +44,7 @@
     <string name="post_media_images">Ôfbyldingen</string>
     <string name="post_share_link">Keppeling nei toot diele</string>
     <string name="post_share_content">Ynhâld fan toot diele</string>
-    <string name="about_tusky_version">Tusky %s</string>
+    <string name="about_pachli_version">Pachli %s</string>
     <string name="about_title_activity">Oer</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d nije ynteraksje</item>

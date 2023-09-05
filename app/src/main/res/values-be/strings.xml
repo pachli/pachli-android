@@ -192,7 +192,7 @@
     <string name="action_unbookmark">Выдаліць з закладак</string>
     <string name="action_more">Разгарнуць</string>
     <string name="action_compose">Напісаць</string>
-    <string name="action_login">Увайсці з Tusky</string>
+    <string name="action_login">Увайсці з Pachli</string>
     <string name="action_logout">Выхад</string>
     <string name="action_logout_confirm">Вы ўпэўнены, што жадаеце выйсці з уліковага запісу %1$s\?</string>
     <string name="action_follow">Падпісацца</string>
@@ -309,11 +309,11 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s ды %4$d іншых</string>
     <string name="notification_summary_small">%1$s ды %2$s</string>
     <string name="about_title_activity">Пра праграму</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_powered_by_tusky">Зроблена Tusky</string>
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_powered_by_pachli">Зроблена Pachli</string>
     <string name="about_project_site">Вэбсайт праекту:
-\n https://tusky.app</string>
-    <string name="about_tusky_account">Профіль Tusky</string>
+\n https://pachli.app</string>
+    <string name="about_pachli_account">Профіль Pachli</string>
     <string name="post_share_content">Падзяліцца зместам допісу</string>
     <string name="post_share_link">Падзяліцца спасылкай на допіс</string>
     <string name="post_media_images">Выявы</string>
@@ -338,9 +338,9 @@
     <string name="replying_to">Адказ для @%s</string>
     <string name="pref_title_public_filter_keywords">Публічныя стужкі</string>
     <string name="pref_title_thread_filter_keywords">Размовы</string>
-    <string name="about_tusky_license">Tusky — свабодная праграма з адкрытым зыходным кодам. Зроблена пад GNU General Public License Version 3. Вы можаце паглядзець ліцэнзію тут: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_pachli_license">Pachli — свабодная праграма з адкрытым зыходным кодам. Зроблена пад GNU General Public License Version 3. Вы можаце паглядзець ліцэнзію тут: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="about_bug_feature_request_site">Справаздачы аб памылках і пажаданні:
-\n https://github.com/tuskyapp/Tusky/issues</string>
+\n https://github.com/pachli/pachli-android/issues</string>
     <string name="filter_addition_title">Дадаць фільтр</string>
     <string name="follows_you">Вашы падпісчыкі</string>
     <string name="pref_title_alway_show_sensitive_media">Заўсёды паказваць далікатны змест</string>
@@ -433,12 +433,12 @@
     <string name="expand_collapse_all_posts">Разгарнуць/згарнуць допісы</string>
     <string name="action_open_post">Адкрыць допіс</string>
     <string name="restart_required">Патрэбна перазапусціць праграму</string>
-    <string name="restart_emoji">Патрэбна перазапусціць Tusky, каб прымяніць гэтыя змены</string>
+    <string name="restart_emoji">Патрэбна перазапусціць Pachli, каб прымяніць гэтыя змены</string>
     <string name="profile_badge_bot_text">Бот</string>
     <string name="account_moved_description">%1$s пераехаў(-ла) да:</string>
     <string name="restart">Перазапусціць</string>
     <string name="reblog_private">Пашырыць для пачатковай аўдыторыі</string>
-    <string name="license_description">Tusky змяшчае код і рэсурсы з наступных праграм з адкрытым зыходным кодам:</string>
+    <string name="license_description">Pachli змяшчае код і рэсурсы з наступных праграм з адкрытым зыходным кодам:</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s і %2$s</string>
     <string name="description_post_media">Медыя: %s</string>
@@ -552,14 +552,14 @@
 \n- Статыстыка ў профілях пра Падпісчыкаў/Допісы
 \n
 \nНа Push-паведамленні гэта не ўплывае, але Вы можаце праглядзець налады апавяшчэнняў уручную.</string>
-    <string name="dialog_push_notification_migration">Каб выкарыстоўваць push-апавяшчэнні праз UnifiedPush, Tusky патрэбен дазвол, каб падпісацца на апавяшчэнні з Вашага сервера Mastodon. Для гэтага патрэбна выйсці і зайсці ва ўліковы запіс зноў, каб аднавіць вобласці дазволу OAuth, дадзеныя Tusky. Выкарыстоўванне магчымасці паўторнага ўваходу тут ці ў наладах уліковага запісу захоўвае ўсе Вашыя лакальныя чарнавікі і кэш.</string>
+    <string name="dialog_push_notification_migration">Каб выкарыстоўваць push-апавяшчэнні праз UnifiedPush, Pachli патрэбен дазвол, каб падпісацца на апавяшчэнні з Вашага сервера Mastodon. Для гэтага патрэбна выйсці і зайсці ва ўліковы запіс зноў, каб аднавіць вобласці дазволу OAuth, дадзеныя Pachli. Выкарыстоўванне магчымасці паўторнага ўваходу тут ці ў наладах уліковага запісу захоўвае ўсе Вашыя лакальныя чарнавікі і кэш.</string>
     <string name="poll_allow_multiple_choices">Некалькі варыянтаў</string>
     <string name="add_poll_choice">Дадаць варыянт</string>
     <string name="edit_poll">Змяніць</string>
     <string name="post_lookup_error_format">Памылка пошуку допісу %s</string>
     <string name="account_date_joined">Далучыўся(-лася) %1$s</string>
     <string name="account_note_saved">Захавана!</string>
-    <string name="dialog_push_notification_migration_other_accounts">Вы паўторна зайшлі ў бягучы ўліковы запіс, каб дазволіць Tusky падпісацца на push-апавяшчэнні. Але ў Вас яшчэ засталіся ўліковыя запісы, якія не мігрыравалі такім чынам. Пераключыцеся на іх і зайдзіце паўторна, каб уключыць падтрымку апавяшчэнняў праз UnifiedPush.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Вы паўторна зайшлі ў бягучы ўліковы запіс, каб дазволіць Pachli падпісацца на push-апавяшчэнні. Але ў Вас яшчэ засталіся ўліковыя запісы, якія не мігрыравалі такім чынам. Пераключыцеся на іх і зайдзіце паўторна, каб уключыць падтрымку апавяшчэнняў праз UnifiedPush.</string>
     <string name="status_edit_info">%1$s адрэдагаваў(-ла)</string>
     <string name="status_created_info">%1$s стварыў(-ла)</string>
     <string name="pref_title_hide_top_toolbar">Схаваць загаловак верхняй панэлі інструментаў</string>
@@ -574,7 +574,7 @@
     <string name="action_unfollow_hashtag_format">Не сачыць за #%s\?</string>
     <string name="action_subscribe_account">Падпісацца</string>
     <string name="action_unsubscribe_account">Адпісацца</string>
-    <string name="tusky_compose_post_quicksetting_label">Стварыць допіс</string>
+    <string name="pachli_compose_post_quicksetting_label">Стварыць допіс</string>
     <string name="saving_draft">Захоўваю чарнавік…</string>
     <string name="drafts_post_reply_removed">Допіс, для якога Вы стварылі чарнавік адказу, выдалены</string>
     <string name="follow_requests_info">Нягледзячы на тое што Ваш уліковы запіс не закрыты, кіраўнікі %1$s вырашылі, што Вы, магчыма, пажадаеце праглядзець запыты на падпіску ад гэтых уліковых запісаў уручную.</string>

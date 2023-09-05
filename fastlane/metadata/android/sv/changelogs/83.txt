@@ -1,3 +1,0 @@
-Tusky v15.1
-
-Den här versionen fixar en krasch vid bildtextning

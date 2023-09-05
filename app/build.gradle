@@ -12,26 +12,26 @@ apply from: 'getGitSha.gradle'
 final def gitSha = ext.getGitSha()
 
 // The app name
-final def APP_NAME = "Tusky"
+final def APP_NAME = "Pachli"
 // The application id. Must be unique, e.g. based on your domain
-final def APP_ID = "com.keylesspalace.tusky"
-// url of a custom app logo. Recommended size at least 600x600. Keep empty to use the Tusky elephant friend.
+final def APP_ID = "app.pachli"
+// url of a custom app logo. Recommended size at least 600x600. Keep empty to use the default logo.
 final def CUSTOM_LOGO_URL = ""
 // e.g. mastodon.social. Keep empty to not suggest any instance on the signup screen
 final def CUSTOM_INSTANCE = ""
 // link to your support account. Will be linked on the about page when not empty.
-final def SUPPORT_ACCOUNT_URL = "https://mastodon.social/@Tusky"
+final def SUPPORT_ACCOUNT_URL = "https://mastodon.social/@Pachli"
 
 android {
     compileSdk 33
-    namespace "com.keylesspalace.tusky"
+    namespace "app.pachli"
     defaultConfig {
         applicationId APP_ID
-        namespace "com.keylesspalace.tusky"
+        namespace "app.pachli"
         minSdk 23
         targetSdk 33
-        versionCode 113
-        versionName "23.0"
+        versionCode 1
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
@@ -52,9 +52,9 @@ android {
     flavorDimensions += "color"
     productFlavors {
         blue {}
-        green {
-            resValue "string", "app_name", APP_NAME + " Test"
-            applicationIdSuffix ".test"
+        orange {
+            resValue "string", "app_name", APP_NAME + " Current"
+            applicationIdSuffix ".current"
             versionNameSuffix "-" + gitSha
         }
     }
@@ -108,7 +108,7 @@ android {
     }
     applicationVariants.configureEach { variant ->
         variant.outputs.configureEach {
-            outputFileName = "Tusky_${variant.versionName}_${variant.versionCode}_${gitSha}_" +
+            outputFileName = "Pachli_${variant.versionName}_${variant.versionCode}_${gitSha}_" +
                 "${variant.flavorName}_${buildType.name}.apk"
         }
     }
@@ -178,7 +178,7 @@ dependencies {
     implementation libs.unified.push
 
     implementation libs.bundles.xmldiff
-    
+
     implementation libs.bundles.aboutlibraries
 
     testImplementation libs.androidx.test.junit

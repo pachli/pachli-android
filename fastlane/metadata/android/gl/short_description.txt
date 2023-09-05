@@ -1,1 +1,0 @@
-Cliente multi conta para a rede social Mastodon

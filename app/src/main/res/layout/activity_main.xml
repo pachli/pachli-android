@@ -11,18 +11,19 @@
         android:id="@+id/mainCoordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.keylesspalace.tusky.MainActivity">
+        tools:context="app.pachli.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="@dimen/actionbar_elevation"
+            app:liftOnScroll="true"
+            app:liftOnScrollTargetViewId="@id/viewPager"
             app:elevationOverlayEnabled="false">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/mainToolbar"
-                style="@style/Widget.AppCompat.Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSizeWithSubtitle"
@@ -41,7 +42,6 @@
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
-                    style="@style/TuskyTabAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:tabGravity="fill"
@@ -56,16 +56,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="?attr/actionBarSize"
-            android:background="?attr/windowBackgroundColor"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <com.google.android.material.bottomappbar.BottomAppBar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:contentInsetStart="0dp"
             app:contentInsetStartWithNavigation="0dp"
+            app:navigationContentDescription="@string/action_open_drawer"
             app:fabAlignmentMode="end">
 
             <com.google.android.material.tabs.TabLayout
@@ -74,9 +74,9 @@
                 android:layout_height="?attr/actionBarSize"
                 app:tabGravity="fill"
                 app:tabIndicatorGravity="top"
+                app:tabMaxWidth="0dp"
                 app:tabMode="scrollable" />
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
+        </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/composeButton"

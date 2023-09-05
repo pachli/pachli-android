@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.keylesspalace.tusky.AboutActivity">
+    tools:context="app.pachli.AboutActivity">
 
     <include
         android:id="@+id/includedToolbar"
@@ -46,12 +46,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="?colorOnSurface"
                     android:textIsSelectable="true"
                     android:textStyle="normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/logo"
-                    tools:text="Tusky Test" />
+                    tools:text="Pachli Test" />
 
                 <TextView
                     android:id="@+id/deviceInfoTitle"
@@ -62,7 +63,6 @@
                     android:layout_marginEnd="@dimen/text_content_margin"
                     android:lineSpacingMultiplier="1.1"
                     android:text="@string/about_device_info_title"
-                    android:textColor="?android:attr/textColorPrimary"
                     android:textIsSelectable="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +76,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:lineSpacingMultiplier="1.1"
-                    android:textColor="?android:attr/textColorPrimary"
                     android:textIsSelectable="true"
                     app:layout_constraintEnd_toEndOf="@+id/deviceInfoTitle"
                     app:layout_constraintStart_toStartOf="@+id/deviceInfoTitle"
@@ -90,7 +89,6 @@
                     android:lineSpacingMultiplier="1.1"
                     android:text="@string/about_account_info_title"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="?android:attr/textColorPrimary"
                     android:textIsSelectable="true"
                     android:visibility="gone"
                     app:layout_constraintEnd_toStartOf="@+id/copyDeviceInfo"
@@ -104,18 +102,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:lineSpacingMultiplier="1.1"
-                    android:textColor="?android:attr/textColorPrimary"
                     android:textIsSelectable="true"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/accountInfoTitle"
                     app:layout_constraintStart_toStartOf="@+id/accountInfoTitle"
                     app:layout_constraintTop_toBottomOf="@id/accountInfoTitle"
-                    tools:text="\@Tusky@mastodon.social\nVersion: xxx"
+                    tools:text="\@Pachli@mastodon.social\nVersion: xxx"
                     tools:visibility="visible" />
 
                 <ImageButton
                     android:id="@+id/copyDeviceInfo"
-                    style="@style/TuskyImageButton"
+                    style="@style/AppImageButton"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:contentDescription="@string/about_copy"
@@ -125,17 +122,17 @@
                     app:srcCompat="@drawable/ic_content_copy_24" />
 
                 <TextView
-                    android:id="@+id/aboutPoweredByTusky"
+                    android:id="@+id/about_powered_by"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/about_powered_by_tusky"
+                    android:text="@string/about_powered_by_pachli"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     app:layout_constraintEnd_toEndOf="@+id/copyDeviceInfo"
                     app:layout_constraintStart_toStartOf="@+id/deviceInfo"
                     app:layout_constraintTop_toBottomOf="@+id/accountInfo" />
 
-                <com.keylesspalace.tusky.view.ClickableSpanTextView
+                <app.pachli.view.ClickableSpanTextView
                     android:id="@+id/aboutLicenseInfoTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -145,10 +142,10 @@
                     android:textIsSelectable="true"
                     app:layout_constraintEnd_toEndOf="@+id/copyDeviceInfo"
                     app:layout_constraintStart_toStartOf="@+id/accountInfo"
-                    app:layout_constraintTop_toBottomOf="@id/aboutPoweredByTusky"
-                    tools:text="@string/about_tusky_license" />
+                    app:layout_constraintTop_toBottomOf="@id/about_powered_by"
+                    tools:text="@string/about_pachli_license" />
 
-                <com.keylesspalace.tusky.view.ClickableSpanTextView
+                <app.pachli.view.ClickableSpanTextView
                     android:id="@+id/aboutWebsiteInfoTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -160,7 +157,7 @@
                     app:layout_constraintTop_toBottomOf="@id/aboutLicenseInfoTextView"
                     tools:text="@string/about_project_site" />
 
-                <com.keylesspalace.tusky.view.ClickableSpanTextView
+                <app.pachli.view.ClickableSpanTextView
                     android:id="@+id/aboutBugsFeaturesInfoTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -173,14 +170,14 @@
                     app:layout_constraintTop_toBottomOf="@id/aboutWebsiteInfoTextView" />
 
                 <Button
-                    android:id="@+id/tuskyProfileButton"
-                    style="@style/TuskyButton"
+                    android:id="@+id/appProfileButton"
+                    style="@style/AppButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:lineSpacingMultiplier="1.2"
                     android:maxWidth="320dp"
-                    android:text="@string/about_tusky_account"
+                    android:text="@string/about_pachli_account"
                     android:textAllCaps="false"
                     android:textSize="16sp"
                     android:layout_marginEnd="@dimen/text_content_margin"
@@ -190,7 +187,7 @@
 
                 <Button
                     android:id="@+id/aboutLicensesButton"
-                    style="@style/TuskyButton.Outlined"
+                    style="@style/AppButton.Outlined"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:lineSpacingMultiplier="1.2"
@@ -201,8 +198,8 @@
                     android:textSize="16sp"
                     android:layout_marginEnd="@dimen/text_content_margin"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tuskyProfileButton"
-                    app:layout_constraintTop_toTopOf="@+id/tuskyProfileButton" />
+                    app:layout_constraintStart_toEndOf="@+id/appProfileButton"
+                    app:layout_constraintTop_toTopOf="@+id/appProfileButton" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

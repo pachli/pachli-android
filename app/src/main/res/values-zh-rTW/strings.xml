@@ -12,8 +12,8 @@
     <string name="error_compose_character_limit">嘟文太長了！</string>
     <string name="error_media_upload_type">無法上傳此類型的檔案。</string>
     <string name="error_media_upload_opening">此檔案無法開啟。</string>
-    <string name="error_media_upload_permission">需要授予 Tusky 讀取媒體檔案的權限。</string>
-    <string name="error_media_download_permission">需要授予 Tusky 寫入儲存空間的權限。</string>
+    <string name="error_media_upload_permission">需要授予 Pachli 讀取媒體檔案的權限。</string>
+    <string name="error_media_download_permission">需要授予 Pachli 寫入儲存空間的權限。</string>
     <string name="error_media_upload_image_or_video">無法在嘟文中同時插入影片和圖片。</string>
     <string name="error_media_upload_sending">媒體檔案上傳失敗。</string>
     <string name="error_sender_account_gone">嘟文發送時出錯。</string>
@@ -225,8 +225,8 @@
         <item quantity="other">%d 個新互動</item>
     </plurals>
     <string name="description_account_locked">鎖嘟用戶</string>
-    <string name="about_title_activity">關於 Tusky</string>
-    <string name="about_tusky_license">Tusky 是基於 GNU General Public License Version 3 許可證開源的自由軟體完整的許可證協議：https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_title_activity">關於 Pachli</string>
+    <string name="about_pachli_license">Pachli 是基於 GNU General Public License Version 3 許可證開源的自由軟體完整的許可證協議：https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -235,13 +235,13 @@
     -->
     <string name="about_project_site">
         專案網站：\n
-        https://tusky.app
+        https://pachli.app
     </string>
     <string name="about_bug_feature_request_site">
         問題回報：\n
-        https://github.com/tuskyapp/Tusky/issues
+        https://github.com/pachli/pachli-android/issues
     </string>
-    <string name="about_tusky_account">Tusky 官方帳號</string>
+    <string name="about_pachli_account">Pachli 官方帳號</string>
     <string name="post_share_content">分享嘟文內容</string>
     <string name="post_share_link">分享嘟文連結</string>
     <string name="post_media_images">照片</string>
@@ -306,7 +306,7 @@
     <string name="expand_collapse_all_posts">展開/摺疊所有嘟文</string>
     <string name="action_open_post">開啟嘟文</string>
     <string name="restart_required">需要重啟應用程式</string>
-    <string name="restart_emoji">你需要重啟 Tusky 才能生效</string>
+    <string name="restart_emoji">你需要重啟 Pachli 才能生效</string>
     <string name="later">稍後</string>
     <string name="restart">立即重啟</string>
     <string name="caption_systememoji">系統預設的表情符號包</string>
@@ -318,7 +318,7 @@
     <string name="account_moved_description">%1$s 已遷移到：</string>
     <string name="reblog_private">轉嘟（可見者不變）</string>
     <string name="unreblog_private">取消轉嘟</string>
-    <string name="license_description">Tusky 使用了以下開源專案的原始碼：</string>
+    <string name="license_description">Pachli 使用了以下開源專案的原始碼：</string>
     <string name="profile_metadata_label">個人資料附加資訊</string>
     <string name="profile_metadata_add">新增資訊</string>
     <string name="profile_metadata_label_label">標籤</string>
@@ -403,7 +403,7 @@
     <string name="mute_domain_warning">你確定要封鎖 %s 域名嗎？您將不會在任何聯邦時間軸或通知中看到該域名中的內容，且來自該域名的關注者將被移除。</string>
     <string name="mute_domain_warning_dialog_ok">隱藏整個域名</string>
     <string name="pref_title_animate_gif_avatars">GIF 動畫大頭貼</string>
-    <string name="about_tusky_version">Tusky %s</string>
+    <string name="about_pachli_version">Pachli %s</string>
     <string name="filter_dialog_whole_word">整個單詞</string>
     <string name="filter_dialog_whole_word_description">如果關鍵字或短語僅為字母或數字，則只有在匹配整個單詞時才會應用</string>
     <string name="caption_notoemoji">Google 正在使用的 Emoji 符號集</string>
@@ -494,7 +494,7 @@
     <string name="description_post_bookmarked">被加入書籤</string>
     <string name="action_view_bookmarks">我的書籤</string>
     <string name="action_bookmark">書籤</string>
-    <string name="about_powered_by_tusky">由 Tusky 提供</string>
+    <string name="about_powered_by_pachli">由 Pachli 提供</string>
     <string name="post_lookup_error_format">尋找嘟文時發生錯誤 %s</string>
     <string name="action_reset_schedule">重設</string>
     <string name="action_schedule_post">排程嘟文</string>
@@ -519,7 +519,7 @@
     <string name="description_post_language">嘟文語言</string>
     <string name="url_domain_notifier">%s (🔗 %s)</string>
     <string name="compose_save_draft_loses_media">是否要儲存草稿？（當你重開草稿時附檔將會被再次上傳。）</string>
-    <string name="tusky_compose_post_quicksetting_label">編寫嘟文</string>
+    <string name="pachli_compose_post_quicksetting_label">編寫嘟文</string>
     <string name="failed_to_pin">釘選失敗</string>
     <string name="failed_to_unpin">取消釘選失敗</string>
     <string name="pref_title_show_self_username">在工具列顯示使用者名稱</string>
@@ -558,8 +558,8 @@
     <string name="action_details">詳情</string>
     <string name="pref_title_notification_filter_updates">我互動過的嘟文被編輯了</string>
     <string name="duration_14_days">14 天</string>
-    <string name="dialog_push_notification_migration">為了透過 UnifiedPush使用推播功能，Tusky 需要獲得訂閱您 Mastodon 服務器上的通知之權限。這會需要重新登入才能更改授予 Tusky 的 OAuth 範疇。在此頁面或帳戶設定頁面中使用重新登入選項將會保留您所有的本機草稿和快取。</string>
-    <string name="dialog_push_notification_migration_other_accounts">您已重新登入當前帳號並授予 Tusky 推送訂閱的權限。 然而，您仍擁有其他帳號未以此種方式遷移。 請切換到該帳號，並且逐一重新登入，以啟用 UnifiedPush 的通知支援。</string>
+    <string name="dialog_push_notification_migration">為了透過 UnifiedPush使用推播功能，Pachli 需要獲得訂閱您 Mastodon 服務器上的通知之權限。這會需要重新登入才能更改授予 Pachli 的 OAuth 範疇。在此頁面或帳戶設定頁面中使用重新登入選項將會保留您所有的本機草稿和快取。</string>
+    <string name="dialog_push_notification_migration_other_accounts">您已重新登入當前帳號並授予 Pachli 推送訂閱的權限。 然而，您仍擁有其他帳號未以此種方式遷移。 請切換到該帳號，並且逐一重新登入，以啟用 UnifiedPush 的通知支援。</string>
     <string name="error_loading_account_details">加載賬戶詳情失敗</string>
     <string name="notification_sign_up_format">%s 已註冊</string>
     <string name="notification_update_format">%s 編輯了他們的嘟文</string>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfileActivity">
+    tools:context="app.pachli.EditProfileActivity">
 
     <include
         android:id="@+id/includedToolbar"
@@ -71,7 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@id/avatarPreview">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TuskyTextInput"
+                    style="@style/AppTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -89,7 +89,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TuskyTextInput"
+                    style="@style/AppTextInput"
                     android:id="@+id/noteEditTextLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
 
                 <Button
                     android:id="@+id/addFieldButton"
-                    style="@style/TuskyButton"
+                    style="@style/AppButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -156,8 +156,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:drawablePadding="6dp"
-                    android:text="@string/profile_metadata_add"
-                    android:textColor="#fff" />
+                    android:text="@string/profile_metadata_add" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

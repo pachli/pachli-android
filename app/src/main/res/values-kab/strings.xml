@@ -83,8 +83,8 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s d %4$d nniḍen</string>
     <string name="notification_summary_medium">%1$s, %2$s, akked %3$s</string>
     <string name="notification_summary_small">%1$s akked %2$s</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_tusky_account">Amaɣnu n Tusky</string>
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_pachli_account">Amaɣnu n Pachli</string>
     <string name="post_media_images">Tugniwin</string>
     <string name="post_media_video">Tibidyutin</string>
     <string name="follows_you">Yeṭṭafar-ik·ikem-id</string>
@@ -213,9 +213,9 @@
     <string name="search_no_results">Ula d yiwen n ugmuḍ</string>
     <string name="post_privacy_followers_only">I yimeḍfaṛen kan</string>
     <string name="pref_post_text_size">Teɣzi n weḍṛis</string>
-    <string name="about_powered_by_tusky">Yettwamdemmar s Tusky</string>
+    <string name="about_powered_by_pachli">Yettwamdemmar s Pachli</string>
     <string name="about_project_site">Asmel Web n usenfaṛ:
-\n https://tusky.app</string>
+\n https://pachli.app</string>
     <string name="abbreviated_hours_ago">%dsr</string>
     <string name="abbreviated_minutes_ago">%dtsd</string>
     <string name="abbreviated_seconds_ago">%dtsn</string>

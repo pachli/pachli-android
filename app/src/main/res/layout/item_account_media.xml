@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.keylesspalace.tusky.components.account.media.SquareImageView
+    <app.pachli.components.account.media.SquareImageView
         android:id="@+id/accountMediaImageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

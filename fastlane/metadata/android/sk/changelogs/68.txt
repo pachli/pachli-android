@@ -1,3 +1,0 @@
-Tusky v9.1
-
-Toto vydanie zaisťuje kompatibilitu s Mastodon 3 a vylepšuje výkon a stabilitu.

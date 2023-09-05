@@ -1,1 +1,0 @@
-Un cliente multicuentas para la red social Mastodon

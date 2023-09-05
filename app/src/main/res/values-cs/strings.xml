@@ -225,8 +225,8 @@
     </plurals>
     <string name="description_account_locked">Uzamčený účet</string>
     <string name="about_title_activity">O této aplikaci</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_tusky_license">Tusky je svobodný a otevřený software.
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_pachli_license">Pachli je svobodný a otevřený software.
         Je dostupný pod licencí GNU General Public License, verze 3.
         Licenci můžete zobrazit zde: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
@@ -236,12 +236,12 @@
          * the url can be changed to link to the localized version of the license.
     -->
     <string name="about_project_site">        Webová stránka projektu:\n
-        https://tusky.app
+        https://pachli.app
     </string>
     <string name="about_bug_feature_request_site">        Hlášení chyb a návrhy na nové vlastnosti:\n
-        https://github.com/tuskyapp/Tusky/issues
+        https://github.com/pachli/pachli-android/issues
     </string>
-    <string name="about_tusky_account">Profil aplikace Tusky</string>
+    <string name="about_pachli_account">Profil aplikace Pachli</string>
     <string name="post_share_content">Sdílet obsah příspěvku</string>
     <string name="post_share_link">Sdílet odkaz na příspěvek</string>
     <string name="post_media_images">Obrázky</string>
@@ -310,7 +310,7 @@
     <string name="expand_collapse_all_posts">Rozbalit/Sbalit všechny příspěvky</string>
     <string name="action_open_post">Otevřít příspěvek</string>
     <string name="restart_required">Je vyžadováno restartování aplikace</string>
-    <string name="restart_emoji">Pro použití těchto změn musíte restartovat aplikaci Tusky</string>
+    <string name="restart_emoji">Pro použití těchto změn musíte restartovat aplikaci Pachli</string>
     <string name="later">Později</string>
     <string name="restart">Restartovat</string>
     <string name="caption_systememoji">Výchozí sada emoji vašeho zařízení</string>
@@ -321,7 +321,7 @@
     <string name="account_moved_description">%1$s se přesunul/a na:</string>
     <string name="reblog_private">Boostnout původnímu publiku</string>
     <string name="unreblog_private">Zrušit boost</string>
-    <string name="license_description">Tusky obsahuje kód a zdroje z následujících otevřených projektů:</string>
+    <string name="license_description">Pachli obsahuje kód a zdroje z následujících otevřených projektů:</string>
     <string name="profile_metadata_label">Metadata profilu</string>
     <string name="profile_metadata_add">přidat data</string>
     <string name="profile_metadata_label_label">Označení</string>
@@ -459,7 +459,7 @@
     <string name="select_list_title">Vybrat seznam</string>
     <string name="pref_main_nav_position">Umístění hlavní navigační lišty</string>
     <string name="hashtags">Hashtagy</string>
-    <string name="about_powered_by_tusky">Powered by Tusky</string>
+    <string name="about_powered_by_pachli">Powered by Pachli</string>
     <string name="dialog_block_warning">Zablokovat @%s\?</string>
     <string name="pref_main_nav_position_option_top">Nahoře</string>
     <string name="action_unmute_domain">Zrušit skrytí domény %s</string>
@@ -503,7 +503,7 @@
 \n - Statistiky sledujících a příspěvků na profilech
 \n
 \nPush oznámení nebudou ovlivněna, ale můžete si zkontrolovat jejich nastavení manuálně.</string>
-    <string name="dialog_push_notification_migration_other_accounts">Znovu jste se přihlásili ke svému aktuálnímu účtu, abyste aplikaci Tusky udělili oprávnění k odběru push. Stále však máte další účty, které tímto způsobem migrovány nebyly. Přepněte se na ně a znovu se přihlaste na jednom po druhém, abyste povolili podporu oznámení UnifiedPush.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Znovu jste se přihlásili ke svému aktuálnímu účtu, abyste aplikaci Pachli udělili oprávnění k odběru push. Stále však máte další účty, které tímto způsobem migrovány nebyly. Přepněte se na ně a znovu se přihlaste na jednom po druhém, abyste povolili podporu oznámení UnifiedPush.</string>
     <string name="compose_save_draft_loses_media">Uložit koncept\? (Přílohy budou znovu nahrány, když obnovíte koncept.)</string>
     <string name="set_focus_description">Klepnutím nebo přetažením kruhu vyberte ohnisko, které bude vždy viditelné v miniaturách.</string>
     <string name="pref_title_confirm_favourites">Před oblíbením zobrazit dialog pro potvrzení</string>
@@ -513,7 +513,7 @@
     <string name="follow_requests_info">I když váš účet není uzamčen, zaměstnanci %1$s si myslí, že byste mohli chtít zkontrolovat žádosti o sledování z těchto účtů ručně.</string>
     <string name="action_subscribe_account">Odebírat</string>
     <string name="action_unsubscribe_account">Přestat odebírat</string>
-    <string name="tusky_compose_post_quicksetting_label">Vytvořit příspěvek</string>
+    <string name="pachli_compose_post_quicksetting_label">Vytvořit příspěvek</string>
     <string name="draft_deleted">Koncept byl smazán</string>
     <string name="error_multimedia_size_limit">Video a audio soubory nesmí překročit velikost %s MB.</string>
     <string name="failed_to_pin">Připnutí se nezdařilo</string>
@@ -528,7 +528,7 @@
     <string name="url_domain_notifier">%s (🔗 %s)</string>
     <string name="action_set_focus">Nastavit bod zaostření</string>
     <string name="tips_push_notification_migration">Znovu se přihlaste ke všem účtům, abyste povolili podporu push oznámení.</string>
-    <string name="dialog_push_notification_migration">Aby bylo možné používat push oznámení prostřednictvím UnifiedPush, Tusky potřebuje oprávnění k odběru oznámení na vašem serveru Mastodon. To vyžaduje opětovné přihlášení ke změně rozsahů OAuth udělených aplikaci Tusky. Použitím možnosti opětovného přihlášení zde nebo v předvolbách účtu zachováte všechny vaše místní koncepty a mezipaměť.</string>
+    <string name="dialog_push_notification_migration">Aby bylo možné používat push oznámení prostřednictvím UnifiedPush, Pachli potřebuje oprávnění k odběru oznámení na vašem serveru Mastodon. To vyžaduje opětovné přihlášení ke změně rozsahů OAuth udělených aplikaci Pachli. Použitím možnosti opětovného přihlášení zde nebo v předvolbách účtu zachováte všechny vaše místní koncepty a mezipaměť.</string>
     <string name="action_add_reaction">přidat reakci</string>
     <string name="pref_title_notification_filter_updates">příspěvek, se kterým jsem interagoval/a, je upraven</string>
     <string name="pref_title_notification_filter_sign_ups">někdo se zaregistroval</string>

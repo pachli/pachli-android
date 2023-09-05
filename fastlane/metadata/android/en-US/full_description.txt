@@ -1,12 +1,10 @@
-Tusky is a lightweight client for Mastodon, a free and open-source social network server.
+Pachli is a full-featured client for Mastodon and similar servers.
 
-• Material Design
-• Most Mastodon APIs implemented
-• Multi-Account support
-• Dark and light theme with the possibility to auto-switch based on the time of day
-• Drafts - compose toots and save them for later
-• Choose between different emoji styles 
-• Optimized for all screen sizes
-• Completely open-source - no non-free dependencies like Google services
-
-To learn more about Mastodon, visit https://joinmastodon.org/
+• Read, reply, filter, post, favourite, and boost posts
+• Your timeline is cached locally, so you can read when offline
+• Draft posts now, to finish them later
+• Write posts now, schedule them to send later
+• Read and post from multiple accounts
+• Multiple themes
+• Focused on ensuring all functionality is available to people with accessibility needs
+• Open source, https://github.com/pachli

@@ -16,7 +16,7 @@
     <string name="unpin_action">Desafixar</string>
     <string name="conversation_2_recipients">%1$s e %2$s</string>
     <string name="pref_title_wellbeing_mode">Bem-estar</string>
-    <string name="tusky_compose_post_quicksetting_label">Escrever Toot</string>
+    <string name="pachli_compose_post_quicksetting_label">Escrever Toot</string>
     <string name="dialog_delete_list_warning">Pretende remover a lista %s\?</string>
     <string name="follow_requests_info">Apesar do seu perfil não ser privado, %1$s exige que você reveja manualmente as solicitações para te seguir destes perfis.</string>
     <string name="action_subscribe_account">Subscrever</string>
@@ -276,15 +276,15 @@
     <string name="notification_summary_medium">%1$s, %2$s e %3$s</string>
     <string name="description_account_locked">Perfil Privado</string>
     <string name="about_title_activity">Sobre</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_powered_by_tusky">A correr o Tusky</string>
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_powered_by_pachli">A correr o Pachli</string>
     <string name="filter_dialog_update_button">Atualizar</string>
-    <string name="about_tusky_license">Tusky é um software livre e de código aberto, licenciado com a versão 3 da GNU General Public License. Pode ler a licença aqui: https://www.gnu.org/licenses/gpl-3.0.pt-br.html</string>
+    <string name="about_pachli_license">Pachli é um software livre e de código aberto, licenciado com a versão 3 da GNU General Public License. Pode ler a licença aqui: https://www.gnu.org/licenses/gpl-3.0.pt-br.html</string>
     <string name="about_project_site">Página do projeto:
-\n https://tusky.app</string>
+\n https://pachli.app</string>
     <string name="about_bug_feature_request_site">Reporte de erros e pedidos de funcionalidades:
-\n https://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_tusky_account">Perfil do Tusky</string>
+\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Perfil do Pachli</string>
     <string name="post_share_content">Partilhar conteúdo do toot</string>
     <string name="post_share_link">Partilhar hiperligação do toot</string>
     <string name="post_media_images">Imagens</string>
@@ -353,7 +353,7 @@
     <string name="expand_collapse_all_posts">Expandir/Contrair todos os toots</string>
     <string name="action_open_post">Abrir toot</string>
     <string name="restart_required">É necessário reiniciar a aplicação</string>
-    <string name="restart_emoji">É necessário reiniciar o Tusky para aplicar as alterações</string>
+    <string name="restart_emoji">É necessário reiniciar o Pachli para aplicar as alterações</string>
     <string name="restart">Reiniciar</string>
     <string name="caption_systememoji">Pacote de emojis padrão do seu dispositivo</string>
     <string name="caption_blobmoji">Emojis padrão do Android 4.4 até ao 7.1</string>
@@ -364,7 +364,7 @@
     <string name="account_moved_description">%1$s mudou-se para:</string>
     <string name="reblog_private">Dar boost para o público inicial</string>
     <string name="unreblog_private">Desfazer boost</string>
-    <string name="license_description">O Tusky contém código e recursos dos seguintes projetos de código aberto:</string>
+    <string name="license_description">O Pachli contém código e recursos dos seguintes projetos de código aberto:</string>
     <string name="profile_metadata_label">Metadados do perfil</string>
     <string name="profile_metadata_add">adicionar dados</string>
     <string name="profile_metadata_label_label">Rótulo</string>
@@ -528,9 +528,9 @@
     <string name="error_loading_account_details">Erro ao carregar os detalhes da conta</string>
     <string name="tips_push_notification_migration">Faz novamente login em todas as contas para ativar as notificações push.</string>
     <string name="account_date_joined">Criada em %1$s</string>
-    <string name="dialog_push_notification_migration">Para ativar as notificações push através de UnifiedPush, o Tusky necessita de permissão para subscrever as notificações da tua instância Mastodon. Isto obriga a fazer login novamente, por forma a alterar o escopo das permissões fornecidas ao Tusky pelo OAuth. Usar a opção de novo login, aqui ou nas Configurações da Conta, preservará todos os teus rascunhos e cache locais.</string>
+    <string name="dialog_push_notification_migration">Para ativar as notificações push através de UnifiedPush, o Pachli necessita de permissão para subscrever as notificações da tua instância Mastodon. Isto obriga a fazer login novamente, por forma a alterar o escopo das permissões fornecidas ao Pachli pelo OAuth. Usar a opção de novo login, aqui ou nas Configurações da Conta, preservará todos os teus rascunhos e cache locais.</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="dialog_push_notification_migration_other_accounts">Fizeste novo login na tua conta para dar permissão para a subscrição das notificações push no Tusky. Contudo, ainda tens outras contas sem esta permissão. Podes atribuir essa permissão fazendo novo login em cada uma delas e ativar o suporte para UnifiedPush.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Fizeste novo login na tua conta para dar permissão para a subscrição das notificações push no Pachli. Contudo, ainda tens outras contas sem esta permissão. Podes atribuir essa permissão fazendo novo login em cada uma delas e ativar o suporte para UnifiedPush.</string>
     <string name="action_edit_image">Editar imagem</string>
     <string name="error_image_edit_failed">Não foi possível editar a imagem.</string>
     <string name="saving_draft">A guardar rascunho…</string>

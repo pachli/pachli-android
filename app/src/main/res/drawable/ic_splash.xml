@@ -3,9 +3,9 @@
     android:layout_height="240dp"
     android:layout_width="240dp">
 
-    <item android:drawable="@color/icon_background" />
+    <item android:drawable="@color/ic_launcher_background" />
 
     <item
-        android:drawable="@drawable/ic_launcher_foreground" />
+        android:drawable="@mipmap/ic_launcher_foreground" />
 
 </layer-list>

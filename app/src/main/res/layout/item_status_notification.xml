@@ -92,7 +92,7 @@
         app:layout_constraintBaseline_toBaselineOf="@id/status_display_name"
         tools:text="13:37" />
 
-    <com.keylesspalace.tusky.view.ClickableSpanTextView
+    <app.pachli.view.ClickableSpanTextView
         android:id="@+id/notification_content_warning_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
 
     <Button
         android:id="@+id/notification_content_warning_button"
-        style="@style/TuskyButton.Outlined"
+        style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -126,7 +126,7 @@
         app:layout_constraintTop_toBottomOf="@id/notification_content_warning_description"
         tools:text="@string/post_content_warning_show_more" />
 
-    <com.keylesspalace.tusky.view.ClickableSpanTextView
+    <app.pachli.view.ClickableSpanTextView
         android:id="@+id/notification_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
 
     <Button
         android:id="@+id/button_toggle_notification_content"
-        style="@style/TuskyButton.Outlined"
+        style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"

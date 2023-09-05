@@ -1,3 +1,0 @@
-Tusky v9.1
-
-Rilis ini memastikan kompatibilitas dengan Mastodon 3 dan meningkatkan performa dan stabilitas.

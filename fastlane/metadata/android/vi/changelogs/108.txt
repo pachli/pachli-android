@@ -1,5 +1,0 @@
-Tusky 22.0 beta 6
-
-Fixes:
-
-- Save reading position in the Notifications tab more frequently

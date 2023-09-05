@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: app:buildGreenDebug
+    name: app:buildOrangeDebug
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -30,5 +30,5 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/develop' }}
 
-      - name: Run app:buildGreenDebug
-        run: ./gradlew app:buildGreenDebug
+      - name: Run app:buildOrangeDebug
+        run: ./gradlew app:buildOrangeDebug

@@ -24,7 +24,7 @@
     <string name="hint_note">Sgeul-beatha</string>
     <string name="label_quick_reply">Freagair…</string>
     <string name="hint_search">Lorg…</string>
-    <string name="action_login">Clàraich a-steach le Tusky</string>
+    <string name="action_login">Clàraich a-steach le Pachli</string>
     <string name="action_send_public">POSTAICH!</string>
     <string name="action_emoji_keyboard">Meur-chlàr Emoji</string>
     <string name="action_unfollow">Na lean tuilleadh</string>
@@ -206,7 +206,7 @@
     <string name="profile_metadata_label_label">Leubail</string>
     <string name="profile_metadata_add">cuir dàta ris</string>
     <string name="profile_metadata_label">Meata-dàta na pròifile</string>
-    <string name="license_description">Tha còs is maoin o na pròiseactan open source seo am broinn Tusky:</string>
+    <string name="license_description">Tha còs is maoin o na pròiseactan open source seo am broinn Pachli:</string>
     <string name="unreblog_private">Na brosnaich tuilleadh</string>
     <string name="reblog_private">Brosnaich dhan èisteachd thùsail</string>
     <string name="account_moved_description">Chaidh %1$s a ghluasad gu:</string>
@@ -218,7 +218,7 @@
     <string name="caption_systememoji">Seata bunaiteach nan Emojis air an uidheam agad</string>
     <string name="restart">Ath-thòisich</string>
     <string name="later">Uaireigin eile</string>
-    <string name="restart_emoji">Feumaidh tu Tusky ath-thòiseachadh gus na roghainnean seo a chur an sàs</string>
+    <string name="restart_emoji">Feumaidh tu Pachli ath-thòiseachadh gus na roghainnean seo a chur an sàs</string>
     <string name="restart_required">Feumaidh tu an aplacaid ath-thòiseachadh</string>
     <string name="action_open_post">Fosgail am post</string>
     <string name="expand_collapse_all_posts">Leudaich/Co-theannaich gach post</string>
@@ -259,7 +259,7 @@
     <string name="pref_title_alway_open_spoiler">Leudaich postaichean ris a bheil rabhadh susbainte an-còmhnaidh</string>
     <string name="post_share_link">Co-roinn ceangal dhan phost</string>
     <string name="post_share_content">Co-roinn susbaint a’ phuist</string>
-    <string name="about_tusky_license">’S e bathar-bog saor le bun-tùs fosgailte a th’ ann an Tusky. Tha e fo cheadachas GNU General Public License tionndadh 3. Chì thu an ceadachas an-seo: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_pachli_license">’S e bathar-bog saor le bun-tùs fosgailte a th’ ann an Pachli. Tha e fo cheadachas GNU General Public License tionndadh 3. Chì thu an ceadachas an-seo: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="notification_favourite_description">Brathan nuair a thèid post agad a chomharrachadh ’na annsachd</string>
     <string name="notification_boost_description">Brathan nuair a thèid post agad brosnachadh</string>
     <string name="dialog_redraft_post_warning">A bheil thu airson am post seo a sguabadh às is dreachd ùr a dhèanamh air\?</string>
@@ -311,12 +311,12 @@
     <string name="state_follow_requested">Iarrtas leantainn air</string>
     <string name="post_media_video">Videothan</string>
     <string name="post_media_images">Dealbhan</string>
-    <string name="about_tusky_account">Pròifil Tusky</string>
+    <string name="about_pachli_account">Pròifil Pachli</string>
     <string name="about_bug_feature_request_site">Aithrisean air bugaichean ⁊ iarrtasan air gleusan:
-\nhttps://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_project_site">Làrach-lìn a’ phròiseict: https://tusky.app</string>
-    <string name="about_powered_by_tusky">Le cumhachd Tusky</string>
-    <string name="about_tusky_version">Tusky %s</string>
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_project_site">Làrach-lìn a’ phròiseict: https://pachli.app</string>
+    <string name="about_powered_by_pachli">Le cumhachd Pachli</string>
+    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Cunntas glaiste</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d chonaltradh ùr</item>
@@ -521,7 +521,7 @@
     <string name="duration_365_days">365 latha</string>
     <string name="duration_14_days">14 làithean</string>
     <string name="duration_60_days">60 latha</string>
-    <string name="tusky_compose_post_quicksetting_label">Sgrìobh post</string>
+    <string name="pachli_compose_post_quicksetting_label">Sgrìobh post</string>
     <string name="notification_sign_up_format">Chlàraich %s</string>
     <string name="notification_sign_up_name">Clàraidhean</string>
     <string name="notification_sign_up_description">Brathan mu cleachdaichean ùra</string>
@@ -545,8 +545,8 @@
     <string name="error_unfollowing_hashtag_format">Mearachd a’ sgur de leantainn air #%s</string>
     <string name="error_loading_account_details">Mearachd a’ luchdadh fiosrachadh a’ chunntais</string>
     <string name="error_image_edit_failed">Cha b’ urrainn dhuinn an dealbh a dheasachadh.</string>
-    <string name="dialog_push_notification_migration">Airson brathan putaidh slighe UnifiedPush a chleachdadh, feumaidh Tusky cead airson fo-sgrìobhadh air brathan air an fhrithealaiche Mastodon agad fhaighinn. Bidh feum air clàradh a-steach às ùr airson na sgòpaichean OAuth a chaidh a cheadachadh dha Tusky atharrachadh. Ma nì thu clàradh a-steach às ùr an-seo no ann an “Roghainnean a’ chunntais”, cumaidh sinn na dreachdan is an tasgadan ionadail agad.</string>
-    <string name="dialog_push_notification_migration_other_accounts">Rinn thu clàradh a-steach às ùr dhan chunntas làithreach agad airson cead fo-sgrìobhadh putaidh a thoirt dha Tusky. Gidheadh, cha cunntasan eile agad fhathast nach deach imrich air an dòigh sin. Geàrr leum thuca is dèan clàradh a-steach às ùr do gach fear dhiubh airson taic do bhrathan UnifiedPush a chur an comas dhaibh.</string>
+    <string name="dialog_push_notification_migration">Airson brathan putaidh slighe UnifiedPush a chleachdadh, feumaidh Pachli cead airson fo-sgrìobhadh air brathan air an fhrithealaiche Mastodon agad fhaighinn. Bidh feum air clàradh a-steach às ùr airson na sgòpaichean OAuth a chaidh a cheadachadh dha Pachli atharrachadh. Ma nì thu clàradh a-steach às ùr an-seo no ann an “Roghainnean a’ chunntais”, cumaidh sinn na dreachdan is an tasgadan ionadail agad.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Rinn thu clàradh a-steach às ùr dhan chunntas làithreach agad airson cead fo-sgrìobhadh putaidh a thoirt dha Pachli. Gidheadh, cha cunntasan eile agad fhathast nach deach imrich air an dòigh sin. Geàrr leum thuca is dèan clàradh a-steach às ùr do gach fear dhiubh airson taic do bhrathan UnifiedPush a chur an comas dhaibh.</string>
     <string name="duration_no_change">(Gun atharrachadh)</string>
     <string name="pref_title_show_self_username">Seall an t-ainm-cleachdaiche air na bàraichean-inneal</string>
     <string name="set_focus_description">Thoir gogag no slaod an cearcall a thaghadh puing an fhòcais a chithear air na dealbhagan an-còmhnaidh.</string>
@@ -664,7 +664,7 @@
     <string name="label_filter_title">Tiotal</string>
     <string name="help_empty_home">Seo <b>loidhne-ama do dhachaigh</b>. Seallaidh i na postaichean o chionn goirid aig na cunntasan a leanas tu.
 \n
-\nAirson cunntasan a rùrachadh, lorg iad air tè dhe na loidhnichean-ama eile; mar eisimpleir, loidhne-ama ionadail an ionstans agad [iconics gmd_group]. Air neo lorg cunntasan a-rèir ainm [iconics gmd_search]; mar eisimpleir, lorg “Tusky” ach am faigh thu grèim air a’ chunntas againne air Mastodon.</string>
+\nAirson cunntasan a rùrachadh, lorg iad air tè dhe na loidhnichean-ama eile; mar eisimpleir, loidhne-ama ionadail an ionstans agad [iconics gmd_group]. Air neo lorg cunntasan a-rèir ainm [iconics gmd_search]; mar eisimpleir, lorg “Pachli” ach am faigh thu grèim air a’ chunntas againne air Mastodon.</string>
     <string name="compose_delete_draft">A bheil thu airson an dreachd a sguabadh às\?</string>
     <string name="load_newest_notifications">Luchdaich na brathan as ùire</string>
     <string name="error_missing_edits">Tha fios aig an fhrithealaiche gun deach am post seo a dheasachadh ach chan eil lethbhreac dhen deasachadh aige-san is chan urrainn dhuinn a shealltainn dhut.
@@ -672,7 +672,7 @@
 \nSeo <a href="https://github.com/mastodon/mastodon/issues/25398">duilgheadas Mastodon #25398</a>.</string>
     <string name="pref_ui_text_size">Meud teacsa na eadar-aghaidh</string>
     <string name="notification_listenable_worker_name">Gnìomhachd sa chùlaibh</string>
-    <string name="notification_listenable_worker_description">Brathan nuair a bhios Tusky ag obair sa chùlaibh</string>
+    <string name="notification_listenable_worker_description">Brathan nuair a bhios Pachli ag obair sa chùlaibh</string>
     <string name="notification_notification_worker">A’ faighinn nam brathan…</string>
     <string name="notification_prune_cache">Obair-ghlèidhidh air an tasgadan…</string>
     <string name="about_device_info_title">An t-uidheam agad</string>

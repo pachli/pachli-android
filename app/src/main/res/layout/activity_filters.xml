@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.keylesspalace.tusky.components.filters.FiltersActivity">
+    tools:context="app.pachli.components.filters.FiltersActivity">
 
     <include
         android:id="@+id/includedToolbar"
@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            <com.keylesspalace.tusky.view.BackgroundMessageView
+            <app.pachli.view.BackgroundMessageView
                 android:id="@+id/messageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

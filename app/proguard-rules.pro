@@ -37,20 +37,20 @@
     public static <fields>;
 }
 
-# TUSKY SPECIFIC OPTIONS
+# Pachli specific options
 
 # keep members of our model classes, they are used in json de/serialization
--keepclassmembers class com.keylesspalace.tusky.entity.* { *; }
+-keepclassmembers class app.pachli.entity.* { *; }
 
--keep public enum com.keylesspalace.tusky.entity.*$** {
+-keep public enum app.pachli.entity.*$** {
     **[] $VALUES;
     public *;
 }
 
--keepclassmembers class com.keylesspalace.tusky.components.conversation.ConversationAccountEntity { *; }
--keepclassmembers class com.keylesspalace.tusky.db.DraftAttachment { *; }
+-keepclassmembers class app.pachli.components.conversation.ConversationAccountEntity { *; }
+-keepclassmembers class app.pachli.db.DraftAttachment { *; }
 
--keep enum com.keylesspalace.tusky.db.DraftAttachment$Type {
+-keep enum app.pachli.db.DraftAttachment$Type {
     public *;
 }
 

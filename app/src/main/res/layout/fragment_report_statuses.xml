@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".components.report.fragments.ReportStatusesFragment">
+    tools:context="app.pachli.components.report.fragments.ReportStatusesFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -50,7 +50,7 @@
 
     <Button
         android:id="@+id/buttonCancel"
-        style="@style/TuskyButton.Outlined"
+        style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -61,7 +61,7 @@
 
     <Button
         android:id="@+id/buttonContinue"
-        style="@style/TuskyButton"
+        style="@style/AppButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

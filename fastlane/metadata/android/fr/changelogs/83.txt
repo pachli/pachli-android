@@ -1,3 +1,0 @@
-Tusky v15.1
-
-Cette version corrige un plantage lors de l’ajout de description d’image

@@ -26,7 +26,7 @@
 
     <ImageButton
         android:id="@+id/addButton"
-        style="@style/TuskyImageButton"
+        style="@style/AppImageButton"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="12dp"
@@ -37,7 +37,7 @@
 
     <ImageButton
         android:id="@+id/removeButton"
-        style="@style/TuskyImageButton"
+        style="@style/AppImageButton"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="12dp"

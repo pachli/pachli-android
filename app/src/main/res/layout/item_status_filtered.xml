@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        style="@style/TuskyButton.TextButton"
+        style="@style/AppButton.TextButton"
         android:textStyle="bold"
         android:textSize="?attr/status_text_medium"
         android:text="@string/status_filtered_show_anyway"

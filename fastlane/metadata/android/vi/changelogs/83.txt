@@ -1,3 +1,0 @@
-Tusky v15.1
-
-Sửa lỗi crash khi ghi chú cho hình

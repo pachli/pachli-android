@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.keylesspalace.tusky.components.login.LoginActivity">
+    tools:context="app.pachli.components.login.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,13 +22,14 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/loginLogo"
                 android:layout_width="160dp"
-                android:layout_height="178dp"
+                android:layout_height="160dp"
                 android:layout_marginBottom="50dp"
                 android:contentDescription="@null"
-                android:id="@+id/loginLogo"
-                app:srcCompat="@drawable/elephant_friend" />
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.M3.Sys.Shape.Corner.Full"
+                app:srcCompat="@mipmap/ic_launcher_round" />
 
             <LinearLayout
                 android:id="@+id/loginInputLayout"
@@ -39,7 +40,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/domainTextInputLayout"
-                    style="@style/TuskyTextInput"
+                    style="@style/AppTextInput"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_domain"
@@ -55,7 +56,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/loginButton"
-                    style="@style/TuskyButton"
+                    style="@style/AppButton"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.keylesspalace.tusky.components.filters.EditFilterActivity">
+    tools:context="app.pachli.components.filters.EditFilterActivity">
 
     <include
         android:id="@+id/includedToolbar"
@@ -56,7 +56,9 @@
                         android:checkable="false"
                         android:text="@string/action_add"
                         app:chipIcon="@drawable/ic_plus_24dp"
-                        app:chipSurfaceColor="@color/tusky_blue" />
+                        app:chipSurfaceColor="?colorPrimary"
+                        android:textColor="?colorOnPrimary"/>
+
             </com.google.android.material.chip.ChipGroup>
 
             <TextView

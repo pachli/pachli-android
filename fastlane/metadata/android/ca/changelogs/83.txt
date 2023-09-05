@@ -1,3 +1,0 @@
-Tusky v15.1
-
-Aquesta versió corregeix un error en subtitular imatges

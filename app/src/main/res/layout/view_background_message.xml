@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingMultiplier="1.1"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="?attr/colorOnPrimary"
         android:background="@drawable/help_message_background"
         android:layout_marginTop="16dp"
         android:padding="16dp"
@@ -35,7 +35,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/errorphant_offline" />
 
-        <com.keylesspalace.tusky.view.ClickableSpanTextView
+        <app.pachli.view.ClickableSpanTextView
             android:id="@+id/messageTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
 
         <Button
             android:id="@+id/button"
-            style="@style/TuskyButton.Outlined"
+            style="@style/AppButton.Outlined"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"

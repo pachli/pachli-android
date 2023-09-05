@@ -19,7 +19,6 @@
         android:layout_marginTop="@dimen/status_reblogged_bar_padding_top"
         android:gravity="center_vertical"
         android:lineSpacingMultiplier="1.1"
-        android:textColor="?android:textColorPrimary"
         android:textSize="?attr/status_text_medium"
         android:textStyle="normal|bold"
         app:layout_constraintLeft_toRightOf="parent"
@@ -88,7 +87,6 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingEnd="@dimen/status_display_name_padding_end"
-        android:textColor="?android:textColorPrimary"
         android:textSize="?attr/status_text_medium"
         android:textStyle="normal|bold"
         app:layout_constrainedWidth="true"
@@ -104,7 +102,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintEnd_toStartOf="@id/status_meta_info"
         app:layout_constraintStart_toEndOf="@id/status_display_name"
@@ -116,18 +113,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/status_display_name"
         tools:text="13:37" />
 
-    <com.keylesspalace.tusky.view.ClickableSpanTextView
+    <app.pachli.view.ClickableSpanTextView
         android:id="@+id/status_content_warning_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:lineSpacingMultiplier="1.1"
-        android:textColor="?android:textColorPrimary"
         android:textSize="?attr/status_text_medium"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +133,7 @@
 
     <Button
         android:id="@+id/status_content_warning_button"
-        style="@style/TuskyButton.Outlined"
+        style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -157,14 +152,13 @@
         tools:text="@string/post_content_warning_show_more"
         tools:visibility="visible" />
 
-    <com.keylesspalace.tusky.view.ClickableSpanTextView
+    <app.pachli.view.ClickableSpanTextView
         android:id="@+id/status_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:focusable="true"
         android:lineSpacingMultiplier="1.1"
-        android:textColor="?android:textColorPrimary"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/status_content_warning_button"
@@ -173,7 +167,7 @@
 
     <Button
         android:id="@+id/button_toggle_content"
-        style="@style/TuskyButton.Outlined"
+        style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -220,7 +214,7 @@
 
     <Button
         android:id="@+id/status_poll_button"
-        style="@style/TuskyButton.Outlined"
+        style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -248,7 +242,7 @@
 
     <ImageButton
         android:id="@+id/status_reply"
-        style="@style/TuskyImageButton"
+        style="@style/AppImageButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="4dp"
@@ -297,7 +291,7 @@
 
     <ImageButton
         android:id="@+id/status_more"
-        style="@style/TuskyImageButton"
+        style="@style/AppImageButton"
         android:layout_width="24dp"
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"

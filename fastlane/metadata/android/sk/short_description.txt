@@ -1,1 +1,0 @@
-Viacúčtový klient pre sociálnu sieť Mastodon

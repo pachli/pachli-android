@@ -36,7 +36,7 @@
     <string name="action_logout">Вийти</string>
     <string name="title_drafts">Чернетки</string>
     <string name="title_favourites">Вподобане</string>
-    <string name="action_login">Увійти з Tusky</string>
+    <string name="action_login">Увійти з Pachli</string>
     <string name="login_connection">Зʼєднання…</string>
     <string name="search_no_results">Немає результатів</string>
     <string name="hint_search">Пошук…</string>
@@ -259,7 +259,7 @@
     <string name="profile_badge_bot_text">Бот</string>
     <string name="restart">Перезапустити</string>
     <string name="later">Пізніше</string>
-    <string name="restart_emoji">Вам потрібно буде перезапустити Tusky, щоб застосувати ці зміни</string>
+    <string name="restart_emoji">Вам потрібно буде перезапустити Pachli, щоб застосувати ці зміни</string>
     <string name="restart_required">Необхідно перезапустити застосунок</string>
     <string name="action_open_post">Відкрити допис</string>
     <string name="expand_collapse_all_posts">Розгорнути/згорнути всі дописи</string>
@@ -312,13 +312,13 @@
     <string name="post_media_images">Зображення</string>
     <string name="post_share_link">Поділитися посиланням на допис</string>
     <string name="post_share_content">Поділитися вмістом допису</string>
-    <string name="about_tusky_account">Профіль Tusky</string>
+    <string name="about_pachli_account">Профіль Pachli</string>
     <string name="about_bug_feature_request_site">Звіти про вади та запити функцій:
-\nhttps://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_project_site">Вебсайт проєкту: https://tusky.app</string>
-    <string name="about_tusky_license">Tusky — вільне та відкрите програмне забезпечення. Ліцензовано загальною громадською ліцензією GNU версії 3, ви можете переглянути ліцензію тут: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_powered_by_tusky">Створено Tusky</string>
-    <string name="about_tusky_version">Tusky %s</string>
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_project_site">Вебсайт проєкту: https://pachli.app</string>
+    <string name="about_pachli_license">Pachli — вільне та відкрите програмне забезпечення. Ліцензовано загальною громадською ліцензією GNU версії 3, ви можете переглянути ліцензію тут: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_powered_by_pachli">Створено Pachli</string>
+    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Заблокований обліковий запис</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d нова взаємодія</item>
@@ -503,7 +503,7 @@
     <string name="profile_metadata_label_label">Ярлик</string>
     <string name="profile_metadata_add">додати дані</string>
     <string name="profile_metadata_label">Метадані профілю</string>
-    <string name="license_description">Tusky містить код та засоби з таких проєктів з відкритим кодом:</string>
+    <string name="license_description">Pachli містить код та засоби з таких проєктів з відкритим кодом:</string>
     <string name="unreblog_private">Скасувати поширення</string>
     <string name="reblog_private">Поширити початковій аудиторії</string>
     <string name="account_moved_description">%1$s переміщено до:</string>
@@ -521,7 +521,7 @@
     <string name="duration_90_days">90 днів</string>
     <string name="duration_180_days">180 днів</string>
     <string name="duration_365_days">365 днів</string>
-    <string name="tusky_compose_post_quicksetting_label">Створити допис</string>
+    <string name="pachli_compose_post_quicksetting_label">Створити допис</string>
     <string name="notification_sign_up_format">%s реєструється</string>
     <string name="pref_title_notification_filter_sign_ups">хтось реєструється</string>
     <string name="notification_sign_up_name">Реєстрації</string>
@@ -537,8 +537,8 @@
     <string name="action_details">Подробиці</string>
     <string name="title_migration_relogin">Увійдіть повторно, щоб отримувати push-сповіщення</string>
     <string name="tips_push_notification_migration">Увійдіть повторно до всіх облікових записів, щоб увімкнути підтримку push-сповіщень.</string>
-    <string name="dialog_push_notification_migration">Щоб використовувати push-сповіщення через UnifiedPush, Tusky потребує дозволу стежити за сповіщеннями на вашому сервері Mastodon. Це вимагає повторного входу, щоб змінити області OAuth, надані Tusky. Використання параметра повторного входу тут або в налаштуваннях облікового запису збереже всі ваші локальні чернетки та кеш.</string>
-    <string name="dialog_push_notification_migration_other_accounts">Ви повторно увійшли до свого поточного облікового запису, щоб надати дозвіл на стеження Tusky. Однак у вас все ще є інші облікові записи, які не мігрували таким чином. Перейдіть до них і повторно увійдіть до них по одному, щоб забезпечити підтримку UnifiedPush сповіщень.</string>
+    <string name="dialog_push_notification_migration">Щоб використовувати push-сповіщення через UnifiedPush, Pachli потребує дозволу стежити за сповіщеннями на вашому сервері Mastodon. Це вимагає повторного входу, щоб змінити області OAuth, надані Pachli. Використання параметра повторного входу тут або в налаштуваннях облікового запису збереже всі ваші локальні чернетки та кеш.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Ви повторно увійшли до свого поточного облікового запису, щоб надати дозвіл на стеження Pachli. Однак у вас все ще є інші облікові записи, які не мігрували таким чином. Перейдіть до них і повторно увійдіть до них по одному, щоб забезпечити підтримку UnifiedPush сповіщень.</string>
     <string name="account_date_joined">Приєднується %1$s</string>
     <string name="action_edit_image">Редагувати зображення</string>
     <string name="status_count_one_plus">1+</string>
@@ -659,7 +659,7 @@
     <string name="pref_title_show_stat_inline">Показувати статистику допису у стрічці</string>
     <string name="help_empty_home">Це ваша <b>головна стрічка</b>. Вона показує останні дописи облікових записів, за якими ви стежите.
 \n
-\nЩоб переглянути облікові записи, ви можете знайти їх в одній з інших стрічок. Наприклад, на локальній стрічці вашого сервера [iconics gmd_group]. Або ви можете шукати їх за іменами [iconics gmd_search]; наприклад, шукайте Tusky, щоб знайти наш обліковий запис Mastodon.</string>
+\nЩоб переглянути облікові записи, ви можете знайти їх в одній з інших стрічок. Наприклад, на локальній стрічці вашого сервера [iconics gmd_group]. Або ви можете шукати їх за іменами [iconics gmd_search]; наприклад, шукайте Pachli, щоб знайти наш обліковий запис Mastodon.</string>
     <string name="hint_description">Опис</string>
     <string name="post_media_image">Зображення</string>
     <string name="error_list_load">Помилка завантаження списків</string>
@@ -667,7 +667,7 @@
     <string name="select_list_manage">Керувати списками</string>
     <string name="pref_ui_text_size">Розмір шрифту інтерфейсу</string>
     <string name="notification_listenable_worker_name">Фонова діяльність</string>
-    <string name="notification_listenable_worker_description">Сповіщення, коли Tusky працює у фоновому режимі</string>
+    <string name="notification_listenable_worker_description">Сповіщення, коли Pachli працює у фоновому режимі</string>
     <string name="notification_notification_worker">Отримання сповіщень…</string>
     <string name="notification_prune_cache">Обслуговування кешу…</string>
     <string name="load_newest_notifications">Завантажити найновіші сповіщення</string>

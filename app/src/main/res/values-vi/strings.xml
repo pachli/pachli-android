@@ -269,11 +269,11 @@
     <string name="notification_boost_name">Đăng lại</string>
     <string name="notification_follow_request_description">Thông báo về lượt yêu cầu theo dõi</string>
     <string name="about_bug_feature_request_site">Báo lỗi và đề xuất tính năng
-\nhttps://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_project_site">Website dự án: https://tusky.app</string>
-    <string name="about_tusky_license">Tusky là phần mềm mã nguồn mở, được phân phối với giấy phép GNU General Public License Version 3. Bạn có thể tham khảo thêm tại: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_powered_by_tusky">Powered by Tusky</string>
-    <string name="about_tusky_version">Tusky %s</string>
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_project_site">Website dự án: https://pachli.app</string>
+    <string name="about_pachli_license">Pachli là phần mềm mã nguồn mở, được phân phối với giấy phép GNU General Public License Version 3. Bạn có thể tham khảo thêm tại: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_powered_by_pachli">Powered by Pachli</string>
+    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Tài khoản bị khóa</string>
     <string name="notification_poll_description">Thông báo khi một cuộc bình chọn kết thúc</string>
     <string name="notification_poll_name">Bình chọn</string>
@@ -304,7 +304,7 @@
     <string name="post_media_images">Hình ảnh</string>
     <string name="post_share_link">URL tút</string>
     <string name="post_share_content">Nội dung tút</string>
-    <string name="about_tusky_account">Trang hồ sơ Tusky</string>
+    <string name="about_pachli_account">Trang hồ sơ Pachli</string>
     <string name="pref_title_confirm_reblogs">Hỏi trước khi đăng lại tút</string>
     <string name="pref_title_show_cards_in_timelines">Hiện xem trước link</string>
     <string name="warning_scheduling_interval">Mastodon giới hạn tối thiểu 5 phút.</string>
@@ -397,7 +397,7 @@
     <string name="profile_metadata_label_label">Nhãn</string>
     <string name="profile_metadata_add">thêm nội dung</string>
     <string name="profile_metadata_label">Metadata</string>
-    <string name="license_description">Tusky có sử dụng mã nguồn từ những dự án mã nguồn mở sau:</string>
+    <string name="license_description">Pachli có sử dụng mã nguồn từ những dự án mã nguồn mở sau:</string>
     <string name="unreblog_private">Hủy đăng lại</string>
     <string name="reblog_private">Đăng lại công khai</string>
     <string name="account_moved_description">%1$s đã chuyển sang:</string>
@@ -409,7 +409,7 @@
     <string name="caption_systememoji">Sử dụng emoji mặc định của thiết bị</string>
     <string name="restart">Khởi động lại</string>
     <string name="later">Để sau</string>
-    <string name="restart_emoji">Bạn cần khởi động lại Tusky để áp dụng các thiết lập</string>
+    <string name="restart_emoji">Bạn cần khởi động lại Pachli để áp dụng các thiết lập</string>
     <string name="restart_required">Yêu cầu khởi động lại ứng dụng</string>
     <string name="action_open_post">Đọc tút</string>
     <string name="expand_collapse_all_posts">Mở rộng/Thu gọn toàn bộ tút</string>
@@ -489,7 +489,7 @@
     <string name="duration_90_days">90 ngày</string>
     <string name="duration_180_days">180 ngày</string>
     <string name="duration_365_days">365 ngày</string>
-    <string name="tusky_compose_post_quicksetting_label">Soạn tút</string>
+    <string name="pachli_compose_post_quicksetting_label">Soạn tút</string>
     <string name="pref_title_notification_filter_sign_ups">ai đó mới tham gia máy chủ</string>
     <string name="notification_sign_up_format">%s tham gia máy chủ</string>
     <string name="notification_sign_up_name">Thành viên mới</string>
@@ -506,8 +506,8 @@
     <string name="action_details">Chi tiết</string>
     <string name="account_date_joined">Đã tham gia %1$s</string>
     <string name="tips_push_notification_migration">Đăng nhập lại tất cả tài khoản để kích hoạt thông báo đẩy.</string>
-    <string name="dialog_push_notification_migration_other_accounts">Bạn đã đăng nhập lại vào tài khoản hiện tại của mình để cấp quyền thông báo đẩy cho Tusky. Tuy nhiên, bạn vẫn có các tài khoản khác chưa kích hoạt thông báo đẩy theo cách này. Chuyển sang chúng và đăng nhập từng cái một để cho phép hỗ trợ thông báo UnifiedPush.</string>
-    <string name="dialog_push_notification_migration">Để sử dụng thông báo đẩy qua UnifiedPush, Tusky cần có quyền đăng ký thông báo trên máy chủ Mastodon của bạn. Bạn hãy thoát ra rồi đăng nhập lại để thay đổi phạm vi OAuth được cấp cho Tusky. Sử dụng đăng nhập lại ở đây hoặc trong cài đặt Tài khoản sẽ bảo toàn tất cả các tút nháp và bộ nhớ đệm trên điện thoại của bạn.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Bạn đã đăng nhập lại vào tài khoản hiện tại của mình để cấp quyền thông báo đẩy cho Pachli. Tuy nhiên, bạn vẫn có các tài khoản khác chưa kích hoạt thông báo đẩy theo cách này. Chuyển sang chúng và đăng nhập từng cái một để cho phép hỗ trợ thông báo UnifiedPush.</string>
+    <string name="dialog_push_notification_migration">Để sử dụng thông báo đẩy qua UnifiedPush, Pachli cần có quyền đăng ký thông báo trên máy chủ Mastodon của bạn. Bạn hãy thoát ra rồi đăng nhập lại để thay đổi phạm vi OAuth được cấp cho Pachli. Sử dụng đăng nhập lại ở đây hoặc trong cài đặt Tài khoản sẽ bảo toàn tất cả các tút nháp và bộ nhớ đệm trên điện thoại của bạn.</string>
     <string name="status_count_one_plus">1+</string>
     <string name="action_edit_image">Sửa ảnh</string>
     <string name="error_image_edit_failed">Hình ảnh này không thể sửa.</string>
@@ -627,7 +627,7 @@
     <string name="pref_title_show_stat_inline">Hiện số tương tác trên tút</string>
     <string name="help_empty_home">Đây là <b>bảng tin của bạn</b>. Nó sẽ hiện những tút gần đây từ những người bạn theo dõi.
 \n
-\nĐể khám phá mọi người, bạn có thể xem qua ở các bảng tin khác. Ví dụ: [iconics gmd_group] Bảng tin máy chủ của bạn. Hoặc bạn cũng có thể [iconics gmd_search] tìm theo tên người dùng; ví dụ như Tusky.</string>
+\nĐể khám phá mọi người, bạn có thể xem qua ở các bảng tin khác. Ví dụ: [iconics gmd_group] Bảng tin máy chủ của bạn. Hoặc bạn cũng có thể [iconics gmd_search] tìm theo tên người dùng; ví dụ như Pachli.</string>
     <string name="hint_description">Mô tả</string>
     <string name="post_media_image">Hình ảnh</string>
     <string name="select_list_manage">Quản lý danh sách</string>
@@ -640,7 +640,7 @@
 \nĐây là <a href="https://github.com/mastodon/mastodon/issues/25398">Lỗi Mastodon #25398</a>.</string>
     <string name="pref_ui_text_size">Cỡ chữ giao diện</string>
     <string name="notification_listenable_worker_name">Hoạt động chạy nền</string>
-    <string name="notification_listenable_worker_description">Thông báo khi Tusky hoạt động ngầm</string>
+    <string name="notification_listenable_worker_description">Thông báo khi Pachli hoạt động ngầm</string>
     <string name="notification_notification_worker">Đang nạp thông báo…</string>
     <string name="notification_prune_cache">Bảo trì bộ nhớ đệm…</string>
     <string name="error_media_upload_sending_fmt">Không thể tải lên: %s</string>

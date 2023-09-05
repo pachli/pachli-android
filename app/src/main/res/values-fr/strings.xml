@@ -60,7 +60,7 @@
     <string name="action_unfavourite">Supprimer le favori</string>
     <string name="action_more">Plus</string>
     <string name="action_compose">Écrire</string>
-    <string name="action_login">Se connecter avec Tusky</string>
+    <string name="action_login">Se connecter avec Pachli</string>
     <string name="action_logout">Déconnexion</string>
     <string name="action_logout_confirm">Êtes-vous certain·e· de vouloir déconnecter le compte %1$s ?</string>
     <string name="action_follow">Suivre</string>
@@ -225,8 +225,8 @@
     </plurals>
     <string name="description_account_locked">Compte verrouillé</string>
     <string name="about_title_activity">À propos</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_tusky_license">Tusky est une application libre et open source.
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_pachli_license">Pachli est une application libre et open source.
         Elle est publiée sous licence publique générale GNU version 3.
         Vous pouvez consulter la licence ici : https://www.gnu.org/licenses/gpl-3.0.fr.html</string>
     <!-- note to translators:
@@ -236,12 +236,12 @@
          * the url can be changed to link to the localized version of the license.
     -->
     <string name="about_project_site">      Site du projet :\n
-      https://tusky.app
+      https://pachli.app
     </string>
     <string name="about_bug_feature_request_site">      Rapports d’anomalies &amp; demandes de fonctionnalités :\n
-      https://github.com/tuskyapp/Tusky/issues
+      https://github.com/pachli/pachli-android/issues
     </string>
-    <string name="about_tusky_account">Profil de Tusky</string>
+    <string name="about_pachli_account">Profil de Pachli</string>
     <string name="post_share_content">Partager le contenu du message</string>
     <string name="post_share_link">Partager le lien du message</string>
     <string name="post_media_images">Images</string>
@@ -307,7 +307,7 @@
     <string name="expand_collapse_all_posts">Déplier/replier tout les messages</string>
     <string name="action_open_post">Ouvrir le message</string>
     <string name="restart_required">Un redémarrage de l’application est nécessaire</string>
-    <string name="restart_emoji">Vous devrez redémarrer Tusky pour appliquer ces modifications</string>
+    <string name="restart_emoji">Vous devrez redémarrer Pachli pour appliquer ces modifications</string>
     <string name="later">Plus tard</string>
     <string name="restart">Redémarrer</string>
     <string name="caption_systememoji">Votre jeu d’émojis par défaut</string>
@@ -318,7 +318,7 @@
     <string name="account_moved_description">%1$s a déménagé vers :</string>
     <string name="reblog_private">Partager à l’audience originale</string>
     <string name="unreblog_private">Annuler le partage</string>
-    <string name="license_description">Tusky contient du code et des ressources issus des projets open source suivants :</string>
+    <string name="license_description">Pachli contient du code et des ressources issus des projets open source suivants :</string>
     <string name="profile_metadata_label">Métadonnées du profil</string>
     <string name="profile_metadata_add">Ajouter des données</string>
     <string name="profile_metadata_label_label">Étiquette</string>
@@ -437,7 +437,7 @@
     <string name="action_schedule_post">Planifier le message</string>
     <string name="action_reset_schedule">Réinitialiser</string>
     <string name="post_lookup_error_format">Erreur lors de la recherche du post %s</string>
-    <string name="about_powered_by_tusky">Propulsé par Tusky</string>
+    <string name="about_powered_by_pachli">Propulsé par Pachli</string>
     <string name="title_bookmarks">Signets</string>
     <string name="action_bookmark">Marquer comme signet</string>
     <string name="action_view_bookmarks">Signets</string>
@@ -526,7 +526,7 @@
     <string name="duration_365_days">365 jours</string>
     <string name="duration_14_days">14 jours</string>
     <string name="duration_180_days">180 jours</string>
-    <string name="tusky_compose_post_quicksetting_label">Rédiger un message</string>
+    <string name="pachli_compose_post_quicksetting_label">Rédiger un message</string>
     <string name="notification_sign_up_format">%s a créé un compte</string>
     <string name="notification_sign_up_name">Nouveaux comptes</string>
     <string name="notification_sign_up_description">Notifications quand quelqu’un crée un nouveau compte</string>
@@ -540,12 +540,12 @@
     <string name="action_details">Détails</string>
     <string name="saving_draft">Sauvegarde du brouillon …</string>
     <string name="status_count_one_plus">&gt;1</string>
-    <string name="dialog_push_notification_migration_other_accounts">Tusky peut maintenant recevoir les notifications instantanées de ce compte. Cependant, d\'autres de vos comptes n\'ont pas encore accès aux notifications instantanées. Basculez sur chacun de vos comptes et reconnectez les afin de recevoir les notifications avec UnifiedPush.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Pachli peut maintenant recevoir les notifications instantanées de ce compte. Cependant, d\'autres de vos comptes n\'ont pas encore accès aux notifications instantanées. Basculez sur chacun de vos comptes et reconnectez les afin de recevoir les notifications avec UnifiedPush.</string>
     <string name="error_could_not_load_login_page">La page de connexion ne peut être chargée.</string>
     <string name="action_edit_image">Retoucher l’image</string>
     <string name="action_dismiss">Fermer</string>
     <string name="title_migration_relogin">Se reconnecter pour recevoir les notifications instantanées</string>
-    <string name="dialog_push_notification_migration">Afin de recevoir les notifications via UnifiedPush, Tusky doit demander à votre serveur Mastodon la permission de s’inscrire aux notifications. Ceci nécessite une reconnexion de vos comptes afin de changer les droits OAuth accordés a Tusky. En utilisant l’option de reconnexion ici ou dans les préférences de compte, vos brouillons et le cache seront préservés.</string>
+    <string name="dialog_push_notification_migration">Afin de recevoir les notifications via UnifiedPush, Pachli doit demander à votre serveur Mastodon la permission de s’inscrire aux notifications. Ceci nécessite une reconnexion de vos comptes afin de changer les droits OAuth accordés a Pachli. En utilisant l’option de reconnexion ici ou dans les préférences de compte, vos brouillons et le cache seront préservés.</string>
     <string name="tips_push_notification_migration">Reconnectez tous vos comptes pour activer les notifications instantanées.</string>
     <string name="error_image_edit_failed">L\'image n’a pas pu être retouchée.</string>
     <string name="delete_scheduled_post_warning">Supprimer ce message planifié \?</string>
@@ -657,7 +657,7 @@
     <string name="total_usage">utilisations</string>
     <string name="help_empty_home">Ceci est votre <b>fil d\'accueil</b>. Il affiche les publications récentes des comptes que vous suivez.
 \n
-\nPour trouver des comptes vous pouvez soit les découvrir dans l\'un des autres fils, par exemple le fil local de votre instance [iconics gmd_group] ; soit les chercher par leur nom [iconics gmd_search], par exemple cherchez « Tusky » pour trouver notre compte Mastodon.</string>
+\nPour trouver des comptes vous pouvez soit les découvrir dans l\'un des autres fils, par exemple le fil local de votre instance [iconics gmd_group] ; soit les chercher par leur nom [iconics gmd_search], par exemple cherchez « Pachli » pour trouver notre compte Mastodon.</string>
     <string name="action_add">Ajouter</string>
     <string name="label_filter_keywords">Mots-clés ou phrases à filtrer</string>
     <string name="filter_description_warn">Cacher derrière un avertissement</string>

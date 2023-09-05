@@ -1,29 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="colorSurface">@color/tusky_grey_95</color>
-    <color name="colorPrimaryDark">@color/tusky_grey_70</color>
-
-    <color name="colorBackground">@color/white</color>
-    <color name="windowBackground">@color/tusky_grey_80</color>
-
-    <color name="textColorPrimary">@color/tusky_grey_10</color>
-    <color name="textColorSecondary">@color/tusky_grey_20</color>
-    <color name="textColorTertiary">@color/tusky_grey_30</color>
     <color name="textColorDisabled">@color/tusky_grey_70</color>
-
-    <color name="iconColor">@color/tusky_grey_50</color>
 
     <color name="colorBackgroundAccent">@color/tusky_grey_70</color>
     <color name="colorBackgroundHighlight">@color/tusky_grey_50</color>
     <color name="dividerColor">@color/tusky_grey_80</color>
-    <color name="dividerColorOther">@color/tusky_grey_90</color>
 
     <color name="favoriteButtonActiveColor">@color/tusky_orange_light</color>
 
     <color name="headerBackgroundFilter">@color/header_background_filter_light</color>
-
-    <bool name="lightNavigationBar">true</bool>
 
     <color name="botBadgeForeground">@color/tusky_grey_20</color>
     <color name="botBadgeBackground">@color/white</color>

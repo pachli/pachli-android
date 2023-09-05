@@ -60,7 +60,7 @@
     <string name="action_unfavourite">Favoriet verwijderen</string>
     <string name="action_more">Meer</string>
     <string name="action_compose">Bericht schrijven</string>
-    <string name="action_login">Aanmelden met Tusky</string>
+    <string name="action_login">Aanmelden met Pachli</string>
     <string name="action_logout">Uitloggen</string>
     <string name="action_logout_confirm">Weet je zeker dat je %1$s wil afmelden\? Dit verwijdert alle lokale gegevens van het account, inclusief conceptberichten en voorkeuren.</string>
     <string name="action_follow">Volgen</string>
@@ -219,8 +219,8 @@
     </plurals>
     <string name="description_account_locked">Besloten account</string>
     <string name="about_title_activity">Over</string>
-    <string name="about_tusky_version">Tusky %s</string>
-    <string name="about_tusky_license">Tusky is opensource- en vrije software. De licentie valt onder de GNU Algemene Publieke Licentie versie 3. Je kunt de licentie hier bekijken: https://www.gnu.org/licenses/gpl-3.0.nl.html</string>
+    <string name="about_pachli_version">Pachli %s</string>
+    <string name="about_pachli_license">Pachli is opensource- en vrije software. De licentie valt onder de GNU Algemene Publieke Licentie versie 3. Je kunt de licentie hier bekijken: https://www.gnu.org/licenses/gpl-3.0.nl.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -228,10 +228,10 @@
          * the url can be changed to link to the localized version of the license.
     -->
     <string name="about_project_site">Projectwebsite:
-\nhttps://tusky.app</string>
+\nhttps://pachli.app</string>
     <string name="about_bug_feature_request_site">Foutmeldingen &amp; nieuwe functies aanvragen:
-\nhttps://github.com/tuskyapp/Tusky/issues</string>
-    <string name="about_tusky_account">Tusky\'s profiel</string>
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Pachli\'s profiel</string>
     <string name="post_share_content">Inhoud van bericht delen</string>
     <string name="post_share_link">Link van het bericht delen</string>
     <string name="post_media_images">Afbeeldingen</string>
@@ -280,7 +280,7 @@
     <string name="expand_collapse_all_posts">Alle berichten in- of uitklappen</string>
     <string name="action_open_post">Bericht openen</string>
     <string name="restart_required">Herstarten app vereist</string>
-    <string name="restart_emoji">Je moet Tusky herstarten om deze veranderingen te kunnen doorvoeren</string>
+    <string name="restart_emoji">Je moet Pachli herstarten om deze veranderingen te kunnen doorvoeren</string>
     <string name="later">Later</string>
     <string name="restart">Herstarten</string>
     <string name="caption_systememoji">Standaard emojiset van jouw apparaat</string>
@@ -291,7 +291,7 @@
     <string name="account_moved_description">%1$s is verhuisd naar:</string>
     <string name="reblog_private">Boost naar oorspronkelijke ontvangers</string>
     <string name="unreblog_private">Niet langer boosten</string>
-    <string name="license_description">Tusky bevat broncode en onderdelen van de volgende opensourceprojecten:</string>
+    <string name="license_description">Pachli bevat broncode en onderdelen van de volgende opensourceprojecten:</string>
     <string name="profile_metadata_label">Metadata profiel</string>
     <string name="profile_metadata_add">Metadata toevoegen</string>
     <string name="profile_metadata_label_label">Label</string>
@@ -423,7 +423,7 @@
     <string name="action_access_scheduled_posts">Ingeplande berichten</string>
     <string name="action_schedule_post">Ingepland bericht</string>
     <string name="action_reset_schedule">Herstellen</string>
-    <string name="about_powered_by_tusky">Mogelijk gemaakt door Tusky</string>
+    <string name="about_powered_by_pachli">Mogelijk gemaakt door Pachli</string>
     <string name="pref_title_alway_open_spoiler">Berichten met tekstwaarschuwingen altijd uitklappen</string>
     <string name="description_post_bookmarked">Als bladwijzer toegevoegd</string>
     <string name="select_list_title">Kies een lijst</string>
@@ -524,7 +524,7 @@
     <string name="duration_180_days">180 dagen</string>
     <string name="duration_365_days">365 dagen</string>
     <string name="pref_title_confirm_favourites">Vraag bevestiging voor het markeren als favoriet</string>
-    <string name="tusky_compose_post_quicksetting_label">Bericht schrijven</string>
+    <string name="pachli_compose_post_quicksetting_label">Bericht schrijven</string>
     <string name="account_date_joined">Geregistreerd in %1$s</string>
     <string name="saving_draft">Concept wordt opgeslagen…</string>
     <string name="error_loading_account_details">Laden van accountdetails mislukt</string>
@@ -533,8 +533,8 @@
     <string name="duration_no_change">(geen verandering)</string>
     <string name="pref_title_show_self_username">Gebruikersnaam op werkbalken tonen</string>
     <string name="set_focus_description">Tik of sleep de cirkel naar een centraal focuspunt dat op elke thumbnail zichtbaar moet blijven.</string>
-    <string name="dialog_push_notification_migration">Om pushmeldingen via UnifiedPush te kunnen gebruiken, moet Tusky zich op meldingen van jouw Mastodon-server abonneren. Dit betekent dat je opnieuw moet inloggen om de OAuth-toestemmingen voor Tusky te wijzigen. Het hier of onder accountvoorkeuren opnieuw inloggen behoudt jouw lokale concepten en buffer.</string>
-    <string name="dialog_push_notification_migration_other_accounts">Je hebt opnieuw op jouw huidige account ingelogd om toestemming voor pushmeldingen aan Tusky te verlenen. Je hebt echter nog andere accounts die nog niet op deze manier zijn overgezet. Ga naar deze accounts en log één voor één opnieuw in om UnifiedPush-meldingen ook daar in te schakelen.</string>
+    <string name="dialog_push_notification_migration">Om pushmeldingen via UnifiedPush te kunnen gebruiken, moet Pachli zich op meldingen van jouw Mastodon-server abonneren. Dit betekent dat je opnieuw moet inloggen om de OAuth-toestemmingen voor Pachli te wijzigen. Het hier of onder accountvoorkeuren opnieuw inloggen behoudt jouw lokale concepten en buffer.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Je hebt opnieuw op jouw huidige account ingelogd om toestemming voor pushmeldingen aan Pachli te verlenen. Je hebt echter nog andere accounts die nog niet op deze manier zijn overgezet. Ga naar deze accounts en log één voor één opnieuw in om UnifiedPush-meldingen ook daar in te schakelen.</string>
     <string name="url_domain_notifier">%s (🔗 %s)</string>
     <string name="pref_show_self_username_always">Altijd</string>
     <string name="pref_show_self_username_disambiguate">Wanneer meerdere accounts zijn ingelogd</string>
@@ -639,7 +639,7 @@
     <string name="compose_delete_draft">Verwijder concept\?</string>
     <string name="notification_notification_worker">Meldingen ophalen…</string>
     <string name="notification_listenable_worker_name">Achtergrond activiteit</string>
-    <string name="notification_listenable_worker_description">Meldingen als Tusky werkt op de achtergrond</string>
+    <string name="notification_listenable_worker_description">Meldingen als Pachli werkt op de achtergrond</string>
     <string name="about_device_info">%s %s
 \nAndroid versie: %s
 \nSDK versie: %d</string>

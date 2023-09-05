@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.keylesspalace.tusky.components.followedtags.FollowedTagsActivity">
+    tools:context="app.pachli.components.followedtags.FollowedTagsActivity">
 
     <include
         android:id="@+id/includedToolbar"
@@ -19,7 +19,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
 
-    <com.keylesspalace.tusky.view.BackgroundMessageView
+    <app.pachli.view.BackgroundMessageView
         android:id="@+id/followedTagsMessageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -24,7 +24,7 @@
 
         <Spinner
             android:id="@+id/composePostLanguageButton"
-            style="@style/TuskyImageButton"
+            style="@style/AppImageButton"
             android:layout_width="52dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -37,7 +37,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/atButton"
-            style="@style/TuskyImageButton"
+            style="@style/AppImageButton"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -49,7 +49,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/hashButton"
-            style="@style/TuskyImageButton"
+            style="@style/AppImageButton"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -61,7 +61,7 @@
 
         <ImageButton
             android:id="@+id/descriptionMissingWarningButton"
-            style="@style/TuskyImageButton"
+            style="@style/AppImageButton"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -157,7 +157,7 @@
 
             </LinearLayout>
 
-            <com.keylesspalace.tusky.components.compose.view.EditTextTyped
+            <app.pachli.components.compose.view.EditTextTyped
                 android:id="@+id/composeEditField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                 android:scrollbars="none"
                 android:visibility="gone" />
 
-            <com.keylesspalace.tusky.components.compose.view.PollPreviewView
+            <app.pachli.components.compose.view.PollPreviewView
                 android:id="@+id/pollPreview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -236,7 +236,7 @@
             android:textSize="?attr/status_text_medium" />
     </LinearLayout>
 
-    <com.keylesspalace.tusky.view.EmojiPicker
+    <app.pachli.view.EmojiPicker
         android:id="@+id/emojiView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -250,7 +250,7 @@
         app:behavior_peekHeight="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
 
-    <com.keylesspalace.tusky.components.compose.view.ComposeOptionsView
+    <app.pachli.components.compose.view.ComposeOptionsView
         android:id="@+id/composeOptionsBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -264,7 +264,7 @@
         app:behavior_peekHeight="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
 
-    <com.keylesspalace.tusky.components.compose.view.ComposeScheduleView
+    <app.pachli.components.compose.view.ComposeScheduleView
         android:id="@+id/composeScheduleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -294,7 +294,7 @@
 
         <ImageButton
             android:id="@+id/composeAddMediaButton"
-            style="@style/TuskyImageButton"
+            style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginEnd="4dp"
@@ -305,7 +305,7 @@
 
         <ImageButton
             android:id="@+id/composeToggleVisibilityButton"
-            style="@style/TuskyImageButton"
+            style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginEnd="4dp"
@@ -317,7 +317,7 @@
 
         <ImageButton
             android:id="@+id/composeHideMediaButton"
-            style="@style/TuskyImageButton"
+            style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginEnd="4dp"
@@ -328,7 +328,7 @@
 
         <ImageButton
             android:id="@+id/composeContentWarningButton"
-            style="@style/TuskyImageButton"
+            style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginEnd="4dp"
@@ -339,7 +339,7 @@
 
         <ImageButton
             android:id="@+id/composeEmojiButton"
-            style="@style/TuskyImageButton"
+            style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginEnd="4dp"
@@ -350,7 +350,7 @@
 
         <ImageButton
             android:id="@+id/composeScheduleButton"
-            style="@style/TuskyImageButton"
+            style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginEnd="4dp"
@@ -373,9 +373,9 @@
             android:textStyle="bold"
             tools:text="500" />
 
-        <com.keylesspalace.tusky.components.compose.view.TootButton
+        <app.pachli.components.compose.view.TootButton
             android:id="@+id/composeTootButton"
-            style="@style/TuskyButton"
+            style="@style/AppButton"
             android:layout_width="@dimen/toot_button_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

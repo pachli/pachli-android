@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".components.report.fragments.ReportStatusesFragment">
+    tools:context="app.pachli.components.report.fragments.ReportStatusesFragment">
 
     <View
         android:id="@+id/checkMark"
@@ -47,7 +47,7 @@
 
     <Button
         android:id="@+id/buttonMute"
-        style="@style/TuskyButton"
+        style="@style/AppButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="@dimen/min_report_button_width"
@@ -70,7 +70,7 @@
 
     <Button
         android:id="@+id/buttonBlock"
-        style="@style/TuskyButton"
+        style="@style/AppButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="@dimen/min_report_button_width"
@@ -93,7 +93,7 @@
 
     <Button
         android:id="@+id/buttonDone"
-        style="@style/TuskyButton"
+        style="@style/AppButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"

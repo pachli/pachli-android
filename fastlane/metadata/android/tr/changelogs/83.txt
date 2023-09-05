@@ -1,3 +1,0 @@
-Tusky v15.1
-
-Bu sürüm, resimlere başlık eklenirken oluşan bir çökmeyi düzeltir

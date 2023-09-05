@@ -14,7 +14,7 @@
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
     tools:layout_height="128dp">
 
-    <com.keylesspalace.tusky.view.GraphView
+    <app.pachli.view.GraphView
         android:id="@+id/graph"
         android:layout_width="0dp"
         android:layout_height="120dp"

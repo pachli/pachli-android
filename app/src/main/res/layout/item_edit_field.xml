@@ -19,7 +19,7 @@
         android:paddingBottom="8dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/TuskyTextInput"
+            style="@style/AppTextInput"
             android:id="@+id/accountFieldNameTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/TuskyTextInput"
+            style="@style/AppTextInput"
             android:id="@+id/accountFieldValueTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

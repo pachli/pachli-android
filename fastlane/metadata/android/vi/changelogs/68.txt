@@ -1,3 +1,0 @@
-Tusky 9.1
-
-Cải tiến sự tương thích với Mastodon 3 cũng như giao diện đồ họa.

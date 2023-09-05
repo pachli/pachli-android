@@ -1,1 +1,1 @@
-A multi account client for the social network Mastodon
+A full-featured Android client for the Mastodon and similar servers.

@@ -1,3 +1,0 @@
-Tusky v15.1
-
-Ez a kiadás javít egy képek feliratozása közben jelentkező összeomlást

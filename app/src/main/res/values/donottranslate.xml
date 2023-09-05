@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="tusky_website" translatable="false">https://tusky.app</string>
+    <string name="pachli_website" translatable="false">https://pachli.app</string>
     <string name="about_app_version">%1$s %2$s</string>
 
     <string name="oauth_scheme" translatable="false">oauth2redirect</string>
-    <string name="preferences_file_key" translatable="false">com.keylesspalace.tusky.PREFERENCES</string>
+    <string name="preferences_file_key" translatable="false">app.pachli.PREFERENCES</string>
 
     <string name="at_symbol" translatable="false">\@</string>
     <string name="hash_symbol" translatable="false">#</string>

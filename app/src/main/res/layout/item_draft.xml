@@ -20,10 +20,10 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center_vertical"
         android:text="@string/drafts_post_failed_to_send"
-        android:textColor="@color/tusky_red"
+        android:textColor="?colorError"
         android:textSize="?attr/status_text_medium"
         app:drawableStartCompat="@drawable/ic_alert_circle"
-        app:drawableTint="@color/tusky_red"
+        app:drawableTint="?colorError"
         app:layout_constraintEnd_toStartOf="@id/deleteButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,7 @@
 
     <ImageButton
         android:id="@+id/deleteButton"
-        style="@style/TuskyImageButton"
+        style="@style/AppImageButton"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center_vertical"
@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/content" />
 
-    <com.keylesspalace.tusky.components.compose.view.PollPreviewView
+    <app.pachli.components.compose.view.PollPreviewView
         android:id="@+id/draftPoll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

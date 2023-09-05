@@ -1,0 +1,20 @@
+New features include:
+
+- "Load more" no more, posts load as you scroll
+- Trending links and posts
+- More than 5 tabs
+- Choose from a range of accessible fonts
+- New media player
+- Filters in notifications
+- Mark lists as "exclusive"
+- Add "bookmarks" to tabs
+
+Bug fixes include:
+
+- Images don't "stick" when you zoom or swipe between them
+
+UX changes include:
+
+- A visual refresh, new colour scheme
+- Determine the default theme from your Android settings
+- "Clear notifications" is a menu item
