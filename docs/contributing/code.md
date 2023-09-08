@@ -175,7 +175,7 @@ The types are:
 - `test`, modify the test suite
 - `wip`, work-in-progress
 
-More details on each is in [docs/adr/conventional-commits.md](https://github.com/pachli/pachli-android/docs/adr/conventional-commits.md).
+More details on each is in [docs/decisions/conventional-commits.md](https://github.com/pachli/pachli-android/docs/decisions/conventional-commits.md).
 
 `feat` for new features and `fix` for bug fixes are the most common.
 
