@@ -2599,7 +2599,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="154"
+            line="155"
             column="25"/>
     </issue>
 
@@ -2610,7 +2610,7 @@
         errorLine2="                                ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="156"
+            line="157"
             column="33"/>
     </issue>
 
@@ -2661,45 +2661,12 @@
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
-        errorLine1="                        if (dy > 0 &amp;&amp; binding.fab.isShown) {"
-        errorLine2="                                      ~~~~~~~">
+        errorLine1="                        binding.fab.visible(dy == 0)"
+        errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/followedtags/FollowedTagsActivity.kt"
             line="92"
-            column="39"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
-        errorLine1="                            binding.fab.hide()"
-        errorLine2="                            ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/followedtags/FollowedTagsActivity.kt"
-            line="93"
-            column="29"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
-        errorLine1="                        } else if (dy &lt; 0 &amp;&amp; !binding.fab.isShown) {"
-        errorLine2="                                              ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/followedtags/FollowedTagsActivity.kt"
-            line="94"
-            column="47"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `FollowedTagsActivity` requires synthetic accessor"
-        errorLine1="                            binding.fab.show()"
-        errorLine2="                            ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/followedtags/FollowedTagsActivity.kt"
-            line="95"
-            column="29"/>
+            column="25"/>
     </issue>
 
     <issue
@@ -2709,7 +2676,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/followedtags/FollowedTagsActivity.kt"
-            line="204"
+            line="200"
             column="21"/>
     </issue>
 
@@ -3750,12 +3717,12 @@
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getViewModel` of class `NotificationsFragment` requires synthetic accessor"
-        errorLine1="                        if (!viewModel.uiState.value.showFabWhileScrolling) {"
-        errorLine2="                             ~~~~~~~~~">
+        errorLine1="                    actionButton?.visible(viewModel.uiState.value.showFabWhileScrolling || dy == 0)"
+        errorLine2="                                          ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
             line="176"
-            column="30"/>
+            column="43"/>
     </issue>
 
     <issue
@@ -3838,12 +3805,12 @@
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getViewModel` of class `TimelineFragment` requires synthetic accessor"
-        errorLine1="                            if (!viewModel.uiState.value.showFabWhileScrolling) {"
-        errorLine2="                                 ~~~~~~~~~">
+        errorLine1="                        actionButton?.visible(viewModel.uiState.value.showFabWhileScrolling || dy == 0)"
+        errorLine2="                                              ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="177"
-            column="34"/>
+            line="178"
+            column="47"/>
     </issue>
 
     <issue

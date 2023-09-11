@@ -65,6 +65,7 @@ import app.pachli.util.hide
 import app.pachli.util.openLink
 import app.pachli.util.show
 import app.pachli.util.viewBinding
+import app.pachli.util.visible
 import app.pachli.viewdata.AttachmentViewData.Companion.list
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
@@ -169,25 +170,17 @@ class NotificationsFragment :
 
         binding.recyclerView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
-                val actionButton = (activity as ActionButtonActivity).actionButton
+                val actionButton = (activity as? ActionButtonActivity)?.actionButton
 
                 override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
-                    actionButton?.let { fab ->
-                        if (!viewModel.uiState.value.showFabWhileScrolling) {
-                            if (dy > 0 && fab.isShown) {
-                                fab.hide() // Hide when scrolling down
-                            } else if (dy < 0 && !fab.isShown) {
-                                fab.show() // Show when scrolling up
-                            }
-                        } else if (!fab.isShown) {
-                            fab.show()
-                        }
-                    }
+                    actionButton?.visible(viewModel.uiState.value.showFabWhileScrolling || dy == 0)
                 }
 
                 @Suppress("SyntheticAccessor")
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     newState != SCROLL_STATE_IDLE && return
+
+                    actionButton?.show()
 
                     // Save the ID of the first notification visible in the list, so the user's
                     // reading position is always restorable.
