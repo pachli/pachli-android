@@ -509,13 +509,17 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
         header.currentProfileName.maxLines = 1
         header.currentProfileName.ellipsize = TextUtils.TruncateAt.END
 
-        header.accountHeaderBackground.setColorFilter(getColor(R.color.headerBackgroundFilter))
+        // Account header background and text colours are not styleable, so set them here
         header.accountHeaderBackground.setBackgroundColor(
             MaterialColors.getColor(
                 header,
-                R.attr.colorBackgroundAccent,
+                com.google.android.material.R.attr.colorSecondaryContainer,
             ),
         )
+        val headerTextColor = MaterialColors.getColor(header, com.google.android.material.R.attr.colorOnSecondaryContainer)
+        header.currentProfileName.setTextColor(headerTextColor)
+        header.currentProfileEmail.setTextColor(headerTextColor)
+
         val animateAvatars = preferences.getBoolean("animateGifAvatars", false)
 
         DrawerImageLoader.init(

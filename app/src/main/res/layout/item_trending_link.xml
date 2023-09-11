@@ -42,7 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_margin="1dp"
-            android:background="?attr/colorBackgroundAccent"
             android:importantForAccessibility="no"
             android:scaleType="center" />
 
@@ -86,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="1"
-                android:textColor="?android:textColorTertiary"
+                android:textColor="?android:attr/textColorLink"
                 android:textSize="?attr/status_text_medium"
                 tools:ignore="SelectableText" />
         </LinearLayout>

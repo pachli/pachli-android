@@ -178,7 +178,7 @@ class ViewEditsAdapter(
                 val placeholder: Drawable = if (blurhash != null && useBlurhash) {
                     decodeBlurHash(context, blurhash)
                 } else {
-                    ColorDrawable(MaterialColors.getColor(imageView, R.attr.colorBackgroundAccent))
+                    ColorDrawable(MaterialColors.getColor(imageView, android.R.attr.colorBackground))
                 }
 
                 if (attachment.previewUrl.isNullOrEmpty()) {

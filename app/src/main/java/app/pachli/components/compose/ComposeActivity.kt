@@ -92,6 +92,7 @@ import app.pachli.settings.PrefKeys.APP_THEME
 import app.pachli.util.APP_THEME_DEFAULT
 import app.pachli.util.MentionSpan
 import app.pachli.util.PickMediaFiles
+import app.pachli.util.THEME_BLACK
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getMediaSize
@@ -210,7 +211,7 @@ class ComposeActivity :
         activeAccount = accountManager.activeAccount ?: return
 
         val theme = preferences.getString(APP_THEME, APP_THEME_DEFAULT)
-        if (theme == "black") {
+        if (theme == THEME_BLACK) {
             setTheme(R.style.AppDialogActivityBlackTheme)
         }
         setContentView(binding.root)

@@ -19,7 +19,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.R
 import app.pachli.databinding.ItemPollBinding
 import app.pachli.entity.Emoji
 import app.pachli.util.BindingHolder
@@ -28,6 +27,7 @@ import app.pachli.util.visible
 import app.pachli.viewdata.PollOptionViewData
 import app.pachli.viewdata.buildDescription
 import app.pachli.viewdata.calculatePercent
+import com.google.android.material.color.MaterialColors
 
 class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
 
@@ -95,14 +95,19 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
                     .emojify(emojis, resultTextView, animateEmojis)
 
                 val level = percent * 100
-                val optionColor = if (option.voted) {
-                    R.color.colorBackgroundHighlight
+                val optionColor: Int
+                val textColor: Int
+                if (option.voted) {
+                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorPrimary)
+                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnPrimary)
                 } else {
-                    R.color.colorBackgroundAccent
+                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorSecondary)
+                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnSecondary)
                 }
 
                 resultTextView.background.level = level
-                resultTextView.background.setTint(resultTextView.context.getColor(optionColor))
+                resultTextView.background.setTint(optionColor)
+                resultTextView.setTextColor(textColor)
                 resultTextView.setOnClickListener(resultClickListener)
             }
             SINGLE -> {

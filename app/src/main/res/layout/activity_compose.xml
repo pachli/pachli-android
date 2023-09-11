@@ -117,7 +117,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
-                android:background="?attr/colorBackgroundAccent"
                 android:lineSpacingMultiplier="1.1"
                 android:paddingLeft="16dp"
                 android:paddingTop="4dp"
@@ -146,7 +145,6 @@
                     android:maxLines="1"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:textColorHint="?android:attr/textColorTertiary"
                     android:textSize="?attr/status_text_medium" />
 
                 <View
@@ -311,7 +309,7 @@
             android:layout_marginEnd="4dp"
             android:contentDescription="@string/action_toggle_visibility"
             android:padding="4dp"
-            android:tint="?android:attr/textColorTertiary"
+            app:tint="?android:attr/textColorTertiary"
             app:tooltipText="@string/action_toggle_visibility"
             tools:src="@drawable/ic_public_24dp" />
 

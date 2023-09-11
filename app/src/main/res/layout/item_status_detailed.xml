@@ -157,7 +157,6 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_margin="1dp"
-            android:background="?attr/colorBackgroundAccent"
             android:importantForAccessibility="no"
             android:scaleType="center" />
 

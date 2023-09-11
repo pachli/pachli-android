@@ -49,7 +49,7 @@
     <style name="FontLuciole">
         <item name="android:fontFamily">@font/luciole</item>
         <!-- Luciole requires more vertical height than the other fonts -->
-        <item name="actionBarSizeWithSubtitle">62dp</item>
+        <item name="actionBarSize">66dp</item>
     </style>
 
     <style name="FontOpenDyslexic">
@@ -58,14 +58,12 @@
 
     <style name="SplashTheme" parent="Theme.SplashScreen">
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
-        <item name="postSplashScreenTheme">@style/DefaultTheme</item>
+        <item name="postSplashScreenTheme">@style/Theme.Pachli</item>
     </style>
 
-    <style name="DefaultTheme" parent="BaseTheme" />
+    <style name="AppDialogActivityTheme" parent="@style/Theme.Pachli" />
 
-    <style name="AppDialogActivityTheme" parent="@style/DefaultTheme" />
-
-    <style name="BaseTheme" parent="AppTheme">
+    <style name="Theme.Pachli" parent="Base.Theme.Pachli">
         <!-- Provide default text sizes. These are overwritten in BaseActivity, but
              if they are missing then the Android Studio layout preview crashes
              with java.lang.reflect.InvocationTargetException -->
@@ -73,16 +71,7 @@
         <item name="status_text_medium">16sp</item>
         <item name="status_text_large">18sp</item>
 
-        <!-- required by materialDrawer library -->
-        <item name="colorBackgroundAccent">@color/colorBackgroundAccent</item>
-
         <item name="android:listDivider">@drawable/status_divider</item>
-
-        <!-- required by materialDrawerLibrary, see definition of PachliDrawerStyle -->
-        <item name="dividerColor">@color/dividerColor</item>
-
-        <item name="materialDrawerStyle">@style/AppDrawerStyle</item>
-        <item name="materialDrawerHeaderStyle">@style/AppDrawerHeaderStyle</item>
 
         <item name="alertDialogTheme">@style/AppDialog</item>
         <item name="snackbarButtonStyle">@style/AppButton.TextButton</item>
@@ -91,21 +80,25 @@
 
         <item name="swipeRefreshLayoutProgressSpinnerBackgroundColor">?attr/colorSurface</item>
 
-        <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Choice</item>
-
         <item name="preferenceTheme">@style/AppPreferenceTheme</item>
 
-        <item name="actionBarSizeWithSubtitle">?attr/actionBarSize</item>
+        <!-- Transparent system bars for edge-to-edge. -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+    </style>
+
+    <style name="Pachli.Widget.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:minHeight">?attr/actionBarSize</item>
     </style>
 
     <style name="ViewMediaActivity.AppBarLayout" parent="ThemeOverlay.AppCompat">
         <item name="android:colorControlNormal">@color/white</item>
     </style>
 
-    <style name="AppDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <style name="AppDialog" parent="@style/ThemeOverlay.Material3.Dialog.Alert">
         <item name="android:letterSpacing">0</item>
         <item name="dialogCornerRadius">8dp</item>
-<!--        <item name="android:colorBackground">@color/colorBackground</item>-->
     </style>
 
     <style name="AppDialogFragmentStyle" parent="@style/ThemeOverlay.MaterialComponents.Dialog">
@@ -126,7 +119,6 @@
     </style>
 
     <style name="AppButton.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="strokeColor">?attr/colorBackgroundAccent</item>
         <item name="android:letterSpacing">0</item>
     </style>
 
@@ -146,7 +138,7 @@
     </style>
 
     <!--Black Application Theme Styles-->
-    <style name="BaseTheme.Black" parent="BaseTheme">
+    <style name="Base.Theme.Black" parent="Theme.Pachli">
         <item name="colorPrimaryDark">@color/tusky_grey_05</item>
 
         <item name="android:colorBackground">@color/black</item>
@@ -156,25 +148,11 @@
 
         <!-- TODO: Remove this, use colorControlNormal everywhere instead of iconColor -->
         <item name="iconColor">?attr/colorControlNormal</item>
-        <item name="colorBackgroundHighlight">@color/tusky_grey_40</item>
-        <item name="colorBackgroundAccent">@color/tusky_grey_20</item>
 
         <item name="dividerColor">@color/tusky_grey_20</item>
     </style>
 
-    <style name="AppBlackTheme" parent="BaseTheme.Black" />
-
-    <style name="AppDrawerStyle" parent ="Widget.MaterialDrawerStyle">
-        <item name="materialDrawerBackground">?android:colorBackground</item>
-        <item name="materialDrawerPrimaryIcon">?colorOnBackground</item>
-        <item name="materialDrawerSecondaryIcon">?colorOnBackground</item>
-        <item name="materialDrawerDividerColor">?colorOnBackground</item>
-    </style>
-
-    <style name="AppDrawerHeaderStyle" parent ="Widget.MaterialDrawerHeaderStyle">
-        <item name="materialDrawerHeaderSelectionText">?android:textColorPrimary</item>
-        <item name="materialDrawerHeaderSelectionSubtext">?android:textColorPrimary</item>
-    </style>
+    <style name="Theme.Pachli.Black" parent="Base.Theme.Black" />
 
     <!-- customize the shape of the avatars in account selection list -->
     <style name="BezelImageView">
