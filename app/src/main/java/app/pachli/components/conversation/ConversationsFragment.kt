@@ -54,6 +54,7 @@ import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding
+import app.pachli.util.visible
 import app.pachli.viewdata.AttachmentViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
@@ -87,7 +88,7 @@ class ConversationsFragment :
 
     private lateinit var adapter: ConversationAdapter
 
-    private var hideFab = false
+    private var showFabWhileScrolling = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_timeline, container, false)
@@ -161,22 +162,13 @@ class ConversationsFragment :
             },
         )
 
-        hideFab = preferences.getBoolean(PrefKeys.FAB_HIDE, false)
+        showFabWhileScrolling = !preferences.getBoolean(PrefKeys.FAB_HIDE, false)
         binding.recyclerView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
+                val actionButton = (activity as? ActionButtonActivity)?.actionButton
+
                 override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
-                    val composeButton = (activity as ActionButtonActivity).actionButton
-                    if (composeButton != null) {
-                        if (hideFab) {
-                            if (dy > 0 && composeButton.isShown) {
-                                composeButton.hide() // hides the button if we're scrolling down
-                            } else if (dy < 0 && !composeButton.isShown) {
-                                composeButton.show() // shows it if we are scrolling up
-                            }
-                        } else if (!composeButton.isShown) {
-                            composeButton.show()
-                        }
-                    }
+                    actionButton?.visible(showFabWhileScrolling || dy == 0)
                 }
             },
         )
@@ -375,7 +367,7 @@ class ConversationsFragment :
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         when (key) {
             PrefKeys.FAB_HIDE -> {
-                hideFab = sharedPreferences.getBoolean(PrefKeys.FAB_HIDE, false)
+                showFabWhileScrolling = sharedPreferences.getBoolean(PrefKeys.FAB_HIDE, false)
             }
             PrefKeys.MEDIA_PREVIEW_ENABLED -> {
                 val enabled = accountManager.activeAccount!!.mediaPreviewEnabled

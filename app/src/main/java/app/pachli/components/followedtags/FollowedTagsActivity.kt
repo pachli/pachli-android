@@ -89,11 +89,7 @@ class FollowedTagsActivity :
             binding.followedTagsView.addOnScrollListener(
                 object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        if (dy > 0 && binding.fab.isShown) {
-                            binding.fab.hide()
-                        } else if (dy < 0 && !binding.fab.isShown) {
-                            binding.fab.show()
-                        }
+                        binding.fab.visible(dy == 0)
                     }
                 },
             )
