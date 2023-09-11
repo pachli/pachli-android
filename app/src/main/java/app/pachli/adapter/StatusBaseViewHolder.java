@@ -186,7 +186,7 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
         this.avatarRadius36dp = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.avatar_radius_36dp);
         this.avatarRadius24dp = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.avatar_radius_24dp);
 
-        mediaPreviewUnloaded = new ColorDrawable(MaterialColors.getColor(itemView, R.attr.colorBackgroundAccent));
+        mediaPreviewUnloaded = new ColorDrawable(MaterialColors.getColor(itemView, android.R.attr.textColorLink));
 
         TouchDelegateHelper.expandTouchSizeToFillRow((ViewGroup) itemView, CollectionsKt.listOfNotNull(replyButton, reblogButton, favouriteButton, bookmarkButton, moreButton));
     }

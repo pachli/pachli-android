@@ -1,10 +1,8 @@
 <resources>
-
     <!--Black Application Theme Styles-->
-    <style name="AppBlackTheme" parent="BaseTheme.Black">
+    <style name="Theme.Pachli.Black" parent="Base.Theme.Black">
         <item name="android:windowLightNavigationBar">false</item>
         <item name="android:navigationBarColor">@color/black</item>
         <item name="android:navigationBarDividerColor">?attr/dividerColor</item>
     </style>
-
 </resources>

@@ -16,7 +16,6 @@
 package app.pachli.util
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.text.InputFilter
 import android.text.TextUtils
@@ -86,7 +85,7 @@ class StatusViewHelper(private val itemView: View) {
             return
         }
 
-        val mediaPreviewUnloaded = ColorDrawable(MaterialColors.getColor(context, R.attr.colorBackgroundAccent, Color.BLACK))
+        val mediaPreviewUnloaded = ColorDrawable(MaterialColors.getColor(itemView, android.R.attr.colorBackground))
 
         val n = min(attachments.size, Status.MAX_MEDIA_ATTACHMENTS)
 
@@ -313,6 +312,8 @@ class StatusViewHelper(private val itemView: View) {
     private fun setupPollResult(poll: PollViewData, emojis: List<Emoji>, pollResults: List<TextView>, animateEmojis: Boolean) {
         val options = poll.options
 
+        // TODO: This is very similar to code in PollAdapter.onBindViewHolder, investigate how it
+        // can best be reused.
         for (i in 0 until Status.MAX_POLL_OPTIONS) {
             if (i < options.size) {
                 val percent = calculatePercent(options[i].votesCount, poll.votersCount, poll.votesCount)
@@ -322,14 +323,20 @@ class StatusViewHelper(private val itemView: View) {
                 pollResults[i].visibility = View.VISIBLE
 
                 val level = percent * 100
-                val optionColor = if (options[i].voted) {
-                    R.color.colorBackgroundHighlight
+
+                val optionColor: Int
+                val textColor: Int
+                if (options[i].voted) {
+                    optionColor = MaterialColors.getColor(pollResults[i], com.google.android.material.R.attr.colorPrimary)
+                    textColor = MaterialColors.getColor(pollResults[i], com.google.android.material.R.attr.colorOnPrimary)
                 } else {
-                    R.color.colorBackgroundAccent
+                    optionColor = MaterialColors.getColor(pollResults[i], com.google.android.material.R.attr.colorSecondary)
+                    textColor = MaterialColors.getColor(pollResults[i], com.google.android.material.R.attr.colorOnSecondary)
                 }
 
                 pollResults[i].background.level = level
-                pollResults[i].background.setTint(pollResults[i].context.getColor(optionColor))
+                pollResults[i].background.setTint(optionColor)
+                pollResults[i].setTextColor(textColor)
             } else {
                 pollResults[i].visibility = View.GONE
             }

@@ -18,6 +18,7 @@
 package app.pachli;
 
 import static app.pachli.settings.PrefKeys.APP_THEME;
+import static app.pachli.util.ThemeUtils.THEME_BLACK;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -73,6 +74,15 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     private HashMap<Integer, PermissionRequester> requesters;
 
     @Override
+    public void setTheme(int themeId) {
+        super.setTheme(themeId);
+        if (BuildConfig.DEBUG) {
+            String name = getResources().getResourceEntryName(themeId);
+            Log.d(TAG, "Setting theme: " + name);
+        }
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -83,8 +93,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
          * views are created. */
         String theme = preferences.getString(APP_THEME, ThemeUtils.APP_THEME_DEFAULT);
         Log.d("activeTheme", theme);
-        if (theme.equals("black")) {
-            setTheme(R.style.AppBlackTheme);
+        if (theme.equals(THEME_BLACK)) {
+            setTheme(R.style.Theme_Pachli_Black);
         }
 
         /* set the taskdescription programmatically, the theme would turn it blue */

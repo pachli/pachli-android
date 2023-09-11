@@ -2,13 +2,9 @@
 <resources>
     <color name="textColorDisabled">@color/tusky_grey_70</color>
 
-    <color name="colorBackgroundAccent">@color/tusky_grey_70</color>
-    <color name="colorBackgroundHighlight">@color/tusky_grey_50</color>
     <color name="dividerColor">@color/tusky_grey_80</color>
 
     <color name="favoriteButtonActiveColor">@color/tusky_orange_light</color>
-
-    <color name="headerBackgroundFilter">@color/header_background_filter_light</color>
 
     <color name="botBadgeForeground">@color/tusky_grey_20</color>
     <color name="botBadgeBackground">@color/white</color>

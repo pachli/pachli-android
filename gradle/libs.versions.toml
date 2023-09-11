@@ -159,7 +159,8 @@ androidx = ["androidx-core-ktx", "androidx-appcompat", "androidx-fragment-ktx", 
     "androidx-lifecycle-livedata-ktx", "androidx-lifecycle-common-java8", "androidx-lifecycle-reactivestreams-ktx",
     "androidx-constraintlayout", "androidx-paging-runtime-ktx", "androidx-viewpager2", "androidx-work-runtime-ktx",
     "androidx-core-splashscreen", "androidx-activity", "androidx-media3-exoplayer", "androidx-media3-exoplayer-dash",
-    "androidx-media3-exoplayer-hls", "androidx-media3-exoplayer-rtsp", "androidx-media3-datasource-okhttp", "androidx-media3-ui"]
+    "androidx-media3-exoplayer-hls", "androidx-media3-exoplayer-rtsp", "androidx-media3-datasource-okhttp", "androidx-media3-ui",
+    "android-material"]
 autodispose = ["autodispose-core", "autodispose-android-lifecycle"]
 dagger = ["dagger-core", "dagger-android-core", "dagger-android-support"]
 dagger-processors = ["dagger-compiler", "dagger-android-processor"]
