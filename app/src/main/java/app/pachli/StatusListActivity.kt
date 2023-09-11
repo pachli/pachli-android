@@ -32,8 +32,10 @@ import app.pachli.components.timeline.TimelineKind
 import app.pachli.databinding.ActivityStatuslistBinding
 import app.pachli.entity.Filter
 import app.pachli.entity.FilterV1
+import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -45,7 +47,7 @@ import javax.inject.Inject
  * Show a list of statuses of a particular type; containing a particular hashtag,
  * the user's favourites, bookmarks, etc.
  */
-class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
+class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidInjector {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
@@ -55,6 +57,9 @@ class StatusListActivity : BottomSheetActivity(), HasAndroidInjector {
 
     private val binding: ActivityStatuslistBinding by viewBinding(ActivityStatuslistBinding::inflate)
     private lateinit var timelineKind: TimelineKind
+
+    override val appBarLayout: AppBarLayout
+        get() = binding.includedToolbar.appbar
 
     /**
      * If showing statuses with a hashtag, the hashtag being used, without the

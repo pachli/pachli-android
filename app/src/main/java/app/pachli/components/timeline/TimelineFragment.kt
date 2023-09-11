@@ -57,6 +57,7 @@ import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Status
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
+import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.RefreshableFragment
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.interfaces.StatusActionListener
@@ -164,6 +165,8 @@ class TimelineFragment :
 
         setupSwipeRefreshLayout()
         setupRecyclerView()
+
+        (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
 
         if (actionButtonPresent()) {
             binding.recyclerView.addOnScrollListener(
