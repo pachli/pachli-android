@@ -17,12 +17,10 @@
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/actionbar_elevation"
             app:liftOnScroll="true"
-            app:liftOnScrollTargetViewId="@id/viewPager"
-            app:elevationOverlayEnabled="false">
+            app:liftOnScrollTargetViewId="@id/viewPager">
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 style="@style/Pachli.Widget.Toolbar"
                 android:id="@+id/mainToolbar"
                 android:layout_width="match_parent"
@@ -31,7 +29,7 @@
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:navigationContentDescription="@string/action_open_drawer" />
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topNav"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -47,7 +45,7 @@
                     app:tabGravity="fill"
                     app:tabMaxWidth="0dp"
                     app:tabMode="scrollable" />
-            </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,7 +56,7 @@
             android:layout_marginBottom="?attr/actionBarSize"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,7 +74,7 @@
                 app:tabIndicatorGravity="top"
                 app:tabMaxWidth="0dp"
                 app:tabMode="scrollable" />
-        </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/composeButton"

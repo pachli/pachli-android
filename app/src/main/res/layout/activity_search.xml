@@ -9,14 +9,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/actionbar_elevation"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/pages"
         app:layout_collapseMode="pin">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="@dimen/actionbar_elevation"
             app:contentInsetStartWithNavigation="0dp"
             app:layout_scrollFlags="scroll|snap|enterAlways"
             app:navigationIcon="?attr/homeAsUpIndicator" />
