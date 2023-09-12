@@ -113,6 +113,9 @@ class CachedTimelineRemoteMediator(
             db.withTransaction {
                 when (loadType) {
                     LoadType.REFRESH -> {
+                        remoteKeyDao.delete(activeAccount.id)
+                        timelineDao.removeAllStatuses(activeAccount.id)
+
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 activeAccount.id,
@@ -155,7 +158,7 @@ class CachedTimelineRemoteMediator(
                         )
                     }
                 }
-                replaceStatusRange(statuses, state)
+                insertStatuses(statuses, state)
             }
 
             return MediatorResult.Success(endOfPaginationReached = false)
@@ -167,19 +170,11 @@ class CachedTimelineRemoteMediator(
     }
 
     /**
-     * Deletes all statuses in a given range and inserts new statuses.
-     * This is necessary so statuses that have been deleted on the server are cleaned up.
-     * Should be run in a transaction as it executes multiple db updates
-     * @param statuses the new statuses
-     * @return the number of old statuses that have been cleared from the database
+     * Inserts `statuses`. If any of the statuses exists in `state.pages` the value of the
+     * status `expanded`, `contentShowing`, and `contentCollapsed` fields are copied
+     * from the cache.
      */
-    private suspend fun replaceStatusRange(statuses: List<Status>, state: PagingState<Int, TimelineStatusWithAccount>): Int {
-        val overlappedStatuses = if (statuses.isNotEmpty()) {
-            timelineDao.deleteRange(activeAccount.id, statuses.last().id, statuses.first().id)
-        } else {
-            0
-        }
-
+    private suspend fun insertStatuses(statuses: List<Status>, state: PagingState<Int, TimelineStatusWithAccount>) {
         for (status in statuses) {
             timelineDao.insertAccount(status.account.toEntity(activeAccount.id, gson))
             status.reblog?.account?.toEntity(activeAccount.id, gson)?.let { rebloggedAccount ->
@@ -210,7 +205,6 @@ class CachedTimelineRemoteMediator(
                 ),
             )
         }
-        return overlappedStatuses
     }
 
     companion object {
