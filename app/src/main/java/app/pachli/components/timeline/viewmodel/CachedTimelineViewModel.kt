@@ -96,7 +96,13 @@ class CachedTimelineViewModel @Inject constructor(
         return repository.getStatusStream(kind = kind, initialKey = initialKey)
             .map { pagingData ->
                 pagingData
-                    .map { it.toViewData(gson) }
+                    .map {
+                        it.toViewData(
+                            gson,
+                            alwaysOpenSpoiler = activeAccount.alwaysOpenSpoiler,
+                            alwaysShowSensitiveMedia = activeAccount.alwaysShowSensitiveMedia,
+                        )
+                    }
                     .filter { shouldFilterStatus(it) != Filter.Action.HIDE }
             }
     }
@@ -107,19 +113,19 @@ class CachedTimelineViewModel @Inject constructor(
 
     override fun changeExpanded(expanded: Boolean, status: StatusViewData) {
         viewModelScope.launch {
-            repository.setExpanded(expanded, status.id)
+            repository.saveStatusViewData(status.copy(isExpanded = expanded))
         }
     }
 
     override fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
         viewModelScope.launch {
-            repository.setContentShowing(isShowing, status.id)
+            repository.saveStatusViewData(status.copy(isShowingContent = isShowing))
         }
     }
 
     override fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
         viewModelScope.launch {
-            repository.setContentCollapsed(isCollapsed, status.id)
+            repository.saveStatusViewData(status.copy(isCollapsed = isCollapsed))
         }
     }
 

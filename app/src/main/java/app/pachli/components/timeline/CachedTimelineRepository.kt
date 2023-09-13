@@ -26,10 +26,12 @@ import androidx.paging.PagingData
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.db.AccountManager
 import app.pachli.db.AppDatabase
+import app.pachli.db.StatusViewDataEntity
 import app.pachli.db.TimelineStatusWithAccount
 import app.pachli.di.ApplicationScope
 import app.pachli.network.MastodonApi
 import app.pachli.util.EmptyPagingSource
+import app.pachli.viewdata.StatusViewData
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -107,22 +109,16 @@ class CachedTimelineRepository @Inject constructor(
         factory?.invalidate()
     }
 
-    /** Set and store the "expanded" state of the given status, for the active account */
-    suspend fun setExpanded(expanded: Boolean, statusId: String) = externalScope.launch {
-        appDatabase.timelineDao()
-            .setExpanded(activeAccount!!.id, statusId, expanded)
-    }.join()
-
-    /** Set and store the "content showing" state of the given status, for the active account */
-    suspend fun setContentShowing(showing: Boolean, statusId: String) = externalScope.launch {
-        appDatabase.timelineDao()
-            .setContentShowing(activeAccount!!.id, statusId, showing)
-    }.join()
-
-    /** Set and store the "content collapsed" ("Show more") state of the given status, for the active account */
-    suspend fun setContentCollapsed(collapsed: Boolean, statusId: String) = externalScope.launch {
-        appDatabase.timelineDao()
-            .setContentCollapsed(activeAccount!!.id, statusId, collapsed)
+    suspend fun saveStatusViewData(statusViewData: StatusViewData) = externalScope.launch {
+        appDatabase.timelineDao().upsertStatusViewData(
+            StatusViewDataEntity(
+                serverId = statusViewData.actionableId,
+                timelineUserId = activeAccount!!.id,
+                expanded = statusViewData.isExpanded,
+                contentShowing = statusViewData.isShowingContent,
+                contentCollapsed = statusViewData.isCollapsed,
+            ),
+        )
     }.join()
 
     /** Remove all statuses authored/boosted by the given account, for the active account */

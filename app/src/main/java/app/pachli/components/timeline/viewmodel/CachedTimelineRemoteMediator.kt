@@ -30,7 +30,6 @@ import app.pachli.db.AccountManager
 import app.pachli.db.AppDatabase
 import app.pachli.db.RemoteKeyEntity
 import app.pachli.db.RemoteKeyKind
-import app.pachli.db.TimelineStatusEntity
 import app.pachli.db.TimelineStatusWithAccount
 import app.pachli.entity.Status
 import app.pachli.network.Links
@@ -181,27 +180,10 @@ class CachedTimelineRemoteMediator(
                 timelineDao.insertAccount(rebloggedAccount)
             }
 
-            // check if we already have one of the newly loaded statuses cached locally
-            // in case we do, copy the local state (expanded, contentShowing, contentCollapsed) over so it doesn't get lost
-            var oldStatus: TimelineStatusEntity? = null
-            for (page in state.pages) {
-                oldStatus = page.data.find { s ->
-                    s.status.serverId == status.id
-                }?.status
-                if (oldStatus != null) break
-            }
-
-            val expanded = oldStatus?.expanded ?: activeAccount.alwaysOpenSpoiler
-            val contentShowing = oldStatus?.contentShowing ?: activeAccount.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive
-            val contentCollapsed = oldStatus?.contentCollapsed ?: true
-
             timelineDao.insertStatus(
                 status.toEntity(
                     timelineUserId = activeAccount.id,
                     gson = gson,
-                    expanded = expanded,
-                    contentShowing = contentShowing,
-                    contentCollapsed = contentCollapsed,
                 ),
             )
         }

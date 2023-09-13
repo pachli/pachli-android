@@ -113,6 +113,8 @@ class ViewThreadViewModel @Inject constructor(
                 Log.d(TAG, "Loaded status from local timeline")
                 val viewData = timelineStatus.toViewData(
                     gson,
+                    alwaysOpenSpoiler = alwaysOpenSpoiler,
+                    alwaysShowSensitiveMedia = alwaysShowSensitiveMedia,
                     isDetailed = true,
                 )
 

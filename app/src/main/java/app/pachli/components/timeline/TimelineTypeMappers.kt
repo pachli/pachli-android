@@ -68,9 +68,6 @@ fun TimelineAccountEntity.toAccount(gson: Gson): TimelineAccount {
 fun Status.toEntity(
     timelineUserId: Long,
     gson: Gson,
-    expanded: Boolean,
-    contentShowing: Boolean,
-    contentCollapsed: Boolean,
 ): TimelineStatusEntity {
     return TimelineStatusEntity(
         serverId = this.id,
@@ -99,9 +96,6 @@ fun Status.toEntity(
         reblogAccountId = reblog?.let { this.account.id },
         poll = actionableStatus.poll.let(gson::toJson),
         muted = actionableStatus.muted,
-        expanded = expanded,
-        contentShowing = contentShowing,
-        contentCollapsed = contentCollapsed,
         pinned = actionableStatus.pinned == true,
         card = actionableStatus.card?.let(gson::toJson),
         repliesCount = actionableStatus.repliesCount,
@@ -110,7 +104,7 @@ fun Status.toEntity(
     )
 }
 
-fun TimelineStatusWithAccount.toViewData(gson: Gson, isDetailed: Boolean = false): StatusViewData {
+fun TimelineStatusWithAccount.toViewData(gson: Gson, alwaysOpenSpoiler: Boolean, alwaysShowSensitiveMedia: Boolean, isDetailed: Boolean = false): StatusViewData {
     val attachments: ArrayList<Attachment> = gson.fromJson(
         status.attachments,
         attachmentArrayListType,
@@ -229,11 +223,12 @@ fun TimelineStatusWithAccount.toViewData(gson: Gson, isDetailed: Boolean = false
             filtered = status.filtered,
         )
     }
+
     return StatusViewData(
         status = status,
-        isExpanded = this.status.expanded,
-        isShowingContent = this.status.contentShowing,
-        isCollapsed = this.status.contentCollapsed,
+        isExpanded = this.viewData?.expanded ?: alwaysOpenSpoiler,
+        isShowingContent = this.viewData?.contentShowing ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+        isCollapsed = this.viewData?.contentCollapsed ?: true,
         isDetailed = isDetailed,
     )
 }
