@@ -109,6 +109,6 @@ fun mockStatusEntityWithAccount(
             expanded = expanded,
             contentShowing = false,
             contentCollapsed = true,
-        )
+        ),
     )
 }

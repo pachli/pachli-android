@@ -9,6 +9,7 @@ import app.pachli.appstore.BookmarkEvent
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
 import app.pachli.appstore.ReblogEvent
+import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.mockStatus
 import app.pachli.components.timeline.mockStatusViewData
 import app.pachli.db.AccountEntity
@@ -29,6 +30,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.stub
@@ -100,7 +102,11 @@ class ViewThreadViewModelTest {
             .build()
 
         val gson = Gson()
-        viewModel = ViewThreadViewModel(api, filterModel, timelineCases, eventHub, accountManager, db, gson)
+        val cachedTimelineRepository: CachedTimelineRepository = mock {
+            onBlocking { getStatusViewData(any()) } doReturn emptyMap()
+        }
+
+        viewModel = ViewThreadViewModel(api, filterModel, timelineCases, eventHub, accountManager, db, gson, cachedTimelineRepository)
     }
 
     @After

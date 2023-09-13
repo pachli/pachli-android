@@ -121,6 +121,13 @@ class CachedTimelineRepository @Inject constructor(
         )
     }.join()
 
+    /**
+     * @return Map between statusIDs and any viewdata for them cached in the repository.
+     */
+    suspend fun getStatusViewData(statusId: List<String>): Map<String, StatusViewDataEntity> {
+        return appDatabase.timelineDao().getStatusViewData(activeAccount!!.id, statusId)
+    }
+
     /** Remove all statuses authored/boosted by the given account, for the active account */
     suspend fun removeAllByAccountId(accountId: String) = externalScope.launch {
         appDatabase.timelineDao().removeAllByUser(activeAccount!!.id, accountId)
