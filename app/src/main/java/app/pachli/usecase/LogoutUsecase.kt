@@ -53,6 +53,8 @@ class LogoutUsecase @Inject constructor(
 
             // clear the database - this could trigger network calls so do it last when all tokens are gone
             db.timelineDao().removeAll(activeAccount.id)
+            db.timelineDao().removeAllStatusViewData(activeAccount.id)
+            db.remoteKeyDao().delete(activeAccount.id)
             db.conversationDao().deleteForAccount(activeAccount.id)
             draftHelper.deleteAllDraftsAndAttachmentsForAccount(activeAccount.id)
 

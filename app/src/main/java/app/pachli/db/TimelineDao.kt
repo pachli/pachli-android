@@ -149,6 +149,9 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
     @Query("DELETE FROM TimelineAccountEntity WHERE timelineUserId = :accountId")
     abstract suspend fun removeAllAccounts(accountId: Long)
 
+    @Query("DELETE FROM StatusViewDataEntity WHERE timelineUserId = :accountId")
+    abstract suspend fun removeAllStatusViewData(accountId: Long)
+
     @Query(
         """DELETE FROM TimelineStatusEntity WHERE timelineUserId = :accountId
 AND serverId = :statusId""",
@@ -163,6 +166,7 @@ AND serverId = :statusId""",
     suspend fun cleanup(accountId: Long, limit: Int) {
         cleanupStatuses(accountId, limit)
         cleanupAccounts(accountId)
+        cleanupStatusViewData(accountId, limit)
     }
 
     /**
@@ -188,6 +192,21 @@ AND serverId = :statusId""",
         (SELECT reblogAccountId FROM TimelineStatusEntity WHERE timelineUserId = :accountId AND reblogAccountId IS NOT NULL)""",
     )
     abstract suspend fun cleanupAccounts(accountId: Long)
+
+    /**
+     * Cleans the StatusViewDataEntity table of old view data, keeping the most recent [limit]
+     * entries.
+     */
+    @Query(
+        """DELETE
+             FROM StatusViewDataEntity
+            WHERE timelineUserId = :accountId
+              AND serverId NOT IN (
+                SELECT serverId FROM StatusViewDataEntity WHERE timelineUserId = :accountId ORDER BY LENGTH(serverId) DESC, serverId DESC LIMIT :limit
+              )
+        """,
+    )
+    abstract suspend fun cleanupStatusViewData(accountId: Long, limit: Int)
 
     @Query(
         """UPDATE TimelineStatusEntity SET poll = :poll
