@@ -24,6 +24,7 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.room.Transaction
 import androidx.room.withTransaction
 import app.pachli.components.timeline.toEntity
 import app.pachli.db.AccountManager
@@ -157,7 +158,7 @@ class CachedTimelineRemoteMediator(
                         )
                     }
                 }
-                insertStatuses(statuses, state)
+                insertStatuses(statuses)
             }
 
             return MediatorResult.Success(endOfPaginationReached = false)
@@ -169,11 +170,10 @@ class CachedTimelineRemoteMediator(
     }
 
     /**
-     * Inserts `statuses`. If any of the statuses exists in `state.pages` the value of the
-     * status `expanded`, `contentShowing`, and `contentCollapsed` fields are copied
-     * from the cache.
+     * Inserts `statuses` and the accounts referenced by those statuses in to the cache.
      */
-    private suspend fun insertStatuses(statuses: List<Status>, state: PagingState<Int, TimelineStatusWithAccount>) {
+    @Transaction
+    private suspend fun insertStatuses(statuses: List<Status>) {
         for (status in statuses) {
             timelineDao.insertAccount(status.account.toEntity(activeAccount.id, gson))
             status.reblog?.account?.toEntity(activeAccount.id, gson)?.let { rebloggedAccount ->
