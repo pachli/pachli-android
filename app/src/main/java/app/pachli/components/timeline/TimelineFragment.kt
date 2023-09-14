@@ -33,7 +33,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
@@ -77,6 +76,7 @@ import app.pachli.viewdata.AttachmentViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -557,8 +557,9 @@ class TimelineFragment :
         )
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = layoutManager
-        val divider = DividerItemDecoration(context, RecyclerView.VERTICAL)
-        binding.recyclerView.addItemDecoration(divider)
+        binding.recyclerView.addItemDecoration(
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
+        )
 
         // CWs are expanded without animation, buttons animate itself, we don't need it basically
         (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false

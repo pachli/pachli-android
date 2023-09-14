@@ -31,7 +31,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -58,6 +57,7 @@ import app.pachli.util.visible
 import app.pachli.viewdata.AttachmentViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
@@ -227,7 +227,9 @@ class ConversationsFragment :
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        binding.recyclerView.addItemDecoration(
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
+        )
 
         (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 

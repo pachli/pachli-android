@@ -23,7 +23,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -58,6 +57,7 @@ import at.connyduck.calladapter.networkresult.fold
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider.from
 import autodispose2.autoDispose
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.launch
@@ -98,7 +98,9 @@ class AccountListFragment :
         val layoutManager = LinearLayoutManager(view.context)
         binding.recyclerView.layoutManager = layoutManager
         (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(view.context, DividerItemDecoration.VERTICAL))
+        binding.recyclerView.addItemDecoration(
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
+        )
 
         binding.swipeRefreshLayout.setOnRefreshListener { fetchAccounts() }
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))

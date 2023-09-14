@@ -19,9 +19,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DividerItemDecoration
 import app.pachli.components.search.adapter.SearchHashtagsAdapter
 import app.pachli.entity.HashTag
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import kotlinx.coroutines.flow.Flow
 
 class SearchHashtagsFragment : SearchFragment<HashTag>() {
@@ -32,10 +32,7 @@ class SearchHashtagsFragment : SearchFragment<HashTag>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.searchRecyclerView.addItemDecoration(
-            DividerItemDecoration(
-                binding.searchRecyclerView.context,
-                DividerItemDecoration.VERTICAL,
-            ),
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
     }
 

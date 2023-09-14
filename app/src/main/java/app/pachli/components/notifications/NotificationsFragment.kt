@@ -37,7 +37,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
@@ -70,6 +69,7 @@ import app.pachli.viewdata.AttachmentViewData.Companion.list
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -162,10 +162,7 @@ class NotificationsFragment :
             },
         )
         binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                context,
-                DividerItemDecoration.VERTICAL,
-            ),
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
 
         binding.recyclerView.addOnScrollListener(

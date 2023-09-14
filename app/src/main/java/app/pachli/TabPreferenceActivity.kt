@@ -35,7 +35,6 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,6 +55,7 @@ import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.sparkbutton.helpers.Utils
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
@@ -111,7 +111,9 @@ class TabPreferenceActivity : BaseActivity(), Injectable, ItemInteractionListene
         currentTabsAdapter = TabAdapter(currentTabs, false, this, currentTabs.size <= MIN_TAB_COUNT)
         binding.currentTabsRecyclerView.adapter = currentTabsAdapter
         binding.currentTabsRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.currentTabsRecyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        binding.currentTabsRecyclerView.addItemDecoration(
+            MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
+        )
 
         addTabAdapter = TabAdapter(listOf(createTabDataFromId(DIRECT)), true, this)
         binding.addTabRecyclerView.adapter = addTabAdapter

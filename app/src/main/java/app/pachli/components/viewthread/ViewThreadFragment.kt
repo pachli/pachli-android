@@ -23,7 +23,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.annotation.CheckResult
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.commit
@@ -31,7 +30,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -56,6 +54,7 @@ import app.pachli.util.viewBinding
 import app.pachli.viewdata.AttachmentViewData.Companion.list
 import app.pachli.viewdata.StatusViewData
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.awaitCancellation
@@ -142,8 +141,9 @@ class ViewThreadFragment :
                 this,
             ) { index -> adapter.currentList.getOrNull(index) },
         )
-        val divider = DividerItemDecoration(context, LinearLayout.VERTICAL)
-        binding.recyclerView.addItemDecoration(divider)
+        binding.recyclerView.addItemDecoration(
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
+        )
         binding.recyclerView.addItemDecoration(ConversationLineItemDecoration(requireContext()))
         alwaysShowSensitiveMedia = accountManager.activeAccount!!.alwaysShowSensitiveMedia
         alwaysOpenSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler

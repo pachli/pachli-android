@@ -27,7 +27,6 @@ import android.widget.PopupWindow
 import androidx.activity.viewModels
 import androidx.core.view.MenuProvider
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BottomSheetActivity
 import app.pachli.R
@@ -47,6 +46,7 @@ import app.pachli.util.unsafeLazy
 import app.pachli.util.viewBinding
 import app.pachli.view.EmojiPicker
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
@@ -99,8 +99,9 @@ class AnnouncementsActivity :
 
         binding.announcementsList.setHasFixedSize(true)
         binding.announcementsList.layoutManager = LinearLayoutManager(this)
-        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        binding.announcementsList.addItemDecoration(divider)
+        binding.announcementsList.addItemDecoration(
+            MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
+        )
 
         val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val wellbeingEnabled = preferences.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, false)

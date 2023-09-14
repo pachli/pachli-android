@@ -6,7 +6,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
@@ -23,6 +22,7 @@ import app.pachli.view.EndlessOnScrollListener
 import at.connyduck.calladapter.networkresult.fold
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider.from
 import autodispose2.autoDispose
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.launch
@@ -47,7 +47,9 @@ class InstanceListFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(view.context, DividerItemDecoration.VERTICAL))
+        binding.recyclerView.addItemDecoration(
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
+        )
         binding.recyclerView.adapter = adapter
 
         val layoutManager = LinearLayoutManager(view.context)
