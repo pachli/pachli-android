@@ -89,6 +89,7 @@ class ScheduledStatusActivity :
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
         binding.scheduledTootList.adapter = adapter
+        binding.includedToolbar.appbar.setLiftOnScrollTargetView(binding.scheduledTootList)
 
         lifecycleScope.launch {
             viewModel.data.collectLatest { pagingData ->

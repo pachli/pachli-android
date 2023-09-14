@@ -42,6 +42,7 @@ class FiltersActivity : BaseActivity(), FiltersListener {
 
         binding.swipeRefreshLayout.setOnRefreshListener { loadFilters() }
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
+        binding.includedToolbar.appbar.setLiftOnScrollTargetView(binding.filtersList)
 
         setTitle(R.string.pref_title_timeline_filters)
     }
