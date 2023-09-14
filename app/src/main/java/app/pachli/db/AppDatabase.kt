@@ -17,8 +17,11 @@
 
 package app.pachli.db
 
+import androidx.room.AutoMigration
 import androidx.room.Database
+import androidx.room.DeleteColumn
 import androidx.room.RoomDatabase
+import androidx.room.migration.AutoMigrationSpec
 import app.pachli.components.conversation.ConversationEntity
 
 @Database(
@@ -30,8 +33,12 @@ import app.pachli.components.conversation.ConversationEntity
         TimelineAccountEntity::class,
         ConversationEntity::class,
         RemoteKeyEntity::class,
+        StatusViewDataEntity::class,
     ],
-    version = 1,
+    version = 2,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
+    ],
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
@@ -40,4 +47,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun timelineDao(): TimelineDao
     abstract fun draftDao(): DraftDao
     abstract fun remoteKeyDao(): RemoteKeyDao
+
+    @DeleteColumn("TimelineStatusEntity", "expanded")
+    @DeleteColumn("TimelineStatusEntity", "contentCollapsed")
+    @DeleteColumn("TimelineStatusEntity", "contentShowing")
+    class MIGRATE_1_2 : AutoMigrationSpec
 }

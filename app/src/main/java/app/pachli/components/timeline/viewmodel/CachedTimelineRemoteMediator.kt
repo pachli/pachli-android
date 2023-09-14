@@ -24,13 +24,13 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.room.Transaction
 import androidx.room.withTransaction
 import app.pachli.components.timeline.toEntity
 import app.pachli.db.AccountManager
 import app.pachli.db.AppDatabase
 import app.pachli.db.RemoteKeyEntity
 import app.pachli.db.RemoteKeyKind
-import app.pachli.db.TimelineStatusEntity
 import app.pachli.db.TimelineStatusWithAccount
 import app.pachli.entity.Status
 import app.pachli.network.Links
@@ -113,6 +113,9 @@ class CachedTimelineRemoteMediator(
             db.withTransaction {
                 when (loadType) {
                     LoadType.REFRESH -> {
+                        remoteKeyDao.delete(activeAccount.id)
+                        timelineDao.removeAllStatuses(activeAccount.id)
+
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 activeAccount.id,
@@ -155,7 +158,7 @@ class CachedTimelineRemoteMediator(
                         )
                     }
                 }
-                replaceStatusRange(statuses, state)
+                insertStatuses(statuses)
             }
 
             return MediatorResult.Success(endOfPaginationReached = false)
@@ -167,50 +170,23 @@ class CachedTimelineRemoteMediator(
     }
 
     /**
-     * Deletes all statuses in a given range and inserts new statuses.
-     * This is necessary so statuses that have been deleted on the server are cleaned up.
-     * Should be run in a transaction as it executes multiple db updates
-     * @param statuses the new statuses
-     * @return the number of old statuses that have been cleared from the database
+     * Inserts `statuses` and the accounts referenced by those statuses in to the cache.
      */
-    private suspend fun replaceStatusRange(statuses: List<Status>, state: PagingState<Int, TimelineStatusWithAccount>): Int {
-        val overlappedStatuses = if (statuses.isNotEmpty()) {
-            timelineDao.deleteRange(activeAccount.id, statuses.last().id, statuses.first().id)
-        } else {
-            0
-        }
-
+    @Transaction
+    private suspend fun insertStatuses(statuses: List<Status>) {
         for (status in statuses) {
             timelineDao.insertAccount(status.account.toEntity(activeAccount.id, gson))
             status.reblog?.account?.toEntity(activeAccount.id, gson)?.let { rebloggedAccount ->
                 timelineDao.insertAccount(rebloggedAccount)
             }
 
-            // check if we already have one of the newly loaded statuses cached locally
-            // in case we do, copy the local state (expanded, contentShowing, contentCollapsed) over so it doesn't get lost
-            var oldStatus: TimelineStatusEntity? = null
-            for (page in state.pages) {
-                oldStatus = page.data.find { s ->
-                    s.status.serverId == status.id
-                }?.status
-                if (oldStatus != null) break
-            }
-
-            val expanded = oldStatus?.expanded ?: activeAccount.alwaysOpenSpoiler
-            val contentShowing = oldStatus?.contentShowing ?: activeAccount.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive
-            val contentCollapsed = oldStatus?.contentCollapsed ?: true
-
             timelineDao.insertStatus(
                 status.toEntity(
                     timelineUserId = activeAccount.id,
                     gson = gson,
-                    expanded = expanded,
-                    contentShowing = contentShowing,
-                    contentCollapsed = contentCollapsed,
                 ),
             )
         }
-        return overlappedStatuses
     }
 
     companion object {

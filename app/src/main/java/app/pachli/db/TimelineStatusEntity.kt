@@ -78,9 +78,6 @@ data class TimelineStatusEntity(
     val reblogAccountId: String?,
     val poll: String?,
     val muted: Boolean?,
-    val expanded: Boolean,
-    val contentCollapsed: Boolean,
-    val contentShowing: Boolean,
     val pinned: Boolean,
     val card: String?,
     val language: String?,
@@ -102,6 +99,27 @@ data class TimelineAccountEntity(
     val bot: Boolean,
 )
 
+/**
+ * The local view data for a status.
+ *
+ * There is *no* foreignkey relationship between this and [TimelineStatusEntity], as the view
+ * data is kept even if the status is deleted from the local cache (e.g., during a refresh
+ * operation).
+ */
+@Entity(
+    primaryKeys = ["serverId", "timelineUserId"],
+)
+data class StatusViewDataEntity(
+    val serverId: String,
+    val timelineUserId: Long,
+    /** Corresponds to [app.pachli.viewdata.StatusViewData.isExpanded] */
+    val expanded: Boolean,
+    /** Corresponds to [app.pachli.viewdata.StatusViewData.isShowingContent] */
+    val contentShowing: Boolean,
+    /** Corresponds to [app.pachli.viewdata.StatusViewData.isCollapsed] */
+    val contentCollapsed: Boolean,
+)
+
 data class TimelineStatusWithAccount(
     @Embedded
     val status: TimelineStatusEntity,
@@ -109,4 +127,6 @@ data class TimelineStatusWithAccount(
     val account: TimelineAccountEntity,
     @Embedded(prefix = "rb_")
     val reblogAccount: TimelineAccountEntity? = null, // null when no reblog
+    @Embedded(prefix = "svd_")
+    val viewData: StatusViewDataEntity? = null,
 )

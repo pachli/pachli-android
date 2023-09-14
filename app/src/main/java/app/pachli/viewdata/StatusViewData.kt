@@ -34,6 +34,10 @@ data class StatusViewData(
      * Ignored if there is no content warning.
      */
     val isExpanded: Boolean,
+    /**
+     * If the status contains attached media, specifies whether whether the media is shown
+     * (true), or not (false).
+     */
     val isShowingContent: Boolean,
 
     /**
@@ -43,6 +47,11 @@ data class StatusViewData(
      * @return Whether the status is collapsed or fully expanded.
      */
     val isCollapsed: Boolean,
+
+    /**
+     * Specifies whether this status should be shown with the "detailed" layout, meaning it is
+     * the status that has a focus when viewing a thread.
+     */
     val isDetailed: Boolean = false,
 
     /** Whether this status should be filtered, and if so, how */
