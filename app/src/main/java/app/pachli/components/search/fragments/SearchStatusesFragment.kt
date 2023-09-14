@@ -36,7 +36,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BaseActivity
 import app.pachli.R
@@ -60,6 +59,7 @@ import app.pachli.view.showMuteAccountDialog
 import app.pachli.viewdata.AttachmentViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -93,7 +93,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             openSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler,
         )
 
-        binding.searchRecyclerView.addItemDecoration(DividerItemDecoration(binding.searchRecyclerView.context, DividerItemDecoration.VERTICAL))
+        binding.searchRecyclerView.addItemDecoration(
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
+        )
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
         return SearchStatusesAdapter(statusDisplayOptions, this)
     }

@@ -26,7 +26,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BaseActivity
 import app.pachli.R
@@ -41,6 +40,7 @@ import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
@@ -85,8 +85,9 @@ class ScheduledStatusActivity :
 
         binding.scheduledTootList.setHasFixedSize(true)
         binding.scheduledTootList.layoutManager = LinearLayoutManager(this)
-        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        binding.scheduledTootList.addItemDecoration(divider)
+        binding.scheduledTootList.addItemDecoration(
+            MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
+        )
         binding.scheduledTootList.adapter = adapter
 
         lifecycleScope.launch {

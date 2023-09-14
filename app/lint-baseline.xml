@@ -2324,7 +2324,7 @@
         errorLine2="                ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/AccountListFragment.kt"
-            line="136"
+            line="138"
             column="17"/>
     </issue>
 
@@ -2665,7 +2665,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/followedtags/FollowedTagsActivity.kt"
-            line="92"
+            line="94"
             column="25"/>
     </issue>
 
@@ -2676,7 +2676,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/followedtags/FollowedTagsActivity.kt"
-            line="200"
+            line="202"
             column="21"/>
     </issue>
 
@@ -2687,7 +2687,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/instancemute/fragment/InstanceListFragment.kt"
-            line="59"
+            line="61"
             column="21"/>
     </issue>
 
@@ -3721,7 +3721,7 @@
         errorLine2="                                          ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="176"
+            line="173"
             column="43"/>
     </issue>
 
@@ -3776,7 +3776,7 @@
         errorLine2="                    ~~~~~~~~">
         <location
             file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="140"
+            line="142"
             column="21"/>
     </issue>
 
@@ -3787,7 +3787,7 @@
         errorLine2="                                                          ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="150"
+            line="152"
             column="59"/>
     </issue>
 
@@ -3798,7 +3798,7 @@
         errorLine2="                                                          ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="150"
+            line="152"
             column="59"/>
     </issue>
 

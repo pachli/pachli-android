@@ -33,7 +33,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -54,6 +53,7 @@ import app.pachli.viewmodel.ListsViewModel.LoadingState.INITIAL
 import app.pachli.viewmodel.ListsViewModel.LoadingState.LOADED
 import app.pachli.viewmodel.ListsViewModel.LoadingState.LOADING
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -93,7 +93,7 @@ class ListsActivity : BaseActivity(), Injectable, HasAndroidInjector {
         binding.listsRecycler.adapter = adapter
         binding.listsRecycler.layoutManager = LinearLayoutManager(this)
         binding.listsRecycler.addItemDecoration(
-            DividerItemDecoration(this, DividerItemDecoration.VERTICAL),
+            MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
 
         binding.swipeRefreshLayout.setOnRefreshListener { viewModel.retryLoading() }

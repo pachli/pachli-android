@@ -23,7 +23,6 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BaseActivity
 import app.pachli.R
@@ -36,6 +35,7 @@ import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.visible
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -74,7 +74,9 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
 
         binding.draftsRecyclerView.adapter = adapter
         binding.draftsRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.draftsRecyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        binding.draftsRecyclerView.addItemDecoration(
+            MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
+        )
 
         bottomSheet = BottomSheetBehavior.from(binding.bottomSheet.root)
 
