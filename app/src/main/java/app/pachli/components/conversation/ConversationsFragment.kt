@@ -228,7 +228,7 @@ class ConversationsFragment :
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
         binding.recyclerView.addItemDecoration(
-            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL)
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
 
         (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false

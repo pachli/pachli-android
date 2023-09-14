@@ -162,7 +162,7 @@ class NotificationsFragment :
             },
         )
         binding.recyclerView.addItemDecoration(
-            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL)
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
 
         binding.recyclerView.addOnScrollListener(

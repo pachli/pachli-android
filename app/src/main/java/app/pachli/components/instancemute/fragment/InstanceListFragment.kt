@@ -48,7 +48,7 @@ class InstanceListFragment :
 
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.addItemDecoration(
-            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL)
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
         binding.recyclerView.adapter = adapter
 

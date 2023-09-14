@@ -558,7 +558,7 @@ class TimelineFragment :
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.addItemDecoration(
-            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL)
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
 
         // CWs are expanded without animation, buttons animate itself, we don't need it basically
