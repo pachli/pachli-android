@@ -88,6 +88,7 @@ class CachedTimelineRepository @Inject constructor(
             config = PagingConfig(pageSize = pageSize),
             initialKey = row,
             remoteMediator = CachedTimelineRemoteMediator(
+                initialKey,
                 mastodonApi,
                 accountManager,
                 factory!!,
