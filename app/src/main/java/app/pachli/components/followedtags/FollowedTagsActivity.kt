@@ -75,6 +75,8 @@ class FollowedTagsActivity :
                 }
             }
         }
+
+        binding.includedToolbar.appbar.setLiftOnScrollTargetView(binding.followedTagsView)
     }
 
     private fun setupRecyclerView(adapter: FollowedTagsAdapter) {

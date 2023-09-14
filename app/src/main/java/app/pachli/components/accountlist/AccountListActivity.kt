@@ -22,14 +22,22 @@ import androidx.fragment.app.commit
 import app.pachli.BottomSheetActivity
 import app.pachli.R
 import app.pachli.databinding.ActivityAccountListBinding
+import app.pachli.interfaces.AppBarLayoutHost
+import app.pachli.util.viewBinding
+import com.google.android.material.appbar.AppBarLayout
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class AccountListActivity : BottomSheetActivity(), HasAndroidInjector {
+class AccountListActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidInjector {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+
+    private val binding: ActivityAccountListBinding by viewBinding(ActivityAccountListBinding::inflate)
+
+    override val appBarLayout: AppBarLayout
+        get() = binding.includedToolbar.appbar
 
     enum class Type {
         FOLLOWS,
@@ -43,7 +51,6 @@ class AccountListActivity : BottomSheetActivity(), HasAndroidInjector {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityAccountListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val type = intent.getSerializableExtra(EXTRA_TYPE) as Type

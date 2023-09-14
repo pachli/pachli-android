@@ -45,6 +45,7 @@ import app.pachli.di.Injectable
 import app.pachli.entity.Relationship
 import app.pachli.entity.TimelineAccount
 import app.pachli.interfaces.AccountActionListener
+import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.LinkListener
 import app.pachli.network.MastodonApi
 import app.pachli.settings.PrefKeys
@@ -101,6 +102,7 @@ class AccountListFragment :
         binding.recyclerView.addItemDecoration(
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
+        (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
 
         binding.swipeRefreshLayout.setOnRefreshListener { fetchAccounts() }
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
