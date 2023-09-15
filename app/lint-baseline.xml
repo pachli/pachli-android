@@ -2324,7 +2324,7 @@
         errorLine2="                ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/AccountListFragment.kt"
-            line="138"
+            line="140"
             column="17"/>
     </issue>
 
@@ -2665,7 +2665,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/followedtags/FollowedTagsActivity.kt"
-            line="94"
+            line="96"
             column="25"/>
     </issue>
 
@@ -2676,7 +2676,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/followedtags/FollowedTagsActivity.kt"
-            line="202"
+            line="204"
             column="21"/>
     </issue>
 
@@ -3809,7 +3809,7 @@
         errorLine2="                                              ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="178"
+            line="177"
             column="47"/>
     </issue>
 

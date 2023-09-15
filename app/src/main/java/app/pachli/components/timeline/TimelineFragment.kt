@@ -89,7 +89,6 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
@@ -332,27 +331,6 @@ class TimelineFragment :
                         }
                 }
 
-                // Restore the user's reading position, if appropriate.
-                // Collect the first page submitted to the adapter, which will be the Refresh.
-                // This should contain a status with an ID that matches the reading position.
-                // Find that status and scroll to it.
-                launch {
-                    if (shouldRestoreReadingPosition) {
-                        adapter.onPagesUpdatedFlow.take(1).collect()
-                        Log.d(TAG, "Page updated, should restore reading position")
-                        adapter.snapshot()
-                            .indexOfFirst { it?.id == viewModel.readingPositionId }
-                            .takeIf { it != -1 }
-                            ?.let { pos ->
-                                binding.recyclerView.post {
-                                    getView() ?: return@post
-                                    binding.recyclerView.scrollToPosition(pos)
-                                }
-                            }
-                        shouldRestoreReadingPosition = false
-                    }
-                }
-
                 /** StateFlow (to allow multiple consumers) of UserRefreshState */
                 val refreshState = adapter.loadStateFlow.asRefreshState().stateIn(lifecycleScope)
 
@@ -368,39 +346,59 @@ class TimelineFragment :
                     /** ID of the item that was first in the adapter before the refresh */
                     var previousFirstId: String? = null
 
-                    refreshState.collect {
-                        when (it) {
+                    refreshState.collect { userRefreshState ->
+                        if (userRefreshState == UserRefreshState.ACTIVE) {
                             // Refresh has started, reset peeked, and save the ID of the first item
                             // in the adapter
-                            UserRefreshState.ACTIVE -> {
-                                peeked = false
-                                if (adapter.itemCount != 0) previousFirstId = adapter.peek(0)?.id
-                            }
+                            peeked = false
+                            if (adapter.itemCount != 0) previousFirstId = adapter.peek(0)?.id
+                        }
 
+                        if (userRefreshState == UserRefreshState.COMPLETE) {
                             // Refresh has finished, pages are being prepended.
-                            UserRefreshState.COMPLETE -> {
-                                // There might be multiple prepends after a refresh, only continue
-                                // if one them has not already caused a peek.
-                                if (peeked) return@collect
 
-                                // Compare the ID of the current first item with the previous first
-                                // item. If they're the same then this prepend did not add any new
-                                // items, and can be ignored.
-                                val firstId = if (adapter.itemCount != 0) adapter.peek(0)?.id else null
-                                if (previousFirstId == firstId) return@collect
-
-                                // New items were added and haven't peeked for this refresh. Schedule
-                                // a scroll to disclose that new items are available.
-                                binding.recyclerView.post {
-                                    getView() ?: return@post
-                                    binding.recyclerView.smoothScrollBy(
-                                        0,
-                                        Utils.dpToPx(requireContext(), -30),
-                                    )
-                                }
-                                peeked = true
+                            // Restore the user's reading position, if appropriate.
+                            if (shouldRestoreReadingPosition) {
+                                Log.d(
+                                    TAG,
+                                    "Page updated, should restore reading position to ${viewModel.readingPositionId}",
+                                )
+                                adapter.snapshot()
+                                    .indexOfFirst { it?.id == viewModel.readingPositionId }
+                                    .takeIf { it != -1 }
+                                    ?.let { pos ->
+                                        Log.d(TAG, "restored reading position")
+                                        binding.recyclerView.post {
+                                            getView() ?: return@post
+                                            (binding.recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
+                                                pos,
+                                                0,
+                                            )
+                                        }
+                                        shouldRestoreReadingPosition = false
+                                    }
                             }
-                            else -> { /* nothing to do */ }
+
+                            // There might be multiple prepends after a refresh, only continue
+                            // if one them has not already caused a peek.
+                            if (peeked) return@collect
+
+                            // Compare the ID of the current first item with the previous first
+                            // item. If they're the same then this prepend did not add any new
+                            // items, and can be ignored.
+                            val firstId = if (adapter.itemCount != 0) adapter.peek(0)?.id else null
+                            if (previousFirstId == firstId) return@collect
+
+                            // New items were added and haven't peeked for this refresh. Schedule
+                            // a scroll to disclose that new items are available.
+                            binding.recyclerView.post {
+                                getView() ?: return@post
+                                binding.recyclerView.smoothScrollBy(
+                                    0,
+                                    Utils.dpToPx(requireContext(), -30),
+                                )
+                            }
+                            peeked = true
                         }
                     }
                 }
@@ -523,16 +521,14 @@ class TimelineFragment :
     }
 
     /**
-     * Save [statusId] as the reading position. If null then the ID of the last completely visible
-     * status is used.
+     * Save [statusId] as the reading position. If null then the ID of the first completely visible
+     * status is used. It is the first status so that when performing a pull-refresh the
+     * previous first status always remains visible.
      */
     fun saveVisibleId(statusId: String? = null) {
-        statusId ?: layoutManager.findLastCompletelyVisibleItemPosition()
+        statusId ?: layoutManager.findFirstCompletelyVisibleItemPosition()
             .takeIf { it != RecyclerView.NO_POSITION }
-            ?.let { pos ->
-                val snapshot = adapter.snapshot()
-                adapter.snapshot().getOrNull(pos)?.id
-            }
+            ?.let { adapter.snapshot().getOrNull(it)?.id }
             ?.let {
                 Log.d(TAG, "Saving ID: $it")
                 viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = it))
@@ -571,6 +567,7 @@ class TimelineFragment :
     }
 
     override fun onRefresh() {
+        shouldRestoreReadingPosition = timelineKind == TimelineKind.Home
         binding.statusView.hide()
         snackbar?.dismiss()
 
@@ -761,10 +758,9 @@ class TimelineFragment :
 
     override fun onReselect() {
         if (isAdded) {
-            binding.recyclerView.layoutManager?.scrollToPosition(0)
+            binding.recyclerView.scrollToPosition(0)
             binding.recyclerView.stopScroll()
-            // The first item in an ItemSnapshotList may not be at index 0, hence firstOrNull()
-            saveVisibleId(adapter.snapshot().firstOrNull()?.id)
+            saveVisibleId()
         }
     }
 

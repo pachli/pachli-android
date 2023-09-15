@@ -445,6 +445,7 @@ abstract class TimelineViewModel(
                         Log.d(TAG, "Saving Home timeline position at: ${action.visibleId}")
                         activeAccount.lastVisibleHomeTimelineStatusId = action.visibleId
                         accountManager.saveAccount(activeAccount)
+                        readingPositionId = action.visibleId
                     }
             }
         }
