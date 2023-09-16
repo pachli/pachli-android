@@ -155,6 +155,16 @@ class TimelineFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                launch {
+                    viewModel.statuses.collectLatest { pagingData ->
+                        adapter.submitData(pagingData)
+                    }
+                }
+            }
+        }
+
         return inflater.inflate(R.layout.fragment_timeline, container, false)
     }
 
@@ -201,12 +211,6 @@ class TimelineFragment :
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.statuses.collectLatest { pagingData ->
-                        adapter.submitData(pagingData)
-                    }
-                }
-
                 // Show errors from the view model as snack bars.
                 //
                 // Errors are shown:
