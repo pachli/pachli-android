@@ -78,6 +78,6 @@ jobs:
           packageName: app.pachli
           releaseFiles: ${{steps.sign_app_aab.outputs.signedReleaseFile}}
           track: internal
-          whatsNewDirectory: google-play/whatsnew
+          whatsNewDirectory: googleplay/whatsnew
           status: completed
           mappingFile: app/build/outputs/mapping/blueRelease/mapping.txt
