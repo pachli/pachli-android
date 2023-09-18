@@ -1,0 +1,11 @@
+Pachli 1.1
+
+Fixes:
+
+-  Use the correct contrast colour on hashtag tab chips 
+-  Scale the monochrome icon to fit 
+-  Restore the user's home timeline position 
+-  Ensure refreshing does not create a gap in the timeline 
+-  Show the FAB according to the user's preferences 
+-  Fix toolbar flickering when scrolling lists 
+-  Fix crash on entering MainActivity on Pixel C devices 
