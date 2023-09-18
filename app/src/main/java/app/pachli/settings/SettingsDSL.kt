@@ -12,7 +12,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceScreen
-import androidx.preference.SwitchPreference
+import androidx.preference.SwitchPreferenceCompat
 import app.pachli.view.SliderPreference
 import de.c1710.filemojicompat_ui.views.picker.preference.EmojiPickerPreference
 
@@ -53,9 +53,9 @@ inline fun PreferenceParent.sliderPreference(
 }
 
 inline fun PreferenceParent.switchPreference(
-    builder: SwitchPreference.() -> Unit,
-): SwitchPreference {
-    val pref = SwitchPreference(context)
+    builder: SwitchPreferenceCompat.() -> Unit,
+): SwitchPreferenceCompat {
+    val pref = SwitchPreferenceCompat(context)
     builder(pref)
     addPref(pref)
     return pref
