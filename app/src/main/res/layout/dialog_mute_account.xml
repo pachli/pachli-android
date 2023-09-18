@@ -18,7 +18,6 @@
     <CheckBox android:id="@+id/checkbox"
               android:layout_height="wrap_content"
               android:layout_width="wrap_content"
-              android:textColor="?attr/colorOnTertiary"
               app:buttonTint="@color/compound_button_color"
               android:text="@string/dialog_mute_hide_notifications"/>
 
