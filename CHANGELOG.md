@@ -1,5 +1,17 @@
 # Pachli changelog
 
+## v1.1
+
+### Significant bug fixes
+
+-  Use the correct contrast colour on hashtag tab chips (#[47](https://github.com/pachli/pachli-android/pull/47))
+-  Scale the monochrome icon to fit (#[46](https://github.com/pachli/pachli-android/pull/46))
+-  Restore the user's home timeline position (#[44](https://github.com/pachli/pachli-android/pull/44))
+-  Ensure refreshing does not create a gap in the timeline (#[43](https://github.com/pachli/pachli-android/pull/43))
+-  Show the FAB according to the user's preferences (#[29](https://github.com/pachli/pachli-android/pull/29))
+-  Fix toolbar flickering when scrolling lists (#[26](https://github.com/pachli/pachli-android/pull/26))
+-  Fix crash on entering MainActivity on Pixel C devices (#[25](https://github.com/pachli/pachli-android/pull/25))
+
 ## v1.0
 
 Pachli 1.0 is a fork of [Tusky 23.0](https://github.com/tuskyapp/Tusky/releases/tag/v23.0). The changes listed here are relative to that version.
