@@ -128,7 +128,7 @@ sealed class InfallibleUiAction : UiAction() {
     // Resets the account's reading position, which can't fail, which is why this is
     // infallible. Reloading the data may fail, but that's handled by the paging system /
     // adapter refresh logic.
-    object LoadNewest : InfallibleUiAction()
+    data object LoadNewest : InfallibleUiAction()
 }
 
 sealed class UiSuccess {
@@ -138,13 +138,13 @@ sealed class UiSuccess {
     // of these three should trigger the UI to refresh.
 
     /** A user was blocked */
-    object Block : UiSuccess()
+    data object Block : UiSuccess()
 
     /** A user was muted */
-    object Mute : UiSuccess()
+    data object Mute : UiSuccess()
 
     /** A conversation was muted */
-    object MuteConversation : UiSuccess()
+    data object MuteConversation : UiSuccess()
 
     /** A status the user wrote was successfully posted */
     data class StatusSent(val status: Status) : UiSuccess()
