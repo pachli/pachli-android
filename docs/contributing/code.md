@@ -93,7 +93,7 @@ Pull requests (PRs) are the primary unit of collaboration for code.
 
 ### Work on branches in your own fork of the repository
 
-Do not clone the `pachli-android` repository. Instead, create a fork, create a branch in your fork from the `develop` branch, and commit your changes to that.
+Do not clone the `pachli-android` repository. Instead, create a fork, create a branch in your fork from the `main` branch, and commit your changes to that.
 
 See the GitHub [Collaborating with pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models) documentation.
 
@@ -118,7 +118,7 @@ This is not mandatory, but may make developing easier for you.
 
 A PR is typically made up multiple commits.
 
-With very few exceptions this project squash-merges all PRs to maintain a linear commit history on the `develop` branch.
+With very few exceptions this project squash-merges all PRs to maintain a linear commit history on the `main` branch.
 
 Therefore **we do not care** about the "quality" of the individual commits that make up a single PR. Within the PR a single commit might change multiple things, have a non-obvious commit message, be littered with `TODO` comments, etc. Please do not think that every commit you make as you complete your PR needs to be perfect.
 
@@ -240,15 +240,15 @@ As well as conveying more information to me as the reviewer this allows me to pe
 - Are there other instances of `@color/white` that this PR missed?
 - Does the PR use the correct spelling of `colorControlNormal` everywhere?
 
-#### Cleanly merge back in to `develop`
+#### Cleanly merge back in to `main`
 
-While you were working on your PR other changes may have happened on the `develop` branch.
+While you were working on your PR other changes may have happened on the `main` branch.
 
-Some of those changes may have overlapped with changes you make in your PR, and your PR can not be merged cleanly back in to `develop`.
+Some of those changes may have overlapped with changes you make in your PR, and your PR can not be merged cleanly back in to `main`.
 
-You should periodically merge changes from the `develop` branch in to your PR branch, and keep your PR up to date with `develop` during the review process.
+You should periodically merge changes from the `main` branch in to your PR branch, and keep your PR up to date with `main` during the review process.
 
-If your PR can not be cleanly merged in to `develop` it is difficult to review effectively, because merging the changes from `develop` in to your PR will invalidate the review. You've changed the code, so the reviewer needs to look at it again.
+If your PR can not be cleanly merged in to `main` it is difficult to review effectively, because merging the changes from `main` in to your PR will invalidate the review. You've changed the code, so the reviewer needs to look at it again.
 
 #### `ktlintCheck` and `ktlintFormat`
 
@@ -317,7 +317,7 @@ On the GitHub page for your PR create a new comment, and paste (Ctrl-V / Cmd-V) 
 This checklist may be helpful when you are creating your first few PRs. The PR:
 
 - [ ] ... is made from my fork of the Pachli repository
-- [ ] ... is branched from `develop`
+- [ ] ... is branched from `main`
 - [ ] ... title follows Conventional Commits:
     - [ ] starting with the correct type (`fix:`, `feat:`, etc)
     - [ ] and makes sense prefixed with "If merged, this PR will ..."
@@ -326,7 +326,7 @@ This checklist may be helpful when you are creating your first few PRs. The PR:
     - [ ] What it does
     - [ ] If appropriate, a justification for the approach
     - [ ] And has a "Fixes ..." footer if it fixes an issue
-- [ ] ... merges cleanly in to the `develop` branch
+- [ ] ... merges cleanly in to the `main` branch
 - [ ] ... passes `ktlintCheck`
 - [ ] ... passes all tests
     - [ ] ... and adds new ones if appropriate

@@ -1,4 +1,4 @@
-# Build the app on each push to `develop`, populating the build cache to speed
+# Build the app on each push to `main`, populating the build cache to speed
 # up CI on PRs.
 
 name: Populate build cache
@@ -6,7 +6,7 @@ name: Populate build cache
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
 
       - uses: gradle/gradle-build-action@v2
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/develop' }}
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Run app:buildOrangeDebug
         run: ./gradlew app:buildOrangeDebug
