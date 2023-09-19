@@ -17,7 +17,6 @@
 
 package app.pachli.components.trending.viewmodel
 
-import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -103,7 +102,7 @@ class TrendingLinksViewModel @Inject constructor(
     }
 
     companion object {
-        @SuppressLint("unused")
+        @Suppress("unused")
         private const val TAG = "TrendingLinksViewModel"
         private val THROTTLE_TIMEOUT = 500.milliseconds
     }

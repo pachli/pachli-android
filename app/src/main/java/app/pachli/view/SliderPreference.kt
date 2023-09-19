@@ -195,6 +195,7 @@ class SliderPreference @JvmOverloads constructor(
     }
 
     companion object {
+        @Suppress("unused")
         private const val TAG = "SliderPreference"
         private const val defaultValueFrom = 0F
         private const val defaultValueTo = 1F

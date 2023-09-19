@@ -491,6 +491,7 @@ abstract class SFragment : Fragment(), Injectable {
     }
 
     companion object {
+        @Suppress("unused")
         private const val TAG = "SFragment"
         private fun accountIsInMentions(account: AccountEntity?, mentions: List<Status.Mention>): Boolean {
             return mentions.any { mention ->
