@@ -36,13 +36,14 @@ public final class ProgressRequestBody extends RequestBody {
         void onProgressUpdate(int percentage);
     }
 
-    public ProgressRequestBody(final InputStream content, long contentLength, final MediaType mediaType, final UploadCallback listener) {
+    public ProgressRequestBody(@NonNull final InputStream content, long contentLength, @NonNull final MediaType mediaType, @NonNull final UploadCallback listener) {
         this.content = content;
         this.contentLength = contentLength;
         this.mediaType = mediaType;
         this.uploadListener = listener;
     }
 
+    @NonNull
     @Override
     public MediaType contentType() {
         return mediaType;

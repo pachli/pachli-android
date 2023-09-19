@@ -50,7 +50,7 @@ public class StatusViewHolder extends StatusBaseViewHolder {
     private final TextView favouritedCountLabel;
     private final TextView reblogsCountLabel;
 
-    public StatusViewHolder(View itemView) {
+    public StatusViewHolder(@NonNull View itemView) {
         super(itemView);
         statusInfo = itemView.findViewById(R.id.status_info);
         contentCollapseButton = itemView.findViewById(R.id.button_toggle_content);
@@ -90,9 +90,9 @@ public class StatusViewHolder extends StatusBaseViewHolder {
         super.setupWithStatus(status, listener, statusDisplayOptions, payloads);
     }
 
-    private void setRebloggedByDisplayName(final CharSequence name,
+    private void setRebloggedByDisplayName(@NonNull final CharSequence name,
                                            final List<Emoji> accountEmoji,
-                                           final StatusDisplayOptions statusDisplayOptions) {
+                                           @NonNull final StatusDisplayOptions statusDisplayOptions) {
         Context context = statusInfo.getContext();
         CharSequence wrappedName = StringUtils.unicodeWrap(name);
         CharSequence boostedText = context.getString(R.string.post_boosted_format, wrappedName);
@@ -126,8 +126,8 @@ public class StatusViewHolder extends StatusBaseViewHolder {
 
     private void setupCollapsedState(boolean sensitive,
                                      boolean expanded,
-                                     final StatusViewData status,
-                                     final StatusActionListener listener) {
+                                     @NonNull final StatusViewData status,
+                                     @NonNull final StatusActionListener listener) {
         /* input filter for TextViews have to be set before text */
         if (status.isCollapsible() && (!sensitive || expanded)) {
             contentCollapseButton.setOnClickListener(view -> {
