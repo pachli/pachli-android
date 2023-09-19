@@ -2,17 +2,6 @@
 <issues format="6" by="lint 8.1.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.0.2)" variant="all" version="8.1.0">
 
     <issue
-        id="MissingPermission"
-        message="Call requires permission which may be rejected by user: code should explicitly check to see if permission is available (with `checkPermission`) or explicitly handle a potential `SecurityException`"
-        errorLine1="                notificationManager.notify(notificationId, builder.build())"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/receiver/SendStatusBroadcastReceiver.kt"
-            line="78"
-            column="17"/>
-    </issue>
-
-    <issue
         id="CheckResult"
         message="The result of `placeholder` is not used"
         errorLine1="                    if (showPlaceholder) placeholder(R.drawable.avatar_default)"
