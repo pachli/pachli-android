@@ -488,7 +488,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
         header = AccountHeaderView(this).apply {
             headerBackgroundScaleType = ImageView.ScaleType.CENTER_CROP
             currentHiddenInList = true
-            onAccountHeaderListener = { _: View?, profile: IProfile, current: Boolean -> handleProfileClick(profile, current) }
+            onAccountHeaderListener = { _: View?, profile: IProfile, current: Boolean ->
+                handleProfileClick(profile, current)
+                false
+            }
             addProfile(
                 ProfileSettingDrawerItem().apply {
                     identifier = DRAWER_ITEM_ADD_ACCOUNT
@@ -854,23 +857,23 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
         }
     }
 
-    private fun handleProfileClick(profile: IProfile, current: Boolean): Boolean {
+    private fun handleProfileClick(profile: IProfile, current: Boolean) {
         val activeAccount = accountManager.activeAccount
 
         // open profile when active image was clicked
         if (current && activeAccount != null) {
             val intent = AccountActivity.getIntent(this, activeAccount.accountId)
             startActivityWithSlideInAnimation(intent)
-            return false
+            return
         }
         // open LoginActivity to add new account
         if (profile.identifier == DRAWER_ITEM_ADD_ACCOUNT) {
             startActivityWithSlideInAnimation(LoginActivity.getIntent(this, LoginActivity.MODE_ADDITIONAL_LOGIN))
-            return false
+            return
         }
         // change Account
         changeAccount(profile.identifier, null)
-        return false
+        return
     }
 
     private fun changeAccount(newSelectedId: Long, forward: Intent?) {
