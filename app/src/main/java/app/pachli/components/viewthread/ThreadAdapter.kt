@@ -66,6 +66,7 @@ class ThreadAdapter(
     }
 
     companion object {
+        @Suppress("unused")
         private const val TAG = "ThreadAdapter"
         private const val VIEW_TYPE_STATUS = 0
         private const val VIEW_TYPE_STATUS_DETAILED = 1

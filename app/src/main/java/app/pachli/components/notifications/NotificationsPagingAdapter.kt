@@ -17,7 +17,6 @@
 
 package app.pachli.components.notifications
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -226,7 +225,7 @@ class NotificationsPagingAdapter(
     }
 
     companion object {
-        @SuppressLint("unused")
+        @Suppress("unused")
         private const val TAG = "NotificationsPagingAdapter"
     }
 }

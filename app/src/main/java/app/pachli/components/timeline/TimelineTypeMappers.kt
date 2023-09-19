@@ -30,6 +30,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.Date
 
+@Suppress("unused")
 private const val TAG = "TimelineTypeMappers"
 
 private val attachmentArrayListType = object : TypeToken<ArrayList<Attachment>>() {}.type

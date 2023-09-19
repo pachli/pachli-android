@@ -197,6 +197,8 @@ class AccountMediaFragment :
     }
 
     companion object {
+        @Suppress("unused")
+        private const val TAG = "AccountMediaFragment"
 
         fun newInstance(accountId: String): AccountMediaFragment {
             val fragment = AccountMediaFragment()
@@ -207,6 +209,5 @@ class AccountMediaFragment :
         }
 
         private const val ACCOUNT_ID_ARG = "account_id"
-        private const val TAG = "AccountMediaFragment"
     }
 }
