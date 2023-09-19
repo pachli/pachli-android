@@ -85,8 +85,8 @@ class ViewThreadViewModel @Inject constructor(
 
     init {
         activeAccount = accountManager.activeAccount!!
-        alwaysShowSensitiveMedia = activeAccount.alwaysShowSensitiveMedia ?: false
-        alwaysOpenSpoiler = activeAccount.alwaysOpenSpoiler ?: false
+        alwaysShowSensitiveMedia = activeAccount.alwaysShowSensitiveMedia
+        alwaysOpenSpoiler = activeAccount.alwaysOpenSpoiler
 
         viewModelScope.launch {
             eventHub.events
