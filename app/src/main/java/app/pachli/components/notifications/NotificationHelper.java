@@ -150,7 +150,7 @@ public class NotificationHelper {
      * @return the new notification
      */
     @NonNull
-    public static android.app.Notification make(final Context context, NotificationManager notificationManager, Notification body, AccountEntity account, boolean isFirstOfBatch) {
+    public static android.app.Notification make(@NonNull final Context context, @NonNull NotificationManager notificationManager, @NonNull Notification body, @NonNull AccountEntity account, boolean isFirstOfBatch) {
         body = body.rewriteToStatusTypeIfNeeded(account.getAccountId());
         String mastodonNotificationId = body.getId();
         int accountId = (int) account.getId();
@@ -272,7 +272,7 @@ public class NotificationHelper {
      * @param notificationManager the system's NotificationManager
      * @param account the account for which the notification should be shown
      */
-    public static void updateSummaryNotifications(Context context, NotificationManager notificationManager, AccountEntity account) {
+    public static void updateSummaryNotifications(@NonNull Context context, @NonNull NotificationManager notificationManager, @NonNull AccountEntity account) {
         // Map from the channel ID to a list of notifications in that channel. Those are the
         // notifications that will be summarised.
         Map<String, List<StatusBarNotification>> channelGroups = new HashMap<>();
@@ -364,7 +364,8 @@ public class NotificationHelper {
     }
 
 
-    private static NotificationCompat.Builder newAndroidNotification(Context context, Notification body, AccountEntity account) {
+    @NonNull
+    private static NotificationCompat.Builder newAndroidNotification(@NonNull Context context, @NonNull Notification body, @NonNull AccountEntity account) {
 
         Intent eventResultIntent = MainActivity.openNotificationIntent(context, account.getId(), body.getType());
 
@@ -392,7 +393,7 @@ public class NotificationHelper {
         return builder;
     }
 
-    private static PendingIntent getStatusReplyIntent(Context context, Notification body, AccountEntity account) {
+    private static PendingIntent getStatusReplyIntent(@NonNull Context context, @NonNull Notification body, @NonNull AccountEntity account) {
         Status status = body.getStatus();
 
         String inReplyToId = status.getId();
@@ -425,7 +426,7 @@ public class NotificationHelper {
                 pendingIntentFlags(true));
     }
 
-    private static PendingIntent getStatusComposeIntent(Context context, Notification body, AccountEntity account) {
+    private static PendingIntent getStatusComposeIntent(@NonNull Context context, @NonNull Notification body, @NonNull AccountEntity account) {
         Status status = body.getStatus();
 
         String citedLocalAuthor = status.getAccount().getLocalUsername();
@@ -610,7 +611,7 @@ public class NotificationHelper {
 
     }
 
-    public static void enablePullNotifications(Context context) {
+    public static void enablePullNotifications(@NonNull Context context) {
         WorkManager workManager = WorkManager.getInstance(context);
         workManager.cancelAllWorkByTag(NOTIFICATION_PULL_TAG);
 
@@ -638,7 +639,7 @@ public class NotificationHelper {
         Log.d(TAG, "enabled notification checks with "+ PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS + "ms interval");
     }
 
-    public static void disablePullNotifications(Context context) {
+    public static void disablePullNotifications(@NonNull Context context) {
         WorkManager.getInstance(context).cancelAllWorkByTag(NOTIFICATION_PULL_TAG);
         Log.d(TAG, "disabled notification checks");
     }
@@ -654,7 +655,7 @@ public class NotificationHelper {
         }
     }
 
-    public static boolean filterNotification(NotificationManager notificationManager, AccountEntity account, @NonNull Notification notification) {
+    public static boolean filterNotification(@NonNull NotificationManager notificationManager, @NonNull AccountEntity account, @NonNull Notification notification) {
         return filterNotification(notificationManager, account, notification.getType());
     }
 
@@ -696,12 +697,12 @@ public class NotificationHelper {
     }
 
     @Nullable
-    private static String getChannelId(AccountEntity account, Notification notification) {
+    private static String getChannelId(@NonNull AccountEntity account, @NonNull Notification notification) {
         return getChannelId(account, notification.getType());
     }
 
     @Nullable
-    private static String getChannelId(AccountEntity account, Notification.Type type) {
+    private static String getChannelId(@NonNull AccountEntity account, @NonNull Notification.Type type) {
         switch (type) {
             case MENTION:
                 return CHANNEL_MENTION + account.getIdentifier();
@@ -729,7 +730,7 @@ public class NotificationHelper {
 
     }
 
-    private static void setSoundVibrationLight(AccountEntity account, NotificationCompat.Builder builder) {
+    private static void setSoundVibrationLight(@NonNull AccountEntity account, @NonNull NotificationCompat.Builder builder) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return;  //do nothing on Android O or newer, the system uses the channel settings anyway
         }
@@ -747,12 +748,13 @@ public class NotificationHelper {
         }
     }
 
-    private static String wrapItemAt(StatusBarNotification notification) {
+    @NonNull
+    private static String wrapItemAt(@NonNull StatusBarNotification notification) {
         return StringUtils.unicodeWrap(notification.getNotification().extras.getString(EXTRA_ACCOUNT_NAME));//getAccount().getName());
     }
 
     @Nullable
-    private static String joinNames(Context context, List<StatusBarNotification> notifications) {
+    private static String joinNames(@NonNull Context context, @NonNull List<StatusBarNotification> notifications) {
         if (notifications.size() > 3) {
             int length = notifications.size();
             //notifications.get(0).getNotification().extras.getString(EXTRA_ACCOUNT_NAME);
@@ -776,7 +778,7 @@ public class NotificationHelper {
     }
 
     @Nullable
-    private static String titleForType(Context context, Notification notification, AccountEntity account) {
+    private static String titleForType(@NonNull Context context, @NonNull Notification notification, @NonNull AccountEntity account) {
         String accountName = StringUtils.unicodeWrap(notification.getAccount().getName());
         switch (notification.getType()) {
             case MENTION:
@@ -813,7 +815,8 @@ public class NotificationHelper {
         return null;
     }
 
-    private static String bodyForType(Notification notification, Context context, Boolean alwaysOpenSpoiler) {
+    @Nullable
+    private static String bodyForType(@NonNull Notification notification, @NonNull Context context, Boolean alwaysOpenSpoiler) {
         switch (notification.getType()) {
             case FOLLOW:
             case FOLLOW_REQUEST:

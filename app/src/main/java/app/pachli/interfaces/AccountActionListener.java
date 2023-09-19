@@ -15,9 +15,11 @@
 
 package app.pachli.interfaces;
 
+import androidx.annotation.NonNull;
+
 public interface AccountActionListener {
-    void onViewAccount(String id);
-    void onMute(final boolean mute, final String id, final int position, final boolean notifications);
-    void onBlock(final boolean block, final String id, final int position);
-    void onRespondToFollowRequest(final boolean accept, final String id, final int position);
+    void onViewAccount(@NonNull String id);
+    void onMute(final boolean mute, @NonNull final String id, final int position, final boolean notifications);
+    void onBlock(final boolean block, @NonNull final String id, final int position);
+    void onRespondToFollowRequest(final boolean accept, @NonNull final String id, final int position);
 }
