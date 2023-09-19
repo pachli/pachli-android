@@ -339,7 +339,7 @@ class ConversationsFragment :
         }
     }
 
-    override fun onVoteInPoll(position: Int, choices: MutableList<Int>) {
+    override fun onVoteInPoll(position: Int, choices: List<Int>) {
         adapter.peek(position)?.let { conversation ->
             viewModel.voteInPoll(choices, conversation)
         }

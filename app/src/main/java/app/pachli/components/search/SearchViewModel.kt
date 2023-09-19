@@ -136,7 +136,7 @@ class SearchViewModel @Inject constructor(
         updateStatusViewData(statusViewData.copy(isCollapsed = collapsed))
     }
 
-    fun voteInPoll(statusViewData: StatusViewData, choices: MutableList<Int>) {
+    fun voteInPoll(statusViewData: StatusViewData, choices: List<Int>) {
         val votedPoll = statusViewData.status.actionableStatus.poll!!.votedCopy(choices)
         updateStatus(statusViewData.status.copy(poll = votedPoll))
         viewModelScope.launch {

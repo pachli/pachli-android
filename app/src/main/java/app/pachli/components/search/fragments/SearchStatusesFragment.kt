@@ -185,7 +185,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         }
     }
 
-    override fun onVoteInPoll(position: Int, choices: MutableList<Int>) {
+    override fun onVoteInPoll(position: Int, choices: List<Int>) {
         searchAdapter.peek(position)?.let {
             viewModel.voteInPoll(it, choices)
         }
