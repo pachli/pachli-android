@@ -15,10 +15,13 @@
 
 package app.pachli.receiver
 
+import android.Manifest.permission.POST_NOTIFICATIONS
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.RemoteInput
@@ -60,6 +63,10 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
 
             if (account == null) {
                 Log.w(TAG, "Account \"$senderId\" not found in database. Aborting quick reply!")
+
+                if (ActivityCompat.checkSelfPermission(context, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
+                    return
+                }
 
                 val builder = NotificationCompat.Builder(context, NotificationHelper.CHANNEL_MENTION + senderIdentifier)
                     .setSmallIcon(R.drawable.ic_notify)
