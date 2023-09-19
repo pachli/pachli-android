@@ -23,9 +23,9 @@ import kotlinx.parcelize.Parcelize
 /** A timeline's type. Hold's data necessary to display that timeline. */
 @Parcelize
 sealed class TimelineKind : Parcelable {
-    object Home : TimelineKind()
-    object PublicFederated : TimelineKind()
-    object PublicLocal : TimelineKind()
+    data object Home : TimelineKind()
+    data object PublicFederated : TimelineKind()
+    data object PublicLocal : TimelineKind()
     data class Tag(val tags: List<String>) : TimelineKind()
 
     /** Any timeline showing statuses from a single user */
@@ -40,8 +40,8 @@ sealed class TimelineKind : Parcelable {
         /** Timeline showing the user's top-level statuses and replies they have made */
         data class Replies(override val id: String) : User(id)
     }
-    object Favourites : TimelineKind()
-    object Bookmarks : TimelineKind()
+    data object Favourites : TimelineKind()
+    data object Bookmarks : TimelineKind()
     data class UserList(val id: String, val title: String) : TimelineKind()
-    object TrendingStatuses : TimelineKind()
+    data object TrendingStatuses : TimelineKind()
 }

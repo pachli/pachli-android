@@ -45,12 +45,12 @@ import kotlin.time.Duration.Companion.milliseconds
 sealed class UiAction
 
 sealed class InfallibleUiAction : UiAction() {
-    object Reload : InfallibleUiAction()
+    data object Reload : InfallibleUiAction()
 }
 
 sealed class LoadState {
-    object Initial : LoadState()
-    object Loading : LoadState()
+    data object Initial : LoadState()
+    data object Loading : LoadState()
     data class Success(val data: List<TrendsLink>) : LoadState()
     data class Error(val throwable: Throwable) : LoadState()
 }
