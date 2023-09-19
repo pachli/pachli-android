@@ -63,3 +63,21 @@ jobs:
         with:
           name: app-release.apk
           path: ${{steps.sign_app_apk.outputs.signedReleaseFile}}
+
+      - name: Generate whatsnew
+        id: generate-whatsnew
+        run: |
+          mkdir -p googleplay/whatsnew
+          cp $(find fastlane/metadata/android/en-US/changelogs | sort -n -k6 -t/ | tail -n 1) googleplay/whatsnew/whatsnew-en-US
+
+      - name: Upload AAB to Google Play
+        id: upload-release-asset-aab
+        uses: r0adkll/upload-google-play@v1.1.1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
+          packageName: app.pachli
+          releaseFiles: ${{steps.sign_app_aab.outputs.signedReleaseFile}}
+          track: internal
+          whatsNewDirectory: googleplay/whatsnew
+          status: completed
+          mappingFile: app/build/outputs/mapping/blueRelease/mapping.txt
