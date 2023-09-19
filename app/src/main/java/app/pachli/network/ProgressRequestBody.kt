@@ -37,7 +37,7 @@ class ProgressRequestBody(
     override fun writeTo(sink: BufferedSink) {
         val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
         var uploaded: Long = 0
-        try {
+        content.use { content ->
             var read: Int
             while (content.read(buffer).also { read = it } != -1) {
                 uploadListener((100 * uploaded / contentLength).toInt())
@@ -45,8 +45,6 @@ class ProgressRequestBody(
                 sink.write(buffer, 0, read)
             }
             uploadListener((100 * uploaded / contentLength).toInt())
-        } finally {
-            content.close()
         }
     }
 
