@@ -284,7 +284,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:drawablePadding="6dp"
-                            android:drawableStart="@drawable/ic_briefcase"
+                            app:drawableStartCompat="@drawable/ic_briefcase"
                             android:textSize="?attr/status_text_medium"
                             android:textColor="?colorOnPrimaryContainer"
                             app:layout_constraintStart_toStartOf="parent"
