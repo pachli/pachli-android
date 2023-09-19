@@ -229,11 +229,6 @@ interface MastodonApi {
         @Body editedStatus: NewStatus,
     ): NetworkResult<Status>
 
-    @GET("api/v1/statuses/{id}")
-    suspend fun statusAsync(
-        @Path("id") statusId: String,
-    ): NetworkResult<Status>
-
     @GET("api/v1/statuses/{id}/source")
     suspend fun statusSource(
         @Path("id") statusId: String,
