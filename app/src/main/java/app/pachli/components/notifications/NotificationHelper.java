@@ -670,30 +670,19 @@ public class NotificationHelper {
             return channel != null && channel.getImportance() > NotificationManager.IMPORTANCE_NONE;
         }
 
-        switch (type) {
-            case MENTION:
-                return account.getNotificationsMentioned();
-            case STATUS:
-                return account.getNotificationsSubscriptions();
-            case FOLLOW:
-                return account.getNotificationsFollowed();
-            case FOLLOW_REQUEST:
-                return account.getNotificationsFollowRequested();
-            case REBLOG:
-                return account.getNotificationsReblogged();
-            case FAVOURITE:
-                return account.getNotificationsFavorited();
-            case POLL:
-                return account.getNotificationsPolls();
-            case SIGN_UP:
-                return account.getNotificationsSignUps();
-            case UPDATE:
-                return account.getNotificationsUpdates();
-            case REPORT:
-                return account.getNotificationsReports();
-            default:
-                return false;
-        }
+        return switch (type) {
+            case MENTION -> account.getNotificationsMentioned();
+            case STATUS -> account.getNotificationsSubscriptions();
+            case FOLLOW -> account.getNotificationsFollowed();
+            case FOLLOW_REQUEST -> account.getNotificationsFollowRequested();
+            case REBLOG -> account.getNotificationsReblogged();
+            case FAVOURITE -> account.getNotificationsFavorited();
+            case POLL -> account.getNotificationsPolls();
+            case SIGN_UP -> account.getNotificationsSignUps();
+            case UPDATE -> account.getNotificationsUpdates();
+            case REPORT -> account.getNotificationsReports();
+            default -> false;
+        };
     }
 
     @Nullable
@@ -703,31 +692,19 @@ public class NotificationHelper {
 
     @Nullable
     private static String getChannelId(@NonNull AccountEntity account, @NonNull Notification.Type type) {
-        switch (type) {
-            case MENTION:
-                return CHANNEL_MENTION + account.getIdentifier();
-            case STATUS:
-                return CHANNEL_SUBSCRIPTIONS + account.getIdentifier();
-            case FOLLOW:
-                return CHANNEL_FOLLOW + account.getIdentifier();
-            case FOLLOW_REQUEST:
-                return CHANNEL_FOLLOW_REQUEST + account.getIdentifier();
-            case REBLOG:
-                return CHANNEL_BOOST + account.getIdentifier();
-            case FAVOURITE:
-                return CHANNEL_FAVOURITE + account.getIdentifier();
-            case POLL:
-                return CHANNEL_POLL + account.getIdentifier();
-            case SIGN_UP:
-                return CHANNEL_SIGN_UP + account.getIdentifier();
-            case UPDATE:
-                return CHANNEL_UPDATES + account.getIdentifier();
-            case REPORT:
-                return CHANNEL_REPORT + account.getIdentifier();
-            default:
-                return null;
-        }
-
+        return switch (type) {
+            case MENTION -> CHANNEL_MENTION + account.getIdentifier();
+            case STATUS -> CHANNEL_SUBSCRIPTIONS + account.getIdentifier();
+            case FOLLOW -> CHANNEL_FOLLOW + account.getIdentifier();
+            case FOLLOW_REQUEST -> CHANNEL_FOLLOW_REQUEST + account.getIdentifier();
+            case REBLOG -> CHANNEL_BOOST + account.getIdentifier();
+            case FAVOURITE -> CHANNEL_FAVOURITE + account.getIdentifier();
+            case POLL -> CHANNEL_POLL + account.getIdentifier();
+            case SIGN_UP -> CHANNEL_SIGN_UP + account.getIdentifier();
+            case UPDATE -> CHANNEL_UPDATES + account.getIdentifier();
+            case REPORT -> CHANNEL_REPORT + account.getIdentifier();
+            default -> null;
+        };
     }
 
     private static void setSoundVibrationLight(@NonNull AccountEntity account, @NonNull NotificationCompat.Builder builder) {
@@ -781,36 +758,46 @@ public class NotificationHelper {
     private static String titleForType(@NonNull Context context, @NonNull Notification notification, @NonNull AccountEntity account) {
         String accountName = StringUtils.unicodeWrap(notification.getAccount().getName());
         switch (notification.getType()) {
-            case MENTION:
+            case MENTION -> {
                 return String.format(context.getString(R.string.notification_mention_format),
-                        accountName);
-            case STATUS:
+                    accountName);
+            }
+            case STATUS -> {
                 return String.format(context.getString(R.string.notification_subscription_format),
-                        accountName);
-            case FOLLOW:
+                    accountName);
+            }
+            case FOLLOW -> {
                 return String.format(context.getString(R.string.notification_follow_format),
-                        accountName);
-            case FOLLOW_REQUEST:
+                    accountName);
+            }
+            case FOLLOW_REQUEST -> {
                 return String.format(context.getString(R.string.notification_follow_request_format),
-                        accountName);
-            case FAVOURITE:
+                    accountName);
+            }
+            case FAVOURITE -> {
                 return String.format(context.getString(R.string.notification_favourite_format),
-                        accountName);
-            case REBLOG:
+                    accountName);
+            }
+            case REBLOG -> {
                 return String.format(context.getString(R.string.notification_reblog_format),
-                        accountName);
-            case POLL:
-                if(notification.getStatus().getAccount().getId().equals(account.getAccountId())) {
+                    accountName);
+            }
+            case POLL -> {
+                if (notification.getStatus().getAccount().getId().equals(account.getAccountId())) {
                     return context.getString(R.string.poll_ended_created);
                 } else {
                     return context.getString(R.string.poll_ended_voted);
                 }
-            case SIGN_UP:
+            }
+            case SIGN_UP -> {
                 return String.format(context.getString(R.string.notification_sign_up_format), accountName);
-            case UPDATE:
+            }
+            case UPDATE -> {
                 return String.format(context.getString(R.string.notification_update_format), accountName);
-            case REPORT:
+            }
+            case REPORT -> {
                 return context.getString(R.string.notification_report_format, account.getDomain());
+            }
         }
         return null;
     }
@@ -818,20 +805,17 @@ public class NotificationHelper {
     @Nullable
     private static String bodyForType(@NonNull Notification notification, @NonNull Context context, Boolean alwaysOpenSpoiler) {
         switch (notification.getType()) {
-            case FOLLOW:
-            case FOLLOW_REQUEST:
-            case SIGN_UP:
+            case FOLLOW, FOLLOW_REQUEST, SIGN_UP -> {
                 return "@" + notification.getAccount().getUsername();
-            case MENTION:
-            case FAVOURITE:
-            case REBLOG:
-            case STATUS:
+            }
+            case MENTION, FAVOURITE, REBLOG, STATUS -> {
                 if (!TextUtils.isEmpty(notification.getStatus().getSpoilerText()) && !alwaysOpenSpoiler) {
                     return notification.getStatus().getSpoilerText();
                 } else {
                     return parseAsMastodonHtml(notification.getStatus().getContent()).toString();
                 }
-            case POLL:
+            }
+            case POLL -> {
                 if (!TextUtils.isEmpty(notification.getStatus().getSpoilerText()) && !alwaysOpenSpoiler) {
                     return notification.getStatus().getSpoilerText();
                 } else {
@@ -839,22 +823,24 @@ public class NotificationHelper {
                     builder.append('\n');
                     Poll poll = notification.getStatus().getPoll();
                     List<PollOption> options = poll.getOptions();
-                    for(int i = 0; i < options.size(); ++i) {
+                    for (int i = 0; i < options.size(); ++i) {
                         PollOption option = options.get(i);
                         builder.append(buildDescription(option.getTitle(),
-                                PollViewDataKt.calculatePercent(option.getVotesCount(), poll.getVotersCount(), poll.getVotesCount()),
-                                poll.getOwnVotes() != null && poll.getOwnVotes().contains(i),
-                                context));
+                            PollViewDataKt.calculatePercent(option.getVotesCount(), poll.getVotersCount(), poll.getVotesCount()),
+                            poll.getOwnVotes() != null && poll.getOwnVotes().contains(i),
+                            context));
                         builder.append('\n');
                     }
                     return builder.toString();
                 }
-            case REPORT:
+            }
+            case REPORT -> {
                 return context.getString(
-                        R.string.notification_header_report_format,
-                        StringUtils.unicodeWrap(notification.getAccount().getName()),
-                        StringUtils.unicodeWrap(notification.getReport().getTargetAccount().getName())
+                    R.string.notification_header_report_format,
+                    StringUtils.unicodeWrap(notification.getAccount().getName()),
+                    StringUtils.unicodeWrap(notification.getReport().getTargetAccount().getName())
                 );
+            }
         }
         return null;
     }
