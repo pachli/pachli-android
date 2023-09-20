@@ -4894,7 +4894,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_notification.xml"
-            line="49"
+            line="50"
             column="6"/>
     </issue>
 
@@ -4905,7 +4905,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_notification.xml"
-            line="70"
+            line="71"
             column="6"/>
     </issue>
 
@@ -4916,7 +4916,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_notification.xml"
-            line="84"
+            line="85"
             column="6"/>
     </issue>
 
@@ -5269,28 +5269,6 @@
         <location
             file="src/main/res/layout/item_account_media.xml"
             line="12"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="ContentDescription"
-        message="Missing `contentDescription` attribute on image"
-        errorLine1="    &lt;ImageView"
-        errorLine2="     ~~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_report_notification.xml"
-            line="42"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="ContentDescription"
-        message="Missing `contentDescription` attribute on image"
-        errorLine1="    &lt;ImageView"
-        errorLine2="     ~~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_notification.xml"
-            line="42"
             column="6"/>
     </issue>
 
