@@ -55,6 +55,11 @@ data class StatusViewData(
     val isDetailed: Boolean = false,
 
     /** Whether this status should be filtered, and if so, how */
+    // TODO: This means that null checks are required elsewhere in the code to deal with
+    // the possibility that this might not be NONE, but that status.filtered is null or
+    // empty (e.g., StatusBaseViewHolder.setupFilterPlaceholder()). It would be better
+    // if the Filter.Action class subtypes carried the FilterResult information with them,
+    // and it's impossible to construct them with an empty list.
     var filterAction: Filter.Action = Filter.Action.NONE,
 ) {
     val id: String

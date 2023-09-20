@@ -184,7 +184,9 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
         pollAdapter = new PollAdapter();
         pollOptions.setAdapter(pollAdapter);
         pollOptions.setLayoutManager(new LinearLayoutManager(pollOptions.getContext()));
-        ((DefaultItemAnimator) pollOptions.getItemAnimator()).setSupportsChangeAnimations(false);
+
+        DefaultItemAnimator itemAnimator = (DefaultItemAnimator) pollOptions.getItemAnimator();
+        if (itemAnimator != null) itemAnimator.setSupportsChangeAnimations(false);
 
         this.avatarRadius48dp = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.avatar_radius_48dp);
         this.avatarRadius36dp = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.avatar_radius_36dp);
@@ -827,17 +829,32 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
             return;
         }
 
-        showFilteredPlaceholder(true);
+        // Shouldn't be necessary given the previous test against getFilterAction(),
+        // but guards against a possible NPE. See the TODO in StatusViewData.filterAction
+        // for more details.
+        List<FilterResult> filterResults = status.getActionable().getFiltered();
+        if (filterResults == null || filterResults.isEmpty()) {
+            showFilteredPlaceholder(false);
+            return;
+        }
 
         Filter matchedFilter = null;
 
-        for (FilterResult result : status.getActionable().getFiltered()) {
+        for (FilterResult result : filterResults) {
             Filter filter = result.getFilter();
             if (filter.getAction() == Filter.Action.WARN) {
                 matchedFilter = filter;
                 break;
             }
         }
+
+        // Guard against a possible NPE
+        if (matchedFilter == null) {
+            showFilteredPlaceholder(false);
+            return;
+        }
+
+        showFilteredPlaceholder(true);
 
         filteredPlaceholderLabel.setText(itemView.getContext().getString(R.string.status_filter_placeholder_label_format, matchedFilter.getTitle()));
         filteredPlaceholderShowButton.setOnClickListener(view -> listener.clearWarningAction(getBindingAdapterPosition()));
