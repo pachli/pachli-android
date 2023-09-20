@@ -49,7 +49,7 @@ import java.security.MessageDigest
  *
  * - Creating a mask that matches the partially transparent areas of the image
  * - Creating a new bitmap that, in the areas that match the mask, contains the same background
- *   drawable as the [ImageView].
+ *   drawable as the [android.widget.ImageView].
  * - Composite the original image over the top
  *
  * So the partially transparent areas on the original image are composited over the original

@@ -72,7 +72,7 @@ fun ViewPager2.reduceSwipeSensitivity() {
  * TextViews with an ancestor RecyclerView can forget that they are selectable. Toggling
  * calls to [TextView.setTextIsSelectable] fixes this.
  *
- * @see https://issuetracker.google.com/issues/37095917
+ * See [https://issuetracker.google.com/issues/37095917](https://issuetracker.google.com/issues/37095917)
  */
 fun TextView.fixTextSelection() {
     setTextIsSelectable(false)
