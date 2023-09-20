@@ -81,7 +81,7 @@ public class ConversationViewHolder extends StatusBaseViewHolder {
 
             setupCollapsedState(statusViewData.isCollapsible(), statusViewData.isCollapsed(), statusViewData.isExpanded(), statusViewData.getSpoilerText(), listener);
 
-            setDisplayName(account.getDisplayName(), account.getEmojis(), statusDisplayOptions);
+            setDisplayName(account.getName(), account.getEmojis(), statusDisplayOptions);
             setUsername(account.getUsername());
             setMetaData(statusViewData, statusDisplayOptions, listener);
             setIsReply(status.getInReplyToId() != null);
