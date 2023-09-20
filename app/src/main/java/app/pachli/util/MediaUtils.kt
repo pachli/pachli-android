@@ -27,7 +27,6 @@ import androidx.exifinterface.media.ExifInterface
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
-import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -69,13 +68,11 @@ fun getMediaSize(contentResolver: ContentResolver, uri: Uri?): Long {
 
 @Throws(FileNotFoundException::class)
 fun getImageSquarePixels(contentResolver: ContentResolver, uri: Uri): Long {
-    val input = contentResolver.openInputStream(uri)
-
     val options = BitmapFactory.Options()
-    options.inJustDecodeBounds = true
-    BitmapFactory.decodeStream(input, null, options)
-
-    input.closeQuietly()
+    contentResolver.openInputStream(uri).use { input ->
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeStream(input, null, options)
+    }
 
     return (options.outWidth * options.outHeight).toLong()
 }
@@ -147,27 +144,24 @@ fun reorientBitmap(bitmap: Bitmap?, orientation: Int): Bitmap? {
 }
 
 fun getImageOrientation(uri: Uri, contentResolver: ContentResolver): Int {
-    val inputStream: InputStream?
-    try {
-        inputStream = contentResolver.openInputStream(uri)
+    val inputStream = try {
+        contentResolver.openInputStream(uri)
     } catch (e: FileNotFoundException) {
         Log.w(TAG, e)
         return ExifInterface.ORIENTATION_UNDEFINED
     }
-    if (inputStream == null) {
-        return ExifInterface.ORIENTATION_UNDEFINED
+    inputStream ?: return ExifInterface.ORIENTATION_UNDEFINED
+
+    return inputStream.use {
+        val exifInterface = try {
+            ExifInterface(it)
+        } catch (e: IOException) {
+            Log.w(TAG, e)
+            return@use ExifInterface.ORIENTATION_UNDEFINED
+        }
+
+        exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
     }
-    val exifInterface: ExifInterface
-    try {
-        exifInterface = ExifInterface(inputStream)
-    } catch (e: IOException) {
-        Log.w(TAG, e)
-        inputStream.closeQuietly()
-        return ExifInterface.ORIENTATION_UNDEFINED
-    }
-    val orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-    inputStream.closeQuietly()
-    return orientation
 }
 
 fun deleteStaleCachedMedia(mediaDirectory: File?) {
