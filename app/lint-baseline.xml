@@ -3926,7 +3926,7 @@
         errorLine2="                     ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="116"
+            line="117"
             column="22"/>
     </issue>
 
@@ -3937,7 +3937,7 @@
         errorLine2="                     ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="130"
+            line="131"
             column="22"/>
     </issue>
 
@@ -3948,7 +3948,7 @@
         errorLine2="                     ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="245"
+            line="246"
             column="22"/>
     </issue>
 
@@ -3959,7 +3959,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="281"
+            line="282"
             column="26"/>
     </issue>
 
@@ -3970,7 +3970,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="308"
+            line="309"
             column="26"/>
     </issue>
 
@@ -3981,7 +3981,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="323"
+            line="324"
             column="26"/>
     </issue>
 
@@ -3992,7 +3992,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="350"
+            line="351"
             column="26"/>
     </issue>
 
@@ -4003,7 +4003,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="381"
+            line="382"
             column="26"/>
     </issue>
 
@@ -4014,7 +4014,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="411"
+            line="412"
             column="26"/>
     </issue>
 
@@ -5226,28 +5226,6 @@
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
             line="91"
             column="50"/>
-    </issue>
-
-    <issue
-        id="ContentDescription"
-        message="Missing `contentDescription` attribute on image"
-        errorLine1="                &lt;ImageView"
-        errorLine2="                 ~~~~~~~~~">
-        <location
-            file="src/main/res/layout/activity_account.xml"
-            line="31"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="ContentDescription"
-        message="Missing `contentDescription` attribute on image"
-        errorLine1="        &lt;ImageView"
-        errorLine2="         ~~~~~~~~~">
-        <location
-            file="src/main/res/layout/activity_account.xml"
-            line="473"
-            column="10"/>
     </issue>
 
     <issue
