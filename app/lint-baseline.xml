@@ -5267,17 +5267,6 @@
         errorLine1="    &lt;ImageView"
         errorLine2="     ~~~~~~~~~">
         <location
-            file="src/main/res/layout/item_account_media.xml"
-            line="12"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="ContentDescription"
-        message="Missing `contentDescription` attribute on image"
-        errorLine1="    &lt;ImageView"
-        errorLine2="     ~~~~~~~~~">
-        <location
             file="src/main/res/layout/item_tab_preference.xml"
             line="14"
             column="6"/>
