@@ -4025,7 +4025,7 @@
         errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_compose.xml"
-            line="365"
+            line="364"
             column="10"/>
     </issue>
 
@@ -5269,28 +5269,6 @@
         <location
             file="src/main/res/layout/item_status_filtered.xml"
             line="18"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;Mute&quot;, should use `@string` resource"
-        errorLine1="        android:title=&quot;Mute&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/menu/view_hashtag_toolbar.xml"
-            line="22"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;Unmute&quot;, should use `@string` resource"
-        errorLine1="        android:title=&quot;Unmute&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/menu/view_hashtag_toolbar.xml"
-            line="29"
             column="9"/>
     </issue>
 
