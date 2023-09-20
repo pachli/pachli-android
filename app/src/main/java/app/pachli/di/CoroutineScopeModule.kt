@@ -30,7 +30,7 @@ import javax.inject.Qualifier
  * time, that call should not be cancelled because the user has navigated away from
  * the viewmodel that made the call.
  *
- * @see https://developer.android.com/topic/architecture/data-layer#make_an_operation_live_longer_than_the_screen
+ * See [make_an_operation_live_longer_than_the_screen](https://developer.android.com/topic/architecture/data-layer#make_an_operation_live_longer_than_the_screen).
  */
 @Retention(AnnotationRetention.BINARY)
 @Qualifier

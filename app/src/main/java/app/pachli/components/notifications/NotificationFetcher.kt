@@ -39,7 +39,7 @@ import kotlin.time.Duration.Companion.milliseconds
  *
  * Should only be called by a worker thread.
  *
- * @see NotificationWorker
+ * @see app.pachli.worker.NotificationWorker
  * @see <a href="https://developer.android.com/guide/background/persistent/threading/worker">Background worker</a>
  */
 @WorkerThread
