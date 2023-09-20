@@ -25,7 +25,7 @@ data class ConversationViewData(
     val unread: Boolean,
     val lastStatus: StatusViewData,
 ) {
-    fun toEntity(
+    fun toConversationEntity(
         accountId: Long,
         favourited: Boolean = lastStatus.status.favourited,
         bookmarked: Boolean = lastStatus.status.bookmarked,
@@ -52,6 +52,16 @@ data class ConversationViewData(
             ),
         )
     }
+
+    companion object {
+        fun from(conversationEntity: ConversationEntity) = ConversationViewData(
+            id = conversationEntity.id,
+            order = conversationEntity.order,
+            accounts = conversationEntity.accounts,
+            unread = conversationEntity.unread,
+            lastStatus = conversationEntity.lastStatus.toViewData(),
+        )
+    }
 }
 
 fun StatusViewData.toConversationStatusEntity(
@@ -68,7 +78,7 @@ fun StatusViewData.toConversationStatusEntity(
         url = status.url,
         inReplyToId = status.inReplyToId,
         inReplyToAccountId = status.inReplyToAccountId,
-        account = status.account.toEntity(),
+        account = status.account.toConversationEntity(),
         content = status.content,
         createdAt = status.createdAt,
         editedAt = status.editedAt,

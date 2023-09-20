@@ -63,7 +63,7 @@ class ConversationsRemoteMediator(
                             val contentShowing = activeAccount.alwaysShowSensitiveMedia || !conversation.lastStatus!!.sensitive
                             val contentCollapsed = true
 
-                            conversation.toEntity(
+                            conversation.toConversationEntity(
                                 accountId = activeAccount.id,
                                 order = order++,
                                 expanded = expanded,

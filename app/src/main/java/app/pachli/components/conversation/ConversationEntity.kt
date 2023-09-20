@@ -38,17 +38,7 @@ data class ConversationEntity(
     val accounts: List<ConversationAccountEntity>,
     val unread: Boolean,
     @Embedded(prefix = "s_") val lastStatus: ConversationStatusEntity,
-) {
-    fun toViewData(): ConversationViewData {
-        return ConversationViewData(
-            id = id,
-            order = order,
-            accounts = accounts,
-            unread = unread,
-            lastStatus = lastStatus.toViewData(),
-        )
-    }
-}
+)
 
 data class ConversationAccountEntity(
     val id: String,
@@ -140,7 +130,7 @@ data class ConversationStatusEntity(
     }
 }
 
-fun TimelineAccount.toEntity() =
+fun TimelineAccount.toConversationEntity() =
     ConversationAccountEntity(
         id = id,
         localUsername = localUsername,
@@ -150,7 +140,7 @@ fun TimelineAccount.toEntity() =
         emojis = emojis.orEmpty(),
     )
 
-fun Status.toEntity(
+fun Status.toConversationEntity(
     expanded: Boolean,
     contentShowing: Boolean,
     contentCollapsed: Boolean,
@@ -160,7 +150,7 @@ fun Status.toEntity(
         url = url,
         inReplyToId = inReplyToId,
         inReplyToAccountId = inReplyToAccountId,
-        account = account.toEntity(),
+        account = account.toConversationEntity(),
         content = content,
         createdAt = createdAt,
         editedAt = editedAt,
@@ -182,7 +172,7 @@ fun Status.toEntity(
         language = language,
     )
 
-fun Conversation.toEntity(
+fun Conversation.toConversationEntity(
     accountId: Long,
     order: Int,
     expanded: Boolean,
@@ -193,9 +183,9 @@ fun Conversation.toEntity(
         accountId = accountId,
         id = id,
         order = order,
-        accounts = accounts.map { it.toEntity() },
+        accounts = accounts.map { it.toConversationEntity() },
         unread = unread,
-        lastStatus = lastStatus!!.toEntity(
+        lastStatus = lastStatus!!.toConversationEntity(
             expanded = expanded,
             contentShowing = contentShowing,
             contentCollapsed = contentCollapsed,
