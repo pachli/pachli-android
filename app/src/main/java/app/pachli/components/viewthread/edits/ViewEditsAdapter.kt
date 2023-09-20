@@ -35,7 +35,7 @@ import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.setClickableText
 import app.pachli.util.show
 import app.pachli.util.visible
-import app.pachli.viewdata.toViewData
+import app.pachli.viewdata.PollOptionViewData
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import org.xml.sax.XMLReader
@@ -138,7 +138,7 @@ class ViewEditsAdapter(
             binding.statusEditPollOptions.layoutManager = LinearLayoutManager(context)
 
             pollAdapter.setup(
-                options = edit.poll.options.map { it.toViewData(false) },
+                options = edit.poll.options.map { PollOptionViewData.from(it, false) },
                 voteCount = 0,
                 votersCount = null,
                 emojis = edit.emojis,

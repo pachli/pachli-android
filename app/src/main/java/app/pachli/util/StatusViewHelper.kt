@@ -261,7 +261,10 @@ class StatusViewHelper(private val itemView: View) {
         }
     }
 
-    fun setupPollReadonly(poll: PollViewData?, emojis: List<Emoji>, statusDisplayOptions: StatusDisplayOptions) {
+    /**
+     * Configures and shows poll views based on [poll].
+     */
+    fun setupPollReadonly(poll: PollViewData, emojis: List<Emoji>, statusDisplayOptions: StatusDisplayOptions) {
         val pollResults = listOf<TextView>(
             itemView.findViewById(R.id.status_poll_option_result_0),
             itemView.findViewById(R.id.status_poll_option_result_1),
@@ -271,19 +274,29 @@ class StatusViewHelper(private val itemView: View) {
 
         val pollDescription = itemView.findViewById<TextView>(R.id.status_poll_description)
 
-        if (poll == null) {
-            for (pollResult in pollResults) {
-                pollResult.visibility = View.GONE
-            }
-            pollDescription.visibility = View.GONE
-        } else {
-            val timestamp = System.currentTimeMillis()
+        val timestamp = System.currentTimeMillis()
 
-            setupPollResult(poll, emojis, pollResults, statusDisplayOptions.animateEmojis)
+        setupPollResult(poll, emojis, pollResults, statusDisplayOptions.animateEmojis)
 
-            pollDescription.visibility = View.VISIBLE
-            pollDescription.text = getPollInfoText(timestamp, poll, pollDescription, statusDisplayOptions.useAbsoluteTime)
+        pollDescription.show()
+        pollDescription.text = getPollInfoText(timestamp, poll, pollDescription, statusDisplayOptions.useAbsoluteTime)
+    }
+
+    /**
+     * Hides views related to polls.
+     */
+    fun hidePoll() {
+        val pollResults = listOf<TextView>(
+            itemView.findViewById(R.id.status_poll_option_result_0),
+            itemView.findViewById(R.id.status_poll_option_result_1),
+            itemView.findViewById(R.id.status_poll_option_result_2),
+            itemView.findViewById(R.id.status_poll_option_result_3),
+        )
+
+        for (pollResult in pollResults) {
+            pollResult.hide()
         }
+        itemView.findViewById<TextView>(R.id.status_poll_description).hide()
     }
 
     private fun getPollInfoText(timestamp: Long, poll: PollViewData, pollDescription: TextView, useAbsoluteTime: Boolean): CharSequence {

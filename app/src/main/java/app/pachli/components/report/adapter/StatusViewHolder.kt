@@ -38,8 +38,8 @@ import app.pachli.util.setClickableMentions
 import app.pachli.util.setClickableText
 import app.pachli.util.shouldTrimStatus
 import app.pachli.util.show
+import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.StatusViewData
-import app.pachli.viewdata.toViewData
 import java.util.Date
 
 class StatusViewHolder(
@@ -93,7 +93,10 @@ class StatusViewHolder(
             mediaViewHeight,
         )
 
-        statusViewHelper.setupPollReadonly(viewData.status.poll.toViewData(), viewData.status.emojis, statusDisplayOptions)
+        viewData.status.poll?.let {
+            statusViewHelper.setupPollReadonly(PollViewData.from(it), viewData.status.emojis, statusDisplayOptions)
+        } ?: statusViewHelper.hidePoll()
+
         setCreatedAt(viewData.status.createdAt)
     }
 
