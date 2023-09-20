@@ -67,6 +67,7 @@ import app.pachli.util.ThemeUtils;
 public abstract class BaseActivity extends AppCompatActivity implements Injectable {
     private static final String TAG = "BaseActivity";
 
+    /** @noinspection NotNullFieldNotInitialized*/
     @Inject
     @NonNull
     public AccountManager accountManager;
@@ -218,6 +219,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     public void showAccountChooserDialog(@Nullable CharSequence dialogTitle, boolean showActiveAccount, @NonNull AccountSelectionListener listener) {
         List<AccountEntity> accounts = accountManager.getAllAccountsOrderedByActive();
         AccountEntity activeAccount = accountManager.getActiveAccount();
+        assert activeAccount != null;
 
         switch (accounts.size()) {
             case 1 -> {
