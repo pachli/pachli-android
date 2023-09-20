@@ -279,10 +279,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requesters.containsKey(requestCode)) {
-            PermissionRequester requester = requesters.remove(requestCode);
-            requester.onRequestPermissionsResult(permissions, grantResults);
-        }
+        PermissionRequester requester = requesters.remove(requestCode);
+        if (requester != null) requester.onRequestPermissionsResult(permissions, grantResults);
     }
 
     public void requestPermissions(@NonNull String[] permissions, @NonNull PermissionRequester requester) {
