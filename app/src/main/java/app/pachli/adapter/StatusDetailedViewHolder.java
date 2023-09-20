@@ -180,20 +180,13 @@ public class StatusDetailedViewHolder extends StatusBaseViewHolder {
 
         int visibilityIcon;
         switch (visibility) {
-            case PUBLIC:
-                visibilityIcon = R.drawable.ic_public_24dp;
-                break;
-            case UNLISTED:
-                visibilityIcon = R.drawable.ic_lock_open_24dp;
-                break;
-            case PRIVATE:
-                visibilityIcon = R.drawable.ic_lock_outline_24dp;
-                break;
-            case DIRECT:
-                visibilityIcon = R.drawable.ic_email_24dp;
-                break;
-            default:
+            case PUBLIC -> visibilityIcon = R.drawable.ic_public_24dp;
+            case UNLISTED -> visibilityIcon = R.drawable.ic_lock_open_24dp;
+            case PRIVATE -> visibilityIcon = R.drawable.ic_lock_outline_24dp;
+            case DIRECT -> visibilityIcon = R.drawable.ic_email_24dp;
+            default -> {
                 return null;
+            }
         }
 
         final Drawable visibilityDrawable = AppCompatResources.getDrawable(

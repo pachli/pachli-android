@@ -568,17 +568,12 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
 
     @DrawableRes
     private static int getLabelIcon(@NonNull Attachment.Type type) {
-        switch (type) {
-            case IMAGE:
-                return R.drawable.ic_photo_24dp;
-            case GIFV:
-            case VIDEO:
-                return R.drawable.ic_videocam_24dp;
-            case AUDIO:
-                return R.drawable.ic_music_box_24dp;
-            default:
-                return R.drawable.ic_attach_file_24dp;
-        }
+        return switch (type) {
+            case IMAGE -> R.drawable.ic_photo_24dp;
+            case GIFV, VIDEO -> R.drawable.ic_videocam_24dp;
+            case AUDIO -> R.drawable.ic_music_box_24dp;
+            default -> R.drawable.ic_attach_file_24dp;
+        };
     }
 
     private void updateMediaLabel(int index, boolean sensitive, boolean showingContent) {
@@ -935,20 +930,13 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
 
         int resource;
         switch (visibility) {
-            case PUBLIC:
-                resource = R.string.description_visibility_public;
-                break;
-            case UNLISTED:
-                resource = R.string.description_visibility_unlisted;
-                break;
-            case PRIVATE:
-                resource = R.string.description_visibility_private;
-                break;
-            case DIRECT:
-                resource = R.string.description_visibility_direct;
-                break;
-            default:
+            case PUBLIC -> resource = R.string.description_visibility_public;
+            case UNLISTED -> resource = R.string.description_visibility_unlisted;
+            case PRIVATE -> resource = R.string.description_visibility_private;
+            case DIRECT -> resource = R.string.description_visibility_direct;
+            default -> {
                 return "";
+            }
         }
         return context.getString(resource);
     }

@@ -163,26 +163,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     }
 
     private static @StyleRes int textStyle(@NonNull String name) {
-        int style;
-        switch (name) {
-            case "smallest":
-                style = R.style.TextSizeSmallest;
-                break;
-            case "small":
-                style = R.style.TextSizeSmall;
-                break;
-            case "medium":
-            default:
-                style = R.style.TextSizeMedium;
-                break;
-            case "large":
-                style = R.style.TextSizeLarge;
-                break;
-            case "largest":
-                style = R.style.TextSizeLargest;
-                break;
-        }
-        return style;
+        return switch (name) {
+            case "smallest" -> R.style.TextSizeSmallest;
+            case "small" -> R.style.TextSizeSmall;
+            case "medium" -> R.style.TextSizeMedium;
+            case "large" -> R.style.TextSizeLarge;
+            case "largest" -> R.style.TextSizeLargest;
+            default -> R.style.TextSizeMedium;
+        };
     }
 
     public void startActivityWithSlideInAnimation(@NonNull Intent intent) {
@@ -231,11 +219,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         List<AccountEntity> accounts = accountManager.getAllAccountsOrderedByActive();
         AccountEntity activeAccount = accountManager.getActiveAccount();
 
-        switch(accounts.size()) {
-            case 1:
+        switch (accounts.size()) {
+            case 1 -> {
                 listener.onAccountSelected(activeAccount);
                 return;
-            case 2:
+            }
+            case 2 -> {
                 if (!showActiveAccount) {
                     for (AccountEntity account : accounts) {
                         if (activeAccount != account) {
@@ -244,7 +233,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
                         }
                     }
                 }
-                break;
+            }
         }
 
         if (!showActiveAccount && activeAccount != null) {
@@ -262,18 +251,20 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     public @Nullable String getOpenAsText() {
         List<AccountEntity> accounts = accountManager.getAllAccountsOrderedByActive();
         switch (accounts.size()) {
-            case 0:
-            case 1:
+            case 0, 1 -> {
                 return null;
-            case 2:
+            }
+            case 2 -> {
                 for (AccountEntity account : accounts) {
                     if (account != accountManager.getActiveAccount()) {
                         return String.format(getString(R.string.action_open_as), account.getFullName());
                     }
                 }
                 return null;
-            default:
+            }
+            default -> {
                 return String.format(getString(R.string.action_open_as), "…");
+            }
         }
     }
 
