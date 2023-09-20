@@ -59,6 +59,7 @@ fun Spanned.trimTrailingWhitespace(): Spanned {
  * So we force isolation manually
  * https://unicode.org/reports/tr9/#Explicit_Directional_Isolates
  */
-fun CharSequence.unicodeWrap(): String {
+fun CharSequence?.unicodeWrap(): String {
+    this ?: return ""
     return "\u2068${this}\u2069"
 }
