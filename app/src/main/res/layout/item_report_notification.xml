@@ -45,7 +45,7 @@
         android:layout_height="24dp"
         app:layout_constraintRight_toRightOf="@id/notification_reportee_avatar"
         app:layout_constraintBottom_toBottomOf="@id/notification_reportee_avatar"
-        />
+        android:contentDescription="@string/action_view_profile" />
 
     <TextView
         android:id="@+id/notification_summary"
