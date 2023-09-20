@@ -957,6 +957,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
         updateShortcut(this, accountManager.activeAccount!!)
     }
 
+    @SuppressLint("CheckResult")
     private fun loadDrawerAvatar(avatarUrl: String, showPlaceholder: Boolean) {
         val hideTopToolbar = preferences.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
         val animateAvatars = preferences.getBoolean("animateGifAvatars", false)
@@ -982,9 +983,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                     ),
                 ),
             )
-                .apply {
-                    if (showPlaceholder) placeholder(R.drawable.avatar_default)
-                }
+                .apply { if (showPlaceholder) placeholder(R.drawable.avatar_default) }
                 .into(
                     object : CustomTarget<Drawable>(navIconSize, navIconSize) {
 
@@ -1017,9 +1016,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
                     ),
                 ),
             )
-                .apply {
-                    if (showPlaceholder) placeholder(R.drawable.avatar_default)
-                }
+                .apply { if (showPlaceholder) placeholder(R.drawable.avatar_default) }
                 .into(
                     object : CustomTarget<Bitmap>(navIconSize, navIconSize) {
                         override fun onLoadStarted(placeholder: Drawable?) {
