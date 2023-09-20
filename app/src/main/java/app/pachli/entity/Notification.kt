@@ -23,6 +23,8 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonParseException
 import com.google.gson.annotations.JsonAdapter
 
+// TODO: These should be different subclasses per type, so that each subclass can
+// carry the non-null data that it needs.
 data class Notification(
     val type: Type,
     val id: String,

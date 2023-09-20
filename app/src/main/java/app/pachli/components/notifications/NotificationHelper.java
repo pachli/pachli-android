@@ -71,6 +71,7 @@ import app.pachli.db.AccountManager;
 import app.pachli.entity.Notification;
 import app.pachli.entity.Poll;
 import app.pachli.entity.PollOption;
+import app.pachli.entity.Report;
 import app.pachli.entity.Status;
 import app.pachli.receiver.SendStatusBroadcastReceiver;
 import app.pachli.util.StringUtils;
@@ -320,6 +321,7 @@ public class NotificationHelper {
 
             // All notifications in this group have the same type, so get it from the first.
             Notification.Type notificationType = (Notification.Type)members.get(0).getNotification().extras.getSerializable(EXTRA_NOTIFICATION_TYPE);
+            assert notificationType != null;
 
             Intent summaryResultIntent = MainActivity.openNotificationIntent(context, accountId, notificationType);
 
@@ -395,6 +397,7 @@ public class NotificationHelper {
 
     private static PendingIntent getStatusReplyIntent(@NonNull Context context, @NonNull Notification body, @NonNull AccountEntity account) {
         Status status = body.getStatus();
+        assert status != null;
 
         String inReplyToId = status.getId();
         Status actionableStatus = status.getActionableStatus();
@@ -428,6 +431,7 @@ public class NotificationHelper {
 
     private static PendingIntent getStatusComposeIntent(@NonNull Context context, @NonNull Notification body, @NonNull AccountEntity account) {
         Status status = body.getStatus();
+        assert status != null;
 
         String citedLocalAuthor = status.getAccount().getLocalUsername();
         String citedText = parseAsMastodonHtml(status.getContent()).toString();
@@ -783,7 +787,9 @@ public class NotificationHelper {
                     accountName);
             }
             case POLL -> {
-                if (notification.getStatus().getAccount().getId().equals(account.getAccountId())) {
+                Status status = notification.getStatus();
+                assert status != null;
+                if (status.getAccount().getId().equals(account.getAccountId())) {
                     return context.getString(R.string.poll_ended_created);
                 } else {
                     return context.getString(R.string.poll_ended_voted);
@@ -809,19 +815,24 @@ public class NotificationHelper {
                 return "@" + notification.getAccount().getUsername();
             }
             case MENTION, FAVOURITE, REBLOG, STATUS -> {
-                if (!TextUtils.isEmpty(notification.getStatus().getSpoilerText()) && !alwaysOpenSpoiler) {
+                Status status = notification.getStatus();
+                assert status != null;
+                if (!TextUtils.isEmpty(status.getSpoilerText()) && !alwaysOpenSpoiler) {
                     return notification.getStatus().getSpoilerText();
                 } else {
                     return parseAsMastodonHtml(notification.getStatus().getContent()).toString();
                 }
             }
             case POLL -> {
-                if (!TextUtils.isEmpty(notification.getStatus().getSpoilerText()) && !alwaysOpenSpoiler) {
+                Status status = notification.getStatus();
+                assert status != null;
+                if (!TextUtils.isEmpty(status.getSpoilerText()) && !alwaysOpenSpoiler) {
                     return notification.getStatus().getSpoilerText();
                 } else {
                     StringBuilder builder = new StringBuilder(parseAsMastodonHtml(notification.getStatus().getContent()));
                     builder.append('\n');
                     Poll poll = notification.getStatus().getPoll();
+                    assert poll != null;
                     List<PollOption> options = poll.getOptions();
                     for (int i = 0; i < options.size(); ++i) {
                         PollOption option = options.get(i);
@@ -835,10 +846,12 @@ public class NotificationHelper {
                 }
             }
             case REPORT -> {
+                Report report = notification.getReport();
+                assert report != null;
                 return context.getString(
                     R.string.notification_header_report_format,
                     StringUtils.unicodeWrap(notification.getAccount().getName()),
-                    StringUtils.unicodeWrap(notification.getReport().getTargetAccount().getName())
+                    StringUtils.unicodeWrap(report.getTargetAccount().getName())
                 );
             }
         }
