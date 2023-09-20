@@ -34,10 +34,8 @@
 package app.pachli.util
 
 import app.pachli.entity.Filter
-import app.pachli.entity.Notification
 import app.pachli.entity.Status
 import app.pachli.entity.TrendingTag
-import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import app.pachli.viewdata.TrendingViewData
 
@@ -55,26 +53,6 @@ fun Status.toViewData(
         isExpanded = isExpanded,
         isDetailed = isDetailed,
         filterAction = filterAction,
-    )
-}
-
-fun Notification.toViewData(
-    isShowingContent: Boolean,
-    isExpanded: Boolean,
-    isCollapsed: Boolean,
-    filterAction: Filter.Action,
-): NotificationViewData {
-    return NotificationViewData(
-        this.type,
-        this.id,
-        this.account,
-        this.status?.toViewData(
-            isShowingContent,
-            isExpanded,
-            isCollapsed,
-            filterAction = filterAction,
-        ),
-        this.report,
     )
 }
 

@@ -47,7 +47,6 @@ import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
 import app.pachli.util.throttleFirst
-import app.pachli.util.toViewData
 import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
@@ -534,7 +533,8 @@ class NotificationsViewModel @Inject constructor(
             .map { pagingData ->
                 pagingData.map { notification ->
                     val filterAction = notification.status?.actionableStatus?.let { filterModel.shouldFilterStatus(it) } ?: Filter.Action.NONE
-                    notification.toViewData(
+                    NotificationViewData.from(
+                        notification,
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
                             !(notification.status?.actionableStatus?.sensitive ?: false),
                         isExpanded = statusDisplayOptions.value.openSpoiler,

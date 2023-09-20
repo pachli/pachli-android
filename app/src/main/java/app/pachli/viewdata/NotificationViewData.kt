@@ -17,9 +17,11 @@
 
 package app.pachli.viewdata
 
+import app.pachli.entity.Filter
 import app.pachli.entity.Notification
 import app.pachli.entity.Report
 import app.pachli.entity.TimelineAccount
+import app.pachli.util.toViewData
 
 data class NotificationViewData(
     val type: Notification.Type,
@@ -27,4 +29,25 @@ data class NotificationViewData(
     val account: TimelineAccount,
     var statusViewData: StatusViewData?,
     val report: Report?,
-)
+) {
+    companion object {
+        fun from(
+            notification: Notification,
+            isShowingContent: Boolean,
+            isExpanded: Boolean,
+            isCollapsed: Boolean,
+            filterAction: Filter.Action,
+        ) = NotificationViewData(
+            notification.type,
+            notification.id,
+            notification.account,
+            notification.status?.toViewData(
+                isShowingContent,
+                isExpanded,
+                isCollapsed,
+                filterAction = filterAction,
+            ),
+            notification.report,
+        )
+    }
+}
