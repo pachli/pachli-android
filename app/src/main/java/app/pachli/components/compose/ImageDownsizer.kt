@@ -16,12 +16,10 @@
 package app.pachli.components.compose
 
 import android.content.ContentResolver
-import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.net.Uri
 import app.pachli.util.calculateInSampleSize
-import app.pachli.util.closeQuietly
 import app.pachli.util.getImageOrientation
 import app.pachli.util.reorientBitmap
 import java.io.File
@@ -49,8 +47,7 @@ fun downsizeImage(
     // Initially, just get the image dimensions.
     val options = BitmapFactory.Options()
     options.inJustDecodeBounds = true
-    BitmapFactory.decodeStream(decodeBoundsInputStream, null, options)
-    decodeBoundsInputStream.closeQuietly()
+    decodeBoundsInputStream.use { BitmapFactory.decodeStream(it, null, options) }
     // Get EXIF data, for orientation info.
     val orientation = getImageOrientation(uri, contentResolver)
     /* Unfortunately, there isn't a determined worst case compression ratio for image
@@ -72,12 +69,9 @@ fun downsizeImage(
         }
         options.inSampleSize = calculateInSampleSize(options, scaledImageSize, scaledImageSize)
         options.inJustDecodeBounds = false
-        val scaledBitmap: Bitmap = try {
-            BitmapFactory.decodeStream(decodeBitmapInputStream, null, options)
-        } catch (error: OutOfMemoryError) {
-            return false
-        } finally {
-            decodeBitmapInputStream.closeQuietly()
+
+        val scaledBitmap = decodeBitmapInputStream.use {
+            BitmapFactory.decodeStream(it, null, options)
         } ?: return false
 
         val reorientedBitmap = reorientBitmap(scaledBitmap, orientation)

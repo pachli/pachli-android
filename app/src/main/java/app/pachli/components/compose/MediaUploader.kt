@@ -15,6 +15,7 @@
 
 package app.pachli.components.compose
 
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
 import android.media.MediaMetadataRetriever
@@ -273,6 +274,8 @@ class MediaUploader @Inject constructor(
                 fileExtension,
             )
 
+            // `stream` is closed in ProgressRequestBody.writeTo
+            @SuppressLint("recycle")
             val stream = contentResolver.openInputStream(media.uri)
 
             if (mimeType == null) mimeType = "multipart/form-data"
