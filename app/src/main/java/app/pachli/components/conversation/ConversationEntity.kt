@@ -37,7 +37,30 @@ data class ConversationEntity(
     val accounts: List<ConversationAccountEntity>,
     val unread: Boolean,
     @Embedded(prefix = "s_") val lastStatus: ConversationStatusEntity,
-)
+) {
+    companion object {
+        fun from(
+            conversation: Conversation,
+            accountId: Long,
+            order: Int,
+            expanded: Boolean,
+            contentShowing: Boolean,
+            contentCollapsed: Boolean,
+        ) = ConversationEntity(
+            accountId = accountId,
+            id = conversation.id,
+            order = order,
+            accounts = conversation.accounts.map { ConversationAccountEntity.from(it) },
+            unread = conversation.unread,
+            lastStatus = ConversationStatusEntity.from(
+                conversation.lastStatus!!,
+                expanded = expanded,
+                contentShowing = contentShowing,
+                contentCollapsed = contentCollapsed,
+            ),
+        )
+    }
+}
 
 data class ConversationAccountEntity(
     val id: String,
@@ -134,24 +157,3 @@ data class ConversationStatusEntity(
         )
     }
 }
-
-fun Conversation.toConversationEntity(
-    accountId: Long,
-    order: Int,
-    expanded: Boolean,
-    contentShowing: Boolean,
-    contentCollapsed: Boolean,
-) =
-    ConversationEntity(
-        accountId = accountId,
-        id = id,
-        order = order,
-        accounts = accounts.map { ConversationAccountEntity.from(it) },
-        unread = unread,
-        lastStatus = ConversationStatusEntity.from(
-            lastStatus!!,
-            expanded = expanded,
-            contentShowing = contentShowing,
-            contentCollapsed = contentCollapsed,
-        ),
-    )
