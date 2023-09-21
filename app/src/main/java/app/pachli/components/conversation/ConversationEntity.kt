@@ -60,6 +60,17 @@ data class ConversationAccountEntity(
             emojis = emojis,
         )
     }
+
+    companion object {
+        fun from(timelineAccount: TimelineAccount) = ConversationAccountEntity(
+            id = timelineAccount.id,
+            localUsername = timelineAccount.localUsername,
+            username = timelineAccount.username,
+            displayName = timelineAccount.name,
+            avatar = timelineAccount.avatar,
+            emojis = timelineAccount.emojis.orEmpty(),
+        )
+    }
 }
 
 @TypeConverters(Converters::class)
@@ -130,16 +141,6 @@ data class ConversationStatusEntity(
     }
 }
 
-fun TimelineAccount.toConversationEntity() =
-    ConversationAccountEntity(
-        id = id,
-        localUsername = localUsername,
-        username = username,
-        displayName = name,
-        avatar = avatar,
-        emojis = emojis.orEmpty(),
-    )
-
 fun Status.toConversationEntity(
     expanded: Boolean,
     contentShowing: Boolean,
@@ -150,7 +151,7 @@ fun Status.toConversationEntity(
         url = url,
         inReplyToId = inReplyToId,
         inReplyToAccountId = inReplyToAccountId,
-        account = account.toConversationEntity(),
+        account = ConversationAccountEntity.from(account),
         content = content,
         createdAt = createdAt,
         editedAt = editedAt,
@@ -183,7 +184,7 @@ fun Conversation.toConversationEntity(
         accountId = accountId,
         id = id,
         order = order,
-        accounts = accounts.map { it.toConversationEntity() },
+        accounts = accounts.map { ConversationAccountEntity.from(it) },
         unread = unread,
         lastStatus = lastStatus!!.toConversationEntity(
             expanded = expanded,
