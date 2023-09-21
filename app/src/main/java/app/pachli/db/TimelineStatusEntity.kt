@@ -85,7 +85,43 @@ data class TimelineStatusEntity(
     val card: String?,
     val language: String?,
     val filtered: List<FilterResult>?,
-)
+) {
+    companion object {
+        fun from(status: Status, timelineUserId: Long, gson: Gson) = TimelineStatusEntity(
+            serverId = status.id,
+            url = status.actionableStatus.url,
+            timelineUserId = timelineUserId,
+            authorServerId = status.actionableStatus.account.id,
+            inReplyToId = status.actionableStatus.inReplyToId,
+            inReplyToAccountId = status.actionableStatus.inReplyToAccountId,
+            content = status.actionableStatus.content,
+            createdAt = status.actionableStatus.createdAt.time,
+            editedAt = status.actionableStatus.editedAt?.time,
+            emojis = status.actionableStatus.emojis.let(gson::toJson),
+            reblogsCount = status.actionableStatus.reblogsCount,
+            favouritesCount = status.actionableStatus.favouritesCount,
+            reblogged = status.actionableStatus.reblogged,
+            favourited = status.actionableStatus.favourited,
+            bookmarked = status.actionableStatus.bookmarked,
+            sensitive = status.actionableStatus.sensitive,
+            spoilerText = status.actionableStatus.spoilerText,
+            visibility = status.actionableStatus.visibility,
+            attachments = status.actionableStatus.attachments.let(gson::toJson),
+            mentions = status.actionableStatus.mentions.let(gson::toJson),
+            tags = status.actionableStatus.tags.let(gson::toJson),
+            application = status.actionableStatus.application.let(gson::toJson),
+            reblogServerId = status.reblog?.id,
+            reblogAccountId = status.reblog?.let { status.account.id },
+            poll = status.actionableStatus.poll.let(gson::toJson),
+            muted = status.actionableStatus.muted,
+            pinned = status.actionableStatus.pinned == true,
+            card = status.actionableStatus.card?.let(gson::toJson),
+            repliesCount = status.actionableStatus.repliesCount,
+            language = status.actionableStatus.language,
+            filtered = status.actionableStatus.filtered,
+        )
+    }
+}
 
 @Entity(
     primaryKeys = ["serverId", "timelineUserId"],

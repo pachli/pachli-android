@@ -15,7 +15,6 @@
 
 package app.pachli.components.timeline
 
-import app.pachli.db.TimelineStatusEntity
 import app.pachli.db.TimelineStatusWithAccount
 import app.pachli.entity.Attachment
 import app.pachli.entity.Card
@@ -36,45 +35,6 @@ private val attachmentArrayListType = object : TypeToken<ArrayList<Attachment>>(
 val emojisListType: Type = object : TypeToken<List<Emoji>>() {}.type
 private val mentionListType = object : TypeToken<List<Status.Mention>>() {}.type
 private val tagListType = object : TypeToken<List<HashTag>>() {}.type
-
-fun Status.toEntity(
-    timelineUserId: Long,
-    gson: Gson,
-): TimelineStatusEntity {
-    return TimelineStatusEntity(
-        serverId = this.id,
-        url = actionableStatus.url,
-        timelineUserId = timelineUserId,
-        authorServerId = actionableStatus.account.id,
-        inReplyToId = actionableStatus.inReplyToId,
-        inReplyToAccountId = actionableStatus.inReplyToAccountId,
-        content = actionableStatus.content,
-        createdAt = actionableStatus.createdAt.time,
-        editedAt = actionableStatus.editedAt?.time,
-        emojis = actionableStatus.emojis.let(gson::toJson),
-        reblogsCount = actionableStatus.reblogsCount,
-        favouritesCount = actionableStatus.favouritesCount,
-        reblogged = actionableStatus.reblogged,
-        favourited = actionableStatus.favourited,
-        bookmarked = actionableStatus.bookmarked,
-        sensitive = actionableStatus.sensitive,
-        spoilerText = actionableStatus.spoilerText,
-        visibility = actionableStatus.visibility,
-        attachments = actionableStatus.attachments.let(gson::toJson),
-        mentions = actionableStatus.mentions.let(gson::toJson),
-        tags = actionableStatus.tags.let(gson::toJson),
-        application = actionableStatus.application.let(gson::toJson),
-        reblogServerId = reblog?.id,
-        reblogAccountId = reblog?.let { this.account.id },
-        poll = actionableStatus.poll.let(gson::toJson),
-        muted = actionableStatus.muted,
-        pinned = actionableStatus.pinned == true,
-        card = actionableStatus.card?.let(gson::toJson),
-        repliesCount = actionableStatus.repliesCount,
-        language = actionableStatus.language,
-        filtered = actionableStatus.filtered,
-    )
-}
 
 fun TimelineStatusWithAccount.toViewData(gson: Gson, alwaysOpenSpoiler: Boolean, alwaysShowSensitiveMedia: Boolean, isDetailed: Boolean = false): StatusViewData {
     val attachments: ArrayList<Attachment> = gson.fromJson(
