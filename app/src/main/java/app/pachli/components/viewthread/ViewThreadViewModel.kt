@@ -28,7 +28,6 @@ import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
-import app.pachli.components.timeline.toViewData
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
@@ -116,7 +115,8 @@ class ViewThreadViewModel @Inject constructor(
 
             var detailedStatus = if (timelineStatus != null) {
                 Log.d(TAG, "Loaded status from local timeline")
-                val viewData = timelineStatus.toViewData(
+                val viewData = StatusViewData.from(
+                    timelineStatus,
                     gson,
                     alwaysOpenSpoiler = alwaysOpenSpoiler,
                     alwaysShowSensitiveMedia = alwaysShowSensitiveMedia,

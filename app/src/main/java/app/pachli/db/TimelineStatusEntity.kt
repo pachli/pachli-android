@@ -20,10 +20,10 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.TypeConverters
-import app.pachli.components.timeline.emojisListType
 import app.pachli.entity.FilterResult
 import app.pachli.entity.Status
 import app.pachli.entity.TimelineAccount
+import app.pachli.viewdata.emojisListType
 import com.google.gson.Gson
 
 /**

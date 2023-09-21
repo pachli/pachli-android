@@ -32,7 +32,6 @@ import app.pachli.appstore.ReblogEvent
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.TimelineKind
-import app.pachli.components.timeline.toViewData
 import app.pachli.db.AccountManager
 import app.pachli.entity.Filter
 import app.pachli.entity.Poll
@@ -97,7 +96,8 @@ class CachedTimelineViewModel @Inject constructor(
             .map { pagingData ->
                 pagingData
                     .map {
-                        it.toViewData(
+                        StatusViewData.from(
+                            it,
                             gson,
                             alwaysOpenSpoiler = activeAccount.alwaysOpenSpoiler,
                             alwaysShowSensitiveMedia = activeAccount.alwaysShowSensitiveMedia,

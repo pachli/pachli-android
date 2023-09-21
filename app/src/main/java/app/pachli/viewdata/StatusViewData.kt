@@ -18,12 +18,26 @@ import android.os.Build
 import android.text.Spanned
 import app.pachli.components.conversation.ConversationAccountEntity
 import app.pachli.components.conversation.ConversationStatusEntity
+import app.pachli.db.TimelineStatusWithAccount
+import app.pachli.entity.Attachment
+import app.pachli.entity.Card
+import app.pachli.entity.Emoji
 import app.pachli.entity.Filter
+import app.pachli.entity.HashTag
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
 import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.replaceCrashingCharacters
 import app.pachli.util.shouldTrimStatus
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
+import java.util.Date
+
+val attachmentArrayListType: Type = object : TypeToken<ArrayList<Attachment>>() {}.type
+val emojisListType: Type = object : TypeToken<List<Emoji>>() {}.type
+val mentionListType: Type = object : TypeToken<List<Status.Mention>>() {}.type
+val tagListType: Type = object : TypeToken<List<HashTag>>() {}.type
 
 /**
  * Data required to display a status.
@@ -205,5 +219,140 @@ data class StatusViewData(
             isShowingContent = conversationStatusEntity.showingHiddenContent,
             isCollapsed = conversationStatusEntity.collapsed,
         )
+
+        fun from(
+            timelineStatusWithAccount: TimelineStatusWithAccount,
+            gson: Gson,
+            alwaysOpenSpoiler: Boolean,
+            alwaysShowSensitiveMedia: Boolean,
+            isDetailed: Boolean = false,
+        ): StatusViewData {
+            val attachments: ArrayList<Attachment> = gson.fromJson(
+                timelineStatusWithAccount.status.attachments,
+                attachmentArrayListType,
+            ) ?: arrayListOf()
+            val mentions: List<Status.Mention> = gson.fromJson(
+                timelineStatusWithAccount.status.mentions,
+                mentionListType,
+            ) ?: emptyList()
+            val tags: List<HashTag>? = gson.fromJson(
+                timelineStatusWithAccount.status.tags,
+                tagListType,
+            )
+            val application = gson.fromJson(timelineStatusWithAccount.status.application, Status.Application::class.java)
+            val emojis: List<Emoji> = gson.fromJson(
+                timelineStatusWithAccount.status.emojis,
+                emojisListType,
+            ) ?: emptyList()
+            val poll: Poll? = gson.fromJson(timelineStatusWithAccount.status.poll, Poll::class.java)
+            val card: Card? = gson.fromJson(timelineStatusWithAccount.status.card, Card::class.java)
+
+            val reblog = timelineStatusWithAccount.status.reblogServerId?.let { id ->
+                Status(
+                    id = id,
+                    url = timelineStatusWithAccount.status.url,
+                    account = timelineStatusWithAccount.account.toTimelineAccount(gson),
+                    inReplyToId = timelineStatusWithAccount.status.inReplyToId,
+                    inReplyToAccountId = timelineStatusWithAccount.status.inReplyToAccountId,
+                    reblog = null,
+                    content = timelineStatusWithAccount.status.content.orEmpty(),
+                    createdAt = Date(timelineStatusWithAccount.status.createdAt),
+                    editedAt = timelineStatusWithAccount.status.editedAt?.let { Date(it) },
+                    emojis = emojis,
+                    reblogsCount = timelineStatusWithAccount.status.reblogsCount,
+                    favouritesCount = timelineStatusWithAccount.status.favouritesCount,
+                    reblogged = timelineStatusWithAccount.status.reblogged,
+                    favourited = timelineStatusWithAccount.status.favourited,
+                    bookmarked = timelineStatusWithAccount.status.bookmarked,
+                    sensitive = timelineStatusWithAccount.status.sensitive,
+                    spoilerText = timelineStatusWithAccount.status.spoilerText,
+                    visibility = timelineStatusWithAccount.status.visibility,
+                    attachments = attachments,
+                    mentions = mentions,
+                    tags = tags,
+                    application = application,
+                    pinned = false,
+                    muted = timelineStatusWithAccount.status.muted,
+                    poll = poll,
+                    card = card,
+                    repliesCount = timelineStatusWithAccount.status.repliesCount,
+                    language = timelineStatusWithAccount.status.language,
+                    filtered = timelineStatusWithAccount.status.filtered,
+                )
+            }
+            val status = if (reblog != null) {
+                Status(
+                    id = timelineStatusWithAccount.status.serverId,
+                    url = null, // no url for reblogs
+                    account = timelineStatusWithAccount.reblogAccount!!.toTimelineAccount(gson),
+                    inReplyToId = null,
+                    inReplyToAccountId = null,
+                    reblog = reblog,
+                    content = "",
+                    createdAt = Date(timelineStatusWithAccount.status.createdAt), // lie but whatever?
+                    editedAt = null,
+                    emojis = listOf(),
+                    reblogsCount = 0,
+                    favouritesCount = 0,
+                    reblogged = false,
+                    favourited = false,
+                    bookmarked = false,
+                    sensitive = false,
+                    spoilerText = "",
+                    visibility = timelineStatusWithAccount.status.visibility,
+                    attachments = ArrayList(),
+                    mentions = listOf(),
+                    tags = listOf(),
+                    application = null,
+                    pinned = timelineStatusWithAccount.status.pinned,
+                    muted = timelineStatusWithAccount.status.muted,
+                    poll = null,
+                    card = null,
+                    repliesCount = timelineStatusWithAccount.status.repliesCount,
+                    language = timelineStatusWithAccount.status.language,
+                    filtered = timelineStatusWithAccount.status.filtered,
+                )
+            } else {
+                Status(
+                    id = timelineStatusWithAccount.status.serverId,
+                    url = timelineStatusWithAccount.status.url,
+                    account = timelineStatusWithAccount.account.toTimelineAccount(gson),
+                    inReplyToId = timelineStatusWithAccount.status.inReplyToId,
+                    inReplyToAccountId = timelineStatusWithAccount.status.inReplyToAccountId,
+                    reblog = null,
+                    content = timelineStatusWithAccount.status.content.orEmpty(),
+                    createdAt = Date(timelineStatusWithAccount.status.createdAt),
+                    editedAt = timelineStatusWithAccount.status.editedAt?.let { Date(it) },
+                    emojis = emojis,
+                    reblogsCount = timelineStatusWithAccount.status.reblogsCount,
+                    favouritesCount = timelineStatusWithAccount.status.favouritesCount,
+                    reblogged = timelineStatusWithAccount.status.reblogged,
+                    favourited = timelineStatusWithAccount.status.favourited,
+                    bookmarked = timelineStatusWithAccount.status.bookmarked,
+                    sensitive = timelineStatusWithAccount.status.sensitive,
+                    spoilerText = timelineStatusWithAccount.status.spoilerText,
+                    visibility = timelineStatusWithAccount.status.visibility,
+                    attachments = attachments,
+                    mentions = mentions,
+                    tags = tags,
+                    application = application,
+                    pinned = timelineStatusWithAccount.status.pinned,
+                    muted = timelineStatusWithAccount.status.muted,
+                    poll = poll,
+                    card = card,
+                    repliesCount = timelineStatusWithAccount.status.repliesCount,
+                    language = timelineStatusWithAccount.status.language,
+                    filtered = timelineStatusWithAccount.status.filtered,
+                )
+            }
+
+            return StatusViewData(
+                status = status,
+                isExpanded = timelineStatusWithAccount.viewData?.expanded ?: alwaysOpenSpoiler,
+                isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
+                isDetailed = isDetailed,
+            )
+        }
     }
 }
