@@ -33,28 +33,8 @@
  * see <http://www.gnu.org/licenses>. */
 package app.pachli.util
 
-import app.pachli.entity.Filter
-import app.pachli.entity.Status
 import app.pachli.entity.TrendingTag
-import app.pachli.viewdata.StatusViewData
 import app.pachli.viewdata.TrendingViewData
-
-fun Status.toViewData(
-    isShowingContent: Boolean,
-    isExpanded: Boolean,
-    isCollapsed: Boolean,
-    isDetailed: Boolean = false,
-    filterAction: Filter.Action = app.pachli.entity.Filter.Action.NONE,
-): StatusViewData {
-    return StatusViewData(
-        status = this,
-        isShowingContent = isShowingContent,
-        isCollapsed = isCollapsed,
-        isExpanded = isExpanded,
-        isDetailed = isDetailed,
-        filterAction = filterAction,
-    )
-}
 
 fun List<TrendingTag>.toViewData(): List<TrendingViewData.Tag> {
     val maxTrendingValue = flatMap { tag -> tag.history }

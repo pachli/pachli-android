@@ -40,7 +40,6 @@ import app.pachli.entity.Status
 import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.toViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
@@ -488,7 +487,8 @@ class ViewThreadViewModel @Inject constructor(
      * Convert the status to a [StatusViewData], copying the view data from [statusViewData]
      */
     private fun Status.toViewData(isDetailed: Boolean = false, statusViewData: StatusViewData): StatusViewData {
-        return toViewData(
+        return StatusViewData.from(
+            this,
             isShowingContent = statusViewData.isShowingContent,
             isExpanded = statusViewData.isExpanded,
             isCollapsed = statusViewData.isCollapsed,
@@ -500,7 +500,8 @@ class ViewThreadViewModel @Inject constructor(
      * Convert the status to a [StatusViewData], copying the view data from [statusViewDataEntity]
      */
     private fun Status.toViewData(isDetailed: Boolean = false, statusViewDataEntity: StatusViewDataEntity?): StatusViewData {
-        return toViewData(
+        return StatusViewData.from(
+            this,
             isShowingContent = statusViewDataEntity?.contentShowing ?: (alwaysShowSensitiveMedia || !actionableStatus.sensitive),
             isExpanded = statusViewDataEntity?.expanded ?: alwaysOpenSpoiler,
             isCollapsed = statusViewDataEntity?.contentCollapsed ?: !isDetailed,
@@ -512,7 +513,8 @@ class ViewThreadViewModel @Inject constructor(
         isDetailed: Boolean = false,
     ): StatusViewData {
         val oldStatus = (_uiState.value as? ThreadUiState.Success)?.statusViewData?.find { it.id == this.id }
-        return toViewData(
+        return StatusViewData.from(
+            this,
             isShowingContent = oldStatus?.isShowingContent ?: (alwaysShowSensitiveMedia || !actionableStatus.sensitive),
             isExpanded = oldStatus?.isExpanded ?: alwaysOpenSpoiler,
             isCollapsed = oldStatus?.isCollapsed ?: !isDetailed,

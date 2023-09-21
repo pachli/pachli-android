@@ -153,6 +153,22 @@ data class StatusViewData(
     )
 
     companion object {
+        fun from(
+            status: Status,
+            isShowingContent: Boolean,
+            isExpanded: Boolean,
+            isCollapsed: Boolean,
+            isDetailed: Boolean = false,
+            filterAction: Filter.Action = app.pachli.entity.Filter.Action.NONE,
+        ) = StatusViewData(
+            status = status,
+            isShowingContent = isShowingContent,
+            isCollapsed = isCollapsed,
+            isExpanded = isExpanded,
+            isDetailed = isDetailed,
+            filterAction = filterAction,
+        )
+
         fun from(conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
             status = Status(
                 id = conversationStatusEntity.id,

@@ -38,7 +38,6 @@ import app.pachli.entity.Poll
 import app.pachli.network.FilterModel
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.toViewData
 import app.pachli.viewdata.StatusViewData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -90,7 +89,8 @@ class NetworkTimelineViewModel @Inject constructor(
         return repository.getStatusStream(viewModelScope, kind = kind, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map {
-                    modifiedViewData[it.id] ?: it.toViewData(
+                    modifiedViewData[it.id] ?: StatusViewData.from(
+                        it,
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia || !it.actionableStatus.sensitive,
                         isExpanded = statusDisplayOptions.value.openSpoiler,
                         isCollapsed = true,
