@@ -99,8 +99,8 @@ class CachedTimelineViewModel @Inject constructor(
                         StatusViewData.from(
                             it,
                             gson,
-                            alwaysOpenSpoiler = activeAccount.alwaysOpenSpoiler,
-                            alwaysShowSensitiveMedia = activeAccount.alwaysShowSensitiveMedia,
+                            isExpanded = activeAccount.alwaysOpenSpoiler,
+                            isShowingContent = activeAccount.alwaysShowSensitiveMedia,
                         )
                     }
                     .filter { shouldFilterStatus(it) != Filter.Action.HIDE }

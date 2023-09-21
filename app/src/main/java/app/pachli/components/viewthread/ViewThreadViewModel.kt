@@ -32,7 +32,6 @@ import app.pachli.components.timeline.util.ifExpected
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.db.AppDatabase
-import app.pachli.db.StatusViewDataEntity
 import app.pachli.entity.Filter
 import app.pachli.entity.FilterV1
 import app.pachli.entity.Status
@@ -111,26 +110,32 @@ class ViewThreadViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d(TAG, "Finding status with: $id")
             val contextCall = async { api.statusContext(id) }
-            val timelineStatus = db.timelineDao().getStatus(id)
+            val timelineStatusWithAccount = db.timelineDao().getStatus(id)
 
-            var detailedStatus = if (timelineStatus != null) {
+            var detailedStatus = if (timelineStatusWithAccount != null) {
                 Log.d(TAG, "Loaded status from local timeline")
-                val viewData = StatusViewData.from(
-                    timelineStatus,
-                    gson,
-                    alwaysOpenSpoiler = alwaysOpenSpoiler,
-                    alwaysShowSensitiveMedia = alwaysShowSensitiveMedia,
-                    isDetailed = true,
-                )
+                val status = timelineStatusWithAccount.toStatus(gson)
 
                 // Return the correct status, depending on which one matched. If you do not do
                 // this the status IDs will be different between the status that's displayed with
                 // ThreadUiState.LoadingThread and ThreadUiState.Success, even though the apparent
                 // status content is the same. Then the status flickers as it is drawn twice.
-                if (viewData.actionableId == id) {
-                    viewData.actionable.toViewData(isDetailed = true, viewData)
+                if (status.actionableId == id) {
+                    StatusViewData.from(
+                        status = status.actionableStatus,
+                        isExpanded = timelineStatusWithAccount.viewData?.expanded ?: alwaysOpenSpoiler,
+                        isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: alwaysShowSensitiveMedia,
+                        isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
+                        isDetailed = true,
+                    )
                 } else {
-                    viewData
+                    StatusViewData.from(
+                        timelineStatusWithAccount,
+                        gson,
+                        isExpanded = alwaysOpenSpoiler,
+                        isShowingContent = alwaysShowSensitiveMedia,
+                        isDetailed = true,
+                    )
                 }
             } else {
                 Log.d(TAG, "Loaded status from network")
@@ -138,7 +143,7 @@ class ViewThreadViewModel @Inject constructor(
                     _uiState.value = ThreadUiState.Error(exception)
                     return@launch
                 }
-                result.toViewData(isDetailed = true)
+                StatusViewData.fromStatusAndUiState(result, isDetailed = true)
             }
 
             _uiState.value = ThreadUiState.LoadingThread(
@@ -150,9 +155,16 @@ class ViewThreadViewModel @Inject constructor(
             // compared to the remote one. Now the user has a working UI do a background fetch
             // for the status. Ignore errors, the user still has a functioning UI if the fetch
             // failed.
-            if (timelineStatus != null) {
-                val viewData = api.status(id).getOrNull()?.toViewData(isDetailed = true, detailedStatus)
-                if (viewData != null) { detailedStatus = viewData }
+            if (timelineStatusWithAccount != null) {
+                api.status(id).getOrNull()?.let {
+                    detailedStatus = StatusViewData.from(
+                        it,
+                        isShowingContent = detailedStatus.isShowingContent,
+                        isExpanded = detailedStatus.isExpanded,
+                        isCollapsed = detailedStatus.isCollapsed,
+                        isDetailed = true,
+                    )
+                }
             }
 
             val contextResult = contextCall.await()
@@ -162,11 +174,25 @@ class ViewThreadViewModel @Inject constructor(
                 val cachedViewData = repository.getStatusViewData(ids)
                 val ancestors = statusContext.ancestors.map {
                         status ->
-                    status.toViewData(statusViewDataEntity = cachedViewData[status.id])
+                    val svd = cachedViewData[status.id]
+                    StatusViewData.from(
+                        status,
+                        isShowingContent = svd?.contentShowing ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                        isExpanded = svd?.expanded ?: alwaysOpenSpoiler,
+                        isCollapsed = svd?.contentCollapsed ?: true,
+                        isDetailed = false,
+                    )
                 }.filter()
                 val descendants = statusContext.descendants.map {
                         status ->
-                    status.toViewData(statusViewDataEntity = cachedViewData[status.id])
+                    val svd = cachedViewData[status.id]
+                    StatusViewData.from(
+                        status,
+                        isShowingContent = svd?.contentShowing ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                        isExpanded = svd?.expanded ?: alwaysOpenSpoiler,
+                        isCollapsed = svd?.contentCollapsed ?: true,
+                        isDetailed = false,
+                    )
                 }.filter()
                 val statuses = ancestors + detailedStatus + descendants
 
@@ -344,7 +370,7 @@ class ViewThreadViewModel @Inject constructor(
             if (detailedIndex != -1 && repliedIndex >= detailedIndex) {
                 // there is a new reply to the detailed status or below -> display it
                 val newStatuses = statuses.subList(0, repliedIndex + 1) +
-                    eventStatus.toViewData() +
+                    StatusViewData.fromStatusAndUiState(eventStatus) +
                     statuses.subList(repliedIndex + 1, statuses.size)
                 uiState.copy(statusViewData = newStatuses)
             } else {
@@ -358,7 +384,7 @@ class ViewThreadViewModel @Inject constructor(
             uiState.copy(
                 statusViewData = uiState.statusViewData.map { status ->
                     if (status.actionableId == event.originalId) {
-                        event.status.toViewData()
+                        StatusViewData.fromStatusAndUiState(event.status)
                     } else {
                         status
                     }
@@ -484,38 +510,14 @@ class ViewThreadViewModel @Inject constructor(
     }
 
     /**
-     * Convert the status to a [StatusViewData], copying the view data from [statusViewData]
+     * Creates a [StatusViewData] from `status`, copying over the viewdata state from the same
+     * status in _uiState (if that status exists).
      */
-    private fun Status.toViewData(isDetailed: Boolean = false, statusViewData: StatusViewData): StatusViewData {
+    private fun StatusViewData.Companion.fromStatusAndUiState(status: Status, isDetailed: Boolean = false): StatusViewData {
+        val oldStatus = (_uiState.value as? ThreadUiState.Success)?.statusViewData?.find { it.id == status.id }
         return StatusViewData.from(
-            this,
-            isShowingContent = statusViewData.isShowingContent,
-            isExpanded = statusViewData.isExpanded,
-            isCollapsed = statusViewData.isCollapsed,
-            isDetailed = isDetailed,
-        )
-    }
-
-    /**
-     * Convert the status to a [StatusViewData], copying the view data from [statusViewDataEntity]
-     */
-    private fun Status.toViewData(isDetailed: Boolean = false, statusViewDataEntity: StatusViewDataEntity?): StatusViewData {
-        return StatusViewData.from(
-            this,
-            isShowingContent = statusViewDataEntity?.contentShowing ?: (alwaysShowSensitiveMedia || !actionableStatus.sensitive),
-            isExpanded = statusViewDataEntity?.expanded ?: alwaysOpenSpoiler,
-            isCollapsed = statusViewDataEntity?.contentCollapsed ?: !isDetailed,
-            isDetailed = isDetailed,
-        )
-    }
-
-    private fun Status.toViewData(
-        isDetailed: Boolean = false,
-    ): StatusViewData {
-        val oldStatus = (_uiState.value as? ThreadUiState.Success)?.statusViewData?.find { it.id == this.id }
-        return StatusViewData.from(
-            this,
-            isShowingContent = oldStatus?.isShowingContent ?: (alwaysShowSensitiveMedia || !actionableStatus.sensitive),
+            status,
+            isShowingContent = oldStatus?.isShowingContent ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
             isExpanded = oldStatus?.isExpanded ?: alwaysOpenSpoiler,
             isCollapsed = oldStatus?.isCollapsed ?: !isDetailed,
             isDetailed = oldStatus?.isDetailed ?: isDetailed,

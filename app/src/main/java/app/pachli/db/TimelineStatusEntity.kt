@@ -20,11 +20,18 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.TypeConverters
+import app.pachli.entity.Attachment
+import app.pachli.entity.Card
+import app.pachli.entity.Emoji
 import app.pachli.entity.FilterResult
+import app.pachli.entity.HashTag
+import app.pachli.entity.Poll
 import app.pachli.entity.Status
 import app.pachli.entity.TimelineAccount
-import app.pachli.viewdata.emojisListType
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
+import java.util.Date
 
 /**
  * We're trying to play smart here. Server sends us reblogs as two entities one embedded into
@@ -187,6 +194,11 @@ data class StatusViewDataEntity(
     val contentCollapsed: Boolean,
 )
 
+val attachmentArrayListType: Type = object : TypeToken<ArrayList<Attachment>>() {}.type
+val emojisListType: Type = object : TypeToken<List<Emoji>>() {}.type
+val mentionListType: Type = object : TypeToken<List<Status.Mention>>() {}.type
+val tagListType: Type = object : TypeToken<List<HashTag>>() {}.type
+
 data class TimelineStatusWithAccount(
     @Embedded
     val status: TimelineStatusEntity,
@@ -196,4 +208,125 @@ data class TimelineStatusWithAccount(
     val reblogAccount: TimelineAccountEntity? = null, // null when no reblog
     @Embedded(prefix = "svd_")
     val viewData: StatusViewDataEntity? = null,
-)
+) {
+    fun toStatus(gson: Gson): Status {
+        val attachments: ArrayList<Attachment> = gson.fromJson(
+            status.attachments,
+            attachmentArrayListType,
+        ) ?: arrayListOf()
+        val mentions: List<Status.Mention> = gson.fromJson(
+            status.mentions,
+            mentionListType,
+        ) ?: emptyList()
+        val tags: List<HashTag>? = gson.fromJson(
+            status.tags,
+            tagListType,
+        )
+        val application = gson.fromJson(status.application, Status.Application::class.java)
+        val emojis: List<Emoji> = gson.fromJson(
+            status.emojis,
+            emojisListType,
+        ) ?: emptyList()
+        val poll: Poll? = gson.fromJson(status.poll, Poll::class.java)
+        val card: Card? = gson.fromJson(status.card, Card::class.java)
+
+        val reblog = status.reblogServerId?.let { id ->
+            Status(
+                id = id,
+                url = status.url,
+                account = account.toTimelineAccount(gson),
+                inReplyToId = status.inReplyToId,
+                inReplyToAccountId = status.inReplyToAccountId,
+                reblog = null,
+                content = status.content.orEmpty(),
+                createdAt = Date(status.createdAt),
+                editedAt = status.editedAt?.let { Date(it) },
+                emojis = emojis,
+                reblogsCount = status.reblogsCount,
+                favouritesCount = status.favouritesCount,
+                reblogged = status.reblogged,
+                favourited = status.favourited,
+                bookmarked = status.bookmarked,
+                sensitive = status.sensitive,
+                spoilerText = status.spoilerText,
+                visibility = status.visibility,
+                attachments = attachments,
+                mentions = mentions,
+                tags = tags,
+                application = application,
+                pinned = false,
+                muted = status.muted,
+                poll = poll,
+                card = card,
+                repliesCount = status.repliesCount,
+                language = status.language,
+                filtered = status.filtered,
+            )
+        }
+        return if (reblog != null) {
+            Status(
+                id = status.serverId,
+                url = null, // no url for reblogs
+                account = reblogAccount!!.toTimelineAccount(gson),
+                inReplyToId = null,
+                inReplyToAccountId = null,
+                reblog = reblog,
+                content = "",
+                createdAt = Date(status.createdAt), // lie but whatever?
+                editedAt = null,
+                emojis = listOf(),
+                reblogsCount = 0,
+                favouritesCount = 0,
+                reblogged = false,
+                favourited = false,
+                bookmarked = false,
+                sensitive = false,
+                spoilerText = "",
+                visibility = status.visibility,
+                attachments = ArrayList(),
+                mentions = listOf(),
+                tags = listOf(),
+                application = null,
+                pinned = status.pinned,
+                muted = status.muted,
+                poll = null,
+                card = null,
+                repliesCount = status.repliesCount,
+                language = status.language,
+                filtered = status.filtered,
+            )
+        } else {
+            Status(
+                id = status.serverId,
+                url = status.url,
+                account = account.toTimelineAccount(gson),
+                inReplyToId = status.inReplyToId,
+                inReplyToAccountId = status.inReplyToAccountId,
+                reblog = null,
+                content = status.content.orEmpty(),
+                createdAt = Date(status.createdAt),
+                editedAt = status.editedAt?.let { Date(it) },
+                emojis = emojis,
+                reblogsCount = status.reblogsCount,
+                favouritesCount = status.favouritesCount,
+                reblogged = status.reblogged,
+                favourited = status.favourited,
+                bookmarked = status.bookmarked,
+                sensitive = status.sensitive,
+                spoilerText = status.spoilerText,
+                visibility = status.visibility,
+                attachments = attachments,
+                mentions = mentions,
+                tags = tags,
+                application = application,
+                pinned = status.pinned,
+                muted = status.muted,
+                poll = poll,
+                card = card,
+                repliesCount = status.repliesCount,
+                language = status.language,
+                filtered = status.filtered,
+            )
+        }
+    }
+}
