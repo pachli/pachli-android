@@ -15,6 +15,7 @@
 
 package app.pachli.viewdata
 
+import app.pachli.entity.TrendingTag
 import java.util.Date
 
 sealed class TrendingViewData {
@@ -36,5 +37,19 @@ sealed class TrendingViewData {
     ) : TrendingViewData() {
         override val id: String
             get() = name
+
+        companion object {
+            fun from(trendingTag: TrendingTag, maxTrendingValue: Long): Tag {
+                // Reverse the list to put oldest items first
+                val reversedHistory = trendingTag.history.asReversed()
+
+                return Tag(
+                    name = trendingTag.name,
+                    usage = reversedHistory.map { it.uses.toLongOrNull() ?: 0 },
+                    accounts = reversedHistory.map { it.accounts.toLongOrNull() ?: 0 },
+                    maxTrendingValue = maxTrendingValue,
+                )
+            }
+        }
     }
 }
