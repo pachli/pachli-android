@@ -20,8 +20,11 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.TypeConverters
+import app.pachli.components.timeline.emojisListType
 import app.pachli.entity.FilterResult
 import app.pachli.entity.Status
+import app.pachli.entity.TimelineAccount
+import com.google.gson.Gson
 
 /**
  * We're trying to play smart here. Server sends us reblogs as two entities one embedded into
@@ -97,7 +100,35 @@ data class TimelineAccountEntity(
     val avatar: String,
     val emojis: String,
     val bot: Boolean,
-)
+) {
+    fun toTimelineAccount(gson: Gson): TimelineAccount {
+        return TimelineAccount(
+            id = serverId,
+            localUsername = localUsername,
+            username = username,
+            displayName = displayName,
+            note = "",
+            url = url,
+            avatar = avatar,
+            bot = bot,
+            emojis = gson.fromJson(emojis, emojisListType),
+        )
+    }
+
+    companion object {
+        fun from(timelineAccount: TimelineAccount, accountId: Long, gson: Gson) = TimelineAccountEntity(
+            serverId = timelineAccount.id,
+            timelineUserId = accountId,
+            localUsername = timelineAccount.localUsername,
+            username = timelineAccount.username,
+            displayName = timelineAccount.name,
+            url = timelineAccount.url,
+            avatar = timelineAccount.avatar,
+            emojis = gson.toJson(timelineAccount.emojis),
+            bot = timelineAccount.bot,
+        )
+    }
+}
 
 /**
  * The local view data for a status.

@@ -15,7 +15,6 @@
 
 package app.pachli.components.timeline
 
-import app.pachli.db.TimelineAccountEntity
 import app.pachli.db.TimelineStatusEntity
 import app.pachli.db.TimelineStatusWithAccount
 import app.pachli.entity.Attachment
@@ -24,47 +23,19 @@ import app.pachli.entity.Emoji
 import app.pachli.entity.HashTag
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
-import app.pachli.entity.TimelineAccount
 import app.pachli.viewdata.StatusViewData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 import java.util.Date
 
 @Suppress("unused")
 private const val TAG = "TimelineTypeMappers"
 
 private val attachmentArrayListType = object : TypeToken<ArrayList<Attachment>>() {}.type
-private val emojisListType = object : TypeToken<List<Emoji>>() {}.type
+val emojisListType: Type = object : TypeToken<List<Emoji>>() {}.type
 private val mentionListType = object : TypeToken<List<Status.Mention>>() {}.type
 private val tagListType = object : TypeToken<List<HashTag>>() {}.type
-
-fun TimelineAccount.toEntity(accountId: Long, gson: Gson): TimelineAccountEntity {
-    return TimelineAccountEntity(
-        serverId = id,
-        timelineUserId = accountId,
-        localUsername = localUsername,
-        username = username,
-        displayName = name,
-        url = url,
-        avatar = avatar,
-        emojis = gson.toJson(emojis),
-        bot = bot,
-    )
-}
-
-fun TimelineAccountEntity.toAccount(gson: Gson): TimelineAccount {
-    return TimelineAccount(
-        id = serverId,
-        localUsername = localUsername,
-        username = username,
-        displayName = displayName,
-        note = "",
-        url = url,
-        avatar = avatar,
-        bot = bot,
-        emojis = gson.fromJson(emojis, emojisListType),
-    )
-}
 
 fun Status.toEntity(
     timelineUserId: Long,
@@ -130,7 +101,7 @@ fun TimelineStatusWithAccount.toViewData(gson: Gson, alwaysOpenSpoiler: Boolean,
         Status(
             id = id,
             url = status.url,
-            account = account.toAccount(gson),
+            account = account.toTimelineAccount(gson),
             inReplyToId = status.inReplyToId,
             inReplyToAccountId = status.inReplyToAccountId,
             reblog = null,
@@ -163,7 +134,7 @@ fun TimelineStatusWithAccount.toViewData(gson: Gson, alwaysOpenSpoiler: Boolean,
         Status(
             id = status.serverId,
             url = null, // no url for reblogs
-            account = this.reblogAccount!!.toAccount(gson),
+            account = this.reblogAccount!!.toTimelineAccount(gson),
             inReplyToId = null,
             inReplyToAccountId = null,
             reblog = reblog,
@@ -195,7 +166,7 @@ fun TimelineStatusWithAccount.toViewData(gson: Gson, alwaysOpenSpoiler: Boolean,
         Status(
             id = status.serverId,
             url = status.url,
-            account = account.toAccount(gson),
+            account = account.toTimelineAccount(gson),
             inReplyToId = status.inReplyToId,
             inReplyToAccountId = status.inReplyToAccountId,
             reblog = null,
