@@ -16,8 +16,10 @@ package app.pachli.viewdata
 
 import android.os.Build
 import android.text.Spanned
+import app.pachli.components.conversation.ConversationAccountEntity
 import app.pachli.components.conversation.ConversationStatusEntity
 import app.pachli.entity.Filter
+import app.pachli.entity.Poll
 import app.pachli.entity.Status
 import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.replaceCrashingCharacters
@@ -114,6 +116,41 @@ data class StatusViewData(
 
     /** Helper for Java */
     fun copyWithCollapsed(isCollapsed: Boolean) = copy(isCollapsed = isCollapsed)
+
+    fun toConversationStatusEntity(
+        favourited: Boolean = status.favourited,
+        bookmarked: Boolean = status.bookmarked,
+        muted: Boolean = status.muted ?: false,
+        poll: Poll? = status.poll,
+        expanded: Boolean = isExpanded,
+        collapsed: Boolean = isCollapsed,
+        showingHiddenContent: Boolean = isShowingContent,
+    ) = ConversationStatusEntity(
+        id = id,
+        url = status.url,
+        inReplyToId = status.inReplyToId,
+        inReplyToAccountId = status.inReplyToAccountId,
+        account = ConversationAccountEntity.from(status.account),
+        content = status.content,
+        createdAt = status.createdAt,
+        editedAt = status.editedAt,
+        emojis = status.emojis,
+        favouritesCount = status.favouritesCount,
+        repliesCount = status.repliesCount,
+        favourited = favourited,
+        bookmarked = bookmarked,
+        sensitive = status.sensitive,
+        spoilerText = status.spoilerText,
+        attachments = status.attachments,
+        mentions = status.mentions,
+        tags = status.tags,
+        showingHiddenContent = showingHiddenContent,
+        expanded = expanded,
+        collapsed = collapsed,
+        muted = muted,
+        poll = poll,
+        language = status.language,
+    )
 
     companion object {
         fun from(conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
