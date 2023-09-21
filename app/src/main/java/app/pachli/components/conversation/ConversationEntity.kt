@@ -26,7 +26,6 @@ import app.pachli.entity.HashTag
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
 import app.pachli.entity.TimelineAccount
-import app.pachli.viewdata.StatusViewData
 import java.util.Date
 
 @Entity(primaryKeys = ["id", "accountId"])
@@ -100,45 +99,6 @@ data class ConversationStatusEntity(
     val poll: Poll?,
     val language: String?,
 ) {
-
-    fun toViewData(): StatusViewData {
-        return StatusViewData(
-            status = Status(
-                id = id,
-                url = url,
-                account = account.toAccount(),
-                inReplyToId = inReplyToId,
-                inReplyToAccountId = inReplyToAccountId,
-                content = content,
-                reblog = null,
-                createdAt = createdAt,
-                editedAt = editedAt,
-                emojis = emojis,
-                reblogsCount = 0,
-                favouritesCount = favouritesCount,
-                repliesCount = repliesCount,
-                reblogged = false,
-                favourited = favourited,
-                bookmarked = bookmarked,
-                sensitive = sensitive,
-                spoilerText = spoilerText,
-                visibility = Status.Visibility.DIRECT,
-                attachments = attachments,
-                mentions = mentions,
-                tags = tags,
-                application = null,
-                pinned = false,
-                muted = muted,
-                poll = poll,
-                card = null,
-                language = language,
-                filtered = null,
-            ),
-            isExpanded = expanded,
-            isShowingContent = showingHiddenContent,
-            isCollapsed = collapsed,
-        )
-    }
 
     companion object {
         fun from(

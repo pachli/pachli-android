@@ -59,7 +59,7 @@ data class ConversationViewData(
             order = conversationEntity.order,
             accounts = conversationEntity.accounts,
             unread = conversationEntity.unread,
-            lastStatus = conversationEntity.lastStatus.toViewData(),
+            lastStatus = StatusViewData.from(conversationEntity.lastStatus),
         )
     }
 }

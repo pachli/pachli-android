@@ -16,6 +16,7 @@ package app.pachli.viewdata
 
 import android.os.Build
 import android.text.Spanned
+import app.pachli.components.conversation.ConversationStatusEntity
 import app.pachli.entity.Filter
 import app.pachli.entity.Status
 import app.pachli.util.parseAsMastodonHtml
@@ -113,4 +114,43 @@ data class StatusViewData(
 
     /** Helper for Java */
     fun copyWithCollapsed(isCollapsed: Boolean) = copy(isCollapsed = isCollapsed)
+
+    companion object {
+        fun from(conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
+            status = Status(
+                id = conversationStatusEntity.id,
+                url = conversationStatusEntity.url,
+                account = conversationStatusEntity.account.toAccount(),
+                inReplyToId = conversationStatusEntity.inReplyToId,
+                inReplyToAccountId = conversationStatusEntity.inReplyToAccountId,
+                content = conversationStatusEntity.content,
+                reblog = null,
+                createdAt = conversationStatusEntity.createdAt,
+                editedAt = conversationStatusEntity.editedAt,
+                emojis = conversationStatusEntity.emojis,
+                reblogsCount = 0,
+                favouritesCount = conversationStatusEntity.favouritesCount,
+                repliesCount = conversationStatusEntity.repliesCount,
+                reblogged = false,
+                favourited = conversationStatusEntity.favourited,
+                bookmarked = conversationStatusEntity.bookmarked,
+                sensitive = conversationStatusEntity.sensitive,
+                spoilerText = conversationStatusEntity.spoilerText,
+                visibility = Status.Visibility.DIRECT,
+                attachments = conversationStatusEntity.attachments,
+                mentions = conversationStatusEntity.mentions,
+                tags = conversationStatusEntity.tags,
+                application = null,
+                pinned = false,
+                muted = conversationStatusEntity.muted,
+                poll = conversationStatusEntity.poll,
+                card = null,
+                language = conversationStatusEntity.language,
+                filtered = null,
+            ),
+            isExpanded = conversationStatusEntity.expanded,
+            isShowingContent = conversationStatusEntity.showingHiddenContent,
+            isCollapsed = conversationStatusEntity.collapsed,
+        )
+    }
 }
