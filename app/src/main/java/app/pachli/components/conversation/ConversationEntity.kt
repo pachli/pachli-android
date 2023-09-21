@@ -139,39 +139,41 @@ data class ConversationStatusEntity(
             isCollapsed = collapsed,
         )
     }
-}
 
-fun Status.toConversationEntity(
-    expanded: Boolean,
-    contentShowing: Boolean,
-    contentCollapsed: Boolean,
-) =
-    ConversationStatusEntity(
-        id = id,
-        url = url,
-        inReplyToId = inReplyToId,
-        inReplyToAccountId = inReplyToAccountId,
-        account = ConversationAccountEntity.from(account),
-        content = content,
-        createdAt = createdAt,
-        editedAt = editedAt,
-        emojis = emojis,
-        favouritesCount = favouritesCount,
-        repliesCount = repliesCount,
-        favourited = favourited,
-        bookmarked = bookmarked,
-        sensitive = sensitive,
-        spoilerText = spoilerText,
-        attachments = attachments,
-        mentions = mentions,
-        tags = tags,
-        showingHiddenContent = contentShowing,
-        expanded = expanded,
-        collapsed = contentCollapsed,
-        muted = muted ?: false,
-        poll = poll,
-        language = language,
-    )
+    companion object {
+        fun from(
+            status: Status,
+            expanded: Boolean,
+            contentShowing: Boolean,
+            contentCollapsed: Boolean,
+        ) = ConversationStatusEntity(
+            id = status.id,
+            url = status.url,
+            inReplyToId = status.inReplyToId,
+            inReplyToAccountId = status.inReplyToAccountId,
+            account = ConversationAccountEntity.from(status.account),
+            content = status.content,
+            createdAt = status.createdAt,
+            editedAt = status.editedAt,
+            emojis = status.emojis,
+            favouritesCount = status.favouritesCount,
+            repliesCount = status.repliesCount,
+            favourited = status.favourited,
+            bookmarked = status.bookmarked,
+            sensitive = status.sensitive,
+            spoilerText = status.spoilerText,
+            attachments = status.attachments,
+            mentions = status.mentions,
+            tags = status.tags,
+            showingHiddenContent = contentShowing,
+            expanded = expanded,
+            collapsed = contentCollapsed,
+            muted = status.muted ?: false,
+            poll = status.poll,
+            language = status.language,
+        )
+    }
+}
 
 fun Conversation.toConversationEntity(
     accountId: Long,
@@ -186,7 +188,8 @@ fun Conversation.toConversationEntity(
         order = order,
         accounts = accounts.map { ConversationAccountEntity.from(it) },
         unread = unread,
-        lastStatus = lastStatus!!.toConversationEntity(
+        lastStatus = ConversationStatusEntity.from(
+            lastStatus!!,
             expanded = expanded,
             contentShowing = contentShowing,
             contentCollapsed = contentCollapsed,
