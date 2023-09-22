@@ -35,7 +35,7 @@ import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
-import app.pachli.util.toViewData
+import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -79,7 +79,7 @@ class ReportViewModel @Inject constructor(
         .map { pagingData ->
             /* TODO: refactor reports to use the isShowingContent / isExpanded / isCollapsed attributes from StatusViewData
              instead of StatusViewState */
-            pagingData.map { status -> status.toViewData(false, false, false) }
+            pagingData.map { status -> StatusViewData.from(status, false, false, false) }
         }
         .cachedIn(viewModelScope)
 

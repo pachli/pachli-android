@@ -21,10 +21,10 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.entity.Filter
+import app.pachli.entity.TrendingTag
 import app.pachli.entity.end
 import app.pachli.entity.start
 import app.pachli.network.MastodonApi
-import app.pachli.util.toViewData
 import app.pachli.viewdata.TrendingViewData
 import at.connyduck.calladapter.networkresult.fold
 import kotlinx.coroutines.async
@@ -97,7 +97,7 @@ class TrendingTagsViewModel @Inject constructor(
                             } ?: false
                         }
                         .sortedByDescending { tag -> tag.history.sumOf { it.uses.toLongOrNull() ?: 0 } }
-                        .toViewData()
+                        .toTrendingViewDataTag()
 
                     val header = TrendingViewData.Header(firstTag.start(), firstTag.end())
                     TrendingTagsUiState(listOf(header) + tags, LoadingState.LOADED)
@@ -112,6 +112,14 @@ class TrendingTagsViewModel @Inject constructor(
                 }
             },
         )
+    }
+
+    private fun List<TrendingTag>.toTrendingViewDataTag(): List<TrendingViewData.Tag> {
+        val maxTrendingValue = flatMap { tag -> tag.history }
+            .mapNotNull { it.uses.toLongOrNull() }
+            .maxOrNull() ?: 1
+
+        return map { TrendingViewData.Tag.from(it, maxTrendingValue) }
     }
 
     companion object {

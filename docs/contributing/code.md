@@ -93,7 +93,7 @@ Pull requests (PRs) are the primary unit of collaboration for code.
 
 ### Work on branches in your own fork of the repository
 
-Do not clone the `pachli-android` repository. Instead, create a fork, create a branch in your fork from the `main` branch, and commit your changes to that.
+Do not clone the `pachli-android` repository. Instead, create a fork, create a branch in your fork from the `main` branch, and commit your changes to that branch.
 
 See the GitHub [Collaborating with pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models) documentation.
 
@@ -113,6 +113,32 @@ Pachli has two build variants, `blue` and `orange`. The blue variant is used to 
 Typically you would configure the build variant in Android Studio with Build > Select Build Variant..., and select `orangeDebug`.
 
 This is not mandatory, but may make developing easier for you.
+
+### Code style
+
+#### `ktlintCheck` and `ktlintFormat`
+
+The project uses [ktlint](https://pinterest.github.io/ktlint/) to enforce common code and formatting standards.
+
+You can check your code before creating the PR with the `ktlintCheck` task.
+
+```shell
+./gradlew ktlintCheck
+```
+
+Most code formatting issues can be automatically resolved with the `ktlintFormat` task.
+
+```shell
+./gradlew ktlintFormat
+```
+
+The code in your PR will be checked for this every time it changes. If it is not lint-clean and automated fixes are possible they will be added as comments to the PR.
+
+#### Questions of taste
+
+Some code style issues are questions of taste, where developers might reasonably differ but the project has a specific stance.
+
+Please read the [Code style guide](/docs/code-style.md).
 
 ### Individual commits
 
@@ -148,7 +174,7 @@ This makes things needlessly difficult for your reviewers.
 The project uses the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard for commit messages. If you are not familiar with them [Conventional Commits: A better way](https://medium.com/neudesic-innovation/conventional-commits-a-better-way-78d6785c2e08) is also a good introduction.
 
 > [!NOTE]
-> See [docs/decisions/0001-use-conventional-commits.md](https://github.com/pachli/pachli-android/docs/decisions/0001-use-conventional-commits.md)
+> See [docs/decisions/0001-use-conventional-commits.md](/docs/decisions/0001-use-conventional-commits.md)
 
 The PR's title and description will become the first line and remaining body of the commit message when the PR is merged, so your PR title and description should also follow the conventional commits approach.
 
@@ -175,7 +201,7 @@ The types are:
 - `test`, modify the test suite
 - `wip`, work-in-progress
 
-More details on each is in [docs/decisions/conventional-commits.md](https://github.com/pachli/pachli-android/docs/decisions/conventional-commits.md).
+More details on each is in [docs/decisions/0001-use-conventional-commits.md](/docs/decisions/0001-use-conventional-commits.md).
 
 `feat` for new features and `fix` for bug fixes are the most common.
 
@@ -249,24 +275,6 @@ Some of those changes may have overlapped with changes you make in your PR, and 
 You should periodically merge changes from the `main` branch in to your PR branch, and keep your PR up to date with `main` during the review process.
 
 If your PR can not be cleanly merged in to `main` it is difficult to review effectively, because merging the changes from `main` in to your PR will invalidate the review. You've changed the code, so the reviewer needs to look at it again.
-
-#### `ktlintCheck` and `ktlintFormat`
-
-The project uses [ktlint](https://pinterest.github.io/ktlint/) to enforce common code and formatting standards.
-
-You can check your code before creating the PR with the `ktlintCheck` task.
-
-```shell
-./gradlew ktlintCheck
-```
-
-Most code formatting issues can be automatically resolved with the `ktlintFormat` task.
-
-```shell
-./gradlew ktlintFormat
-```
-
-The code in your PR will be checked for this every time it changes. If it is not lint-clean and automated fixes are possible they will be added as comments to the PR.
 
 #### Tests
 

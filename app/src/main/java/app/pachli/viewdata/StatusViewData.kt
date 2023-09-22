@@ -16,11 +16,16 @@ package app.pachli.viewdata
 
 import android.os.Build
 import android.text.Spanned
+import app.pachli.components.conversation.ConversationAccountEntity
+import app.pachli.components.conversation.ConversationStatusEntity
+import app.pachli.db.TimelineStatusWithAccount
 import app.pachli.entity.Filter
+import app.pachli.entity.Poll
 import app.pachli.entity.Status
 import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.replaceCrashingCharacters
 import app.pachli.util.shouldTrimStatus
+import com.google.gson.Gson
 
 /**
  * Data required to display a status.
@@ -113,4 +118,111 @@ data class StatusViewData(
 
     /** Helper for Java */
     fun copyWithCollapsed(isCollapsed: Boolean) = copy(isCollapsed = isCollapsed)
+
+    fun toConversationStatusEntity(
+        favourited: Boolean = status.favourited,
+        bookmarked: Boolean = status.bookmarked,
+        muted: Boolean = status.muted ?: false,
+        poll: Poll? = status.poll,
+        expanded: Boolean = isExpanded,
+        collapsed: Boolean = isCollapsed,
+        showingHiddenContent: Boolean = isShowingContent,
+    ) = ConversationStatusEntity(
+        id = id,
+        url = status.url,
+        inReplyToId = status.inReplyToId,
+        inReplyToAccountId = status.inReplyToAccountId,
+        account = ConversationAccountEntity.from(status.account),
+        content = status.content,
+        createdAt = status.createdAt,
+        editedAt = status.editedAt,
+        emojis = status.emojis,
+        favouritesCount = status.favouritesCount,
+        repliesCount = status.repliesCount,
+        favourited = favourited,
+        bookmarked = bookmarked,
+        sensitive = status.sensitive,
+        spoilerText = status.spoilerText,
+        attachments = status.attachments,
+        mentions = status.mentions,
+        tags = status.tags,
+        showingHiddenContent = showingHiddenContent,
+        expanded = expanded,
+        collapsed = collapsed,
+        muted = muted,
+        poll = poll,
+        language = status.language,
+    )
+
+    companion object {
+        fun from(
+            status: Status,
+            isShowingContent: Boolean,
+            isExpanded: Boolean,
+            isCollapsed: Boolean,
+            isDetailed: Boolean = false,
+            filterAction: Filter.Action = Filter.Action.NONE,
+        ) = StatusViewData(
+            status = status,
+            isShowingContent = isShowingContent,
+            isCollapsed = isCollapsed,
+            isExpanded = isExpanded,
+            isDetailed = isDetailed,
+            filterAction = filterAction,
+        )
+
+        fun from(conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
+            status = Status(
+                id = conversationStatusEntity.id,
+                url = conversationStatusEntity.url,
+                account = conversationStatusEntity.account.toAccount(),
+                inReplyToId = conversationStatusEntity.inReplyToId,
+                inReplyToAccountId = conversationStatusEntity.inReplyToAccountId,
+                content = conversationStatusEntity.content,
+                reblog = null,
+                createdAt = conversationStatusEntity.createdAt,
+                editedAt = conversationStatusEntity.editedAt,
+                emojis = conversationStatusEntity.emojis,
+                reblogsCount = 0,
+                favouritesCount = conversationStatusEntity.favouritesCount,
+                repliesCount = conversationStatusEntity.repliesCount,
+                reblogged = false,
+                favourited = conversationStatusEntity.favourited,
+                bookmarked = conversationStatusEntity.bookmarked,
+                sensitive = conversationStatusEntity.sensitive,
+                spoilerText = conversationStatusEntity.spoilerText,
+                visibility = Status.Visibility.DIRECT,
+                attachments = conversationStatusEntity.attachments,
+                mentions = conversationStatusEntity.mentions,
+                tags = conversationStatusEntity.tags,
+                application = null,
+                pinned = false,
+                muted = conversationStatusEntity.muted,
+                poll = conversationStatusEntity.poll,
+                card = null,
+                language = conversationStatusEntity.language,
+                filtered = null,
+            ),
+            isExpanded = conversationStatusEntity.expanded,
+            isShowingContent = conversationStatusEntity.showingHiddenContent,
+            isCollapsed = conversationStatusEntity.collapsed,
+        )
+
+        fun from(
+            timelineStatusWithAccount: TimelineStatusWithAccount,
+            gson: Gson,
+            isExpanded: Boolean,
+            isShowingContent: Boolean,
+            isDetailed: Boolean = false,
+        ): StatusViewData {
+            val status = timelineStatusWithAccount.toStatus(gson)
+            return StatusViewData(
+                status = status,
+                isExpanded = timelineStatusWithAccount.viewData?.expanded ?: isExpanded,
+                isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (isShowingContent || !status.actionableStatus.sensitive),
+                isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
+                isDetailed = isDetailed,
+            )
+        }
+    }
 }

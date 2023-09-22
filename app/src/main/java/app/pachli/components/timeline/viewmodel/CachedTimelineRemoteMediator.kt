@@ -26,11 +26,12 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.Transaction
 import androidx.room.withTransaction
-import app.pachli.components.timeline.toEntity
 import app.pachli.db.AccountManager
 import app.pachli.db.AppDatabase
 import app.pachli.db.RemoteKeyEntity
 import app.pachli.db.RemoteKeyKind
+import app.pachli.db.TimelineAccountEntity
+import app.pachli.db.TimelineStatusEntity
 import app.pachli.db.TimelineStatusWithAccount
 import app.pachli.entity.Status
 import app.pachli.network.Links
@@ -258,13 +259,15 @@ class CachedTimelineRemoteMediator(
     @Transaction
     private suspend fun insertStatuses(statuses: List<Status>) {
         for (status in statuses) {
-            timelineDao.insertAccount(status.account.toEntity(activeAccount.id, gson))
-            status.reblog?.account?.toEntity(activeAccount.id, gson)?.let { rebloggedAccount ->
-                timelineDao.insertAccount(rebloggedAccount)
+            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, activeAccount.id, gson))
+            status.reblog?.account?.let {
+                val account = TimelineAccountEntity.from(it, activeAccount.id, gson)
+                timelineDao.insertAccount(account)
             }
 
             timelineDao.insertStatus(
-                status.toEntity(
+                TimelineStatusEntity.from(
+                    status,
                     timelineUserId = activeAccount.id,
                     gson = gson,
                 ),

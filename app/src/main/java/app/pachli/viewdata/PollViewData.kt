@@ -34,14 +34,36 @@ data class PollViewData(
     val votersCount: Int?,
     val options: List<PollOptionViewData>,
     var voted: Boolean,
-)
+) {
+    companion object {
+        fun from(poll: Poll) = PollViewData(
+            id = poll.id,
+            expiresAt = poll.expiresAt,
+            expired = poll.expired,
+            multiple = poll.multiple,
+            votesCount = poll.votesCount,
+            votersCount = poll.votersCount,
+            options = poll.options.mapIndexed { index, option -> PollOptionViewData.from(option, poll.ownVotes?.contains(index) == true) },
+            voted = poll.voted,
+        )
+    }
+}
 
 data class PollOptionViewData(
     val title: String,
     var votesCount: Int,
     var selected: Boolean,
     var voted: Boolean,
-)
+) {
+    companion object {
+        fun from(pollOption: PollOption, voted: Boolean) = PollOptionViewData(
+            title = pollOption.title,
+            votesCount = pollOption.votesCount,
+            selected = false,
+            voted = voted,
+        )
+    }
+}
 
 fun calculatePercent(fraction: Int, totalVoters: Int?, totalVotes: Int): Int {
     return if (fraction == 0) {
@@ -60,27 +82,4 @@ fun buildDescription(title: String, percent: Int, voted: Boolean, context: Conte
         builder.append(" ")
     }
     return builder.append(title)
-}
-
-fun Poll?.toViewData(): PollViewData? {
-    if (this == null) return null
-    return PollViewData(
-        id = id,
-        expiresAt = expiresAt,
-        expired = expired,
-        multiple = multiple,
-        votesCount = votesCount,
-        votersCount = votersCount,
-        options = options.mapIndexed { index, option -> option.toViewData(ownVotes?.contains(index) == true) },
-        voted = voted,
-    )
-}
-
-fun PollOption.toViewData(voted: Boolean): PollOptionViewData {
-    return PollOptionViewData(
-        title = title,
-        votesCount = votesCount,
-        selected = false,
-        voted = voted,
-    )
 }

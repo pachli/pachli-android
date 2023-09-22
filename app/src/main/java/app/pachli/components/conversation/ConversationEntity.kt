@@ -26,7 +26,6 @@ import app.pachli.entity.HashTag
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
 import app.pachli.entity.TimelineAccount
-import app.pachli.viewdata.StatusViewData
 import java.util.Date
 
 @Entity(primaryKeys = ["id", "accountId"])
@@ -39,13 +38,26 @@ data class ConversationEntity(
     val unread: Boolean,
     @Embedded(prefix = "s_") val lastStatus: ConversationStatusEntity,
 ) {
-    fun toViewData(): ConversationViewData {
-        return ConversationViewData(
-            id = id,
+    companion object {
+        fun from(
+            conversation: Conversation,
+            accountId: Long,
+            order: Int,
+            expanded: Boolean,
+            contentShowing: Boolean,
+            contentCollapsed: Boolean,
+        ) = ConversationEntity(
+            accountId = accountId,
+            id = conversation.id,
             order = order,
-            accounts = accounts,
-            unread = unread,
-            lastStatus = lastStatus.toViewData(),
+            accounts = conversation.accounts.map { ConversationAccountEntity.from(it) },
+            unread = conversation.unread,
+            lastStatus = ConversationStatusEntity.from(
+                conversation.lastStatus!!,
+                expanded = expanded,
+                contentShowing = contentShowing,
+                contentCollapsed = contentCollapsed,
+            ),
         )
     }
 }
@@ -68,6 +80,17 @@ data class ConversationAccountEntity(
             url = "",
             avatar = avatar,
             emojis = emojis,
+        )
+    }
+
+    companion object {
+        fun from(timelineAccount: TimelineAccount) = ConversationAccountEntity(
+            id = timelineAccount.id,
+            localUsername = timelineAccount.localUsername,
+            username = timelineAccount.username,
+            displayName = timelineAccount.name,
+            avatar = timelineAccount.avatar,
+            emojis = timelineAccount.emojis.orEmpty(),
         )
     }
 }
@@ -100,104 +123,37 @@ data class ConversationStatusEntity(
     val language: String?,
 ) {
 
-    fun toViewData(): StatusViewData {
-        return StatusViewData(
-            status = Status(
-                id = id,
-                url = url,
-                account = account.toAccount(),
-                inReplyToId = inReplyToId,
-                inReplyToAccountId = inReplyToAccountId,
-                content = content,
-                reblog = null,
-                createdAt = createdAt,
-                editedAt = editedAt,
-                emojis = emojis,
-                reblogsCount = 0,
-                favouritesCount = favouritesCount,
-                repliesCount = repliesCount,
-                reblogged = false,
-                favourited = favourited,
-                bookmarked = bookmarked,
-                sensitive = sensitive,
-                spoilerText = spoilerText,
-                visibility = Status.Visibility.DIRECT,
-                attachments = attachments,
-                mentions = mentions,
-                tags = tags,
-                application = null,
-                pinned = false,
-                muted = muted,
-                poll = poll,
-                card = null,
-                language = language,
-                filtered = null,
-            ),
-            isExpanded = expanded,
-            isShowingContent = showingHiddenContent,
-            isCollapsed = collapsed,
+    companion object {
+        fun from(
+            status: Status,
+            expanded: Boolean,
+            contentShowing: Boolean,
+            contentCollapsed: Boolean,
+        ) = ConversationStatusEntity(
+            id = status.id,
+            url = status.url,
+            inReplyToId = status.inReplyToId,
+            inReplyToAccountId = status.inReplyToAccountId,
+            account = ConversationAccountEntity.from(status.account),
+            content = status.content,
+            createdAt = status.createdAt,
+            editedAt = status.editedAt,
+            emojis = status.emojis,
+            favouritesCount = status.favouritesCount,
+            repliesCount = status.repliesCount,
+            favourited = status.favourited,
+            bookmarked = status.bookmarked,
+            sensitive = status.sensitive,
+            spoilerText = status.spoilerText,
+            attachments = status.attachments,
+            mentions = status.mentions,
+            tags = status.tags,
+            showingHiddenContent = contentShowing,
+            expanded = expanded,
+            collapsed = contentCollapsed,
+            muted = status.muted ?: false,
+            poll = status.poll,
+            language = status.language,
         )
     }
 }
-
-fun TimelineAccount.toEntity() =
-    ConversationAccountEntity(
-        id = id,
-        localUsername = localUsername,
-        username = username,
-        displayName = name,
-        avatar = avatar,
-        emojis = emojis.orEmpty(),
-    )
-
-fun Status.toEntity(
-    expanded: Boolean,
-    contentShowing: Boolean,
-    contentCollapsed: Boolean,
-) =
-    ConversationStatusEntity(
-        id = id,
-        url = url,
-        inReplyToId = inReplyToId,
-        inReplyToAccountId = inReplyToAccountId,
-        account = account.toEntity(),
-        content = content,
-        createdAt = createdAt,
-        editedAt = editedAt,
-        emojis = emojis,
-        favouritesCount = favouritesCount,
-        repliesCount = repliesCount,
-        favourited = favourited,
-        bookmarked = bookmarked,
-        sensitive = sensitive,
-        spoilerText = spoilerText,
-        attachments = attachments,
-        mentions = mentions,
-        tags = tags,
-        showingHiddenContent = contentShowing,
-        expanded = expanded,
-        collapsed = contentCollapsed,
-        muted = muted ?: false,
-        poll = poll,
-        language = language,
-    )
-
-fun Conversation.toEntity(
-    accountId: Long,
-    order: Int,
-    expanded: Boolean,
-    contentShowing: Boolean,
-    contentCollapsed: Boolean,
-) =
-    ConversationEntity(
-        accountId = accountId,
-        id = id,
-        order = order,
-        accounts = accounts.map { it.toEntity() },
-        unread = unread,
-        lastStatus = lastStatus!!.toEntity(
-            expanded = expanded,
-            contentShowing = contentShowing,
-            contentCollapsed = contentCollapsed,
-        ),
-    )

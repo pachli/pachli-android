@@ -53,6 +53,7 @@ import app.pachli.entity.Emoji;
 import app.pachli.entity.Filter;
 import app.pachli.entity.FilterResult;
 import app.pachli.entity.HashTag;
+import app.pachli.entity.Poll;
 import app.pachli.entity.Status;
 import app.pachli.interfaces.StatusActionListener;
 import app.pachli.util.AbsoluteTimeFormatter;
@@ -279,7 +280,7 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
         List<Status.Mention> mentions = actionable.getMentions();
         List<HashTag> tags =actionable.getTags();
         List<Emoji> emojis = actionable.getEmojis();
-        PollViewData poll = PollViewDataKt.toViewData(actionable.getPoll());
+        Poll poll = actionable.getPoll();
 
         if (expanded) {
             CharSequence emojifiedText = CustomEmojiHelper.emojify(content, emojis, this.content, statusDisplayOptions.animateEmojis());
@@ -288,7 +289,7 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
                 updateMediaLabel(i, sensitive, true);
             }
             if (poll != null) {
-                setupPoll(poll, emojis, statusDisplayOptions, listener);
+                setupPoll(PollViewData.Companion.from(poll), emojis, statusDisplayOptions, listener);
             } else {
                 hidePoll();
             }
@@ -962,24 +963,28 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
     private CharSequence getPollDescription(@NonNull StatusViewData status,
                                             @NonNull Context context,
                                             @NonNull StatusDisplayOptions statusDisplayOptions) {
-        PollViewData poll = PollViewDataKt.toViewData(status.getActionable().getPoll());
+        Poll poll = status.getActionable().getPoll();
         if (poll == null) {
             return "";
-        } else {
-            Object[] args = new CharSequence[5];
-            List<PollOptionViewData> options = poll.getOptions();
-            for (int i = 0; i < args.length; i++) {
-                if (i < options.size()) {
-                    int percent = PollViewDataKt.calculatePercent(options.get(i).getVotesCount(), poll.getVotersCount(), poll.getVotesCount());
-                    args[i] = buildDescription(options.get(i).getTitle(), percent, options.get(i).getVoted(), context);
-                } else {
-                    args[i] = "";
-                }
-            }
-            args[4] = getPollInfoText(System.currentTimeMillis(), poll, statusDisplayOptions,
-                    context);
-            return context.getString(R.string.description_poll, args);
         }
+
+        PollViewData pollViewData = PollViewData.Companion.from(poll);
+        Object[] args = new CharSequence[5];
+        List<PollOptionViewData> options = pollViewData.getOptions();
+        int totalVotes = pollViewData.getVotesCount();
+        Integer totalVoters = pollViewData.getVotersCount();
+
+        for (int i = 0; i < args.length; i++) {
+            if (i < options.size()) {
+                int percent = PollViewDataKt.calculatePercent(options.get(i).getVotesCount(), totalVoters, totalVotes);
+                args[i] = buildDescription(options.get(i).getTitle(), percent, options.get(i).getVoted(), context);
+            } else {
+                args[i] = "";
+            }
+        }
+        args[4] = getPollInfoText(System.currentTimeMillis(), pollViewData, statusDisplayOptions,
+                context);
+        return context.getString(R.string.description_poll, args);
     }
 
     @NonNull

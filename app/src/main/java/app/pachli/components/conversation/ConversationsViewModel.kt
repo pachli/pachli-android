@@ -55,14 +55,14 @@ class ConversationsViewModel @Inject constructor(
     )
         .flow
         .map { pagingData ->
-            pagingData.map { conversation -> conversation.toViewData() }
+            pagingData.map { conversation -> ConversationViewData.from(conversation) }
         }
         .cachedIn(viewModelScope)
 
     fun favourite(favourite: Boolean, conversation: ConversationViewData) {
         viewModelScope.launch {
             timelineCases.favourite(conversation.lastStatus.id, favourite).fold({
-                val newConversation = conversation.toEntity(
+                val newConversation = conversation.toConversationEntity(
                     accountId = accountManager.activeAccount!!.id,
                     favourited = favourite,
                 )
@@ -77,7 +77,7 @@ class ConversationsViewModel @Inject constructor(
     fun bookmark(bookmark: Boolean, conversation: ConversationViewData) {
         viewModelScope.launch {
             timelineCases.bookmark(conversation.lastStatus.id, bookmark).fold({
-                val newConversation = conversation.toEntity(
+                val newConversation = conversation.toConversationEntity(
                     accountId = accountManager.activeAccount!!.id,
                     bookmarked = bookmark,
                 )
@@ -93,7 +93,7 @@ class ConversationsViewModel @Inject constructor(
         viewModelScope.launch {
             timelineCases.voteInPoll(conversation.lastStatus.id, conversation.lastStatus.status.poll?.id!!, choices)
                 .fold({ poll ->
-                    val newConversation = conversation.toEntity(
+                    val newConversation = conversation.toConversationEntity(
                         accountId = accountManager.activeAccount!!.id,
                         poll = poll,
                     )
@@ -107,7 +107,7 @@ class ConversationsViewModel @Inject constructor(
 
     fun expandHiddenStatus(expanded: Boolean, conversation: ConversationViewData) {
         viewModelScope.launch {
-            val newConversation = conversation.toEntity(
+            val newConversation = conversation.toConversationEntity(
                 accountId = accountManager.activeAccount!!.id,
                 expanded = expanded,
             )
@@ -117,7 +117,7 @@ class ConversationsViewModel @Inject constructor(
 
     fun collapseLongStatus(collapsed: Boolean, conversation: ConversationViewData) {
         viewModelScope.launch {
-            val newConversation = conversation.toEntity(
+            val newConversation = conversation.toConversationEntity(
                 accountId = accountManager.activeAccount!!.id,
                 collapsed = collapsed,
             )
@@ -127,7 +127,7 @@ class ConversationsViewModel @Inject constructor(
 
     fun showContent(showing: Boolean, conversation: ConversationViewData) {
         viewModelScope.launch {
-            val newConversation = conversation.toEntity(
+            val newConversation = conversation.toConversationEntity(
                 accountId = accountManager.activeAccount!!.id,
                 showingHiddenContent = showing,
             )
@@ -158,7 +158,7 @@ class ConversationsViewModel @Inject constructor(
                     !(conversation.lastStatus.status.muted ?: false),
                 )
 
-                val newConversation = conversation.toEntity(
+                val newConversation = conversation.toConversationEntity(
                     accountId = accountManager.activeAccount!!.id,
                     muted = !(conversation.lastStatus.status.muted ?: false),
                 )

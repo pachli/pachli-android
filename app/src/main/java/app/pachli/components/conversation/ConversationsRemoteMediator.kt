@@ -58,17 +58,13 @@ class ConversationsRemoteMediator(
                     conversations
                         .filterNot { it.lastStatus == null }
                         .map { conversation ->
-
-                            val expanded = activeAccount.alwaysOpenSpoiler
-                            val contentShowing = activeAccount.alwaysShowSensitiveMedia || !conversation.lastStatus!!.sensitive
-                            val contentCollapsed = true
-
-                            conversation.toEntity(
+                            ConversationEntity.from(
+                                conversation,
                                 accountId = activeAccount.id,
                                 order = order++,
-                                expanded = expanded,
-                                contentShowing = contentShowing,
-                                contentCollapsed = contentCollapsed,
+                                expanded = activeAccount.alwaysOpenSpoiler,
+                                contentShowing = activeAccount.alwaysShowSensitiveMedia || !conversation.lastStatus!!.sensitive,
+                                contentCollapsed = true,
                             )
                         },
                 )

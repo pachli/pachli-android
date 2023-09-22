@@ -1,6 +1,8 @@
 package app.pachli.components.timeline
 
 import app.pachli.db.StatusViewDataEntity
+import app.pachli.db.TimelineAccountEntity
+import app.pachli.db.TimelineStatusEntity
 import app.pachli.db.TimelineStatusWithAccount
 import app.pachli.entity.Status
 import app.pachli.entity.TimelineAccount
@@ -95,11 +97,13 @@ fun mockStatusEntityWithAccount(
     val gson = Gson()
 
     return TimelineStatusWithAccount(
-        status = mockedStatus.toEntity(
+        status = TimelineStatusEntity.from(
+            mockedStatus,
             timelineUserId = userId,
             gson = gson,
         ),
-        account = mockedStatus.account.toEntity(
+        account = TimelineAccountEntity.from(
+            mockedStatus.account,
             accountId = userId,
             gson = gson,
         ),
