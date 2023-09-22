@@ -182,7 +182,7 @@ class ViewThreadViewModel @Inject constructor(
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
                     )
-                }.filter()
+                }.filterByFilterAction()
                 val descendants = statusContext.descendants.map {
                         status ->
                     val svd = cachedViewData[status.id]
@@ -193,7 +193,7 @@ class ViewThreadViewModel @Inject constructor(
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
                     )
-                }.filter()
+                }.filterByFilterAction()
                 val statuses = ancestors + detailedStatus + descendants
 
                 _uiState.value = ThreadUiState.Success(
@@ -490,7 +490,7 @@ class ViewThreadViewModel @Inject constructor(
 
     private fun updateStatuses() {
         updateSuccess { uiState ->
-            val statuses = uiState.statusViewData.filter()
+            val statuses = uiState.statusViewData.filterByFilterAction()
             uiState.copy(
                 statusViewData = statuses,
                 revealButton = statuses.getRevealButtonState(),
@@ -498,7 +498,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    private fun List<StatusViewData>.filter(): List<StatusViewData> {
+    private fun List<StatusViewData>.filterByFilterAction(): List<StatusViewData> {
         return filter { status ->
             if (status.isDetailed) {
                 true
