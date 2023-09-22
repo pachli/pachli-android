@@ -515,7 +515,7 @@ class ViewThreadViewModel @Inject constructor(
      */
     private fun StatusViewData.Companion.fromStatusAndUiState(status: Status, isDetailed: Boolean = false): StatusViewData {
         val oldStatus = (_uiState.value as? ThreadUiState.Success)?.statusViewData?.find { it.id == status.id }
-        return StatusViewData.from(
+        return from(
             status,
             isShowingContent = oldStatus?.isShowingContent ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
             isExpanded = oldStatus?.isExpanded ?: alwaysOpenSpoiler,
