@@ -178,9 +178,9 @@ class AccountActivity :
         viewModel.setAccountInfo(intent.getStringExtra(KEY_ACCOUNT_ID)!!)
 
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-        animateAvatar = sharedPrefs.getBoolean("animateGifAvatars", false)
+        animateAvatar = sharedPrefs.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
         animateEmojis = sharedPrefs.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
-        hideFab = sharedPrefs.getBoolean("fabHide", false)
+        hideFab = sharedPrefs.getBoolean(PrefKeys.FAB_HIDE, false)
 
         handleWindowInsets()
         setupToolbar()
