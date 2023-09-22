@@ -141,7 +141,7 @@ class TimelineFragment :
 
         timelineKind = arguments.getParcelable(KIND_ARG)!!
 
-        shouldRestoreReadingPosition = timelineKind == TimelineKind.Home
+        shouldRestoreReadingPosition = timelineKind == TimelineKind.Home && savedInstanceState == null
 
         viewModel.init(timelineKind)
 
@@ -571,7 +571,7 @@ class TimelineFragment :
     }
 
     override fun onRefresh() {
-        shouldRestoreReadingPosition = timelineKind == TimelineKind.Home
+        //shouldRestoreReadingPosition = timelineKind == TimelineKind.Home
         binding.statusView.hide()
         snackbar?.dismiss()
 
