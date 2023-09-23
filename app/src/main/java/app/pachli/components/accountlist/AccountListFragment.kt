@@ -102,7 +102,6 @@ class AccountListFragment :
         binding.recyclerView.addItemDecoration(
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
-        (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
 
         binding.swipeRefreshLayout.setOnRefreshListener { fetchAccounts() }
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
@@ -144,6 +143,11 @@ class AccountListFragment :
         binding.recyclerView.addOnScrollListener(scrollListener)
 
         fetchAccounts()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
     }
 
     override fun onViewTag(tag: String) {
