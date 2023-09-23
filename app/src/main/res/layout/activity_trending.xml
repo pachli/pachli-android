@@ -30,9 +30,11 @@
         android:elevation="@dimen/actionbar_elevation"
         app:elevationOverlayEnabled="false">
 
-        <include
-            android:id="@+id/includedToolbar"
-            layout="@layout/toolbar_basic" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
