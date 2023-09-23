@@ -52,7 +52,7 @@ class TrendingActivity : BottomSheetActivity(), HasAndroidInjector, MenuProvider
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.includedToolbar.toolbar)
+        setSupportActionBar(binding.toolbar)
 
         supportActionBar?.run {
             setTitle(R.string.title_public_trending)
