@@ -39,6 +39,8 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
     private var resultClickListener: View.OnClickListener? = null
     private var animateEmojis = false
     private var enabled = true
+    /** Listener to call when the user clicks on a poll option */
+    private var optionClickListener: View.OnClickListener? = null
 
     @JvmOverloads
     fun setup(
@@ -50,6 +52,7 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
         resultClickListener: View.OnClickListener?,
         animateEmojis: Boolean,
         enabled: Boolean = true,
+        optionClickListener: View.OnClickListener? = null,
     ) {
         this.pollOptions = options
         this.voteCount = voteCount
@@ -59,6 +62,7 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
         this.resultClickListener = resultClickListener
         this.animateEmojis = animateEmojis
         this.enabled = enabled
+        this.optionClickListener = optionClickListener
         notifyDataSetChanged()
     }
 
@@ -120,6 +124,7 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
                         pollOption.selected = index == holder.bindingAdapterPosition
                         notifyItemChanged(index)
                     }
+                    optionClickListener?.onClick(radioButton)
                 }
             }
             MULTIPLE -> {
@@ -127,6 +132,7 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
                 checkBox.isChecked = option.selected
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
                     pollOptions[holder.bindingAdapterPosition].selected = isChecked
+                    optionClickListener?.onClick(checkBox)
                 }
             }
         }
