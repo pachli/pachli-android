@@ -39,8 +39,6 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
     private var resultClickListener: View.OnClickListener? = null
     private var animateEmojis = false
     private var enabled = true
-    /** Listener to call when the user clicks on a poll option */
-    private var optionClickListener: View.OnClickListener? = null
 
     /** Listener to call when the user clicks on a poll option */
     private var optionClickListener: View.OnClickListener? = null
