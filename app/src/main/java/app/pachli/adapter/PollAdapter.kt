@@ -97,12 +97,14 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
                 val level = percent * 100
                 val optionColor: Int
                 val textColor: Int
+                // Use the "container" colours to ensure the text is visible on the container
+                // and on the background, per https://github.com/pachli/pachli-android/issues/85
                 if (option.voted) {
-                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorPrimary)
-                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnPrimary)
+                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorPrimaryContainer)
+                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnPrimaryContainer)
                 } else {
-                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorSecondary)
-                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnSecondary)
+                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorSecondaryContainer)
+                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnSecondaryContainer)
                 }
 
                 resultTextView.background.level = level
