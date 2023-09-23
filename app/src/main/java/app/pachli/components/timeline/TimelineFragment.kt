@@ -143,6 +143,17 @@ class TimelineFragment :
 
         shouldRestoreReadingPosition = timelineKind == TimelineKind.Home && savedInstanceState == null
 
+        Log.d(TAG, "onCreate()")
+        if (savedInstanceState == null) {
+            Log.d(TAG, "  savedInstanceState: null")
+        } else {
+            Log.d(TAG, "  savedInstanceState is not null: $savedInstanceState")
+            for (key in savedInstanceState.keySet()) {
+                Log.d(TAG, "  $key = ${savedInstanceState.get(key)}")
+            }
+        }
+
+
         viewModel.init(timelineKind)
 
         isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
