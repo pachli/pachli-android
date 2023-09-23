@@ -176,8 +176,6 @@ class TimelineFragment :
         setupSwipeRefreshLayout()
         setupRecyclerView()
 
-        (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
-
         if (actionButtonPresent()) {
             binding.recyclerView.addOnScrollListener(
                 object : RecyclerView.OnScrollListener() {
@@ -751,6 +749,8 @@ class TimelineFragment :
         if (talkBackWasEnabled && !wasEnabled) {
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
+
+        (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
     }
 
     override fun onPause() {

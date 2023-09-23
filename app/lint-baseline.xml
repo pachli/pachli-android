@@ -2192,7 +2192,7 @@
         errorLine2="                ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/AccountListFragment.kt"
-            line="140"
+            line="139"
             column="17"/>
     </issue>
 
@@ -3677,7 +3677,7 @@
         errorLine2="                                              ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="187"
+            line="185"
             column="47"/>
     </issue>
 

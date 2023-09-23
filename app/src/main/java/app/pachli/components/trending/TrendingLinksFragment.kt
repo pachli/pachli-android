@@ -42,6 +42,7 @@ import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.di.Injectable
 import app.pachli.di.ViewModelFactory
 import app.pachli.interfaces.ActionButtonActivity
+import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.RefreshableFragment
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.util.hide
@@ -228,6 +229,8 @@ class TrendingLinksFragment :
         if (talkBackWasEnabled && !wasEnabled) {
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
+
+        (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
     }
 
     companion object {
