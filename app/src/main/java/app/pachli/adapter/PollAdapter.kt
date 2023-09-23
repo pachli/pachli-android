@@ -40,6 +40,9 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
     private var animateEmojis = false
     private var enabled = true
 
+    /** Listener to call when the user clicks on a poll option */
+    private var optionClickListener: View.OnClickListener? = null
+
     @JvmOverloads
     fun setup(
         options: List<PollOptionViewData>,
@@ -50,6 +53,7 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
         resultClickListener: View.OnClickListener?,
         animateEmojis: Boolean,
         enabled: Boolean = true,
+        optionClickListener: View.OnClickListener? = null,
     ) {
         this.pollOptions = options
         this.voteCount = voteCount
@@ -59,6 +63,7 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
         this.resultClickListener = resultClickListener
         this.animateEmojis = animateEmojis
         this.enabled = enabled
+        this.optionClickListener = optionClickListener
         notifyDataSetChanged()
     }
 
@@ -97,12 +102,14 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
                 val level = percent * 100
                 val optionColor: Int
                 val textColor: Int
+                // Use the "container" colours to ensure the text is visible on the container
+                // and on the background, per https://github.com/pachli/pachli-android/issues/85
                 if (option.voted) {
-                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorPrimary)
-                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnPrimary)
+                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorPrimaryContainer)
+                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnPrimaryContainer)
                 } else {
-                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorSecondary)
-                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnSecondary)
+                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorSecondaryContainer)
+                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnSecondaryContainer)
                 }
 
                 resultTextView.background.level = level
@@ -118,6 +125,7 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
                         pollOption.selected = index == holder.bindingAdapterPosition
                         notifyItemChanged(index)
                     }
+                    optionClickListener?.onClick(radioButton)
                 }
             }
             MULTIPLE -> {
@@ -125,6 +133,7 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
                 checkBox.isChecked = option.selected
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
                     pollOptions[holder.bindingAdapterPosition].selected = isChecked
+                    optionClickListener?.onClick(checkBox)
                 }
             }
         }

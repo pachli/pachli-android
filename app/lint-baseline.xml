@@ -861,7 +861,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/PollAdapter.kt"
-            line="62"
+            line="67"
             column="9"/>
     </issue>
 
@@ -872,7 +872,18 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/PollAdapter.kt"
-            line="62"
+            line="67"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/adapter/PollAdapter.kt"
+            line="67"
             column="9"/>
     </issue>
 
@@ -2192,7 +2203,7 @@
         errorLine2="                ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/AccountListFragment.kt"
-            line="140"
+            line="139"
             column="17"/>
     </issue>
 
@@ -3677,7 +3688,7 @@
         errorLine2="                                              ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="187"
+            line="185"
             column="47"/>
     </issue>
 

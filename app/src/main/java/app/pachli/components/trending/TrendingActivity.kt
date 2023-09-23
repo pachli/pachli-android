@@ -34,25 +34,30 @@ import app.pachli.R
 import app.pachli.components.timeline.TimelineFragment
 import app.pachli.components.timeline.TimelineKind
 import app.pachli.databinding.ActivityTrendingBinding
+import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.viewBinding
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class TrendingActivity : BottomSheetActivity(), HasAndroidInjector, MenuProvider {
+class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidInjector, MenuProvider {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     private val binding: ActivityTrendingBinding by viewBinding(ActivityTrendingBinding::inflate)
 
+    override val appBarLayout: AppBarLayout
+        get() = binding.appBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.includedToolbar.toolbar)
+        setSupportActionBar(binding.toolbar)
 
         supportActionBar?.run {
             setTitle(R.string.title_public_trending)

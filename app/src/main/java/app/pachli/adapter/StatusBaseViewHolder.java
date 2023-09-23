@@ -1039,6 +1039,10 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
             pollButton.setVisibility(View.GONE);
         } else {
             // voting possible
+            View.OnClickListener optionClickListener = v -> {
+                pollButton.setEnabled(!pollAdapter.getSelected().isEmpty());
+            };
+
             pollAdapter.setup(
                     poll.getOptions(),
                     poll.getVotesCount(),
@@ -1046,10 +1050,13 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
                     emojis,
                     poll.getMultiple() ? PollAdapter.MULTIPLE : PollAdapter.SINGLE,
                     null,
-                    statusDisplayOptions.animateEmojis()
+                    statusDisplayOptions.animateEmojis(),
+                    true,
+                    optionClickListener
             );
 
             pollButton.setVisibility(View.VISIBLE);
+            pollButton.setEnabled(false);
 
             pollButton.setOnClickListener(v -> {
                 int position = getBindingAdapterPosition();
