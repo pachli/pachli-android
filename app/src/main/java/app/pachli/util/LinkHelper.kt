@@ -42,6 +42,7 @@ import app.pachli.R
 import app.pachli.entity.HashTag
 import app.pachli.entity.Status.Mention
 import app.pachli.interfaces.LinkListener
+import app.pachli.settings.PrefKeys
 import com.google.android.material.color.MaterialColors
 import java.net.URI
 import java.net.URISyntaxException
@@ -216,7 +217,7 @@ fun createClickableText(text: String, link: String): CharSequence {
  */
 fun Context.openLink(url: String) {
     val uri = url.toUri().normalizeScheme()
-    val useCustomTabs = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("customTabs", false)
+    val useCustomTabs = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PrefKeys.CUSTOM_TABS, false)
 
     if (useCustomTabs) {
         openLinkInCustomTab(uri, this)
