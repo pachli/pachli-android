@@ -46,8 +46,6 @@ import app.pachli.di.Injectable
 import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
-import app.pachli.settings.PrefKeys
-import app.pachli.util.CardViewMode
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
@@ -146,20 +144,9 @@ class ReportStatusesFragment :
 
     private fun initStatusesView() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val statusDisplayOptions = StatusDisplayOptions(
-            animateAvatars = false,
-            mediaPreviewEnabled = accountManager.activeAccount?.mediaPreviewEnabled ?: true,
-            useAbsoluteTime = preferences.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false),
-            showBotOverlay = false,
-            useBlurhash = preferences.getBoolean(PrefKeys.USE_BLURHASH, true),
-            cardViewMode = CardViewMode.NONE,
-            confirmReblogs = preferences.getBoolean(PrefKeys.CONFIRM_REBLOGS, true),
-            confirmFavourites = preferences.getBoolean(PrefKeys.CONFIRM_FAVOURITES, false),
-            hideStats = preferences.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, false),
-            animateEmojis = preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
-            showStatsInline = preferences.getBoolean(PrefKeys.SHOW_STATS_INLINE, false),
-            showSensitiveMedia = accountManager.activeAccount!!.alwaysShowSensitiveMedia,
-            openSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler,
+        val statusDisplayOptions = StatusDisplayOptions.from(
+            preferences,
+            accountManager.activeAccount!!,
         )
 
         adapter = StatusesAdapter(statusDisplayOptions, viewModel.statusViewState, this)
