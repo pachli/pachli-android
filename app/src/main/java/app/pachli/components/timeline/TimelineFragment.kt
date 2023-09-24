@@ -381,13 +381,10 @@ class TimelineFragment :
                                     .takeIf { it != -1 }
                                     ?.let { pos ->
                                         Log.d(TAG, "restored reading position")
-                                        binding.recyclerView.post {
-                                            getView() ?: return@post
-                                            (binding.recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
-                                                pos,
-                                                0,
-                                            )
-                                        }
+                                        (binding.recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
+                                            pos,
+                                            0,
+                                        )
                                         shouldRestoreReadingPosition = false
                                     }
                             }
