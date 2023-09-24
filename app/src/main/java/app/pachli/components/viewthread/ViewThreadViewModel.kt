@@ -124,7 +124,7 @@ class ViewThreadViewModel @Inject constructor(
                     StatusViewData.from(
                         status = status.actionableStatus,
                         isExpanded = timelineStatusWithAccount.viewData?.expanded ?: alwaysOpenSpoiler,
-                        isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: alwaysShowSensitiveMedia,
+                        isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                         isDetailed = true,
                     )
@@ -133,7 +133,7 @@ class ViewThreadViewModel @Inject constructor(
                         timelineStatusWithAccount,
                         gson,
                         isExpanded = alwaysOpenSpoiler,
-                        isShowingContent = alwaysShowSensitiveMedia,
+                        isShowingContent = (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isDetailed = true,
                     )
                 }
