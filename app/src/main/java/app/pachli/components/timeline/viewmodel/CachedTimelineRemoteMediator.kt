@@ -206,12 +206,12 @@ class CachedTimelineRemoteMediator(
             api.homeTimeline(maxId = statusId, limit = pageSize)
         }
         val deferredPrevPage = async {
-            api.homeTimeline(minId = statusId, limit = pageSize)
+            api.homeTimeline(minId = statusId, limit = pageSize / 2)
         }
 
         deferredStatus.await().getOrNull()?.let { status ->
             val statuses = buildList {
-                deferredPrevPage.await().body()?.let { this.addAll(it) }
+//                deferredPrevPage.await().body()?.let { this.addAll(it) }
                 this.add(status)
                 deferredNextPage.await().body()?.let { this.addAll(it) }
             }
