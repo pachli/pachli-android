@@ -71,7 +71,10 @@ class CachedTimelineRemoteMediator(
         return try {
             val response = when (loadType) {
                 LoadType.REFRESH -> {
-                    val closestItem = state.anchorPosition?.let { state.closestItemToPosition(it) }?.status?.serverId
+                    Log.d(TAG, "anchorPosition: ${state.anchorPosition}")
+                    val closestItem = state.anchorPosition?.let {
+                        state.closestItemToPosition(maxOf(0, it - (state.config.pageSize / 2)))
+                    }?.status?.serverId
                     val key = closestItem ?: initialKey
                     Log.d(TAG, "Loading from item: $key")
                     getInitialPage(key, state.config.pageSize)
