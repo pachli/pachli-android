@@ -371,23 +371,23 @@ class TimelineFragment :
                             // Refresh has finished, pages are being prepended.
 
                             // Restore the user's reading position, if appropriate.
-                            if (shouldRestoreReadingPosition) {
-                                Log.d(
-                                    TAG,
-                                    "Page updated, should restore reading position to ${viewModel.readingPositionId}",
-                                )
-                                adapter.snapshot()
-                                    .indexOfFirst { it?.id == viewModel.readingPositionId }
-                                    .takeIf { it != -1 }
-                                    ?.let { pos ->
-                                        Log.d(TAG, "restored reading position")
-                                        (binding.recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
-                                            pos,
-                                            0,
-                                        )
-                                        shouldRestoreReadingPosition = false
-                                    }
-                            }
+//                            if (shouldRestoreReadingPosition) {
+//                                Log.d(
+//                                    TAG,
+//                                    "Page updated, should restore reading position to ${viewModel.readingPositionId}",
+//                                )
+//                                adapter.snapshot()
+//                                    .indexOfFirst { it?.id == viewModel.readingPositionId }
+//                                    .takeIf { it != -1 }
+//                                    ?.let { pos ->
+//                                        Log.d(TAG, "restored reading position")
+//                                        (binding.recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
+//                                            pos,
+//                                            0,
+//                                        )
+//                                        shouldRestoreReadingPosition = false
+//                                    }
+//                            }
 
                             // There might be multiple prepends after a refresh, only continue
                             // if one them has not already caused a peek.
