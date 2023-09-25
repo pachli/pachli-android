@@ -141,7 +141,7 @@ class TimelineFragment :
 
         timelineKind = arguments.getParcelable(KIND_ARG)!!
 
-        shouldRestoreReadingPosition = timelineKind == TimelineKind.Home && savedInstanceState == null
+        shouldRestoreReadingPosition = timelineKind == TimelineKind.Home && (savedInstanceState == null || savedInstanceState.isEmpty)
 
         Log.d(TAG, "onCreate()")
         if (savedInstanceState == null) {
