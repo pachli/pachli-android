@@ -36,7 +36,6 @@ import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import at.connyduck.calladapter.networkresult.onSuccess
-import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class TimelineCases @Inject constructor(
@@ -132,11 +131,11 @@ class TimelineCases @Inject constructor(
         }
     }
 
-    fun acceptFollowRequest(accountId: String): Single<Relationship> {
+    suspend fun acceptFollowRequest(accountId: String): NetworkResult<Relationship> {
         return mastodonApi.authorizeFollowRequest(accountId)
     }
 
-    fun rejectFollowRequest(accountId: String): Single<Relationship> {
+    suspend fun rejectFollowRequest(accountId: String): NetworkResult<Relationship> {
         return mastodonApi.rejectFollowRequest(accountId)
     }
 
