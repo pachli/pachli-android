@@ -208,6 +208,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:nestedScrollingEnabled="false"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/status_display_name"
         app:layout_constraintTop_toBottomOf="@id/status_media_preview_container" />

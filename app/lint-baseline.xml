@@ -4300,7 +4300,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_conversation.xml"
-            line="233"
+            line="234"
             column="6"/>
     </issue>
 
