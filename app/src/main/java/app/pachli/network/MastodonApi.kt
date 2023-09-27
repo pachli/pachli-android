@@ -47,7 +47,6 @@ import app.pachli.entity.TrendingTag
 import app.pachli.entity.TrendsLink
 import app.pachli.util.HttpHeaderLink
 import at.connyduck.calladapter.networkresult.NetworkResult
-import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -312,10 +311,10 @@ interface MastodonApi {
     ): NetworkResult<Status>
 
     @GET("api/v1/scheduled_statuses")
-    fun scheduledStatuses(
+    suspend fun scheduledStatuses(
         @Query("limit") limit: Int? = null,
         @Query("max_id") maxId: String? = null,
-    ): Single<List<ScheduledStatus>>
+    ): NetworkResult<List<ScheduledStatus>>
 
     @DELETE("api/v1/scheduled_statuses/{id}")
     suspend fun deleteScheduledStatus(
@@ -378,9 +377,11 @@ interface MastodonApi {
     /**
      * Method to fetch statuses for the specified account.
      * @param accountId ID for account for which statuses will be requested
-     * @param maxId Only statuses with ID less than maxID will be returned
-     * @param sinceId Only statuses with ID bigger than sinceID will be returned
-     * @param limit Limit returned statuses (current API limits: default - 20, max - 40)
+     * @param maxId Only statuses with ID less than maxId will be returned
+     * @param sinceId Only statuses with ID bigger than sinceId will be returned
+     * @param minId Only statuses with ID greater than minId will be returned
+     * @param limit Limit returned statuses
+     * @param excludeReblogs only return statuses that are not reblogs
      * @param excludeReplies only return statuses that are no replies
      * @param onlyMedia only return statuses that have media attached
      */
@@ -391,6 +392,7 @@ interface MastodonApi {
         @Query("since_id") sinceId: String? = null,
         @Query("min_id") minId: String? = null,
         @Query("limit") limit: Int? = null,
+        @Query("exclude_reblogs") excludeReblogs: Boolean? = null,
         @Query("exclude_replies") excludeReplies: Boolean? = null,
         @Query("only_media") onlyMedia: Boolean? = null,
         @Query("pinned") pinned: Boolean? = null,
@@ -470,11 +472,11 @@ interface MastodonApi {
     ): Response<List<TimelineAccount>>
 
     @GET("api/v1/domain_blocks")
-    fun domainBlocks(
+    suspend fun domainBlocks(
         @Query("max_id") maxId: String? = null,
         @Query("since_id") sinceId: String? = null,
         @Query("limit") limit: Int? = null,
-    ): Single<Response<List<String>>>
+    ): Response<List<String>>
 
     @FormUrlEncoded
     @POST("api/v1/domain_blocks")
@@ -509,14 +511,14 @@ interface MastodonApi {
     ): Response<List<TimelineAccount>>
 
     @POST("api/v1/follow_requests/{id}/authorize")
-    fun authorizeFollowRequest(
+    suspend fun authorizeFollowRequest(
         @Path("id") accountId: String,
-    ): Single<Relationship>
+    ): NetworkResult<Relationship>
 
     @POST("api/v1/follow_requests/{id}/reject")
-    fun rejectFollowRequest(
+    suspend fun rejectFollowRequest(
         @Path("id") accountId: String,
-    ): Single<Relationship>
+    ): NetworkResult<Relationship>
 
     @FormUrlEncoded
     @POST("api/v1/apps")
@@ -716,34 +718,19 @@ interface MastodonApi {
         @Field("forward") isNotifyRemote: Boolean?,
     ): NetworkResult<Unit>
 
-    @GET("api/v1/accounts/{id}/statuses")
-    fun accountStatusesObservable(
-        @Path("id") accountId: String,
-        @Query("max_id") maxId: String?,
-        @Query("since_id") sinceId: String?,
-        @Query("min_id") minId: String?,
-        @Query("limit") limit: Int?,
-        @Query("exclude_reblogs") excludeReblogs: Boolean?,
-    ): Single<List<Status>>
-
-    @GET("api/v1/statuses/{id}")
-    fun statusObservable(
-        @Path("id") statusId: String,
-    ): Single<Status>
-
     @GET("api/v2/search")
-    fun searchObservable(
+    suspend fun search(
         @Query("q") query: String?,
         @Query("type") type: String? = null,
         @Query("resolve") resolve: Boolean? = null,
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null,
         @Query("following") following: Boolean? = null,
-    ): Single<SearchResult>
+    ): NetworkResult<SearchResult>
 
     @GET("api/v2/search")
     fun searchSync(
-        @Query("q") query: String?,
+        @Query("q") query: String,
         @Query("type") type: String? = null,
         @Query("resolve") resolve: Boolean? = null,
         @Query("limit") limit: Int? = null,

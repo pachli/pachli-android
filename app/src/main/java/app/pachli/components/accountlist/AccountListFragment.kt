@@ -19,7 +19,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ConcatAdapter
@@ -55,12 +54,9 @@ import app.pachli.util.show
 import app.pachli.util.viewBinding
 import app.pachli.view.EndlessOnScrollListener
 import at.connyduck.calladapter.networkresult.fold
-import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider.from
-import autodispose2.autoDispose
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
@@ -258,13 +254,12 @@ class AccountListFragment :
         accountId: String,
         position: Int,
     ) {
-        if (accept) {
-            api.authorizeFollowRequest(accountId)
-        } else {
-            api.rejectFollowRequest(accountId)
-        }.observeOn(AndroidSchedulers.mainThread())
-            .autoDispose(from(this, Lifecycle.Event.ON_DESTROY))
-            .subscribe(
+        viewLifecycleOwner.lifecycleScope.launch {
+            if (accept) {
+                api.authorizeFollowRequest(accountId)
+            } else {
+                api.rejectFollowRequest(accountId)
+            }.fold(
                 {
                     onRespondToFollowRequestSuccess(position)
                 },
@@ -277,6 +272,7 @@ class AccountListFragment :
                     Log.e(TAG, "Failed to $verb account id $accountId.", throwable)
                 },
             )
+        }
     }
 
     private fun onRespondToFollowRequestSuccess(position: Int) {

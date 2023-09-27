@@ -43,7 +43,10 @@ class StatusesPagingSource(
                 withContext(Dispatchers.IO) {
                     val initialStatus = async { getSingleStatus(key) }
                     val additionalStatuses = async { getStatusList(maxId = key, limit = params.loadSize - 1) }
-                    listOf(initialStatus.await()) + additionalStatuses.await()
+                    buildList {
+                        initialStatus.await()?.let { this.add(it) }
+                        additionalStatuses.await()?.let { this.addAll(it) }
+                    }
                 }
             } else {
                 val maxId = if (params is LoadParams.Refresh || params is LoadParams.Append) {
@@ -58,7 +61,7 @@ class StatusesPagingSource(
                     null
                 }
 
-                getStatusList(minId = minId, maxId = maxId, limit = params.loadSize)
+                getStatusList(minId = minId, maxId = maxId, limit = params.loadSize) ?: emptyList()
             }
             return LoadResult.Page(
                 data = result,
@@ -71,18 +74,18 @@ class StatusesPagingSource(
         }
     }
 
-    private suspend fun getSingleStatus(statusId: String): Status {
-        return mastodonApi.statusObservable(statusId).await()
+    private suspend fun getSingleStatus(statusId: String): Status? {
+        return mastodonApi.status(statusId).getOrNull()
     }
 
-    private suspend fun getStatusList(minId: String? = null, maxId: String? = null, limit: Int): List<Status> {
-        return mastodonApi.accountStatusesObservable(
+    private suspend fun getStatusList(minId: String? = null, maxId: String? = null, limit: Int): List<Status>? {
+        return mastodonApi.accountStatuses(
             accountId = accountId,
             maxId = maxId,
             sinceId = null,
             minId = minId,
             limit = limit,
             excludeReblogs = true,
-        ).await()
+        ).body()
     }
 }
