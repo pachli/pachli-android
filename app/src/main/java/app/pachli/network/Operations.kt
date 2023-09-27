@@ -17,14 +17,14 @@
 
 package app.pachli.network
 
-import app.pachli.entity.Instance
+import app.pachli.entity.InstanceV1
+import app.pachli.network.model.InstanceV2
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.getError
 import com.github.michaelbull.result.getOr
 import com.github.michaelbull.result.getOrElse
-import com.github.michaelbull.result.onFailure
 import io.github.z4kn4fein.semver.Version
 import io.github.z4kn4fein.semver.toVersion
 import kotlin.coroutines.cancellation.CancellationException
@@ -37,10 +37,13 @@ enum class ServerOperation(id: String) {
 enum class ServerKind {
     MASTODON,
     PLEROMA,
+    // PIXELFED,  // Needs to report as missing notification support
     UNKNOWN;
 
     companion object {
-        fun from(instance: Instance) = if (instance.pleroma == null) MASTODON else PLEROMA
+        fun from(instance: InstanceV1) = if (instance.pleroma == null) MASTODON else PLEROMA
+
+        fun from(instance: InstanceV2) = MASTODON
     }
 }
 
@@ -58,7 +61,7 @@ class ServerCapabilities(
     val capabilities: Map<ServerOperation, List<Version>>
 ) {
     companion object {
-        fun from(instance: Instance): Result<ServerCapabilities, ServerCapabilitiesError> {
+        fun from(instance: InstanceV1): Result<ServerCapabilities, ServerCapabilitiesError> {
             val serverKind = ServerKind.from(instance)
             val capabilities = mutableMapOf<ServerOperation, List<Version>>()
 
@@ -75,6 +78,20 @@ class ServerCapabilities(
                 }
                 ServerKind.PLEROMA -> TODO()
                 ServerKind.UNKNOWN -> TODO()
+            }
+
+            return Ok(ServerCapabilities(serverKind, capabilities))
+        }
+
+        fun from(instance: InstanceV2): Result<ServerCapabilities, ServerCapabilitiesError> {
+            val serverKind = ServerKind.from(instance)
+            val capabilities = mutableMapOf<ServerOperation, List<Version>>()
+
+            when (serverKind) {
+                ServerKind.MASTODON -> {
+
+                }
+                else -> { /* TODO: Have a default set of capabilities */ }
             }
 
             return Ok(ServerCapabilities(serverKind, capabilities))

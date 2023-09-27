@@ -17,6 +17,7 @@ package app.pachli.entity
 
 import com.google.gson.annotations.SerializedName
 
+/** https://docs.joinmastodon.org/entities/V1_Instance/ */
 data class InstanceV1(
     val uri: String,
     // val title: String,

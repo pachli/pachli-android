@@ -45,6 +45,7 @@ import app.pachli.entity.StatusSource
 import app.pachli.entity.TimelineAccount
 import app.pachli.entity.TrendingTag
 import app.pachli.entity.TrendsLink
+import app.pachli.network.model.InstanceV2
 import app.pachli.util.HttpHeaderLink
 import at.connyduck.calladapter.networkresult.NetworkResult
 import okhttp3.MultipartBody
@@ -103,6 +104,9 @@ interface MastodonApi {
 
     @GET("api/v1/instance")
     suspend fun getInstanceV1(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV1>
+
+    @GET("api/v2/instance")
+    suspend fun getInstanceV2(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV2>
 
     @GET("api/v1/filters")
     suspend fun getFiltersV1(): NetworkResult<List<FilterV1>>
