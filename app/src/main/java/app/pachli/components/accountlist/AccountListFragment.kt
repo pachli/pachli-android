@@ -210,16 +210,15 @@ class AccountListFragment :
 
     override fun onBlock(block: Boolean, id: String, position: Int) {
         viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                if (!block) {
-                    api.unblockAccount(id)
-                } else {
-                    api.blockAccount(id)
-                }
+            if (block) {
+                api.blockAccount(id)
+            } else {
+                api.unblockAccount(id)
+            }.fold({
                 onBlockSuccess(block, id, position)
-            } catch (_: Throwable) {
-                onBlockFailure(block, id)
-            }
+            }, {
+                onBlockFailure(block, id, it)
+            },)
         }
     }
 
@@ -240,13 +239,13 @@ class AccountListFragment :
         }
     }
 
-    private fun onBlockFailure(block: Boolean, accountId: String) {
+    private fun onBlockFailure(block: Boolean, accountId: String, throwable: Throwable) {
         val verb = if (block) {
             "block"
         } else {
             "unblock"
         }
-        Log.e(TAG, "Failed to $verb account accountId $accountId")
+        Log.e(TAG, "Failed to $verb account accountId $accountId: $throwable")
     }
 
     override fun onRespondToFollowRequest(
