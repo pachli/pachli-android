@@ -72,7 +72,7 @@ jobs:
 
       - name: Upload AAB to Google Play
         id: upload-release-asset-aab
-        uses: r0adkll/upload-google-play@v1.1.1
+        uses: r0adkll/upload-google-play@v1.1.2
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
           packageName: app.pachli
