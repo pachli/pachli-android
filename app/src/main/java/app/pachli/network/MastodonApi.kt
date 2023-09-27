@@ -27,7 +27,7 @@ import app.pachli.entity.Filter
 import app.pachli.entity.FilterKeyword
 import app.pachli.entity.FilterV1
 import app.pachli.entity.HashTag
-import app.pachli.entity.Instance
+import app.pachli.entity.InstanceV1
 import app.pachli.entity.Marker
 import app.pachli.entity.MastoList
 import app.pachli.entity.MediaUploadResult
@@ -102,7 +102,7 @@ interface MastodonApi {
     suspend fun getCustomEmojis(): NetworkResult<List<Emoji>>
 
     @GET("api/v1/instance")
-    suspend fun getInstance(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<Instance>
+    suspend fun getInstanceV1(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV1>
 
     @GET("api/v1/filters")
     suspend fun getFiltersV1(): NetworkResult<List<FilterV1>>
