@@ -22,23 +22,16 @@ import android.os.Looper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.FiltersRepository
+import app.pachli.components.timeline.MainCoroutineRule
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.network.FilterModel
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
 import org.junit.runner.RunWith
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doAnswer
@@ -48,19 +41,6 @@ import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
-
-@OptIn(ExperimentalCoroutinesApi::class)
-class MainCoroutineRule(private val dispatcher: TestDispatcher = UnconfinedTestDispatcher()) : TestWatcher() {
-    override fun starting(description: Description) {
-        super.starting(description)
-        Dispatchers.setMain(dispatcher)
-    }
-
-    override fun finished(description: Description) {
-        super.finished(description)
-        Dispatchers.resetMain()
-    }
-}
 
 @Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
