@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,11 +19,8 @@ import app.pachli.util.show
 import app.pachli.util.viewBinding
 import app.pachli.view.EndlessOnScrollListener
 import at.connyduck.calladapter.networkresult.fold
-import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider.from
-import autodispose2.autoDispose
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -101,23 +97,16 @@ class InstanceListFragment :
             binding.recyclerView.post { adapter.bottomLoading = true }
         }
 
-        api.domainBlocks(id, bottomId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .autoDispose(from(this, Lifecycle.Event.ON_DESTROY))
-            .subscribe(
-                { response ->
-                    val instances = response.body()
+        viewLifecycleOwner.lifecycleScope.launch {
+            val response = api.domainBlocks(id, bottomId)
+            val instances = response.body()
 
-                    if (response.isSuccessful && instances != null) {
-                        onFetchInstancesSuccess(instances, response.headers()["Link"])
-                    } else {
-                        onFetchInstancesFailure(Exception(response.message()))
-                    }
-                },
-                { throwable ->
-                    onFetchInstancesFailure(throwable)
-                },
-            )
+            if (response.isSuccessful && instances != null) {
+                onFetchInstancesSuccess(instances, response.headers()["Link"])
+            } else {
+                onFetchInstancesFailure(Exception(response.message()))
+            }
+        }
     }
 
     private fun onFetchInstancesSuccess(instances: List<String>, linkHeader: String?) {
@@ -158,6 +147,6 @@ class InstanceListFragment :
     }
 
     companion object {
-        private const val TAG = "InstanceList" // logging tag
+        private const val TAG = "InstanceList"
     }
 }

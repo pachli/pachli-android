@@ -20,7 +20,7 @@ import androidx.paging.PagingState
 import app.pachli.components.search.SearchType
 import app.pachli.entity.SearchResult
 import app.pachli.network.MastodonApi
-import kotlinx.coroutines.rx3.await
+import at.connyduck.calladapter.networkresult.getOrElse
 
 class SearchPagingSource<T : Any>(
     private val mastodonApi: MastodonApi,
@@ -53,31 +53,27 @@ class SearchPagingSource<T : Any>(
 
         val currentKey = params.key ?: 0
 
-        try {
-            val data = mastodonApi.searchObservable(
-                query = searchRequest,
-                type = searchType.apiParameter,
-                resolve = true,
-                limit = params.loadSize,
-                offset = currentKey,
-                following = false,
-            ).await()
+        val data = mastodonApi.search(
+            query = searchRequest,
+            type = searchType.apiParameter,
+            resolve = true,
+            limit = params.loadSize,
+            offset = currentKey,
+            following = false,
+        ).getOrElse { return LoadResult.Error(it) }
 
-            val res = parser(data)
+        val res = parser(data)
 
-            val nextKey = if (res.isEmpty()) {
-                null
-            } else {
-                currentKey + res.size
-            }
-
-            return LoadResult.Page(
-                data = res,
-                prevKey = null,
-                nextKey = nextKey,
-            )
-        } catch (e: Exception) {
-            return LoadResult.Error(e)
+        val nextKey = if (res.isEmpty()) {
+            null
+        } else {
+            currentKey + res.size
         }
+
+        return LoadResult.Page(
+            data = res,
+            prevKey = null,
+            nextKey = nextKey,
+        )
     }
 }
