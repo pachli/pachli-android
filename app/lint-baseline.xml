@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.1.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.0.2)" variant="all" version="8.1.0">
+<issues format="6" by="lint 8.1.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.1.1)" variant="all" version="8.1.1">
 
     <issue
         id="InvalidPackage"
@@ -2203,7 +2203,7 @@
         errorLine2="                ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/AccountListFragment.kt"
-            line="139"
+            line="135"
             column="17"/>
     </issue>
 
@@ -2478,7 +2478,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="155"
+            line="143"
             column="25"/>
     </issue>
 
@@ -2489,7 +2489,7 @@
         errorLine2="                                ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="157"
+            line="145"
             column="33"/>
     </issue>
 
@@ -2566,7 +2566,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/instancemute/fragment/InstanceListFragment.kt"
-            line="61"
+            line="57"
             column="21"/>
     </issue>
 
