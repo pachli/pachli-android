@@ -24,6 +24,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
 import app.pachli.components.conversation.ConversationEntity
 
+@Suppress("ClassName")
 @Database(
     entities = [
         DraftEntity::class,

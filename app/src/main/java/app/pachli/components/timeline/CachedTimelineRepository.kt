@@ -85,7 +85,7 @@ class CachedTimelineRepository @Inject constructor(
         Log.d(TAG, "initialKey: $initialKey is row: $row")
 
         return Pager(
-            config = PagingConfig(pageSize = pageSize),
+            config = PagingConfig(pageSize = pageSize, jumpThreshold = PAGE_SIZE * 3, enablePlaceholders = true),
             initialKey = row,
             remoteMediator = CachedTimelineRemoteMediator(
                 initialKey,
