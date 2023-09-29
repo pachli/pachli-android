@@ -7,9 +7,10 @@ plugins {
     alias(libs.plugins.aboutlibraries)
 }
 
-apply from: 'getGitSha.gradle'
+apply from: 'gitTools.gradle'
 
 final def gitSha = ext.getGitSha()
+final def gitRevCount = ext.getGitRevCount()
 
 // The app name
 final def APP_NAME = "Pachli"
@@ -30,8 +31,8 @@ android {
         namespace "app.pachli"
         minSdk 23
         targetSdk 33
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
@@ -55,7 +56,7 @@ android {
         orange {
             resValue "string", "app_name", APP_NAME + " Current"
             applicationIdSuffix ".current"
-            versionNameSuffix "-" + gitSha
+            versionNameSuffix "+" + gitSha
         }
     }
 
@@ -103,7 +104,16 @@ android {
     }
 
     applicationVariants.configureEach { variant ->
+        tasks.register("printVersionInfo${variant.name.capitalize()}") {
+            notCompatibleWithConfigurationCache("Should always print the version info")
+            println variant.versionCode + " " + variant.versionName
+        }
         variant.outputs.configureEach {
+            // Set the "orange" release versionCode to the number of commits on the
+            // branch, to ensure the versionCode updates on every release.
+            if (variant.buildType.name == "release" && variant.flavorName == "orange") {
+                versionCodeOverride = gitRevCount
+            }
             outputFileName = "Pachli_${variant.versionName}_${variant.versionCode}_${gitSha}_" +
                 "${variant.flavorName}_${buildType.name}.apk"
         }

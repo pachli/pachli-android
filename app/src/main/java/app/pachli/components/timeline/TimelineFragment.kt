@@ -131,17 +131,12 @@ class TimelineFragment :
 
     private var isSwipeToRefreshEnabled = true
 
-    /** True if the reading position should be restored when new data is submitted to the adapter */
-    private var shouldRestoreReadingPosition = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val arguments = requireArguments()
 
         timelineKind = arguments.getParcelable(KIND_ARG)!!
-
-        shouldRestoreReadingPosition = timelineKind == TimelineKind.Home
 
         viewModel.init(timelineKind)
 
@@ -359,28 +354,6 @@ class TimelineFragment :
                         if (userRefreshState == UserRefreshState.COMPLETE) {
                             // Refresh has finished, pages are being prepended.
 
-                            // Restore the user's reading position, if appropriate.
-                            if (shouldRestoreReadingPosition) {
-                                Log.d(
-                                    TAG,
-                                    "Page updated, should restore reading position to ${viewModel.readingPositionId}",
-                                )
-                                adapter.snapshot()
-                                    .indexOfFirst { it?.id == viewModel.readingPositionId }
-                                    .takeIf { it != -1 }
-                                    ?.let { pos ->
-                                        Log.d(TAG, "restored reading position")
-                                        binding.recyclerView.post {
-                                            getView() ?: return@post
-                                            (binding.recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
-                                                pos,
-                                                0,
-                                            )
-                                        }
-                                        shouldRestoreReadingPosition = false
-                                    }
-                            }
-
                             // There might be multiple prepends after a refresh, only continue
                             // if one them has not already caused a peek.
                             if (peeked) return@collect
@@ -528,13 +501,14 @@ class TimelineFragment :
      * previous first status always remains visible.
      */
     fun saveVisibleId(statusId: String? = null) {
-        statusId ?: layoutManager.findFirstCompletelyVisibleItemPosition()
+        val id = statusId ?: layoutManager.findFirstCompletelyVisibleItemPosition()
             .takeIf { it != RecyclerView.NO_POSITION }
             ?.let { adapter.snapshot().getOrNull(it)?.id }
-            ?.let {
-                Log.d(TAG, "Saving ID: $it")
-                viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = it))
-            }
+
+        id?.let {
+            Log.d(TAG, "Saving ID: $it")
+            viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = it))
+        }
     }
 
     private fun setupSwipeRefreshLayout() {
@@ -569,7 +543,6 @@ class TimelineFragment :
     }
 
     override fun onRefresh() {
-        shouldRestoreReadingPosition = timelineKind == TimelineKind.Home
         binding.statusView.hide()
         snackbar?.dismiss()
 
