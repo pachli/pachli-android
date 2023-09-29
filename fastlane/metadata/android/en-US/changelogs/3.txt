@@ -1,0 +1,12 @@
+Pachli 1.2
+
+New features:
+
+-  Show vertical scrollbars on scrollable lists 
+
+Fixes:
+
+-  Restore the user's reading position under all circumstances 
+-  Enable/disable vote button when the user can/can't vote 
+-  Use the correct colour for the status bar
+-  Ensure poll option text is visible against the background 

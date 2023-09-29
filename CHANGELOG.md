@@ -1,5 +1,18 @@
 # Pachli changelog
 
+## v1.2
+
+### New features and other improvements
+
+-  Show vertical scrollbars on scrollable lists (#[96](https://github.com/pachli/pachli-android/pull/96))
+
+### Significant bug fixes
+
+-  Restore the user's reading position under all circumstances (#[133](https://github.com/pachli/pachli-android/pull/133))
+-  Enable/disable vote button when the user can/can't vote (#[91](https://github.com/pachli/pachli-android/pull/91))
+-  Use the correct colour for the status bar
+-  Ensure poll option text is visible against the background (#[86](https://github.com/pachli/pachli-android/pull/86))
+
 ## v1.1
 
 ### Significant bug fixes
