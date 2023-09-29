@@ -71,10 +71,12 @@ class CachedTimelineRemoteMediator(
         return try {
             val response = when (loadType) {
                 LoadType.REFRESH -> {
-                    val closestItem = state.anchorPosition?.let { state.closestItemToPosition(it) }?.status?.serverId
-                    val key = closestItem ?: initialKey
-                    Log.d(TAG, "Loading from item: $key")
-                    getInitialPage(key, state.config.pageSize)
+                    val closestItem = state.anchorPosition?.let {
+                        state.closestItemToPosition(maxOf(0, it - (state.config.pageSize / 2)))
+                    }?.status?.serverId
+                    val statusId = closestItem ?: initialKey
+                    Log.d(TAG, "Loading from item: $statusId")
+                    getInitialPage(statusId, state.config.pageSize)
                 }
                 LoadType.APPEND -> {
                     val rke = db.withTransaction {
@@ -200,18 +202,14 @@ class CachedTimelineRemoteMediator(
         // You can fetch the page immediately before the key, or the page immediately after, but
         // you can not fetch the page itself.
 
-        // Fetch the requested status, and the pages immediately before (prev) and after (next)
+        // Fetch the requested status, and the page immediately after (next)
         val deferredStatus = async { api.status(statusId = statusId) }
         val deferredNextPage = async {
             api.homeTimeline(maxId = statusId, limit = pageSize)
         }
-        val deferredPrevPage = async {
-            api.homeTimeline(minId = statusId, limit = pageSize)
-        }
 
         deferredStatus.await().getOrNull()?.let { status ->
             val statuses = buildList {
-                deferredPrevPage.await().body()?.let { this.addAll(it) }
                 this.add(status)
                 deferredNextPage.await().body()?.let { this.addAll(it) }
             }
@@ -243,7 +241,7 @@ class CachedTimelineRemoteMediator(
         // There were no statuses older than the user's desired status. Return the page
         // of statuses immediately newer than their desired status. This page must
         // *not* be empty (as noted earlier, if it is, paging stops).
-        deferredPrevPage.await().let { response ->
+        api.homeTimeline(minId = statusId, limit = pageSize).let { response ->
             if (response.isSuccessful) {
                 if (!response.body().isNullOrEmpty()) return@coroutineScope response
             }
