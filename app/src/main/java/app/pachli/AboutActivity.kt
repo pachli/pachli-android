@@ -73,6 +73,7 @@ class AboutActivity : BottomSheetActivity(), Injectable {
         binding.aboutLicenseInfoTextView.setClickableTextWithoutUnderlines(R.string.about_pachli_license)
         binding.aboutWebsiteInfoTextView.setClickableTextWithoutUnderlines(R.string.about_project_site)
         binding.aboutBugsFeaturesInfoTextView.setClickableTextWithoutUnderlines(R.string.about_bug_feature_request_site)
+        binding.aboutPrivacyPolicyTextView.setClickableTextWithoutUnderlines(R.string.about_privacy_policy)
 
         binding.appProfileButton.setOnClickListener {
             viewUrl(BuildConfig.SUPPORT_ACCOUNT_URL)
