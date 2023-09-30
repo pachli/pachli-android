@@ -1,5 +1,11 @@
 # Pachli changelog
 
+## v1.2.1
+
+### New features and other improvements
+
+-  Link to the privacy policy from "About" (#[137](https://github.com/pachli/pachli-android/pull/137))
+
 ## v1.2
 
 ### New features and other improvements
