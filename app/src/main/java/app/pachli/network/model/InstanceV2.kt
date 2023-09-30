@@ -52,7 +52,7 @@ data class InstanceV2(
 
     val contact: Contact,
 
-    val rules: List<Rule>
+    val rules: List<Rule>,
 )
 
 data class Usage(
@@ -60,7 +60,7 @@ data class Usage(
 )
 
 data class Users(
-    val activeMonth: Int = 0
+    val activeMonth: Int = 0,
 )
 
 data class Thumbnail(
@@ -84,7 +84,7 @@ data class Configuration(
 )
 
 data class InstanceV2Urls(
-    @SerializedName("streaming_api") val streamingApi: String
+    @SerializedName("streaming_api") val streamingApi: String,
 )
 
 data class InstanceV2Accounts(
@@ -114,7 +114,7 @@ data class InstanceV2Polls(
 )
 
 data class InstanceV2Translation(
-    val enabled: Boolean
+    val enabled: Boolean,
 )
 
 data class Registrations(
