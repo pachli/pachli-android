@@ -26,19 +26,23 @@ import com.github.michaelbull.result.getError
 import com.github.michaelbull.result.getOr
 import com.github.michaelbull.result.getOrElse
 import io.github.z4kn4fein.semver.Version
-import io.github.z4kn4fein.semver.toVersion
+import io.github.z4kn4fein.semver.constraints.Constraint
+import io.github.z4kn4fein.semver.constraints.satisfiedByAny
 import kotlin.coroutines.cancellation.CancellationException
 
 enum class ServerOperation(id: String) {
     // Translate a status, introduced in Mastodon 4.0.0
-    ORG_JOINMASTODON_STATUSES_TRANSLATE("org.joinmastodon.statuses.translate")
+    ORG_JOINMASTODON_STATUSES_TRANSLATE("org.joinmastodon.statuses.translate"),
 }
 
 enum class ServerKind {
     MASTODON,
     PLEROMA,
+
     // PIXELFED,  // Needs to report as missing notification support
-    UNKNOWN;
+    UNKNOWN,
+
+    ;
 
     companion object {
         fun from(instance: InstanceV1) = if (instance.pleroma == null) MASTODON else PLEROMA
@@ -47,19 +51,24 @@ enum class ServerKind {
     }
 }
 
-
-
 sealed interface ServerCapabilitiesError {
     val throwable: Throwable
 
-    data class VersionParse(override val throwable: Throwable): ServerCapabilitiesError
+    data class VersionParse(override val throwable: Throwable) : ServerCapabilitiesError
 }
 
 /** Represents operations that can be performed on the given server. */
 class ServerCapabilities(
     val serverKind: ServerKind,
-    val capabilities: Map<ServerOperation, List<Version>>
+    private val capabilities: Map<ServerOperation, List<Version>>,
 ) {
+    /**
+     * Returns true if the server supports the given operation at the given minimum version
+     * level, false otherwise.
+     */
+    fun can(operation: ServerOperation, constraint: Constraint) = capabilities[operation]?.let {
+            versions -> constraint satisfiedByAny versions } ?: false
+
     companion object {
         fun from(instance: InstanceV1): Result<ServerCapabilities, ServerCapabilitiesError> {
             val serverKind = ServerKind.from(instance)
@@ -72,8 +81,7 @@ class ServerCapabilities(
                     }.getOrElse { return Err(ServerCapabilitiesError.VersionParse(it)) }
 
                     // Can translate?
-                    if (version >= "4.0.0".toVersion()) {
-
+                    if (version >= Version(major = 4)) {
                     }
                 }
                 ServerKind.PLEROMA -> TODO()
@@ -89,7 +97,13 @@ class ServerCapabilities(
 
             when (serverKind) {
                 ServerKind.MASTODON -> {
+                    val version = app.pachli.network.resultOf {
+                        Version.parse(instance.version, strict = false)
+                    }.getOrElse { return Err(ServerCapabilitiesError.VersionParse(it)) }
 
+                    if (instance.configuration.translation.enabled) {
+                        capabilities[ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE] = listOf(Version(major = 1))
+                    }
                 }
                 else -> { /* TODO: Have a default set of capabilities */ }
             }
@@ -99,9 +113,7 @@ class ServerCapabilities(
     }
 }
 
-
 // See https://www.jacobras.nl/2022/04/resilient-use-cases-with-kotlin-result-coroutines-and-annotations/
-
 
 /**
  * Like [runCatching], but with proper coroutines cancellation handling. Also only catches [Exception] instead of [Throwable].
@@ -137,7 +149,7 @@ inline fun <T, R> T.resultOf(block: T.() -> R): Result<R, Exception> {
  * Like [mapCatching], but uses [resultOf] instead of [runCatching].
  */
 inline fun <R, T> Result<T, Exception>.mapResult(transform: (value: T) -> R): Result<R, Exception> {
-    val successResult = getOr { null }// getOrNull()
+    val successResult = getOr { null } // getOrNull()
     return when {
         successResult != null -> resultOf { transform(successResult) }
         else -> Err(getError() ?: error("Unreachable state"))
