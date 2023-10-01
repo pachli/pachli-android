@@ -650,4 +650,14 @@
     <string name="error_missing_edits">あなたのサーバーは、この投稿が変更されたことを把握していますが、編集履歴のコピーを備えていないので、表示できません。
 \n
 \nこれは<a href="https://github.com/mastodon/mastodon/issues/25398">Mastodonのissue #25398</a>です。</string>
+    <string name="title_public_trending_links">トレンドのリンク</string>
+    <string name="title_tab_public_trending_links">リンク</string>
+    <string name="title_public_trending">トレンド</string>
+    <string name="title_public_trending_statuses">トレンドの投稿</string>
+    <string name="about_device_info_title">あなたのデバイス</string>
+    <string name="dialog_save_profile_changes_message">プロフィールの変更を保存しますか\?</string>
+    <string name="error_generic_fmt">エラーが発生しました: %s</string>
+    <string name="title_tab_public_trending_statuses">投稿</string>
+    <string name="error_404_not_found">あなたのサーバーはこの機能をサポートしていません</string>
+    <string name="title_tab_public_trending_hashtags">ハッシュタグ</string>
 </resources>
