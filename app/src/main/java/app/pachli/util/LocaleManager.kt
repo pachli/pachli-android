@@ -24,12 +24,13 @@ import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceManager
 import app.pachli.R
 import app.pachli.settings.PrefKeys
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LocaleManager @Inject constructor(
-    val context: Context,
+    @ApplicationContext val context: Context,
 ) : PreferenceDataStore() {
 
     private var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)

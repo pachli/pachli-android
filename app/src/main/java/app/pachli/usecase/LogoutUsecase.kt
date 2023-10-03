@@ -8,10 +8,11 @@ import app.pachli.db.AccountManager
 import app.pachli.db.AppDatabase
 import app.pachli.network.MastodonApi
 import app.pachli.util.removeShortcut
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class LogoutUsecase @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val api: MastodonApi,
     private val db: AppDatabase,
     private val accountManager: AccountManager,

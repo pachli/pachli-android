@@ -35,6 +35,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Cache
 import okhttp3.OkHttp
 import okhttp3.OkHttpClient
@@ -62,7 +63,7 @@ class NetworkModule {
     @Singleton
     fun providesHttpClient(
         accountManager: AccountManager,
-        context: Context,
+        @ApplicationContext context: Context,
         preferences: SharedPreferences,
     ): OkHttpClient {
         val httpProxyEnabled = preferences.getBoolean(HTTP_PROXY_ENABLED, false)

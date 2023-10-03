@@ -29,6 +29,7 @@ import app.pachli.entity.Notification
 import app.pachli.network.Links
 import app.pachli.network.MastodonApi
 import app.pachli.util.isLessThan
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 import kotlin.math.min
@@ -46,7 +47,7 @@ import kotlin.time.Duration.Companion.milliseconds
 class NotificationFetcher @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val accountManager: AccountManager,
-    private val context: Context,
+    @ApplicationContext private val context: Context,
 ) {
     suspend fun fetchAndShow() {
         for (account in accountManager.getAllAccountsOrderedByActive()) {

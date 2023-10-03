@@ -24,16 +24,11 @@ import app.pachli.db.AppDatabase
 import app.pachli.db.Converters
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
 @Module
 class AppModule {
-
-//    @Provides
-//    fun providesApplication(app: PachliApplication): Application = app
-
-    @Provides
-    fun providesContext(app: Application): Context = app
 
     @Provides
     fun providesSharedPreferences(app: Application): SharedPreferences {
@@ -42,7 +37,10 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesDatabase(appContext: Context, converters: Converters): AppDatabase {
+    fun providesDatabase(
+        @ApplicationContext appContext: Context,
+        converters: Converters
+    ): AppDatabase {
         return Room.databaseBuilder(appContext, AppDatabase::class.java, "pachliDB")
             .addTypeConverter(converters)
             .allowMainThreadQueries()

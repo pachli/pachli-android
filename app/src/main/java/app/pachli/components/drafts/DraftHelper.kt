@@ -29,6 +29,7 @@ import app.pachli.entity.Attachment
 import app.pachli.entity.NewPoll
 import app.pachli.entity.Status
 import app.pachli.util.copyToFile
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -43,7 +44,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 class DraftHelper @Inject constructor(
-    val context: Context,
+    @ApplicationContext val context: Context,
     private val okHttpClient: OkHttpClient,
     db: AppDatabase,
 ) {
