@@ -38,6 +38,7 @@ import app.pachli.network.MastodonApi
 import app.pachli.util.unsafeLazy
 import at.connyduck.calladapter.networkresult.fold
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -50,6 +51,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SendStatusService : Service(), Injectable {
 
     @Inject

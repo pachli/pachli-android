@@ -20,7 +20,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import app.pachli.PachliApplication
 import app.pachli.db.AppDatabase
 import app.pachli.db.Converters
 import dagger.Module
@@ -30,8 +29,8 @@ import javax.inject.Singleton
 @Module
 class AppModule {
 
-    @Provides
-    fun providesApplication(app: PachliApplication): Application = app
+//    @Provides
+//    fun providesApplication(app: PachliApplication): Application = app
 
     @Provides
     fun providesContext(app: Application): Context = app

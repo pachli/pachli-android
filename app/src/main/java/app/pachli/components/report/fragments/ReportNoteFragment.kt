@@ -33,9 +33,11 @@ import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ReportNoteFragment : Fragment(R.layout.fragment_report_note), Injectable {
 
     @Inject

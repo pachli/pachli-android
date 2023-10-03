@@ -46,11 +46,13 @@ import app.pachli.util.unsafeLazy
 import app.pachli.util.viewBinding
 import app.pachli.viewmodel.AccountsInListViewModel
 import app.pachli.viewmodel.State
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private typealias AccountInfo = Pair<TimelineAccount, Boolean>
 
+@AndroidEntryPoint
 class AccountsInListFragment : DialogFragment(), Injectable {
 
     @Inject

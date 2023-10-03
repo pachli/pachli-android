@@ -1,4 +1,5 @@
-/* Copyright 2018 charlag
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -10,20 +11,20 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.di
 
-import app.pachli.PachliApplication
-import dagger.BindsInstance
-import dagger.Component
+import dagger.Module
 import dagger.android.support.AndroidSupportInjectionModule
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
-@Singleton
-@Component(
-    modules = [
+@InstallIn(SingletonComponent::class)
+@Module(
+    includes = [
         AppModule::class,
         CoroutineScopeModule::class,
         NetworkModule::class,
@@ -35,14 +36,4 @@ import javax.inject.Singleton
         WorkerModule::class,
     ],
 )
-interface AppComponent {
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(pachliApp: PachliApplication): Builder
-
-        fun build(): AppComponent
-    }
-
-    fun inject(app: PachliApplication)
-}
+interface AppAggregatorModule

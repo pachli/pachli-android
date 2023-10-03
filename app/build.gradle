@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.aboutlibraries)
+    alias(libs.plugins.hilt)
 
     id "app.pachli.plugins.markdown2resource"
 }
@@ -29,6 +30,8 @@ android {
     compileSdk 33
     namespace "app.pachli"
     defaultConfig {
+        //TODO: remove this after migration to Hilt
+        javaCompileOptions.annotationProcessorOptions.arguments['dagger.hilt.disableModulesHaveInstallInCheck'] = 'true'
         applicationId APP_ID
         namespace "app.pachli"
         minSdk 23
@@ -171,6 +174,9 @@ dependencies {
     implementation libs.bundles.rxjava3
 
     implementation libs.bundles.autodispose
+
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
 
     implementation libs.bundles.dagger
     kapt libs.bundles.dagger.processors

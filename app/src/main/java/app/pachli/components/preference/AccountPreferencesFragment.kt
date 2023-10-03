@@ -52,11 +52,13 @@ import app.pachli.util.unsafeLazy
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AccountPreferencesFragment : PreferenceFragmentCompat(), Injectable {
     @Inject
     lateinit var accountManager: AccountManager

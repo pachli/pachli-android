@@ -25,9 +25,11 @@ import app.pachli.databinding.ActivityViewThreadBinding
 import app.pachli.util.viewBinding
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class ViewThreadActivity : BottomSheetActivity(), HasAndroidInjector {
+@AndroidEntryPoint
+class ViewThreadActivity : BottomSheetActivity() {
 
     private val binding by viewBinding(ActivityViewThreadBinding::inflate)
 
@@ -53,8 +55,6 @@ class ViewThreadActivity : BottomSheetActivity(), HasAndroidInjector {
             replace(R.id.fragment_container, fragment, FRAGMENT_TAG + id)
         }
     }
-
-    override fun androidInjector() = dispatchingAndroidInjector
 
     companion object {
 

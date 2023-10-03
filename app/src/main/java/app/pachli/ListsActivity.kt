@@ -61,10 +61,12 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ListsActivity : BaseActivity(), Injectable, HasAndroidInjector {
+@AndroidEntryPoint
+class ListsActivity : BaseActivity(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -291,8 +293,6 @@ class ListsActivity : BaseActivity(), Injectable, HasAndroidInjector {
             viewModel.updateList(listId, name, exclusive)
         }
     }
-
-    override fun androidInjector() = dispatchingAndroidInjector
 
     companion object {
         fun newIntent(context: Context) = Intent(context, ListsActivity::class.java)

@@ -26,10 +26,11 @@ import app.pachli.databinding.ActivityReportBinding
 import app.pachli.di.ViewModelFactory
 import app.pachli.util.viewBinding
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class ReportActivity : BottomSheetActivity(), HasAndroidInjector {
+@AndroidEntryPoint
+class ReportActivity : BottomSheetActivity() {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -138,6 +139,4 @@ class ReportActivity : BottomSheetActivity(), HasAndroidInjector {
                     putExtra(STATUS_ID, statusId)
                 }
     }
-
-    override fun androidInjector() = androidInjector
 }

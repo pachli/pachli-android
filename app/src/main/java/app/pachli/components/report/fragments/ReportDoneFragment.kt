@@ -29,8 +29,10 @@ import app.pachli.util.Loading
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ReportDoneFragment : Fragment(R.layout.fragment_report_done), Injectable {
 
     @Inject

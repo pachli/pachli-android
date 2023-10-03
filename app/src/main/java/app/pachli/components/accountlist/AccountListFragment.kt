@@ -57,11 +57,13 @@ import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AccountListFragment :
     Fragment(R.layout.fragment_account_list),
     AccountActionListener,

@@ -45,6 +45,7 @@ import app.pachli.di.ViewModelFactory
 import app.pachli.util.hide
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
@@ -103,6 +104,7 @@ sealed class LoginResult : Parcelable {
 }
 
 /** Activity to do Oauth process using WebView. */
+@AndroidEntryPoint
 class LoginWebViewActivity : BaseActivity(), Injectable {
     private val binding by viewBinding(ActivityLoginWebviewBinding::inflate)
 

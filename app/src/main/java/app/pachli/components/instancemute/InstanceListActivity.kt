@@ -6,10 +6,11 @@ import app.pachli.R
 import app.pachli.components.instancemute.fragment.InstanceListFragment
 import app.pachli.databinding.ActivityAccountListBinding
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class InstanceListActivity : BaseActivity(), HasAndroidInjector {
+@AndroidEntryPoint
+class InstanceListActivity : BaseActivity() {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -31,6 +32,4 @@ class InstanceListActivity : BaseActivity(), HasAndroidInjector {
             .replace(R.id.fragment_container, InstanceListFragment())
             .commit()
     }
-
-    override fun androidInjector() = androidInjector
 }

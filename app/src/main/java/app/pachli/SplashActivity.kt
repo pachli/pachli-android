@@ -25,9 +25,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import app.pachli.components.login.LoginActivity
 import app.pachli.db.AccountManager
 import app.pachli.di.Injectable
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity(), Injectable {
 
     @Inject

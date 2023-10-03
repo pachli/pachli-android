@@ -15,9 +15,11 @@ import app.pachli.util.show
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import com.google.android.material.color.MaterialColors
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class FiltersActivity : BaseActivity(), FiltersListener {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory

@@ -40,14 +40,15 @@ import app.pachli.util.getNonNullString
 import app.pachli.util.setAppNightMode
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PreferencesActivity :
     BaseActivity(),
     SharedPreferences.OnSharedPreferenceChangeListener,
-    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
-    HasAndroidInjector {
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     @Inject
     lateinit var eventHub: EventHub
@@ -179,8 +180,6 @@ class PreferencesActivity :
         finish()
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
-
-    override fun androidInjector() = androidInjector
 
     companion object {
         @Suppress("unused")

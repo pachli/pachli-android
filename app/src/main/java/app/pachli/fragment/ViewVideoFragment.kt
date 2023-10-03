@@ -59,11 +59,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 import kotlin.math.abs
 
 @UnstableApi
+@AndroidEntryPoint
 class ViewVideoFragment : ViewMediaFragment(), Injectable {
     interface VideoActionsListener {
         fun onDismiss()

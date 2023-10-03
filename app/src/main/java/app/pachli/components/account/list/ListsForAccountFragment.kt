@@ -38,10 +38,12 @@ import app.pachli.util.show
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ListsForAccountFragment : DialogFragment(), Injectable {
 
     @Inject

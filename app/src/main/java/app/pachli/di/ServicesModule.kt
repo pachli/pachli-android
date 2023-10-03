@@ -15,12 +15,10 @@
 
 package app.pachli.di
 
-import app.pachli.service.SendStatusService
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ServicesModule {
-    @ContributesAndroidInjector
-    abstract fun contributesSendStatusService(): SendStatusService
+//    @ContributesAndroidInjector
+//    abstract fun contributesSendStatusService(): SendStatusService
 }

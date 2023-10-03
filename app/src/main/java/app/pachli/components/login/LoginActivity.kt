@@ -42,11 +42,13 @@ import app.pachli.util.shouldRickRoll
 import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import okhttp3.HttpUrl
 import javax.inject.Inject
 
 /** Main login page, the first thing that users see. Has prompt for instance and login button. */
+@AndroidEntryPoint
 class LoginActivity : BaseActivity(), Injectable {
 
     @Inject

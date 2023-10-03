@@ -26,6 +26,7 @@ import app.pachli.db.AccountManager
 import app.pachli.network.MastodonApi
 import app.pachli.worker.NotificationWorker
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -33,6 +34,7 @@ import org.unifiedpush.android.connector.MessagingReceiver
 import javax.inject.Inject
 
 @DelicateCoroutinesApi
+@AndroidEntryPoint
 class UnifiedPushBroadcastReceiver : MessagingReceiver() {
     companion object {
         const val TAG = "UnifiedPush"

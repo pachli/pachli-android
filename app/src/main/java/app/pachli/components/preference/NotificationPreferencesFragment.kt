@@ -26,8 +26,10 @@ import app.pachli.settings.PrefKeys
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preferenceCategory
 import app.pachli.settings.switchPreference
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NotificationPreferencesFragment : PreferenceFragmentCompat(), Injectable {
 
     @Inject

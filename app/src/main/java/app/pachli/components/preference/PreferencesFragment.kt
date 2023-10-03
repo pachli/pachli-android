@@ -40,9 +40,11 @@ import app.pachli.util.unsafeLazy
 import app.pachli.view.FontFamilyDialogFragment
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.views.picker.preference.EmojiPickerPreference
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PreferencesFragment : PreferenceFragmentCompat(), Injectable {
 
     @Inject

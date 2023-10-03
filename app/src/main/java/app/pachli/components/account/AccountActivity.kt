@@ -95,7 +95,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -103,11 +103,12 @@ import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.abs
 
+@AndroidEntryPoint
 class AccountActivity :
     BottomSheetActivity(),
     ActionButtonActivity,
     MenuProvider,
-    HasAndroidInjector,
+
     LinkListener {
 
     @Inject
@@ -1011,8 +1012,6 @@ class AccountActivity :
             "@$localUsername@$domain"
         }
     }
-
-    override fun androidInjector() = dispatchingAndroidInjector
 
     companion object {
 

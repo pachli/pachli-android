@@ -16,20 +16,16 @@
 
 package app.pachli.di
 
-import app.pachli.receiver.NotificationBlockStateBroadcastReceiver
-import app.pachli.receiver.SendStatusBroadcastReceiver
-import app.pachli.receiver.UnifiedPushBroadcastReceiver
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class BroadcastReceiverModule {
-    @ContributesAndroidInjector
-    abstract fun contributeSendStatusBroadcastReceiver(): SendStatusBroadcastReceiver
+//    @ContributesAndroidInjector
+//    abstract fun contributeSendStatusBroadcastReceiver(): SendStatusBroadcastReceiver
 
-    @ContributesAndroidInjector
-    abstract fun contributeUnifiedPushBroadcastReceiver(): UnifiedPushBroadcastReceiver
+//    @ContributesAndroidInjector
+//    abstract fun contributeUnifiedPushBroadcastReceiver(): UnifiedPushBroadcastReceiver
 
-    @ContributesAndroidInjector
-    abstract fun contributeNotificationBlockStateBroadcastReceiver(): NotificationBlockStateBroadcastReceiver
+//    @ContributesAndroidInjector
+//    abstract fun contributeNotificationBlockStateBroadcastReceiver(): NotificationBlockStateBroadcastReceiver
 }

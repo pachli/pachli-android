@@ -27,11 +27,13 @@ import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.Date
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class EditFilterActivity : BaseActivity() {
     @Inject
     lateinit var api: MastodonApi

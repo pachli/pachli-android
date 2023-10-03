@@ -142,12 +142,14 @@ import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInjector, MenuProvider {
+@AndroidEntryPoint
+class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
@@ -1097,8 +1099,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, HasAndroidInje
     }
 
     override fun getActionButton() = binding.composeButton
-
-    override fun androidInjector() = androidInjector
 
     companion object {
         private const val TAG = "MainActivity" // logging tag

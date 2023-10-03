@@ -38,9 +38,11 @@ import app.pachli.util.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class SearchActivity : BottomSheetActivity(), HasAndroidInjector, MenuProvider, SearchView.OnQueryTextListener {
+@AndroidEntryPoint
+class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTextListener {
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
@@ -164,8 +166,6 @@ class SearchActivity : BottomSheetActivity(), HasAndroidInjector, MenuProvider, 
 
         return false
     }
-
-    override fun androidInjector() = androidInjector
 
     companion object {
         const val TAG = "SearchActivity"

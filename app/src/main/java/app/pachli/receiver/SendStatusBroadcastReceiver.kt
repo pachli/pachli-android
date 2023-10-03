@@ -33,10 +33,12 @@ import app.pachli.service.SendStatusService
 import app.pachli.service.StatusToSend
 import app.pachli.util.randomAlphanumericString
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 private const val TAG = "SendStatusBR"
 
+@AndroidEntryPoint
 class SendStatusBroadcastReceiver : BroadcastReceiver() {
 
     @Inject

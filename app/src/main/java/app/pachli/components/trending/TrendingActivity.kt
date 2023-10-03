@@ -41,9 +41,11 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidInjector, MenuProvider {
+@AndroidEntryPoint
+class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
@@ -91,8 +93,6 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidInje
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return super.onOptionsItemSelected(menuItem)
     }
-
-    override fun androidInjector() = dispatchingAndroidInjector
 
     companion object {
         fun getIntent(context: Context) = Intent(context, TrendingActivity::class.java)
