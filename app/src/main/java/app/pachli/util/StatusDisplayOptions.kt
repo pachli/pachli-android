@@ -19,7 +19,10 @@ package app.pachli.util
 
 import android.content.SharedPreferences
 import app.pachli.db.AccountEntity
+import app.pachli.network.ServerCapabilities
+import app.pachli.network.ServerOperation
 import app.pachli.settings.PrefKeys
+import io.github.z4kn4fein.semver.constraints.toConstraint
 
 data class StatusDisplayOptions(
     @get:JvmName("animateAvatars")
@@ -48,6 +51,8 @@ data class StatusDisplayOptions(
     val showSensitiveMedia: Boolean,
     @get:JvmName("openSpoiler")
     val openSpoiler: Boolean,
+    @get:JvmName("canTranslate")
+    val canTranslate: Boolean,
 ) {
 
     /**
@@ -117,7 +122,11 @@ data class StatusDisplayOptions(
             PrefKeys.SHOW_STATS_INLINE,
         )
 
-        fun from(preferences: SharedPreferences, account: AccountEntity) = StatusDisplayOptions(
+        fun from(
+            preferences: SharedPreferences,
+            serverCapabilities: ServerCapabilities,
+            account: AccountEntity
+        ) = StatusDisplayOptions(
             animateAvatars = preferences.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false),
             animateEmojis = preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
             mediaPreviewEnabled = account.mediaPreviewEnabled,
@@ -135,6 +144,9 @@ data class StatusDisplayOptions(
             showStatsInline = preferences.getBoolean(PrefKeys.SHOW_STATS_INLINE, false),
             showSensitiveMedia = account.alwaysShowSensitiveMedia,
             openSpoiler = account.alwaysOpenSpoiler,
+            canTranslate = serverCapabilities.can(
+                ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()
+            )
         )
     }
 }

@@ -50,6 +50,7 @@ import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
 import app.pachli.network.FilterModel
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
@@ -78,10 +79,10 @@ import kotlin.time.Duration.Companion.milliseconds
 
 data class UiState(
     /** True if the FAB should be shown while scrolling */
-    val showFabWhileScrolling: Boolean = true,
+    val showFabWhileScrolling: Boolean,
 
     /** True if media previews should be shown */
-    val showMediaPreview: Boolean = true,
+    val showMediaPreview: Boolean,
 )
 
 /** Preferences the UI reacts to */
@@ -260,13 +261,14 @@ abstract class TimelineViewModel(
     private val sharedPreferences: SharedPreferences,
     private val accountPreferenceDataStore: AccountPreferenceDataStore,
     private val filterModel: FilterModel,
+    private val serverCapabilitiesRepository: ServerCapabilitiesRepository,
 ) : ViewModel() {
     val uiState: StateFlow<UiState>
 
     abstract val statuses: Flow<PagingData<StatusViewData>>
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
-    val statusDisplayOptions: StateFlow<StatusDisplayOptions>
+    lateinit var statusDisplayOptions: StateFlow<StatusDisplayOptions>
 
     /** Flow of user actions received from the UI */
     private val uiAction = MutableSharedFlow<UiAction>()
@@ -321,14 +323,15 @@ abstract class TimelineViewModel(
         //
         // Then collect future preference changes and emit new values in to
         // statusDisplayOptions if necessary.
-        statusDisplayOptions = MutableStateFlow(
-            StatusDisplayOptions.from(
-                sharedPreferences,
-                activeAccount,
-            ),
-        )
-
         viewModelScope.launch {
+            statusDisplayOptions = MutableStateFlow(
+                StatusDisplayOptions.from(
+                    sharedPreferences,
+                    serverCapabilitiesRepository.getCapabilities(),
+                    activeAccount
+                )
+            )
+
             eventHub.events
                 .filterIsInstance<PreferenceChangedEvent>()
                 .filter { StatusDisplayOptions.prefKeys.contains(it.preferenceKey) }
@@ -340,7 +343,7 @@ abstract class TimelineViewModel(
                     )
                 }
                 .collect {
-                    statusDisplayOptions.emit(it)
+                    (statusDisplayOptions as MutableStateFlow<StatusDisplayOptions>).emit(it)
                 }
         }
 
@@ -401,7 +404,10 @@ abstract class TimelineViewModel(
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-            initialValue = UiState(),
+            initialValue = UiState(
+                showFabWhileScrolling = true,
+                showMediaPreview = true,
+            ),
         )
     }
 

@@ -47,6 +47,7 @@ import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.interfaces.StatusActionListener
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.PrefKeys
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.hide
@@ -81,6 +82,9 @@ class ConversationsFragment :
     @Inject
     lateinit var eventHub: EventHub
 
+    @Inject
+    lateinit var serverCapabilitiesRepository: ServerCapabilitiesRepository
+
     private val viewModel: ConversationsViewModel by viewModels { viewModelFactory }
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
@@ -98,68 +102,80 @@ class ConversationsFragment :
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(view.context)
 
-        val statusDisplayOptions = StatusDisplayOptions.from(
-            preferences,
-            accountManager.activeAccount!!,
-        )
+        viewLifecycleOwner.lifecycleScope.launch {
+            val statusDisplayOptions = StatusDisplayOptions.from(
+                preferences,
+                serverCapabilitiesRepository.getCapabilities(),
+                accountManager.activeAccount!!,
+            )
 
-        adapter = ConversationAdapter(statusDisplayOptions, this)
+            adapter = ConversationAdapter(statusDisplayOptions, this@ConversationsFragment)
 
-        setupRecyclerView()
+            setupRecyclerView()
 
-        initSwipeToRefresh()
+            initSwipeToRefresh()
 
-        adapter.addLoadStateListener { loadState ->
-            if (loadState.refresh != LoadState.Loading && loadState.source.refresh != LoadState.Loading) {
-                binding.swipeRefreshLayout.isRefreshing = false
-            }
+            adapter.addLoadStateListener { loadState ->
+                if (loadState.refresh != LoadState.Loading && loadState.source.refresh != LoadState.Loading) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
 
-            binding.statusView.hide()
-            binding.progressBar.hide()
+                binding.statusView.hide()
+                binding.progressBar.hide()
 
-            if (adapter.itemCount == 0) {
-                when (loadState.refresh) {
-                    is LoadState.NotLoading -> {
-                        if (loadState.append is LoadState.NotLoading && loadState.source.refresh is LoadState.NotLoading) {
-                            binding.statusView.show()
-                            binding.statusView.setup(R.drawable.elephant_friend_empty, R.string.message_empty, null)
+                if (adapter.itemCount == 0) {
+                    when (loadState.refresh) {
+                        is LoadState.NotLoading -> {
+                            if (loadState.append is LoadState.NotLoading && loadState.source.refresh is LoadState.NotLoading) {
+                                binding.statusView.show()
+                                binding.statusView.setup(
+                                    R.drawable.elephant_friend_empty,
+                                    R.string.message_empty,
+                                    null
+                                )
+                            }
                         }
-                    }
-                    is LoadState.Error -> {
-                        binding.statusView.show()
-                        binding.statusView.setup((loadState.refresh as LoadState.Error).error) { refreshContent() }
-                    }
-                    is LoadState.Loading -> {
-                        binding.progressBar.show()
+
+                        is LoadState.Error -> {
+                            binding.statusView.show()
+                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) { refreshContent() }
+                        }
+
+                        is LoadState.Loading -> {
+                            binding.progressBar.show()
+                        }
                     }
                 }
             }
-        }
 
-        adapter.registerAdapterDataObserver(
-            object : RecyclerView.AdapterDataObserver() {
-                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                    if (positionStart == 0 && adapter.itemCount != itemCount) {
-                        binding.recyclerView.post {
-                            if (getView() != null) {
-                                binding.recyclerView.scrollBy(0, Utils.dpToPx(requireContext(), -30))
+            adapter.registerAdapterDataObserver(
+                object : RecyclerView.AdapterDataObserver() {
+                    override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                        if (positionStart == 0 && adapter.itemCount != itemCount) {
+                            binding.recyclerView.post {
+                                if (getView() != null) {
+                                    binding.recyclerView.scrollBy(
+                                        0,
+                                        Utils.dpToPx(requireContext(), -30)
+                                    )
+                                }
                             }
                         }
                     }
-                }
-            },
-        )
+                },
+            )
 
-        showFabWhileScrolling = !preferences.getBoolean(PrefKeys.FAB_HIDE, false)
-        binding.recyclerView.addOnScrollListener(
-            object : RecyclerView.OnScrollListener() {
-                val actionButton = (activity as? ActionButtonActivity)?.actionButton
+            showFabWhileScrolling = !preferences.getBoolean(PrefKeys.FAB_HIDE, false)
+            binding.recyclerView.addOnScrollListener(
+                object : RecyclerView.OnScrollListener() {
+                    val actionButton = (activity as? ActionButtonActivity)?.actionButton
 
-                override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
-                    actionButton?.visible(showFabWhileScrolling || dy == 0)
-                }
-            },
-        )
+                    override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
+                        actionButton?.visible(showFabWhileScrolling || dy == 0)
+                    }
+                },
+            )
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.conversationFlow.collectLatest { pagingData ->

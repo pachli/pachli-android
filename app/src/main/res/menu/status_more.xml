@@ -13,6 +13,9 @@
         </menu>
     </item>
     <item
+        android:id="@+id/status_translate"
+        android:title="@string/action_translate" />
+    <item
         android:id="@+id/status_copy_link"
         android:title="@string/action_copy_link" />
     <item

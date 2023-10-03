@@ -34,7 +34,7 @@ class SearchAccountsFragment : SearchFragment<TimelineAccount>() {
         )
     }
 
-    override fun createAdapter(): PagingDataAdapter<TimelineAccount, *> {
+    override suspend fun createAdapter(): PagingDataAdapter<TimelineAccount, *> {
         val preferences = PreferenceManager.getDefaultSharedPreferences(binding.searchRecyclerView.context)
 
         return SearchAccountsAdapter(

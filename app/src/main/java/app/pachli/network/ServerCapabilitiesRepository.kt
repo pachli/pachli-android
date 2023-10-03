@@ -20,9 +20,7 @@ package app.pachli.network
 import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.getOr
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class ServerCapabilitiesRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
 ) {
@@ -31,7 +29,7 @@ class ServerCapabilitiesRepository @Inject constructor(
      * determined then a default set of capabilities that all servers are expected
      * to support is returned.
      */
-    suspend fun getCapabilities(): ServerCapabilities? {
+    suspend fun getCapabilities(): ServerCapabilities {
         return mastodonApi.getInstanceV2().fold(
             { instance -> ServerCapabilities.from(instance).getOr { null } },
             {
@@ -39,6 +37,6 @@ class ServerCapabilitiesRepository @Inject constructor(
                     ServerCapabilities.from(instance).getOr { null }
                 }, { null },)
             },
-        )
+        ) ?: ServerCapabilities.default()
     }
 }

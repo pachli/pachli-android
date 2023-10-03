@@ -41,6 +41,7 @@ import app.pachli.entity.Filter
 import app.pachli.entity.Notification
 import app.pachli.entity.Poll
 import app.pachli.network.FilterModel
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.StatusDisplayOptions
@@ -297,6 +298,7 @@ class NotificationsViewModel @Inject constructor(
     private val eventHub: EventHub,
     private val filtersRepository: FiltersRepository,
     private val filterModel: FilterModel,
+    private val serverCapabilitiesRepository: ServerCapabilitiesRepository,
 ) : ViewModel() {
     /** The account to display notifications for */
     val account = accountManager.activeAccount!!
@@ -304,7 +306,7 @@ class NotificationsViewModel @Inject constructor(
     val uiState: StateFlow<UiState>
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
-    val statusDisplayOptions: StateFlow<StatusDisplayOptions>
+    lateinit var statusDisplayOptions: StateFlow<StatusDisplayOptions>
 
     val pagingData: Flow<PagingData<NotificationViewData>>
 
@@ -386,14 +388,15 @@ class NotificationsViewModel @Inject constructor(
         //
         // Then collect future preference changes and emit new values in to
         // statusDisplayOptions if necessary.
-        statusDisplayOptions = MutableStateFlow(
-            StatusDisplayOptions.from(
-                preferences,
-                account,
-            ),
-        )
-
         viewModelScope.launch {
+            statusDisplayOptions = MutableStateFlow(
+                StatusDisplayOptions.from(
+                    preferences,
+                    serverCapabilitiesRepository.getCapabilities(),
+                    account,
+                ),
+            )
+
             eventHub.events
                 .filterIsInstance<PreferenceChangedEvent>()
                 .filter { StatusDisplayOptions.prefKeys.contains(it.preferenceKey) }
@@ -405,7 +408,7 @@ class NotificationsViewModel @Inject constructor(
                     )
                 }
                 .collect {
-                    statusDisplayOptions.emit(it)
+                    (statusDisplayOptions as MutableStateFlow<StatusDisplayOptions>).emit(it)
                 }
         }
 

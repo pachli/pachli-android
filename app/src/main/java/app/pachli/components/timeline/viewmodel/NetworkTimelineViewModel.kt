@@ -36,6 +36,7 @@ import app.pachli.db.AccountManager
 import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.network.FilterModel
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
@@ -58,6 +59,7 @@ class NetworkTimelineViewModel @Inject constructor(
     sharedPreferences: SharedPreferences,
     accountPreferenceDataStore: AccountPreferenceDataStore,
     filterModel: FilterModel,
+    serverCapabilitiesRepository: ServerCapabilitiesRepository,
 ) : TimelineViewModel(
     timelineCases,
     eventHub,
@@ -66,6 +68,7 @@ class NetworkTimelineViewModel @Inject constructor(
     sharedPreferences,
     accountPreferenceDataStore,
     filterModel,
+    serverCapabilitiesRepository,
 ) {
     private val modifiedViewData = mutableMapOf<String, StatusViewData>()
 

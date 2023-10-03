@@ -70,6 +70,11 @@ class ServerCapabilities(
             versions -> constraint satisfiedByAny versions } ?: false
 
     companion object {
+        fun default() = ServerCapabilities(
+            serverKind = ServerKind.MASTODON,
+            capabilities = emptyMap()
+        )
+
         fun from(instance: InstanceV1): Result<ServerCapabilities, ServerCapabilitiesError> {
             val serverKind = ServerKind.from(instance)
             val capabilities = mutableMapOf<ServerOperation, List<Version>>()

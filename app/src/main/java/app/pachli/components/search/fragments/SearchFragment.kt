@@ -58,7 +58,7 @@ abstract class SearchFragment<T : Any> :
 
     private var snackbarErrorRetry: Snackbar? = null
 
-    abstract fun createAdapter(): PagingDataAdapter<T, *>
+    abstract suspend fun createAdapter(): PagingDataAdapter<T, *>
 
     abstract val data: Flow<PagingData<T>>
     protected lateinit var adapter: PagingDataAdapter<T, *>
@@ -66,10 +66,12 @@ abstract class SearchFragment<T : Any> :
     private var currentQuery: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initAdapter()
-        setupSwipeRefreshLayout()
-        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-        subscribeObservables()
+        lifecycleScope.launch {
+            initAdapter()
+            setupSwipeRefreshLayout()
+            requireActivity().addMenuProvider(this@SearchFragment, viewLifecycleOwner, Lifecycle.State.RESUMED)
+            subscribeObservables()
+        }
     }
 
     private fun setupSwipeRefreshLayout() {
@@ -127,7 +129,7 @@ abstract class SearchFragment<T : Any> :
         }
     }
 
-    private fun initAdapter() {
+    private suspend fun initAdapter() {
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
         adapter = createAdapter()
         binding.searchRecyclerView.adapter = adapter
