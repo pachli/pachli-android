@@ -30,7 +30,6 @@ import dagger.hilt.components.SingletonComponent
         NetworkModule::class,
         AndroidSupportInjectionModule::class,
         ActivitiesModule::class,
-        ServicesModule::class,
         BroadcastReceiverModule::class,
         WorkerModule::class,
     ],
