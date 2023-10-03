@@ -169,6 +169,18 @@
                     app:layout_constraintStart_toStartOf="@+id/aboutWebsiteInfoTextView"
                     app:layout_constraintTop_toBottomOf="@id/aboutWebsiteInfoTextView" />
 
+                <TextView
+                    android:id="@+id/aboutPrivacyPolicyTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/about_privacy_policy"
+                    android:textColor="?android:attr/textColorLink"
+                    app:layout_constraintEnd_toEndOf="@+id/aboutWebsiteInfoTextView"
+                    app:layout_constraintStart_toStartOf="@+id/aboutWebsiteInfoTextView"
+                    app:layout_constraintTop_toBottomOf="@id/aboutBugsFeaturesInfoTextView" />
+
                 <Button
                     android:id="@+id/appProfileButton"
                     style="@style/AppButton"
@@ -183,7 +195,7 @@
                     android:layout_marginEnd="@dimen/text_content_margin"
                     app:layout_constraintEnd_toStartOf="@+id/aboutLicensesButton"
                     app:layout_constraintStart_toStartOf="@+id/aboutBugsFeaturesInfoTextView"
-                    app:layout_constraintTop_toBottomOf="@id/aboutBugsFeaturesInfoTextView" />
+                    app:layout_constraintTop_toBottomOf="@id/aboutPrivacyPolicyTextView" />
 
                 <Button
                     android:id="@+id/aboutLicensesButton"

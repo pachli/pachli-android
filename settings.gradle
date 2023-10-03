@@ -3,6 +3,8 @@ pluginManagement {
         google()
         gradlePluginPortal()
     }
+
+    includeBuild 'plugins/markdown2resource'
 }
 
 dependencyResolutionManagement {

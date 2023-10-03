@@ -74,6 +74,11 @@ class AboutActivity : BottomSheetActivity(), Injectable {
         binding.aboutWebsiteInfoTextView.setClickableTextWithoutUnderlines(R.string.about_project_site)
         binding.aboutBugsFeaturesInfoTextView.setClickableTextWithoutUnderlines(R.string.about_bug_feature_request_site)
 
+        binding.aboutPrivacyPolicyTextView.setOnClickListener {
+            val intent = Intent(this, PrivacyPolicyActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.appProfileButton.setOnClickListener {
             viewUrl(BuildConfig.SUPPORT_ACCOUNT_URL)
         }
