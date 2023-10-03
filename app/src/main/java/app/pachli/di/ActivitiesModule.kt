@@ -21,6 +21,7 @@ import app.pachli.EditProfileActivity
 import app.pachli.LicenseActivity
 import app.pachli.ListsActivity
 import app.pachli.MainActivity
+import app.pachli.PrivacyPolicyActivity
 import app.pachli.SplashActivity
 import app.pachli.StatusListActivity
 import app.pachli.TabPreferenceActivity
@@ -128,4 +129,7 @@ abstract class ActivitiesModule {
 
     @ContributesAndroidInjector
     abstract fun contributesEditFilterActivity(): EditFilterActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributesPrivacyPolicyActivity(): PrivacyPolicyActivity
 }

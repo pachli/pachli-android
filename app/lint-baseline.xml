@@ -47,7 +47,7 @@
         errorLine2="        ~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="33"
+            line="35"
             column="9"/>
     </issue>
 
@@ -2061,17 +2061,6 @@
         <location
             file="src/main/java/app/pachli/AboutActivity.kt"
             line="75"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `setClickableTextWithoutUnderlines` of class `AboutActivityKt` requires synthetic accessor"
-        errorLine1="        binding.aboutPrivacyPolicyTextView.setClickableTextWithoutUnderlines(R.string.about_privacy_policy)"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/AboutActivity.kt"
-            line="76"
             column="9"/>
     </issue>
 

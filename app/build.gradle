@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.aboutlibraries)
+
+    id "app.pachli.plugins.markdown2resource"
 }
 
 apply from: 'gitTools.gradle'
@@ -137,6 +139,10 @@ aboutLibraries {
     includePlatform = false
     duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
     prettyPrint = true
+}
+
+markdown2resource {
+    files = [ layout.projectDirectory.file('../PRIVACY.md') ]
 }
 
 // library versions are in PROJECT_ROOT/gradle/libs.versions.toml
