@@ -26,6 +26,7 @@ import app.pachli.util.Either.Left
 import app.pachli.util.Either.Right
 import app.pachli.util.withoutFirstWhich
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -33,6 +34,7 @@ import javax.inject.Inject
 
 data class State(val accounts: Either<Throwable, List<TimelineAccount>>, val searchResult: List<TimelineAccount>?)
 
+@HiltViewModel
 class AccountsInListViewModel @Inject constructor(private val api: MastodonApi) : ViewModel() {
 
     val state: Flow<State> get() = _state

@@ -43,6 +43,7 @@ import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.getOrThrow
 import com.google.gson.Gson
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.BufferOverflow
@@ -54,6 +55,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
 
+@HiltViewModel
 class ViewThreadViewModel @Inject constructor(
     private val api: MastodonApi,
     private val filterModel: FilterModel,

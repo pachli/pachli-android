@@ -43,7 +43,6 @@ import app.pachli.StatusListActivity
 import app.pachli.components.trending.viewmodel.TrendingTagsViewModel
 import app.pachli.databinding.FragmentTrendingTagsBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.RefreshableFragment
@@ -61,7 +60,6 @@ import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TrendingTagsFragment :
@@ -72,10 +70,7 @@ class TrendingTagsFragment :
     RefreshableFragment,
     MenuProvider {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: TrendingTagsViewModel by viewModels { viewModelFactory }
+    private val viewModel: TrendingTagsViewModel by viewModels()
 
     private val binding by viewBinding(FragmentTrendingTagsBinding::bind)
 

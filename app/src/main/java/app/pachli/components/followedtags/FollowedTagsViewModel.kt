@@ -13,8 +13,10 @@ import app.pachli.di.Injectable
 import app.pachli.entity.HashTag
 import app.pachli.network.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class FollowedTagsViewModel @Inject constructor(
     private val api: MastodonApi,
 ) : ViewModel(), Injectable {

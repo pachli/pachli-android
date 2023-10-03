@@ -40,7 +40,6 @@ import app.pachli.components.trending.viewmodel.LoadState
 import app.pachli.components.trending.viewmodel.TrendingLinksViewModel
 import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.RefreshableFragment
@@ -59,7 +58,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TrendingLinksFragment :
@@ -70,10 +68,7 @@ class TrendingLinksFragment :
     RefreshableFragment,
     MenuProvider {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: TrendingLinksViewModel by viewModels { viewModelFactory }
+    private val viewModel: TrendingLinksViewModel by viewModels()
 
     private val binding by viewBinding(FragmentTrendingLinksBinding::bind)
 

@@ -40,7 +40,6 @@ import app.pachli.components.accountlist.AccountListActivity.Companion.newIntent
 import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
@@ -59,7 +58,6 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ViewThreadFragment :
@@ -69,10 +67,7 @@ class ViewThreadFragment :
     MenuProvider,
     Injectable {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: ViewThreadViewModel by viewModels { viewModelFactory }
+    private val viewModel: ViewThreadViewModel by viewModels()
 
     private val binding by viewBinding(FragmentViewThreadBinding::bind)
 

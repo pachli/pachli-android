@@ -17,7 +17,6 @@ import app.pachli.R
 import app.pachli.appstore.EventHub
 import app.pachli.databinding.ActivityEditFilterBinding
 import app.pachli.databinding.DialogFilterBinding
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Filter
 import app.pachli.entity.FilterKeyword
 import app.pachli.network.MastodonApi
@@ -41,11 +40,8 @@ class EditFilterActivity : BaseActivity() {
     @Inject
     lateinit var eventHub: EventHub
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
     private val binding by viewBinding(ActivityEditFilterBinding::inflate)
-    private val viewModel: EditFilterViewModel by viewModels { viewModelFactory }
+    private val viewModel: EditFilterViewModel by viewModels()
 
     private lateinit var filter: Filter
     private var originalFilter: Filter? = null

@@ -141,7 +141,6 @@ import com.mikepenz.materialdrawer.util.addItemsAtPosition
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import io.reactivex.rxjava3.schedulers.Schedulers

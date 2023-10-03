@@ -38,7 +38,6 @@ import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

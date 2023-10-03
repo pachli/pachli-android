@@ -39,7 +39,6 @@ import app.pachli.util.APP_THEME_DEFAULT
 import app.pachli.util.getNonNullString
 import app.pachli.util.setAppNightMode
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

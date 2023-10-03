@@ -48,7 +48,6 @@ import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.timeline.TimelineLoadStateAdapter
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Filter
 import app.pachli.entity.Notification
 import app.pachli.entity.Status
@@ -84,7 +83,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class NotificationsFragment :
@@ -97,10 +95,7 @@ class NotificationsFragment :
     Injectable,
     ReselectableFragment {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: NotificationsViewModel by viewModels { viewModelFactory }
+    private val viewModel: NotificationsViewModel by viewModels()
 
     private val binding by viewBinding(FragmentTimelineNotificationsBinding::bind)
 

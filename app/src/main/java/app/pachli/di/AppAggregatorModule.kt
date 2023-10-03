@@ -32,7 +32,6 @@ import dagger.hilt.components.SingletonComponent
         ActivitiesModule::class,
         ServicesModule::class,
         BroadcastReceiverModule::class,
-        ViewModelModule::class,
         WorkerModule::class,
     ],
 )

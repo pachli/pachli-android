@@ -38,6 +38,7 @@ import app.pachli.service.ServiceClient
 import app.pachli.service.StatusToSend
 import app.pachli.util.randomAlphanumericString
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -52,6 +53,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@HiltViewModel
 class ComposeViewModel @Inject constructor(
     private val api: MastodonApi,
     private val accountManager: AccountManager,

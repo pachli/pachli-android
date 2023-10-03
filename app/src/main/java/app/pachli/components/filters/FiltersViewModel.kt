@@ -10,12 +10,14 @@ import app.pachli.entity.FilterV1
 import app.pachli.network.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
 
+@HiltViewModel
 class FiltersViewModel @Inject constructor(
     private val api: MastodonApi,
     private val eventHub: EventHub,

@@ -35,7 +35,6 @@ import app.pachli.ViewMediaActivity
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.db.AccountManager
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Attachment
 import app.pachli.interfaces.RefreshableFragment
 import app.pachli.settings.PrefKeys
@@ -65,14 +64,11 @@ class AccountMediaFragment :
     Injectable {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var accountManager: AccountManager
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
-    private val viewModel: AccountMediaViewModel by viewModels { viewModelFactory }
+    private val viewModel: AccountMediaViewModel by viewModels()
 
     private lateinit var adapter: AccountMediaGridAdapter
 

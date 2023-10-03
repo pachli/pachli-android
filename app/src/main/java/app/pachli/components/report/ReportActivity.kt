@@ -23,7 +23,6 @@ import app.pachli.BottomSheetActivity
 import app.pachli.R
 import app.pachli.components.report.adapter.ReportPagerAdapter
 import app.pachli.databinding.ActivityReportBinding
-import app.pachli.di.ViewModelFactory
 import app.pachli.util.viewBinding
 import dagger.android.DispatchingAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,10 +34,7 @@ class ReportActivity : BottomSheetActivity() {
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: ReportViewModel by viewModels { viewModelFactory }
+    private val viewModel: ReportViewModel by viewModels()
 
     private val binding by viewBinding(ActivityReportBinding::inflate)
 

@@ -34,7 +34,6 @@ import app.pachli.appstore.StatusScheduledEvent
 import app.pachli.components.compose.ComposeActivity
 import app.pachli.databinding.ActivityScheduledStatusBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.ScheduledStatus
 import app.pachli.util.hide
 import app.pachli.util.show
@@ -58,12 +57,9 @@ class ScheduledStatusActivity :
     Injectable {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var eventHub: EventHub
 
-    private val viewModel: ScheduledStatusViewModel by viewModels { viewModelFactory }
+    private val viewModel: ScheduledStatusViewModel by viewModels()
 
     private val binding by viewBinding(ActivityScheduledStatusBinding::inflate)
 

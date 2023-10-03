@@ -18,7 +18,6 @@ import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.compose.ComposeAutoCompleteAdapter
 import app.pachli.databinding.ActivityFollowedTagsBinding
-import app.pachli.di.ViewModelFactory
 import app.pachli.interfaces.HashtagActionListener
 import app.pachli.network.MastodonApi
 import app.pachli.settings.PrefKeys
@@ -43,13 +42,10 @@ class FollowedTagsActivity :
     lateinit var api: MastodonApi
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var sharedPreferences: SharedPreferences
 
     private val binding by viewBinding(ActivityFollowedTagsBinding::inflate)
-    private val viewModel: FollowedTagsViewModel by viewModels { viewModelFactory }
+    private val viewModel: FollowedTagsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

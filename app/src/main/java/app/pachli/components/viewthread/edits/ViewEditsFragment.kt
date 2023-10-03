@@ -36,7 +36,6 @@ import app.pachli.StatusListActivity
 import app.pachli.components.account.AccountActivity
 import app.pachli.databinding.FragmentViewEditsBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.interfaces.LinkListener
 import app.pachli.settings.PrefKeys
 import app.pachli.util.emojify
@@ -53,7 +52,6 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ViewEditsFragment :
@@ -63,10 +61,7 @@ class ViewEditsFragment :
     MenuProvider,
     Injectable {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: ViewEditsViewModel by viewModels { viewModelFactory }
+    private val viewModel: ViewEditsViewModel by viewModels()
 
     private val binding by viewBinding(FragmentViewEditsBinding::bind)
 

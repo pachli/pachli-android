@@ -43,7 +43,6 @@ import app.pachli.components.report.adapter.StatusesAdapter
 import app.pachli.databinding.FragmentReportStatusesBinding
 import app.pachli.db.AccountManager
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
 import app.pachli.util.StatusDisplayOptions
@@ -71,12 +70,9 @@ class ReportStatusesFragment :
     AdapterHandler {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var accountManager: AccountManager
 
-    private val viewModel: ReportViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: ReportViewModel by activityViewModels()
 
     private val binding by viewBinding(FragmentReportStatusesBinding::bind)
 

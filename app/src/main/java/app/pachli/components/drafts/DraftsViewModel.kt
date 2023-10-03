@@ -26,9 +26,11 @@ import app.pachli.db.DraftEntity
 import app.pachli.entity.Status
 import app.pachli.network.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class DraftsViewModel @Inject constructor(
     val database: AppDatabase,
     val accountManager: AccountManager,

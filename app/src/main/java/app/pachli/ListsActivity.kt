@@ -39,7 +39,6 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.databinding.ActivityListsBinding
 import app.pachli.databinding.DialogListBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.MastoList
 import app.pachli.util.hide
 import app.pachli.util.show
@@ -60,7 +59,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -69,12 +67,9 @@ import javax.inject.Inject
 class ListsActivity : BaseActivity(), Injectable {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
-    private val viewModel: ListsViewModel by viewModels { viewModelFactory }
+    private val viewModel: ListsViewModel by viewModels()
 
     private val binding by viewBinding(ActivityListsBinding::inflate)
 

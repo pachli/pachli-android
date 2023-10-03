@@ -30,7 +30,6 @@ import app.pachli.components.compose.ComposeActivity
 import app.pachli.databinding.ActivityDraftsBinding
 import app.pachli.db.DraftEntity
 import app.pachli.db.DraftsAlert
-import app.pachli.di.ViewModelFactory
 import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.visible
 import at.connyduck.calladapter.networkresult.fold
@@ -47,12 +46,9 @@ import javax.inject.Inject
 class DraftsActivity : BaseActivity(), DraftActionListener {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var draftsAlert: DraftsAlert
 
-    private val viewModel: DraftsViewModel by viewModels { viewModelFactory }
+    private val viewModel: DraftsViewModel by viewModels()
 
     private lateinit var binding: ActivityDraftsBinding
     private lateinit var bottomSheet: BottomSheetBehavior<LinearLayout>

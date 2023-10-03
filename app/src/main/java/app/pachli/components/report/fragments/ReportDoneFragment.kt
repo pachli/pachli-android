@@ -24,21 +24,16 @@ import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
 import app.pachli.databinding.FragmentReportDoneBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.util.Loading
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ReportDoneFragment : Fragment(R.layout.fragment_report_done), Injectable {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: ReportViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: ReportViewModel by activityViewModels()
 
     private val binding by viewBinding(FragmentReportDoneBinding::bind)
 

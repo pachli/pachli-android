@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.databinding.ActivityFiltersBinding
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Filter
 import app.pachli.util.hide
 import app.pachli.util.show
@@ -17,15 +16,12 @@ import app.pachli.util.visible
 import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class FiltersActivity : BaseActivity(), FiltersListener {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
     private val binding by viewBinding(ActivityFiltersBinding::inflate)
-    private val viewModel: FiltersViewModel by viewModels { viewModelFactory }
+    private val viewModel: FiltersViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

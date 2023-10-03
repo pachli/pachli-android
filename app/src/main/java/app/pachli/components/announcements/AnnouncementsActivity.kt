@@ -35,7 +35,6 @@ import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.OnEmojiSelectedListener
 import app.pachli.databinding.ActivityAnnouncementsBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.settings.PrefKeys
 import app.pachli.util.Error
 import app.pachli.util.Loading
@@ -52,7 +51,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AnnouncementsActivity :
@@ -62,10 +60,7 @@ class AnnouncementsActivity :
     MenuProvider,
     Injectable {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: AnnouncementsViewModel by viewModels { viewModelFactory }
+    private val viewModel: AnnouncementsViewModel by viewModels()
 
     private val binding by viewBinding(ActivityAnnouncementsBinding::inflate)
 

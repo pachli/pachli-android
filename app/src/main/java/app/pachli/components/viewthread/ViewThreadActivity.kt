@@ -24,7 +24,6 @@ import app.pachli.R
 import app.pachli.databinding.ActivityViewThreadBinding
 import app.pachli.util.viewBinding
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

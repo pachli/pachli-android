@@ -38,7 +38,6 @@ import app.pachli.adapter.AccountFieldEditAdapter
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.databinding.ActivityEditProfileBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
@@ -61,7 +60,6 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditProfileActivity : BaseActivity(), Injectable {
@@ -72,10 +70,7 @@ class EditProfileActivity : BaseActivity(), Injectable {
         const val HEADER_HEIGHT = 500
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: EditProfileViewModel by viewModels { viewModelFactory }
+    private val viewModel: EditProfileViewModel by viewModels()
 
     private val binding by viewBinding(ActivityEditProfileBinding::inflate)
 

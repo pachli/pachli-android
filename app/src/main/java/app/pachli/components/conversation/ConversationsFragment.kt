@@ -42,7 +42,6 @@ import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.components.account.AccountActivity
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.ReselectableFragment
@@ -78,12 +77,9 @@ class ConversationsFragment :
     MenuProvider {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var eventHub: EventHub
 
-    private val viewModel: ConversationsViewModel by viewModels { viewModelFactory }
+    private val viewModel: ConversationsViewModel by viewModels()
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 

@@ -58,7 +58,6 @@ import app.pachli.components.report.ReportActivity
 import app.pachli.databinding.ActivityAccountBinding
 import app.pachli.db.AccountEntity
 import app.pachli.db.DraftsAlert
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Account
 import app.pachli.entity.Relationship
 import app.pachli.interfaces.AccountSelectionListener
@@ -115,12 +114,9 @@ class AccountActivity :
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var draftsAlert: DraftsAlert
 
-    private val viewModel: AccountViewModel by viewModels { viewModelFactory }
+    private val viewModel: AccountViewModel by viewModels()
 
     private val binding: ActivityAccountBinding by viewBinding(ActivityAccountBinding::inflate)
 

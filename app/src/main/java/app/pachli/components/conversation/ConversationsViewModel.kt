@@ -29,10 +29,12 @@ import app.pachli.network.MastodonApi
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.EmptyPagingSource
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ConversationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
     private val database: AppDatabase,
