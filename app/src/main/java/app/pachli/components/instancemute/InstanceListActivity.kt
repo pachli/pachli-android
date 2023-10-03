@@ -5,16 +5,10 @@ import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.instancemute.fragment.InstanceListFragment
 import app.pachli.databinding.ActivityAccountListBinding
-import dagger.android.DispatchingAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class InstanceListActivity : BaseActivity() {
-
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityAccountListBinding.inflate(layoutInflater)

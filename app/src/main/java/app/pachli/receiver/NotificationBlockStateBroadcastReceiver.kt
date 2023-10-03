@@ -25,7 +25,6 @@ import app.pachli.components.notifications.isUnifiedPushNotificationEnabledForAc
 import app.pachli.components.notifications.updateUnifiedPushSubscription
 import app.pachli.db.AccountManager
 import app.pachli.network.MastodonApi
-import dagger.android.AndroidInjection
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -42,7 +41,6 @@ class NotificationBlockStateBroadcastReceiver : BroadcastReceiver() {
     lateinit var accountManager: AccountManager
 
     override fun onReceive(context: Context, intent: Intent) {
-        AndroidInjection.inject(this, context)
         if (Build.VERSION.SDK_INT < 28) return
         if (!canEnablePushNotifications(context, accountManager)) return
 

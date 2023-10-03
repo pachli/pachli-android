@@ -93,7 +93,6 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
-import dagger.android.DispatchingAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
 import java.text.ParseException
@@ -107,12 +106,7 @@ class AccountActivity :
     BottomSheetActivity(),
     ActionButtonActivity,
     MenuProvider,
-
     LinkListener {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
     @Inject
     lateinit var draftsAlert: DraftsAlert
 

@@ -25,16 +25,10 @@ import app.pachli.databinding.ActivityAccountListBinding
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.util.viewBinding
 import com.google.android.material.appbar.AppBarLayout
-import dagger.android.DispatchingAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountListActivity : BottomSheetActivity(), AppBarLayoutHost {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
     private val binding: ActivityAccountListBinding by viewBinding(ActivityAccountListBinding::inflate)
 
     override val appBarLayout: AppBarLayout

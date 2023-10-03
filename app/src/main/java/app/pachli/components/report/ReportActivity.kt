@@ -24,16 +24,10 @@ import app.pachli.R
 import app.pachli.components.report.adapter.ReportPagerAdapter
 import app.pachli.databinding.ActivityReportBinding
 import app.pachli.util.viewBinding
-import dagger.android.DispatchingAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ReportActivity : BottomSheetActivity() {
-
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
     private val viewModel: ReportViewModel by viewModels()
 
     private val binding by viewBinding(ActivityReportBinding::inflate)

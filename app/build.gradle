@@ -178,9 +178,6 @@ dependencies {
     implementation libs.hilt.android
     kapt libs.hilt.compiler
 
-    implementation libs.bundles.dagger
-    kapt libs.bundles.dagger.processors
-
     implementation libs.sparkbutton
 
     implementation libs.touchimageview

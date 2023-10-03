@@ -37,7 +37,6 @@ import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.DispatchingAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -49,10 +48,6 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
     @Inject
     lateinit var eventHub: EventHub
 

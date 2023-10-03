@@ -35,7 +35,6 @@ import app.pachli.util.setAppNightMode
 import app.pachli.worker.PruneCacheWorker
 import app.pachli.worker.WorkerFactory
 import autodispose2.AutoDisposePlugins
-import dagger.android.DispatchingAndroidInjector
 import dagger.hilt.android.HiltAndroidApp
 import de.c1710.filemojicompat_defaults.DefaultEmojiPackList
 import de.c1710.filemojicompat_ui.helpers.EmojiPackHelper
@@ -48,9 +47,6 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class PachliApplication : Application() {
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
     @Inject
     lateinit var workerFactory: WorkerFactory
 

@@ -36,7 +36,6 @@ import app.pachli.entity.Status
 import app.pachli.network.MastodonApi
 import app.pachli.util.unsafeLazy
 import at.connyduck.calladapter.networkresult.fold
-import dagger.android.AndroidInjection
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -75,11 +74,6 @@ class SendStatusService : Service() {
     private val sendJobs = ConcurrentHashMap<Int, Job>()
 
     private val notificationManager by unsafeLazy { getSystemService(NOTIFICATION_SERVICE) as NotificationManager }
-
-    override fun onCreate() {
-        AndroidInjection.inject(this)
-        super.onCreate()
-    }
 
     override fun onBind(intent: Intent): IBinder? = null
 

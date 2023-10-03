@@ -35,15 +35,10 @@ import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.unsafeLazy
 import app.pachli.util.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.android.DispatchingAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTextListener {
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
     private val viewModel: SearchViewModel by viewModels()
 
     private val binding by viewBinding(ActivitySearchBinding::inflate)

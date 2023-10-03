@@ -18,7 +18,6 @@
 package app.pachli.di
 
 import dagger.Module
-import dagger.android.support.AndroidSupportInjectionModule
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
@@ -28,7 +27,6 @@ import dagger.hilt.components.SingletonComponent
         AppModule::class,
         CoroutineScopeModule::class,
         NetworkModule::class,
-        AndroidSupportInjectionModule::class,
         WorkerModule::class,
     ],
 )

@@ -61,7 +61,6 @@ import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider
 import autodispose2.autoDispose
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.FutureTarget
-import dagger.android.DispatchingAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
@@ -71,15 +70,11 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.Locale
-import javax.inject.Inject
 
 typealias ToolbarVisibilityListener = (isVisible: Boolean) -> Unit
 
 @AndroidEntryPoint
 class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener, ViewVideoFragment.VideoActionsListener {
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
     private val binding by viewBinding(ActivityViewMediaBinding::inflate)
 
     val toolbar: View
