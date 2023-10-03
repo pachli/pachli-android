@@ -1,0 +1,5 @@
+Pachli 1.2.2
+
+New features:
+
+-  Embed the privacy policy in the app 

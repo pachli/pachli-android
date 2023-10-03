@@ -1,5 +1,11 @@
 # Pachli changelog
 
+## v1.2.2
+
+### New features and other improvements
+
+-  Embed the privacy policy in the app (#[139](https://github.com/pachli/pachli-android/pull/139))
+
 ## v1.2.1
 
 ### New features and other improvements
