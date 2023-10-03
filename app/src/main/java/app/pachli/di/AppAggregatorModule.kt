@@ -29,7 +29,6 @@ import dagger.hilt.components.SingletonComponent
         CoroutineScopeModule::class,
         NetworkModule::class,
         AndroidSupportInjectionModule::class,
-        ActivitiesModule::class,
         BroadcastReceiverModule::class,
         WorkerModule::class,
     ],
