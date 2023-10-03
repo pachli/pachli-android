@@ -57,7 +57,6 @@ import app.pachli.adapter.AccountSelectionAdapter;
 import app.pachli.components.login.LoginActivity;
 import app.pachli.db.AccountEntity;
 import app.pachli.db.AccountManager;
-import app.pachli.di.Injectable;
 import app.pachli.interfaces.AccountSelectionListener;
 import app.pachli.interfaces.PermissionRequester;
 import app.pachli.settings.PrefKeys;
@@ -66,7 +65,7 @@ import app.pachli.util.ThemeUtils;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public abstract class BaseActivity extends AppCompatActivity implements Injectable {
+public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = "BaseActivity";
 
     /** @noinspection NotNullFieldNotInitialized*/

@@ -40,7 +40,6 @@ import app.pachli.components.accountlist.adapter.FollowRequestsHeaderAdapter
 import app.pachli.components.accountlist.adapter.MutesAdapter
 import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
 import app.pachli.entity.Relationship
 import app.pachli.entity.TimelineAccount
 import app.pachli.interfaces.AccountActionListener
@@ -67,8 +66,7 @@ import javax.inject.Inject
 class AccountListFragment :
     Fragment(R.layout.fragment_account_list),
     AccountActionListener,
-    LinkListener,
-    Injectable {
+    LinkListener {
 
     @Inject
     lateinit var api: MastodonApi

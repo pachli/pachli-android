@@ -38,7 +38,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.databinding.ActivityListsBinding
 import app.pachli.databinding.DialogListBinding
-import app.pachli.di.Injectable
 import app.pachli.entity.MastoList
 import app.pachli.util.hide
 import app.pachli.util.show
@@ -64,7 +63,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ListsActivity : BaseActivity(), Injectable {
+class ListsActivity : BaseActivity() {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>

@@ -47,7 +47,6 @@ import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.timeline.TimelineLoadStateAdapter
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
-import app.pachli.di.Injectable
 import app.pachli.entity.Filter
 import app.pachli.entity.Notification
 import app.pachli.entity.Status
@@ -92,7 +91,6 @@ class NotificationsFragment :
     AccountActionListener,
     OnRefreshListener,
     MenuProvider,
-    Injectable,
     ReselectableFragment {
 
     private val viewModel: NotificationsViewModel by viewModels()

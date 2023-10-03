@@ -42,7 +42,6 @@ import app.pachli.R
 import app.pachli.StatusListActivity
 import app.pachli.components.trending.viewmodel.TrendingTagsViewModel
 import app.pachli.databinding.FragmentTrendingTagsBinding
-import app.pachli.di.Injectable
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.RefreshableFragment
@@ -65,7 +64,6 @@ import kotlinx.coroutines.launch
 class TrendingTagsFragment :
     Fragment(R.layout.fragment_trending_tags),
     OnRefreshListener,
-    Injectable,
     ReselectableFragment,
     RefreshableFragment,
     MenuProvider {

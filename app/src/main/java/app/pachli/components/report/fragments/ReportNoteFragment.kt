@@ -24,7 +24,6 @@ import app.pachli.R
 import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
 import app.pachli.databinding.FragmentReportNoteBinding
-import app.pachli.di.Injectable
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
@@ -36,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 
 @AndroidEntryPoint
-class ReportNoteFragment : Fragment(R.layout.fragment_report_note), Injectable {
+class ReportNoteFragment : Fragment(R.layout.fragment_report_note) {
 
     private val viewModel: ReportViewModel by activityViewModels()
 

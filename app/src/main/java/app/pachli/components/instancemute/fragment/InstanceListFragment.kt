@@ -11,7 +11,6 @@ import app.pachli.R
 import app.pachli.components.instancemute.adapter.DomainMutesAdapter
 import app.pachli.components.instancemute.interfaces.InstanceActionListener
 import app.pachli.databinding.FragmentInstanceListBinding
-import app.pachli.di.Injectable
 import app.pachli.network.MastodonApi
 import app.pachli.util.HttpHeaderLink
 import app.pachli.util.hide
@@ -28,7 +27,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class InstanceListFragment :
     Fragment(R.layout.fragment_instance_list),
-    Injectable,
+
     InstanceActionListener {
 
     @Inject

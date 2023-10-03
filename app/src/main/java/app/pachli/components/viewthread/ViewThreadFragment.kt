@@ -39,7 +39,6 @@ import app.pachli.components.accountlist.AccountListActivity
 import app.pachli.components.accountlist.AccountListActivity.Companion.newIntent
 import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.databinding.FragmentViewThreadBinding
-import app.pachli.di.Injectable
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
@@ -64,8 +63,7 @@ class ViewThreadFragment :
     SFragment(),
     OnRefreshListener,
     StatusActionListener,
-    MenuProvider,
-    Injectable {
+    MenuProvider {
 
     private val viewModel: ViewThreadViewModel by viewModels()
 

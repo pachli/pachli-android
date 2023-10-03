@@ -33,7 +33,6 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.StatusScheduledEvent
 import app.pachli.components.compose.ComposeActivity
 import app.pachli.databinding.ActivityScheduledStatusBinding
-import app.pachli.di.Injectable
 import app.pachli.entity.ScheduledStatus
 import app.pachli.util.hide
 import app.pachli.util.show
@@ -53,8 +52,7 @@ import javax.inject.Inject
 class ScheduledStatusActivity :
     BaseActivity(),
     ScheduledStatusActionListener,
-    MenuProvider,
-    Injectable {
+    MenuProvider {
 
     @Inject
     lateinit var eventHub: EventHub

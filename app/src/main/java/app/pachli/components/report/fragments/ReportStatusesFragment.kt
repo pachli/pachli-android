@@ -42,7 +42,6 @@ import app.pachli.components.report.adapter.AdapterHandler
 import app.pachli.components.report.adapter.StatusesAdapter
 import app.pachli.databinding.FragmentReportStatusesBinding
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
 import app.pachli.util.StatusDisplayOptions
@@ -64,7 +63,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ReportStatusesFragment :
     Fragment(R.layout.fragment_report_statuses),
-    Injectable,
     OnRefreshListener,
     MenuProvider,
     AdapterHandler {

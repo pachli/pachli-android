@@ -28,7 +28,6 @@ import app.pachli.components.compose.UploadEvent
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.NotificationHelper
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
 import app.pachli.entity.Attachment
 import app.pachli.entity.MediaAttribute
 import app.pachli.entity.NewPoll
@@ -52,7 +51,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SendStatusService : Service(), Injectable {
+class SendStatusService : Service() {
 
     @Inject
     lateinit var mastodonApi: MastodonApi

@@ -32,7 +32,6 @@ import app.pachli.BuildConfig
 import app.pachli.MainActivity
 import app.pachli.R
 import app.pachli.databinding.ActivityLoginBinding
-import app.pachli.di.Injectable
 import app.pachli.entity.AccessToken
 import app.pachli.network.MastodonApi
 import app.pachli.util.getNonNullString
@@ -49,7 +48,7 @@ import javax.inject.Inject
 
 /** Main login page, the first thing that users see. Has prompt for instance and login button. */
 @AndroidEntryPoint
-class LoginActivity : BaseActivity(), Injectable {
+class LoginActivity : BaseActivity() {
 
     @Inject
     lateinit var mastodonApi: MastodonApi

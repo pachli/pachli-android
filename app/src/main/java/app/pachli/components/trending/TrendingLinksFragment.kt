@@ -39,7 +39,6 @@ import app.pachli.components.trending.viewmodel.InfallibleUiAction
 import app.pachli.components.trending.viewmodel.LoadState
 import app.pachli.components.trending.viewmodel.TrendingLinksViewModel
 import app.pachli.databinding.FragmentTrendingLinksBinding
-import app.pachli.di.Injectable
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.RefreshableFragment
@@ -63,7 +62,6 @@ import retrofit2.HttpException
 class TrendingLinksFragment :
     Fragment(R.layout.fragment_trending_links),
     OnRefreshListener,
-    Injectable,
     ReselectableFragment,
     RefreshableFragment,
     MenuProvider {

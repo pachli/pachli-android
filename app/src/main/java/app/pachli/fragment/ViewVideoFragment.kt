@@ -50,7 +50,6 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.ViewMediaActivity
 import app.pachli.databinding.FragmentViewVideoBinding
-import app.pachli.di.Injectable
 import app.pachli.entity.Attachment
 import app.pachli.util.hide
 import app.pachli.util.viewBinding
@@ -66,7 +65,7 @@ import kotlin.math.abs
 
 @UnstableApi
 @AndroidEntryPoint
-class ViewVideoFragment : ViewMediaFragment(), Injectable {
+class ViewVideoFragment : ViewMediaFragment() {
     interface VideoActionsListener {
         fun onDismiss()
     }

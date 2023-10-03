@@ -51,7 +51,6 @@ import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiSuccess
 import app.pachli.databinding.FragmentTimelineBinding
-import app.pachli.di.Injectable
 import app.pachli.entity.Status
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
@@ -96,7 +95,6 @@ class TimelineFragment :
     SFragment(),
     OnRefreshListener,
     StatusActionListener,
-    Injectable,
     ReselectableFragment,
     RefreshableFragment,
     MenuProvider {

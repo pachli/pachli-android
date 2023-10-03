@@ -9,7 +9,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import app.pachli.components.compose.ComposeAutoCompleteAdapter
 import app.pachli.components.search.SearchType
-import app.pachli.di.Injectable
 import app.pachli.entity.HashTag
 import app.pachli.network.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
@@ -19,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FollowedTagsViewModel @Inject constructor(
     private val api: MastodonApi,
-) : ViewModel(), Injectable {
+) : ViewModel() {
     val tags: MutableList<HashTag> = mutableListOf()
     var nextKey: String? = null
     var currentSource: FollowedTagsPagingSource? = null

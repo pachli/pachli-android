@@ -40,7 +40,6 @@ import app.pachli.BaseActivity
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.databinding.ActivityLoginWebviewBinding
-import app.pachli.di.Injectable
 import app.pachli.util.hide
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
@@ -103,7 +102,7 @@ sealed class LoginResult : Parcelable {
 
 /** Activity to do Oauth process using WebView. */
 @AndroidEntryPoint
-class LoginWebViewActivity : BaseActivity(), Injectable {
+class LoginWebViewActivity : BaseActivity() {
     private val binding by viewBinding(ActivityLoginWebviewBinding::inflate)
 
     private val viewModel: LoginWebViewViewModel by viewModels()

@@ -34,7 +34,6 @@ import app.pachli.R
 import app.pachli.ViewMediaActivity
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
 import app.pachli.entity.Attachment
 import app.pachli.interfaces.RefreshableFragment
 import app.pachli.settings.PrefKeys
@@ -60,8 +59,7 @@ import javax.inject.Inject
 class AccountMediaFragment :
     Fragment(R.layout.fragment_timeline),
     RefreshableFragment,
-    MenuProvider,
-    Injectable {
+    MenuProvider {
 
     @Inject
     lateinit var accountManager: AccountManager

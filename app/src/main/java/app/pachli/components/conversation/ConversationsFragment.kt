@@ -41,7 +41,6 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.components.account.AccountActivity
 import app.pachli.databinding.FragmentTimelineBinding
-import app.pachli.di.Injectable
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.ReselectableFragment
@@ -72,7 +71,7 @@ import kotlin.time.toDuration
 class ConversationsFragment :
     SFragment(),
     StatusActionListener,
-    Injectable,
+
     ReselectableFragment,
     MenuProvider {
 

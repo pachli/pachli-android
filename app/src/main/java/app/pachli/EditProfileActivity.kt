@@ -37,7 +37,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.adapter.AccountFieldEditAdapter
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.databinding.ActivityEditProfileBinding
-import app.pachli.di.Injectable
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
@@ -62,7 +61,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class EditProfileActivity : BaseActivity(), Injectable {
+class EditProfileActivity : BaseActivity() {
 
     companion object {
         const val AVATAR_SIZE = 400

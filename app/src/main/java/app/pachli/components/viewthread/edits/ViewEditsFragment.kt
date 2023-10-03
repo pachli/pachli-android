@@ -35,7 +35,6 @@ import app.pachli.R
 import app.pachli.StatusListActivity
 import app.pachli.components.account.AccountActivity
 import app.pachli.databinding.FragmentViewEditsBinding
-import app.pachli.di.Injectable
 import app.pachli.interfaces.LinkListener
 import app.pachli.settings.PrefKeys
 import app.pachli.util.emojify
@@ -58,8 +57,7 @@ class ViewEditsFragment :
     Fragment(R.layout.fragment_view_edits),
     LinkListener,
     OnRefreshListener,
-    MenuProvider,
-    Injectable {
+    MenuProvider {
 
     private val viewModel: ViewEditsViewModel by viewModels()
 

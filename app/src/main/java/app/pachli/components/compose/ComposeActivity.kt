@@ -81,7 +81,6 @@ import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.databinding.ActivityComposeBinding
 import app.pachli.db.AccountEntity
 import app.pachli.db.DraftAttachment
-import app.pachli.di.Injectable
 import app.pachli.entity.Attachment
 import app.pachli.entity.Emoji
 import app.pachli.entity.NewPoll
@@ -133,7 +132,7 @@ class ComposeActivity :
     ComposeOptionsListener,
     ComposeAutoCompleteAdapter.AutocompletionProvider,
     OnEmojiSelectedListener,
-    Injectable,
+
     OnReceiveContentListener,
     ComposeScheduleView.OnTimeSetListener,
     CaptionDialog.Listener {

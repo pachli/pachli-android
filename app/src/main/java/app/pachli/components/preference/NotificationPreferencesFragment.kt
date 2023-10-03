@@ -21,7 +21,6 @@ import app.pachli.R
 import app.pachli.components.notifications.NotificationHelper
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
 import app.pachli.settings.PrefKeys
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preferenceCategory
@@ -30,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NotificationPreferencesFragment : PreferenceFragmentCompat(), Injectable {
+class NotificationPreferencesFragment : PreferenceFragmentCompat() {
 
     @Inject
     lateinit var accountManager: AccountManager

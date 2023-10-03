@@ -44,7 +44,6 @@ import app.pachli.adapter.TabAdapter
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.databinding.ActivityTabPreferenceBinding
-import app.pachli.di.Injectable
 import app.pachli.entity.MastoList
 import app.pachli.network.MastodonApi
 import app.pachli.util.getDimension
@@ -69,7 +68,7 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TabPreferenceActivity : BaseActivity(), Injectable, ItemInteractionListener {
+class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
 
     @Inject
     lateinit var mastodonApi: MastodonApi

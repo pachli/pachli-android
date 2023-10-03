@@ -20,7 +20,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
 import app.pachli.entity.Notification
 import app.pachli.settings.AppTheme
 import app.pachli.settings.PrefKeys
@@ -45,7 +44,7 @@ import de.c1710.filemojicompat_ui.views.picker.preference.EmojiPickerPreference
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PreferencesFragment : PreferenceFragmentCompat(), Injectable {
+class PreferencesFragment : PreferenceFragmentCompat() {
 
     @Inject
     lateinit var accountManager: AccountManager
