@@ -51,6 +51,7 @@ import app.pachli.entity.Status
 import app.pachli.entity.Status.Mention
 import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.StatusActionListener
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.openLink
 import app.pachli.view.showMuteAccountDialog
@@ -69,23 +70,33 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     @Inject
     lateinit var accountManager: AccountManager
 
+    @Inject
+    lateinit var serverCapabilitiesRepository: ServerCapabilitiesRepository
+
     override val data: Flow<PagingData<StatusViewData>>
         get() = viewModel.statusesFlow
 
     private val searchAdapter
         get() = super.adapter as SearchStatusesAdapter
 
-    override fun createAdapter(): PagingDataAdapter<StatusViewData, *> {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(binding.searchRecyclerView.context)
+    override suspend fun createAdapter(): PagingDataAdapter<StatusViewData, *> {
+        val preferences =
+            PreferenceManager.getDefaultSharedPreferences(binding.searchRecyclerView.context)
+
         val statusDisplayOptions = StatusDisplayOptions.from(
             preferences,
+            serverCapabilitiesRepository.getCapabilities(),
             accountManager.activeAccount!!,
         )
 
         binding.searchRecyclerView.addItemDecoration(
-            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
+            MaterialDividerItemDecoration(
+                requireContext(),
+                MaterialDividerItemDecoration.VERTICAL
+            ),
         )
-        binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
+        binding.searchRecyclerView.layoutManager =
+            LinearLayoutManager(binding.searchRecyclerView.context)
         return SearchStatusesAdapter(statusDisplayOptions, this)
     }
 

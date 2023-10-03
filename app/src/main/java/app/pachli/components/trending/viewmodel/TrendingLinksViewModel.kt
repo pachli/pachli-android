@@ -25,6 +25,7 @@ import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.components.trending.TrendingLinksRepository
 import app.pachli.db.AccountManager
 import app.pachli.entity.TrendsLink
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.throttleFirst
 import at.connyduck.calladapter.networkresult.fold
@@ -59,6 +60,7 @@ sealed class LoadState {
 class TrendingLinksViewModel @Inject constructor(
     private val repository: TrendingLinksRepository,
     preferences: SharedPreferences,
+    serverCapabilitiesRepository: ServerCapabilitiesRepository,
     accountManager: AccountManager,
     private val eventHub: EventHub,
 ) : ViewModel() {
@@ -68,7 +70,10 @@ class TrendingLinksViewModel @Inject constructor(
     val loadState = _loadState.asStateFlow()
 
     private val _statusDisplayOptions = MutableStateFlow(
-        StatusDisplayOptions.from(preferences, account),
+        StatusDisplayOptions.from(
+            preferences,
+            serverCapabilitiesRepository.getCapabilities(),
+            account),
     )
     val statusDisplayOptions = _statusDisplayOptions.asStateFlow()
 

@@ -44,6 +44,7 @@ import app.pachli.databinding.FragmentReportStatusesBinding
 import app.pachli.db.AccountManager
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
@@ -140,40 +141,49 @@ class ReportStatusesFragment :
 
     private fun initStatusesView() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val statusDisplayOptions = StatusDisplayOptions.from(
-            preferences,
-            accountManager.activeAccount!!,
-        )
-
-        adapter = StatusesAdapter(statusDisplayOptions, viewModel.statusViewState, this)
-
-        binding.recyclerView.addItemDecoration(
-            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
-        )
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = adapter
-        (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-
         lifecycleScope.launch {
+            val statusDisplayOptions = StatusDisplayOptions.from(
+                preferences,
+                serverCapabilitiesRepository.getCapabilities(),
+                accountManager.activeAccount!!,
+            )
+
+            adapter = StatusesAdapter(
+                statusDisplayOptions,
+                viewModel.statusViewState,
+                this@ReportStatusesFragment
+            )
+
+            binding.recyclerView.addItemDecoration(
+                MaterialDividerItemDecoration(
+                    requireContext(),
+                    MaterialDividerItemDecoration.VERTICAL
+                ),
+            )
+            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            binding.recyclerView.adapter = adapter
+            (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
+                false
+
+            adapter.addLoadStateListener { loadState ->
+                if (loadState.refresh is LoadState.Error ||
+                    loadState.append is LoadState.Error ||
+                    loadState.prepend is LoadState.Error
+                ) {
+                    showError()
+                }
+
+                binding.progressBarBottom.visible(loadState.append == LoadState.Loading)
+                binding.progressBarTop.visible(loadState.prepend == LoadState.Loading)
+                binding.progressBarLoading.visible(loadState.refresh == LoadState.Loading && !binding.swipeRefreshLayout.isRefreshing)
+
+                if (loadState.refresh != LoadState.Loading) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
+            }
+
             viewModel.statusesFlow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
-            }
-        }
-
-        adapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Error ||
-                loadState.append is LoadState.Error ||
-                loadState.prepend is LoadState.Error
-            ) {
-                showError()
-            }
-
-            binding.progressBarBottom.visible(loadState.append == LoadState.Loading)
-            binding.progressBarTop.visible(loadState.prepend == LoadState.Loading)
-            binding.progressBarLoading.visible(loadState.refresh == LoadState.Loading && !binding.swipeRefreshLayout.isRefreshing)
-
-            if (loadState.refresh != LoadState.Loading) {
-                binding.swipeRefreshLayout.isRefreshing = false
             }
         }
     }

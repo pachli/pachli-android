@@ -36,6 +36,7 @@ import app.pachli.db.AccountManager
 import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.network.FilterModel
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
@@ -62,6 +63,7 @@ class CachedTimelineViewModel @Inject constructor(
     preferences: SharedPreferences,
     accountPreferenceDataStore: AccountPreferenceDataStore,
     filterModel: FilterModel,
+    serverCapabilitiesRepository: ServerCapabilitiesRepository,
     private val gson: Gson,
 ) : TimelineViewModel(
     timelineCases,
@@ -71,6 +73,7 @@ class CachedTimelineViewModel @Inject constructor(
     preferences,
     accountPreferenceDataStore,
     filterModel,
+    serverCapabilitiesRepository
 ) {
 
     override lateinit var statuses: Flow<PagingData<StatusViewData>>

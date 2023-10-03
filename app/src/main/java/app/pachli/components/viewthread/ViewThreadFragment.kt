@@ -41,6 +41,7 @@ import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.util.ListStatusAccessibilityDelegate
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.hide
@@ -90,11 +91,14 @@ class ViewThreadFragment :
         thisThreadsStatusId = requireArguments().getString(ID_EXTRA)!!
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        val statusDisplayOptions = StatusDisplayOptions.from(
-            preferences,
-            accountManager.activeAccount!!,
-        )
-        adapter = ThreadAdapter(statusDisplayOptions, this)
+        lifecycleScope.launch {
+            val statusDisplayOptions = StatusDisplayOptions.from(
+                preferences,
+                serverCapabilitiesRepository.getCapabilities(),
+                accountManager.activeAccount!!,
+            )
+            adapter = ThreadAdapter(statusDisplayOptions, this@ViewThreadFragment)
+        }
     }
 
     override fun onCreateView(
