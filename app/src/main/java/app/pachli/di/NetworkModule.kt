@@ -35,7 +35,9 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttp
 import okhttp3.OkHttpClient
@@ -50,8 +52,10 @@ import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
-class NetworkModule {
+object NetworkModule {
+    private const val TAG = "NetworkModule"
 
     @Provides
     @Singleton
@@ -121,10 +125,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesApi(retrofit: Retrofit): MastodonApi = retrofit.create()
-
-    @Provides
-    @Singleton
     fun providesMediaUploadApi(retrofit: Retrofit, okHttpClient: OkHttpClient): MediaUploadApi {
         val longTimeOutOkHttpClient = okHttpClient.newBuilder()
             .readTimeout(100, TimeUnit.SECONDS)
@@ -136,8 +136,12 @@ class NetworkModule {
             .build()
             .create()
     }
+}
 
-    companion object {
-        private const val TAG = "NetworkModule"
-    }
+@InstallIn(SingletonComponent::class)
+@Module
+object MastodonApiModule {
+    @Provides
+    @Singleton
+    fun providesApi(retrofit: Retrofit): MastodonApi = retrofit.create()
 }

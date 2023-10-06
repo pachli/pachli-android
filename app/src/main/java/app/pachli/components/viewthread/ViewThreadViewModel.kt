@@ -31,7 +31,7 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
+import app.pachli.db.TimelineDao
 import app.pachli.entity.Filter
 import app.pachli.entity.FilterV1
 import app.pachli.entity.Status
@@ -62,7 +62,7 @@ class ViewThreadViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
     eventHub: EventHub,
     accountManager: AccountManager,
-    private val db: AppDatabase,
+    private val timelineDao: TimelineDao,
     private val gson: Gson,
     private val repository: CachedTimelineRepository,
 ) : ViewModel() {
@@ -112,7 +112,7 @@ class ViewThreadViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d(TAG, "Finding status with: $id")
             val contextCall = async { api.statusContext(id) }
-            val timelineStatusWithAccount = db.timelineDao().getStatus(id)
+            val timelineStatusWithAccount = timelineDao.getStatus(id)
 
             var detailedStatus = if (timelineStatusWithAccount != null) {
                 Log.d(TAG, "Loaded status from local timeline")

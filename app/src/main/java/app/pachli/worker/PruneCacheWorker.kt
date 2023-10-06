@@ -28,14 +28,14 @@ import app.pachli.R
 import app.pachli.components.notifications.NotificationHelper
 import app.pachli.components.notifications.NotificationHelper.NOTIFICATION_ID_PRUNE_CACHE
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
+import app.pachli.db.TimelineDao
 import javax.inject.Inject
 
 /** Prune the database cache of old statuses. */
 class PruneCacheWorker(
     appContext: Context,
     workerParams: WorkerParameters,
-    private val appDatabase: AppDatabase,
+    private val timelineDao: TimelineDao,
     private val accountManager: AccountManager,
 ) : CoroutineWorker(appContext, workerParams) {
     val notification: Notification = NotificationHelper.createWorkerNotification(applicationContext, R.string.notification_prune_cache)
@@ -43,7 +43,7 @@ class PruneCacheWorker(
     override suspend fun doWork(): Result {
         for (account in accountManager.accounts) {
             Log.d(TAG, "Pruning database using account ID: ${account.id}")
-            appDatabase.timelineDao().cleanup(account.id, MAX_STATUSES_IN_CACHE)
+            timelineDao.cleanup(account.id, MAX_STATUSES_IN_CACHE)
         }
         return Result.success()
     }
@@ -57,11 +57,11 @@ class PruneCacheWorker(
     }
 
     class Factory @Inject constructor(
-        private val appDatabase: AppDatabase,
+        private val timelineDao: TimelineDao,
         private val accountManager: AccountManager,
     ) : ChildWorkerFactory {
         override fun createWorker(appContext: Context, params: WorkerParameters): ListenableWorker {
-            return PruneCacheWorker(appContext, params, appDatabase, accountManager)
+            return PruneCacheWorker(appContext, params, timelineDao, accountManager)
         }
     }
 }

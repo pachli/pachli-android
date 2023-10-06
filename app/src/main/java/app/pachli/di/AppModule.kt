@@ -16,34 +16,18 @@
 package app.pachli.di
 
 import android.app.Application
-import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import androidx.room.Room
-import app.pachli.db.AppDatabase
-import app.pachli.db.Converters
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
+@InstallIn(SingletonComponent::class)
 @Module
 class AppModule {
-
     @Provides
     fun providesSharedPreferences(app: Application): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(app)
-    }
-
-    @Provides
-    @Singleton
-    fun providesDatabase(
-        @ApplicationContext appContext: Context,
-        converters: Converters
-    ): AppDatabase {
-        return Room.databaseBuilder(appContext, AppDatabase::class.java, "pachliDB")
-            .addTypeConverter(converters)
-            .allowMainThreadQueries()
-            .build()
     }
 }

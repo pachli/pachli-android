@@ -22,8 +22,8 @@ import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import app.pachli.BuildConfig
-import app.pachli.db.AppDatabase
 import app.pachli.db.DraftAttachment
+import app.pachli.db.DraftDao
 import app.pachli.db.DraftEntity
 import app.pachli.entity.Attachment
 import app.pachli.entity.NewPoll
@@ -46,11 +46,8 @@ import javax.inject.Inject
 class DraftHelper @Inject constructor(
     @ApplicationContext val context: Context,
     private val okHttpClient: OkHttpClient,
-    db: AppDatabase,
+    private val draftDao: DraftDao,
 ) {
-
-    private val draftDao = db.draftDao()
-
     suspend fun saveDraft(
         draftId: Int,
         accountId: Long,
