@@ -137,11 +137,3 @@ object NetworkModule {
             .create()
     }
 }
-
-@InstallIn(SingletonComponent::class)
-@Module
-object MastodonApiModule {
-    @Provides
-    @Singleton
-    fun providesApi(retrofit: Retrofit): MastodonApi = retrofit.create()
-}
