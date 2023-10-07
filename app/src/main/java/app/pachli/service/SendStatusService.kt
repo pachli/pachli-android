@@ -28,7 +28,6 @@ import app.pachli.components.compose.UploadEvent
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.NotificationHelper
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
 import app.pachli.entity.Attachment
 import app.pachli.entity.MediaAttribute
 import app.pachli.entity.NewPoll
@@ -37,7 +36,7 @@ import app.pachli.entity.Status
 import app.pachli.network.MastodonApi
 import app.pachli.util.unsafeLazy
 import at.connyduck.calladapter.networkresult.fold
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -50,7 +49,8 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class SendStatusService : Service(), Injectable {
+@AndroidEntryPoint
+class SendStatusService : Service() {
 
     @Inject
     lateinit var mastodonApi: MastodonApi
@@ -74,11 +74,6 @@ class SendStatusService : Service(), Injectable {
     private val sendJobs = ConcurrentHashMap<Int, Job>()
 
     private val notificationManager by unsafeLazy { getSystemService(NOTIFICATION_SERVICE) as NotificationManager }
-
-    override fun onCreate() {
-        AndroidInjection.inject(this)
-        super.onCreate()
-    }
 
     override fun onBind(intent: Intent): IBinder? = null
 

@@ -34,8 +34,6 @@ import app.pachli.R
 import app.pachli.ViewMediaActivity
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Attachment
 import app.pachli.interfaces.RefreshableFragment
 import app.pachli.settings.PrefKeys
@@ -49,6 +47,7 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -56,21 +55,18 @@ import javax.inject.Inject
 /**
  * Fragment with multiple columns of media previews for the specified account.
  */
+@AndroidEntryPoint
 class AccountMediaFragment :
     Fragment(R.layout.fragment_timeline),
     RefreshableFragment,
-    MenuProvider,
-    Injectable {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    MenuProvider {
 
     @Inject
     lateinit var accountManager: AccountManager
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
-    private val viewModel: AccountMediaViewModel by viewModels { viewModelFactory }
+    private val viewModel: AccountMediaViewModel by viewModels()
 
     private lateinit var adapter: AccountMediaGridAdapter
 

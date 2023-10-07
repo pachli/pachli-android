@@ -25,9 +25,11 @@ import app.pachli.appstore.EventHub
 import app.pachli.entity.ScheduledStatus
 import app.pachli.network.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ScheduledStatusViewModel @Inject constructor(
     val mastodonApi: MastodonApi,
     val eventHub: EventHub,

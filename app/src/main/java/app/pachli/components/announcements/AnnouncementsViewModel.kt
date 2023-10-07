@@ -31,9 +31,11 @@ import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class AnnouncementsViewModel @Inject constructor(
     private val instanceInfoRepo: InstanceInfoRepository,
     private val mastodonApi: MastodonApi,

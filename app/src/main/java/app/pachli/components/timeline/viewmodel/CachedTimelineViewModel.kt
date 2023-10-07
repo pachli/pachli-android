@@ -41,6 +41,7 @@ import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
 import com.google.gson.Gson
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -52,6 +53,7 @@ import javax.inject.Inject
 /**
  * TimelineViewModel that caches all statuses in a local database
  */
+@HiltViewModel
 class CachedTimelineViewModel @Inject constructor(
     private val repository: CachedTimelineRepository,
     timelineCases: TimelineCases,

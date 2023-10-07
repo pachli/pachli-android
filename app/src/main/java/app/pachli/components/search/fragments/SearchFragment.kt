@@ -22,8 +22,6 @@ import app.pachli.StatusListActivity
 import app.pachli.components.account.AccountActivity
 import app.pachli.components.search.SearchViewModel
 import app.pachli.databinding.FragmentSearchBinding
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.interfaces.LinkListener
 import app.pachli.network.MastodonApi
 import app.pachli.util.viewBinding
@@ -42,17 +40,13 @@ import javax.inject.Inject
 abstract class SearchFragment<T : Any> :
     Fragment(R.layout.fragment_search),
     LinkListener,
-    Injectable,
     SwipeRefreshLayout.OnRefreshListener,
     MenuProvider {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var mastodonApi: MastodonApi
 
-    protected val viewModel: SearchViewModel by activityViewModels { viewModelFactory }
+    protected val viewModel: SearchViewModel by activityViewModels()
 
     protected val binding by viewBinding(FragmentSearchBinding::bind)
 

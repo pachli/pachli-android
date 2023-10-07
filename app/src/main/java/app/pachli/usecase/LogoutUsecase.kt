@@ -5,15 +5,20 @@ import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.NotificationHelper
 import app.pachli.components.notifications.disableUnifiedPushNotificationsForAccount
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
+import app.pachli.db.ConversationsDao
+import app.pachli.db.RemoteKeyDao
+import app.pachli.db.TimelineDao
 import app.pachli.network.MastodonApi
 import app.pachli.util.removeShortcut
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class LogoutUsecase @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val api: MastodonApi,
-    private val db: AppDatabase,
+    private val timelineDao: TimelineDao,
+    private val remoteKeyDao: RemoteKeyDao,
+    private val conversationsDao: ConversationsDao,
     private val accountManager: AccountManager,
     private val draftHelper: DraftHelper,
 ) {
@@ -52,10 +57,10 @@ class LogoutUsecase @Inject constructor(
             val otherAccountAvailable = accountManager.logActiveAccountOut() != null
 
             // clear the database - this could trigger network calls so do it last when all tokens are gone
-            db.timelineDao().removeAll(activeAccount.id)
-            db.timelineDao().removeAllStatusViewData(activeAccount.id)
-            db.remoteKeyDao().delete(activeAccount.id)
-            db.conversationDao().deleteForAccount(activeAccount.id)
+            timelineDao.removeAll(activeAccount.id)
+            timelineDao.removeAllStatusViewData(activeAccount.id)
+            remoteKeyDao.delete(activeAccount.id)
+            conversationsDao.deleteForAccount(activeAccount.id)
             draftHelper.deleteAllDraftsAndAttachmentsForAccount(activeAccount.id)
 
             // remove shortcut associated with the account

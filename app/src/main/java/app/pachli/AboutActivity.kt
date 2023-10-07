@@ -17,14 +17,15 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.lifecycleScope
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.databinding.ActivityAboutBinding
-import app.pachli.di.Injectable
 import app.pachli.util.NoUnderlineURLSpan
 import app.pachli.util.hide
 import app.pachli.util.show
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AboutActivity : BottomSheetActivity(), Injectable {
+@AndroidEntryPoint
+class AboutActivity : BottomSheetActivity() {
     @Inject
     lateinit var instanceInfoRepository: InstanceInfoRepository
 

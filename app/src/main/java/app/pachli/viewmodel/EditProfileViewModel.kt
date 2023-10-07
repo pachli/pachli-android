@@ -35,6 +35,7 @@ import app.pachli.util.Success
 import app.pachli.util.getServerErrorMessage
 import app.pachli.util.randomAlphanumericString
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asFlow
@@ -57,6 +58,7 @@ internal data class ProfileDataInUi(
     val fields: List<StringField>,
 )
 
+@HiltViewModel
 class EditProfileViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,

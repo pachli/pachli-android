@@ -81,8 +81,6 @@ import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.databinding.ActivityComposeBinding
 import app.pachli.db.AccountEntity
 import app.pachli.db.DraftAttachment
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Attachment
 import app.pachli.entity.Emoji
 import app.pachli.entity.NewPoll
@@ -115,6 +113,7 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
@@ -124,22 +123,19 @@ import java.io.File
 import java.io.IOException
 import java.text.DecimalFormat
 import java.util.Locale
-import javax.inject.Inject
 import kotlin.math.max
 import kotlin.math.min
 
+@AndroidEntryPoint
 class ComposeActivity :
     BaseActivity(),
     ComposeOptionsListener,
     ComposeAutoCompleteAdapter.AutocompletionProvider,
     OnEmojiSelectedListener,
-    Injectable,
+
     OnReceiveContentListener,
     ComposeScheduleView.OnTimeSetListener,
     CaptionDialog.Listener {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var composeOptionsBehavior: BottomSheetBehavior<*>
     private lateinit var addMediaBehavior: BottomSheetBehavior<*>
@@ -157,7 +153,7 @@ class ComposeActivity :
     var maximumTootCharacters = InstanceInfoRepository.DEFAULT_CHARACTER_LIMIT
     var charactersReservedPerUrl = InstanceInfoRepository.DEFAULT_CHARACTERS_RESERVED_PER_URL
 
-    private val viewModel: ComposeViewModel by viewModels { viewModelFactory }
+    private val viewModel: ComposeViewModel by viewModels()
 
     private val binding by viewBinding(ActivityComposeBinding::inflate)
 

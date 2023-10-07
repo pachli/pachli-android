@@ -39,8 +39,6 @@ import app.pachli.components.accountlist.AccountListActivity
 import app.pachli.components.accountlist.AccountListActivity.Companion.newIntent
 import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.databinding.FragmentViewThreadBinding
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.network.ServerCapabilitiesRepository
@@ -55,26 +53,24 @@ import app.pachli.viewdata.StatusViewData
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ViewThreadFragment :
     SFragment(),
     OnRefreshListener,
     StatusActionListener,
-    MenuProvider,
-    Injectable {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    MenuProvider {
 
     @Inject
     lateinit var serverCapabilitiesRepository: ServerCapabilitiesRepository
 
-    private val viewModel: ViewThreadViewModel by viewModels { viewModelFactory }
+    private val viewModel: ViewThreadViewModel by viewModels()
 
     private val binding by viewBinding(FragmentViewThreadBinding::bind)
 

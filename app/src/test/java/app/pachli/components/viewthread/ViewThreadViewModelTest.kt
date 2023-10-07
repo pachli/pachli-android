@@ -106,7 +106,16 @@ class ViewThreadViewModelTest {
             onBlocking { getStatusViewData(any()) } doReturn emptyMap()
         }
 
-        viewModel = ViewThreadViewModel(api, filterModel, timelineCases, eventHub, accountManager, db, gson, cachedTimelineRepository)
+        viewModel = ViewThreadViewModel(
+            api,
+            filterModel,
+            timelineCases,
+            eventHub,
+            accountManager,
+            db.timelineDao(),
+            gson,
+            cachedTimelineRepository,
+        )
     }
 
     @After

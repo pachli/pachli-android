@@ -24,18 +24,22 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
+import app.pachli.db.ConversationsDao
+import app.pachli.di.TransactionProvider
 import app.pachli.network.MastodonApi
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.EmptyPagingSource
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ConversationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
-    private val database: AppDatabase,
+    transactionProvider: TransactionProvider,
+    private val conversationsDao: ConversationsDao,
     private val accountManager: AccountManager,
     private val api: MastodonApi,
 ) : ViewModel() {
@@ -43,13 +47,18 @@ class ConversationsViewModel @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     val conversationFlow = Pager(
         config = PagingConfig(pageSize = 30),
-        remoteMediator = ConversationsRemoteMediator(api, database, accountManager),
+        remoteMediator = ConversationsRemoteMediator(
+            api,
+            transactionProvider,
+            conversationsDao,
+            accountManager,
+        ),
         pagingSourceFactory = {
             val activeAccount = accountManager.activeAccount
             if (activeAccount == null) {
                 EmptyPagingSource()
             } else {
-                database.conversationDao().conversationsForAccount(activeAccount.id)
+                conversationsDao.conversationsForAccount(activeAccount.id)
             }
         },
     )
@@ -140,7 +149,7 @@ class ConversationsViewModel @Inject constructor(
             try {
                 api.deleteConversation(conversationId = conversation.id)
 
-                database.conversationDao().delete(
+                conversationsDao.delete(
                     id = conversation.id,
                     accountId = accountManager.activeAccount!!.id,
                 )
@@ -163,7 +172,7 @@ class ConversationsViewModel @Inject constructor(
                     muted = !(conversation.lastStatus.status.muted ?: false),
                 )
 
-                database.conversationDao().insert(newConversation)
+                conversationsDao.insert(newConversation)
             } catch (e: Exception) {
                 Log.w(TAG, "failed to mute conversation", e)
             }
@@ -171,7 +180,7 @@ class ConversationsViewModel @Inject constructor(
     }
 
     private suspend fun saveConversationToDb(conversation: ConversationEntity) {
-        database.conversationDao().insert(conversation)
+        conversationsDao.insert(conversation)
     }
 
     companion object {

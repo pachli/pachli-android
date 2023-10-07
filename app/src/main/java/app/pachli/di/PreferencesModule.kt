@@ -1,4 +1,5 @@
-/* Copyright 2018 charlag
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -10,43 +11,27 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.di
 
 import android.app.Application
-import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import androidx.room.Room
-import app.pachli.PachliApplication
-import app.pachli.db.AppDatabase
-import app.pachli.db.Converters
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
-class AppModule {
-
-    @Provides
-    fun providesApplication(app: PachliApplication): Application = app
-
-    @Provides
-    fun providesContext(app: Application): Context = app
-
-    @Provides
-    fun providesSharedPreferences(app: Application): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(app)
-    }
-
+object PreferencesModule {
     @Provides
     @Singleton
-    fun providesDatabase(appContext: Context, converters: Converters): AppDatabase {
-        return Room.databaseBuilder(appContext, AppDatabase::class.java, "pachliDB")
-            .addTypeConverter(converters)
-            .allowMainThreadQueries()
-            .build()
+    fun providesSharedPreferences(app: Application): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(app)
     }
 }

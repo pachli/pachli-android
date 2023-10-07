@@ -40,6 +40,7 @@ import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -50,6 +51,7 @@ import javax.inject.Inject
 /**
  * TimelineViewModel that caches all statuses in an in-memory list
  */
+@HiltViewModel
 class NetworkTimelineViewModel @Inject constructor(
     private val repository: NetworkTimelineRepository,
     timelineCases: TimelineCases,

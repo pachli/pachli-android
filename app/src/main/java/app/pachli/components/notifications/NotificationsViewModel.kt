@@ -51,6 +51,7 @@ import app.pachli.util.throttleFirst
 import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -290,6 +291,7 @@ sealed class UiError(
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
+@HiltViewModel
 class NotificationsViewModel @Inject constructor(
     private val repository: NotificationsRepository,
     private val preferences: SharedPreferences,

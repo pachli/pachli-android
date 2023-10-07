@@ -50,7 +50,6 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.ViewMediaActivity
 import app.pachli.databinding.FragmentViewVideoBinding
-import app.pachli.di.Injectable
 import app.pachli.entity.Attachment
 import app.pachli.util.hide
 import app.pachli.util.viewBinding
@@ -59,12 +58,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 import kotlin.math.abs
 
 @UnstableApi
-class ViewVideoFragment : ViewMediaFragment(), Injectable {
+@AndroidEntryPoint
+class ViewVideoFragment : ViewMediaFragment() {
     interface VideoActionsListener {
         fun onDismiss()
     }

@@ -11,7 +11,6 @@ import app.pachli.R
 import app.pachli.components.instancemute.adapter.DomainMutesAdapter
 import app.pachli.components.instancemute.interfaces.InstanceActionListener
 import app.pachli.databinding.FragmentInstanceListBinding
-import app.pachli.di.Injectable
 import app.pachli.network.MastodonApi
 import app.pachli.util.HttpHeaderLink
 import app.pachli.util.hide
@@ -21,12 +20,14 @@ import app.pachli.view.EndlessOnScrollListener
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class InstanceListFragment :
     Fragment(R.layout.fragment_instance_list),
-    Injectable,
+
     InstanceActionListener {
 
     @Inject

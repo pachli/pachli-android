@@ -37,8 +37,7 @@ import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -47,11 +46,8 @@ import javax.inject.Inject
  * Show a list of statuses of a particular type; containing a particular hashtag,
  * the user's favourites, bookmarks, etc.
  */
-class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidInjector {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
+@AndroidEntryPoint
+class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost {
     @Inject
     lateinit var eventHub: EventHub
 
@@ -335,8 +331,6 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidIn
 
         return true
     }
-
-    override fun androidInjector() = dispatchingAndroidInjector
 
     companion object {
         private const val EXTRA_KIND = "kind"

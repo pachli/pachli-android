@@ -17,9 +17,8 @@
 
 package app.pachli.usecase
 
-import androidx.room.withTransaction
-import app.pachli.db.AppDatabase
 import app.pachli.db.TimelineDao
+import app.pachli.di.TransactionProvider
 import javax.inject.Inject
 
 /**
@@ -27,11 +26,9 @@ import javax.inject.Inject
  * in debug mode.
  */
 class DeveloperToolsUseCase @Inject constructor(
-    private val db: AppDatabase,
+    private val transactionProvider: TransactionProvider,
+    private val timelineDao: TimelineDao,
 ) {
-
-    private var timelineDao: TimelineDao = db.timelineDao()
-
     /**
      * Clear the home timeline cache.
      */
@@ -43,7 +40,7 @@ class DeveloperToolsUseCase @Inject constructor(
      * Delete first K statuses
      */
     suspend fun deleteFirstKStatuses(accountId: Long, k: Int) {
-        db.withTransaction {
+        transactionProvider {
             val ids = timelineDao.getMostRecentNStatusIds(accountId, 40)
             timelineDao.deleteRange(accountId, ids.last(), ids.first())
         }

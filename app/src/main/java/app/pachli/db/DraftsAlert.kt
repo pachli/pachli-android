@@ -37,10 +37,7 @@ import javax.inject.Singleton
 private const val TAG = "DraftsAlert"
 
 @Singleton
-class DraftsAlert @Inject constructor(db: AppDatabase) {
-    // For tracking when a media upload fails in the service
-    private val draftDao: DraftDao = db.draftDao()
-
+class DraftsAlert @Inject constructor(private val draftDao: DraftDao) {
     @Inject
     lateinit var accountManager: AccountManager
 

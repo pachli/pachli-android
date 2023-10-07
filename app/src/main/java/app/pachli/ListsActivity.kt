@@ -38,8 +38,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.databinding.ActivityListsBinding
 import app.pachli.databinding.DialogListBinding
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.MastoList
 import app.pachli.util.hide
 import app.pachli.util.show
@@ -59,20 +57,12 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class ListsActivity : BaseActivity(), Injectable, HasAndroidInjector {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
-    private val viewModel: ListsViewModel by viewModels { viewModelFactory }
+@AndroidEntryPoint
+class ListsActivity : BaseActivity() {
+    private val viewModel: ListsViewModel by viewModels()
 
     private val binding by viewBinding(ActivityListsBinding::inflate)
 
@@ -291,8 +281,6 @@ class ListsActivity : BaseActivity(), Injectable, HasAndroidInjector {
             viewModel.updateList(listId, name, exclusive)
         }
     }
-
-    override fun androidInjector() = dispatchingAndroidInjector
 
     companion object {
         fun newIntent(context: Context) = Intent(context, ListsActivity::class.java)

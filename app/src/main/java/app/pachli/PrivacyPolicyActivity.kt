@@ -20,7 +20,9 @@ package app.pachli
 import android.os.Bundle
 import android.util.Base64
 import app.pachli.databinding.ActivityPrivacyPolicyBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PrivacyPolicyActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

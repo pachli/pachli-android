@@ -25,14 +25,15 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.Transaction
-import androidx.room.withTransaction
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
+import app.pachli.db.RemoteKeyDao
 import app.pachli.db.RemoteKeyEntity
 import app.pachli.db.RemoteKeyKind
 import app.pachli.db.TimelineAccountEntity
+import app.pachli.db.TimelineDao
 import app.pachli.db.TimelineStatusEntity
 import app.pachli.db.TimelineStatusWithAccount
+import app.pachli.di.TransactionProvider
 import app.pachli.entity.Status
 import app.pachli.network.Links
 import app.pachli.network.MastodonApi
@@ -50,12 +51,11 @@ class CachedTimelineRemoteMediator(
     private val api: MastodonApi,
     accountManager: AccountManager,
     private val factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>,
-    private val db: AppDatabase,
+    private val transactionProvider: TransactionProvider,
+    private val timelineDao: TimelineDao,
+    private val remoteKeyDao: RemoteKeyDao,
     private val gson: Gson,
 ) : RemoteMediator<Int, TimelineStatusWithAccount>() {
-
-    private val timelineDao = db.timelineDao()
-    private val remoteKeyDao = db.remoteKeyDao()
     private val activeAccount = accountManager.activeAccount!!
 
     override suspend fun load(
@@ -79,24 +79,20 @@ class CachedTimelineRemoteMediator(
                     getInitialPage(statusId, state.config.pageSize)
                 }
                 LoadType.APPEND -> {
-                    val rke = db.withTransaction {
-                        remoteKeyDao.remoteKeyForKind(
-                            activeAccount.id,
-                            TIMELINE_ID,
-                            RemoteKeyKind.NEXT,
-                        )
-                    } ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    val rke = remoteKeyDao.remoteKeyForKind(
+                        activeAccount.id,
+                        TIMELINE_ID,
+                        RemoteKeyKind.NEXT,
+                    ) ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Log.d(TAG, "Loading from remoteKey: $rke")
                     api.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
                 }
                 LoadType.PREPEND -> {
-                    val rke = db.withTransaction {
-                        remoteKeyDao.remoteKeyForKind(
-                            activeAccount.id,
-                            TIMELINE_ID,
-                            RemoteKeyKind.PREV,
-                        )
-                    } ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    val rke = remoteKeyDao.remoteKeyForKind(
+                        activeAccount.id,
+                        TIMELINE_ID,
+                        RemoteKeyKind.PREV,
+                    ) ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Log.d(TAG, "Loading from remoteKey: $rke")
                     api.homeTimeline(minId = rke.key, limit = state.config.pageSize)
                 }
@@ -119,7 +115,8 @@ class CachedTimelineRemoteMediator(
             Log.d(TAG, "  ${statuses.first().id}..${statuses.last().id}")
 
             val links = Links.from(response.headers()["link"])
-            db.withTransaction {
+
+            transactionProvider {
                 when (loadType) {
                     LoadType.REFRESH -> {
                         remoteKeyDao.delete(activeAccount.id)

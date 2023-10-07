@@ -24,8 +24,10 @@ import app.pachli.components.search.adapter.SearchAccountsAdapter
 import app.pachli.entity.TimelineAccount
 import app.pachli.settings.PrefKeys
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 
+@AndroidEntryPoint
 class SearchAccountsFragment : SearchFragment<TimelineAccount>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
