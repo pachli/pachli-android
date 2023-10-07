@@ -40,7 +40,7 @@ annotation class ApplicationScope
 
 @InstallIn(SingletonComponent::class)
 @Module
-class CoroutineScopeModule {
+object CoroutineScopeModule {
     @ApplicationScope
     @Provides
     fun providesApplicationScope() = CoroutineScope(SupervisorJob() + Dispatchers.Default)
