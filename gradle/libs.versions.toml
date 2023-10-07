@@ -19,6 +19,7 @@ androidx-sharetarget = "1.2.0"
 androidx-splashscreen = "1.0.1"
 androidx-swiperefresh-layout = "1.1.0"
 androidx-testing = "2.2.0"
+androidx-test-core-ktx = "1.5.0"
 androidx-viewpager2 = "1.0.0"
 androidx-work = "2.8.1"
 androidx-room = "2.5.2"
@@ -102,6 +103,7 @@ androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx-recyclerview" }
 androidx-sharetarget = { module = "androidx.sharetarget:sharetarget", version.ref = "androidx-sharetarget" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "androidx-swiperefresh-layout" }
+androidx-test-core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidx-test-core-ktx" }
 androidx-test-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "androidx-viewpager2" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
@@ -122,6 +124,7 @@ glide-okhttp3-integration = { module = "com.github.bumptech.glide:okhttp3-integr
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-rx3 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-rx3", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }

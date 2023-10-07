@@ -30,8 +30,6 @@ android {
     compileSdk 33
     namespace "app.pachli"
     defaultConfig {
-        //TODO: remove this after migration to Hilt
-        javaCompileOptions.annotationProcessorOptions.arguments['dagger.hilt.disableModulesHaveInstallInCheck'] = 'true'
         applicationId APP_ID
         namespace "app.pachli"
         minSdk 23
@@ -205,10 +203,15 @@ dependencies {
     testImplementation libs.androidx.work.testing
     testImplementation libs.truth
     testImplementation libs.turbine
+    testImplementation libs.androidx.test.core.ktx
+    testImplementation libs.hilt.android.testing
+    kaptTest libs.hilt.compiler
 
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.androidx.room.testing
     androidTestImplementation libs.androidx.test.junit
+    androidTestImplementation libs.hilt.android.testing
+    androidTestImplementation libs.androidx.test.core.ktx
 }
 
 tasks.register("newLintBaseline") {

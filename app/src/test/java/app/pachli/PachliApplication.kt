@@ -22,8 +22,7 @@ import de.c1710.filemojicompat_defaults.DefaultEmojiPackList
 import de.c1710.filemojicompat_ui.helpers.EmojiPackHelper
 
 // override PachliApplication for Robolectric tests, only initialize the necessary stuff
-class PachliApplication : Application() {
-
+open class PachliApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         EmojiPackHelper.init(this, DefaultEmojiPackList.get(this))
