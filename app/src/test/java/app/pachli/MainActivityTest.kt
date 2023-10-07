@@ -62,7 +62,7 @@ import org.robolectric.annotation.Config
 import java.util.Date
 import javax.inject.Singleton
 
-open class PachliHiltApplication : PachliApplication() { }
+open class PachliHiltApplication : PachliApplication()
 
 @CustomTestApplication(PachliHiltApplication::class)
 interface HiltTestApplication
@@ -172,7 +172,6 @@ class MainActivityTest {
                 AccountListActivity.Type.FOLLOW_REQUESTS,
                 nextActivity.getSerializableExtra("type"),
             )
-
         }
     }
 

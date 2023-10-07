@@ -58,7 +58,7 @@ import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 
-open class PachliHiltApplication : PachliApplication() { }
+open class PachliHiltApplication : PachliApplication()
 
 @CustomTestApplication(PachliHiltApplication::class)
 interface HiltTestApplication
@@ -107,7 +107,7 @@ class ComposeActivityTest {
         hilt.inject()
         accountManager.addAccount(
             accessToken = "token",
-            domain =  "domain.example",
+            domain = "domain.example",
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
@@ -121,7 +121,7 @@ class ComposeActivityTest {
                 url = "",
                 avatar = "",
                 header = "",
-            )
+            ),
         )
 
         FakeMastodonApiModule.getInstanceCallback = null
