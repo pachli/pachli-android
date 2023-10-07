@@ -27,6 +27,7 @@ import app.pachli.entity.start
 import app.pachli.network.MastodonApi
 import app.pachli.viewdata.TrendingViewData
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,6 +36,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
 
+@HiltViewModel
 class TrendingTagsViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,

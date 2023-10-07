@@ -42,8 +42,6 @@ import app.pachli.components.report.adapter.AdapterHandler
 import app.pachli.components.report.adapter.StatusesAdapter
 import app.pachli.databinding.FragmentReportStatusesBinding
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
 import app.pachli.util.StatusDisplayOptions
@@ -57,24 +55,22 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ReportStatusesFragment :
     Fragment(R.layout.fragment_report_statuses),
-    Injectable,
     OnRefreshListener,
     MenuProvider,
     AdapterHandler {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var accountManager: AccountManager
 
-    private val viewModel: ReportViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: ReportViewModel by activityViewModels()
 
     private val binding by viewBinding(FragmentReportStatusesBinding::bind)
 

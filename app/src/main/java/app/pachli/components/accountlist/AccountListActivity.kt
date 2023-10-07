@@ -25,15 +25,10 @@ import app.pachli.databinding.ActivityAccountListBinding
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.util.viewBinding
 import com.google.android.material.appbar.AppBarLayout
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class AccountListActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidInjector {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
+@AndroidEntryPoint
+class AccountListActivity : BottomSheetActivity(), AppBarLayoutHost {
     private val binding: ActivityAccountListBinding by viewBinding(ActivityAccountListBinding::inflate)
 
     override val appBarLayout: AppBarLayout
@@ -75,8 +70,6 @@ class AccountListActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidI
             replace(R.id.fragment_container, AccountListFragment.newInstance(type, id))
         }
     }
-
-    override fun androidInjector() = dispatchingAndroidInjector
 
     companion object {
         private const val EXTRA_TYPE = "type"

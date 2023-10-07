@@ -37,6 +37,7 @@ import app.pachli.util.getImageSquarePixels
 import app.pachli.util.getMediaSize
 import app.pachli.util.getServerErrorMessage
 import app.pachli.util.randomAlphanumericString
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -98,7 +99,7 @@ class UploadServerError(val errorMessage: String) : Exception()
 
 @Singleton
 class MediaUploader @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val mediaUploadApi: MediaUploadApi,
 ) {
 

@@ -22,7 +22,6 @@ import app.pachli.entity.Status
 import app.pachli.network.MastodonApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.rx3.await
 import kotlinx.coroutines.withContext
 
 class StatusesPagingSource(

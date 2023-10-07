@@ -44,7 +44,6 @@ import app.pachli.adapter.TabAdapter
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.databinding.ActivityTabPreferenceBinding
-import app.pachli.di.Injectable
 import app.pachli.entity.MastoList
 import app.pachli.network.MastodonApi
 import app.pachli.util.getDimension
@@ -59,6 +58,7 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitCancellation
@@ -67,7 +67,8 @@ import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 import javax.inject.Inject
 
-class TabPreferenceActivity : BaseActivity(), Injectable, ItemInteractionListener {
+@AndroidEntryPoint
+class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
 
     @Inject
     lateinit var mastodonApi: MastodonApi

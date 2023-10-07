@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.aboutlibraries)
+    alias(libs.plugins.hilt)
 
     id "app.pachli.plugins.markdown2resource"
 }
@@ -172,8 +173,8 @@ dependencies {
 
     implementation libs.bundles.autodispose
 
-    implementation libs.bundles.dagger
-    kapt libs.bundles.dagger.processors
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
 
     implementation libs.sparkbutton
 
@@ -202,10 +203,15 @@ dependencies {
     testImplementation libs.androidx.work.testing
     testImplementation libs.truth
     testImplementation libs.turbine
+    testImplementation libs.androidx.test.core.ktx
+    testImplementation libs.hilt.android.testing
+    kaptTest libs.hilt.compiler
 
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.androidx.room.testing
     androidTestImplementation libs.androidx.test.junit
+    androidTestImplementation libs.hilt.android.testing
+    androidTestImplementation libs.androidx.test.core.ktx
 }
 
 tasks.register("newLintBaseline") {

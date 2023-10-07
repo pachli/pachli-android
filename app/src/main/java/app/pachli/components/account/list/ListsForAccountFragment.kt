@@ -30,24 +30,20 @@ import androidx.recyclerview.widget.ListAdapter
 import app.pachli.R
 import app.pachli.databinding.FragmentListsForAccountBinding
 import app.pachli.databinding.ItemAddOrRemoveFromListBinding
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.util.BindingHolder
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class ListsForAccountFragment : DialogFragment(), Injectable {
+@AndroidEntryPoint
+class ListsForAccountFragment : DialogFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: ListsForAccountViewModel by viewModels { viewModelFactory }
+    private val viewModel: ListsForAccountViewModel by viewModels()
     private val binding by viewBinding(FragmentListsForAccountBinding::bind)
 
     private val adapter = Adapter()

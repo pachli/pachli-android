@@ -24,8 +24,6 @@ import app.pachli.R
 import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
 import app.pachli.databinding.FragmentReportNoteBinding
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
@@ -33,15 +31,13 @@ import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
-import javax.inject.Inject
 
-class ReportNoteFragment : Fragment(R.layout.fragment_report_note), Injectable {
+@AndroidEntryPoint
+class ReportNoteFragment : Fragment(R.layout.fragment_report_note) {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: ReportViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: ReportViewModel by activityViewModels()
 
     private val binding by viewBinding(FragmentReportNoteBinding::bind)
 

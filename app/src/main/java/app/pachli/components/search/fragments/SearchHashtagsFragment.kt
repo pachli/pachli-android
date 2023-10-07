@@ -22,8 +22,10 @@ import androidx.paging.PagingDataAdapter
 import app.pachli.components.search.adapter.SearchHashtagsAdapter
 import app.pachli.entity.HashTag
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 
+@AndroidEntryPoint
 class SearchHashtagsFragment : SearchFragment<HashTag>() {
 
     override val data: Flow<PagingData<HashTag>>

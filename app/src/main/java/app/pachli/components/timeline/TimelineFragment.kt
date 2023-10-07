@@ -28,8 +28,8 @@ import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
@@ -51,8 +51,6 @@ import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiSuccess
 import app.pachli.databinding.FragmentTimelineBinding
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Status
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
@@ -68,7 +66,6 @@ import app.pachli.util.getDrawableRes
 import app.pachli.util.getErrorString
 import app.pachli.util.hide
 import app.pachli.util.show
-import app.pachli.util.unsafeLazy
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import app.pachli.util.withPresentationState
@@ -82,6 +79,7 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -90,26 +88,22 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
+@AndroidEntryPoint
 class TimelineFragment :
     SFragment(),
     OnRefreshListener,
     StatusActionListener,
-    Injectable,
     ReselectableFragment,
     RefreshableFragment,
     MenuProvider {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: TimelineViewModel by unsafeLazy {
+    private val viewModel: TimelineViewModel by lazy {
         if (timelineKind == TimelineKind.Home) {
-            ViewModelProvider(this, viewModelFactory)[CachedTimelineViewModel::class.java]
+            viewModels<CachedTimelineViewModel>().value
         } else {
-            ViewModelProvider(this, viewModelFactory)[NetworkTimelineViewModel::class.java]
+            viewModels<NetworkTimelineViewModel>().value
         }
     }
 

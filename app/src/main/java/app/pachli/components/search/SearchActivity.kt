@@ -30,24 +30,16 @@ import app.pachli.BottomSheetActivity
 import app.pachli.R
 import app.pachli.components.search.adapter.SearchPagerAdapter
 import app.pachli.databinding.ActivitySearchBinding
-import app.pachli.di.ViewModelFactory
 import app.pachli.settings.PrefKeys
 import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.unsafeLazy
 import app.pachli.util.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class SearchActivity : BottomSheetActivity(), HasAndroidInjector, MenuProvider, SearchView.OnQueryTextListener {
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: SearchViewModel by viewModels { viewModelFactory }
+@AndroidEntryPoint
+class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTextListener {
+    private val viewModel: SearchViewModel by viewModels()
 
     private val binding by viewBinding(ActivitySearchBinding::inflate)
 
@@ -164,8 +156,6 @@ class SearchActivity : BottomSheetActivity(), HasAndroidInjector, MenuProvider, 
 
         return false
     }
-
-    override fun androidInjector() = androidInjector
 
     companion object {
         const val TAG = "SearchActivity"

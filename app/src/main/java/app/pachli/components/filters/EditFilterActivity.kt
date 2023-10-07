@@ -17,7 +17,6 @@ import app.pachli.R
 import app.pachli.appstore.EventHub
 import app.pachli.databinding.ActivityEditFilterBinding
 import app.pachli.databinding.DialogFilterBinding
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.Filter
 import app.pachli.entity.FilterKeyword
 import app.pachli.network.MastodonApi
@@ -27,11 +26,13 @@ import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.Date
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class EditFilterActivity : BaseActivity() {
     @Inject
     lateinit var api: MastodonApi
@@ -39,11 +40,8 @@ class EditFilterActivity : BaseActivity() {
     @Inject
     lateinit var eventHub: EventHub
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
     private val binding by viewBinding(ActivityEditFilterBinding::inflate)
-    private val viewModel: EditFilterViewModel by viewModels { viewModelFactory }
+    private val viewModel: EditFilterViewModel by viewModels()
 
     private lateinit var filter: Filter
     private var originalFilter: Filter? = null

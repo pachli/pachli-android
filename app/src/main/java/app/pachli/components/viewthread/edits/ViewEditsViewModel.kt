@@ -24,6 +24,7 @@ import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.INSERTE
 import app.pachli.entity.StatusEdit
 import app.pachli.network.MastodonApi
 import at.connyduck.calladapter.networkresult.getOrElse
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -45,6 +46,7 @@ import org.pageseeder.xmlwriter.XML.NamespaceAware
 import org.pageseeder.xmlwriter.XMLStringWriter
 import javax.inject.Inject
 
+@HiltViewModel
 class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : ViewModel() {
 
     private val _uiState: MutableStateFlow<EditsUiState> = MutableStateFlow(EditsUiState.Initial)

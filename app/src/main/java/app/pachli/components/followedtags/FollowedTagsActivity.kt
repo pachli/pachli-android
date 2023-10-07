@@ -18,7 +18,6 @@ import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.compose.ComposeAutoCompleteAdapter
 import app.pachli.databinding.ActivityFollowedTagsBinding
-import app.pachli.di.ViewModelFactory
 import app.pachli.interfaces.HashtagActionListener
 import app.pachli.network.MastodonApi
 import app.pachli.settings.PrefKeys
@@ -29,10 +28,12 @@ import app.pachli.util.visible
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class FollowedTagsActivity :
     BaseActivity(),
     HashtagActionListener,
@@ -41,13 +42,10 @@ class FollowedTagsActivity :
     lateinit var api: MastodonApi
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    @Inject
     lateinit var sharedPreferences: SharedPreferences
 
     private val binding by viewBinding(ActivityFollowedTagsBinding::inflate)
-    private val viewModel: FollowedTagsViewModel by viewModels { viewModelFactory }
+    private val viewModel: FollowedTagsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

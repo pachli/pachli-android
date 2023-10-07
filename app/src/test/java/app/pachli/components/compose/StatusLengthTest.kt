@@ -15,10 +15,9 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.compose.ComposeActivity
+package app.pachli.components.compose
 
 import app.pachli.SpanUtilsTest
-import app.pachli.components.compose.ComposeActivity
 import app.pachli.util.highlightSpans
 import org.junit.Assert.assertEquals
 import org.junit.Test

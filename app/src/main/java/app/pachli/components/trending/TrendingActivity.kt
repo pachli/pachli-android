@@ -39,15 +39,10 @@ import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.viewBinding
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidInjector, MenuProvider {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
+@AndroidEntryPoint
+class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
     private val binding: ActivityTrendingBinding by viewBinding(ActivityTrendingBinding::inflate)
 
     override val appBarLayout: AppBarLayout
@@ -91,8 +86,6 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, HasAndroidInje
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return super.onOptionsItemSelected(menuItem)
     }
-
-    override fun androidInjector() = dispatchingAndroidInjector
 
     companion object {
         fun getIntent(context: Context) = Intent(context, TrendingActivity::class.java)

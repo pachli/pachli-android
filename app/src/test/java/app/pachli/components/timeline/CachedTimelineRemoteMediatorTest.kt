@@ -20,6 +20,7 @@ import app.pachli.db.Converters
 import app.pachli.db.RemoteKeyEntity
 import app.pachli.db.RemoteKeyKind
 import app.pachli.db.TimelineStatusWithAccount
+import app.pachli.di.TransactionProvider
 import com.google.common.truth.Truth.assertThat
 import com.google.gson.Gson
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -59,6 +60,7 @@ class CachedTimelineRemoteMediatorTest {
     }
 
     private lateinit var db: AppDatabase
+    private lateinit var transactionProvider: TransactionProvider
 
     private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>
 
@@ -71,6 +73,7 @@ class CachedTimelineRemoteMediatorTest {
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
             .addTypeConverter(Converters(Gson()))
             .build()
+        transactionProvider = TransactionProvider(db)
 
         pagingSourceFactory = mock()
     }
@@ -91,7 +94,9 @@ class CachedTimelineRemoteMediatorTest {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(500, "".toResponseBody())
             },
             factory = pagingSourceFactory,
-            db = db,
+            transactionProvider = transactionProvider,
+            timelineDao = db.timelineDao(),
+            remoteKeyDao = db.remoteKeyDao(),
             gson = Gson(),
         )
 
@@ -112,7 +117,9 @@ class CachedTimelineRemoteMediatorTest {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doThrow IOException()
             },
             factory = pagingSourceFactory,
-            db = db,
+            transactionProvider = transactionProvider,
+            timelineDao = db.timelineDao(),
+            remoteKeyDao = db.remoteKeyDao(),
             gson = Gson(),
         )
 
@@ -130,7 +137,9 @@ class CachedTimelineRemoteMediatorTest {
             accountManager = accountManager,
             api = mock(),
             factory = pagingSourceFactory,
-            db = db,
+            transactionProvider = transactionProvider,
+            timelineDao = db.timelineDao(),
+            remoteKeyDao = db.remoteKeyDao(),
             gson = Gson(),
         )
 
@@ -168,7 +177,9 @@ class CachedTimelineRemoteMediatorTest {
                 )
             },
             factory = pagingSourceFactory,
-            db = db,
+            transactionProvider = transactionProvider,
+            timelineDao = db.timelineDao(),
+            remoteKeyDao = db.remoteKeyDao(),
             gson = Gson(),
         )
 
@@ -220,7 +231,9 @@ class CachedTimelineRemoteMediatorTest {
                 )
             },
             factory = pagingSourceFactory,
-            db = db,
+            transactionProvider = transactionProvider,
+            timelineDao = db.timelineDao(),
+            remoteKeyDao = db.remoteKeyDao(),
             gson = Gson(),
         )
 
@@ -279,7 +292,9 @@ class CachedTimelineRemoteMediatorTest {
                 )
             },
             factory = pagingSourceFactory,
-            db = db,
+            transactionProvider = transactionProvider,
+            timelineDao = db.timelineDao(),
+            remoteKeyDao = db.remoteKeyDao(),
             gson = Gson(),
         )
 

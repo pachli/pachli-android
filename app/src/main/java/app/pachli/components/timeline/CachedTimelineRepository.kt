@@ -25,10 +25,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
+import app.pachli.db.RemoteKeyDao
 import app.pachli.db.StatusViewDataEntity
+import app.pachli.db.TimelineDao
 import app.pachli.db.TimelineStatusWithAccount
 import app.pachli.di.ApplicationScope
+import app.pachli.di.TransactionProvider
 import app.pachli.network.MastodonApi
 import app.pachli.util.EmptyPagingSource
 import app.pachli.viewdata.StatusViewData
@@ -49,7 +51,9 @@ import javax.inject.Inject
 class CachedTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val accountManager: AccountManager,
-    private val appDatabase: AppDatabase,
+    private val transactionProvider: TransactionProvider,
+    val timelineDao: TimelineDao,
+    private val remoteKeyDao: RemoteKeyDao,
     private val gson: Gson,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
@@ -67,7 +71,7 @@ class CachedTimelineRepository @Inject constructor(
         Log.d(TAG, "getStatusStream(): key: $initialKey")
 
         factory = InvalidatingPagingSourceFactory {
-            activeAccount?.let { appDatabase.timelineDao().getStatuses(it.id) } ?: EmptyPagingSource()
+            activeAccount?.let { timelineDao.getStatuses(it.id) } ?: EmptyPagingSource()
         }
 
         val row = initialKey?.let { key ->
@@ -77,7 +81,7 @@ class CachedTimelineRepository @Inject constructor(
             // Instead, get all the status IDs for this account, in timeline order, and find the
             // row index that contains the status. The row index is the correct initialKey.
             activeAccount?.let { account ->
-                appDatabase.timelineDao().getStatusRowNumber(account.id)
+                timelineDao.getStatusRowNumber(account.id)
                     .indexOfFirst { it == key }.takeIf { it != -1 }
             }
         }
@@ -92,7 +96,9 @@ class CachedTimelineRepository @Inject constructor(
                 mastodonApi,
                 accountManager,
                 factory!!,
-                appDatabase,
+                transactionProvider,
+                timelineDao,
+                remoteKeyDao,
                 gson,
             ),
             pagingSourceFactory = factory!!,
@@ -103,7 +109,7 @@ class CachedTimelineRepository @Inject constructor(
     suspend fun invalidate() {
         // Invalidating when no statuses have been loaded can cause empty timelines because it
         // cancels the network load.
-        if (appDatabase.timelineDao().getStatusCount(activeAccount!!.id) < 1) {
+        if (timelineDao.getStatusCount(activeAccount!!.id) < 1) {
             return
         }
 
@@ -111,7 +117,7 @@ class CachedTimelineRepository @Inject constructor(
     }
 
     suspend fun saveStatusViewData(statusViewData: StatusViewData) = externalScope.launch {
-        appDatabase.timelineDao().upsertStatusViewData(
+        timelineDao.upsertStatusViewData(
             StatusViewDataEntity(
                 serverId = statusViewData.actionableId,
                 timelineUserId = activeAccount!!.id,
@@ -126,34 +132,33 @@ class CachedTimelineRepository @Inject constructor(
      * @return Map between statusIDs and any viewdata for them cached in the repository.
      */
     suspend fun getStatusViewData(statusId: List<String>): Map<String, StatusViewDataEntity> {
-        return appDatabase.timelineDao().getStatusViewData(activeAccount!!.id, statusId)
+        return timelineDao.getStatusViewData(activeAccount!!.id, statusId)
     }
 
     /** Remove all statuses authored/boosted by the given account, for the active account */
     suspend fun removeAllByAccountId(accountId: String) = externalScope.launch {
-        appDatabase.timelineDao().removeAllByUser(activeAccount!!.id, accountId)
+        timelineDao.removeAllByUser(activeAccount!!.id, accountId)
     }.join()
 
     /** Remove all statuses from the given instance, for the active account */
     suspend fun removeAllByInstance(instance: String) = externalScope.launch {
-        appDatabase.timelineDao()
-            .deleteAllFromInstance(activeAccount!!.id, instance)
+        timelineDao.deleteAllFromInstance(activeAccount!!.id, instance)
     }.join()
 
     /** Clear the warning (remove the "filtered" setting) for the given status, for the active account */
     suspend fun clearStatusWarning(statusId: String) = externalScope.launch {
-        appDatabase.timelineDao().clearWarning(activeAccount!!.id, statusId)
+        timelineDao.clearWarning(activeAccount!!.id, statusId)
     }.join()
 
     /** Remove all statuses and invalidate the pager, for the active account */
     suspend fun clearAndReload() = externalScope.launch {
-        appDatabase.timelineDao().removeAll(activeAccount!!.id)
+        timelineDao.removeAll(activeAccount!!.id)
         factory?.invalidate()
     }.join()
 
     suspend fun clearAndReloadFromNewest() = externalScope.launch {
-        appDatabase.timelineDao().removeAll(activeAccount!!.id)
-        appDatabase.remoteKeyDao().delete(activeAccount.id)
+        timelineDao.removeAll(activeAccount!!.id)
+        remoteKeyDao.delete(activeAccount.id)
         invalidate()
     }
 

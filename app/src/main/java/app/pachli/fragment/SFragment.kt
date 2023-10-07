@@ -46,7 +46,6 @@ import app.pachli.components.compose.ComposeActivity.ComposeOptions
 import app.pachli.components.report.ReportActivity.Companion.getIntent
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
 import app.pachli.interfaces.AccountSelectionListener
@@ -68,7 +67,7 @@ import javax.inject.Inject
  * adapters. I feel like the profile pages and thread viewer, which I haven't made yet, will also
  * overlap functionality. So, I'm momentarily leaving it and hopefully working on those will clear
  * up what needs to be where. */
-abstract class SFragment : Fragment(), Injectable {
+abstract class SFragment : Fragment() {
     protected abstract fun removeItem(position: Int)
     protected abstract fun onReblog(reblog: Boolean, position: Int)
     private lateinit var bottomSheetActivity: BottomSheetActivity

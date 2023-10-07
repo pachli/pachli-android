@@ -23,16 +23,11 @@ import app.pachli.BottomSheetActivity
 import app.pachli.R
 import app.pachli.databinding.ActivityViewThreadBinding
 import app.pachli.util.viewBinding
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class ViewThreadActivity : BottomSheetActivity(), HasAndroidInjector {
-
+@AndroidEntryPoint
+class ViewThreadActivity : BottomSheetActivity() {
     private val binding by viewBinding(ActivityViewThreadBinding::inflate)
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +48,6 @@ class ViewThreadActivity : BottomSheetActivity(), HasAndroidInjector {
             replace(R.id.fragment_container, fragment, FRAGMENT_TAG + id)
         }
     }
-
-    override fun androidInjector() = dispatchingAndroidInjector
 
     companion object {
 

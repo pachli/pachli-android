@@ -8,11 +8,13 @@ import app.pachli.entity.Filter
 import app.pachli.entity.FilterKeyword
 import app.pachli.network.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import javax.inject.Inject
 
+@HiltViewModel
 class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub: EventHub) : ViewModel() {
     private var originalFilter: Filter? = null
     val title = MutableStateFlow("")
