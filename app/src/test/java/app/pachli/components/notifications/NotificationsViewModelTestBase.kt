@@ -28,7 +28,6 @@ import app.pachli.db.AccountManager
 import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
-import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository

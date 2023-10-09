@@ -18,7 +18,7 @@ package app.pachli.entity
 import com.google.gson.annotations.SerializedName
 
 /** https://docs.joinmastodon.org/entities/V1_Instance/ */
-data class InstanceV1(
+data class Instance(
     val uri: String,
     // val title: String,
     // val description: String,
@@ -42,10 +42,10 @@ data class InstanceV1(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (other !is InstanceV1) {
+        if (other !is Instance) {
             return false
         }
-        val instanceV1 = other as InstanceV1?
+        val instanceV1 = other as Instance?
         return instanceV1?.uri.equals(uri)
     }
 }

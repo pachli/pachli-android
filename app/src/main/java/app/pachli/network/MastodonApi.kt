@@ -27,7 +27,7 @@ import app.pachli.entity.Filter
 import app.pachli.entity.FilterKeyword
 import app.pachli.entity.FilterV1
 import app.pachli.entity.HashTag
-import app.pachli.entity.InstanceV1
+import app.pachli.entity.Instance
 import app.pachli.entity.Marker
 import app.pachli.entity.MastoList
 import app.pachli.entity.MediaUploadResult
@@ -45,7 +45,6 @@ import app.pachli.entity.StatusSource
 import app.pachli.entity.TimelineAccount
 import app.pachli.entity.TrendingTag
 import app.pachli.entity.TrendsLink
-import app.pachli.network.model.InstanceV2
 import app.pachli.util.HttpHeaderLink
 import at.connyduck.calladapter.networkresult.NetworkResult
 import okhttp3.MultipartBody
@@ -103,10 +102,7 @@ interface MastodonApi {
     suspend fun getCustomEmojis(): NetworkResult<List<Emoji>>
 
     @GET("api/v1/instance")
-    suspend fun getInstanceV1(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV1>
-
-    @GET("api/v2/instance")
-    suspend fun getInstanceV2(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV2>
+    suspend fun getInstance(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<Instance>
 
     @GET("api/v1/filters")
     suspend fun getFiltersV1(): NetworkResult<List<FilterV1>>

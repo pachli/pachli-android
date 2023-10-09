@@ -56,7 +56,7 @@ class InstanceInfoRepository @Inject constructor(
      * Never throws, returns defaults of vanilla Mastodon in case of error.
      */
     suspend fun getInstanceInfo(): InstanceInfo = withContext(Dispatchers.IO) {
-        api.getInstanceV1()
+        api.getInstance()
             .fold(
                 { instance ->
                     val instanceEntity = InstanceInfoEntity(

@@ -44,6 +44,4 @@ data class StatusDisplayOptions(
     val showSensitiveMedia: Boolean = false,
     @get:JvmName("openSpoiler")
     val openSpoiler: Boolean = false,
-    @get:JvmName("canTranslate")
-    val canTranslate: Boolean = false,
 )
