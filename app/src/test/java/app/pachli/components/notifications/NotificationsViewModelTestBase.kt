@@ -25,18 +25,24 @@ import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.MainCoroutineRule
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
+import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
-import app.pachli.settings.PrefKeys
+import app.pachli.network.MastodonApi
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.test.TestScope
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
-import org.mockito.kotlin.any
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import retrofit2.HttpException
@@ -46,14 +52,15 @@ import retrofit2.Response
 @RunWith(AndroidJUnit4::class)
 abstract class NotificationsViewModelTestBase {
     protected lateinit var notificationsRepository: NotificationsRepository
-    protected lateinit var sharedPreferencesMap: MutableMap<String, Boolean>
     protected lateinit var sharedPreferences: SharedPreferences
     protected lateinit var accountManager: AccountManager
     protected lateinit var timelineCases: TimelineCases
-    protected lateinit var eventHub: EventHub
     protected lateinit var viewModel: NotificationsViewModel
-    protected lateinit var filtersRepository: FiltersRepository
-    protected lateinit var filterModel: FilterModel
+    private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+    private lateinit var filtersRepository: FiltersRepository
+    private lateinit var filterModel: FilterModel
+
+    private val eventHub = EventHub()
 
     /** Empty success response, for API calls that return one */
     protected var emptySuccess: Response<ResponseBody> = Response.success("".toResponseBody())
@@ -73,51 +80,61 @@ abstract class NotificationsViewModelTestBase {
 
         notificationsRepository = mock()
 
-        // Backing store for sharedPreferences, to allow mutation in tests
-        sharedPreferencesMap = mutableMapOf(
-            PrefKeys.ANIMATE_GIF_AVATARS to false,
-            PrefKeys.ANIMATE_CUSTOM_EMOJIS to false,
-            PrefKeys.ABSOLUTE_TIME_VIEW to false,
-            PrefKeys.SHOW_BOT_OVERLAY to true,
-            PrefKeys.USE_BLURHASH to true,
-            PrefKeys.CONFIRM_REBLOGS to true,
-            PrefKeys.CONFIRM_FAVOURITES to false,
-            PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
-            PrefKeys.FAB_HIDE to false,
+        sharedPreferences = InMemorySharedPreferences(null)
+
+        val defaultAccount = AccountEntity(
+            id = 1,
+            domain = "mastodon.test",
+            accessToken = "fakeToken",
+            clientId = "fakeId",
+            clientSecret = "fakeSecret",
+            isActive = true,
+            notificationsFilter = "['follow']",
         )
 
-        // Any getBoolean() call looks for the result in sharedPreferencesMap
-        sharedPreferences = mock {
-            on { getBoolean(any(), any()) } doAnswer { sharedPreferencesMap[it.arguments[0]] }
-        }
+        val activeAccountFlow = MutableStateFlow(defaultAccount)
 
         accountManager = mock {
-            on { activeAccount } doReturn AccountEntity(
-                id = 1,
-                domain = "mastodon.test",
-                accessToken = "fakeToken",
-                clientId = "fakeId",
-                clientSecret = "fakeSecret",
-                isActive = true,
-                notificationsFilter = "['follow']",
-                mediaPreviewEnabled = true,
-                alwaysShowSensitiveMedia = true,
-                alwaysOpenSpoiler = true,
-            )
+            on { activeAccount } doReturn defaultAccount
+            whenever(it.activeAccountFlow).thenReturn(activeAccountFlow)
         }
-        eventHub = EventHub()
+
         timelineCases = mock()
         filtersRepository = mock()
         filterModel = mock()
 
+        val sharedPreferencesRepository = SharedPreferencesRepository(
+            sharedPreferences,
+            TestScope()
+        )
+
+        val mastodonApi: MastodonApi = mock {
+            onBlocking { getInstanceV2() } doAnswer { null }
+            onBlocking { getInstanceV1() } doAnswer { null }
+        }
+
+        val serverCapabilitiesRepository = ServerCapabilitiesRepository(
+            mastodonApi,
+            accountManager,
+            TestScope(),
+        )
+
+        statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
+            sharedPreferencesRepository,
+            serverCapabilitiesRepository,
+            accountManager,
+            TestScope(),
+        )
+
         viewModel = NotificationsViewModel(
             notificationsRepository,
-            sharedPreferences,
             accountManager,
             timelineCases,
             eventHub,
             filtersRepository,
             filterModel,
+            statusDisplayOptionsRepository,
+            sharedPreferencesRepository,
         )
     }
 }

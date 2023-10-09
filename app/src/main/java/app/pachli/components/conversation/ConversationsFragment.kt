@@ -45,9 +45,8 @@ import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.PrefKeys
-import app.pachli.util.StatusDisplayOptions
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding
@@ -72,12 +71,14 @@ import kotlin.time.toDuration
 class ConversationsFragment :
     SFragment(),
     StatusActionListener,
-
     ReselectableFragment,
     MenuProvider {
 
     @Inject
     lateinit var eventHub: EventHub
+
+    @Inject
+    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     private val viewModel: ConversationsViewModel by viewModels()
 
@@ -97,11 +98,7 @@ class ConversationsFragment :
         val preferences = PreferenceManager.getDefaultSharedPreferences(view.context)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            val statusDisplayOptions = StatusDisplayOptions.from(
-                preferences,
-                serverCapabilitiesRepository.getCapabilities(),
-                accountManager.activeAccount!!,
-            )
+            val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
             adapter = ConversationAdapter(statusDisplayOptions, this@ConversationsFragment)
 

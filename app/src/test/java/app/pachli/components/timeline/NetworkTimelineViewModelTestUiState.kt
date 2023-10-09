@@ -17,11 +17,13 @@
 
 package app.pachli.components.timeline
 
+import androidx.core.content.edit
 import app.cash.turbine.test
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.components.timeline.viewmodel.UiState
 import app.pachli.settings.PrefKeys
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -35,7 +37,6 @@ class NetworkTimelineViewModelTestUiState : NetworkTimelineViewModelTestBase() {
 
     private val initialUiState = UiState(
         showFabWhileScrolling = true,
-        showMediaPreview = true,
     )
 
     @Test
@@ -45,40 +46,23 @@ class NetworkTimelineViewModelTestUiState : NetworkTimelineViewModelTestBase() {
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `showFabWhileScrolling depends on FAB_HIDE preference`() = runTest {
-        // Prior
+        // Given
         viewModel.uiState.test {
             assertThat(expectMostRecentItem().showFabWhileScrolling).isTrue()
         }
 
-        // Given
-        sharedPreferencesMap[PrefKeys.FAB_HIDE] = true
-
         // When
-        eventHub.dispatch(PreferenceChangedEvent(PrefKeys.FAB_HIDE))
+        sharedPreferences.edit(commit = true) {
+            putBoolean(PrefKeys.FAB_HIDE, true)
+        }
 
         // Then
         viewModel.uiState.test {
+            advanceUntilIdle()
             assertThat(expectMostRecentItem().showFabWhileScrolling).isFalse()
-        }
-    }
-
-    @Test
-    fun `showMediaPreview depends on MEDIA_PREVIEW_ENABLED preference`() = runTest {
-        // Prior
-        viewModel.uiState.test {
-            assertThat(expectMostRecentItem().showMediaPreview).isTrue()
-        }
-
-        // Given (nothing to do here, set up is in base class)
-
-        // When
-        accountPreferenceDataStore.putBoolean(PrefKeys.MEDIA_PREVIEW_ENABLED, false)
-
-        // Then
-        viewModel.uiState.test {
-            assertThat(expectMostRecentItem().showMediaPreview).isFalse()
         }
     }
 }

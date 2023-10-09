@@ -18,9 +18,14 @@ package app.pachli.db
 import android.content.Context
 import android.util.Log
 import androidx.preference.PreferenceManager
+import app.pachli.di.ApplicationScope
 import app.pachli.entity.Account
 import app.pachli.entity.Status
 import app.pachli.settings.PrefKeys
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -36,11 +41,19 @@ private const val TAG = "AccountManager"
 class AccountManager @Inject constructor(
     private val accountDao: AccountDao,
     private val remoteKeyDao: RemoteKeyDao,
+    @ApplicationScope private val externalScope: CoroutineScope,
 ) {
+    private val _activeAccountFlow = MutableStateFlow<AccountEntity?>(null)
+    val activeAccountFlow = _activeAccountFlow.asStateFlow()
 
     @Volatile
     var activeAccount: AccountEntity? = null
-        private set
+        private set(value) {
+            field = value
+            externalScope.launch {
+                _activeAccountFlow.emit(value)
+            }
+        }
 
     var accounts: MutableList<AccountEntity> = mutableListOf()
         private set

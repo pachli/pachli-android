@@ -26,12 +26,20 @@ import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
+import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
+import app.pachli.network.MastodonApi
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
@@ -43,6 +51,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import retrofit2.HttpException
@@ -51,23 +60,24 @@ import retrofit2.Response
 @Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 abstract class CachedTimelineViewModelTestBase {
-    protected lateinit var cachedTimelineRepository: CachedTimelineRepository
-    protected lateinit var sharedPreferencesMap: MutableMap<String, Boolean>
+    private lateinit var cachedTimelineRepository: CachedTimelineRepository
     protected lateinit var sharedPreferences: SharedPreferences
-    protected lateinit var accountPreferencesMap: MutableMap<String, Boolean>
-    protected lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
+    private lateinit var accountPreferencesMap: MutableMap<String, Boolean>
+    private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
     protected lateinit var accountManager: AccountManager
     protected lateinit var timelineCases: TimelineCases
-    protected lateinit var eventHub: EventHub
-    protected lateinit var filtersRepository: FiltersRepository
-    protected lateinit var filterModel: FilterModel
+    private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+    private lateinit var filtersRepository: FiltersRepository
+    private lateinit var filterModel: FilterModel
     protected lateinit var viewModel: TimelineViewModel
+
+    private val eventHub = EventHub()
 
     /** Empty success response, for API calls that return one */
     protected var emptySuccess = Response.success("".toResponseBody())
 
     /** Empty error response, for API calls that return one */
-    protected var emptyError: Response<ResponseBody> = Response.error(404, "".toResponseBody())
+    private var emptyError: Response<ResponseBody> = Response.error(404, "".toResponseBody())
 
     /** Exception to throw when testing errors */
     protected val httpException = HttpException(emptyError)
@@ -76,28 +86,12 @@ abstract class CachedTimelineViewModelTestBase {
     val mainCoroutineRule = MainCoroutineRule()
 
     @Before
-    fun setup() {
+    fun setup() = runTest {
         shadowOf(Looper.getMainLooper()).idle()
 
         cachedTimelineRepository = mock()
 
-        // Backing store for sharedPreferences, to allow mutation in tests
-        sharedPreferencesMap = mutableMapOf(
-            PrefKeys.ANIMATE_GIF_AVATARS to false,
-            PrefKeys.ANIMATE_CUSTOM_EMOJIS to false,
-            PrefKeys.ABSOLUTE_TIME_VIEW to false,
-            PrefKeys.SHOW_BOT_OVERLAY to true,
-            PrefKeys.USE_BLURHASH to true,
-            PrefKeys.CONFIRM_REBLOGS to true,
-            PrefKeys.CONFIRM_FAVOURITES to false,
-            PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
-            PrefKeys.FAB_HIDE to false,
-        )
-
-        // Any getBoolean() call looks for the result in sharedPreferencesMap
-        sharedPreferences = mock {
-            on { getBoolean(any(), any()) } doAnswer { sharedPreferencesMap[it.arguments[0]] }
-        }
+        sharedPreferences = InMemorySharedPreferences()
 
         // Backing store for account preferences, to allow mutation in tests
         accountPreferencesMap = mutableMapOf(
@@ -116,25 +110,53 @@ abstract class CachedTimelineViewModelTestBase {
             }
         }
 
+        val defaultAccount = AccountEntity(
+            id = 1,
+            domain = "mastodon.test",
+            accessToken = "fakeToken",
+            clientId = "fakeId",
+            clientSecret = "fakeSecret",
+            isActive = true,
+            lastVisibleHomeTimelineStatusId = null,
+            notificationsFilter = "['follow']",
+            mediaPreviewEnabled = true,
+            alwaysShowSensitiveMedia = true,
+            alwaysOpenSpoiler = true,
+        )
+
+        val activeAccountFlow = MutableStateFlow(defaultAccount)
+
         accountManager = mock {
-            on { activeAccount } doReturn AccountEntity(
-                id = 1,
-                domain = "mastodon.test",
-                accessToken = "fakeToken",
-                clientId = "fakeId",
-                clientSecret = "fakeSecret",
-                isActive = true,
-                lastVisibleHomeTimelineStatusId = null,
-                notificationsFilter = "['follow']",
-                mediaPreviewEnabled = true,
-                alwaysShowSensitiveMedia = true,
-                alwaysOpenSpoiler = true,
-            )
+            on { activeAccount } doReturn defaultAccount
+            whenever(it.activeAccountFlow).thenReturn(activeAccountFlow)
         }
-        eventHub = EventHub()
+
         timelineCases = mock()
         filtersRepository = mock()
         filterModel = mock()
+
+        val sharedPreferencesRepository = SharedPreferencesRepository(
+            sharedPreferences,
+            TestScope()
+        )
+
+        val mastodonApi: MastodonApi = mock {
+            onBlocking { getInstanceV2() } doAnswer { null }
+            onBlocking { getInstanceV1() } doAnswer { null }
+        }
+
+        val serverCapabilitiesRepository = ServerCapabilitiesRepository(
+            mastodonApi,
+            accountManager,
+            TestScope(),
+        )
+
+        statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
+            sharedPreferencesRepository,
+            serverCapabilitiesRepository,
+            accountManager,
+            TestScope(),
+        )
 
         viewModel = CachedTimelineViewModel(
             cachedTimelineRepository,
@@ -142,8 +164,8 @@ abstract class CachedTimelineViewModelTestBase {
             eventHub,
             filtersRepository,
             accountManager,
-            sharedPreferences,
-            accountPreferenceDataStore,
+            statusDisplayOptionsRepository,
+            sharedPreferencesRepository,
             filterModel,
             Gson(),
         )
