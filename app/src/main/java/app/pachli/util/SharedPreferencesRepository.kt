@@ -26,12 +26,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * An implementation of [SharedPreferences] that exposes all changes to the
+ * preferences through the [changes] flow.
+ *
+ * @param sharedPreferences instance to delegate to
+ * @param externalScope [CoroutineScope] to use when emitting in to [changes]
+ */
 @Singleton
 class SharedPreferencesRepository @Inject constructor(
     val sharedPreferences: SharedPreferences,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) : SharedPreferences by sharedPreferences {
-    /** Flow of keys that have been updated in the preferences */
+    /** Flow of keys that have been updated/deleted in the preferences */
     val changes = MutableSharedFlow<String>()
 
     private val listener =

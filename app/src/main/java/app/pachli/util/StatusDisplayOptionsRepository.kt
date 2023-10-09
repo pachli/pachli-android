@@ -32,6 +32,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Repository for [StatusDisplayOptions], exposed through the [flow] property.
+ *
+ * A new value is emitted whenever a relevant preference changes or the active
+ * account changes.
+ */
 @Singleton
 class StatusDisplayOptionsRepository @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
