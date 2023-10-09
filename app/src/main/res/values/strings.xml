@@ -824,5 +824,4 @@
     <string name="dialog_delete_filter_text">Delete filter \'%1$s\'?"</string>
     <string name="dialog_delete_filter_positive_action">Delete</string>
     <string name="dialog_save_profile_changes_message">Do you want to save your profile changes?</string>
-    <string name="action_translate">Translate</string>
 </resources>
