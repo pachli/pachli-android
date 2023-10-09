@@ -34,6 +34,7 @@ import app.pachli.network.MastodonApi
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.Success
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
@@ -48,6 +49,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ReportViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
+    private val statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val eventHub: EventHub,
 ) : ViewModel() {
 
@@ -70,6 +72,8 @@ class ReportViewModel @Inject constructor(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
+
+    val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     val statusesFlow = accountIdFlow.flatMapLatest { accountId ->
         Pager(

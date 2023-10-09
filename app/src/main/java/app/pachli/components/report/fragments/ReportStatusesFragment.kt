@@ -43,7 +43,6 @@ import app.pachli.databinding.FragmentReportStatusesBinding
 import app.pachli.db.AccountManager
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
-import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import app.pachli.viewdata.AttachmentViewData
@@ -68,9 +67,6 @@ class ReportStatusesFragment :
 
     @Inject
     lateinit var accountManager: AccountManager
-
-    @Inject
-    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     private val viewModel: ReportViewModel by activityViewModels()
 
@@ -142,7 +138,7 @@ class ReportStatusesFragment :
 
     private fun initStatusesView() {
         lifecycleScope.launch {
-            val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
+            val statusDisplayOptions = viewModel.statusDisplayOptions.value
 
             adapter = StatusesAdapter(
                 statusDisplayOptions,

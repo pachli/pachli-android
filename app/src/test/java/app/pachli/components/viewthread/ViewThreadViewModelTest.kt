@@ -16,13 +16,18 @@ import app.pachli.db.AccountManager
 import app.pachli.db.AppDatabase
 import app.pachli.db.Converters
 import app.pachli.entity.StatusContext
+import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestScope
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -33,6 +38,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.stub
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 import java.io.IOException
 
@@ -81,16 +87,23 @@ class ViewThreadViewModelTest {
         eventHub = EventHub()
         val filterModel = FilterModel()
         val timelineCases = TimelineCases(api, eventHub)
+
+        val defaultAccount = AccountEntity(
+            id = 1,
+            domain = "mastodon.test",
+            accessToken = "fakeToken",
+            clientId = "fakeId",
+            clientSecret = "fakeSecret",
+            isActive = true,
+        )
+
+        val activeAccountFlow = MutableStateFlow(defaultAccount)
+
         val accountManager: AccountManager = mock {
-            on { activeAccount } doReturn AccountEntity(
-                id = 1,
-                domain = "mastodon.test",
-                accessToken = "fakeToken",
-                clientId = "fakeId",
-                clientSecret = "fakeSecret",
-                isActive = true,
-            )
+            on { activeAccount } doReturn defaultAccount
+            whenever(it.activeAccountFlow).thenReturn(activeAccountFlow)
         }
+
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
             .addTypeConverter(Converters(Gson()))
@@ -102,6 +115,15 @@ class ViewThreadViewModelTest {
             onBlocking { getStatusViewData(any()) } doReturn emptyMap()
         }
 
+        val statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
+            SharedPreferencesRepository(
+                InMemorySharedPreferences(),
+                TestScope(),
+            ),
+            accountManager,
+            TestScope(),
+        )
+
         viewModel = ViewThreadViewModel(
             api,
             filterModel,
@@ -111,6 +133,7 @@ class ViewThreadViewModelTest {
             db.timelineDao(),
             gson,
             cachedTimelineRepository,
+            statusDisplayOptionsRepository,
         )
     }
 
