@@ -17,7 +17,6 @@ package app.pachli.entity
 
 import com.google.gson.annotations.SerializedName
 
-/** https://docs.joinmastodon.org/entities/V1_Instance/ */
 data class Instance(
     val uri: String,
     // val title: String,
@@ -45,8 +44,8 @@ data class Instance(
         if (other !is Instance) {
             return false
         }
-        val instanceV1 = other as Instance?
-        return instanceV1?.uri.equals(uri)
+        val instance = other as Instance?
+        return instance?.uri.equals(uri)
     }
 }
 

@@ -14,7 +14,7 @@ import org.junit.Test
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.mock
 
-class InstanceV1SwitchAuthInterceptorTest {
+class InstanceSwitchAuthInterceptorTest {
 
     private val mockWebServer = MockWebServer()
 
