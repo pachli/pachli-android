@@ -38,15 +38,11 @@ import app.pachli.entity.TimelineAccount
 import app.pachli.network.MastodonApi
 import app.pachli.rules.lazyActivityScenarioRule
 import at.connyduck.calladapter.networkresult.NetworkResult
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import dagger.hilt.components.SingletonComponent
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -56,11 +52,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.reset
+import org.mockito.kotlin.stub
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.android.util.concurrent.BackgroundExecutor.runInBackground
 import org.robolectric.annotation.Config
+import java.time.Instant
 import java.util.Date
-import javax.inject.Singleton
+import javax.inject.Inject
 
 open class PachliHiltApplication : PachliApplication()
 
@@ -89,32 +88,27 @@ class MainActivityTest {
         isActive = true,
     )
 
-    @InstallIn(SingletonComponent::class)
-    @Module
-    object FakeNetworkModule {
-        val account = Account(
-            id = "1",
-            localUsername = "",
-            username = "",
-            displayName = "",
-            createdAt = Date(),
-            note = "",
-            url = "",
-            avatar = "",
-            header = "",
-        )
+    @Inject
+    lateinit var mastodonApi: MastodonApi
 
-        @Provides
-        @Singleton
-        fun providesApi(): MastodonApi = mock {
-            onBlocking { accountVerifyCredentials() } doReturn NetworkResult.success(account)
-            onBlocking { listAnnouncements(false) } doReturn NetworkResult.success(emptyList())
-        }
-    }
+    val account = Account(
+        id = "1",
+        localUsername = "username",
+        username = "username@domain.example",
+        displayName = "Display Name",
+        createdAt = Date.from(Instant.now()),
+        note = "",
+        url = "",
+        avatar = "",
+        header = "",
+    )
 
-    @BindValue
-    @JvmField
-    val accountManager: AccountManager = mock { on { activeAccount } doReturn accountEntity }
+    @Inject
+    lateinit var accountManager: AccountManager
+
+//    @BindValue
+//    @JvmField
+//    val accountManager: AccountManager = mock { on { activeAccount } doReturn accountEntity }
 
     @BindValue
     @JvmField
@@ -122,6 +116,23 @@ class MainActivityTest {
 
     @Before
     fun setup() {
+        hilt.inject()
+
+        reset(mastodonApi)
+        mastodonApi.stub {
+            onBlocking { accountVerifyCredentials() } doReturn NetworkResult.success(account)
+            onBlocking { listAnnouncements(false) } doReturn NetworkResult.success(emptyList())
+        }
+
+        accountManager.addAccount(
+            accessToken = "token",
+            domain = "domain.example",
+            clientId = "id",
+            clientSecret = "secret",
+            oauthScopes = "scopes",
+            newAccount = account,
+        )
+
         WorkManagerTestInitHelper.initializeTestWorkManager(
             ApplicationProvider.getApplicationContext(),
         )
