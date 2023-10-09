@@ -24,6 +24,7 @@ import app.pachli.entity.Instance
 import app.pachli.entity.InstanceConfiguration
 import app.pachli.entity.StatusConfiguration
 import app.pachli.network.MastodonApi
+import at.connyduck.calladapter.networkresult.NetworkResult
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -62,11 +63,11 @@ class InstanceInfoRepositoryTest {
             onBlocking { getCustomEmojis() } doReturn at.connyduck.calladapter.networkresult.NetworkResult.success(
                 kotlin.collections.emptyList(),
             )
-            onBlocking { getInstanceV1() } doReturn instanceResponseCallback?.invoke().let { instance ->
+            onBlocking { getInstance() } doReturn instanceResponseCallback?.invoke().let { instance ->
                 if (instance == null) {
-                    at.connyduck.calladapter.networkresult.NetworkResult.failure(Throwable())
+                    NetworkResult.failure(Throwable())
                 } else {
-                    at.connyduck.calladapter.networkresult.NetworkResult.success(instance)
+                    NetworkResult.success(instance)
                 }
             }
         }

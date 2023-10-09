@@ -89,7 +89,7 @@ class ComposeActivityTest {
         @Singleton
         fun providesApi(): MastodonApi = mock {
             onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
-            onBlocking { getInstanceV1() } doReturn getInstanceCallback?.invoke().let { instance ->
+            onBlocking { getInstance() } doReturn getInstanceCallback?.invoke().let { instance ->
                 if (instance == null) {
                     NetworkResult.failure(Throwable())
                 } else {

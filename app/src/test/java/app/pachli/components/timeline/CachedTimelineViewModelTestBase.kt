@@ -28,7 +28,6 @@ import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
-import app.pachli.network.MastodonApi
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
@@ -139,20 +138,8 @@ abstract class CachedTimelineViewModelTestBase {
             TestScope()
         )
 
-        val mastodonApi: MastodonApi = mock {
-            onBlocking { getInstanceV2() } doAnswer { null }
-            onBlocking { getInstanceV1() } doAnswer { null }
-        }
-
-        val serverCapabilitiesRepository = ServerCapabilitiesRepository(
-            mastodonApi,
-            accountManager,
-            TestScope(),
-        )
-
         statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
             sharedPreferencesRepository,
-            serverCapabilitiesRepository,
             accountManager,
             TestScope(),
         )
