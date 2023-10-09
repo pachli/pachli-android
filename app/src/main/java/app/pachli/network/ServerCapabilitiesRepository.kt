@@ -17,19 +17,42 @@
 
 package app.pachli.network
 
+import app.pachli.db.AccountManager
+import app.pachli.di.ApplicationScope
 import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.getOr
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ServerCapabilitiesRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
+    private val accountManager: AccountManager,
+    @ApplicationScope private val externalScope: CoroutineScope,
 ) {
+    private val _flow = MutableStateFlow(ServerCapabilities.default())
+    val flow = _flow.asStateFlow()
+
+    init {
+        externalScope.launch {
+            _flow.emit(getCapabilities())
+        }
+
+        externalScope.launch {
+            accountManager.activeAccountFlow.collect {
+                _flow.emit(getCapabilities())
+            }
+        }
+    }
+
     /**
      * Returns the capabilities of the current server. If the capabilties cannot be
      * determined then a default set of capabilities that all servers are expected
      * to support is returned.
      */
-    suspend fun getCapabilities(): ServerCapabilities {
+    private suspend fun getCapabilities(): ServerCapabilities {
         return mastodonApi.getInstanceV2().fold(
             { instance -> ServerCapabilities.from(instance).getOr { null } },
             {

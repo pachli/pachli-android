@@ -20,8 +20,8 @@ package app.pachli.components.instanceinfo
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.db.InstanceDao
-import app.pachli.entity.Instance
 import app.pachli.entity.InstanceConfiguration
+import app.pachli.entity.InstanceV1
 import app.pachli.entity.StatusConfiguration
 import app.pachli.network.MastodonApi
 import kotlinx.coroutines.test.runTest
@@ -31,7 +31,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
 class InstanceInfoRepositoryTest {
-    private var instanceResponseCallback: (() -> Instance)? = null
+    private var instanceResponseCallback: (() -> InstanceV1)? = null
 
     private var accountManager: AccountManager = mock {
         on { activeAccount } doReturn AccountEntity(
@@ -62,7 +62,7 @@ class InstanceInfoRepositoryTest {
             onBlocking { getCustomEmojis() } doReturn at.connyduck.calladapter.networkresult.NetworkResult.success(
                 kotlin.collections.emptyList(),
             )
-            onBlocking { getInstance() } doReturn instanceResponseCallback?.invoke().let { instance ->
+            onBlocking { getInstanceV1() } doReturn instanceResponseCallback?.invoke().let { instance ->
                 if (instance == null) {
                     at.connyduck.calladapter.networkresult.NetworkResult.failure(Throwable())
                 } else {
@@ -122,8 +122,8 @@ class InstanceInfoRepositoryTest {
         assertEquals(customMaximum * 2, instanceInfo.maxChars)
     }
 
-    private fun getInstanceWithCustomConfiguration(maximumLegacyTootCharacters: Int? = null, configuration: InstanceConfiguration? = null): Instance {
-        return Instance(
+    private fun getInstanceWithCustomConfiguration(maximumLegacyTootCharacters: Int? = null, configuration: InstanceConfiguration? = null): InstanceV1 {
+        return InstanceV1(
             uri = "https://example.token",
             version = "2.6.3",
             maxTootChars = maximumLegacyTootCharacters,

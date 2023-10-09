@@ -88,7 +88,6 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.FabFragment
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.network.ServerCapabilitiesRepository
-import app.pachli.network.ServerOperation
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.DeveloperToolsUseCase
@@ -144,7 +143,6 @@ import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
-import io.github.z4kn4fein.semver.constraints.toConstraint
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -198,12 +196,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             ?: return // will be redirected to LoginActivity by BaseActivity
 
         var showNotificationTab = false
-
-        lifecycleScope.launch {
-            serverCapabilitiesRepository.getCapabilities()?.let {
-                Log.d(TAG, "translate?: ${it.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint())}")
-            }
-        }
 
         // check for savedInstanceState in order to not handle intent events more than once
         if (intent != null && savedInstanceState == null) {

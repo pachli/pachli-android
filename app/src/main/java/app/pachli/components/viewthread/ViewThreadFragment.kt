@@ -41,9 +41,8 @@ import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.util.ListStatusAccessibilityDelegate
-import app.pachli.util.StatusDisplayOptions
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.hide
 import app.pachli.util.openLink
 import app.pachli.util.show
@@ -68,7 +67,7 @@ class ViewThreadFragment :
     MenuProvider {
 
     @Inject
-    lateinit var serverCapabilitiesRepository: ServerCapabilitiesRepository
+    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     private val viewModel: ViewThreadViewModel by viewModels()
 
@@ -96,11 +95,7 @@ class ViewThreadFragment :
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         lifecycleScope.launch {
-            val statusDisplayOptions = StatusDisplayOptions.from(
-                preferences,
-                serverCapabilitiesRepository.getCapabilities(),
-                accountManager.activeAccount!!,
-            )
+            val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
             adapter = ThreadAdapter(statusDisplayOptions, this@ViewThreadFragment)
         }
     }

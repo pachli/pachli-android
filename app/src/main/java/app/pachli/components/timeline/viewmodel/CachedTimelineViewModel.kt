@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -36,9 +35,9 @@ import app.pachli.db.AccountManager
 import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.network.FilterModel
-import app.pachli.network.ServerCapabilitiesRepository
-import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.viewdata.StatusViewData
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -60,20 +59,18 @@ class CachedTimelineViewModel @Inject constructor(
     eventHub: EventHub,
     filtersRepository: FiltersRepository,
     accountManager: AccountManager,
-    preferences: SharedPreferences,
-    accountPreferenceDataStore: AccountPreferenceDataStore,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    sharedPreferencesRepository: SharedPreferencesRepository,
     filterModel: FilterModel,
-    serverCapabilitiesRepository: ServerCapabilitiesRepository,
     private val gson: Gson,
 ) : TimelineViewModel(
     timelineCases,
     eventHub,
     filtersRepository,
     accountManager,
-    preferences,
-    accountPreferenceDataStore,
     filterModel,
-    serverCapabilitiesRepository
+    statusDisplayOptionsRepository,
+    sharedPreferencesRepository,
 ) {
 
     override lateinit var statuses: Flow<PagingData<StatusViewData>>

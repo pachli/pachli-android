@@ -17,12 +17,14 @@
 
 package app.pachli.components.timeline
 
+import androidx.core.content.edit
 import app.cash.turbine.test
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.settings.PrefKeys
 import app.pachli.util.CardViewMode
 import app.pachli.util.StatusDisplayOptions
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -61,41 +63,23 @@ class CachedTimelineViewModelTestStatusDisplayOptions : CachedTimelineViewModelT
         }
     }
 
-    @Test
-    fun `make() uses updated preference`() = runTest {
-        // Prior, should be false
-        assertThat(defaultStatusDisplayOptions.animateAvatars).isFalse()
-
-        // Given; just a change to one preferences
-        sharedPreferencesMap[PrefKeys.ANIMATE_GIF_AVATARS] = true
-
-        // When
-        val updatedOptions = defaultStatusDisplayOptions.make(
-            sharedPreferences,
-            PrefKeys.ANIMATE_GIF_AVATARS,
-            accountManager.activeAccount!!,
-        )
-
-        // Then, should be true
-        assertThat(updatedOptions.animateAvatars).isTrue()
-    }
-
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `PreferenceChangedEvent emits new StatusDisplayOptions`() = runTest {
-        // Prior, should be false
+        // Given, should be false
         viewModel.statusDisplayOptions.test {
             val item = expectMostRecentItem()
             assertThat(item.animateAvatars).isFalse()
         }
 
-        // Given
-        sharedPreferencesMap[PrefKeys.ANIMATE_GIF_AVATARS] = true
-
         // When
-        eventHub.dispatch(PreferenceChangedEvent(PrefKeys.ANIMATE_GIF_AVATARS))
+        sharedPreferences.edit(commit = true) {
+            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
+        }
 
         // Then, should be true
         viewModel.statusDisplayOptions.test {
+            advanceUntilIdle()
             val item = expectMostRecentItem()
             assertThat(item.animateAvatars).isTrue()
         }
