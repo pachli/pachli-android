@@ -51,9 +51,7 @@ class AccountManager @Inject constructor(
     var activeAccount: AccountEntity? = null
         private set(value) {
             field = value
-            externalScope.launch {
-                _activeAccountFlow.emit(value)
-            }
+            externalScope.launch { _activeAccountFlow.emit(value) }
         }
 
     var accounts: MutableList<AccountEntity> = mutableListOf()

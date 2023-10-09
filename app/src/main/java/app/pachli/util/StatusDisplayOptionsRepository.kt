@@ -47,9 +47,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
     /** Default status display options */
     private val default = StatusDisplayOptions()
 
-    private val _flow = MutableStateFlow(
-        initialStatusDisplayOptions(),
-    )
+    private val _flow = MutableStateFlow(initialStatusDisplayOptions())
 
     /** Flow of [StatusDisplayOptions] over time */
     val flow = _flow.asStateFlow()
