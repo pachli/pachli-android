@@ -2452,23 +2452,23 @@
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `ConversationsFragment` requires synthetic accessor"
-        errorLine1="                        binding.recyclerView.post {"
-        errorLine2="                        ~~~~~~~">
+        errorLine1="                            binding.recyclerView.post {"
+        errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="140"
-            column="25"/>
+            line="146"
+            column="29"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `ConversationsFragment` requires synthetic accessor"
-        errorLine1="                                binding.recyclerView.scrollBy(0, Utils.dpToPx(requireContext(), -30))"
-        errorLine2="                                ~~~~~~~">
+        errorLine1="                                    binding.recyclerView.scrollBy("
+        errorLine2="                                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="142"
-            column="33"/>
+            line="148"
+            column="37"/>
     </issue>
 
     <issue
