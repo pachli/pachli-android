@@ -38,12 +38,16 @@ class SharedPreferencesRepository @Inject constructor(
     val sharedPreferences: SharedPreferences,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) : SharedPreferences by sharedPreferences {
-    /** Flow of keys that have been updated/deleted in the preferences */
-    val changes = MutableSharedFlow<String>()
+    /**
+     *  Flow of keys that have been updated/deleted in the preferences.
+     *
+     *  Null means that preferences were cleared.
+     */
+    val changes = MutableSharedFlow<String?>()
 
     private val listener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            key?.let { externalScope.launch { changes.emit(it) } }
+            externalScope.launch { changes.emit(key) }
         }
 
     init {

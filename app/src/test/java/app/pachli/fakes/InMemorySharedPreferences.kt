@@ -111,6 +111,9 @@ class InMemorySharedPreferences(
             deletes.clear()
             store.clear()
             edits.clear()
+            listeners.forEach {
+                it.onSharedPreferenceChanged(sharedPreferences, null)
+            }
             return this
         }
 

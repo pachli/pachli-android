@@ -61,6 +61,7 @@ import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.DurationUnit
@@ -189,7 +190,7 @@ class ConversationsFragment :
         }
 
         lifecycleScope.launch {
-            sharedPreferencesRepository.changes.collect { onPreferenceChanged(it) }
+            sharedPreferencesRepository.changes.filterNotNull().collect { onPreferenceChanged(it) }
         }
     }
 

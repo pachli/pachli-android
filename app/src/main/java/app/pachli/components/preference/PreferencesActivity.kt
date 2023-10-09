@@ -37,6 +37,7 @@ import app.pachli.util.APP_THEME_DEFAULT
 import app.pachli.util.getNonNullString
 import app.pachli.util.setAppNightMode
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -94,7 +95,7 @@ class PreferencesActivity :
         ) ?: savedInstanceState?.getBoolean(EXTRA_RESTART_ON_BACK, false) ?: false
 
         lifecycleScope.launch {
-            sharedPreferencesRepository.changes.collect { key ->
+            sharedPreferencesRepository.changes.filterNotNull().collect { key ->
                 when (key) {
                     APP_THEME -> {
                         val theme = sharedPreferencesRepository.getNonNullString(APP_THEME, APP_THEME_DEFAULT)
