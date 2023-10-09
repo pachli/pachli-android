@@ -1,6 +1,5 @@
 package app.pachli.components.viewthread
 
-import android.os.Looper.getMainLooper
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -34,7 +33,6 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.stub
-import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import java.io.IOException
 
@@ -79,8 +77,6 @@ class ViewThreadViewModelTest {
 
     @Before
     fun setup() {
-        shadowOf(getMainLooper()).idle()
-
         api = mock()
         eventHub = EventHub()
         val filterModel = FilterModel()

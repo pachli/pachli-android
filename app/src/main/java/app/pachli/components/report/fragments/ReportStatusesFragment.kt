@@ -28,7 +28,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -142,20 +141,19 @@ class ReportStatusesFragment :
     }
 
     private fun initStatusesView() {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
             adapter = StatusesAdapter(
                 statusDisplayOptions,
                 viewModel.statusViewState,
-                this@ReportStatusesFragment
+                this@ReportStatusesFragment,
             )
 
             binding.recyclerView.addItemDecoration(
                 MaterialDividerItemDecoration(
                     requireContext(),
-                    MaterialDividerItemDecoration.VERTICAL
+                    MaterialDividerItemDecoration.VERTICAL,
                 ),
             )
             binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

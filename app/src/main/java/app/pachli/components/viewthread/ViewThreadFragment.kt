@@ -29,7 +29,6 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -92,7 +91,6 @@ class ViewThreadFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         thisThreadsStatusId = requireArguments().getString(ID_EXTRA)!!
-        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value

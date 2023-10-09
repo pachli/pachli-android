@@ -55,7 +55,7 @@ class NotificationsViewModelTestStatusDisplayOptions : NotificationsViewModelTes
         }
 
         // When
-        sharedPreferences.edit(commit = true) {
+        sharedPreferencesRepository.edit(commit = true) {
             putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
         }
 

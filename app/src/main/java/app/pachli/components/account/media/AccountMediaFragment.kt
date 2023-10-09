@@ -28,7 +28,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import app.pachli.R
 import app.pachli.ViewMediaActivity
@@ -37,6 +36,7 @@ import app.pachli.db.AccountManager
 import app.pachli.entity.Attachment
 import app.pachli.interfaces.RefreshableFragment
 import app.pachli.settings.PrefKeys
+import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.hide
 import app.pachli.util.openLink
 import app.pachli.util.show
@@ -64,6 +64,9 @@ class AccountMediaFragment :
     @Inject
     lateinit var accountManager: AccountManager
 
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
     private val viewModel: AccountMediaViewModel by viewModels()
@@ -78,8 +81,7 @@ class AccountMediaFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(view.context)
-        val useBlurhash = preferences.getBoolean(PrefKeys.USE_BLURHASH, true)
+        val useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, true)
 
         adapter = AccountMediaGridAdapter(
             useBlurhash = useBlurhash,

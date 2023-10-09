@@ -16,12 +16,10 @@
 package app.pachli.util
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.preference.PreferenceDataStore
-import androidx.preference.PreferenceManager
 import app.pachli.R
 import app.pachli.settings.PrefKeys
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -31,9 +29,8 @@ import javax.inject.Singleton
 @Singleton
 class LocaleManager @Inject constructor(
     @ApplicationContext val context: Context,
+    private val prefs: SharedPreferencesRepository,
 ) : PreferenceDataStore() {
-
-    private var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     fun setLocale() {
         val language = prefs.getNonNullString(PrefKeys.LANGUAGE, DEFAULT)

@@ -1,6 +1,5 @@
 package app.pachli.components.timeline
 
-import android.os.Looper.getMainLooper
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
@@ -38,7 +37,6 @@ import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
-import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
@@ -67,8 +65,6 @@ class CachedTimelineRemoteMediatorTest {
     @Before
     @ExperimentalCoroutinesApi
     fun setup() {
-        shadowOf(getMainLooper()).idle()
-
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
             .addTypeConverter(Converters(Gson()))

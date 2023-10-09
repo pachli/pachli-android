@@ -18,7 +18,6 @@
 package app.pachli
 
 import android.app.Application
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -31,6 +30,7 @@ import app.pachli.settings.PrefKeys.APP_THEME
 import app.pachli.settings.SCHEMA_VERSION
 import app.pachli.util.APP_THEME_DEFAULT
 import app.pachli.util.LocaleManager
+import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.setAppNightMode
 import app.pachli.worker.PruneCacheWorker
 import app.pachli.worker.WorkerFactory
@@ -54,7 +54,7 @@ class PachliApplication : Application() {
     lateinit var localeManager: LocaleManager
 
     @Inject
-    lateinit var sharedPreferences: SharedPreferences
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     override fun onCreate() {
         // Uncomment me to get StrictMode violation logs
@@ -74,7 +74,7 @@ class PachliApplication : Application() {
         AutoDisposePlugins.setHideProxies(false) // a small performance optimization
 
         // Migrate shared preference keys and defaults from version to version.
-        val oldVersion = sharedPreferences.getInt(PrefKeys.SCHEMA_VERSION, NEW_INSTALL_SCHEMA_VERSION)
+        val oldVersion = sharedPreferencesRepository.getInt(PrefKeys.SCHEMA_VERSION, NEW_INSTALL_SCHEMA_VERSION)
         if (oldVersion != SCHEMA_VERSION) {
             upgradeSharedPreferences(oldVersion, SCHEMA_VERSION)
         }
@@ -85,7 +85,7 @@ class PachliApplication : Application() {
         EmojiPackHelper.init(this, DefaultEmojiPackList.get(this), allowPackImports = false)
 
         // init night mode
-        val theme = sharedPreferences.getString(APP_THEME, APP_THEME_DEFAULT)
+        val theme = sharedPreferencesRepository.getString(APP_THEME, APP_THEME_DEFAULT)
         setAppNightMode(theme)
 
         localeManager.setLocale()
@@ -116,7 +116,7 @@ class PachliApplication : Application() {
 
     private fun upgradeSharedPreferences(oldVersion: Int, newVersion: Int) {
         Log.d(TAG, "Upgrading shared preferences: $oldVersion -> $newVersion")
-        val editor = sharedPreferences.edit()
+        val editor = sharedPreferencesRepository.edit()
 
         // General usage is:
         //

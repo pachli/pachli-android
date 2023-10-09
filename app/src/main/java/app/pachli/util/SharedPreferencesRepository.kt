@@ -18,16 +18,19 @@
 package app.pachli.util
 
 import android.content.SharedPreferences
+import android.util.Log
 import app.pachli.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class SharedPreferencesRepository @Inject constructor(
     val sharedPreferences: SharedPreferences,
     @ApplicationScope private val externalScope: CoroutineScope,
-) {
+) : SharedPreferences by sharedPreferences {
     /** Flow of keys that have been updated in the preferences */
     val changes = MutableSharedFlow<String>()
 
@@ -37,9 +40,7 @@ class SharedPreferencesRepository @Inject constructor(
         }
 
     init {
+        Log.d("SharedPreferencesRepository", "Being created")
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
     }
-
-    /** Forwards to [SharedPreferences.getBoolean] */
-    fun getBoolean(key: String, defValue: Boolean) = sharedPreferences.getBoolean(key, defValue)
 }

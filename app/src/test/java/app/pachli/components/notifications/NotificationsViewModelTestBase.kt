@@ -17,8 +17,6 @@
 
 package app.pachli.components.notifications
 
-import android.content.SharedPreferences
-import android.os.Looper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.FiltersRepository
@@ -40,7 +38,6 @@ import org.junit.runner.RunWith
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
@@ -49,7 +46,7 @@ import retrofit2.Response
 @RunWith(AndroidJUnit4::class)
 abstract class NotificationsViewModelTestBase {
     protected lateinit var notificationsRepository: NotificationsRepository
-    protected lateinit var sharedPreferences: SharedPreferences
+    protected lateinit var sharedPreferencesRepository: SharedPreferencesRepository
     protected lateinit var accountManager: AccountManager
     protected lateinit var timelineCases: TimelineCases
     protected lateinit var viewModel: NotificationsViewModel
@@ -73,11 +70,7 @@ abstract class NotificationsViewModelTestBase {
 
     @Before
     fun setup() {
-        shadowOf(Looper.getMainLooper()).idle()
-
         notificationsRepository = mock()
-
-        sharedPreferences = InMemorySharedPreferences(null)
 
         val defaultAccount = AccountEntity(
             id = 1,
@@ -100,9 +93,9 @@ abstract class NotificationsViewModelTestBase {
         filtersRepository = mock()
         filterModel = mock()
 
-        val sharedPreferencesRepository = SharedPreferencesRepository(
-            sharedPreferences,
-            TestScope()
+        sharedPreferencesRepository = SharedPreferencesRepository(
+            InMemorySharedPreferences(),
+            TestScope(),
         )
 
         statusDisplayOptionsRepository = StatusDisplayOptionsRepository(

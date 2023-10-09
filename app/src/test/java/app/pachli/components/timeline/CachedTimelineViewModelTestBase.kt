@@ -17,8 +17,6 @@
 
 package app.pachli.components.timeline
 
-import android.content.SharedPreferences
-import android.os.Looper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.PreferenceChangedEvent
@@ -50,7 +48,6 @@ import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
@@ -59,7 +56,7 @@ import retrofit2.Response
 @RunWith(AndroidJUnit4::class)
 abstract class CachedTimelineViewModelTestBase {
     private lateinit var cachedTimelineRepository: CachedTimelineRepository
-    protected lateinit var sharedPreferences: SharedPreferences
+    protected lateinit var sharedPreferencesRepository: SharedPreferencesRepository
     private lateinit var accountPreferencesMap: MutableMap<String, Boolean>
     private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
     protected lateinit var accountManager: AccountManager
@@ -85,11 +82,7 @@ abstract class CachedTimelineViewModelTestBase {
 
     @Before
     fun setup() = runTest {
-        shadowOf(Looper.getMainLooper()).idle()
-
         cachedTimelineRepository = mock()
-
-        sharedPreferences = InMemorySharedPreferences()
 
         // Backing store for account preferences, to allow mutation in tests
         accountPreferencesMap = mutableMapOf(
@@ -133,9 +126,9 @@ abstract class CachedTimelineViewModelTestBase {
         filtersRepository = mock()
         filterModel = mock()
 
-        val sharedPreferencesRepository = SharedPreferencesRepository(
-            sharedPreferences,
-            TestScope()
+        sharedPreferencesRepository = SharedPreferencesRepository(
+            InMemorySharedPreferences(),
+            TestScope(),
         )
 
         statusDisplayOptionsRepository = StatusDisplayOptionsRepository(

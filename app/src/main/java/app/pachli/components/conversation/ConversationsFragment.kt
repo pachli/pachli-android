@@ -30,7 +30,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -38,7 +37,6 @@ import app.pachli.R
 import app.pachli.StatusListActivity
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.components.account.AccountActivity
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
@@ -46,6 +44,7 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.settings.PrefKeys
+import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.hide
 import app.pachli.util.show
@@ -80,6 +79,9 @@ class ConversationsFragment :
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
     private val viewModel: ConversationsViewModel by viewModels()
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
@@ -94,8 +96,6 @@ class ConversationsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(view.context)
 
         viewLifecycleOwner.lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
@@ -122,7 +122,7 @@ class ConversationsFragment :
                                 binding.statusView.setup(
                                     R.drawable.elephant_friend_empty,
                                     R.string.message_empty,
-                                    null
+                                    null,
                                 )
                             }
                         }
@@ -147,7 +147,7 @@ class ConversationsFragment :
                                 if (getView() != null) {
                                     binding.recyclerView.scrollBy(
                                         0,
-                                        Utils.dpToPx(requireContext(), -30)
+                                        Utils.dpToPx(requireContext(), -30),
                                     )
                                 }
                             }
@@ -156,7 +156,7 @@ class ConversationsFragment :
                 },
             )
 
-            showFabWhileScrolling = !preferences.getBoolean(PrefKeys.FAB_HIDE, false)
+            showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
             binding.recyclerView.addOnScrollListener(
                 object : RecyclerView.OnScrollListener() {
                     val actionButton = (activity as? ActionButtonActivity)?.actionButton
@@ -176,7 +176,7 @@ class ConversationsFragment :
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                val useAbsoluteTime = preferences.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
+                val useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
                 while (!useAbsoluteTime) {
                     adapter.notifyItemRangeChanged(
                         0,
@@ -189,11 +189,7 @@ class ConversationsFragment :
         }
 
         lifecycleScope.launch {
-            eventHub.events.collect { event ->
-                if (event is PreferenceChangedEvent) {
-                    onPreferenceChanged(event.preferenceKey)
-                }
-            }
+            sharedPreferencesRepository.changes.collect { onPreferenceChanged(it) }
         }
     }
 
@@ -361,10 +357,9 @@ class ConversationsFragment :
     }
 
     private fun onPreferenceChanged(key: String) {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         when (key) {
             PrefKeys.FAB_HIDE -> {
-                showFabWhileScrolling = sharedPreferences.getBoolean(PrefKeys.FAB_HIDE, false)
+                showFabWhileScrolling = sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
             }
             PrefKeys.MEDIA_PREVIEW_ENABLED -> {
                 val enabled = accountManager.activeAccount!!.mediaPreviewEnabled

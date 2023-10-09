@@ -42,7 +42,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
     private val default = StatusDisplayOptions()
 
     private val _flow = MutableStateFlow(
-        initialStatusDisplayOptions()
+        initialStatusDisplayOptions(),
     )
 
     /** Flow of [StatusDisplayOptions] over time */
@@ -69,8 +69,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
 
         // Update whenever preferences change
         externalScope.launch {
-            sharedPreferencesRepository.changes
-                .filter { prefKeys.contains(it) }.collect { key ->
+            sharedPreferencesRepository.changes.filter { prefKeys.contains(it) }.collect { key ->
                 Log.d(TAG, "Updating because shared preference changed")
                 _flow.update { prev ->
                     when (key) {

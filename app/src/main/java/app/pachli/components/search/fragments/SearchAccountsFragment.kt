@@ -19,16 +19,20 @@ import android.os.Bundle
 import android.view.View
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
-import androidx.preference.PreferenceManager
 import app.pachli.components.search.adapter.SearchAccountsAdapter
 import app.pachli.entity.TimelineAccount
 import app.pachli.settings.PrefKeys
+import app.pachli.util.SharedPreferencesRepository
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchAccountsFragment : SearchFragment<TimelineAccount>() {
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.searchRecyclerView.addItemDecoration(
@@ -37,13 +41,11 @@ class SearchAccountsFragment : SearchFragment<TimelineAccount>() {
     }
 
     override suspend fun createAdapter(): PagingDataAdapter<TimelineAccount, *> {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(binding.searchRecyclerView.context)
-
         return SearchAccountsAdapter(
             this,
-            preferences.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false),
-            preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
-            preferences.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true),
+            sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false),
+            sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
+            sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true),
         )
     }
 

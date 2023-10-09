@@ -79,7 +79,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         binding.searchRecyclerView.addItemDecoration(
             MaterialDividerItemDecoration(
                 requireContext(),
-                MaterialDividerItemDecoration.VERTICAL
+                MaterialDividerItemDecoration.VERTICAL,
             ),
         )
         binding.searchRecyclerView.layoutManager =
