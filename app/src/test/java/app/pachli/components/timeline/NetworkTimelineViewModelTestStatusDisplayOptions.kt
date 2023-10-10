@@ -22,6 +22,7 @@ import app.cash.turbine.test
 import app.pachli.settings.PrefKeys
 import app.pachli.util.StatusDisplayOptions
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -35,6 +36,7 @@ import org.junit.Test
  */
 // TODO: With the exception of the types, this is identical to
 // NotificationsViewModelTestStatusDisplayOptions
+@HiltAndroidTest
 class NetworkTimelineViewModelTestStatusDisplayOptions : NetworkTimelineViewModelTestBase() {
 
     private val defaultStatusDisplayOptions = StatusDisplayOptions()

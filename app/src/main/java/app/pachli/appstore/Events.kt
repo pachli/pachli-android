@@ -20,7 +20,13 @@ data class StatusComposedEvent(val status: Status) : Event
 data class StatusScheduledEvent(val status: Status) : Event
 data class StatusEditedEvent(val originalId: String, val status: Status) : Event
 data class ProfileEditedEvent(val newProfileData: Account) : Event
-data class PreferenceChangedEvent(val preferenceKey: String) : Event
+//data class PreferenceChangedEvent(val preferenceKey: String) : Event
+// context is a toString of a Filter.Kind enum value
+// Or a FilterV1.HOME, FilterV1.NOTIFICATIONS, FilterV1... value
+// That overlap should be fixed, see
+// - NotificationsViewModel
+// - TimelineViewModel
+data class FilterChangedEvent(val context: String) : Event
 data class MainTabsChangedEvent(val newTabs: List<TabData>) : Event
 data class PollVoteEvent(val statusId: String, val poll: Poll) : Event
 data class DomainMuteEvent(val instance: String) : Event

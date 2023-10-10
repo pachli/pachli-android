@@ -22,6 +22,7 @@ import app.cash.turbine.test
 import app.pachli.components.timeline.viewmodel.UiState
 import app.pachli.settings.PrefKeys
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -33,6 +34,7 @@ import org.junit.Test
  * - Is the initial value taken from values in sharedPreferences and account?
  * - Is the correct update emitted when a relevant preference changes?
  */
+@HiltAndroidTest
 class CachedTimelineViewModelTestUiState : CachedTimelineViewModelTestBase() {
 
     private val initialUiState = UiState(
@@ -56,7 +58,7 @@ class CachedTimelineViewModelTestUiState : CachedTimelineViewModelTestBase() {
 
         // Given
         sharedPreferencesRepository.edit(commit = true) {
-            putBoolean(PrefKeys.FAB_HIDE, true)
+            putBoolean(PrefKeys.FAB_HIDE, false)
         }
 
         // Then

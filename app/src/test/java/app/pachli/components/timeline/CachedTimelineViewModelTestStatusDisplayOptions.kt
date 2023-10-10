@@ -20,9 +20,9 @@ package app.pachli.components.timeline
 import androidx.core.content.edit
 import app.cash.turbine.test
 import app.pachli.settings.PrefKeys
-import app.pachli.util.CardViewMode
 import app.pachli.util.StatusDisplayOptions
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -37,51 +37,40 @@ import org.junit.Test
  */
 // TODO: With the exception of the types, this is identical to
 // NotificationsViewModelTestStatusDisplayOptions
+@HiltAndroidTest
 class CachedTimelineViewModelTestStatusDisplayOptions : CachedTimelineViewModelTestBase() {
-
-    private val defaultStatusDisplayOptions = StatusDisplayOptions(
-        animateAvatars = false,
-        mediaPreviewEnabled = true, // setting in NotificationsViewModelTestBase
-        useAbsoluteTime = false,
-        showBotOverlay = true,
-        useBlurhash = true,
-        cardViewMode = CardViewMode.NONE,
-        confirmReblogs = true,
-        confirmFavourites = false,
-        hideStats = false,
-        animateEmojis = false,
-        showStatsInline = false,
-        showSensitiveMedia = true, // setting in NotificationsViewModelTestBase
-        openSpoiler = true, // setting in NotificationsViewModelTestBase
-    )
 
     @Test
     fun `initial settings are from sharedPreferences and activeAccount`() = runTest {
         viewModel.statusDisplayOptions.test {
             val item = awaitItem()
-            assertThat(item).isEqualTo(defaultStatusDisplayOptions)
+            assertThat(item).isEqualTo(StatusDisplayOptions())
         }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `PreferenceChangedEvent emits new StatusDisplayOptions`() = runTest {
+    fun `changing preference emits new StatusDisplayOptions`() = runTest {
         // Given, should be false
         viewModel.statusDisplayOptions.test {
             val item = expectMostRecentItem()
             assertThat(item.animateAvatars).isFalse()
         }
 
-        // When
-        sharedPreferencesRepository.edit(commit = true) {
-            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
-        }
-
+//        // When
+//        sharedPreferencesRepository.edit(commit = true) {
+//            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
+//        }
+//
         // Then, should be true
         viewModel.statusDisplayOptions.test {
+            // When
+            sharedPreferencesRepository.edit(commit = true) {
+                putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
+            }
+
             advanceUntilIdle()
-            val item = expectMostRecentItem()
-            assertThat(item.animateAvatars).isTrue()
+            assertThat(expectMostRecentItem().animateAvatars).isTrue()
         }
     }
 }

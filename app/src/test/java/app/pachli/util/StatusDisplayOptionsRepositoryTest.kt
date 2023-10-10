@@ -21,7 +21,6 @@ import androidx.core.content.edit
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.PachliApplication
-import app.pachli.appstore.EventHub
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.MainCoroutineRule
 import app.pachli.db.AccountManager
@@ -100,7 +99,6 @@ class StatusDisplayOptionsRepositoryTest {
 
         accountPreferenceDataStore = AccountPreferenceDataStore(
             accountManager,
-            EventHub(),
             TestScope(),
         )
 

@@ -124,7 +124,6 @@ class ViewThreadViewModelTest {
             accountManager,
             AccountPreferenceDataStore(
                 accountManager,
-                eventHub,
                 TestScope(),
             ),
             TestScope(),

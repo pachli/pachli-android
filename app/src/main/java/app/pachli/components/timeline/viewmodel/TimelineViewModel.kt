@@ -30,10 +30,10 @@ import app.pachli.appstore.DomainMuteEvent
 import app.pachli.appstore.Event
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
+import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.appstore.PinEvent
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusDeletedEvent
@@ -66,6 +66,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
@@ -359,28 +360,24 @@ abstract class TimelineViewModel(
             }
         }
 
-        uiState = getUiPrefs().map { prefs ->
-            UiState(
-                showFabWhileScrolling = prefs.showFabWhileScrolling,
+        viewModelScope.launch {
+            sharedPreferencesRepository.changes.filterNotNull().collect {
+                onPreferenceChanged(it)
+            }
+        }
+
+        uiState = sharedPreferencesRepository.changes
+            .filter { it == PrefKeys.FAB_HIDE }
+            .map {
+                UiState(
+                    sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
+                )
+            }.stateIn(
+                scope = viewModelScope,
+                started =  SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
+                initialValue = UiState(showFabWhileScrolling = true)
             )
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-            initialValue = UiState(
-                showFabWhileScrolling = true,
-            ),
-        )
     }
-
-    /** @return Flow of relevant preferences that change the UI */
-    protected fun getUiPrefs() = sharedPreferencesRepository.changes
-        .filter { UiPrefs.prefKeys.contains(it) }
-        .map { toPrefs() }
-        .onStart { emit(toPrefs()) }
-
-    private fun toPrefs() = UiPrefs(
-        showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
-    )
 
     @CallSuper
     open fun init(timelineKind: TimelineKind) {
@@ -502,9 +499,9 @@ abstract class TimelineViewModel(
     // TODO: https://github.com/tuskyapp/Tusky/issues/3546, and update if a v2 filter is
     // updated as well.
     private fun updateFiltersFromPreferences() = eventHub.events
-        .filterIsInstance<PreferenceChangedEvent>()
-        .filter { FILTER_PREF_KEYS.contains(it.preferenceKey) }
-        .filter { filterContextMatchesKind(timelineKind, listOf(it.preferenceKey)) }
+        .filterIsInstance<FilterChangedEvent>()
+        .filter { FILTER_PREF_KEYS.contains(it.context) }
+        .filter { filterContextMatchesKind(timelineKind, listOf(it.context)) }
         .distinctUntilChanged()
         .map { getFilters() }
         .onStart { getFilters() }
@@ -596,9 +593,6 @@ abstract class TimelineViewModel(
                 if (timelineKind !is TimelineKind.User) {
                     removeStatusWithId(event.statusId)
                 }
-            }
-            is PreferenceChangedEvent -> {
-                onPreferenceChanged(event.preferenceKey)
             }
         }
     }

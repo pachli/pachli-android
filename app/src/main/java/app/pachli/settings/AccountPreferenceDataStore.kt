@@ -1,8 +1,6 @@
 package app.pachli.settings
 
 import androidx.preference.PreferenceDataStore
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.di.ApplicationScope
@@ -13,7 +11,6 @@ import javax.inject.Inject
 
 class AccountPreferenceDataStore @Inject constructor(
     private val accountManager: AccountManager,
-    private val eventHub: EventHub,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) : PreferenceDataStore() {
     /**
@@ -43,10 +40,6 @@ class AccountPreferenceDataStore @Inject constructor(
 
         externalScope.launch {
             changes.emit(Pair(key, value))
-        }
-
-        externalScope.launch {
-            eventHub.dispatch(PreferenceChangedEvent(key))
         }
     }
 }

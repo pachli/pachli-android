@@ -29,7 +29,6 @@ import app.pachli.BaseActivity
 import app.pachli.MainActivity
 import app.pachli.R
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.databinding.ActivityPreferencesBinding
 import app.pachli.settings.PrefKeys
 import app.pachli.settings.PrefKeys.APP_THEME
@@ -116,7 +115,6 @@ class PreferencesActivity :
                         restartActivitiesOnBackPressedCallback.isEnabled = true
                     }
                 }
-                eventHub.dispatch(PreferenceChangedEvent(key))
             }
         }
     }

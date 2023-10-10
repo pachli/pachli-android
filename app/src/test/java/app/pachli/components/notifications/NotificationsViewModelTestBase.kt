@@ -94,7 +94,6 @@ abstract class NotificationsViewModelTestBase {
 
         accountPreferenceDataStore = AccountPreferenceDataStore(
             accountManager,
-            eventHub,
             TestScope(),
         )
 

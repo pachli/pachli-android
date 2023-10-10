@@ -28,9 +28,9 @@ import androidx.paging.map
 import app.pachli.R
 import app.pachli.appstore.BlockEvent
 import app.pachli.appstore.EventHub
+import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.components.filters.FiltersViewModel.Companion.FILTER_PREF_KEYS
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
@@ -461,8 +461,8 @@ class NotificationsViewModel @Inject constructor(
         // Fetch the status filters
         viewModelScope.launch {
             eventHub.events
-                .filterIsInstance<PreferenceChangedEvent>()
-                .filter { FILTER_PREF_KEYS.contains(it.preferenceKey) }
+                .filterIsInstance<FilterChangedEvent>()
+                .filter { FILTER_PREF_KEYS.contains(it.context) }
                 .distinctUntilChanged()
                 .map { getFilters() }
                 .onStart { getFilters() }

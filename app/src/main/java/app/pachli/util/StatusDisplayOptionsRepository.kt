@@ -78,6 +78,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
         externalScope.launch {
             sharedPreferencesRepository.changes.filter { prefKeys.contains(it) }.collect { key ->
                 Log.d(TAG, "Updating because shared preference changed")
+                println("Updating because shared preference changed: $key")
                 _flow.update { prev ->
                     when (key) {
                         PrefKeys.ANIMATE_GIF_AVATARS -> prev.copy(

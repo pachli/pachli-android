@@ -18,32 +18,29 @@
 package app.pachli.components.timeline
 
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
-import app.pachli.db.AccountEntity
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import org.mockito.kotlin.argumentCaptor
-import org.mockito.kotlin.never
-import org.mockito.kotlin.verify
 
+@HiltAndroidTest
 class NetworkTimelineViewModelTestVisibleId : NetworkTimelineViewModelTestBase() {
 
     @Test
     fun `should not save status ID to active account`() = runTest {
-        argumentCaptor<AccountEntity>().apply {
-            // Given
-            assertThat(accountManager.activeAccount?.lastVisibleHomeTimelineStatusId)
-                .isNull()
-            assertThat(viewModel.timelineKind)
-                .isNotEqualTo(TimelineKind.Home)
+        // Given
+        assertThat(accountManager.activeAccount?.lastVisibleHomeTimelineStatusId)
+            .isNull()
+        assertThat(viewModel.timelineKind)
+            .isNotEqualTo(TimelineKind.Home)
 
-            // When
-            viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
+        // When
+        viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
 
-            // Then
-            // As a non-Home timline this should *not* save the account, and
-            // the last visible property should *not* have changed.
-            verify(accountManager, never()).saveAccount(capture())
-        }
+        // Then
+        // As a non-Home timline this should *not* save the account, and
+        // the last visible property should *not* have changed.
+        assertThat(accountManager.activeAccount?.lastVisibleHomeTimelineStatusId)
+            .isNull()
     }
 }

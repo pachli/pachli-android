@@ -4,7 +4,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.PreferenceChangedEvent
+import app.pachli.appstore.FilterChangedEvent
 import app.pachli.entity.Filter
 import app.pachli.entity.FilterV1
 import app.pachli.network.MastodonApi
@@ -68,7 +68,7 @@ class FiltersViewModel @Inject constructor(
                 {
                     this@FiltersViewModel._state.value = State(this@FiltersViewModel._state.value.filters.filter { it.id != filter.id }, LoadingState.LOADED)
                     for (context in filter.context) {
-                        eventHub.dispatch(PreferenceChangedEvent(context))
+                        eventHub.dispatch(FilterChangedEvent(context))
                     }
                 },
                 { throwable ->
