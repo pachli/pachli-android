@@ -135,7 +135,6 @@ class StatusDisplayOptionsRepository @Inject constructor(
 
         externalScope.launch {
             accountPreferenceDataStore.changes.collect { (key, value) ->
-                println("Updating because account preference changed: $key $value")
                 Log.d(TAG, "Updating because account preference changed")
                 _flow.update { prev ->
                     when (key) {
