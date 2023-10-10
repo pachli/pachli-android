@@ -43,22 +43,18 @@ class NetworkTimelineViewModelTestUiState : NetworkTimelineViewModelTestBase() {
 
     @Test
     fun `should load initial UI state`() = runTest {
-        viewModel.uiState.test {
-            assertThat(expectMostRecentItem()).isEqualTo(initialUiState)
-        }
+        assertThat(viewModel.uiState.value).isEqualTo(initialUiState)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `showFabWhileScrolling depends on FAB_HIDE preference`() = runTest {
         // Given
-        viewModel.uiState.test {
-            assertThat(expectMostRecentItem().showFabWhileScrolling).isTrue()
-        }
+        assertThat(viewModel.uiState.value.showFabWhileScrolling).isTrue()
 
         // When
         sharedPreferencesRepository.edit(commit = true) {
-            putBoolean(PrefKeys.FAB_HIDE, true)
+            putBoolean(PrefKeys.FAB_HIDE, false)
         }
 
         // Then

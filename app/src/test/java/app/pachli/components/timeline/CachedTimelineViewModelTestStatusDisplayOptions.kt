@@ -52,23 +52,15 @@ class CachedTimelineViewModelTestStatusDisplayOptions : CachedTimelineViewModelT
     @Test
     fun `changing preference emits new StatusDisplayOptions`() = runTest {
         // Given, should be false
-        viewModel.statusDisplayOptions.test {
-            val item = expectMostRecentItem()
-            assertThat(item.animateAvatars).isFalse()
+        assertThat(viewModel.statusDisplayOptions.value.animateAvatars).isFalse()
+
+        // When
+        sharedPreferencesRepository.edit() {
+            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
         }
 
-//        // When
-//        sharedPreferencesRepository.edit(commit = true) {
-//            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
-//        }
-//
         // Then, should be true
         viewModel.statusDisplayOptions.test {
-            // When
-            sharedPreferencesRepository.edit(commit = true) {
-                putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
-            }
-
             advanceUntilIdle()
             assertThat(expectMostRecentItem().animateAvatars).isTrue()
         }

@@ -31,7 +31,6 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
-import app.pachli.components.filters.FiltersViewModel.Companion.FILTER_PREF_KEYS
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.util.ifExpected
@@ -462,7 +461,6 @@ class NotificationsViewModel @Inject constructor(
         viewModelScope.launch {
             eventHub.events
                 .filterIsInstance<FilterChangedEvent>()
-                .filter { FILTER_PREF_KEYS.contains(it.context) }
                 .distinctUntilChanged()
                 .map { getFilters() }
                 .onStart { getFilters() }

@@ -241,7 +241,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost {
                     if (mastodonApi.addFilterKeyword(filterId = filter.id, keyword = tagWithHash, wholeWord = true).isSuccess) {
                         mutedFilter = filter
                         updateTagMuteState(true)
-                        eventHub.dispatch(FilterChangedEvent(filter.context[0]))
+                        eventHub.dispatch(FilterChangedEvent(Filter.Kind.from(filter.context[0])))
                         Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_muted, hashtag), Snackbar.LENGTH_SHORT).show()
                     } else {
                         Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
@@ -260,7 +260,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost {
                             { filter ->
                                 mutedFilterV1 = filter
                                 updateTagMuteState(true)
-                                eventHub.dispatch(FilterChangedEvent(filter.context[0]))
+                                eventHub.dispatch(FilterChangedEvent(Filter.Kind.from(filter.context[0])))
                                 Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_muted, hashtag), Snackbar.LENGTH_SHORT).show()
                             },
                             { throwable ->
@@ -318,7 +318,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost {
                 {
                     updateTagMuteState(false)
                     Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_unmuted, hashtag), Snackbar.LENGTH_SHORT).show()
-                    eventHub.dispatch(FilterChangedEvent(Filter.Kind.HOME.kind))
+                    eventHub.dispatch(FilterChangedEvent(Filter.Kind.HOME))
                     mutedFilterV1 = null
                     mutedFilter = null
                 },

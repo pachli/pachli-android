@@ -45,11 +45,6 @@ import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
 
-//open class PachliHiltApplication : PachliApplication()
-//
-//@CustomTestApplication(PachliHiltApplication::class)
-//interface HiltTestApplication
-
 @HiltAndroidTest
 @Config(application = HiltTestApplication_Application::class)
 @RunWith(AndroidJUnit4::class)

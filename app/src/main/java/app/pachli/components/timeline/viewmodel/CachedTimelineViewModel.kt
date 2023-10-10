@@ -82,8 +82,8 @@ class CachedTimelineViewModel @Inject constructor(
     override fun init(timelineKind: TimelineKind) {
         super.init(timelineKind)
         statuses = reload.flatMapLatest {
-                getStatuses(timelineKind, initialKey = getInitialKey())
-            }.cachedIn(viewModelScope)
+            getStatuses(timelineKind, initialKey = getInitialKey())
+        }.cachedIn(viewModelScope)
     }
 
     /** @return Flow of statuses that make up the timeline of [kind] */

@@ -39,7 +39,6 @@ import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
-import app.pachli.components.filters.FiltersViewModel.Companion.FILTER_PREF_KEYS
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.TimelineKind
@@ -370,12 +369,12 @@ abstract class TimelineViewModel(
             .filter { it == PrefKeys.FAB_HIDE }
             .map {
                 UiState(
-                    sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
+                    sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
                 )
             }.stateIn(
                 scope = viewModelScope,
-                started =  SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-                initialValue = UiState(showFabWhileScrolling = true)
+                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
+                initialValue = UiState(showFabWhileScrolling = true),
             )
     }
 
@@ -500,8 +499,7 @@ abstract class TimelineViewModel(
     // updated as well.
     private fun updateFiltersFromPreferences() = eventHub.events
         .filterIsInstance<FilterChangedEvent>()
-        .filter { FILTER_PREF_KEYS.contains(it.context) }
-        .filter { filterContextMatchesKind(timelineKind, listOf(it.context)) }
+        .filter { filterContextMatchesKind(timelineKind, listOf(it.filterKind)) }
         .distinctUntilChanged()
         .map { getFilters() }
         .onStart { getFilters() }
@@ -521,7 +519,7 @@ abstract class TimelineViewModel(
                     is FilterKind.V1 -> {
                         filterModel.initWithFilters(
                             filters.filters.filter {
-                                filterContextMatchesKind(timelineKind, it.context)
+                                filterContextMatchesString(timelineKind, it.context)
                             },
                         )
                         invalidate()
@@ -601,11 +599,18 @@ abstract class TimelineViewModel(
         private const val TAG = "TimelineViewModel"
         private val THROTTLE_TIMEOUT = 500.milliseconds
 
-        fun filterContextMatchesKind(
+        fun filterContextMatchesString(
             timelineKind: TimelineKind,
             filterContext: List<String>,
         ): Boolean {
             return filterContext.contains(Filter.Kind.from(timelineKind).kind)
+        }
+
+        fun filterContextMatchesKind(
+            timelineKind: TimelineKind,
+            filterContext: List<Filter.Kind>,
+        ): Boolean {
+            return filterContext.contains(Filter.Kind.from(timelineKind))
         }
     }
 }
