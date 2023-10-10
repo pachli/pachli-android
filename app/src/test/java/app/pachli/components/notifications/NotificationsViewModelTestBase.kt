@@ -25,6 +25,7 @@ import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
+import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
@@ -55,6 +56,8 @@ abstract class NotificationsViewModelTestBase {
     private lateinit var filterModel: FilterModel
 
     private val eventHub = EventHub()
+
+    private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
 
     /** Empty success response, for API calls that return one */
     protected var emptySuccess: Response<ResponseBody> = Response.success("".toResponseBody())
@@ -89,6 +92,12 @@ abstract class NotificationsViewModelTestBase {
             whenever(it.activeAccountFlow).thenReturn(activeAccountFlow)
         }
 
+        accountPreferenceDataStore = AccountPreferenceDataStore(
+            accountManager,
+            eventHub,
+            TestScope(),
+        )
+
         timelineCases = mock()
         filtersRepository = mock()
         filterModel = mock()
@@ -101,6 +110,7 @@ abstract class NotificationsViewModelTestBase {
         statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
             sharedPreferencesRepository,
             accountManager,
+            accountPreferenceDataStore,
             TestScope(),
         )
 

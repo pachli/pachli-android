@@ -19,6 +19,7 @@ import app.pachli.entity.StatusContext
 import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
+import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
@@ -121,6 +122,11 @@ class ViewThreadViewModelTest {
                 TestScope(),
             ),
             accountManager,
+            AccountPreferenceDataStore(
+                accountManager,
+                eventHub,
+                TestScope(),
+            ),
             TestScope(),
         )
 

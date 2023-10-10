@@ -134,6 +134,7 @@ abstract class CachedTimelineViewModelTestBase {
         statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
             sharedPreferencesRepository,
             accountManager,
+            accountPreferenceDataStore,
             TestScope(),
         )
 

@@ -130,6 +130,7 @@ abstract class NetworkTimelineViewModelTestBase {
         statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
             sharedPreferencesRepository,
             accountManager,
+            accountPreferenceDataStore,
             TestScope(),
         )
 

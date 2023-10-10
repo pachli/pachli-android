@@ -20,8 +20,10 @@ package app.pachli.util
 import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
+import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.di.ApplicationScope
+import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.PrefKeys
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,6 +44,7 @@ import javax.inject.Singleton
 class StatusDisplayOptionsRepository @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val accountManager: AccountManager,
+    private val accountPreferenceDataStore: AccountPreferenceDataStore,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     /** Default status display options */
@@ -125,14 +128,28 @@ class StatusDisplayOptionsRepository @Inject constructor(
         externalScope.launch {
             accountManager.activeAccountFlow.collect {
                 Log.d(TAG, "Updating because active account changed")
-                _flow.emit(initialStatusDisplayOptions())
+                _flow.emit(initialStatusDisplayOptions(it))
+            }
+        }
+
+        externalScope.launch {
+            accountPreferenceDataStore.changes.collect { (key, value) ->
+                println("Updating because account preference changed: $key $value")
+                Log.d(TAG, "Updating because account preference changed")
+                _flow.update { prev ->
+                    when (key) {
+                        PrefKeys.MEDIA_PREVIEW_ENABLED -> prev.copy(mediaPreviewEnabled = value)
+                        PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> prev.copy(showSensitiveMedia = value)
+                        PrefKeys.ALWAYS_OPEN_SPOILER -> prev.copy(openSpoiler = value)
+                        else -> { prev }
+                    }
+                }
             }
         }
     }
 
     @VisibleForTesting(otherwise = PRIVATE)
-    fun initialStatusDisplayOptions(): StatusDisplayOptions {
-        val account = accountManager.activeAccountFlow.value
+    fun initialStatusDisplayOptions(account: AccountEntity? = null): StatusDisplayOptions {
         return StatusDisplayOptions(
             animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, default.animateAvatars),
             animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, default.animateEmojis),
