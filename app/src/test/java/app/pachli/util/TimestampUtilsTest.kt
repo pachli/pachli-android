@@ -8,11 +8,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
-import org.robolectric.annotation.Config
 
 private const val STATUS_CREATED_AT_NOW = "test"
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 class TimestampUtilsTest {
     private val ctx: Context = mock {
