@@ -28,9 +28,7 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.annotation.Config
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 class NetworkTimelinePagingSourceTest {
     @Test

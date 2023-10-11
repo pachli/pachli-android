@@ -8,9 +8,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
-import org.robolectric.annotation.Config
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 class RickRollTest {
     private lateinit var activity: Activity

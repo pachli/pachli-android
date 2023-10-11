@@ -31,7 +31,6 @@ import app.pachli.components.notifications.NotificationHelper
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.db.DraftsAlert
-import app.pachli.di.MastodonApiModule
 import app.pachli.entity.Account
 import app.pachli.entity.Notification
 import app.pachli.entity.TimelineAccount
@@ -42,7 +41,6 @@ import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -69,7 +67,6 @@ interface HiltTestApplication
 @HiltAndroidTest
 @Config(application = HiltTestApplication_Application::class)
 @RunWith(AndroidJUnit4::class)
-@UninstallModules(MastodonApiModule::class)
 class MainActivityTest {
     @get:Rule(order = 0)
     var hilt = HiltAndroidRule(this)

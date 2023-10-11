@@ -39,11 +39,9 @@ import org.junit.runner.RunWith
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 abstract class NotificationsViewModelTestBase {
     protected lateinit var notificationsRepository: NotificationsRepository

@@ -40,10 +40,8 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.stub
 import org.mockito.kotlin.whenever
-import org.robolectric.annotation.Config
 import java.io.IOException
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 class ViewThreadViewModelTest {
 

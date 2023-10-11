@@ -27,13 +27,13 @@ final def CUSTOM_INSTANCE = ""
 final def SUPPORT_ACCOUNT_URL = "https://mastodon.social/@Pachli"
 
 android {
-    compileSdk 33
+    compileSdk 34
     namespace "app.pachli"
     defaultConfig {
         applicationId APP_ID
         namespace "app.pachli"
         minSdk 23
-        targetSdk 33
+        targetSdk 34
         versionCode 5
         versionName "1.2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
