@@ -47,7 +47,7 @@ class InstanceInfoRepository @Inject constructor(
                 // TODO: This can throw in some tests (appears to be flaky).
                 try {
                     instanceDao.upsert(EmojisEntity(instanceName, emojiList))
-                } catch(_: Exception) { }
+                } catch (_: Exception) { }
             }
             .getOrElse { throwable ->
                 Log.w(TAG, "failed to load custom emojis, falling back to cache", throwable)

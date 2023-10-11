@@ -477,7 +477,7 @@ class ViewThreadViewModel @Inject constructor(
                     filterModel.initWithFilters(
                         filters.filters.filter { filter ->
                             filter.context.contains(FilterV1.THREAD)
-                        }
+                        },
                     )
                 }
 

@@ -58,7 +58,8 @@ interface HiltTestApplication
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltAndroidTest
 @Config(application = HiltTestApplication_Application::class)
-@RunWith(AndroidJUnit4::class)class ViewThreadViewModelTest {
+@RunWith(AndroidJUnit4::class)
+class ViewThreadViewModelTest {
     @get:Rule(order = 0)
     var hilt = HiltAndroidRule(this)
 
@@ -187,7 +188,7 @@ interface HiltTestApplication
             gson,
             cachedTimelineRepository,
             statusDisplayOptionsRepository,
-            filtersRepository
+            filtersRepository,
         )
     }
 
