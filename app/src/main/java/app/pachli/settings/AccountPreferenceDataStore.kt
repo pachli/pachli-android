@@ -13,9 +13,7 @@ class AccountPreferenceDataStore @Inject constructor(
     private val accountManager: AccountManager,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) : PreferenceDataStore() {
-    /**
-     *  Flow of key/values that have been updated in the preferences.
-     */
+    /** Flow of key/values that have been updated in the preferences */
     val changes = MutableSharedFlow<Pair<String, Boolean>>()
 
     private val account: AccountEntity = accountManager.activeAccount!!
