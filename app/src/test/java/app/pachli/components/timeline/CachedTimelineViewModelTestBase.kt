@@ -25,10 +25,12 @@ import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.db.AccountManager
 import app.pachli.entity.Account
 import app.pachli.network.FilterModel
+import app.pachli.network.MastodonApi
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
+import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.gson.Gson
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -40,7 +42,10 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.reset
+import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
@@ -67,6 +72,9 @@ abstract class CachedTimelineViewModelTestBase {
     lateinit var accountManager: AccountManager
 
     @Inject
+    lateinit var mastodonApi: MastodonApi
+
+    @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     private lateinit var cachedTimelineRepository: CachedTimelineRepository
@@ -91,6 +99,11 @@ abstract class CachedTimelineViewModelTestBase {
     @Before
     fun setup() = runTest {
         hilt.inject()
+
+        reset(mastodonApi)
+        mastodonApi.stub {
+            onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
+        }
 
         accountManager.addAccount(
             accessToken = "token",

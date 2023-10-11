@@ -60,9 +60,7 @@ class InstanceInfoRepositoryTest {
     // be created *after* each test has set [instanceResponseCallback]
     private fun setup() {
         mastodonApi = mock {
-            onBlocking { getCustomEmojis() } doReturn at.connyduck.calladapter.networkresult.NetworkResult.success(
-                kotlin.collections.emptyList(),
-            )
+            onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList(),)
             onBlocking { getInstance() } doReturn instanceResponseCallback?.invoke().let { instance ->
                 if (instance == null) {
                     NetworkResult.failure(Throwable())

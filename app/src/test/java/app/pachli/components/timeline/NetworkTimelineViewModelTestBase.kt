@@ -62,7 +62,6 @@ abstract class NetworkTimelineViewModelTestBase {
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     private lateinit var networkTimelineRepository: NetworkTimelineRepository
-    private lateinit var accountPreferencesMap: MutableMap<String, Boolean>
     private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
     protected lateinit var timelineCases: TimelineCases
     private lateinit var filtersRepository: FiltersRepository
