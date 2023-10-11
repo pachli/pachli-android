@@ -64,10 +64,10 @@ class AccountsInListFragment : DialogFragment() {
     private val radius by unsafeLazy { resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp) }
 
     @Inject
-    lateinit var pm: SharedPreferencesRepository
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
-    private val animateAvatar by unsafeLazy { pm.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false) }
-    private val animateEmojis by unsafeLazy { pm.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false) }
+    private val animateAvatar by unsafeLazy { sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false) }
+    private val animateEmojis by unsafeLazy { sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
