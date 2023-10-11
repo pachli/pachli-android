@@ -62,7 +62,7 @@ abstract class SearchFragment<T : Any> :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initAdapter()
         setupSwipeRefreshLayout()
-        requireActivity().addMenuProvider(this@SearchFragment, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         subscribeObservables()
     }
 
