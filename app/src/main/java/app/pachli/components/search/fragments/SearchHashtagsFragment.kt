@@ -38,7 +38,7 @@ class SearchHashtagsFragment : SearchFragment<HashTag>() {
         )
     }
 
-    override suspend fun createAdapter(): PagingDataAdapter<HashTag, *> = SearchHashtagsAdapter(this)
+    override fun createAdapter(): PagingDataAdapter<HashTag, *> = SearchHashtagsAdapter(this)
 
     companion object {
         fun newInstance() = SearchHashtagsFragment()

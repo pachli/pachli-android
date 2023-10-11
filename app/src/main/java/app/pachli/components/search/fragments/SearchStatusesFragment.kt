@@ -73,7 +73,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     private val searchAdapter
         get() = super.adapter as SearchStatusesAdapter
 
-    override suspend fun createAdapter(): PagingDataAdapter<StatusViewData, *> {
+    override fun createAdapter(): PagingDataAdapter<StatusViewData, *> {
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
         binding.searchRecyclerView.addItemDecoration(

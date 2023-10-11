@@ -40,7 +40,7 @@ class SearchAccountsFragment : SearchFragment<TimelineAccount>() {
         )
     }
 
-    override suspend fun createAdapter(): PagingDataAdapter<TimelineAccount, *> {
+    override fun createAdapter(): PagingDataAdapter<TimelineAccount, *> {
         return SearchAccountsAdapter(
             this,
             sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false),

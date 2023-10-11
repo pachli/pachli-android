@@ -52,7 +52,7 @@ abstract class SearchFragment<T : Any> :
 
     private var snackbarErrorRetry: Snackbar? = null
 
-    abstract suspend fun createAdapter(): PagingDataAdapter<T, *>
+    abstract fun createAdapter(): PagingDataAdapter<T, *>
 
     abstract val data: Flow<PagingData<T>>
     protected lateinit var adapter: PagingDataAdapter<T, *>
