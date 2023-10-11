@@ -50,7 +50,7 @@ class CachedTimelineViewModelTestStatusDisplayOptions : CachedTimelineViewModelT
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `changing preference emits new StatusDisplayOptions2`() = runTest {
+    fun `changing preference emits new StatusDisplayOptions`() = runTest {
         // Given, should be false
         viewModel.statusDisplayOptions.test {
             val item = expectMostRecentItem()
