@@ -44,11 +44,9 @@ import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.robolectric.Shadows.shadowOf
-import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 abstract class CachedTimelineViewModelTestBase {
     protected lateinit var cachedTimelineRepository: CachedTimelineRepository
