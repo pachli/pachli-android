@@ -102,7 +102,7 @@ class AnnouncementsActivity :
         val wellbeingEnabled = preferences.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, false)
         val animateEmojis = preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
 
-        adapter = AnnouncementAdapter(emptyList(), this, wellbeingEnabled, animateEmojis)
+        adapter = AnnouncementAdapter(emptyList(), this, wellbeingEnabled, animateEmojis, preferences)
 
         binding.announcementsList.adapter = adapter
 

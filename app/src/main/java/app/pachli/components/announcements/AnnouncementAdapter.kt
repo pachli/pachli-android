@@ -15,6 +15,7 @@
 
 package app.pachli.components.announcements
 
+import android.content.SharedPreferences
 import android.os.Build
 import android.text.SpannableStringBuilder
 import android.view.ContextThemeWrapper
@@ -27,9 +28,12 @@ import app.pachli.R
 import app.pachli.databinding.ItemAnnouncementBinding
 import app.pachli.entity.Announcement
 import app.pachli.interfaces.LinkListener
+import app.pachli.settings.PrefKeys
+import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.BindingHolder
 import app.pachli.util.EmojiSpan
 import app.pachli.util.emojify
+import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.setClickableText
 import app.pachli.util.visible
@@ -48,21 +52,53 @@ class AnnouncementAdapter(
     private val listener: AnnouncementActionListener,
     private val wellbeingEnabled: Boolean = false,
     private val animateEmojis: Boolean = false,
+    private val preferences: SharedPreferences,
 ) : RecyclerView.Adapter<BindingHolder<ItemAnnouncementBinding>>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemAnnouncementBinding> {
-        val binding = ItemAnnouncementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    private val absoluteTimeFormatter = AbsoluteTimeFormatter()
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): BindingHolder<ItemAnnouncementBinding> {
+        val binding =
+            ItemAnnouncementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BindingHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BindingHolder<ItemAnnouncementBinding>, position: Int) {
         val item = items[position]
+        val now = System.currentTimeMillis()
+        val isAbsoluteTimeView = preferences.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
+
+        val publishTimeToDisplay = if (isAbsoluteTimeView) {
+            if (item.allDay) {
+                absoluteTimeFormatter.format(item.publishedAt, true)
+            } else {
+                absoluteTimeFormatter.format(item.publishedAt, false)
+            }
+        } else {
+            getRelativeTimeSpanString(holder.binding.root.context, item.publishedAt.time, now)
+        }
+
+        val updatedAtText = if (item.updatedAt.toString() != item.publishedAt.toString()) {
+            "(Updated: ${
+            if (isAbsoluteTimeView) {
+                absoluteTimeFormatter.format(item.updatedAt, item.allDay)
+            } else {
+                getRelativeTimeSpanString(holder.binding.root.context, item.updatedAt.time, now)
+            }
+            })"
+        } else {
+            ""
+        }
+
+        holder.binding.announcementDate.text = "$publishTimeToDisplay $updatedAtText"
 
         val text = holder.binding.text
         val chips = holder.binding.chipGroup
         val addReactionChip = holder.binding.addReactionChip
 
-        val emojifiedText: CharSequence = item.content.parseAsMastodonHtml().emojify(item.emojis, text, animateEmojis)
+        val emojifiedText: CharSequence =
+            item.content.parseAsMastodonHtml().emojify(item.emojis, text, animateEmojis)
 
         setClickableText(text, emojifiedText, item.mentions, item.tags, listener)
 
@@ -80,7 +116,12 @@ class AnnouncementAdapter(
         item.reactions.forEachIndexed { i, reaction ->
             (
                 chips.getChildAt(i)?.takeUnless { it.id == R.id.addReactionChip } as Chip?
-                    ?: Chip(ContextThemeWrapper(chips.context, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice)).apply {
+                    ?: Chip(
+                        ContextThemeWrapper(
+                            chips.context,
+                            com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice,
+                        ),
+                    ).apply {
                         isCheckable = true
                         checkedIcon = null
                         chips.addView(this, i)
@@ -100,7 +141,13 @@ class AnnouncementAdapter(
                         spanBuilder.setSpan(span, 0, 1, 0)
                         Glide.with(this)
                             .asDrawable()
-                            .load(if (animateEmojis) { reaction.url } else { reaction.staticUrl })
+                            .load(
+                                if (animateEmojis) {
+                                    reaction.url
+                                } else {
+                                    reaction.staticUrl
+                                },
+                            )
                             .into(span.getTarget(animateEmojis))
                         this.text = spanBuilder
                     }
