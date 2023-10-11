@@ -28,6 +28,8 @@ import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
+import app.pachli.components.timeline.FilterKind
+import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
@@ -53,7 +55,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -66,7 +67,8 @@ class ViewThreadViewModel @Inject constructor(
     private val timelineDao: TimelineDao,
     private val gson: Gson,
     private val repository: CachedTimelineRepository,
-    private val statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    private val filtersRepository: FiltersRepository,
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<ThreadUiState> = MutableStateFlow(ThreadUiState.Loading)
@@ -470,27 +472,18 @@ class ViewThreadViewModel @Inject constructor(
 
     private fun loadFilters() {
         viewModelScope.launch {
-            api.getFilters().fold(
-                {
-                    filterModel.kind = Filter.Kind.THREAD
-                    updateStatuses()
-                },
-                { throwable ->
-                    if (throwable is HttpException && throwable.code() == 404) {
-                        val filters = api.getFiltersV1().getOrElse {
-                            Log.w(TAG, "Failed to fetch filters", it)
-                            return@launch
+            when (val filters = filtersRepository.getFilters()) {
+                is FilterKind.V1 -> {
+                    filterModel.initWithFilters(
+                        filters.filters.filter { filter ->
+                            filter.context.contains(FilterV1.THREAD)
                         }
+                    )
+                }
 
-                        filterModel.initWithFilters(
-                            filters.filter { filter -> filter.context.contains(FilterV1.THREAD) },
-                        )
-                        updateStatuses()
-                    } else {
-                        Log.e(TAG, "Error getting filters", throwable)
-                    }
-                },
-            )
+                is FilterKind.V2 -> filterModel.kind = Filter.Kind.THREAD
+            }
+            updateStatuses()
         }
     }
 

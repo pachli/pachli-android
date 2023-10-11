@@ -31,7 +31,6 @@ import app.pachli.util.StatusDisplayOptionsRepository
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.TestScope
-import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
@@ -81,7 +80,7 @@ abstract class NetworkTimelineViewModelTestBase {
     protected val httpException = HttpException(emptyError)
 
     @Before
-    fun setup() = runTest {
+    fun setup() {
         hilt.inject()
 
         accountManager.addAccount(

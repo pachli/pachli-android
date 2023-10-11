@@ -1,22 +1,23 @@
 package app.pachli.components.viewthread
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
+import app.pachli.PachliApplication
 import app.pachli.appstore.BookmarkEvent
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
 import app.pachli.appstore.ReblogEvent
+import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.CachedTimelineRepository
+import app.pachli.components.timeline.FilterKind
+import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.mockStatus
 import app.pachli.components.timeline.mockStatusViewData
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
-import app.pachli.db.Converters
+import app.pachli.db.TimelineDao
+import app.pachli.entity.Account
 import app.pachli.entity.StatusContext
-import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
 import app.pachli.settings.AccountPreferenceDataStore
@@ -25,11 +26,14 @@ import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.gson.Gson
-import kotlinx.coroutines.flow.MutableStateFlow
+import dagger.hilt.android.testing.BindValue
+import dagger.hilt.android.testing.CustomTestApplication
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestScope
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -38,19 +42,25 @@ import org.junit.runner.RunWith
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
-import org.mockito.kotlin.whenever
+import org.robolectric.annotation.Config
 import java.io.IOException
+import java.time.Instant
+import java.util.Date
+import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
-class ViewThreadViewModelTest {
+open class PachliHiltApplication : PachliApplication()
 
-    private lateinit var api: MastodonApi
-    private lateinit var eventHub: EventHub
-    private lateinit var viewModel: ViewThreadViewModel
-    private lateinit var db: AppDatabase
+@CustomTestApplication(PachliHiltApplication::class)
+interface HiltTestApplication
 
-    private val threadId = "1234"
+@OptIn(ExperimentalCoroutinesApi::class)
+@HiltAndroidTest
+@Config(application = HiltTestApplication_Application::class)
+@RunWith(AndroidJUnit4::class)class ViewThreadViewModelTest {
+    @get:Rule(order = 0)
+    var hilt = HiltAndroidRule(this)
 
     /**
      * Execute each task synchronously.
@@ -77,15 +87,51 @@ class ViewThreadViewModelTest {
      * The test will fail, because someFunc() yields at the `call_a_suspend_func()` point,
      * and control returns to the test before `_uiState.value` has been changed.
      */
-    @get:Rule
+    @get:Rule(order = 1)
     val instantTaskRule = InstantTaskExecutorRule()
+
+    @Inject
+    lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var api: MastodonApi
+
+    @Inject
+    lateinit var eventHub: EventHub
+
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
+    @Inject
+    lateinit var timelineCases: TimelineCases
+
+    @Inject
+    lateinit var timelineDao: TimelineDao
+
+    @Inject
+    lateinit var gson: Gson
+
+    @BindValue @JvmField
+    val filtersRepository: FiltersRepository = mock()
+
+    private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
+
+    private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+
+    private lateinit var viewModel: ViewThreadViewModel
+
+    private val threadId = "1234"
 
     @Before
     fun setup() {
-        api = mock()
-        eventHub = EventHub()
+        hilt.inject()
+
+        reset(filtersRepository)
+        filtersRepository.stub {
+            onBlocking { getFilters() } doReturn FilterKind.V2(emptyList())
+        }
+
         val filterModel = FilterModel()
-        val timelineCases = TimelineCases(api, eventHub)
 
         val defaultAccount = AccountEntity(
             id = 1,
@@ -96,34 +142,38 @@ class ViewThreadViewModelTest {
             isActive = true,
         )
 
-        val activeAccountFlow = MutableStateFlow(defaultAccount)
+        accountManager.addAccount(
+            accessToken = "token",
+            domain = "domain.example",
+            clientId = "id",
+            clientSecret = "secret",
+            oauthScopes = "scopes",
+            newAccount = Account(
+                id = "1",
+                localUsername = "username",
+                username = "username@domain.example",
+                displayName = "Display Name",
+                createdAt = Date.from(Instant.now()),
+                note = "",
+                url = "",
+                avatar = "",
+                header = "",
+            ),
+        )
 
-        val accountManager: AccountManager = mock {
-            on { activeAccount } doReturn defaultAccount
-            whenever(it.activeAccountFlow).thenReturn(activeAccountFlow)
-        }
+        accountPreferenceDataStore = AccountPreferenceDataStore(
+            accountManager,
+            TestScope(),
+        )
 
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
-            .addTypeConverter(Converters(Gson()))
-            .allowMainThreadQueries()
-            .build()
-
-        val gson = Gson()
         val cachedTimelineRepository: CachedTimelineRepository = mock {
             onBlocking { getStatusViewData(any()) } doReturn emptyMap()
         }
 
-        val statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
-            SharedPreferencesRepository(
-                InMemorySharedPreferences(),
-                TestScope(),
-            ),
+        statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
+            sharedPreferencesRepository,
             accountManager,
-            AccountPreferenceDataStore(
-                accountManager,
-                TestScope(),
-            ),
+            accountPreferenceDataStore,
             TestScope(),
         )
 
@@ -133,16 +183,12 @@ class ViewThreadViewModelTest {
             timelineCases,
             eventHub,
             accountManager,
-            db.timelineDao(),
+            timelineDao,
             gson,
             cachedTimelineRepository,
             statusDisplayOptionsRepository,
+            filtersRepository
         )
-    }
-
-    @After
-    fun closeDb() {
-        db.close()
     }
 
     @Test
