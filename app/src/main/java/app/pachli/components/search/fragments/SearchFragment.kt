@@ -60,12 +60,10 @@ abstract class SearchFragment<T : Any> :
     private var currentQuery: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        lifecycleScope.launch {
-            initAdapter()
-            setupSwipeRefreshLayout()
-            requireActivity().addMenuProvider(this@SearchFragment, viewLifecycleOwner, Lifecycle.State.RESUMED)
-            subscribeObservables()
-        }
+        initAdapter()
+        setupSwipeRefreshLayout()
+        requireActivity().addMenuProvider(this@SearchFragment, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        subscribeObservables()
     }
 
     private fun setupSwipeRefreshLayout() {
@@ -123,7 +121,7 @@ abstract class SearchFragment<T : Any> :
         }
     }
 
-    private suspend fun initAdapter() {
+    private fun initAdapter() {
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
         adapter = createAdapter()
         binding.searchRecyclerView.adapter = adapter
