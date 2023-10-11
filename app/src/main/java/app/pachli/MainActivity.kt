@@ -90,7 +90,6 @@ import app.pachli.settings.PrefKeys
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
 import app.pachli.util.EmbeddedFontFamily
-import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.deleteStaleCachedMedia
 import app.pachli.util.emojify
 import app.pachli.util.getDimension
@@ -696,7 +695,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             )
         }
 
-        updateMainDrawerTypeface(sharedPreferencesRepository)
+        updateMainDrawerTypeface(
+            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(PrefKeys.FONT_FAMILY, "default")),
+        )
     }
 
     private fun buildDeveloperToolsDialog(): AlertDialog {
@@ -735,8 +736,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
      * The drawer library forces the `android:fontFamily` attribute, overriding the value in the
      * theme. Force-ably set the typeface for everything in the drawer if using a non-default font.
      */
-    private fun updateMainDrawerTypeface(preferences: SharedPreferencesRepository) {
-        val fontFamily = EmbeddedFontFamily.from(preferences.getString(PrefKeys.FONT_FAMILY, "default"))
+    private fun updateMainDrawerTypeface(fontFamily: EmbeddedFontFamily) {
         if (fontFamily == EmbeddedFontFamily.DEFAULT) return
 
         val typeface = ResourcesCompat.getFont(this, fontFamily.font) ?: return
