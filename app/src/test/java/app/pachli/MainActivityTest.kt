@@ -103,10 +103,6 @@ class MainActivityTest {
     @Inject
     lateinit var accountManager: AccountManager
 
-//    @BindValue
-//    @JvmField
-//    val accountManager: AccountManager = mock { on { activeAccount } doReturn accountEntity }
-
     @BindValue
     @JvmField
     val draftsAlert: DraftsAlert = mock()
