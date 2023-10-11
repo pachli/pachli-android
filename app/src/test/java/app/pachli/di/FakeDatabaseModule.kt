@@ -36,10 +36,10 @@ import javax.inject.Singleton
 object FakeDatabaseModule {
     @Provides
     @Singleton
-    fun providesDatabase(): AppDatabase {
+    fun providesDatabase(gson: Gson): AppDatabase {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         return Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
-            .addTypeConverter(Converters(Gson()))
+            .addTypeConverter(Converters(gson))
             .allowMainThreadQueries()
             .build()
     }
