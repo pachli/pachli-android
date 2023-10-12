@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline
 
+import androidx.core.content.edit
 import app.cash.turbine.test
 import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.components.timeline.viewmodel.UiState
@@ -53,7 +54,9 @@ class NetworkTimelineViewModelTestUiState : NetworkTimelineViewModelTestBase() {
         }
 
         // Given
-        sharedPreferencesMap[PrefKeys.FAB_HIDE] = true
+        sharedPreferences.edit {
+            putBoolean(PrefKeys.FAB_HIDE, true)
+        }
 
         // When
         eventHub.dispatch(PreferenceChangedEvent(PrefKeys.FAB_HIDE))

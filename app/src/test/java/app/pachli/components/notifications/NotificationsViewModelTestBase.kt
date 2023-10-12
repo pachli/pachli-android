@@ -25,6 +25,7 @@ import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.MainCoroutineRule
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
+import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
@@ -33,8 +34,6 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
-import org.mockito.kotlin.any
-import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.robolectric.Shadows.shadowOf
@@ -44,7 +43,6 @@ import retrofit2.Response
 @RunWith(AndroidJUnit4::class)
 abstract class NotificationsViewModelTestBase {
     protected lateinit var notificationsRepository: NotificationsRepository
-    protected lateinit var sharedPreferencesMap: MutableMap<String, Boolean>
     protected lateinit var sharedPreferences: SharedPreferences
     protected lateinit var accountManager: AccountManager
     protected lateinit var timelineCases: TimelineCases
@@ -71,23 +69,19 @@ abstract class NotificationsViewModelTestBase {
 
         notificationsRepository = mock()
 
-        // Backing store for sharedPreferences, to allow mutation in tests
-        sharedPreferencesMap = mutableMapOf(
-            PrefKeys.ANIMATE_GIF_AVATARS to false,
-            PrefKeys.ANIMATE_CUSTOM_EMOJIS to false,
-            PrefKeys.ABSOLUTE_TIME_VIEW to false,
-            PrefKeys.SHOW_BOT_OVERLAY to true,
-            PrefKeys.USE_BLURHASH to true,
-            PrefKeys.CONFIRM_REBLOGS to true,
-            PrefKeys.CONFIRM_FAVOURITES to false,
-            PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
-            PrefKeys.FAB_HIDE to false,
+        sharedPreferences = InMemorySharedPreferences(
+            mapOf(
+                PrefKeys.ANIMATE_GIF_AVATARS to false,
+                PrefKeys.ANIMATE_CUSTOM_EMOJIS to false,
+                PrefKeys.ABSOLUTE_TIME_VIEW to false,
+                PrefKeys.SHOW_BOT_OVERLAY to true,
+                PrefKeys.USE_BLURHASH to true,
+                PrefKeys.CONFIRM_REBLOGS to true,
+                PrefKeys.CONFIRM_FAVOURITES to false,
+                PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
+                PrefKeys.FAB_HIDE to false,
+            ),
         )
-
-        // Any getBoolean() call looks for the result in sharedPreferencesMap
-        sharedPreferences = mock {
-            on { getBoolean(any(), any()) } doAnswer { sharedPreferencesMap[it.arguments[0]] }
-        }
 
         accountManager = mock {
             on { activeAccount } doReturn AccountEntity(

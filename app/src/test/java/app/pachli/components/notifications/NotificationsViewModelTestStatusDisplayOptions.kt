@@ -17,6 +17,7 @@
 
 package app.pachli.components.notifications
 
+import androidx.core.content.edit
 import app.cash.turbine.test
 import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.settings.PrefKeys
@@ -65,7 +66,9 @@ class NotificationsViewModelTestStatusDisplayOptions : NotificationsViewModelTes
         assertThat(defaultStatusDisplayOptions.animateAvatars).isFalse()
 
         // Given; just a change to one preferences
-        sharedPreferencesMap[PrefKeys.ANIMATE_GIF_AVATARS] = true
+        sharedPreferences.edit {
+            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
+        }
 
         // When
         val updatedOptions = defaultStatusDisplayOptions.make(
@@ -87,7 +90,9 @@ class NotificationsViewModelTestStatusDisplayOptions : NotificationsViewModelTes
         }
 
         // Given
-        sharedPreferencesMap[PrefKeys.ANIMATE_GIF_AVATARS] = true
+        sharedPreferences.edit {
+            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
+        }
 
         // When
         eventHub.dispatch(PreferenceChangedEvent(PrefKeys.ANIMATE_GIF_AVATARS))
