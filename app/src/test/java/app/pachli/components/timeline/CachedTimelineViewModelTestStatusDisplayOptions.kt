@@ -54,7 +54,7 @@ class CachedTimelineViewModelTestStatusDisplayOptions : CachedTimelineViewModelT
             assertThat(item.animateAvatars).isFalse()
 
             // When
-            sharedPreferencesRepository.edit(commit = true) {
+            sharedPreferencesRepository.edit {
                 putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
             }
 

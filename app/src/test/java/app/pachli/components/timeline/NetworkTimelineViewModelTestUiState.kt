@@ -51,7 +51,7 @@ class NetworkTimelineViewModelTestUiState : NetworkTimelineViewModelTestBase() {
             assertThat(awaitItem().showFabWhileScrolling).isTrue()
 
             // When
-            sharedPreferencesRepository.edit(commit = true) {
+            sharedPreferencesRepository.edit {
                 putBoolean(PrefKeys.FAB_HIDE, false)
             }
 

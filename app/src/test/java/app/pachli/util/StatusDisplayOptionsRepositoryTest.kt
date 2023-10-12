@@ -119,7 +119,7 @@ class StatusDisplayOptionsRepositoryTest {
     fun `changing a preference emits correct value`() = runTest {
         val initial = statusDisplayOptionsRepository.flow.value.animateAvatars
 
-        sharedPreferencesRepository.edit(commit = true) {
+        sharedPreferencesRepository.edit {
             putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, !initial)
         }
 

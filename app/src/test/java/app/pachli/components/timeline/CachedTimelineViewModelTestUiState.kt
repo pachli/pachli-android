@@ -51,7 +51,7 @@ class CachedTimelineViewModelTestUiState : CachedTimelineViewModelTestBase() {
             assertThat(awaitItem().showFabWhileScrolling).isTrue()
 
             // Given
-            sharedPreferencesRepository.edit(commit = true) {
+            sharedPreferencesRepository.edit {
                 putBoolean(PrefKeys.FAB_HIDE, false)
             }
 

@@ -51,7 +51,7 @@ class SharedPreferencesRepositoryTest {
         assertThat(sharedPreferencesRepository.contains("testKey")).isFalse()
 
         // When
-        sharedPreferencesRepository.edit(commit = true) {
+        sharedPreferencesRepository.edit {
             putBoolean("testKey", true)
         }
 
@@ -73,7 +73,7 @@ class SharedPreferencesRepositoryTest {
         assertThat(sharedPreferencesRepository.getBoolean("testKey", false)).isTrue()
 
         // When
-        sharedPreferencesRepository.edit(commit = true) {
+        sharedPreferencesRepository.edit {
             putBoolean("testKey", false)
         }
 
@@ -95,7 +95,7 @@ class SharedPreferencesRepositoryTest {
         assertThat(sharedPreferencesRepository.getBoolean("testKey", false)).isTrue()
 
         // When
-        sharedPreferencesRepository.edit(commit = true) {
+        sharedPreferencesRepository.edit {
             remove("testKey")
         }
 
@@ -117,7 +117,7 @@ class SharedPreferencesRepositoryTest {
         assertThat(sharedPreferencesRepository.getBoolean("testKey", false)).isTrue()
 
         // When
-        sharedPreferencesRepository.edit(commit = true) {
+        sharedPreferencesRepository.edit {
             clear()
         }
 
