@@ -55,12 +55,8 @@ class AnnouncementAdapter(
     private val preferences: SharedPreferences,
 ) : RecyclerView.Adapter<BindingHolder<ItemAnnouncementBinding>>() {
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): BindingHolder<ItemAnnouncementBinding> {
-        val binding =
-            ItemAnnouncementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemAnnouncementBinding> {
+        val binding = ItemAnnouncementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BindingHolder(binding)
     }
 
@@ -97,8 +93,7 @@ class AnnouncementAdapter(
         val chips = holder.binding.chipGroup
         val addReactionChip = holder.binding.addReactionChip
 
-        val emojifiedText: CharSequence =
-            item.content.parseAsMastodonHtml().emojify(item.emojis, text, animateEmojis)
+        val emojifiedText: CharSequence = item.content.parseAsMastodonHtml().emojify(item.emojis, text, animateEmojis)
 
         setClickableText(text, emojifiedText, item.mentions, item.tags, listener)
 
@@ -116,12 +111,7 @@ class AnnouncementAdapter(
         item.reactions.forEachIndexed { i, reaction ->
             (
                 chips.getChildAt(i)?.takeUnless { it.id == R.id.addReactionChip } as Chip?
-                    ?: Chip(
-                        ContextThemeWrapper(
-                            chips.context,
-                            com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice,
-                        ),
-                    ).apply {
+                    ?: Chip(ContextThemeWrapper(chips.context, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice)).apply {
                         isCheckable = true
                         checkedIcon = null
                         chips.addView(this, i)
@@ -141,13 +131,7 @@ class AnnouncementAdapter(
                         spanBuilder.setSpan(span, 0, 1, 0)
                         Glide.with(this)
                             .asDrawable()
-                            .load(
-                                if (animateEmojis) {
-                                    reaction.url
-                                } else {
-                                    reaction.staticUrl
-                                },
-                            )
+                            .load(if (animateEmojis) { reaction.url } else { reaction.staticUrl })
                             .into(span.getTarget(animateEmojis))
                         this.text = spanBuilder
                     }
