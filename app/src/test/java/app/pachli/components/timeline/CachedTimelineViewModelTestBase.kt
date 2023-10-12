@@ -90,7 +90,7 @@ abstract class CachedTimelineViewModelTestBase {
                 PrefKeys.CONFIRM_FAVOURITES to false,
                 PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
                 PrefKeys.FAB_HIDE to false,
-            )
+            ),
         )
 
         // Backing store for account preferences, to allow mutation in tests

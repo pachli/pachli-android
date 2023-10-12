@@ -80,7 +80,7 @@ abstract class NotificationsViewModelTestBase {
                 PrefKeys.CONFIRM_FAVOURITES to false,
                 PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
                 PrefKeys.FAB_HIDE to false,
-            )
+            ),
         )
 
         accountManager = mock {
