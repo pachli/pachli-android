@@ -472,18 +472,24 @@ class ViewThreadViewModel @Inject constructor(
 
     private fun loadFilters() {
         viewModelScope.launch {
-            when (val filters = filtersRepository.getFilters()) {
-                is FilterKind.V1 -> {
-                    filterModel.initWithFilters(
-                        filters.filters.filter { filter ->
-                            filter.context.contains(FilterV1.THREAD)
-                        },
-                    )
-                }
+            try {
+                when (val filters = filtersRepository.getFilters()) {
+                    is FilterKind.V1 -> {
+                        filterModel.initWithFilters(
+                            filters.filters.filter { filter ->
+                                filter.context.contains(FilterV1.THREAD)
+                            },
+                        )
+                    }
 
-                is FilterKind.V2 -> filterModel.kind = Filter.Kind.THREAD
+                    is FilterKind.V2 -> filterModel.kind = Filter.Kind.THREAD
+                }
+                updateStatuses()
+            } catch (_: Exception) {
+                // TODO: Deliberately don't emit to _errors here -- at the moment
+                // ViewThreadFragment shows a generic error to the user, and that
+                // would confuse them when the rest of the thread is loading OK.
             }
-            updateStatuses()
         }
     }
 
