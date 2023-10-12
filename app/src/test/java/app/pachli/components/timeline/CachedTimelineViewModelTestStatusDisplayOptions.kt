@@ -30,7 +30,6 @@ import org.junit.Test
  * Verify that [StatusDisplayOptions] are handled correctly.
  *
  * - Is the initial value taken from values in sharedPreferences and account?
- * - Does the make() function correctly use an updated preference?
  * - Is the correct update emitted when a relevant preference changes?
  */
 // TODO: With the exception of the types, this is identical to
