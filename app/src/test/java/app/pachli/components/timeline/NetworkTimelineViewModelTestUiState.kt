@@ -23,8 +23,6 @@ import app.pachli.components.timeline.viewmodel.UiState
 import app.pachli.settings.PrefKeys
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -46,21 +44,19 @@ class NetworkTimelineViewModelTestUiState : NetworkTimelineViewModelTestBase() {
         assertThat(viewModel.uiState.value).isEqualTo(initialUiState)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `showFabWhileScrolling depends on FAB_HIDE preference`() = runTest {
-        // Given
-        assertThat(viewModel.uiState.value.showFabWhileScrolling).isTrue()
-
-        // When
-        sharedPreferencesRepository.edit(commit = true) {
-            putBoolean(PrefKeys.FAB_HIDE, false)
-        }
-
-        // Then
         viewModel.uiState.test {
-            advanceUntilIdle()
-            assertThat(expectMostRecentItem().showFabWhileScrolling).isFalse()
+            // Given
+            assertThat(awaitItem().showFabWhileScrolling).isTrue()
+
+            // When
+            sharedPreferencesRepository.edit(commit = true) {
+                putBoolean(PrefKeys.FAB_HIDE, false)
+            }
+
+            // Then
+            assertThat(awaitItem().showFabWhileScrolling).isFalse()
         }
     }
 }

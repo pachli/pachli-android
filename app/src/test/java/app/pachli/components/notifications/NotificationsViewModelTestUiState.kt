@@ -22,8 +22,6 @@ import app.cash.turbine.test
 import app.pachli.entity.Notification
 import app.pachli.settings.PrefKeys
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -47,23 +45,19 @@ class NotificationsViewModelTestUiState : NotificationsViewModelTestBase() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `showFabWhileScrolling depends on FAB_HIDE preference`() = runTest {
-        // Given
         viewModel.uiState.test {
-            assertThat(expectMostRecentItem().showFabWhileScrolling).isTrue()
-        }
+            // Given
+            assertThat(awaitItem().showFabWhileScrolling).isTrue()
 
-        // When
-        sharedPreferencesRepository.edit(commit = true) {
-            putBoolean(PrefKeys.FAB_HIDE, true)
-        }
+            // When
+            sharedPreferencesRepository.edit(commit = true) {
+                putBoolean(PrefKeys.FAB_HIDE, true)
+            }
 
-        // Then
-        viewModel.uiState.test {
-            advanceUntilIdle()
-            assertThat(expectMostRecentItem().showFabWhileScrolling).isFalse()
+            // Then
+            assertThat(awaitItem().showFabWhileScrolling).isFalse()
         }
     }
 }

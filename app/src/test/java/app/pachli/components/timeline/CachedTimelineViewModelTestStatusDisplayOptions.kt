@@ -23,8 +23,6 @@ import app.pachli.settings.PrefKeys
 import app.pachli.util.StatusDisplayOptions
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -48,24 +46,20 @@ class CachedTimelineViewModelTestStatusDisplayOptions : CachedTimelineViewModelT
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `changing preference emits new StatusDisplayOptions`() = runTest {
-        // Given, should be false
         viewModel.statusDisplayOptions.test {
-            val item = expectMostRecentItem()
+            // Given, should be false
+            val item = awaitItem()
             assertThat(item.animateAvatars).isFalse()
-        }
 
-        // When
-        sharedPreferencesRepository.edit(commit = true) {
-            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
-        }
+            // When
+            sharedPreferencesRepository.edit(commit = true) {
+                putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
+            }
 
-        // Then, should be true
-        viewModel.statusDisplayOptions.test {
-            advanceUntilIdle()
-            assertThat(expectMostRecentItem().animateAvatars).isTrue()
+            // Then
+            assertThat(awaitItem().animateAvatars).isTrue()
         }
     }
 }

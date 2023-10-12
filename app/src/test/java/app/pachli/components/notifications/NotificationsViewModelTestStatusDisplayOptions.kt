@@ -22,8 +22,6 @@ import app.cash.turbine.test
 import app.pachli.settings.PrefKeys
 import app.pachli.util.StatusDisplayOptions
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -45,25 +43,19 @@ class NotificationsViewModelTestStatusDisplayOptions : NotificationsViewModelTes
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `Editing preferences emits new StatusDisplayOptions`() = runTest {
-        // Given, should be false
         viewModel.statusDisplayOptions.test {
-            val item = expectMostRecentItem()
-            assertThat(item.animateAvatars).isFalse()
-        }
+            // Given, should be false
+            assertThat(awaitItem().animateAvatars).isFalse()
 
-        // When
-        sharedPreferencesRepository.edit(commit = true) {
-            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
-        }
+            // When
+            sharedPreferencesRepository.edit(commit = true) {
+                putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
+            }
 
-        // Then, should be true
-        viewModel.statusDisplayOptions.test {
-            advanceUntilIdle()
-            val item = expectMostRecentItem()
-            assertThat(item.animateAvatars).isTrue()
+            // Then, should be true
+            assertThat(awaitItem().animateAvatars).isTrue()
         }
     }
 }
