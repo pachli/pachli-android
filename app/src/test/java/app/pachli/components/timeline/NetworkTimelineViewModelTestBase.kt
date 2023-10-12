@@ -26,6 +26,7 @@ import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
+import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.PrefKeys
@@ -49,7 +50,6 @@ import retrofit2.Response
 @RunWith(AndroidJUnit4::class)
 abstract class NetworkTimelineViewModelTestBase {
     protected lateinit var networkTimelineRepository: NetworkTimelineRepository
-    protected lateinit var sharedPreferencesMap: MutableMap<String, Boolean>
     protected lateinit var sharedPreferences: SharedPreferences
     protected lateinit var accountPreferencesMap: MutableMap<String, Boolean>
     protected lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
@@ -78,23 +78,19 @@ abstract class NetworkTimelineViewModelTestBase {
 
         networkTimelineRepository = mock()
 
-        // Backing store for sharedPreferences, to allow mutation in tests
-        sharedPreferencesMap = mutableMapOf(
-            PrefKeys.ANIMATE_GIF_AVATARS to false,
-            PrefKeys.ANIMATE_CUSTOM_EMOJIS to false,
-            PrefKeys.ABSOLUTE_TIME_VIEW to false,
-            PrefKeys.SHOW_BOT_OVERLAY to true,
-            PrefKeys.USE_BLURHASH to true,
-            PrefKeys.CONFIRM_REBLOGS to true,
-            PrefKeys.CONFIRM_FAVOURITES to false,
-            PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
-            PrefKeys.FAB_HIDE to false,
+        sharedPreferences = InMemorySharedPreferences(
+            mapOf(
+                PrefKeys.ANIMATE_GIF_AVATARS to false,
+                PrefKeys.ANIMATE_CUSTOM_EMOJIS to false,
+                PrefKeys.ABSOLUTE_TIME_VIEW to false,
+                PrefKeys.SHOW_BOT_OVERLAY to true,
+                PrefKeys.USE_BLURHASH to true,
+                PrefKeys.CONFIRM_REBLOGS to true,
+                PrefKeys.CONFIRM_FAVOURITES to false,
+                PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
+                PrefKeys.FAB_HIDE to false,
+            )
         )
-
-        // Any getBoolean() call looks for the result in sharedPreferencesMap
-        sharedPreferences = mock {
-            on { getBoolean(any(), any()) } doAnswer { sharedPreferencesMap[it.arguments[0]] }
-        }
 
         // Backing store for account preferences, to allow mutation in tests
         accountPreferencesMap = mutableMapOf(

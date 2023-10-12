@@ -17,6 +17,7 @@
 
 package app.pachli.components.notifications
 
+import androidx.core.content.edit
 import app.cash.turbine.test
 import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.entity.Notification
@@ -53,7 +54,9 @@ class NotificationsViewModelTestUiState : NotificationsViewModelTestBase() {
         }
 
         // Given
-        sharedPreferencesMap[PrefKeys.FAB_HIDE] = true
+        sharedPreferences.edit {
+            putBoolean(PrefKeys.FAB_HIDE, true)
+        }
 
         // When
         eventHub.dispatch(PreferenceChangedEvent(PrefKeys.FAB_HIDE))
