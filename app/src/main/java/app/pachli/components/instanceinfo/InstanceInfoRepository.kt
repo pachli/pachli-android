@@ -44,10 +44,7 @@ class InstanceInfoRepository @Inject constructor(
     suspend fun getEmojis(): List<Emoji> = withContext(Dispatchers.IO) {
         api.getCustomEmojis()
             .onSuccess { emojiList ->
-                // TODO: This can throw in some tests (appears to be flaky).
-                try {
-                    instanceDao.upsert(EmojisEntity(instanceName, emojiList))
-                } catch (_: Exception) { }
+                instanceDao.upsert(EmojisEntity(instanceName, emojiList))
             }
             .getOrElse { throwable ->
                 Log.w(TAG, "failed to load custom emojis, falling back to cache", throwable)
