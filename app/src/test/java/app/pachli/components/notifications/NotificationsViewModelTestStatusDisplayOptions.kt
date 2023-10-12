@@ -44,7 +44,7 @@ class NotificationsViewModelTestStatusDisplayOptions : NotificationsViewModelTes
     }
 
     @Test
-    fun `Editing preferences emits new StatusDisplayOptions`() = runTest {
+    fun `editing preferences emits new StatusDisplayOptions`() = runTest {
         viewModel.statusDisplayOptions.test {
             // Given, should be false
             assertThat(awaitItem().animateAvatars).isFalse()
