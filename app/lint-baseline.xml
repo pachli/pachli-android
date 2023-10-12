@@ -3039,7 +3039,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="234"
+            line="233"
             column="37"/>
     </issue>
 
@@ -3050,7 +3050,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="238"
+            line="237"
             column="37"/>
     </issue>
 
@@ -3061,7 +3061,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="342"
+            line="341"
             column="25"/>
     </issue>
 
@@ -3072,7 +3072,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="343"
+            line="342"
             column="29"/>
     </issue>
 
@@ -3083,7 +3083,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="345"
+            line="344"
             column="25"/>
     </issue>
 
@@ -3094,7 +3094,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="346"
+            line="345"
             column="29"/>
     </issue>
 
@@ -3105,7 +3105,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="558"
+            line="557"
             column="17"/>
     </issue>
 
@@ -3116,7 +3116,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="561"
+            line="560"
             column="21"/>
     </issue>
 
@@ -3127,7 +3127,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="566"
+            line="565"
             column="17"/>
     </issue>
 
@@ -3138,7 +3138,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="570"
+            line="569"
             column="21"/>
     </issue>
 
@@ -3149,7 +3149,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="575"
+            line="574"
             column="17"/>
     </issue>
 
@@ -3160,7 +3160,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="578"
+            line="577"
             column="21"/>
     </issue>
 
@@ -3171,7 +3171,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="583"
+            line="582"
             column="17"/>
     </issue>
 
@@ -3182,7 +3182,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="586"
+            line="585"
             column="21"/>
     </issue>
 
@@ -3193,7 +3193,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="591"
+            line="590"
             column="17"/>
     </issue>
 
@@ -3204,7 +3204,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="594"
+            line="593"
             column="21"/>
     </issue>
 
@@ -3215,7 +3215,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="598"
+            line="597"
             column="17"/>
     </issue>
 
@@ -3226,7 +3226,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="601"
+            line="600"
             column="21"/>
     </issue>
 
@@ -3237,7 +3237,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="606"
+            line="605"
             column="17"/>
     </issue>
 
@@ -3248,7 +3248,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="609"
+            line="608"
             column="21"/>
     </issue>
 
@@ -3259,7 +3259,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="613"
+            line="612"
             column="17"/>
     </issue>
 
@@ -3270,7 +3270,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="617"
+            line="616"
             column="21"/>
     </issue>
 
@@ -3281,7 +3281,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="626"
+            line="625"
             column="17"/>
     </issue>
 
@@ -3292,7 +3292,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="629"
+            line="628"
             column="21"/>
     </issue>
 
@@ -3303,7 +3303,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="634"
+            line="633"
             column="17"/>
     </issue>
 
@@ -3314,7 +3314,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="637"
+            line="636"
             column="21"/>
     </issue>
 
@@ -3325,7 +3325,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="642"
+            line="641"
             column="17"/>
     </issue>
 
@@ -3336,7 +3336,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="645"
+            line="644"
             column="21"/>
     </issue>
 
@@ -3347,7 +3347,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="650"
+            line="649"
             column="17"/>
     </issue>
 
@@ -3358,7 +3358,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="653"
+            line="652"
             column="21"/>
     </issue>
 
@@ -3369,7 +3369,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="660"
+            line="659"
             column="21"/>
     </issue>
 
@@ -3380,7 +3380,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="663"
+            line="662"
             column="25"/>
     </issue>
 
@@ -3391,7 +3391,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="672"
+            line="671"
             column="17"/>
     </issue>
 
@@ -3402,7 +3402,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="675"
+            line="674"
             column="21"/>
     </issue>
 
@@ -3413,7 +3413,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="688"
+            line="687"
             column="17"/>
     </issue>
 
@@ -3424,7 +3424,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="692"
+            line="691"
             column="21"/>
     </issue>
 
