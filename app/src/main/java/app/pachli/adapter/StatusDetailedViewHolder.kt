@@ -158,8 +158,7 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
         if (visibility == null) {
             return null
         }
-        val visibilityIcon: Int
-        visibilityIcon = when (visibility) {
+        val visibilityIcon: Int = when (visibility) {
             Status.Visibility.PUBLIC -> R.drawable.ic_public_24dp
             Status.Visibility.UNLISTED -> R.drawable.ic_lock_open_24dp
             Status.Visibility.PRIVATE -> R.drawable.ic_lock_outline_24dp

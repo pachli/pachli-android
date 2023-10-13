@@ -72,7 +72,7 @@ class ConversationViewHolder internal constructor(
                     attachments, sensitive, listener, statusViewData.isShowingContent,
                     statusDisplayOptions.useBlurhash
                 )
-                if (attachments.size == 0) {
+                if (attachments.isEmpty()) {
                     hideSensitiveMediaWarning()
                 }
                 // Hide the unused label.

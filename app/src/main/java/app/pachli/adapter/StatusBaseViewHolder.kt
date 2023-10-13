@@ -84,13 +84,13 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private val sensitiveMediaWarning: TextView
     private val sensitiveMediaShow: View
     protected val mediaLabels: Array<TextView>
-    protected val mediaDescriptions: Array<CharSequence?>
+    private val mediaDescriptions: Array<CharSequence?>
     private val contentWarningButton: MaterialButton
     private val avatarInset: ImageView
     val avatar: ImageView
     val metaInfo: TextView
     val content: TextView
-    val contentWarningDescription: TextView
+    private val contentWarningDescription: TextView
     private val pollOptions: RecyclerView
     private val pollDescription: TextView
     private val pollButton: Button
@@ -101,10 +101,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private val cardDescription: TextView
     private val cardUrl: TextView
     private val pollAdapter: PollAdapter
-    protected val filteredPlaceholder: LinearLayout?
-    protected val filteredPlaceholderLabel: TextView?
-    protected val filteredPlaceholderShowButton: Button?
-    protected val statusContainer: ConstraintLayout?
+    private val filteredPlaceholder: LinearLayout?
+    private val filteredPlaceholderLabel: TextView?
+    private val filteredPlaceholderShowButton: Button?
+    private val statusContainer: ConstraintLayout?
     private val numberFormat = NumberFormat.getNumberInstance()
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
     protected val avatarRadius48dp: Int
@@ -228,7 +228,13 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         } else {
             contentWarningDescription.visibility = View.GONE
             contentWarningButton.visibility = View.GONE
-            setTextVisible(false, true, status, statusDisplayOptions, listener)
+            setTextVisible(
+                sensitive = false,
+                expanded = true,
+                status = status,
+                statusDisplayOptions = statusDisplayOptions,
+                listener = listener
+            )
         }
     }
 
@@ -394,7 +400,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         }
     }
 
-    protected fun setReplyCount(repliesCount: Int, fullStats: Boolean) {
+    private fun setReplyCount(repliesCount: Int, fullStats: Boolean) {
         // This label only exists in the non-detailed view (to match the web ui)
         if (replyCountLabel == null) return
         if (fullStats) {
@@ -405,9 +411,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         // Show "0", "1", or "1+" for replies otherwise, so the user knows if there is a thread
         // that they can click through to read.
         replyCountLabel.text =
-            if (repliesCount > 1) replyCountLabel.context.getString(R.string.status_count_one_plus) else Integer.toString(
-                repliesCount
-            )
+            if (repliesCount > 1) replyCountLabel.context.getString(R.string.status_count_one_plus) else repliesCount.toString()
     }
 
     private fun setReblogged(reblogged: Boolean) {
@@ -430,8 +434,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             reblogButton.setInactiveImage(inactiveId)
             reblogButton.setActiveImage(activeId)
         } else {
-            val disabledId: Int
-            disabledId = if (visibility === Status.Visibility.DIRECT) {
+            val disabledId: Int = if (visibility === Status.Visibility.DIRECT) {
                 R.drawable.ic_reblog_direct_24dp
             } else {
                 R.drawable.ic_reblog_private_24dp
@@ -762,7 +765,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                     status.isShowingContent,
                     statusDisplayOptions.useBlurhash
                 )
-                if (attachments.size == 0) {
+                if (attachments.isEmpty()) {
                     hideSensitiveMediaWarning()
                 }
                 // Hide the unused label.
@@ -796,7 +799,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             // but ViewCompat code replaces is with the default one. RecyclerView never
             // fetches another one from its delegate because it checks that it's set so we remove it
             // and let RecyclerView ask for a new delegate.
-            itemView.setAccessibilityDelegate(null)
+            itemView.accessibilityDelegate = null
         } else {
             if (payloads is List<*>) for (item in payloads) {
                 if (Key.KEY_CREATED == item) {
@@ -820,7 +823,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         // but guards against a possible NPE. See the TODO in StatusViewData.filterAction
         // for more details.
         val filterResults = status.actionable.filtered
-        if (filterResults == null || filterResults.isEmpty()) {
+        if (filterResults.isNullOrEmpty()) {
             showFilteredPlaceholder(false)
             return
         }
@@ -883,7 +886,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     ): CharSequence {
         val poll = status.actionable.poll ?: return ""
         val pollViewData = from(poll)
-        val args: Array<CharSequence?> = arrayOfNulls<CharSequence>(5)
+        val args: Array<CharSequence?> = arrayOfNulls(5)
         val options = pollViewData.options
         val totalVotes = pollViewData.votesCount
         val totalVoters = pollViewData.votersCount
@@ -959,7 +962,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         } else {
             // voting possible
             val optionClickListener = View.OnClickListener { v: View? ->
-                pollButton.isEnabled = !pollAdapter.getSelected().isEmpty()
+                pollButton.isEnabled = pollAdapter.getSelected().isNotEmpty()
             }
             pollAdapter.setup(
                 poll.options,
@@ -978,7 +981,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val pollResult = pollAdapter.getSelected()
-                    if (!pollResult.isEmpty()) {
+                    if (pollResult.isNotEmpty()) {
                         listener.onVoteInPoll(position, pollResult)
                     }
                 }
@@ -993,8 +996,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         statusDisplayOptions: StatusDisplayOptions,
         context: Context
     ): CharSequence {
-        val votesText: String
-        votesText = if (poll.votersCount == null) {
+        val votesText: String = if (poll.votersCount == null) {
             val voters = numberFormat.format(poll.votesCount.toLong())
             context.resources.getQuantityString(R.plurals.poll_info_votes, poll.votesCount, voters)
         } else {
@@ -1005,8 +1007,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 voters
             )
         }
-        val pollDurationInfo: CharSequence
-        pollDurationInfo = if (poll.expired) {
+        val pollDurationInfo: CharSequence = if (poll.expired) {
             context.getString(R.string.poll_info_closed)
         } else if (poll.expiresAt == null) {
             return votesText
@@ -1038,7 +1039,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             return
         }
         val (_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, sensitive, _, _, attachments, _, _, _, _, _, poll, card) = status.actionable
-        if (cardViewMode !== CardViewMode.NONE && attachments.size == 0 && poll == null && card != null &&
+        if (cardViewMode !== CardViewMode.NONE && attachments.isEmpty() && poll == null && card != null &&
             !TextUtils.isEmpty(card.url) &&
             (!sensitive || expanded) &&
             (!status.isCollapsible || !status.isCollapsed)
@@ -1160,7 +1161,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         moreButton.visibility = visibility
     }
 
-    fun showFilteredPlaceholder(show: Boolean) {
+    private fun showFilteredPlaceholder(show: Boolean) {
         if (statusContainer != null) {
             statusContainer.visibility = if (show) View.GONE else View.VISIBLE
         }
@@ -1243,8 +1244,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             if (visibility == null) {
                 return ""
             }
-            val resource: Int
-            resource = when (visibility) {
+            val resource: Int = when (visibility) {
                 Status.Visibility.PUBLIC -> R.string.description_visibility_public
                 Status.Visibility.UNLISTED -> R.string.description_visibility_unlisted
                 Status.Visibility.PRIVATE -> R.string.description_visibility_private
