@@ -18,6 +18,8 @@ import app.pachli.util.CardViewMode
 import app.pachli.util.NoUnderlineURLSpan
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.createClickableText
+import app.pachli.util.hide
+import app.pachli.util.show
 import app.pachli.viewdata.StatusViewData
 import java.text.DateFormat
 
@@ -86,20 +88,20 @@ class StatusDetailedViewHolder(
     ) {
         if (reblogCount > 0) {
             binding.statusReblogs.text = getReblogsText(binding.statusReblogs.context, reblogCount)
-            binding.statusReblogs.visibility = View.VISIBLE
+            binding.statusReblogs.show()
         } else {
-            binding.statusReblogs.visibility = View.GONE
+            binding.statusReblogs.hide()
         }
         if (favCount > 0) {
             binding.statusFavourites.text = getFavsText(binding.statusFavourites.context, favCount)
-            binding.statusFavourites.visibility = View.VISIBLE
+            binding.statusFavourites.show()
         } else {
-            binding.statusFavourites.visibility = View.GONE
+            binding.statusFavourites.hide()
         }
         if (binding.statusReblogs.visibility == View.GONE && binding.statusFavourites.visibility == View.GONE) {
-            binding.statusInfoDivider.visibility = View.GONE
+            binding.statusInfoDivider.hide()
         } else {
-            binding.statusInfoDivider.visibility = View.VISIBLE
+            binding.statusInfoDivider.show()
         }
         binding.statusReblogs.setOnClickListener {
             val position = bindingAdapterPosition
@@ -175,9 +177,9 @@ class StatusDetailedViewHolder(
     }
 
     private fun hideQuantitativeStats() {
-        binding.statusReblogs.visibility = View.GONE
-        binding.statusFavourites.visibility = View.GONE
-        binding.statusInfoDivider.visibility = View.GONE
+        binding.statusReblogs.hide()
+        binding.statusFavourites.hide()
+        binding.statusInfoDivider.hide()
     }
 
     companion object {
