@@ -8,10 +8,10 @@ import android.text.method.LinkMovementMethod
 import android.text.style.DynamicDrawableSpan
 import android.text.style.ImageSpan
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.databinding.ItemStatusDetailedBinding
 import app.pachli.entity.Status
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.CardViewMode
@@ -21,16 +21,9 @@ import app.pachli.util.createClickableText
 import app.pachli.viewdata.StatusViewData
 import java.text.DateFormat
 
-class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
-    private val reblogs: TextView
-    private val favourites: TextView
-    private val infoDivider: View
-
-    init {
-        reblogs = view.findViewById(R.id.status_reblogs)
-        favourites = view.findViewById(R.id.status_favourites)
-        infoDivider = view.findViewById(R.id.status_info_divider)
-    }
+class StatusDetailedViewHolder(
+    private val binding: ItemStatusDetailedBinding
+) : StatusBaseViewHolder(binding.root) {
 
     override fun setMetaData(
         statusViewData: StatusViewData,
@@ -92,29 +85,29 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
         listener: StatusActionListener,
     ) {
         if (reblogCount > 0) {
-            reblogs.text = getReblogsText(reblogs.context, reblogCount)
-            reblogs.visibility = View.VISIBLE
+            binding.statusReblogs.text = getReblogsText(binding.statusReblogs.context, reblogCount)
+            binding.statusReblogs.visibility = View.VISIBLE
         } else {
-            reblogs.visibility = View.GONE
+            binding.statusReblogs.visibility = View.GONE
         }
         if (favCount > 0) {
-            favourites.text = getFavsText(favourites.context, favCount)
-            favourites.visibility = View.VISIBLE
+            binding.statusFavourites.text = getFavsText(binding.statusFavourites.context, favCount)
+            binding.statusFavourites.visibility = View.VISIBLE
         } else {
-            favourites.visibility = View.GONE
+            binding.statusFavourites.visibility = View.GONE
         }
-        if (reblogs.visibility == View.GONE && favourites.visibility == View.GONE) {
-            infoDivider.visibility = View.GONE
+        if (binding.statusReblogs.visibility == View.GONE && binding.statusFavourites.visibility == View.GONE) {
+            binding.statusInfoDivider.visibility = View.GONE
         } else {
-            infoDivider.visibility = View.VISIBLE
+            binding.statusInfoDivider.visibility = View.VISIBLE
         }
-        reblogs.setOnClickListener {
+        binding.statusReblogs.setOnClickListener {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onShowReblogs(position)
             }
         }
-        favourites.setOnClickListener {
+        binding.statusFavourites.setOnClickListener {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onShowFavs(position)
@@ -182,9 +175,9 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
     }
 
     private fun hideQuantitativeStats() {
-        reblogs.visibility = View.GONE
-        favourites.visibility = View.GONE
-        infoDivider.visibility = View.GONE
+        binding.statusReblogs.visibility = View.GONE
+        binding.statusFavourites.visibility = View.GONE
+        binding.statusInfoDivider.visibility = View.GONE
     }
 
     companion object {
