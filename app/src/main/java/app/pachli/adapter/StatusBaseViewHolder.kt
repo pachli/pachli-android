@@ -597,7 +597,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 }
             }
         }
-        view.setOnLongClickListener { v: View? ->
+        view.setOnLongClickListener {
             val description = attachment.getFormattedDescription(view.context)
             Toast.makeText(view.context, description, Toast.LENGTH_LONG).show()
             true
@@ -616,16 +616,16 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         statusDisplayOptions: StatusDisplayOptions
     ) {
         val profileButtonClickListener =
-            View.OnClickListener { button: View? -> listener.onViewAccount(accountId) }
+            View.OnClickListener { listener.onViewAccount(accountId) }
         avatar.setOnClickListener(profileButtonClickListener)
         displayName.setOnClickListener(profileButtonClickListener)
-        replyButton.setOnClickListener { v: View? ->
+        replyButton.setOnClickListener {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onReply(position)
             }
         }
-        reblogButton?.setEventListener { button: SparkButton?, buttonState: Boolean ->
+        reblogButton?.setEventListener { _: SparkButton?, buttonState: Boolean ->
             // return true to play animation
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
@@ -640,7 +640,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 return@setEventListener false
             }
         }
-        favouriteButton.setEventListener { button: SparkButton?, buttonState: Boolean ->
+        favouriteButton.setEventListener { _: SparkButton?, buttonState: Boolean ->
             // return true to play animation
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
@@ -655,7 +655,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 return@setEventListener true
             }
         }
-        bookmarkButton.setEventListener { button: SparkButton?, buttonState: Boolean ->
+        bookmarkButton.setEventListener { _: SparkButton?, buttonState: Boolean ->
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onBookmark(!buttonState, position)
@@ -672,7 +672,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
          * if it contains URLSpans without also setting its listener. The surrounding spans will
          * just eat the clicks instead of deferring to the parent listener, but WILL respond to a
          * listener directly on the TextView, for whatever reason. */
-        val viewThreadListener = View.OnClickListener { v: View? ->
+        val viewThreadListener = View.OnClickListener {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onViewThread(position)
@@ -695,7 +695,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         } else {
             menu.findItem(R.id.menu_action_unreblog).isVisible = false
         }
-        popup.setOnMenuItemClickListener { item: MenuItem? ->
+        popup.setOnMenuItemClickListener {
             listener.onReblog(!buttonState, position)
             if (!buttonState) {
                 reblogButton.playAnimation()
@@ -718,7 +718,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         } else {
             menu.findItem(R.id.menu_action_unfavourite).isVisible = false
         }
-        popup.setOnMenuItemClickListener { item: MenuItem? ->
+        popup.setOnMenuItemClickListener {
             listener.onFavourite(!buttonState, position)
             if (!buttonState) {
                 favouriteButton.playAnimation()
@@ -845,7 +845,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             R.string.status_filter_placeholder_label_format,
             matchedFilter.title
         )
-        filteredPlaceholderShowButton?.setOnClickListener { view: View? ->
+        filteredPlaceholderShowButton?.setOnClickListener {
             listener.clearWarningAction(
                 bindingAdapterPosition
             )
@@ -943,7 +943,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         pollOptions.visibility = View.VISIBLE
         if (expired || poll.voted) {
             // no voting possible
-            val viewThreadListener = View.OnClickListener { v: View? ->
+            val viewThreadListener = View.OnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onViewThread(position)
@@ -961,7 +961,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             pollButton.visibility = View.GONE
         } else {
             // voting possible
-            val optionClickListener = View.OnClickListener { v: View? ->
+            val optionClickListener = View.OnClickListener {
                 pollButton.isEnabled = pollAdapter.getSelected().isNotEmpty()
             }
             pollAdapter.setup(
@@ -977,7 +977,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             )
             pollButton.visibility = View.VISIBLE
             pollButton.isEnabled = false
-            pollButton.setOnClickListener { v: View? ->
+            pollButton.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val pollResult = pollAdapter.getSelected()
@@ -1125,10 +1125,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                     .load(R.drawable.card_image_placeholder)
                     .into(cardImage)
             }
-            val visitLink = View.OnClickListener { v: View? -> listener.onViewUrl(card.url) }
+            val visitLink = View.OnClickListener { listener.onViewUrl(card.url) }
             cardView.setOnClickListener(visitLink)
             // View embedded photos in our image viewer instead of opening the browser
-            cardImage.setOnClickListener(if (card.type == Card.TYPE_PHOTO && !TextUtils.isEmpty(card.embedUrl)) View.OnClickListener { v: View? ->
+            cardImage.setOnClickListener(if (card.type == Card.TYPE_PHOTO && !TextUtils.isEmpty(card.embedUrl)) View.OnClickListener {
                 cardView.context.startActivity(
                     newSingleImageIntent(cardView.context, card.embedUrl!!)
                 )

@@ -110,13 +110,13 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
         } else {
             infoDivider.visibility = View.VISIBLE
         }
-        reblogs.setOnClickListener { v: View? ->
+        reblogs.setOnClickListener {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onShowReblogs(position)
             }
         }
-        favourites.setOnClickListener { v: View? ->
+        favourites.setOnClickListener {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 listener.onShowFavs(position)

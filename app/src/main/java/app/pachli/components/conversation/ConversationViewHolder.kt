@@ -150,7 +150,7 @@ class ConversationViewHolder internal constructor(
     ) {
         /* input filter for TextViews have to be set before text */
         if (collapsible && (expanded || TextUtils.isEmpty(spoilerText))) {
-            contentCollapseButton.setOnClickListener { view: View? ->
+            contentCollapseButton.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) listener.onContentCollapsedChange(
                     !collapsed,
