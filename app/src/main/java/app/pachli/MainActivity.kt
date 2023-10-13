@@ -85,7 +85,6 @@ import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.FabFragment
 import app.pachli.interfaces.ReselectableFragment
-import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.DeveloperToolsUseCase
@@ -160,9 +159,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var developerToolsUseCase: DeveloperToolsUseCase
-
-    @Inject
-    lateinit var serverCapabilitiesRepository: ServerCapabilitiesRepository
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 

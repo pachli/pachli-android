@@ -123,7 +123,7 @@ class ConversationsFragment :
                                 binding.statusView.setup(
                                     R.drawable.elephant_friend_empty,
                                     R.string.message_empty,
-                                    null
+                                    null,
                                 )
                             }
                         }

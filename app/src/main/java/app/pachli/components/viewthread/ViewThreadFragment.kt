@@ -41,7 +41,6 @@ import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
-import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.hide
 import app.pachli.util.openLink
 import app.pachli.util.show
@@ -56,7 +55,6 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ViewThreadFragment :
@@ -64,9 +62,6 @@ class ViewThreadFragment :
     OnRefreshListener,
     StatusActionListener,
     MenuProvider {
-
-    @Inject
-    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     private val viewModel: ViewThreadViewModel by viewModels()
 
