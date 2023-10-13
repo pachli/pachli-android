@@ -102,8 +102,8 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private val cardUrl: TextView
     private val pollAdapter: PollAdapter
     protected val filteredPlaceholder: LinearLayout?
-    protected val filteredPlaceholderLabel: TextView
-    protected val filteredPlaceholderShowButton: Button
+    protected val filteredPlaceholderLabel: TextView?
+    protected val filteredPlaceholderShowButton: Button?
     protected val statusContainer: ConstraintLayout?
     private val numberFormat = NumberFormat.getNumberInstance()
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
@@ -178,7 +178,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
 
     protected fun setDisplayName(
         name: String,
-        customEmojis: List<Emoji?>?,
+        customEmojis: List<Emoji>?,
         statusDisplayOptions: StatusDisplayOptions
     ) {
         val emojifiedName =
@@ -553,7 +553,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private fun updateMediaLabel(index: Int, sensitive: Boolean, showingContent: Boolean) {
         val context = itemView.context
         val label =
-            if (sensitive && !showingContent) context.getString(R.string.post_sensitive_media_title) else mediaDescriptions[index]!!
+            if (sensitive && !showingContent) context.getString(R.string.post_sensitive_media_title) else mediaDescriptions[index]
         mediaLabels[index].text = label
     }
 
@@ -838,11 +838,11 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             return
         }
         showFilteredPlaceholder(true)
-        filteredPlaceholderLabel.text = itemView.context.getString(
+        filteredPlaceholderLabel?.text = itemView.context.getString(
             R.string.status_filter_placeholder_label_format,
             matchedFilter.title
         )
-        filteredPlaceholderShowButton.setOnClickListener { view: View? ->
+        filteredPlaceholderShowButton?.setOnClickListener { view: View? ->
             listener.clearWarningAction(
                 bindingAdapterPosition
             )
@@ -883,7 +883,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     ): CharSequence {
         val poll = status.actionable.poll ?: return ""
         val pollViewData = from(poll)
-        val args: Array<Any?> = arrayOfNulls<CharSequence>(5)
+        val args: Array<CharSequence?> = arrayOfNulls<CharSequence>(5)
         val options = pollViewData.options
         val totalVotes = pollViewData.votesCount
         val totalVoters = pollViewData.votersCount
@@ -1180,6 +1180,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             }
         }
 
+        @JvmStatic
         protected fun hasPreviewableAttachment(attachments: List<Attachment>): Boolean {
             for ((_, _, _, _, type) in attachments) {
                 if (type === Attachment.Type.AUDIO || type === Attachment.Type.UNKNOWN) {
@@ -1234,6 +1235,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             }
         }
 
+        @JvmStatic
         protected fun getVisibilityDescription(
             context: Context,
             visibility: Status.Visibility?
