@@ -15,7 +15,6 @@
 
 package app.pachli.components.announcements
 
-import android.content.SharedPreferences
 import android.os.Build
 import android.text.SpannableStringBuilder
 import android.view.ContextThemeWrapper
@@ -55,6 +54,7 @@ class AnnouncementAdapter(
     private val useAbsoluteTime: Boolean = false,
 ) : RecyclerView.Adapter<BindingHolder<ItemAnnouncementBinding>>() {
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemAnnouncementBinding> {
         val binding = ItemAnnouncementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BindingHolder(binding)
@@ -65,11 +65,7 @@ class AnnouncementAdapter(
         val now = System.currentTimeMillis()
 
         val publishTimeToDisplay = if (useAbsoluteTime) {
-            if (item.allDay) {
-                absoluteTimeFormatter.format(item.publishedAt, true)
-            } else {
-                absoluteTimeFormatter.format(item.publishedAt, false)
-            }
+            absoluteTimeFormatter.format(item.publishedAt, shortFormat = item.allDay)
         } else {
             getRelativeTimeSpanString(holder.binding.root.context, item.publishedAt.time, now)
         }
