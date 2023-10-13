@@ -10,6 +10,8 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.components.timeline.CachedTimelineRepository
+import app.pachli.components.timeline.FilterKind
+import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.mockStatus
 import app.pachli.components.timeline.mockStatusViewData
 import app.pachli.db.AccountEntity
@@ -33,12 +35,11 @@ import org.junit.runner.RunWith
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
 import org.robolectric.Shadows.shadowOf
-import org.robolectric.annotation.Config
 import java.io.IOException
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 class ViewThreadViewModelTest {
 
@@ -46,6 +47,7 @@ class ViewThreadViewModelTest {
     private lateinit var eventHub: EventHub
     private lateinit var viewModel: ViewThreadViewModel
     private lateinit var db: AppDatabase
+    private val filtersRepository: FiltersRepository = mock()
 
     private val threadId = "1234"
 
@@ -106,6 +108,11 @@ class ViewThreadViewModelTest {
             onBlocking { getStatusViewData(any()) } doReturn emptyMap()
         }
 
+        reset(filtersRepository)
+        filtersRepository.stub {
+            onBlocking { getFilters() } doReturn FilterKind.V2(emptyList())
+        }
+
         viewModel = ViewThreadViewModel(
             api,
             filterModel,
@@ -115,6 +122,7 @@ class ViewThreadViewModelTest {
             db.timelineDao(),
             gson,
             cachedTimelineRepository,
+            filtersRepository,
         )
     }
 

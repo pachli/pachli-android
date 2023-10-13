@@ -73,7 +73,7 @@ class CachedTimelineViewModelTestStatusDisplayOptions : CachedTimelineViewModelT
         }
 
         // When
-        sharedPreferences.edit(commit = true) {
+        sharedPreferences.edit {
             putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
         }
 

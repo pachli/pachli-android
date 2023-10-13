@@ -53,11 +53,9 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import org.robolectric.Shadows.shadowOf
-import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 abstract class CachedTimelineViewModelTestBase {
     private lateinit var cachedTimelineRepository: CachedTimelineRepository
@@ -91,7 +89,19 @@ abstract class CachedTimelineViewModelTestBase {
 
         cachedTimelineRepository = mock()
 
-        sharedPreferences = InMemorySharedPreferences()
+        sharedPreferences = InMemorySharedPreferences(
+            mapOf(
+                PrefKeys.ANIMATE_GIF_AVATARS to false,
+                PrefKeys.ANIMATE_CUSTOM_EMOJIS to false,
+                PrefKeys.ABSOLUTE_TIME_VIEW to false,
+                PrefKeys.SHOW_BOT_OVERLAY to true,
+                PrefKeys.USE_BLURHASH to true,
+                PrefKeys.CONFIRM_REBLOGS to true,
+                PrefKeys.CONFIRM_FAVOURITES to false,
+                PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
+                PrefKeys.FAB_HIDE to false,
+            ),
+        )
 
         // Backing store for account preferences, to allow mutation in tests
         accountPreferencesMap = mutableMapOf(

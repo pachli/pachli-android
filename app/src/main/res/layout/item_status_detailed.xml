@@ -282,15 +282,13 @@
         app:layout_constraintTop_toBottomOf="@id/status_poll_description"
         tools:text="21 Dec 2018 18:45" />
 
-    <View
+    <com.google.android.material.divider.MaterialDivider
         android:id="@+id/status_info_divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/status_meta_info"
+        android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="14dp"
-        android:background="?android:attr/listDivider"
         android:importantForAccessibility="no"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -333,14 +331,13 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="status_reblogs,status_favourites" />
 
-    <View
+    <com.google.android.material.divider.MaterialDivider
         android:id="@+id/status_buttons_divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="14dp"
-        android:background="?android:attr/listDivider"
         android:importantForAccessibility="no"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"

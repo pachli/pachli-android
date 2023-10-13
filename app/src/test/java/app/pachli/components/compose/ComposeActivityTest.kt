@@ -24,7 +24,6 @@ import app.pachli.PachliApplication
 import app.pachli.R
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.db.AccountManager
-import app.pachli.di.MastodonApiModule
 import app.pachli.entity.Account
 import app.pachli.entity.InstanceConfiguration
 import app.pachli.entity.InstanceV1
@@ -32,14 +31,9 @@ import app.pachli.entity.StatusConfiguration
 import app.pachli.network.MastodonApi
 import app.pachli.rules.lazyActivityScenarioRule
 import at.connyduck.calladapter.networkresult.NetworkResult
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -48,15 +42,16 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
+import org.mockito.kotlin.reset
+import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
 import org.robolectric.fakes.RoboMenuItem
 import java.time.Instant
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
-import javax.inject.Singleton
 
 open class PachliHiltApplication : PachliApplication()
 
@@ -66,7 +61,6 @@ interface HiltTestApplication
 @HiltAndroidTest
 @Config(application = HiltTestApplication_Application::class)
 @RunWith(AndroidJUnit4::class)
-@UninstallModules(MastodonApiModule::class)
 class ComposeActivityTest {
     @get:Rule(order = 0)
     var hilt = HiltAndroidRule(this)
@@ -76,28 +70,10 @@ class ComposeActivityTest {
         launchActivity = false,
     )
 
-    @InstallIn(SingletonComponent::class)
-    @Module
-    object FakeMastodonApiModule {
-        /**
-         * Callback invoked when the mock [MastodonApi.getInstance] is called. Set this
-         * in tests to adjust aspects of the fake server's configuration.
-         */
-        var getInstanceCallback: (() -> InstanceV1)? = null
+    private var getInstanceCallback: (() -> InstanceV1)? = null
 
-        @Provides
-        @Singleton
-        fun providesApi(): MastodonApi = mock {
-            onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
-            onBlocking { getInstanceV1() } doReturn getInstanceCallback?.invoke().let { instance ->
-                if (instance == null) {
-                    NetworkResult.failure(Throwable())
-                } else {
-                    NetworkResult.success(instance)
-                }
-            }
-        }
-    }
+    @Inject
+    lateinit var mastodonApi: MastodonApi
 
     @Inject
     lateinit var accountManager: AccountManager
@@ -105,6 +81,22 @@ class ComposeActivityTest {
     @Before
     fun setup() {
         hilt.inject()
+
+        getInstanceCallback = null
+        reset(mastodonApi)
+        mastodonApi.stub {
+            onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
+            onBlocking { getInstanceV1() } doAnswer {
+                getInstanceCallback?.invoke().let { instance ->
+                    if (instance == null) {
+                        NetworkResult.failure(Throwable())
+                    } else {
+                        NetworkResult.success(instance)
+                    }
+                }
+            }
+        }
+
         accountManager.addAccount(
             accessToken = "token",
             domain = "domain.example",
@@ -123,8 +115,6 @@ class ComposeActivityTest {
                 header = "",
             ),
         )
-
-        FakeMastodonApiModule.getInstanceCallback = null
     }
 
     @Test
@@ -187,7 +177,7 @@ class ComposeActivityTest {
 
     @Test
     fun whenMaximumTootCharsIsNull_defaultLimitIsUsed() {
-        FakeMastodonApiModule.getInstanceCallback = { getInstanceWithCustomConfiguration(null) }
+        getInstanceCallback = { getInstanceWithCustomConfiguration(null) }
         rule.launch()
         rule.getScenario().onActivity {
             assertEquals(
@@ -200,7 +190,7 @@ class ComposeActivityTest {
     @Test
     fun whenMaximumTootCharsIsPopulated_customLimitIsUsed() {
         val customMaximum = 1000
-        FakeMastodonApiModule.getInstanceCallback = { getInstanceWithCustomConfiguration(customMaximum, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum)) }
+        getInstanceCallback = { getInstanceWithCustomConfiguration(customMaximum, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum)) }
         rule.launch()
         rule.getScenario().onActivity {
             assertEquals(customMaximum, it.maximumTootCharacters)
@@ -210,7 +200,7 @@ class ComposeActivityTest {
     @Test
     fun whenOnlyLegacyMaximumTootCharsIsPopulated_customLimitIsUsed() {
         val customMaximum = 1000
-        FakeMastodonApiModule.getInstanceCallback = { getInstanceWithCustomConfiguration(customMaximum) }
+        getInstanceCallback = { getInstanceWithCustomConfiguration(customMaximum) }
         rule.launch()
         rule.getScenario().onActivity {
             assertEquals(customMaximum, it.maximumTootCharacters)
@@ -220,7 +210,7 @@ class ComposeActivityTest {
     @Test
     fun whenOnlyConfigurationMaximumTootCharsIsPopulated_customLimitIsUsed() {
         val customMaximum = 1000
-        FakeMastodonApiModule.getInstanceCallback = { getInstanceWithCustomConfiguration(null, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum)) }
+        getInstanceCallback = { getInstanceWithCustomConfiguration(null, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum)) }
         rule.launch()
         rule.getScenario().onActivity {
             assertEquals(customMaximum, it.maximumTootCharacters)
@@ -230,7 +220,7 @@ class ComposeActivityTest {
     @Test
     fun whenDifferentCharLimitsArePopulated_statusConfigurationLimitIsUsed() {
         val customMaximum = 1000
-        FakeMastodonApiModule.getInstanceCallback = { getInstanceWithCustomConfiguration(customMaximum, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum * 2)) }
+        getInstanceCallback = { getInstanceWithCustomConfiguration(customMaximum, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum * 2)) }
         rule.launch()
         rule.getScenario().onActivity {
             assertEquals(customMaximum * 2, it.maximumTootCharacters)
@@ -295,7 +285,7 @@ class ComposeActivityTest {
         val url = "https://www.google.dk/search?biw=1920&bih=990&tbm=isch&sa=1&ei=bmDrWuOoKMv6kwWOkIaoDQ&q=indiana+jones+i+hate+snakes+animated&oq=indiana+jones+i+hate+snakes+animated&gs_l=psy-ab.3...54174.55443.0.55553.9.7.0.0.0.0.255.333.1j0j1.2.0....0...1c.1.64.psy-ab..7.0.0....0.40G-kcDkC6A#imgdii=PSp15hQjN1JqvM:&imgrc=H0hyE2JW5wrpBM:"
         val additionalContent = "Check out this @image #search result: "
         val customUrlLength = 16
-        FakeMastodonApiModule.getInstanceCallback = { getInstanceWithCustomConfiguration(configuration = getCustomInstanceConfiguration(charactersReservedPerUrl = customUrlLength)) }
+        getInstanceCallback = { getInstanceWithCustomConfiguration(configuration = getCustomInstanceConfiguration(charactersReservedPerUrl = customUrlLength)) }
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, additionalContent + url)
@@ -313,7 +303,7 @@ class ComposeActivityTest {
         val url = "https://www.google.dk/search?biw=1920&bih=990&tbm=isch&sa=1&ei=bmDrWuOoKMv6kwWOkIaoDQ&q=indiana+jones+i+hate+snakes+animated&oq=indiana+jones+i+hate+snakes+animated&gs_l=psy-ab.3...54174.55443.0.55553.9.7.0.0.0.0.255.333.1j0j1.2.0....0...1c.1.64.psy-ab..7.0.0....0.40G-kcDkC6A#imgdii=PSp15hQjN1JqvM:&imgrc=H0hyE2JW5wrpBM:"
         val additionalContent = " Check out this @image #search result: "
         val customUrlLength = 18 // The intention is that this is longer than shortUrl.length
-        FakeMastodonApiModule.getInstanceCallback = { getInstanceWithCustomConfiguration(configuration = getCustomInstanceConfiguration(charactersReservedPerUrl = customUrlLength)) }
+        getInstanceCallback = { getInstanceWithCustomConfiguration(configuration = getCustomInstanceConfiguration(charactersReservedPerUrl = customUrlLength)) }
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, shortUrl + additionalContent + url)
@@ -329,7 +319,7 @@ class ComposeActivityTest {
         val url = "https://www.google.dk/search?biw=1920&bih=990&tbm=isch&sa=1&ei=bmDrWuOoKMv6kwWOkIaoDQ&q=indiana+jones+i+hate+snakes+animated&oq=indiana+jones+i+hate+snakes+animated&gs_l=psy-ab.3...54174.55443.0.55553.9.7.0.0.0.0.255.333.1j0j1.2.0....0...1c.1.64.psy-ab..7.0.0....0.40G-kcDkC6A#imgdii=PSp15hQjN1JqvM:&imgrc=H0hyE2JW5wrpBM:"
         val additionalContent = " Check out this @image #search result: "
         val customUrlLength = 16
-        FakeMastodonApiModule.getInstanceCallback = { getInstanceWithCustomConfiguration(configuration = getCustomInstanceConfiguration(charactersReservedPerUrl = customUrlLength)) }
+        getInstanceCallback = { getInstanceWithCustomConfiguration(configuration = getCustomInstanceConfiguration(charactersReservedPerUrl = customUrlLength)) }
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, url + additionalContent + url)

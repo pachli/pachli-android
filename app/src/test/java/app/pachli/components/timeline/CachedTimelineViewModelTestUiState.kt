@@ -54,7 +54,7 @@ class CachedTimelineViewModelTestUiState : CachedTimelineViewModelTestBase() {
             assertThat(expectMostRecentItem().showFabWhileScrolling).isTrue()
         }
 
-        // Given
+        // When
         sharedPreferences.edit(commit = true) {
             putBoolean(PrefKeys.FAB_HIDE, true)
         }

@@ -55,7 +55,7 @@ class NetworkTimelineViewModelTestUiState : NetworkTimelineViewModelTestBase() {
         }
 
         // When
-        sharedPreferences.edit(commit = true) {
+        sharedPreferences.edit {
             putBoolean(PrefKeys.FAB_HIDE, true)
         }
 

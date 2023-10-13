@@ -32,10 +32,8 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
-import org.robolectric.annotation.Config
 import retrofit2.Response
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 class NotificationsPagingSourceTest {
     @Test

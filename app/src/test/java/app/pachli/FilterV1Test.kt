@@ -31,11 +31,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
-import org.robolectric.annotation.Config
 import java.time.Instant
 import java.util.Date
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 class FilterV1Test {
 

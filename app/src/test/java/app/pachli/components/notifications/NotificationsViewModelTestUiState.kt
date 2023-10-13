@@ -56,9 +56,10 @@ class NotificationsViewModelTestUiState : NotificationsViewModelTestBase() {
         }
 
         // When
-        sharedPreferences.edit(commit = true) {
+        sharedPreferences.edit {
             putBoolean(PrefKeys.FAB_HIDE, true)
         }
+
 
         // Then
         viewModel.uiState.test {

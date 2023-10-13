@@ -28,7 +28,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener
  */
 @Suppress("UNCHECKED_CAST")
 class InMemorySharedPreferences(
-    initialValues: Map<String, Any?>? = null
+    initialValues: Map<String, Any?>? = null,
 ) : SharedPreferences {
     private var store: MutableMap<String, Any?> = initialValues?.toMutableMap() ?: mutableMapOf()
 
@@ -111,6 +111,9 @@ class InMemorySharedPreferences(
             deletes.clear()
             store.clear()
             edits.clear()
+            listeners.forEach {
+                it.onSharedPreferenceChanged(sharedPreferences, null)
+            }
             return this
         }
 

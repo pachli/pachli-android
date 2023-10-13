@@ -52,7 +52,7 @@ abstract class SearchFragment<T : Any> :
 
     private var snackbarErrorRetry: Snackbar? = null
 
-    abstract suspend fun createAdapter(): PagingDataAdapter<T, *>
+    abstract fun createAdapter(): PagingDataAdapter<T, *>
 
     abstract val data: Flow<PagingData<T>>
     protected lateinit var adapter: PagingDataAdapter<T, *>
@@ -123,7 +123,7 @@ abstract class SearchFragment<T : Any> :
         }
     }
 
-    private suspend fun initAdapter() {
+    private fun initAdapter() {
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
         adapter = createAdapter()
         binding.searchRecyclerView.adapter = adapter

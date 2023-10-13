@@ -29,6 +29,7 @@ import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
 import app.pachli.network.ServerCapabilitiesRepository
+import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
@@ -44,11 +45,9 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import org.robolectric.Shadows.shadowOf
-import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
 
-@Config(sdk = [28])
 @RunWith(AndroidJUnit4::class)
 abstract class NotificationsViewModelTestBase {
     protected lateinit var notificationsRepository: NotificationsRepository
@@ -79,6 +78,20 @@ abstract class NotificationsViewModelTestBase {
         shadowOf(Looper.getMainLooper()).idle()
 
         notificationsRepository = mock()
+
+        sharedPreferences = InMemorySharedPreferences(
+            mapOf(
+                PrefKeys.ANIMATE_GIF_AVATARS to false,
+                PrefKeys.ANIMATE_CUSTOM_EMOJIS to false,
+                PrefKeys.ABSOLUTE_TIME_VIEW to false,
+                PrefKeys.SHOW_BOT_OVERLAY to true,
+                PrefKeys.USE_BLURHASH to true,
+                PrefKeys.CONFIRM_REBLOGS to true,
+                PrefKeys.CONFIRM_FAVOURITES to false,
+                PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
+                PrefKeys.FAB_HIDE to false,
+            ),
+        )
 
         sharedPreferences = InMemorySharedPreferences(null)
 
