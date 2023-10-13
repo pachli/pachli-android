@@ -77,13 +77,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
         binding.searchRecyclerView.addItemDecoration(
-            MaterialDividerItemDecoration(
-                requireContext(),
-                MaterialDividerItemDecoration.VERTICAL
-            ),
+            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
-        binding.searchRecyclerView.layoutManager =
-            LinearLayoutManager(binding.searchRecyclerView.context)
+        binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
         return SearchStatusesAdapter(statusDisplayOptions, this)
     }
 
