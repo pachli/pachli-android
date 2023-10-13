@@ -18,28 +18,40 @@
 package app.pachli.util
 
 import android.content.SharedPreferences
+import android.util.Log
 import app.pachli.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Singleton
 
+/**
+ * An implementation of [SharedPreferences] that exposes all changes to the
+ * preferences through the [changes] flow.
+ *
+ * @param sharedPreferences instance to delegate to
+ * @param externalScope [CoroutineScope] to use when emitting in to [changes]
+ */
+@Singleton
 class SharedPreferencesRepository @Inject constructor(
     val sharedPreferences: SharedPreferences,
     @ApplicationScope private val externalScope: CoroutineScope,
-) {
-    /** Flow of keys that have been updated in the preferences */
-    val changes = MutableSharedFlow<String>()
+) : SharedPreferences by sharedPreferences {
+    /**
+     *  Flow of keys that have been updated/deleted in the preferences.
+     *
+     *  Null means that preferences were cleared.
+     */
+    val changes = MutableSharedFlow<String?>()
 
     private val listener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            key?.let { externalScope.launch { changes.emit(it) } }
+            externalScope.launch { changes.emit(key) }
         }
 
     init {
+        Log.d("SharedPreferencesRepository", "Being created")
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
     }
-
-    /** Forwards to [SharedPreferences.getBoolean] */
-    fun getBoolean(key: String, defValue: Boolean) = sharedPreferences.getBoolean(key, defValue)
 }

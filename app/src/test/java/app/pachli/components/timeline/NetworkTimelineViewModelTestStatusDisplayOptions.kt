@@ -22,8 +22,7 @@ import app.cash.turbine.test
 import app.pachli.settings.PrefKeys
 import app.pachli.util.StatusDisplayOptions
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceUntilIdle
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -35,6 +34,7 @@ import org.junit.Test
  */
 // TODO: With the exception of the types, this is identical to
 // NotificationsViewModelTestStatusDisplayOptions
+@HiltAndroidTest
 class NetworkTimelineViewModelTestStatusDisplayOptions : NetworkTimelineViewModelTestBase() {
 
     private val defaultStatusDisplayOptions = StatusDisplayOptions()
@@ -47,25 +47,19 @@ class NetworkTimelineViewModelTestStatusDisplayOptions : NetworkTimelineViewMode
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `Editing preferences emits new StatusDisplayOptions`() = runTest {
-        // Given, should be false
+    fun `editing preferences emits new StatusDisplayOptions`() = runTest {
         viewModel.statusDisplayOptions.test {
-            val item = expectMostRecentItem()
-            assertThat(item.animateAvatars).isFalse()
-        }
+            // Given, should be false
+            assertThat(awaitItem().animateAvatars).isFalse()
 
-        // When
-        sharedPreferences.edit {
-            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
-        }
+            // When
+            sharedPreferencesRepository.edit {
+                putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
+            }
 
-        // Then, should be true
-        viewModel.statusDisplayOptions.test {
-            advanceUntilIdle()
-            val item = expectMostRecentItem()
-            assertThat(item.animateAvatars).isTrue()
+            // Then, should be true
+            assertThat(awaitItem().animateAvatars).isTrue()
         }
     }
 }

@@ -1,14 +1,13 @@
 package app.pachli.components.viewthread
 
-import android.os.Looper.getMainLooper
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
+import app.pachli.PachliApplication
 import app.pachli.appstore.BookmarkEvent
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
 import app.pachli.appstore.ReblogEvent
+import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
@@ -16,17 +15,25 @@ import app.pachli.components.timeline.mockStatus
 import app.pachli.components.timeline.mockStatusViewData
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
-import app.pachli.db.Converters
+import app.pachli.db.TimelineDao
+import app.pachli.entity.Account
 import app.pachli.entity.StatusContext
 import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
+import app.pachli.network.ServerCapabilitiesRepository
+import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.gson.Gson
+import dagger.hilt.android.testing.BindValue
+import dagger.hilt.android.testing.CustomTestApplication
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import org.junit.After
+import kotlinx.coroutines.test.TestScope
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -37,19 +44,23 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
-import org.robolectric.Shadows.shadowOf
+import org.robolectric.annotation.Config
 import java.io.IOException
+import java.time.Instant
+import java.util.Date
+import javax.inject.Inject
 
+open class PachliHiltApplication : PachliApplication()
+
+@CustomTestApplication(PachliHiltApplication::class)
+interface HiltTestApplication
+
+@HiltAndroidTest
+@Config(application = HiltTestApplication_Application::class)
 @RunWith(AndroidJUnit4::class)
 class ViewThreadViewModelTest {
-
-    private lateinit var api: MastodonApi
-    private lateinit var eventHub: EventHub
-    private lateinit var viewModel: ViewThreadViewModel
-    private lateinit var db: AppDatabase
-    private val filtersRepository: FiltersRepository = mock()
-
-    private val threadId = "1234"
+    @get:Rule(order = 0)
+    var hilt = HiltAndroidRule(this)
 
     /**
      * Execute each task synchronously.
@@ -76,59 +87,115 @@ class ViewThreadViewModelTest {
      * The test will fail, because someFunc() yields at the `call_a_suspend_func()` point,
      * and control returns to the test before `_uiState.value` has been changed.
      */
-    @get:Rule
+    @get:Rule(order = 1)
     val instantTaskRule = InstantTaskExecutorRule()
+
+    @Inject
+    lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var mastodonApi: MastodonApi
+
+    @Inject
+    lateinit var eventHub: EventHub
+
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
+    @Inject
+    lateinit var timelineCases: TimelineCases
+
+    @Inject
+    lateinit var timelineDao: TimelineDao
+
+    @Inject
+    lateinit var gson: Gson
+
+    @BindValue @JvmField
+    val filtersRepository: FiltersRepository = mock()
+
+    private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
+
+    private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+
+    private lateinit var viewModel: ViewThreadViewModel
+
+    private val threadId = "1234"
 
     @Before
     fun setup() {
-        shadowOf(getMainLooper()).idle()
-
-        api = mock()
-        eventHub = EventHub()
-        val filterModel = FilterModel()
-        val timelineCases = TimelineCases(api, eventHub)
-        val accountManager: AccountManager = mock {
-            on { activeAccount } doReturn AccountEntity(
-                id = 1,
-                domain = "mastodon.test",
-                accessToken = "fakeToken",
-                clientId = "fakeId",
-                clientSecret = "fakeSecret",
-                isActive = true,
-            )
-        }
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
-            .addTypeConverter(Converters(Gson()))
-            .allowMainThreadQueries()
-            .build()
-
-        val gson = Gson()
-        val cachedTimelineRepository: CachedTimelineRepository = mock {
-            onBlocking { getStatusViewData(any()) } doReturn emptyMap()
-        }
+        hilt.inject()
 
         reset(filtersRepository)
         filtersRepository.stub {
             onBlocking { getFilters() } doReturn FilterKind.V2(emptyList())
         }
 
+        val filterModel = FilterModel()
+
+        val defaultAccount = AccountEntity(
+            id = 1,
+            domain = "mastodon.test",
+            accessToken = "fakeToken",
+            clientId = "fakeId",
+            clientSecret = "fakeSecret",
+            isActive = true,
+        )
+
+        accountManager.addAccount(
+            accessToken = "token",
+            domain = "domain.example",
+            clientId = "id",
+            clientSecret = "secret",
+            oauthScopes = "scopes",
+            newAccount = Account(
+                id = "1",
+                localUsername = "username",
+                username = "username@domain.example",
+                displayName = "Display Name",
+                createdAt = Date.from(Instant.now()),
+                note = "",
+                url = "",
+                avatar = "",
+                header = "",
+            ),
+        )
+
+        accountPreferenceDataStore = AccountPreferenceDataStore(
+            accountManager,
+            TestScope(),
+        )
+
+        val cachedTimelineRepository: CachedTimelineRepository = mock {
+            onBlocking { getStatusViewData(any()) } doReturn emptyMap()
+        }
+
+        val serverCapabilitiesRepository = ServerCapabilitiesRepository(
+            mastodonApi,
+            accountManager,
+            TestScope(),
+        )
+
+        statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
+            sharedPreferencesRepository,
+            serverCapabilitiesRepository,
+            accountManager,
+            accountPreferenceDataStore,
+            TestScope(),
+        )
+
         viewModel = ViewThreadViewModel(
-            api,
+            mastodonApi,
             filterModel,
             timelineCases,
             eventHub,
             accountManager,
-            db.timelineDao(),
+            timelineDao,
             gson,
             cachedTimelineRepository,
+            statusDisplayOptionsRepository,
             filtersRepository,
         )
-    }
-
-    @After
-    fun closeDb() {
-        db.close()
     }
 
     @Test
@@ -166,7 +233,7 @@ class ViewThreadViewModelTest {
 
     @Test
     fun `should emit status even if context fails to load`() {
-        api.stub {
+        mastodonApi.stub {
             onBlocking { status(threadId) } doReturn NetworkResult.success(mockStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1"))
             onBlocking { statusContext(threadId) } doReturn NetworkResult.failure(IOException())
         }
@@ -194,7 +261,7 @@ class ViewThreadViewModelTest {
 
     @Test
     fun `should emit error when status and context fail to load`() {
-        api.stub {
+        mastodonApi.stub {
             onBlocking { status(threadId) } doReturn NetworkResult.failure(IOException())
             onBlocking { statusContext(threadId) } doReturn NetworkResult.failure(IOException())
         }
@@ -211,7 +278,7 @@ class ViewThreadViewModelTest {
 
     @Test
     fun `should emit error when status fails to load`() {
-        api.stub {
+        mastodonApi.stub {
             onBlocking { status(threadId) } doReturn NetworkResult.failure(IOException())
             onBlocking { statusContext(threadId) } doReturn NetworkResult.success(
                 StatusContext(
@@ -521,7 +588,7 @@ class ViewThreadViewModelTest {
     }
 
     private fun mockSuccessResponses() {
-        api.stub {
+        mastodonApi.stub {
             onBlocking { status(threadId) } doReturn NetworkResult.success(mockStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1", spoilerText = "Test"))
             onBlocking { statusContext(threadId) } doReturn NetworkResult.success(
                 StatusContext(

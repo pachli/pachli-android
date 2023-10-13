@@ -30,16 +30,15 @@ import app.pachli.appstore.DomainMuteEvent
 import app.pachli.appstore.Event
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
+import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.appstore.PinEvent
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
-import app.pachli.components.filters.FiltersViewModel.Companion.FILTER_PREF_KEYS
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.TimelineKind
@@ -66,6 +65,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
@@ -359,28 +359,24 @@ abstract class TimelineViewModel(
             }
         }
 
-        uiState = getUiPrefs().map { prefs ->
-            UiState(
-                showFabWhileScrolling = prefs.showFabWhileScrolling,
+        viewModelScope.launch {
+            sharedPreferencesRepository.changes.filterNotNull().collect {
+                onPreferenceChanged(it)
+            }
+        }
+
+        uiState = sharedPreferencesRepository.changes
+            .filter { it == PrefKeys.FAB_HIDE }
+            .map {
+                UiState(
+                    sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
+                )
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
+                initialValue = UiState(showFabWhileScrolling = true),
             )
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-            initialValue = UiState(
-                showFabWhileScrolling = true,
-            ),
-        )
     }
-
-    /** @return Flow of relevant preferences that change the UI */
-    protected fun getUiPrefs() = sharedPreferencesRepository.changes
-        .filter { UiPrefs.prefKeys.contains(it) }
-        .map { toPrefs() }
-        .onStart { emit(toPrefs()) }
-
-    private fun toPrefs() = UiPrefs(
-        showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
-    )
 
     @CallSuper
     open fun init(timelineKind: TimelineKind) {
@@ -502,9 +498,8 @@ abstract class TimelineViewModel(
     // TODO: https://github.com/tuskyapp/Tusky/issues/3546, and update if a v2 filter is
     // updated as well.
     private fun updateFiltersFromPreferences() = eventHub.events
-        .filterIsInstance<PreferenceChangedEvent>()
-        .filter { FILTER_PREF_KEYS.contains(it.preferenceKey) }
-        .filter { filterContextMatchesKind(timelineKind, listOf(it.preferenceKey)) }
+        .filterIsInstance<FilterChangedEvent>()
+        .filter { filterContextMatchesKind(timelineKind, listOf(it.filterKind)) }
         .distinctUntilChanged()
         .map { getFilters() }
         .onStart { getFilters() }
@@ -524,7 +519,7 @@ abstract class TimelineViewModel(
                     is FilterKind.V1 -> {
                         filterModel.initWithFilters(
                             filters.filters.filter {
-                                filterContextMatchesKind(timelineKind, it.context)
+                                filterContextMatchesString(timelineKind, it.context)
                             },
                         )
                         invalidate()
@@ -597,9 +592,6 @@ abstract class TimelineViewModel(
                     removeStatusWithId(event.statusId)
                 }
             }
-            is PreferenceChangedEvent -> {
-                onPreferenceChanged(event.preferenceKey)
-            }
         }
     }
 
@@ -607,11 +599,18 @@ abstract class TimelineViewModel(
         private const val TAG = "TimelineViewModel"
         private val THROTTLE_TIMEOUT = 500.milliseconds
 
-        fun filterContextMatchesKind(
+        fun filterContextMatchesString(
             timelineKind: TimelineKind,
             filterContext: List<String>,
         ): Boolean {
             return filterContext.contains(Filter.Kind.from(timelineKind).kind)
+        }
+
+        fun filterContextMatchesKind(
+            timelineKind: TimelineKind,
+            filterContext: List<Filter.Kind>,
+        ): Boolean {
+            return filterContext.contains(Filter.Kind.from(timelineKind))
         }
     }
 }

@@ -47,23 +47,18 @@ class NotificationsViewModelTestStatusDisplayOptions : NotificationsViewModelTes
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `Editing preferences emits new StatusDisplayOptions`() = runTest {
-        // Given, should be false
+    fun `editing preferences emits new StatusDisplayOptions`() = runTest {
         viewModel.statusDisplayOptions.test {
-            val item = expectMostRecentItem()
-            assertThat(item.animateAvatars).isFalse()
-        }
+            // Given, should be false
+            assertThat(awaitItem().animateAvatars).isFalse()
 
-        // When
-        sharedPreferences.edit(commit = true) {
-            putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
-        }
+            // When
+            sharedPreferencesRepository.edit {
+                putBoolean(PrefKeys.ANIMATE_GIF_AVATARS, true)
+            }
 
-        // Then, should be true
-        viewModel.statusDisplayOptions.test {
-            advanceUntilIdle()
-            val item = expectMostRecentItem()
-            assertThat(item.animateAvatars).isTrue()
+            // Then, should be true
+            assertThat(awaitItem().animateAvatars).isTrue()
         }
     }
 }

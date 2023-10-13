@@ -34,7 +34,6 @@ import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -296,7 +295,6 @@ class ComposeActivityTest {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun whenTextContainsShortUrls_allUrlsGetEllipsized_withCustomConfiguration() {
         val shortUrl = "https://pachli.app"

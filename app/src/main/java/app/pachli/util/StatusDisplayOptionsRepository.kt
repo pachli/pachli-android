@@ -20,10 +20,12 @@ package app.pachli.util
 import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
+import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.di.ApplicationScope
 import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.network.ServerOperation
+import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.PrefKeys
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import kotlinx.coroutines.CoroutineScope
@@ -40,14 +42,13 @@ class StatusDisplayOptionsRepository @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val serverCapabilitiesRepository: ServerCapabilitiesRepository,
     private val accountManager: AccountManager,
+    private val accountPreferenceDataStore: AccountPreferenceDataStore,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     /** Default status display options */
     private val default = StatusDisplayOptions()
 
-    private val _flow = MutableStateFlow(
-        initialStatusDisplayOptions()
-    )
+    private val _flow = MutableStateFlow(initialStatusDisplayOptions())
 
     /** Flow of [StatusDisplayOptions] over time */
     val flow = _flow.asStateFlow()
@@ -73,8 +74,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
 
         // Update whenever preferences change
         externalScope.launch {
-            sharedPreferencesRepository.changes
-                .filter { prefKeys.contains(it) }.collect { key ->
+            sharedPreferencesRepository.changes.filter { prefKeys.contains(it) }.collect { key ->
                 Log.d(TAG, "Updating because shared preference changed")
                 _flow.update { prev ->
                     when (key) {
@@ -126,7 +126,21 @@ class StatusDisplayOptionsRepository @Inject constructor(
         externalScope.launch {
             accountManager.activeAccountFlow.collect {
                 Log.d(TAG, "Updating because active account changed")
-                _flow.emit(initialStatusDisplayOptions())
+                _flow.emit(initialStatusDisplayOptions(it))
+            }
+        }
+
+        externalScope.launch {
+            accountPreferenceDataStore.changes.collect { (key, value) ->
+                Log.d(TAG, "Updating because account preference changed")
+                _flow.update { prev ->
+                    when (key) {
+                        PrefKeys.MEDIA_PREVIEW_ENABLED -> prev.copy(mediaPreviewEnabled = value)
+                        PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> prev.copy(showSensitiveMedia = value)
+                        PrefKeys.ALWAYS_OPEN_SPOILER -> prev.copy(openSpoiler = value)
+                        else -> { prev }
+                    }
+                }
             }
         }
 
@@ -143,27 +157,26 @@ class StatusDisplayOptionsRepository @Inject constructor(
     }
 
     @VisibleForTesting(otherwise = PRIVATE)
-    fun initialStatusDisplayOptions(): StatusDisplayOptions {
-        val account = accountManager.activeAccountFlow.value
+    fun initialStatusDisplayOptions(account: AccountEntity? = null): StatusDisplayOptions {
         return StatusDisplayOptions(
-            animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false),
-            animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
+            animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, default.animateAvatars),
+            animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, default.animateEmojis),
             mediaPreviewEnabled = account?.mediaPreviewEnabled ?: default.mediaPreviewEnabled,
-            useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false),
-            showBotOverlay = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true),
-            useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, true),
+            useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, default.useAbsoluteTime),
+            showBotOverlay = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, default.showBotOverlay),
+            useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, default.useBlurhash),
             cardViewMode = if (sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_CARDS_IN_TIMELINES, false)) {
                 CardViewMode.INDENTED
             } else {
-                CardViewMode.NONE
+                default.cardViewMode
             },
-            confirmReblogs = sharedPreferencesRepository.getBoolean(PrefKeys.CONFIRM_REBLOGS, true),
-            confirmFavourites = sharedPreferencesRepository.getBoolean(PrefKeys.CONFIRM_FAVOURITES, false),
-            hideStats = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, false),
-            showStatsInline = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_STATS_INLINE, false),
+            confirmReblogs = sharedPreferencesRepository.getBoolean(PrefKeys.CONFIRM_REBLOGS, default.confirmReblogs),
+            confirmFavourites = sharedPreferencesRepository.getBoolean(PrefKeys.CONFIRM_FAVOURITES, default.confirmFavourites),
+            hideStats = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, default.hideStats),
+            showStatsInline = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_STATS_INLINE, default.showStatsInline),
             showSensitiveMedia = account?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
             openSpoiler = account?.alwaysOpenSpoiler ?: default.openSpoiler,
-            canTranslate = default.canTranslate,
+			canTranslate = default.canTranslate,
         )
     }
 

@@ -43,7 +43,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.BottomSheetActivity
@@ -76,7 +75,6 @@ import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.setClickableText
 import app.pachli.util.show
-import app.pachli.util.unsafeLazy
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import app.pachli.view.showMuteAccountDialog
@@ -115,8 +113,6 @@ class AccountActivity :
     private val binding: ActivityAccountBinding by viewBinding(ActivityAccountBinding::inflate)
 
     private lateinit var accountFieldAdapter: AccountFieldAdapter
-
-    private val preferences by unsafeLazy { PreferenceManager.getDefaultSharedPreferences(this) }
 
     private var followState: FollowState = FollowState.NOT_FOLLOWING
     private var blocking: Boolean = false
@@ -168,10 +164,9 @@ class AccountActivity :
         // Obtain information to fill out the profile.
         viewModel.setAccountInfo(intent.getStringExtra(KEY_ACCOUNT_ID)!!)
 
-        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-        animateAvatar = sharedPrefs.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
-        animateEmojis = sharedPrefs.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
-        hideFab = sharedPrefs.getBoolean(PrefKeys.FAB_HIDE, false)
+        animateAvatar = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
+        animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
+        hideFab = sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
 
         handleWindowInsets()
         setupToolbar()
@@ -236,8 +231,7 @@ class AccountActivity :
         }
 
         // If wellbeing mode is enabled, follow stats and posts count should be hidden
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val wellbeingEnabled = preferences.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_PROFILE, false)
+        val wellbeingEnabled = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_PROFILE, false)
 
         if (wellbeingEnabled) {
             binding.accountStatuses.hide()
@@ -266,7 +260,7 @@ class AccountActivity :
         val pageMargin = resources.getDimensionPixelSize(R.dimen.tab_page_margin)
         binding.accountFragmentViewPager.setPageTransformer(MarginPageTransformer(pageMargin))
 
-        val enableSwipeForTabs = preferences.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
+        val enableSwipeForTabs = sharedPreferencesRepository.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
         binding.accountFragmentViewPager.isUserInputEnabled = enableSwipeForTabs
 
         binding.accountTabLayout.addOnTabSelectedListener(
@@ -641,8 +635,7 @@ class AccountActivity :
         showingReblogs = relation.showingReblogs
 
         // If wellbeing mode is enabled, "follows you" text should not be visible
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val wellbeingEnabled = preferences.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_PROFILE, false)
+        val wellbeingEnabled = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_PROFILE, false)
 
         binding.accountFollowsYouTextView.visible(relation.followedBy && !wellbeingEnabled)
 

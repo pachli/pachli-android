@@ -22,8 +22,7 @@ import app.cash.turbine.test
 import app.pachli.components.timeline.viewmodel.UiState
 import app.pachli.settings.PrefKeys
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceUntilIdle
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -33,6 +32,7 @@ import org.junit.Test
  * - Is the initial value taken from values in sharedPreferences and account?
  * - Is the correct update emitted when a relevant preference changes?
  */
+@HiltAndroidTest
 class CachedTimelineViewModelTestUiState : CachedTimelineViewModelTestBase() {
 
     private val initialUiState = UiState(
@@ -41,28 +41,22 @@ class CachedTimelineViewModelTestUiState : CachedTimelineViewModelTestBase() {
 
     @Test
     fun `should load initial UI state`() = runTest {
-        viewModel.uiState.test {
-            assertThat(expectMostRecentItem()).isEqualTo(initialUiState)
-        }
+        assertThat(viewModel.uiState.value).isEqualTo(initialUiState)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `showFabWhileScrolling depends on FAB_HIDE preference`() = runTest {
-        // Given
         viewModel.uiState.test {
-            assertThat(expectMostRecentItem().showFabWhileScrolling).isTrue()
-        }
+            // Given
+            assertThat(awaitItem().showFabWhileScrolling).isTrue()
 
-        // When
-        sharedPreferences.edit(commit = true) {
-            putBoolean(PrefKeys.FAB_HIDE, true)
-        }
+            // Given
+            sharedPreferencesRepository.edit {
+                putBoolean(PrefKeys.FAB_HIDE, false)
+            }
 
-        // Then
-        viewModel.uiState.test {
-            advanceUntilIdle()
-            assertThat(expectMostRecentItem().showFabWhileScrolling).isFalse()
+            // Then
+            assertThat(awaitItem().showFabWhileScrolling).isFalse()
         }
     }
 }

@@ -50,21 +50,17 @@ class NotificationsViewModelTestUiState : NotificationsViewModelTestBase() {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `showFabWhileScrolling depends on FAB_HIDE preference`() = runTest {
-        // Given
         viewModel.uiState.test {
-            assertThat(expectMostRecentItem().showFabWhileScrolling).isTrue()
-        }
+            // Given
+            assertThat(awaitItem().showFabWhileScrolling).isTrue()
 
-        // When
-        sharedPreferences.edit {
-            putBoolean(PrefKeys.FAB_HIDE, true)
-        }
+            // When
+            sharedPreferencesRepository.edit {
+                putBoolean(PrefKeys.FAB_HIDE, true)
+            }
 
-
-        // Then
-        viewModel.uiState.test {
-            advanceUntilIdle()
-            assertThat(expectMostRecentItem().showFabWhileScrolling).isFalse()
+            // Then
+            assertThat(awaitItem().showFabWhileScrolling).isFalse()
         }
     }
 }
