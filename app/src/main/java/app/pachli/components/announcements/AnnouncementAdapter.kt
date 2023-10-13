@@ -71,13 +71,12 @@ class AnnouncementAdapter(
         }
 
         val updatedAtText = if (item.updatedAt.toString() != item.publishedAt.toString()) {
-            "(Updated: ${
-            if (useAbsoluteTime) {
+            val formattedUpdatedAt = if (useAbsoluteTime) {
                 absoluteTimeFormatter.format(item.updatedAt, item.allDay)
             } else {
                 getRelativeTimeSpanString(holder.binding.root.context, item.updatedAt.time, now)
             }
-            })"
+            holder.binding.root.context.getString(R.string.announcement_date_updated, formattedUpdatedAt)
         } else {
             ""
         }

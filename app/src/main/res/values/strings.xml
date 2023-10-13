@@ -745,6 +745,7 @@
     <string name="pachli_compose_post_quicksetting_label">Compose Post</string>
 
     <string name="account_date_joined">Joined %1$s</string>
+    <string name="announcement_date_updated">(Updated: %1$s)</string>
 
     <string name="saving_draft">Saving draft…</string>
 
