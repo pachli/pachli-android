@@ -69,7 +69,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         const val KEY_CREATED = "created"
     }
 
-    private val TAG = "StatusBaseViewHolder"
     private val displayName: TextView
     private val username: TextView
     private val replyButton: ImageButton
@@ -1195,6 +1194,8 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     companion object {
+        private const val TAG = "StatusBaseViewHolder"
+
         @DrawableRes
         private fun getLabelIcon(type: Attachment.Type): Int {
             return when (type) {
