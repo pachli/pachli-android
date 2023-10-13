@@ -1521,7 +1521,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/colors.xml"
-            line="103"
+            line="101"
             column="12"/>
     </issue>
 
@@ -1532,7 +1532,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/colors.xml"
-            line="104"
+            line="102"
             column="12"/>
     </issue>
 
@@ -2115,7 +2115,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="129"
+            line="127"
             column="12"/>
     </issue>
 
@@ -2126,7 +2126,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="158"
+            line="154"
             column="12"/>
     </issue>
 
@@ -4938,7 +4938,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="299"
+            line="297"
             column="6"/>
     </issue>
 
@@ -4949,7 +4949,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="313"
+            line="311"
             column="6"/>
     </issue>
 

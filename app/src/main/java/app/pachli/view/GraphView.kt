@@ -156,7 +156,7 @@ class GraphView @JvmOverloads constructor(
             metaColor = context.getColor(
                 a.getResourceId(
                     R.styleable.GraphView_metaColor,
-                    R.color.dividerColor,
+                    com.google.android.material.R.attr.dividerColor,
                 ),
             )
 
