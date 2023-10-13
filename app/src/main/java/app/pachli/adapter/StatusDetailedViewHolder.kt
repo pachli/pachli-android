@@ -55,10 +55,8 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
             )
         }
         val metadataJoiner = context.getString(R.string.metadata_joiner)
-        if (createdAt != null) {
-            sb.append(" ")
-            sb.append(dateFormat.format(createdAt))
-        }
+        sb.append(" ")
+        sb.append(dateFormat.format(createdAt))
         if (editedAt != null) {
             val editedAtString =
                 context.getString(R.string.post_edited, dateFormat.format(editedAt))

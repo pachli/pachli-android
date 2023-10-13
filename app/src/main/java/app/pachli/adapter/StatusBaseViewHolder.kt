@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.text.format.DateUtils
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -352,13 +351,9 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         timestampText = if (statusDisplayOptions.useAbsoluteTime) {
             absoluteTimeFormatter.format(createdAt, true)
         } else {
-            if (createdAt == null) {
-                "?m"
-            } else {
-                val then = createdAt.time
-                val now = System.currentTimeMillis()
-                getRelativeTimeSpanString(metaInfo.context, then, now)
-            }
+            val then = createdAt.time
+            val now = System.currentTimeMillis()
+            getRelativeTimeSpanString(metaInfo.context, then, now)
         }
         if (editedAt != null) {
             timestampText = metaInfo.context.getString(
@@ -549,7 +544,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 sensitiveMediaShow.visibility = View.VISIBLE
                 descriptionIndicator.visibility = if (hasDescription) View.VISIBLE else View.GONE
             }
-            null
         }
     }
 
