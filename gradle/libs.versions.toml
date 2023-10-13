@@ -36,7 +36,7 @@ glide = "4.15.1"
 glide-animation-plugin = "2.23.0"
 gson = "2.10.1"
 hilt = "2.48"
-kotlin = "1.9.0"
+kotlin = "1.9.10"
 image-cropper = "4.3.2"
 material = "1.9.0"
 material-drawer = "8.4.5"
@@ -60,7 +60,7 @@ xmlwriter = "1.0.4"
 [plugins]
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
 android-application = { id = "com.android.application", version.ref = "agp" }
-google-ksp = "com.google.devtools.ksp:1.9.0-1.0.13"
+google-ksp = "com.google.devtools.ksp:1.9.10-1.0.13"
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
