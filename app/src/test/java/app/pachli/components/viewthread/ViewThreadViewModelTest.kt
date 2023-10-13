@@ -93,7 +93,7 @@ class ViewThreadViewModelTest {
     lateinit var accountManager: AccountManager
 
     @Inject
-    lateinit var api: MastodonApi
+    lateinit var mastodonApi: MastodonApi
 
     @Inject
     lateinit var eventHub: EventHub
@@ -177,7 +177,7 @@ class ViewThreadViewModelTest {
         )
 
         viewModel = ViewThreadViewModel(
-            api,
+            mastodonApi,
             filterModel,
             timelineCases,
             eventHub,
@@ -225,7 +225,7 @@ class ViewThreadViewModelTest {
 
     @Test
     fun `should emit status even if context fails to load`() {
-        api.stub {
+        mastodonApi.stub {
             onBlocking { status(threadId) } doReturn NetworkResult.success(mockStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1"))
             onBlocking { statusContext(threadId) } doReturn NetworkResult.failure(IOException())
         }
@@ -253,7 +253,7 @@ class ViewThreadViewModelTest {
 
     @Test
     fun `should emit error when status and context fail to load`() {
-        api.stub {
+        mastodonApi.stub {
             onBlocking { status(threadId) } doReturn NetworkResult.failure(IOException())
             onBlocking { statusContext(threadId) } doReturn NetworkResult.failure(IOException())
         }
@@ -270,7 +270,7 @@ class ViewThreadViewModelTest {
 
     @Test
     fun `should emit error when status fails to load`() {
-        api.stub {
+        mastodonApi.stub {
             onBlocking { status(threadId) } doReturn NetworkResult.failure(IOException())
             onBlocking { statusContext(threadId) } doReturn NetworkResult.success(
                 StatusContext(
@@ -580,7 +580,7 @@ class ViewThreadViewModelTest {
     }
 
     private fun mockSuccessResponses() {
-        api.stub {
+        mastodonApi.stub {
             onBlocking { status(threadId) } doReturn NetworkResult.success(mockStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1", spoilerText = "Test"))
             onBlocking { statusContext(threadId) } doReturn NetworkResult.success(
                 StatusContext(
