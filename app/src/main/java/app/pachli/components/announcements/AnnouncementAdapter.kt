@@ -52,7 +52,7 @@ class AnnouncementAdapter(
     private val listener: AnnouncementActionListener,
     private val wellbeingEnabled: Boolean = false,
     private val animateEmojis: Boolean = false,
-    private val preferences: SharedPreferences,
+    private val useAbsoluteTime: Boolean = false,
 ) : RecyclerView.Adapter<BindingHolder<ItemAnnouncementBinding>>() {
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemAnnouncementBinding> {
@@ -63,9 +63,8 @@ class AnnouncementAdapter(
     override fun onBindViewHolder(holder: BindingHolder<ItemAnnouncementBinding>, position: Int) {
         val item = items[position]
         val now = System.currentTimeMillis()
-        val isAbsoluteTimeView = preferences.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
 
-        val publishTimeToDisplay = if (isAbsoluteTimeView) {
+        val publishTimeToDisplay = if (useAbsoluteTime) {
             if (item.allDay) {
                 absoluteTimeFormatter.format(item.publishedAt, true)
             } else {
@@ -77,7 +76,7 @@ class AnnouncementAdapter(
 
         val updatedAtText = if (item.updatedAt.toString() != item.publishedAt.toString()) {
             "(Updated: ${
-            if (isAbsoluteTimeView) {
+            if (useAbsoluteTime) {
                 absoluteTimeFormatter.format(item.updatedAt, item.allDay)
             } else {
                 getRelativeTimeSpanString(holder.binding.root.context, item.updatedAt.time, now)
