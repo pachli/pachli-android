@@ -25,14 +25,15 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.Transaction
-import androidx.room.withTransaction
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
+import app.pachli.db.RemoteKeyDao
 import app.pachli.db.RemoteKeyEntity
 import app.pachli.db.RemoteKeyKind
 import app.pachli.db.TimelineAccountEntity
+import app.pachli.db.TimelineDao
 import app.pachli.db.TimelineStatusEntity
 import app.pachli.db.TimelineStatusWithAccount
+import app.pachli.di.TransactionProvider
 import app.pachli.entity.Status
 import app.pachli.network.Links
 import app.pachli.network.MastodonApi
@@ -50,12 +51,11 @@ class CachedTimelineRemoteMediator(
     private val api: MastodonApi,
     accountManager: AccountManager,
     private val factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>,
-    private val db: AppDatabase,
+    private val transactionProvider: TransactionProvider,
+    private val timelineDao: TimelineDao,
+    private val remoteKeyDao: RemoteKeyDao,
     private val gson: Gson,
 ) : RemoteMediator<Int, TimelineStatusWithAccount>() {
-
-    private val timelineDao = db.timelineDao()
-    private val remoteKeyDao = db.remoteKeyDao()
     private val activeAccount = accountManager.activeAccount!!
 
     override suspend fun load(
@@ -71,30 +71,28 @@ class CachedTimelineRemoteMediator(
         return try {
             val response = when (loadType) {
                 LoadType.REFRESH -> {
-                    val closestItem = state.anchorPosition?.let { state.closestItemToPosition(it) }?.status?.serverId
-                    val key = closestItem ?: initialKey
-                    Log.d(TAG, "Loading from item: $key")
-                    getInitialPage(key, state.config.pageSize)
+                    val closestItem = state.anchorPosition?.let {
+                        state.closestItemToPosition(maxOf(0, it - (state.config.pageSize / 2)))
+                    }?.status?.serverId
+                    val statusId = closestItem ?: initialKey
+                    Log.d(TAG, "Loading from item: $statusId")
+                    getInitialPage(statusId, state.config.pageSize)
                 }
                 LoadType.APPEND -> {
-                    val rke = db.withTransaction {
-                        remoteKeyDao.remoteKeyForKind(
-                            activeAccount.id,
-                            TIMELINE_ID,
-                            RemoteKeyKind.NEXT,
-                        )
-                    } ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    val rke = remoteKeyDao.remoteKeyForKind(
+                        activeAccount.id,
+                        TIMELINE_ID,
+                        RemoteKeyKind.NEXT,
+                    ) ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Log.d(TAG, "Loading from remoteKey: $rke")
                     api.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
                 }
                 LoadType.PREPEND -> {
-                    val rke = db.withTransaction {
-                        remoteKeyDao.remoteKeyForKind(
-                            activeAccount.id,
-                            TIMELINE_ID,
-                            RemoteKeyKind.PREV,
-                        )
-                    } ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    val rke = remoteKeyDao.remoteKeyForKind(
+                        activeAccount.id,
+                        TIMELINE_ID,
+                        RemoteKeyKind.PREV,
+                    ) ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Log.d(TAG, "Loading from remoteKey: $rke")
                     api.homeTimeline(minId = rke.key, limit = state.config.pageSize)
                 }
@@ -117,7 +115,8 @@ class CachedTimelineRemoteMediator(
             Log.d(TAG, "  ${statuses.first().id}..${statuses.last().id}")
 
             val links = Links.from(response.headers()["link"])
-            db.withTransaction {
+
+            transactionProvider {
                 when (loadType) {
                     LoadType.REFRESH -> {
                         remoteKeyDao.delete(activeAccount.id)
@@ -200,18 +199,14 @@ class CachedTimelineRemoteMediator(
         // You can fetch the page immediately before the key, or the page immediately after, but
         // you can not fetch the page itself.
 
-        // Fetch the requested status, and the pages immediately before (prev) and after (next)
+        // Fetch the requested status, and the page immediately after (next)
         val deferredStatus = async { api.status(statusId = statusId) }
         val deferredNextPage = async {
             api.homeTimeline(maxId = statusId, limit = pageSize)
         }
-        val deferredPrevPage = async {
-            api.homeTimeline(minId = statusId, limit = pageSize)
-        }
 
         deferredStatus.await().getOrNull()?.let { status ->
             val statuses = buildList {
-                deferredPrevPage.await().body()?.let { this.addAll(it) }
                 this.add(status)
                 deferredNextPage.await().body()?.let { this.addAll(it) }
             }
@@ -243,7 +238,7 @@ class CachedTimelineRemoteMediator(
         // There were no statuses older than the user's desired status. Return the page
         // of statuses immediately newer than their desired status. This page must
         // *not* be empty (as noted earlier, if it is, paging stops).
-        deferredPrevPage.await().let { response ->
+        api.homeTimeline(minId = statusId, limit = pageSize).let { response ->
             if (response.isSuccessful) {
                 if (!response.body().isNullOrEmpty()) return@coroutineScope response
             }

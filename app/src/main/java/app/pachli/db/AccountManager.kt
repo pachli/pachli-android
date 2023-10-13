@@ -33,7 +33,10 @@ import javax.inject.Singleton
 private const val TAG = "AccountManager"
 
 @Singleton
-class AccountManager @Inject constructor(val db: AppDatabase) {
+class AccountManager @Inject constructor(
+    private val accountDao: AccountDao,
+    private val remoteKeyDao: RemoteKeyDao,
+) {
 
     @Volatile
     var activeAccount: AccountEntity? = null
@@ -41,8 +44,6 @@ class AccountManager @Inject constructor(val db: AppDatabase) {
 
     var accounts: MutableList<AccountEntity> = mutableListOf()
         private set
-
-    private val accountDao: AccountDao = db.accountDao()
 
     init {
         accounts = accountDao.loadAll().toMutableList()
@@ -128,7 +129,7 @@ class AccountManager @Inject constructor(val db: AppDatabase) {
 
             accounts.remove(account)
             accountDao.delete(account)
-            db.remoteKeyDao().delete(account.id)
+            remoteKeyDao.delete(account.id)
 
             if (accounts.size > 0) {
                 accounts[0].isActive = true

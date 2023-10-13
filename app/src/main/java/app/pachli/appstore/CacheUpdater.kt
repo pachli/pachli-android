@@ -1,7 +1,7 @@
 package app.pachli.appstore
 
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
+import app.pachli.db.TimelineDao
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,15 +13,12 @@ import javax.inject.Inject
 class CacheUpdater @Inject constructor(
     eventHub: EventHub,
     accountManager: AccountManager,
-    appDatabase: AppDatabase,
+    timelineDao: TimelineDao,
     gson: Gson,
 ) {
-
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     init {
-        val timelineDao = appDatabase.timelineDao()
-
         scope.launch {
             eventHub.events.collect { event ->
                 val accountId = accountManager.activeAccount?.id ?: return@collect

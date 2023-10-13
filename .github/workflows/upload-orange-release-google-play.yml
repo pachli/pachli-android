@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
 
       - uses: actions/setup-java@v3
         with:
@@ -80,7 +82,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
           packageName: app.pachli.current
           releaseFiles: ${{steps.sign_app_aab.outputs.signedReleaseFile}}
-          track: internal
+          track: production
           whatsNewDirectory: googleplay/whatsnew
           status: completed
           mappingFile: app/build/outputs/mapping/orangeRelease/mapping.txt

@@ -5,15 +5,10 @@ import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.instancemute.fragment.InstanceListFragment
 import app.pachli.databinding.ActivityAccountListBinding
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class InstanceListActivity : BaseActivity(), HasAndroidInjector {
-
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
+@AndroidEntryPoint
+class InstanceListActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityAccountListBinding.inflate(layoutInflater)
@@ -31,6 +26,4 @@ class InstanceListActivity : BaseActivity(), HasAndroidInjector {
             .replace(R.id.fragment_container, InstanceListFragment())
             .commit()
     }
-
-    override fun androidInjector() = androidInjector
 }

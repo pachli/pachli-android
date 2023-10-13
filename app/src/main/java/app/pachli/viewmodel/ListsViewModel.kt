@@ -23,6 +23,7 @@ import app.pachli.network.MastodonApi
 import app.pachli.util.replacedFirstWhich
 import app.pachli.util.withoutFirstWhich
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -32,6 +33,7 @@ import java.io.IOException
 import java.net.ConnectException
 import javax.inject.Inject
 
+@HiltViewModel
 internal class ListsViewModel @Inject constructor(private val api: MastodonApi) : ViewModel() {
     enum class LoadingState {
         INITIAL, LOADING, LOADED, ERROR_NETWORK, ERROR_OTHER

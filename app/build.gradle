@@ -5,6 +5,9 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.aboutlibraries)
+    alias(libs.plugins.hilt)
+
+    id "app.pachli.plugins.markdown2resource"
 }
 
 apply from: 'gitTools.gradle'
@@ -24,15 +27,15 @@ final def CUSTOM_INSTANCE = ""
 final def SUPPORT_ACCOUNT_URL = "https://mastodon.social/@Pachli"
 
 android {
-    compileSdk 33
+    compileSdk 34
     namespace "app.pachli"
     defaultConfig {
         applicationId APP_ID
         namespace "app.pachli"
         minSdk 23
-        targetSdk 33
-        versionCode 2
-        versionName "1.1"
+        targetSdk 34
+        versionCode 5
+        versionName "1.2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
@@ -139,6 +142,10 @@ aboutLibraries {
     prettyPrint = true
 }
 
+markdown2resource {
+    files = [ layout.projectDirectory.file('../PRIVACY.md') ]
+}
+
 // library versions are in PROJECT_ROOT/gradle/libs.versions.toml
 dependencies {
     implementation libs.kotlinx.coroutines.android
@@ -166,8 +173,8 @@ dependencies {
 
     implementation libs.bundles.autodispose
 
-    implementation libs.bundles.dagger
-    kapt libs.bundles.dagger.processors
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
 
     implementation libs.sparkbutton
 
@@ -196,10 +203,15 @@ dependencies {
     testImplementation libs.androidx.work.testing
     testImplementation libs.truth
     testImplementation libs.turbine
+    testImplementation libs.androidx.test.core.ktx
+    testImplementation libs.hilt.android.testing
+    kaptTest libs.hilt.compiler
 
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.androidx.room.testing
     androidTestImplementation libs.androidx.test.junit
+    androidTestImplementation libs.hilt.android.testing
+    androidTestImplementation libs.androidx.test.core.ktx
 }
 
 tasks.register("newLintBaseline") {

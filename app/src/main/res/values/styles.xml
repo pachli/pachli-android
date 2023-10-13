@@ -71,8 +71,6 @@
         <item name="status_text_medium">16sp</item>
         <item name="status_text_large">18sp</item>
 
-        <item name="android:listDivider">@drawable/status_divider</item>
-
         <item name="alertDialogTheme">@style/AppDialog</item>
         <item name="snackbarButtonStyle">@style/AppButton.TextButton</item>
 
@@ -148,8 +146,6 @@
 
         <!-- TODO: Remove this, use colorControlNormal everywhere instead of iconColor -->
         <item name="iconColor">?attr/colorControlNormal</item>
-
-        <item name="dividerColor">@color/tusky_grey_20</item>
     </style>
 
     <style name="Theme.Pachli.Black" parent="Base.Theme.Black" />

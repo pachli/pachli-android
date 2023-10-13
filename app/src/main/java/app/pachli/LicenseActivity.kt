@@ -21,7 +21,9 @@ import android.os.Bundle
 import androidx.fragment.app.commit
 import app.pachli.databinding.ActivityLicenseBinding
 import com.mikepenz.aboutlibraries.LibsBuilder
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LicenseActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

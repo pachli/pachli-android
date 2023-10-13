@@ -33,7 +33,6 @@ import app.pachli.components.instancemute.InstanceListActivity
 import app.pachli.components.login.LoginActivity
 import app.pachli.components.notifications.currentAccountNeedsMigration
 import app.pachli.db.AccountManager
-import app.pachli.di.Injectable
 import app.pachli.entity.Account
 import app.pachli.entity.Status
 import app.pachli.network.MastodonApi
@@ -52,12 +51,14 @@ import app.pachli.util.unsafeLazy
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class AccountPreferencesFragment : PreferenceFragmentCompat(), Injectable {
+@AndroidEntryPoint
+class AccountPreferencesFragment : PreferenceFragmentCompat() {
     @Inject
     lateinit var accountManager: AccountManager
 

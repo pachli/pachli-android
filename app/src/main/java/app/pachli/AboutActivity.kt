@@ -17,14 +17,15 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.lifecycleScope
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.databinding.ActivityAboutBinding
-import app.pachli.di.Injectable
 import app.pachli.util.NoUnderlineURLSpan
 import app.pachli.util.hide
 import app.pachli.util.show
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AboutActivity : BottomSheetActivity(), Injectable {
+@AndroidEntryPoint
+class AboutActivity : BottomSheetActivity() {
     @Inject
     lateinit var instanceInfoRepository: InstanceInfoRepository
 
@@ -73,6 +74,11 @@ class AboutActivity : BottomSheetActivity(), Injectable {
         binding.aboutLicenseInfoTextView.setClickableTextWithoutUnderlines(R.string.about_pachli_license)
         binding.aboutWebsiteInfoTextView.setClickableTextWithoutUnderlines(R.string.about_project_site)
         binding.aboutBugsFeaturesInfoTextView.setClickableTextWithoutUnderlines(R.string.about_bug_feature_request_site)
+
+        binding.aboutPrivacyPolicyTextView.setOnClickListener {
+            val intent = Intent(this, PrivacyPolicyActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.appProfileButton.setOnClickListener {
             viewUrl(BuildConfig.SUPPORT_ACCOUNT_URL)

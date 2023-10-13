@@ -24,8 +24,10 @@ import androidx.paging.cachedIn
 import app.pachli.db.AccountManager
 import app.pachli.network.MastodonApi
 import app.pachli.viewdata.AttachmentViewData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class AccountMediaViewModel @Inject constructor(
     accountManager: AccountManager,
     api: MastodonApi,

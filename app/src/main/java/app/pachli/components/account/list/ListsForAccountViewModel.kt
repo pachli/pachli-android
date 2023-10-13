@@ -24,6 +24,7 @@ import at.connyduck.calladapter.networkresult.getOrThrow
 import at.connyduck.calladapter.networkresult.onFailure
 import at.connyduck.calladapter.networkresult.onSuccess
 import at.connyduck.calladapter.networkresult.runCatching
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -50,6 +51,7 @@ data class ActionError(
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
+@HiltViewModel
 class ListsForAccountViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
 ) : ViewModel() {

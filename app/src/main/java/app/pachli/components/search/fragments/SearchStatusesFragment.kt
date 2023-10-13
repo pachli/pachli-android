@@ -59,10 +59,12 @@ import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionListener {
     @Inject
     lateinit var accountManager: AccountManager

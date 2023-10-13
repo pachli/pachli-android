@@ -32,8 +32,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import app.pachli.databinding.FragmentAccountsInListBinding
 import app.pachli.databinding.ItemFollowRequestBinding
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.TimelineAccount
 import app.pachli.settings.PrefKeys
 import app.pachli.util.BindingHolder
@@ -46,17 +44,15 @@ import app.pachli.util.unsafeLazy
 import app.pachli.util.viewBinding
 import app.pachli.viewmodel.AccountsInListViewModel
 import app.pachli.viewmodel.State
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 private typealias AccountInfo = Pair<TimelineAccount, Boolean>
 
-class AccountsInListFragment : DialogFragment(), Injectable {
+@AndroidEntryPoint
+class AccountsInListFragment : DialogFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: AccountsInListViewModel by viewModels { viewModelFactory }
+    private val viewModel: AccountsInListViewModel by viewModels()
     private val binding by viewBinding(FragmentAccountsInListBinding::bind)
 
     private lateinit var listId: String

@@ -28,10 +28,12 @@ import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
+import app.pachli.components.timeline.FilterKind
+import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
+import app.pachli.db.TimelineDao
 import app.pachli.entity.Filter
 import app.pachli.entity.FilterV1
 import app.pachli.entity.Status
@@ -43,6 +45,7 @@ import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.getOrThrow
 import com.google.gson.Gson
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.BufferOverflow
@@ -51,18 +54,19 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import javax.inject.Inject
 
+@HiltViewModel
 class ViewThreadViewModel @Inject constructor(
     private val api: MastodonApi,
     private val filterModel: FilterModel,
     private val timelineCases: TimelineCases,
     eventHub: EventHub,
     accountManager: AccountManager,
-    private val db: AppDatabase,
+    private val timelineDao: TimelineDao,
     private val gson: Gson,
     private val repository: CachedTimelineRepository,
+    private val filtersRepository: FiltersRepository,
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<ThreadUiState> = MutableStateFlow(ThreadUiState.Loading)
@@ -110,7 +114,7 @@ class ViewThreadViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d(TAG, "Finding status with: $id")
             val contextCall = async { api.statusContext(id) }
-            val timelineStatusWithAccount = db.timelineDao().getStatus(id)
+            val timelineStatusWithAccount = timelineDao.getStatus(id)
 
             var detailedStatus = if (timelineStatusWithAccount != null) {
                 Log.d(TAG, "Loaded status from local timeline")
@@ -464,27 +468,24 @@ class ViewThreadViewModel @Inject constructor(
 
     private fun loadFilters() {
         viewModelScope.launch {
-            api.getFilters().fold(
-                {
-                    filterModel.kind = Filter.Kind.THREAD
-                    updateStatuses()
-                },
-                { throwable ->
-                    if (throwable is HttpException && throwable.code() == 404) {
-                        val filters = api.getFiltersV1().getOrElse {
-                            Log.w(TAG, "Failed to fetch filters", it)
-                            return@launch
-                        }
-
+            try {
+                when (val filters = filtersRepository.getFilters()) {
+                    is FilterKind.V1 -> {
                         filterModel.initWithFilters(
-                            filters.filter { filter -> filter.context.contains(FilterV1.THREAD) },
+                            filters.filters.filter { filter ->
+                                filter.context.contains(FilterV1.THREAD)
+                            },
                         )
-                        updateStatuses()
-                    } else {
-                        Log.e(TAG, "Error getting filters", throwable)
                     }
-                },
-            )
+
+                    is FilterKind.V2 -> filterModel.kind = Filter.Kind.THREAD
+                }
+                updateStatuses()
+            } catch (_: Exception) {
+                // TODO: Deliberately don't emit to _errors here -- at the moment
+                // ViewThreadFragment shows a generic error to the user, and that
+                // would confuse them when the rest of the thread is loading OK.
+            }
         }
     }
 

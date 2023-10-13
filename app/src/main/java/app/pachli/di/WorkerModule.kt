@@ -24,6 +24,8 @@ import app.pachli.worker.PruneCacheWorker
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoMap
 import kotlin.reflect.KClass
 
@@ -31,6 +33,7 @@ import kotlin.reflect.KClass
 @MapKey
 annotation class WorkerKey(val value: KClass<out ListenableWorker>)
 
+@InstallIn(SingletonComponent::class)
 @Module
 abstract class WorkerModule {
     @Binds

@@ -28,6 +28,7 @@ import app.pachli.entity.TrendsLink
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.throttleFirst
 import at.connyduck.calladapter.networkresult.fold
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -54,6 +55,7 @@ sealed class LoadState {
     data class Error(val throwable: Throwable) : LoadState()
 }
 
+@HiltViewModel
 class TrendingLinksViewModel @Inject constructor(
     private val repository: TrendingLinksRepository,
     preferences: SharedPreferences,

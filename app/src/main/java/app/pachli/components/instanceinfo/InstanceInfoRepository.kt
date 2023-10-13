@@ -17,8 +17,8 @@ package app.pachli.components.instanceinfo
 
 import android.util.Log
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
 import app.pachli.db.EmojisEntity
+import app.pachli.db.InstanceDao
 import app.pachli.db.InstanceInfoEntity
 import app.pachli.entity.Emoji
 import app.pachli.network.MastodonApi
@@ -31,11 +31,9 @@ import javax.inject.Inject
 
 class InstanceInfoRepository @Inject constructor(
     private val api: MastodonApi,
-    db: AppDatabase,
+    private val instanceDao: InstanceDao,
     accountManager: AccountManager,
 ) {
-
-    private val dao = db.instanceDao()
     private val instanceName = accountManager.activeAccount!!.domain
 
     /**
@@ -45,10 +43,10 @@ class InstanceInfoRepository @Inject constructor(
      */
     suspend fun getEmojis(): List<Emoji> = withContext(Dispatchers.IO) {
         api.getCustomEmojis()
-            .onSuccess { emojiList -> dao.upsert(EmojisEntity(instanceName, emojiList)) }
+            .onSuccess { emojiList -> instanceDao.upsert(EmojisEntity(instanceName, emojiList)) }
             .getOrElse { throwable ->
                 Log.w(TAG, "failed to load custom emojis, falling back to cache", throwable)
-                dao.getEmojiInfo(instanceName)?.emojiList.orEmpty()
+                instanceDao.getEmojiInfo(instanceName)?.emojiList.orEmpty()
             }
     }
 
@@ -78,12 +76,12 @@ class InstanceInfoRepository @Inject constructor(
                         maxFieldNameLength = instance.pleroma?.metadata?.fieldLimits?.nameLength,
                         maxFieldValueLength = instance.pleroma?.metadata?.fieldLimits?.valueLength,
                     )
-                    dao.upsert(instanceEntity)
+                    try { instanceDao.upsert(instanceEntity) } catch (_: Exception) { }
                     instanceEntity
                 },
                 { throwable ->
                     Log.w(TAG, "failed to instance, falling back to cache and default values", throwable)
-                    dao.getInstanceInfo(instanceName)
+                    try { instanceDao.getInstanceInfo(instanceName) } catch (_: Exception) { null }
                 },
             ).let { instanceInfo: InstanceInfoEntity? ->
                 InstanceInfo(

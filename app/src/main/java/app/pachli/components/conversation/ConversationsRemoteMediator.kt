@@ -4,9 +4,9 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
 import app.pachli.db.AccountManager
-import app.pachli.db.AppDatabase
+import app.pachli.db.ConversationsDao
+import app.pachli.di.TransactionProvider
 import app.pachli.network.MastodonApi
 import app.pachli.util.HttpHeaderLink
 import retrofit2.HttpException
@@ -14,7 +14,8 @@ import retrofit2.HttpException
 @OptIn(ExperimentalPagingApi::class)
 class ConversationsRemoteMediator(
     private val api: MastodonApi,
-    private val db: AppDatabase,
+    private val transactionProvider: TransactionProvider,
+    private val conversationsDao: ConversationsDao,
     accountManager: AccountManager,
 ) : RemoteMediator<Int, ConversationEntity>() {
 
@@ -45,16 +46,16 @@ class ConversationsRemoteMediator(
                 return MediatorResult.Error(HttpException(conversationsResponse))
             }
 
-            db.withTransaction {
+            transactionProvider {
                 if (loadType == LoadType.REFRESH) {
-                    db.conversationDao().deleteForAccount(activeAccount.id)
+                    conversationsDao.deleteForAccount(activeAccount.id)
                 }
 
                 val linkHeader = conversationsResponse.headers()["Link"]
                 val links = HttpHeaderLink.parse(linkHeader)
                 nextKey = HttpHeaderLink.findByRelationType(links, "next")?.uri?.getQueryParameter("max_id")
 
-                db.conversationDao().insert(
+                conversationsDao.insert(
                     conversations
                         .filterNot { it.lastStatus == null }
                         .map { conversation ->

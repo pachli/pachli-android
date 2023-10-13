@@ -32,19 +32,18 @@ import app.pachli.entity.Status
 import app.pachli.service.SendStatusService
 import app.pachli.service.StatusToSend
 import app.pachli.util.randomAlphanumericString
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 private const val TAG = "SendStatusBR"
 
+@AndroidEntryPoint
 class SendStatusBroadcastReceiver : BroadcastReceiver() {
 
     @Inject
     lateinit var accountManager: AccountManager
 
     override fun onReceive(context: Context, intent: Intent) {
-        AndroidInjection.inject(this, context)
-
         if (intent.action == NotificationHelper.REPLY_ACTION) {
             val notificationId = intent.getIntExtra(NotificationHelper.KEY_NOTIFICATION_ID, -1)
             val senderId = intent.getLongExtra(NotificationHelper.KEY_SENDER_ACCOUNT_ID, -1)

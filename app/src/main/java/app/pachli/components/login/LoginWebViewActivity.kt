@@ -40,14 +40,12 @@ import app.pachli.BaseActivity
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.databinding.ActivityLoginWebviewBinding
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.util.hide
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
-import javax.inject.Inject
 
 /** Contract for starting [LoginWebViewActivity]. */
 class OauthLogin : ActivityResultContract<LoginData, LoginResult>() {
@@ -103,13 +101,11 @@ sealed class LoginResult : Parcelable {
 }
 
 /** Activity to do Oauth process using WebView. */
-class LoginWebViewActivity : BaseActivity(), Injectable {
+@AndroidEntryPoint
+class LoginWebViewActivity : BaseActivity() {
     private val binding by viewBinding(ActivityLoginWebviewBinding::inflate)
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel: LoginWebViewViewModel by viewModels { viewModelFactory }
+    private val viewModel: LoginWebViewViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

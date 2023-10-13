@@ -33,8 +33,6 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.StatusScheduledEvent
 import app.pachli.components.compose.ComposeActivity
 import app.pachli.databinding.ActivityScheduledStatusBinding
-import app.pachli.di.Injectable
-import app.pachli.di.ViewModelFactory
 import app.pachli.entity.ScheduledStatus
 import app.pachli.util.hide
 import app.pachli.util.show
@@ -45,23 +43,21 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ScheduledStatusActivity :
     BaseActivity(),
     ScheduledStatusActionListener,
-    MenuProvider,
-    Injectable {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    MenuProvider {
 
     @Inject
     lateinit var eventHub: EventHub
 
-    private val viewModel: ScheduledStatusViewModel by viewModels { viewModelFactory }
+    private val viewModel: ScheduledStatusViewModel by viewModels()
 
     private val binding by viewBinding(ActivityScheduledStatusBinding::inflate)
 

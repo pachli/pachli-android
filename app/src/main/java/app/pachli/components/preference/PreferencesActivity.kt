@@ -38,22 +38,18 @@ import app.pachli.settings.PrefKeys.APP_THEME
 import app.pachli.util.APP_THEME_DEFAULT
 import app.pachli.util.getNonNullString
 import app.pachli.util.setAppNightMode
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PreferencesActivity :
     BaseActivity(),
     SharedPreferences.OnSharedPreferenceChangeListener,
-    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
-    HasAndroidInjector {
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     @Inject
     lateinit var eventHub: EventHub
-
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     private val restartActivitiesOnBackPressedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
@@ -144,7 +140,8 @@ class PreferencesActivity :
         super.onSaveInstanceState(outState)
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
+        key ?: return
         when (key) {
             APP_THEME -> {
                 val theme = sharedPreferences.getNonNullString(APP_THEME, APP_THEME_DEFAULT)
@@ -179,8 +176,6 @@ class PreferencesActivity :
         finish()
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
-
-    override fun androidInjector() = androidInjector
 
     companion object {
         @Suppress("unused")
