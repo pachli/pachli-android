@@ -32,6 +32,7 @@ import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.BindingHolder
 import app.pachli.util.EmojiSpan
 import app.pachli.util.emojify
+import app.pachli.util.equalByMinute
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.setClickableText
@@ -70,15 +71,17 @@ class AnnouncementAdapter(
             getRelativeTimeSpanString(holder.binding.root.context, item.publishedAt.time, now)
         }
 
-        val updatedAtText = if (item.updatedAt.toString() != item.publishedAt.toString()) {
+        val updatedAtText = if (item.updatedAt.equalByMinute(item.publishedAt)) {
+            // they're the same, don't show the "updated" indicator
+            ""
+        } else {
+            // they're a minute or more apart, show the "updated" indicator
             val formattedUpdatedAt = if (useAbsoluteTime) {
                 absoluteTimeFormatter.format(item.updatedAt, item.allDay)
             } else {
                 getRelativeTimeSpanString(holder.binding.root.context, item.updatedAt.time, now)
             }
             holder.binding.root.context.getString(R.string.announcement_date_updated, formattedUpdatedAt)
-        } else {
-            ""
         }
 
         holder.binding.announcementDate.text = "$publishTimeToDisplay $updatedAtText"
