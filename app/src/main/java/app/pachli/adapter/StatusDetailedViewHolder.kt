@@ -35,7 +35,7 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
     override fun setMetaData(
         statusViewData: StatusViewData,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         val (_, _, _, _, _, _, _, createdAt, editedAt, _, _, _, _, _, _, _, _, _, visibility, _, _, _, app) = statusViewData.actionable
         val context = metaInfo.context
@@ -45,13 +45,13 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
         if (visibilityIcon != null) {
             val visibilityIconSpan = ImageSpan(
                 visibilityIcon,
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) DynamicDrawableSpan.ALIGN_CENTER else DynamicDrawableSpan.ALIGN_BASELINE
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) DynamicDrawableSpan.ALIGN_CENTER else DynamicDrawableSpan.ALIGN_BASELINE,
             )
             sb.setSpan(
                 visibilityIconSpan,
                 0,
                 visibilityString.length,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
             )
         }
         val metadataJoiner = context.getString(R.string.metadata_joiner)
@@ -89,7 +89,7 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
     private fun setReblogAndFavCount(
         reblogCount: Int,
         favCount: Int,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         if (reblogCount > 0) {
             reblogs.text = getReblogsText(reblogs.context, reblogCount)
@@ -126,7 +126,7 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
         status: StatusViewData,
         listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any?
+        payloads: Any?,
     ) {
         // We never collapse statuses in the detail view
         val uncollapsedStatus =
@@ -137,14 +137,15 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
             status.isExpanded,
             CardViewMode.FULL_WIDTH,
             statusDisplayOptions,
-            listener
+            listener,
         ) // Always show card for detailed status
         if (payloads == null) {
             val (_, _, _, _, _, _, _, _, _, _, reblogsCount, favouritesCount) = uncollapsedStatus.actionable
             if (!statusDisplayOptions.hideStats) {
                 setReblogAndFavCount(
                     reblogsCount,
-                    favouritesCount, listener
+                    favouritesCount,
+                    listener,
                 )
             } else {
                 hideQuantitativeStats()
@@ -166,14 +167,15 @@ class StatusDetailedViewHolder(view: View) : StatusBaseViewHolder(view) {
             }
         }
         val visibilityDrawable = AppCompatResources.getDrawable(
-            metaInfo.context, visibilityIcon
+            metaInfo.context,
+            visibilityIcon,
         ) ?: return null
         val size = metaInfo.textSize.toInt()
         visibilityDrawable.setBounds(
             0,
             0,
             size,
-            size
+            size,
         )
         visibilityDrawable.setTint(metaInfo.currentTextColor)
         return visibilityDrawable

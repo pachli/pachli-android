@@ -132,7 +132,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             itemView.findViewById(R.id.status_media_label_0),
             itemView.findViewById(R.id.status_media_label_1),
             itemView.findViewById(R.id.status_media_label_2),
-            itemView.findViewById(R.id.status_media_label_3)
+            itemView.findViewById(R.id.status_media_label_3),
         )
         mediaDescriptions = arrayOfNulls(mediaLabels.size)
         contentWarningDescription = itemView.findViewById(R.id.status_content_warning_description)
@@ -170,15 +170,15 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 reblogButton,
                 favouriteButton,
                 bookmarkButton,
-                moreButton
-            )
+                moreButton,
+            ),
         )
     }
 
     protected fun setDisplayName(
         name: String,
         customEmojis: List<Emoji>?,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         val emojifiedName =
             name.emojify(customEmojis, displayName, statusDisplayOptions.animateEmojis)
@@ -198,7 +198,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     protected fun setSpoilerAndContent(
         status: StatusViewData,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         val (_, _, _, _, _, _, _, _, _, emojis) = status.actionable
         val spoilerText = status.spoilerText
@@ -208,7 +208,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             val emojiSpoiler = spoilerText.emojify(
                 emojis,
                 contentWarningDescription,
-                statusDisplayOptions.animateEmojis
+                statusDisplayOptions.animateEmojis,
             )
             contentWarningDescription.text = emojiSpoiler
             contentWarningDescription.visibility = View.VISIBLE
@@ -220,7 +220,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                     !expanded,
                     status,
                     statusDisplayOptions,
-                    listener
+                    listener,
                 )
             }
             setTextVisible(true, expanded, status, statusDisplayOptions, listener)
@@ -232,7 +232,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 expanded = true,
                 status = status,
                 statusDisplayOptions = statusDisplayOptions,
-                listener = listener
+                listener = listener,
             )
         }
     }
@@ -250,7 +250,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         expanded: Boolean,
         status: StatusViewData,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         contentWarningDescription.invalidate()
         val adapterPosition = bindingAdapterPosition
@@ -264,7 +264,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             expanded,
             statusDisplayOptions.cardViewMode,
             statusDisplayOptions,
-            listener
+            listener,
         )
     }
 
@@ -273,7 +273,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         expanded: Boolean,
         status: StatusViewData,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         val (_, _, _, _, _, _, _, _, _, emojis, _, _, _, _, _, _, _, _, _, _, mentions, tags, _, _, _, poll) = status.actionable
         val content = status.content
@@ -310,7 +310,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         url: String,
         rebloggedUrl: String?,
         isBot: Boolean,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         val avatarRadius: Int
         if (TextUtils.isEmpty(rebloggedUrl)) {
@@ -330,21 +330,27 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             avatarInset.visibility = View.VISIBLE
             avatarInset.background = null
             loadAvatar(
-                rebloggedUrl, avatarInset, avatarRadius24dp,
-                statusDisplayOptions.animateAvatars, null
+                rebloggedUrl,
+                avatarInset,
+                avatarRadius24dp,
+                statusDisplayOptions.animateAvatars,
+                null,
             )
             avatarRadius = avatarRadius36dp
         }
         loadAvatar(
-            url, avatar, avatarRadius,
-            statusDisplayOptions.animateAvatars, listOf(CompositeWithOpaqueBackground(avatar))
+            url,
+            avatar,
+            avatarRadius,
+            statusDisplayOptions.animateAvatars,
+            listOf(CompositeWithOpaqueBackground(avatar)),
         )
     }
 
     protected open fun setMetaData(
         statusViewData: StatusViewData,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         val (_, _, _, _, _, _, _, createdAt, editedAt) = statusViewData.actionable
         var timestampText: String
@@ -358,7 +364,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         if (editedAt != null) {
             timestampText = metaInfo.context.getString(
                 R.string.post_timestamp_with_edited_indicator,
-                timestampText
+                timestampText,
             )
         }
         metaInfo.text = timestampText
@@ -366,7 +372,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
 
     private fun getCreatedAtDescription(
         createdAt: Date?,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ): CharSequence {
         return if (statusDisplayOptions.useAbsoluteTime) {
             absoluteTimeFormatter.format(createdAt, true)
@@ -379,9 +385,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 val then = createdAt.time
                 val now = System.currentTimeMillis()
                 DateUtils.getRelativeTimeSpanString(
-                    then, now,
+                    then,
+                    now,
                     DateUtils.SECOND_IN_MILLIS,
-                    DateUtils.FORMAT_ABBREV_RELATIVE
+                    DateUtils.FORMAT_ABBREV_RELATIVE,
                 )
             }
         }
@@ -455,7 +462,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         imageView: MediaPreviewImageView,
         previewUrl: String?,
         meta: Attachment.MetaData?,
-        blurhash: String?
+        blurhash: String?,
     ) {
         val placeholder = blurhash?.let { decodeBlurHash(it) } ?: mediaPreviewUnloaded
         if (TextUtils.isEmpty(previewUrl)) {
@@ -490,7 +497,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         sensitive: Boolean,
         listener: StatusActionListener,
         showingContent: Boolean,
-        useBlurhash: Boolean
+        useBlurhash: Boolean,
     ) {
         mediaPreview.visibility = View.VISIBLE
         mediaPreview.aspectRatios = attachments.aspectRatios()
@@ -509,7 +516,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 imageView,
                 if (showingContent) previewUrl else null,
                 attachment.meta,
-                if (useBlurhash) attachment.blurhash else null
+                if (useBlurhash) attachment.blurhash else null,
             )
             val type = attachment.type
             if (showingContent && (type === Attachment.Type.VIDEO || type === Attachment.Type.GIFV)) {
@@ -555,8 +562,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     protected fun setMediaLabel(
-        attachments: List<Attachment>, sensitive: Boolean,
-        listener: StatusActionListener, showingContent: Boolean
+        attachments: List<Attachment>,
+        sensitive: Boolean,
+        listener: StatusActionListener,
+        showingContent: Boolean,
     ) {
         val context = itemView.context
         for (i in mediaLabels.indices) {
@@ -578,8 +587,11 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     private fun setAttachmentClickListener(
-        view: View, listener: StatusActionListener,
-        index: Int, attachment: Attachment, animateTransition: Boolean
+        view: View,
+        listener: StatusActionListener,
+        index: Int,
+        attachment: Attachment,
+        animateTransition: Boolean,
     ) {
         view.setOnClickListener { v: View? ->
             val position = bindingAdapterPosition
@@ -607,7 +619,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         listener: StatusActionListener,
         accountId: String,
         statusContent: String?,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         val profileButtonClickListener =
             View.OnClickListener { listener.onViewAccount(accountId) }
@@ -679,7 +691,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private fun showConfirmReblog(
         listener: StatusActionListener,
         buttonState: Boolean,
-        position: Int
+        position: Int,
     ) {
         val popup = PopupMenu(itemView.context, reblogButton!!)
         popup.inflate(R.menu.status_reblog)
@@ -702,7 +714,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private fun showConfirmFavourite(
         listener: StatusActionListener,
         buttonState: Boolean,
-        position: Int
+        position: Int,
     ) {
         val popup = PopupMenu(itemView.context, favouriteButton)
         popup.inflate(R.menu.status_favourite)
@@ -723,8 +735,9 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     fun setupWithStatus(
-        status: StatusViewData, listener: StatusActionListener,
-        statusDisplayOptions: StatusDisplayOptions
+        status: StatusViewData,
+        listener: StatusActionListener,
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         this.setupWithStatus(status, listener, statusDisplayOptions, null)
     }
@@ -733,7 +746,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         status: StatusViewData,
         listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any?
+        payloads: Any?,
     ) {
         if (payloads == null) {
             val actionable = status.actionable
@@ -743,8 +756,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             setIsReply(actionable.inReplyToId != null)
             setReplyCount(actionable.repliesCount, statusDisplayOptions.showStatsInline)
             setAvatar(
-                actionable.account.avatar, status.rebloggedAvatar,
-                actionable.account.bot, statusDisplayOptions
+                actionable.account.avatar,
+                status.rebloggedAvatar,
+                actionable.account.bot,
+                statusDisplayOptions,
             )
             setReblogged(actionable.reblogged)
             setFavourited(actionable.favourited)
@@ -757,7 +772,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                     sensitive,
                     listener,
                     status.isShowingContent,
-                    statusDisplayOptions.useBlurhash
+                    statusDisplayOptions.useBlurhash,
                 )
                 if (attachments.isEmpty()) {
                     hideSensitiveMediaWarning()
@@ -777,11 +792,13 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 status.isExpanded,
                 statusDisplayOptions.cardViewMode,
                 statusDisplayOptions,
-                listener
+                listener,
             )
             setupButtons(
-                listener, actionable.account.id, status.content.toString(),
-                statusDisplayOptions
+                listener,
+                actionable.account.id,
+                status.content.toString(),
+                statusDisplayOptions,
             )
             setRebloggingEnabled(actionable.rebloggingAllowed(), actionable.visibility)
             setSpoilerAndContent(status, statusDisplayOptions, listener)
@@ -795,9 +812,11 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             // and let RecyclerView ask for a new delegate.
             itemView.accessibilityDelegate = null
         } else {
-            if (payloads is List<*>) for (item in payloads) {
-                if (Key.KEY_CREATED == item) {
-                    setMetaData(status, statusDisplayOptions, listener)
+            if (payloads is List<*>) {
+                for (item in payloads) {
+                    if (Key.KEY_CREATED == item) {
+                        setMetaData(status, statusDisplayOptions, listener)
+                    }
                 }
             }
         }
@@ -806,7 +825,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private fun setupFilterPlaceholder(
         status: StatusViewData,
         listener: StatusActionListener,
-        displayOptions: StatusDisplayOptions
+        displayOptions: StatusDisplayOptions,
     ) {
         if (status.filterAction !== Filter.Action.WARN) {
             showFilteredPlaceholder(false)
@@ -837,18 +856,18 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         showFilteredPlaceholder(true)
         filteredPlaceholderLabel?.text = itemView.context.getString(
             R.string.status_filter_placeholder_label_format,
-            matchedFilter.title
+            matchedFilter.title,
         )
         filteredPlaceholderShowButton?.setOnClickListener {
             listener.clearWarningAction(
-                bindingAdapterPosition
+                bindingAdapterPosition,
             )
         }
     }
 
     private fun setDescriptionForStatus(
         status: StatusViewData,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         val context = itemView.context
         val (_, _, account, _, _, _, _, createdAt, editedAt, _, reblogsCount, favouritesCount, _, reblogged, favourited, bookmarked, sensitive, _, visibility) = status.actionable
@@ -868,7 +887,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             getVisibilityDescription(context, visibility),
             getFavsText(context, favouritesCount),
             getReblogsText(context, reblogsCount),
-            getPollDescription(status, context, statusDisplayOptions)
+            getPollDescription(status, context, statusDisplayOptions),
         )
         itemView.contentDescription = description
     }
@@ -876,7 +895,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private fun getPollDescription(
         status: StatusViewData,
         context: Context,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ): CharSequence {
         val poll = status.actionable.poll ?: return ""
         val pollViewData = from(poll)
@@ -893,8 +912,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             }
         }
         args[4] = getPollInfoText(
-            System.currentTimeMillis(), pollViewData, statusDisplayOptions,
-            context
+            System.currentTimeMillis(),
+            pollViewData,
+            statusDisplayOptions,
+            context,
         )
         return context.getString(R.string.description_poll, *args)
     }
@@ -904,7 +925,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             val countString = numberFormat.format(count.toLong())
             HtmlCompat.fromHtml(
                 context.resources.getQuantityString(R.plurals.favs, count, countString),
-                HtmlCompat.FROM_HTML_MODE_LEGACY
+                HtmlCompat.FROM_HTML_MODE_LEGACY,
             )
         } else {
             ""
@@ -918,8 +939,9 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 context.resources.getQuantityString(
                     R.plurals.reblogs,
                     count,
-                    countString
-                ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                    countString,
+                ),
+                HtmlCompat.FROM_HTML_MODE_LEGACY,
             )
         } else {
             ""
@@ -927,9 +949,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     private fun setupPoll(
-        poll: PollViewData, emojis: List<Emoji>,
+        poll: PollViewData,
+        emojis: List<Emoji>,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         val timestamp = System.currentTimeMillis()
         val expired = poll.expired || poll.expiresAt != null && timestamp > poll.expiresAt.time
@@ -950,7 +973,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 emojis,
                 PollAdapter.RESULT,
                 viewThreadListener,
-                statusDisplayOptions.animateEmojis
+                statusDisplayOptions.animateEmojis,
             )
             pollButton.visibility = View.GONE
         } else {
@@ -967,7 +990,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 null,
                 statusDisplayOptions.animateEmojis,
                 true,
-                optionClickListener
+                optionClickListener,
             )
             pollButton.visibility = View.VISIBLE
             pollButton.isEnabled = false
@@ -986,9 +1009,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     private fun getPollInfoText(
-        timestamp: Long, poll: PollViewData,
+        timestamp: Long,
+        poll: PollViewData,
         statusDisplayOptions: StatusDisplayOptions,
-        context: Context
+        context: Context,
     ): CharSequence {
         val votesText: String = if (poll.votersCount == null) {
             val voters = numberFormat.format(poll.votesCount.toLong())
@@ -998,7 +1022,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             context.resources.getQuantityString(
                 R.plurals.poll_info_people,
                 poll.votersCount,
-                voters
+                voters,
             )
         }
         val pollDurationInfo: CharSequence = if (poll.expired) {
@@ -1009,7 +1033,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             if (statusDisplayOptions.useAbsoluteTime) {
                 context.getString(
                     R.string.poll_info_time_absolute,
-                    absoluteTimeFormatter.format(poll.expiresAt, false)
+                    absoluteTimeFormatter.format(poll.expiresAt, false),
                 )
             } else {
                 formatPollDuration(pollDescription.context, poll.expiresAt.time, timestamp)
@@ -1018,7 +1042,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         return pollDescription.context.getString(
             R.string.poll_info_format,
             votesText,
-            pollDurationInfo
+            pollDurationInfo,
         )
     }
 
@@ -1027,7 +1051,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         expanded: Boolean,
         cardViewMode: CardViewMode,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         if (cardView == null) {
             return
@@ -1122,11 +1146,17 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             val visitLink = View.OnClickListener { listener.onViewUrl(card.url) }
             cardView.setOnClickListener(visitLink)
             // View embedded photos in our image viewer instead of opening the browser
-            cardImage.setOnClickListener(if (card.type == Card.TYPE_PHOTO && !TextUtils.isEmpty(card.embedUrl)) View.OnClickListener {
-                cardView.context.startActivity(
-                    newSingleImageIntent(cardView.context, card.embedUrl!!)
-                )
-            } else visitLink)
+            cardImage.setOnClickListener(
+                if (card.type == Card.TYPE_PHOTO && !TextUtils.isEmpty(card.embedUrl)) {
+                    View.OnClickListener {
+                        cardView.context.startActivity(
+                            newSingleImageIntent(cardView.context, card.embedUrl!!),
+                        )
+                    }
+                } else {
+                    visitLink
+                },
+            )
             cardView.clipToOutline = true
         } else {
             cardView.visibility = View.GONE
@@ -1187,7 +1217,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
 
         private fun getReblogDescription(
             context: Context,
-            status: StatusViewData
+            status: StatusViewData,
         ): CharSequence {
             val reblog = status.rebloggingStatus
             return if (reblog != null) {
@@ -1200,7 +1230,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
 
         private fun getMediaDescription(
             context: Context,
-            status: StatusViewData
+            status: StatusViewData,
         ): CharSequence {
             if (status.actionable.attachments.isEmpty()) {
                 return ""
@@ -1221,7 +1251,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
 
         private fun getContentWarningDescription(
             context: Context,
-            status: StatusViewData
+            status: StatusViewData,
         ): CharSequence {
             return if (!TextUtils.isEmpty(status.spoilerText)) {
                 context.getString(R.string.description_post_cw, status.spoilerText)
@@ -1233,7 +1263,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         @JvmStatic
         protected fun getVisibilityDescription(
             context: Context,
-            visibility: Status.Visibility?
+            visibility: Status.Visibility?,
         ): CharSequence {
             if (visibility == null) {
                 return ""

@@ -31,7 +31,7 @@ import app.pachli.util.loadAvatar
 class ConversationViewHolder internal constructor(
     itemView: View,
     private val statusDisplayOptions: StatusDisplayOptions,
-    private val listener: StatusActionListener
+    private val listener: StatusActionListener,
 ) : StatusBaseViewHolder(itemView) {
     private val conversationNameTextView: TextView
     private val contentCollapseButton: Button
@@ -43,13 +43,13 @@ class ConversationViewHolder internal constructor(
         avatars = arrayOf(
             avatar,
             itemView.findViewById(R.id.status_avatar_1),
-            itemView.findViewById(R.id.status_avatar_2)
+            itemView.findViewById(R.id.status_avatar_2),
         )
     }
 
     fun setupWithConversation(
         conversation: ConversationViewData,
-        payloads: Any?
+        payloads: Any?,
     ) {
         val statusViewData = conversation.lastStatus
         val (_, _, account, inReplyToId, _, _, _, _, _, _, _, _, _, _, favourited, bookmarked, sensitive, _, _, attachments) = statusViewData.status
@@ -59,7 +59,7 @@ class ConversationViewHolder internal constructor(
                 statusViewData.isCollapsed,
                 statusViewData.isExpanded,
                 statusViewData.spoilerText,
-                listener
+                listener,
             )
             setDisplayName(account.name, account.emojis, statusDisplayOptions)
             setUsername(account.username)
@@ -69,8 +69,11 @@ class ConversationViewHolder internal constructor(
             setBookmarked(bookmarked)
             if (statusDisplayOptions.mediaPreviewEnabled && hasPreviewableAttachment(attachments)) {
                 setMediaPreviews(
-                    attachments, sensitive, listener, statusViewData.isShowingContent,
-                    statusDisplayOptions.useBlurhash
+                    attachments,
+                    sensitive,
+                    listener,
+                    statusViewData.isShowingContent,
+                    statusDisplayOptions.useBlurhash,
                 )
                 if (attachments.isEmpty()) {
                     hideSensitiveMediaWarning()
@@ -86,8 +89,10 @@ class ConversationViewHolder internal constructor(
                 hideSensitiveMediaWarning()
             }
             setupButtons(
-                listener, account.id, statusViewData.content.toString(),
-                statusDisplayOptions
+                listener,
+                account.id,
+                statusViewData.content.toString(),
+                statusDisplayOptions,
             )
             setSpoilerAndContent(statusViewData, statusDisplayOptions, listener)
             setConversationName(conversation.accounts)
@@ -113,14 +118,14 @@ class ConversationViewHolder internal constructor(
             conversationName = context.getString(
                 R.string.conversation_2_recipients,
                 accounts[0].username,
-                accounts[1].username
+                accounts[1].username,
             )
         } else if (accounts.size > 2) {
             conversationName = context.getString(
                 R.string.conversation_more_recipients,
                 accounts[0].username,
                 accounts[1].username,
-                accounts.size - 2
+                accounts.size - 2,
             )
         }
         conversationNameTextView.text = conversationName
@@ -131,8 +136,11 @@ class ConversationViewHolder internal constructor(
             val avatarView = avatars[i]
             if (i < accounts.size) {
                 loadAvatar(
-                    accounts[i].avatar, avatarView,
-                    avatarRadius48dp, statusDisplayOptions.animateAvatars, null
+                    accounts[i].avatar,
+                    avatarView,
+                    avatarRadius48dp,
+                    statusDisplayOptions.animateAvatars,
+                    null,
                 )
                 avatarView.visibility = View.VISIBLE
             } else {
@@ -146,16 +154,18 @@ class ConversationViewHolder internal constructor(
         collapsed: Boolean,
         expanded: Boolean,
         spoilerText: String,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         /* input filter for TextViews have to be set before text */
         if (collapsible && (expanded || TextUtils.isEmpty(spoilerText))) {
             contentCollapseButton.setOnClickListener {
                 val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) listener.onContentCollapsedChange(
-                    !collapsed,
-                    position
-                )
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onContentCollapsedChange(
+                        !collapsed,
+                        position,
+                    )
+                }
             }
             contentCollapseButton.visibility = View.VISIBLE
             if (collapsed) {

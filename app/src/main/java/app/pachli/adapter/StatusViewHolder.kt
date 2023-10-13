@@ -49,7 +49,7 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
         status: StatusViewData,
         listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any?
+        payloads: Any?,
     ) {
         if (payloads == null) {
             val sensitive = !TextUtils.isEmpty(status.actionable.spoilerText)
@@ -62,11 +62,12 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
                 val rebloggedByDisplayName = reblogging.account.name
                 setRebloggedByDisplayName(
                     rebloggedByDisplayName,
-                    reblogging.account.emojis, statusDisplayOptions
+                    reblogging.account.emojis,
+                    statusDisplayOptions,
                 )
                 statusInfo.setOnClickListener { v: View? ->
                     listener.onOpenReblog(
-                        bindingAdapterPosition
+                        bindingAdapterPosition,
                     )
                 }
             }
@@ -83,7 +84,7 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
     private fun setRebloggedByDisplayName(
         name: CharSequence,
         accountEmoji: List<Emoji>?,
-        statusDisplayOptions: StatusDisplayOptions
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         val context = statusInfo.context
         val wrappedName: CharSequence = name.unicodeWrap()
@@ -120,16 +121,18 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
         sensitive: Boolean,
         expanded: Boolean,
         status: StatusViewData,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         /* input filter for TextViews have to be set before text */
         if (status.isCollapsible && (!sensitive || expanded)) {
             contentCollapseButton.setOnClickListener {
                 val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) listener.onContentCollapsedChange(
-                    !status.isCollapsed,
-                    position
-                )
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onContentCollapsedChange(
+                        !status.isCollapsed,
+                        position,
+                    )
+                }
             }
             contentCollapseButton.visibility = View.VISIBLE
             if (status.isCollapsed) {
@@ -155,7 +158,7 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
         expanded: Boolean,
         status: StatusViewData,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener
+        listener: StatusActionListener,
     ) {
         setupCollapsedState(sensitive, expanded, status, listener)
         super.toggleExpandedState(sensitive, expanded, status, statusDisplayOptions, listener)
