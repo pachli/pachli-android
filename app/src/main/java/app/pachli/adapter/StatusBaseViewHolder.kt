@@ -1222,8 +1222,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         ): CharSequence {
             val reblog = status.rebloggingStatus
             return if (reblog != null) {
-                context
-                    .getString(R.string.post_boosted_format, reblog.account.username)
+                context.getString(R.string.post_boosted_format, reblog.account.username)
             } else {
                 ""
             }
