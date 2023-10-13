@@ -6,6 +6,7 @@
 
     <TextView
         android:id="@+id/text"
+        android:textIsSelectable="true"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:lineSpacingMultiplier="1.1"
@@ -42,6 +43,7 @@
 
     <TextView
         android:id="@+id/announcementDate"
+        android:textIsSelectable="true"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"

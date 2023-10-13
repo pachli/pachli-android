@@ -27,7 +27,6 @@ import app.pachli.R
 import app.pachli.databinding.ItemAnnouncementBinding
 import app.pachli.entity.Announcement
 import app.pachli.interfaces.LinkListener
-import app.pachli.settings.PrefKeys
 import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.BindingHolder
 import app.pachli.util.EmojiSpan
@@ -116,7 +115,8 @@ class AnnouncementAdapter(
                 )
                 .apply {
                     if (reaction.url == null) {
-                        this.text = "${reaction.name} ${reaction.count}"
+                        val reactionNameAndCountText = holder.binding.root.context.getString(R.string.reaction_name_and_count, reaction.name, reaction.count)
+                        this.text = reactionNameAndCountText
                     } else {
                         // we set the EmojiSpan on a space, because otherwise the Chip won't have the right size
                         // https://github.com/tuskyapp/Tusky/issues/2308
