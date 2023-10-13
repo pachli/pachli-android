@@ -65,7 +65,7 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
                     reblogging.account.emojis,
                     statusDisplayOptions,
                 )
-                statusInfo.setOnClickListener { v: View? ->
+                statusInfo.setOnClickListener {
                     listener.onOpenReblog(
                         bindingAdapterPosition,
                     )

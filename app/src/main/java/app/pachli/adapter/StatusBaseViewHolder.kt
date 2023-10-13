@@ -214,7 +214,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             contentWarningDescription.visibility = View.VISIBLE
             contentWarningButton.visibility = View.VISIBLE
             setContentWarningButtonText(expanded)
-            contentWarningButton.setOnClickListener { view: View? ->
+            contentWarningButton.setOnClickListener {
                 toggleExpandedState(
                     true,
                     !expanded,
