@@ -17,10 +17,9 @@ package app.pachli.adapter
 import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.entity.Emoji
 import app.pachli.entity.Filter
 import app.pachli.interfaces.StatusActionListener
@@ -28,36 +27,29 @@ import app.pachli.util.SmartLengthInputFilter
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.emojify
 import app.pachli.util.formatNumber
+import app.pachli.util.hide
 import app.pachli.util.unicodeWrap
+import app.pachli.util.visible
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.sparkbutton.helpers.Utils
 
-open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
-    private val statusInfo: TextView
-    private val contentCollapseButton: Button
-    private val favouritedCountLabel: TextView
-    private val reblogsCountLabel: TextView
-
-    init {
-        statusInfo = itemView.findViewById(R.id.status_info)
-        contentCollapseButton = itemView.findViewById(R.id.button_toggle_content)
-        favouritedCountLabel = itemView.findViewById(R.id.status_favourites_count)
-        reblogsCountLabel = itemView.findViewById(R.id.status_insets)
-    }
+open class StatusViewHolder(
+    private val binding: ItemStatusWrapperBinding
+) : StatusBaseViewHolder(binding.root) {
 
     override fun setupWithStatus(
         status: StatusViewData,
         listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: Any?,
-    ) {
+    ) = with(binding.statusContainer) {
         if (payloads == null) {
             val sensitive = !TextUtils.isEmpty(status.actionable.spoilerText)
             val expanded = status.isExpanded
             setupCollapsedState(sensitive, expanded, status, listener)
             val reblogging = status.rebloggingStatus
             if (reblogging == null || status.filterAction === Filter.Action.WARN) {
-                hideStatusInfo()
+                statusInfo.hide()
             } else {
                 val rebloggedByDisplayName = reblogging.account.name
                 setRebloggedByDisplayName(
@@ -72,10 +64,8 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
                 }
             }
         }
-        reblogsCountLabel.visibility =
-            if (statusDisplayOptions.showStatsInline) View.VISIBLE else View.INVISIBLE
-        favouritedCountLabel.visibility =
-            if (statusDisplayOptions.showStatsInline) View.VISIBLE else View.INVISIBLE
+        statusReblogsCount.visible(statusDisplayOptions.showStatsInline)
+        statusFavouritesCount.visible(statusDisplayOptions.showStatsInline)
         setFavouritedCount(status.actionable.favouritesCount)
         setReblogsCount(status.actionable.reblogsCount)
         super.setupWithStatus(status, listener, statusDisplayOptions, payloads)
@@ -85,7 +75,7 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
         name: CharSequence,
         accountEmoji: List<Emoji>?,
         statusDisplayOptions: StatusDisplayOptions,
-    ) {
+    ) = with(binding.statusContainer) {
         val context = statusInfo.context
         val wrappedName: CharSequence = name.unicodeWrap()
         val boostedText: CharSequence = context.getString(R.string.post_boosted_format, wrappedName)
@@ -96,7 +86,7 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
     }
 
     // don't use this on the same ViewHolder as setRebloggedByDisplayName, will cause recycling issues as paddings are changed
-    protected fun setPollInfo(ownPoll: Boolean) {
+    protected fun setPollInfo(ownPoll: Boolean) = with(binding.statusContainer) {
         statusInfo.setText(if (ownPoll) R.string.poll_ended_created else R.string.poll_ended_voted)
         statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_poll_24dp, 0, 0, 0)
         statusInfo.compoundDrawablePadding =
@@ -105,16 +95,16 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
         statusInfo.visibility = View.VISIBLE
     }
 
-    protected fun setReblogsCount(reblogsCount: Int) {
-        reblogsCountLabel.text = formatNumber(reblogsCount.toLong(), 1000)
+    protected fun setReblogsCount(reblogsCount: Int) = with(binding.statusContainer) {
+        statusReblogsCount.text = formatNumber(reblogsCount.toLong(), 1000)
     }
 
-    protected fun setFavouritedCount(favouritedCount: Int) {
-        favouritedCountLabel.text = formatNumber(favouritedCount.toLong(), 1000)
+    protected fun setFavouritedCount(favouritedCount: Int) = with(binding.statusContainer) {
+        statusFavouritesCount.text = formatNumber(favouritedCount.toLong(), 1000)
     }
 
-    protected fun hideStatusInfo() {
-        statusInfo.visibility = View.GONE
+    protected fun hideStatusInfo() = with(binding.statusContainer) {
+        statusInfo.hide()
     }
 
     private fun setupCollapsedState(
@@ -122,10 +112,10 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
         expanded: Boolean,
         status: StatusViewData,
         listener: StatusActionListener,
-    ) {
+    ) = with(binding.statusContainer) {
         /* input filter for TextViews have to be set before text */
         if (status.isCollapsible && (!sensitive || expanded)) {
-            contentCollapseButton.setOnClickListener {
+            buttonToggleContent.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onContentCollapsedChange(
@@ -134,23 +124,23 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
                     )
                 }
             }
-            contentCollapseButton.visibility = View.VISIBLE
+            buttonToggleContent.visibility = View.VISIBLE
             if (status.isCollapsed) {
-                contentCollapseButton.setText(R.string.post_content_warning_show_more)
+                buttonToggleContent.setText(R.string.post_content_warning_show_more)
                 content.filters = COLLAPSE_INPUT_FILTER
             } else {
-                contentCollapseButton.setText(R.string.post_content_warning_show_less)
+                buttonToggleContent.setText(R.string.post_content_warning_show_less)
                 content.filters = NO_INPUT_FILTER
             }
         } else {
-            contentCollapseButton.visibility = View.GONE
+            buttonToggleContent.visibility = View.GONE
             content.filters = NO_INPUT_FILTER
         }
     }
 
-    override fun showStatusContent(show: Boolean) {
+    override fun showStatusContent(show: Boolean) = with(binding.statusContainer) {
         super.showStatusContent(show)
-        contentCollapseButton.visibility = if (show) View.VISIBLE else View.GONE
+        buttonToggleContent.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun toggleExpandedState(
@@ -167,5 +157,68 @@ open class StatusViewHolder(itemView: View) : StatusBaseViewHolder(itemView) {
     companion object {
         private val COLLAPSE_INPUT_FILTER = arrayOf<InputFilter>(SmartLengthInputFilter)
         private val NO_INPUT_FILTER = arrayOfNulls<InputFilter>(0)
+    }
+}
+
+open class FilterableStatusViewHolder(
+    private val binding: ItemStatusWrapperBinding
+) : StatusViewHolder(binding) {
+
+    override fun setupWithStatus(
+        status: StatusViewData,
+        listener: StatusActionListener,
+        statusDisplayOptions: StatusDisplayOptions,
+        payloads: Any?
+    ) {
+        super.setupWithStatus(status, listener, statusDisplayOptions, payloads)
+        setupFilterPlaceholder(status, listener, statusDisplayOptions)
+    }
+
+    private fun setupFilterPlaceholder(
+        status: StatusViewData,
+        listener: StatusActionListener,
+        displayOptions: StatusDisplayOptions,
+    ) {
+        if (status.filterAction !== Filter.Action.WARN) {
+            showFilteredPlaceholder(false)
+            return
+        }
+
+        // Shouldn't be necessary given the previous test against getFilterAction(),
+        // but guards against a possible NPE. See the TODO in StatusViewData.filterAction
+        // for more details.
+        val filterResults = status.actionable.filtered
+        if (filterResults.isNullOrEmpty()) {
+            showFilteredPlaceholder(false)
+            return
+        }
+        var matchedFilter: Filter? = null
+        for ((filter) in filterResults) {
+            if (filter.action === Filter.Action.WARN) {
+                matchedFilter = filter
+                break
+            }
+        }
+
+        // Guard against a possible NPE
+        if (matchedFilter == null) {
+            showFilteredPlaceholder(false)
+            return
+        }
+        showFilteredPlaceholder(true)
+        binding.statusFilteredPlaceholder.statusFilterLabel.text = itemView.context.getString(
+            R.string.status_filter_placeholder_label_format,
+            matchedFilter.title,
+        )
+        binding.statusFilteredPlaceholder.statusFilterShowAnyway.setOnClickListener {
+            listener.clearWarningAction(
+                bindingAdapterPosition,
+            )
+        }
+    }
+
+    private fun showFilteredPlaceholder(show: Boolean) {
+        binding.statusContainer.root.visibility = if (show) View.GONE else View.VISIBLE
+        binding.statusFilteredPlaceholder.root.visibility = if (show) View.VISIBLE else View.GONE
     }
 }

@@ -27,7 +27,6 @@ import app.pachli.ViewMediaActivity.Companion.newSingleImageIntent
 import app.pachli.entity.Attachment
 import app.pachli.entity.Card
 import app.pachli.entity.Emoji
-import app.pachli.entity.Filter
 import app.pachli.entity.Status
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.AbsoluteTimeFormatter
@@ -801,7 +800,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             )
             setRebloggingEnabled(actionable.rebloggingAllowed(), actionable.visibility)
             setSpoilerAndContent(status, statusDisplayOptions, listener)
-            setupFilterPlaceholder(status, listener, statusDisplayOptions)
             setDescriptionForStatus(status, statusDisplayOptions)
 
             // Workaround for RecyclerView 1.0.0 / androidx.core 1.0.0
@@ -818,49 +816,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                     }
                 }
             }
-        }
-    }
-
-    private fun setupFilterPlaceholder(
-        status: StatusViewData,
-        listener: StatusActionListener,
-        displayOptions: StatusDisplayOptions,
-    ) {
-        if (status.filterAction !== Filter.Action.WARN) {
-            showFilteredPlaceholder(false)
-            return
-        }
-
-        // Shouldn't be necessary given the previous test against getFilterAction(),
-        // but guards against a possible NPE. See the TODO in StatusViewData.filterAction
-        // for more details.
-        val filterResults = status.actionable.filtered
-        if (filterResults.isNullOrEmpty()) {
-            showFilteredPlaceholder(false)
-            return
-        }
-        var matchedFilter: Filter? = null
-        for ((filter) in filterResults) {
-            if (filter.action === Filter.Action.WARN) {
-                matchedFilter = filter
-                break
-            }
-        }
-
-        // Guard against a possible NPE
-        if (matchedFilter == null) {
-            showFilteredPlaceholder(false)
-            return
-        }
-        showFilteredPlaceholder(true)
-        filteredPlaceholderLabel?.text = itemView.context.getString(
-            R.string.status_filter_placeholder_label_format,
-            matchedFilter.title,
-        )
-        filteredPlaceholderShowButton?.setOnClickListener {
-            listener.clearWarningAction(
-                bindingAdapterPosition,
-            )
         }
     }
 
@@ -1182,15 +1137,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         favouriteButton.visibility = visibility
         bookmarkButton.visibility = visibility
         moreButton.visibility = visibility
-    }
-
-    private fun showFilteredPlaceholder(show: Boolean) {
-        if (statusContainer != null) {
-            statusContainer.visibility = if (show) View.GONE else View.VISIBLE
-        }
-        if (filteredPlaceholder != null) {
-            filteredPlaceholder.visibility = if (show) View.VISIBLE else View.GONE
-        }
     }
 
     companion object {

@@ -19,11 +19,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import app.pachli.R
+import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.adapter.StatusDetailedViewHolder
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.databinding.ItemStatusDetailedBinding
+import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.entity.Filter
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptions
@@ -38,10 +39,10 @@ class ThreadAdapter(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             VIEW_TYPE_STATUS -> {
-                StatusViewHolder(inflater.inflate(R.layout.item_status, parent, false))
+                StatusViewHolder(ItemStatusWrapperBinding.inflate(inflater, parent, false))
             }
             VIEW_TYPE_STATUS_FILTERED -> {
-                StatusViewHolder(inflater.inflate(R.layout.item_status_wrapper, parent, false))
+                FilterableStatusViewHolder(ItemStatusWrapperBinding.inflate(inflater, parent, false))
             }
             VIEW_TYPE_STATUS_DETAILED -> {
                 StatusDetailedViewHolder(ItemStatusDetailedBinding.inflate(inflater, parent, false))

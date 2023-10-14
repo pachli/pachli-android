@@ -19,8 +19,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import app.pachli.R
 import app.pachli.adapter.StatusViewHolder
+import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.StatusViewData
@@ -31,9 +31,9 @@ class SearchStatusesAdapter(
 ) : PagingDataAdapter<StatusViewData, StatusViewHolder>(STATUS_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_status, parent, false)
-        return StatusViewHolder(view)
+        return StatusViewHolder(
+            ItemStatusWrapperBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: StatusViewHolder, position: Int) {

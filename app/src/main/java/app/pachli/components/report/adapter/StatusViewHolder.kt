@@ -42,7 +42,7 @@ import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.StatusViewData
 import java.util.Date
 
-class StatusViewHolder(
+open class StatusViewHolder(
     private val binding: ItemReportStatusBinding,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val viewState: StatusViewState,
