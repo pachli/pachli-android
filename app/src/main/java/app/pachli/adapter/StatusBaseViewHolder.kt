@@ -19,8 +19,6 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.ViewMediaActivity.Companion.newSingleImageIntent
@@ -38,7 +36,6 @@ import app.pachli.util.decodeBlurHash
 import app.pachli.util.emojify
 import app.pachli.util.expandTouchSizeToFillRow
 import app.pachli.util.formatNumber
-import app.pachli.util.formatPollDuration
 import app.pachli.util.getFormattedDescription
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.loadAvatar
@@ -46,11 +43,9 @@ import app.pachli.util.setClickableMentions
 import app.pachli.util.setClickableText
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.view.MediaPreviewLayout
-import app.pachli.viewdata.PollViewData
+import app.pachli.view.PollView
 import app.pachli.viewdata.PollViewData.Companion.from
 import app.pachli.viewdata.StatusViewData
-import app.pachli.viewdata.buildDescription
-import app.pachli.viewdata.calculatePercent
 import at.connyduck.sparkbutton.SparkButton
 import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.Glide
@@ -88,16 +83,13 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     val metaInfo: TextView
     val content: TextView
     private val contentWarningDescription: TextView
-    private val pollOptions: RecyclerView
-    private val pollDescription: TextView
-    private val pollButton: Button
+    private val pollView: PollView
     private val cardView: LinearLayout?
     private val cardInfo: LinearLayout
     private val cardImage: ShapeableImageView
     private val cardTitle: TextView
     private val cardDescription: TextView
     private val cardUrl: TextView
-    private val pollAdapter: PollAdapter
     private val filteredPlaceholder: LinearLayout?
     private val filteredPlaceholderLabel: TextView?
     private val filteredPlaceholderShowButton: Button?
@@ -136,9 +128,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         contentWarningDescription = itemView.findViewById(R.id.status_content_warning_description)
         contentWarningButton = itemView.findViewById(R.id.status_content_warning_button)
         avatarInset = itemView.findViewById(R.id.status_avatar_inset)
-        pollOptions = itemView.findViewById(R.id.status_poll_options)
-        pollDescription = itemView.findViewById(R.id.status_poll_description)
-        pollButton = itemView.findViewById(R.id.status_poll_button)
+        pollView = itemView.findViewById(R.id.status_poll)
         cardView = itemView.findViewById(R.id.status_card_view)
         cardInfo = itemView.findViewById(R.id.card_info)
         cardImage = itemView.findViewById(R.id.card_image)
@@ -149,11 +139,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         filteredPlaceholderLabel = itemView.findViewById(R.id.status_filter_label)
         filteredPlaceholderShowButton = itemView.findViewById(R.id.status_filter_show_anyway)
         statusContainer = itemView.findViewById(R.id.status_container)
-        pollAdapter = PollAdapter()
-        pollOptions.adapter = pollAdapter
-        pollOptions.layoutManager = LinearLayoutManager(pollOptions.context)
-        val itemAnimator = pollOptions.itemAnimator as DefaultItemAnimator?
-        if (itemAnimator != null) itemAnimator.supportsChangeAnimations = false
         avatarRadius48dp =
             itemView.context.resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp)
         avatarRadius36dp =
@@ -282,13 +267,24 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             for (i in mediaLabels.indices) {
                 updateMediaLabel(i, sensitive, true)
             }
-            if (poll != null) {
-                setupPoll(from(poll), emojis, statusDisplayOptions, listener)
-            } else {
-                hidePoll()
-            }
+
+            poll?.let {
+                pollView.bind(
+                    from(it),
+                    emojis,
+                    statusDisplayOptions,
+                    numberFormat,
+                    absoluteTimeFormatter
+                ) { choices ->
+                    val position = bindingAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        choices?.let { listener.onVoteInPoll(position, it) }
+                            ?: listener.onViewThread(position)
+                    }
+                }
+            } ?: pollView.hide()
         } else {
-            hidePoll()
+            pollView.hide()
             setClickableMentions(this.content, mentions, listener)
         }
         if (TextUtils.isEmpty(this.content.text)) {
@@ -296,12 +292,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         } else {
             this.content.visibility = View.VISIBLE
         }
-    }
-
-    private fun hidePoll() {
-        pollButton.visibility = View.GONE
-        pollDescription.visibility = View.GONE
-        pollOptions.visibility = View.GONE
     }
 
     private fun setAvatar(
@@ -841,37 +831,16 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             getVisibilityDescription(context, visibility),
             getFavsText(context, favouritesCount),
             getReblogsText(context, reblogsCount),
-            getPollDescription(status, context, statusDisplayOptions),
+            status.actionable.poll?.let {
+                pollView.getPollDescription(
+                    from(it),
+                    statusDisplayOptions,
+                    numberFormat,
+                    absoluteTimeFormatter,
+                )
+            } ?: ""
         )
         itemView.contentDescription = description
-    }
-
-    private fun getPollDescription(
-        status: StatusViewData,
-        context: Context,
-        statusDisplayOptions: StatusDisplayOptions,
-    ): CharSequence {
-        val poll = status.actionable.poll ?: return ""
-        val pollViewData = from(poll)
-        val args: Array<CharSequence?> = arrayOfNulls(5)
-        val options = pollViewData.options
-        val totalVotes = pollViewData.votesCount
-        val totalVoters = pollViewData.votersCount
-        for (i in args.indices) {
-            if (i < options.size) {
-                val percent = calculatePercent(options[i].votesCount, totalVoters, totalVotes)
-                args[i] = buildDescription(options[i].title, percent, options[i].voted, context)
-            } else {
-                args[i] = ""
-            }
-        }
-        args[4] = getPollInfoText(
-            System.currentTimeMillis(),
-            pollViewData,
-            statusDisplayOptions,
-            context,
-        )
-        return context.getString(R.string.description_poll, *args)
     }
 
     protected fun getFavsText(context: Context, count: Int): CharSequence {
@@ -900,104 +869,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         } else {
             ""
         }
-    }
-
-    private fun setupPoll(
-        poll: PollViewData,
-        emojis: List<Emoji>,
-        statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener,
-    ) {
-        val timestamp = System.currentTimeMillis()
-        val expired = poll.expired || poll.expiresAt != null && timestamp > poll.expiresAt.time
-        val context = pollDescription.context
-        pollOptions.visibility = View.VISIBLE
-        if (expired || poll.voted) {
-            // no voting possible
-            val viewThreadListener = View.OnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onViewThread(position)
-                }
-            }
-            pollAdapter.setup(
-                poll.options,
-                poll.votesCount,
-                poll.votersCount,
-                emojis,
-                PollAdapter.RESULT,
-                viewThreadListener,
-                statusDisplayOptions.animateEmojis,
-            )
-            pollButton.visibility = View.GONE
-        } else {
-            // voting possible
-            val optionClickListener = View.OnClickListener {
-                pollButton.isEnabled = pollAdapter.getSelected().isNotEmpty()
-            }
-            pollAdapter.setup(
-                poll.options,
-                poll.votesCount,
-                poll.votersCount,
-                emojis,
-                if (poll.multiple) PollAdapter.MULTIPLE else PollAdapter.SINGLE,
-                null,
-                statusDisplayOptions.animateEmojis,
-                true,
-                optionClickListener,
-            )
-            pollButton.visibility = View.VISIBLE
-            pollButton.isEnabled = false
-            pollButton.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val pollResult = pollAdapter.getSelected()
-                    if (pollResult.isNotEmpty()) {
-                        listener.onVoteInPoll(position, pollResult)
-                    }
-                }
-            }
-        }
-        pollDescription.visibility = View.VISIBLE
-        pollDescription.text = getPollInfoText(timestamp, poll, statusDisplayOptions, context)
-    }
-
-    private fun getPollInfoText(
-        timestamp: Long,
-        poll: PollViewData,
-        statusDisplayOptions: StatusDisplayOptions,
-        context: Context,
-    ): CharSequence {
-        val votesText: String = if (poll.votersCount == null) {
-            val voters = numberFormat.format(poll.votesCount.toLong())
-            context.resources.getQuantityString(R.plurals.poll_info_votes, poll.votesCount, voters)
-        } else {
-            val voters = numberFormat.format(poll.votersCount)
-            context.resources.getQuantityString(
-                R.plurals.poll_info_people,
-                poll.votersCount,
-                voters,
-            )
-        }
-        val pollDurationInfo: CharSequence = if (poll.expired) {
-            context.getString(R.string.poll_info_closed)
-        } else if (poll.expiresAt == null) {
-            return votesText
-        } else {
-            if (statusDisplayOptions.useAbsoluteTime) {
-                context.getString(
-                    R.string.poll_info_time_absolute,
-                    absoluteTimeFormatter.format(poll.expiresAt, false),
-                )
-            } else {
-                formatPollDuration(pollDescription.context, poll.expiresAt.time, timestamp)
-            }
-        }
-        return pollDescription.context.getString(
-            R.string.poll_info_format,
-            votesText,
-            pollDurationInfo,
-        )
     }
 
     protected fun setupCard(
@@ -1129,9 +1000,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         content.visibility = visibility
         cardView!!.visibility = visibility
         mediaContainer.visibility = visibility
-        pollOptions.visibility = visibility
-        pollButton.visibility = visibility
-        pollDescription.visibility = visibility
+        pollView.visibility = visibility
         replyButton.visibility = visibility
         reblogButton!!.visibility = visibility
         favouriteButton.visibility = visibility
