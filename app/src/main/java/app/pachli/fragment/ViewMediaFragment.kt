@@ -91,7 +91,7 @@ abstract class ViewMediaFragment : Fragment() {
                     meta = null,
                     description = null,
                     blurhash = null,
-                )
+                ),
             )
             arguments.putBoolean(ARG_START_POSTPONED_TRANSITION, true)
 
