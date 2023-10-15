@@ -27,9 +27,7 @@ abstract class ViewMediaFragment : Fragment() {
     private var toolbarVisibilityDisposable: Function0<Boolean>? = null
 
     abstract fun setupMediaView(
-        url: String,
         previewUrl: String?,
-        description: String?,
         showingDescription: Boolean,
     )
 
@@ -37,6 +35,15 @@ abstract class ViewMediaFragment : Fragment() {
 
     protected var showingDescription = false
     protected var isDescriptionVisible = false
+
+    /** URL of the media to show */
+    protected lateinit var url: String
+
+    /** The attachment to show. Null if [newSingleImageInstance] was used */
+    protected var attachment: Attachment? = null
+
+    /** Media description */
+    protected var description: String? = null
 
     companion object {
         @JvmStatic
@@ -81,12 +88,12 @@ abstract class ViewMediaFragment : Fragment() {
 
     abstract fun onTransitionEnd()
 
-    protected fun finalizeViewSetup(url: String, previewUrl: String?, description: String?) {
+    protected fun finalizeViewSetup(previewUrl: String?) {
         val mediaActivity = activity as ViewMediaActivity
 
         showingDescription = !TextUtils.isEmpty(description)
         isDescriptionVisible = showingDescription
-        setupMediaView(url, previewUrl, description, showingDescription && mediaActivity.isToolbarVisible)
+        setupMediaView(previewUrl, showingDescription && mediaActivity.isToolbarVisible)
 
         toolbarVisibilityDisposable = (activity as ViewMediaActivity)
             .addToolbarVisibilityListener { isVisible ->
