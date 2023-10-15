@@ -72,9 +72,7 @@ class ViewImageFragment : ViewMediaFragment() {
     }
 
     override fun setupMediaView(
-        url: String,
         previewUrl: String?,
-        description: String?,
         showingDescription: Boolean,
     ) {
         binding.photoView.transitionName = url
@@ -96,20 +94,15 @@ class ViewImageFragment : ViewMediaFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val arguments = this.requireArguments()
-        val attachment = BundleCompat.getParcelable(arguments, ARG_ATTACHMENT, Attachment::class.java)
+        attachment = BundleCompat.getParcelable(arguments, ARG_ATTACHMENT, Attachment::class.java)
         this.shouldStartTransition = arguments.getBoolean(ARG_START_POSTPONED_TRANSITION)
-        val url: String?
-        var description: String? = null
 
-        if (attachment != null) {
-            url = attachment.url
-            description = attachment.description
-        } else {
-            url = arguments.getString(ARG_SINGLE_IMAGE_URL)
-            if (url == null) {
-                throw IllegalArgumentException("attachment or image url has to be set")
-            }
-        }
+        BundleCompat.getParcelable(arguments, ARG_ATTACHMENT, Attachment::class.java)?.let {
+            url = it.url
+            description = it.description
+        } ?: arguments.getString(ARG_SINGLE_IMAGE_URL)?.let {
+            url = it
+        } ?: throw IllegalArgumentException("attachment or image url has to be set")
 
         val singleTapDetector = GestureDetectorCompat(
             requireContext(),
@@ -219,8 +212,11 @@ class ViewImageFragment : ViewMediaFragment() {
                 }
             },
         )
+    }
 
-        finalizeViewSetup(url, attachment?.previewUrl, description)
+    override fun onResume() {
+        super.onResume()
+        finalizeViewSetup(attachment?.previewUrl)
     }
 
     override fun onToolbarVisibilityChange(visible: Boolean) {

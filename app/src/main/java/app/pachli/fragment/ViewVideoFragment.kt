@@ -128,7 +128,9 @@ class ViewVideoFragment : ViewMediaFragment() {
         val attachment = arguments?.getParcelable<Attachment>(ARG_ATTACHMENT)
             ?: throw IllegalArgumentException("attachment has to be set")
 
-        val url = attachment.url
+        url = attachment.url
+        description = attachment.description
+
         isAudio = attachment.type == Attachment.Type.AUDIO
 
         /**
@@ -244,8 +246,6 @@ class ViewVideoFragment : ViewMediaFragment() {
         savedSeekPosition = savedInstanceState?.getLong(SEEK_POSITION) ?: 0
 
         mediaAttachment = attachment
-
-        finalizeViewSetup(url, attachment.previewUrl, attachment.description)
     }
 
     override fun onStart() {
@@ -258,6 +258,8 @@ class ViewVideoFragment : ViewMediaFragment() {
 
     override fun onResume() {
         super.onResume()
+
+        finalizeViewSetup(attachment?.previewUrl)
 
         if (Build.VERSION.SDK_INT <= 23 || player == null) {
             initializePlayer()
@@ -349,9 +351,7 @@ class ViewVideoFragment : ViewMediaFragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun setupMediaView(
-        url: String,
         previewUrl: String?,
-        description: String?,
         showingDescription: Boolean,
     ) {
         binding.mediaDescription.text = description
