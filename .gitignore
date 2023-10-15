@@ -6,5 +6,8 @@
 build
 /captures
 .externalNativeBuild
+gradle-user-home
+profile-out
+profile-out-*
 app/release
 app-release.apk

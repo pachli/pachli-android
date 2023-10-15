@@ -12,7 +12,7 @@ class SingleImagePagerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return if (position == 0) {
-            ViewMediaFragment.newSingleImageInstance(imageUrl)
+            ViewMediaFragment.newInstance(imageUrl)
         } else {
             throw IllegalStateException()
         }

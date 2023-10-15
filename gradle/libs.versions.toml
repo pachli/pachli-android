@@ -35,7 +35,7 @@ glide = "4.16.0"
 # Deliberate downgrade, https://github.com/tuskyapp/Tusky/issues/3631
 glide-animation-plugin = "2.23.0"
 gson = "2.10.1"
-hilt = "2.48"
+hilt = "2.48.1"
 kotlin = "1.9.10"
 kotlin-result = "1.1.8"
 image-cropper = "4.3.2"
@@ -67,7 +67,7 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
-ktlint = "org.jlleitschuh.gradle.ktlint:11.6.0"
+ktlint = "org.jlleitschuh.gradle.ktlint:11.6.1"
 
 [libraries]
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }
