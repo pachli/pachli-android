@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.IBinder
 import android.os.Parcelable
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
@@ -43,6 +44,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.parcelize.Parcelize
 import retrofit2.HttpException
 import java.util.concurrent.ConcurrentHashMap
@@ -288,6 +290,17 @@ class SendStatusService : Service() {
         if (statusesToSend.isEmpty()) {
             ServiceCompat.stopForeground(this@SendStatusService, ServiceCompat.STOP_FOREGROUND_REMOVE)
             stopSelf()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun onTimeout(startId: Int) {
+        // Android wants the service to shut down. Fail any statuses that still need to be sent
+        // and shut down. See https://developer.android.com/about/versions/14/changes/fgs-types-required
+        runBlocking {
+            statusesToSend.forEach { (i, _) ->
+                failSending(i) // Will stop the service when there are no more statuses
+            }
         }
     }
 
