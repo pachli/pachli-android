@@ -130,6 +130,8 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         avatarInset = itemView.findViewById(R.id.status_avatar_inset)
         pollView = itemView.findViewById(R.id.status_poll)
         cardView = itemView.findViewById(R.id.status_card_view)
+        // XXX: NPE here when viewing a conversation because item_conversation.xml doesn't have
+        // the views for link preview cards. Not clear why that is.
         cardInfo = itemView.findViewById(R.id.card_info)
         cardImage = itemView.findViewById(R.id.card_image)
         cardTitle = itemView.findViewById(R.id.card_title)
