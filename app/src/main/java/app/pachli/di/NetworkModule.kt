@@ -16,7 +16,6 @@
 package app.pachli.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import app.pachli.BuildConfig
@@ -29,6 +28,7 @@ import app.pachli.settings.PrefKeys.HTTP_PROXY_ENABLED
 import app.pachli.settings.PrefKeys.HTTP_PROXY_PORT
 import app.pachli.settings.PrefKeys.HTTP_PROXY_SERVER
 import app.pachli.settings.ProxyConfiguration
+import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.getNonNullString
 import at.connyduck.calladapter.networkresult.NetworkResultCallAdapterFactory
 import com.google.gson.Gson
@@ -68,7 +68,7 @@ object NetworkModule {
     fun providesHttpClient(
         accountManager: AccountManager,
         @ApplicationContext context: Context,
-        preferences: SharedPreferences,
+        preferences: SharedPreferencesRepository,
     ): OkHttpClient {
         val httpProxyEnabled = preferences.getBoolean(HTTP_PROXY_ENABLED, false)
         val httpServer = preferences.getNonNullString(HTTP_PROXY_SERVER, "")

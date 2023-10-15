@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -36,8 +35,9 @@ import app.pachli.db.AccountManager
 import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.network.FilterModel
-import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.viewdata.StatusViewData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,17 +57,17 @@ class NetworkTimelineViewModel @Inject constructor(
     eventHub: EventHub,
     filtersRepository: FiltersRepository,
     accountManager: AccountManager,
-    sharedPreferences: SharedPreferences,
-    accountPreferenceDataStore: AccountPreferenceDataStore,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    sharedPreferencesRepository: SharedPreferencesRepository,
     filterModel: FilterModel,
 ) : TimelineViewModel(
     timelineCases,
     eventHub,
     filtersRepository,
     accountManager,
-    sharedPreferences,
-    accountPreferenceDataStore,
     filterModel,
+    statusDisplayOptionsRepository,
+    sharedPreferencesRepository,
 ) {
     private val modifiedViewData = mutableMapOf<String, StatusViewData>()
 

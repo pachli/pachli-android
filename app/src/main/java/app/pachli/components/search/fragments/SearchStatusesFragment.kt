@@ -35,7 +35,6 @@ import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BaseActivity
 import app.pachli.R
@@ -45,13 +44,12 @@ import app.pachli.components.compose.ComposeActivity.ComposeOptions
 import app.pachli.components.report.ReportActivity
 import app.pachli.components.search.adapter.SearchStatusesAdapter
 import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
 import app.pachli.entity.Status.Mention
 import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.StatusDisplayOptions
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.openLink
 import app.pachli.view.showMuteAccountDialog
 import app.pachli.viewdata.AttachmentViewData
@@ -67,7 +65,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionListener {
     @Inject
-    lateinit var accountManager: AccountManager
+    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     override val data: Flow<PagingData<StatusViewData>>
         get() = viewModel.statusesFlow
@@ -76,11 +74,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         get() = super.adapter as SearchStatusesAdapter
 
     override fun createAdapter(): PagingDataAdapter<StatusViewData, *> {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(binding.searchRecyclerView.context)
-        val statusDisplayOptions = StatusDisplayOptions.from(
-            preferences,
-            accountManager.activeAccount!!,
-        )
+        val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
         binding.searchRecyclerView.addItemDecoration(
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),

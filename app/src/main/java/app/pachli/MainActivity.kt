@@ -23,7 +23,6 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -56,7 +55,6 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.PreferenceManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.appstore.AnnouncementReadEvent
 import app.pachli.appstore.CacheUpdater
@@ -98,7 +96,6 @@ import app.pachli.util.getDimension
 import app.pachli.util.hide
 import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.show
-import app.pachli.util.unsafeLazy
 import app.pachli.util.updateShortcut
 import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
@@ -170,8 +167,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     private var onTabSelectedListener: OnTabSelectedListener? = null
 
     private var unreadAnnouncementsCount = 0
-
-    private val preferences by unsafeLazy { PreferenceManager.getDefaultSharedPreferences(this) }
 
     private lateinit var glide: RequestManager
 
@@ -271,9 +266,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // Determine which of the three toolbars should be the supportActionBar (which hosts
         // the options menu).
-        val hideTopToolbar = preferences.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
+        val hideTopToolbar = sharedPreferencesRepository.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
         if (hideTopToolbar) {
-            when (preferences.getString(PrefKeys.MAIN_NAV_POSITION, "top")) {
+            when (sharedPreferencesRepository.getString(PrefKeys.MAIN_NAV_POSITION, "top")) {
                 "top" -> setSupportActionBar(binding.topNav)
                 "bottom" -> setSupportActionBar(binding.bottomNav)
             }
@@ -336,7 +331,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             deleteStaleCachedMedia(applicationContext.getExternalFilesDir("Pachli"))
         }
 
-        selectedEmojiPack = preferences.getString(EMOJI_PREFERENCE, "")
+        selectedEmojiPack = sharedPreferencesRepository.getString(EMOJI_PREFERENCE, "")
 
         onBackPressedDispatcher.addCallback(
             this,
@@ -395,7 +390,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     override fun onResume() {
         super.onResume()
-        val currentEmojiPack = preferences.getString(EMOJI_PREFERENCE, "")
+        val currentEmojiPack = sharedPreferencesRepository.getString(EMOJI_PREFERENCE, "")
         if (currentEmojiPack != selectedEmojiPack) {
             Log.d(
                 TAG,
@@ -517,7 +512,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         header.currentProfileName.setTextColor(headerTextColor)
         header.currentProfileEmail.setTextColor(headerTextColor)
 
-        val animateAvatars = preferences.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
+        val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
 
         DrawerImageLoader.init(
             object : AbstractDrawerImageLoader() {
@@ -700,7 +695,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             )
         }
 
-        updateMainDrawerTypeface(preferences)
+        updateMainDrawerTypeface(
+            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(PrefKeys.FONT_FAMILY, "default")),
+        )
     }
 
     private fun buildDeveloperToolsDialog(): AlertDialog {
@@ -739,8 +736,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
      * The drawer library forces the `android:fontFamily` attribute, overriding the value in the
      * theme. Force-ably set the typeface for everything in the drawer if using a non-default font.
      */
-    private fun updateMainDrawerTypeface(preferences: SharedPreferences) {
-        val fontFamily = EmbeddedFontFamily.from(preferences.getString(PrefKeys.FONT_FAMILY, "default"))
+    private fun updateMainDrawerTypeface(fontFamily: EmbeddedFontFamily) {
         if (fontFamily == EmbeddedFontFamily.DEFAULT) return
 
         val typeface = ResourcesCompat.getFont(this, fontFamily.font) ?: return
@@ -756,7 +752,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun setupTabs(selectNotificationTab: Boolean) {
-        val activeTabLayout = if (preferences.getString(PrefKeys.MAIN_NAV_POSITION, "top") == "bottom") {
+        val activeTabLayout = if (sharedPreferencesRepository.getString(PrefKeys.MAIN_NAV_POSITION, "top") == "bottom") {
             val actionBarSize = getDimension(this, androidx.appcompat.R.attr.actionBarSize)
             val fabMargin = resources.getDimensionPixelSize(R.dimen.fabMargin)
             (binding.composeButton.layoutParams as CoordinatorLayout.LayoutParams).bottomMargin = actionBarSize + fabMargin
@@ -804,7 +800,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val pageMargin = resources.getDimensionPixelSize(R.dimen.tab_page_margin)
         binding.viewPager.setPageTransformer(MarginPageTransformer(pageMargin))
 
-        val enableSwipeForTabs = preferences.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
+        val enableSwipeForTabs = sharedPreferencesRepository.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
         binding.viewPager.isUserInputEnabled = enableSwipeForTabs
 
         onTabSelectedListener?.let {
@@ -941,7 +937,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         NotificationHelper.createNotificationChannelsForAccount(accountManager.activeAccount!!, this)
 
         // Setup push notifications
-        showMigrationNoticeIfNecessary(this, binding.mainCoordinatorLayout, binding.composeButton, accountManager)
+        showMigrationNoticeIfNecessary(
+            this,
+            binding.mainCoordinatorLayout,
+            binding.composeButton,
+            accountManager,
+            sharedPreferencesRepository,
+        )
         if (NotificationHelper.areNotificationsEnabled(this, accountManager)) {
             lifecycleScope.launch {
                 enablePushNotificationsWithFallback(this@MainActivity, mastodonApi, accountManager)
@@ -956,11 +958,11 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @SuppressLint("CheckResult")
     private fun loadDrawerAvatar(avatarUrl: String, showPlaceholder: Boolean) {
-        val hideTopToolbar = preferences.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
-        val animateAvatars = preferences.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
+        val hideTopToolbar = sharedPreferencesRepository.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
+        val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
 
         val activeToolbar = if (hideTopToolbar) {
-            val navOnBottom = preferences.getString(PrefKeys.MAIN_NAV_POSITION, "top") == "bottom"
+            val navOnBottom = sharedPreferencesRepository.getString(PrefKeys.MAIN_NAV_POSITION, "top") == "bottom"
             if (navOnBottom) {
                 binding.bottomNav
             } else {
@@ -1063,7 +1065,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun updateProfiles() {
-        val animateEmojis = preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
+        val animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
         val profiles: MutableList<IProfile> =
             accountManager.getAllAccountsOrderedByActive().map { acc ->
                 ProfileDrawerItem().apply {

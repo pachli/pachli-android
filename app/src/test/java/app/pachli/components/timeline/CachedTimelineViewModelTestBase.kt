@@ -17,118 +17,129 @@
 
 package app.pachli.components.timeline
 
-import android.content.SharedPreferences
-import android.os.Looper
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import app.pachli.PachliApplication
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
-import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
-import app.pachli.fakes.InMemorySharedPreferences
+import app.pachli.entity.Account
 import app.pachli.network.FilterModel
+import app.pachli.network.MastodonApi
 import app.pachli.settings.AccountPreferenceDataStore
-import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
+import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.gson.Gson
-import kotlinx.coroutines.runBlocking
+import dagger.hilt.android.testing.CustomTestApplication
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.test.TestScope
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.anyBoolean
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.kotlin.any
-import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
-import org.robolectric.Shadows.shadowOf
+import org.mockito.kotlin.reset
+import org.mockito.kotlin.stub
+import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
+import java.time.Instant
+import java.util.Date
+import javax.inject.Inject
 
+open class PachliHiltApplication : PachliApplication()
+
+@CustomTestApplication(PachliHiltApplication::class)
+interface HiltTestApplication
+
+@HiltAndroidTest
+@Config(application = HiltTestApplication_Application::class)
 @RunWith(AndroidJUnit4::class)
 abstract class CachedTimelineViewModelTestBase {
-    protected lateinit var cachedTimelineRepository: CachedTimelineRepository
-    protected lateinit var sharedPreferences: SharedPreferences
-    protected lateinit var accountPreferencesMap: MutableMap<String, Boolean>
-    protected lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
-    protected lateinit var accountManager: AccountManager
+    @get:Rule(order = 0)
+    var hilt = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val mainCoroutineRule = MainCoroutineRule()
+
+    @Inject
+    lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var mastodonApi: MastodonApi
+
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
+    private lateinit var cachedTimelineRepository: CachedTimelineRepository
+    private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
     protected lateinit var timelineCases: TimelineCases
-    protected lateinit var eventHub: EventHub
-    protected lateinit var filtersRepository: FiltersRepository
-    protected lateinit var filterModel: FilterModel
+    private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+    private lateinit var filtersRepository: FiltersRepository
+    private lateinit var filterModel: FilterModel
     protected lateinit var viewModel: TimelineViewModel
+
+    private val eventHub = EventHub()
 
     /** Empty success response, for API calls that return one */
     protected var emptySuccess = Response.success("".toResponseBody())
 
     /** Empty error response, for API calls that return one */
-    protected var emptyError: Response<ResponseBody> = Response.error(404, "".toResponseBody())
+    private var emptyError: Response<ResponseBody> = Response.error(404, "".toResponseBody())
 
     /** Exception to throw when testing errors */
     protected val httpException = HttpException(emptyError)
 
-    @get:Rule
-    val mainCoroutineRule = MainCoroutineRule()
-
     @Before
     fun setup() {
-        shadowOf(Looper.getMainLooper()).idle()
+        hilt.inject()
 
-        cachedTimelineRepository = mock()
+        reset(mastodonApi)
+        mastodonApi.stub {
+            onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
+        }
 
-        sharedPreferences = InMemorySharedPreferences(
-            mapOf(
-                PrefKeys.ANIMATE_GIF_AVATARS to false,
-                PrefKeys.ANIMATE_CUSTOM_EMOJIS to false,
-                PrefKeys.ABSOLUTE_TIME_VIEW to false,
-                PrefKeys.SHOW_BOT_OVERLAY to true,
-                PrefKeys.USE_BLURHASH to true,
-                PrefKeys.CONFIRM_REBLOGS to true,
-                PrefKeys.CONFIRM_FAVOURITES to false,
-                PrefKeys.WELLBEING_HIDE_STATS_POSTS to false,
-                PrefKeys.FAB_HIDE to false,
+        accountManager.addAccount(
+            accessToken = "token",
+            domain = "domain.example",
+            clientId = "id",
+            clientSecret = "secret",
+            oauthScopes = "scopes",
+            newAccount = Account(
+                id = "1",
+                localUsername = "username",
+                username = "username@domain.example",
+                displayName = "Display Name",
+                createdAt = Date.from(Instant.now()),
+                note = "",
+                url = "",
+                avatar = "",
+                header = "",
             ),
         )
 
-        // Backing store for account preferences, to allow mutation in tests
-        accountPreferencesMap = mutableMapOf(
-            PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA to false,
-            PrefKeys.ALWAYS_OPEN_SPOILER to false,
-            PrefKeys.MEDIA_PREVIEW_ENABLED to true,
+        cachedTimelineRepository = mock()
+
+        accountPreferenceDataStore = AccountPreferenceDataStore(
+            accountManager,
+            TestScope(),
         )
 
-        // Any getBoolean() call looks for the result in accountPreferencesMap.
-        // Any putBoolean() call updates the map and dispatches an event
-        accountPreferenceDataStore = mock {
-            on { getBoolean(any(), any()) } doAnswer { accountPreferencesMap[it.arguments[0]] }
-            on { putBoolean(anyString(), anyBoolean()) } doAnswer {
-                accountPreferencesMap[it.arguments[0] as String] = it.arguments[1] as Boolean
-                runBlocking { eventHub.dispatch(PreferenceChangedEvent(it.arguments[0] as String)) }
-            }
-        }
-
-        accountManager = mock {
-            on { activeAccount } doReturn AccountEntity(
-                id = 1,
-                domain = "mastodon.test",
-                accessToken = "fakeToken",
-                clientId = "fakeId",
-                clientSecret = "fakeSecret",
-                isActive = true,
-                lastVisibleHomeTimelineStatusId = null,
-                notificationsFilter = "['follow']",
-                mediaPreviewEnabled = true,
-                alwaysShowSensitiveMedia = true,
-                alwaysOpenSpoiler = true,
-            )
-        }
-        eventHub = EventHub()
         timelineCases = mock()
         filtersRepository = mock()
         filterModel = mock()
+
+        statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
+            sharedPreferencesRepository,
+            accountManager,
+            accountPreferenceDataStore,
+            TestScope(),
+        )
 
         viewModel = CachedTimelineViewModel(
             cachedTimelineRepository,
@@ -136,8 +147,8 @@ abstract class CachedTimelineViewModelTestBase {
             eventHub,
             filtersRepository,
             accountManager,
-            sharedPreferences,
-            accountPreferenceDataStore,
+            statusDisplayOptionsRepository,
+            sharedPreferencesRepository,
             filterModel,
             Gson(),
         )

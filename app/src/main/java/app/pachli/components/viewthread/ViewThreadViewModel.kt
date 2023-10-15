@@ -40,6 +40,7 @@ import app.pachli.entity.Status
 import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
@@ -66,6 +67,7 @@ class ViewThreadViewModel @Inject constructor(
     private val timelineDao: TimelineDao,
     private val gson: Gson,
     private val repository: CachedTimelineRepository,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val filtersRepository: FiltersRepository,
 ) : ViewModel() {
 
@@ -78,6 +80,8 @@ class ViewThreadViewModel @Inject constructor(
         get() = _errors
 
     var isInitialLoad: Boolean = true
+
+    val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     private val alwaysShowSensitiveMedia: Boolean
     private val alwaysOpenSpoiler: Boolean

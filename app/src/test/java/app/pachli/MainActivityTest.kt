@@ -55,6 +55,7 @@ import org.mockito.kotlin.stub
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.android.util.concurrent.BackgroundExecutor.runInBackground
 import org.robolectric.annotation.Config
+import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
 
@@ -84,12 +85,15 @@ class MainActivityTest {
         isActive = true,
     )
 
+    @Inject
+    lateinit var mastodonApi: MastodonApi
+
     val account = Account(
         id = "1",
-        localUsername = "",
-        username = "",
-        displayName = "",
-        createdAt = Date(),
+        localUsername = "username",
+        username = "username@domain.example",
+        displayName = "Display Name",
+        createdAt = Date.from(Instant.now()),
         note = "",
         url = "",
         avatar = "",
@@ -97,11 +101,7 @@ class MainActivityTest {
     )
 
     @Inject
-    lateinit var mastodonApi: MastodonApi
-
-    @BindValue
-    @JvmField
-    val accountManager: AccountManager = mock { on { activeAccount } doReturn accountEntity }
+    lateinit var accountManager: AccountManager
 
     @BindValue
     @JvmField
@@ -116,6 +116,15 @@ class MainActivityTest {
             onBlocking { accountVerifyCredentials() } doReturn NetworkResult.success(account)
             onBlocking { listAnnouncements(false) } doReturn NetworkResult.success(emptyList())
         }
+
+        accountManager.addAccount(
+            accessToken = "token",
+            domain = "domain.example",
+            clientId = "id",
+            clientSecret = "secret",
+            oauthScopes = "scopes",
+            newAccount = account,
+        )
 
         WorkManagerTestInitHelper.initializeTestWorkManager(
             ApplicationProvider.getApplicationContext(),

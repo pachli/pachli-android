@@ -17,7 +17,6 @@ package app.pachli.components.announcements
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -26,7 +25,6 @@ import android.view.View
 import android.widget.PopupWindow
 import androidx.activity.viewModels
 import androidx.core.view.MenuProvider
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BottomSheetActivity
 import app.pachli.R
@@ -98,9 +96,8 @@ class AnnouncementsActivity :
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
 
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val wellbeingEnabled = preferences.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, false)
-        val animateEmojis = preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
+        val wellbeingEnabled = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, false)
+        val animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
 
         adapter = AnnouncementAdapter(emptyList(), this, wellbeingEnabled, animateEmojis)
 

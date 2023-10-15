@@ -24,6 +24,7 @@ import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrThrow
 import retrofit2.HttpException
 import javax.inject.Inject
+import javax.inject.Singleton
 
 sealed class FilterKind {
     /** API v1 filter, filtering happens client side */
@@ -34,6 +35,7 @@ sealed class FilterKind {
 }
 
 /** Repository for filter information */
+@Singleton
 class FiltersRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
 ) {
