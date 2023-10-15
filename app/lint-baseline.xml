@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.1.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.1.1)" variant="all" version="8.1.1">
+<issues format="6" by="lint 8.1.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.1.2)" variant="all" version="8.1.2">
 
     <issue
         id="InvalidPackage"
@@ -3787,7 +3787,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="236"
+            line="232"
             column="25"/>
     </issue>
 
@@ -3798,7 +3798,7 @@
         errorLine2="                                 ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="324"
+            line="320"
             column="34"/>
     </issue>
 
@@ -3809,7 +3809,7 @@
         errorLine2="            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="337"
+            line="333"
             column="13"/>
     </issue>
 
@@ -3820,7 +3820,7 @@
         errorLine2="                ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="344"
+            line="340"
             column="17"/>
     </issue>
 
@@ -3886,7 +3886,7 @@
         errorLine2="                               ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="143"
+            line="145"
             column="32"/>
     </issue>
 
@@ -3897,7 +3897,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="224"
+            line="226"
             column="21"/>
     </issue>
 
@@ -4387,17 +4387,6 @@
         errorLine1="    &lt;TextView"
         errorLine2="     ~~~~~~~~">
         <location
-            file="src/main/res/layout/item_conversation.xml"
-            line="234"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
             file="src/main/res/layout/item_draft.xml"
             line="31"
             column="6"/>
@@ -4817,7 +4806,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="292"
+            line="287"
             column="6"/>
     </issue>
 
@@ -4828,7 +4817,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="319"
+            line="315"
             column="6"/>
     </issue>
 
@@ -4839,18 +4828,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="347"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status.xml"
-            line="375"
+            line="343"
             column="6"/>
     </issue>
 
@@ -4916,7 +4894,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="255"
+            line="234"
             column="6"/>
     </issue>
 
@@ -4927,7 +4905,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="268"
+            line="263"
             column="6"/>
     </issue>
 
@@ -4938,18 +4916,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="297"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_detailed.xml"
-            line="311"
+            line="277"
             column="6"/>
     </issue>
 
@@ -5235,7 +5202,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="309"
+            line="277"
             column="9"/>
     </issue>
 
