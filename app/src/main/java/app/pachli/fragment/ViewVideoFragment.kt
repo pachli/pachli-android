@@ -125,11 +125,6 @@ class ViewVideoFragment : ViewMediaFragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val attachment = arguments?.getParcelable<Attachment>(ARG_ATTACHMENT)
-            ?: throw IllegalArgumentException("attachment has to be set")
-
-        url = attachment.url
-        description = attachment.description
 
         isAudio = attachment.type == Attachment.Type.AUDIO
 
@@ -259,7 +254,7 @@ class ViewVideoFragment : ViewMediaFragment() {
     override fun onResume() {
         super.onResume()
 
-        finalizeViewSetup(attachment?.previewUrl)
+        finalizeViewSetup()
 
         if (Build.VERSION.SDK_INT <= 23 || player == null) {
             initializePlayer()
@@ -351,17 +346,16 @@ class ViewVideoFragment : ViewMediaFragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun setupMediaView(
-        previewUrl: String?,
         showingDescription: Boolean,
     ) {
-        binding.mediaDescription.text = description
+        binding.mediaDescription.text = attachment.description
         binding.mediaDescription.visible(showingDescription)
         binding.mediaDescription.movementMethod = ScrollingMovementMethod()
 
         // Ensure the description is visible over the video
         binding.mediaDescription.elevation = binding.videoView.elevation + 1
 
-        binding.videoView.transitionName = url
+        binding.videoView.transitionName = attachment.url
 
         binding.videoView.requestFocus()
 

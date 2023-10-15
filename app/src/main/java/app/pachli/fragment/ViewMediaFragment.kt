@@ -17,6 +17,7 @@ package app.pachli.fragment
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import androidx.annotation.OptIn
 import androidx.fragment.app.Fragment
 import androidx.media3.common.util.UnstableApi
@@ -27,7 +28,6 @@ abstract class ViewMediaFragment : Fragment() {
     private var toolbarVisibilityDisposable: Function0<Boolean>? = null
 
     abstract fun setupMediaView(
-        previewUrl: String?,
         showingDescription: Boolean,
     )
 
@@ -36,14 +36,20 @@ abstract class ViewMediaFragment : Fragment() {
     protected var showingDescription = false
     protected var isDescriptionVisible = false
 
-    /** URL of the media to show */
-    protected lateinit var url: String
+    /** The attachment to show. Set in [onViewCreated] */
+    protected lateinit var attachment: Attachment
 
-    /** The attachment to show. Null if [newSingleImageInstance] was used */
-    protected var attachment: Attachment? = null
+    protected var shouldStartTransition = false
 
-    /** Media description */
-    protected var description: String? = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        attachment = arguments?.getParcelable<Attachment>(ARG_ATTACHMENT)
+            ?: throw IllegalArgumentException("ARG_ATTACHMENT has to be set")
+
+        shouldStartTransition = arguments?.getBoolean(ARG_START_POSTPONED_TRANSITION)
+            ?: throw IllegalArgumentException("ARG_START_POSTPONED_TRANSITION has to be set")
+    }
 
     companion object {
         @JvmStatic
@@ -51,9 +57,6 @@ abstract class ViewMediaFragment : Fragment() {
 
         @JvmStatic
         protected val ARG_ATTACHMENT = "attach"
-
-        @JvmStatic
-        protected val ARG_SINGLE_IMAGE_URL = "singleImageUrl"
 
         @JvmStatic
         @OptIn(UnstableApi::class)
@@ -75,10 +78,21 @@ abstract class ViewMediaFragment : Fragment() {
         }
 
         @JvmStatic
-        fun newSingleImageInstance(imageUrl: String): ViewMediaFragment {
+        fun newInstance(imageUrl: String): ViewMediaFragment {
             val arguments = Bundle(2)
             val fragment = ViewImageFragment()
-            arguments.putString(ARG_SINGLE_IMAGE_URL, imageUrl)
+            arguments.putParcelable(
+                ARG_ATTACHMENT,
+                Attachment(
+                    id = "unused",
+                    url = imageUrl,
+                    type = Attachment.Type.IMAGE,
+                    previewUrl = null,
+                    meta = null,
+                    description = null,
+                    blurhash = null,
+                )
+            )
             arguments.putBoolean(ARG_START_POSTPONED_TRANSITION, true)
 
             fragment.arguments = arguments
@@ -88,12 +102,12 @@ abstract class ViewMediaFragment : Fragment() {
 
     abstract fun onTransitionEnd()
 
-    protected fun finalizeViewSetup(previewUrl: String?) {
+    protected fun finalizeViewSetup() {
         val mediaActivity = activity as ViewMediaActivity
 
-        showingDescription = !TextUtils.isEmpty(description)
+        showingDescription = !TextUtils.isEmpty(attachment.description)
         isDescriptionVisible = showingDescription
-        setupMediaView(previewUrl, showingDescription && mediaActivity.isToolbarVisible)
+        setupMediaView(showingDescription && mediaActivity.isToolbarVisible)
 
         toolbarVisibilityDisposable = (activity as ViewMediaActivity)
             .addToolbarVisibilityListener { isVisible ->
