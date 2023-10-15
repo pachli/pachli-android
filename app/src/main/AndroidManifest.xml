@@ -200,6 +200,7 @@
         </service>
 
         <service android:name=".service.SendStatusService"
+            android:foregroundServiceType="shortService"
             android:exported="false" />
 
         <provider
