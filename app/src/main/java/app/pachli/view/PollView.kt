@@ -62,7 +62,7 @@ class PollView @JvmOverloads constructor(
          *      should be treated as a navigation click. If non-null the user has voted,
          *      and [choices] contains the option(s) they voted for.
          */
-        fun onClick(choices: List<Int>?): Unit
+        fun onClick(choices: List<Int>?)
     }
 
     val binding: StatusPollBinding

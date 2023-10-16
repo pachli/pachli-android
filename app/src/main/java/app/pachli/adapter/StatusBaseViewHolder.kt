@@ -23,8 +23,8 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.ViewMediaActivity.Companion.newSingleImageIntent
 import app.pachli.entity.Attachment
-import app.pachli.entity.Card
 import app.pachli.entity.Emoji
+import app.pachli.entity.PreviewCardKind
 import app.pachli.entity.Status
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.AbsoluteTimeFormatter
@@ -44,6 +44,7 @@ import app.pachli.util.setClickableText
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.view.MediaPreviewLayout
 import app.pachli.view.PollView
+import app.pachli.view.PreviewCardView
 import app.pachli.viewdata.PollViewData.Companion.from
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.sparkbutton.SparkButton
@@ -51,9 +52,6 @@ import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.color.MaterialColors
-import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.shape.CornerFamily
-import com.google.android.material.shape.ShapeAppearanceModel
 import java.text.NumberFormat
 import java.util.Date
 
@@ -84,12 +82,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     val content: TextView
     private val contentWarningDescription: TextView
     private val pollView: PollView
-    private val cardView: LinearLayout?
-    private val cardInfo: LinearLayout
-    private val cardImage: ShapeableImageView
-    private val cardTitle: TextView
-    private val cardDescription: TextView
-    private val cardUrl: TextView
+    private val cardView: PreviewCardView?
     private val filteredPlaceholder: LinearLayout?
     private val filteredPlaceholderLabel: TextView?
     private val filteredPlaceholderShowButton: Button?
@@ -130,13 +123,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         avatarInset = itemView.findViewById(R.id.status_avatar_inset)
         pollView = itemView.findViewById(R.id.status_poll)
         cardView = itemView.findViewById(R.id.status_card_view)
-        // XXX: NPE here when viewing a conversation because item_conversation.xml doesn't have
-        // the views for link preview cards. Not clear why that is.
-        cardInfo = itemView.findViewById(R.id.card_info)
-        cardImage = itemView.findViewById(R.id.card_image)
-        cardTitle = itemView.findViewById(R.id.card_title)
-        cardDescription = itemView.findViewById(R.id.card_description)
-        cardUrl = itemView.findViewById(R.id.card_link)
         filteredPlaceholder = itemView.findViewById(R.id.status_filtered_placeholder)
         filteredPlaceholderLabel = itemView.findViewById(R.id.status_filter_label)
         filteredPlaceholderShowButton = itemView.findViewById(R.id.status_filter_show_anyway)
@@ -880,9 +866,8 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
     ) {
-        if (cardView == null) {
-            return
-        }
+        cardView ?: return
+
         val (_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, sensitive, _, _, attachments, _, _, _, _, _, poll, card) = status.actionable
         if (cardViewMode !== CardViewMode.NONE && attachments.isEmpty() && poll == null && card != null &&
             !TextUtils.isEmpty(card.url) &&
@@ -890,101 +875,15 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             (!status.isCollapsible || !status.isCollapsed)
         ) {
             cardView.visibility = View.VISIBLE
-            cardTitle.text = card.title
-            if (TextUtils.isEmpty(card.description) && TextUtils.isEmpty(card.authorName)) {
-                cardDescription.visibility = View.GONE
-            } else {
-                cardDescription.visibility = View.VISIBLE
-                if (TextUtils.isEmpty(card.description)) {
-                    cardDescription.text = card.authorName
+            cardView.bind(card, statusDisplayOptions) { target ->
+                if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
+                    cardView.context.startActivity(
+                        newSingleImageIntent(cardView.context, card.embedUrl)
+                    )
                 } else {
-                    cardDescription.text = card.description
+                    listener.onViewUrl(card.url)
                 }
             }
-            cardUrl.text = card.url
-
-            // Statuses from other activitypub sources can be marked sensitive even if there's no media,
-            // so let's blur the preview in that case
-            // If media previews are disabled, show placeholder for cards as well
-            if (statusDisplayOptions.mediaPreviewEnabled && !sensitive && !TextUtils.isEmpty(card.image)) {
-                val radius = cardImage.context.resources
-                    .getDimensionPixelSize(R.dimen.card_radius)
-                val cardImageShape = ShapeAppearanceModel.builder()
-                if (card.width > card.height) {
-                    cardView.orientation = LinearLayout.VERTICAL
-                    cardImage.layoutParams.height = cardImage.context.resources
-                        .getDimensionPixelSize(R.dimen.card_image_vertical_height)
-                    cardImage.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-                    cardInfo.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-                    cardInfo.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-                    cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, radius.toFloat())
-                    cardImageShape.setTopRightCorner(CornerFamily.ROUNDED, radius.toFloat())
-                } else {
-                    cardView.orientation = LinearLayout.HORIZONTAL
-                    cardImage.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-                    cardImage.layoutParams.width = cardImage.context.resources
-                        .getDimensionPixelSize(R.dimen.card_image_horizontal_width)
-                    cardInfo.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                    cardInfo.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-                    cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, radius.toFloat())
-                    cardImageShape.setBottomLeftCorner(CornerFamily.ROUNDED, radius.toFloat())
-                }
-                cardImage.shapeAppearanceModel = cardImageShape.build()
-                cardImage.scaleType = ImageView.ScaleType.CENTER_CROP
-                var builder = Glide.with(cardImage.context)
-                    .load(card.image)
-                    .dontTransform()
-                if (statusDisplayOptions.useBlurhash && !TextUtils.isEmpty(card.blurhash)) {
-                    builder = builder.placeholder(decodeBlurHash(card.blurhash!!))
-                }
-                builder.into(cardImage)
-            } else if (statusDisplayOptions.useBlurhash && !TextUtils.isEmpty(card.blurhash)) {
-                val radius = cardImage.context.resources
-                    .getDimensionPixelSize(R.dimen.card_radius)
-                cardView.orientation = LinearLayout.HORIZONTAL
-                cardImage.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-                cardImage.layoutParams.width = cardImage.context.resources
-                    .getDimensionPixelSize(R.dimen.card_image_horizontal_width)
-                cardInfo.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                cardInfo.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-                val cardImageShape = ShapeAppearanceModel.builder()
-                    .setTopLeftCorner(CornerFamily.ROUNDED, radius.toFloat())
-                    .setBottomLeftCorner(CornerFamily.ROUNDED, radius.toFloat())
-                    .build()
-                cardImage.shapeAppearanceModel = cardImageShape
-                cardImage.scaleType = ImageView.ScaleType.CENTER_CROP
-                Glide.with(cardImage.context)
-                    .load(decodeBlurHash(card.blurhash!!))
-                    .dontTransform()
-                    .into(cardImage)
-            } else {
-                cardView.orientation = LinearLayout.HORIZONTAL
-                cardImage.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-                cardImage.layoutParams.width = cardImage.context.resources
-                    .getDimensionPixelSize(R.dimen.card_image_horizontal_width)
-                cardInfo.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                cardInfo.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-                cardImage.shapeAppearanceModel = ShapeAppearanceModel()
-                cardImage.scaleType = ImageView.ScaleType.CENTER
-                Glide.with(cardImage.context)
-                    .load(R.drawable.card_image_placeholder)
-                    .into(cardImage)
-            }
-            val visitLink = View.OnClickListener { listener.onViewUrl(card.url) }
-            cardView.setOnClickListener(visitLink)
-            // View embedded photos in our image viewer instead of opening the browser
-            cardImage.setOnClickListener(
-                if (card.type == Card.TYPE_PHOTO && !TextUtils.isEmpty(card.embedUrl)) {
-                    View.OnClickListener {
-                        cardView.context.startActivity(
-                            newSingleImageIntent(cardView.context, card.embedUrl!!),
-                        )
-                    }
-                } else {
-                    visitLink
-                },
-            )
-            cardView.clipToOutline = true
         } else {
             cardView.visibility = View.GONE
         }
