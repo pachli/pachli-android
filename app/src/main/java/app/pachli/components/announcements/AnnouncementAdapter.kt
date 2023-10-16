@@ -83,7 +83,8 @@ class AnnouncementAdapter(
             holder.binding.root.context.getString(R.string.announcement_date_updated, formattedUpdatedAt)
         }
 
-        holder.binding.announcementDate.text = "$publishTimeToDisplay $updatedAtText"
+        val announcementDate = holder.binding.root.context.getString(R.string.announcement_date, publishTimeToDisplay, updatedAtText)
+        holder.binding.announcementDate.text = announcementDate
 
         val text = holder.binding.text
         val chips = holder.binding.chipGroup
