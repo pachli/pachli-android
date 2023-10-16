@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
@@ -31,16 +30,15 @@ import app.pachli.appstore.DomainMuteEvent
 import app.pachli.appstore.Event
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
+import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.appstore.PinEvent
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
-import app.pachli.components.filters.FiltersViewModel.Companion.FILTER_PREF_KEYS
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.TimelineKind
@@ -50,10 +48,10 @@ import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
 import app.pachli.network.FilterModel
-import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.StatusDisplayOptions
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.throttleFirst
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
@@ -67,9 +65,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
@@ -78,22 +76,17 @@ import kotlin.time.Duration.Companion.milliseconds
 
 data class UiState(
     /** True if the FAB should be shown while scrolling */
-    val showFabWhileScrolling: Boolean = true,
-
-    /** True if media previews should be shown */
-    val showMediaPreview: Boolean = true,
+    val showFabWhileScrolling: Boolean,
 )
 
 /** Preferences the UI reacts to */
 data class UiPrefs(
     val showFabWhileScrolling: Boolean,
-    val showMediaPreview: Boolean,
 ) {
     companion object {
         /** Relevant preference keys. Changes to any of these trigger a display update */
         val prefKeys = setOf(
             PrefKeys.FAB_HIDE,
-            PrefKeys.MEDIA_PREVIEW_ENABLED,
         )
     }
 }
@@ -257,16 +250,16 @@ abstract class TimelineViewModel(
     private val eventHub: EventHub,
     private val filtersRepository: FiltersRepository,
     protected val accountManager: AccountManager,
-    private val sharedPreferences: SharedPreferences,
-    private val accountPreferenceDataStore: AccountPreferenceDataStore,
     private val filterModel: FilterModel,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
     val uiState: StateFlow<UiState>
 
     abstract val statuses: Flow<PagingData<StatusViewData>>
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
-    val statusDisplayOptions: StateFlow<StatusDisplayOptions>
+    val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     /** Flow of user actions received from the UI */
     private val uiAction = MutableSharedFlow<UiAction>()
@@ -275,7 +268,7 @@ abstract class TimelineViewModel(
     protected val reload = MutableStateFlow(0)
 
     /** Flow of successful action results */
-    // Note: Thisis a SharedFlow instead of a StateFlow because success state does not need to be
+    // Note: This is a SharedFlow instead of a StateFlow because success state does not need to be
     // retained. A message is shown once to a user and then dismissed. Re-collecting the flow
     // (e.g., after a device orientation change) should not re-show the most recent success
     // message, as it will be confusing to the user.
@@ -315,33 +308,6 @@ abstract class TimelineViewModel(
             updateFiltersFromPreferences().collectLatest {
                 Log.d(TAG, "Filters updated")
             }
-        }
-
-        // Set initial status display options from the user's preferences.
-        //
-        // Then collect future preference changes and emit new values in to
-        // statusDisplayOptions if necessary.
-        statusDisplayOptions = MutableStateFlow(
-            StatusDisplayOptions.from(
-                sharedPreferences,
-                activeAccount,
-            ),
-        )
-
-        viewModelScope.launch {
-            eventHub.events
-                .filterIsInstance<PreferenceChangedEvent>()
-                .filter { StatusDisplayOptions.prefKeys.contains(it.preferenceKey) }
-                .map {
-                    statusDisplayOptions.value.make(
-                        sharedPreferences,
-                        it.preferenceKey,
-                        activeAccount,
-                    )
-                }
-                .collect {
-                    statusDisplayOptions.emit(it)
-                }
         }
 
         // Handle StatusAction.*
@@ -393,33 +359,24 @@ abstract class TimelineViewModel(
             }
         }
 
-        uiState = getUiPrefs().map { prefs ->
-            UiState(
-                showFabWhileScrolling = prefs.showFabWhileScrolling,
-                showMediaPreview = prefs.showMediaPreview,
+        viewModelScope.launch {
+            sharedPreferencesRepository.changes.filterNotNull().collect {
+                onPreferenceChanged(it)
+            }
+        }
+
+        uiState = sharedPreferencesRepository.changes
+            .filter { it == PrefKeys.FAB_HIDE }
+            .map {
+                UiState(
+                    sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
+                )
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
+                initialValue = UiState(showFabWhileScrolling = true),
             )
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-            initialValue = UiState(),
-        )
     }
-
-    /**
-     * @return Flow of relevant preferences that change the UI
-     */
-    // TODO: Preferences should be in a repository
-    protected fun getUiPrefs() = eventHub.events
-        .filterIsInstance<PreferenceChangedEvent>()
-        .onEach { println("PreferenceChangedEvent: $it") }
-        .filter { UiPrefs.prefKeys.contains(it.preferenceKey) }
-        .map { toPrefs() }
-        .onStart { emit(toPrefs()) }
-
-    private fun toPrefs() = UiPrefs(
-        showFabWhileScrolling = !sharedPreferences.getBoolean(PrefKeys.FAB_HIDE, false),
-        showMediaPreview = accountPreferenceDataStore.getBoolean(PrefKeys.MEDIA_PREVIEW_ENABLED, true),
-    )
 
     @CallSuper
     open fun init(timelineKind: TimelineKind) {
@@ -430,9 +387,9 @@ abstract class TimelineViewModel(
         if (timelineKind is TimelineKind.Home) {
             // Note the variable is "true if filter" but the underlying preference/settings text is "true if show"
             filterRemoveReplies =
-                !sharedPreferences.getBoolean(PrefKeys.TAB_FILTER_HOME_REPLIES, true)
+                !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_REPLIES, true)
             filterRemoveReblogs =
-                !sharedPreferences.getBoolean(PrefKeys.TAB_FILTER_HOME_BOOSTS, true)
+                !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_BOOSTS, true)
         }
 
         // Save the visible status ID (if it's the home timeline)
@@ -541,9 +498,8 @@ abstract class TimelineViewModel(
     // TODO: https://github.com/tuskyapp/Tusky/issues/3546, and update if a v2 filter is
     // updated as well.
     private fun updateFiltersFromPreferences() = eventHub.events
-        .filterIsInstance<PreferenceChangedEvent>()
-        .filter { FILTER_PREF_KEYS.contains(it.preferenceKey) }
-        .filter { filterContextMatchesKind(timelineKind, listOf(it.preferenceKey)) }
+        .filterIsInstance<FilterChangedEvent>()
+        .filter { filterContextMatchesKind(timelineKind, listOf(it.filterKind)) }
         .distinctUntilChanged()
         .map { getFilters() }
         .onStart { getFilters() }
@@ -563,7 +519,7 @@ abstract class TimelineViewModel(
                     is FilterKind.V1 -> {
                         filterModel.initWithFilters(
                             filters.filters.filter {
-                                filterContextMatchesKind(timelineKind, it.context)
+                                filterContextMatchesString(timelineKind, it.context)
                             },
                         )
                         invalidate()
@@ -582,7 +538,7 @@ abstract class TimelineViewModel(
     private fun onPreferenceChanged(key: String) {
         when (key) {
             PrefKeys.TAB_FILTER_HOME_REPLIES -> {
-                val filter = sharedPreferences.getBoolean(PrefKeys.TAB_FILTER_HOME_REPLIES, true)
+                val filter = sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_REPLIES, true)
                 val oldRemoveReplies = filterRemoveReplies
                 filterRemoveReplies = timelineKind is TimelineKind.Home && !filter
                 if (oldRemoveReplies != filterRemoveReplies) {
@@ -590,7 +546,7 @@ abstract class TimelineViewModel(
                 }
             }
             PrefKeys.TAB_FILTER_HOME_BOOSTS -> {
-                val filter = sharedPreferences.getBoolean(PrefKeys.TAB_FILTER_HOME_BOOSTS, true)
+                val filter = sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_BOOSTS, true)
                 val oldRemoveReblogs = filterRemoveReblogs
                 filterRemoveReblogs = timelineKind is TimelineKind.Home && !filter
                 if (oldRemoveReblogs != filterRemoveReblogs) {
@@ -636,9 +592,6 @@ abstract class TimelineViewModel(
                     removeStatusWithId(event.statusId)
                 }
             }
-            is PreferenceChangedEvent -> {
-                onPreferenceChanged(event.preferenceKey)
-            }
         }
     }
 
@@ -646,11 +599,18 @@ abstract class TimelineViewModel(
         private const val TAG = "TimelineViewModel"
         private val THROTTLE_TIMEOUT = 500.milliseconds
 
-        fun filterContextMatchesKind(
+        fun filterContextMatchesString(
             timelineKind: TimelineKind,
             filterContext: List<String>,
         ): Boolean {
             return filterContext.contains(Filter.Kind.from(timelineKind).kind)
+        }
+
+        fun filterContextMatchesKind(
+            timelineKind: TimelineKind,
+            filterContext: List<Filter.Kind>,
+        ): Boolean {
+            return filterContext.contains(Filter.Kind.from(timelineKind))
         }
     }
 }

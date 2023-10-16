@@ -23,7 +23,6 @@ import static app.pachli.util.ThemeUtils.THEME_BLACK;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -42,7 +41,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.preference.PreferenceManager;
 
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
@@ -61,8 +59,13 @@ import app.pachli.interfaces.AccountSelectionListener;
 import app.pachli.interfaces.PermissionRequester;
 import app.pachli.settings.PrefKeys;
 import app.pachli.util.EmbeddedFontFamily;
+import app.pachli.util.SharedPreferencesRepository;
 import app.pachli.util.ThemeUtils;
+import dagger.hilt.EntryPoint;
+import dagger.hilt.InstallIn;
 import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.EntryPointAccessors;
+import dagger.hilt.components.SingletonComponent;
 
 @AndroidEntryPoint
 public abstract class BaseActivity extends AppCompatActivity {
@@ -73,8 +76,20 @@ public abstract class BaseActivity extends AppCompatActivity {
     @NonNull
     public AccountManager accountManager;
 
+    /** @noinspection NotNullFieldNotInitialized*/
+    @Inject
+    @NonNull
+    public SharedPreferencesRepository sharedPreferencesRepository;
+
     private static final int REQUESTER_NONE = Integer.MAX_VALUE;
     private HashMap<Integer, PermissionRequester> requesters;
+
+    @EntryPoint
+    @InstallIn(SingletonComponent.class)
+    public interface SharedPreferencesRepositoryEntryPoint {
+        @NonNull
+        SharedPreferencesRepository sharedPreferencesRepository();
+    }
 
     @Override
     public void setTheme(int themeId) {
@@ -89,12 +104,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
         /* There isn't presently a way to globally change the theme of a whole application at
          * runtime, just individual activities. So, each activity has to set its theme before any
          * views are created. */
-        String theme = preferences.getString(APP_THEME, ThemeUtils.APP_THEME_DEFAULT);
+        String theme = sharedPreferencesRepository.getString(APP_THEME, ThemeUtils.APP_THEME_DEFAULT);
         Log.d("activeTheme", theme);
         if (theme.equals(THEME_BLACK)) {
             setTheme(R.style.Theme_Pachli_Black);
@@ -107,10 +120,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         setTaskDescription(new ActivityManager.TaskDescription(appName, appIcon, recentsBackgroundColor));
 
-        int style = textStyle(preferences.getString(PrefKeys.STATUS_TEXT_SIZE, "medium"));
+        int style = textStyle(sharedPreferencesRepository.getString(PrefKeys.STATUS_TEXT_SIZE, "medium"));
         getTheme().applyStyle(style, true);
 
-        EmbeddedFontFamily fontFamily = EmbeddedFontFamily.Companion.from(preferences.getString(PrefKeys.FONT_FAMILY, "default"));
+        EmbeddedFontFamily fontFamily = EmbeddedFontFamily.Companion.from(sharedPreferencesRepository.getString(PrefKeys.FONT_FAMILY, "default"));
         if (fontFamily != EmbeddedFontFamily.DEFAULT) {
             getTheme().applyStyle(fontFamily.getStyle(), true);
         }
@@ -124,10 +137,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(@NonNull Context newBase) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(newBase);
+        SharedPreferencesRepository sharedPreferencesRepository =
+            EntryPointAccessors.fromApplication(
+                newBase.getApplicationContext(),
+                SharedPreferencesRepositoryEntryPoint.class
+            ).sharedPreferencesRepository();
 
         // Scale text in the UI from PrefKeys.UI_TEXT_SCALE_RATIO
-        float uiScaleRatio = preferences.getFloat(PrefKeys.UI_TEXT_SCALE_RATIO, 100F);
+        float uiScaleRatio = sharedPreferencesRepository.getFloat(PrefKeys.UI_TEXT_SCALE_RATIO, 100F);
 
         Configuration configuration = newBase.getResources().getConfiguration();
 

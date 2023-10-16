@@ -2,7 +2,6 @@ package app.pachli.components.followedtags
 
 import android.app.Dialog
 import android.content.DialogInterface
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.AutoCompleteTextView
@@ -40,9 +39,6 @@ class FollowedTagsActivity :
     ComposeAutoCompleteAdapter.AutocompletionProvider {
     @Inject
     lateinit var api: MastodonApi
-
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
 
     private val binding by viewBinding(ActivityFollowedTagsBinding::inflate)
     private val viewModel: FollowedTagsViewModel by viewModels()
@@ -86,7 +82,7 @@ class FollowedTagsActivity :
         )
         (binding.followedTagsView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
-        val hideFab = sharedPreferences.getBoolean(PrefKeys.FAB_HIDE, false)
+        val hideFab = sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
         if (hideFab) {
             binding.followedTagsView.addOnScrollListener(
                 object : RecyclerView.OnScrollListener() {

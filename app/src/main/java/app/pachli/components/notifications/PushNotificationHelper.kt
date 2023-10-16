@@ -23,7 +23,6 @@ import android.os.Build
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.preference.PreferenceManager
 import app.pachli.R
 import app.pachli.components.login.LoginActivity
 import app.pachli.db.AccountEntity
@@ -31,6 +30,7 @@ import app.pachli.db.AccountManager
 import app.pachli.entity.Notification
 import app.pachli.network.MastodonApi
 import app.pachli.util.CryptoUtil
+import app.pachli.util.SharedPreferencesRepository
 import at.connyduck.calladapter.networkresult.onFailure
 import at.connyduck.calladapter.networkresult.onSuccess
 import com.google.android.material.snackbar.Snackbar
@@ -56,21 +56,27 @@ fun showMigrationNoticeIfNecessary(
     parent: View,
     anchorView: View?,
     accountManager: AccountManager,
+    sharedPreferencesRepository: SharedPreferencesRepository,
 ) {
     // No point showing anything if we cannot enable it
     if (!isUnifiedPushAvailable(context)) return
     if (!anyAccountNeedsMigration(accountManager)) return
 
-    val pm = PreferenceManager.getDefaultSharedPreferences(context)
-    if (pm.getBoolean(KEY_MIGRATION_NOTICE_DISMISSED, false)) return
+    if (sharedPreferencesRepository.getBoolean(KEY_MIGRATION_NOTICE_DISMISSED, false)) return
 
     Snackbar.make(parent, R.string.tips_push_notification_migration, Snackbar.LENGTH_INDEFINITE)
         .setAnchorView(anchorView)
-        .setAction(R.string.action_details) { showMigrationExplanationDialog(context, accountManager) }
+        .setAction(R.string.action_details) {
+            showMigrationExplanationDialog(context, accountManager, sharedPreferencesRepository)
+        }
         .show()
 }
 
-private fun showMigrationExplanationDialog(context: Context, accountManager: AccountManager) {
+private fun showMigrationExplanationDialog(
+    context: Context,
+    accountManager: AccountManager,
+    sharedPreferencesRepository: SharedPreferencesRepository,
+) {
     AlertDialog.Builder(context).apply {
         if (currentAccountNeedsMigration(accountManager)) {
             setMessage(R.string.dialog_push_notification_migration)
@@ -81,8 +87,7 @@ private fun showMigrationExplanationDialog(context: Context, accountManager: Acc
             setMessage(R.string.dialog_push_notification_migration_other_accounts)
         }
         setNegativeButton(R.string.action_dismiss) { dialog, _ ->
-            val pm = PreferenceManager.getDefaultSharedPreferences(context)
-            pm.edit().putBoolean(KEY_MIGRATION_NOTICE_DISMISSED, true).apply()
+            sharedPreferencesRepository.edit().putBoolean(KEY_MIGRATION_NOTICE_DISMISSED, true).apply()
             dialog.dismiss()
         }
         show()

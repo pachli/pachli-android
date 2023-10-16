@@ -28,12 +28,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.os.BundleCompat
 import androidx.core.view.GestureDetectorCompat
 import app.pachli.R
 import app.pachli.ViewMediaActivity
 import app.pachli.databinding.FragmentViewImageBinding
-import app.pachli.entity.Attachment
 import app.pachli.util.hide
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
@@ -59,7 +57,6 @@ class ViewImageFragment : ViewMediaFragment() {
     private lateinit var photoActionsListener: PhotoActionsListener
     private lateinit var toolbar: View
     private var transition = BehaviorSubject.create<Unit>()
-    private var shouldStartTransition = false
 
     // Volatile: Image requests happen on background thread and we want to see updates to it
     // immediately on another thread. Atomic is an overkill for such thing.
@@ -72,17 +69,14 @@ class ViewImageFragment : ViewMediaFragment() {
     }
 
     override fun setupMediaView(
-        url: String,
-        previewUrl: String?,
-        description: String?,
         showingDescription: Boolean,
     ) {
-        binding.photoView.transitionName = url
-        binding.mediaDescription.text = description
+        binding.photoView.transitionName = attachment.url
+        binding.mediaDescription.text = attachment.description
         binding.captionSheet.visible(showingDescription)
 
         startedTransition = false
-        loadImageFromNetwork(url, previewUrl, binding.photoView)
+        loadImageFromNetwork(attachment.url, attachment.previewUrl, binding.photoView)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -94,22 +88,6 @@ class ViewImageFragment : ViewMediaFragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val arguments = this.requireArguments()
-        val attachment = BundleCompat.getParcelable(arguments, ARG_ATTACHMENT, Attachment::class.java)
-        this.shouldStartTransition = arguments.getBoolean(ARG_START_POSTPONED_TRANSITION)
-        val url: String?
-        var description: String? = null
-
-        if (attachment != null) {
-            url = attachment.url
-            description = attachment.description
-        } else {
-            url = arguments.getString(ARG_SINGLE_IMAGE_URL)
-            if (url == null) {
-                throw IllegalArgumentException("attachment or image url has to be set")
-            }
-        }
 
         val singleTapDetector = GestureDetectorCompat(
             requireContext(),
@@ -219,8 +197,11 @@ class ViewImageFragment : ViewMediaFragment() {
                 }
             },
         )
+    }
 
-        finalizeViewSetup(url, attachment?.previewUrl, description)
+    override fun onResume() {
+        super.onResume()
+        finalizeViewSetup()
     }
 
     override fun onToolbarVisibilityChange(visible: Boolean) {

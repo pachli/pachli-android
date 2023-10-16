@@ -26,7 +26,7 @@ import org.mockito.kotlin.stub
 import org.mockito.kotlin.verify
 
 /**
- * Verify that [ClearNotifications] is handled correctly on receipt:
+ * Verify that [FallibleUiAction.ClearNotifications] is handled correctly on receipt:
  *
  * - Is the correct [UiSuccess] or [UiError] value emitted?
  * - Are the correct [NotificationsRepository] functions called, with the correct arguments?

@@ -25,6 +25,7 @@ import app.pachli.components.timeline.viewmodel.UiError
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.any
@@ -44,6 +45,7 @@ import org.mockito.kotlin.verify
  */
 // TODO: With the exception of the types, this is identical to
 // NotificationsViewModelTestStatusAction.
+@HiltAndroidTest
 class CachedTimelineViewModelTestStatusAction : CachedTimelineViewModelTestBase() {
     private val status = mockStatus(pollOptions = listOf("Choice 1", "Choice 2", "Choice 3"))
     private val statusViewData = StatusViewData(

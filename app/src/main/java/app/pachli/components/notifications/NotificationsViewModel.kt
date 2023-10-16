@@ -17,7 +17,6 @@
 
 package app.pachli.components.notifications
 
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
@@ -29,10 +28,9 @@ import androidx.paging.map
 import app.pachli.R
 import app.pachli.appstore.BlockEvent
 import app.pachli.appstore.EventHub
+import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
-import app.pachli.appstore.PreferenceChangedEvent
-import app.pachli.components.filters.FiltersViewModel.Companion.FILTER_PREF_KEYS
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.util.ifExpected
@@ -43,7 +41,8 @@ import app.pachli.entity.Poll
 import app.pachli.network.FilterModel
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.StatusDisplayOptions
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
 import app.pachli.util.throttleFirst
@@ -293,12 +292,13 @@ sealed class UiError(
 @HiltViewModel
 class NotificationsViewModel @Inject constructor(
     private val repository: NotificationsRepository,
-    private val preferences: SharedPreferences,
     private val accountManager: AccountManager,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
     private val filtersRepository: FiltersRepository,
     private val filterModel: FilterModel,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
     /** The account to display notifications for */
     val account = accountManager.activeAccount!!
@@ -306,7 +306,7 @@ class NotificationsViewModel @Inject constructor(
     val uiState: StateFlow<UiState>
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
-    val statusDisplayOptions: StateFlow<StatusDisplayOptions>
+    val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     val pagingData: Flow<PagingData<NotificationViewData>>
 
@@ -381,33 +381,6 @@ class NotificationsViewModel @Inject constructor(
                     Log.d(TAG, "Saving visible ID: ${action.visibleId}, active account = ${account.id}")
                     account.lastNotificationId = action.visibleId
                     accountManager.saveAccount(account)
-                }
-        }
-
-        // Set initial status display options from the user's preferences.
-        //
-        // Then collect future preference changes and emit new values in to
-        // statusDisplayOptions if necessary.
-        statusDisplayOptions = MutableStateFlow(
-            StatusDisplayOptions.from(
-                preferences,
-                account,
-            ),
-        )
-
-        viewModelScope.launch {
-            eventHub.events
-                .filterIsInstance<PreferenceChangedEvent>()
-                .filter { StatusDisplayOptions.prefKeys.contains(it.preferenceKey) }
-                .map {
-                    statusDisplayOptions.value.make(
-                        preferences,
-                        it.preferenceKey,
-                        account,
-                    )
-                }
-                .collect {
-                    statusDisplayOptions.emit(it)
                 }
         }
 
@@ -487,8 +460,7 @@ class NotificationsViewModel @Inject constructor(
         // Fetch the status filters
         viewModelScope.launch {
             eventHub.events
-                .filterIsInstance<PreferenceChangedEvent>()
-                .filter { FILTER_PREF_KEYS.contains(it.preferenceKey) }
+                .filterIsInstance<FilterChangedEvent>()
                 .distinctUntilChanged()
                 .map { getFilters() }
                 .onStart { getFilters() }
@@ -587,15 +559,13 @@ class NotificationsViewModel @Inject constructor(
     /**
      * @return Flow of relevant preferences that change the UI
      */
-    // TODO: Preferences should be in a repository
-    private fun getUiPrefs() = eventHub.events
-        .filterIsInstance<PreferenceChangedEvent>()
-        .filter { UiPrefs.prefKeys.contains(it.preferenceKey) }
+    private fun getUiPrefs() = sharedPreferencesRepository.changes
+        .filter { UiPrefs.prefKeys.contains(it) }
         .map { toPrefs() }
         .onStart { emit(toPrefs()) }
 
     private fun toPrefs() = UiPrefs(
-        showFabWhileScrolling = !preferences.getBoolean(PrefKeys.FAB_HIDE, false),
+        showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
     )
 
     companion object {

@@ -15,26 +15,23 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-application {
-    mainClass.set("app.pachli.mklanguages.MainKt")
-}
+package app.pachli.di
 
-dependencies {
-    // ICU
-    implementation("com.ibm.icu:icu4j:73.2")
+import android.content.SharedPreferences
+import app.pachli.fakes.InMemorySharedPreferences
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
+import javax.inject.Singleton
 
-    // Parsing
-    implementation("com.github.h0tk3y.betterParse:better-parse:0.4.4")
-
-    // Logging
-    implementation("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-28")
-    implementation("ch.qos.logback:logback-classic:1.3.0")
-
-    // Testing
-    testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.2") // for parameterized tests
-}
-
-tasks.test {
-    useJUnitPlatform()
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [PreferencesModule::class],
+)
+@Module
+object FakePreferencesModule {
+    @Provides
+    @Singleton
+    fun providesSharedPreferences(): SharedPreferences = InMemorySharedPreferences()
 }

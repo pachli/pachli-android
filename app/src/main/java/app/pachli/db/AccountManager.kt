@@ -17,10 +17,15 @@ package app.pachli.db
 
 import android.content.Context
 import android.util.Log
-import androidx.preference.PreferenceManager
+import app.pachli.di.ApplicationScope
 import app.pachli.entity.Account
 import app.pachli.entity.Status
 import app.pachli.settings.PrefKeys
+import app.pachli.util.SharedPreferencesRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -36,11 +41,18 @@ private const val TAG = "AccountManager"
 class AccountManager @Inject constructor(
     private val accountDao: AccountDao,
     private val remoteKeyDao: RemoteKeyDao,
+    private val sharedPreferencesRepository: SharedPreferencesRepository,
+    @ApplicationScope private val externalScope: CoroutineScope,
 ) {
+    private val _activeAccountFlow = MutableStateFlow<AccountEntity?>(null)
+    val activeAccountFlow = _activeAccountFlow.asStateFlow()
 
     @Volatile
     var activeAccount: AccountEntity? = null
-        private set
+        private set(value) {
+            field = value
+            externalScope.launch { _activeAccountFlow.emit(value) }
+        }
 
     var accounts: MutableList<AccountEntity> = mutableListOf()
         private set
@@ -237,8 +249,7 @@ class AccountManager @Inject constructor(
      * @return true if the name of the currently-selected account should be displayed in UIs
      */
     fun shouldDisplaySelfUsername(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val showUsernamePreference = sharedPreferences.getString(PrefKeys.SHOW_SELF_USERNAME, "disambiguate")
+        val showUsernamePreference = sharedPreferencesRepository.getString(PrefKeys.SHOW_SELF_USERNAME, "disambiguate")
         if (showUsernamePreference == "always") {
             return true
         }

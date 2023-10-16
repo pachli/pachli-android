@@ -2,6 +2,7 @@ package app.pachli.appstore
 
 import app.pachli.TabData
 import app.pachli.entity.Account
+import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
 
@@ -20,7 +21,7 @@ data class StatusComposedEvent(val status: Status) : Event
 data class StatusScheduledEvent(val status: Status) : Event
 data class StatusEditedEvent(val originalId: String, val status: Status) : Event
 data class ProfileEditedEvent(val newProfileData: Account) : Event
-data class PreferenceChangedEvent(val preferenceKey: String) : Event
+data class FilterChangedEvent(val filterKind: Filter.Kind) : Event
 data class MainTabsChangedEvent(val newTabs: List<TabData>) : Event
 data class PollVoteEvent(val statusId: String, val poll: Poll) : Event
 data class DomainMuteEvent(val instance: String) : Event

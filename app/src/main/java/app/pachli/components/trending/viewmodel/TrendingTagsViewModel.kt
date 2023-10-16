@@ -19,7 +19,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.PreferenceChangedEvent
+import app.pachli.appstore.FilterChangedEvent
 import app.pachli.entity.Filter
 import app.pachli.entity.TrendingTag
 import app.pachli.entity.end
@@ -56,12 +56,12 @@ class TrendingTagsViewModel @Inject constructor(
     init {
         invalidate()
 
-        // Collect PreferenceChangedEvent, FiltersActivity creates them when a filter is created
+        // Collect FilterChangedEvent, FiltersActivity creates them when a filter is created
         // or deleted. Unfortunately, there's nothing in the event to determine if it's a filter
         // that was modified, so refresh on every preference change.
         viewModelScope.launch {
             eventHub.events
-                .filterIsInstance<PreferenceChangedEvent>()
+                .filterIsInstance<FilterChangedEvent>()
                 .collect {
                     invalidate()
                 }

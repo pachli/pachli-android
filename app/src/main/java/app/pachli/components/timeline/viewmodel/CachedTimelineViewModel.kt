@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -36,8 +35,9 @@ import app.pachli.db.AccountManager
 import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.network.FilterModel
-import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.viewdata.StatusViewData
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,7 +45,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -59,8 +58,8 @@ class CachedTimelineViewModel @Inject constructor(
     eventHub: EventHub,
     filtersRepository: FiltersRepository,
     accountManager: AccountManager,
-    preferences: SharedPreferences,
-    accountPreferenceDataStore: AccountPreferenceDataStore,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    sharedPreferencesRepository: SharedPreferencesRepository,
     filterModel: FilterModel,
     private val gson: Gson,
 ) : TimelineViewModel(
@@ -68,9 +67,9 @@ class CachedTimelineViewModel @Inject constructor(
     eventHub,
     filtersRepository,
     accountManager,
-    preferences,
-    accountPreferenceDataStore,
     filterModel,
+    statusDisplayOptionsRepository,
+    sharedPreferencesRepository,
 ) {
 
     override lateinit var statuses: Flow<PagingData<StatusViewData>>
@@ -82,10 +81,9 @@ class CachedTimelineViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun init(timelineKind: TimelineKind) {
         super.init(timelineKind)
-        statuses = merge(getUiPrefs(), reload)
-            .flatMapLatest {
-                getStatuses(timelineKind, initialKey = getInitialKey())
-            }.cachedIn(viewModelScope)
+        statuses = reload.flatMapLatest {
+            getStatuses(timelineKind, initialKey = getInitialKey())
+        }.cachedIn(viewModelScope)
     }
 
     /** @return Flow of statuses that make up the timeline of [kind] */

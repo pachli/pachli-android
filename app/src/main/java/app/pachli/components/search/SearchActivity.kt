@@ -25,14 +25,12 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
-import androidx.preference.PreferenceManager
 import app.pachli.BottomSheetActivity
 import app.pachli.R
 import app.pachli.components.search.adapter.SearchPagerAdapter
 import app.pachli.databinding.ActivitySearchBinding
 import app.pachli.settings.PrefKeys
 import app.pachli.util.reduceSwipeSensitivity
-import app.pachli.util.unsafeLazy
 import app.pachli.util.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,8 +40,6 @@ class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTe
     private val viewModel: SearchViewModel by viewModels()
 
     private val binding by viewBinding(ActivitySearchBinding::inflate)
-
-    private val preferences by unsafeLazy { PreferenceManager.getDefaultSharedPreferences(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +59,7 @@ class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTe
         binding.pages.reduceSwipeSensitivity()
         binding.pages.adapter = SearchPagerAdapter(this)
 
-        val enableSwipeForTabs = preferences.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
+        val enableSwipeForTabs = sharedPreferencesRepository.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
         binding.pages.isUserInputEnabled = enableSwipeForTabs
 
         TabLayoutMediator(binding.tabs, binding.pages) {

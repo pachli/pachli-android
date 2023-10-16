@@ -30,7 +30,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -38,7 +37,6 @@ import app.pachli.R
 import app.pachli.StatusListActivity
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.components.account.AccountActivity
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
@@ -46,7 +44,8 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.settings.PrefKeys
-import app.pachli.util.StatusDisplayOptions
+import app.pachli.util.SharedPreferencesRepository
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding
@@ -62,6 +61,7 @@ import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.DurationUnit
@@ -71,12 +71,17 @@ import kotlin.time.toDuration
 class ConversationsFragment :
     SFragment(),
     StatusActionListener,
-
     ReselectableFragment,
     MenuProvider {
 
     @Inject
     lateinit var eventHub: EventHub
+
+    @Inject
+    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     private val viewModel: ConversationsViewModel by viewModels()
 
@@ -93,70 +98,76 @@ class ConversationsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(view.context)
+        viewLifecycleOwner.lifecycleScope.launch {
+            val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-        val statusDisplayOptions = StatusDisplayOptions.from(
-            preferences,
-            accountManager.activeAccount!!,
-        )
+            adapter = ConversationAdapter(statusDisplayOptions, this@ConversationsFragment)
 
-        adapter = ConversationAdapter(statusDisplayOptions, this)
+            setupRecyclerView()
 
-        setupRecyclerView()
+            initSwipeToRefresh()
 
-        initSwipeToRefresh()
+            adapter.addLoadStateListener { loadState ->
+                if (loadState.refresh != LoadState.Loading && loadState.source.refresh != LoadState.Loading) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
 
-        adapter.addLoadStateListener { loadState ->
-            if (loadState.refresh != LoadState.Loading && loadState.source.refresh != LoadState.Loading) {
-                binding.swipeRefreshLayout.isRefreshing = false
-            }
+                binding.statusView.hide()
+                binding.progressBar.hide()
 
-            binding.statusView.hide()
-            binding.progressBar.hide()
-
-            if (adapter.itemCount == 0) {
-                when (loadState.refresh) {
-                    is LoadState.NotLoading -> {
-                        if (loadState.append is LoadState.NotLoading && loadState.source.refresh is LoadState.NotLoading) {
-                            binding.statusView.show()
-                            binding.statusView.setup(R.drawable.elephant_friend_empty, R.string.message_empty, null)
+                if (adapter.itemCount == 0) {
+                    when (loadState.refresh) {
+                        is LoadState.NotLoading -> {
+                            if (loadState.append is LoadState.NotLoading && loadState.source.refresh is LoadState.NotLoading) {
+                                binding.statusView.show()
+                                binding.statusView.setup(
+                                    R.drawable.elephant_friend_empty,
+                                    R.string.message_empty,
+                                    null,
+                                )
+                            }
                         }
-                    }
-                    is LoadState.Error -> {
-                        binding.statusView.show()
-                        binding.statusView.setup((loadState.refresh as LoadState.Error).error) { refreshContent() }
-                    }
-                    is LoadState.Loading -> {
-                        binding.progressBar.show()
+
+                        is LoadState.Error -> {
+                            binding.statusView.show()
+                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) { refreshContent() }
+                        }
+
+                        is LoadState.Loading -> {
+                            binding.progressBar.show()
+                        }
                     }
                 }
             }
-        }
 
-        adapter.registerAdapterDataObserver(
-            object : RecyclerView.AdapterDataObserver() {
-                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                    if (positionStart == 0 && adapter.itemCount != itemCount) {
-                        binding.recyclerView.post {
-                            if (getView() != null) {
-                                binding.recyclerView.scrollBy(0, Utils.dpToPx(requireContext(), -30))
+            adapter.registerAdapterDataObserver(
+                object : RecyclerView.AdapterDataObserver() {
+                    override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                        if (positionStart == 0 && adapter.itemCount != itemCount) {
+                            binding.recyclerView.post {
+                                if (getView() != null) {
+                                    binding.recyclerView.scrollBy(
+                                        0,
+                                        Utils.dpToPx(requireContext(), -30),
+                                    )
+                                }
                             }
                         }
                     }
-                }
-            },
-        )
+                },
+            )
 
-        showFabWhileScrolling = !preferences.getBoolean(PrefKeys.FAB_HIDE, false)
-        binding.recyclerView.addOnScrollListener(
-            object : RecyclerView.OnScrollListener() {
-                val actionButton = (activity as? ActionButtonActivity)?.actionButton
+            showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
+            binding.recyclerView.addOnScrollListener(
+                object : RecyclerView.OnScrollListener() {
+                    val actionButton = (activity as? ActionButtonActivity)?.actionButton
 
-                override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
-                    actionButton?.visible(showFabWhileScrolling || dy == 0)
-                }
-            },
-        )
+                    override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
+                        actionButton?.visible(showFabWhileScrolling || dy == 0)
+                    }
+                },
+            )
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.conversationFlow.collectLatest { pagingData ->
@@ -166,7 +177,7 @@ class ConversationsFragment :
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                val useAbsoluteTime = preferences.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
+                val useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
                 while (!useAbsoluteTime) {
                     adapter.notifyItemRangeChanged(
                         0,
@@ -179,11 +190,7 @@ class ConversationsFragment :
         }
 
         lifecycleScope.launch {
-            eventHub.events.collect { event ->
-                if (event is PreferenceChangedEvent) {
-                    onPreferenceChanged(event.preferenceKey)
-                }
-            }
+            sharedPreferencesRepository.changes.filterNotNull().collect { onPreferenceChanged(it) }
         }
     }
 
@@ -351,10 +358,9 @@ class ConversationsFragment :
     }
 
     private fun onPreferenceChanged(key: String) {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         when (key) {
             PrefKeys.FAB_HIDE -> {
-                showFabWhileScrolling = sharedPreferences.getBoolean(PrefKeys.FAB_HIDE, false)
+                showFabWhileScrolling = sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
             }
             PrefKeys.MEDIA_PREVIEW_ENABLED -> {
                 val enabled = accountManager.activeAccount!!.mediaPreviewEnabled

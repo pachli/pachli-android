@@ -17,15 +17,12 @@
 
 package app.pachli.components.trending.viewmodel
 
-import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.PreferenceChangedEvent
 import app.pachli.components.trending.TrendingLinksRepository
 import app.pachli.db.AccountManager
 import app.pachli.entity.TrendsLink
-import app.pachli.util.StatusDisplayOptions
+import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.throttleFirst
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,9 +30,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -58,33 +53,21 @@ sealed class LoadState {
 @HiltViewModel
 class TrendingLinksViewModel @Inject constructor(
     private val repository: TrendingLinksRepository,
-    preferences: SharedPreferences,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     accountManager: AccountManager,
-    private val eventHub: EventHub,
 ) : ViewModel() {
-    val account = accountManager.activeAccount!!
+    val activeAccount = accountManager.activeAccount!!
 
     private val _loadState = MutableStateFlow<LoadState>(LoadState.Initial)
     val loadState = _loadState.asStateFlow()
 
-    private val _statusDisplayOptions = MutableStateFlow(
-        StatusDisplayOptions.from(preferences, account),
-    )
-    val statusDisplayOptions = _statusDisplayOptions.asStateFlow()
+    val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     private val uiAction = MutableSharedFlow<UiAction>()
 
     val accept: (UiAction) -> Unit = { viewModelScope.launch { uiAction.emit(it) } }
 
     init {
-        viewModelScope.launch {
-            eventHub.events
-                .filterIsInstance<PreferenceChangedEvent>()
-                .filter { StatusDisplayOptions.prefKeys.contains(it.preferenceKey) }
-                .map { _statusDisplayOptions.value.make(preferences, it.preferenceKey, account) }
-                .collect { _statusDisplayOptions.emit(it) }
-        }
-
         viewModelScope.launch {
             uiAction
                 .throttleFirst(THROTTLE_TIMEOUT)
