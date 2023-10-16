@@ -66,6 +66,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
         PrefKeys.CONFIRM_REBLOGS,
         PrefKeys.MEDIA_PREVIEW_ENABLED,
         PrefKeys.SHOW_BOT_OVERLAY,
+        PrefKeys.SHOW_CARDS_IN_TIMELINES,
         PrefKeys.USE_BLURHASH,
         PrefKeys.WELLBEING_HIDE_STATS_POSTS,
         PrefKeys.SHOW_STATS_INLINE,
