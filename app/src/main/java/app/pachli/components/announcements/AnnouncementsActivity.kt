@@ -98,8 +98,9 @@ class AnnouncementsActivity :
 
         val wellbeingEnabled = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, false)
         val animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
+        val useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
 
-        adapter = AnnouncementAdapter(emptyList(), this, wellbeingEnabled, animateEmojis)
+        adapter = AnnouncementAdapter(emptyList(), this, wellbeingEnabled, animateEmojis, useAbsoluteTime)
 
         binding.announcementsList.adapter = adapter
 
