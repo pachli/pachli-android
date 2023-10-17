@@ -75,7 +75,7 @@
     <color name="white">#fff</color>
     <color name="black">#000</color>
 
-    <color name="notification_color">@color/tusky_blue</color>
+    <color name="notification_color">@color/seed</color>
 
     <!-- the number roughly corresponds to the % lightness of the grey -->
     <color name="tusky_grey_05">#070b14</color>
