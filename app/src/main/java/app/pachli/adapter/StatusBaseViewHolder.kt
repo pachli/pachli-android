@@ -594,7 +594,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     protected fun setupButtons(
         listener: StatusActionListener,
         accountId: String,
-        statusContent: String?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         val profileButtonClickListener =
@@ -773,7 +772,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             setupButtons(
                 listener,
                 actionable.account.id,
-                status.content.toString(),
                 statusDisplayOptions,
             )
             setRebloggingEnabled(actionable.rebloggingAllowed(), actionable.visibility)

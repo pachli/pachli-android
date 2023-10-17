@@ -91,7 +91,6 @@ class ConversationViewHolder internal constructor(
             setupButtons(
                 listener,
                 account.id,
-                statusViewData.content.toString(),
                 statusDisplayOptions,
             )
             setSpoilerAndContent(statusViewData, statusDisplayOptions, listener)
