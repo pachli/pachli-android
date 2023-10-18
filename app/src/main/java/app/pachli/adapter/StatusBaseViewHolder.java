@@ -27,12 +27,8 @@ import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.shape.CornerFamily;
-import com.google.android.material.shape.ShapeAppearanceModel;
 
 import java.text.NumberFormat;
 import java.util.Collections;
@@ -50,6 +46,7 @@ import app.pachli.entity.Filter;
 import app.pachli.entity.FilterResult;
 import app.pachli.entity.HashTag;
 import app.pachli.entity.Poll;
+import app.pachli.entity.PreviewCardKind;
 import app.pachli.entity.Status;
 import app.pachli.interfaces.StatusActionListener;
 import app.pachli.util.AbsoluteTimeFormatter;
@@ -66,6 +63,7 @@ import app.pachli.util.TouchDelegateHelper;
 import app.pachli.view.MediaPreviewImageView;
 import app.pachli.view.MediaPreviewLayout;
 import app.pachli.view.PollView;
+import app.pachli.view.PreviewCardView;
 import app.pachli.viewdata.PollViewData;
 import app.pachli.viewdata.StatusViewData;
 import at.connyduck.sparkbutton.SparkButton;
@@ -105,12 +103,7 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
 
     @NonNull
     private final PollView pollView;
-    private final LinearLayout cardView;
-    private final LinearLayout cardInfo;
-    private final ShapeableImageView cardImage;
-    private final TextView cardTitle;
-    private final TextView cardDescription;
-    private final TextView cardUrl;
+    private final PreviewCardView cardView;
     protected final LinearLayout filteredPlaceholder;
     protected final TextView filteredPlaceholderLabel;
     protected final Button filteredPlaceholderShowButton;
@@ -160,11 +153,6 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
         pollView = itemView.findViewById(R.id.status_poll);
 
         cardView = itemView.findViewById(R.id.status_card_view);
-        cardInfo = itemView.findViewById(R.id.card_info);
-        cardImage = itemView.findViewById(R.id.card_image);
-        cardTitle = itemView.findViewById(R.id.card_title);
-        cardDescription = itemView.findViewById(R.id.card_description);
-        cardUrl = itemView.findViewById(R.id.card_link);
 
         filteredPlaceholder = itemView.findViewById(R.id.status_filtered_placeholder);
         filteredPlaceholderLabel = itemView.findViewById(R.id.status_filter_label);
@@ -990,9 +978,7 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
         @NonNull final StatusDisplayOptions statusDisplayOptions,
         @NonNull final StatusActionListener listener
     ) {
-        if (cardView == null) {
-            return;
-        }
+        if (cardView == null) return;
 
         final Status actionable = status.getActionable();
         final Card card = actionable.getCard();
@@ -1006,110 +992,15 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
             (!status.isCollapsible() || !status.isCollapsed())) {
 
             cardView.setVisibility(View.VISIBLE);
-            cardTitle.setText(card.getTitle());
-            if (TextUtils.isEmpty(card.getDescription()) && TextUtils.isEmpty(card.getAuthorName())) {
-                cardDescription.setVisibility(View.GONE);
-            } else {
-                cardDescription.setVisibility(View.VISIBLE);
-                if (TextUtils.isEmpty(card.getDescription())) {
-                    cardDescription.setText(card.getAuthorName());
+            PreviewCardView.OnClickListener cardListener = (PreviewCardView.Target target) -> {
+                if (card.getKind().equals(PreviewCardKind.PHOTO) && !TextUtils.isEmpty(card.getEmbedUrl())) {
+                    cardView.getContext().startActivity(ViewMediaActivity.newSingleImageIntent(cardView.getContext(), card.getEmbedUrl()));
                 } else {
-                    cardDescription.setText(card.getDescription());
+                    listener.onViewUrl(card.getUrl());
                 }
-            }
+            };
 
-            cardUrl.setText(card.getUrl());
-
-            // Statuses from other activitypub sources can be marked sensitive even if there's no media,
-            // so let's blur the preview in that case
-            // If media previews are disabled, show placeholder for cards as well
-            if (statusDisplayOptions.mediaPreviewEnabled() && !actionable.getSensitive() && !TextUtils.isEmpty(card.getImage())) {
-
-                int radius = cardImage.getContext().getResources()
-                        .getDimensionPixelSize(R.dimen.card_radius);
-                ShapeAppearanceModel.Builder cardImageShape = ShapeAppearanceModel.builder();
-
-                if (card.getWidth() > card.getHeight()) {
-                    cardView.setOrientation(LinearLayout.VERTICAL);
-
-                    cardImage.getLayoutParams().height = cardImage.getContext().getResources()
-                            .getDimensionPixelSize(R.dimen.card_image_vertical_height);
-                    cardImage.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    cardInfo.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    cardInfo.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, radius);
-                    cardImageShape.setTopRightCorner(CornerFamily.ROUNDED, radius);
-                } else {
-                    cardView.setOrientation(LinearLayout.HORIZONTAL);
-                    cardImage.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    cardImage.getLayoutParams().width = cardImage.getContext().getResources()
-                            .getDimensionPixelSize(R.dimen.card_image_horizontal_width);
-                    cardInfo.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    cardInfo.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, radius);
-                    cardImageShape.setBottomLeftCorner(CornerFamily.ROUNDED, radius);
-                }
-
-                cardImage.setShapeAppearanceModel(cardImageShape.build());
-
-                cardImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-                RequestBuilder<Drawable> builder = Glide.with(cardImage.getContext())
-                        .load(card.getImage())
-                        .dontTransform();
-                if (statusDisplayOptions.useBlurhash() && !TextUtils.isEmpty(card.getBlurhash())) {
-                    builder = builder.placeholder(decodeBlurHash(card.getBlurhash()));
-                }
-                builder.into(cardImage);
-            } else if (statusDisplayOptions.useBlurhash() && !TextUtils.isEmpty(card.getBlurhash())) {
-                int radius = cardImage.getContext().getResources()
-                        .getDimensionPixelSize(R.dimen.card_radius);
-
-                cardView.setOrientation(LinearLayout.HORIZONTAL);
-                cardImage.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
-                cardImage.getLayoutParams().width = cardImage.getContext().getResources()
-                        .getDimensionPixelSize(R.dimen.card_image_horizontal_width);
-                cardInfo.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                cardInfo.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-
-                ShapeAppearanceModel cardImageShape = ShapeAppearanceModel.builder()
-                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                        .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
-                        .build();
-                cardImage.setShapeAppearanceModel(cardImageShape);
-
-                cardImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-                Glide.with(cardImage.getContext())
-                        .load(decodeBlurHash(card.getBlurhash()))
-                        .dontTransform()
-                        .into(cardImage);
-            } else {
-                cardView.setOrientation(LinearLayout.HORIZONTAL);
-                cardImage.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
-                cardImage.getLayoutParams().width = cardImage.getContext().getResources()
-                        .getDimensionPixelSize(R.dimen.card_image_horizontal_width);
-                cardInfo.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                cardInfo.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-
-                cardImage.setShapeAppearanceModel(new ShapeAppearanceModel());
-
-                cardImage.setScaleType(ImageView.ScaleType.CENTER);
-
-                Glide.with(cardImage.getContext())
-                        .load(R.drawable.card_image_placeholder)
-                        .into(cardImage);
-            }
-
-            View.OnClickListener visitLink = v -> listener.onViewUrl(card.getUrl());
-
-            cardView.setOnClickListener(visitLink);
-            // View embedded photos in our image viewer instead of opening the browser
-            cardImage.setOnClickListener(card.getType().equals(Card.TYPE_PHOTO) && !TextUtils.isEmpty(card.getEmbedUrl()) ?
-                    v -> cardView.getContext().startActivity(ViewMediaActivity.newSingleImageIntent(cardView.getContext(), card.getEmbedUrl())) :
-                    visitLink);
-
-            cardView.setClipToOutline(true);
+            cardView.bind(card, statusDisplayOptions, cardListener);
         } else {
             cardView.setVisibility(View.GONE);
         }
