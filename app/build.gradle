@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.aboutlibraries)
     alias(libs.plugins.hilt)
@@ -174,7 +173,7 @@ dependencies {
     implementation libs.bundles.autodispose
 
     implementation libs.hilt.android
-    kapt libs.hilt.compiler
+    ksp libs.hilt.compiler
 
     implementation libs.sparkbutton
 
@@ -205,7 +204,7 @@ dependencies {
     testImplementation libs.turbine
     testImplementation libs.androidx.test.core.ktx
     testImplementation libs.hilt.android.testing
-    kaptTest libs.hilt.compiler
+    kspTest libs.hilt.compiler
 
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.androidx.room.testing
