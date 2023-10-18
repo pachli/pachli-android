@@ -45,7 +45,6 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.util.EventLogger
 import androidx.media3.ui.AspectRatioFrameLayout
-import androidx.media3.ui.PlayerControlView
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.ViewMediaActivity
@@ -63,6 +62,17 @@ import okhttp3.OkHttpClient
 import javax.inject.Inject
 import kotlin.math.abs
 
+/**
+ * Plays a video, showing media description if available.
+ *
+ * UI behaviour:
+ *
+ * - Fragment starts, media description is visible at top of screen, video starts playing
+ * - Media description + toolbar disappears after CONTROLS_TIMEOUT_MS
+ * - Tapping shows controls + media description + toolbar, which fade after CONTROLS_TIMEOUT_MS
+ * - Tapping pause, or the media description, pauses the video and the controls + media description
+ *   remain visible
+ */
 @UnstableApi
 @AndroidEntryPoint
 class ViewVideoFragment : ViewMediaFragment() {
@@ -125,6 +135,8 @@ class ViewVideoFragment : ViewMediaFragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.videoView.controllerShowTimeoutMs = CONTROLS_TIMEOUT_MS
 
         isAudio = attachment.type == Attachment.Type.AUDIO
 
@@ -209,7 +221,6 @@ class ViewVideoFragment : ViewMediaFragment() {
 
                         binding.progressBar.hide()
                         binding.videoView.useController = true
-                        binding.videoView.showController()
                     }
                     else -> { /* do nothing */ }
                 }
@@ -218,7 +229,7 @@ class ViewVideoFragment : ViewMediaFragment() {
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 if (isAudio) return
                 if (isPlaying) {
-                    hideToolbarAfterDelay(TOOLBAR_HIDE_DELAY_MS)
+                    hideToolbarAfterDelay()
                 } else {
                     handler.removeCallbacks(hideToolbar)
                 }
@@ -259,7 +270,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         if (Build.VERSION.SDK_INT <= 23 || player == null) {
             initializePlayer()
             if (mediaActivity.isToolbarVisible && !isAudio) {
-                hideToolbarAfterDelay(TOOLBAR_HIDE_DELAY_MS)
+                hideToolbarAfterDelay()
             }
             binding.videoView.onResume()
         }
@@ -357,6 +368,15 @@ class ViewVideoFragment : ViewMediaFragment() {
 
         binding.videoView.transitionName = attachment.url
 
+        // Clicking the description should play/pause the video
+        binding.mediaDescription.setOnClickListener {
+            if (binding.videoView.player?.isPlaying == true) {
+                binding.videoView.player?.pause()
+            } else {
+                binding.videoView.player?.play()
+            }
+        }
+
         binding.videoView.requestFocus()
 
         if (requireArguments().getBoolean(ARG_START_POSTPONED_TRANSITION)) {
@@ -364,14 +384,16 @@ class ViewVideoFragment : ViewMediaFragment() {
         }
     }
 
-    private fun hideToolbarAfterDelay(delayMilliseconds: Int) {
-        handler.postDelayed(hideToolbar, delayMilliseconds.toLong())
+    private fun hideToolbarAfterDelay() {
+        handler.postDelayed(hideToolbar, CONTROLS_TIMEOUT_MS.toLong())
     }
 
     override fun onToolbarVisibilityChange(visible: Boolean) {
         if (!userVisibleHint) {
             return
         }
+
+        view ?: return
 
         isDescriptionVisible = showingDescription && visible
         val alpha = if (isDescriptionVisible) 1.0f else 0.0f
@@ -395,7 +417,7 @@ class ViewVideoFragment : ViewMediaFragment() {
             .start()
 
         if (visible && (binding.videoView.player?.isPlaying == true) && !isAudio) {
-            hideToolbarAfterDelay(TOOLBAR_HIDE_DELAY_MS)
+            hideToolbarAfterDelay()
         } else {
             handler.removeCallbacks(hideToolbar)
         }
@@ -405,7 +427,7 @@ class ViewVideoFragment : ViewMediaFragment() {
 
     companion object {
         private const val TAG = "ViewVideoFragment"
-        private const val TOOLBAR_HIDE_DELAY_MS = PlayerControlView.DEFAULT_SHOW_TIMEOUT_MS
+        private const val CONTROLS_TIMEOUT_MS = 2000 // Consistent with YouTube player
         private const val SEEK_POSITION = "seekPosition"
     }
 }
