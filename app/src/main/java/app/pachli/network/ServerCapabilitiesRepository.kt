@@ -39,10 +39,6 @@ class ServerCapabilitiesRepository @Inject constructor(
 
     init {
         externalScope.launch {
-            _flow.emit(getCapabilities())
-        }
-
-        externalScope.launch {
             accountManager.activeAccountFlow.collect {
                 _flow.emit(getCapabilities())
             }
