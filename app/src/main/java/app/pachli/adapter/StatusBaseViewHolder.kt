@@ -873,7 +873,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             (!status.isCollapsible || !status.isCollapsed)
         ) {
             cardView.visibility = View.VISIBLE
-            cardView.bind(card, statusDisplayOptions) { target ->
+            cardView.bind(card, status.actionable.sensitive, statusDisplayOptions) { target ->
                 if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
                     cardView.context.startActivity(
                         newSingleImageIntent(cardView.context, card.embedUrl)
