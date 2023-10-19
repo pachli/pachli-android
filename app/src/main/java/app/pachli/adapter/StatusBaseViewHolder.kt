@@ -26,6 +26,7 @@ import app.pachli.entity.Attachment
 import app.pachli.entity.Emoji
 import app.pachli.entity.PreviewCardKind
 import app.pachli.entity.Status
+import app.pachli.entity.description
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.CardViewMode
@@ -814,7 +815,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             if (favourited) context.getString(R.string.description_post_favourited) else "",
             if (bookmarked) context.getString(R.string.description_post_bookmarked) else "",
             getMediaDescription(context, status),
-            getVisibilityDescription(context, visibility),
+            visibility.description(context),
             getFavsText(context, favouritesCount),
             getReblogsText(context, reblogsCount),
             status.actionable.poll?.let {
@@ -972,26 +973,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             } else {
                 ""
             }
-        }
-
-        @JvmStatic
-        protected fun getVisibilityDescription(
-            context: Context,
-            visibility: Status.Visibility?,
-        ): CharSequence {
-            if (visibility == null) {
-                return ""
-            }
-            val resource: Int = when (visibility) {
-                Status.Visibility.PUBLIC -> R.string.description_visibility_public
-                Status.Visibility.UNLISTED -> R.string.description_visibility_unlisted
-                Status.Visibility.PRIVATE -> R.string.description_visibility_private
-                Status.Visibility.DIRECT -> R.string.description_visibility_direct
-                else -> {
-                    return ""
-                }
-            }
-            return context.getString(resource)
         }
     }
 }
