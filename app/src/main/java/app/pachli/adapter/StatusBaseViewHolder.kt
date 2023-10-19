@@ -828,31 +828,27 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     protected fun getFavsText(context: Context, count: Int): CharSequence {
-        return if (count > 0) {
-            val countString = numberFormat.format(count.toLong())
-            HtmlCompat.fromHtml(
-                context.resources.getQuantityString(R.plurals.favs, count, countString),
-                HtmlCompat.FROM_HTML_MODE_LEGACY,
-            )
-        } else {
-            ""
-        }
+        if (count <= 0) return ""
+
+        val countString = numberFormat.format(count.toLong())
+        return HtmlCompat.fromHtml(
+            context.resources.getQuantityString(R.plurals.favs, count, countString),
+            HtmlCompat.FROM_HTML_MODE_LEGACY,
+        )
     }
 
     protected fun getReblogsText(context: Context, count: Int): CharSequence {
-        return if (count > 0) {
-            val countString = numberFormat.format(count.toLong())
-            HtmlCompat.fromHtml(
-                context.resources.getQuantityString(
-                    R.plurals.reblogs,
-                    count,
-                    countString,
-                ),
-                HtmlCompat.FROM_HTML_MODE_LEGACY,
-            )
-        } else {
-            ""
-        }
+        if (count <= 0) return ""
+
+        val countString = numberFormat.format(count.toLong())
+        return HtmlCompat.fromHtml(
+            context.resources.getQuantityString(
+                R.plurals.reblogs,
+                count,
+                countString,
+            ),
+            HtmlCompat.FROM_HTML_MODE_LEGACY,
+        )
     }
 
     protected fun setupCard(
@@ -918,25 +914,15 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             return true
         }
 
-        private fun getReblogDescription(
-            context: Context,
-            status: StatusViewData,
-        ): CharSequence {
-            val reblog = status.rebloggingStatus
-            return if (reblog != null) {
-                context.getString(R.string.post_boosted_format, reblog.account.username)
-            } else {
-                ""
-            }
+        private fun getReblogDescription(context: Context, status: StatusViewData): CharSequence {
+            return status.rebloggingStatus?.let {
+                context.getString(R.string.post_boosted_format, it.account.username)
+            } ?: ""
         }
 
-        private fun getMediaDescription(
-            context: Context,
-            status: StatusViewData,
-        ): CharSequence {
-            if (status.actionable.attachments.isEmpty()) {
-                return ""
-            }
+        private fun getMediaDescription(context: Context, status: StatusViewData): CharSequence {
+            if (status.actionable.attachments.isEmpty()) return ""
+
             val mediaDescriptions =
                 status.actionable.attachments.fold(StringBuilder()) { builder: StringBuilder, (_, _, _, _, _, description): Attachment ->
                     if (description == null) {
@@ -951,10 +937,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             return context.getString(R.string.description_post_media, mediaDescriptions)
         }
 
-        private fun getContentWarningDescription(
-            context: Context,
-            status: StatusViewData,
-        ): CharSequence {
+        private fun getContentWarningDescription(context: Context, status: StatusViewData): CharSequence {
             return if (!TextUtils.isEmpty(status.spoilerText)) {
                 context.getString(R.string.description_post_cw, status.spoilerText)
             } else {
