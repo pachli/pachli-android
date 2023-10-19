@@ -660,4 +660,32 @@
     <string name="title_tab_public_trending_statuses">投稿</string>
     <string name="error_404_not_found">あなたのサーバーはこの機能をサポートしていません</string>
     <string name="title_tab_public_trending_hashtags">ハッシュタグ</string>
+    <string name="dialog_delete_filter_positive_action">削除する</string>
+    <string name="reaction_name_and_count">%1$s %2$d</string>
+    <string name="dialog_delete_filter_text">フィルタ \'%1$s\' を削除しますか？</string>
+    <string name="error_media_playback">再生に失敗しました: %s</string>
+    <string name="accessibility_talking_about_tag">%1$d人がハッシュタグ%2$sについて話しています</string>
+    <string name="announcement_date">%1$s %2$s</string>
+    <string name="socket_timeout_exception">サーバーへの接続に時間がかかりすぎました</string>
+    <string name="load_newest_statuses">最新のポストを読み込む</string>
+    <string name="error_network_fmt">ネットワーク エラーが発生しました: %s</string>
+    <string name="ui_error_filter_v1_load">フィルターの読み込みに失敗しました: %s</string>
+    <string name="confirmation_hashtag_muted">#%s を非表示にしました</string>
+    <string name="announcement_date_updated">(更新済み: %1$s)</string>
+    <string name="help_empty_home">これはあなたの<b>ホームタイムライン</b>です。あなたがフォローしているアカウントの最新のポストが表示されます。
+\n
+\nあなたのインスタンスのローカルタイムラインや他のタイムラインから、他のアカウントを見つけることができます（[iconics gmd_group]）。また、名前で検索することもできます（[iconics gmd_search]）；例えば、Pachliを検索すると、当社のMastodonアカウントを見つけることができます。</string>
+    <string name="about_copied">バージョンとデバイス情報をコピーしました</string>
+    <string name="about_privacy_policy">プライバシーポリシー</string>
+    <string name="pref_title_font_family">フォント</string>
+    <string name="list_exclusive_label">ホームタイムラインから隠す</string>
+    <string name="about_account_info">\@%s@%s
+\nバージョン: %s</string>
+    <string name="description_poll">選択肢付きの投票: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="about_copy">バージョンとデバイス情報をコピーする</string>
+    <string name="about_device_info">%s %s
+\nAndroid バージョン: %s
+\nSDK バージョン: %d</string>
+    <string name="about_account_info_title">あなたのアカウント</string>
+    <string name="label_image">画像</string>
 </resources>
