@@ -27,7 +27,7 @@ class TrendingLinkViewHolder(
     private val onClick: (String) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(link: TrendsLink, statusDisplayOptions: StatusDisplayOptions) {
-        binding.statusCardView.bind(link, statusDisplayOptions) {
+        binding.statusCardView.bind(link, sensitive = false, statusDisplayOptions) {
             onClick(link.url)
         }
     }

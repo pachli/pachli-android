@@ -1000,7 +1000,7 @@ public abstract class StatusBaseViewHolder extends RecyclerView.ViewHolder {
                 }
             };
 
-            cardView.bind(card, statusDisplayOptions, cardListener);
+            cardView.bind(card, actionable.getSensitive(), statusDisplayOptions, cardListener);
         } else {
             cardView.setVisibility(View.GONE);
         }

@@ -53,6 +53,7 @@ class PreviewCardView @JvmOverloads constructor(
         /** The image **/
         IMAGE,
     }
+
     fun interface OnClickListener {
         /** @param target Where on the card the user clicked */
         fun onClick(target: Target)
@@ -67,8 +68,17 @@ class PreviewCardView @JvmOverloads constructor(
         orientation = VERTICAL
     }
 
+    /**
+     * Binds the [PreviewCard] data to the view.
+     *
+     * @param card The card to bind
+     * @param sensitive True if the status that contained this card was marked sensitive
+     * @param statusDisplayOptions
+     * @param listener
+     */
     fun bind(
         card: PreviewCard,
+        sensitive: Boolean,
         statusDisplayOptions: StatusDisplayOptions,
         listener: OnClickListener,
     ) = with(binding) {
@@ -85,7 +95,13 @@ class PreviewCardView @JvmOverloads constructor(
 
         cardLink.text = card.url
 
-        if (statusDisplayOptions.mediaPreviewEnabled && !card.image.isNullOrBlank()) {
+        previewCardWrapper.clipToOutline = true
+
+        // Either:
+        // 1. Card has a (possibly sensitive) image that user wants to see, or
+        // 2. Card has a blurhash, use that as the image, or
+        // 3. Use R.drawable.card_image_placeholder
+        if (statusDisplayOptions.mediaPreviewEnabled && (!sensitive || statusDisplayOptions.showSensitiveMedia) && !card.image.isNullOrBlank()) {
             cardImage.shapeAppearanceModel = if (card.width > card.height) {
                 setTopBottomLayout()
             } else {
@@ -120,8 +136,6 @@ class PreviewCardView @JvmOverloads constructor(
                 .load(R.drawable.card_image_placeholder)
                 .into(cardImage)
         }
-
-        previewCardWrapper.clipToOutline = true
     }
 
     /** Adjusts the layout parameters to place the image above the information views */
