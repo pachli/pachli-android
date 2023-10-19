@@ -20,7 +20,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.adapter.StatusViewHolder
-import app.pachli.databinding.ItemStatusWrapperBinding
+import app.pachli.databinding.ItemStatusBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.StatusViewData
@@ -32,7 +32,7 @@ class SearchStatusesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder {
         return StatusViewHolder(
-            ItemStatusWrapperBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 

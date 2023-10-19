@@ -27,6 +27,7 @@ import app.pachli.adapter.ReportNotificationViewHolder
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.databinding.ItemReportNotificationBinding
+import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.databinding.SimpleListItem1Binding
@@ -138,7 +139,7 @@ class NotificationsPagingAdapter(
         return when (NotificationViewKind.entries[viewType]) {
             NotificationViewKind.STATUS -> {
                 StatusViewHolder(
-                    ItemStatusWrapperBinding.inflate(inflater, parent, false),
+                    ItemStatusBinding.inflate(inflater, parent, false),
                     statusActionListener,
                     accountId,
                 )

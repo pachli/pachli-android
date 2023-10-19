@@ -19,6 +19,7 @@ import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.entity.Emoji
 import app.pachli.entity.Filter
@@ -34,15 +35,16 @@ import app.pachli.viewdata.StatusViewData
 import at.connyduck.sparkbutton.helpers.Utils
 
 open class StatusViewHolder(
-    private val binding: ItemStatusWrapperBinding
-) : StatusBaseViewHolder(binding.root) {
+    private val binding: ItemStatusBinding,
+    root: View? = null,
+) : StatusBaseViewHolder(root ?: binding.root) {
 
     override fun setupWithStatus(
         status: StatusViewData,
         listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: Any?,
-    ) = with(binding.statusContainer) {
+    ) = with(binding) {
         if (payloads == null) {
             val sensitive = !TextUtils.isEmpty(status.actionable.spoilerText)
             val expanded = status.isExpanded
@@ -75,7 +77,7 @@ open class StatusViewHolder(
         name: CharSequence,
         accountEmoji: List<Emoji>?,
         statusDisplayOptions: StatusDisplayOptions,
-    ) = with(binding.statusContainer) {
+    ) = with(binding) {
         val context = statusInfo.context
         val wrappedName: CharSequence = name.unicodeWrap()
         val boostedText: CharSequence = context.getString(R.string.post_boosted_format, wrappedName)
@@ -86,7 +88,7 @@ open class StatusViewHolder(
     }
 
     // don't use this on the same ViewHolder as setRebloggedByDisplayName, will cause recycling issues as paddings are changed
-    protected fun setPollInfo(ownPoll: Boolean) = with(binding.statusContainer) {
+    protected fun setPollInfo(ownPoll: Boolean) = with(binding) {
         statusInfo.setText(if (ownPoll) R.string.poll_ended_created else R.string.poll_ended_voted)
         statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_poll_24dp, 0, 0, 0)
         statusInfo.compoundDrawablePadding =
@@ -95,15 +97,15 @@ open class StatusViewHolder(
         statusInfo.visibility = View.VISIBLE
     }
 
-    protected fun setReblogsCount(reblogsCount: Int) = with(binding.statusContainer) {
+    protected fun setReblogsCount(reblogsCount: Int) = with(binding) {
         statusReblogsCount.text = formatNumber(reblogsCount.toLong(), 1000)
     }
 
-    protected fun setFavouritedCount(favouritedCount: Int) = with(binding.statusContainer) {
+    protected fun setFavouritedCount(favouritedCount: Int) = with(binding) {
         statusFavouritesCount.text = formatNumber(favouritedCount.toLong(), 1000)
     }
 
-    protected fun hideStatusInfo() = with(binding.statusContainer) {
+    protected fun hideStatusInfo() = with(binding) {
         statusInfo.hide()
     }
 
@@ -112,7 +114,7 @@ open class StatusViewHolder(
         expanded: Boolean,
         status: StatusViewData,
         listener: StatusActionListener,
-    ) = with(binding.statusContainer) {
+    ) = with(binding) {
         /* input filter for TextViews have to be set before text */
         if (status.isCollapsible && (!sensitive || expanded)) {
             buttonToggleContent.setOnClickListener {
@@ -138,7 +140,7 @@ open class StatusViewHolder(
         }
     }
 
-    override fun showStatusContent(show: Boolean) = with(binding.statusContainer) {
+    override fun showStatusContent(show: Boolean) = with(binding) {
         super.showStatusContent(show)
         buttonToggleContent.visibility = if (show) View.VISIBLE else View.GONE
     }
@@ -162,7 +164,7 @@ open class StatusViewHolder(
 
 open class FilterableStatusViewHolder(
     private val binding: ItemStatusWrapperBinding
-) : StatusViewHolder(binding) {
+) : StatusViewHolder(binding.statusContainer, binding.root) {
 
     override fun setupWithStatus(
         status: StatusViewData,

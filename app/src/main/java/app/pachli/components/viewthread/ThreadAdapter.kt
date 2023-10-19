@@ -23,6 +23,7 @@ import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.adapter.StatusDetailedViewHolder
 import app.pachli.adapter.StatusViewHolder
+import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusDetailedBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.entity.Filter
@@ -39,7 +40,7 @@ class ThreadAdapter(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             VIEW_TYPE_STATUS -> {
-                StatusViewHolder(ItemStatusWrapperBinding.inflate(inflater, parent, false))
+                StatusViewHolder(ItemStatusBinding.inflate(inflater, parent, false))
             }
             VIEW_TYPE_STATUS_FILTERED -> {
                 FilterableStatusViewHolder(ItemStatusWrapperBinding.inflate(inflater, parent, false))

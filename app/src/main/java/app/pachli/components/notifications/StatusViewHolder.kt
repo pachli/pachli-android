@@ -19,6 +19,7 @@ package app.pachli.components.notifications
 
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewHolder
+import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.entity.Notification
 import app.pachli.interfaces.StatusActionListener
@@ -26,7 +27,7 @@ import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.NotificationViewData
 
 internal class StatusViewHolder(
-    binding: ItemStatusWrapperBinding,
+    binding: ItemStatusBinding,
     private val statusActionListener: StatusActionListener,
     private val accountId: String,
 ) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder(binding) {

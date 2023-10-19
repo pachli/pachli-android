@@ -24,6 +24,7 @@ import app.pachli.R
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.adapter.StatusViewHolder
+import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.entity.Filter
 import app.pachli.interfaces.StatusActionListener
@@ -41,7 +42,7 @@ class TimelinePagingAdapter(
                 FilterableStatusViewHolder(ItemStatusWrapperBinding.inflate(inflater, viewGroup, false))
             }
             VIEW_TYPE_STATUS -> {
-                StatusViewHolder(ItemStatusWrapperBinding.inflate(inflater, viewGroup, false))
+                StatusViewHolder(ItemStatusBinding.inflate(inflater, viewGroup, false))
             }
             else -> return object : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_placeholder, viewGroup, false)) {}
         }
