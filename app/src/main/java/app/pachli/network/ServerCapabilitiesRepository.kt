@@ -26,7 +26,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ServerCapabilitiesRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val accountManager: AccountManager,
