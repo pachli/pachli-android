@@ -81,7 +81,7 @@ class PreviewCardView @JvmOverloads constructor(
         sensitive: Boolean,
         statusDisplayOptions: StatusDisplayOptions,
         listener: OnClickListener,
-    ) = with(binding) {
+    ): Unit = with(binding) {
         cardTitle.text = card.title
 
         when {
