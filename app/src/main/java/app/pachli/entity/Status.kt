@@ -188,7 +188,7 @@ fun Status.Visibility?.description(context: Context): CharSequence {
         Status.Visibility.UNLISTED -> R.string.description_visibility_unlisted
         Status.Visibility.PRIVATE -> R.string.description_visibility_private
         Status.Visibility.DIRECT -> R.string.description_visibility_direct
-        else -> return ""
+        Status.Visibility.UNKNOWN -> return ""
     }
     return context.getString(resource)
 }
@@ -204,7 +204,7 @@ fun Status.Visibility?.icon(textView: TextView): Drawable? {
         Status.Visibility.UNLISTED -> R.drawable.ic_lock_open_24dp
         Status.Visibility.PRIVATE -> R.drawable.ic_lock_outline_24dp
         Status.Visibility.DIRECT -> R.drawable.ic_email_24dp
-        else -> return null
+        Status.Visibility.UNKNOWN -> return null
     }
     val visibilityDrawable = AppCompatResources.getDrawable(
         textView.context,
