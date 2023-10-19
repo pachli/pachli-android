@@ -14,7 +14,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -554,7 +553,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 updateMediaLabel(i, sensitive, showingContent)
 
                 // Set the icon next to the label.
-                val drawableId = getLabelIcon(attachments[0].type)
+                val drawableId = attachments[0].iconResource()
                 mediaLabel.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
                 setAttachmentClickListener(mediaLabel, listener, i, attachment, false)
             } else {
@@ -910,16 +909,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
 
     companion object {
         private const val TAG = "StatusBaseViewHolder"
-
-        @DrawableRes
-        private fun getLabelIcon(type: Attachment.Type): Int {
-            return when (type) {
-                Attachment.Type.IMAGE -> R.drawable.ic_photo_24dp
-                Attachment.Type.GIFV, Attachment.Type.VIDEO -> R.drawable.ic_videocam_24dp
-                Attachment.Type.AUDIO -> R.drawable.ic_music_box_24dp
-                else -> R.drawable.ic_attach_file_24dp
-            }
-        }
 
         @JvmStatic
         protected fun hasPreviewableAttachment(attachments: List<Attachment>): Boolean {
