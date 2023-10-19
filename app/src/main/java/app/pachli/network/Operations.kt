@@ -67,12 +67,14 @@ class ServerCapabilities(
      * level, false otherwise.
      */
     fun can(operation: ServerOperation, constraint: Constraint) = capabilities[operation]?.let {
-            versions -> constraint satisfiedByAny versions } ?: false
+            versions ->
+        constraint satisfiedByAny versions
+    } ?: false
 
     companion object {
         fun default() = ServerCapabilities(
             serverKind = ServerKind.MASTODON,
-            capabilities = emptyMap()
+            capabilities = emptyMap(),
         )
 
         fun from(instance: InstanceV1): Result<ServerCapabilities, ServerCapabilitiesError> {

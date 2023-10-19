@@ -27,9 +27,12 @@ import app.pachli.R
 import app.pachli.databinding.ItemAnnouncementBinding
 import app.pachli.entity.Announcement
 import app.pachli.interfaces.LinkListener
+import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.BindingHolder
 import app.pachli.util.EmojiSpan
 import app.pachli.util.emojify
+import app.pachli.util.equalByMinute
+import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.setClickableText
 import app.pachli.util.visible
@@ -48,7 +51,9 @@ class AnnouncementAdapter(
     private val listener: AnnouncementActionListener,
     private val wellbeingEnabled: Boolean = false,
     private val animateEmojis: Boolean = false,
+    private val useAbsoluteTime: Boolean = false,
 ) : RecyclerView.Adapter<BindingHolder<ItemAnnouncementBinding>>() {
+    private val absoluteTimeFormatter = AbsoluteTimeFormatter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemAnnouncementBinding> {
         val binding = ItemAnnouncementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -57,6 +62,29 @@ class AnnouncementAdapter(
 
     override fun onBindViewHolder(holder: BindingHolder<ItemAnnouncementBinding>, position: Int) {
         val item = items[position]
+        val now = System.currentTimeMillis()
+
+        val publishTimeToDisplay = if (useAbsoluteTime) {
+            absoluteTimeFormatter.format(item.publishedAt, shortFormat = item.allDay)
+        } else {
+            getRelativeTimeSpanString(holder.binding.root.context, item.publishedAt.time, now)
+        }
+
+        val updatedAtText = if (item.updatedAt.equalByMinute(item.publishedAt)) {
+            // they're the same, don't show the "updated" indicator
+            ""
+        } else {
+            // they're a minute or more apart, show the "updated" indicator
+            val formattedUpdatedAt = if (useAbsoluteTime) {
+                absoluteTimeFormatter.format(item.updatedAt, item.allDay)
+            } else {
+                getRelativeTimeSpanString(holder.binding.root.context, item.updatedAt.time, now)
+            }
+            holder.binding.root.context.getString(R.string.announcement_date_updated, formattedUpdatedAt)
+        }
+
+        val announcementDate = holder.binding.root.context.getString(R.string.announcement_date, publishTimeToDisplay, updatedAtText)
+        holder.binding.announcementDate.text = announcementDate
 
         val text = holder.binding.text
         val chips = holder.binding.chipGroup
@@ -88,7 +116,8 @@ class AnnouncementAdapter(
                 )
                 .apply {
                     if (reaction.url == null) {
-                        this.text = "${reaction.name} ${reaction.count}"
+                        val reactionNameAndCountText = holder.binding.root.context.getString(R.string.reaction_name_and_count, reaction.name, reaction.count)
+                        this.text = reactionNameAndCountText
                     } else {
                         // we set the EmojiSpan on a space, because otherwise the Chip won't have the right size
                         // https://github.com/tuskyapp/Tusky/issues/2308

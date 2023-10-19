@@ -2,6 +2,28 @@
 <issues format="6" by="lint 8.1.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.1.2)" variant="all" version="8.1.2">
 
     <issue
+        id="StopShip"
+        message="`TODO` call found; points to code which must be fixed prior to release"
+        errorLine1="                ServerKind.PLEROMA -> TODO()"
+        errorLine2="                                      ~~~~~~">
+        <location
+            file="src/main/java/app/pachli/network/Operations.kt"
+            line="94"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="StopShip"
+        message="`TODO` call found; points to code which must be fixed prior to release"
+        errorLine1="                ServerKind.UNKNOWN -> TODO()"
+        errorLine2="                                      ~~~~~~">
+        <location
+            file="src/main/java/app/pachli/network/Operations.kt"
+            line="95"
+            column="39"/>
+    </issue>
+
+    <issue
         id="InvalidPackage"
         message="Invalid package reference in org.bouncycastle:bcprov-jdk15on; not included in Android: `javax.naming.directory`. Referenced from `org.bouncycastle.jce.provider.CrlCache`.">
         <location
@@ -773,7 +795,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="778"
+            line="780"
             column="5"/>
     </issue>
 
@@ -938,7 +960,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/announcements/AnnouncementAdapter.kt"
-            line="133"
+            line="162"
             column="9"/>
     </issue>
 
@@ -1413,17 +1435,6 @@
             file="src/main/res/menu/activity_scheduled_status.xml"
             line="19"
             column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.seed` appears to be unused"
-        errorLine1="    &lt;color name=&quot;seed&quot;>#006382&lt;/color>"
-        errorLine2="           ~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="4"
-            column="12"/>
     </issue>
 
     <issue
@@ -2093,7 +2104,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="766"
+            line="768"
             column="13"/>
     </issue>
 
@@ -2104,7 +2115,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="800"
+            line="802"
             column="13"/>
     </issue>
 
@@ -3705,6 +3716,39 @@
 
     <issue
         id="SyntheticAccessor"
+        message="Access to `private` method `getContentWarningDescription` of class `Companion` requires synthetic accessor"
+        errorLine1="            getContentWarningDescription(context, status),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
+            line="807"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getReblogDescription` of class `Companion` requires synthetic accessor"
+        errorLine1="            getReblogDescription(context, status),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
+            line="811"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getMediaDescription` of class `Companion` requires synthetic accessor"
+        errorLine1="            getMediaDescription(context, status),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
+            line="816"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
         message="Access to `private` method `viewdata` of class `StatusViewHolder` requires synthetic accessor"
         errorLine1="            viewdata()?.let { viewdata ->"
         errorLine2="            ~~~~~~~~">
@@ -3787,7 +3831,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="232"
+            line="217"
             column="25"/>
     </issue>
 
@@ -3798,7 +3842,7 @@
         errorLine2="                                 ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="320"
+            line="305"
             column="34"/>
     </issue>
 
@@ -3809,7 +3853,7 @@
         errorLine2="            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="333"
+            line="318"
             column="13"/>
     </issue>
 
@@ -3820,7 +3864,7 @@
         errorLine2="                ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="340"
+            line="325"
             column="17"/>
     </issue>
 
@@ -3886,18 +3930,18 @@
         errorLine2="                               ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="145"
+            line="152"
             column="32"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `hideToolbarAfterDelay` of class `ViewVideoFragment` requires synthetic accessor"
-        errorLine1="                    hideToolbarAfterDelay(TOOLBAR_HIDE_DELAY_MS)"
+        errorLine1="                    hideToolbarAfterDelay()"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="226"
+            line="232"
             column="21"/>
     </issue>
 
@@ -4257,17 +4301,6 @@
         <location
             file="src/main/res/layout/item_add_or_remove_from_list.xml"
             line="12"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_announcement.xml"
-            line="7"
             column="6"/>
     </issue>
 
@@ -4769,44 +4802,11 @@
     <issue
         id="SelectableText"
         message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="            &lt;TextView"
-        errorLine2="             ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status.xml"
-            line="192"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="            &lt;TextView"
-        errorLine2="             ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status.xml"
-            line="202"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="            &lt;TextView"
-        errorLine2="             ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status.xml"
-            line="212"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
         errorLine1="    &lt;TextView"
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="287"
+            line="233"
             column="6"/>
     </issue>
 
@@ -4817,7 +4817,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="315"
+            line="261"
             column="6"/>
     </issue>
 
@@ -4828,7 +4828,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="343"
+            line="289"
             column="6"/>
     </issue>
 
@@ -4857,44 +4857,11 @@
     <issue
         id="SelectableText"
         message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="            &lt;TextView"
-        errorLine2="             ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_detailed.xml"
-            line="173"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="            &lt;TextView"
-        errorLine2="             ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_detailed.xml"
-            line="184"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="            &lt;TextView"
-        errorLine2="             ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_detailed.xml"
-            line="195"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
         errorLine1="    &lt;TextView"
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="234"
+            line="180"
             column="6"/>
     </issue>
 
@@ -4905,7 +4872,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="263"
+            line="209"
             column="6"/>
     </issue>
 
@@ -4916,7 +4883,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="277"
+            line="223"
             column="6"/>
     </issue>
 
@@ -5202,7 +5169,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="277"
+            line="223"
             column="9"/>
     </issue>
 
@@ -5314,17 +5281,6 @@
             file="src/main/res/layout/material_drawer_header.xml"
             line="8"
             column="5"/>
-    </issue>
-
-    <issue
-        id="SetTextI18n"
-        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
-        errorLine1="                        this.text = &quot;${reaction.name} ${reaction.count}&quot;"
-        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/announcements/AnnouncementAdapter.kt"
-            line="91"
-            column="37"/>
     </issue>
 
     <issue

@@ -15,8 +15,13 @@
 
 package app.pachli.entity
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
+import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
+import app.pachli.R
 import app.pachli.util.parseAsMastodonHtml
 import com.google.gson.annotations.SerializedName
 import java.util.Date
@@ -58,13 +63,6 @@ data class Status(
 
     val actionableStatus: Status
         get() = reblog ?: this
-
-    /** Helpers for Java */
-    fun copyWithFavourited(favourited: Boolean): Status = copy(favourited = favourited)
-    fun copyWithReblogged(reblogged: Boolean): Status = copy(reblogged = reblogged)
-    fun copyWithBookmarked(bookmarked: Boolean): Status = copy(bookmarked = bookmarked)
-    fun copyWithPoll(poll: Poll?): Status = copy(poll = poll)
-    fun copyWithPinned(pinned: Boolean): Status = copy(pinned = pinned)
 
     enum class Visibility(val num: Int) {
         UNKNOWN(0),
@@ -177,4 +175,43 @@ data class Status(
         const val MAX_MEDIA_ATTACHMENTS = 4
         const val MAX_POLL_OPTIONS = 4
     }
+}
+
+/**
+ * @return A description for this visibility, or "" if it's null or [Status.Visibility.UNKNOWN].
+ */
+fun Status.Visibility?.description(context: Context): CharSequence {
+    this ?: return ""
+
+    val resource: Int = when (this) {
+        Status.Visibility.PUBLIC -> R.string.description_visibility_public
+        Status.Visibility.UNLISTED -> R.string.description_visibility_unlisted
+        Status.Visibility.PRIVATE -> R.string.description_visibility_private
+        Status.Visibility.DIRECT -> R.string.description_visibility_direct
+        Status.Visibility.UNKNOWN -> return ""
+    }
+    return context.getString(resource)
+}
+
+/**
+ * @return An icon for this visibility scaled and coloured to match the text on [textView].
+ */
+fun Status.Visibility?.icon(textView: TextView): Drawable? {
+    this ?: return null
+
+    val resource: Int = when (this) {
+        Status.Visibility.PUBLIC -> R.drawable.ic_public_24dp
+        Status.Visibility.UNLISTED -> R.drawable.ic_lock_open_24dp
+        Status.Visibility.PRIVATE -> R.drawable.ic_lock_outline_24dp
+        Status.Visibility.DIRECT -> R.drawable.ic_email_24dp
+        Status.Visibility.UNKNOWN -> return null
+    }
+    val visibilityDrawable = AppCompatResources.getDrawable(
+        textView.context,
+        resource,
+    ) ?: return null
+    val size = textView.textSize.toInt()
+    visibilityDrawable.setBounds(0, 0, size, size)
+    visibilityDrawable.setTint(textView.currentTextColor)
+    return visibilityDrawable
 }

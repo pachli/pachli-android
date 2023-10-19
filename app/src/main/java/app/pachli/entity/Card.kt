@@ -18,17 +18,21 @@ package app.pachli.entity
 import com.google.gson.annotations.SerializedName
 
 data class Card(
-    val url: String,
-    val title: String,
-    val description: String,
-    @SerializedName("author_name") val authorName: String,
-    val image: String,
-    val type: String,
-    val width: Int,
-    val height: Int,
-    val blurhash: String?,
-    @SerializedName("embed_url") val embedUrl: String?,
-) {
+    override val url: String,
+    override val title: String,
+    override val description: String,
+    @SerializedName("type") override val kind: PreviewCardKind,
+    @SerializedName("author_name") override val authorName: String,
+    @SerializedName("author_url") override val authorUrl: String,
+    @SerializedName("provider_name") override val providerName: String,
+    @SerializedName("provider_url") override val providerUrl: String,
+    override val html: String,
+    override val width: Int,
+    override val height: Int,
+    override val image: String? = null,
+    @SerializedName("embed_url") override val embedUrl: String,
+    override val blurhash: String? = null,
+) : PreviewCard {
 
     override fun hashCode() = url.hashCode()
 
@@ -38,9 +42,5 @@ data class Card(
         }
         val account = other as Card?
         return account?.url == this.url
-    }
-
-    companion object {
-        const val TYPE_PHOTO = "photo"
     }
 }

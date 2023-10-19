@@ -37,6 +37,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Repository for [StatusDisplayOptions], exposed through the [flow] property.
+ *
+ * A new value is emitted whenever a relevant preference changes or the active
+ * account changes.
+ */
 @Singleton
 class StatusDisplayOptionsRepository @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
@@ -64,6 +70,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
         PrefKeys.CONFIRM_REBLOGS,
         PrefKeys.MEDIA_PREVIEW_ENABLED,
         PrefKeys.SHOW_BOT_OVERLAY,
+        PrefKeys.SHOW_CARDS_IN_TIMELINES,
         PrefKeys.USE_BLURHASH,
         PrefKeys.WELLBEING_HIDE_STATS_POSTS,
         PrefKeys.SHOW_STATS_INLINE,
@@ -149,7 +156,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
                 Log.d(TAG, "Updating because server capabilities changed")
                 _flow.update {
                     it.copy(
-                        canTranslate = serverCapabilities.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint())
+                        canTranslate = serverCapabilities.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()),
                     )
                 }
             }
@@ -176,7 +183,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
             showStatsInline = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_STATS_INLINE, default.showStatsInline),
             showSensitiveMedia = account?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
             openSpoiler = account?.alwaysOpenSpoiler ?: default.openSpoiler,
-			canTranslate = default.canTranslate,
+            canTranslate = default.canTranslate,
         )
     }
 
