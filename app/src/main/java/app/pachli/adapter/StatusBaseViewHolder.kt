@@ -337,12 +337,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             val now = System.currentTimeMillis()
             getRelativeTimeSpanString(metaInfo.context, then, now)
         }
-        if (editedAt != null) {
-            timestampText = metaInfo.context.getString(
+        editedAt?.let { timestampText = metaInfo.context.getString(
                 R.string.post_timestamp_with_edited_indicator,
                 timestampText,
-            )
-        }
+            ) }
         metaInfo.text = timestampText
     }
 
@@ -807,7 +805,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             getContentWarningDescription(context, status),
             if (TextUtils.isEmpty(status.spoilerText) || !sensitive || status.isExpanded) status.content else "",
             getCreatedAtDescription(createdAt, statusDisplayOptions),
-            if (editedAt != null) context.getString(R.string.description_post_edited) else "",
+            editedAt?.let { context.getString(R.string.description_post_edited) } ?: "",
             getReblogDescription(context, status),
             status.username,
             if (reblogged) context.getString(R.string.description_post_reblogged) else "",

@@ -36,29 +36,22 @@ class StatusDetailedViewHolder(
         val visibilityIcon = visibility.icon(metaInfo)
         val visibilityString = visibility.description(context)
         val sb = SpannableStringBuilder(visibilityString)
-        if (visibilityIcon != null) {
-            val visibilityIconSpan = ImageSpan(
-                visibilityIcon,
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) DynamicDrawableSpan.ALIGN_CENTER else DynamicDrawableSpan.ALIGN_BASELINE,
-            )
-            sb.setSpan(
-                visibilityIconSpan,
-                0,
-                visibilityString.length,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-            )
+        visibilityIcon?.let {
+            val alignment = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) DynamicDrawableSpan.ALIGN_CENTER else DynamicDrawableSpan.ALIGN_BASELINE
+            val visibilityIconSpan = ImageSpan(it, alignment)
+            sb.setSpan(visibilityIconSpan, 0, visibilityString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         val metadataJoiner = context.getString(R.string.metadata_joiner)
         sb.append(" ")
         sb.append(dateFormat.format(createdAt))
-        if (editedAt != null) {
-            val editedAtString =
-                context.getString(R.string.post_edited, dateFormat.format(editedAt))
+
+        editedAt?.let {
+            val editedAtString = context.getString(R.string.post_edited, dateFormat.format(it))
             sb.append(metadataJoiner)
             val spanStart = sb.length
             val spanEnd = spanStart + editedAtString.length
             sb.append(editedAtString)
-            if (statusViewData.status.editedAt != null) {
+            statusViewData.status.editedAt?.let {
                 val editedClickSpan: NoUnderlineURLSpan = object : NoUnderlineURLSpan("") {
                     override fun onClick(view: View) {
                         listener.onShowEdits(bindingAdapterPosition)
@@ -67,15 +60,13 @@ class StatusDetailedViewHolder(
                 sb.setSpan(editedClickSpan, spanStart, spanEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
         }
-        if (app != null) {
+
+        app?.let {
+            val (name, website) = it
             sb.append(metadataJoiner)
-            if (app.website != null) {
-                val text = createClickableText(app.name, app.website)
-                sb.append(text)
-            } else {
-                sb.append(app.name)
-            }
+            website?.let { sb.append(createClickableText(name, it)) ?: sb.append(name) }
         }
+
         metaInfo.movementMethod = LinkMovementMethod.getInstance()
         metaInfo.text = sb
     }
