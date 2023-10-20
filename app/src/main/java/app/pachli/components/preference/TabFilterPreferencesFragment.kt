@@ -37,6 +37,14 @@ class TabFilterPreferencesFragment : PreferenceFragmentCompat() {
                 }
 
                 switchPreference {
+                    setTitle(R.string.pref_title_show_self_boosts)
+                    setSummary(R.string.pref_title_show_self_boosts_description)
+                    key = PrefKeys.TAB_FILTER_HOME_SELF_BOOSTS
+                    setDefaultValue(true)
+                    isIconSpaceReserved = false
+                }
+
+                switchPreference {
                     setTitle(R.string.pref_title_show_replies)
                     key = PrefKeys.TAB_FILTER_HOME_REPLIES
                     setDefaultValue(true)
