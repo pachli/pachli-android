@@ -80,18 +80,6 @@ data class UiState(
     val showFabWhileScrolling: Boolean,
 )
 
-/** Preferences the UI reacts to */
-data class UiPrefs(
-    val showFabWhileScrolling: Boolean,
-) {
-    companion object {
-        /** Relevant preference keys. Changes to any of these trigger a display update */
-        val prefKeys = setOf(
-            PrefKeys.FAB_HIDE,
-        )
-    }
-}
-
 // TODO: Ui* classes are copied from NotificationsViewModel. Not yet sure whether these actions
 // are "global" across all timelines (including notifications) or whether notifications are
 // sufficiently different to warrant having a duplicate set. Keeping them duplicated for the

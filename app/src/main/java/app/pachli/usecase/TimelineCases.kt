@@ -26,10 +26,12 @@ import app.pachli.appstore.PinEvent
 import app.pachli.appstore.PollVoteEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusDeletedEvent
+import app.pachli.db.TimelineDao
 import app.pachli.entity.DeletedStatus
 import app.pachli.entity.Poll
 import app.pachli.entity.Relationship
 import app.pachli.entity.Status
+import app.pachli.entity.Translation
 import app.pachli.network.MastodonApi
 import app.pachli.util.getServerErrorMessage
 import at.connyduck.calladapter.networkresult.NetworkResult
@@ -40,6 +42,7 @@ import javax.inject.Inject
 
 class TimelineCases @Inject constructor(
     private val mastodonApi: MastodonApi,
+    private val timelineDao: TimelineDao,
     private val eventHub: EventHub,
 ) {
 
@@ -137,6 +140,10 @@ class TimelineCases @Inject constructor(
 
     suspend fun rejectFollowRequest(accountId: String): NetworkResult<Relationship> {
         return mastodonApi.rejectFollowRequest(accountId)
+    }
+
+    suspend fun translateStatus(statusId: String): NetworkResult<Translation> {
+        return mastodonApi.translate(statusId)
     }
 
     companion object {

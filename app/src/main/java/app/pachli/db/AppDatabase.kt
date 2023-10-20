@@ -35,8 +35,9 @@ import app.pachli.components.conversation.ConversationEntity
         ConversationEntity::class,
         RemoteKeyEntity::class,
         StatusViewDataEntity::class,
+        TranslatedStatusEntity::class,
     ],
-    version = 2,
+    version = 3,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
     ],
@@ -48,6 +49,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun timelineDao(): TimelineDao
     abstract fun draftDao(): DraftDao
     abstract fun remoteKeyDao(): RemoteKeyDao
+//    abstract fun translatedStatusDao(): TranslatedStatusDao
 
     @DeleteColumn("TimelineStatusEntity", "expanded")
     @DeleteColumn("TimelineStatusEntity", "contentCollapsed")

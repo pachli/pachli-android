@@ -192,6 +192,8 @@ data class StatusViewDataEntity(
     val contentShowing: Boolean,
     /** Corresponds to [app.pachli.viewdata.StatusViewData.isCollapsed] */
     val contentCollapsed: Boolean,
+    /** Show the translated version of the status (if it exists) */
+    val showTranslation: Boolean = false,
 )
 
 val attachmentArrayListType: Type = object : TypeToken<ArrayList<Attachment>>() {}.type

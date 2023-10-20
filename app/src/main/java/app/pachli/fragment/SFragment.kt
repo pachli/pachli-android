@@ -50,6 +50,8 @@ import app.pachli.entity.Attachment
 import app.pachli.entity.Status
 import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.network.MastodonApi
+import app.pachli.network.ServerCapabilitiesRepository
+import app.pachli.network.ServerOperation
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.openLink
 import app.pachli.util.parseAsMastodonHtml
@@ -58,6 +60,7 @@ import app.pachli.viewdata.AttachmentViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import com.google.android.material.snackbar.Snackbar
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -81,6 +84,11 @@ abstract class SFragment : Fragment() {
     @Inject
     lateinit var timelineCases: TimelineCases
 
+    @Inject
+    lateinit var serverCapabilitiesRepository: ServerCapabilitiesRepository
+
+    private var canTranslate = false
+
     override fun startActivity(intent: Intent) {
         super.startActivity(intent)
         requireActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
@@ -92,6 +100,12 @@ abstract class SFragment : Fragment() {
             context
         } else {
             throw IllegalStateException("Fragment must be attached to a BottomSheetActivity!")
+        }
+
+        lifecycleScope.launch {
+            serverCapabilitiesRepository.flow.collect {
+                canTranslate = it.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint())
+            }
         }
     }
 
@@ -139,8 +153,12 @@ abstract class SFragment : Fragment() {
         requireActivity().startActivity(intent)
     }
 
+    /**
+     * Handles the user clicking the "..." (more) button typically at the bottom-right of
+     * the status.
+     */
     protected fun more(status: Status, view: View, position: Int) {
-        val id = status.actionableId
+        val actionableId = status.actionableId
         val accountId = status.actionableStatus.account.id
         val accountUsername = status.actionableStatus.account.username
         val statusUrl = status.actionableStatus.url
@@ -169,6 +187,8 @@ abstract class SFragment : Fragment() {
         } else {
             popup.inflate(R.menu.status_more)
             popup.menu.findItem(R.id.status_download_media).isVisible = status.attachments.isNotEmpty()
+            Log.d(TAG, "canTranslate: $canTranslate")
+            popup.menu.findItem(R.id.status_translate).isVisible = canTranslate
         }
         val menu = popup.menu
         val openAsItem = menu.findItem(R.id.status_open_as)
@@ -225,6 +245,10 @@ abstract class SFragment : Fragment() {
                     )
                     return@setOnMenuItemClickListener true
                 }
+                R.id.status_translate -> {
+                    onTranslate(actionableId, status)
+                    return@setOnMenuItemClickListener true
+                }
                 R.id.status_copy_link -> {
                     (requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).apply {
                         setPrimaryClip(ClipData.newPlainText(null, statusUrl))
@@ -248,7 +272,7 @@ abstract class SFragment : Fragment() {
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_report -> {
-                    openReportPage(accountId, accountUsername, id)
+                    openReportPage(accountId, accountUsername, actionableId)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_unreblog_private -> {
@@ -260,15 +284,15 @@ abstract class SFragment : Fragment() {
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete -> {
-                    showConfirmDeleteDialog(id, position)
+                    showConfirmDeleteDialog(actionableId, position)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete_and_redraft -> {
-                    showConfirmEditDialog(id, position, status)
+                    showConfirmEditDialog(actionableId, position, status)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_edit -> {
-                    editStatus(id, status)
+                    editStatus(actionableId, status)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.pin -> {
@@ -291,6 +315,10 @@ abstract class SFragment : Fragment() {
             false
         }
         popup.show()
+    }
+
+    open fun onTranslate(actionableId: String, status: Status) {
+        Log.d(TAG, "Translation happens here")
     }
 
     private fun onMute(accountId: String, accountUsername: String) {

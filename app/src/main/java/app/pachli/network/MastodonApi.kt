@@ -43,6 +43,7 @@ import app.pachli.entity.StatusContext
 import app.pachli.entity.StatusEdit
 import app.pachli.entity.StatusSource
 import app.pachli.entity.TimelineAccount
+import app.pachli.entity.Translation
 import app.pachli.entity.TrendingTag
 import app.pachli.entity.TrendsLink
 import app.pachli.network.model.InstanceV2
@@ -313,6 +314,11 @@ interface MastodonApi {
     suspend fun unmuteConversation(
         @Path("id") statusId: String,
     ): NetworkResult<Status>
+
+    @POST("api/v1/statuses/{id}/translate")
+    suspend fun translate(
+        @Path("id") statusId: String,
+    ): NetworkResult<Translation>
 
     @GET("api/v1/scheduled_statuses")
     suspend fun scheduledStatuses(
@@ -802,4 +808,5 @@ interface MastodonApi {
 
     @GET("api/v1/trends/statuses")
     suspend fun trendingStatuses(): Response<List<Status>>
+
 }
