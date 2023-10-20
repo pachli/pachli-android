@@ -22,26 +22,46 @@ import kotlinx.parcelize.Parcelize
 
 /** A timeline's type. Hold's data necessary to display that timeline. */
 @Parcelize
-sealed class TimelineKind : Parcelable {
-    data object Home : TimelineKind()
-    data object PublicFederated : TimelineKind()
-    data object PublicLocal : TimelineKind()
-    data class Tag(val tags: List<String>) : TimelineKind()
+sealed interface TimelineKind : Parcelable {
+    @Parcelize
+    data object Home : TimelineKind
+
+    @Parcelize
+    data object PublicFederated : TimelineKind
+
+    @Parcelize
+    data object PublicLocal : TimelineKind
+
+    @Parcelize
+    data class Tag(val tags: List<String>) : TimelineKind
 
     /** Any timeline showing statuses from a single user */
     @Parcelize
-    sealed class User(open val id: String) : TimelineKind() {
+    sealed interface User : TimelineKind {
+        val id: String
+
         /** Timeline showing just the user's statuses (no replies) */
-        data class Posts(override val id: String) : User(id)
+        @Parcelize
+        data class Posts(override val id: String) : User
 
         /** Timeline showing the user's pinned statuses */
-        data class Pinned(override val id: String) : User(id)
+        @Parcelize
+        data class Pinned(override val id: String) : User
 
         /** Timeline showing the user's top-level statuses and replies they have made */
-        data class Replies(override val id: String) : User(id)
+        @Parcelize
+        data class Replies(override val id: String) : User
     }
-    data object Favourites : TimelineKind()
-    data object Bookmarks : TimelineKind()
-    data class UserList(val id: String, val title: String) : TimelineKind()
-    data object TrendingStatuses : TimelineKind()
+
+    @Parcelize
+    data object Favourites : TimelineKind
+
+    @Parcelize
+    data object Bookmarks : TimelineKind
+
+    @Parcelize
+    data class UserList(val id: String, val title: String) : TimelineKind
+
+    @Parcelize
+    data object TrendingStatuses : TimelineKind
 }

@@ -65,12 +65,12 @@ import javax.inject.Singleton
 
 sealed interface FinalUploadEvent
 
-sealed class UploadEvent {
-    data class ProgressEvent(val percentage: Int) : UploadEvent()
+sealed interface UploadEvent {
+    data class ProgressEvent(val percentage: Int) : UploadEvent
     data class FinishedEvent(val mediaId: String, val processed: Boolean) :
-        UploadEvent(),
+        UploadEvent,
         FinalUploadEvent
-    data class ErrorEvent(val error: Throwable) : UploadEvent(), FinalUploadEvent
+    data class ErrorEvent(val error: Throwable) : UploadEvent, FinalUploadEvent
 }
 
 data class UploadData(
