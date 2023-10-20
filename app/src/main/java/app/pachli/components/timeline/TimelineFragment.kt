@@ -625,6 +625,10 @@ class TimelineFragment :
         viewModel.changeContentCollapsed(isCollapsed, status)
     }
 
+    override fun onTranslate(statusViewData: StatusViewData) {
+        viewModel.translate(statusViewData)
+    }
+
     override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {
         val status = adapter.peek(position) ?: return
         super.viewMedia(
