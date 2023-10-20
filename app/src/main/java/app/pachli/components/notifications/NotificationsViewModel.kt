@@ -96,24 +96,24 @@ data class UiPrefs(
 }
 
 /** Parent class for all UI actions, fallible or infallible. */
-sealed class UiAction
+sealed interface UiAction
 
 /** Actions the user can trigger from the UI. These actions may fail. */
-sealed class FallibleUiAction : UiAction() {
+sealed interface FallibleUiAction : UiAction {
     /** Clear all notifications */
-    data object ClearNotifications : FallibleUiAction()
+    data object ClearNotifications : FallibleUiAction
 }
 
 /**
  * Actions the user can trigger from the UI that either cannot fail, or if they do fail,
  * do not show an error.
  */
-sealed class InfallibleUiAction : UiAction() {
+sealed interface InfallibleUiAction : UiAction {
     /** Apply a new filter to the notification list */
     // This saves the list to the local database, which triggers a refresh of the data.
     // Saving the data can't fail, which is why this is infallible. Refreshing the
     // data may fail, but that's handled by the paging system / adapter refresh logic.
-    data class ApplyFilter(val filter: Set<Notification.Type>) : InfallibleUiAction()
+    data class ApplyFilter(val filter: Set<Notification.Type>) : InfallibleUiAction
 
     /**
      * User is leaving the fragment, save the ID of the visible notification.
@@ -121,53 +121,59 @@ sealed class InfallibleUiAction : UiAction() {
      * Infallible because if it fails there's nowhere to show the error, and nothing the user
      * can do.
      */
-    data class SaveVisibleId(val visibleId: String) : InfallibleUiAction()
+    data class SaveVisibleId(val visibleId: String) : InfallibleUiAction
 
     /** Ignore the saved reading position, load the page with the newest items */
     // Resets the account's `lastNotificationId`, which can't fail, which is why this is
     // infallible. Reloading the data may fail, but that's handled by the paging system /
     // adapter refresh logic.
-    data object LoadNewest : InfallibleUiAction()
+    data object LoadNewest : InfallibleUiAction
 }
 
 /** Actions the user can trigger on an individual notification. These may fail. */
-sealed class NotificationAction : FallibleUiAction() {
-    data class AcceptFollowRequest(val accountId: String) : NotificationAction()
+sealed interface NotificationAction : FallibleUiAction {
+    data class AcceptFollowRequest(val accountId: String) : NotificationAction
 
-    data class RejectFollowRequest(val accountId: String) : NotificationAction()
+    data class RejectFollowRequest(val accountId: String) : NotificationAction
 }
 
-sealed class UiSuccess {
+sealed interface UiSuccess {
     // These three are from menu items on the status. Currently they don't come to the
     // viewModel as actions, they're noticed when events are posted. That will change,
     // but for the moment we can still report them to the UI. Typically, receiving any
     // of these three should trigger the UI to refresh.
 
     /** A user was blocked */
-    data object Block : UiSuccess()
+    data object Block : UiSuccess
 
     /** A user was muted */
-    data object Mute : UiSuccess()
+    data object Mute : UiSuccess
 
     /** A conversation was muted */
-    data object MuteConversation : UiSuccess()
+    data object MuteConversation : UiSuccess
 }
 
 /** The result of a successful action on a notification */
-sealed class NotificationActionSuccess(
+sealed interface NotificationActionSuccess : UiSuccess {
     /** String resource with an error message to show the user */
-    @StringRes val msg: Int,
+    @get:StringRes
+    val msg: Int
 
     /**
      * The original action, in case additional information is required from it to display the
      * message.
      */
-    open val action: NotificationAction,
-) : UiSuccess() {
-    data class AcceptFollowRequest(override val action: NotificationAction) :
-        NotificationActionSuccess(R.string.ui_success_accepted_follow_request, action)
-    data class RejectFollowRequest(override val action: NotificationAction) :
-        NotificationActionSuccess(R.string.ui_success_rejected_follow_request, action)
+    val action: NotificationAction
+
+    data class AcceptFollowRequest(
+        override val action: NotificationAction,
+        override val msg: Int = R.string.ui_success_accepted_follow_request,
+    ) : NotificationActionSuccess
+
+    data class RejectFollowRequest(
+        override val action: NotificationAction,
+        override val msg: Int = R.string.ui_success_rejected_follow_request,
+    ) : NotificationActionSuccess
 
     companion object {
         fun from(action: NotificationAction) = when (action) {
@@ -178,42 +184,37 @@ sealed class NotificationActionSuccess(
 }
 
 /** Actions the user can trigger on an individual status */
-sealed class StatusAction(
-    open val statusViewData: StatusViewData,
-) : FallibleUiAction() {
+sealed interface StatusAction : FallibleUiAction {
+    val statusViewData: StatusViewData
+
     /** Set the bookmark state for a status */
-    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) :
-        StatusAction(statusViewData)
+    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) : StatusAction
 
     /** Set the favourite state for a status */
-    data class Favourite(val state: Boolean, override val statusViewData: StatusViewData) :
-        StatusAction(statusViewData)
+    data class Favourite(val state: Boolean, override val statusViewData: StatusViewData) : StatusAction
 
     /** Set the reblog state for a status */
-    data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) :
-        StatusAction(statusViewData)
+    data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) : StatusAction
 
     /** Vote in a poll */
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
         override val statusViewData: StatusViewData,
-    ) : StatusAction(statusViewData)
+    ) : StatusAction
 }
 
 /** Changes to a status' visible state after API calls */
-sealed class StatusActionSuccess(open val action: StatusAction) : UiSuccess() {
-    data class Bookmark(override val action: StatusAction.Bookmark) :
-        StatusActionSuccess(action)
+sealed interface StatusActionSuccess : UiSuccess {
+    val action: StatusAction
 
-    data class Favourite(override val action: StatusAction.Favourite) :
-        StatusActionSuccess(action)
+    data class Bookmark(override val action: StatusAction.Bookmark) : StatusActionSuccess
 
-    data class Reblog(override val action: StatusAction.Reblog) :
-        StatusActionSuccess(action)
+    data class Favourite(override val action: StatusAction.Favourite) : StatusActionSuccess
 
-    data class VoteInPoll(override val action: StatusAction.VoteInPoll) :
-        StatusActionSuccess(action)
+    data class Reblog(override val action: StatusAction.Reblog) : StatusActionSuccess
+
+    data class VoteInPoll(override val action: StatusAction.VoteInPoll) : StatusActionSuccess
 
     companion object {
         fun from(action: StatusAction) = when (action) {
@@ -226,54 +227,64 @@ sealed class StatusActionSuccess(open val action: StatusAction) : UiSuccess() {
 }
 
 /** Errors from fallible view model actions that the UI will need to show */
-sealed class UiError(
+sealed interface UiError {
     /** The exception associated with the error */
-    open val throwable: Throwable,
-
-    /** String resource with an error message to show the user */
-    @StringRes val message: Int,
+    val throwable: Throwable
 
     /** The action that failed. Can be resent to retry the action */
-    open val action: UiAction? = null,
-) {
-    data class ClearNotifications(override val throwable: Throwable) : UiError(
-        throwable,
-        R.string.ui_error_clear_notifications,
-    )
+    val action: UiAction?
+
+    /** String resource with an error message to show the user */
+    @get:StringRes
+    val message: Int
+
+    data class ClearNotifications(
+        override val throwable: Throwable,
+        override val action: FallibleUiAction.ClearNotifications = FallibleUiAction.ClearNotifications,
+        override val message: Int = R.string.ui_error_clear_notifications,
+    ) : UiError
 
     data class Bookmark(
         override val throwable: Throwable,
         override val action: StatusAction.Bookmark,
-    ) : UiError(throwable, R.string.ui_error_bookmark, action)
+        override val message: Int = R.string.ui_error_bookmark,
+    ) : UiError
 
     data class Favourite(
         override val throwable: Throwable,
         override val action: StatusAction.Favourite,
-    ) : UiError(throwable, R.string.ui_error_favourite, action)
+        override val message: Int = R.string.ui_error_favourite,
+    ) : UiError
 
     data class Reblog(
         override val throwable: Throwable,
         override val action: StatusAction.Reblog,
-    ) : UiError(throwable, R.string.ui_error_reblog, action)
+        override val message: Int = R.string.ui_error_reblog,
+    ) : UiError
 
     data class VoteInPoll(
         override val throwable: Throwable,
         override val action: StatusAction.VoteInPoll,
-    ) : UiError(throwable, R.string.ui_error_vote, action)
+        override val message: Int = R.string.ui_error_vote,
+    ) : UiError
 
     data class AcceptFollowRequest(
         override val throwable: Throwable,
         override val action: NotificationAction.AcceptFollowRequest,
-    ) : UiError(throwable, R.string.ui_error_accept_follow_request, action)
+        override val message: Int = R.string.ui_error_accept_follow_request,
+    ) : UiError
 
     data class RejectFollowRequest(
         override val throwable: Throwable,
         override val action: NotificationAction.RejectFollowRequest,
-    ) : UiError(throwable, R.string.ui_error_reject_follow_request, action)
+        override val message: Int = R.string.ui_error_reject_follow_request,
+    ) : UiError
 
     data class GetFilters(
         override val throwable: Throwable,
-    ) : UiError(throwable, R.string.ui_error_filter_v1_load, null)
+        override val action: UiAction? = null,
+        override val message: Int = R.string.ui_error_filter_v1_load,
+    ) : UiError
 
     companion object {
         fun make(throwable: Throwable, action: FallibleUiAction) = when (action) {

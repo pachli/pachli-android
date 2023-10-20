@@ -37,17 +37,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
-sealed class UiAction
+sealed interface UiAction
 
-sealed class InfallibleUiAction : UiAction() {
-    data object Reload : InfallibleUiAction()
+sealed interface InfallibleUiAction : UiAction {
+    data object Reload : InfallibleUiAction
 }
 
-sealed class LoadState {
-    data object Initial : LoadState()
-    data object Loading : LoadState()
-    data class Success(val data: List<TrendsLink>) : LoadState()
-    data class Error(val throwable: Throwable) : LoadState()
+sealed interface LoadState {
+    data object Initial : LoadState
+    data object Loading : LoadState
+    data class Success(val data: List<TrendsLink>) : LoadState
+    data class Error(val throwable: Throwable) : LoadState
 }
 
 @HiltViewModel
