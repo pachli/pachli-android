@@ -18,13 +18,13 @@ package app.pachli.viewdata
 import app.pachli.entity.TrendingTag
 import java.util.Date
 
-sealed class TrendingViewData {
-    abstract val id: String
+sealed interface TrendingViewData {
+    val id: String
 
     data class Header(
         val start: Date,
         val end: Date,
-    ) : TrendingViewData() {
+    ) : TrendingViewData {
         override val id: String
             get() = start.toString() + end.toString()
     }
@@ -34,7 +34,7 @@ sealed class TrendingViewData {
         val usage: List<Long>,
         val accounts: List<Long>,
         val maxTrendingValue: Long,
-    ) : TrendingViewData() {
+    ) : TrendingViewData {
         override val id: String
             get() = name
 
