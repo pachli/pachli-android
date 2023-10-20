@@ -41,5 +41,5 @@ class TranslateUseCase @Inject constructor(
 }
 
 inline fun <T, E> NetworkResult<T>.okOrElse(onFailure: (exception: Throwable) -> E): Result<T, E> {
-    return fold(onSuccess = { Ok(it) }, onFailure = { Err(onFailure(it))} )
+    return fold(onSuccess = { Ok(it) }, onFailure = { Err(onFailure(it)) })
 }

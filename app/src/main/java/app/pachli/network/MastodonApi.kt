@@ -808,5 +808,4 @@ interface MastodonApi {
 
     @GET("api/v1/trends/statuses")
     suspend fun trendingStatuses(): Response<List<Status>>
-
 }

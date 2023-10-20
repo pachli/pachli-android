@@ -29,7 +29,7 @@ import app.pachli.entity.Status
  * a refresh operation).
  */
 @Entity(
-    primaryKeys = ["serverId", "timelineUserId"]
+    primaryKeys = ["serverId", "timelineUserId"],
 )
 @TypeConverters(Converters::class)
 data class TranslatedStatusEntity(

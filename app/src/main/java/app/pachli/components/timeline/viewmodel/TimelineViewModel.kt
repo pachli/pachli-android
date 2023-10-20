@@ -47,7 +47,6 @@ import app.pachli.db.AccountManager
 import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
-import app.pachli.entity.Translation
 import app.pachli.network.FilterModel
 import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
@@ -167,20 +166,15 @@ sealed interface StatusAction : FallibleUiAction {
 sealed interface StatusActionSuccess : UiSuccess {
     val action: StatusAction
 
-    data class Bookmark(override val action: StatusAction.Bookmark) :
-        StatusActionSuccess
+    data class Bookmark(override val action: StatusAction.Bookmark) : StatusActionSuccess
 
-    data class Favourite(override val action: StatusAction.Favourite) :
-        StatusActionSuccess
+    data class Favourite(override val action: StatusAction.Favourite) : StatusActionSuccess
 
-    data class Reblog(override val action: StatusAction.Reblog) :
-        StatusActionSuccess
+    data class Reblog(override val action: StatusAction.Reblog) : StatusActionSuccess
 
-    data class VoteInPoll(override val action: StatusAction.VoteInPoll) :
-        StatusActionSuccess
+    data class VoteInPoll(override val action: StatusAction.VoteInPoll) : StatusActionSuccess
 
-    data class TranslateStatus(override val action: StatusAction.TranslateStatus) :
-        StatusActionSuccess
+    data class TranslateStatus(override val action: StatusAction.TranslateStatus) : StatusActionSuccess
 
     companion object {
         fun from(action: StatusAction) = when (action) {
@@ -206,12 +200,12 @@ sealed interface UiError {
     /** The throwable associated with the error */
     val throwable: Throwable
 
+    /** The action that failed. Can be resent to retry the action */
+    val action: UiAction?
+
     /** String resource with an error message to show the user */
     @get:StringRes
     val message: Int
-
-    /** The action that failed. Can be resent to retry the action */
-    val action: UiAction?
 
     data class Bookmark(
         override val throwable: Throwable,
@@ -222,25 +216,26 @@ sealed interface UiError {
     data class Favourite(
         override val throwable: Throwable,
         override val action: StatusAction.Favourite,
-        override val message: Int = R.string.ui_error_favourite
+        override val message: Int = R.string.ui_error_favourite,
     ) : UiError
 
     data class Reblog(
         override val throwable: Throwable,
         override val action: StatusAction.Reblog,
-        override val message: Int = R.string.ui_error_reblog
+        override val message: Int = R.string.ui_error_reblog,
     ) : UiError
 
     data class VoteInPoll(
         override val throwable: Throwable,
         override val action: StatusAction.VoteInPoll,
-        override val message: Int = R.string.ui_error_vote
+        override val message: Int = R.string.ui_error_vote,
+        override val message: Int = R.string.ui_error_vote,
     ) : UiError
 
     data class TranslateStatus(
         override val throwable: Throwable,
         override val action: StatusAction.TranslateStatus,
-        override val message: Int = R.string.ui_error_translate_status
+        override val message: Int = R.string.ui_error_translate_status,
     ) : UiError
 
     data class GetFilters(
@@ -355,7 +350,7 @@ abstract class TimelineViewModel(
                                 )
                             is StatusAction.TranslateStatus ->
                                 timelineCases.translateStatus(
-                                    action.statusViewData.actionableId
+                                    action.statusViewData.actionableId,
                                 )
                         }.getOrThrow()
                         uiSuccess.emit(StatusActionSuccess.from(action))
