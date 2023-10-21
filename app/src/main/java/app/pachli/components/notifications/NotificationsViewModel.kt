@@ -34,14 +34,14 @@ import app.pachli.appstore.MuteEvent
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.util.ifExpected
-import app.pachli.db.AccountManager
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Filter
 import app.pachli.entity.Notification
 import app.pachli.entity.Poll
 import app.pachli.network.FilterModel
-import app.pachli.settings.PrefKeys
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.deserialize
 import app.pachli.util.serialize

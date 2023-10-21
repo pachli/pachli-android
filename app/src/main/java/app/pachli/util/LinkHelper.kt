@@ -39,10 +39,10 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
 import app.pachli.R
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.entity.HashTag
 import app.pachli.entity.Status.Mention
 import app.pachli.interfaces.LinkListener
-import app.pachli.settings.PrefKeys
 import com.google.android.material.color.MaterialColors
 import java.net.URI
 import java.net.URISyntaxException

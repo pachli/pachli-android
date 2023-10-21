@@ -76,8 +76,9 @@ import app.pachli.components.preference.PreferencesActivity
 import app.pachli.components.scheduled.ScheduledStatusActivity
 import app.pachli.components.search.SearchActivity
 import app.pachli.components.trending.TrendingActivity
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ActivityMainBinding
-import app.pachli.db.AccountEntity
 import app.pachli.db.DraftsAlert
 import app.pachli.entity.Account
 import app.pachli.entity.Notification
@@ -86,7 +87,6 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.FabFragment
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.pager.MainPagerAdapter
-import app.pachli.settings.PrefKeys
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
 import app.pachli.util.EmbeddedFontFamily

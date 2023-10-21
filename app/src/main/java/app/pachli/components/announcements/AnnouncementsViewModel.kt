@@ -25,7 +25,7 @@ import app.pachli.appstore.EventHub
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.entity.Announcement
 import app.pachli.entity.Emoji
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource

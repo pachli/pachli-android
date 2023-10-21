@@ -15,7 +15,7 @@
 
 package app.pachli.interfaces
 
-import app.pachli.db.AccountEntity
+import app.pachli.core.database.model.AccountEntity
 
 interface AccountSelectionListener {
     fun onAccountSelected(account: AccountEntity)

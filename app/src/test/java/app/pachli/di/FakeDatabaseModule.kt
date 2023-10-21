@@ -19,8 +19,10 @@ package app.pachli.di
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
-import app.pachli.db.AppDatabase
-import app.pachli.db.Converters
+import app.pachli.core.database.AppDatabase
+import app.pachli.core.database.Converters
+import app.pachli.core.database.di.DatabaseModule
+import app.pachli.core.database.di.TransactionProvider
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

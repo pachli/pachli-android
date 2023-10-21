@@ -1,6 +1,6 @@
 package app.pachli.entity
 
-import app.pachli.settings.ProxyConfiguration
+import app.pachli.core.preferences.ProxyConfiguration
 import org.junit.Assert
 import org.junit.Test
 

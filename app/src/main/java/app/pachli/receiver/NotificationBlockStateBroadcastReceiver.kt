@@ -23,8 +23,8 @@ import android.os.Build
 import app.pachli.components.notifications.canEnablePushNotifications
 import app.pachli.components.notifications.isUnifiedPushNotificationEnabledForAccount
 import app.pachli.components.notifications.updateUnifiedPushSubscription
-import app.pachli.db.AccountManager
-import app.pachli.network.MastodonApi
+import app.pachli.core.database.AccountManager
+import app.pachli.core.network.retrofit.MastodonApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope

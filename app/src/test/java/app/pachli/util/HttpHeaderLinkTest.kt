@@ -18,6 +18,7 @@
 package app.pachli.util
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import app.pachli.core.network.model.HttpHeaderLink
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith

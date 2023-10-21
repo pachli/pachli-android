@@ -15,7 +15,7 @@
 
 package app.pachli.entity
 
-import app.pachli.json.GuardedBooleanAdapter
+import app.pachli.core.network.json.GuardedBooleanAdapter
 import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
 

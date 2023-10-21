@@ -17,8 +17,8 @@
 
 package app.pachli.usecase
 
-import app.pachli.db.TimelineDao
-import app.pachli.di.TransactionProvider
+import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.di.TransactionProvider
 import javax.inject.Inject
 
 /**

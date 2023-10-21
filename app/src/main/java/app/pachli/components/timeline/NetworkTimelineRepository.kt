@@ -27,9 +27,9 @@ import androidx.paging.PagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
-import app.pachli.db.AccountManager
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Status
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.getDomain
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow

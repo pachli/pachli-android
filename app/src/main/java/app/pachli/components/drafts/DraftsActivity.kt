@@ -27,8 +27,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity
+import app.pachli.core.database.model.DraftEntity
 import app.pachli.databinding.ActivityDraftsBinding
-import app.pachli.db.DraftEntity
 import app.pachli.db.DraftsAlert
 import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.visible

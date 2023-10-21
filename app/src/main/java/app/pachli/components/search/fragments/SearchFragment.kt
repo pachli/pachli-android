@@ -23,7 +23,7 @@ import app.pachli.components.account.AccountActivity
 import app.pachli.components.search.SearchViewModel
 import app.pachli.databinding.FragmentSearchBinding
 import app.pachli.interfaces.LinkListener
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import com.google.android.material.color.MaterialColors

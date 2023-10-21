@@ -23,10 +23,11 @@ import app.cash.turbine.test
 import app.pachli.PachliApplication
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.MainCoroutineRule
-import app.pachli.db.AccountManager
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Account
 import app.pachli.settings.AccountPreferenceDataStore
-import app.pachli.settings.PrefKeys
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule

@@ -4,6 +4,12 @@ import androidx.paging.PagingSource
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import app.pachli.core.database.AppDatabase
+import app.pachli.core.database.Converters
+import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.TimelineStatusEntity
+import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.entity.Status
 import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking

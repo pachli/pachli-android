@@ -17,7 +17,7 @@
 
 package app.pachli.components.trending
 
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import javax.inject.Inject
 
 class TrendingLinksRepository @Inject constructor(

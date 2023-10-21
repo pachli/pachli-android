@@ -47,10 +47,10 @@
     public *;
 }
 
--keepclassmembers class app.pachli.components.conversation.ConversationAccountEntity { *; }
--keepclassmembers class app.pachli.db.DraftAttachment { *; }
+-keepclassmembers class app.pachli.core.database.model.ConversationAccountEntity { *; }
+-keepclassmembers class app.pachli.core.database.model.DraftAttachment { *; }
 
--keep enum app.pachli.db.DraftAttachment$Type {
+-keep enum app.pachli.core.database.model.DraftAttachment$Type {
     public *;
 }
 

@@ -30,7 +30,7 @@ import app.pachli.entity.DeletedStatus
 import app.pachli.entity.Poll
 import app.pachli.entity.Relationship
 import app.pachli.entity.Status
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.getServerErrorMessage
 import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold

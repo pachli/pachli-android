@@ -22,11 +22,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import app.pachli.components.search.adapter.SearchPagingSourceFactory
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.DeletedStatus
 import app.pachli.entity.Status
-import app.pachli.network.MastodonApi
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult

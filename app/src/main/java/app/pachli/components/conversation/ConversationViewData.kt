@@ -15,6 +15,8 @@
 
 package app.pachli.components.conversation
 
+import app.pachli.core.database.model.ConversationAccountEntity
+import app.pachli.core.database.model.ConversationEntity
 import app.pachli.entity.Poll
 import app.pachli.viewdata.StatusViewData
 

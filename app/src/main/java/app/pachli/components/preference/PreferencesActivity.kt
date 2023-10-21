@@ -29,11 +29,11 @@ import app.pachli.BaseActivity
 import app.pachli.MainActivity
 import app.pachli.R
 import app.pachli.appstore.EventHub
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.PrefKeys.APP_THEME
+import app.pachli.core.preferences.getNonNullString
 import app.pachli.databinding.ActivityPreferencesBinding
-import app.pachli.settings.PrefKeys
-import app.pachli.settings.PrefKeys.APP_THEME
 import app.pachli.util.APP_THEME_DEFAULT
-import app.pachli.util.getNonNullString
 import app.pachli.util.setAppNightMode
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull

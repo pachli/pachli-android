@@ -19,7 +19,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import app.pachli.components.search.SearchType
 import app.pachli.entity.SearchResult
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.getOrElse
 
 class SearchPagingSource<T : Any>(

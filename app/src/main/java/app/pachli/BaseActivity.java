@@ -17,7 +17,7 @@
 
 package app.pachli;
 
-import static app.pachli.settings.PrefKeys.APP_THEME;
+import static app.pachli.core.preferences.PrefKeys.APP_THEME;
 import static app.pachli.util.ThemeUtils.THEME_BLACK;
 
 import android.app.ActivityManager;
@@ -53,13 +53,13 @@ import javax.inject.Inject;
 
 import app.pachli.adapter.AccountSelectionAdapter;
 import app.pachli.components.login.LoginActivity;
-import app.pachli.db.AccountEntity;
-import app.pachli.db.AccountManager;
+import app.pachli.core.database.model.AccountEntity;
+import app.pachli.core.preferences.PrefKeys;
+import app.pachli.core.preferences.SharedPreferencesRepository;
+import app.pachli.core.database.AccountManager;
 import app.pachli.interfaces.AccountSelectionListener;
 import app.pachli.interfaces.PermissionRequester;
-import app.pachli.settings.PrefKeys;
 import app.pachli.util.EmbeddedFontFamily;
-import app.pachli.util.SharedPreferencesRepository;
 import app.pachli.util.ThemeUtils;
 import dagger.hilt.EntryPoint;
 import dagger.hilt.InstallIn;

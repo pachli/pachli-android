@@ -20,9 +20,9 @@ import android.view.View
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import app.pachli.components.search.adapter.SearchAccountsAdapter
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.entity.TimelineAccount
-import app.pachli.settings.PrefKeys
-import app.pachli.util.SharedPreferencesRepository
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow

@@ -19,10 +19,10 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
-import app.pachli.db.AccountManager
+import app.pachli.core.preferences.AppTheme
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Notification
-import app.pachli.settings.AppTheme
-import app.pachli.settings.PrefKeys
 import app.pachli.settings.emojiPreference
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen

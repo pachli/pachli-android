@@ -22,7 +22,7 @@ import app.pachli.components.timeline.MainCoroutineRule
 import app.pachli.entity.SearchResult
 import app.pachli.entity.Status
 import app.pachli.entity.TimelineAccount
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher

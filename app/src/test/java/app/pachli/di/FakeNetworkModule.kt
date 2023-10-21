@@ -18,7 +18,8 @@
 package app.pachli.di
 
 import app.pachli.components.compose.MediaUploader
-import app.pachli.json.Rfc3339DateJsonAdapter
+import app.pachli.core.network.di.NetworkModule
+import app.pachli.core.network.json.Rfc3339DateJsonAdapter
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

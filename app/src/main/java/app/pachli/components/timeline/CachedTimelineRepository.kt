@@ -24,14 +24,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
-import app.pachli.db.AccountManager
-import app.pachli.db.RemoteKeyDao
-import app.pachli.db.StatusViewDataEntity
-import app.pachli.db.TimelineDao
-import app.pachli.db.TimelineStatusWithAccount
-import app.pachli.di.ApplicationScope
-import app.pachli.di.TransactionProvider
-import app.pachli.network.MastodonApi
+import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.database.AccountManager
+import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.StatusViewDataEntity
+import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.EmptyPagingSource
 import app.pachli.viewdata.StatusViewData
 import com.google.gson.Gson
@@ -55,7 +55,7 @@ class CachedTimelineRepository @Inject constructor(
     val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val gson: Gson,
-    @ApplicationScope private val externalScope: CoroutineScope,
+    @app.pachli.core.common.di.ApplicationScope private val externalScope: CoroutineScope,
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
 

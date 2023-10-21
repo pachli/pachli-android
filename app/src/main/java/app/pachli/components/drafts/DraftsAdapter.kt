@@ -21,8 +21,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.core.database.model.DraftEntity
 import app.pachli.databinding.ItemDraftBinding
-import app.pachli.db.DraftEntity
 import app.pachli.util.BindingHolder
 import app.pachli.util.hide
 import app.pachli.util.show

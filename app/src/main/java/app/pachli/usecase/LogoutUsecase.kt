@@ -4,11 +4,11 @@ import android.content.Context
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.NotificationHelper
 import app.pachli.components.notifications.disableUnifiedPushNotificationsForAccount
-import app.pachli.db.AccountManager
-import app.pachli.db.ConversationsDao
-import app.pachli.db.RemoteKeyDao
-import app.pachli.db.TimelineDao
-import app.pachli.network.MastodonApi
+import app.pachli.core.database.dao.ConversationsDao
+import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.database.AccountManager
 import app.pachli.util.removeShortcut
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

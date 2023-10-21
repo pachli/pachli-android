@@ -22,9 +22,9 @@ import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import app.pachli.BuildConfig
-import app.pachli.db.DraftAttachment
-import app.pachli.db.DraftDao
-import app.pachli.db.DraftEntity
+import app.pachli.core.database.dao.DraftDao
+import app.pachli.core.database.model.DraftAttachment
+import app.pachli.core.database.model.DraftEntity
 import app.pachli.entity.Attachment
 import app.pachli.entity.NewPoll
 import app.pachli.entity.Status

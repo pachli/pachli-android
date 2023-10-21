@@ -43,7 +43,7 @@ import app.pachli.components.compose.ComposeActivity
 import app.pachli.components.compose.ComposeActivity.ComposeOptions
 import app.pachli.components.report.ReportActivity
 import app.pachli.components.search.adapter.SearchStatusesAdapter
-import app.pachli.db.AccountEntity
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
 import app.pachli.entity.Status.Mention

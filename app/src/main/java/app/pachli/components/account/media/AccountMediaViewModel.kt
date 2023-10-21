@@ -21,8 +21,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import app.pachli.db.AccountManager
-import app.pachli.network.MastodonApi
+import app.pachli.core.database.AccountManager
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.viewdata.AttachmentViewData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -25,9 +25,9 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import app.pachli.BuildConfig
 import app.pachli.components.timeline.TimelineKind
-import app.pachli.db.AccountManager
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Status
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import kotlinx.coroutines.CoroutineScope
 import retrofit2.HttpException
 import retrofit2.Response

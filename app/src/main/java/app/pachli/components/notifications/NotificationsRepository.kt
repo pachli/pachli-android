@@ -23,9 +23,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
-import app.pachli.di.ApplicationScope
+import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.entity.Notification
-import app.pachli.network.MastodonApi
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -37,7 +37,7 @@ import javax.inject.Inject
 class NotificationsRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val gson: Gson,
-    @ApplicationScope private val externalScope: CoroutineScope,
+    @app.pachli.core.common.di.ApplicationScope private val externalScope: CoroutineScope,
 ) {
     private var factory: InvalidatingPagingSourceFactory<String, Notification>? = null
 

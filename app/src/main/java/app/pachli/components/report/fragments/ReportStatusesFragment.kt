@@ -40,7 +40,7 @@ import app.pachli.components.report.Screen
 import app.pachli.components.report.adapter.AdapterHandler
 import app.pachli.components.report.adapter.StatusesAdapter
 import app.pachli.databinding.FragmentReportStatusesBinding
-import app.pachli.db.AccountManager
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
 import app.pachli.util.viewBinding

@@ -27,7 +27,7 @@ import app.pachli.components.instanceinfo.InstanceInfo
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.entity.Account
 import app.pachli.entity.StringField
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource

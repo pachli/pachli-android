@@ -18,7 +18,7 @@
 package app.pachli.components.notifications
 
 import app.cash.turbine.test
-import app.pachli.db.AccountEntity
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.entity.Notification
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest

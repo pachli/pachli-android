@@ -31,6 +31,7 @@ import java.util.List;
 
 import app.pachli.R;
 import app.pachli.adapter.StatusBaseViewHolder;
+import app.pachli.core.database.model.ConversationAccountEntity;
 import app.pachli.entity.Attachment;
 import app.pachli.entity.Status;
 import app.pachli.entity.TimelineAccount;

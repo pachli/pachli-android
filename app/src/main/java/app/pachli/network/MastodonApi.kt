@@ -15,6 +15,8 @@
 
 package app.pachli.network
 
+import app.pachli.core.network.model.HttpHeaderLink
+import app.pachli.core.network.model.Links
 import app.pachli.entity.AccessToken
 import app.pachli.entity.Account
 import app.pachli.entity.Announcement
@@ -45,7 +47,6 @@ import app.pachli.entity.StatusSource
 import app.pachli.entity.TimelineAccount
 import app.pachli.entity.TrendingTag
 import app.pachli.entity.TrendsLink
-import app.pachli.util.HttpHeaderLink
 import at.connyduck.calladapter.networkresult.NetworkResult
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

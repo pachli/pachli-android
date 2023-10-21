@@ -20,11 +20,12 @@ package app.pachli.util
 import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
-import app.pachli.di.ApplicationScope
+import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.database.AccountManager
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.settings.AccountPreferenceDataStore
-import app.pachli.settings.PrefKeys
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -45,7 +46,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val accountManager: AccountManager,
     private val accountPreferenceDataStore: AccountPreferenceDataStore,
-    @ApplicationScope private val externalScope: CoroutineScope,
+    @app.pachli.core.common.di.ApplicationScope private val externalScope: CoroutineScope,
 ) {
     /** Default status display options */
     private val default = StatusDisplayOptions()

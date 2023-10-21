@@ -17,7 +17,8 @@
 
 package app.pachli.di
 
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.di.MastodonApiModule
+import app.pachli.core.network.retrofit.MastodonApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent

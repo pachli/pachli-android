@@ -23,12 +23,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.PachliApplication
 import app.pachli.R
 import app.pachli.components.instanceinfo.InstanceInfoRepository
-import app.pachli.db.AccountManager
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Account
 import app.pachli.entity.Instance
 import app.pachli.entity.InstanceConfiguration
 import app.pachli.entity.StatusConfiguration
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.rules.lazyActivityScenarioRule
 import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.CustomTestApplication

@@ -32,12 +32,12 @@ import app.pachli.components.followedtags.FollowedTagsActivity
 import app.pachli.components.instancemute.InstanceListActivity
 import app.pachli.components.login.LoginActivity
 import app.pachli.components.notifications.currentAccountNeedsMigration
-import app.pachli.db.AccountManager
+import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Account
 import app.pachli.entity.Status
-import app.pachli.network.MastodonApi
 import app.pachli.settings.AccountPreferenceDataStore
-import app.pachli.settings.PrefKeys
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preference

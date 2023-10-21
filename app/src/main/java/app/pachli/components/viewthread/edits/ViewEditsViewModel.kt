@@ -22,7 +22,7 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.DELETED_TEXT_EL
 import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.INSERTED_TEXT_EL
 import app.pachli.entity.StatusEdit
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.getOrElse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

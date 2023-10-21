@@ -27,12 +27,12 @@ import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.instanceinfo.InstanceInfo
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.components.search.SearchType
-import app.pachli.db.AccountManager
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Attachment
 import app.pachli.entity.Emoji
 import app.pachli.entity.NewPoll
 import app.pachli.entity.Status
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.service.MediaToSend
 import app.pachli.service.ServiceClient
 import app.pachli.service.StatusToSend

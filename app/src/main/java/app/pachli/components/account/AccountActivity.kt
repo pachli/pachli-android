@@ -54,8 +54,9 @@ import app.pachli.components.account.list.ListsForAccountFragment
 import app.pachli.components.accountlist.AccountListActivity
 import app.pachli.components.compose.ComposeActivity
 import app.pachli.components.report.ReportActivity
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ActivityAccountBinding
-import app.pachli.db.AccountEntity
 import app.pachli.db.DraftsAlert
 import app.pachli.entity.Account
 import app.pachli.entity.Relationship
@@ -63,7 +64,6 @@ import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.LinkListener
 import app.pachli.interfaces.ReselectableFragment
-import app.pachli.settings.PrefKeys
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success

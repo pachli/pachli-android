@@ -31,10 +31,10 @@ import app.pachli.BaseActivity
 import app.pachli.BuildConfig
 import app.pachli.MainActivity
 import app.pachli.R
+import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.preferences.getNonNullString
 import app.pachli.databinding.ActivityLoginBinding
 import app.pachli.entity.AccessToken
-import app.pachli.network.MastodonApi
-import app.pachli.util.getNonNullString
 import app.pachli.util.openLinkInCustomTab
 import app.pachli.util.rickRoll
 import app.pachli.util.shouldRickRoll

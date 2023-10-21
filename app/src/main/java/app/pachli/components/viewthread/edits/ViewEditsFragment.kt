@@ -33,10 +33,10 @@ import app.pachli.BottomSheetActivity
 import app.pachli.R
 import app.pachli.StatusListActivity
 import app.pachli.components.account.AccountActivity
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentViewEditsBinding
 import app.pachli.interfaces.LinkListener
-import app.pachli.settings.PrefKeys
-import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.emojify
 import app.pachli.util.hide
 import app.pachli.util.loadAvatar

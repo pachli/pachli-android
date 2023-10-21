@@ -38,13 +38,13 @@ import app.pachli.StatusListActivity
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.appstore.EventHub
 import app.pachli.components.account.AccountActivity
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.settings.PrefKeys
-import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.hide
 import app.pachli.util.show

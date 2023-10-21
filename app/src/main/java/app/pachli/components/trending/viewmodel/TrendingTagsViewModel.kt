@@ -24,7 +24,7 @@ import app.pachli.entity.Filter
 import app.pachli.entity.TrendingTag
 import app.pachli.entity.end
 import app.pachli.entity.start
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.viewdata.TrendingViewData
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel

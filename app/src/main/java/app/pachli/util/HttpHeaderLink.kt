@@ -19,6 +19,7 @@ package app.pachli.util
 import android.net.Uri
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
+import app.pachli.core.network.model.HttpHeaderLink
 
 /**
  * Represents one link and its parameters from the link header of an HTTP message.

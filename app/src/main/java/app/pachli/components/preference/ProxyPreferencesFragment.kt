@@ -19,15 +19,15 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
-import app.pachli.settings.PrefKeys
-import app.pachli.settings.ProxyConfiguration
-import app.pachli.settings.ProxyConfiguration.Companion.MAX_PROXY_PORT
-import app.pachli.settings.ProxyConfiguration.Companion.MIN_PROXY_PORT
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.ProxyConfiguration
+import app.pachli.core.preferences.ProxyConfiguration.Companion.MAX_PROXY_PORT
+import app.pachli.core.preferences.ProxyConfiguration.Companion.MIN_PROXY_PORT
+import app.pachli.core.preferences.getNonNullString
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preferenceCategory
 import app.pachli.settings.switchPreference
 import app.pachli.settings.validatedEditTextPreference
-import app.pachli.util.getNonNullString
 import kotlin.system.exitProcess
 
 class ProxyPreferencesFragment : PreferenceFragmentCompat() {

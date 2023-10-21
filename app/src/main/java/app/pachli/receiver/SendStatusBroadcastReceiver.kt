@@ -27,7 +27,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.RemoteInput
 import app.pachli.R
 import app.pachli.components.notifications.NotificationHelper
-import app.pachli.db.AccountManager
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Status
 import app.pachli.service.SendStatusService
 import app.pachli.service.StatusToSend

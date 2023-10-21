@@ -45,7 +45,7 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.entity.MastoList
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.getDimension
 import app.pachli.util.hide
 import app.pachli.util.show

@@ -19,8 +19,8 @@ package app.pachli.components.timeline.viewmodel
 
 import android.util.Log
 import app.pachli.BuildConfig
+import app.pachli.core.network.model.Links
 import app.pachli.entity.Status
-import app.pachli.network.Links
 import app.pachli.util.isLessThan
 import retrofit2.HttpException
 import retrofit2.Response

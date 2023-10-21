@@ -44,12 +44,12 @@ import app.pachli.components.compose.ComposeActivity
 import app.pachli.components.compose.ComposeActivity.Companion.startIntent
 import app.pachli.components.compose.ComposeActivity.ComposeOptions
 import app.pachli.components.report.ReportActivity.Companion.getIntent
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Attachment
 import app.pachli.entity.Status
 import app.pachli.interfaces.AccountSelectionListener
-import app.pachli.network.MastodonApi
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.openLink
 import app.pachli.util.parseAsMastodonHtml

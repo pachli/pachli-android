@@ -19,7 +19,7 @@ package app.pachli.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.entity.MastoList
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.replacedFirstWhich
 import app.pachli.util.withoutFirstWhich
 import at.connyduck.calladapter.networkresult.fold

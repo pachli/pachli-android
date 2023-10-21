@@ -28,13 +28,13 @@ import app.pachli.components.compose.MediaUploader
 import app.pachli.components.compose.UploadEvent
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.NotificationHelper
-import app.pachli.db.AccountManager
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Attachment
 import app.pachli.entity.MediaAttribute
 import app.pachli.entity.NewPoll
 import app.pachli.entity.NewStatus
 import app.pachli.entity.Status
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.unsafeLazy
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.AndroidEntryPoint

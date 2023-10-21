@@ -19,7 +19,7 @@ package app.pachli.components.notifications
 
 import androidx.core.content.edit
 import app.cash.turbine.test
-import app.pachli.settings.PrefKeys
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.util.StatusDisplayOptions
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest

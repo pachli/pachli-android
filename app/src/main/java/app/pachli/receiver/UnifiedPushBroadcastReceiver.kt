@@ -21,8 +21,8 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import app.pachli.components.notifications.registerUnifiedPushEndpoint
 import app.pachli.components.notifications.unregisterUnifiedPushEndpoint
-import app.pachli.db.AccountManager
-import app.pachli.network.MastodonApi
+import app.pachli.core.database.AccountManager
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.worker.NotificationWorker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.DelicateCoroutinesApi

@@ -20,7 +20,7 @@ package app.pachli.components.timeline
 import androidx.core.content.edit
 import app.cash.turbine.test
 import app.pachli.components.timeline.viewmodel.UiState
-import app.pachli.settings.PrefKeys
+import app.pachli.core.preferences.PrefKeys
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest

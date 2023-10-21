@@ -17,13 +17,13 @@
 
 package app.pachli.components.instanceinfo
 
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
-import app.pachli.db.InstanceDao
+import app.pachli.core.database.dao.InstanceDao
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.database.AccountManager
 import app.pachli.entity.Instance
 import app.pachli.entity.InstanceConfiguration
 import app.pachli.entity.StatusConfiguration
-import app.pachli.network.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.instancemute.adapter.DomainMutesAdapter
 import app.pachli.components.instancemute.interfaces.InstanceActionListener
+import app.pachli.core.network.model.HttpHeaderLink
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.FragmentInstanceListBinding
-import app.pachli.network.MastodonApi
-import app.pachli.util.HttpHeaderLink
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding

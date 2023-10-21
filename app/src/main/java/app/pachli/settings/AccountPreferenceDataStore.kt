@@ -1,9 +1,10 @@
 package app.pachli.settings
 
 import androidx.preference.PreferenceDataStore
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
-import app.pachli.di.ApplicationScope
+import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.database.AccountManager
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.preferences.PrefKeys
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -11,7 +12,7 @@ import javax.inject.Inject
 
 class AccountPreferenceDataStore @Inject constructor(
     private val accountManager: AccountManager,
-    @ApplicationScope private val externalScope: CoroutineScope,
+    @app.pachli.core.common.di.ApplicationScope private val externalScope: CoroutineScope,
 ) : PreferenceDataStore() {
     /** Flow of key/values that have been updated in the preferences */
     val changes = MutableSharedFlow<Pair<String, Boolean>>()

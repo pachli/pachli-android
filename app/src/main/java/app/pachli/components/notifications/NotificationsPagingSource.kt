@@ -21,10 +21,10 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
+import app.pachli.core.network.model.Links
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.entity.Error
 import app.pachli.entity.Notification
-import app.pachli.network.Links
-import app.pachli.network.MastodonApi
 import com.google.gson.Gson
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

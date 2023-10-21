@@ -26,7 +26,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
 import app.pachli.components.account.AccountActivity
 import app.pachli.components.viewthread.ViewThreadActivity
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.looksLikeMastodonUrl
 import app.pachli.util.openLink
 import at.connyduck.calladapter.networkresult.fold
