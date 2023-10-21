@@ -20,10 +20,10 @@ package app.pachli.components.instanceinfo
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.model.Instance
+import app.pachli.core.network.model.InstanceConfiguration
+import app.pachli.core.network.model.StatusConfiguration
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.entity.Instance
-import app.pachli.entity.InstanceConfiguration
-import app.pachli.entity.StatusConfiguration
 import at.connyduck.calladapter.networkresult.NetworkResult
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

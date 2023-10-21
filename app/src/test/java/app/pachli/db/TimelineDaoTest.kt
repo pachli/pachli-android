@@ -10,6 +10,7 @@ import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.network.model.Status
 import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
 import org.junit.After

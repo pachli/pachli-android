@@ -19,6 +19,7 @@ package app.pachli.components.notifications
 
 import androidx.core.content.edit
 import app.cash.turbine.test
+import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest

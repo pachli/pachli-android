@@ -1,6 +1,7 @@
 package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import app.pachli.core.network.model.Status
 import app.pachli.viewdata.StatusViewData
 import com.google.gson.Gson
 import org.junit.Assert.assertEquals

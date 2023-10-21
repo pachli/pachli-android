@@ -18,6 +18,7 @@
 package app.pachli.components.notifications
 
 import app.cash.turbine.test
+import app.pachli.core.network.model.Relationship
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest

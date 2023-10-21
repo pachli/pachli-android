@@ -6,6 +6,8 @@ import android.text.style.URLSpan
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.R
+import app.pachli.core.network.model.HashTag
+import app.pachli.core.network.model.Status
 import app.pachli.interfaces.LinkListener
 import org.junit.Assert
 import org.junit.Test

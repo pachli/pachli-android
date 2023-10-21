@@ -24,11 +24,11 @@ import app.pachli.PachliApplication
 import app.pachli.R
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Instance
+import app.pachli.core.network.model.InstanceConfiguration
+import app.pachli.core.network.model.StatusConfiguration
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.entity.Account
-import app.pachli.entity.InstanceConfiguration
-import app.pachli.entity.StatusConfiguration
 import app.pachli.rules.lazyActivityScenarioRule
 import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.CustomTestApplication
@@ -537,21 +537,21 @@ class ComposeActivityTest {
     }
 
     /** Returns an intent to launch [ComposeActivity] with the given options */
-    private fun intent(composeOptions: ComposeActivity<Any?>.ComposeOptions) = ComposeActivity.startIntent(
+    private fun intent(composeOptions: ComposeActivity.ComposeOptions) = ComposeActivity.startIntent(
         ApplicationProvider.getApplicationContext(),
         composeOptions,
     )
 
-    private fun clickUp(activity: ComposeActivity<Any?>) {
+    private fun clickUp(activity: ComposeActivity) {
         val menuItem = RoboMenuItem(android.R.id.home)
         activity.onOptionsItemSelected(menuItem)
     }
 
-    private fun clickBack(activity: ComposeActivity<Any?>) {
+    private fun clickBack(activity: ComposeActivity) {
         activity.onBackPressedDispatcher.onBackPressed()
     }
 
-    private fun insertSomeTextInContent(activity: ComposeActivity<Any?>, text: String? = null) {
+    private fun insertSomeTextInContent(activity: ComposeActivity, text: String? = null) {
         activity.findViewById<EditText>(R.id.composeEditField).setText(text ?: "Some text")
     }
 

@@ -23,9 +23,9 @@ import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.network.model.Account
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.entity.Account
 import app.pachli.network.FilterModel
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases

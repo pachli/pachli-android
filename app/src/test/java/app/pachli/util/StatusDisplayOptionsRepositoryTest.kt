@@ -24,9 +24,9 @@ import app.pachli.PachliApplication
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.MainCoroutineRule
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.network.model.Account
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.entity.Account
 import app.pachli.settings.AccountPreferenceDataStore
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.CustomTestApplication

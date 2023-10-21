@@ -1,7 +1,7 @@
 package app.pachli
 
-import app.pachli.util.isLessThan
-import app.pachli.util.isLessThanOrEqual
+import app.pachli.core.common.string.isLessThan
+import app.pachli.core.common.string.isLessThanOrEqual
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

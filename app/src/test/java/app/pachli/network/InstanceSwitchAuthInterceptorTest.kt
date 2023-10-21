@@ -1,7 +1,5 @@
 package app.pachli.network
 
-import app.pachli.core.accounts.AccountManager
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import okhttp3.OkHttpClient
@@ -13,8 +11,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.doAnswer
-import org.mockito.kotlin.mock
 
 class InstanceSwitchAuthInterceptorTest {
 
@@ -34,12 +30,8 @@ class InstanceSwitchAuthInterceptorTest {
     fun `should make regular request when requested`() {
         mockWebServer.enqueue(MockResponse())
 
-        val accountManager: AccountManager = mock {
-            on { activeAccount } doAnswer { null }
-        }
-
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(InstanceSwitchAuthInterceptor(accountManager))
+            .addInterceptor(InstanceSwitchAuthInterceptor())
             .build()
 
         val request = Request.Builder()
@@ -56,21 +48,14 @@ class InstanceSwitchAuthInterceptorTest {
     fun `should make request to instance requested in special header`() {
         mockWebServer.enqueue(MockResponse())
 
-        val accountManager: AccountManager = mock {
-            on { activeAccount } doAnswer {
-                AccountEntity(
-                    id = 1,
-                    domain = "test.domain",
-                    accessToken = "fakeToken",
-                    clientId = "fakeId",
-                    clientSecret = "fakeSecret",
-                    isActive = true,
-                )
-            }
-        }
+        val interceptor = InstanceSwitchAuthInterceptor()
+        interceptor.credentials = InstanceSwitchAuthInterceptor.Credentials(
+            accessToken = "fakeToken",
+            domain = "test.domain"
+        )
 
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(InstanceSwitchAuthInterceptor(accountManager))
+            .addInterceptor(interceptor)
             .build()
 
         val request = Request.Builder()
@@ -90,21 +75,14 @@ class InstanceSwitchAuthInterceptorTest {
     fun `should make request to current instance when requested and user is logged in`() {
         mockWebServer.enqueue(MockResponse())
 
-        val accountManager: AccountManager = mock {
-            on { activeAccount } doAnswer {
-                AccountEntity(
-                    id = 1,
-                    domain = mockWebServer.hostName,
-                    accessToken = "fakeToken",
-                    clientId = "fakeId",
-                    clientSecret = "fakeSecret",
-                    isActive = true,
-                )
-            }
-        }
+        val interceptor = InstanceSwitchAuthInterceptor()
+        interceptor.credentials = InstanceSwitchAuthInterceptor.Credentials(
+            accessToken = "fakeToken",
+            domain = mockWebServer.hostName
+        )
 
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(InstanceSwitchAuthInterceptor(accountManager))
+            .addInterceptor(interceptor)
             .build()
 
         val request = Request.Builder()
@@ -123,12 +101,8 @@ class InstanceSwitchAuthInterceptorTest {
     fun `should fail to make request when request to current instance is requested but no user is logged in`() {
         mockWebServer.enqueue(MockResponse())
 
-        val accountManager: AccountManager = mock {
-            on { activeAccount } doAnswer { null }
-        }
-
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(InstanceSwitchAuthInterceptor(accountManager))
+            .addInterceptor(InstanceSwitchAuthInterceptor())
             .build()
 
         val request = Request.Builder()

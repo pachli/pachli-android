@@ -30,11 +30,13 @@ import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.notifications.NotificationHelper
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.NOTIFICATIONS
+import app.pachli.core.database.model.TabKind
 import app.pachli.core.database.model.defaultTabs
+import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.db.DraftsAlert
-import app.pachli.entity.Account
 import app.pachli.rules.lazyActivityScenarioRule
 import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.BindValue
@@ -150,7 +152,7 @@ class MainActivityTest {
         rule.launch(intent)
         rule.getScenario().onActivity {
             val currentTab = it.findViewById<ViewPager2>(R.id.viewPager).currentItem
-            val notificationTab = defaultTabs().indexOfFirst { it.id == NOTIFICATIONS }
+            val notificationTab = defaultTabs().indexOfFirst { it.kind == TabKind.NOTIFICATIONS }
             assertEquals(currentTab, notificationTab)
         }
     }

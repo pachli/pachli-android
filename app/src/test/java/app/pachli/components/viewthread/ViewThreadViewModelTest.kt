@@ -16,9 +16,10 @@ import app.pachli.components.timeline.mockStatusViewData
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.StatusContext
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.entity.Account
 import app.pachli.network.FilterModel
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
