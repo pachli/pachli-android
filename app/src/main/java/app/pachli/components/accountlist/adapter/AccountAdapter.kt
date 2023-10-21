@@ -17,8 +17,8 @@ package app.pachli.components.accountlist.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.core.network.model.TimelineAccount
 import app.pachli.databinding.ItemFooterBinding
-import app.pachli.entity.TimelineAccount
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.util.BindingHolder
 import app.pachli.util.removeDuplicates

@@ -1,4 +1,5 @@
-/* Copyright 2018 Conny Duck
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -10,8 +11,9 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.core.database.dao
 
@@ -19,6 +21,9 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.RewriteQueriesToDropUnusedColumns
 import androidx.room.Upsert
+import app.pachli.core.database.model.EmojisEntity
+import app.pachli.core.database.model.InstanceEntity
+import app.pachli.core.database.model.InstanceInfoEntity
 
 @Dao
 interface InstanceDao {

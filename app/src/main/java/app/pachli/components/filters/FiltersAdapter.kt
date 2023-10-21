@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.network.model.Filter
 import app.pachli.databinding.ItemRemovableBinding
-import app.pachli.entity.Filter
 import app.pachli.util.BindingHolder
 import app.pachli.util.getRelativeTimeSpanString
 
@@ -26,15 +26,14 @@ class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
 
         val filter = filters[position]
         val context = binding.root.context
-        binding.textPrimary.text = if (filter.expiresAt == null) {
-            filter.title
-        } else {
+        binding.textPrimary.text = filter.expiresAt?.let {
             context.getString(
                 R.string.filter_expiration_format,
                 filter.title,
-                getRelativeTimeSpanString(binding.root.context, filter.expiresAt.time, System.currentTimeMillis()),
+                getRelativeTimeSpanString(binding.root.context, it.time, System.currentTimeMillis()),
             )
-        }
+        } ?: filter.title
+
         binding.textSecondary.text = context.getString(
             R.string.filter_description_format,
             actions.getOrNull(filter.action.ordinal - 1),

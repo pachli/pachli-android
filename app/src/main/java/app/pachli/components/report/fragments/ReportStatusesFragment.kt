@@ -39,10 +39,10 @@ import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
 import app.pachli.components.report.adapter.AdapterHandler
 import app.pachli.components.report.adapter.StatusesAdapter
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Status
 import app.pachli.databinding.FragmentReportStatusesBinding
-import app.pachli.core.database.AccountManager
-import app.pachli.entity.Attachment
-import app.pachli.entity.Status
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import app.pachli.viewdata.AttachmentViewData

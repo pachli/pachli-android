@@ -1,10 +1,10 @@
 package app.pachli.appstore
 
-import app.pachli.TabData
-import app.pachli.entity.Account
-import app.pachli.entity.Filter
-import app.pachli.entity.Poll
-import app.pachli.entity.Status
+import app.pachli.core.database.model.TabData
+import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Status
 
 data class FavoriteEvent(val statusId: String, val favourite: Boolean) : Event
 data class ReblogEvent(val statusId: String, val reblog: Boolean) : Event

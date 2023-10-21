@@ -10,7 +10,7 @@ import android.graphics.Point
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import app.pachli.entity.Attachment
+import app.pachli.core.network.model.Attachment.Focus
 import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
@@ -21,7 +21,7 @@ class FocusIndicatorView
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
 ) : View(context, attrs, defStyleAttr) {
-    private var focus: Attachment.Focus? = null
+    private var focus: Focus? = null
     private var imageSize: Point? = null
     private var circleRadius: Float? = null
 
@@ -32,7 +32,7 @@ class FocusIndicatorView
         }
     }
 
-    fun setFocus(focus: Attachment.Focus) {
+    fun setFocus(focus: Focus) {
         this.focus = focus
         if (imageSize != null) {
             invalidate()
@@ -40,7 +40,7 @@ class FocusIndicatorView
     }
 
     // Assumes setFocus called first
-    fun getFocus(): Attachment.Focus {
+    fun getFocus(): Focus {
         return focus!!
     }
 
@@ -77,7 +77,7 @@ class FocusIndicatorView
         val imageSize = this.imageSize ?: return false
 
         // Convert touch xy to point inside image
-        focus = Attachment.Focus(axisToFocus(event.x, imageSize.x, this.width), -axisToFocus(event.y, imageSize.y, this.height))
+        focus = Focus(axisToFocus(event.x, imageSize.x, this.width), -axisToFocus(event.y, imageSize.y, this.height))
         invalidate()
         return true
     }

@@ -27,8 +27,8 @@ import androidx.paging.PagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
-import app.pachli.core.database.AccountManager
-import app.pachli.entity.Status
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.getDomain
 import kotlinx.coroutines.CoroutineScope
@@ -156,11 +156,9 @@ class NetworkTimelineRepository @Inject constructor(
                 val index = page.data.indexOfFirst { it.id == statusId }
                 if (index != -1) {
                     val status = page.data[index]
-                    if (status.reblog != null) {
-                        page.data[index] = status.copy(reblog = updater(status.reblog))
-                    } else {
-                        page.data[index] = updater(status)
-                    }
+                    page.data[index] = status.reblog?.let {
+                        status.copy(reblog = it)
+                    } ?: updater(status)
                 }
             }
         }

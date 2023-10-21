@@ -28,13 +28,13 @@ import androidx.work.testing.WorkManagerTestInitHelper
 import app.pachli.components.accountlist.AccountListActivity
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.notifications.NotificationHelper
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.NOTIFICATIONS
+import app.pachli.core.database.model.defaultTabs
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.database.AccountManager
 import app.pachli.db.DraftsAlert
 import app.pachli.entity.Account
-import app.pachli.entity.Notification
-import app.pachli.entity.TimelineAccount
 import app.pachli.rules.lazyActivityScenarioRule
 import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.BindValue

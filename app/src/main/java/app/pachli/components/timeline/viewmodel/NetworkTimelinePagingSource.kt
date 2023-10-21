@@ -21,7 +21,7 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
-import app.pachli.entity.Status
+import app.pachli.core.network.model.Status
 import javax.inject.Inject
 
 private val INVALID = LoadResult.Invalid<String, Status>()

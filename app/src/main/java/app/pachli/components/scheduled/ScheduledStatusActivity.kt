@@ -32,8 +32,8 @@ import app.pachli.R
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.StatusScheduledEvent
 import app.pachli.components.compose.ComposeActivity
+import app.pachli.core.network.model.ScheduledStatus
 import app.pachli.databinding.ActivityScheduledStatusBinding
-import app.pachli.entity.ScheduledStatus
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding

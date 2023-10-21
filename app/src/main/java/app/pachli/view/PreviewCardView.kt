@@ -24,8 +24,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import app.pachli.R
+import app.pachli.core.network.model.PreviewCard
 import app.pachli.databinding.PreviewCardBinding
-import app.pachli.entity.PreviewCard
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.decodeBlurHash
 import app.pachli.util.hide

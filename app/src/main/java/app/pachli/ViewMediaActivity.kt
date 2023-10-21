@@ -48,8 +48,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import app.pachli.BuildConfig.APPLICATION_ID
 import app.pachli.components.viewthread.ViewThreadActivity
+import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.ActivityViewMediaBinding
-import app.pachli.entity.Attachment
 import app.pachli.fragment.ViewImageFragment
 import app.pachli.fragment.ViewVideoFragment
 import app.pachli.pager.ImagePagerAdapter

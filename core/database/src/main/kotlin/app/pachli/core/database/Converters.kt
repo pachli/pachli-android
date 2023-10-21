@@ -17,17 +17,16 @@ package app.pachli.core.database
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import app.pachli.TabData
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.DraftAttachment
-import app.pachli.createTabDataFromId
-import app.pachli.entity.Attachment
-import app.pachli.entity.Emoji
-import app.pachli.entity.FilterResult
-import app.pachli.entity.HashTag
-import app.pachli.entity.NewPoll
-import app.pachli.entity.Poll
-import app.pachli.entity.Status
+import app.pachli.core.database.model.TabData
+import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.FilterResult
+import app.pachli.core.network.model.HashTag
+import app.pachli.core.network.model.NewPoll
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Status
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.net.URLDecoder
@@ -67,14 +66,13 @@ class Converters @Inject constructor(
         return str?.split(";")
             ?.map {
                 val data = it.split(":")
-                createTabDataFromId(data[0], data.drop(1).map { s -> URLDecoder.decode(s, "UTF-8") })
-            }
+                TabData.from(data[0], data.drop(1).map { s -> URLDecoder.decode(s, "UTF-8") })            }
     }
 
     @TypeConverter
     fun tabDataToString(tabData: List<TabData>?): String? {
         // List name may include ":"
-        return tabData?.joinToString(";") { it.id + ":" + it.arguments.joinToString(":") { s -> URLEncoder.encode(s, "UTF-8") } }
+        return tabData?.joinToString(";") { it.kind.repr + ":" + it.arguments.joinToString(":") { s -> URLEncoder.encode(s, "UTF-8") } }
     }
 
     @TypeConverter

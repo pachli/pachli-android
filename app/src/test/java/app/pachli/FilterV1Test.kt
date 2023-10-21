@@ -19,12 +19,8 @@ package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.filters.EditFilterActivity
-import app.pachli.entity.Attachment
-import app.pachli.entity.Filter
-import app.pachli.entity.FilterV1
 import app.pachli.entity.Poll
 import app.pachli.entity.PollOption
-import app.pachli.entity.Status
 import app.pachli.network.FilterModel
 import org.junit.Assert.assertEquals
 import org.junit.Before

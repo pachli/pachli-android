@@ -1004,7 +1004,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="54"
+            line="53"
             column="9"/>
     </issue>
 
@@ -1015,7 +1015,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="157"
+            line="156"
             column="13"/>
     </issue>
 
@@ -1413,17 +1413,6 @@
             file="src/main/res/menu/activity_scheduled_status.xml"
             line="19"
             column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.seed` appears to be unused"
-        errorLine1="    &lt;color name=&quot;seed&quot;>#006382&lt;/color>"
-        errorLine2="           ~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="4"
-            column="12"/>
     </issue>
 
     <issue
@@ -2660,28 +2649,6 @@
 
     <issue
         id="SyntheticAccessor"
-        message="Access to `private` method `swapHost` of class `Companion` requires synthetic accessor"
-        errorLine1="                builder.url(swapHost(originalRequest.url, instanceHeader))"
-        errorLine2="                            ~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/network/InstanceSwitchAuthInterceptor.kt"
-            line="42"
-            column="29"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `swapHost` of class `Companion` requires synthetic accessor"
-        errorLine1="                        builder.url(swapHost(originalRequest.url, currentAccount.domain))"
-        errorLine2="                                    ~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/network/InstanceSwitchAuthInterceptor.kt"
-            line="51"
-            column="37"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
         message="Access to `private` method `getContext` of class `ListStatusAccessibilityDelegate` requires synthetic accessor"
         errorLine1="                            context.getString(R.string.action_open_media_n, i + 1),"
         errorLine2="                            ~~~~~~~">
@@ -3039,7 +3006,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="233"
+            line="234"
             column="37"/>
     </issue>
 
@@ -3050,7 +3017,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="237"
+            line="238"
             column="37"/>
     </issue>
 
@@ -3061,7 +3028,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="341"
+            line="342"
             column="25"/>
     </issue>
 
@@ -3072,7 +3039,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="342"
+            line="343"
             column="29"/>
     </issue>
 
@@ -3083,7 +3050,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="344"
+            line="345"
             column="25"/>
     </issue>
 
@@ -3094,7 +3061,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="345"
+            line="346"
             column="29"/>
     </issue>
 
@@ -3105,7 +3072,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="557"
+            line="558"
             column="17"/>
     </issue>
 
@@ -3116,7 +3083,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="560"
+            line="561"
             column="21"/>
     </issue>
 
@@ -3127,7 +3094,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="565"
+            line="566"
             column="17"/>
     </issue>
 
@@ -3138,7 +3105,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="569"
+            line="570"
             column="21"/>
     </issue>
 
@@ -3149,7 +3116,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="574"
+            line="575"
             column="17"/>
     </issue>
 
@@ -3160,7 +3127,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="577"
+            line="578"
             column="21"/>
     </issue>
 
@@ -3171,7 +3138,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="582"
+            line="583"
             column="17"/>
     </issue>
 
@@ -3182,7 +3149,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="585"
+            line="586"
             column="21"/>
     </issue>
 
@@ -3193,7 +3160,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="590"
+            line="591"
             column="17"/>
     </issue>
 
@@ -3204,7 +3171,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="593"
+            line="594"
             column="21"/>
     </issue>
 
@@ -3215,7 +3182,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="597"
+            line="598"
             column="17"/>
     </issue>
 
@@ -3226,7 +3193,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="600"
+            line="601"
             column="21"/>
     </issue>
 
@@ -3237,7 +3204,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="605"
+            line="606"
             column="17"/>
     </issue>
 
@@ -3248,7 +3215,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="608"
+            line="609"
             column="21"/>
     </issue>
 
@@ -3259,7 +3226,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="612"
+            line="613"
             column="17"/>
     </issue>
 
@@ -3270,7 +3237,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="616"
+            line="617"
             column="21"/>
     </issue>
 
@@ -3281,7 +3248,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="625"
+            line="626"
             column="17"/>
     </issue>
 
@@ -3292,7 +3259,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="628"
+            line="629"
             column="21"/>
     </issue>
 
@@ -3303,7 +3270,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="633"
+            line="634"
             column="17"/>
     </issue>
 
@@ -3314,7 +3281,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="636"
+            line="637"
             column="21"/>
     </issue>
 
@@ -3325,7 +3292,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="641"
+            line="642"
             column="17"/>
     </issue>
 
@@ -3336,7 +3303,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="644"
+            line="645"
             column="21"/>
     </issue>
 
@@ -3347,7 +3314,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="649"
+            line="650"
             column="17"/>
     </issue>
 
@@ -3358,7 +3325,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="652"
+            line="653"
             column="21"/>
     </issue>
 
@@ -3369,7 +3336,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="659"
+            line="660"
             column="21"/>
     </issue>
 
@@ -3380,7 +3347,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="662"
+            line="663"
             column="25"/>
     </issue>
 
@@ -3391,7 +3358,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="671"
+            line="672"
             column="17"/>
     </issue>
 
@@ -3402,7 +3369,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="674"
+            line="675"
             column="21"/>
     </issue>
 
@@ -3413,7 +3380,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="687"
+            line="688"
             column="17"/>
     </issue>
 
@@ -3424,7 +3391,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="691"
+            line="692"
             column="21"/>
     </issue>
 
@@ -3435,7 +3402,7 @@
         errorLine2="                ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="812"
+            line="813"
             column="17"/>
     </issue>
 
@@ -3446,7 +3413,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="814"
+            line="815"
             column="17"/>
     </issue>
 
@@ -3457,7 +3424,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="825"
+            line="826"
             column="17"/>
     </issue>
 
@@ -3688,7 +3655,7 @@
         errorLine2="                                          ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="168"
+            line="169"
             column="43"/>
     </issue>
 
@@ -3732,7 +3699,7 @@
         errorLine2="            ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="94"
+            line="96"
             column="13"/>
     </issue>
 
@@ -3743,7 +3710,7 @@
         errorLine2="                    ~~~~~~~~">
         <location
             file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="143"
+            line="145"
             column="21"/>
     </issue>
 
@@ -3754,7 +3721,7 @@
         errorLine2="                                                          ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="153"
+            line="155"
             column="59"/>
     </issue>
 
@@ -3765,7 +3732,7 @@
         errorLine2="                                                          ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="153"
+            line="155"
             column="59"/>
     </issue>
 
@@ -3886,18 +3853,18 @@
         errorLine2="                               ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="140"
+            line="152"
             column="32"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `hideToolbarAfterDelay` of class `ViewVideoFragment` requires synthetic accessor"
-        errorLine1="                    hideToolbarAfterDelay(TOOLBAR_HIDE_DELAY_MS)"
+        errorLine1="                    hideToolbarAfterDelay()"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="221"
+            line="232"
             column="21"/>
     </issue>
 
@@ -5202,7 +5169,7 @@
         errorLine2="            ^">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="91"
+            line="90"
             column="13"/>
     </issue>
 
@@ -5213,7 +5180,7 @@
         errorLine2="                                                 ^">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="91"
+            line="90"
             column="50"/>
     </issue>
 

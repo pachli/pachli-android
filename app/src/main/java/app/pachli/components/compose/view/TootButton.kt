@@ -19,7 +19,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import app.pachli.R
-import app.pachli.entity.Status
+import app.pachli.core.network.model.Status
 import com.google.android.material.button.MaterialButton
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial

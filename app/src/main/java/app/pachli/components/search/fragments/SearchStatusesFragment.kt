@@ -44,9 +44,9 @@ import app.pachli.components.compose.ComposeActivity.ComposeOptions
 import app.pachli.components.report.ReportActivity
 import app.pachli.components.search.adapter.SearchStatusesAdapter
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.entity.Attachment
-import app.pachli.entity.Status
-import app.pachli.entity.Status.Mention
+import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.Status.Mention
 import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptionsRepository
@@ -238,7 +238,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 }
                 Status.Visibility.PRIVATE -> {
                     var reblogged = status.reblogged
-                    if (status.reblog != null) reblogged = status.reblog.reblogged
+                    status.reblog?.apply { reblogged = this.reblogged }
                     menu.findItem(R.id.status_reblog_private).isVisible = !reblogged
                     menu.findItem(R.id.status_unreblog_private).isVisible = reblogged
                 }

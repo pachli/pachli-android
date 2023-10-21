@@ -28,9 +28,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.Page
 import app.pachli.components.timeline.viewmodel.PageCache
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.AccountManager
-import app.pachli.entity.Status
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import okhttp3.Headers

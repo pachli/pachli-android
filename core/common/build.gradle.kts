@@ -11,7 +11,7 @@ android {
         buildConfig = true
     }
 
-    namespace = "app.pachli.core.database"
+    namespace = "app.pachli.core.common"
 
     testOptions {
         unitTests {

@@ -17,7 +17,7 @@
 package app.pachli.components.notifications;
 
 import static app.pachli.BuildConfig.APPLICATION_ID;
-import static app.pachli.util.StatusParsingHelper.parseAsMastodonHtml;
+import static app.pachli.core.network.StatusParsingHelper.parseAsMastodonHtml;
 import static app.pachli.viewdata.PollViewDataKt.buildDescription;
 
 import android.app.NotificationChannel;
@@ -66,15 +66,15 @@ import java.util.concurrent.TimeUnit;
 import app.pachli.MainActivity;
 import app.pachli.R;
 import app.pachli.components.compose.ComposeActivity;
+import app.pachli.core.accounts.AccountManager;
+import app.pachli.core.common.string.StringUtils;
 import app.pachli.core.database.model.AccountEntity;
-import app.pachli.core.database.AccountManager;
-import app.pachli.entity.Notification;
-import app.pachli.entity.Poll;
-import app.pachli.entity.PollOption;
-import app.pachli.entity.Report;
-import app.pachli.entity.Status;
+import app.pachli.core.network.model.Notification;
+import app.pachli.core.network.model.Poll;
+import app.pachli.core.network.model.PollOption;
+import app.pachli.core.network.model.Report;
+import app.pachli.core.network.model.Status;
 import app.pachli.receiver.SendStatusBroadcastReceiver;
-import app.pachli.util.StringUtils;
 import app.pachli.viewdata.PollViewDataKt;
 import app.pachli.worker.NotificationWorker;
 

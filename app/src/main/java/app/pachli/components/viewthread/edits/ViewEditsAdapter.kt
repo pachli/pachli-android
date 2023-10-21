@@ -21,9 +21,10 @@ import app.pachli.R
 import app.pachli.adapter.PollAdapter
 import app.pachli.adapter.PollAdapter.Companion.MULTIPLE
 import app.pachli.adapter.PollAdapter.Companion.SINGLE
+import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.StatusEdit
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemStatusEditBinding
-import app.pachli.entity.Attachment.Focus
-import app.pachli.entity.StatusEdit
 import app.pachli.interfaces.LinkListener
 import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.BindingHolder
@@ -31,7 +32,6 @@ import app.pachli.util.aspectRatios
 import app.pachli.util.decodeBlurHash
 import app.pachli.util.emojify
 import app.pachli.util.hide
-import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.setClickableText
 import app.pachli.util.show
 import app.pachli.util.visible
@@ -138,11 +138,11 @@ class ViewEditsAdapter(
             binding.statusEditPollOptions.layoutManager = LinearLayoutManager(context)
 
             pollAdapter.setup(
-                options = edit.poll.options.map { PollOptionViewData.from(it, false) },
+                options = edit.poll!!.options.map { PollOptionViewData.from(it, false) },
                 voteCount = 0,
                 votersCount = null,
                 emojis = edit.emojis,
-                mode = if (edit.poll.multiple) { // not reported by the api
+                mode = if (edit.poll!!.multiple) { // not reported by the api
                     MULTIPLE
                 } else {
                     SINGLE
@@ -188,7 +188,7 @@ class ViewEditsAdapter(
                         .centerInside()
                         .into(imageView)
                 } else {
-                    val focus: Focus? = attachment.meta?.focus
+                    val focus: Attachment.Focus? = attachment.meta?.focus
 
                     if (focus != null) {
                         imageView.setFocalPoint(focus)

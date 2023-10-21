@@ -19,8 +19,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import app.pachli.core.network.model.HashTag
 import app.pachli.databinding.ItemHashtagBinding
-import app.pachli.entity.HashTag
 import app.pachli.interfaces.LinkListener
 import app.pachli.util.BindingHolder
 

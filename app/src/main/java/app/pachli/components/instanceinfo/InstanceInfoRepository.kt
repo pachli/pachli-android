@@ -16,12 +16,12 @@
 package app.pachli.components.instanceinfo
 
 import android.util.Log
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
+import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.database.AccountManager
-import app.pachli.entity.Emoji
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.onSuccess

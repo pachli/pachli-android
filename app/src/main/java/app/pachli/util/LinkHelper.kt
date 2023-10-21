@@ -39,9 +39,9 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.preference.PreferenceManager
 import app.pachli.R
+import app.pachli.core.network.model.HashTag
+import app.pachli.core.network.model.Status.Mention
 import app.pachli.core.preferences.PrefKeys
-import app.pachli.entity.HashTag
-import app.pachli.entity.Status.Mention
 import app.pachli.interfaces.LinkListener
 import com.google.android.material.color.MaterialColors
 import java.net.URI

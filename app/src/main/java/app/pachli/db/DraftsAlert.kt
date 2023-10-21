@@ -24,7 +24,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import app.pachli.R
 import app.pachli.components.drafts.DraftsActivity
-import app.pachli.core.database.AccountManager
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.DraftDao
 import kotlinx.coroutines.launch
 import javax.inject.Inject

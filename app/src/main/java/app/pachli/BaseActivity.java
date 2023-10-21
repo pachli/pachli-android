@@ -56,7 +56,7 @@ import app.pachli.components.login.LoginActivity;
 import app.pachli.core.database.model.AccountEntity;
 import app.pachli.core.preferences.PrefKeys;
 import app.pachli.core.preferences.SharedPreferencesRepository;
-import app.pachli.core.database.AccountManager;
+import app.pachli.core.accounts.AccountManager;
 import app.pachli.interfaces.AccountSelectionListener;
 import app.pachli.interfaces.PermissionRequester;
 import app.pachli.util.EmbeddedFontFamily;

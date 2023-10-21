@@ -1,4 +1,4 @@
-package app.pachli.entity
+package app.pachli.core.network.model
 
 import com.google.gson.annotations.SerializedName
 

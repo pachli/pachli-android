@@ -29,11 +29,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
+import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentAccountsInListBinding
 import app.pachli.databinding.ItemFollowRequestBinding
-import app.pachli.entity.TimelineAccount
 import app.pachli.util.BindingHolder
 import app.pachli.util.Either
 import app.pachli.util.emojify

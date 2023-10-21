@@ -37,14 +37,14 @@ import app.pachli.components.accountlist.adapter.FollowAdapter
 import app.pachli.components.accountlist.adapter.FollowRequestsAdapter
 import app.pachli.components.accountlist.adapter.FollowRequestsHeaderAdapter
 import app.pachli.components.accountlist.adapter.MutesAdapter
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.HttpHeaderLink
+import app.pachli.core.network.model.Relationship
+import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentAccountListBinding
-import app.pachli.core.database.AccountManager
-import app.pachli.entity.Relationship
-import app.pachli.entity.TimelineAccount
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.LinkListener

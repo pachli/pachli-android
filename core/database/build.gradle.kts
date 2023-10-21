@@ -43,6 +43,11 @@ android {
 //    }
 }
 
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+}
+
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.network)

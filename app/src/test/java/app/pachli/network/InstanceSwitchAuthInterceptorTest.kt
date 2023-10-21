@@ -1,9 +1,9 @@
 package app.pachli.network
 
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.database.AccountManager
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.mockwebserver.MockResponse

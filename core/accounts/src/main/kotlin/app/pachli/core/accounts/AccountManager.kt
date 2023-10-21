@@ -15,13 +15,17 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.database
+package app.pachli.core.accounts
 
 import android.content.Context
 import android.util.Log
+import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.Status
+import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import kotlinx.coroutines.CoroutineScope
@@ -32,11 +36,14 @@ import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 
+private const val TAG = "AccountManager"
+
 @Singleton
 class AccountManager @Inject constructor(
     private val accountDao: AccountDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     private val _activeAccountFlow = MutableStateFlow<AccountEntity?>(null)
@@ -46,6 +53,12 @@ class AccountManager @Inject constructor(
     var activeAccount: AccountEntity? = null
         private set(value) {
             field = value
+            instanceSwitchAuthInterceptor.credentials = value?.let {
+                InstanceSwitchAuthInterceptor.Credentials(
+                    accessToken = it.accessToken,
+                    domain = it.domain
+                )
+            }
             externalScope.launch { _activeAccountFlow.emit(value) }
         }
 

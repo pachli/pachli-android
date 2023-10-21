@@ -26,10 +26,10 @@ import app.pachli.appstore.PinEvent
 import app.pachli.appstore.PollVoteEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusDeletedEvent
-import app.pachli.entity.DeletedStatus
-import app.pachli.entity.Poll
-import app.pachli.entity.Relationship
-import app.pachli.entity.Status
+import app.pachli.core.network.model.DeletedStatus
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Relationship
+import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.getServerErrorMessage
 import at.connyduck.calladapter.networkresult.NetworkResult

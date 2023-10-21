@@ -31,13 +31,13 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.util.ifExpected
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterV1
+import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.database.AccountManager
-import app.pachli.entity.Filter
-import app.pachli.entity.FilterV1
-import app.pachli.entity.Status
 import app.pachli.network.FilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.StatusDisplayOptionsRepository

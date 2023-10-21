@@ -20,14 +20,14 @@ package app.pachli.core.database.model
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.TypeConverters
-import app.pachli.db.Converters
-import app.pachli.entity.Attachment
-import app.pachli.entity.Conversation
-import app.pachli.entity.Emoji
-import app.pachli.entity.HashTag
-import app.pachli.entity.Poll
-import app.pachli.entity.Status
-import app.pachli.entity.TimelineAccount
+import app.pachli.core.database.Converters
+import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Conversation
+import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.HashTag
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.TimelineAccount
 import java.util.Date
 
 @Entity(primaryKeys = ["id", "accountId"])

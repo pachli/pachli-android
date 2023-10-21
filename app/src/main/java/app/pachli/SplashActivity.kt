@@ -23,7 +23,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import app.pachli.components.login.LoginActivity
-import app.pachli.core.database.AccountManager
+import app.pachli.core.accounts.AccountManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

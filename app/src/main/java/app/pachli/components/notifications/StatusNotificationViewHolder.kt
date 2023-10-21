@@ -34,9 +34,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.Notification
 import app.pachli.databinding.ItemStatusNotificationBinding
-import app.pachli.entity.Emoji
-import app.pachli.entity.Notification
 import app.pachli.interfaces.LinkListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.AbsoluteTimeFormatter
@@ -46,7 +47,6 @@ import app.pachli.util.emojify
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.loadAvatar
 import app.pachli.util.setClickableText
-import app.pachli.util.unicodeWrap
 import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.sparkbutton.helpers.Utils

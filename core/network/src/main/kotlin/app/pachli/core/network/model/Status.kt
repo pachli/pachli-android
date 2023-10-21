@@ -1,4 +1,5 @@
-/* Copyright 2017 Andrew Dawson
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -10,14 +11,15 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.core.network.model
 
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
-import app.pachli.util.parseAsMastodonHtml
+import app.pachli.core.network.parseAsMastodonHtml
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 

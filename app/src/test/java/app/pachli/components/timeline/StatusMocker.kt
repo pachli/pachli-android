@@ -4,8 +4,6 @@ import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
-import app.pachli.entity.Status
-import app.pachli.entity.TimelineAccount
 import app.pachli.viewdata.StatusViewData
 import com.google.gson.Gson
 import java.util.Date

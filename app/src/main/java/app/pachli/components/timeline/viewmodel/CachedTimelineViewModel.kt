@@ -31,10 +31,10 @@ import app.pachli.appstore.ReblogEvent
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.TimelineKind
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.database.AccountManager
-import app.pachli.entity.Filter
-import app.pachli.entity.Poll
 import app.pachli.network.FilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.StatusDisplayOptionsRepository

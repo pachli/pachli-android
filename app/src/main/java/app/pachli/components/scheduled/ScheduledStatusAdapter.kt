@@ -19,8 +19,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import app.pachli.core.network.model.ScheduledStatus
 import app.pachli.databinding.ItemScheduledStatusBinding
-import app.pachli.entity.ScheduledStatus
 import app.pachli.util.BindingHolder
 
 interface ScheduledStatusActionListener {

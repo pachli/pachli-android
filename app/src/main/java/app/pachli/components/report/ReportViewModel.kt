@@ -28,8 +28,8 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MuteEvent
 import app.pachli.components.report.adapter.StatusesPagingSource
 import app.pachli.components.report.model.StatusViewState
-import app.pachli.entity.Relationship
-import app.pachli.entity.Status
+import app.pachli.core.network.model.Relationship
+import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.Error
 import app.pachli.util.Loading

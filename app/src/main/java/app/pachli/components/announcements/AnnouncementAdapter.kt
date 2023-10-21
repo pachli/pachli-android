@@ -24,8 +24,9 @@ import android.view.ViewGroup
 import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.network.model.Announcement
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemAnnouncementBinding
-import app.pachli.entity.Announcement
 import app.pachli.interfaces.LinkListener
 import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.BindingHolder
@@ -33,7 +34,6 @@ import app.pachli.util.EmojiSpan
 import app.pachli.util.emojify
 import app.pachli.util.equalByMinute
 import app.pachli.util.getRelativeTimeSpanString
-import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.setClickableText
 import app.pachli.util.visible
 import com.bumptech.glide.Glide

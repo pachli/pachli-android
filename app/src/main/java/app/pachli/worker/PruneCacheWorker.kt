@@ -27,8 +27,8 @@ import androidx.work.WorkerParameters
 import app.pachli.R
 import app.pachli.components.notifications.NotificationHelper
 import app.pachli.components.notifications.NotificationHelper.NOTIFICATION_ID_PRUNE_CACHE
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.TimelineDao
-import app.pachli.core.database.AccountManager
 import javax.inject.Inject
 
 /** Prune the database cache of old statuses. */

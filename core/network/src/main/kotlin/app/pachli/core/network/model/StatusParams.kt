@@ -1,4 +1,5 @@
-/* Copyright 2017 Andrew Dawson
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -10,14 +11,18 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.entity
+package app.pachli.core.network.model
 
-data class MastoList(
-    val id: String,
-    val title: String,
-    val exclusive: Boolean?,
+import com.google.gson.annotations.SerializedName
+
+data class StatusParams(
+    val text: String,
+    val sensitive: Boolean,
+    val visibility: Status.Visibility,
+    @SerializedName("spoiler_text") val spoilerText: String,
+    @SerializedName("in_reply_to_id") val inReplyToId: String?,
 )

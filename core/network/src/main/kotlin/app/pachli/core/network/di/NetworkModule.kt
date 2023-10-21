@@ -21,10 +21,9 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
-import app.pachli.core.database.AccountManager
+import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.BuildConfig
 import app.pachli.core.network.json.Rfc3339DateJsonAdapter
-import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_ENABLED
@@ -69,9 +68,9 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesHttpClient(
-        accountManager: AccountManager,
         @ApplicationContext context: Context,
         preferences: SharedPreferencesRepository,
+        instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     ): OkHttpClient {
         val versionName = try {
             context.packageManager.getPackageInfo(context.packageName, 0).versionName
@@ -110,7 +109,7 @@ object NetworkModule {
 
         return builder
             .apply {
-                addInterceptor(InstanceSwitchAuthInterceptor(accountManager))
+                addInterceptor(instanceSwitchAuthInterceptor)
                 if (BuildConfig.DEBUG) {
                     addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC })
                 }

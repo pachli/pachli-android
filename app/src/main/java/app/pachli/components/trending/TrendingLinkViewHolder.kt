@@ -18,8 +18,8 @@
 package app.pachli.components.trending
 
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.core.network.model.TrendsLink
 import app.pachli.databinding.ItemTrendingLinkBinding
-import app.pachli.entity.TrendsLink
 import app.pachli.util.StatusDisplayOptions
 
 class TrendingLinkViewHolder(

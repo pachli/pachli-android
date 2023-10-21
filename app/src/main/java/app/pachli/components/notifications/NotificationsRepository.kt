@@ -23,9 +23,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
-import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.entity.Notification
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async

@@ -19,16 +19,16 @@ package app.pachli.components.notifications
 
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemFollowBinding
-import app.pachli.entity.Notification
-import app.pachli.entity.TimelineAccount
 import app.pachli.interfaces.LinkListener
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.emojify
 import app.pachli.util.loadAvatar
-import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.setClickableText
-import app.pachli.util.unicodeWrap
 import app.pachli.viewdata.NotificationViewData
 
 class FollowViewHolder(

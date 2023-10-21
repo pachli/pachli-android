@@ -19,7 +19,7 @@ package app.pachli.components.notifications
 
 import androidx.viewbinding.ViewBinding
 import app.pachli.adapter.StatusViewHolder
-import app.pachli.entity.Notification
+import app.pachli.core.network.model.Notification
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.NotificationViewData

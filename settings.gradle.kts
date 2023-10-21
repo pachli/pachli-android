@@ -22,6 +22,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "pachli-android"
 
 include(":app")
+include(":core:accounts")
 include(":core:common")
 include(":core:database")
 include(":core:preferences")

@@ -1,4 +1,5 @@
-/* Copyright 2017 Andrew Dawson
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -10,13 +11,12 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.core.network.model
 
-import androidx.annotation.StringRes
-import app.pachli.R
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
@@ -35,38 +35,38 @@ data class Notification(
 
     /** From https://docs.joinmastodon.org/entities/Notification/#type */
     @JsonAdapter(NotificationTypeAdapter::class)
-    enum class Type(val presentation: String, @StringRes val uiString: Int) {
-        UNKNOWN("unknown", R.string.notification_unknown_name),
+    enum class Type(val presentation: String) {
+        UNKNOWN("unknown"),
 
         /** Someone mentioned you */
-        MENTION("mention", R.string.notification_mention_name),
+        MENTION("mention"),
 
         /** Someone boosted one of your statuses */
-        REBLOG("reblog", R.string.notification_boost_name),
+        REBLOG("reblog"),
 
         /** Someone favourited one of your statuses */
-        FAVOURITE("favourite", R.string.notification_favourite_name),
+        FAVOURITE("favourite"),
 
         /** Someone followed you */
-        FOLLOW("follow", R.string.notification_follow_name),
+        FOLLOW("follow"),
 
         /** Someone requested to follow you */
-        FOLLOW_REQUEST("follow_request", R.string.notification_follow_request_name),
+        FOLLOW_REQUEST("follow_request"),
 
         /** A poll you have voted in or created has ended */
-        POLL("poll", R.string.notification_poll_name),
+        POLL("poll"),
 
         /** Someone you enabled notifications for has posted a status */
-        STATUS("status", R.string.notification_subscription_name),
+        STATUS("status"),
 
         /** Someone signed up (optionally sent to admins) */
-        SIGN_UP("admin.sign_up", R.string.notification_sign_up_name),
+        SIGN_UP("admin.sign_up"),
 
         /** A status you interacted with has been updated */
-        UPDATE("update", R.string.notification_update_name),
+        UPDATE("update"),
 
         /** A new report has been filed */
-        REPORT("admin.report", R.string.notification_report_name),
+        REPORT("admin.report"),
         ;
 
         companion object {

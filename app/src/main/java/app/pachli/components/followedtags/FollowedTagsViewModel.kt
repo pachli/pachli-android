@@ -9,7 +9,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import app.pachli.components.compose.ComposeAutoCompleteAdapter
 import app.pachli.components.search.SearchType
-import app.pachli.entity.HashTag
+import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel

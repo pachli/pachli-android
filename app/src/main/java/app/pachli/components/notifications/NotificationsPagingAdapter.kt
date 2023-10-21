@@ -24,6 +24,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.adapter.ReportNotificationViewHolder
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.Status
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.databinding.ItemReportNotificationBinding
@@ -31,9 +34,6 @@ import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.databinding.SimpleListItem1Binding
-import app.pachli.entity.Filter
-import app.pachli.entity.Notification
-import app.pachli.entity.Status
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.AbsoluteTimeFormatter

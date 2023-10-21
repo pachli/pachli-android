@@ -4,7 +4,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.PinEvent
-import app.pachli.entity.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
 import kotlinx.coroutines.runBlocking

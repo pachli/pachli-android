@@ -24,9 +24,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import app.pachli.R
-import app.pachli.entity.Attachment
-import app.pachli.entity.Emoji
-import app.pachli.entity.Status
+import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.Status
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.buildDescription
@@ -108,11 +108,9 @@ class StatusViewHelper(private val itemView: View) {
                     .centerInside()
                     .into(mediaPreviews[i])
             } else {
-                val placeholder = if (attachment.blurhash != null) {
-                    decodeBlurHash(context, attachment.blurhash)
-                } else {
-                    mediaPreviewUnloaded
-                }
+                val placeholder = attachment.blurhash?.let {
+                    decodeBlurHash(context, it)
+                } ?: mediaPreviewUnloaded
                 val meta = attachment.meta
                 val focus = meta?.focus
                 if (showingContent) {
@@ -137,7 +135,7 @@ class StatusViewHelper(private val itemView: View) {
                 } else {
                     mediaPreviews[i].removeFocalPoint()
                     if (statusDisplayOptions.useBlurhash && attachment.blurhash != null) {
-                        val blurhashBitmap = decodeBlurHash(context, attachment.blurhash)
+                        val blurhashBitmap = decodeBlurHash(context, attachment.blurhash!!)
                         mediaPreviews[i].setImageDrawable(blurhashBitmap)
                     } else {
                         mediaPreviews[i].setImageDrawable(mediaPreviewUnloaded)

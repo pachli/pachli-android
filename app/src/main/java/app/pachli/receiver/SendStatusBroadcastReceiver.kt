@@ -27,11 +27,11 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.RemoteInput
 import app.pachli.R
 import app.pachli.components.notifications.NotificationHelper
-import app.pachli.core.database.AccountManager
-import app.pachli.entity.Status
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.string.randomAlphanumericString
+import app.pachli.core.network.model.Status
 import app.pachli.service.SendStatusService
 import app.pachli.service.StatusToSend
-import app.pachli.util.randomAlphanumericString
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

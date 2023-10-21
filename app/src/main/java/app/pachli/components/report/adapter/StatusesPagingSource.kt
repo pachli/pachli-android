@@ -18,7 +18,7 @@ package app.pachli.components.report.adapter
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import app.pachli.entity.Status
+import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

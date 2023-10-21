@@ -4,13 +4,13 @@ package app.pachli.util
 
 import android.content.Context
 import app.pachli.R
-import app.pachli.entity.Attachment
+import app.pachli.core.network.model.Attachment
 import kotlin.math.roundToInt
 
 fun Attachment.getFormattedDescription(context: Context): CharSequence {
     var duration = ""
-    if (meta?.duration != null && meta.duration > 0) {
-        duration = formatDuration(meta.duration.toDouble()) + " "
+    if (meta?.duration != null && meta!!.duration!! > 0) {
+        duration = meta!!.duration?.let { formatDuration(it.toDouble()) } + " "
     }
     return if (description.isNullOrEmpty()) {
         duration + context.getString(R.string.description_post_media_no_description_placeholder)

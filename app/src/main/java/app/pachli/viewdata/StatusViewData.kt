@@ -19,11 +19,11 @@ import android.text.Spanned
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.ConversationStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
-import app.pachli.entity.Filter
-import app.pachli.entity.Poll
-import app.pachli.entity.Status
-import app.pachli.util.parseAsMastodonHtml
-import app.pachli.util.replaceCrashingCharacters
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Status
+import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.network.replaceCrashingCharacters
 import app.pachli.util.shouldTrimStatus
 import com.google.gson.Gson
 

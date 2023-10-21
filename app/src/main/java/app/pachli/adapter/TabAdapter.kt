@@ -21,10 +21,9 @@ import android.view.ViewGroup
 import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import app.pachli.HASHTAG
-import app.pachli.LIST
 import app.pachli.R
-import app.pachli.TabData
+import app.pachli.TabViewData
+import app.pachli.core.database.model.TabKind
 import app.pachli.databinding.ItemTabPreferenceBinding
 import app.pachli.databinding.ItemTabPreferenceSmallBinding
 import app.pachli.util.BindingHolder
@@ -34,22 +33,22 @@ import app.pachli.util.show
 import com.google.android.material.chip.Chip
 
 interface ItemInteractionListener {
-    fun onTabAdded(tab: TabData)
+    fun onTabAdded(tab: TabViewData)
     fun onTabRemoved(position: Int)
     fun onStartDelete(viewHolder: RecyclerView.ViewHolder)
     fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
-    fun onActionChipClicked(tab: TabData, tabPosition: Int)
-    fun onChipClicked(tab: TabData, tabPosition: Int, chipPosition: Int)
+    fun onActionChipClicked(tab: TabViewData, tabPosition: Int)
+    fun onChipClicked(tab: TabViewData, tabPosition: Int, chipPosition: Int)
 }
 
 class TabAdapter(
-    private var data: List<TabData>,
+    private var data: List<TabViewData>,
     private val small: Boolean,
     private val listener: ItemInteractionListener,
     private var removeButtonEnabled: Boolean = false,
 ) : RecyclerView.Adapter<BindingHolder<ViewBinding>>() {
 
-    fun updateData(newData: List<TabData>) {
+    fun updateData(newData: List<TabViewData>) {
         this.data = newData
         notifyDataSetChanged()
     }
@@ -80,7 +79,7 @@ class TabAdapter(
         } else {
             val binding = holder.binding as ItemTabPreferenceBinding
 
-            if (tab.id == LIST) {
+            if (tab.kind == TabKind.LIST) {
                 binding.textView.text = tab.arguments.getOrNull(1).orEmpty()
             } else {
                 binding.textView.setText(tab.text)
@@ -106,7 +105,7 @@ class TabAdapter(
                 (if (removeButtonEnabled) android.R.attr.textColorTertiary else R.attr.textColorDisabled),
             )
 
-            if (tab.id == HASHTAG) {
+            if (tab.kind == TabKind.HASHTAG) {
                 binding.chipGroup.show()
 
                 /*

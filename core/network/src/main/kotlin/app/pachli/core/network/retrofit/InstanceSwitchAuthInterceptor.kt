@@ -18,7 +18,6 @@
 package app.pachli.core.network.retrofit
 
 import android.util.Log
-import app.pachli.core.database.AccountManager
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -27,8 +26,18 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class InstanceSwitchAuthInterceptor(private val accountManager: AccountManager) : Interceptor {
+// TODO: Explain that AccountManager is not used here to avoid a circular dependency,
+// instead, AM injects the Singleton instance and sets credentials when the active
+// account changes.
+
+@Singleton
+class InstanceSwitchAuthInterceptor @Inject constructor() : Interceptor {
+    data class Credentials(val accessToken: String, val domain: String)
+
+    var credentials: Credentials? = null
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -44,14 +53,10 @@ class InstanceSwitchAuthInterceptor(private val accountManager: AccountManager) 
                 builder.url(swapHost(originalRequest.url, instanceHeader))
                 builder.removeHeader(MastodonApi.DOMAIN_HEADER)
             } else {
-                val currentAccount = accountManager.activeAccount
-
-                if (currentAccount != null) {
-                    val accessToken = currentAccount.accessToken
-                    if (accessToken.isNotEmpty()) {
-                        // use domain of current account
-                        builder.url(swapHost(originalRequest.url, currentAccount.domain))
-                            .header("Authorization", "Bearer %s".format(accessToken))
+                credentials?.let {
+                    if (it.accessToken.isNotEmpty()) {
+                        builder.url(swapHost(originalRequest.url, it.domain))
+                            .header("Authorization", "Bearer %s".format(it.accessToken))
                     }
                 }
             }

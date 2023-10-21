@@ -20,8 +20,8 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import androidx.core.text.parseAsHtml
 import app.pachli.R
-import app.pachli.entity.Poll
-import app.pachli.entity.PollOption
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.PollOption
 import java.util.Date
 import kotlin.math.roundToInt
 

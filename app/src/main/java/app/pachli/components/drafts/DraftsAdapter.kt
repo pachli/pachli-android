@@ -79,12 +79,10 @@ class DraftsAdapter(
             holder.binding.draftMediaPreview.visible(draft.attachments.isNotEmpty())
             (holder.binding.draftMediaPreview.adapter as DraftMediaAdapter).submitList(draft.attachments)
 
-            if (draft.poll != null) {
+            draft.poll?.apply {
                 holder.binding.draftPoll.show()
-                holder.binding.draftPoll.setPoll(draft.poll)
-            } else {
-                holder.binding.draftPoll.hide()
-            }
+                holder.binding.draftPoll.setPoll(this)
+            } ?: holder.binding.draftPoll.hide()
         }
     }
 }

@@ -1,4 +1,5 @@
-/* Copyright 2019 Tusky contributors
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -10,26 +11,19 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
-package app.pachli.entity
+package app.pachli.core.network.model
 
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
-data class DeletedStatus(
-    val text: String?,
-    @SerializedName("in_reply_to_id") val inReplyToId: String?,
-    @SerializedName("spoiler_text") val spoilerText: String,
-    val visibility: Status.Visibility,
-    val sensitive: Boolean,
-    @SerializedName("media_attachments") val attachments: List<Attachment>?,
-    val poll: Poll?,
+data class Report(
+    val id: String,
+    val category: String,
+    val status_ids: List<String>?,
     @SerializedName("created_at") val createdAt: Date,
-    val language: String?,
-) {
-    fun isEmpty(): Boolean {
-        return text == null && attachments == null
-    }
-}
+    @SerializedName("target_account") val targetAccount: TimelineAccount,
+)

@@ -19,13 +19,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.Field
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemAccountFieldBinding
-import app.pachli.entity.Emoji
-import app.pachli.entity.Field
 import app.pachli.interfaces.LinkListener
 import app.pachli.util.BindingHolder
 import app.pachli.util.emojify
-import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.setClickableText
 
 class AccountFieldAdapter(

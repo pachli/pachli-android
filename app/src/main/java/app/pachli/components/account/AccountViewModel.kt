@@ -10,9 +10,9 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MuteEvent
 import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.appstore.UnfollowEvent
-import app.pachli.core.database.AccountManager
-import app.pachli.entity.Account
-import app.pachli.entity.Relationship
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.Error
 import app.pachli.util.Loading

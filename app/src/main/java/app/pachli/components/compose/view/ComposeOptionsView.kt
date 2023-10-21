@@ -19,7 +19,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.RadioGroup
 import app.pachli.R
-import app.pachli.entity.Status
+import app.pachli.core.network.model.Status
 
 class ComposeOptionsView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : RadioGroup(context, attrs) {
 

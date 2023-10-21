@@ -21,10 +21,10 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.report.model.StatusViewState
+import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.HashTag
+import app.pachli.core.network.model.Status
 import app.pachli.databinding.ItemReportStatusBinding
-import app.pachli.entity.Emoji
-import app.pachli.entity.HashTag
-import app.pachli.entity.Status
 import app.pachli.interfaces.LinkListener
 import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.StatusDisplayOptions

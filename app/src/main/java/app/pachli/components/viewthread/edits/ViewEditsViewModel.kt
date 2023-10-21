@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.DELETED_TEXT_EL
 import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.INSERTED_TEXT_EL
-import app.pachli.entity.StatusEdit
+import app.pachli.core.network.model.StatusEdit
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.getOrElse
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -19,8 +19,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.core.network.model.StringField
 import app.pachli.databinding.ItemEditFieldBinding
-import app.pachli.entity.StringField
 import app.pachli.util.BindingHolder
 import app.pachli.util.fixTextSelection
 

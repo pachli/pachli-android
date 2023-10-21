@@ -18,7 +18,7 @@ package app.pachli.components.search.adapter
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import app.pachli.components.search.SearchType
-import app.pachli.entity.SearchResult
+import app.pachli.core.network.model.SearchResult
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.getOrElse
 

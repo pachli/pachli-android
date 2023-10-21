@@ -1,4 +1,5 @@
-/* Copyright 2022 Tusky Contributors
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -10,17 +11,19 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 @file:JvmName("StatusParsingHelper")
 
-package app.pachli.util
+package app.pachli.core.network
 
 import android.text.Html.TagHandler
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import androidx.core.text.parseAsHtml
+import app.pachli.core.common.string.trimTrailingWhitespace
 
 /**
  * parse a String containing html from the Mastodon api to Spanned

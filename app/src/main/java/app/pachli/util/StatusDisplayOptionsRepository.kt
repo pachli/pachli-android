@@ -20,8 +20,8 @@ package app.pachli.util
 import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.database.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository

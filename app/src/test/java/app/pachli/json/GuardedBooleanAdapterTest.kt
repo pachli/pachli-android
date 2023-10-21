@@ -1,6 +1,5 @@
 package app.pachli.json
 
-import app.pachli.entity.Relationship
 import com.google.gson.Gson
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -22,10 +22,9 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import app.pachli.TabData
-import app.pachli.defaultTabs
-import app.pachli.entity.Emoji
-import app.pachli.entity.Status
+import app.pachli.core.database.Converters
+import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.Status
 
 @Entity(
     indices = [

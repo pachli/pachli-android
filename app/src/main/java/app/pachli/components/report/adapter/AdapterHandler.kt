@@ -16,7 +16,7 @@
 package app.pachli.components.report.adapter
 
 import android.view.View
-import app.pachli.entity.Status
+import app.pachli.core.network.model.Status
 import app.pachli.interfaces.LinkListener
 
 interface AdapterHandler : LinkListener {

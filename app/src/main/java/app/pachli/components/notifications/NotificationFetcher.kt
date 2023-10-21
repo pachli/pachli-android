@@ -22,13 +22,13 @@ import android.content.Context
 import android.util.Log
 import androidx.annotation.WorkerThread
 import app.pachli.components.notifications.NotificationHelper.filterNotification
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.string.isLessThan
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.Links
+import app.pachli.core.network.model.Marker
+import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.database.AccountManager
-import app.pachli.entity.Marker
-import app.pachli.entity.Notification
-import app.pachli.util.isLessThan
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import javax.inject.Inject

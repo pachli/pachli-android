@@ -33,6 +33,7 @@ import app.pachli.BottomSheetActivity
 import app.pachli.R
 import app.pachli.StatusListActivity
 import app.pachli.components.account.AccountActivity
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentViewEditsBinding
@@ -41,7 +42,6 @@ import app.pachli.util.emojify
 import app.pachli.util.hide
 import app.pachli.util.loadAvatar
 import app.pachli.util.show
-import app.pachli.util.unicodeWrap
 import app.pachli.util.viewBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
-import app.pachli.entity.Status.Companion.MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.StatusViewData
 import kotlin.math.min

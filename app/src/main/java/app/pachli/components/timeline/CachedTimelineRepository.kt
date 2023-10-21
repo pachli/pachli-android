@@ -24,8 +24,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.database.AccountManager
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider

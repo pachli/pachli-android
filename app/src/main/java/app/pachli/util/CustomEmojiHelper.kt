@@ -24,7 +24,7 @@ import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.style.ReplacementSpan
 import android.view.View
-import app.pachli.entity.Emoji
+import app.pachli.core.network.model.Emoji
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target

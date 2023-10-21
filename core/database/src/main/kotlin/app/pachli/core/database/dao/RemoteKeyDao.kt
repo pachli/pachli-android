@@ -21,6 +21,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import app.pachli.core.database.model.RemoteKeyEntity
+import app.pachli.core.database.model.RemoteKeyKind
 
 @Dao
 interface RemoteKeyDao {

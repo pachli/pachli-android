@@ -24,18 +24,18 @@ import android.text.style.StyleSpan
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.notifications.NotificationsPagingAdapter
+import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemFollowRequestBinding
-import app.pachli.entity.TimelineAccount
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.LinkListener
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.emojify
 import app.pachli.util.hide
 import app.pachli.util.loadAvatar
-import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.setClickableText
 import app.pachli.util.show
-import app.pachli.util.unicodeWrap
 import app.pachli.util.visible
 import app.pachli.viewdata.NotificationViewData
 

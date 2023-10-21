@@ -122,11 +122,6 @@ android {
     }
 }
 
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
-    arg("room.incremental", "true")
-}
-
 configurations {
     // JNI-only libraries don't play nicely with Robolectric
     // see https://github.com/tuskyapp/Tusky/pull/3367
@@ -147,9 +142,11 @@ markdown2resource {
 
 // library versions are in PROJECT_ROOT/gradle/libs.versions.toml
 dependencies {
+    implementation project(path: ':core:accounts')
+    implementation project(path: ':core:common')
     implementation project(path: ':core:database')
-    implementation project(path: ':core:preferences')
     implementation project(path: ':core:network')
+    implementation project(path: ':core:preferences')
 
     implementation libs.kotlinx.coroutines.android
     implementation libs.kotlinx.coroutines.rx3

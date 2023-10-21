@@ -20,8 +20,8 @@ package app.pachli.core.database.di
 import android.content.Context
 import androidx.room.Room
 import androidx.room.withTransaction
-import app.pachli.db.AppDatabase
-import app.pachli.db.Converters
+import app.pachli.core.database.AppDatabase
+import app.pachli.core.database.Converters
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

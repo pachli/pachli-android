@@ -44,8 +44,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.common)
     implementation(projects.core.preferences)
-    implementation(projects.core.database)
 
     implementation(libs.bundles.androidx)
     implementation(libs.hilt.android)

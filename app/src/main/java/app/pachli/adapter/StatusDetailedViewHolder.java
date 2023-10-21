@@ -20,7 +20,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import app.pachli.R;
-import app.pachli.entity.Status;
+import app.pachli.core.network.model.Status;
 import app.pachli.interfaces.StatusActionListener;
 import app.pachli.util.CardViewMode;
 import app.pachli.util.LinkHelper;

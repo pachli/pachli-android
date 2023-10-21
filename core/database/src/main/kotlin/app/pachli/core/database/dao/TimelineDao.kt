@@ -1,4 +1,5 @@
-/* Copyright 2021 Tusky Contributors
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -10,8 +11,9 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.core.database.dao
 
@@ -22,6 +24,10 @@ import androidx.room.MapInfo
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import androidx.room.Upsert
+import app.pachli.core.database.model.StatusViewDataEntity
+import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.TimelineStatusEntity
+import app.pachli.core.database.model.TimelineStatusWithAccount
 
 @Dao
 abstract class TimelineDao {

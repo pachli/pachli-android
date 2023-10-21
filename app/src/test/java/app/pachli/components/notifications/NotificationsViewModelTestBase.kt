@@ -21,9 +21,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.MainCoroutineRule
+import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.database.AccountManager
 import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.network.FilterModel
 import app.pachli.settings.AccountPreferenceDataStore

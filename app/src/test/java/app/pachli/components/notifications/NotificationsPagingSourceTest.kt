@@ -19,7 +19,6 @@ package app.pachli.components.notifications
 
 import androidx.paging.PagingSource
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.entity.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import com.google.gson.Gson
 import kotlinx.coroutines.test.runTest
