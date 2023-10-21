@@ -188,6 +188,10 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         }
     }
 
+    override fun onTranslate(position: Int, status: Status) {
+        TODO("Not yet implemented")
+    }
+
     companion object {
         fun newInstance() = SearchStatusesFragment()
     }

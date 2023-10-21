@@ -15,6 +15,7 @@
 
 package app.pachli.db
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -193,7 +194,8 @@ data class StatusViewDataEntity(
     /** Corresponds to [app.pachli.viewdata.StatusViewData.isCollapsed] */
     val contentCollapsed: Boolean,
     /** Show the translated version of the status (if it exists) */
-    val showTranslation: Boolean = false,
+    @ColumnInfo(defaultValue = "FALSE")
+    val showTranslation: Boolean,
 )
 
 val attachmentArrayListType: Type = object : TypeToken<ArrayList<Attachment>>() {}.type
@@ -210,6 +212,8 @@ data class TimelineStatusWithAccount(
     val reblogAccount: TimelineAccountEntity? = null, // null when no reblog
     @Embedded(prefix = "svd_")
     val viewData: StatusViewDataEntity? = null,
+    @Embedded(prefix = "t_")
+    val translatedStatus: TranslatedStatusEntity? = null,
 ) {
     fun toStatus(gson: Gson): Status {
         val attachments: ArrayList<Attachment> = gson.fromJson(

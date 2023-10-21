@@ -29,6 +29,8 @@ import app.pachli.db.RemoteKeyDao
 import app.pachli.db.StatusViewDataEntity
 import app.pachli.db.TimelineDao
 import app.pachli.db.TimelineStatusWithAccount
+import app.pachli.db.TranslatedStatusDao
+import app.pachli.db.TranslatedStatusEntity
 import app.pachli.di.ApplicationScope
 import app.pachli.di.TransactionProvider
 import app.pachli.network.MastodonApi
@@ -54,6 +56,7 @@ class CachedTimelineRepository @Inject constructor(
     private val transactionProvider: TransactionProvider,
     val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
+    private val translatedStatusDao: TranslatedStatusDao,
     private val gson: Gson,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
@@ -124,6 +127,7 @@ class CachedTimelineRepository @Inject constructor(
                 expanded = statusViewData.isExpanded,
                 contentShowing = statusViewData.isShowingContent,
                 contentCollapsed = statusViewData.isCollapsed,
+                showTranslation = statusViewData.showTranslation,
             ),
         )
     }.join()
@@ -160,6 +164,33 @@ class CachedTimelineRepository @Inject constructor(
         timelineDao.removeAll(activeAccount!!.id)
         remoteKeyDao.delete(activeAccount.id)
         invalidate()
+    }
+
+    // TODO: Report errors back to the viewmodel
+    suspend fun translate(statusViewData: StatusViewData) {
+        val translation = mastodonApi.translate(statusViewData.id)
+        translation.getOrNull()?.let {
+//            transactionProvider {
+//                translatedStatusDao.upsert(
+            timelineDao.upsertTranslatedStatusEntity(
+                TranslatedStatusEntity(
+                    serverId = statusViewData.actionableId,
+                    timelineUserId = activeAccount!!.id,
+                    // TODO: Should this embed the network type instead of copying data
+                    // from one type to another?
+                    content = it.content,
+                    provider = it.provider,
+                ),
+            )
+
+            saveStatusViewData(statusViewData.copy(showTranslation = true))
+//            invalidate()
+//            }
+        }
+    }
+
+    suspend fun translateUndo(statusViewData: StatusViewData) {
+        saveStatusViewData(statusViewData.copy(showTranslation = false))
     }
 
     companion object {

@@ -589,8 +589,8 @@ class TimelineFragment :
     }
 
     override fun onMore(view: View, position: Int) {
-        val status = adapter.peek(position) ?: return
-        super.more(status.status, view, position)
+        val statusViewData = adapter.peek(position) ?: return
+        super.more(statusViewData, view, position)
     }
 
     override fun onOpenReblog(position: Int) {
@@ -625,8 +625,14 @@ class TimelineFragment :
         viewModel.changeContentCollapsed(isCollapsed, status)
     }
 
-    override fun onTranslate(statusViewData: StatusViewData) {
-        viewModel.translate(statusViewData)
+    override fun onTranslate(position: Int, status: Status) {
+        val status = adapter.peek(position) ?: return
+        viewModel.translate(status)
+    }
+
+    override fun onTranslateUndo(position: Int, status: Status) {
+        val status = adapter.peek(position) ?: return
+        viewModel.translateUndo(status)
     }
 
     override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {

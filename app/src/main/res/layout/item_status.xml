@@ -213,7 +213,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/status_display_name"
         app:layout_constraintTop_toBottomOf="@id/status_media_preview_container"
-        tools:visibility="gone" />
+        tools:visibility="gone" >
+
+    </app.pachli.view.PollView>
+
+    <TextView
+        android:id="@+id/translationProvider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="14dp"
+        android:textSize="?attr/status_text_small"
+        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintTop_toBottomOf="@id/status_poll"
+        tools:text="Translation provider: DeepL"
+        tools:visibility="visible" />
 
     <ImageButton
         android:id="@+id/status_reply"
@@ -227,7 +241,7 @@
         app:layout_constraintEnd_toStartOf="@id/status_inset"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="@id/status_display_name"
-        app:layout_constraintTop_toBottomOf="@id/status_poll"
+        app:layout_constraintTop_toBottomOf="@id/translationProvider"
         app:srcCompat="@drawable/ic_reply_24dp" />
 
     <TextView

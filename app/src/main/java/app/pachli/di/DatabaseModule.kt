@@ -39,6 +39,8 @@ object DatabaseModule {
         converters: Converters,
     ): AppDatabase {
         return Room.databaseBuilder(appContext, AppDatabase::class.java, "pachliDB")
+            // TODO: Remove next line before submit
+            .fallbackToDestructiveMigration()
             .addTypeConverter(converters)
             .allowMainThreadQueries()
             .build()
@@ -65,6 +67,9 @@ object DatabaseModule {
 
     @Provides
     fun provideRemoteKeyDao(appDatabase: AppDatabase) = appDatabase.remoteKeyDao()
+
+    @Provides
+    fun providesTranslatedStatusDao(appDatabase: AppDatabase) = appDatabase.translatedStatusDao()
 }
 
 /**

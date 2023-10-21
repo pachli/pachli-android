@@ -18,7 +18,7 @@
 package app.pachli.interfaces
 
 import android.view.View
-import app.pachli.viewdata.StatusViewData
+import app.pachli.entity.Status
 
 interface StatusActionListener : LinkListener {
     fun onReply(position: Int)
@@ -61,7 +61,5 @@ interface StatusActionListener : LinkListener {
     fun onShowEdits(position: Int) {}
     fun clearWarningAction(position: Int)
 
-    fun onTranslate(statusViewData: StatusViewData) {
-        TODO()
-    }
+    fun onTranslate(position: Int, status: Status)
 }

@@ -41,4 +41,7 @@ data class TranslatedStatusEntity(
 
     /** The translated text of the status (HTML), equivalent to [Status.content] */
     val content: String,
+
+    /** The service that provided the machine translation */
+    val provider: String,
 )

@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.text.format.DateUtils
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -38,9 +39,11 @@ import app.pachli.util.expandTouchSizeToFillRow
 import app.pachli.util.formatNumber
 import app.pachli.util.getFormattedDescription
 import app.pachli.util.getRelativeTimeSpanString
+import app.pachli.util.hide
 import app.pachli.util.loadAvatar
 import app.pachli.util.setClickableMentions
 import app.pachli.util.setClickableText
+import app.pachli.util.show
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.view.MediaPreviewLayout
 import app.pachli.view.PollView
@@ -93,6 +96,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private val avatarRadius36dp: Int
     private val avatarRadius24dp: Int
     private val mediaPreviewUnloaded: Drawable
+    private val translationProvider: TextView?
 
     init {
         displayName = itemView.findViewById(R.id.status_display_name)
@@ -144,6 +148,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 moreButton,
             ),
         )
+        translationProvider = itemView.findViewById(R.id.translationProvider)
     }
 
     protected fun setDisplayName(
@@ -247,7 +252,20 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         listener: StatusActionListener,
     ) {
         val (_, _, _, _, _, _, _, _, _, emojis, _, _, _, _, _, _, _, _, _, _, mentions, tags, _, _, _, poll) = status.actionable
+        if (status.showTranslation) {
+            translationProvider?.apply {
+                status.translatedStatus?.provider?.let {
+                    this.text = context.getString(R.string.translation_provider_fmt, it)
+                    this.show()
+                }
+            }
+        } else {
+            translationProvider?.hide()
+        }
+
         val content = status.content
+        Log.d(TAG, "content: ${status.content}")
+        Log.d(TAG, "translation: ${status.translatedStatus?.content}")
         if (expanded) {
             val emojifiedText =
                 content.emojify(emojis, this.content, statusDisplayOptions.animateEmojis)

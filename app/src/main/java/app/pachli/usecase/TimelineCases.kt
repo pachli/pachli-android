@@ -26,7 +26,6 @@ import app.pachli.appstore.PinEvent
 import app.pachli.appstore.PollVoteEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusDeletedEvent
-import app.pachli.db.TimelineDao
 import app.pachli.entity.DeletedStatus
 import app.pachli.entity.Poll
 import app.pachli.entity.Relationship
@@ -42,7 +41,6 @@ import javax.inject.Inject
 
 class TimelineCases @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val timelineDao: TimelineDao,
     private val eventHub: EventHub,
 ) {
 

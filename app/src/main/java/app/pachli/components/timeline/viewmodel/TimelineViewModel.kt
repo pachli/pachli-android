@@ -158,8 +158,8 @@ sealed interface StatusAction : FallibleUiAction {
     ) : StatusAction
 
     /** Translate a status */
-    data class TranslateStatus(override val statusViewData: StatusViewData) :
-        StatusAction
+//    data class TranslateStatus(override val statusViewData: StatusViewData) :
+//        StatusAction
 }
 
 /** Changes to a status' visible state after API calls */
@@ -174,7 +174,7 @@ sealed interface StatusActionSuccess : UiSuccess {
 
     data class VoteInPoll(override val action: StatusAction.VoteInPoll) : StatusActionSuccess
 
-    data class TranslateStatus(override val action: StatusAction.TranslateStatus) : StatusActionSuccess
+//    data class TranslateStatus(override val action: StatusAction.TranslateStatus) : StatusActionSuccess
 
     companion object {
         fun from(action: StatusAction) = when (action) {
@@ -182,7 +182,7 @@ sealed interface StatusActionSuccess : UiSuccess {
             is StatusAction.Favourite -> Favourite(action)
             is StatusAction.Reblog -> Reblog(action)
             is StatusAction.VoteInPoll -> VoteInPoll(action)
-            is StatusAction.TranslateStatus -> TranslateStatus(action)
+//            is StatusAction.TranslateStatus -> TranslateStatus(action)
         }
     }
 }
@@ -229,14 +229,13 @@ sealed interface UiError {
         override val throwable: Throwable,
         override val action: StatusAction.VoteInPoll,
         override val message: Int = R.string.ui_error_vote,
-        override val message: Int = R.string.ui_error_vote,
     ) : UiError
 
-    data class TranslateStatus(
-        override val throwable: Throwable,
-        override val action: StatusAction.TranslateStatus,
-        override val message: Int = R.string.ui_error_translate_status,
-    ) : UiError
+//    data class TranslateStatus(
+//        override val throwable: Throwable,
+//        override val action: StatusAction.TranslateStatus,
+//        override val message: Int = R.string.ui_error_translate_status,
+//    ) : UiError
 
     data class GetFilters(
         override val throwable: Throwable,
@@ -250,7 +249,7 @@ sealed interface UiError {
             is StatusAction.Favourite -> Favourite(throwable, action)
             is StatusAction.Reblog -> Reblog(throwable, action)
             is StatusAction.VoteInPoll -> VoteInPoll(throwable, action)
-            is StatusAction.TranslateStatus -> TranslateStatus(throwable, action)
+//            is StatusAction.TranslateStatus -> TranslateStatus(throwable, action)
         }
     }
 }
@@ -348,10 +347,10 @@ abstract class TimelineViewModel(
                                     action.poll.id,
                                     action.choices,
                                 )
-                            is StatusAction.TranslateStatus ->
-                                timelineCases.translateStatus(
-                                    action.statusViewData.actionableId,
-                                )
+//                            is StatusAction.TranslateStatus ->
+//                                timelineCases.translateStatus(
+//                                    action.statusViewData.actionableId,
+//                                )
                         }.getOrThrow()
                         uiSuccess.emit(StatusActionSuccess.from(action))
                     } catch (e: Exception) {
@@ -469,6 +468,10 @@ abstract class TimelineViewModel(
     abstract fun handleBookmarkEvent(bookmarkEvent: BookmarkEvent)
 
     abstract fun handlePinEvent(pinEvent: PinEvent)
+
+    abstract fun translate(statusViewData: StatusViewData)
+
+    abstract fun translateUndo(statusViewData: StatusViewData)
 
     /**
      * Reload data for this timeline while preserving the user's reading position.

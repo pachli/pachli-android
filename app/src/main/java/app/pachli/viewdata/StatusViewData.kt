@@ -16,9 +16,11 @@ package app.pachli.viewdata
 
 import android.os.Build
 import android.text.Spanned
+import android.text.SpannedString
 import app.pachli.components.conversation.ConversationAccountEntity
 import app.pachli.components.conversation.ConversationStatusEntity
 import app.pachli.db.TimelineStatusWithAccount
+import app.pachli.db.TranslatedStatusEntity
 import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
@@ -32,6 +34,8 @@ import com.google.gson.Gson
  */
 data class StatusViewData(
     var status: Status,
+    var translatedStatus: TranslatedStatusEntity? = null,
+
     /**
      * If the status includes a non-empty content warning ([spoilerText]), specifies whether
      * just the content warning is showing (false), or the whole status content is showing (true).
@@ -66,6 +70,9 @@ data class StatusViewData(
     // if the Filter.Action class subtypes carried the FilterResult information with them,
     // and it's impossible to construct them with an empty list.
     var filterAction: Filter.Action = Filter.Action.NONE,
+
+    /** True if the translated content should be shown (if it exists) */
+    val showTranslation: Boolean,
 ) {
     val id: String
         get() = status.id
@@ -78,7 +85,12 @@ data class StatusViewData(
      */
     val isCollapsible: Boolean
 
+    private val _content: Spanned
+
+    private val _translatedContent: Spanned
+
     val content: Spanned
+        get() = if (showTranslation) _translatedContent else _content
 
     /** The content warning, may be the empty string */
     val spoilerText: String
@@ -103,13 +115,17 @@ data class StatusViewData(
     init {
         if (Build.VERSION.SDK_INT == 23) {
             // https://github.com/tuskyapp/Tusky/issues/563
-            this.content = replaceCrashingCharacters(status.actionableStatus.content.parseAsMastodonHtml())
+            this._content = replaceCrashingCharacters(status.actionableStatus.content.parseAsMastodonHtml())
             this.spoilerText =
                 replaceCrashingCharacters(status.actionableStatus.spoilerText).toString()
             this.username =
                 replaceCrashingCharacters(status.actionableStatus.account.username).toString()
+            this._translatedContent = translatedStatus?.content?.let {
+                replaceCrashingCharacters(it.parseAsMastodonHtml())
+            } ?: SpannedString("")
         } else {
-            this.content = status.actionableStatus.content.parseAsMastodonHtml()
+            this._content = status.actionableStatus.content.parseAsMastodonHtml()
+            this._translatedContent = translatedStatus?.content?.parseAsMastodonHtml() ?: SpannedString("")
             this.spoilerText = status.actionableStatus.spoilerText
             this.username = status.actionableStatus.account.username
         }
@@ -162,6 +178,7 @@ data class StatusViewData(
             isCollapsed: Boolean,
             isDetailed: Boolean = false,
             filterAction: Filter.Action = Filter.Action.NONE,
+            showTranslation: Boolean = false,
         ) = StatusViewData(
             status = status,
             isShowingContent = isShowingContent,
@@ -169,6 +186,7 @@ data class StatusViewData(
             isExpanded = isExpanded,
             isDetailed = isDetailed,
             filterAction = filterAction,
+            showTranslation = showTranslation,
         )
 
         fun from(conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
@@ -206,6 +224,7 @@ data class StatusViewData(
             isExpanded = conversationStatusEntity.expanded,
             isShowingContent = conversationStatusEntity.showingHiddenContent,
             isCollapsed = conversationStatusEntity.collapsed,
+            showTranslation = false, // TODO: Include this in conversationStatusEntity
         )
 
         fun from(
@@ -214,14 +233,17 @@ data class StatusViewData(
             isExpanded: Boolean,
             isShowingContent: Boolean,
             isDetailed: Boolean = false,
+            showTranslation: Boolean = false,
         ): StatusViewData {
             val status = timelineStatusWithAccount.toStatus(gson)
             return StatusViewData(
                 status = status,
+                translatedStatus = timelineStatusWithAccount.translatedStatus,
                 isExpanded = timelineStatusWithAccount.viewData?.expanded ?: isExpanded,
                 isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (isShowingContent || !status.actionableStatus.sensitive),
                 isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                 isDetailed = isDetailed,
+                showTranslation = timelineStatusWithAccount.viewData?.showTranslation ?: showTranslation,
             )
         }
     }

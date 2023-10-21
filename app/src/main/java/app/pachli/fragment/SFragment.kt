@@ -57,6 +57,7 @@ import app.pachli.util.openLink
 import app.pachli.util.parseAsMastodonHtml
 import app.pachli.view.showMuteAccountDialog
 import app.pachli.viewdata.AttachmentViewData
+import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import com.google.android.material.snackbar.Snackbar
@@ -157,7 +158,8 @@ abstract class SFragment : Fragment() {
      * Handles the user clicking the "..." (more) button typically at the bottom-right of
      * the status.
      */
-    protected fun more(status: Status, view: View, position: Int) {
+    protected fun more(statusViewData: StatusViewData, view: View, position: Int) {
+        val status = statusViewData.status
         val actionableId = status.actionableId
         val accountId = status.actionableStatus.account.id
         val accountUsername = status.actionableStatus.account.username
@@ -187,8 +189,13 @@ abstract class SFragment : Fragment() {
         } else {
             popup.inflate(R.menu.status_more)
             popup.menu.findItem(R.id.status_download_media).isVisible = status.attachments.isNotEmpty()
-            Log.d(TAG, "canTranslate: $canTranslate")
-            popup.menu.findItem(R.id.status_translate).isVisible = canTranslate
+            if (canTranslate) {
+                popup.menu.findItem(R.id.status_translate).isVisible = !statusViewData.showTranslation
+                popup.menu.findItem(R.id.status_translate_undo).isVisible = statusViewData.showTranslation
+            } else {
+                popup.menu.findItem(R.id.status_translate).isVisible = false
+                popup.menu.findItem(R.id.status_translate_undo).isVisible = false
+            }
         }
         val menu = popup.menu
         val openAsItem = menu.findItem(R.id.status_open_as)
@@ -246,7 +253,11 @@ abstract class SFragment : Fragment() {
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_translate -> {
-                    onTranslate(actionableId, status)
+                    onTranslate(position, status)
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.status_translate_undo -> {
+                    onTranslateUndo(position, status)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_copy_link -> {
@@ -317,9 +328,10 @@ abstract class SFragment : Fragment() {
         popup.show()
     }
 
-    open fun onTranslate(actionableId: String, status: Status) {
-        Log.d(TAG, "Translation happens here")
-    }
+    // XXX: Make these abstract
+    open fun onTranslate(position: Int, status: Status) {}
+
+    open fun onTranslateUndo(position: Int, status: Status) {}
 
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->

@@ -204,6 +204,8 @@
     <string name="action_dismiss">Dismiss</string>
     <string name="action_details">Details</string>
     <string name="action_add_reaction">add reaction</string>
+    <string name="action_translate">Translate</string>
+    <string name="action_translate_undo">Undo translate</string>
 
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Mentions</string>
@@ -827,6 +829,7 @@
     <string name="dialog_delete_filter_text">Delete filter \'%1$s\'?"</string>
     <string name="dialog_delete_filter_positive_action">Delete</string>
     <string name="dialog_save_profile_changes_message">Do you want to save your profile changes?</string>
-    <string name="action_translate">Translate</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
+
+    <string name="translation_provider_fmt">Translation: %1$s</string>
 </resources>

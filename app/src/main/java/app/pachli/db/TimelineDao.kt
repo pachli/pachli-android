@@ -49,8 +49,9 @@ rb.displayName as 'rb_displayName', rb.url as 'rb_url', rb.avatar as 'rb_avatar'
 rb.emojis as 'rb_emojis', rb.bot as 'rb_bot',
 svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
 svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
-svd.contentCollapsed as 'svd_contentCollapsed',
-t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content'
+svd.contentCollapsed as 'svd_contentCollapsed', svd.showTranslation as 'svd_showTranslation',
+t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content',
+t.provider as 't_provider'
 FROM TimelineStatusEntity s
 LEFT JOIN TimelineAccountEntity a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
 LEFT JOIN TimelineAccountEntity rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
@@ -93,11 +94,14 @@ rb.displayName as 'rb_displayName', rb.url as 'rb_url', rb.avatar as 'rb_avatar'
 rb.emojis as 'rb_emojis', rb.bot as 'rb_bot',
 svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
 svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
-svd.contentCollapsed as 'svd_contentCollapsed'
+svd.contentCollapsed as 'svd_contentCollapsed', svd.showTranslation as 'svd_showTranslation',
+t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content',
+t.provider as 't_provider'
 FROM TimelineStatusEntity s
 LEFT JOIN TimelineAccountEntity a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
 LEFT JOIN TimelineAccountEntity rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN StatusViewDataEntity svd ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+LEFT JOIN TranslatedStatusEntity t ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
 WHERE (s.serverId = :statusId OR s.reblogServerId = :statusId)
 AND s.authorServerId IS NOT NULL""",
     )
@@ -245,6 +249,9 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
 
     @Upsert
     abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)
+
+    @Upsert
+    abstract suspend fun upsertTranslatedStatusEntity(t: TranslatedStatusEntity)
 
     /**
      * @param accountId the accountId to query
