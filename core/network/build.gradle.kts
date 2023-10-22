@@ -57,6 +57,8 @@ dependencies {
     implementation(libs.networkresult.calladapter)
 
     testImplementation(libs.androidx.test.junit)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.mockwebserver)
 
     androidTestImplementation(libs.androidx.test.junit)
 }

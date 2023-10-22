@@ -29,7 +29,7 @@ import app.pachli.core.network.model.Instance
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.StatusConfiguration
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.rules.lazyActivityScenarioRule
+import app.pachli.core.testing.rules.lazyActivityScenarioRule
 import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule

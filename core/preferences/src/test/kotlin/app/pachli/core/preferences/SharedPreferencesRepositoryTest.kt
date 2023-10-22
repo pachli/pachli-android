@@ -15,14 +15,13 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.preferences
 
 import androidx.core.content.edit
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
-import app.pachli.components.timeline.MainCoroutineRule
-import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.fakes.InMemorySharedPreferences
+import app.pachli.core.testing.fakes.InMemorySharedPreferences
+import app.pachli.core.testing.rules.MainCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest

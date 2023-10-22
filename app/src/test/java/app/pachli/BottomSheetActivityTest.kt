@@ -18,11 +18,11 @@
 package app.pachli
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import app.pachli.components.timeline.MainCoroutineRule
 import app.pachli.core.network.model.SearchResult
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.testing.rules.MainCoroutineRule
 import at.connyduck.calladapter.networkresult.NetworkResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher

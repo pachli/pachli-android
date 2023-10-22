@@ -64,6 +64,7 @@ dependencies {
     ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.androidx.test.junit)
-
-    androidTestImplementation(libs.androidx.test.junit)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.hilt.android.testing)
+    kspTest(libs.hilt.compiler)
 }

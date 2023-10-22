@@ -36,8 +36,8 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.testing.rules.lazyActivityScenarioRule
 import app.pachli.db.DraftsAlert
-import app.pachli.rules.lazyActivityScenarioRule
 import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication

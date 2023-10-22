@@ -15,14 +15,12 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.di
+package app.pachli.core.database.di
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
-import app.pachli.core.database.di.DatabaseModule
-import app.pachli.core.database.di.TransactionProvider
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

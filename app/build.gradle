@@ -194,10 +194,10 @@ dependencies {
 
     implementation libs.bundles.aboutlibraries
 
+    testImplementation project(path: ':core:testing')
     testImplementation libs.androidx.test.junit
     testImplementation libs.robolectric
     testImplementation libs.bundles.mockito
-    testImplementation libs.mockwebserver
     testImplementation libs.androidx.core.testing
     testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.androidx.work.testing

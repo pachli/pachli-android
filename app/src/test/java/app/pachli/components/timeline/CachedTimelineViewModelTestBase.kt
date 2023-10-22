@@ -26,6 +26,7 @@ import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.network.FilterModel
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases

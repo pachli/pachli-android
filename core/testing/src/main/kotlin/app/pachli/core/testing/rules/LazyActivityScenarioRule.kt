@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.rules
+package app.pachli.core.testing.rules
 
 import android.app.Activity
 import android.content.Intent

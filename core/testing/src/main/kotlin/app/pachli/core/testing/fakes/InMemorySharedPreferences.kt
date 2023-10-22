@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.fakes
+package app.pachli.core.testing.fakes
 
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
