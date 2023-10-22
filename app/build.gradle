@@ -112,7 +112,9 @@ android {
     applicationVariants.configureEach { variant ->
         tasks.register("printVersionInfo${variant.name.capitalize()}") {
             notCompatibleWithConfigurationCache("Should always print the version info")
-            println variant.versionCode + " " + variant.versionName
+            doLast {
+                println variant.versionCode + " " + variant.versionName
+            }
         }
         variant.outputs.configureEach {
             // Set the "orange" release versionCode to the number of commits on the
