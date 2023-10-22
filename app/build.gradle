@@ -87,9 +87,6 @@ android {
             systemProperty 'robolectric.lazyload', 'ON'
         }
     }
-    sourceSets {
-        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
-    }
 
     // Exclude unneeded files added by libraries
     packagingOptions.resources.excludes += [
