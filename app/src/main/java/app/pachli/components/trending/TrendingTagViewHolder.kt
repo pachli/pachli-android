@@ -17,8 +17,8 @@ package app.pachli.components.trending
 
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.common.util.formatNumber
 import app.pachli.databinding.ItemTrendingCellBinding
-import app.pachli.util.formatNumber
 import app.pachli.viewdata.TrendingViewData
 
 class TrendingTagViewHolder(

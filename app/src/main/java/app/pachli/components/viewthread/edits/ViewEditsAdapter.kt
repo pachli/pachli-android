@@ -21,12 +21,12 @@ import app.pachli.R
 import app.pachli.adapter.PollAdapter
 import app.pachli.adapter.PollAdapter.Companion.MULTIPLE
 import app.pachli.adapter.PollAdapter.Companion.SINGLE
+import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.StatusEdit
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemStatusEditBinding
 import app.pachli.interfaces.LinkListener
-import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.BindingHolder
 import app.pachli.util.aspectRatios
 import app.pachli.util.decodeBlurHash

@@ -26,9 +26,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.adapter.PollAdapter
+import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.network.model.Emoji
 import app.pachli.databinding.StatusPollBinding
-import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.formatPollDuration
 import app.pachli.util.hide

@@ -24,11 +24,11 @@ import android.view.ViewGroup
 import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemAnnouncementBinding
 import app.pachli.interfaces.LinkListener
-import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.BindingHolder
 import app.pachli.util.EmojiSpan
 import app.pachli.util.emojify

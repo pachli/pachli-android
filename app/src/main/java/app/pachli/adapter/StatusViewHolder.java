@@ -30,12 +30,12 @@ import java.util.List;
 
 import app.pachli.R;
 import app.pachli.core.common.string.StringUtils;
+import app.pachli.core.common.util.NumberUtils;
 import app.pachli.core.network.model.Emoji;
 import app.pachli.core.network.model.Filter;
 import app.pachli.core.network.model.Status;
 import app.pachli.interfaces.StatusActionListener;
 import app.pachli.util.CustomEmojiHelper;
-import app.pachli.util.NumberUtils;
 import app.pachli.util.SmartLengthInputFilter;
 import app.pachli.util.StatusDisplayOptions;
 import app.pachli.viewdata.StatusViewData;

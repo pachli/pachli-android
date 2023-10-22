@@ -35,12 +35,12 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Notification
 import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.interfaces.LinkListener
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.SmartLengthInputFilter
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.emojify
