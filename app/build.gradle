@@ -36,6 +36,7 @@ android {
         versionCode 5
         versionName "1.2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments disableAnalytics: 'true'
         vectorDrawables.useSupportLibrary = true
 
         resValue "string", "app_name", APP_NAME
