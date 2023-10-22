@@ -55,8 +55,11 @@ android {
 
     flavorDimensions += "color"
     productFlavors {
-        blue {}
+        blue {
+            dimension "color"
+        }
         orange {
+            dimension "color"
             resValue "string", "app_name", APP_NAME + " Current"
             applicationIdSuffix ".current"
             versionNameSuffix "+" + gitSha
