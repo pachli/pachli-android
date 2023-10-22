@@ -1,4 +1,4 @@
-package app.pachli.json
+package app.pachli.core.network.json
 
 import app.pachli.core.network.model.Relationship
 import com.google.gson.Gson
