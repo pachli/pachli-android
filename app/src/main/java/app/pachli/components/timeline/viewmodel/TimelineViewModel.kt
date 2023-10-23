@@ -399,7 +399,7 @@ abstract class TimelineViewModel(
             filterRemoveReblogs =
                 !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_BOOSTS, true)
             filterRemoveSelfReblogs =
-                !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_SELF_BOOSTS, true)
+                !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS, true)
         }
 
         // Save the visible status ID (if it's the home timeline)
@@ -565,8 +565,8 @@ abstract class TimelineViewModel(
                     reloadKeepingReadingPosition()
                 }
             }
-            PrefKeys.TAB_FILTER_HOME_SELF_BOOSTS -> {
-                val filter = sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_SELF_BOOSTS, true)
+            PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS -> {
+                val filter = sharedPreferencesRepository.getBoolean(PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS, true)
                 val oldRemoveSelfReblogs = filterRemoveSelfReblogs
                 filterRemoveSelfReblogs = timelineKind is TimelineKind.Home && !filter
                 if (oldRemoveSelfReblogs != filterRemoveSelfReblogs) {
