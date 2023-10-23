@@ -44,13 +44,19 @@ import app.pachli.entity.Status.Mention
 import app.pachli.interfaces.LinkListener
 import app.pachli.settings.PrefKeys
 import com.google.android.material.color.MaterialColors
+import com.mikepenz.iconics.IconicsColor
+import com.mikepenz.iconics.IconicsDrawable
+import com.mikepenz.iconics.IconicsSize
+import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import com.mikepenz.iconics.utils.color
+import com.mikepenz.iconics.utils.size
+import java.lang.ref.WeakReference
 import java.net.URI
 import java.net.URISyntaxException
 
 fun getDomain(urlString: String?): String {
-    val host = urlString?.toUri()?.host
+    val host = urlString?.toUri()?.host ?: return ""
     return when {
-        host == null -> ""
         host.startsWith("www.") -> host.substring(4)
         else -> host
     }
@@ -66,7 +72,7 @@ fun getDomain(urlString: String?): String {
  * @param listener to notify about particular spans that are clicked
  */
 fun setClickableText(view: TextView, content: CharSequence, mentions: List<Mention>, tags: List<HashTag>?, listener: LinkListener) {
-    val spannableContent = markupHiddenUrls(view.context, content)
+    val spannableContent = markupHiddenUrls(view, content)
 
     view.text = spannableContent.apply {
         getSpans(0, spannableContent.length, URLSpan::class.java).forEach {
@@ -77,7 +83,7 @@ fun setClickableText(view: TextView, content: CharSequence, mentions: List<Menti
 }
 
 @VisibleForTesting
-fun markupHiddenUrls(context: Context, content: CharSequence): SpannableStringBuilder {
+fun markupHiddenUrls(textView: TextView, content: CharSequence): SpannableStringBuilder {
     val spannableContent = SpannableStringBuilder(content)
     val originalSpans = spannableContent.getSpans(0, content.length, URLSpan::class.java)
     val obscuredLinkSpans = originalSpans.filter {
@@ -96,12 +102,39 @@ fun markupHiddenUrls(context: Context, content: CharSequence): SpannableStringBu
         }
     }
 
-    for (span in obscuredLinkSpans) {
-        val start = spannableContent.getSpanStart(span)
-        val end = spannableContent.getSpanEnd(span)
-        val originalText = spannableContent.subSequence(start, end)
-        val replacementText = context.getString(R.string.url_domain_notifier, originalText, getDomain(span.url))
-        spannableContent.replace(start, end, replacementText) // this also updates the span locations
+    if (obscuredLinkSpans.isNotEmpty()) {
+        val context = textView.context
+
+        // Drawable to use to mark links. R.string.url_domain_notifier contains a Unicode emoji
+        // ("🔗") that can render oddly depending on the user's choice of emoji set, so the emoji
+        // is replaced with the drawable
+        val iconLinkDrawable = IconicsDrawable(context, GoogleMaterial.Icon.gmd_open_in_new).apply {
+            size = IconicsSize.px(textView.textSize)
+            color = IconicsColor.colorInt(textView.currentTextColor)
+        }
+        val iconLength = "🔗".length
+
+        for (span in obscuredLinkSpans) {
+            val end = spannableContent.getSpanEnd(span)
+            val replacementText = context.getString(R.string.url_domain_notifier, getDomain(span.url))
+            spannableContent.insert(end, replacementText)
+        }
+
+        var iconIndex = -1
+        while (true) {
+            iconIndex = spannableContent.indexOf("🔗", iconIndex + 1)
+            if (iconIndex == -1) break
+
+            // ImageSpan has bugs when trying to align the drawable with text, so use
+            // EmojiSpan which centre-aligns it correctly. EmojiSpan default is to scale
+            // the drawable to fill the text height, set scaleFactor to get a more
+            // reasonable size.
+            val linkSpan = EmojiSpan(WeakReference(textView)).apply {
+                imageDrawable = iconLinkDrawable
+                scaleFactor = 0.7f
+            }
+            spannableContent.setSpan(linkSpan, iconIndex, iconIndex + iconLength, 0)
+        }
     }
 
     return spannableContent
