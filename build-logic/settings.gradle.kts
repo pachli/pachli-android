@@ -15,30 +15,17 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-plugins {
-    alias(libs.plugins.pachli.android.library)
-    alias(libs.plugins.pachli.android.hilt)
-    alias(libs.plugins.kotlin.parcelize)
-}
-
-android {
-    namespace = "app.pachli.core.testing"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    versionCatalogs {
+        create("libs") {
+            from(files("../gradle/libs.versions.toml"))
+        }
     }
 }
 
-dependencies {
-    implementation(projects.core.common)
-
-    api(libs.kotlinx.coroutines.test)
-    api(libs.androidx.test.junit)
-    api(libs.androidx.core.testing)
-    api(libs.androidx.test.core.ktx)
-    api(libs.robolectric)
-    api(libs.truth)
-    api(libs.turbine)
-
-    androidTestImplementation(libs.androidx.test.junit)
-}
+rootProject.name = "build-logic"
+include(":convention")

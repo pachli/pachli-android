@@ -37,6 +37,7 @@ glide-animation-plugin = "2.23.0"
 gson = "2.10.1"
 hilt = "2.48.1"
 kotlin = "1.9.10"
+ksp = "1.9.10-1.0.13"
 image-cropper = "4.3.2"
 material = "1.9.0"
 material-drawer = "8.4.5"
@@ -61,11 +62,28 @@ xmlwriter = "1.0.4"
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-google-ksp = "com.google.devtools.ksp:1.9.10-1.0.13"
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 ktlint = "org.jlleitschuh.gradle.ktlint:11.6.1"
+pachli-android-room = { id = "pachli.android.room", version = "unspecified" }
+
+# Plugins defined by this project
+#pachli-android-application = { id = "pachli.android.application", version = "unspecified" }
+#pachli-android-application-compose = { id = "pachli.android.application.compose", version = "unspecified" }
+#pachli-android-application-firebase = { id = "pachli.android.application.firebase", version = "unspecified" }
+pachli-android-application-flavors = { id = "pachli.android.application.flavors", version = "unspecified" }
+#pachli-android-application-jacoco = { id = "pachli.android.application.jacoco", version = "unspecified" }
+#pachli-android-feature = { id = "pachli.android.feature", version = "unspecified" }
+pachli-android-hilt = { id = "pachli.android.hilt", version = "unspecified" }
+pachli-android-library = { id = "pachli.android.library", version = "unspecified" }
+#pachli-android-library-compose = { id = "pachli.android.library.compose", version = "unspecified" }
+#pachli-android-library-jacoco = { id = "pachli.android.library.jacoco", version = "unspecified" }
+#pachli-android-lint = { id = "pachli.android.lint", version = "unspecified" }
+#pachli-android-test = { id = "pachli.android.test", version = "unspecified" }
+#pachli-jvm-library = { id = "pachli.jvm.library", version = "unspecified" }
+
 
 [libraries]
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }
@@ -150,6 +168,11 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 unified-push = { module = "com.github.UnifiedPush:android-connector", version.ref = "unified-push" }
 xmlwriter = { module = "org.pageseeder.xmlwriter:pso-xmlwriter", version.ref = "xmlwriter" }
+
+# build-logic dependencies
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 [bundles]
 aboutlibraries = ["aboutlibraries-core", "aboutlibraries-legacy-ui"]

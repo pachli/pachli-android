@@ -4,6 +4,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 
+    includeBuild("build-logic")
     includeBuild("plugins/markdown2resource")
 }
 

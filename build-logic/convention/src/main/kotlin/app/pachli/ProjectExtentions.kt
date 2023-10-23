@@ -15,30 +15,12 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-plugins {
-    alias(libs.plugins.pachli.android.library)
-    alias(libs.plugins.pachli.android.hilt)
-    alias(libs.plugins.kotlin.parcelize)
-}
+package app.pachli
 
-android {
-    namespace = "app.pachli.core.testing"
+import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.getByType
 
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-}
-
-dependencies {
-    implementation(projects.core.common)
-
-    api(libs.kotlinx.coroutines.test)
-    api(libs.androidx.test.junit)
-    api(libs.androidx.core.testing)
-    api(libs.androidx.test.core.ktx)
-    api(libs.robolectric)
-    api(libs.truth)
-    api(libs.turbine)
-
-    androidTestImplementation(libs.androidx.test.junit)
-}
+val Project.libs
+    get(): VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
