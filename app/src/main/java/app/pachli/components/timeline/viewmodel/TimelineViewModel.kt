@@ -497,7 +497,7 @@ abstract class TimelineViewModel(
             (status.inReplyToId != null && filterRemoveReplies) ||
             (status.reblog != null && filterRemoveReblogs) ||
             // To determine if the boost is boosting your own toot
-            ((status.reblog != null && status.account.username == statusViewData.username) && filterRemoveSelfReblogs)
+            ((status.account.id == status.reblog?.account?.id) && filterRemoveSelfReblogs)
         ) {
             return Filter.Action.HIDE
         } else {
