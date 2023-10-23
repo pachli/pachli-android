@@ -66,6 +66,9 @@ fun CharSequence.emojify(emojis: List<Emoji>?, view: View, animate: Boolean): Ch
 class EmojiSpan(val viewWeakReference: WeakReference<View>) : ReplacementSpan() {
     var imageDrawable: Drawable? = null
 
+    /** Scale the emoji up/down from the calculated size */
+    var scaleFactor = 1.0f
+
     override fun getSize(paint: Paint, text: CharSequence, start: Int, end: Int, fm: Paint.FontMetricsInt?): Int {
         if (fm != null) {
             /* update FontMetricsInt or otherwise span does not get drawn when
@@ -77,7 +80,7 @@ class EmojiSpan(val viewWeakReference: WeakReference<View>) : ReplacementSpan() 
             fm.bottom = metrics.bottom
         }
 
-        return (paint.textSize * 1.2).toInt()
+        return (paint.textSize * 1.2 * scaleFactor).toInt()
     }
 
     override fun draw(canvas: Canvas, text: CharSequence, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int, paint: Paint) {
@@ -100,6 +103,9 @@ class EmojiSpan(val viewWeakReference: WeakReference<View>) : ReplacementSpan() 
                 emojiWidth *= drawableSpace / emojiHeight
                 emojiHeight = drawableSpace
             }
+            emojiHeight *= scaleFactor
+            emojiWidth *= scaleFactor
+
             drawable.setBounds(0, 0, emojiWidth.toInt(), emojiHeight.toInt())
 
             // vertically center the emoji in the line
