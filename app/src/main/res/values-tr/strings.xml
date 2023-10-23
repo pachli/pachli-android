@@ -509,7 +509,7 @@
     <string name="duration_180_days">180 gün</string>
     <string name="duration_60_days">60 gün</string>
     <string name="duration_90_days">90 gün</string>
-    <string name="url_domain_notifier">%s (🔗 %s)</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="pref_default_post_language">Varsayılan gönderme dili</string>
     <string name="notification_report_name">Raporlar</string>
     <string name="notification_report_description">Denetleme raporlarıyla ilgili bildirimler</string>
