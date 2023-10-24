@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.1.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.1.2)" variant="all" version="8.1.2">
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in org.bouncycastle:bcprov-jdk18on; not included in Android: `javax.naming.directory`. Referenced from `org.bouncycastle.jce.provider.CrlCache`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk18on/1.72/d8dc62c28a3497d29c93fee3e71c00b27dff41b4/bcprov-jdk18on-1.72.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in org.bouncycastle:bcprov-jdk18on; not included in Android: `javax.naming`. Referenced from `org.bouncycastle.jce.provider.X509LDAPCertStoreSpi`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk18on/1.72/d8dc62c28a3497d29c93fee3e71c00b27dff41b4/bcprov-jdk18on-1.72.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in org.mockito:mockito-core; not included in Android: `javax.tools`. Referenced from `org.mockito.internal.creation.bytebuddy.InlineByteBuddyMockMaker`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.mockito/mockito-core/2.25.0/1fcf2f6944d69b6f39cd579718d8b5395a97836b/mockito-core-2.25.0.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in org.robolectric:resources; not included in Android: `javax.xml.stream`. Referenced from `org.robolectric.res.NodeHandler`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/resources/4.10.3/4007e4090d86bff687f61134977bc559ee1fd064/resources-4.10.3.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `java.awt.geom`. Referenced from `org.robolectric.shadows.CachedPathIteratorFactory`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.10.3/dc1784b0ddf07466f02a4cd5393b4dfa2e5725cc/shadows-framework-4.10.3.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `java.awt.image`. Referenced from `org.robolectric.shadows.AutoValue_ImageUtil_RobolectricBufferedImage`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.10.3/dc1784b0ddf07466f02a4cd5393b4dfa2e5725cc/shadows-framework-4.10.3.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `java.awt`. Referenced from `org.robolectric.shadows.ImageUtil`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.10.3/dc1784b0ddf07466f02a4cd5393b4dfa2e5725cc/shadows-framework-4.10.3.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `javax.imageio.stream`. Referenced from `org.robolectric.shadows.ImageUtil`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.10.3/dc1784b0ddf07466f02a4cd5393b4dfa2e5725cc/shadows-framework-4.10.3.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `javax.imageio`. Referenced from `org.robolectric.shadows.ImageUtil`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.10.3/dc1784b0ddf07466f02a4cd5393b4dfa2e5725cc/shadows-framework-4.10.3.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in org.robolectric:utils; not included in Android: `javax.inject`. Referenced from `org.robolectric.util.inject.Injector`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/utils/4.10.3/930f409768715529b113a7ad844a4ff13f0094f8/utils-4.10.3.jar"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 24 (current min is 23): `java.util.Map#getOrDefault`"
+        errorLine1="    override fun getString(key: String?, defValue: String?) = store.getOrDefault(key, defValue) as String?"
+        errorLine2="                                                                    ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/testing/fakes/InMemorySharedPreferences.kt"
+            line="42"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 24 (current min is 23): `java.util.Map#getOrDefault`"
+        errorLine1="    override fun getStringSet(key: String?, defValues: MutableSet&lt;String>?) = store.getOrDefault(key, defValues) as MutableSet&lt;String>?"
+        errorLine2="                                                                                    ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/testing/fakes/InMemorySharedPreferences.kt"
+            line="44"
+            column="85"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 24 (current min is 23): `java.util.Map#getOrDefault`"
+        errorLine1="    override fun getInt(key: String, defaultValue: Int) = store.getOrDefault(key, defaultValue) as Int"
+        errorLine2="                                                                ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/testing/fakes/InMemorySharedPreferences.kt"
+            line="46"
+            column="65"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 24 (current min is 23): `java.util.Map#getOrDefault`"
+        errorLine1="    override fun getLong(key: String, defaultValue: Long) = store.getOrDefault(key, defaultValue) as Long"
+        errorLine2="                                                                  ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/testing/fakes/InMemorySharedPreferences.kt"
+            line="48"
+            column="67"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 24 (current min is 23): `java.util.Map#getOrDefault`"
+        errorLine1="    override fun getFloat(key: String, defaultValue: Float) = store.getOrDefault(key, defaultValue) as Float"
+        errorLine2="                                                                    ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/testing/fakes/InMemorySharedPreferences.kt"
+            line="50"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 24 (current min is 23): `java.util.Map#getOrDefault`"
+        errorLine1="    override fun getBoolean(key: String, defaultValue: Boolean) = store.getOrDefault(key, defaultValue) as Boolean"
+        errorLine2="                                                                        ~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/testing/fakes/InMemorySharedPreferences.kt"
+            line="52"
+            column="73"/>
+    </issue>
+
+</issues>

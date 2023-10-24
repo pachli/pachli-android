@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.1.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.1.2)" variant="all" version="8.1.2">
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `isSameDate` of class `Companion` requires synthetic accessor"
+        errorLine1="            isSameDate(time, now, tz) -> sameDaySdf.format(time)"
+        errorLine2="            ~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/common/util/AbsoluteTimeFormatter.kt"
+            line="36"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `isSameDate` of class `Companion` requires synthetic accessor"
+        errorLine1="            isSameDate(time, now, tz) -> sameDaySdf.format(time)"
+        errorLine2="            ~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/common/util/AbsoluteTimeFormatter.kt"
+            line="36"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `isSameDate` of class `Companion` requires synthetic accessor"
+        errorLine1="            isSameDate(time, now, tz) -> sameDaySdf.format(time)"
+        errorLine2="            ~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/common/util/AbsoluteTimeFormatter.kt"
+            line="36"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `isSameYear` of class `Companion` requires synthetic accessor"
+        errorLine1="            isSameYear(time, now, tz) -> sameYearSdf.format(time)"
+        errorLine2="            ~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/common/util/AbsoluteTimeFormatter.kt"
+            line="37"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `isSameYear` of class `Companion` requires synthetic accessor"
+        errorLine1="            isSameYear(time, now, tz) -> sameYearSdf.format(time)"
+        errorLine2="            ~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/common/util/AbsoluteTimeFormatter.kt"
+            line="37"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `isSameYear` of class `Companion` requires synthetic accessor"
+        errorLine1="            isSameYear(time, now, tz) -> sameYearSdf.format(time)"
+        errorLine2="            ~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/common/util/AbsoluteTimeFormatter.kt"
+            line="37"
+            column="13"/>
+    </issue>
+
+</issues>

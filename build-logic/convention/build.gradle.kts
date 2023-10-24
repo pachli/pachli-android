@@ -93,10 +93,10 @@ gradlePlugin {
             id = "pachli.android.application.flavors"
             implementationClass = "AndroidApplicationFlavorsConventionPlugin"
         }
-//        register("androidLint") {
-//            id = "pachli.android.lint"
-//            implementationClass = "AndroidLintConventionPlugin"
-//        }
+        register("androidLint") {
+            id = "pachli.android.lint"
+            implementationClass = "AndroidLintConventionPlugin"
+        }
 //        register("jvmLibrary") {
 //            id = "pachli.jvm.library"
 //            implementationClass = "JvmLibraryConventionPlugin"

@@ -2154,72 +2154,6 @@
 
     <issue
         id="SyntheticAccessor"
-        message="Access to `private` method `isSameDate` of class `Companion` requires synthetic accessor"
-        errorLine1="            isSameDate(time, now, tz) -> sameDaySdf.format(time)"
-        errorLine2="            ~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/util/AbsoluteTimeFormatter.kt"
-            line="34"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `isSameDate` of class `Companion` requires synthetic accessor"
-        errorLine1="            isSameDate(time, now, tz) -> sameDaySdf.format(time)"
-        errorLine2="            ~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/util/AbsoluteTimeFormatter.kt"
-            line="34"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `isSameDate` of class `Companion` requires synthetic accessor"
-        errorLine1="            isSameDate(time, now, tz) -> sameDaySdf.format(time)"
-        errorLine2="            ~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/util/AbsoluteTimeFormatter.kt"
-            line="34"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `isSameYear` of class `Companion` requires synthetic accessor"
-        errorLine1="            isSameYear(time, now, tz) -> sameYearSdf.format(time)"
-        errorLine2="            ~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/util/AbsoluteTimeFormatter.kt"
-            line="35"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `isSameYear` of class `Companion` requires synthetic accessor"
-        errorLine1="            isSameYear(time, now, tz) -> sameYearSdf.format(time)"
-        errorLine2="            ~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/util/AbsoluteTimeFormatter.kt"
-            line="35"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `isSameYear` of class `Companion` requires synthetic accessor"
-        errorLine1="            isSameYear(time, now, tz) -> sameYearSdf.format(time)"
-        errorLine2="            ~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/util/AbsoluteTimeFormatter.kt"
-            line="35"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
         message="Access to `private` method `getBinding` of class `AccountActivity` requires synthetic accessor"
         errorLine1="                            binding.accountFloatingActionButton.show()"
         errorLine2="                            ~~~~~~~">
@@ -4003,7 +3937,7 @@
         errorLine2="                     ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="131"
+            line="129"
             column="22"/>
     </issue>
 
@@ -4014,7 +3948,7 @@
         errorLine2="                     ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="246"
+            line="242"
             column="22"/>
     </issue>
 
@@ -4025,7 +3959,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="282"
+            line="278"
             column="26"/>
     </issue>
 
@@ -4036,7 +3970,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="309"
+            line="305"
             column="26"/>
     </issue>
 
@@ -4047,7 +3981,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="324"
+            line="320"
             column="26"/>
     </issue>
 
@@ -4058,7 +3992,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="351"
+            line="347"
             column="26"/>
     </issue>
 
@@ -4069,7 +4003,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="382"
+            line="378"
             column="26"/>
     </issue>
 
@@ -4080,7 +4014,7 @@
         errorLine2="                         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_account.xml"
-            line="412"
+            line="408"
             column="26"/>
     </issue>
 
