@@ -4,7 +4,7 @@
 
 ### New features and other improvements
 
--  Add a preference to hide "self-boosts"
+-  Add a preference to hide "self-boosts" (#[193](https://github.com/pachli/pachli-android/pull/193))
 -  Show announcement dates (#[151](https://github.com/pachli/pachli-android/pull/151))
 -  Show full display and username in profile view (#[195](https://github.com/pachli/pachli-android/pull/195))
 -  Improve display of "obscured" links (#[194](https://github.com/pachli/pachli-android/pull/194))
