@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.aboutlibraries)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.room)
 
     id "app.pachli.plugins.markdown2resource"
 }
@@ -122,9 +123,13 @@ android {
     }
 }
 
+room {
+    schemaDirectory("$projectDir/schemas/")
+}
+
 ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
     arg("room.incremental", "true")
+    arg("room.generateKotlin", "true")
 }
 
 configurations {
