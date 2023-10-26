@@ -77,13 +77,13 @@ class StatusDetailedViewHolder(
         listener: StatusActionListener,
     ) {
         if (reblogCount > 0) {
-            binding.statusReblogs.text = getReblogsText(binding.statusReblogs.context, reblogCount)
+            binding.statusReblogs.text = getReblogsText(reblogCount)
             binding.statusReblogs.show()
         } else {
             binding.statusReblogs.hide()
         }
         if (favCount > 0) {
-            binding.statusFavourites.text = getFavsText(binding.statusFavourites.context, favCount)
+            binding.statusFavourites.text = getFavsText(favCount)
             binding.statusFavourites.show()
         } else {
             binding.statusFavourites.hide()

@@ -173,13 +173,12 @@ open class FilterableStatusViewHolder(
         payloads: Any?,
     ) {
         super.setupWithStatus(status, listener, statusDisplayOptions, payloads)
-        setupFilterPlaceholder(status, listener, statusDisplayOptions)
+        setupFilterPlaceholder(status, listener)
     }
 
     private fun setupFilterPlaceholder(
         status: StatusViewData,
         listener: StatusActionListener,
-        displayOptions: StatusDisplayOptions,
     ) {
         if (status.filterAction !== Filter.Action.WARN) {
             showFilteredPlaceholder(false)
