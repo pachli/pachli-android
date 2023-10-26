@@ -130,21 +130,16 @@ class ConversationViewHolder internal constructor(
     }
 
     private fun setAvatars(accounts: List<ConversationAccountEntity>) {
-        for (i in avatars.indices) {
-            val avatarView = avatars[i]
-            if (i == accounts.size) {
-                avatarView.hide()
-                continue
-            }
-
-            loadAvatar(
-                accounts[i].avatar,
-                avatarView,
-                avatarRadius48dp,
-                statusDisplayOptions.animateAvatars,
-                null,
-            )
-            avatarView.show()
+        avatars.withIndex().forEach { views ->
+            accounts.getOrNull(views.index)?.also { account ->
+                loadAvatar(
+                    account.avatar,
+                    views.value,
+                    avatarRadius48dp,
+                    statusDisplayOptions.animateAvatars
+                )
+                views.value.show()
+            } ?: views.value.hide()
         }
     }
 
