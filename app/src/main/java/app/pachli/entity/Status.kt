@@ -195,6 +195,7 @@ fun Status.Visibility?.description(context: Context): CharSequence {
 
 /**
  * @return An icon for this visibility scaled and coloured to match the text on [textView].
+ *     Returns null if visibility is [Status.Visibility.UNKNOWN].
  */
 fun Status.Visibility?.icon(textView: TextView): Drawable? {
     this ?: return null
