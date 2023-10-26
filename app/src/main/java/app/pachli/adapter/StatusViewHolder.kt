@@ -29,6 +29,7 @@ import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.emojify
 import app.pachli.util.formatNumber
 import app.pachli.util.hide
+import app.pachli.util.show
 import app.pachli.util.unicodeWrap
 import app.pachli.util.visible
 import app.pachli.viewdata.StatusViewData
@@ -60,9 +61,7 @@ open class StatusViewHolder(
                     statusDisplayOptions,
                 )
                 statusInfo.setOnClickListener {
-                    listener.onOpenReblog(
-                        bindingAdapterPosition,
-                    )
+                    listener.onOpenReblog(bindingAdapterPosition)
                 }
             }
         }
@@ -78,13 +77,12 @@ open class StatusViewHolder(
         accountEmoji: List<Emoji>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) = with(binding) {
-        val context = statusInfo.context
         val wrappedName: CharSequence = name.unicodeWrap()
         val boostedText: CharSequence = context.getString(R.string.post_boosted_format, wrappedName)
         val emojifiedText =
             boostedText.emojify(accountEmoji, statusInfo, statusDisplayOptions.animateEmojis)
         statusInfo.text = emojifiedText
-        statusInfo.visibility = View.VISIBLE
+        statusInfo.show()
     }
 
     // don't use this on the same ViewHolder as setRebloggedByDisplayName, will cause recycling issues as paddings are changed
@@ -92,16 +90,16 @@ open class StatusViewHolder(
         statusInfo.setText(if (ownPoll) R.string.poll_ended_created else R.string.poll_ended_voted)
         statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_poll_24dp, 0, 0, 0)
         statusInfo.compoundDrawablePadding =
-            Utils.dpToPx(statusInfo.context, 10)
-        statusInfo.setPaddingRelative(Utils.dpToPx(statusInfo.context, 28), 0, 0, 0)
-        statusInfo.visibility = View.VISIBLE
+            Utils.dpToPx(context, 10)
+        statusInfo.setPaddingRelative(Utils.dpToPx(context, 28), 0, 0, 0)
+        statusInfo.show()
     }
 
-    protected fun setReblogsCount(reblogsCount: Int) = with(binding) {
+    private fun setReblogsCount(reblogsCount: Int) = with(binding) {
         statusReblogsCount.text = formatNumber(reblogsCount.toLong(), 1000)
     }
 
-    protected fun setFavouritedCount(favouritedCount: Int) = with(binding) {
+    private fun setFavouritedCount(favouritedCount: Int) = with(binding) {
         statusFavouritesCount.text = formatNumber(favouritedCount.toLong(), 1000)
     }
 
@@ -118,15 +116,13 @@ open class StatusViewHolder(
         /* input filter for TextViews have to be set before text */
         if (status.isCollapsible && (!sensitive || expanded)) {
             buttonToggleContent.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onContentCollapsedChange(
-                        !status.isCollapsed,
-                        position,
-                    )
-                }
+                val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
+                listener.onContentCollapsedChange(
+                    !status.isCollapsed,
+                    position,
+                )
             }
-            buttonToggleContent.visibility = View.VISIBLE
+            buttonToggleContent.show()
             if (status.isCollapsed) {
                 buttonToggleContent.setText(R.string.post_content_warning_show_more)
                 content.filters = COLLAPSE_INPUT_FILTER
@@ -135,7 +131,7 @@ open class StatusViewHolder(
                 content.filters = NO_INPUT_FILTER
             }
         } else {
-            buttonToggleContent.visibility = View.GONE
+            buttonToggleContent.hide()
             content.filters = NO_INPUT_FILTER
         }
     }
@@ -207,7 +203,7 @@ open class FilterableStatusViewHolder(
             return
         }
         showFilteredPlaceholder(true)
-        binding.statusFilteredPlaceholder.statusFilterLabel.text = itemView.context.getString(
+        binding.statusFilteredPlaceholder.statusFilterLabel.text = context.getString(
             R.string.status_filter_placeholder_label_format,
             matchedFilter.title,
         )

@@ -62,7 +62,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         const val KEY_CREATED = "created"
     }
 
-    private val context: Context
+    protected val context: Context
     private val displayName: TextView
     private val username: TextView
     private val replyButton: ImageButton

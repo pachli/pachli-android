@@ -3699,7 +3699,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
-            line="807"
+            line="772"
             column="13"/>
     </issue>
 
@@ -3710,7 +3710,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
-            line="811"
+            line="776"
             column="13"/>
     </issue>
 
@@ -3721,7 +3721,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
-            line="816"
+            line="781"
             column="13"/>
     </issue>
 
