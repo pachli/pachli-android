@@ -1,5 +1,27 @@
 # Pachli changelog
 
+## v1.3.0
+
+### New features and other improvements
+
+-  Add a preference to hide "self-boosts" (#[193](https://github.com/pachli/pachli-android/pull/193))
+-  Show announcement dates (#[151](https://github.com/pachli/pachli-android/pull/151))
+-  Show full display and username in profile view (#[195](https://github.com/pachli/pachli-android/pull/195))
+-  Improve display of "obscured" links (#[194](https://github.com/pachli/pachli-android/pull/194))
+-  Adjust video playback UX behaviour (#[186](https://github.com/pachli/pachli-android/pull/186))
+
+### Significant bug fixes
+
+-  Ensure empty timeline message is visible (#[191](https://github.com/pachli/pachli-android/pull/191))
+-  Use Pachli blue and orange for notification icons (#[182](https://github.com/pachli/pachli-android/pull/182))
+-  Update timeline when link preview setting changes (#[180](https://github.com/pachli/pachli-android/pull/180))
+-  Show media when resuming ViewMediaFragment (#[174](https://github.com/pachli/pachli-android/pull/174))
+-  Show thread indicators and other dividers using Material colours (#[157](https://github.com/pachli/pachli-android/pull/157))
+
+### Translations
+
+-  Update Polish and Japanese translations
+
 ## v1.2.2
 
 ### New features and other improvements

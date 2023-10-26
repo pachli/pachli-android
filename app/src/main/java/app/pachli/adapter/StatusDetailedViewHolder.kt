@@ -32,11 +32,10 @@ class StatusDetailedViewHolder(
         listener: StatusActionListener,
     ) {
         val (_, _, _, _, _, _, _, createdAt, editedAt, _, _, _, _, _, _, _, _, _, visibility, _, _, _, app) = statusViewData.actionable
-        val context = metaInfo.context
         val visibilityIcon = visibility.icon(metaInfo)
         val visibilityString = visibility.description(context)
         val sb = SpannableStringBuilder(visibilityString)
-        visibilityIcon?.let {
+        visibilityIcon?.also {
             val alignment = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) DynamicDrawableSpan.ALIGN_CENTER else DynamicDrawableSpan.ALIGN_BASELINE
             val visibilityIconSpan = ImageSpan(it, alignment)
             sb.setSpan(visibilityIconSpan, 0, visibilityString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -45,13 +44,13 @@ class StatusDetailedViewHolder(
         sb.append(" ")
         sb.append(dateFormat.format(createdAt))
 
-        editedAt?.let {
+        editedAt?.also {
             val editedAtString = context.getString(R.string.post_edited, dateFormat.format(it))
             sb.append(metadataJoiner)
             val spanStart = sb.length
             val spanEnd = spanStart + editedAtString.length
             sb.append(editedAtString)
-            statusViewData.status.editedAt?.let {
+            statusViewData.status.editedAt?.also {
                 val editedClickSpan: NoUnderlineURLSpan = object : NoUnderlineURLSpan("") {
                     override fun onClick(view: View) {
                         listener.onShowEdits(bindingAdapterPosition)
@@ -61,10 +60,10 @@ class StatusDetailedViewHolder(
             }
         }
 
-        app?.let {
-            val (name, website) = it
+        app?.also { application ->
+            val (name, website) = application
             sb.append(metadataJoiner)
-            website?.let { sb.append(createClickableText(name, it)) ?: sb.append(name) }
+            website?.also { sb.append(createClickableText(name, it)) ?: sb.append(name) }
         }
 
         metaInfo.movementMethod = LinkMovementMethod.getInstance()
@@ -77,13 +76,13 @@ class StatusDetailedViewHolder(
         listener: StatusActionListener,
     ) {
         if (reblogCount > 0) {
-            binding.statusReblogs.text = getReblogsText(binding.statusReblogs.context, reblogCount)
+            binding.statusReblogs.text = getReblogsText(reblogCount)
             binding.statusReblogs.show()
         } else {
             binding.statusReblogs.hide()
         }
         if (favCount > 0) {
-            binding.statusFavourites.text = getFavsText(binding.statusFavourites.context, favCount)
+            binding.statusFavourites.text = getFavsText(favCount)
             binding.statusFavourites.show()
         } else {
             binding.statusFavourites.hide()
@@ -94,16 +93,12 @@ class StatusDetailedViewHolder(
             binding.statusInfoDivider.show()
         }
         binding.statusReblogs.setOnClickListener {
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onShowReblogs(position)
-            }
+            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
+            listener.onShowReblogs(position)
         }
         binding.statusFavourites.setOnClickListener {
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onShowFavs(position)
-            }
+            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
+            listener.onShowFavs(position)
         }
     }
 
@@ -127,11 +122,7 @@ class StatusDetailedViewHolder(
         if (payloads == null) {
             val (_, _, _, _, _, _, _, _, _, _, reblogsCount, favouritesCount) = uncollapsedStatus.actionable
             if (!statusDisplayOptions.hideStats) {
-                setReblogAndFavCount(
-                    reblogsCount,
-                    favouritesCount,
-                    listener,
-                )
+                setReblogAndFavCount(reblogsCount, favouritesCount, listener)
             } else {
                 hideQuantitativeStats()
             }

@@ -10,8 +10,9 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.db
 
@@ -284,19 +285,6 @@ AND timelineUserId = :accountId
 
     @Query("UPDATE TimelineStatusEntity SET filtered = NULL WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)")
     abstract suspend fun clearWarning(accountId: Long, statusId: String): Int
-
-    /**
-     * Returns the id directly above [serverId], or null if [serverId] is the id of the top status
-     */
-    @Query("SELECT serverId FROM TimelineStatusEntity WHERE timelineUserId = :accountId AND (LENGTH(:serverId) < LENGTH(serverId) OR (LENGTH(:serverId) = LENGTH(serverId) AND :serverId < serverId)) ORDER BY LENGTH(serverId) ASC, serverId ASC LIMIT 1")
-    abstract suspend fun getIdAbove(accountId: Long, serverId: String): String?
-
-    /**
-     * Returns the ID directly below [serverId], or null if [serverId] is the ID of the bottom
-     * status
-     */
-    @Query("SELECT serverId FROM TimelineStatusEntity WHERE timelineUserId = :accountId AND (LENGTH(:serverId) > LENGTH(serverId) OR (LENGTH(:serverId) = LENGTH(serverId) AND :serverId > serverId)) ORDER BY LENGTH(serverId) DESC, serverId DESC LIMIT 1")
-    abstract suspend fun getIdBelow(accountId: Long, serverId: String): String?
 
     @Query("SELECT COUNT(*) FROM TimelineStatusEntity WHERE timelineUserId = :accountId")
     abstract suspend fun getStatusCount(accountId: Long): Int

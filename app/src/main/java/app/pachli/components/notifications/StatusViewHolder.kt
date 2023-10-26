@@ -66,7 +66,7 @@ class FilterableStatusViewHolder(
     private val statusActionListener: StatusActionListener,
     private val accountId: String,
 ) : NotificationsPagingAdapter.ViewHolder, FilterableStatusViewHolder(binding) {
-    // TODO: XXX Identical to bind() in StatusViewHolder above
+    // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
         viewData: NotificationViewData,
         payloads: List<*>?,

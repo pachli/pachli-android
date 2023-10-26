@@ -22,7 +22,7 @@ androidx-testing = "2.2.0"
 androidx-test-core-ktx = "1.5.0"
 androidx-viewpager2 = "1.0.0"
 androidx-work = "2.8.1"
-androidx-room = "2.5.2"
+androidx-room = "2.6.0"
 autodispose = "2.2.1"
 bouncycastle = "1.70"
 conscrypt = "2.5.2"
@@ -67,6 +67,7 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 ktlint = "org.jlleitschuh.gradle.ktlint:11.6.1"
+room = { id = "androidx.room", version.ref = "androidx-room" }
 
 [libraries]
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }

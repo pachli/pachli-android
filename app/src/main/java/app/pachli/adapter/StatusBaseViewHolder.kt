@@ -64,6 +64,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         const val KEY_CREATED = "created"
     }
 
+    protected val context: Context
     private val displayName: TextView
     private val username: TextView
     private val replyButton: ImageButton
@@ -99,6 +100,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private val translationProvider: TextView?
 
     init {
+        context = itemView.context
         displayName = itemView.findViewById(R.id.status_display_name)
         username = itemView.findViewById(R.id.status_username)
         metaInfo = itemView.findViewById(R.id.status_meta_info)
@@ -131,12 +133,9 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         filteredPlaceholderLabel = itemView.findViewById(R.id.status_filter_label)
         filteredPlaceholderShowButton = itemView.findViewById(R.id.status_filter_show_anyway)
         statusContainer = itemView.findViewById(R.id.status_container)
-        avatarRadius48dp =
-            itemView.context.resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp)
-        avatarRadius36dp =
-            itemView.context.resources.getDimensionPixelSize(R.dimen.avatar_radius_36dp)
-        avatarRadius24dp =
-            itemView.context.resources.getDimensionPixelSize(R.dimen.avatar_radius_24dp)
+        avatarRadius48dp = context.resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp)
+        avatarRadius36dp = context.resources.getDimensionPixelSize(R.dimen.avatar_radius_36dp)
+        avatarRadius24dp = context.resources.getDimensionPixelSize(R.dimen.avatar_radius_24dp)
         mediaPreviewUnloaded =
             ColorDrawable(MaterialColors.getColor(itemView, android.R.attr.textColorLink))
         (itemView as ViewGroup).expandTouchSizeToFillRow(
@@ -156,15 +155,11 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         customEmojis: List<Emoji>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
-        val emojifiedName =
-            name.emojify(customEmojis, displayName, statusDisplayOptions.animateEmojis)
-        displayName.text = emojifiedName
+        displayName.text = name.emojify(customEmojis, displayName, statusDisplayOptions.animateEmojis)
     }
 
     protected fun setUsername(name: String) {
-        val context = username.context
-        val usernameText = context.getString(R.string.post_username_format, name)
-        username.text = usernameText
+        username.text = context.getString(R.string.post_username_format, name)
     }
 
     fun toggleContentWarning() {
@@ -200,17 +195,18 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 )
             }
             setTextVisible(true, expanded, status, statusDisplayOptions, listener)
-        } else {
-            contentWarningDescription.visibility = View.GONE
-            contentWarningButton.visibility = View.GONE
-            setTextVisible(
-                sensitive = false,
-                expanded = true,
-                status = status,
-                statusDisplayOptions = statusDisplayOptions,
-                listener = listener,
-            )
+            return
         }
+
+        contentWarningDescription.visibility = View.GONE
+        contentWarningButton.visibility = View.GONE
+        setTextVisible(
+            sensitive = false,
+            expanded = true,
+            status = status,
+            statusDisplayOptions = statusDisplayOptions,
+            listener = listener,
+        )
     }
 
     private fun setContentWarningButtonText(expanded: Boolean) {
@@ -319,7 +315,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             }
             avatarRadius = avatarRadius48dp
         } else {
-            val padding = Utils.dpToPx(avatar.context, 12)
+            val padding = Utils.dpToPx(context, 12)
             avatar.setPaddingRelative(0, 0, padding, padding)
             avatarInset.visibility = View.VISIBLE
             avatarInset.background = null
@@ -353,10 +349,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         } else {
             val then = createdAt.time
             val now = System.currentTimeMillis()
-            getRelativeTimeSpanString(metaInfo.context, then, now)
+            getRelativeTimeSpanString(context, then, now)
         }
-        editedAt?.let {
-            timestampText = metaInfo.context.getString(
+        editedAt?.also {
+            timestampText = context.getString(
                 R.string.post_timestamp_with_edited_indicator,
                 timestampText,
             )
@@ -373,9 +369,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         } else {
             /* This one is for screen-readers. Frequently, they would mispronounce timestamps like "17m"
              * as 17 meters instead of minutes. */
-            if (createdAt == null) {
-                "? minutes"
-            } else {
+            createdAt?.let {
                 val then = createdAt.time
                 val now = System.currentTimeMillis()
                 DateUtils.getRelativeTimeSpanString(
@@ -384,21 +378,19 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                     DateUtils.SECOND_IN_MILLIS,
                     DateUtils.FORMAT_ABBREV_RELATIVE,
                 )
-            }
+            } ?: "? minutes"
         }
     }
 
     protected fun setIsReply(isReply: Boolean) {
-        if (isReply) {
-            replyButton.setImageResource(R.drawable.ic_reply_all_24dp)
-        } else {
-            replyButton.setImageResource(R.drawable.ic_reply_24dp)
-        }
+        val drawable = if (isReply) R.drawable.ic_reply_all_24dp else R.drawable.ic_reply_24dp
+        replyButton.setImageResource(drawable)
     }
 
     private fun setReplyCount(repliesCount: Int, fullStats: Boolean) {
         // This label only exists in the non-detailed view (to match the web ui)
-        if (replyCountLabel == null) return
+        replyCountLabel ?: return
+
         if (fullStats) {
             replyCountLabel.text = formatNumber(repliesCount.toLong(), 1000)
             return
@@ -407,7 +399,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         // Show "0", "1", or "1+" for replies otherwise, so the user knows if there is a thread
         // that they can click through to read.
         replyCountLabel.text =
-            if (repliesCount > 1) replyCountLabel.context.getString(R.string.status_count_one_plus) else repliesCount.toString()
+            if (repliesCount > 1) context.getString(R.string.status_count_one_plus) else repliesCount.toString()
     }
 
     private fun setReblogged(reblogged: Boolean) {
@@ -429,15 +421,16 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             }
             reblogButton.setInactiveImage(inactiveId)
             reblogButton.setActiveImage(activeId)
-        } else {
-            val disabledId: Int = if (visibility === Status.Visibility.DIRECT) {
-                R.drawable.ic_reblog_direct_24dp
-            } else {
-                R.drawable.ic_reblog_private_24dp
-            }
-            reblogButton.setInactiveImage(disabledId)
-            reblogButton.setActiveImage(disabledId)
+            return
         }
+
+        val disabledId: Int = if (visibility === Status.Visibility.DIRECT) {
+            R.drawable.ic_reblog_direct_24dp
+        } else {
+            R.drawable.ic_reblog_private_24dp
+        }
+        reblogButton.setInactiveImage(disabledId)
+        reblogButton.setActiveImage(disabledId)
     }
 
     protected fun setFavourited(favourited: Boolean) {
@@ -449,13 +442,13 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     private fun decodeBlurHash(blurhash: String): BitmapDrawable {
-        return decodeBlurHash(avatar.context, blurhash)
+        return decodeBlurHash(context, blurhash)
     }
 
     private fun loadImage(
         imageView: MediaPreviewImageView,
         previewUrl: String?,
-        meta: Attachment.MetaData?,
+        focus: Attachment.Focus?,
         blurhash: String?,
     ) {
         val placeholder = blurhash?.let { decodeBlurHash(it) } ?: mediaPreviewUnloaded
@@ -465,24 +458,24 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 .load(placeholder)
                 .centerInside()
                 .into(imageView)
+            return
+        }
+
+        if (focus != null) { // If there is a focal point for this attachment:
+            imageView.setFocalPoint(focus)
+            Glide.with(context)
+                .load(previewUrl)
+                .placeholder(placeholder)
+                .centerInside()
+                .addListener(imageView)
+                .into(imageView)
         } else {
-            val focus = meta?.focus
-            if (focus != null) { // If there is a focal point for this attachment:
-                imageView.setFocalPoint(focus)
-                Glide.with(imageView.context)
-                    .load(previewUrl)
-                    .placeholder(placeholder)
-                    .centerInside()
-                    .addListener(imageView)
-                    .into(imageView)
-            } else {
-                imageView.removeFocalPoint()
-                Glide.with(imageView)
-                    .load(previewUrl)
-                    .placeholder(placeholder)
-                    .centerInside()
-                    .into(imageView)
-            }
+            imageView.removeFocalPoint()
+            Glide.with(imageView)
+                .load(previewUrl)
+                .placeholder(placeholder)
+                .centerInside()
+                .into(imageView)
         }
     }
 
@@ -503,19 +496,18 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             if (hasDescription) {
                 imageView.contentDescription = description
             } else {
-                imageView.contentDescription =
-                    imageView.context.getString(R.string.action_view_media)
+                imageView.contentDescription = context.getString(R.string.action_view_media)
             }
             loadImage(
                 imageView,
                 if (showingContent) previewUrl else null,
-                attachment.meta,
+                attachment.meta?.focus,
                 if (useBlurhash) attachment.blurhash else null,
             )
             val type = attachment.type
             if (showingContent && (type === Attachment.Type.VIDEO || type === Attachment.Type.GIFV)) {
                 imageView.foreground =
-                    ContextCompat.getDrawable(itemView.context, R.drawable.play_indicator_overlay)
+                    ContextCompat.getDrawable(context, R.drawable.play_indicator_overlay)
             } else {
                 imageView.foreground = null
             }
@@ -549,7 +541,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     private fun updateMediaLabel(index: Int, sensitive: Boolean, showingContent: Boolean) {
-        val context = itemView.context
         val label =
             if (sensitive && !showingContent) context.getString(R.string.post_sensitive_media_title) else mediaDescriptions[index]
         mediaLabels[index].text = label
@@ -561,7 +552,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         listener: StatusActionListener,
         showingContent: Boolean,
     ) {
-        val context = itemView.context
         for (i in mediaLabels.indices) {
             val mediaLabel = mediaLabels[i]
             if (i < attachments.size) {
@@ -588,13 +578,11 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         animateTransition: Boolean,
     ) {
         view.setOnClickListener { v: View? ->
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                if (sensitiveMediaWarning.visibility == View.VISIBLE) {
-                    listener.onContentHiddenChange(true, bindingAdapterPosition)
-                } else {
-                    listener.onViewMedia(position, index, if (animateTransition) v else null)
-                }
+            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
+            if (sensitiveMediaWarning.visibility == View.VISIBLE) {
+                listener.onContentHiddenChange(true, bindingAdapterPosition)
+            } else {
+                listener.onViewMedia(position, index, if (animateTransition) v else null)
             }
         }
         view.setOnLongClickListener {
@@ -605,8 +593,8 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     protected fun hideSensitiveMediaWarning() {
-        sensitiveMediaWarning.visibility = View.GONE
-        sensitiveMediaShow.visibility = View.GONE
+        sensitiveMediaWarning.hide()
+        sensitiveMediaShow.hide()
     }
 
     protected fun setupButtons(
@@ -614,69 +602,54 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         accountId: String,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
-        val profileButtonClickListener =
-            View.OnClickListener { listener.onViewAccount(accountId) }
+        val profileButtonClickListener = View.OnClickListener { listener.onViewAccount(accountId) }
         avatar.setOnClickListener(profileButtonClickListener)
         displayName.setOnClickListener(profileButtonClickListener)
         replyButton.setOnClickListener {
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onReply(position)
-            }
+            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
+            listener.onReply(position)
         }
         reblogButton?.setEventListener { _: SparkButton?, buttonState: Boolean ->
             // return true to play animation
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                if (statusDisplayOptions.confirmReblogs) {
-                    showConfirmReblog(listener, buttonState, position)
-                    return@setEventListener false
-                } else {
-                    listener.onReblog(!buttonState, position)
-                    return@setEventListener true
-                }
+            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setEventListener false
+            return@setEventListener if (statusDisplayOptions.confirmReblogs) {
+                showConfirmReblog(listener, buttonState, position)
+                false
             } else {
-                return@setEventListener false
+                listener.onReblog(!buttonState, position)
+                true
             }
         }
         favouriteButton.setEventListener { _: SparkButton?, buttonState: Boolean ->
             // return true to play animation
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                if (statusDisplayOptions.confirmFavourites) {
-                    showConfirmFavourite(listener, buttonState, position)
-                    return@setEventListener false
-                } else {
-                    listener.onFavourite(!buttonState, position)
-                    return@setEventListener true
-                }
+            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setEventListener true
+            return@setEventListener if (statusDisplayOptions.confirmFavourites) {
+                showConfirmFavourite(listener, buttonState, position)
+                false
             } else {
-                return@setEventListener true
+                listener.onFavourite(!buttonState, position)
+                true
             }
         }
         bookmarkButton.setEventListener { _: SparkButton?, buttonState: Boolean ->
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onBookmark(!buttonState, position)
-            }
+            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setEventListener true
+            listener.onBookmark(!buttonState, position)
             true
         }
         moreButton.setOnClickListener { v: View? ->
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onMore(v!!, position)
-            }
+            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
+            listener.onMore(v!!, position)
         }
+
         /* Even though the content TextView is a child of the container, it won't respond to clicks
          * if it contains URLSpans without also setting its listener. The surrounding spans will
          * just eat the clicks instead of deferring to the parent listener, but WILL respond to a
          * listener directly on the TextView, for whatever reason. */
         val viewThreadListener = View.OnClickListener {
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onViewThread(position)
-            }
+            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@OnClickListener
+            listener.onViewThread(position)
         }
+
         content.setOnClickListener(viewThreadListener)
         itemView.setOnClickListener(viewThreadListener)
     }
@@ -686,7 +659,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         buttonState: Boolean,
         position: Int,
     ) {
-        val popup = PopupMenu(itemView.context, reblogButton!!)
+        val popup = PopupMenu(context, reblogButton!!)
         popup.inflate(R.menu.status_reblog)
         val menu = popup.menu
         if (buttonState) {
@@ -709,7 +682,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         buttonState: Boolean,
         position: Int,
     ) {
-        val popup = PopupMenu(itemView.context, favouriteButton)
+        val popup = PopupMenu(context, favouriteButton)
         popup.inflate(R.menu.status_favourite)
         val menu = popup.menu
         if (buttonState) {
@@ -727,19 +700,11 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         popup.show()
     }
 
-    fun setupWithStatus(
-        status: StatusViewData,
-        listener: StatusActionListener,
-        statusDisplayOptions: StatusDisplayOptions,
-    ) {
-        this.setupWithStatus(status, listener, statusDisplayOptions, null)
-    }
-
     open fun setupWithStatus(
         status: StatusViewData,
         listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any?,
+        payloads: Any? = null,
     ) {
         if (payloads == null) {
             val actionable = status.actionable
@@ -817,7 +782,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         status: StatusViewData,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
-        val context = itemView.context
         val (_, _, account, _, _, _, _, createdAt, editedAt, _, reblogsCount, favouritesCount, _, reblogged, favourited, bookmarked, sensitive, _, visibility) = status.actionable
         val description = context.getString(
             R.string.description_status,
@@ -833,8 +797,8 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             if (bookmarked) context.getString(R.string.description_post_bookmarked) else "",
             getMediaDescription(context, status),
             visibility.description(context),
-            getFavsText(context, favouritesCount),
-            getReblogsText(context, reblogsCount),
+            getFavsText(favouritesCount),
+            getReblogsText(reblogsCount),
             status.actionable.poll?.let {
                 pollView.getPollDescription(
                     from(it),
@@ -847,7 +811,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         itemView.contentDescription = description
     }
 
-    protected fun getFavsText(context: Context, count: Int): CharSequence {
+    protected fun getFavsText(count: Int): CharSequence {
         if (count <= 0) return ""
 
         val countString = numberFormat.format(count.toLong())
@@ -857,7 +821,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         )
     }
 
-    protected fun getReblogsText(context: Context, count: Int): CharSequence {
+    protected fun getReblogsText(count: Int): CharSequence {
         if (count <= 0) return ""
 
         val countString = numberFormat.format(count.toLong())
@@ -889,8 +853,8 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             cardView.visibility = View.VISIBLE
             cardView.bind(card, status.actionable.sensitive, statusDisplayOptions) { target ->
                 if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
-                    cardView.context.startActivity(
-                        newSingleImageIntent(cardView.context, card.embedUrl),
+                    context.startActivity(
+                        newSingleImageIntent(context, card.embedUrl),
                     )
                 } else {
                     listener.onViewUrl(card.url)

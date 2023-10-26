@@ -303,6 +303,7 @@ abstract class TimelineViewModel(
 
     private var filterRemoveReplies = false
     private var filterRemoveReblogs = false
+    private var filterRemoveSelfReblogs = false
 
     protected val activeAccount = accountManager.activeAccount!!
 
@@ -403,6 +404,8 @@ abstract class TimelineViewModel(
                 !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_REPLIES, true)
             filterRemoveReblogs =
                 !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_BOOSTS, true)
+            filterRemoveSelfReblogs =
+                !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS, true)
         }
 
         // Save the visible status ID (if it's the home timeline)
@@ -502,7 +505,9 @@ abstract class TimelineViewModel(
         val status = statusViewData.status
         return if (
             (status.inReplyToId != null && filterRemoveReplies) ||
-            (status.reblog != null && filterRemoveReblogs)
+            (status.reblog != null && filterRemoveReblogs) ||
+            // To determine if the boost is boosting your own toot
+            ((status.account.id == status.reblog?.account?.id) && filterRemoveSelfReblogs)
         ) {
             return Filter.Action.HIDE
         } else {
@@ -567,6 +572,14 @@ abstract class TimelineViewModel(
                 val oldRemoveReblogs = filterRemoveReblogs
                 filterRemoveReblogs = timelineKind is TimelineKind.Home && !filter
                 if (oldRemoveReblogs != filterRemoveReblogs) {
+                    reloadKeepingReadingPosition()
+                }
+            }
+            PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS -> {
+                val filter = sharedPreferencesRepository.getBoolean(PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS, true)
+                val oldRemoveSelfReblogs = filterRemoveSelfReblogs
+                filterRemoveSelfReblogs = timelineKind is TimelineKind.Home && !filter
+                if (oldRemoveSelfReblogs != filterRemoveSelfReblogs) {
                     reloadKeepingReadingPosition()
                 }
             }

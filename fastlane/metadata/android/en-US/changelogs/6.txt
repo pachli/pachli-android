@@ -1,0 +1,19 @@
+Pachli 1.3.0
+
+New features:
+
+-  Add a preference to hide "self-boosts"
+-  Show full display and username in profile view
+-  Improve display of "obscured" links
+-  Adjust video playback UX behaviour
+
+Fixes:
+
+-  Ensure empty timeline message is visible
+-  Use Pachli blue and orange for notification icons
+-  Show media when resuming ViewMediaFragment
+-  Show thread indicators and other dividers using Material colours
+
+Translations:
+
+-  Update Polish and Japanese translations

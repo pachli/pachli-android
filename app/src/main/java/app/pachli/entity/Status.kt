@@ -10,8 +10,9 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.entity
 
@@ -195,6 +196,7 @@ fun Status.Visibility?.description(context: Context): CharSequence {
 
 /**
  * @return An icon for this visibility scaled and coloured to match the text on [textView].
+ *     Returns null if visibility is [Status.Visibility.UNKNOWN].
  */
 fun Status.Visibility?.icon(textView: TextView): Drawable? {
     this ?: return null

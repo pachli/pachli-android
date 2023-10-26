@@ -10,8 +10,10 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
+
 package app.pachli.adapter
 
 import android.text.InputFilter
@@ -20,7 +22,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.databinding.ItemStatusBinding
-import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.entity.Emoji
 import app.pachli.entity.Filter
 import app.pachli.interfaces.StatusActionListener
@@ -29,6 +30,7 @@ import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.emojify
 import app.pachli.util.formatNumber
 import app.pachli.util.hide
+import app.pachli.util.show
 import app.pachli.util.unicodeWrap
 import app.pachli.util.visible
 import app.pachli.viewdata.StatusViewData
@@ -60,9 +62,7 @@ open class StatusViewHolder(
                     statusDisplayOptions,
                 )
                 statusInfo.setOnClickListener {
-                    listener.onOpenReblog(
-                        bindingAdapterPosition,
-                    )
+                    listener.onOpenReblog(bindingAdapterPosition)
                 }
             }
         }
@@ -78,13 +78,12 @@ open class StatusViewHolder(
         accountEmoji: List<Emoji>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) = with(binding) {
-        val context = statusInfo.context
         val wrappedName: CharSequence = name.unicodeWrap()
         val boostedText: CharSequence = context.getString(R.string.post_boosted_format, wrappedName)
         val emojifiedText =
             boostedText.emojify(accountEmoji, statusInfo, statusDisplayOptions.animateEmojis)
         statusInfo.text = emojifiedText
-        statusInfo.visibility = View.VISIBLE
+        statusInfo.show()
     }
 
     // don't use this on the same ViewHolder as setRebloggedByDisplayName, will cause recycling issues as paddings are changed
@@ -92,16 +91,16 @@ open class StatusViewHolder(
         statusInfo.setText(if (ownPoll) R.string.poll_ended_created else R.string.poll_ended_voted)
         statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_poll_24dp, 0, 0, 0)
         statusInfo.compoundDrawablePadding =
-            Utils.dpToPx(statusInfo.context, 10)
-        statusInfo.setPaddingRelative(Utils.dpToPx(statusInfo.context, 28), 0, 0, 0)
-        statusInfo.visibility = View.VISIBLE
+            Utils.dpToPx(context, 10)
+        statusInfo.setPaddingRelative(Utils.dpToPx(context, 28), 0, 0, 0)
+        statusInfo.show()
     }
 
-    protected fun setReblogsCount(reblogsCount: Int) = with(binding) {
+    private fun setReblogsCount(reblogsCount: Int) = with(binding) {
         statusReblogsCount.text = formatNumber(reblogsCount.toLong(), 1000)
     }
 
-    protected fun setFavouritedCount(favouritedCount: Int) = with(binding) {
+    private fun setFavouritedCount(favouritedCount: Int) = with(binding) {
         statusFavouritesCount.text = formatNumber(favouritedCount.toLong(), 1000)
     }
 
@@ -118,15 +117,13 @@ open class StatusViewHolder(
         /* input filter for TextViews have to be set before text */
         if (status.isCollapsible && (!sensitive || expanded)) {
             buttonToggleContent.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onContentCollapsedChange(
-                        !status.isCollapsed,
-                        position,
-                    )
-                }
+                val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
+                listener.onContentCollapsedChange(
+                    !status.isCollapsed,
+                    position,
+                )
             }
-            buttonToggleContent.visibility = View.VISIBLE
+            buttonToggleContent.show()
             if (status.isCollapsed) {
                 buttonToggleContent.setText(R.string.post_content_warning_show_more)
                 content.filters = COLLAPSE_INPUT_FILTER
@@ -135,7 +132,7 @@ open class StatusViewHolder(
                 content.filters = NO_INPUT_FILTER
             }
         } else {
-            buttonToggleContent.visibility = View.GONE
+            buttonToggleContent.hide()
             content.filters = NO_INPUT_FILTER
         }
     }
@@ -159,68 +156,5 @@ open class StatusViewHolder(
     companion object {
         private val COLLAPSE_INPUT_FILTER = arrayOf<InputFilter>(SmartLengthInputFilter)
         private val NO_INPUT_FILTER = arrayOfNulls<InputFilter>(0)
-    }
-}
-
-open class FilterableStatusViewHolder(
-    private val binding: ItemStatusWrapperBinding,
-) : StatusViewHolder(binding.statusContainer, binding.root) {
-
-    override fun setupWithStatus(
-        status: StatusViewData,
-        listener: StatusActionListener,
-        statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any?,
-    ) {
-        super.setupWithStatus(status, listener, statusDisplayOptions, payloads)
-        setupFilterPlaceholder(status, listener, statusDisplayOptions)
-    }
-
-    private fun setupFilterPlaceholder(
-        status: StatusViewData,
-        listener: StatusActionListener,
-        displayOptions: StatusDisplayOptions,
-    ) {
-        if (status.filterAction !== Filter.Action.WARN) {
-            showFilteredPlaceholder(false)
-            return
-        }
-
-        // Shouldn't be necessary given the previous test against getFilterAction(),
-        // but guards against a possible NPE. See the TODO in StatusViewData.filterAction
-        // for more details.
-        val filterResults = status.actionable.filtered
-        if (filterResults.isNullOrEmpty()) {
-            showFilteredPlaceholder(false)
-            return
-        }
-        var matchedFilter: Filter? = null
-        for ((filter) in filterResults) {
-            if (filter.action === Filter.Action.WARN) {
-                matchedFilter = filter
-                break
-            }
-        }
-
-        // Guard against a possible NPE
-        if (matchedFilter == null) {
-            showFilteredPlaceholder(false)
-            return
-        }
-        showFilteredPlaceholder(true)
-        binding.statusFilteredPlaceholder.statusFilterLabel.text = itemView.context.getString(
-            R.string.status_filter_placeholder_label_format,
-            matchedFilter.title,
-        )
-        binding.statusFilteredPlaceholder.statusFilterShowAnyway.setOnClickListener {
-            listener.clearWarningAction(
-                bindingAdapterPosition,
-            )
-        }
-    }
-
-    private fun showFilteredPlaceholder(show: Boolean) {
-        binding.statusContainer.root.visibility = if (show) View.GONE else View.VISIBLE
-        binding.statusFilteredPlaceholder.root.visibility = if (show) View.VISIBLE else View.GONE
     }
 }

@@ -11,6 +11,5 @@
     <include
         android:id="@+id/status_filtered_placeholder"
         layout="@layout/item_status_filtered"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 </FrameLayout>

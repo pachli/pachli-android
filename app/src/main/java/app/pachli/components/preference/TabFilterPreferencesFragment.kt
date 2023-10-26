@@ -10,8 +10,9 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.components.preference
 
@@ -35,6 +36,14 @@ class TabFilterPreferencesFragment : PreferenceFragmentCompat() {
                     setDefaultValue(true)
                     isIconSpaceReserved = false
                 }
+
+                switchPreference {
+                    setTitle(R.string.pref_title_show_self_boosts)
+                    setSummary(R.string.pref_title_show_self_boosts_description)
+                    key = PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS
+                    setDefaultValue(true)
+                    isIconSpaceReserved = false
+                }.apply { dependency = PrefKeys.TAB_FILTER_HOME_BOOSTS }
 
                 switchPreference {
                     setTitle(R.string.pref_title_show_replies)
