@@ -10,8 +10,9 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.util
 
@@ -22,7 +23,6 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
 import app.pachli.R
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.network.model.Attachment
@@ -235,7 +235,7 @@ class StatusViewHelper(private val itemView: View) {
         mediaLabel.text = labelText
 
         // Set the icon next to the label.
-        val drawableId = getLabelIcon(attachments[0].type)
+        val drawableId = attachments[0].iconResource()
         mediaLabel.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
 
         mediaLabel.setOnClickListener { listener.onViewMedia(null, 0) }
@@ -247,16 +247,6 @@ class StatusViewHelper(private val itemView: View) {
             Attachment.Type.GIFV, Attachment.Type.VIDEO -> context.getString(R.string.post_media_video)
             Attachment.Type.AUDIO -> context.getString(R.string.post_media_audio)
             else -> context.getString(R.string.post_media_attachments)
-        }
-    }
-
-    @DrawableRes
-    private fun getLabelIcon(type: Attachment.Type): Int {
-        return when (type) {
-            Attachment.Type.IMAGE -> R.drawable.ic_photo_24dp
-            Attachment.Type.GIFV, Attachment.Type.VIDEO -> R.drawable.ic_videocam_24dp
-            Attachment.Type.AUDIO -> R.drawable.ic_music_box_24dp
-            else -> R.drawable.ic_attach_file_24dp
         }
     }
 

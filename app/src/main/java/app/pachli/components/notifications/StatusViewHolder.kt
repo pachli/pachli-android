@@ -17,19 +17,56 @@
 
 package app.pachli.components.notifications
 
-import androidx.viewbinding.ViewBinding
+import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.network.model.Notification
+import app.pachli.databinding.ItemStatusBinding
+import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.NotificationViewData
 
 internal class StatusViewHolder(
-    binding: ViewBinding,
+    binding: ItemStatusBinding,
     private val statusActionListener: StatusActionListener,
     private val accountId: String,
-) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder(binding.root) {
+) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder(binding) {
 
+    override fun bind(
+        viewData: NotificationViewData,
+        payloads: List<*>?,
+        statusDisplayOptions: StatusDisplayOptions,
+    ) {
+        val statusViewData = viewData.statusViewData
+        if (statusViewData == null) {
+            // Hide null statuses. Shouldn't happen according to the spec, but some servers
+            // have been seen to do this (https://github.com/tuskyapp/Tusky/issues/2252)
+            showStatusContent(false)
+        } else {
+            if (payloads.isNullOrEmpty()) {
+                showStatusContent(true)
+            }
+            setupWithStatus(
+                statusViewData,
+                statusActionListener,
+                statusDisplayOptions,
+                payloads?.firstOrNull(),
+            )
+        }
+        if (viewData.type == Notification.Type.POLL) {
+            setPollInfo(accountId == viewData.account.id)
+        } else {
+            hideStatusInfo()
+        }
+    }
+}
+
+class FilterableStatusViewHolder(
+    binding: ItemStatusWrapperBinding,
+    private val statusActionListener: StatusActionListener,
+    private val accountId: String,
+) : NotificationsPagingAdapter.ViewHolder, FilterableStatusViewHolder(binding) {
+    // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
         viewData: NotificationViewData,
         payloads: List<*>?,

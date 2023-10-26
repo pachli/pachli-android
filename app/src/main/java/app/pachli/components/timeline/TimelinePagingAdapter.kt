@@ -10,8 +10,9 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.components.timeline
 
@@ -21,9 +22,12 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.network.model.Filter
+import app.pachli.databinding.ItemStatusBinding
+import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.StatusViewData
@@ -36,10 +40,10 @@ class TimelinePagingAdapter(
         val inflater = LayoutInflater.from(viewGroup.context)
         return when (viewType) {
             VIEW_TYPE_STATUS_FILTERED -> {
-                StatusViewHolder(inflater.inflate(R.layout.item_status_wrapper, viewGroup, false))
+                FilterableStatusViewHolder(ItemStatusWrapperBinding.inflate(inflater, viewGroup, false))
             }
             VIEW_TYPE_STATUS -> {
-                StatusViewHolder(inflater.inflate(R.layout.item_status, viewGroup, false))
+                StatusViewHolder(ItemStatusBinding.inflate(inflater, viewGroup, false))
             }
             else -> return object : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_placeholder, viewGroup, false)) {}
         }

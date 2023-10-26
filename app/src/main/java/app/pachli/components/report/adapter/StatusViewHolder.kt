@@ -10,8 +10,9 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.components.report.adapter
 
@@ -42,7 +43,7 @@ import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.StatusViewData
 import java.util.Date
 
-class StatusViewHolder(
+open class StatusViewHolder(
     private val binding: ItemReportStatusBinding,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val viewState: StatusViewState,

@@ -22,7 +22,7 @@ androidx-testing = "2.2.0"
 androidx-test-core-ktx = "1.5.0"
 androidx-viewpager2 = "1.0.0"
 androidx-work = "2.8.1"
-androidx-room = "2.5.2"
+androidx-room = "2.6.0"
 autodispose = "2.2.1"
 bouncycastle = "1.70"
 conscrypt = "2.5.2"
@@ -67,7 +67,7 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 ktlint = "org.jlleitschuh.gradle.ktlint:11.6.1"
-pachli-android-room = { id = "pachli.android.room", version = "unspecified" }
+room = { id = "androidx.room", version.ref = "androidx-room" }
 
 # Plugins defined by this project
 #pachli-android-application = { id = "pachli.android.application", version = "unspecified" }
@@ -83,6 +83,7 @@ pachli-android-library = { id = "pachli.android.library", version = "unspecified
 #pachli-android-lint = { id = "pachli.android.lint", version = "unspecified" }
 #pachli-android-test = { id = "pachli.android.test", version = "unspecified" }
 #pachli-jvm-library = { id = "pachli.jvm.library", version = "unspecified" }
+pachli-android-room = { id = "pachli.android.room", version = "unspecified" }
 
 
 [libraries]

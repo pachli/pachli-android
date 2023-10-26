@@ -145,7 +145,7 @@ class NotificationsPagingAdapter(
                 )
             }
             NotificationViewKind.STATUS_FILTERED -> {
-                StatusViewHolder(
+                FilterableStatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
                     statusActionListener,
                     accountId,

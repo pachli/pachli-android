@@ -740,7 +740,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="335"
+            line="337"
             column="5"/>
     </issue>
 
@@ -751,7 +751,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="392"
+            line="394"
             column="5"/>
     </issue>
 
@@ -762,7 +762,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="565"
+            line="567"
             column="5"/>
     </issue>
 
@@ -773,7 +773,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="780"
+            line="782"
             column="5"/>
     </issue>
 
@@ -894,7 +894,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="469"
+            line="470"
             column="9"/>
     </issue>
 
@@ -905,7 +905,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/adapter/AccountAdapter.kt"
-            line="80"
+            line="81"
             column="9"/>
     </issue>
 
@@ -916,7 +916,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/AccountFieldEditAdapter.kt"
-            line="43"
+            line="44"
             column="9"/>
     </issue>
 
@@ -927,7 +927,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/AccountFieldEditAdapter.kt"
-            line="49"
+            line="50"
             column="9"/>
     </issue>
 
@@ -938,7 +938,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/announcements/AnnouncementAdapter.kt"
-            line="162"
+            line="163"
             column="9"/>
     </issue>
 
@@ -949,7 +949,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/adapter/MutesAdapter.kt"
-            line="107"
+            line="108"
             column="9"/>
     </issue>
 
@@ -960,7 +960,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/PollAdapter.kt"
-            line="67"
+            line="68"
             column="9"/>
     </issue>
 
@@ -971,7 +971,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/PollAdapter.kt"
-            line="67"
+            line="68"
             column="9"/>
     </issue>
 
@@ -982,7 +982,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/PollAdapter.kt"
-            line="67"
+            line="68"
             column="9"/>
     </issue>
 
@@ -993,7 +993,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/PreviewPollOptionsAdapter.kt"
-            line="35"
+            line="36"
             column="9"/>
     </issue>
 
@@ -1004,7 +1004,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="53"
+            line="54"
             column="9"/>
     </issue>
 
@@ -1015,7 +1015,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="156"
+            line="157"
             column="13"/>
     </issue>
 
@@ -1026,7 +1026,7 @@
         errorLine2="                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationHelper.java"
-            line="865"
+            line="866"
             column="57"/>
     </issue>
 
@@ -1785,7 +1785,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="165"
+            line="167"
             column="13"/>
     </issue>
 
@@ -1796,7 +1796,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="228"
+            line="230"
             column="13"/>
     </issue>
 
@@ -1807,7 +1807,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="268"
+            line="270"
             column="13"/>
     </issue>
 
@@ -1818,7 +1818,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="269"
+            line="271"
             column="13"/>
     </issue>
 
@@ -1829,7 +1829,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="294"
+            line="296"
             column="13"/>
     </issue>
 
@@ -1840,7 +1840,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="325"
+            line="327"
             column="13"/>
     </issue>
 
@@ -1851,7 +1851,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="405"
+            line="407"
             column="13"/>
     </issue>
 
@@ -1862,7 +1862,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="462"
+            line="464"
             column="13"/>
     </issue>
 
@@ -1873,7 +1873,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="513"
+            line="515"
             column="13"/>
     </issue>
 
@@ -1884,7 +1884,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="517"
+            line="519"
             column="13"/>
     </issue>
 
@@ -1895,7 +1895,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="518"
+            line="520"
             column="13"/>
     </issue>
 
@@ -1906,7 +1906,7 @@
         errorLine2="            ~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="519"
+            line="521"
             column="13"/>
     </issue>
 
@@ -1917,7 +1917,7 @@
         errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="520"
+            line="522"
             column="13"/>
     </issue>
 
@@ -1928,7 +1928,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="521"
+            line="523"
             column="13"/>
     </issue>
 
@@ -1939,7 +1939,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="522"
+            line="524"
             column="13"/>
     </issue>
 
@@ -1950,7 +1950,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="523"
+            line="525"
             column="13"/>
     </issue>
 
@@ -1961,7 +1961,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="524"
+            line="526"
             column="13"/>
     </issue>
 
@@ -1972,7 +1972,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="526"
+            line="528"
             column="13"/>
     </issue>
 
@@ -1983,7 +1983,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="604"
+            line="606"
             column="13"/>
     </issue>
 
@@ -1994,7 +1994,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="605"
+            line="607"
             column="13"/>
     </issue>
 
@@ -2005,7 +2005,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="620"
+            line="622"
             column="13"/>
     </issue>
 
@@ -2016,7 +2016,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="622"
+            line="624"
             column="13"/>
     </issue>
 
@@ -2027,7 +2027,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="623"
+            line="625"
             column="13"/>
     </issue>
 
@@ -2038,7 +2038,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="626"
+            line="628"
             column="13"/>
     </issue>
 
@@ -2049,7 +2049,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="671"
+            line="673"
             column="13"/>
     </issue>
 
@@ -2060,7 +2060,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="719"
+            line="721"
             column="13"/>
     </issue>
 
@@ -2071,7 +2071,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="725"
+            line="727"
             column="13"/>
     </issue>
 
@@ -2082,7 +2082,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="768"
+            line="770"
             column="13"/>
     </issue>
 
@@ -2093,7 +2093,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="802"
+            line="804"
             column="13"/>
     </issue>
 
@@ -2159,7 +2159,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="357"
+            line="358"
             column="29"/>
     </issue>
 
@@ -2170,7 +2170,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="360"
+            line="361"
             column="29"/>
     </issue>
 
@@ -2181,7 +2181,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="366"
+            line="367"
             column="21"/>
     </issue>
 
@@ -2192,7 +2192,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="367"
+            line="368"
             column="21"/>
     </issue>
 
@@ -2203,7 +2203,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="369"
+            line="370"
             column="21"/>
     </issue>
 
@@ -2214,7 +2214,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="379"
+            line="380"
             column="21"/>
     </issue>
 
@@ -2225,7 +2225,7 @@
         errorLine2="                ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/AccountListFragment.kt"
-            line="137"
+            line="138"
             column="17"/>
     </issue>
 
@@ -2236,7 +2236,7 @@
         errorLine2="                            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/preference/AccountPreferencesFragment.kt"
-            line="307"
+            line="308"
             column="29"/>
     </issue>
 
@@ -2247,7 +2247,7 @@
         errorLine2="                        ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/preference/AccountPreferencesFragment.kt"
-            line="313"
+            line="314"
             column="25"/>
     </issue>
 
@@ -2401,7 +2401,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeActivity.kt"
-            line="536"
+            line="537"
             column="21"/>
     </issue>
 
@@ -2412,7 +2412,7 @@
         errorLine2="                ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeActivity.kt"
-            line="545"
+            line="546"
             column="17"/>
     </issue>
 
@@ -2423,7 +2423,7 @@
         errorLine2="                ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeActivity.kt"
-            line="545"
+            line="546"
             column="17"/>
     </issue>
 
@@ -2434,7 +2434,7 @@
         errorLine2="                                                           ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeAutoCompleteAdapter.kt"
-            line="60"
+            line="61"
             column="60"/>
     </issue>
 
@@ -2445,7 +2445,7 @@
         errorLine2="                                                           ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeAutoCompleteAdapter.kt"
-            line="61"
+            line="62"
             column="60"/>
     </issue>
 
@@ -2456,7 +2456,7 @@
         errorLine2="                                                         ~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeAutoCompleteAdapter.kt"
-            line="62"
+            line="63"
             column="58"/>
     </issue>
 
@@ -2467,7 +2467,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeAutoCompleteAdapter.kt"
-            line="122"
+            line="123"
             column="37"/>
     </issue>
 
@@ -2478,7 +2478,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeAutoCompleteAdapter.kt"
-            line="122"
+            line="123"
             column="37"/>
     </issue>
 
@@ -2489,7 +2489,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="147"
+            line="148"
             column="29"/>
     </issue>
 
@@ -2500,7 +2500,7 @@
         errorLine2="                                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="149"
+            line="150"
             column="37"/>
     </issue>
 
@@ -2841,7 +2841,7 @@
         errorLine2="                     ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/login/LoginActivity.kt"
-            line="154"
+            line="155"
             column="22"/>
     </issue>
 
@@ -2852,7 +2852,7 @@
         errorLine2="                ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/login/LoginWebViewActivity.kt"
-            line="142"
+            line="143"
             column="17"/>
     </issue>
 
@@ -2863,7 +2863,7 @@
         errorLine2="                ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/login/LoginWebViewActivity.kt"
-            line="142"
+            line="143"
             column="17"/>
     </issue>
 
@@ -2874,7 +2874,7 @@
         errorLine2="                ~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/login/LoginWebViewActivity.kt"
-            line="151"
+            line="152"
             column="17"/>
     </issue>
 
@@ -2885,7 +2885,7 @@
         errorLine2="                ~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/login/LoginWebViewActivity.kt"
-            line="151"
+            line="152"
             column="17"/>
     </issue>
 
@@ -2896,7 +2896,7 @@
         errorLine2="                        ~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/login/LoginWebViewActivity.kt"
-            line="172"
+            line="173"
             column="25"/>
     </issue>
 
@@ -2907,7 +2907,7 @@
         errorLine2="                        ~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/login/LoginWebViewActivity.kt"
-            line="172"
+            line="173"
             column="25"/>
     </issue>
 
@@ -2918,7 +2918,7 @@
         errorLine2="                        ~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/login/LoginWebViewActivity.kt"
-            line="175"
+            line="176"
             column="25"/>
     </issue>
 
@@ -2929,7 +2929,7 @@
         errorLine2="                        ~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/login/LoginWebViewActivity.kt"
-            line="175"
+            line="176"
             column="25"/>
     </issue>
 
@@ -3369,7 +3369,7 @@
         errorLine2="                ~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/MediaPreviewAdapter.kt"
-            line="138"
+            line="139"
             column="17"/>
     </issue>
 
@@ -3600,8 +3600,41 @@
         errorLine2="                                               ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/SFragment.kt"
-            line="182"
+            line="183"
             column="48"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getContentWarningDescription` of class `Companion` requires synthetic accessor"
+        errorLine1="            getContentWarningDescription(context, status),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
+            line="773"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getReblogDescription` of class `Companion` requires synthetic accessor"
+        errorLine1="            getReblogDescription(context, status),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
+            line="777"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getMediaDescription` of class `Companion` requires synthetic accessor"
+        errorLine1="            getMediaDescription(context, status),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
+            line="782"
+            column="13"/>
     </issue>
 
     <issue
@@ -3611,7 +3644,7 @@
         errorLine2="            ~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/report/adapter/StatusViewHolder.kt"
-            line="59"
+            line="60"
             column="13"/>
     </issue>
 
@@ -3622,7 +3655,7 @@
         errorLine2="            ~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/report/adapter/StatusViewHolder.kt"
-            line="65"
+            line="66"
             column="13"/>
     </issue>
 
@@ -3688,7 +3721,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="217"
+            line="218"
             column="25"/>
     </issue>
 
@@ -3699,7 +3732,7 @@
         errorLine2="                                 ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="305"
+            line="306"
             column="34"/>
     </issue>
 
@@ -3710,7 +3743,7 @@
         errorLine2="            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="318"
+            line="319"
             column="13"/>
     </issue>
 
@@ -3721,7 +3754,7 @@
         errorLine2="                ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewImageFragment.kt"
-            line="325"
+            line="326"
             column="17"/>
     </issue>
 
@@ -3787,7 +3820,7 @@
         errorLine2="                               ~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="152"
+            line="153"
             column="32"/>
     </issue>
 
@@ -3798,7 +3831,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="232"
+            line="233"
             column="21"/>
     </issue>
 
@@ -5092,7 +5125,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/util/ShareShortcutHelper.kt"
-            line="86"
+            line="87"
             column="9"/>
     </issue>
 
@@ -5103,7 +5136,7 @@
         errorLine2="            ^">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="90"
+            line="91"
             column="13"/>
     </issue>
 
@@ -5114,7 +5147,7 @@
         errorLine2="                                                 ^">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="90"
+            line="91"
             column="50"/>
     </issue>
 

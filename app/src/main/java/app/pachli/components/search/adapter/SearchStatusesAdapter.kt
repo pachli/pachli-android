@@ -10,8 +10,9 @@
  * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Tusky; if not,
- * see <http://www.gnu.org/licenses>. */
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
 package app.pachli.components.search.adapter
 
@@ -19,8 +20,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import app.pachli.R
 import app.pachli.adapter.StatusViewHolder
+import app.pachli.databinding.ItemStatusBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.StatusViewData
@@ -31,9 +32,9 @@ class SearchStatusesAdapter(
 ) : PagingDataAdapter<StatusViewData, StatusViewHolder>(STATUS_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_status, parent, false)
-        return StatusViewHolder(view)
+        return StatusViewHolder(
+            ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+        )
     }
 
     override fun onBindViewHolder(holder: StatusViewHolder, position: Int) {
