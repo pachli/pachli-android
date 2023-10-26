@@ -20,7 +20,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.databinding.ItemStatusBinding
-import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.entity.Emoji
 import app.pachli.entity.Filter
 import app.pachli.interfaces.StatusActionListener
@@ -155,67 +154,5 @@ open class StatusViewHolder(
     companion object {
         private val COLLAPSE_INPUT_FILTER = arrayOf<InputFilter>(SmartLengthInputFilter)
         private val NO_INPUT_FILTER = arrayOfNulls<InputFilter>(0)
-    }
-}
-
-open class FilterableStatusViewHolder(
-    private val binding: ItemStatusWrapperBinding,
-) : StatusViewHolder(binding.statusContainer, binding.root) {
-
-    override fun setupWithStatus(
-        status: StatusViewData,
-        listener: StatusActionListener,
-        statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any?,
-    ) {
-        super.setupWithStatus(status, listener, statusDisplayOptions, payloads)
-        setupFilterPlaceholder(status, listener)
-    }
-
-    private fun setupFilterPlaceholder(
-        status: StatusViewData,
-        listener: StatusActionListener,
-    ) {
-        if (status.filterAction !== Filter.Action.WARN) {
-            showFilteredPlaceholder(false)
-            return
-        }
-
-        // Shouldn't be necessary given the previous test against getFilterAction(),
-        // but guards against a possible NPE. See the TODO in StatusViewData.filterAction
-        // for more details.
-        val filterResults = status.actionable.filtered
-        if (filterResults.isNullOrEmpty()) {
-            showFilteredPlaceholder(false)
-            return
-        }
-        var matchedFilter: Filter? = null
-        for ((filter) in filterResults) {
-            if (filter.action === Filter.Action.WARN) {
-                matchedFilter = filter
-                break
-            }
-        }
-
-        // Guard against a possible NPE
-        if (matchedFilter == null) {
-            showFilteredPlaceholder(false)
-            return
-        }
-        showFilteredPlaceholder(true)
-        binding.statusFilteredPlaceholder.statusFilterLabel.text = context.getString(
-            R.string.status_filter_placeholder_label_format,
-            matchedFilter.title,
-        )
-        binding.statusFilteredPlaceholder.statusFilterShowAnyway.setOnClickListener {
-            listener.clearWarningAction(
-                bindingAdapterPosition,
-            )
-        }
-    }
-
-    private fun showFilteredPlaceholder(show: Boolean) {
-        binding.statusContainer.root.visibility = if (show) View.GONE else View.VISIBLE
-        binding.statusFilteredPlaceholder.root.visibility = if (show) View.VISIBLE else View.GONE
     }
 }
