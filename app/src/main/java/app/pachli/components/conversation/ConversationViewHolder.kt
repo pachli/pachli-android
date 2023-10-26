@@ -138,7 +138,7 @@ class ConversationViewHolder internal constructor(
                     account.avatar,
                     views.value,
                     avatarRadius48dp,
-                    statusDisplayOptions.animateAvatars
+                    statusDisplayOptions.animateAvatars,
                 )
                 views.value.show()
             } ?: views.value.hide()
