@@ -262,7 +262,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                     emojis,
                     statusDisplayOptions,
                     numberFormat,
-                    absoluteTimeFormatter
+                    absoluteTimeFormatter,
                 ) { choices ->
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
@@ -337,10 +337,12 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             val now = System.currentTimeMillis()
             getRelativeTimeSpanString(metaInfo.context, then, now)
         }
-        editedAt?.let { timestampText = metaInfo.context.getString(
+        editedAt?.let {
+            timestampText = metaInfo.context.getString(
                 R.string.post_timestamp_with_edited_indicator,
                 timestampText,
-            ) }
+            )
+        }
         metaInfo.text = timestampText
     }
 
@@ -822,7 +824,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                     numberFormat,
                     absoluteTimeFormatter,
                 )
-            } ?: ""
+            } ?: "",
         )
         itemView.contentDescription = description
     }
@@ -870,7 +872,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             cardView.bind(card, status.actionable.sensitive, statusDisplayOptions) { target ->
                 if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
                     cardView.context.startActivity(
-                        newSingleImageIntent(cardView.context, card.embedUrl)
+                        newSingleImageIntent(cardView.context, card.embedUrl),
                     )
                 } else {
                     listener.onViewUrl(card.url)

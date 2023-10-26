@@ -23,7 +23,7 @@ import app.pachli.viewdata.StatusViewData
 import java.text.DateFormat
 
 class StatusDetailedViewHolder(
-    private val binding: ItemStatusDetailedBinding
+    private val binding: ItemStatusDetailedBinding,
 ) : StatusBaseViewHolder(binding.root) {
 
     override fun setMetaData(

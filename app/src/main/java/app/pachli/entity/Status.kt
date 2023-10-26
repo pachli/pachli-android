@@ -211,7 +211,7 @@ fun Status.Visibility?.icon(textView: TextView): Drawable? {
         resource,
     ) ?: return null
     val size = textView.textSize.toInt()
-    visibilityDrawable.setBounds(0, 0, size, size,)
+    visibilityDrawable.setBounds(0, 0, size, size)
     visibilityDrawable.setTint(textView.currentTextColor)
     return visibilityDrawable
 }

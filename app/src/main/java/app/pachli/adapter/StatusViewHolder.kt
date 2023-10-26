@@ -163,14 +163,14 @@ open class StatusViewHolder(
 }
 
 open class FilterableStatusViewHolder(
-    private val binding: ItemStatusWrapperBinding
+    private val binding: ItemStatusWrapperBinding,
 ) : StatusViewHolder(binding.statusContainer, binding.root) {
 
     override fun setupWithStatus(
         status: StatusViewData,
         listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any?
+        payloads: Any?,
     ) {
         super.setupWithStatus(status, listener, statusDisplayOptions, payloads)
         setupFilterPlaceholder(status, listener, statusDisplayOptions)

@@ -32,7 +32,7 @@ class SearchStatusesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder {
         return StatusViewHolder(
-            ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }
 
