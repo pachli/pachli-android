@@ -26,7 +26,9 @@ import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.SmartLengthInputFilter
 import app.pachli.util.StatusDisplayOptions
+import app.pachli.util.hide
 import app.pachli.util.loadAvatar
+import app.pachli.util.show
 
 class ConversationViewHolder internal constructor(
     itemView: View,
@@ -108,43 +110,41 @@ class ConversationViewHolder internal constructor(
     }
 
     private fun setConversationName(accounts: List<ConversationAccountEntity>) {
-        val context = conversationNameTextView.context
-        var conversationName = ""
-        if (accounts.size == 1) {
-            conversationName =
-                context.getString(R.string.conversation_1_recipients, accounts[0].username)
-        } else if (accounts.size == 2) {
-            conversationName = context.getString(
+        conversationNameTextView.text = when (accounts.size) {
+            1 -> context.getString(
+                R.string.conversation_1_recipients,
+                accounts[0].username,
+            )
+            2 -> context.getString(
                 R.string.conversation_2_recipients,
                 accounts[0].username,
                 accounts[1].username,
             )
-        } else if (accounts.size > 2) {
-            conversationName = context.getString(
+            else -> context.getString(
                 R.string.conversation_more_recipients,
                 accounts[0].username,
                 accounts[1].username,
                 accounts.size - 2,
             )
         }
-        conversationNameTextView.text = conversationName
     }
 
     private fun setAvatars(accounts: List<ConversationAccountEntity>) {
         for (i in avatars.indices) {
             val avatarView = avatars[i]
-            if (i < accounts.size) {
-                loadAvatar(
-                    accounts[i].avatar,
-                    avatarView,
-                    avatarRadius48dp,
-                    statusDisplayOptions.animateAvatars,
-                    null,
-                )
-                avatarView.visibility = View.VISIBLE
-            } else {
-                avatarView.visibility = View.GONE
+            if (i == accounts.size) {
+                avatarView.hide()
+                continue
             }
+
+            loadAvatar(
+                accounts[i].avatar,
+                avatarView,
+                avatarRadius48dp,
+                statusDisplayOptions.animateAvatars,
+                null,
+            )
+            avatarView.show()
         }
     }
 
@@ -158,15 +158,10 @@ class ConversationViewHolder internal constructor(
         /* input filter for TextViews have to be set before text */
         if (collapsible && (expanded || TextUtils.isEmpty(spoilerText))) {
             contentCollapseButton.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onContentCollapsedChange(
-                        !collapsed,
-                        position,
-                    )
-                }
+                val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
+                listener.onContentCollapsedChange(!collapsed, position)
             }
-            contentCollapseButton.visibility = View.VISIBLE
+            contentCollapseButton.show()
             if (collapsed) {
                 contentCollapseButton.setText(R.string.post_content_warning_show_more)
                 content.filters = COLLAPSE_INPUT_FILTER
