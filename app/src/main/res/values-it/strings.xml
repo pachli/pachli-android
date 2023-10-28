@@ -537,11 +537,13 @@
 
     <plurals name="favs">
         <item quantity="one">&lt;b>%1$s&lt;/b> Preferito</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> Preferiti</item>
         <item quantity="other">&lt;b>%1$s&lt;/b> Preferiti</item>
     </plurals>
 
     <plurals name="reblogs">
         <item quantity="one">&lt;b>%1$s&lt;/b> ricondivisione</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> ricondivisioni</item>
         <item quantity="other">&lt;b>%1$s&lt;/b> ricondivisioni</item>
     </plurals>
 
@@ -593,11 +595,13 @@
 	<string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
 	<plurals name="poll_info_votes">
         <item quantity="one">%s voto</item>
+        <item quantity="many">%s voti</item>
         <item quantity="other">%s voti</item>
     </plurals>
 
 	<plurals name="poll_info_people">
         <item quantity="one">%s persona</item>
+        <item quantity="many">%s persone</item>
         <item quantity="other">%s persone</item>
     </plurals>
 
@@ -612,21 +616,25 @@
 	<!--These are for timestamps on polls -->
     <plurals name="poll_timespan_days">
         <item quantity="one">%d giorno rimasto</item>
+        <item quantity="many">%d giorni rimasti</item>
         <item quantity="other">%d giorni rimasti</item>
     </plurals>
 
     <plurals name="poll_timespan_hours">
         <item quantity="one">%d ora rimasta</item>
+        <item quantity="many">%d ore rimaste</item>
         <item quantity="other">%d ore rimaste</item>
     </plurals>
 
     <plurals name="poll_timespan_minutes">
         <item quantity="one">%d minuto rimasto</item>
+        <item quantity="many">%d minuti rimasti</item>
         <item quantity="other">%d minuti rimasti</item>
     </plurals>
 
     <plurals name="poll_timespan_seconds">
         <item quantity="one">%d secondo rimasto</item>
+        <item quantity="many">%d secondi rimasti</item>
         <item quantity="other">%d secondi rimasti</item>
     </plurals>
 
@@ -698,6 +706,7 @@
 
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Non puoi caricare più di %1$d allegato multimediale.</item>
+        <item quantity="many">Non puoi caricare più di %1$d allegati multimediali.</item>
         <item quantity="other">Non puoi caricare più di %1$d allegati multimediali.</item>
     </plurals>
 
