@@ -6,28 +6,28 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import java.util.Date
 import java.util.regex.Pattern
-import javax.inject.Inject
 
 /**
- * One-stop for status filtering logic using Mastodon's filters.
+ * Filter statuses using V1 or V2 filters.
  *
- * 1. You init with [initWithFilters], this compiles regex pattern.
- * 2. You call [shouldFilterStatus] to figure out what to display when you load statuses.
+ * Construct with [filterKind] that corresponds to the kind of timeline, and optionally the set
+ * of v1 filters that should be applied.
  */
-class FilterModel @Inject constructor() {
+class FilterModel constructor(private val filterKind: Filter.Kind, v1filters: List<FilterV1>? = null) {
+    /** Pattern to use when matching v1 filters against a status. Null if these are v2 filters */
     private var pattern: Pattern? = null
-    private var v1 = false
-    lateinit var kind: Filter.Kind
 
-    fun initWithFilters(filters: List<FilterV1>) {
-        v1 = true
-        this.pattern = makeFilter(filters)
+    init {
+        pattern = v1filters?.let { list ->
+            makeFilter(list.filter { it.context.contains(filterKind.kind) })
+        }
     }
 
-    fun shouldFilterStatus(status: Status): Filter.Action {
-        if (v1) {
+    /** @return the [Filter.Action] that should be applied to this status */
+    fun filterActionFor(status: Status): Filter.Action {
+        pattern?.let { pat ->
             // Patterns are expensive and thread-safe, matchers are neither.
-            val matcher = pattern?.matcher("") ?: return Filter.Action.NONE
+            val matcher = pat.matcher("") ?: return Filter.Action.NONE
 
             if (status.poll?.options?.any { matcher.reset(it.title).find() } == true) {
                 return Filter.Action.HIDE
@@ -48,7 +48,7 @@ class FilterModel @Inject constructor() {
         }
 
         val matchingKind = status.filtered?.filter { result ->
-            result.filter.kinds.contains(kind)
+            result.filter.kinds.contains(filterKind)
         }
 
         return if (matchingKind.isNullOrEmpty()) {

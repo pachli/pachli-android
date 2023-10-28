@@ -307,7 +307,6 @@ class NotificationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
     private val filtersRepository: FiltersRepository,
-    private val filterModel: FilterModel,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
@@ -349,9 +348,9 @@ class NotificationsViewModel @Inject constructor(
         viewModelScope.launch { uiAction.emit(action) }
     }
 
-    init {
-        filterModel.kind = Filter.Kind.NOTIFICATIONS
+    private var filterModel: FilterModel? = null
 
+    init {
         // Handle changes to notification filters
         val notificationFilter = uiAction
             .filterIsInstance<InfallibleUiAction.ApplyFilter>()
@@ -472,8 +471,11 @@ class NotificationsViewModel @Inject constructor(
         viewModelScope.launch {
             eventHub.events
                 .filterIsInstance<FilterChangedEvent>()
-                .distinctUntilChanged()
-                .map { getFilters() }
+                .filter { it.filterKind == Filter.Kind.NOTIFICATIONS }
+                .map {
+                    getFilters()
+                    repository.invalidate()
+                }
                 .onStart { getFilters() }
                 .collect()
         }
@@ -516,7 +518,7 @@ class NotificationsViewModel @Inject constructor(
         return repository.getNotificationsStream(filter = filters, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map { notification ->
-                    val filterAction = notification.status?.actionableStatus?.let { filterModel.shouldFilterStatus(it) } ?: Filter.Action.NONE
+                    val filterAction = notification.status?.actionableStatus?.let { filterModel?.filterActionFor(it) } ?: Filter.Action.NONE
                     NotificationViewData.from(
                         notification,
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
@@ -531,25 +533,12 @@ class NotificationsViewModel @Inject constructor(
             }
     }
 
-    /**
-     * Gets the current filters from the repository. Applies them locally if they are
-     * v1 filters.
-     *
-     * Whatever the filter kind, the current timeline is invalidated, so it updates with the
-     * most recent filters.
-     */
+    /** Gets the current filters from the repository. */
     private fun getFilters() = viewModelScope.launch {
         try {
-            when (val filters = filtersRepository.getFilters()) {
-                is FilterKind.V1 -> {
-                    filterModel.initWithFilters(
-                        filters.filters.filter {
-                            it.context.contains("notifications")
-                        },
-                    )
-                    repository.invalidate()
-                }
-                is FilterKind.V2 -> repository.invalidate()
+            filterModel = when (val filters = filtersRepository.getFilters()) {
+                is FilterKind.V1 -> FilterModel(Filter.Kind.NOTIFICATIONS, filters.filters)
+                is FilterKind.V2 -> FilterModel(Filter.Kind.NOTIFICATIONS)
             }
         } catch (throwable: Throwable) {
             _uiErrorChannel.send(UiError.GetFilters(throwable))

@@ -75,6 +75,9 @@ class FiltersViewModel @Inject constructor(
                         api.deleteFilterV1(filter.id).fold(
                             {
                                 this@FiltersViewModel._state.value = State(this@FiltersViewModel._state.value.filters.filter { it.id != filter.id }, LoadingState.LOADED)
+                                filter.context.forEach {
+                                    eventHub.dispatch(FilterChangedEvent(Filter.Kind.from(it)))
+                                }
                             },
                             {
                                 Snackbar.make(parent, "Error deleting filter '${filter.title}'", Snackbar.LENGTH_SHORT).show()

@@ -19,13 +19,17 @@ package app.pachli.components.notifications
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.appstore.EventHub
+import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
+import app.pachli.components.timeline.MainCoroutineRule
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.fakes.InMemorySharedPreferences
 import app.pachli.core.testing.rules.MainCoroutineRule
-import app.pachli.network.FilterModel
+import app.pachli.db.AccountEntity
+import app.pachli.db.AccountManager
+import app.pachli.fakes.InMemorySharedPreferences
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.StatusDisplayOptionsRepository
@@ -51,7 +55,6 @@ abstract class NotificationsViewModelTestBase {
     protected lateinit var viewModel: NotificationsViewModel
     private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
     private lateinit var filtersRepository: FiltersRepository
-    private lateinit var filterModel: FilterModel
 
     private val eventHub = EventHub()
 
@@ -96,8 +99,9 @@ abstract class NotificationsViewModelTestBase {
         )
 
         timelineCases = mock()
-        filtersRepository = mock()
-        filterModel = mock()
+        filtersRepository = mock {
+            onBlocking { getFilters() } doReturn FilterKind.V2(emptyList())
+        }
 
         sharedPreferencesRepository = SharedPreferencesRepository(
             InMemorySharedPreferences(),
@@ -117,7 +121,6 @@ abstract class NotificationsViewModelTestBase {
             timelineCases,
             eventHub,
             filtersRepository,
-            filterModel,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
         )

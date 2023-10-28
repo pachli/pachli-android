@@ -3710,7 +3710,7 @@
         errorLine2="                                              ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="174"
+            line="193"
             column="47"/>
     </issue>
 
