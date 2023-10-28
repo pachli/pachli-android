@@ -236,10 +236,9 @@
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Sito web del progetto:\n
-		https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Segnala problemi e richiedi funzionalità:
-\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_project_site">Sito web del progetto: https://pachli.app</string>
+    <string name="about_privacy_policy">Privacy policy</string>
+    <string name="about_bug_feature_request_site">Segnala problemi e richiedi funzionalità: https://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Profilo di Pachli</string>
     <string name="post_share_content">Condividi contenuto del messaggio</string>
     <string name="post_share_link">Condividi collegamento al messaggio</string>
@@ -313,7 +312,7 @@
     <string name="later">Più tardi</string>
     <string name="restart">Riavvia</string>
     <string name="caption_systememoji">Le emoji predefinite del tuo dispositivo</string>
-    <string name="caption_blobmoji">Le emoji Blob di Android 4.4-7.1</string>
+    <string name="caption_blobmoji">Le emoji Blob di Android 4.4–7.1</string>
     <string name="caption_twemoji">Le emoji standard di Mastodon</string>
     <string name="download_failed">Scaricamento fallito</string>
     <string name="profile_badge_bot_text">Bot</string>
@@ -430,7 +429,7 @@
     <string name="report_remote_instance">Inoltra a %s</string>
     <string name="failed_report">Segnalazione fallita</string>
     <string name="failed_fetch_posts">Scaricamento dei messaggio fallito</string>
-    <string name="report_description_1">La segnalazione sarà inviata al moderatore del tuo server. Puoi spiegare perchè stai segnalando l\'utente qui sotto:</string>
+    <string name="report_description_1">La segnalazione sarà inviata al moderatore del tuo server. Puoi spiegare perché stai segnalando l\'utente qui sotto:</string>
     <string name="report_description_remote_instance">L\'utente è su un altro server. Mandare una copia della segnalazione anche lì\?</string>
     <string name="title_accounts">Utenti</string>
     <string name="failed_search">Errore durante la ricerca</string>
