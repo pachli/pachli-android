@@ -226,7 +226,7 @@
     <string name="about_device_info">%s %s\nVersione Android: %s\nLivello SDK: %d</string>
     <string name="about_account_info_title">Il tuo account</string>
     <string name="about_account_info">\@%s\@%s\nVersione: %s</string>
-    <string name="about_powered_by_pachli">Powered by Pachli</string>
+    <string name="about_powered_by_pachli">Fatto usando Pachli</string>
     <string name="about_pachli_license">Pachli è un programma libero ed open source.
 		È distribuito con licenza GNU General Public License Version 3.
 		Puoi leggere la licenza qui: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
@@ -394,7 +394,6 @@
     <string name="action_edit">Modifica</string>
     <string name="action_view_bookmarks">Segnalibri</string>
     <string name="action_add_poll">Aggiungi sondaggio</string>
-    <string name="about_powered_by_pachli">Fatto usando Pachli</string>
     <string name="pref_title_alway_open_spoiler">Espandi sempre i messaggi segnalati come contenuto sensibile</string>
     <string name="description_post_bookmarked">Messo nei segnalibri</string>
     <string name="description_poll">Sondaggio con scelte: %1$s, %2$s, %3$s, %4$s; %5$s</string>
