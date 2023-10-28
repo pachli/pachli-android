@@ -469,6 +469,10 @@
     <string name="compose_active_account_description">Pubblicando come %1$s</string>
 
     <plurals name="hint_describe_for_visually_impaired">
+        <item quantity="one">Descrivi il contenuto per gli ipovedenti
+            \n(limite di %d caratteri)</item>
+        <item quantity="many">Descrivi i contenuti per gli ipovedenti
+        \n(limite di %d caratteri)</item>
 	    <item quantity="other">Descrivi i contenuti per gli ipovedenti
 \n(limite di %d caratteri)</item>
     </plurals>
