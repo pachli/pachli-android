@@ -29,9 +29,11 @@ import android.view.accessibility.AccessibilityManager
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -99,11 +101,30 @@ class TimelineFragment :
     RefreshableFragment,
     MenuProvider {
 
+    // Create the correct view model. Do this lazily because it depends on the value of
+    // `timelineKind`, which won't be known until part way through `onCreate`. Pass this in
+    // the "extras" to the view model, which are populated in to the `SavedStateHandle` it
+    // takes as a parameter.
+    //
+    // If the navigation library was being used this would happen automatically, so this
+    // workaround can be removed when that change happens.
     private val viewModel: TimelineViewModel by lazy {
         if (timelineKind == TimelineKind.Home) {
-            viewModels<CachedTimelineViewModel>().value
+            viewModels<CachedTimelineViewModel>(
+                extrasProducer = {
+                    MutableCreationExtras(defaultViewModelCreationExtras).apply {
+                        set(DEFAULT_ARGS_KEY, TimelineViewModel.creationExtras(timelineKind))
+                    }
+                },
+            ).value
         } else {
-            viewModels<NetworkTimelineViewModel>().value
+            viewModels<NetworkTimelineViewModel>(
+                extrasProducer = {
+                    MutableCreationExtras(defaultViewModelCreationExtras).apply {
+                        set(DEFAULT_ARGS_KEY, TimelineViewModel.creationExtras(timelineKind))
+                    }
+                },
+            ).value
         }
     }
 
@@ -131,8 +152,6 @@ class TimelineFragment :
         val arguments = requireArguments()
 
         timelineKind = arguments.getParcelable(KIND_ARG)!!
-
-        viewModel.init(timelineKind)
 
         isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
 

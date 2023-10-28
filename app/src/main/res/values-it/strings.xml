@@ -670,6 +670,7 @@
     <string name="filter_edit_keyword_title">Modifica parola chiave</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="load_newest_notifications">Carica le notifiche più recenti</string>
+    <string name="load_newest_statuses">Carica post recenti</string>
     <string name="compose_delete_draft">Cancellare bozza\?</string>
     <string name="error_missing_edits">Il tuo server sa che questo post è stato modificato, ma non ha una copia delle modifiche, quindi non ti può essere mostrato.
 \n

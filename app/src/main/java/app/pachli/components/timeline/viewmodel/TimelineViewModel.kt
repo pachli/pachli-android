@@ -20,6 +20,9 @@ package app.pachli.components.timeline.viewmodel
 import android.util.Log
 import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
+import androidx.annotation.VisibleForTesting
+import androidx.core.os.bundleOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -255,11 +258,11 @@ sealed interface UiError {
 }
 
 abstract class TimelineViewModel(
+    savedStateHandle: SavedStateHandle,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
     private val filtersRepository: FiltersRepository,
     protected val accountManager: AccountManager,
-    private val filterModel: FilterModel,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
@@ -298,8 +301,7 @@ abstract class TimelineViewModel(
         viewModelScope.launch { uiAction.emit(action) }
     }
 
-    var timelineKind: TimelineKind = TimelineKind.Home
-        private set
+    val timelineKind: TimelineKind = savedStateHandle.get<TimelineKind>(TIMELINE_KIND_TAG)!!
 
     private var filterRemoveReplies = false
     private var filterRemoveReblogs = false
@@ -312,6 +314,8 @@ abstract class TimelineViewModel(
     // Subclasses should set this if they support restoring the reading position.
     open var readingPositionId: String? = null
         protected set
+
+    private var filterModel: FilterModel? = null
 
     init {
         viewModelScope.launch {
@@ -390,13 +394,6 @@ abstract class TimelineViewModel(
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
                 initialValue = UiState(showFabWhileScrolling = true),
             )
-    }
-
-    @CallSuper
-    open fun init(timelineKind: TimelineKind) {
-        this.timelineKind = timelineKind
-
-        filterModel.kind = Filter.Kind.from(timelineKind)
 
         if (timelineKind is TimelineKind.Home) {
             // Note the variable is "true if filter" but the underlying preference/settings text is "true if show"
@@ -511,43 +508,30 @@ abstract class TimelineViewModel(
         ) {
             return Filter.Action.HIDE
         } else {
-            statusViewData.filterAction = filterModel.shouldFilterStatus(status.actionableStatus)
+            statusViewData.filterAction = filterModel?.filterActionFor(status.actionableStatus) ?: Filter.Action.NONE
             statusViewData.filterAction
         }
     }
 
     /** Updates the current set of filters if filter-related preferences change */
-    // TODO: https://github.com/tuskyapp/Tusky/issues/3546, and update if a v2 filter is
-    // updated as well.
     private fun updateFiltersFromPreferences() = eventHub.events
         .filterIsInstance<FilterChangedEvent>()
         .filter { filterContextMatchesKind(timelineKind, listOf(it.filterKind)) }
-        .distinctUntilChanged()
-        .map { getFilters() }
+        .map {
+            getFilters()
+            reloadKeepingReadingPosition()
+        }
         .onStart { getFilters() }
 
-    /**
-     * Gets the current filters from the repository. Applies them locally if they are
-     * v1 filters.
-     *
-     * Whatever the filter kind, the current timeline is invalidated, so it updates with the
-     * most recent filters.
-     */
+    /** Gets the current filters from the repository. */
     private fun getFilters() {
         viewModelScope.launch {
             Log.d(TAG, "getFilters()")
             try {
-                when (val filters = filtersRepository.getFilters()) {
-                    is FilterKind.V1 -> {
-                        filterModel.initWithFilters(
-                            filters.filters.filter {
-                                filterContextMatchesString(timelineKind, it.context)
-                            },
-                        )
-                        invalidate()
-                    }
-
-                    is FilterKind.V2 -> invalidate()
+                val filterKind = Filter.Kind.from(timelineKind)
+                filterModel = when (val filters = filtersRepository.getFilters()) {
+                    is FilterKind.V1 -> FilterModel(filterKind, filters.filters)
+                    is FilterKind.V2 -> FilterModel(filterKind)
                 }
             } catch (throwable: Throwable) {
                 Log.d(TAG, "updateFilter(): Error fetching filters: ${throwable.message}")
@@ -629,12 +613,14 @@ abstract class TimelineViewModel(
         private const val TAG = "TimelineViewModel"
         private val THROTTLE_TIMEOUT = 500.milliseconds
 
-        fun filterContextMatchesString(
-            timelineKind: TimelineKind,
-            filterContext: List<String>,
-        ): Boolean {
-            return filterContext.contains(Filter.Kind.from(timelineKind).kind)
-        }
+        /** Tag for the timelineKind in `savedStateHandle` */
+        @VisibleForTesting(VisibleForTesting.PRIVATE)
+        const val TIMELINE_KIND_TAG = "timelineKind"
+
+        /** Create extras for this view model */
+        fun creationExtras(timelineKind: TimelineKind) = bundleOf(
+            TIMELINE_KIND_TAG to timelineKind,
+        )
 
         fun filterContextMatchesKind(
             timelineKind: TimelineKind,

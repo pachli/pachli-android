@@ -17,19 +17,20 @@
 
 package app.pachli.components.timeline
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.db.AccountManager
 import app.pachli.entity.Account
-import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
 import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
+import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.TestScope
@@ -38,7 +39,10 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.reset
+import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
@@ -65,18 +69,18 @@ abstract class NetworkTimelineViewModelTestBase {
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
-    private lateinit var networkTimelineRepository: NetworkTimelineRepository
+    @Inject
+    lateinit var filtersRepository: FiltersRepository
+
+    @Inject
+    lateinit var networkTimelineRepository: NetworkTimelineRepository
+
     private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
     protected lateinit var timelineCases: TimelineCases
-    private lateinit var filtersRepository: FiltersRepository
     private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
-    private lateinit var filterModel: FilterModel
     protected lateinit var viewModel: TimelineViewModel
 
     private val eventHub = EventHub()
-
-    /** Empty success response, for API calls that return one */
-    protected var emptySuccess = Response.success("".toResponseBody())
 
     /** Empty error response, for API calls that return one */
     private var emptyError: Response<ResponseBody> = Response.error(404, "".toResponseBody())
@@ -87,6 +91,12 @@ abstract class NetworkTimelineViewModelTestBase {
     @Before
     fun setup() {
         hilt.inject()
+
+        reset(mastodonApi)
+        mastodonApi.stub {
+            onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
+            onBlocking { getFilters() } doReturn NetworkResult.success(emptyList())
+        }
 
         accountManager.addAccount(
             accessToken = "token",
@@ -107,16 +117,12 @@ abstract class NetworkTimelineViewModelTestBase {
             ),
         )
 
-        networkTimelineRepository = mock()
-
         accountPreferenceDataStore = AccountPreferenceDataStore(
             accountManager,
             TestScope(),
         )
 
         timelineCases = mock()
-        filtersRepository = mock()
-        filterModel = mock()
 
         val serverCapabilitiesRepository = ServerCapabilitiesRepository(
             mastodonApi,
@@ -133,6 +139,7 @@ abstract class NetworkTimelineViewModelTestBase {
         )
 
         viewModel = NetworkTimelineViewModel(
+            SavedStateHandle(mapOf(TimelineViewModel.TIMELINE_KIND_TAG to TimelineKind.Bookmarks)),
             networkTimelineRepository,
             timelineCases,
             eventHub,
@@ -140,11 +147,6 @@ abstract class NetworkTimelineViewModelTestBase {
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
-            filterModel,
         )
-
-        // Initialisation with any timeline kind, as long as it's not Home
-        // (Home uses CachedTimelineViewModel)
-        viewModel.init(TimelineKind.Bookmarks)
     }
 }

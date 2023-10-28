@@ -18,7 +18,6 @@ import app.pachli.db.AccountManager
 import app.pachli.db.TimelineDao
 import app.pachli.entity.Account
 import app.pachli.entity.StatusContext
-import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
 import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
@@ -131,8 +130,6 @@ class ViewThreadViewModelTest {
             onBlocking { getFilters() } doReturn FilterKind.V2(emptyList())
         }
 
-        val filterModel = FilterModel()
-
         val defaultAccount = AccountEntity(
             id = 1,
             domain = "mastodon.test",
@@ -186,7 +183,6 @@ class ViewThreadViewModelTest {
 
         viewModel = ViewThreadViewModel(
             mastodonApi,
-            filterModel,
             timelineCases,
             eventHub,
             accountManager,

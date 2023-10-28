@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.PachliApplication
 import app.pachli.appstore.EventHub
@@ -24,7 +25,6 @@ import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.db.AccountManager
 import app.pachli.entity.Account
-import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
 import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
@@ -77,18 +77,18 @@ abstract class CachedTimelineViewModelTestBase {
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
-    private lateinit var cachedTimelineRepository: CachedTimelineRepository
+    @Inject
+    lateinit var filtersRepository: FiltersRepository
+
+    @Inject
+    lateinit var cachedTimelineRepository: CachedTimelineRepository
+
     private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
     protected lateinit var timelineCases: TimelineCases
     private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
-    private lateinit var filtersRepository: FiltersRepository
-    private lateinit var filterModel: FilterModel
     protected lateinit var viewModel: TimelineViewModel
 
     private val eventHub = EventHub()
-
-    /** Empty success response, for API calls that return one */
-    protected var emptySuccess = Response.success("".toResponseBody())
 
     /** Empty error response, for API calls that return one */
     private var emptyError: Response<ResponseBody> = Response.error(404, "".toResponseBody())
@@ -103,6 +103,7 @@ abstract class CachedTimelineViewModelTestBase {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
+            onBlocking { getFilters() } doReturn NetworkResult.success(emptyList())
         }
 
         accountManager.addAccount(
@@ -124,16 +125,12 @@ abstract class CachedTimelineViewModelTestBase {
             ),
         )
 
-        cachedTimelineRepository = mock()
-
         accountPreferenceDataStore = AccountPreferenceDataStore(
             accountManager,
             TestScope(),
         )
 
         timelineCases = mock()
-        filtersRepository = mock()
-        filterModel = mock()
 
         val serverCapabilitiesRepository = ServerCapabilitiesRepository(
             mastodonApi,
@@ -150,6 +147,7 @@ abstract class CachedTimelineViewModelTestBase {
         )
 
         viewModel = CachedTimelineViewModel(
+            SavedStateHandle(mapOf(TimelineViewModel.TIMELINE_KIND_TAG to TimelineKind.Home)),
             cachedTimelineRepository,
             timelineCases,
             eventHub,
@@ -157,11 +155,7 @@ abstract class CachedTimelineViewModelTestBase {
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
-            filterModel,
             Gson(),
         )
-
-        // Initialisation with the Home timeline
-        viewModel.init(TimelineKind.Home)
     }
 }
