@@ -222,6 +222,11 @@
     <string name="description_account_locked">Account bloccato</string>
     <string name="about_title_activity">A proposito</string>
     <string name="about_pachli_version">Pachli %s</string>
+	<string name="about_device_info_title">Il tuo dispositivo</string>
+    <string name="about_device_info">%s %s\nVersione Android: %s\nLivello SDK: %d</string>
+    <string name="about_account_info_title">Il tuo account</string>
+    <string name="about_account_info">\@%s\@%s\nVersione: %s</string>
+    <string name="about_powered_by_pachli">Powered by Pachli</string>
     <string name="about_pachli_license">Pachli è un programma libero ed open source.
 		È distribuito con licenza GNU General Public License Version 3.
 		Puoi leggere la licenza qui: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
