@@ -8,8 +8,13 @@
     <string name="error_no_web_browser_found">Nessun browser web utilizzabile trovato.</string>
     <string name="error_authorization_unknown">Si è verificato un errore di autenticazione non identificato. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
     <string name="error_authorization_denied">Autorizzazione negata. Se sei sicuro di aver usato le credenziali corrette, prova a collegarti con il browser nel menu.</string>
-    <string name="error_retrieving_oauth_token">Acquisizione token di accesso fallita. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
-    <string name="error_compose_character_limit">Il messaggio è troppo lungo!</string>
+   	<string name="error_retrieving_oauth_token">Acquisizione token di accesso fallita. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
+    <string name="error_loading_account_details">Caricamento dettagli utente fallito</string>
+	<string name="error_compose_character_limit">Il messaggio è troppo lungo!</string>
+	<string name="error_multimedia_size_limit">File video e audio non possono eccedere %s MB in dimensione.</string>
+	<string name="error_404_not_found">Il tuo server non supporta questa feature</string>
+	
+	<string name="error_image_edit_failed">L\'immagine non può essere modificata.</string>
     <string name="error_media_upload_type">Quel tipo di file non può essere caricato.</string>
     <string name="error_media_upload_opening">Non è stato possibile aprire quel file.</string>
     <string name="error_media_upload_permission">È richiesto il permesso di leggere file.</string>
@@ -17,9 +22,22 @@
     <string name="error_media_upload_image_or_video">Non è possibile allegare nello stesso messaggio immagini e video.</string>
     <string name="error_media_upload_sending">Il caricamento è fallito.</string>
     <string name="error_sender_account_gone">Errore nell\'invio del messaggio.</string>
-    <string name="title_home">Home</string>
+	<string name="error_following_hashtag_format">Errore provando a seguire #%s</string>
+	<string name="error_unfollowing_hashtag_format">Errore smettendo di provare a seguire #%s</string>
+    <string name="error_following_hashtags_unsupported">Questa istanza non permette di seguire gli hashtag.</string>
+	<string name="error_muting_hashtag_format">Errore nel silenziamento di #%s</string>
+	<string name="error_unmuting_hashtag_format">Errore nella rimozione del silenziamento di #%s</string>
+	<string name="error_status_source_load">Caricamento dello status della sorgente dal server fallito.</string>
+	
+	<string name="title_login">Accesso</string>
+	<string name="title_home">Home</string>
     <string name="title_notifications">Notifiche</string>
     <string name="title_public_local">Locale</string>
+	<string name="title_public_trending">Di tendenza</string>
+	<string name="title_public_trending_hashtags">Hashtag di tendenza</string>
+	<string name="title_public_trending_links">Collegamenti di tendenza</string>
+	<string name="title_public_trending_statuses">Post di tendenza</string>
+	<string name="title_tab_public_trending_hashtags">Hashtags</string>
     <string name="title_public_federated">Federata</string>
     <string name="title_direct_messages">Messaggi diretti</string>
     <string name="title_tab_preferences">Schede</string>
@@ -30,47 +48,87 @@
     <string name="title_follows">Seguiti</string>
     <string name="title_followers">Seguaci</string>
     <string name="title_favourites">Apprezzati</string>
+	<string name="title_bookmarks">Segnalibri</string>
     <string name="title_mutes">Utenti silenziati</string>
     <string name="title_blocks">Utenti bloccati</string>
+	<string name="title_domain_mutes">Domini nascosti</string>
+	<string name="title_migration_relogin">Riaccedi per le notifiche</string>   
     <string name="title_follow_requests">Richieste di seguirti</string>
     <string name="title_edit_profile">Modifica il tuo profilo</string>
     <string name="title_drafts">Bozze</string>
+	<string name="title_scheduled_posts">Post programmati</string>
+	<string name="title_announcements">Annunci</string>
     <string name="title_licenses">Licenze</string>
-    <string name="post_username_format">\@%s</string>
+	<string name="title_followed_hashtags">Hashtag seguiti</string>
+	<string name="title_edits">Modifiche</string>
+	
+	<string name="dialog_follow_hashtag_title">Segui hashtag</string>
+	<string name="dialog_follow_hashtag_hint">#hashtag</string>    
+	
+	<string name="post_username_format">\@%s</string>	
     <string name="post_boosted_format">%s ha condiviso</string>
     <string name="post_sensitive_media_title">Contenuto sensibile</string>
     <string name="post_media_hidden_title">Media nascosto</string>
+	<string name="post_media_alt">ALT</string>
     <string name="post_sensitive_media_directions">Clicca per visualizzare</string>
     <string name="post_content_warning_show_more">Mostra di più</string>
     <string name="post_content_warning_show_less">Mostra di meno</string>
     <string name="post_content_show_more">Espandi</string>
     <string name="post_content_show_less">Riduci</string>
+	<string name="description_post_edited">Modificato</string>
+	
     <string name="message_empty">Qui non c\'è nulla.</string>
     <string name="footer_empty">Qui non c\'è nulla. Trascina verso il basso per aggiornare!</string>
+	
     <string name="notification_reblog_format">%s ha condiviso il tuo post</string>
     <string name="notification_favourite_format">%s ha apprezzato il tuo post</string>
     <string name="notification_follow_format">%s ti segue</string>
+	<string name="notification_follow_request_format">%s ha chiesto di seguirti</string>
+	<string name="notification_sign_up_format">%s si è registrato</string>
+	<string name="notification_subscription_format">%s ha appena pubblicato</string>
+	<string name="notification_update_format">%s ha modificato il suo messaggio</string>
+	<string name="notification_report_format">Nuova segnalazione su %s</string>
+	<string name="notification_header_report_format">%s ha segnalato %s</string>
+	<string name="notification_summary_report_format">%s · %d post allegati</string>	
+	
     <string name="report_username_format">Segnala @%s</string>
     <string name="report_comment_hint">Commenti aggiuntivi?</string>
+	
     <string name="action_quick_reply">Risposta veloce</string>
     <string name="action_reply">Rispondi</string>
     <string name="action_reblog">Condividi</string>
     <string name="action_unreblog">Rimuovi condivisione</string>
     <string name="action_favourite">Aggiungi ai post apprezzati</string>
     <string name="action_unfavourite">Rimuovi apprezzamento</string>
+	<string name="action_bookmark">Segnalibro</string>
+	<string name="action_unbookmark">Rimuovi segnalibro</string>
     <string name="action_more">Di più</string>
     <string name="action_compose">Componi</string>
     <string name="action_login">Accedi con Pachli</string>
+	<string name="action_browser_login">Accedi dal browser</string>
     <string name="action_logout">Disconnettiti</string>
     <string name="action_logout_confirm">Sei sicuro di volerti disconnettere dall\'account %1$s?</string>
-    <string name="action_follow">Segui</string>
+    <string name="action_post_failed">Caricamento fallito</string>
+    <string name="action_post_failed_detail">Non è stato possibile caricare il tuo post ed è stato salvato nelle bozze.\n\nNon è stato possibile contattare il server oppure il server ha rifiutato il post.</string>
+    <string name="action_post_failed_show_drafts">Mostra bozze</string>
+	<string name="action_post_failed_do_nothing">Chiudi</string>
+
+	<string name="action_follow">Segui</string>
     <string name="action_unfollow">Smetti di seguire</string>
     <string name="action_block">Blocca</string>
     <string name="action_unblock">Sblocca</string>
-    <string name="action_hide_reblogs">Nascondi ricondivisioni</string>
+	<string name="action_share_account_link">Condividi link dell\'account</string>
+	<string name="action_share_account_username">Condividi il nome utente dell\'account</string>
+	<string name="action_hide_reblogs">Nascondi ricondivisioni</string>
     <string name="action_show_reblogs">Mostra ricondivisioni</string>
+	<string name="pref_title_show_self_boosts">Mostra proprie ricondivisioni</string>
+    <string name="pref_title_show_self_boosts_description">Qualcuno che ricondivide i propri post</string>
     <string name="action_report">Segnala</string>
+	<string name="action_edit">Modifica</string>	
     <string name="action_delete">Elimina</string>
+	<string name="action_delete_conversation">Elimina conversazione</string>
+	
+	
     <string name="action_send">TOOT</string>
     <string name="action_send_public">TOOT!</string>
     <string name="action_retry">Riprova</string>
@@ -139,7 +197,6 @@
     <string name="link_whats_an_instance">Cos\'è un\'istanza?</string>
     <string name="login_connection">Connessione…</string>
     <string name="dialog_whats_an_instance">L\'indirizzo o il dominio di qualsiasi istanza può essere inserito qui, come mastodon.social, icosahedron.website, social.tchncs.de, e <a href="https://instances.social">altro!</a>
-\n
 \nSe non hai ancora un account, puoi inserire il nome di un\'istanza alla quale vuoi iscriverti e creare un account.
 \n
 \nUn\'istanza è il luogo dove l\'account è custodito, ma puoi facilmente comunicare e seguire gente su altre istanze come se fossero sullo stesso sito.
@@ -374,8 +431,7 @@
     </plurals>
     <string name="poll_info_time_absolute">si conclude alle %s</string>
     <string name="poll_info_closed">concluso</string>
-    <string name="poll_vote">Vota</string>
-    <string name="title_domain_mutes">Domini nascosti</string>
+    <string name="poll_vote">Vota</string>    
     <string name="action_view_domain_mutes">Domini nascosti</string>
     <string name="action_mute_domain">Silenzia %s</string>
     <string name="confirmation_domain_unmuted">%s mostrati</string>
@@ -387,10 +443,7 @@
     <string name="notification_poll_description">Notifiche sui sondaggi che si sono conclusi</string>
     <string name="filter_dialog_whole_word">Parola intera</string>
     <string name="filter_dialog_whole_word_description">Quando la parola chiave o la frase sono composte da soli caratteri alfanumerici, sarà applicata solo se corrisponde alla parola completa</string>
-    <string name="caption_notoemoji">Set di emoji di Google</string>
-    <string name="title_bookmarks">Segnalibri</string>
-    <string name="action_bookmark">Segnalibro</string>
-    <string name="action_edit">Modifica</string>
+    <string name="caption_notoemoji">Set di emoji di Google</string>    
     <string name="action_view_bookmarks">Segnalibri</string>
     <string name="action_add_poll">Aggiungi sondaggio</string>
     <string name="pref_title_alway_open_spoiler">Espandi sempre i messaggi segnalati come contenuto sensibile</string>
@@ -445,8 +498,7 @@
     <string name="poll_allow_multiple_choices">Scelte multiple</string>
     <string name="poll_new_choice_hint">Scelta %d</string>
     <string name="edit_poll">Modifica</string>
-    <string name="post_lookup_error_format">Errore nella ricerca del post %s</string>
-    <string name="title_scheduled_posts">Post programmati</string>
+    <string name="post_lookup_error_format">Errore nella ricerca del post %s</string>    
     <string name="action_access_scheduled_posts">Messaggi programmati</string>
     <string name="action_schedule_post">Programma un messaggio</string>
     <string name="action_reset_schedule">Ripristina</string>
@@ -463,8 +515,7 @@
     <string name="dialog_block_warning">Bloccare @%s\?</string>
     <string name="action_unmute_domain">Smetti di silenziare %s</string>
     <string name="action_unmute_conversation">Smetti di silenziare la conversazione</string>
-    <string name="action_mute_conversation">Silenzia conversazione</string>
-    <string name="notification_follow_request_format">%s ha chiesto di seguirti</string>
+    <string name="action_mute_conversation">Silenzia conversazione</string>    
     <string name="action_unmute_desc">Smetti di silenziare %s</string>
     <string name="notification_follow_request_name">Richieste di seguirti</string>
     <string name="account_note_saved">Salvato!</string>
@@ -481,8 +532,7 @@
     <string name="pref_main_nav_position_option_top">In cima</string>
     <string name="pref_main_nav_position">Posizione barra di navigazione principale</string>
     <string name="pref_title_gradient_for_media">Mostra gradienti colorati per i media nascosti</string>
-    <string name="dialog_mute_hide_notifications">Nascondi notifiche</string>
-    <string name="title_announcements">Annunci</string>
+    <string name="dialog_mute_hide_notifications">Nascondi notifiche</string>    
     <string name="pref_title_notification_filter_follow_requests">mi viene richiesto di seguirmi</string>
     <string name="wellbeing_hide_stats_profile">Nascondi statistiche quantitative sui profili</string>
     <string name="wellbeing_hide_stats_posts">Nascondi le statistiche quantitative sui post</string>
@@ -492,7 +542,6 @@
     <string name="notification_subscription_description">Notifiche di nuovi messaggi di qualcuno a cui sei iscritto</string>
     <string name="notification_subscription_name">Nuovi messaggi</string>
     <string name="pref_title_notification_filter_subscriptions">qualcuno che seguo ha pubblicato un nuovo messaggio</string>
-    <string name="notification_subscription_format">%s ha appena pubblicato</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Non puoi caricare più di %1$d allegato multimediale.</item>
         <item quantity="many">Non puoi caricare più di %1$d allegati multimediali.</item>
@@ -510,8 +559,7 @@
     <string name="action_subscribe_account">Iscriviti</string>
     <string name="dialog_delete_conversation_warning">Rimuovere questa conversazione\?</string>
     <string name="drafts_failed_loading_reply">Errore nel recupero delle informazioni sulla risposta</string>
-    <string name="action_unsubscribe_account">Disiscriviti</string>
-    <string name="action_delete_conversation">Elimina conversazione</string>
+    <string name="action_unsubscribe_account">Disiscriviti</string>    
     <string name="wellbeing_mode_notice">Alcune informazioni che potrebbero influenzare il tuo benessere mentale saranno nascoste. Questo include:
 \n
 \n - Notifiche riguardo a Preferiti/Ricondivisioni/Following
@@ -519,7 +567,6 @@
 \n - Statistiche riguardo a Preferiti/Post nei profili
 \n
 \n Le notifiche push non saranno influenzate, ma puoi modificare le tue impostazioni delle notifiche manualmente.</string>
-    <string name="action_unbookmark">Rimuovi segnalibro</string>
     <string name="pref_title_confirm_favourites">Chiedi conferma prima di apprezzare</string>
     <string name="duration_14_days">14 giorni</string>
     <string name="duration_30_days">30 giorni</string>
@@ -528,10 +575,7 @@
     <string name="duration_180_days">180 giorni</string>
     <string name="duration_365_days">365 giorni</string>
     <string name="follow_requests_info">Anche se il tuo account non è bloccato, lo staff di %1$s ha pensato che potresti voler verificare le richieste di seguirti da parte questi utenti manualmente.</string>
-    <string name="notification_sign_up_format">%s si è registrato</string>
-    <string name="pref_title_notification_filter_sign_ups">qualcuno si è registrato</string>
-    <string name="title_login">Accesso</string>
-    <string name="notification_update_format">%s ha modificato il suo messaggio</string>
+    <string name="pref_title_notification_filter_sign_ups">qualcuno si è registrato</string>    
     <string name="pref_title_notification_filter_updates">un messaggio con cui ho interagito è stato modificato</string>
     <string name="pachli_compose_post_quicksetting_label">Componi messaggio</string>
     <string name="notification_sign_up_name">Registrazioni</string>
@@ -547,17 +591,11 @@
     <string name="dialog_push_notification_migration">Al fine di utilizzare le notifiche tramite UnifiedPush, Pachli ha bisogno del permesso di sottoscrivere alle notifiche nella tua istanza Mastodon. Questo richiede un nuovo accesso per cambiare l\'OAuth precedentemente concesso a Pachli. Usare questa opzione qui o nelle preferenze dell\'account preserva tutte le tue bozze locali e la memoria temporanea (cache).</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="dialog_push_notification_migration_other_accounts">Nuovo accesso eseguito per l\'utenza corrente al fine di garantire il permesso delle notifiche a Pachli. Però hai altre utenze che non sono state migrate in questo modo. Cambia utenza e riaccedi una alla volta per abilitare il supporto alle notifiche UnifiedPush.</string>
-    <string name="account_date_joined">Registrato da %1$s</string>
-    <string name="error_multimedia_size_limit">File video e audio non possono eccedere %s MB in dimensione.</string>
-    <string name="error_image_edit_failed">L\'immagine non può essere modificata.</string>
-    <string name="title_migration_relogin">Riaccedi per le notifiche</string>
-    <string name="error_following_hashtag_format">Errore provando a seguire #%s</string>
-    <string name="error_unfollowing_hashtag_format">Errore smettendo di provare a seguire #%s</string>
-    <string name="status_count_one_plus">1+</string>
-    <string name="error_loading_account_details">Caricamento dettagli utente fallito</string>
+    <string name="account_date_joined">Registrato da %1$s</string>    
+    <string name="status_count_one_plus">1+</string>    
     <string name="delete_scheduled_post_warning">Cancellare questo post programmato\?</string>
     <string name="instance_rule_title">Regole di %s</string>
-    <string name="instance_rule_info">Facendo il log in accetti le regole di %s.</string>
+    <string name="instance_rule_info">Facendo il login accetti le regole di %s.</string>
     <string name="set_focus_description">Tappa o crea un cerchio per scegliere il punto focale che sarà sempre visibile nelle anteprime.</string>
     <string name="action_set_focus">Imposta punto focale</string>
     <string name="description_post_language">Lingua del post</string>
@@ -580,60 +618,39 @@
     <string name="failed_to_unpin">Rimozione del fissaggio fallita</string>
     <string name="pref_title_http_proxy_port_message">Il port dovrebbe essere tra %d e %d</string>
     <string name="report_category_violation">Violazione di una regola</string>
-    <string name="status_created_at_now">adesso</string>
-    <string name="post_media_alt">ALT</string>
+    <string name="status_created_at_now">adesso</string>    
     <string name="pref_title_notification_filter_reports">c\'è una nuova segnalazione</string>
-    <string name="notification_report_name">Segnalazioni</string>
-    <string name="error_muting_hashtag_format">Errore nel silenziamento di #%s</string>
-    <string name="error_unmuting_hashtag_format">Errore nella rimozione del silenziamento di #%s</string>
-    <string name="title_followed_hashtags">Hashtag seguiti</string>
-    <string name="description_post_edited">Modificato</string>
-    <string name="error_following_hashtags_unsupported">Questa istanza non permette di seguire gli hashtag.</string>
+    <string name="notification_report_name">Segnalazioni</string>    
+    
+    
     <string name="action_discard">Scarta modifiche</string>
-    <string name="action_continue_edit">Continua a modificare</string>
-    <string name="notification_report_format">Nuova segnalazione su %s</string>
-    <string name="notification_header_report_format">%s ha segnalato %s</string>
-    <string name="notification_summary_report_format">%s · %d post allegati</string>
+    <string name="action_continue_edit">Continua a modificare</string>  
     <string name="action_add_reaction">aggiungi reazione</string>
     <string name="compose_unsaved_changes">Hai delle modifiche non salvate.</string>
-    <string name="confirmation_hashtag_unfollowed">Non segui più #%s</string>
-    <string name="error_status_source_load">Caricamento dello status della sorgente dal server fallito.</string>
+    <string name="confirmation_hashtag_unfollowed">Non segui più #%s</string>    
     <string name="post_edited">Modificato %s</string>
-    <string name="mute_notifications_switch">Silenzia notifiche</string>
-    <string name="title_edits">Modifiche</string>
+    <string name="mute_notifications_switch">Silenzia notifiche</string>    
     <string name="report_category_spam">Spam</string>
     <string name="status_edit_info">%1$s ha modificato</string>
     <string name="status_created_info">%1$s ha creato</string>
     <string name="report_category_other">Altro</string>
-    <string name="action_unfollow_hashtag_format">Smettere di seguire #%s\?</string>
-    <string name="action_post_failed">Caricamento fallito</string>
-    <string name="action_browser_login">Accedi dal browser</string>
+    <string name="action_unfollow_hashtag_format">Smettere di seguire #%s\?</string>       
     <string name="a11y_label_loading_thread">Carico il thread</string>
     <string name="pref_summary_http_proxy_disabled">Disattivato</string>
     <string name="pref_summary_http_proxy_missing">&lt;non impostato&gt;</string>
-    <string name="pref_summary_http_proxy_invalid">&lt;non valido&gt;</string>
-    <string name="action_post_failed_detail">Non è stato possibile caricare il tuo post ed è stato salvato nelle bozze.
-\n
-\nNon è stato possibile contattare il server oppure il server ha rifiutato il post.</string>
+    <string name="pref_summary_http_proxy_invalid">&lt;non valido&gt;</string>    
     <string name="action_post_failed_detail_plural">Non è stato possibile caricare i tuoi post e sono stati salvati nelle bozze.
 \n
-\nNon è stato possibile contattare il server oppure il server ha rifiutato i post.</string>
-    <string name="action_post_failed_show_drafts">Mostra bozze</string>
-    <string name="action_post_failed_do_nothing">Chiudi</string>
+\nNon è stato possibile contattare il server oppure il server ha rifiutato i post.</string> 
     <string name="send_account_username_to">Condividi nome utente dell\'account a…</string>
     <string name="description_login">Funziona nella maggior parte dei casi. Nessun dato è trasferito ad altre app.</string>
     <string name="description_browser_login">Potrebbe supportare differenti metodi di autenticazione, ma richiede un browser supportato.</string>
-    <string name="action_share_account_link">Condividi link dell\'account</string>
-    <string name="action_share_account_username">Condividi il nome utente dell\'account</string>
     <string name="send_account_link_to">Condividi URL account a…</string>
     <string name="account_username_copied">Nome utente copiato</string>
-    <string name="dialog_follow_hashtag_title">Segui hashtag</string>
-    <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="accessibility_talking_about_tag">%1$d persone parlano dell\'hashtag %2$s</string>
     <string name="total_usage">Utilizzo totale</string>
     <string name="total_accounts">Account totali</string>
-    <string name="action_refresh">Aggiorna</string>
-    <string name="title_public_trending_hashtags">Hashtag di tendenza</string>
+    <string name="action_refresh">Aggiorna</string>    
     <string name="help_empty_home">Questa è la tua <b>Timeline principale</b>. Mostra i post più recenti degli account che segui.
 \n
 \nPer esplorare gli account puoi scoprirli in una delle altre timeline. Per esempio la timeline locale della tua istanza [iconica gmd_group]. O puoi cercarli per nome [iconica gmd_search]; per esempio cerca “Pachli” per trovare il nostro account Mastodon.</string>
