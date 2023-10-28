@@ -4,9 +4,9 @@
     <string name="error_network">Si è verificato un errore di rete. Per favore controlla la tua connessione e riprova.</string>
     <string name="error_empty">Questo non può essere vuoto.</string>
     <string name="error_invalid_domain">Inserito un dominio non valido</string>
-    <string name="error_failed_app_registration">Autenticazione con quell\'istanza fallita. Se il problema persiste, prova a collegarti dal browser nel menù.</string>
+    <string name="error_failed_app_registration">Autenticazione con quell\'istanza fallita. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
     <string name="error_no_web_browser_found">Nessun browser web utilizzabile trovato.</string>
-    <string name="error_authorization_unknown">Sì è verificato un errore di autenticazione non identificato. Se il problema persiste, prova a collegarti dal browser nel menù.</string>
+    <string name="error_authorization_unknown">Si è verificato un errore di autenticazione non identificato. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
     <string name="error_authorization_denied">Autorizzazione negata. Se sei sicuro di aver usato le credenziali corrette, prova a collegarti con il browser nel menu.</string>
     <string name="error_retrieving_oauth_token">Acquisizione token di accesso fallita. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
     <string name="error_compose_character_limit">Il messaggio è troppo lungo!</string>
