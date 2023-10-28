@@ -18,6 +18,7 @@
 package app.pachli.components.timeline.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -30,11 +31,9 @@ import app.pachli.appstore.PinEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.NetworkTimelineRepository
-import app.pachli.components.timeline.TimelineKind
 import app.pachli.db.AccountManager
 import app.pachli.entity.Filter
 import app.pachli.entity.Poll
-import app.pachli.network.FilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
@@ -50,8 +49,10 @@ import javax.inject.Inject
 /**
  * TimelineViewModel that caches all statuses in an in-memory list
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class NetworkTimelineViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val repository: NetworkTimelineRepository,
     timelineCases: TimelineCases,
     eventHub: EventHub,
@@ -59,36 +60,32 @@ class NetworkTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-    filterModel: FilterModel,
 ) : TimelineViewModel(
+    savedStateHandle,
     timelineCases,
     eventHub,
     filtersRepository,
     accountManager,
-    filterModel,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
 ) {
     private val modifiedViewData = mutableMapOf<String, StatusViewData>()
 
-    override lateinit var statuses: Flow<PagingData<StatusViewData>>
+    override var statuses: Flow<PagingData<StatusViewData>>
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override fun init(timelineKind: TimelineKind) {
-        super.init(timelineKind)
+    init {
         statuses = reload
             .flatMapLatest {
-                getStatuses(timelineKind, initialKey = getInitialKey())
+                getStatuses(initialKey = getInitialKey())
             }.cachedIn(viewModelScope)
     }
 
-    /** @return Flow of statuses that make up the timeline of [kind] */
+    /** @return Flow of statuses that make up the timeline of [timelineKind] */
     private fun getStatuses(
-        kind: TimelineKind,
         initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
-        Log.d(TAG, "getStatuses: kind: $kind, initialKey: $initialKey")
-        return repository.getStatusStream(viewModelScope, kind = kind, initialKey = initialKey)
+        Log.d(TAG, "getStatuses: kind: $timelineKind, initialKey: $initialKey")
+        return repository.getStatusStream(viewModelScope, kind = timelineKind, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map {
                     modifiedViewData[it.id] ?: StatusViewData.from(
