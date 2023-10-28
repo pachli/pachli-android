@@ -373,6 +373,7 @@
     <string name="notification_summary_small">%1$s e %2$s</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d nuova interazione</item>
+        <item quantity="many">%d nuove interazioni</item>
         <item quantity="other">%d nuove interazioni</item>
     </plurals>
 
