@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
+import app.pachli.appstore.FilterChangedEvent
 import app.pachli.entity.Filter
 import app.pachli.entity.FilterKeyword
 import app.pachli.network.MastodonApi
@@ -88,9 +89,21 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
         val action = action.value.action
 
         return withContext(viewModelScope.coroutineContext) {
-            originalFilter?.let { filter ->
+            val success = originalFilter?.let { filter ->
                 updateFilter(filter, title, contexts, action, durationIndex, context)
             } ?: createFilter(title, contexts, action, durationIndex, context)
+
+            // Send FilterChangedEvent for old and new contexts, to ensure that
+            // e.g., removing a filter from "home" still notifies anything showing
+            // the home timeline, so the timeline can be refreshed.
+            if (success) {
+                val originalKinds = originalFilter?.context?.map { Filter.Kind.from(it) } ?: emptyList()
+                val newKinds = contexts.map { Filter.Kind.from(it) }
+                (originalKinds + newKinds).distinct().forEach {
+                    eventHub.dispatch(FilterChangedEvent(it))
+                }
+            }
+            return@withContext success
         }
     }
 

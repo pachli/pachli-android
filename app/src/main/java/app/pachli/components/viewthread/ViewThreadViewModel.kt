@@ -23,6 +23,7 @@ import app.pachli.appstore.BlockEvent
 import app.pachli.appstore.BookmarkEvent
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
+import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.PinEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusComposedEvent
@@ -36,7 +37,6 @@ import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.db.TimelineDao
 import app.pachli.entity.Filter
-import app.pachli.entity.FilterV1
 import app.pachli.entity.Status
 import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
@@ -61,7 +61,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ViewThreadViewModel @Inject constructor(
     private val api: MastodonApi,
-    private val filterModel: FilterModel,
     private val timelineCases: TimelineCases,
     eventHub: EventHub,
     accountManager: AccountManager,
@@ -89,6 +88,8 @@ class ViewThreadViewModel @Inject constructor(
 
     val activeAccount: AccountEntity
 
+    private var filterModel: FilterModel? = null
+
     init {
         activeAccount = accountManager.activeAccount!!
         alwaysShowSensitiveMedia = activeAccount.alwaysShowSensitiveMedia
@@ -106,6 +107,11 @@ class ViewThreadViewModel @Inject constructor(
                         is StatusComposedEvent -> handleStatusComposedEvent(event)
                         is StatusDeletedEvent -> handleStatusDeletedEvent(event)
                         is StatusEditedEvent -> handleStatusEditedEvent(event)
+                        is FilterChangedEvent -> {
+                            if (event.filterKind == Filter.Kind.THREAD) {
+                                loadFilters()
+                            }
+                        }
                     }
                 }
         }
@@ -474,16 +480,9 @@ class ViewThreadViewModel @Inject constructor(
     private fun loadFilters() {
         viewModelScope.launch {
             try {
-                when (val filters = filtersRepository.getFilters()) {
-                    is FilterKind.V1 -> {
-                        filterModel.initWithFilters(
-                            filters.filters.filter { filter ->
-                                filter.context.contains(FilterV1.THREAD)
-                            },
-                        )
-                    }
-
-                    is FilterKind.V2 -> filterModel.kind = Filter.Kind.THREAD
+                filterModel = when (val filters = filtersRepository.getFilters()) {
+                    is FilterKind.V1 -> FilterModel(Filter.Kind.THREAD, filters.filters)
+                    is FilterKind.V2 -> FilterModel(Filter.Kind.THREAD)
                 }
                 updateStatuses()
             } catch (_: Exception) {
@@ -509,7 +508,7 @@ class ViewThreadViewModel @Inject constructor(
             if (status.isDetailed) {
                 true
             } else {
-                status.filterAction = filterModel.shouldFilterStatus(status.status)
+                status.filterAction = filterModel?.filterActionFor(status.status) ?: Filter.Action.NONE
                 status.filterAction != Filter.Action.HIDE
             }
         }
