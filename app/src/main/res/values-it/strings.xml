@@ -180,7 +180,7 @@
     <string name="action_mentions">Menzioni</string>
     <string name="action_hashtags">Hashtag</string>
     <string name="action_open_reblogger">Vai all\'autore della condivisione</string>
-    <string name="action_open_reblogged_by">Mostra ricondivisioni</string>
+    <string name="action_open_reblogged_by">Mostra condivisioni</string>
     <string name="action_open_faved_by">Mostra preferiti</string>
 	<string name="action_dismiss">Scartare</string>
 	<string name="action_details">Dettagli</string>
