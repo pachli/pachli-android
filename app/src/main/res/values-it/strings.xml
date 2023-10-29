@@ -295,7 +295,7 @@
     <string name="pref_title_browser_settings">Browser</string>
     <string name="pref_title_custom_tabs">Usa Custom Tabs di Chrome</string>
     <string name="pref_title_hide_follow_button">Nascondi il pulsante Componi mentre scorri</string>
-    <string name="pref_title_font_family">Seleziona carattere</string>
+    <string name="pref_title_font_family">Seleziona font</string>
 	<string name="pref_title_language">Lingua</string>
 	<string name="pref_title_bot_overlay">Mostra indicatore bot</string>
 	<string name="pref_title_animate_gif_avatars">Riproduci avatar animati</string>
@@ -500,7 +500,7 @@
 
     <string name="error_no_custom_emojis">La tua istanza %s non ha nessun emoji personalizzato</string>
     <string name="emoji_style">Stile delle emoji</string>
-    <string name="system_default">Predefinite del sistema</string>
+    <string name="system_default">Default</string>
     <string name="download_fonts">Dovrai prima scaricare questo pacchetto di emoji</string>
     <string name="performing_lookup_title">Ricerca in corso…</string>
     <string name="expand_collapse_all_posts">Espandi/riduci tutti i messaggi</string>
