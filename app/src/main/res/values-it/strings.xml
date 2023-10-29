@@ -121,9 +121,9 @@
     <string name="action_unblock">Sblocca</string>
 	<string name="action_share_account_link">Condividi link dell\'account</string>
 	<string name="action_share_account_username">Condividi il nome utente dell\'account</string>
-	<string name="action_hide_reblogs">Nascondi ricondivisioni</string>
-    <string name="action_show_reblogs">Mostra ricondivisioni</string>
-	<string name="pref_title_show_self_boosts">Mostra proprie ricondivisioni</string>
+	<string name="action_hide_reblogs">Nascondi condivisioni</string>
+    <string name="action_show_reblogs">Mostra condivisioni</string>
+	<string name="pref_title_show_self_boosts">Mostra le ricondivisioni</string>
     <string name="pref_title_show_self_boosts_description">Qualcuno che ricondivide i propri post</string>
     <string name="action_report">Segnala</string>
 	<string name="action_edit">Modifica</string>
@@ -406,8 +406,8 @@
     <string name="about_bug_feature_request_site">Segnala problemi e richiedi funzionalità: https://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Profilo di Pachli</string>
 
-    <string name="post_share_content">Condividi contenuto del messaggio</string>
-    <string name="post_share_link">Condividi collegamento al messaggio</string>
+    <string name="post_share_content">Condividi contenuto</string>
+    <string name="post_share_link">Condividi collegamento</string>
 	<string name="post_media_image">Immagine</string>
     <string name="post_media_images">Immagini</string>
     <string name="post_media_video">Video</string>
@@ -546,9 +546,9 @@
     </plurals>
 
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> ricondivisione</item>
-        <item quantity="many">&lt;b>%1$s&lt;/b> ricondivisioni</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> ricondivisioni</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> condivisione</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> condivisioni</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> condivisioni</item>
     </plurals>
 
     <string name="title_reblogged_by">Condiviso da</string>
