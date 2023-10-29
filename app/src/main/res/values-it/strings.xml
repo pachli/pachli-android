@@ -237,12 +237,14 @@
 
     <string name="login_connection">Connessione…</string>
 
-    <string name="dialog_whats_an_instance">L\'indirizzo o il dominio di qualsiasi istanza può essere inserito qui, come mastodon.social, icosahedron.website, social.tchncs.de, e <a href="https://instances.social">altro!</a>
-\nSe non hai ancora un account, puoi inserire il nome di un\'istanza alla quale vuoi iscriverti e creare un account.
-\n
-\nUn\'istanza è il luogo dove l\'account è custodito, ma puoi facilmente comunicare e seguire gente su altre istanze come se fossero sullo stesso sito.
-\n
-\nPiù info possono essere trovate su <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="dialog_whats_an_instance">L\'indirizzo o il dominio di qualsiasi istanza può essere inserito qui, come mastodon.social, icosahedron.website, social.tchncs.de, e <a href="https://instances.social">altri!</a>
+    \n
+    \nSe non hai ancora un account, puoi inserire il nome di un\'istanza alla quale vuoi iscriverti e creare un account.
+    \n
+    \nUn\'istanza è il luogo dove l\'account è custodito, ma puoi facilmente comunicare e seguire persone su altre istanze come se fossero sullo stesso sito.
+    \n
+    \nPiù informazioni possono essere trovate a questo indirizzo <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
+
     <string name="dialog_title_finishing_media_upload">Terminando il caricamento dei media</string>
     <string name="dialog_message_uploading_media">Caricamento…</string>
     <string name="dialog_download_image">Scarica</string>
@@ -267,7 +269,7 @@
     <string name="pref_title_notification_alerts">Allarmi</string>
     <string name="pref_title_notification_alert_sound">Notifica con suoneria</string>
     <string name="pref_title_notification_alert_vibrate">Notifica con vibrazione</string>
-    <string name="pref_title_notification_alert_light">Notifica con luce</string>
+    <string name="pref_title_notification_alert_light">Notifica luminosa</string>
     <string name="pref_title_notification_filters">Notificami quando</string>
     <string name="pref_title_notification_filter_mentions">vengo menzionato</string>
     <string name="pref_title_notification_filter_follows">vengo seguito</string>
@@ -293,7 +295,7 @@
     <string name="pref_title_browser_settings">Browser</string>
     <string name="pref_title_custom_tabs">Usa Custom Tabs di Chrome</string>
     <string name="pref_title_hide_follow_button">Nascondi il pulsante Componi mentre scorri</string>
-    <string name="pref_title_font_family">Scelta del font</string>
+    <string name="pref_title_font_family">Seleziona carattere</string>
 	<string name="pref_title_language">Lingua</string>
 	<string name="pref_title_bot_overlay">Mostra indicatore bot</string>
 	<string name="pref_title_animate_gif_avatars">Riproduci avatar animati</string>
@@ -330,7 +332,7 @@
     <string name="post_privacy_unlisted">Non in elenco</string>
     <string name="post_privacy_followers_only">Solo seguaci</string>
 
-	<string name="pref_ui_text_size">Dimensione del testo UI</string>
+	<string name="pref_ui_text_size">Dimensione testo dell\'UI</string>
 	<string name="pref_post_text_size">Dimensione del testo dei messaggi</string>
 
     <string name="post_text_size_smallest">Piccolissimo</string>
@@ -371,6 +373,7 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s e %4$d altri</string>
     <string name="notification_summary_medium">%1$s, %2$s e %3$s</string>
     <string name="notification_summary_small">%1$s e %2$s</string>
+
     <plurals name="notification_title_summary">
         <item quantity="one">%d nuova interazione</item>
         <item quantity="many">%d nuove interazioni</item>
@@ -474,15 +477,16 @@
         <item quantity="many">Descrivi i contenuti per gli ipovedenti
         \n(limite di %d caratteri)</item>
 	    <item quantity="other">Descrivi i contenuti per gli ipovedenti
-\n(limite di %d caratteri)</item>
+    \n(limite di %d caratteri)</item>
     </plurals>
+
 	<string name="set_focus_description">Tappa o crea un cerchio per scegliere il punto focale che sarà sempre visibile nelle anteprime.</string>
     <string name="action_set_caption">Inserisci descrizione</string>
 	<string name="action_set_focus">Imposta punto focale</string>
 	<string name="action_edit_image">Modifica immagine</string>
     <string name="action_remove">Rimuovi</string>
     <string name="lock_account_label">Blocca account</string>
-    <string name="lock_account_label_description">Richiedi una tua approvazione manuale per seguirti</string>
+    <string name="lock_account_label_description">Richiede una tua approvazione manuale per seguirti</string>
     <string name="compose_delete_draft">Cancellare bozza?</string>
 	<string name="compose_save_draft">Salvare bozza?</string>
 	<string name="compose_save_draft_loses_media">Salvare bozza? (gli allegati verranno ricaricati quando ripristini la bozza.)</string>
@@ -588,7 +592,7 @@
     <string name="compose_shortcut_long_label">Componi messaggio</string>
     <string name="compose_shortcut_short_label">Componi</string>
 
-    <string name="notification_clear_text">Sei sicuro di voler permanentemente eliminare tutte le tue notifiche\?</string>
+    <string name="notification_clear_text">Sei sicuro di voler permanentemente eliminare tutte le tue notifiche?</string>
     <string name="compose_preview_image_description">Azioni per l\'immagine %s</string>
 
 
@@ -683,7 +687,7 @@
 	<string name="no_lists">Non hai alcuna lista.</string>
 	<string name="warning_scheduling_interval">Mastodon ha un intervallo di programmazione minimo di 5 minuti.</string>
     <string name="pref_title_show_self_username">Mostra nome utente nelle barre strumenti</string>
-	<string name="pref_title_show_cards_in_timelines">Mostra le anteprime dei collegamenti nelle timelines</string>
+	<string name="pref_title_show_cards_in_timelines">Mostra le anteprime dei collegamenti nelle timeline</string>
 	<string name="pref_title_confirm_reblogs">Chiedi conferma prima di condividere</string>
 	<string name="pref_title_confirm_favourites">Chiedi conferma prima di apprezzare</string>
 	<string name="pref_title_hide_top_toolbar">Nascondi il titolo della barra degli strumenti in alto</string>
@@ -692,12 +696,12 @@
 	<string name="account_note_saved">Salvato!</string>
 
 	<string name="wellbeing_mode_notice">Alcune informazioni che potrebbero influenzare il tuo benessere mentale saranno nascoste. Questo include:
-\n
-\n - Notifiche riguardo a Preferiti/Ricondivisioni/Following
-\n - Conteggio dei Preferiti/Ricondivisioni nei post
-\n - Statistiche riguardo a Preferiti/Post nei profili
-\n
-\n Le notifiche push non saranno influenzate, ma puoi modificare le tue impostazioni delle notifiche manualmente.</string>
+     \n
+     \n - Notifiche riguardo a Preferiti/Ricondivisioni/Following
+     \n - Conteggio dei Preferiti/Ricondivisioni nei post
+     \n - Statistiche riguardo a Preferiti/Post nei profili
+     \n
+     \n Le notifiche push non saranno influenzate, ma puoi modificare le tue impostazioni delle notifiche manualmente.</string>
 
 	<string name="review_notifications">Rivedi le notifiche</string>
     <string name="limit_notifications">Limita le notifiche della timeline</string>
@@ -717,7 +721,7 @@
 	<string name="draft_deleted">Bozza eliminata</string>
 	<string name="drafts_post_reply_removed">Il messaggio a cui hai scritto una bozza di risposta è stato rimosso</string>
 
-	<string name="follow_requests_info">Anche se il tuo account non è bloccato, lo staff di %1$s ha pensato che potresti voler verificare le richieste di seguirti da parte questi utenti manualmente.</string>
+	<string name="follow_requests_info">Anche se il tuo account non è bloccato, lo staff di %1$s ha pensato che potresti voler verificare le richieste di seguirti da parte di questi utenti manualmente.</string>
 
     <string name="action_subscribe_account">Iscriviti</string>
     <string name="action_unsubscribe_account">Disiscriviti</string>
@@ -730,7 +734,7 @@
 
 	<string name="saving_draft">Salvataggio bozza…</string>
 
-    <string name="tips_push_notification_migration">Riaccedi a tutti le utenze per attivare il supporto delle notifiche.</string>
+    <string name="tips_push_notification_migration">Riaccedi a tutte le utenze per attivare il supporto delle notifiche.</string>
     <string name="dialog_push_notification_migration">Al fine di utilizzare le notifiche tramite UnifiedPush, Pachli ha bisogno del permesso di sottoscrivere alle notifiche nella tua istanza Mastodon. Questo richiede un nuovo accesso per cambiare l\'OAuth precedentemente concesso a Pachli. Usare questa opzione qui o nelle preferenze dell\'account preserva tutte le tue bozze locali e la memoria temporanea (cache).</string>
     <string name="dialog_push_notification_migration_other_accounts">Nuovo accesso eseguito per l\'utenza corrente al fine di garantire il permesso delle notifiche a Pachli. Però hai altre utenze che non sono state migrate in questo modo. Cambia utenza e riaccedi una alla volta per abilitare il supporto alle notifiche UnifiedPush.</string>
 	<string name="url_domain_notifier">\u0020(🔗 %s)</string>
@@ -745,15 +749,15 @@
     <string name="report_category_spam">Spam</string>
 	<string name="report_category_other">Altro</string>
 
-	<string name="action_unfollow_hashtag_format">Smettere di seguire #%s\?</string>
+	<string name="action_unfollow_hashtag_format">Smettere di seguire #%s?</string>
 	<string name="action_refresh">Aggiorna</string>
     <string name="mute_notifications_switch">Silenzia notifiche</string>
 
 	<!-- Reading order preference -->
     <string name="status_edit_info">%1$s ha modificato</string>
     <string name="status_created_info">%1$s ha creato</string>
-	<string name="error_missing_edits">Il tuo server sa che questo post è stato modificato, ma non ha una copia delle modifiche, quindi non ti può essere mostrato.\n
-  \nQuesto è il <a href="https://github.com/mastodon/mastodon/issues/25398">problema Mastodon #25398</a>.</string>
+	<string name="error_missing_edits">Il tuo server sa che questo post è stato modificato, ma non ha una copia delle modifiche, quindi non ti può essere mostrato.
+    \n\nQuesto è il <a href="https://github.com/mastodon/mastodon/issues/25398">problema Mastodon #25398</a>.</string>
     <string name="a11y_label_loading_thread">Carico il thread</string>
 
     <!--@knossos@fosstodon.org created 2023-01-07 -->
@@ -765,7 +769,7 @@
     <string name="socket_timeout_exception">Contattare il tuo server ha richiesto troppo tempo</string>
 
     <!-- Error messages, displayed in snackbars, when something failed -->
-    <string name="ui_error_unknown">motivo sconosciuto</string>
+    <string name="ui_error_unknown">Motivo sconosciuto</string>
 	<string name="ui_error_bookmark">Salvataggio nei segnalibri fallito: %s</string>
     <string name="ui_error_clear_notifications">Cancellazione notifiche fallita: %s</string>
     <string name="ui_error_favourite">Apprezzamento post fallito: %s</string>
@@ -795,8 +799,8 @@
     <string name="filter_description_format">%s: %s</string>
 
 	<string name="help_empty_home">Questa è la tua <b>Timeline principale</b>. Mostra i post più recenti degli account che segui.
-\n
-\nPer esplorare gli account puoi scoprirli in una delle altre timeline. Per esempio la timeline locale della tua istanza [iconica gmd_group]. O puoi cercarli per nome [iconica gmd_search]; per esempio cerca “Pachli” per trovare il nostro account Mastodon.</string>
+    \n
+    \nPer esplorare gli account puoi scoprirli in una delle altre timeline. Per esempio la timeline locale della tua istanza [iconica gmd_group]. O puoi cercarli per nome [iconica gmd_search]; per esempio cerca “Pachli” per trovare il nostro account Mastodon.</string>
 
 	<string name="load_newest_notifications">Carica le notifiche più recenti</string>
     <string name="load_newest_statuses">Carica post recenti</string>

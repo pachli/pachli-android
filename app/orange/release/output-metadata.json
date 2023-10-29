@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "app.pachli",
+  "variantName": "orangeRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 2932,
+      "versionName": "1.3.0",
+      "outputFile": "Pachli_1.3.0_2932_9654b138_orange_release.apk"
+    }
+  ],
+  "elementType": "File"
+}
