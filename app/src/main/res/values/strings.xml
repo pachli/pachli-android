@@ -408,7 +408,7 @@
     <string name="about_title_activity">About</string>
     <string name="about_pachli_version">Pachli %s</string>
     <string name="about_device_info_title">Your device</string>
-    <string name="about_device_info">%s %s\nAndroid version: %s\nSDK version: %d</string>
+    <string name="about_device_info">%s %s\nAndroid version: %s\nSDK level: %d</string>
     <string name="about_account_info_title">Your account</string>
     <string name="about_account_info">\@%s\@%s\nVersion: %s</string>
     <string name="about_powered_by_pachli">Powered by Pachli</string>

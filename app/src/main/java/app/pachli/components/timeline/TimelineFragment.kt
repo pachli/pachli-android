@@ -391,20 +391,13 @@ class TimelineFragment :
                     }
                 }
 
-                // Manage the display of progress bars. Rather than hide them as soon as the
-                // Refresh portion completes, hide them when then first Prepend completes. This
-                // is a better signal to the user that it is now possible to scroll up and see
-                // new content.
+                // Manage the progress display. Rather than hide as soon as the Refresh portion
+                // completes, hide when then first Prepend completes. This is a better signal to
+                // the user that it is now possible to scroll up and see new content.
                 launch {
                     refreshState.collect {
                         when (it) {
-                            UserRefreshState.ACTIVE -> {
-                                if (adapter.itemCount == 0 && !binding.swipeRefreshLayout.isRefreshing) {
-                                    binding.progressBar.show()
-                                }
-                            }
                             UserRefreshState.COMPLETE, UserRefreshState.ERROR -> {
-                                binding.progressBar.hide()
                                 binding.swipeRefreshLayout.isRefreshing = false
                             }
                             else -> { /* nothing to do */ }
@@ -555,10 +548,19 @@ class TimelineFragment :
         )
     }
 
+    /** Refresh the displayed content, as if the user had swiped on the SwipeRefreshLayout */
+    override fun refreshContent() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        onRefresh()
+    }
+
+    /**
+     * Listener for the user swiping on the SwipeRefreshLayout. The SwipeRefreshLayout has
+     * handled displaying the animated spinner.
+     */
     override fun onRefresh() {
         binding.statusView.hide()
         snackbar?.dismiss()
-
         adapter.refresh()
     }
 
@@ -762,11 +764,6 @@ class TimelineFragment :
             binding.recyclerView.stopScroll()
             saveVisibleId()
         }
-    }
-
-    override fun refreshContent() {
-        binding.swipeRefreshLayout.isRefreshing = true
-        onRefresh()
     }
 
     companion object {
