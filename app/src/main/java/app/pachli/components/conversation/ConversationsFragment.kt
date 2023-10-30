@@ -17,6 +17,7 @@
 package app.pachli.components.conversation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -34,6 +35,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.StatusListActivity
 import app.pachli.adapter.StatusBaseViewHolder
@@ -71,6 +73,7 @@ import kotlin.time.toDuration
 @AndroidEntryPoint
 class ConversationsFragment :
     SFragment(),
+    OnRefreshListener,
     StatusActionListener,
     ReselectableFragment,
     MenuProvider {
@@ -114,11 +117,11 @@ class ConversationsFragment :
                 }
 
                 binding.statusView.hide()
-                binding.progressBar.hide()
 
                 if (adapter.itemCount == 0) {
                     when (loadState.refresh) {
                         is LoadState.NotLoading -> {
+                            binding.swipeRefreshLayout.isRefreshing = false
                             if (loadState.append is LoadState.NotLoading && loadState.source.refresh is LoadState.NotLoading) {
                                 binding.statusView.show()
                                 binding.statusView.setup(
@@ -130,13 +133,14 @@ class ConversationsFragment :
                         }
 
                         is LoadState.Error -> {
+                            binding.swipeRefreshLayout.isRefreshing = false
                             binding.statusView.show()
-                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) { refreshContent() }
+                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
+                                refreshContent()
+                            }
                         }
 
-                        is LoadState.Loading -> {
-                            binding.progressBar.show()
-                        }
+                        is LoadState.Loading -> { /* nothing to do */ }
                     }
                 }
             }
@@ -208,7 +212,6 @@ class ConversationsFragment :
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.action_refresh -> {
-                binding.swipeRefreshLayout.isRefreshing = true
                 refreshContent()
                 true
             }
@@ -229,13 +232,24 @@ class ConversationsFragment :
         binding.recyclerView.adapter = adapter.withLoadStateFooter(ConversationLoadStateAdapter(adapter::retry))
     }
 
-    private fun refreshContent() {
-        adapter.refresh()
+    private fun initSwipeToRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener(this)
+        binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
     }
 
-    private fun initSwipeToRefresh() {
-        binding.swipeRefreshLayout.setOnRefreshListener { refreshContent() }
-        binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
+    /** Refresh the displayed content, as if the user had swiped on the SwipeRefreshLayout */
+    private fun refreshContent() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        onRefresh()
+    }
+
+    /**
+     * Listener for the user swiping on the SwipeRefreshLayout. The SwipeRefreshLayout has
+     * handled displaying the animated spinner.
+     */
+    override fun onRefresh() {
+        binding.statusView.hide()
+        adapter.refresh()
     }
 
     override fun onReblog(reblog: Boolean, position: Int) {
@@ -375,6 +389,8 @@ class ConversationsFragment :
     }
 
     companion object {
+        @Suppress("unused")
+        private const val TAG = "ConversationsFragment"
         fun newInstance() = ConversationsFragment()
     }
 }
