@@ -324,7 +324,7 @@
     <string name="pref_publishing">Pubblicazione (sincronizzato con il server)</string>
     <string name="pref_failed_to_sync">Sincronizzazione delle impostazioni fallita</string>
 
-	<string name="pref_main_nav_position">Posizione barra di navigazione principale</string>
+	<string name="pref_main_nav_position">Posizione barra di navigazione</string>
 	<string name="pref_main_nav_position_option_top">In cima</string>
 	<string name="pref_main_nav_position_option_bottom">In fondo</string>
 
@@ -686,11 +686,11 @@
 	<string name="no_announcements">Non ci sono annunci.</string>
 	<string name="no_lists">Non hai alcuna lista.</string>
 	<string name="warning_scheduling_interval">Mastodon ha un intervallo di programmazione minimo di 5 minuti.</string>
-    <string name="pref_title_show_self_username">Mostra nome utente nelle barre strumenti</string>
+    <string name="pref_title_show_self_username">Mostra nome utente nella barra strumenti</string>
 	<string name="pref_title_show_cards_in_timelines">Mostra le anteprime dei collegamenti nelle timeline</string>
 	<string name="pref_title_confirm_reblogs">Chiedi conferma prima di condividere</string>
 	<string name="pref_title_confirm_favourites">Chiedi conferma prima di apprezzare</string>
-	<string name="pref_title_hide_top_toolbar">Nascondi il titolo della barra degli strumenti in alto</string>
+	<string name="pref_title_hide_top_toolbar">Nascondi il titolo dalla barra strumenti</string>
 	<string name="pref_title_wellbeing_mode">Benessere</string>
 	<string name="account_note_hint">La tua nota privata su questo account</string>
 	<string name="account_note_saved">Salvato!</string>
