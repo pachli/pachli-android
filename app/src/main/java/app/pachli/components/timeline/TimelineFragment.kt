@@ -18,7 +18,6 @@
 package app.pachli.components.timeline
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -90,6 +89,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import kotlin.time.Duration.Companion.seconds
 
 @AndroidEntryPoint
@@ -230,7 +230,7 @@ class TimelineFragment :
                 // TODO: Very similar to same code in NotificationsFragment
                 launch {
                     viewModel.uiError.collect { error ->
-                        Log.d(TAG, error.toString())
+                        Timber.d(error.toString())
                         val message = getString(
                             error.message,
                             error.throwable.localizedMessage
@@ -519,7 +519,7 @@ class TimelineFragment :
             ?.let { adapter.snapshot().getOrNull(it)?.id }
 
         id?.let {
-            Log.d(TAG, "Saving ID: $it")
+            Timber.d("Saving ID: $it")
             viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = it))
         }
     }
@@ -731,7 +731,7 @@ class TimelineFragment :
 
         val wasEnabled = talkBackWasEnabled
         talkBackWasEnabled = a11yManager?.isEnabled == true
-        Log.d(TAG, "talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
+        Timber.d("talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
         if (talkBackWasEnabled && !wasEnabled) {
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
@@ -760,7 +760,6 @@ class TimelineFragment :
     }
 
     companion object {
-        private const val TAG = "TimelineFragment" // logging tag
         private const val KIND_ARG = "kind"
         private const val ARG_ENABLE_SWIPE_TO_REFRESH = "enableSwipeToRefresh"
 

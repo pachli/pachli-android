@@ -16,7 +16,6 @@
 
 package app.pachli.usecase
 
-import android.util.Log
 import app.pachli.appstore.BlockEvent
 import app.pachli.appstore.BookmarkEvent
 import app.pachli.appstore.EventHub
@@ -37,6 +36,7 @@ import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import at.connyduck.calladapter.networkresult.onSuccess
+import timber.log.Timber
 import javax.inject.Inject
 
 class TimelineCases @Inject constructor(
@@ -89,7 +89,7 @@ class TimelineCases @Inject constructor(
             mastodonApi.muteAccount(statusId, notifications, duration)
             eventHub.dispatch(MuteEvent(statusId))
         } catch (t: Throwable) {
-            Log.w(TAG, "Failed to mute account", t)
+            Timber.w("Failed to mute account", t)
         }
     }
 
@@ -98,14 +98,14 @@ class TimelineCases @Inject constructor(
             mastodonApi.blockAccount(statusId)
             eventHub.dispatch(BlockEvent(statusId))
         } catch (t: Throwable) {
-            Log.w(TAG, "Failed to block account", t)
+            Timber.w("Failed to block account", t)
         }
     }
 
     suspend fun delete(statusId: String): NetworkResult<DeletedStatus> {
         return mastodonApi.deleteStatus(statusId)
             .onSuccess { eventHub.dispatch(StatusDeletedEvent(statusId)) }
-            .onFailure { Log.w(TAG, "Failed to delete status", it) }
+            .onFailure { Timber.w("Failed to delete status", it) }
     }
 
     suspend fun pin(statusId: String, pin: Boolean): NetworkResult<Status> {
@@ -117,7 +117,7 @@ class TimelineCases @Inject constructor(
             eventHub.dispatch(PinEvent(statusId, pin))
             NetworkResult.success(status)
         }, { e ->
-            Log.w(TAG, "Failed to change pin state", e)
+            Timber.w("Failed to change pin state", e)
             NetworkResult.failure(TimelineError(e.getServerErrorMessage()))
         },)
     }
@@ -141,7 +141,6 @@ class TimelineCases @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "TimelineCases"
     }
 }
 

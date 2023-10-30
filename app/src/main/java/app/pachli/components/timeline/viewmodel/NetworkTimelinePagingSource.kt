@@ -17,11 +17,11 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
 import app.pachli.entity.Status
+import timber.log.Timber
 import javax.inject.Inject
 
 private val INVALID = LoadResult.Invalid<String, Status>()
@@ -32,7 +32,7 @@ class NetworkTimelinePagingSource @Inject constructor(
 ) : PagingSource<String, Status>() {
 
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Status> {
-        Log.d(TAG, "- load(), type = ${params.javaClass.simpleName}, key = ${params.key}")
+        Timber.d("- load(), type = ${params.javaClass.simpleName}, key = ${params.key}")
         pageCache.debug()
 
         val page = synchronized(pageCache) {
@@ -103,17 +103,17 @@ class NetworkTimelinePagingSource @Inject constructor(
         }
 
         if (page == null) {
-            Log.d(TAG, "  Returning empty page")
+            Timber.d("  Returning empty page")
         } else {
-            Log.d(TAG, "  Returning full page:")
-            Log.d(TAG, "     $page")
+            Timber.d("  Returning full page:")
+            Timber.d("     $page")
         }
 
         // Bail if this paging source has already been invalidated. If you do not do this there
         // is a lot of spurious animation, especially during the initial load, as multiple pages
         // are loaded and the paging source is repeatedly invalidated.
         if (invalid) {
-            Log.d(TAG, "Invalidated, returning LoadResult.Invalid")
+            Timber.d("Invalidated, returning LoadResult.Invalid")
             return INVALID
         }
 
@@ -150,11 +150,10 @@ class NetworkTimelinePagingSource @Inject constructor(
             it.getOrNull(it.size / 2)?.id
         }
 
-        Log.d(TAG, "- getRefreshKey(), state.anchorPosition = ${state.anchorPosition}, return $refreshKey")
+        Timber.d("- getRefreshKey(), state.anchorPosition = ${state.anchorPosition}, return $refreshKey")
         return refreshKey
     }
 
     companion object {
-        private const val TAG = "NetworkTimelinePagingSource"
     }
 }

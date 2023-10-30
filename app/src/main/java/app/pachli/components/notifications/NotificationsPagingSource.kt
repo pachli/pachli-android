@@ -17,7 +17,6 @@
 
 package app.pachli.components.notifications
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
@@ -30,6 +29,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.Headers
 import retrofit2.Response
+import timber.log.Timber
 import javax.inject.Inject
 
 private val INVALID = LoadResult.Invalid<String, Notification>()
@@ -41,7 +41,7 @@ class NotificationsPagingSource @Inject constructor(
     private val notificationFilter: Set<Notification.Type>,
 ) : PagingSource<String, Notification>() {
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Notification> {
-        Log.d(TAG, "load() with ${params.javaClass.simpleName} for key: ${params.key}")
+        Timber.d("load() with ${params.javaClass.simpleName} for key: ${params.key}")
 
         try {
             val response = when (params) {
@@ -86,7 +86,7 @@ class NotificationsPagingSource @Inject constructor(
             // is a lot of spurious animation, especially during the initial load, as multiple pages
             // are loaded and the paging source is repeatedly invalidated.
             if (invalid) {
-                Log.d(TAG, "Invalidated, returning LoadResult.Invalid")
+                Timber.d("Invalidated, returning LoadResult.Invalid")
                 return INVALID
             }
 
@@ -201,12 +201,11 @@ class NotificationsPagingSource @Inject constructor(
     override fun getRefreshKey(state: PagingState<String, Notification>): String? {
         return state.anchorPosition?.let { anchorPosition ->
             val id = state.closestItemToPosition(anchorPosition)?.id
-            Log.d(TAG, "  getRefreshKey returning $id")
+            Timber.d("  getRefreshKey returning $id")
             return id
         }
     }
 
     companion object {
-        private const val TAG = "NotificationsPagingSource"
     }
 }

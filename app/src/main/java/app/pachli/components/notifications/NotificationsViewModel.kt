@@ -17,7 +17,6 @@
 
 package app.pachli.components.notifications
 
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -72,6 +71,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -357,7 +357,7 @@ class NotificationsViewModel @Inject constructor(
             .distinctUntilChanged()
             // Save each change back to the active account
             .onEach { action ->
-                Log.d(TAG, "notificationFilter: $action")
+                Timber.d("notificationFilter: $action")
                 account.notificationsFilter = serialize(action.filter)
                 accountManager.saveAccount(account)
             }
@@ -388,7 +388,7 @@ class NotificationsViewModel @Inject constructor(
                 .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                 .distinctUntilChanged()
                 .collectLatest { action ->
-                    Log.d(TAG, "Saving visible ID: ${action.visibleId}, active account = ${account.id}")
+                    Timber.d("Saving visible ID: ${action.visibleId}, active account = ${account.id}")
                     account.lastNotificationId = action.visibleId
                     accountManager.saveAccount(account)
                 }
@@ -514,7 +514,7 @@ class NotificationsViewModel @Inject constructor(
         filters: Set<Notification.Type>,
         initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
-        Log.d(TAG, "getNotifications: $initialKey")
+        Timber.d("getNotifications: $initialKey")
         return repository.getNotificationsStream(filter = filters, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map { notification ->
@@ -552,7 +552,7 @@ class NotificationsViewModel @Inject constructor(
             "0" -> null
             else -> id
         }
-        Log.d(TAG, "Restoring at $initialKey")
+        Timber.d("Restoring at $initialKey")
         return initialKey
     }
 
@@ -569,7 +569,6 @@ class NotificationsViewModel @Inject constructor(
     )
 
     companion object {
-        private const val TAG = "NotificationsViewModel"
         private val THROTTLE_TIMEOUT = 500.milliseconds
     }
 }

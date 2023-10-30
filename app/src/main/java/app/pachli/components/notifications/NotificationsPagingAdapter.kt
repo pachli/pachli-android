@@ -225,7 +225,5 @@ class NotificationsPagingAdapter(
     }
 
     companion object {
-        @Suppress("unused")
-        private const val TAG = "NotificationsPagingAdapter"
     }
 }

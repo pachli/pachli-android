@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -45,6 +44,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -86,7 +86,7 @@ class CachedTimelineViewModel @Inject constructor(
     private fun getStatuses(
         initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
-        Log.d(TAG, "getStatuses: kind: $timelineKind, initialKey: $initialKey")
+        Timber.d("getStatuses: kind: $timelineKind, initialKey: $initialKey")
         return repository.getStatusStream(kind = timelineKind, initialKey = initialKey)
             .map { pagingData ->
                 pagingData
@@ -181,6 +181,5 @@ class CachedTimelineViewModel @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "CachedTimelineViewModel"
     }
 }

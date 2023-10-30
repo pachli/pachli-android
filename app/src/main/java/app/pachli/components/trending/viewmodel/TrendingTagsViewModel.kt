@@ -16,7 +16,6 @@
 
 package app.pachli.components.trending.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
@@ -34,6 +33,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -107,7 +107,7 @@ class TrendingTagsViewModel @Inject constructor(
                 }
             },
             { error ->
-                Log.w(TAG, "failed loading trending tags", error)
+                Timber.w("failed loading trending tags", error)
                 if (error is IOException) {
                     _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.ERROR_NETWORK)
                 } else {
@@ -126,6 +126,5 @@ class TrendingTagsViewModel @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "TrendingViewModel"
     }
 }

@@ -16,12 +16,12 @@
  */
 package app.pachli.json
 
-import android.util.Log
 import com.google.gson.JsonParseException
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
+import timber.log.Timber
 import java.io.IOException
 import java.util.Date
 
@@ -47,7 +47,7 @@ class Rfc3339DateJsonAdapter : TypeAdapter<Date?>() {
                 try {
                     reader.nextString().parseIsoDate()
                 } catch (jpe: JsonParseException) {
-                    Log.w("Rfc3339DateJsonAdapter", jpe)
+                    Timber.w(jpe)
                     null
                 }
             }

@@ -1,6 +1,5 @@
 package app.pachli.components.followedtags
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
@@ -13,6 +12,7 @@ import app.pachli.entity.HashTag
 import app.pachli.network.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,12 +41,11 @@ class FollowedTagsViewModel @Inject constructor(
             .fold({ searchResult ->
                 searchResult.hashtags.map { ComposeAutoCompleteAdapter.AutocompleteResult.HashtagResult(it.name) }
             }, { e ->
-                Log.e(TAG, "Autocomplete search for $token failed.", e)
+                Timber.e("Autocomplete search for $token failed.", e)
                 emptyList()
             },)
     }
 
     companion object {
-        private const val TAG = "FollowedTagsViewModel"
     }
 }
