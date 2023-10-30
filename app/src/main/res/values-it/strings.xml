@@ -124,7 +124,7 @@
 	<string name="action_hide_reblogs">Nascondi condivisioni</string>
     <string name="action_show_reblogs">Mostra condivisioni</string>
 	<string name="pref_title_show_self_boosts">Mostra ricondivisioni</string>
-    <string name="pref_title_show_self_boosts_description">Qualcuno che ricondivide i propri post</string>
+    <string name="pref_title_show_self_boosts_description">Utenti che ricondividono i propri post</string>
     <string name="action_report">Segnala</string>
 	<string name="action_edit">Modifica</string>
     <string name="action_delete">Elimina</string>
@@ -293,7 +293,7 @@
     <string name="app_theme_system">Usa tema di sistema</string>
 
     <string name="pref_title_browser_settings">Browser</string>
-    <string name="pref_title_custom_tabs">Usa Custom Tabs di Chrome</string>
+    <string name="pref_title_custom_tabs">Usa schede personalizzate di Chrome</string>
     <string name="pref_title_hide_follow_button">Nascondi il pulsante Componi mentre scorri</string>
     <string name="pref_title_font_family">Selezione font</string>
 	<string name="pref_title_language">Lingua</string>
@@ -656,7 +656,7 @@
     <string name="failed_search">Errore durante la ricerca</string>
 
     <string name="pref_title_enable_swipe_for_tabs">Abilita il gesto di scorrimento per passare da una scheda all\'altra</string>
-	<string name="pref_title_show_stat_inline">Mostra le statistiche del post nella timeline</string>
+	<string name="pref_title_show_stat_inline">Mostra le statistiche dei post nella timeline</string>
 
 	<string name="create_poll_title">Sondaggio</string>
 	<string name="label_duration">Durata</string>
@@ -697,16 +697,16 @@
 
 	<string name="wellbeing_mode_notice">Alcune informazioni che potrebbero influenzare il tuo benessere mentale saranno nascoste. Questo include:
      \n
-     \n - Notifiche riguardo a Preferiti/Ricondivisioni/Following
-     \n - Conteggio dei Preferiti/Ricondivisioni nei post
+     \n - Notifiche riguardo a Preferiti/Condivisioni/Following
+     \n - Conteggio dei Preferiti/Condivisioni dei post
      \n - Statistiche riguardo a Preferiti/Post nei profili
      \n
      \n Le notifiche push non saranno influenzate, ma puoi modificare le tue impostazioni delle notifiche manualmente.</string>
 
 	<string name="review_notifications">Rivedi le notifiche</string>
     <string name="limit_notifications">Limita le notifiche della timeline</string>
-	<string name="wellbeing_hide_stats_posts">Nascondi le statistiche quantitative sui post</string>
-    <string name="wellbeing_hide_stats_profile">Nascondi statistiche quantitative sui profili</string>
+	<string name="wellbeing_hide_stats_posts">Nascondi le statistiche sui post</string>
+    <string name="wellbeing_hide_stats_profile">Nascondi le statistiche sui profili</string>
 
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Non puoi caricare più di %1$d allegato multimediale.</item>
