@@ -16,6 +16,7 @@
 -->
 
 <resources>
+
 	<string name="error_generic">Si è verificato un errore.</string>
 	<string name="error_network">Si è verificato un errore di rete. Per favore controlla la tua connessione e riprova.</string>
 	<string name="error_empty">Questo non può essere vuoto.</string>
@@ -412,10 +413,10 @@
 	È distribuito con licenza GNU General Public License Version 3.
 	Puoi leggere la licenza qui: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
 	<!-- note to translators:
-	 * you should think of “free” as in “free speech,” not as in “free beer”.
-	   We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
-	   to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
-	 * the url can be changed to link to the localized version of the license.
+	* you should think of “free” as in “free speech,” not as in “free beer”.
+	We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
+	to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
+	* the url can be changed to link to the localized version of the license.
 	-->
 	<string name="about_project_site">Sito web del progetto: https://pachli.app</string>
 	<string name="about_privacy_policy">Privacy policy</string>
