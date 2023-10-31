@@ -86,6 +86,7 @@ fun mockStatusViewData(
     isShowingContent = isShowingContent,
     isCollapsed = isCollapsed,
     isDetailed = isDetailed,
+    showTranslation = false,
 )
 
 fun mockStatusEntityWithAccount(
@@ -113,6 +114,7 @@ fun mockStatusEntityWithAccount(
             expanded = expanded,
             contentShowing = false,
             contentCollapsed = true,
+            showTranslation = false,
         ),
     )
 }

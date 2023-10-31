@@ -46,6 +46,7 @@ class NotificationsViewModelTestStatusAction : NotificationsViewModelTestBase() 
         isExpanded = true,
         isShowingContent = false,
         isCollapsed = false,
+        showTranslation = false,
     )
 
     /** Action to bookmark a status */

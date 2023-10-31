@@ -253,9 +253,6 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
     @Upsert
     abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)
 
-    @Upsert
-    abstract suspend fun upsertTranslatedStatusEntity(t: TranslatedStatusEntity)
-
     /**
      * @param accountId the accountId to query
      * @param serverIds the IDs of the statuses to check

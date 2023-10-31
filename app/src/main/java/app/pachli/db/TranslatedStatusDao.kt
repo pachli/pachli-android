@@ -18,12 +18,10 @@
 package app.pachli.db
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.room.Upsert
 
 @Dao
 interface TranslatedStatusDao {
-    // TODO(https://issuetracker.google.com/issues/243039555), switch to @Upsert
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun upsert(translatedStatusEntity: TranslatedStatusEntity)
 }
