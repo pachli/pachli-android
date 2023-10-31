@@ -33,14 +33,17 @@ import app.pachli.db.TranslatedStatusDao
 import app.pachli.db.TranslatedStatusEntity
 import app.pachli.di.ApplicationScope
 import app.pachli.di.TransactionProvider
+import app.pachli.entity.Translation
 import app.pachli.network.MastodonApi
 import app.pachli.util.EmptyPagingSource
 import app.pachli.viewdata.StatusViewData
+import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Singleton
 
 // TODO: This is very similar to NetworkTimelineRepository. They could be merged (and the use
 // of the cache be made a parameter to getStatusStream), except that they return Pagers of
@@ -50,6 +53,7 @@ import javax.inject.Inject
 //
 // Re-writing the caching so that they can use the same types is the TODO.
 
+@Singleton
 class CachedTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val accountManager: AccountManager,
@@ -167,7 +171,7 @@ class CachedTimelineRepository @Inject constructor(
     }
 
     // TODO: Report errors back to the viewmodel
-    suspend fun translate(statusViewData: StatusViewData) {
+    suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
         val translation = mastodonApi.translate(statusViewData.id)
         translation.getOrNull()?.let {
 //            transactionProvider {
@@ -190,6 +194,7 @@ class CachedTimelineRepository @Inject constructor(
 //            invalidate()
 //            }
         }
+        return translation
     }
 
     suspend fun translateUndo(statusViewData: StatusViewData) {

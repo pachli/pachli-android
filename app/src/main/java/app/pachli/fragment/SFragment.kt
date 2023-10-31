@@ -89,7 +89,7 @@ abstract class SFragment : Fragment() {
     @Inject
     lateinit var serverCapabilitiesRepository: ServerCapabilitiesRepository
 
-    private var canTranslate = false
+    private var serverCanTranslate = false
 
     override fun startActivity(intent: Intent) {
         super.startActivity(intent)
@@ -106,7 +106,7 @@ abstract class SFragment : Fragment() {
 
         lifecycleScope.launch {
             serverCapabilitiesRepository.flow.collect {
-                canTranslate = it.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint())
+                serverCanTranslate = it.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint())
             }
         }
     }
@@ -190,7 +190,7 @@ abstract class SFragment : Fragment() {
         } else {
             popup.inflate(R.menu.status_more)
             popup.menu.findItem(R.id.status_download_media).isVisible = status.attachments.isNotEmpty()
-            if (canTranslate) {
+            if (serverCanTranslate && canTranslate()) {
                 popup.menu.findItem(R.id.status_translate).isVisible = !statusViewData.showTranslation
                 popup.menu.findItem(R.id.status_translate_undo).isVisible = statusViewData.showTranslation
             } else {
@@ -254,11 +254,11 @@ abstract class SFragment : Fragment() {
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_translate -> {
-                    onTranslate(position, status)
+                    onTranslate(statusViewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_translate_undo -> {
-                    onTranslateUndo(position, status)
+                    onTranslateUndo(statusViewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_copy_link -> {
@@ -329,10 +329,15 @@ abstract class SFragment : Fragment() {
         popup.show()
     }
 
-    // XXX: Make these abstract
-    open fun onTranslate(position: Int, status: Status) {}
+    /**
+     * True if this class can translate statuses (assuming the server can). Superclasses should
+     * override this if they support translating a status.
+     */
+    open fun canTranslate() = false
 
-    open fun onTranslateUndo(position: Int, status: Status) {}
+    open fun onTranslate(statusViewData: StatusViewData) {}
+
+    open fun onTranslateUndo(statusViewData: StatusViewData) {}
 
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->

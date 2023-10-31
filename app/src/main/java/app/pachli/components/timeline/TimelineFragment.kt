@@ -289,6 +289,7 @@ class TimelineFragment :
                                     statusViewData.status.copy(
                                         poll = it.action.poll.votedCopy(it.action.choices),
                                     )
+                                is StatusActionSuccess.Translate -> statusViewData.status
                             }
                             (indexedViewData.value as StatusViewData).status = status
 
@@ -646,14 +647,15 @@ class TimelineFragment :
         viewModel.changeContentCollapsed(isCollapsed, status)
     }
 
-    override fun onTranslate(position: Int, status: Status) {
-        val status = adapter.peek(position) ?: return
-        viewModel.translate(status)
+    // Can only translate the home timeline at the moment
+    override fun canTranslate() = timelineKind == TimelineKind.Home
+
+    override fun onTranslate(statusViewData: StatusViewData) {
+        viewModel.accept(StatusAction.Translate(statusViewData))
     }
 
-    override fun onTranslateUndo(position: Int, status: Status) {
-        val status = adapter.peek(position) ?: return
-        viewModel.translateUndo(status)
+    override fun onTranslateUndo(statusViewData: StatusViewData) {
+        viewModel.accept(InfallibleUiAction.TranslateUndo(statusViewData))
     }
 
     override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {

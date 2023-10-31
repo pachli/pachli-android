@@ -18,7 +18,6 @@
 package app.pachli.interfaces
 
 import android.view.View
-import app.pachli.entity.Status
 
 interface StatusActionListener : LinkListener {
     fun onReply(position: Int)
@@ -60,6 +59,4 @@ interface StatusActionListener : LinkListener {
     fun onVoteInPoll(position: Int, choices: List<Int>)
     fun onShowEdits(position: Int) {}
     fun clearWarningAction(position: Int)
-
-    fun onTranslate(position: Int, status: Status)
 }

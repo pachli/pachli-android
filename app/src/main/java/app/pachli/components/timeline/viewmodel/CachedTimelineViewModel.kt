@@ -162,14 +162,6 @@ class CachedTimelineViewModel @Inject constructor(
         // handled by CacheUpdater
     }
 
-    override fun translate(statusViewData: StatusViewData) {
-        viewModelScope.launch { repository.translate(statusViewData) }
-    }
-
-    override fun translateUndo(statusViewData: StatusViewData) {
-        viewModelScope.launch { repository.translateUndo(statusViewData) }
-    }
-
     override fun reloadKeepingReadingPosition() {
         super.reloadKeepingReadingPosition()
         viewModelScope.launch {

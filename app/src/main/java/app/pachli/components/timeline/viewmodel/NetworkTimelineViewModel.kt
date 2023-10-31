@@ -183,14 +183,6 @@ class NetworkTimelineViewModel @Inject constructor(
         repository.invalidate()
     }
 
-    override fun translate(statusViewData: StatusViewData) {
-        TODO("Not yet implemented")
-    }
-
-    override fun translateUndo(statusViewData: StatusViewData) {
-        TODO("Not yet implemented")
-    }
-
     override fun reloadKeepingReadingPosition() {
         super.reloadKeepingReadingPosition()
         viewModelScope.launch {
