@@ -93,8 +93,13 @@ data class StatusViewData(
     val content: Spanned
         get() = if (showTranslation) _translatedContent else _content
 
+    private val _spoilerText: String
+    private val _translatedSpoilerText: String
+
     /** The content warning, may be the empty string */
     val spoilerText: String
+        get() = if (showTranslation) _translatedSpoilerText else _spoilerText
+
     val username: String
 
     val actionable: Status
@@ -117,17 +122,21 @@ data class StatusViewData(
         if (Build.VERSION.SDK_INT == 23) {
             // https://github.com/tuskyapp/Tusky/issues/563
             this._content = replaceCrashingCharacters(status.actionableStatus.content.parseAsMastodonHtml())
-            this.spoilerText =
+            this._spoilerText =
                 replaceCrashingCharacters(status.actionableStatus.spoilerText).toString()
             this.username =
                 replaceCrashingCharacters(status.actionableStatus.account.username).toString()
             this._translatedContent = translatedStatus?.content?.let {
                 replaceCrashingCharacters(it.parseAsMastodonHtml())
             } ?: SpannedString("")
+            this._translatedSpoilerText = translatedStatus?.spoilerText?.let {
+                replaceCrashingCharacters(it).toString()
+            } ?: ""
         } else {
             this._content = status.actionableStatus.content.parseAsMastodonHtml()
             this._translatedContent = translatedStatus?.content?.parseAsMastodonHtml() ?: SpannedString("")
-            this.spoilerText = status.actionableStatus.spoilerText
+            this._spoilerText = status.actionableStatus.spoilerText
+            this._translatedSpoilerText = translatedStatus?.spoilerText ?: ""
             this.username = status.actionableStatus.account.username
         }
         this.isCollapsible = shouldTrimStatus(this.content)
