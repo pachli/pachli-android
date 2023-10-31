@@ -30,73 +30,71 @@ import app.pachli.viewdata.buildDescription
 import app.pachli.viewdata.calculatePercent
 import com.google.android.material.color.MaterialColors
 
-class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
-
-    private var pollOptions: List<PollOptionViewData> = emptyList()
-    private var voteCount: Int = 0
-    private var votersCount: Int? = null
-    private var mode = RESULT
-    private var emojis: List<Emoji> = emptyList()
-    private var resultClickListener: View.OnClickListener? = null
-    private var animateEmojis = false
-    private var enabled = true
-
+// This can't take [app.pachli.viewdata.PollViewData] as a parameter as it also needs to show
+// data from polls that have been edited, and the "shape" of that data is quite different (no
+// information about vote counts, poll IDs, etc).
+class PollAdapter(
+    val options: List<PollOptionViewData>,
+    private val votesCount: Int,
+    private val votersCount: Int?,
+    val emojis: List<Emoji>,
+    val animateEmojis: Boolean,
+    val displayMode: DisplayMode,
+    /** True if the user can vote in this poll, false otherwise (e.g., it's from an edit) */
+    val enabled: Boolean = true,
+    /** Listener to call when the user clicks on the poll results */
+    private val resultClickListener: View.OnClickListener? = null,
     /** Listener to call when the user clicks on a poll option */
-    private var optionClickListener: View.OnClickListener? = null
+    private val pollOptionClickListener: View.OnClickListener? = null,
+) : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
 
-    @JvmOverloads
-    fun setup(
-        options: List<PollOptionViewData>,
-        voteCount: Int,
-        votersCount: Int?,
-        emojis: List<Emoji>,
-        mode: Int,
-        resultClickListener: View.OnClickListener?,
-        animateEmojis: Boolean,
-        enabled: Boolean = true,
-        optionClickListener: View.OnClickListener? = null,
-    ) {
-        this.pollOptions = options
-        this.voteCount = voteCount
-        this.votersCount = votersCount
-        this.emojis = emojis
-        this.mode = mode
-        this.resultClickListener = resultClickListener
-        this.animateEmojis = animateEmojis
-        this.enabled = enabled
-        this.optionClickListener = optionClickListener
-        notifyDataSetChanged()
+    /** How to display a poll */
+    enum class DisplayMode {
+        /** Show the results, no voting */
+        RESULT,
+
+        /** Single choice (radio buttons) */
+        SINGLE_CHOICE,
+
+        /** Multiple choice (radio buttons) */
+        MULTIPLE_CHOICE,
     }
 
-    fun getSelected(): List<Int> {
-        return pollOptions.filter { it.selected }
-            .map { pollOptions.indexOf(it) }
-    }
+    /** @return the indices of the selected options */
+    fun getSelected() = options.withIndex().filter { it.value.selected }.map { it.index }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemPollBinding> {
         val binding = ItemPollBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BindingHolder(binding)
     }
 
-    override fun getItemCount() = pollOptions.size
+    override fun getItemCount() = options.size
 
     override fun onBindViewHolder(holder: BindingHolder<ItemPollBinding>, position: Int) {
-        val option = pollOptions[position]
+        val option = options[position]
 
         val resultTextView = holder.binding.statusPollOptionResult
         val radioButton = holder.binding.statusPollRadioButton
         val checkBox = holder.binding.statusPollCheckbox
 
-        resultTextView.visible(mode == RESULT)
-        radioButton.visible(mode == SINGLE)
-        checkBox.visible(mode == MULTIPLE)
+        resultTextView.visible(displayMode == DisplayMode.RESULT)
+        radioButton.visible(displayMode == DisplayMode.SINGLE_CHOICE)
+        checkBox.visible(displayMode == DisplayMode.MULTIPLE_CHOICE)
 
+        // Enable/disable the option widgets as appropriate. Disabling them will also change
+        // the text colour, which is undesirable (this happens when showing status edits) so
+        // reset the text colour as necessary.
+        val defaultTextColor = radioButton.currentTextColor
         radioButton.isEnabled = enabled
         checkBox.isEnabled = enabled
+        if (!enabled) {
+            radioButton.setTextColor(defaultTextColor)
+            checkBox.setTextColor(defaultTextColor)
+        }
 
-        when (mode) {
-            RESULT -> {
-                val percent = calculatePercent(option.votesCount, votersCount, voteCount)
+        when (displayMode) {
+            DisplayMode.RESULT -> {
+                val percent = calculatePercent(option.votesCount, votersCount, votesCount)
                 resultTextView.text = buildDescription(option.title, percent, option.voted, resultTextView.context)
                     .emojify(emojis, resultTextView, animateEmojis)
 
@@ -118,31 +116,25 @@ class PollAdapter : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
                 resultTextView.setTextColor(textColor)
                 resultTextView.setOnClickListener(resultClickListener)
             }
-            SINGLE -> {
+            DisplayMode.SINGLE_CHOICE -> {
                 radioButton.text = option.title.emojify(emojis, radioButton, animateEmojis)
                 radioButton.isChecked = option.selected
                 radioButton.setOnClickListener {
-                    pollOptions.forEachIndexed { index, pollOption ->
+                    options.forEachIndexed { index, pollOption ->
                         pollOption.selected = index == holder.bindingAdapterPosition
                         notifyItemChanged(index)
                     }
-                    optionClickListener?.onClick(radioButton)
+                    pollOptionClickListener?.onClick(radioButton)
                 }
             }
-            MULTIPLE -> {
+            DisplayMode.MULTIPLE_CHOICE -> {
                 checkBox.text = option.title.emojify(emojis, checkBox, animateEmojis)
                 checkBox.isChecked = option.selected
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
-                    pollOptions[holder.bindingAdapterPosition].selected = isChecked
-                    optionClickListener?.onClick(checkBox)
+                    options[holder.bindingAdapterPosition].selected = isChecked
+                    pollOptionClickListener?.onClick(checkBox)
                 }
             }
         }
-    }
-
-    companion object {
-        const val RESULT = 0
-        const val SINGLE = 1
-        const val MULTIPLE = 2
     }
 }
