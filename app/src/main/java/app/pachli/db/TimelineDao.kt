@@ -52,6 +52,7 @@ svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
 svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
 svd.contentCollapsed as 'svd_contentCollapsed', svd.showTranslation as 'svd_showTranslation',
 t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content',
+t.spoilerText as 't_spoilerText', t.poll as 't_poll', t.attachments as 't_attachments',
 t.provider as 't_provider'
 FROM TimelineStatusEntity s
 LEFT JOIN TimelineAccountEntity a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
@@ -97,6 +98,7 @@ svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
 svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
 svd.contentCollapsed as 'svd_contentCollapsed', svd.showTranslation as 'svd_showTranslation',
 t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content',
+t.spoilerText as 't_spoilerText', t.poll as 't_poll', t.attachments as 't_attachments',
 t.provider as 't_provider'
 FROM TimelineStatusEntity s
 LEFT JOIN TimelineAccountEntity a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)

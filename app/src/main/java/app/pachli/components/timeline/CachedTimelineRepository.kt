@@ -179,6 +179,9 @@ class CachedTimelineRepository @Inject constructor(
                     // TODO: Should this embed the network type instead of copying data
                     // from one type to another?
                     content = it.content,
+                    spoilerText = it.spoilerText,
+                    poll = it.poll,
+                    attachments = it.attachments,
                     provider = it.provider,
                 ),
             )

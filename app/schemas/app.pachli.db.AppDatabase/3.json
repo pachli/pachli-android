@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "333c78bfc538e65b8f01ed2d6f0a8299",
+    "identityHash": "778509dd3911b1e826301b46dbb1c618",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -1075,7 +1075,7 @@
       },
       {
         "tableName": "TranslatedStatusEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `content` TEXT NOT NULL, `provider` TEXT NOT NULL, PRIMARY KEY(`serverId`, `timelineUserId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `content` TEXT NOT NULL, `spoilerText` TEXT NOT NULL, `poll` TEXT, `attachments` TEXT NOT NULL, `provider` TEXT NOT NULL, PRIMARY KEY(`serverId`, `timelineUserId`))",
         "fields": [
           {
             "fieldPath": "serverId",
@@ -1092,6 +1092,24 @@
           {
             "fieldPath": "content",
             "columnName": "content",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spoilerText",
+            "columnName": "spoilerText",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "poll",
+            "columnName": "poll",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attachments",
+            "columnName": "attachments",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -1116,7 +1134,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '333c78bfc538e65b8f01ed2d6f0a8299')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '778509dd3911b1e826301b46dbb1c618')"
     ]
   }
 }

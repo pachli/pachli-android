@@ -20,9 +20,11 @@ package app.pachli.db
 import androidx.room.Entity
 import androidx.room.TypeConverters
 import app.pachli.entity.Status
+import app.pachli.entity.TranslatedAttachment
+import app.pachli.entity.TranslatedPoll
 
 /**
- * Translated version of a status.
+ * Translated version of a status, see https://docs.joinmastodon.org/entities/Translation/.
  *
  * There is *no* foreignkey relationship between this and [TimelineStatusEntity], as the
  * translation data is kept even if the status is deleted from the local cache (e.g., during
@@ -41,6 +43,28 @@ data class TranslatedStatusEntity(
 
     /** The translated text of the status (HTML), equivalent to [Status.content] */
     val content: String,
+
+    /**
+     * The translated spoiler text of the status (text), if it exists, equivalent to
+     * [Status.spoilerText]
+     */
+    // Not documented, see https://github.com/mastodon/documentation/issues/1248
+    val spoilerText: String,
+
+    /**
+     * The translated poll (if it exists). Does not contain all the poll data, only the
+     * translated text. Vote counts and other metadata has to be determined from the original
+     * poll object.
+     */
+    // Not documented, see https://github.com/mastodon/documentation/issues/1248
+    val poll: TranslatedPoll?,
+
+    /**
+     * Translated descriptions for media attachments, if any were attached. Other metadata has
+     * to be determined from the original attachment.
+     */
+    // Not documented, see https://github.com/mastodon/documentation/issues/1248
+    val attachments: List<TranslatedAttachment>,
 
     /** The service that provided the machine translation */
     val provider: String,
