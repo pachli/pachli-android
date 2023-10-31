@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.text.format.DateUtils
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -260,8 +259,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         }
 
         val content = status.content
-        Log.d(TAG, "content: ${status.content}")
-        Log.d(TAG, "translation: ${status.translation?.content}")
         if (expanded) {
             val emojifiedText =
                 content.emojify(emojis, this.content, statusDisplayOptions.animateEmojis)
