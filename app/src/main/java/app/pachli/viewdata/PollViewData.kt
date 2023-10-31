@@ -23,6 +23,7 @@ import androidx.core.text.parseAsHtml
 import app.pachli.R
 import app.pachli.entity.Poll
 import app.pachli.entity.PollOption
+import app.pachli.entity.TranslatedPoll
 import java.util.Date
 import kotlin.math.roundToInt
 
@@ -35,6 +36,7 @@ data class PollViewData(
     val votersCount: Int?,
     val options: List<PollOptionViewData>,
     var voted: Boolean,
+    val translatedPoll: TranslatedPoll?,
 ) {
     /**
      * @param timeInMs A timestamp in milliseconds-since-the-epoch
@@ -53,6 +55,7 @@ data class PollViewData(
             votersCount = poll.votersCount,
             options = poll.options.mapIndexed { index, option -> PollOptionViewData.from(option, poll.ownVotes?.contains(index) == true) },
             voted = poll.voted,
+            translatedPoll = null,
         )
     }
 }

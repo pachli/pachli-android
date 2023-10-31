@@ -271,8 +271,14 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             }
 
             poll?.let {
+                val pollViewData = if (status.showTranslation) {
+                    from(it).copy(translatedPoll = status.translatedStatus?.poll)
+                } else {
+                    from(it)
+                }
+
                 pollView.bind(
-                    from(it),
+                    pollViewData,
                     emojis,
                     statusDisplayOptions,
                     numberFormat,

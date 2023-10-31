@@ -87,10 +87,17 @@ class PollView @JvmOverloads constructor(
         var resultClickListener: View.OnClickListener? = null
         var pollOptionClickListener: View.OnClickListener? = null
 
+        // Translated? Create new options from old, using the translated title
+        val options = pollViewData.translatedPoll?.let {
+            it.options.zip(pollViewData.options) { t, o ->
+                o.copy(title = t.title)
+            }
+        } ?: pollViewData.options
+
         val canVote = !(pollViewData.expired(now) || pollViewData.voted)
         if (canVote) {
             pollOptionClickListener = View.OnClickListener {
-                binding.statusPollButton.isEnabled = pollViewData.options.firstOrNull { it.selected } != null
+                binding.statusPollButton.isEnabled = options.firstOrNull { it.selected } != null
             }
             displayMode = if (pollViewData.multiple) PollAdapter.DisplayMode.MULTIPLE_CHOICE else PollAdapter.DisplayMode.SINGLE_CHOICE
         } else {
@@ -99,7 +106,7 @@ class PollView @JvmOverloads constructor(
         }
 
         val adapter = PollAdapter(
-            options = pollViewData.options,
+            options = options,
             votesCount = pollViewData.votesCount,
             votersCount = pollViewData.votersCount,
             emojis = emojis,

@@ -58,11 +58,11 @@ data class Translation(
 
 data class TranslatedPoll(
     val id: String,
-    val options: List<TranslatedPollOption>
+    val options: List<TranslatedPollOption>,
 )
 
 data class TranslatedPollOption(
-    val title: String
+    val title: String,
 )
 
 data class TranslatedAttachment(
