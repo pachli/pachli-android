@@ -728,7 +728,13 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             setReblogged(actionable.reblogged)
             setFavourited(actionable.favourited)
             setBookmarked(actionable.bookmarked)
-            val attachments = actionable.attachments
+            val attachments = if (status.showTranslation) {
+                status.translatedStatus?.attachments?.zip(actionable.attachments) { t, a ->
+                    a.copy(description = t.description)
+                } ?: actionable.attachments
+            } else {
+                actionable.attachments
+            }
             val sensitive = actionable.sensitive
             if (statusDisplayOptions.mediaPreviewEnabled && hasPreviewableAttachment(attachments)) {
                 setMediaPreviews(
