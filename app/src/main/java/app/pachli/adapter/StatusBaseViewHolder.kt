@@ -250,7 +250,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         val (_, _, _, _, _, _, _, _, _, emojis, _, _, _, _, _, _, _, _, _, _, mentions, tags, _, _, _, poll) = status.actionable
         if (status.showTranslation) {
             translationProvider?.apply {
-                status.translatedStatus?.provider?.let {
+                status.translation?.provider?.let {
                     this.text = context.getString(R.string.translation_provider_fmt, it)
                     this.show()
                 }
@@ -261,7 +261,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
 
         val content = status.content
         Log.d(TAG, "content: ${status.content}")
-        Log.d(TAG, "translation: ${status.translatedStatus?.content}")
+        Log.d(TAG, "translation: ${status.translation?.content}")
         if (expanded) {
             val emojifiedText =
                 content.emojify(emojis, this.content, statusDisplayOptions.animateEmojis)
@@ -272,7 +272,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
 
             poll?.let {
                 val pollViewData = if (status.showTranslation) {
-                    from(it).copy(translatedPoll = status.translatedStatus?.poll)
+                    from(it).copy(translatedPoll = status.translation?.poll)
                 } else {
                     from(it)
                 }
@@ -729,7 +729,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             setFavourited(actionable.favourited)
             setBookmarked(actionable.bookmarked)
             val attachments = if (status.showTranslation) {
-                status.translatedStatus?.attachments?.zip(actionable.attachments) { t, a ->
+                status.translation?.attachments?.zip(actionable.attachments) { t, a ->
                     a.copy(description = t.description)
                 } ?: actionable.attachments
             } else {

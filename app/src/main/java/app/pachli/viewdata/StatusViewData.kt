@@ -35,7 +35,7 @@ import com.google.gson.Gson
  */
 data class StatusViewData(
     var status: Status,
-    var translatedStatus: TranslatedStatusEntity? = null,
+    var translation: TranslatedStatusEntity? = null,
 
     /**
      * If the status includes a non-empty content warning ([spoilerText]), specifies whether
@@ -126,17 +126,17 @@ data class StatusViewData(
                 replaceCrashingCharacters(status.actionableStatus.spoilerText).toString()
             this.username =
                 replaceCrashingCharacters(status.actionableStatus.account.username).toString()
-            this._translatedContent = translatedStatus?.content?.let {
+            this._translatedContent = translation?.content?.let {
                 replaceCrashingCharacters(it.parseAsMastodonHtml())
             } ?: SpannedString("")
-            this._translatedSpoilerText = translatedStatus?.spoilerText?.let {
+            this._translatedSpoilerText = translation?.spoilerText?.let {
                 replaceCrashingCharacters(it).toString()
             } ?: ""
         } else {
             this._content = status.actionableStatus.content.parseAsMastodonHtml()
-            this._translatedContent = translatedStatus?.content?.parseAsMastodonHtml() ?: SpannedString("")
+            this._translatedContent = translation?.content?.parseAsMastodonHtml() ?: SpannedString("")
             this._spoilerText = status.actionableStatus.spoilerText
-            this._translatedSpoilerText = translatedStatus?.spoilerText ?: ""
+            this._translatedSpoilerText = translation?.spoilerText ?: ""
             this.username = status.actionableStatus.account.username
         }
         this.isCollapsible = shouldTrimStatus(this.content)
@@ -248,7 +248,7 @@ data class StatusViewData(
             val status = timelineStatusWithAccount.toStatus(gson)
             return StatusViewData(
                 status = status,
-                translatedStatus = timelineStatusWithAccount.translatedStatus,
+                translation = timelineStatusWithAccount.translatedStatus,
                 isExpanded = timelineStatusWithAccount.viewData?.expanded ?: isExpanded,
                 isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (isShowingContent || !status.actionableStatus.sensitive),
                 isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
