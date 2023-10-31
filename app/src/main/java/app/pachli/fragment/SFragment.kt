@@ -190,7 +190,7 @@ abstract class SFragment : Fragment() {
         } else {
             popup.inflate(R.menu.status_more)
             popup.menu.findItem(R.id.status_download_media).isVisible = status.attachments.isNotEmpty()
-            if (serverCanTranslate && canTranslate()) {
+            if (serverCanTranslate && canTranslate() && status.visibility != Status.Visibility.PRIVATE && status.visibility != Status.Visibility.DIRECT) {
                 popup.menu.findItem(R.id.status_translate).isVisible = !statusViewData.showTranslation
                 popup.menu.findItem(R.id.status_translate_undo).isVisible = statusViewData.showTranslation
             } else {
