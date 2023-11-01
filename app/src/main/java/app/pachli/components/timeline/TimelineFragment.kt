@@ -73,6 +73,7 @@ import app.pachli.util.visible
 import app.pachli.util.withPresentationState
 import app.pachli.viewdata.AttachmentViewData
 import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.TranslationState
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -662,7 +663,7 @@ class TimelineFragment :
         val statusViewData = adapter.peek(position) ?: return
 
         // Pass the translated media descriptions through (if appropriate)
-        val actionable = if (statusViewData.showTranslation) {
+        val actionable = if (statusViewData.translationState == TranslationState.SHOW_TRANSLATION) {
             statusViewData.actionable.copy(
                 attachments = statusViewData.translation?.attachments?.zip(statusViewData.actionable.attachments) { t, a ->
                     a.copy(description = t.description)

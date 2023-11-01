@@ -30,6 +30,7 @@ import app.pachli.entity.HashTag
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
 import app.pachli.entity.TimelineAccount
+import app.pachli.viewdata.TranslationState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -195,8 +196,8 @@ data class StatusViewDataEntity(
     /** Corresponds to [app.pachli.viewdata.StatusViewData.isCollapsed] */
     val contentCollapsed: Boolean,
     /** Show the translated version of the status (if it exists) */
-    @ColumnInfo(defaultValue = "FALSE")
-    val showTranslation: Boolean,
+    @ColumnInfo(defaultValue = "SHOW_ORIGINAL")
+    val translationState: TranslationState,
 )
 
 val attachmentArrayListType: Type = object : TypeToken<ArrayList<Attachment>>() {}.type

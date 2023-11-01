@@ -59,6 +59,7 @@ import app.pachli.util.parseAsMastodonHtml
 import app.pachli.view.showMuteAccountDialog
 import app.pachli.viewdata.AttachmentViewData
 import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.TranslationState
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import com.google.android.material.snackbar.Snackbar
@@ -191,8 +192,8 @@ abstract class SFragment : Fragment() {
             popup.inflate(R.menu.status_more)
             popup.menu.findItem(R.id.status_download_media).isVisible = status.attachments.isNotEmpty()
             if (serverCanTranslate && canTranslate() && status.visibility != Status.Visibility.PRIVATE && status.visibility != Status.Visibility.DIRECT) {
-                popup.menu.findItem(R.id.status_translate).isVisible = !statusViewData.showTranslation
-                popup.menu.findItem(R.id.status_translate_undo).isVisible = statusViewData.showTranslation
+                popup.menu.findItem(R.id.status_translate).isVisible = statusViewData.translationState == TranslationState.SHOW_ORIGINAL
+                popup.menu.findItem(R.id.status_translate_undo).isVisible = statusViewData.translationState == TranslationState.SHOW_TRANSLATION
             } else {
                 popup.menu.findItem(R.id.status_translate).isVisible = false
                 popup.menu.findItem(R.id.status_translate_undo).isVisible = false

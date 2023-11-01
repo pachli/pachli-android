@@ -30,6 +30,17 @@ import app.pachli.util.replaceCrashingCharacters
 import app.pachli.util.shouldTrimStatus
 import com.google.gson.Gson
 
+enum class TranslationState {
+    /** Show the original, untranslated status */
+    SHOW_ORIGINAL,
+
+    /** Show the original, untranslated status, but translation is happening */
+    TRANSLATING,
+
+    /** Show the translated status */
+    SHOW_TRANSLATION
+}
+
 /**
  * Data required to display a status.
  */
@@ -73,7 +84,7 @@ data class StatusViewData(
     var filterAction: Filter.Action = Filter.Action.NONE,
 
     /** True if the translated content should be shown (if it exists) */
-    val showTranslation: Boolean,
+    val translationState: TranslationState,
 ) {
     val id: String
         get() = status.id
@@ -91,14 +102,14 @@ data class StatusViewData(
     private val _translatedContent: Spanned
 
     val content: Spanned
-        get() = if (showTranslation) _translatedContent else _content
+        get() = if (translationState == TranslationState.SHOW_TRANSLATION) _translatedContent else _content
 
     private val _spoilerText: String
     private val _translatedSpoilerText: String
 
     /** The content warning, may be the empty string */
     val spoilerText: String
-        get() = if (showTranslation) _translatedSpoilerText else _spoilerText
+        get() = if (translationState == TranslationState.SHOW_TRANSLATION) _translatedSpoilerText else _spoilerText
 
     val username: String
 
@@ -188,7 +199,7 @@ data class StatusViewData(
             isCollapsed: Boolean,
             isDetailed: Boolean = false,
             filterAction: Filter.Action = Filter.Action.NONE,
-            showTranslation: Boolean = false,
+            translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
         ) = StatusViewData(
             status = status,
             isShowingContent = isShowingContent,
@@ -196,7 +207,7 @@ data class StatusViewData(
             isExpanded = isExpanded,
             isDetailed = isDetailed,
             filterAction = filterAction,
-            showTranslation = showTranslation,
+            translationState = translationState,
         )
 
         fun from(conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
@@ -234,7 +245,7 @@ data class StatusViewData(
             isExpanded = conversationStatusEntity.expanded,
             isShowingContent = conversationStatusEntity.showingHiddenContent,
             isCollapsed = conversationStatusEntity.collapsed,
-            showTranslation = false, // TODO: Include this in conversationStatusEntity
+            translationState = TranslationState.SHOW_ORIGINAL, // TODO: Include this in conversationStatusEntity
         )
 
         fun from(
@@ -243,7 +254,7 @@ data class StatusViewData(
             isExpanded: Boolean,
             isShowingContent: Boolean,
             isDetailed: Boolean = false,
-            showTranslation: Boolean = false,
+            translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
         ): StatusViewData {
             val status = timelineStatusWithAccount.toStatus(gson)
             return StatusViewData(
@@ -253,7 +264,7 @@ data class StatusViewData(
                 isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (isShowingContent || !status.actionableStatus.sensitive),
                 isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                 isDetailed = isDetailed,
-                showTranslation = timelineStatusWithAccount.viewData?.showTranslation ?: showTranslation,
+                translationState = timelineStatusWithAccount.viewData?.translationState ?: translationState,
             )
         }
     }

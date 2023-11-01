@@ -50,7 +50,7 @@ rb.displayName as 'rb_displayName', rb.url as 'rb_url', rb.avatar as 'rb_avatar'
 rb.emojis as 'rb_emojis', rb.bot as 'rb_bot',
 svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
 svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
-svd.contentCollapsed as 'svd_contentCollapsed', svd.showTranslation as 'svd_showTranslation',
+svd.contentCollapsed as 'svd_contentCollapsed', svd.translationState as 'svd_translationState',
 t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content',
 t.spoilerText as 't_spoilerText', t.poll as 't_poll', t.attachments as 't_attachments',
 t.provider as 't_provider'
@@ -96,7 +96,7 @@ rb.displayName as 'rb_displayName', rb.url as 'rb_url', rb.avatar as 'rb_avatar'
 rb.emojis as 'rb_emojis', rb.bot as 'rb_bot',
 svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
 svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
-svd.contentCollapsed as 'svd_contentCollapsed', svd.showTranslation as 'svd_showTranslation',
+svd.contentCollapsed as 'svd_contentCollapsed', svd.translationState as 'svd_translationState',
 t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content',
 t.spoilerText as 't_spoilerText', t.poll as 't_poll', t.attachments as 't_attachments',
 t.provider as 't_provider'

@@ -87,8 +87,10 @@ class ServerCapabilities(
                         Version.parse(instance.version, strict = false)
                     }.getOrElse { return Err(ServerCapabilitiesError.VersionParse(it)) }
 
-                    // Can translate?
+                    // Translation support is not explicit, but guess that it can if it's
+                    // 4.0 or above.
                     if (version >= Version(major = 4)) {
+                        capabilities[ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE] = listOf(Version(major = 1))
                     }
                 }
                 ServerKind.PLEROMA -> TODO()

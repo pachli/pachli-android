@@ -44,14 +44,14 @@ class StatusComparisonTest {
             isExpanded = false,
             isShowingContent = false,
             isCollapsed = false,
-            showTranslation = false,
+            translationState = false,
         )
         val viewdata2 = StatusViewData(
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
             isCollapsed = false,
-            showTranslation = false,
+            translationState = false,
         )
         assertEquals(viewdata1, viewdata2)
     }
@@ -63,14 +63,14 @@ class StatusComparisonTest {
             isExpanded = true,
             isShowingContent = false,
             isCollapsed = false,
-            showTranslation = false,
+            translationState = false,
         )
         val viewdata2 = StatusViewData(
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
             isCollapsed = false,
-            showTranslation = false,
+            translationState = false,
         )
         assertNotEquals(viewdata1, viewdata2)
     }
@@ -82,14 +82,14 @@ class StatusComparisonTest {
             isExpanded = true,
             isShowingContent = false,
             isCollapsed = false,
-            showTranslation = false,
+            translationState = false,
         )
         val viewdata2 = StatusViewData(
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
             isCollapsed = false,
-            showTranslation = false,
+            translationState = false,
         )
         assertNotEquals(viewdata1, viewdata2)
     }

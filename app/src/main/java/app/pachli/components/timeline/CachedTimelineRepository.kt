@@ -37,7 +37,9 @@ import app.pachli.entity.Translation
 import app.pachli.network.MastodonApi
 import app.pachli.util.EmptyPagingSource
 import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.TranslationState
 import at.connyduck.calladapter.networkresult.NetworkResult
+import at.connyduck.calladapter.networkresult.fold
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -131,7 +133,7 @@ class CachedTimelineRepository @Inject constructor(
                 expanded = statusViewData.isExpanded,
                 contentShowing = statusViewData.isShowingContent,
                 contentCollapsed = statusViewData.isCollapsed,
-                showTranslation = statusViewData.showTranslation,
+                translationState = statusViewData.translationState,
             ),
         )
     }.join()
@@ -170,10 +172,10 @@ class CachedTimelineRepository @Inject constructor(
         invalidate()
     }
 
-    // TODO: Report errors back to the viewmodel
     suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
+        saveStatusViewData(statusViewData.copy(translationState = TranslationState.TRANSLATING))
         val translation = mastodonApi.translate(statusViewData.id)
-        translation.getOrNull()?.let {
+        translation.fold({
             translatedStatusDao.upsert(
                 TranslatedStatusEntity(
                     serverId = statusViewData.actionableId,
@@ -187,14 +189,16 @@ class CachedTimelineRepository @Inject constructor(
                     provider = it.provider,
                 ),
             )
-
-            saveStatusViewData(statusViewData.copy(showTranslation = true))
-        }
+            saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
+        },{
+            // Reset the translation state
+            saveStatusViewData(statusViewData)
+        })
         return translation
     }
 
     suspend fun translateUndo(statusViewData: StatusViewData) {
-        saveStatusViewData(statusViewData.copy(showTranslation = false))
+        saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL))
     }
 
     companion object {
