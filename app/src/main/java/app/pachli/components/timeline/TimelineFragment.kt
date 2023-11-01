@@ -659,12 +659,20 @@ class TimelineFragment :
     }
 
     override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {
-        val status = adapter.peek(position) ?: return
-        super.viewMedia(
-            attachmentIndex,
-            AttachmentViewData.list(status.actionable),
-            view,
-        )
+        val statusViewData = adapter.peek(position) ?: return
+
+        // Pass the translated media descriptions through (if appropriate)
+        val actionable = if (statusViewData.showTranslation) {
+            statusViewData.actionable.copy(
+                attachments = statusViewData.translation?.attachments?.zip(statusViewData.actionable.attachments) { t, a ->
+                    a.copy(description = t.description)
+                } ?: statusViewData.actionable.attachments,
+            )
+        } else {
+            statusViewData.actionable
+        }
+
+        super.viewMedia(attachmentIndex, AttachmentViewData.list(actionable), view)
     }
 
     override fun onViewThread(position: Int) {
