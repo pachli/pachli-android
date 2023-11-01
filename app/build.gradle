@@ -216,6 +216,8 @@ dependencies {
     androidTestImplementation libs.androidx.test.junit
     androidTestImplementation libs.hilt.android.testing
     androidTestImplementation libs.androidx.test.core.ktx
+
+    lintChecks project(":checks")
 }
 
 tasks.register("newLintBaseline") {
