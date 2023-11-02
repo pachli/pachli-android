@@ -188,6 +188,7 @@
         app:layout_constraintStart_toStartOf="@id/status_poll"
         app:layout_constraintTop_toBottomOf="@id/status_poll"
         tools:text="Translation provider: DeepL"
+        tools:ignore="SelectableText"
         tools:visibility="visible" />
 
     <TextView

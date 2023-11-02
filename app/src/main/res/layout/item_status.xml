@@ -228,6 +228,7 @@
         app:layout_constraintStart_toStartOf="@id/status_display_name"
         app:layout_constraintTop_toBottomOf="@id/status_poll"
         tools:text="Translation provider: DeepL"
+        tools:ignore="SelectableText"
         tools:visibility="visible" />
 
     <ImageButton
