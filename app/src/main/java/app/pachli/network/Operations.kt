@@ -18,18 +18,24 @@
 package app.pachli.network
 
 import app.pachli.entity.InstanceV1
+import app.pachli.network.ServerKind.MASTODON
 import app.pachli.network.model.InstanceV2
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.binding
 import com.github.michaelbull.result.getError
 import com.github.michaelbull.result.getOr
-import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.mapError
 import io.github.z4kn4fein.semver.Version
 import io.github.z4kn4fein.semver.constraints.Constraint
 import io.github.z4kn4fein.semver.constraints.satisfiedByAny
+import kotlin.collections.set
 import kotlin.coroutines.cancellation.CancellationException
 
+/**
+ * Identifiers for operations that the server may or may not support.
+ */
 enum class ServerOperation(id: String) {
     // Translate a status, introduced in Mastodon 4.0.0
     ORG_JOINMASTODON_STATUSES_TRANSLATE("org.joinmastodon.statuses.translate"),
@@ -37,17 +43,40 @@ enum class ServerOperation(id: String) {
 
 enum class ServerKind {
     MASTODON,
+    AKKOMA,
     PLEROMA,
-
-    // PIXELFED,  // Needs to report as missing notification support
     UNKNOWN,
 
     ;
 
     companion object {
-        fun from(instance: InstanceV1) = if (instance.pleroma == null) MASTODON else PLEROMA
+        private val rxVersion = """\(compatible; ([^ ]+) ([^)]+)\)""".toRegex()
 
-        fun from(instance: InstanceV2) = MASTODON
+        fun parse(vs: String): Result<Pair<ServerKind, Version>, ServerCapabilitiesError> = binding {
+            // Parse instance version, which looks like "4.2.1 (compatible; Iceshrimp 2023.11)"
+            // or it's a regular version number.
+            val matchResult = rxVersion.find(vs)
+            if (matchResult == null) {
+                val version = resultOf {
+                    Version.parse(vs, strict = false)
+                }.mapError { ServerCapabilitiesError.VersionParse(it) }.bind()
+                return@binding Pair(MASTODON, version)
+            }
+
+            val (software, unparsedVersion) = matchResult.destructured
+            val version = resultOf {
+                Version.parse(unparsedVersion, strict = false)
+            }.mapError { ServerCapabilitiesError.VersionParse(it) }.bind()
+
+            val s = when (software.lowercase()) {
+                "akkoma" -> AKKOMA
+                "mastodon" -> MASTODON
+                "pleroma" -> PLEROMA
+                else -> UNKNOWN
+            }
+
+            return@binding Pair(s, version)
+        }
     }
 }
 
@@ -59,8 +88,8 @@ sealed interface ServerCapabilitiesError {
 
 /** Represents operations that can be performed on the given server. */
 class ServerCapabilities(
-    val serverKind: ServerKind,
-    private val capabilities: Map<ServerOperation, List<Version>>,
+    val serverKind: ServerKind = MASTODON,
+    private val capabilities: Map<ServerOperation, List<Version>> = emptyMap(),
 ) {
     /**
      * Returns true if the server supports the given operation at the given minimum version
@@ -72,52 +101,36 @@ class ServerCapabilities(
     } ?: false
 
     companion object {
-        fun default() = ServerCapabilities(
-            serverKind = ServerKind.MASTODON,
-            capabilities = emptyMap(),
-        )
-
-        fun from(instance: InstanceV1): Result<ServerCapabilities, ServerCapabilitiesError> {
-            val serverKind = ServerKind.from(instance)
+        /**
+         * Generates [ServerCapabilities] from the instance's configuration report.
+         */
+        fun from(instance: InstanceV1): Result<ServerCapabilities, ServerCapabilitiesError> = binding {
+            val (serverKind, version) = ServerKind.parse(instance.version).bind()
             val capabilities = mutableMapOf<ServerOperation, List<Version>>()
 
-            when (serverKind) {
-                ServerKind.MASTODON -> {
-                    val version = resultOf {
-                        Version.parse(instance.version, strict = false)
-                    }.getOrElse { return Err(ServerCapabilitiesError.VersionParse(it)) }
+            // Create a default set of capabilities (empty). Mastodon servers support InstanceV2 from
+            // v4.0.0 onwards, and there's no information about capabilities for other server kinds.
 
-                    // Translation support is not explicit, but guess that it can if it's
-                    // 4.0 or above.
-                    if (version >= Version(major = 4)) {
-                        capabilities[ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE] = listOf(Version(major = 1))
-                    }
-                }
-                ServerKind.PLEROMA -> TODO()
-                ServerKind.UNKNOWN -> TODO()
-            }
-
-            return Ok(ServerCapabilities(serverKind, capabilities))
+            ServerCapabilities(serverKind, capabilities)
         }
 
-        fun from(instance: InstanceV2): Result<ServerCapabilities, ServerCapabilitiesError> {
-            val serverKind = ServerKind.from(instance)
+        /**
+         * Generates [ServerCapabilities] from the instance's configuration report.
+         */
+        fun from(instance: InstanceV2): Result<ServerCapabilities, ServerCapabilitiesError> = binding {
+            val (serverKind, version) = ServerKind.parse(instance.version).bind()
             val capabilities = mutableMapOf<ServerOperation, List<Version>>()
 
             when (serverKind) {
-                ServerKind.MASTODON -> {
-                    val version = app.pachli.network.resultOf {
-                        Version.parse(instance.version, strict = false)
-                    }.getOrElse { return Err(ServerCapabilitiesError.VersionParse(it)) }
-
+                MASTODON -> {
                     if (instance.configuration.translation.enabled) {
                         capabilities[ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE] = listOf(Version(major = 1))
                     }
                 }
-                else -> { /* TODO: Have a default set of capabilities */ }
+                else -> { /* nothing to do yet */ }
             }
 
-            return Ok(ServerCapabilities(serverKind, capabilities))
+            ServerCapabilities(serverKind, capabilities)
         }
     }
 }

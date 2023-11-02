@@ -34,7 +34,7 @@ class ServerCapabilitiesRepository @Inject constructor(
     private val accountManager: AccountManager,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
-    private val _flow = MutableStateFlow(ServerCapabilities.default())
+    private val _flow = MutableStateFlow(ServerCapabilities())
     val flow = _flow.asStateFlow()
 
     init {
@@ -58,6 +58,6 @@ class ServerCapabilitiesRepository @Inject constructor(
                     ServerCapabilities.from(instance).getOr { null }
                 }, { null },)
             },
-        ) ?: ServerCapabilities.default()
+        ) ?: ServerCapabilities()
     }
 }
