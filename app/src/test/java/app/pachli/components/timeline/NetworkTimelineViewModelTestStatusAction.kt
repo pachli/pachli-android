@@ -23,6 +23,7 @@ import app.pachli.components.timeline.viewmodel.StatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.UiError
 import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.TranslationState
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -53,7 +54,7 @@ class NetworkTimelineViewModelTestStatusAction : NetworkTimelineViewModelTestBas
         isExpanded = true,
         isShowingContent = false,
         isCollapsed = false,
-        translationState = false,
+        translationState = TranslationState.SHOW_ORIGINAL,
     )
 
     /** Action to bookmark a status */
