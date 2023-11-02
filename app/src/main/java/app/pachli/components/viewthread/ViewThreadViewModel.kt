@@ -43,6 +43,7 @@ import app.pachli.network.MastodonApi
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.TranslationState
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.getOrThrow
@@ -142,6 +143,8 @@ class ViewThreadViewModel @Inject constructor(
                         isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                         isDetailed = true,
+                        translationState = timelineStatusWithAccount.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                        translation = timelineStatusWithAccount.translatedStatus,
                     )
                 } else {
                     StatusViewData.from(
@@ -150,6 +153,7 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = alwaysOpenSpoiler,
                         isShowingContent = (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isDetailed = true,
+                        translationState = TranslationState.SHOW_ORIGINAL,
                     )
                 }
             } else {
@@ -178,6 +182,8 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = detailedStatus.isExpanded,
                         isCollapsed = detailedStatus.isCollapsed,
                         isDetailed = true,
+                        translationState = detailedStatus.translationState,
+                        translation = detailedStatus.translation,
                     )
                 }
             }
@@ -196,6 +202,7 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = svd?.expanded ?: alwaysOpenSpoiler,
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
+                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
                     )
                 }.filterByFilterAction()
                 val descendants = statusContext.descendants.map {
@@ -207,6 +214,7 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = svd?.expanded ?: alwaysOpenSpoiler,
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
+                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL
                     )
                 }.filterByFilterAction()
                 val statuses = ancestors + detailedStatus + descendants

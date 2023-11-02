@@ -332,7 +332,8 @@ abstract class SFragment : Fragment() {
 
     /**
      * True if this class can translate statuses (assuming the server can). Superclasses should
-     * override this if they support translating a status.
+     * override this if they support translating a status, and also override [onTranslate]
+     * and [onTranslateUndo].
      */
     open fun canTranslate() = false
 

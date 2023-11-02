@@ -256,6 +256,8 @@ class ViewThreadFragment :
         }
     }
 
+    override fun canTranslate() = true
+
     override fun onResume() {
         super.onResume()
         requireActivity().title = getString(R.string.title_view_thread)

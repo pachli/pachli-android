@@ -200,6 +200,7 @@ data class StatusViewData(
             isDetailed: Boolean = false,
             filterAction: Filter.Action = Filter.Action.NONE,
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
+            translation: TranslatedStatusEntity? = null,
         ) = StatusViewData(
             status = status,
             isShowingContent = isShowingContent,
@@ -208,6 +209,7 @@ data class StatusViewData(
             isDetailed = isDetailed,
             filterAction = filterAction,
             translationState = translationState,
+            translation = translation,
         )
 
         fun from(conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
