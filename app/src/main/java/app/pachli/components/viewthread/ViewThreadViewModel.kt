@@ -36,6 +36,7 @@ import app.pachli.components.timeline.util.ifExpected
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.db.TimelineDao
+import app.pachli.db.TranslatedStatusEntity
 import app.pachli.entity.Filter
 import app.pachli.entity.Status
 import app.pachli.network.FilterModel
@@ -57,6 +58,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -443,6 +445,44 @@ class ViewThreadViewModel @Inject constructor(
                 )
                 else -> uiState
             }
+        }
+    }
+
+    fun translate(statusViewData: StatusViewData) {
+        viewModelScope.launch {
+            repository.translate(statusViewData).fold({
+                val translatedEntity = TranslatedStatusEntity(
+                    serverId = statusViewData.actionableId,
+                    timelineUserId = activeAccount.id,
+                    content = it.content,
+                    spoilerText = it.spoilerText,
+                    poll = it.poll,
+                    attachments = it.attachments,
+                    provider = it.provider,
+                )
+                updateStatusViewData(statusViewData.status.id) { viewData ->
+                    viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
+                }
+            }, {
+                // Mastodon returns 403 if it thinks the original status language is the
+                // same as the user's language, ignoring the actual content of the status
+                // (https://github.com/mastodon/documentation/issues/1330). Nothing useful
+                // to do here so swallow the error
+                if (it is HttpException && it.code() == 403) return@fold
+
+                _errors.emit(it)
+            })
+        }
+    }
+
+    fun translateUndo(statusViewData: StatusViewData) {
+        updateStatusViewData(statusViewData.status.id) { viewData ->
+            viewData.copy(translationState = TranslationState.SHOW_ORIGINAL)
+        }
+        viewModelScope.launch {
+            repository.saveStatusViewData(
+                statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL)
+            )
         }
     }
 

@@ -215,7 +215,8 @@ class ViewThreadFragment :
         lifecycleScope.launch {
             viewModel.errors.collect { throwable ->
                 Log.w(TAG, "failed to load status context", throwable)
-                Snackbar.make(binding.root, R.string.error_generic, Snackbar.LENGTH_SHORT)
+                val msg = view.context.getString(R.string.error_generic_fmt, throwable)
+                Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.action_retry) {
                         viewModel.retry(thisThreadsStatusId)
                     }
@@ -257,6 +258,14 @@ class ViewThreadFragment :
     }
 
     override fun canTranslate() = true
+
+    override fun onTranslate(statusViewData: StatusViewData) {
+        viewModel.translate(statusViewData)
+    }
+
+    override fun onTranslateUndo(statusViewData: StatusViewData) {
+        viewModel.translateUndo(statusViewData)
+    }
 
     override fun onResume() {
         super.onResume()
