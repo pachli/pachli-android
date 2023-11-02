@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "778509dd3911b1e826301b46dbb1c618",
+    "identityHash": "bf1895b415cee0ff432966613d859668",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -1023,7 +1023,7 @@
       },
       {
         "tableName": "StatusViewDataEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `expanded` INTEGER NOT NULL, `contentShowing` INTEGER NOT NULL, `contentCollapsed` INTEGER NOT NULL, `showTranslation` INTEGER NOT NULL DEFAULT FALSE, PRIMARY KEY(`serverId`, `timelineUserId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `expanded` INTEGER NOT NULL, `contentShowing` INTEGER NOT NULL, `contentCollapsed` INTEGER NOT NULL, `translationState` TEXT NOT NULL DEFAULT 'SHOW_ORIGINAL', PRIMARY KEY(`serverId`, `timelineUserId`))",
         "fields": [
           {
             "fieldPath": "serverId",
@@ -1056,11 +1056,11 @@
             "notNull": true
           },
           {
-            "fieldPath": "showTranslation",
-            "columnName": "showTranslation",
-            "affinity": "INTEGER",
+            "fieldPath": "translationState",
+            "columnName": "translationState",
+            "affinity": "TEXT",
             "notNull": true,
-            "defaultValue": "FALSE"
+            "defaultValue": "'SHOW_ORIGINAL'"
           }
         ],
         "primaryKey": {
@@ -1134,7 +1134,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '778509dd3911b1e826301b46dbb1c618')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bf1895b415cee0ff432966613d859668')"
     ]
   }
 }
