@@ -190,10 +190,10 @@ class CachedTimelineRepository @Inject constructor(
                 ),
             )
             saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
-        },{
+        }, {
             // Reset the translation state
             saveStatusViewData(statusViewData)
-        })
+        },)
         return translation
     }
 

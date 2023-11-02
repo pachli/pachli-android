@@ -216,7 +216,7 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = svd?.expanded ?: alwaysOpenSpoiler,
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
-                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL
+                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
                     )
                 }.filterByFilterAction()
                 val statuses = ancestors + detailedStatus + descendants
@@ -471,7 +471,7 @@ class ViewThreadViewModel @Inject constructor(
                 if (it is HttpException && it.code() == 403) return@fold
 
                 _errors.emit(it)
-            })
+            },)
         }
     }
 
@@ -481,7 +481,7 @@ class ViewThreadViewModel @Inject constructor(
         }
         viewModelScope.launch {
             repository.saveStatusViewData(
-                statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL)
+                statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL),
             )
         }
     }

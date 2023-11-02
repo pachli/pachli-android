@@ -38,7 +38,7 @@ enum class TranslationState {
     TRANSLATING,
 
     /** Show the translated status */
-    SHOW_TRANSLATION
+    SHOW_TRANSLATION,
 }
 
 /**
