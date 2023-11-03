@@ -18,7 +18,7 @@ class AndroidxToolbarDetector : Detector(), XmlScanner {
 
     override fun visitElement(context: XmlContext, element: Element) {
         val incident = Incident(context, ISSUE)
-            .message( "Use `<com.google.android.material.appbar.MaterialToolbar>` instead of `<androidx.appcompat.widget.Toolbar>`")
+            .message("Use `<com.google.android.material.appbar.MaterialToolbar>` instead of `<androidx.appcompat.widget.Toolbar>`")
             .at(element)
         context.report(incident)
     }

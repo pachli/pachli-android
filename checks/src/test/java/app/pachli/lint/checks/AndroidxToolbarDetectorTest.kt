@@ -46,7 +46,6 @@ class AndroidxToolbarDetectorTest {
 0 errors, 1 warnings
         """,
             )
-
     }
 
     @Test
@@ -82,7 +81,7 @@ class AndroidxToolbarDetectorTest {
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
                 """,
             ).indented(),
-        )   .issues(AndroidxToolbarDetector.ISSUE)
+        ).issues(AndroidxToolbarDetector.ISSUE)
             .allowMissingSdk()
             .run()
             .expectWarningCount(0)
