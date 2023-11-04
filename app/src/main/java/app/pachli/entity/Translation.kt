@@ -37,11 +37,7 @@ data class Translation(
     // Not documented, see https://github.com/mastodon/documentation/issues/1248
     @SerializedName("spoiler_text") val spoilerText: String,
 
-    /**
-     * The translated poll (if it exists). Does not contain all the poll data, only the
-     * translated text. Vote counts and other metadata has to be determined from the original
-     * poll object.
-     */
+    /** The translated poll (if it exists) */
     // Not documented, see https://github.com/mastodon/documentation/issues/1248
     val poll: TranslatedPoll?,
 
@@ -56,15 +52,21 @@ data class Translation(
     val provider: String,
 )
 
+/**
+ * A translated poll. Does not contain all the poll data, only the translated text.
+ * Vote counts and other metadata has to be determined from the original poll object.
+ */
 data class TranslatedPoll(
     val id: String,
     val options: List<TranslatedPollOption>,
 )
 
+/** A translated poll option. */
 data class TranslatedPollOption(
     val title: String,
 )
 
+/** A translated attachment. Only the description is translated */
 data class TranslatedAttachment(
     val id: String,
     val description: String,

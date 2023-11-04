@@ -42,19 +42,19 @@ class ServerKindTest(
             return listOf(
                 arrayOf(
                     "4.0.0",
-                    Ok(Pair(MASTODON, Version.parse("4.0.0", strict = false)))
+                    Ok(Pair(MASTODON, Version.parse("4.0.0", strict = false))),
                 ),
                 arrayOf(
                     "4.2.1 (compatible; Iceshrimp 2023.11)",
-                    Ok(Pair(UNKNOWN, Version.parse("2023.11", strict = false)))
+                    Ok(Pair(UNKNOWN, Version.parse("2023.11", strict = false))),
                 ),
                 arrayOf(
                     "2.7.2 (compatible; Akkoma 3.10.3-202-g1b838627-1-CI-COMMIT-TAG---)",
-                    Ok(Pair(AKKOMA, Version.parse("3.10.3-202-g1b838627-1-CI-COMMIT-TAG---", strict = false)))
+                    Ok(Pair(AKKOMA, Version.parse("3.10.3-202-g1b838627-1-CI-COMMIT-TAG---", strict = false))),
                 ),
                 arrayOf(
                     "2.7.2 (compatible; Pleroma 2.5.54-640-gacbec640.develop+soapbox)",
-                    Ok(Pair(PLEROMA, Version.parse("2.5.54-640-gacbec640.develop+soapbox", strict = false)))
+                    Ok(Pair(PLEROMA, Version.parse("2.5.54-640-gacbec640.develop+soapbox", strict = false))),
                 ),
             )
         }

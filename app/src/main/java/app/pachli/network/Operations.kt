@@ -80,9 +80,11 @@ enum class ServerKind {
     }
 }
 
+/** Errors that can occur when processing server capabilities */
 sealed interface ServerCapabilitiesError {
     val throwable: Throwable
 
+    /** Could not parse the server's version string */
     data class VersionParse(override val throwable: Throwable) : ServerCapabilitiesError
 }
 
@@ -105,7 +107,7 @@ class ServerCapabilities(
          * Generates [ServerCapabilities] from the instance's configuration report.
          */
         fun from(instance: InstanceV1): Result<ServerCapabilities, ServerCapabilitiesError> = binding {
-            val (serverKind, version) = ServerKind.parse(instance.version).bind()
+            val (serverKind, _) = ServerKind.parse(instance.version).bind()
             val capabilities = mutableMapOf<ServerOperation, List<Version>>()
 
             // Create a default set of capabilities (empty). Mastodon servers support InstanceV2 from
@@ -118,7 +120,7 @@ class ServerCapabilities(
          * Generates [ServerCapabilities] from the instance's configuration report.
          */
         fun from(instance: InstanceV2): Result<ServerCapabilities, ServerCapabilitiesError> = binding {
-            val (serverKind, version) = ServerKind.parse(instance.version).bind()
+            val (serverKind, _) = ServerKind.parse(instance.version).bind()
             val capabilities = mutableMapOf<ServerOperation, List<Version>>()
 
             when (serverKind) {

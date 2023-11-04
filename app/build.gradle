@@ -201,7 +201,6 @@ dependencies {
     implementation libs.kotlin.result
     implementation libs.semver
 
-
     testImplementation libs.androidx.test.junit
     testImplementation libs.robolectric
     testImplementation libs.bundles.mockito

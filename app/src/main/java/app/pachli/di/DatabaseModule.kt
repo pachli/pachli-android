@@ -39,8 +39,6 @@ object DatabaseModule {
         converters: Converters,
     ): AppDatabase {
         return Room.databaseBuilder(appContext, AppDatabase::class.java, "pachliDB")
-            // XXX: Remove next line before submit
-            .fallbackToDestructiveMigration()
             .addTypeConverter(converters)
             .allowMainThreadQueries()
             .build()

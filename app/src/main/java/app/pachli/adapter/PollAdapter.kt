@@ -53,10 +53,10 @@ class PollAdapter(
         /** Show the results, no voting */
         RESULT,
 
-        /** Single choice (radio buttons) */
+        /** Single choice (display as radio buttons) */
         SINGLE_CHOICE,
 
-        /** Multiple choice (radio buttons) */
+        /** Multiple choice (display as check boxes) */
         MULTIPLE_CHOICE,
     }
 
