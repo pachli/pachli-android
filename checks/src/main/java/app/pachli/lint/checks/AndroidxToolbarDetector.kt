@@ -3,8 +3,8 @@ package app.pachli.lint.checks
 import com.android.tools.lint.detector.api.Category
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Implementation
-import com.android.tools.lint.detector.api.Incident
 import com.android.tools.lint.detector.api.Issue
+import com.android.tools.lint.detector.api.LintFix
 import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
 import com.android.tools.lint.detector.api.XmlContext
@@ -17,10 +17,21 @@ class AndroidxToolbarDetector : Detector(), XmlScanner {
     }
 
     override fun visitElement(context: XmlContext, element: Element) {
-        val incident = Incident(context, ISSUE)
-            .message("Use `<com.google.android.material.appbar.MaterialToolbar>` instead of `<androidx.appcompat.widget.Toolbar>`")
-            .at(element)
-        context.report(incident)
+        val quickFixData = LintFix.create()
+            .name("Replace with `com.google.android.material.appbar.MaterialToolbar`")
+            .replace()
+            .text(element.localName)
+            .with("com.google.android.material.appbar.MaterialToolbar")
+            .independent(true)
+            .build()
+
+        context.report(
+            issue = ISSUE,
+            scope = element,
+            location = context.getElementLocation(element),
+            message = "Use `com.google.android.material.appbar.MaterialToolbar` instead of `androidx.appcompat.widget.Toolbar`",
+            quickfixData = quickFixData,
+        )
     }
 
     companion object {
@@ -29,8 +40,12 @@ class AndroidxToolbarDetector : Detector(), XmlScanner {
         @JvmField
         val ISSUE: Issue = Issue.create(
             id = "AndroidxToolbarDetector",
-            briefDescription = "Don't use `<androidx.appcompat.widget.Toolbar>` in this project",
-            explanation = "<androidx.appcompat.widget.Toolbar> found in source code.\n Use <com.google.android.material.appbar.MaterialToolbar> instead for this project.",
+            briefDescription = "Don't use `androidx.appcompat.widget.Toolbar` in this project",
+            explanation = """
+                Use `com.google.android.material.appbar.MaterialToolbar` instead of
+                `androidx.appcompat.widget.Toolbar` to ensure it works as expected with
+                other Material components. See https://developer.android.com/reference/com/google/android/material/appbar/MaterialToolbar
+            """,
             category = Category.CORRECTNESS,
             priority = 6,
             severity = Severity.WARNING,
