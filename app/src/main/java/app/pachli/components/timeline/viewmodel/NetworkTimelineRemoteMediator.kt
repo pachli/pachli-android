@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
@@ -31,6 +30,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import kotlinx.coroutines.CoroutineScope
 import retrofit2.HttpException
 import retrofit2.Response
+import timber.log.Timber
 import java.io.IOException
 
 /** Remote mediator for accessing timelines that are not backed by the database. */
@@ -100,7 +100,7 @@ class NetworkTimelineRemoteMediator(
                 }
             }
 
-            Log.d(TAG, "- load(), type = $loadType, key = $key")
+            Timber.d("- load(), type = $loadType, key = $key")
 
             val response = fetchStatusPageByKind(loadType, key, state.config.initialLoadSize)
             val page = Page.tryFrom(response).getOrElse { return MediatorResult.Error(it) }
@@ -113,13 +113,10 @@ class NetworkTimelineRemoteMediator(
                     }
 
                     pageCache.upsert(page)
-                    Log.d(
-                        TAG,
-                        "  Page $loadType complete for $timelineKind, now got ${pageCache.size} pages",
-                    )
+                    Timber.d("  Page $loadType complete for $timelineKind, now got ${pageCache.size} pages")
                     pageCache.debug()
                 }
-                Log.d(TAG, "  Invalidating paging source")
+                Timber.d("  Invalidating paging source")
                 factory.invalidate()
             }
 
@@ -189,9 +186,5 @@ class NetworkTimelineRemoteMediator(
                 limit = loadSize,
             )
         }
-    }
-
-    companion object {
-        private const val TAG = "NetworkTimelineRemoteMediator"
     }
 }

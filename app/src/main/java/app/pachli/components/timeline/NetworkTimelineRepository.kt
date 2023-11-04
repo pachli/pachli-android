@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
@@ -33,6 +32,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.getDomain
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 import javax.inject.Inject
 
 // Things that make this more difficult than it should be:
@@ -84,7 +84,7 @@ class NetworkTimelineRepository @Inject constructor(
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
     ): Flow<PagingData<Status>> {
-        Log.d(TAG, "getStatusStream(): key: $initialKey")
+        Timber.d("getStatusStream(): key: $initialKey")
 
         factory = InvalidatingPagingSourceFactory {
             NetworkTimelinePagingSource(pageCache)
@@ -172,7 +172,6 @@ class NetworkTimelineRepository @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "NetworkTimelineRepository"
         private const val PAGE_SIZE = 30
     }
 }

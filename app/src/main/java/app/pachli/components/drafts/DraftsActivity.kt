@@ -19,7 +19,6 @@ package app.pachli.components.drafts
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -41,6 +40,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -130,7 +130,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                     { throwable ->
                         bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
 
-                        Log.w(TAG, "failed loading reply information", throwable)
+                        Timber.w("failed loading reply information", throwable)
 
                         if (throwable is HttpException && throwable.code() == 404) {
                             // the original status to which a reply was drafted has been deleted

@@ -18,7 +18,6 @@ package app.pachli.components.drafts
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
@@ -37,6 +36,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.buffer
 import okio.sink
+import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -70,7 +70,7 @@ class DraftHelper @Inject constructor(
         val externalFilesDir = context.getExternalFilesDir("Pachli")
 
         if (externalFilesDir == null || !(externalFilesDir.exists())) {
-            Log.e("DraftHelper", "Error obtaining directory to save media.")
+            Timber.e("Error obtaining directory to save media.")
             throw Exception()
         }
 
@@ -130,7 +130,7 @@ class DraftHelper @Inject constructor(
         )
 
         draftDao.insertOrReplace(draft)
-        Log.d("DraftHelper", "saved draft to db")
+        Timber.d("saved draft to db")
     }
 
     suspend fun deleteDraftAndAttachments(draftId: Int) {
@@ -153,7 +153,7 @@ class DraftHelper @Inject constructor(
     suspend fun deleteAttachments(draft: DraftEntity) = withContext(Dispatchers.IO) {
         draft.attachments.forEach { attachment ->
             if (context.contentResolver.delete(attachment.uri, null, null) == 0) {
-                Log.e("DraftHelper", "Did not delete file ${attachment.uriString}")
+                Timber.e("Did not delete file ${attachment.uriString}")
             }
         }
     }
@@ -193,7 +193,7 @@ class DraftHelper @Inject constructor(
                     }
                 }
             } catch (ex: IOException) {
-                Log.w("DraftHelper", "failed to save media", ex)
+                Timber.w("failed to save media", ex)
                 return null
             }
         } else {

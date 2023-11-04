@@ -52,6 +52,7 @@ rxandroid3 = "3.0.2"
 rxjava3 = "3.1.7"
 rxkotlin3 = "3.0.1"
 sparkbutton = "4.1.0"
+timber = "5.0.1"
 touchimageview = "3.6"
 truth = "1.1.5"
 turbine = "1.0.0"
@@ -164,6 +165,7 @@ rxjava3-android = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rx
 rxjava3-core = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava3" }
 rxjava3-kotlin = { module = "io.reactivex.rxjava3:rxkotlin", version.ref = "rxkotlin3" }
 sparkbutton = { module = "com.github.connyduck:sparkbutton", version.ref = "sparkbutton" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 touchimageview = { module = "com.github.MikeOrtiz:TouchImageView", version.ref = "touchimageview" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }

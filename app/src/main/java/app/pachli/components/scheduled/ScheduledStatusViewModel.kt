@@ -16,7 +16,6 @@
 
 package app.pachli.components.scheduled
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -28,6 +27,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -51,7 +51,7 @@ class ScheduledStatusViewModel @Inject constructor(
                     pagingSourceFactory.remove(status)
                 },
                 { throwable ->
-                    Log.w("ScheduledTootViewModel", "Error deleting scheduled status", throwable)
+                    Timber.w("Error deleting scheduled status", throwable)
                 },
             )
         }

@@ -16,7 +16,6 @@
 
 package app.pachli.components.conversation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
@@ -35,6 +34,7 @@ import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -80,7 +80,7 @@ class ConversationsViewModel @Inject constructor(
 
                 saveConversationToDb(newConversation)
             }, { e ->
-                Log.w(TAG, "failed to favourite status", e)
+                Timber.w("failed to favourite status", e)
             },)
         }
     }
@@ -95,7 +95,7 @@ class ConversationsViewModel @Inject constructor(
 
                 saveConversationToDb(newConversation)
             }, { e ->
-                Log.w(TAG, "failed to bookmark status", e)
+                Timber.w("failed to bookmark status", e)
             },)
         }
     }
@@ -111,7 +111,7 @@ class ConversationsViewModel @Inject constructor(
 
                     saveConversationToDb(newConversation)
                 }, { e ->
-                    Log.w(TAG, "failed to vote in poll", e)
+                    Timber.w("failed to vote in poll", e)
                 },)
         }
     }
@@ -156,7 +156,7 @@ class ConversationsViewModel @Inject constructor(
                     accountId = accountManager.activeAccount!!.id,
                 )
             } catch (e: Exception) {
-                Log.w(TAG, "failed to delete conversation", e)
+                Timber.w("failed to delete conversation", e)
             }
         }
     }
@@ -176,16 +176,12 @@ class ConversationsViewModel @Inject constructor(
 
                 conversationsDao.insert(newConversation)
             } catch (e: Exception) {
-                Log.w(TAG, "failed to mute conversation", e)
+                Timber.w("failed to mute conversation", e)
             }
         }
     }
 
     private suspend fun saveConversationToDb(conversation: ConversationEntity) {
         conversationsDao.insert(conversation)
-    }
-
-    companion object {
-        private const val TAG = "ConversationsViewModel"
     }
 }

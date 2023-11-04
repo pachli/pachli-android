@@ -87,8 +87,6 @@ class TrendingLinksViewModel @Inject constructor(
     }
 
     companion object {
-        @Suppress("unused")
-        private const val TAG = "TrendingLinksViewModel"
         private val THROTTLE_TIMEOUT = 500.milliseconds
     }
 }

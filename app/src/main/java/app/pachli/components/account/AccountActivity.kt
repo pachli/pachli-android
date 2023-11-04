@@ -998,7 +998,6 @@ class AccountActivity :
     }
 
     companion object {
-
         private const val KEY_ACCOUNT_ID = "id"
         private val argbEvaluator = ArgbEvaluator()
 

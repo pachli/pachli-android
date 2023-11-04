@@ -3,7 +3,6 @@ package app.pachli.components.followedtags
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.widget.AutoCompleteTextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -30,6 +29,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -104,7 +104,7 @@ class FollowedTagsActivity :
                     binding.followedTagsMessageView.show()
                     val errorState = loadState.refresh as LoadState.Error
                     binding.followedTagsMessageView.setup(errorState.error) { retry() }
-                    Log.w(TAG, "error loading followed hashtags", errorState.error)
+                    Timber.w("error loading followed hashtags", errorState.error)
                 } else {
                     binding.followedTagsView.show()
                     binding.followedTagsMessageView.hide()

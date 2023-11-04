@@ -34,7 +34,6 @@ import android.os.Build
 import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuInflater
@@ -142,6 +141,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -393,8 +393,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         super.onResume()
         val currentEmojiPack = sharedPreferencesRepository.getString(EMOJI_PREFERENCE, "")
         if (currentEmojiPack != selectedEmojiPack) {
-            Log.d(
-                TAG,
+            Timber.d(
                 "onResume: EmojiPack has been changed from %s to %s"
                     .format(selectedEmojiPack, currentEmojiPack),
             )
@@ -710,10 +709,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     "Remove first 40 statuses",
                 ),
             ) { _, which ->
-                Log.d(TAG, "Developer tools: $which")
+                Timber.d("Developer tools: $which")
                 when (which) {
                     0 -> {
-                        Log.d(TAG, "Clearing home timeline cache")
+                        Timber.d("Clearing home timeline cache")
                         lifecycleScope.launch {
                             accountManager.activeAccount?.let {
                                 developerToolsUseCase.clearHomeTimelineCache(it.id)
@@ -721,7 +720,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         }
                     }
                     1 -> {
-                        Log.d(TAG, "Removing most recent 40 statuses")
+                        Timber.d("Removing most recent 40 statuses")
                         lifecycleScope.launch {
                             accountManager.activeAccount?.let {
                                 developerToolsUseCase.deleteFirstKStatuses(it.id, 40)
@@ -922,7 +921,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 onFetchUserInfoSuccess(userInfo)
             },
             { throwable ->
-                Log.e(TAG, "Failed to fetch user info. " + throwable.message)
+                Timber.e("Failed to fetch user info. " + throwable.message)
             },
         )
     }
@@ -1055,7 +1054,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         updateAnnouncementsBadge()
                     },
                     { throwable ->
-                        Log.w(TAG, "Failed to fetch announcements.", throwable)
+                        Timber.w("Failed to fetch announcements.", throwable)
                     },
                 )
         }
@@ -1099,7 +1098,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     override fun getActionButton() = binding.composeButton
 
     companion object {
-        private const val TAG = "MainActivity" // logging tag
         private const val DRAWER_ITEM_ADD_ACCOUNT: Long = -13
         private const val DRAWER_ITEM_ANNOUNCEMENTS: Long = 14
         private const val REDIRECT_URL = "redirectUrl"

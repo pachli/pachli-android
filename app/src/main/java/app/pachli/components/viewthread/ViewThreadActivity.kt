@@ -51,7 +51,6 @@ class ViewThreadActivity : BottomSheetActivity() {
     }
 
     companion object {
-
         fun startIntent(context: Context, id: String, url: String): Intent {
             val intent = Intent(context, ViewThreadActivity::class.java)
             intent.putExtra(ID_EXTRA, id)

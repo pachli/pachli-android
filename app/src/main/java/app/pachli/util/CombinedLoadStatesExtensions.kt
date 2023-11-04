@@ -17,7 +17,6 @@
 
 package app.pachli.util
 
-import android.util.Log
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import app.pachli.BuildConfig
@@ -27,6 +26,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.scan
+import timber.log.Timber
 
 /**
  * Each [CombinedLoadStates] state does not contain enough information to understand the actual
@@ -168,8 +168,8 @@ fun Flow<CombinedLoadStates>.asRefreshState(): Flow<UserRefreshState> {
         if (BuildConfig.DEBUG) {
             previousLoadState?.let {
                 val loadStateDiff = loadState.diff(previousLoadState)
-                Log.d("UserRefreshState", "Current state: $refresh $prepend")
-                if (loadStateDiff.isNotEmpty()) Log.d("RefreshState", loadStateDiff)
+                Timber.d("Current state: $refresh $prepend")
+                if (loadStateDiff.isNotEmpty()) Timber.d(loadStateDiff)
             }
             previousLoadState = loadState
         }

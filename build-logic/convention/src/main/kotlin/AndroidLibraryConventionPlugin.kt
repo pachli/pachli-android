@@ -18,6 +18,7 @@
  */
 
 import app.pachli.configureFlavors
+import app.pachli.libs
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
@@ -46,6 +47,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 //                disableUnnecessaryAndroidTests(target)
             }
             dependencies {
+                add("implementation", libs.findLibrary("timber").get())
                 add("testImplementation", kotlin("test"))
                 add("testImplementation", project(":core:testing"))
                 add("androidTestImplementation", kotlin("test"))

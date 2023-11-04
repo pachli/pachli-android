@@ -8,7 +8,7 @@
         errorLine2="                            ~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/network/retrofit/InstanceSwitchAuthInterceptor.kt"
-            line="53"
+            line="54"
             column="29"/>
     </issue>
 
@@ -19,7 +19,7 @@
         errorLine2="                                    ~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/network/retrofit/InstanceSwitchAuthInterceptor.kt"
-            line="58"
+            line="59"
             column="37"/>
     </issue>
 

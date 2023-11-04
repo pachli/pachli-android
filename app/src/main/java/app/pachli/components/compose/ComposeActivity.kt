@@ -32,7 +32,6 @@ import android.os.Parcelable
 import android.provider.MediaStore
 import android.text.Spanned
 import android.text.style.URLSpan
-import android.util.Log
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
@@ -118,6 +117,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
+import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.text.DecimalFormat
@@ -190,9 +190,9 @@ class ComposeActivity :
                 }
             }
         } else if (result == CropImage.CancelledResult) {
-            Log.w("ComposeActivity", "Edit image cancelled by user")
+            Timber.w("Edit image cancelled by user")
         } else {
-            Log.w("ComposeActivity", "Edit image failed: " + result.error)
+            Timber.w("Edit image failed: " + result.error)
             displayTransientMessage(R.string.error_image_edit_failed)
         }
         viewModel.cropImageItemOld = null
@@ -1332,8 +1332,6 @@ class ComposeActivity :
     ) : Parcelable
 
     companion object {
-        @Suppress("unused")
-        private const val TAG = "ComposeActivity"
         private const val PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
 
         internal const val COMPOSE_OPTIONS_EXTRA = "COMPOSE_OPTIONS"

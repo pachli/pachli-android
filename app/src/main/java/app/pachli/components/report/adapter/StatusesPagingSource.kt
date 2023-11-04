@@ -16,7 +16,6 @@
 
 package app.pachli.components.report.adapter
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import app.pachli.core.network.model.Status
@@ -24,6 +23,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class StatusesPagingSource(
     private val accountId: String,
@@ -69,7 +69,7 @@ class StatusesPagingSource(
                 nextKey = result.lastOrNull()?.id,
             )
         } catch (e: Exception) {
-            Log.w("StatusesPagingSource", "failed to load statuses", e)
+            Timber.w("failed to load statuses", e)
             return LoadResult.Error(e)
         }
     }

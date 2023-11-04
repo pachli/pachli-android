@@ -124,8 +124,6 @@ class CompositeWithOpaqueBackground(val view: View) : BitmapTransformation() {
     }
 
     companion object {
-        @Suppress("unused")
-        private const val TAG = "CompositeWithOpaqueBackground"
         private val ID = CompositeWithOpaqueBackground::class.qualifiedName!!
         private val ID_BYTES = ID.toByteArray(Charset.forName("UTF-8"))
 

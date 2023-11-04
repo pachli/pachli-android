@@ -19,7 +19,6 @@ package app.pachli.components.preference
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -39,6 +38,7 @@ import app.pachli.util.setAppNightMode
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -99,7 +99,7 @@ class PreferencesActivity :
                 when (key) {
                     APP_THEME -> {
                         val theme = sharedPreferencesRepository.getNonNullString(APP_THEME, APP_THEME_DEFAULT)
-                        Log.d("activeTheme", theme)
+                        Timber.d("activeTheme: %s", theme)
                         setAppNightMode(theme)
 
                         restartActivitiesOnBackPressedCallback.isEnabled = true
@@ -164,8 +164,6 @@ class PreferencesActivity :
     }
 
     companion object {
-        @Suppress("unused")
-        private const val TAG = "PreferencesActivity"
         const val GENERAL_PREFERENCES = 0
         const val ACCOUNT_PREFERENCES = 1
         const val NOTIFICATION_PREFERENCES = 2

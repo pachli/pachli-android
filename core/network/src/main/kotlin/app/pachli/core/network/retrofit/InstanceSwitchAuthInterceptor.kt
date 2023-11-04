@@ -25,6 +25,7 @@ import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
+import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -64,7 +65,7 @@ class InstanceSwitchAuthInterceptor @Inject constructor() : Interceptor {
             val newRequest: Request = builder.build()
 
             if (MastodonApi.PLACEHOLDER_DOMAIN == newRequest.url.host) {
-                Log.w("ISAInterceptor", "no user logged in or no domain header specified - can't make request to " + newRequest.url)
+                Timber.w("no user logged in or no domain header specified - can't make request to " + newRequest.url)
                 return Response.Builder()
                     .code(400)
                     .message("Bad Request")

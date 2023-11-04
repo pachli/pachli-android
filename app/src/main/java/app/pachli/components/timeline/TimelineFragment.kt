@@ -18,7 +18,6 @@
 package app.pachli.components.timeline
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -90,6 +89,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import kotlin.time.Duration.Companion.seconds
 
 @AndroidEntryPoint
@@ -230,7 +230,7 @@ class TimelineFragment :
                 // TODO: Very similar to same code in NotificationsFragment
                 launch {
                     viewModel.uiError.collect { error ->
-                        Log.d(TAG, error.toString())
+                        Timber.d(error.toString())
                         val message = getString(
                             error.message,
                             error.throwable.localizedMessage
@@ -391,20 +391,13 @@ class TimelineFragment :
                     }
                 }
 
-                // Manage the display of progress bars. Rather than hide them as soon as the
-                // Refresh portion completes, hide them when then first Prepend completes. This
-                // is a better signal to the user that it is now possible to scroll up and see
-                // new content.
+                // Manage the progress display. Rather than hide as soon as the Refresh portion
+                // completes, hide when then first Prepend completes. This is a better signal to
+                // the user that it is now possible to scroll up and see new content.
                 launch {
                     refreshState.collect {
                         when (it) {
-                            UserRefreshState.ACTIVE -> {
-                                if (adapter.itemCount == 0 && !binding.swipeRefreshLayout.isRefreshing) {
-                                    binding.progressBar.show()
-                                }
-                            }
                             UserRefreshState.COMPLETE, UserRefreshState.ERROR -> {
-                                binding.progressBar.hide()
                                 binding.swipeRefreshLayout.isRefreshing = false
                             }
                             else -> { /* nothing to do */ }
@@ -519,7 +512,7 @@ class TimelineFragment :
             ?.let { adapter.snapshot().getOrNull(it)?.id }
 
         id?.let {
-            Log.d(TAG, "Saving ID: $it")
+            Timber.d("Saving ID: $it")
             viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = it))
         }
     }
@@ -555,10 +548,19 @@ class TimelineFragment :
         )
     }
 
+    /** Refresh the displayed content, as if the user had swiped on the SwipeRefreshLayout */
+    override fun refreshContent() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        onRefresh()
+    }
+
+    /**
+     * Listener for the user swiping on the SwipeRefreshLayout. The SwipeRefreshLayout has
+     * handled displaying the animated spinner.
+     */
     override fun onRefresh() {
         binding.statusView.hide()
         snackbar?.dismiss()
-
         adapter.refresh()
     }
 
@@ -731,7 +733,7 @@ class TimelineFragment :
 
         val wasEnabled = talkBackWasEnabled
         talkBackWasEnabled = a11yManager?.isEnabled == true
-        Log.d(TAG, "talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
+        Timber.d("talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
         if (talkBackWasEnabled && !wasEnabled) {
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
@@ -754,13 +756,7 @@ class TimelineFragment :
         }
     }
 
-    override fun refreshContent() {
-        binding.swipeRefreshLayout.isRefreshing = true
-        onRefresh()
-    }
-
     companion object {
-        private const val TAG = "TimelineFragment" // logging tag
         private const val KIND_ARG = "kind"
         private const val ARG_ENABLE_SWIPE_TO_REFRESH = "enableSwipeToRefresh"
 

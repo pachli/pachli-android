@@ -41,7 +41,6 @@ class SearchHashtagsAdapter(private val linkListener: LinkListener) :
     }
 
     companion object {
-
         val HASHTAG_COMPARATOR = object : DiffUtil.ItemCallback<HashTag>() {
             override fun areContentsTheSame(oldItem: HashTag, newItem: HashTag): Boolean =
                 oldItem.name == newItem.name

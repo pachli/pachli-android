@@ -21,7 +21,6 @@ package app.pachli.components.notifications
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import app.pachli.R
@@ -38,8 +37,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.unifiedpush.android.connector.UnifiedPush
-
-private const val TAG = "PushNotificationHelper"
+import timber.log.Timber
 
 private const val KEY_MIGRATION_NOTICE_DISMISSED = "migration_notice_dismissed"
 
@@ -190,10 +188,10 @@ suspend fun registerUnifiedPushEndpoint(
         auth,
         buildSubscriptionData(context, account),
     ).onFailure { throwable ->
-        Log.w(TAG, "Error setting push endpoint for account ${account.id}", throwable)
+        Timber.w("Error setting push endpoint for account ${account.id}", throwable)
         disableUnifiedPushNotificationsForAccount(context, account)
     }.onSuccess {
-        Log.d(TAG, "UnifiedPush registration succeeded for account ${account.id}")
+        Timber.d("UnifiedPush registration succeeded for account ${account.id}")
 
         account.pushPubKey = keyPair.pubkey
         account.pushPrivKey = keyPair.privKey
@@ -212,7 +210,7 @@ suspend fun updateUnifiedPushSubscription(context: Context, api: MastodonApi, ac
             account.domain,
             buildSubscriptionData(context, account),
         ).onSuccess {
-            Log.d(TAG, "UnifiedPush subscription updated for account ${account.id}")
+            Timber.d("UnifiedPush subscription updated for account ${account.id}")
 
             account.pushServerKey = it.serverKey
             accountManager.saveAccount(account)
@@ -224,10 +222,10 @@ suspend fun unregisterUnifiedPushEndpoint(api: MastodonApi, accountManager: Acco
     withContext(Dispatchers.IO) {
         api.unsubscribePushNotifications("Bearer ${account.accessToken}", account.domain)
             .onFailure { throwable ->
-                Log.w(TAG, "Error unregistering push endpoint for account " + account.id, throwable)
+                Timber.w("Error unregistering push endpoint for account " + account.id, throwable)
             }
             .onSuccess {
-                Log.d(TAG, "UnifiedPush unregistration succeeded for account " + account.id)
+                Timber.d("UnifiedPush unregistration succeeded for account " + account.id)
                 // Clear the URL in database
                 account.unifiedPushUrl = ""
                 account.pushServerKey = ""

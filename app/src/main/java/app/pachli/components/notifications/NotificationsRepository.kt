@@ -17,7 +17,6 @@
 
 package app.pachli.components.notifications
 
-import android.util.Log
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -31,6 +30,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import okhttp3.ResponseBody
 import retrofit2.Response
+import timber.log.Timber
 import javax.inject.Inject
 
 class NotificationsRepository @Inject constructor(
@@ -49,7 +49,7 @@ class NotificationsRepository @Inject constructor(
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
     ): Flow<PagingData<Notification>> {
-        Log.d(TAG, "getNotificationsStream(), filtering: $filter")
+        Timber.d("getNotificationsStream(), filtering: $filter")
 
         factory = InvalidatingPagingSourceFactory {
             NotificationsPagingSource(mastodonApi, gson, filter)
@@ -73,7 +73,6 @@ class NotificationsRepository @Inject constructor(
     }.await()
 
     companion object {
-        private const val TAG = "NotificationsRepository"
         private const val PAGE_SIZE = 30
     }
 }

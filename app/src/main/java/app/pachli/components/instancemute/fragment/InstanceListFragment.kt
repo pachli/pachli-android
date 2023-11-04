@@ -1,7 +1,6 @@
 package app.pachli.components.instancemute.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +21,7 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -70,7 +70,7 @@ class InstanceListFragment :
                 api.blockDomain(instance).fold({
                     adapter.addItem(instance)
                 }, { e ->
-                    Log.e(TAG, "Error muting domain $instance", e)
+                    Timber.e("Error muting domain $instance", e)
                 },)
             } else {
                 api.unblockDomain(instance).fold({
@@ -81,7 +81,7 @@ class InstanceListFragment :
                         }
                         .show()
                 }, { e ->
-                    Log.e(TAG, "Error unmuting domain $instance", e)
+                    Timber.e("Error unmuting domain $instance", e)
                 },)
             }
         }
@@ -136,7 +136,7 @@ class InstanceListFragment :
     private fun onFetchInstancesFailure(throwable: Throwable) {
         fetching = false
         binding.instanceProgressBar.hide()
-        Log.e(TAG, "Fetch failure", throwable)
+        Timber.e("Fetch failure", throwable)
 
         if (adapter.itemCount == 0) {
             binding.messageView.show()
@@ -145,9 +145,5 @@ class InstanceListFragment :
                 this.fetchInstances(null)
             }
         }
-    }
-
-    companion object {
-        private const val TAG = "InstanceList"
     }
 }

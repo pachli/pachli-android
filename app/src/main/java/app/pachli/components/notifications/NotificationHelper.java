@@ -34,7 +34,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -78,6 +77,7 @@ import app.pachli.core.network.model.Status;
 import app.pachli.receiver.SendStatusBroadcastReceiver;
 import app.pachli.viewdata.PollViewDataKt;
 import app.pachli.worker.NotificationWorker;
+import timber.log.Timber;
 
 public class NotificationHelper {
 
@@ -197,7 +197,7 @@ public class NotificationHelper {
 
             accountAvatar = target.get();
         } catch (ExecutionException | InterruptedException e) {
-            Log.d(TAG, "error loading account avatar", e);
+            Timber.w(e, "error loading account avatar");
             accountAvatar = BitmapFactory.decodeResource(context.getResources(), R.drawable.avatar_default);
         }
 
@@ -299,7 +299,7 @@ public class NotificationHelper {
             // This works here because the channelId and the groupKey are the same.
             List<StatusBarNotification> members = channelGroups.get(channelId);
             if (members == null) { // can't happen, but just in case...
-                Log.e(TAG, "members == null for channel ID " + channelId);
+                Timber.e("members == null for channel ID %s", channelId);
                 continue;
             }
             members.add(sn);
@@ -600,12 +600,12 @@ public class NotificationHelper {
             if (notificationManager.areNotificationsEnabled()) {
                 for (NotificationChannel channel : notificationManager.getNotificationChannels()) {
                     if (channel != null && channel.getImportance() > NotificationManager.IMPORTANCE_NONE) {
-                        Log.d(TAG, "NotificationsEnabled");
+                        Timber.d("NotificationsEnabled");
                         return true;
                     }
                 }
             }
-            Log.d(TAG, "NotificationsDisabled");
+            Timber.d("NotificationsDisabled");
 
             return false;
 
@@ -641,12 +641,12 @@ public class NotificationHelper {
 
         workManager.enqueue(workRequest);
 
-        Log.d(TAG, "enabled notification checks with "+ PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS + "ms interval");
+        Timber.d("enabled notification checks with "+ PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS + "ms interval");
     }
 
     public static void disablePullNotifications(@NonNull Context context) {
         WorkManager.getInstance(context).cancelAllWorkByTag(NOTIFICATION_PULL_TAG);
-        Log.d(TAG, "disabled notification checks");
+        Timber.d("disabled notification checks");
     }
 
     public static void clearNotificationsForAccount(@NonNull Context context, @NonNull AccountEntity account) {

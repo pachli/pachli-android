@@ -88,7 +88,6 @@ data class Status(
         }
 
         companion object {
-
             @JvmStatic
             fun byNum(num: Int): Visibility {
                 return when (num) {

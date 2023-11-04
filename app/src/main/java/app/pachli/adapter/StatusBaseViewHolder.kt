@@ -870,8 +870,6 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     }
 
     companion object {
-        private const val TAG = "StatusBaseViewHolder"
-
         @JvmStatic
         protected fun hasPreviewableAttachment(attachments: List<Attachment>): Boolean {
             for ((_, _, _, _, type) in attachments) {

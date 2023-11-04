@@ -16,7 +16,6 @@
 
 package app.pachli.components.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -37,6 +36,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -126,7 +126,7 @@ class SearchViewModel @Inject constructor(
                     ),
                 )
             }, { t ->
-                Log.d(TAG, "Failed to reblog status ${statusViewData.id}", t)
+                Timber.d("Failed to reblog status ${statusViewData.id}", t)
             },)
         }
     }
@@ -144,7 +144,7 @@ class SearchViewModel @Inject constructor(
         updateStatus(statusViewData.status.copy(poll = votedPoll))
         viewModelScope.launch {
             timelineCases.voteInPoll(statusViewData.id, votedPoll.id, choices)
-                .onFailure { t -> Log.d(TAG, "Failed to vote in poll: ${statusViewData.id}", t) }
+                .onFailure { t -> Timber.d("Failed to vote in poll: ${statusViewData.id}", t) }
         }
     }
 
@@ -209,7 +209,6 @@ class SearchViewModel @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "SearchViewModel"
         private const val DEFAULT_LOAD_SIZE = 20
     }
 }

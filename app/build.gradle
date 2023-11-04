@@ -206,6 +206,7 @@ dependencies {
     implementation libs.bundles.xmldiff
 
     implementation libs.bundles.aboutlibraries
+    implementation libs.timber
 
     testImplementation project(path: ':core:testing')
     testImplementation libs.androidx.test.junit

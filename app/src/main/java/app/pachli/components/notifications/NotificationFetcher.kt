@@ -19,7 +19,6 @@ package app.pachli.components.notifications
 
 import android.app.NotificationManager
 import android.content.Context
-import android.util.Log
 import androidx.annotation.WorkerThread
 import app.pachli.components.notifications.NotificationHelper.filterNotification
 import app.pachli.core.accounts.AccountManager
@@ -31,6 +30,7 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.min
 import kotlin.time.Duration.Companion.milliseconds
@@ -111,7 +111,7 @@ class NotificationFetcher @Inject constructor(
 
                     accountManager.saveAccount(account)
                 } catch (e: Exception) {
-                    Log.e(TAG, "Error while fetching notifications", e)
+                    Timber.e("Error while fetching notifications", e)
                 }
             }
         }
@@ -143,18 +143,18 @@ class NotificationFetcher @Inject constructor(
         // - The Mastodon marker API (if the server supports it)
         // - account.notificationMarkerId
         // - account.lastNotificationId
-        Log.d(TAG, "getting notification marker for ${account.fullName}")
+        Timber.d("getting notification marker for ${account.fullName}")
         val remoteMarkerId = fetchMarker(authHeader, account)?.lastReadId ?: "0"
         val localMarkerId = account.notificationMarkerId
         val markerId = if (remoteMarkerId.isLessThan(localMarkerId)) localMarkerId else remoteMarkerId
         val readingPosition = account.lastNotificationId
 
         var minId: String? = if (readingPosition.isLessThan(markerId)) markerId else readingPosition
-        Log.d(TAG, "  remoteMarkerId: $remoteMarkerId")
-        Log.d(TAG, "  localMarkerId: $localMarkerId")
-        Log.d(TAG, "  readingPosition: $readingPosition")
+        Timber.d("  remoteMarkerId: $remoteMarkerId")
+        Timber.d("  localMarkerId: $localMarkerId")
+        Timber.d("  readingPosition: $readingPosition")
 
-        Log.d(TAG, "getting Notifications for ${account.fullName}, min_id: $minId")
+        Timber.d("getting Notifications for ${account.fullName}, min_id: $minId")
 
         // Fetch all outstanding notifications
         val notifications = buildList {
@@ -182,7 +182,7 @@ class NotificationFetcher @Inject constructor(
         // Save the newest notification ID in the marker.
         notifications.firstOrNull()?.let {
             val newMarkerId = notifications.first().id
-            Log.d(TAG, "updating notification marker for ${account.fullName} to: $newMarkerId")
+            Timber.d("updating notification marker for ${account.fullName} to: $newMarkerId")
             mastodonApi.updateMarkersWithAuth(
                 auth = authHeader,
                 domain = account.domain,
@@ -203,17 +203,15 @@ class NotificationFetcher @Inject constructor(
                 listOf("notifications"),
             )
             val notificationMarker = allMarkers["notifications"]
-            Log.d(TAG, "Fetched marker for ${account.fullName}: $notificationMarker")
+            Timber.d("Fetched marker for ${account.fullName}: $notificationMarker")
             notificationMarker
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to fetch marker", e)
+            Timber.e("Failed to fetch marker", e)
             null
         }
     }
 
     companion object {
-        private const val TAG = "NotificationFetcher"
-
         // There's a system limit on the maximum number of notifications an app
         // can show, NotificationManagerService.MAX_PACKAGE_NOTIFICATIONS. Unfortunately
         // that's not available to client code or via the NotificationManager API.
