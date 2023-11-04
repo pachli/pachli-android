@@ -42,7 +42,9 @@ import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -68,10 +70,10 @@ class CachedTimelineRepository @Inject constructor(
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
 
-    private val activeAccount = accountManager.activeAccount
+    private var activeAccount = accountManager.activeAccount
 
     /** @return flow of Mastodon [TimelineStatusWithAccount], loaded in [pageSize] increments */
-    @OptIn(ExperimentalPagingApi::class)
+    @OptIn(ExperimentalPagingApi::class, ExperimentalCoroutinesApi::class)
     fun getStatusStream(
         kind: TimelineKind,
         pageSize: Int = PAGE_SIZE,
@@ -79,39 +81,47 @@ class CachedTimelineRepository @Inject constructor(
     ): Flow<PagingData<TimelineStatusWithAccount>> {
         Log.d(TAG, "getStatusStream(): key: $initialKey")
 
-        factory = InvalidatingPagingSourceFactory {
-            activeAccount?.let { timelineDao.getStatuses(it.id) } ?: EmptyPagingSource()
-        }
+        return accountManager.activeAccountFlow.flatMapLatest {
+            activeAccount = it
 
-        val row = initialKey?.let { key ->
-            // Room is row-keyed (by Int), not item-keyed, so the status ID string that was
-            // passed as `initialKey` won't work.
-            //
-            // Instead, get all the status IDs for this account, in timeline order, and find the
-            // row index that contains the status. The row index is the correct initialKey.
-            activeAccount?.let { account ->
-                timelineDao.getStatusRowNumber(account.id)
-                    .indexOfFirst { it == key }.takeIf { it != -1 }
+            factory = InvalidatingPagingSourceFactory {
+                activeAccount?.let { timelineDao.getStatuses(it.id) } ?: EmptyPagingSource()
             }
+
+            val row = initialKey?.let { key ->
+                // Room is row-keyed (by Int), not item-keyed, so the status ID string that was
+                // passed as `initialKey` won't work.
+                //
+                // Instead, get all the status IDs for this account, in timeline order, and find the
+                // row index that contains the status. The row index is the correct initialKey.
+                activeAccount?.let { account ->
+                    timelineDao.getStatusRowNumber(account.id)
+                        .indexOfFirst { it == key }.takeIf { it != -1 }
+                }
+            }
+
+            Log.d(TAG, "initialKey: $initialKey is row: $row")
+
+            Pager(
+                config = PagingConfig(
+                    pageSize = pageSize,
+                    jumpThreshold = PAGE_SIZE * 3,
+                    enablePlaceholders = true
+                ),
+                initialKey = row,
+                remoteMediator = CachedTimelineRemoteMediator(
+                    initialKey,
+                    mastodonApi,
+                    accountManager,
+                    factory!!,
+                    transactionProvider,
+                    timelineDao,
+                    remoteKeyDao,
+                    gson,
+                ),
+                pagingSourceFactory = factory!!,
+            ).flow
         }
-
-        Log.d(TAG, "initialKey: $initialKey is row: $row")
-
-        return Pager(
-            config = PagingConfig(pageSize = pageSize, jumpThreshold = PAGE_SIZE * 3, enablePlaceholders = true),
-            initialKey = row,
-            remoteMediator = CachedTimelineRemoteMediator(
-                initialKey,
-                mastodonApi,
-                accountManager,
-                factory!!,
-                transactionProvider,
-                timelineDao,
-                remoteKeyDao,
-                gson,
-            ),
-            pagingSourceFactory = factory!!,
-        ).flow
     }
 
     /** Invalidate the active paging source, see [androidx.paging.PagingSource.invalidate] */
@@ -167,9 +177,11 @@ class CachedTimelineRepository @Inject constructor(
     }.join()
 
     suspend fun clearAndReloadFromNewest() = externalScope.launch {
-        timelineDao.removeAll(activeAccount!!.id)
-        remoteKeyDao.delete(activeAccount.id)
-        invalidate()
+        activeAccount?.let {
+            timelineDao.removeAll(it.id)
+            remoteKeyDao.delete(it.id)
+            invalidate()
+        }
     }
 
     suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
