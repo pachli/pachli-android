@@ -30,6 +30,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.ViewMediaActivity
 import app.pachli.databinding.FragmentTimelineBinding
@@ -59,6 +60,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AccountMediaFragment :
     Fragment(R.layout.fragment_timeline),
+    OnRefreshListener,
     RefreshableFragment,
     MenuProvider {
 
@@ -99,7 +101,7 @@ class AccountMediaFragment :
         binding.recyclerView.adapter = adapter
 
         binding.swipeRefreshLayout.isEnabled = false
-        binding.swipeRefreshLayout.setOnRefreshListener { refreshContent() }
+        binding.swipeRefreshLayout.setOnRefreshListener(this)
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
 
         binding.statusView.visibility = View.GONE
@@ -112,7 +114,6 @@ class AccountMediaFragment :
 
         adapter.addLoadStateListener { loadState ->
             binding.statusView.hide()
-            binding.progressBar.hide()
 
             if (loadState.refresh != LoadState.Loading && loadState.source.refresh != LoadState.Loading) {
                 binding.swipeRefreshLayout.isRefreshing = false
@@ -128,11 +129,11 @@ class AccountMediaFragment :
                     }
                     is LoadState.Error -> {
                         binding.statusView.show()
-                        binding.statusView.setup((loadState.refresh as LoadState.Error).error)
+                        binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
+                            refreshContent()
+                        }
                     }
-                    is LoadState.Loading -> {
-                        binding.progressBar.show()
-                    }
+                    is LoadState.Loading -> { /* nothing to do */ }
                 }
             }
         }
@@ -151,7 +152,6 @@ class AccountMediaFragment :
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.action_refresh -> {
-                binding.swipeRefreshLayout.isRefreshing = true
                 refreshContent()
                 true
             }
@@ -191,7 +191,18 @@ class AccountMediaFragment :
         }
     }
 
+    /** Refresh the displayed content, as if the user had swiped on the SwipeRefreshLayout */
     override fun refreshContent() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        onRefresh()
+    }
+
+    /**
+     * Listener for the user swiping on the SwipeRefreshLayout. The SwipeRefreshLayout has
+     * handled displaying the animated spinner.
+     */
+    override fun onRefresh() {
+        binding.statusView.hide()
         adapter.refresh()
     }
 

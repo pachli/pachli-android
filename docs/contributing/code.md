@@ -302,10 +302,10 @@ A number of pre-existing lint errors and warnings have been grandfathered in to 
 
 These are being removed over time, please do not add to them.
 
-If your PR fixes some of the existing lint issues, or moves code so that the baseline file is no longer valid you can you regenerate it with the `newLintBaseline` task.
+If your PR fixes some of the existing lint issues, or moves code so that the baseline file is no longer valid you can you regenerate it with the `updateLintBaselineOrangeDebug` task.
 
 ```shell
-./gradlew newLintBaseline
+./gradlew updateLintBaselineOrangeDebug
 ```
 
 #### Screenshots

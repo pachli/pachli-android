@@ -2555,7 +2555,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="148"
+            line="152"
             column="29"/>
     </issue>
 
@@ -2566,7 +2566,7 @@
         errorLine2="                                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="150"
+            line="154"
             column="37"/>
     </issue>
 
