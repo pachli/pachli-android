@@ -33,7 +33,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.transition.Transition
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -65,6 +64,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -255,7 +255,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
     private fun shareMedia() {
         val directory = applicationContext.getExternalFilesDir("Pachli")
         if (directory == null || !(directory.exists())) {
-            Log.e(TAG, "Error obtaining directory to save temporary media.")
+            Timber.e("Error obtaining directory to save temporary media.")
             return
         }
 
@@ -269,7 +269,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
                 Attachment.Type.VIDEO,
                 Attachment.Type.GIFV,
                 -> shareMediaFile(directory, attachment.url)
-                else -> Log.e(TAG, "Unknown media format for sharing.")
+                else -> Timber.e("Unknown media format for sharing.")
             }
         }
     }
@@ -299,9 +299,9 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
                 stream.close()
                 return@fromCallable true
             } catch (fnfe: FileNotFoundException) {
-                Log.e(TAG, "Error writing temporary media.")
+                Timber.e("Error writing temporary media.")
             } catch (ioe: IOException) {
-                Log.e(TAG, "Error writing temporary media.")
+                Timber.e("Error writing temporary media.")
             }
             return@fromCallable false
         }
@@ -313,7 +313,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe(
                 { result ->
-                    Log.d(TAG, "Download image result: $result")
+                    Timber.d("Download image result: $result")
                     isCreating = false
                     invalidateOptionsMenu()
                     binding.progressBarShare.visibility = View.GONE
@@ -325,7 +325,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
                     isCreating = false
                     invalidateOptionsMenu()
                     binding.progressBarShare.visibility = View.GONE
-                    Log.e(TAG, "Failed to download image", error)
+                    Timber.e("Failed to download image", error)
                 },
             )
     }
@@ -351,7 +351,6 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
         private const val EXTRA_ATTACHMENTS = "attachments"
         private const val EXTRA_ATTACHMENT_INDEX = "index"
         private const val EXTRA_SINGLE_IMAGE_URL = "single_image"
-        private const val TAG = "ViewMediaActivity"
 
         @JvmStatic
         fun newIntent(context: Context?, attachments: List<AttachmentViewData>, index: Int): Intent {

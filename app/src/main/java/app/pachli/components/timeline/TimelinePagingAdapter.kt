@@ -86,8 +86,6 @@ class TimelinePagingAdapter(
     }
 
     companion object {
-        @Suppress("unused")
-        private const val TAG = "TimelinePagingAdapter"
         private const val VIEW_TYPE_STATUS = 0
         private const val VIEW_TYPE_STATUS_FILTERED = 1
         private const val VIEW_TYPE_PLACEHOLDER = -1

@@ -23,8 +23,8 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.provider.OpenableColumns
-import android.util.Log
 import androidx.exifinterface.media.ExifInterface
+import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -36,7 +36,7 @@ import java.util.Locale
 /**
  * Helper methods for obtaining and resizing media files
  */
-private const val TAG = "MediaUtils"
+
 private const val MEDIA_TEMP_PREFIX = "Pachli_Share_Media"
 const val MEDIA_SIZE_UNKNOWN = -1L
 
@@ -148,7 +148,7 @@ fun getImageOrientation(uri: Uri, contentResolver: ContentResolver): Int {
     val inputStream = try {
         contentResolver.openInputStream(uri)
     } catch (e: FileNotFoundException) {
-        Log.w(TAG, e)
+        Timber.w(e)
         return ExifInterface.ORIENTATION_UNDEFINED
     }
     inputStream ?: return ExifInterface.ORIENTATION_UNDEFINED
@@ -157,7 +157,7 @@ fun getImageOrientation(uri: Uri, contentResolver: ContentResolver): Int {
         val exifInterface = try {
             ExifInterface(it)
         } catch (e: IOException) {
-            Log.w(TAG, e)
+            Timber.w(e)
             return@use ExifInterface.ORIENTATION_UNDEFINED
         }
 
@@ -189,7 +189,7 @@ fun deleteStaleCachedMedia(mediaDirectory: File?) {
         try {
             file.delete()
         } catch (se: SecurityException) {
-            Log.e(TAG, "Error removing stale cached media")
+            Timber.e("Error removing stale cached media")
         }
     }
 }

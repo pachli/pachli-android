@@ -19,7 +19,6 @@ package app.pachli.components.trending
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -57,6 +56,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import timber.log.Timber
 
 @AndroidEntryPoint
 class TrendingLinksFragment :
@@ -220,7 +220,7 @@ class TrendingLinksFragment :
 
         val wasEnabled = talkBackWasEnabled
         talkBackWasEnabled = a11yManager?.isEnabled == true
-        Log.d(TAG, "talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
+        Timber.d("talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
         if (talkBackWasEnabled && !wasEnabled) {
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
@@ -229,8 +229,6 @@ class TrendingLinksFragment :
     }
 
     companion object {
-        private const val TAG = "TrendingLinksFragment"
-
         fun newInstance() = TrendingLinksFragment()
     }
 }

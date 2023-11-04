@@ -197,6 +197,7 @@ dependencies {
     implementation libs.bundles.xmldiff
 
     implementation libs.bundles.aboutlibraries
+    implementation libs.timber
 
     testImplementation libs.androidx.test.junit
     testImplementation libs.robolectric

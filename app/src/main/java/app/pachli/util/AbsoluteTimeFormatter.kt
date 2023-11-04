@@ -40,7 +40,6 @@ class AbsoluteTimeFormatter @JvmOverloads constructor(private val tz: TimeZone =
     }
 
     companion object {
-
         private fun isSameDate(dateOne: Date, dateTwo: Date, tz: TimeZone): Boolean {
             val calendarOne = Calendar.getInstance(tz).apply { time = dateOne }
             val calendarTwo = Calendar.getInstance(tz).apply { time = dateTwo }

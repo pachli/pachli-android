@@ -21,7 +21,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -34,9 +33,8 @@ import app.pachli.service.SendStatusService
 import app.pachli.service.StatusToSend
 import app.pachli.util.randomAlphanumericString
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
-
-private const val TAG = "SendStatusBR"
 
 @AndroidEntryPoint
 class SendStatusBroadcastReceiver : BroadcastReceiver() {
@@ -62,7 +60,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
             val message = getReplyMessage(intent)
 
             if (account == null) {
-                Log.w(TAG, "Account \"$senderId\" not found in database. Aborting quick reply!")
+                Timber.w("Account \"$senderId\" not found in database. Aborting quick reply!")
 
                 if (ActivityCompat.checkSelfPermission(context, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
                     return

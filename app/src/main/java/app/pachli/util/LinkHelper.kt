@@ -28,7 +28,6 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.URLSpan
-import android.util.Log
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
@@ -50,6 +49,7 @@ import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.color
 import com.mikepenz.iconics.utils.size
+import timber.log.Timber
 import java.lang.ref.WeakReference
 import java.net.URI
 import java.net.URISyntaxException
@@ -270,7 +270,7 @@ private fun openLinkInBrowser(uri: Uri?, context: Context) {
     try {
         context.startActivity(intent)
     } catch (e: ActivityNotFoundException) {
-        Log.w(TAG, "Activity was not found for intent, $intent")
+        Timber.w("Activity was not found for intent, $intent")
     }
 }
 
@@ -298,7 +298,7 @@ fun openLinkInCustomTab(uri: Uri, context: Context) {
     try {
         customTabsIntent.launchUrl(context, uri)
     } catch (e: ActivityNotFoundException) {
-        Log.w(TAG, "Activity was not found for intent $customTabsIntent")
+        Timber.w("Activity was not found for intent $customTabsIntent")
         openLinkInBrowser(uri, context)
     }
 }
@@ -349,8 +349,6 @@ fun looksLikeMastodonUrl(urlString: String): Boolean {
             it.matches("^/o/[a-f0-9]+$".toRegex())
     }
 }
-
-private const val TAG = "LinkHelper"
 
 /**
  * [LinkMovementMethod] that doesn't add a leading/trailing clickable area.

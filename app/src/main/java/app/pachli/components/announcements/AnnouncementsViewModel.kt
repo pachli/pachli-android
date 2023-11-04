@@ -16,7 +16,6 @@
 
 package app.pachli.components.announcements
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,6 +33,7 @@ import app.pachli.util.Success
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -70,8 +70,7 @@ class AnnouncementsViewModel @Inject constructor(
                                             eventHub.dispatch(AnnouncementReadEvent(announcement.id))
                                         },
                                         { throwable ->
-                                            Log.d(
-                                                TAG,
+                                            Timber.d(
                                                 "Failed to mark announcement as read.",
                                                 throwable,
                                             )
@@ -130,7 +129,7 @@ class AnnouncementsViewModel @Inject constructor(
                         )
                     },
                     {
-                        Log.w(TAG, "Failed to add reaction to the announcement.", it)
+                        Timber.w("Failed to add reaction to the announcement.", it)
                     },
                 )
         }
@@ -169,13 +168,9 @@ class AnnouncementsViewModel @Inject constructor(
                         )
                     },
                     {
-                        Log.w(TAG, "Failed to remove reaction from the announcement.", it)
+                        Timber.w("Failed to remove reaction from the announcement.", it)
                     },
                 )
         }
-    }
-
-    companion object {
-        private const val TAG = "AnnouncementsViewModel"
     }
 }

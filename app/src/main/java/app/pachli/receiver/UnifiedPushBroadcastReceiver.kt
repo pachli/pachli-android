@@ -17,7 +17,6 @@
 package app.pachli.receiver
 
 import android.content.Context
-import android.util.Log
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import app.pachli.components.notifications.registerUnifiedPushEndpoint
@@ -30,6 +29,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.unifiedpush.android.connector.MessagingReceiver
+import timber.log.Timber
 import javax.inject.Inject
 
 @DelicateCoroutinesApi
@@ -46,14 +46,14 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
     lateinit var mastodonApi: MastodonApi
 
     override fun onMessage(context: Context, message: ByteArray, instance: String) {
-        Log.d(TAG, "New message received for account $instance")
+        Timber.d("New message received for account $instance")
         val workManager = WorkManager.getInstance(context)
         val request = OneTimeWorkRequest.from(NotificationWorker::class.java)
         workManager.enqueue(request)
     }
 
     override fun onNewEndpoint(context: Context, endpoint: String, instance: String) {
-        Log.d(TAG, "Endpoint available for account $instance: $endpoint")
+        Timber.d("Endpoint available for account $instance: $endpoint")
         accountManager.getAccountById(instance.toLong())?.let {
             // Launch the coroutine in global scope -- it is short and we don't want to lose the registration event
             // and there is no saner way to use structured concurrency in a receiver
@@ -64,7 +64,7 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
     override fun onRegistrationFailed(context: Context, instance: String) = Unit
 
     override fun onUnregistered(context: Context, instance: String) {
-        Log.d(TAG, "Endpoint unregistered for account $instance")
+        Timber.d("Endpoint unregistered for account $instance")
         accountManager.getAccountById(instance.toLong())?.let {
             // It's fine if the account does not exist anymore -- that means it has been logged out
             GlobalScope.launch { unregisterUnifiedPushEndpoint(mastodonApi, accountManager, it) }

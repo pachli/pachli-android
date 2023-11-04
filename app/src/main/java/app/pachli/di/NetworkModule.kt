@@ -18,7 +18,6 @@ package app.pachli.di
 
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import app.pachli.BuildConfig
 import app.pachli.db.AccountManager
 import app.pachli.json.Rfc3339DateJsonAdapter
@@ -46,6 +45,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import timber.log.Timber
 import java.net.IDN
 import java.net.InetSocketAddress
 import java.net.Proxy
@@ -56,7 +56,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object NetworkModule {
-    private const val TAG = "NetworkModule"
 
     @Provides
     @Singleton
@@ -98,7 +97,7 @@ object NetworkModule {
             ProxyConfiguration.create(httpServer, httpPort)?.also { conf ->
                 val address = InetSocketAddress.createUnresolved(IDN.toASCII(conf.hostname), conf.port)
                 builder.proxy(Proxy(Proxy.Type.HTTP, address))
-            } ?: Log.w(TAG, "Invalid proxy configuration: ($httpServer, $httpPort)")
+            } ?: Timber.w("Invalid proxy configuration: ($httpServer, $httpPort)")
         }
 
         return builder

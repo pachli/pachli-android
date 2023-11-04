@@ -58,9 +58,4 @@ class FiltersRepository @Inject constructor(
             }
         },
     )
-
-    companion object {
-        @Suppress("unused")
-        private const val TAG = "FiltersRepository"
-    }
 }
