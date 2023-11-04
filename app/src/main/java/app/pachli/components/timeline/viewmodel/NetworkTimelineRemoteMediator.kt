@@ -187,7 +187,4 @@ class NetworkTimelineRemoteMediator(
             )
         }
     }
-
-    companion object {
-    }
 }

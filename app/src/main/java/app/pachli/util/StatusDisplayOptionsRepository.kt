@@ -170,7 +170,4 @@ class StatusDisplayOptionsRepository @Inject constructor(
             openSpoiler = account?.alwaysOpenSpoiler ?: default.openSpoiler,
         )
     }
-
-    companion object {
-    }
 }

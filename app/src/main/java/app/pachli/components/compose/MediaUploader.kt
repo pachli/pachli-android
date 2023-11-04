@@ -336,7 +336,4 @@ class MediaUploader @Inject constructor(
         return media.type == QueuedMedia.Type.IMAGE &&
             (media.mediaSize > instanceInfo.imageSizeLimit || getImageSquarePixels(context.contentResolver, media.uri) > instanceInfo.imageMatrixLimit)
     }
-
-    private companion object {
-    }
 }

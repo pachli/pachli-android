@@ -153,7 +153,4 @@ class NetworkTimelinePagingSource @Inject constructor(
         Timber.d("- getRefreshKey(), state.anchorPosition = ${state.anchorPosition}, return $refreshKey")
         return refreshKey
     }
-
-    companion object {
-    }
 }

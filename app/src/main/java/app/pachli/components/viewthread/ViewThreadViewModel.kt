@@ -566,9 +566,6 @@ class ViewThreadViewModel @Inject constructor(
             status.copy(filtered = null)
         }
     }
-
-    companion object {
-    }
 }
 
 sealed interface ThreadUiState {

@@ -45,7 +45,4 @@ class FollowedTagsViewModel @Inject constructor(
                 emptyList()
             },)
     }
-
-    companion object {
-    }
 }

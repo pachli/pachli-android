@@ -58,7 +58,4 @@ class FiltersRepository @Inject constructor(
             }
         },
     )
-
-    companion object {
-    }
 }

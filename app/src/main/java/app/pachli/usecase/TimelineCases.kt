@@ -139,9 +139,6 @@ class TimelineCases @Inject constructor(
     suspend fun rejectFollowRequest(accountId: String): NetworkResult<Relationship> {
         return mastodonApi.rejectFollowRequest(accountId)
     }
-
-    companion object {
-    }
 }
 
 class TimelineError(message: String?) : RuntimeException(message)

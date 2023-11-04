@@ -129,7 +129,4 @@ class PachliApplication : Application() {
         editor.putInt(PrefKeys.SCHEMA_VERSION, newVersion)
         editor.apply()
     }
-
-    companion object {
-    }
 }

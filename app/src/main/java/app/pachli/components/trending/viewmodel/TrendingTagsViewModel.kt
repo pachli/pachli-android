@@ -124,7 +124,4 @@ class TrendingTagsViewModel @Inject constructor(
 
         return map { TrendingViewData.Tag.from(it, maxTrendingValue) }
     }
-
-    companion object {
-    }
 }

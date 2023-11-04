@@ -183,7 +183,4 @@ class ConversationsViewModel @Inject constructor(
     private suspend fun saveConversationToDb(conversation: ConversationEntity) {
         conversationsDao.insert(conversation)
     }
-
-    companion object {
-    }
 }

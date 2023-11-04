@@ -146,7 +146,4 @@ class InstanceListFragment :
             }
         }
     }
-
-    companion object {
-    }
 }

@@ -223,7 +223,4 @@ class NotificationsPagingAdapter(
             binding.text1.text = viewData.statusViewData?.content
         }
     }
-
-    companion object {
-    }
 }

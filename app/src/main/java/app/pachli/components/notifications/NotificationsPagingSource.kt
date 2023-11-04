@@ -205,7 +205,4 @@ class NotificationsPagingSource @Inject constructor(
             return id
         }
     }
-
-    companion object {
-    }
 }

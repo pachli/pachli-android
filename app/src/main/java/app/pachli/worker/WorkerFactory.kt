@@ -64,7 +64,4 @@ class WorkerFactory @Inject constructor(
         }
         return null
     }
-
-    companion object {
-    }
 }

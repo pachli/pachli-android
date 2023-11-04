@@ -179,7 +179,4 @@ class CachedTimelineViewModel @Inject constructor(
     override suspend fun invalidate() {
         repository.invalidate()
     }
-
-    companion object {
-    }
 }

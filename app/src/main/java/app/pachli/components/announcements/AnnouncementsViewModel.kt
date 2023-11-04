@@ -173,7 +173,4 @@ class AnnouncementsViewModel @Inject constructor(
                 )
         }
     }
-
-    companion object {
-    }
 }

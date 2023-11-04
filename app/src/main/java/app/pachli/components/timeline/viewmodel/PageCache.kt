@@ -166,7 +166,4 @@ class PageCache : TreeMap<String, Page>(compareBy({ it.length }, { it })) {
             }
         }
     }
-
-    companion object {
-    }
 }
