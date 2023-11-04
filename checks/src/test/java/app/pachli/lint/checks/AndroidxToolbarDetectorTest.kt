@@ -40,9 +40,9 @@ class AndroidxToolbarDetectorTest {
             ).indented(),
         ).issues(AndroidxToolbarDetector.ISSUE).allowMissingSdk().run().expectWarningCount(1)
             .expect(
-                """res/layout/test.xml:16: Warning: Use <com.google.android.material.appbar.MaterialToolbar> instead of <androidx.appcompat.widget.Toolbar> [AndroidxToolbarDetector]
+                """res/layout/test.xml:16: Warning: Use com.google.android.material.appbar.MaterialToolbar instead of androidx.appcompat.widget.Toolbar [AndroidxToolbarDetector]
                         <androidx.appcompat.widget.Toolbar
-                        ^
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0 errors, 1 warnings
         """,
             )
