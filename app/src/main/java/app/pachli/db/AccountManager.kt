@@ -17,7 +17,6 @@
 package app.pachli.db
 
 import android.content.Context
-import android.util.Log
 import app.pachli.di.ApplicationScope
 import app.pachli.entity.Account
 import app.pachli.entity.Status
@@ -27,6 +26,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -35,8 +35,6 @@ import javax.inject.Singleton
  * This class caches the account database and handles all account related operations
  * @author ConnyDuck
  */
-
-private const val TAG = "AccountManager"
 
 @Singleton
 class AccountManager @Inject constructor(
@@ -84,7 +82,7 @@ class AccountManager @Inject constructor(
     ) {
         activeAccount?.let {
             it.isActive = false
-            Log.d(TAG, "addAccount: saving account with id " + it.id)
+            Timber.d("addAccount: saving account with id " + it.id)
 
             accountDao.insertOrReplace(it)
         }
@@ -126,7 +124,7 @@ class AccountManager @Inject constructor(
      */
     fun saveAccount(account: AccountEntity) {
         if (account.id != 0L) {
-            Log.d(TAG, "saveAccount: saving account with id " + account.id)
+            Timber.d("saveAccount: saving account with id " + account.id)
             accountDao.insertOrReplace(account)
         }
     }
@@ -147,7 +145,7 @@ class AccountManager @Inject constructor(
             if (accounts.size > 0) {
                 accounts[0].isActive = true
                 activeAccount = accounts[0]
-                Log.d(TAG, "logActiveAccountOut: saving account with id " + accounts[0].id)
+                Timber.d("logActiveAccountOut: saving account with id " + accounts[0].id)
                 accountDao.insertOrReplace(accounts[0])
             } else {
                 activeAccount = null
@@ -173,7 +171,7 @@ class AccountManager @Inject constructor(
             it.emojis = account.emojis.orEmpty()
             it.locked = account.locked
 
-            Log.d(TAG, "updateActiveAccount: saving account with id " + it.id)
+            Timber.d("updateActiveAccount: saving account with id " + it.id)
             accountDao.insertOrReplace(it)
         }
     }
@@ -188,7 +186,7 @@ class AccountManager @Inject constructor(
         } ?: return // invalid accountId passed, do nothing
 
         activeAccount?.let {
-            Log.d(TAG, "setActiveAccount: saving account with id " + it.id)
+            Timber.d("setActiveAccount: saving account with id " + it.id)
             it.isActive = false
             saveAccount(it)
         }

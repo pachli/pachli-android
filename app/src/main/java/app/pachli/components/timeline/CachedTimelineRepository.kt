@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
@@ -46,6 +45,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -79,7 +79,7 @@ class CachedTimelineRepository @Inject constructor(
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
     ): Flow<PagingData<TimelineStatusWithAccount>> {
-        Log.d(TAG, "getStatusStream(): key: $initialKey")
+        Timber.d("getStatusStream(): key: $initialKey")
 
         return accountManager.activeAccountFlow.flatMapLatest {
             activeAccount = it
@@ -100,7 +100,7 @@ class CachedTimelineRepository @Inject constructor(
                 }
             }
 
-            Log.d(TAG, "initialKey: $initialKey is row: $row")
+            Timber.d("initialKey: $initialKey is row: $row")
 
             Pager(
                 config = PagingConfig(
@@ -214,7 +214,6 @@ class CachedTimelineRepository @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "CachedTimelineRepository"
         private const val PAGE_SIZE = 30
     }
 }

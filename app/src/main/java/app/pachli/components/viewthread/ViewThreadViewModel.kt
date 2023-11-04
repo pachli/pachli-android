@@ -16,7 +16,6 @@
 
 package app.pachli.components.viewthread
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.BlockEvent
@@ -59,6 +58,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -126,12 +126,12 @@ class ViewThreadViewModel @Inject constructor(
         _uiState.value = ThreadUiState.Loading
 
         viewModelScope.launch {
-            Log.d(TAG, "Finding status with: $id")
+            Timber.d("Finding status with: $id")
             val contextCall = async { api.statusContext(id) }
             val timelineStatusWithAccount = timelineDao.getStatus(id)
 
             var detailedStatus = if (timelineStatusWithAccount != null) {
-                Log.d(TAG, "Loaded status from local timeline")
+                Timber.d("Loaded status from local timeline")
                 val status = timelineStatusWithAccount.toStatus(gson)
 
                 // Return the correct status, depending on which one matched. If you do not do
@@ -159,7 +159,7 @@ class ViewThreadViewModel @Inject constructor(
                     )
                 }
             } else {
-                Log.d(TAG, "Loaded status from network")
+                Timber.d("Loaded status from network")
                 val result = api.status(id).getOrElse { exception ->
                     _uiState.value = ThreadUiState.Error(exception)
                     return@launch
@@ -262,7 +262,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.reblog(status.actionableId, reblog).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Log.d(TAG, "Failed to reblog status " + status.actionableId, t)
+                Timber.d("Failed to reblog status " + status.actionableId, t)
             }
         }
     }
@@ -272,7 +272,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.favourite(status.actionableId, favorite).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Log.d(TAG, "Failed to favourite status " + status.actionableId, t)
+                Timber.d("Failed to favourite status " + status.actionableId, t)
             }
         }
     }
@@ -282,14 +282,14 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.bookmark(status.actionableId, bookmark).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Log.d(TAG, "Failed to bookmark status " + status.actionableId, t)
+                Timber.d("Failed to bookmark status " + status.actionableId, t)
             }
         }
     }
 
     fun voteInPoll(choices: List<Int>, status: StatusViewData): Job = viewModelScope.launch {
         val poll = status.status.actionableStatus.poll ?: run {
-            Log.w(TAG, "No poll on status ${status.id}")
+            Timber.w("No poll on status ${status.id}")
             return@launch
         }
 
@@ -302,7 +302,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.voteInPoll(status.actionableId, poll.id, choices).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Log.d(TAG, "Failed to vote in poll: " + status.actionableId, t)
+                Timber.d("Failed to vote in poll: " + status.actionableId, t)
             }
         }
     }
@@ -613,10 +613,6 @@ class ViewThreadViewModel @Inject constructor(
         updateStatus(viewData.id) { status ->
             status.copy(filtered = null)
         }
-    }
-
-    companion object {
-        private const val TAG = "ViewThreadViewModel"
     }
 }
 

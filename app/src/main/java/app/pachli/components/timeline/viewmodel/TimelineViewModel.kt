@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.util.Log
 import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
@@ -75,6 +74,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import kotlin.time.Duration.Companion.milliseconds
 
 data class UiState(
@@ -321,7 +321,7 @@ abstract class TimelineViewModel(
     init {
         viewModelScope.launch {
             updateFiltersFromPreferences().collectLatest {
-                Log.d(TAG, "Filters updated")
+                Timber.d("Filters updated")
             }
         }
 
@@ -412,7 +412,7 @@ abstract class TimelineViewModel(
                     .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                     .distinctUntilChanged()
                     .collectLatest { action ->
-                        Log.d(TAG, "Saving Home timeline position at: ${action.visibleId}")
+                        Timber.d("Saving Home timeline position at: ${action.visibleId}")
                         activeAccount.lastVisibleHomeTimelineStatusId = action.visibleId
                         accountManager.saveAccount(activeAccount)
                         readingPositionId = action.visibleId
@@ -529,7 +529,7 @@ abstract class TimelineViewModel(
     /** Gets the current filters from the repository. */
     private fun getFilters() {
         viewModelScope.launch {
-            Log.d(TAG, "getFilters()")
+            Timber.d("getFilters()")
             try {
                 val filterKind = Filter.Kind.from(timelineKind)
                 filterModel = when (val filters = filtersRepository.getFilters()) {
@@ -537,7 +537,7 @@ abstract class TimelineViewModel(
                     is FilterKind.V2 -> FilterModel(filterKind)
                 }
             } catch (throwable: Throwable) {
-                Log.d(TAG, "updateFilter(): Error fetching filters: ${throwable.message}")
+                Timber.d("updateFilter(): Error fetching filters: ${throwable.message}")
                 _uiErrorChannel.send(UiError.GetFilters(throwable))
             }
         }
@@ -613,7 +613,6 @@ abstract class TimelineViewModel(
     }
 
     companion object {
-        private const val TAG = "TimelineViewModel"
         private val THROTTLE_TIMEOUT = 500.milliseconds
 
         /** Tag for the timelineKind in `savedStateHandle` */

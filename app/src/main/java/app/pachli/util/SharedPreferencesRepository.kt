@@ -18,11 +18,11 @@
 package app.pachli.util
 
 import android.content.SharedPreferences
-import android.util.Log
 import app.pachli.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -51,7 +51,7 @@ class SharedPreferencesRepository @Inject constructor(
         }
 
     init {
-        Log.d("SharedPreferencesRepository", "Being created")
+        Timber.d("Being created")
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
     }
 }

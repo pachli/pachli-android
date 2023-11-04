@@ -22,7 +22,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -59,6 +58,7 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class EditProfileActivity : BaseActivity() {
@@ -315,7 +315,7 @@ class EditProfileActivity : BaseActivity() {
     }
 
     private fun onPickFailure(throwable: Throwable?) {
-        Log.w("EditProfileActivity", "failed to pick media", throwable)
+        Timber.w("failed to pick media", throwable)
         Snackbar.make(binding.avatarButton, R.string.error_media_upload_sending, Snackbar.LENGTH_LONG).show()
     }
 

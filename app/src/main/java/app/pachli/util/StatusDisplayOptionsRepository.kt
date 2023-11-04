@@ -17,7 +17,6 @@
 
 package app.pachli.util
 
-import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.db.AccountEntity
@@ -34,6 +33,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -77,12 +77,12 @@ class StatusDisplayOptionsRepository @Inject constructor(
     )
 
     init {
-        Log.d(TAG, "Created StatusDisplayOptionsRepository")
+        Timber.d("Created StatusDisplayOptionsRepository")
 
         // Update whenever preferences change
         externalScope.launch {
             sharedPreferencesRepository.changes.filter { prefKeys.contains(it) }.collect { key ->
-                Log.d(TAG, "Updating because shared preference changed")
+                Timber.d("Updating because shared preference changed")
                 _flow.update { prev ->
                     when (key) {
                         PrefKeys.ANIMATE_GIF_AVATARS -> prev.copy(
@@ -132,14 +132,14 @@ class StatusDisplayOptionsRepository @Inject constructor(
 
         externalScope.launch {
             accountManager.activeAccountFlow.collect {
-                Log.d(TAG, "Updating because active account changed")
+                Timber.d("Updating because active account changed")
                 _flow.emit(initialStatusDisplayOptions(it))
             }
         }
 
         externalScope.launch {
             accountPreferenceDataStore.changes.collect { (key, value) ->
-                Log.d(TAG, "Updating because account preference changed")
+                Timber.d("Updating because account preference changed")
                 _flow.update { prev ->
                     when (key) {
                         PrefKeys.MEDIA_PREVIEW_ENABLED -> prev.copy(mediaPreviewEnabled = value)
@@ -153,7 +153,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
 
         externalScope.launch {
             serverCapabilitiesRepository.flow.collect { serverCapabilities ->
-                Log.d(TAG, "Updating because server capabilities changed")
+                Timber.d("Updating because server capabilities changed")
                 _flow.update {
                     it.copy(
                         canTranslate = serverCapabilities.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()),
@@ -185,9 +185,5 @@ class StatusDisplayOptionsRepository @Inject constructor(
             openSpoiler = account?.alwaysOpenSpoiler ?: default.openSpoiler,
             canTranslate = default.canTranslate,
         )
-    }
-
-    companion object {
-        private const val TAG = "StatusDisplayOptionsRepository"
     }
 }

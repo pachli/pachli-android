@@ -197,6 +197,7 @@ dependencies {
     implementation libs.bundles.xmldiff
 
     implementation libs.bundles.aboutlibraries
+    implementation libs.timber
 
     implementation libs.kotlin.result
     implementation libs.semver

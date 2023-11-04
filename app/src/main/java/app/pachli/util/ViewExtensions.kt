@@ -16,11 +16,11 @@
 
 package app.pachli.util
 
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import timber.log.Timber
 
 fun View.show() {
     this.visibility = View.VISIBLE
@@ -64,7 +64,7 @@ fun ViewPager2.reduceSwipeSensitivity() {
         val scaleFactor = 2
         touchSlopField.set(recyclerView, touchSlop * scaleFactor)
     } catch (e: Exception) {
-        Log.w("reduceSwipeSensitivity", e)
+        Timber.tag("reduceSwipeSensitibity").w(e)
     }
 }
 

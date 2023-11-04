@@ -17,7 +17,6 @@
 package app.pachli.components.viewthread
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -56,6 +55,7 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ViewThreadFragment :
@@ -166,7 +166,7 @@ class ViewThreadFragment :
                         binding.statusView.hide()
                     }
                     is ThreadUiState.Error -> {
-                        Log.w(TAG, "failed to load status", uiState.throwable)
+                        Timber.w("failed to load status", uiState.throwable)
                         initialProgressBar.cancel()
                         threadProgressBar.cancel()
 
@@ -214,7 +214,7 @@ class ViewThreadFragment :
 
         lifecycleScope.launch {
             viewModel.errors.collect { throwable ->
-                Log.w(TAG, "failed to load status context", throwable)
+                Timber.w("failed to load status context", throwable)
                 val msg = view.context.getString(R.string.error_generic_fmt, throwable)
                 Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.action_retry) {
@@ -419,8 +419,6 @@ class ViewThreadFragment :
     }
 
     companion object {
-        private const val TAG = "ViewThreadFragment"
-
         private const val ID_EXTRA = "id"
         private const val URL_EXTRA = "url"
 

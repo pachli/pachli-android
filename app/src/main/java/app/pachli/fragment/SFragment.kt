@@ -26,7 +26,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -65,6 +64,7 @@ import at.connyduck.calladapter.networkresult.onFailure
 import com.google.android.material.snackbar.Snackbar
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /* Note from Andrew on Jan. 22, 2017: This class is a design problem for me, so I left it with an
@@ -400,7 +400,7 @@ abstract class SFragment : Fragment() {
                 lifecycleScope.launch {
                     val result = timelineCases.delete(id).exceptionOrNull()
                     if (result != null) {
-                        Log.w("SFragment", "error deleting status", result)
+                        Timber.w("error deleting status", result)
                         Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT).show()
                     }
                     // XXX: Removes the item even if there was an error. This is probably not
@@ -446,7 +446,7 @@ abstract class SFragment : Fragment() {
                             startActivity(startIntent(requireContext(), composeOptions))
                         },
                         { error: Throwable? ->
-                            Log.w("SFragment", "error deleting status", error)
+                            Timber.w(error, "error deleting status")
                             Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT)
                                 .show()
                         },
@@ -538,8 +538,6 @@ abstract class SFragment : Fragment() {
     }
 
     companion object {
-        @Suppress("unused")
-        private const val TAG = "SFragment"
         private fun accountIsInMentions(account: AccountEntity?, mentions: List<Status.Mention>): Boolean {
             return mentions.any { mention ->
                 account?.username == mention.username && account.domain == Uri.parse(mention.url)?.host
