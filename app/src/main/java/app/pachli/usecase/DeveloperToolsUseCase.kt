@@ -45,8 +45,4 @@ class DeveloperToolsUseCase @Inject constructor(
             timelineDao.deleteRange(accountId, ids.last(), ids.first())
         }
     }
-
-    companion object {
-        const val TAG = "DeveloperToolsUseCase"
-    }
 }

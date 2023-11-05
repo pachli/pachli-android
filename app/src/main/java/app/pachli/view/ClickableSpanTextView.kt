@@ -364,10 +364,6 @@ class ClickableSpanTextView @JvmOverloads constructor(
             canvas.restore()
         }
     }
-
-    companion object {
-        const val TAG = "ClickableSpanTextView"
-    }
 }
 
 /**

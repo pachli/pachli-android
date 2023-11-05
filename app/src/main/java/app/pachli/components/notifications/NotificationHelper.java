@@ -88,8 +88,6 @@ public class NotificationHelper {
     /** Dynamic notification IDs start here */
     private static int notificationId = NOTIFICATION_ID_PRUNE_CACHE + 1;
 
-    private static final String TAG = "NotificationHelper";
-
     public static final String REPLY_ACTION = "REPLY_ACTION";
 
     public static final String KEY_REPLY = "KEY_REPLY";
