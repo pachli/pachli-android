@@ -38,7 +38,7 @@ jobs:
         run: ./gradlew app:lintOrangeDebug
 
       - name: Test
-        run: ./gradlew app:testOrangeDebugUnitTest
+        run: ./gradlew app:testOrangeDebugUnitTest checks:test
 
       - name: Build
         run: ./gradlew app:buildOrangeDebug
