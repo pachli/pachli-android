@@ -213,9 +213,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/status_display_name"
         app:layout_constraintTop_toBottomOf="@id/status_media_preview_container"
-        tools:visibility="gone" >
-
-    </app.pachli.view.PollView>
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/translationProvider"
