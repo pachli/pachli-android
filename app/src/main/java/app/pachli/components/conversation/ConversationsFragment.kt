@@ -388,8 +388,6 @@ class ConversationsFragment :
     }
 
     companion object {
-        @Suppress("unused")
-        private const val TAG = "ConversationsFragment"
         fun newInstance() = ConversationsFragment()
     }
 }

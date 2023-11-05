@@ -35,10 +35,6 @@ import javax.inject.Inject
 @DelicateCoroutinesApi
 @AndroidEntryPoint
 class UnifiedPushBroadcastReceiver : MessagingReceiver() {
-    companion object {
-        const val TAG = "UnifiedPush"
-    }
-
     @Inject
     lateinit var accountManager: AccountManager
 

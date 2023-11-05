@@ -174,10 +174,6 @@ class FollowedTagsActivity :
         return viewModel.searchAutocompleteSuggestions(token)
     }
 
-    companion object {
-        const val TAG = "FollowedTagsActivity"
-    }
-
     class FollowTagDialog : DialogFragment() {
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val layout = layoutInflater.inflate(R.layout.dialog_follow_hashtag, null)
