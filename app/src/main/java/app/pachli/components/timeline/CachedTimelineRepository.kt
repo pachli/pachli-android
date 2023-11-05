@@ -186,7 +186,7 @@ class CachedTimelineRepository @Inject constructor(
 
     suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
         saveStatusViewData(statusViewData.copy(translationState = TranslationState.TRANSLATING))
-        val translation = mastodonApi.translate(statusViewData.id)
+        val translation = mastodonApi.translate(statusViewData.actionableId)
         translation.fold({
             translatedStatusDao.upsert(
                 TranslatedStatusEntity(
