@@ -24,7 +24,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.webkit.CookieManager
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -47,6 +46,7 @@ import app.pachli.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
+import timber.log.Timber
 
 /** Contract for starting [LoginWebViewActivity]. */
 class OauthLogin : ActivityResultContract<LoginData, LoginResult>() {
@@ -148,7 +148,7 @@ class LoginWebViewActivity : BaseActivity() {
                 request: WebResourceRequest,
                 error: WebResourceError,
             ) {
-                Log.d("LoginWeb", "Failed to load ${data.url}: $error")
+                Timber.d("Failed to load ${data.url}: $error")
                 sendResult(LoginResult.Err(getString(R.string.error_could_not_load_login_page)))
             }
 

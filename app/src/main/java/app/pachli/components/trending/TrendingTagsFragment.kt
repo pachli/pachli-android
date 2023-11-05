@@ -20,7 +20,6 @@ package app.pachli.components.trending
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -59,6 +58,7 @@ import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class TrendingTagsFragment :
@@ -181,7 +181,7 @@ class TrendingTagsFragment :
     }
 
     private fun processViewState(uiState: TrendingTagsViewModel.TrendingTagsUiState) {
-        Log.d(TAG, uiState.loadingState.name)
+        Timber.d(uiState.loadingState.name)
         when (uiState.loadingState) {
             TrendingTagsViewModel.LoadingState.INITIAL -> clearLoadingState()
             TrendingTagsViewModel.LoadingState.LOADING -> applyLoadingState()
@@ -265,7 +265,7 @@ class TrendingTagsFragment :
 
         val wasEnabled = talkBackWasEnabled
         talkBackWasEnabled = a11yManager?.isEnabled == true
-        Log.d(TAG, "talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
+        Timber.d("talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
         if (talkBackWasEnabled && !wasEnabled) {
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
@@ -290,8 +290,6 @@ class TrendingTagsFragment :
     }
 
     companion object {
-        private const val TAG = "TrendingTagsFragment"
-
         fun newInstance() = TrendingTagsFragment()
     }
 }

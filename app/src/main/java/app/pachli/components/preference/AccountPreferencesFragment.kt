@@ -19,7 +19,6 @@ package app.pachli.components.preference
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.BaseActivity
@@ -56,6 +55,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -304,13 +304,13 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                                 accountManager.saveAccount(it)
                             }
                         } else {
-                            Log.e("AccountPreferences", "failed updating settings on server")
+                            Timber.e("failed updating settings on server")
                             showErrorSnackbar(visibility, sensitive)
                         }
                     }
 
                     override fun onFailure(call: Call<Account>, t: Throwable) {
-                        Log.e("AccountPreferences", "failed updating settings on server", t)
+                        Timber.e("failed updating settings on server", t)
                         showErrorSnackbar(visibility, sensitive)
                     }
                 },

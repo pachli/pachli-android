@@ -17,7 +17,6 @@
 package app.pachli.components.viewthread.edits
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -52,6 +51,7 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -102,7 +102,7 @@ class ViewEditsFragment :
                     }
                     EditsUiState.Refreshing -> {}
                     is EditsUiState.Error -> {
-                        Log.w(TAG, "failed to load edits", uiState.throwable)
+                        Timber.w("failed to load edits", uiState.throwable)
 
                         binding.swipeRefreshLayout.isRefreshing = false
                         binding.recyclerView.hide()
@@ -199,8 +199,6 @@ class ViewEditsFragment :
         get() = (activity as? BottomSheetActivity)
 
     companion object {
-        private const val TAG = "ViewEditsFragment"
-
         private const val STATUS_ID_EXTRA = "id"
 
         fun newInstance(statusId: String): ViewEditsFragment {

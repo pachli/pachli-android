@@ -29,7 +29,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -66,6 +65,7 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.android.AndroidEntryPoint;
 import dagger.hilt.android.EntryPointAccessors;
 import dagger.hilt.components.SingletonComponent;
+import timber.log.Timber;
 
 @AndroidEntryPoint
 public abstract class BaseActivity extends AppCompatActivity {
@@ -96,7 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.setTheme(themeId);
         if (BuildConfig.DEBUG) {
             String name = getResources().getResourceEntryName(themeId);
-            Log.d(TAG, "Setting theme: " + name);
+            Timber.d("Setting theme: %s", name);
         }
     }
 
@@ -108,7 +108,7 @@ public abstract class BaseActivity extends AppCompatActivity {
          * runtime, just individual activities. So, each activity has to set its theme before any
          * views are created. */
         String theme = sharedPreferencesRepository.getString(APP_THEME, ThemeUtils.APP_THEME_DEFAULT);
-        Log.d("activeTheme", theme);
+        Timber.d("activeTheme: %s", theme);
         if (theme.equals(THEME_BLACK)) {
             setTheme(R.style.Theme_Pachli_Black);
         }

@@ -17,7 +17,6 @@
 
 package app.pachli.components.notifications
 
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -72,6 +71,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -307,7 +307,6 @@ class NotificationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
     private val filtersRepository: FiltersRepository,
-    private val filterModel: FilterModel,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
@@ -349,16 +348,16 @@ class NotificationsViewModel @Inject constructor(
         viewModelScope.launch { uiAction.emit(action) }
     }
 
-    init {
-        filterModel.kind = Filter.Kind.NOTIFICATIONS
+    private var filterModel: FilterModel? = null
 
+    init {
         // Handle changes to notification filters
         val notificationFilter = uiAction
             .filterIsInstance<InfallibleUiAction.ApplyFilter>()
             .distinctUntilChanged()
             // Save each change back to the active account
             .onEach { action ->
-                Log.d(TAG, "notificationFilter: $action")
+                Timber.d("notificationFilter: $action")
                 account.notificationsFilter = serialize(action.filter)
                 accountManager.saveAccount(account)
             }
@@ -389,7 +388,7 @@ class NotificationsViewModel @Inject constructor(
                 .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                 .distinctUntilChanged()
                 .collectLatest { action ->
-                    Log.d(TAG, "Saving visible ID: ${action.visibleId}, active account = ${account.id}")
+                    Timber.d("Saving visible ID: ${action.visibleId}, active account = ${account.id}")
                     account.lastNotificationId = action.visibleId
                     accountManager.saveAccount(account)
                 }
@@ -472,8 +471,11 @@ class NotificationsViewModel @Inject constructor(
         viewModelScope.launch {
             eventHub.events
                 .filterIsInstance<FilterChangedEvent>()
-                .distinctUntilChanged()
-                .map { getFilters() }
+                .filter { it.filterKind == Filter.Kind.NOTIFICATIONS }
+                .map {
+                    getFilters()
+                    repository.invalidate()
+                }
                 .onStart { getFilters() }
                 .collect()
         }
@@ -512,11 +514,11 @@ class NotificationsViewModel @Inject constructor(
         filters: Set<Notification.Type>,
         initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
-        Log.d(TAG, "getNotifications: $initialKey")
+        Timber.d("getNotifications: $initialKey")
         return repository.getNotificationsStream(filter = filters, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map { notification ->
-                    val filterAction = notification.status?.actionableStatus?.let { filterModel.shouldFilterStatus(it) } ?: Filter.Action.NONE
+                    val filterAction = notification.status?.actionableStatus?.let { filterModel?.filterActionFor(it) } ?: Filter.Action.NONE
                     NotificationViewData.from(
                         notification,
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
@@ -531,25 +533,12 @@ class NotificationsViewModel @Inject constructor(
             }
     }
 
-    /**
-     * Gets the current filters from the repository. Applies them locally if they are
-     * v1 filters.
-     *
-     * Whatever the filter kind, the current timeline is invalidated, so it updates with the
-     * most recent filters.
-     */
+    /** Gets the current filters from the repository. */
     private fun getFilters() = viewModelScope.launch {
         try {
-            when (val filters = filtersRepository.getFilters()) {
-                is FilterKind.V1 -> {
-                    filterModel.initWithFilters(
-                        filters.filters.filter {
-                            it.context.contains("notifications")
-                        },
-                    )
-                    repository.invalidate()
-                }
-                is FilterKind.V2 -> repository.invalidate()
+            filterModel = when (val filters = filtersRepository.getFilters()) {
+                is FilterKind.V1 -> FilterModel(Filter.Kind.NOTIFICATIONS, filters.filters)
+                is FilterKind.V2 -> FilterModel(Filter.Kind.NOTIFICATIONS)
             }
         } catch (throwable: Throwable) {
             _uiErrorChannel.send(UiError.GetFilters(throwable))
@@ -563,7 +552,7 @@ class NotificationsViewModel @Inject constructor(
             "0" -> null
             else -> id
         }
-        Log.d(TAG, "Restoring at $initialKey")
+        Timber.d("Restoring at $initialKey")
         return initialKey
     }
 
@@ -580,7 +569,6 @@ class NotificationsViewModel @Inject constructor(
     )
 
     companion object {
-        private const val TAG = "NotificationsViewModel"
         private val THROTTLE_TIMEOUT = 500.milliseconds
     }
 }

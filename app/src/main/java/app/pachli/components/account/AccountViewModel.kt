@@ -1,6 +1,5 @@
 package app.pachli.components.account
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,6 +23,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -77,7 +77,7 @@ class AccountViewModel @Inject constructor(
                             isFromOwnDomain = getDomain(account.url) == activeAccount.domain
                         },
                         { t ->
-                            Log.w(TAG, "failed obtaining account", t)
+                            Timber.w("failed obtaining account", t)
                             accountData.postValue(Error(cause = t))
                             isDataLoading = false
                             isRefreshing.postValue(false)
@@ -98,7 +98,7 @@ class AccountViewModel @Inject constructor(
                             relationshipData.postValue(if (relationships.isNotEmpty()) Success(relationships[0]) else Error())
                         },
                         { t ->
-                            Log.w(TAG, "failed obtaining relationships", t)
+                            Timber.w("failed obtaining relationships", t)
                             relationshipData.postValue(Error(cause = t))
                         },
                     )
@@ -151,7 +151,7 @@ class AccountViewModel @Inject constructor(
                     relationshipData.postValue(Success(relation.copy(blockingDomain = true)))
                 }
             }, { e ->
-                Log.e(TAG, "Error muting $instance", e)
+                Timber.e("Error muting $instance", e)
             },)
         }
     }
@@ -164,7 +164,7 @@ class AccountViewModel @Inject constructor(
                     relationshipData.postValue(Success(relation.copy(blockingDomain = false)))
                 }
             }, { e ->
-                Log.e(TAG, "Error unmuting $instance", e)
+                Timber.e("Error unmuting $instance", e)
             },)
         }
     }
@@ -265,7 +265,7 @@ class AccountViewModel @Inject constructor(
                 }
             },
             { t ->
-                Log.w(TAG, "failed loading relationship", t)
+                Timber.w("failed loading relationship", t)
                 relationshipData.postValue(Error(relation, cause = t))
             },
         )
@@ -284,7 +284,7 @@ class AccountViewModel @Inject constructor(
                         noteSaved.postValue(false)
                     },
                     { t ->
-                        Log.w(TAG, "Error updating note", t)
+                        Timber.w("Error updating note", t)
                     },
                 )
         }

@@ -223,9 +223,4 @@ class NotificationsPagingAdapter(
             binding.text1.text = viewData.statusViewData?.content
         }
     }
-
-    companion object {
-        @Suppress("unused")
-        private const val TAG = "NotificationsPagingAdapter"
-    }
 }

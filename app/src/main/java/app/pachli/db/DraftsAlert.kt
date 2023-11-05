@@ -18,7 +18,6 @@ package app.pachli.db
 
 import android.content.Context
 import android.content.DialogInterface
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleOwner
@@ -26,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import app.pachli.R
 import app.pachli.components.drafts.DraftsActivity
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,8 +34,6 @@ import javax.inject.Singleton
  * It must be separately registered in each lifetime in which it is to appear,
  * and it only appears if the post failure belongs to the current user.
  */
-
-private const val TAG = "DraftsAlert"
 
 @Singleton
 class DraftsAlert @Inject constructor(private val draftDao: DraftDao) {
@@ -56,7 +54,7 @@ class DraftsAlert @Inject constructor(private val draftDao: DraftDao) {
             // at init, at next onResume, or immediately if the context is resumed already.
             if (showAlert) {
                 draftsNeedUserAlert.observe(context) { count ->
-                    Log.d(TAG, "User id $activeAccountId changed: Notification-worthy draft count $count")
+                    Timber.d("User id $activeAccountId changed: Notification-worthy draft count $count")
                     if (count > 0) {
                         AlertDialog.Builder(context)
                             .setTitle(R.string.action_post_failed)
@@ -77,12 +75,12 @@ class DraftsAlert @Inject constructor(private val draftDao: DraftDao) {
                 }
             } else {
                 draftsNeedUserAlert.observe(context) {
-                    Log.d(TAG, "User id $activeAccountId: Clean out notification-worthy drafts")
+                    Timber.d("User id $activeAccountId: Clean out notification-worthy drafts")
                     clearDraftsAlert(coroutineScope, activeAccountId)
                 }
             }
         } ?: run {
-            Log.w(TAG, "Attempted to observe drafts, but there is no active account")
+            Timber.w("Attempted to observe drafts, but there is no active account")
         }
     }
 

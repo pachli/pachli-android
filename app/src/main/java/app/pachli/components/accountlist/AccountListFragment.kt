@@ -17,7 +17,6 @@
 package app.pachli.components.accountlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -60,6 +59,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -208,7 +208,7 @@ class AccountListFragment :
         } else {
             "unmute"
         }
-        Log.e(TAG, "Failed to $verb account id $accountId")
+        Timber.e("Failed to $verb account id $accountId")
     }
 
     override fun onBlock(block: Boolean, id: String, position: Int) {
@@ -248,7 +248,7 @@ class AccountListFragment :
         } else {
             "unblock"
         }
-        Log.e(TAG, "Failed to $verb account accountId $accountId: $throwable")
+        Timber.e("Failed to $verb account accountId $accountId: $throwable")
     }
 
     override fun onRespondToFollowRequest(
@@ -271,7 +271,7 @@ class AccountListFragment :
                     } else {
                         "reject"
                     }
-                    Log.e(TAG, "Failed to $verb account id $accountId.", throwable)
+                    Timber.e("Failed to $verb account id $accountId.", throwable)
                 },
             )
         }
@@ -383,7 +383,7 @@ class AccountListFragment :
         lifecycleScope.launch {
             api.relationships(ids)
                 .fold(::onFetchRelationshipsSuccess) { throwable ->
-                    Log.e(TAG, "Fetch failure for relationships of accounts: $ids", throwable)
+                    Timber.e("Fetch failure for relationships of accounts: $ids", throwable)
                 }
         }
     }
@@ -398,7 +398,7 @@ class AccountListFragment :
     private fun onFetchAccountsFailure(throwable: Throwable) {
         fetching = false
         binding.swipeRefreshLayout.isRefreshing = false
-        Log.e(TAG, "Fetch failure", throwable)
+        Timber.e("Fetch failure", throwable)
 
         if (adapter.itemCount == 0) {
             binding.messageView.show()
@@ -410,7 +410,6 @@ class AccountListFragment :
     }
 
     companion object {
-        private const val TAG = "AccountList" // logging tag
         private const val ARG_TYPE = "type"
         private const val ARG_ID = "id"
 

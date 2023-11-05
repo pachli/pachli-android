@@ -16,13 +16,13 @@
 
 package app.pachli.components.viewthread
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.BlockEvent
 import app.pachli.appstore.BookmarkEvent
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
+import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.PinEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusComposedEvent
@@ -36,7 +36,6 @@ import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.db.TimelineDao
 import app.pachli.entity.Filter
-import app.pachli.entity.FilterV1
 import app.pachli.entity.Status
 import app.pachli.network.FilterModel
 import app.pachli.network.MastodonApi
@@ -56,12 +55,12 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class ViewThreadViewModel @Inject constructor(
     private val api: MastodonApi,
-    private val filterModel: FilterModel,
     private val timelineCases: TimelineCases,
     eventHub: EventHub,
     accountManager: AccountManager,
@@ -89,6 +88,8 @@ class ViewThreadViewModel @Inject constructor(
 
     val activeAccount: AccountEntity
 
+    private var filterModel: FilterModel? = null
+
     init {
         activeAccount = accountManager.activeAccount!!
         alwaysShowSensitiveMedia = activeAccount.alwaysShowSensitiveMedia
@@ -106,6 +107,11 @@ class ViewThreadViewModel @Inject constructor(
                         is StatusComposedEvent -> handleStatusComposedEvent(event)
                         is StatusDeletedEvent -> handleStatusDeletedEvent(event)
                         is StatusEditedEvent -> handleStatusEditedEvent(event)
+                        is FilterChangedEvent -> {
+                            if (event.filterKind == Filter.Kind.THREAD) {
+                                loadFilters()
+                            }
+                        }
                     }
                 }
         }
@@ -117,12 +123,12 @@ class ViewThreadViewModel @Inject constructor(
         _uiState.value = ThreadUiState.Loading
 
         viewModelScope.launch {
-            Log.d(TAG, "Finding status with: $id")
+            Timber.d("Finding status with: $id")
             val contextCall = async { api.statusContext(id) }
             val timelineStatusWithAccount = timelineDao.getStatus(id)
 
             var detailedStatus = if (timelineStatusWithAccount != null) {
-                Log.d(TAG, "Loaded status from local timeline")
+                Timber.d("Loaded status from local timeline")
                 val status = timelineStatusWithAccount.toStatus(gson)
 
                 // Return the correct status, depending on which one matched. If you do not do
@@ -147,7 +153,7 @@ class ViewThreadViewModel @Inject constructor(
                     )
                 }
             } else {
-                Log.d(TAG, "Loaded status from network")
+                Timber.d("Loaded status from network")
                 val result = api.status(id).getOrElse { exception ->
                     _uiState.value = ThreadUiState.Error(exception)
                     return@launch
@@ -246,7 +252,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.reblog(status.actionableId, reblog).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Log.d(TAG, "Failed to reblog status " + status.actionableId, t)
+                Timber.d("Failed to reblog status " + status.actionableId, t)
             }
         }
     }
@@ -256,7 +262,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.favourite(status.actionableId, favorite).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Log.d(TAG, "Failed to favourite status " + status.actionableId, t)
+                Timber.d("Failed to favourite status " + status.actionableId, t)
             }
         }
     }
@@ -266,14 +272,14 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.bookmark(status.actionableId, bookmark).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Log.d(TAG, "Failed to bookmark status " + status.actionableId, t)
+                Timber.d("Failed to bookmark status " + status.actionableId, t)
             }
         }
     }
 
     fun voteInPoll(choices: List<Int>, status: StatusViewData): Job = viewModelScope.launch {
         val poll = status.status.actionableStatus.poll ?: run {
-            Log.w(TAG, "No poll on status ${status.id}")
+            Timber.w("No poll on status ${status.id}")
             return@launch
         }
 
@@ -286,7 +292,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.voteInPoll(status.actionableId, poll.id, choices).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Log.d(TAG, "Failed to vote in poll: " + status.actionableId, t)
+                Timber.d("Failed to vote in poll: " + status.actionableId, t)
             }
         }
     }
@@ -474,16 +480,9 @@ class ViewThreadViewModel @Inject constructor(
     private fun loadFilters() {
         viewModelScope.launch {
             try {
-                when (val filters = filtersRepository.getFilters()) {
-                    is FilterKind.V1 -> {
-                        filterModel.initWithFilters(
-                            filters.filters.filter { filter ->
-                                filter.context.contains(FilterV1.THREAD)
-                            },
-                        )
-                    }
-
-                    is FilterKind.V2 -> filterModel.kind = Filter.Kind.THREAD
+                filterModel = when (val filters = filtersRepository.getFilters()) {
+                    is FilterKind.V1 -> FilterModel(Filter.Kind.THREAD, filters.filters)
+                    is FilterKind.V2 -> FilterModel(Filter.Kind.THREAD)
                 }
                 updateStatuses()
             } catch (_: Exception) {
@@ -509,7 +508,7 @@ class ViewThreadViewModel @Inject constructor(
             if (status.isDetailed) {
                 true
             } else {
-                status.filterAction = filterModel.shouldFilterStatus(status.status)
+                status.filterAction = filterModel?.filterActionFor(status.status) ?: Filter.Action.NONE
                 status.filterAction != Filter.Action.HIDE
             }
         }
@@ -566,10 +565,6 @@ class ViewThreadViewModel @Inject constructor(
         updateStatus(viewData.id) { status ->
             status.copy(filtered = null)
         }
-    }
-
-    companion object {
-        private const val TAG = "ViewThreadViewModel"
     }
 }
 
