@@ -1026,7 +1026,7 @@
         errorLine2="                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationHelper.java"
-            line="866"
+            line="864"
             column="57"/>
     </issue>
 
@@ -2555,7 +2555,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="152"
+            line="151"
             column="29"/>
     </issue>
 
@@ -2566,7 +2566,7 @@
         errorLine2="                                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="154"
+            line="153"
             column="37"/>
     </issue>
 
@@ -2632,7 +2632,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/followedtags/FollowedTagsActivity.kt"
-            line="198"
+            line="194"
             column="21"/>
     </issue>
 
