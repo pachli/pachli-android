@@ -106,7 +106,7 @@ class CachedTimelineRepository @Inject constructor(
                 config = PagingConfig(
                     pageSize = pageSize,
                     jumpThreshold = PAGE_SIZE * 3,
-                    enablePlaceholders = true
+                    enablePlaceholders = true,
                 ),
                 initialKey = row,
                 remoteMediator = CachedTimelineRemoteMediator(
