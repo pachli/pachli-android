@@ -510,10 +510,6 @@ class ComposeViewModel @Inject constructor(
     val editing: Boolean
         get() = !originalStatusId.isNullOrEmpty()
 
-    private companion object {
-        const val TAG = "ComposeViewModel"
-    }
-
     enum class ConfirmationKind {
         NONE, // just close
         SAVE_OR_DISCARD,

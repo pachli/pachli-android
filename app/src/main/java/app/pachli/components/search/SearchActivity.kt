@@ -155,7 +155,6 @@ class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTe
     }
 
     companion object {
-        const val TAG = "SearchActivity"
         fun getIntent(context: Context) = Intent(context, SearchActivity::class.java)
     }
 }

@@ -315,8 +315,4 @@ class AccountViewModel @Inject constructor(
     enum class RelationShipAction {
         FOLLOW, UNFOLLOW, BLOCK, UNBLOCK, MUTE, UNMUTE, SUBSCRIBE, UNSUBSCRIBE
     }
-
-    companion object {
-        const val TAG = "AccountViewModel"
-    }
 }

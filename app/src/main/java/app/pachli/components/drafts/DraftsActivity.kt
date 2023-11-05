@@ -174,8 +174,6 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
     }
 
     companion object {
-        const val TAG = "DraftsActivity"
-
         fun newIntent(context: Context) = Intent(context, DraftsActivity::class.java)
     }
 }

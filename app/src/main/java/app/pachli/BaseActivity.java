@@ -69,8 +69,6 @@ import timber.log.Timber;
 
 @AndroidEntryPoint
 public abstract class BaseActivity extends AppCompatActivity {
-    private static final String TAG = "BaseActivity";
-
     /** @noinspection NotNullFieldNotInitialized*/
     @Inject
     @NonNull
