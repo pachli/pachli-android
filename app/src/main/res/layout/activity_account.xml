@@ -427,7 +427,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!-- top margin equal to statusbar size will be set programmatically -->
-                <androidx.appcompat.widget.Toolbar
+                <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/accountToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
