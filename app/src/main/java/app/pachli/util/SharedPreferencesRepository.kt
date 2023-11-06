@@ -18,6 +18,7 @@
 package app.pachli.util
 
 import android.content.SharedPreferences
+import androidx.annotation.Keep
 import app.pachli.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -45,6 +46,11 @@ class SharedPreferencesRepository @Inject constructor(
      */
     val changes = MutableSharedFlow<String?>()
 
+    // Ensure the listener is retained during minification. If you do not do this the
+    // field is removed and eventually garbage collected (because registering it as a
+    // change listener does not create a strong reference to it) and then no more
+    // changes are emitted. See https://github.com/pachli/pachli-android/issues/225.
+    @Keep
     private val listener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             externalScope.launch { changes.emit(key) }
