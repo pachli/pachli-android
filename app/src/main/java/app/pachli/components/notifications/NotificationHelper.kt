@@ -68,6 +68,7 @@ const val NOTIFICATION_ID_PRUNE_CACHE = 1
 
 /** Dynamic notification IDs start here  */
 private var notificationId = NOTIFICATION_ID_PRUNE_CACHE + 1
+
 const val REPLY_ACTION = "REPLY_ACTION"
 const val KEY_REPLY = "KEY_REPLY"
 const val KEY_SENDER_ACCOUNT_ID = "KEY_SENDER_ACCOUNT_ID"
@@ -79,9 +80,7 @@ const val KEY_VISIBILITY = "KEY_VISIBILITY"
 const val KEY_SPOILER = "KEY_SPOILER"
 const val KEY_MENTIONS = "KEY_MENTIONS"
 
-/**
- * notification channels used on Android O+
- */
+/** notification channels used on Android O+ */
 const val CHANNEL_MENTION = "CHANNEL_MENTION"
 private const val CHANNEL_FOLLOW = "CHANNEL_FOLLOW"
 private const val CHANNEL_FOLLOW_REQUEST = "CHANNEL_FOLLOW_REQUEST"
@@ -94,9 +93,7 @@ private const val CHANNEL_UPDATES = "CHANNEL_UPDATES"
 private const val CHANNEL_REPORT = "CHANNEL_REPORT"
 private const val CHANNEL_BACKGROUND_TASKS = "CHANNEL_BACKGROUND_TASKS"
 
-/**
- * WorkManager Tag
- */
+/** WorkManager Tag */
 private const val NOTIFICATION_PULL_TAG = "pullNotifications"
 
 /** Tag for the summary notification  */
@@ -143,13 +140,16 @@ fun makeNotification(
     // Notification group member
     // =========================
     notificationId++
+
     // Create the notification -- either create a new one, or use the existing one.
     val builder = existingAndroidNotification?.let {
         NotificationCompat.Builder(context, it)
     } ?: newAndroidNotification(context, notif, account)
 
-    builder.setContentTitle(titleForType(context, notif, account))
+    builder
+        .setContentTitle(titleForType(context, notif, account))
         .setContentText(bodyForType(notif, context, account.alwaysOpenSpoiler))
+
     if (notif.type === Notification.Type.MENTION || notif.type === Notification.Type.POLL) {
         builder.setStyle(
             NotificationCompat.BigTextStyle()
@@ -157,7 +157,7 @@ fun makeNotification(
         )
     }
 
-    // load the avatar synchronously
+    // Load the avatar synchronously
     val accountAvatar = try {
         val target = Glide.with(context)
             .asBitmap()
@@ -221,20 +221,16 @@ fun makeNotification(
 /**
  * Updates the summary notifications for each notification group.
  *
- *
  * Notifications are sent to channels. Within each channel they may be grouped, and the group
  * may have a summary.
  *
- *
- * Tusky uses N notification channels for each account, each channel corresponds to a type
+ * Pachli uses N notification channels for each account, each channel corresponds to a type
  * of notification (follow, reblog, mention, etc). Therefore each channel also has exactly
  * 0 or 1 summary notifications along with its regular notifications.
  *
- *
  * The group key is the same as the channel ID.
  *
- *
- * Regnerates the summary notifications for all active Tusky notifications for `account`.
+ * Regnerates the summary notifications for all active Pachli notifications for `account`.
  * This may delete the summary notification if there are no active notifications for that
  * account in a group.
  *
@@ -555,7 +551,7 @@ fun deleteNotificationChannelsForAccount(account: AccountEntity, context: Contex
 
 fun notificationsAreEnabled(context: Context, accountManager: AccountManager): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        // on Android >= O, notifications are enabled, if at least one channel is enabled
+        // on Android >= O notifications are enabled if at least one channel is enabled
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (notificationManager.areNotificationsEnabled()) {
@@ -569,7 +565,7 @@ fun notificationsAreEnabled(context: Context, accountManager: AccountManager): B
         Timber.d("NotificationsDisabled")
         false
     } else {
-        // on Android < O, notifications are enabled, if at least one account has notification enabled
+        // on Android < O notifications are enabled if at least one account has notification enabled
         accountManager.areNotificationsEnabled()
     }
 }

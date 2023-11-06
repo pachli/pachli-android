@@ -83,16 +83,14 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /* There isn't presently a way to globally change the theme of a whole application at
-         * runtime, just individual activities. So, each activity has to set its theme before any
-         * views are created. */
+        // Set the theme from preferences
         val theme = sharedPreferencesRepository.getString(APP_THEME, APP_THEME_DEFAULT)
         Timber.d("activeTheme: %s", theme)
         if (theme == THEME_BLACK) {
             setTheme(R.style.Theme_Pachli_Black)
         }
 
-        /* set the taskdescription programmatically, the theme would turn it blue */
+        // Set the task description, the theme would turn it blue
         val appName = getString(R.string.app_name)
         val appIcon = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
         val recentsBackgroundColor = MaterialColors.getColor(
@@ -101,9 +99,13 @@ abstract class BaseActivity : AppCompatActivity() {
             Color.BLACK,
         )
         setTaskDescription(TaskDescription(appName, appIcon, recentsBackgroundColor))
+
+        // Set status text size
         val style =
             textStyle(sharedPreferencesRepository.getString(PrefKeys.STATUS_TEXT_SIZE, "medium")!!)
         getTheme().applyStyle(style, true)
+
+        // Set application font family
         val fontFamily =
             from(sharedPreferencesRepository.getString(PrefKeys.FONT_FAMILY, "default"))
         if (fontFamily !== EmbeddedFontFamily.DEFAULT) {
@@ -177,7 +179,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.finish()
     }
 
-    protected fun redirectIfNotLoggedIn() {
+    private fun redirectIfNotLoggedIn() {
         val account = accountManager.activeAccount
         if (account == null) {
             val intent = Intent(this, LoginActivity::class.java)
@@ -241,25 +243,16 @@ abstract class BaseActivity : AppCompatActivity() {
         get() {
             val accounts = accountManager.getAllAccountsOrderedByActive()
             return when (accounts.size) {
-                0, 1 -> {
-                    null
-                }
-
+                0, 1 -> null
                 2 -> {
                     for (account in accounts) {
                         if (account !== accountManager.activeAccount) {
-                            return String.format(
-                                getString(R.string.action_open_as),
-                                account.fullName,
-                            )
+                            return String.format(getString(R.string.action_open_as), account.fullName)
                         }
                     }
                     null
                 }
-
-                else -> {
-                    String.format(getString(R.string.action_open_as), "…")
-                }
+                else -> String.format(getString(R.string.action_open_as), "…")
             }
         }
 
