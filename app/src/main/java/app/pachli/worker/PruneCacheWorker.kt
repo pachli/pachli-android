@@ -24,8 +24,8 @@ import androidx.work.ForegroundInfo
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
 import app.pachli.R
-import app.pachli.components.notifications.NotificationHelper
-import app.pachli.components.notifications.NotificationHelper.NOTIFICATION_ID_PRUNE_CACHE
+import app.pachli.components.notifications.NOTIFICATION_ID_PRUNE_CACHE
+import app.pachli.components.notifications.createWorkerNotification
 import app.pachli.db.AccountManager
 import app.pachli.db.TimelineDao
 import timber.log.Timber
@@ -38,7 +38,7 @@ class PruneCacheWorker(
     private val timelineDao: TimelineDao,
     private val accountManager: AccountManager,
 ) : CoroutineWorker(appContext, workerParams) {
-    val notification: Notification = NotificationHelper.createWorkerNotification(applicationContext, R.string.notification_prune_cache)
+    val notification: Notification = createWorkerNotification(applicationContext, R.string.notification_prune_cache)
 
     override suspend fun doWork(): Result {
         for (account in accountManager.accounts) {

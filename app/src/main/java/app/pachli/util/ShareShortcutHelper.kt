@@ -14,8 +14,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-@file:JvmName("ShareShortcutHelper")
-
 package app.pachli.util
 
 import android.content.Context

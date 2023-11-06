@@ -1,5 +1,3 @@
-@file:JvmName("MuteAccountDialog")
-
 package app.pachli.view
 
 import android.app.Activity

@@ -1,5 +1,3 @@
-@file:JvmName("ImageLoadingHelper")
-
 package app.pachli.util
 
 import android.content.Context

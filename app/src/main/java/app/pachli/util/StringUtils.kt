@@ -1,5 +1,3 @@
-@file:JvmName("StringUtils")
-
 package app.pachli.util
 
 import android.text.Spanned
