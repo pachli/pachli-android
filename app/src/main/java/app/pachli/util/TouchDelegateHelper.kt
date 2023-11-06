@@ -14,8 +14,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-@file:JvmName("TouchDelegateHelper")
-
 package app.pachli.util
 
 import android.graphics.Rect

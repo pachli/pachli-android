@@ -22,7 +22,7 @@ import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import app.pachli.components.notifications.NotificationHelper
+import app.pachli.components.notifications.createWorkerNotificationChannel
 import app.pachli.settings.NEW_INSTALL_SCHEMA_VERSION
 import app.pachli.settings.PrefKeys
 import app.pachli.settings.PrefKeys.APP_THEME
@@ -96,7 +96,7 @@ class PachliApplication : Application() {
             Timber.tag("RxJava").w(it, "undeliverable exception")
         }
 
-        NotificationHelper.createWorkerNotificationChannel(this)
+        createWorkerNotificationChannel(this)
 
         WorkManager.initialize(
             this,

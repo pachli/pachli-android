@@ -1,5 +1,3 @@
-@file:JvmName("NumberUtils")
-
 package app.pachli.util
 
 import java.text.NumberFormat

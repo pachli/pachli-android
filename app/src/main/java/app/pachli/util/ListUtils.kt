@@ -14,8 +14,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-@file:JvmName("ListUtils")
-
 package app.pachli.util
 
 /**

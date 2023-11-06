@@ -67,9 +67,10 @@ import app.pachli.components.compose.ComposeActivity
 import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
 import app.pachli.components.drafts.DraftsActivity
 import app.pachli.components.login.LoginActivity
-import app.pachli.components.notifications.NotificationHelper
+import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.disableAllNotifications
 import app.pachli.components.notifications.enablePushNotificationsWithFallback
+import app.pachli.components.notifications.notificationsAreEnabled
 import app.pachli.components.notifications.showMigrationNoticeIfNecessary
 import app.pachli.components.preference.PreferencesActivity
 import app.pachli.components.scheduled.ScheduledStatusActivity
@@ -95,6 +96,7 @@ import app.pachli.util.getDimension
 import app.pachli.util.hide
 import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.show
+import app.pachli.util.unsafeLazy
 import app.pachli.util.updateShortcut
 import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
@@ -161,6 +163,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     lateinit var developerToolsUseCase: DeveloperToolsUseCase
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
+
+    override val actionButton by unsafeLazy { binding.composeButton }
 
     private lateinit var header: AccountHeaderView
 
@@ -933,7 +937,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         loadDrawerAvatar(me.avatar, false)
 
         accountManager.updateActiveAccount(me)
-        NotificationHelper.createNotificationChannelsForAccount(accountManager.activeAccount!!, this)
+        createNotificationChannelsForAccount(accountManager.activeAccount!!, this)
 
         // Setup push notifications
         showMigrationNoticeIfNecessary(
@@ -943,7 +947,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             accountManager,
             sharedPreferencesRepository,
         )
-        if (NotificationHelper.areNotificationsEnabled(this, accountManager)) {
+        if (notificationsAreEnabled(this, accountManager)) {
             lifecycleScope.launch {
                 enablePushNotificationsWithFallback(this@MainActivity, mastodonApi, accountManager)
             }
@@ -1093,8 +1097,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             null
         }
     }
-
-    override fun getActionButton() = binding.composeButton
 
     companion object {
         private const val DRAWER_ITEM_ADD_ACCOUNT: Long = -13

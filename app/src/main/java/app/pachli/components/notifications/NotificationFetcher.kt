@@ -20,7 +20,6 @@ package app.pachli.components.notifications
 import android.app.NotificationManager
 import android.content.Context
 import androidx.annotation.WorkerThread
-import app.pachli.components.notifications.NotificationHelper.filterNotification
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.entity.Marker
@@ -89,7 +88,7 @@ class NotificationFetcher @Inject constructor(
                     // 1.11 and up (https://developer.android.com/jetpack/androidx/releases/core#1.11.0-alpha01)
                     // when it is released.
                     notifications.forEachIndexed { index, notification ->
-                        val androidNotification = NotificationHelper.make(
+                        val androidNotification = makeNotification(
                             context,
                             notificationManager,
                             notification,
@@ -103,7 +102,7 @@ class NotificationFetcher @Inject constructor(
                         delay(1000.milliseconds)
                     }
 
-                    NotificationHelper.updateSummaryNotifications(
+                    updateSummaryNotifications(
                         context,
                         notificationManager,
                         account,

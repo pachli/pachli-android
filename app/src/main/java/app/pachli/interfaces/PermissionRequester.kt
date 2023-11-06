@@ -1,4 +1,5 @@
-/* Copyright 2017 Andrew Dawson
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -14,15 +15,8 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.interfaces;
+package app.pachli.interfaces
 
-import androidx.annotation.Nullable;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-public interface ActionButtonActivity {
-
-    /* return the ActionButton of the Activity to hide or show it on scroll */
-    @Nullable
-    FloatingActionButton getActionButton();
+fun interface PermissionRequester {
+    fun onRequestPermissionsResult(permissions: Array<String>, grantResults: IntArray)
 }
