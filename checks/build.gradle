@@ -19,7 +19,7 @@ jar {
 }
 
 dependencies {
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61")
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.20")
 
     // Derived from the AGP version. If the AGP version is X.Y.Z the version
     // here must by X+23.Y.Z.
