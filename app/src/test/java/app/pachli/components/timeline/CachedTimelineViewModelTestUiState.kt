@@ -52,7 +52,7 @@ class CachedTimelineViewModelTestUiState : CachedTimelineViewModelTestBase() {
 
             // Given
             sharedPreferencesRepository.edit {
-                putBoolean(PrefKeys.FAB_HIDE, false)
+                putBoolean(PrefKeys.FAB_HIDE, true)
             }
 
             // Then
