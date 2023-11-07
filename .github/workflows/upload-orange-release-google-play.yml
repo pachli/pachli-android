@@ -30,19 +30,19 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Test
-        run: ./gradlew app:testOrangeReleaseUnitTest --stacktrace
+        run: ./gradlew app:testOrangeGoogleReleaseUnitTest --stacktrace
 
       - name: Build APK
-        run: ./gradlew assembleOrangeRelease --stacktrace
+        run: ./gradlew assembleOrangeGoogleRelease --stacktrace
 
       - name: Build AAB
-        run: ./gradlew :app:bundleOrangeRelease --stacktrace
+        run: ./gradlew :app:bundleOrangeGoogleRelease --stacktrace
 
       - uses: r0adkll/sign-android-release@v1.0.4
         name: Sign app APK
         id: sign_app_apk
         with:
-          releaseDirectory: app/build/outputs/apk/orange/release
+          releaseDirectory: app/build/outputs/apk/orangeGoogle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.SIGNING_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -54,7 +54,7 @@ jobs:
         name: Sign app AAB
         id: sign_app_aab
         with:
-          releaseDirectory: app/build/outputs/bundle/orangeRelease
+          releaseDirectory: app/build/outputs/bundle/orangeGoogleRelease
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.SIGNING_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -85,4 +85,4 @@ jobs:
           track: production
           whatsNewDirectory: googleplay/whatsnew
           status: completed
-          mappingFile: app/build/outputs/mapping/orangeRelease/mapping.txt
+          mappingFile: app/build/outputs/mapping/orangeGoogleRelease/mapping.txt

@@ -87,9 +87,12 @@ import app.pachli.interfaces.FabFragment
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.settings.PrefKeys
+import app.pachli.updatecheck.UpdateCheck
+import app.pachli.updatecheck.UpdateNotificationFrequency
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
 import app.pachli.util.EmbeddedFontFamily
+import app.pachli.util.await
 import app.pachli.util.deleteStaleCachedMedia
 import app.pachli.util.emojify
 import app.pachli.util.getDimension
@@ -158,6 +161,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var draftsAlert: DraftsAlert
+
+    @Inject
+    lateinit var updateCheck: UpdateCheck
 
     @Inject
     lateinit var developerToolsUseCase: DeveloperToolsUseCase
@@ -403,7 +409,63 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             selectedEmojiPack = currentEmojiPack
             recreate()
         }
+
+        checkForUpdate()
     }
+
+    /**
+     * Check for available updates, and prompt user to update.
+     *
+     * Show a dialog prompting the user to update if a newer version of the app is available.
+     * The user can start an update, ignore this version, or dismiss all future update
+     * notifications.
+     */
+    private fun checkForUpdate() = lifecycleScope.launch {
+        val frequency = UpdateNotificationFrequency.from(sharedPreferencesRepository.getString(PrefKeys.UPDATE_NOTIFICATION_FREQUENCY, null))
+        if (frequency == UpdateNotificationFrequency.NEVER) return@launch
+
+        val latestVersionCode = updateCheck.getLatestVersionCode()
+
+        if (latestVersionCode <= BuildConfig.VERSION_CODE) return@launch
+
+        if (frequency == UpdateNotificationFrequency.ONCE_PER_VERSION) {
+            val ignoredVersion = sharedPreferencesRepository.getInt(PrefKeys.UPDATE_NOTIFICATION_VERSIONCODE, -1)
+            if (latestVersionCode == ignoredVersion) {
+                Timber.d("Ignoring update to $latestVersionCode")
+                return@launch
+            }
+        }
+
+        Timber.d("New version is: $latestVersionCode")
+        when (showUpdateDialog()) {
+            AlertDialog.BUTTON_POSITIVE -> {
+                startActivity(updateCheck.updateIntent)
+            }
+            AlertDialog.BUTTON_NEUTRAL -> {
+                with(sharedPreferencesRepository.edit()) {
+                    putInt(PrefKeys.UPDATE_NOTIFICATION_VERSIONCODE, latestVersionCode)
+                    apply()
+                }
+            }
+            AlertDialog.BUTTON_NEGATIVE -> {
+                with(sharedPreferencesRepository.edit()) {
+                    putString(
+                        PrefKeys.UPDATE_NOTIFICATION_FREQUENCY,
+                        UpdateNotificationFrequency.NEVER.name,
+                    )
+                    apply()
+                }
+            }
+        }
+    }
+
+    private suspend fun showUpdateDialog() = AlertDialog.Builder(this)
+        .setTitle(R.string.update_dialog_title)
+        .setMessage(R.string.update_dialog_message)
+        .setCancelable(true)
+        .setIcon(R.mipmap.ic_launcher)
+        .create()
+        .await(R.string.update_dialog_positive, R.string.update_dialog_negative, R.string.update_dialog_neutral)
 
     override fun onStart() {
         super.onStart()

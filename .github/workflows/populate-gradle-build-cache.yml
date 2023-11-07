@@ -10,6 +10,10 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        color: ["orange"]
+        store: ["fdroid", "github", "google"]
     name: app:buildOrangeDebug
     runs-on: ubuntu-latest
     steps:
@@ -31,4 +35,4 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Run app:buildOrangeDebug
-        run: ./gradlew app:buildOrangeDebug
+        run: ./gradlew app:build${{ matrix.color }}${{ matrix.store }}Debug
