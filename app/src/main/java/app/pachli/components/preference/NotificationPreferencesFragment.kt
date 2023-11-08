@@ -19,7 +19,9 @@ package app.pachli.components.preference
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
-import app.pachli.components.notifications.NotificationHelper
+import app.pachli.components.notifications.disablePullNotifications
+import app.pachli.components.notifications.enablePullNotifications
+import app.pachli.components.notifications.notificationsAreEnabled
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.preferences.PrefKeys
@@ -46,10 +48,10 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                 isChecked = activeAccount.notificationsEnabled
                 setOnPreferenceChangeListener { _, newValue ->
                     updateAccount { it.notificationsEnabled = newValue as Boolean }
-                    if (NotificationHelper.areNotificationsEnabled(context, accountManager)) {
-                        NotificationHelper.enablePullNotifications(context)
+                    if (notificationsAreEnabled(context, accountManager)) {
+                        enablePullNotifications(context)
                     } else {
-                        NotificationHelper.disablePullNotifications(context)
+                        disablePullNotifications(context)
                     }
                     true
                 }

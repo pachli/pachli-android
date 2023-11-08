@@ -15,8 +15,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-@file:JvmName("NumberUtils")
-
 package app.pachli.core.common.util
 
 import java.text.NumberFormat

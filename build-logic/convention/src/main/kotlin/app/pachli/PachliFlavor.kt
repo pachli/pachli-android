@@ -24,12 +24,10 @@ import com.android.build.api.dsl.ProductFlavor
 
 @Suppress("EnumEntryName")
 enum class FlavorDimension {
-    color
+    color,
+    store
 }
 
-// The content for the app can either come from local static data which is useful for demo
-// purposes, or from a production backend server which supplies up-to-date, real content.
-// These two product flavors reflect this behaviour.
 @Suppress("EnumEntryName")
 enum class PachliFlavor(
     val dimension: FlavorDimension,
@@ -45,7 +43,10 @@ enum class PachliFlavor(
         FlavorDimension.color,
         applicationIdSuffix = ".current",
         //versionNameSuffix = "+${gitSha}"
-    )
+    ),
+    fdroid(FlavorDimension.store),
+    github(FlavorDimension.store),
+    google(FlavorDimension.store)
 }
 
 fun configureFlavors(
@@ -55,22 +56,22 @@ fun configureFlavors(
     commonExtension.apply {
         flavorDimensions += FlavorDimension.color.name
         productFlavors {
-            PachliFlavor.values().forEach {
-                create(it.name) {
-                    dimension = it.dimension.name
-                    flavorConfigurationBlock(this, it)
+            PachliFlavor.values().forEach { flavor ->
+                create(flavor.name) {
+                    dimension = flavor.dimension.name
+                    flavorConfigurationBlock(this, flavor)
                     if (this@apply is ApplicationExtension && this is ApplicationProductFlavor) {
-                        it.applicationIdSuffix?.let {
+                        flavor.applicationIdSuffix?.let {
                             applicationIdSuffix = it
                         }
-                        it.versionNameSuffix?.let {
+                        flavor.versionNameSuffix?.let {
                             versionNameSuffix = it
                         }
                     }
-                    resValue("string", "app_name", it.appName)
-                    buildConfigField("String", "CUSTOM_LOGO_URL", "\"${it.customLogoUrl}\"")
-                    buildConfigField("String", "CUSTOM_INSTANCE", "\"${it.customInstance}\"")
-                    buildConfigField("String", "SUPPORT_ACCOUNT_URL", "\"${it.supportAccountUrl}\"")
+                    resValue("string", "app_name", flavor.appName)
+                    buildConfigField("String", "CUSTOM_LOGO_URL", "\"${flavor.customLogoUrl}\"")
+                    buildConfigField("String", "CUSTOM_INSTANCE", "\"${flavor.customInstance}\"")
+                    buildConfigField("String", "SUPPORT_ACCOUNT_URL", "\"${flavor.supportAccountUrl}\"")
                 }
             }
         }

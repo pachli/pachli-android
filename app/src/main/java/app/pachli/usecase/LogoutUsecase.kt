@@ -2,8 +2,10 @@ package app.pachli.usecase
 
 import android.content.Context
 import app.pachli.components.drafts.DraftHelper
-import app.pachli.components.notifications.NotificationHelper
+import app.pachli.components.notifications.deleteNotificationChannelsForAccount
+import app.pachli.components.notifications.disablePullNotifications
 import app.pachli.components.notifications.disableUnifiedPushNotificationsForAccount
+import app.pachli.components.notifications.notificationsAreEnabled
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -46,12 +48,12 @@ class LogoutUsecase @Inject constructor(
             disableUnifiedPushNotificationsForAccount(context, activeAccount)
 
             // disable pull notifications
-            if (!NotificationHelper.areNotificationsEnabled(context, accountManager)) {
-                NotificationHelper.disablePullNotifications(context)
+            if (!notificationsAreEnabled(context, accountManager)) {
+                disablePullNotifications(context)
             }
 
             // clear notification channels
-            NotificationHelper.deleteNotificationChannelsForAccount(activeAccount, context)
+            deleteNotificationChannelsForAccount(activeAccount, context)
 
             // remove account from local AccountManager
             val otherAccountAvailable = accountManager.logActiveAccountOut() != null

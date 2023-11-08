@@ -492,7 +492,7 @@ class NotificationsFragment :
     override fun onRefresh() {
         binding.progressBar.isVisible = false
         adapter.refresh()
-        NotificationHelper.clearNotificationsForAccount(requireContext(), viewModel.account)
+        clearNotificationsForAccount(requireContext(), viewModel.account)
     }
 
     override fun onPause() {
@@ -509,7 +509,7 @@ class NotificationsFragment :
 
     override fun onResume() {
         super.onResume()
-        NotificationHelper.clearNotificationsForAccount(requireContext(), viewModel.account)
+        clearNotificationsForAccount(requireContext(), viewModel.account)
     }
 
     override fun onReply(position: Int) {

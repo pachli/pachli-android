@@ -14,8 +14,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-@file:JvmName("CustomEmojiHelper")
-
 package app.pachli.util
 
 import android.graphics.Canvas

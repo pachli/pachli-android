@@ -381,12 +381,12 @@ abstract class TimelineViewModel(
             .filter { it == PrefKeys.FAB_HIDE }
             .map {
                 UiState(
-                    sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
+                    showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
                 )
             }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-                initialValue = UiState(showFabWhileScrolling = true),
+                initialValue = UiState(showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)),
             )
 
         if (timelineKind is TimelineKind.Home) {

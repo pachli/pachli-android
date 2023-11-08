@@ -9,6 +9,10 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        color: ["orange"]
+        store: ["fdroid", "github", "google"]
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -34,11 +38,11 @@ jobs:
       - name: ktlint
         run: ./gradlew clean ktlintCheck
 
-      - name: Regular lint
-        run: ./gradlew app:lintOrangeDebug
+      - name: Regular lint ${{ matrix.color }}${{ matrix.store }}Debug
+        run: ./gradlew app:lint${{ matrix.color }}${{ matrix.store }}Debug
 
-      - name: Test
-        run: ./gradlew app:testOrangeDebugUnitTest checks:test
+      - name: Test ${{ matrix.color }}${{ matrix.store }}DebugUnitTest checks:test
+        run: ./gradlew app:test${{ matrix.color }}${{ matrix.store }}DebugUnitTest checks:test
 
-      - name: Build
-        run: ./gradlew app:buildOrangeDebug
+      - name: Build ${{ matrix.color }}${{ matrix.store }}Debug
+        run: ./gradlew app:build${{ matrix.color }}${{ matrix.store }}Debug

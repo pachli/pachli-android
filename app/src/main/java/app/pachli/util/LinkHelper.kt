@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License along with Pachli; if not,
  * see <http://www.gnu.org/licenses>.
  */
-@file:JvmName("LinkHelper")
 
 package app.pachli.util
 

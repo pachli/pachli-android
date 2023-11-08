@@ -27,7 +27,8 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.work.testing.WorkManagerTestInitHelper
 import app.pachli.components.accountlist.AccountListActivity
 import app.pachli.components.compose.HiltTestApplication_Application
-import app.pachli.components.notifications.NotificationHelper
+import app.pachli.components.notifications.createNotificationChannelsForAccount
+import app.pachli.components.notifications.makeNotification
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TabKind
@@ -185,10 +186,10 @@ class MainActivityTest {
         val notificationManager = context.getSystemService(NotificationManager::class.java)
         val shadowNotificationManager = shadowOf(notificationManager)
 
-        NotificationHelper.createNotificationChannelsForAccount(accountEntity, context)
+        createNotificationChannelsForAccount(accountEntity, context)
 
         runInBackground {
-            val notification = NotificationHelper.make(
+            val notification = makeNotification(
                 context,
                 notificationManager,
                 Notification(

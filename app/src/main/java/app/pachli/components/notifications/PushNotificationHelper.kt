@@ -14,8 +14,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-@file:JvmName("PushNotificationHelper")
-
 package app.pachli.components.notifications
 
 import android.app.NotificationManager
@@ -123,7 +121,7 @@ fun canEnablePushNotifications(context: Context, accountManager: AccountManager)
 suspend fun enablePushNotificationsWithFallback(context: Context, api: MastodonApi, accountManager: AccountManager) {
     if (!canEnablePushNotifications(context, accountManager)) {
         // No UP distributors
-        NotificationHelper.enablePullNotifications(context)
+        enablePullNotifications(context)
         return
     }
 
@@ -150,7 +148,7 @@ private fun disablePushNotifications(context: Context, accountManager: AccountMa
 
 fun disableAllNotifications(context: Context, accountManager: AccountManager) {
     disablePushNotifications(context, accountManager)
-    NotificationHelper.disablePullNotifications(context)
+    disablePullNotifications(context)
 }
 
 private fun buildSubscriptionData(context: Context, account: AccountEntity): Map<String, Boolean> =
@@ -159,7 +157,7 @@ private fun buildSubscriptionData(context: Context, account: AccountEntity): Map
         Notification.Type.visibleTypes.forEach {
             put(
                 "data[alerts][${it.presentation}]",
-                NotificationHelper.filterNotification(notificationManager, account, it),
+                filterNotification(notificationManager, account, it),
             )
         }
     }

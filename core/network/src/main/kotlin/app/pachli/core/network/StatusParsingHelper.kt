@@ -15,8 +15,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-@file:JvmName("StatusParsingHelper")
-
 package app.pachli.core.network
 
 import android.text.Html.TagHandler

@@ -1,5 +1,3 @@
-@file:JvmName("AttachmentHelper")
-
 package app.pachli.util
 
 import android.content.Context
