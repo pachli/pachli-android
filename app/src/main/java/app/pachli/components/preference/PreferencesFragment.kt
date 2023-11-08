@@ -31,6 +31,7 @@ import app.pachli.settings.preference
 import app.pachli.settings.preferenceCategory
 import app.pachli.settings.sliderPreference
 import app.pachli.settings.switchPreference
+import app.pachli.updatecheck.UpdateNotificationFrequency
 import app.pachli.util.APP_THEME_DEFAULT
 import app.pachli.util.LocaleManager
 import app.pachli.util.deserialize
@@ -281,6 +282,19 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(R.string.pref_title_http_proxy_settings)
                     fragment = ProxyPreferencesFragment::class.qualifiedName
                     summaryProvider = ProxyPreferencesFragment.SummaryProvider
+                }
+            }
+
+            preferenceCategory(R.string.pref_title_update_settings) {
+                listPreference {
+                    setDefaultValue(UpdateNotificationFrequency.ALWAYS.name)
+                    setEntries(R.array.pref_update_notification_frequency_names)
+                    setEntryValues(R.array.pref_update_notification_frequency_values)
+                    key = PrefKeys.UPDATE_NOTIFICATION_FREQUENCY
+                    setSummaryProvider { entry }
+                    setTitle(R.string.pref_title_update_notification_frequency)
+                    isSingleLineTitle = false
+                    icon = makeIcon(GoogleMaterial.Icon.gmd_upgrade)
                 }
             }
         }

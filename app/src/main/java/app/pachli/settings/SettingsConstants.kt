@@ -108,6 +108,10 @@ object PrefKeys {
     /** UI text scaling factor, stored as float, 100 = 100% = no scaling */
     const val UI_TEXT_SCALE_RATIO = "uiTextScaleRatio"
 
+    const val UPDATE_NOTIFICATION_FREQUENCY = "updateNotificationFrequency"
+    const val UPDATE_NOTIFICATION_VERSIONCODE = "updateNotificationVersioncode"
+    const val UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS = "updateNotificationLastNotificationMs"
+
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         // Empty at this time

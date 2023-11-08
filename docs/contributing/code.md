@@ -108,9 +108,15 @@ So if you will resolve issue #1234, name the branch `1234-...`.
 
 ### Choose a build variant
 
-Pachli has two build variants, `blue` and `orange`. The blue variant is used to build each release. The `orange` variant can be installed alongside the `blue` variant, and is ideal if you want to keep the released version of Pachli and your testing version installed side by side.
+Pachli has 2 x 3 build flavours.
 
-Typically you would configure the build variant in Android Studio with Build > Select Build Variant..., and select `orangeDebug`.
+The two colour flavours are `blue` and `orange`. The blue flavour is used to build each production release. The `orange` flavour can be installed alongside the `blue` flavour, and is ideal if you want to keep the released version of Pachli and your testing version installed side by side.
+
+Pachli Current is built from the `orange` flavour.
+
+The three store flavours are `fdroid`, `github`, and `google`. These contain store-specific code; for example, checking for an updated release.
+
+Typically you would configure the build variant in Android Studio with Build > Select Build Variant..., and select `orangeFdroidDebug`.
 
 This is not mandatory, but may make developing easier for you.
 
@@ -280,10 +286,10 @@ If your PR can not be cleanly merged in to `main` it is difficult to review effe
 
 The project has a number of automated tests, they will automatically be run on your PR when it is submitted.
 
-You can run them with the `app:testOrangeDebugUnitTest` task.
+You can run them with the `app:testOrangeFdroidDebugUnitTest` task.
 
 ```shell
-./gradlew app:testOrangeDebugUnitTest
+./gradlew app:testOrangeFdroidDebugUnitTest
 ```
 
 Where practical new code should include new unit tests.
@@ -292,20 +298,20 @@ Where practical new code should include new unit tests.
 
 The project uses Android lint to check for many common errors or questionable practices. The Android lint checks will automatically be run on your PR when it is submitted.
 
-You can run them with the `app:lintOrangeDebug` task.
+You can run them with the `app:lintOrangeFdroidDebug` task.
 
 ```shell
-./gradlew app:lintOrangeDebug
+./gradlew app:lintOrangeFdroidDebug
 ```
 
 A number of pre-existing lint errors and warnings have been grandfathered in to the project, and can be seen in the `app/lint-baseline.xml` file.
 
 These are being removed over time, please do not add to them.
 
-If your PR fixes some of the existing lint issues, or moves code so that the baseline file is no longer valid you can you regenerate it with the `updateLintBaselineOrangeDebug` task.
+If your PR fixes some of the existing lint issues, or moves code so that the baseline file is no longer valid you can you regenerate it with the `updateLintBaselineOrangeFdroidDebug` task.
 
 ```shell
-./gradlew updateLintBaselineOrangeDebug
+./gradlew updateLintBaselineOrangeFdroidDebug
 ```
 
 #### Screenshots

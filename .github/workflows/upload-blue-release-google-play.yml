@@ -27,17 +27,17 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
-      - name: Build APK
-        run: ./gradlew assembleBlueRelease --stacktrace
+      - name: Build GitHub APK
+        run: ./gradlew assembleBlueGithubRelease --stacktrace
 
-      - name: Build AAB
-        run: ./gradlew :app:bundleBlueRelease --stacktrace
+      - name: Build Google AAB
+        run: ./gradlew :app:bundleBlueGoogleRelease --stacktrace
 
       - uses: r0adkll/sign-android-release@v1.0.4
-        name: Sign app APK
+        name: Sign GitHub APK
         id: sign_app_apk
         with:
-          releaseDirectory: app/build/outputs/apk/blue/release
+          releaseDirectory: app/build/outputs/apk/blueGithub/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.SIGNING_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -46,10 +46,10 @@ jobs:
           BUILD_TOOLS_VERSION: "34.0.0"
 
       - uses: r0adkll/sign-android-release@v1.0.4
-        name: Sign app AAB
+        name: Sign Google AAB
         id: sign_app_aab
         with:
-          releaseDirectory: app/build/outputs/bundle/blueRelease
+          releaseDirectory: app/build/outputs/bundle/blueGoogleRelease
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.SIGNING_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -80,4 +80,4 @@ jobs:
           track: internal
           whatsNewDirectory: googleplay/whatsnew
           status: completed
-          mappingFile: app/build/outputs/mapping/blueRelease/mapping.txt
+          mappingFile: app/build/outputs/mapping/blueGoogleRelease/mapping.txt
