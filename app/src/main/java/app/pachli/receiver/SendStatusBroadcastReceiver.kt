@@ -26,7 +26,17 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.RemoteInput
 import app.pachli.R
-import app.pachli.components.notifications.NotificationHelper
+import app.pachli.components.notifications.CHANNEL_MENTION
+import app.pachli.components.notifications.KEY_CITED_STATUS_ID
+import app.pachli.components.notifications.KEY_MENTIONS
+import app.pachli.components.notifications.KEY_NOTIFICATION_ID
+import app.pachli.components.notifications.KEY_REPLY
+import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_FULL_NAME
+import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_ID
+import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_IDENTIFIER
+import app.pachli.components.notifications.KEY_SPOILER
+import app.pachli.components.notifications.KEY_VISIBILITY
+import app.pachli.components.notifications.REPLY_ACTION
 import app.pachli.db.AccountManager
 import app.pachli.entity.Status
 import app.pachli.service.SendStatusService
@@ -43,15 +53,15 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
     lateinit var accountManager: AccountManager
 
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action == NotificationHelper.REPLY_ACTION) {
-            val notificationId = intent.getIntExtra(NotificationHelper.KEY_NOTIFICATION_ID, -1)
-            val senderId = intent.getLongExtra(NotificationHelper.KEY_SENDER_ACCOUNT_ID, -1)
-            val senderIdentifier = intent.getStringExtra(NotificationHelper.KEY_SENDER_ACCOUNT_IDENTIFIER)
-            val senderFullName = intent.getStringExtra(NotificationHelper.KEY_SENDER_ACCOUNT_FULL_NAME)
-            val citedStatusId = intent.getStringExtra(NotificationHelper.KEY_CITED_STATUS_ID)
-            val visibility = intent.getSerializableExtra(NotificationHelper.KEY_VISIBILITY) as Status.Visibility
-            val spoiler = intent.getStringExtra(NotificationHelper.KEY_SPOILER).orEmpty()
-            val mentions = intent.getStringArrayExtra(NotificationHelper.KEY_MENTIONS).orEmpty()
+        if (intent.action == REPLY_ACTION) {
+            val notificationId = intent.getIntExtra(KEY_NOTIFICATION_ID, -1)
+            val senderId = intent.getLongExtra(KEY_SENDER_ACCOUNT_ID, -1)
+            val senderIdentifier = intent.getStringExtra(KEY_SENDER_ACCOUNT_IDENTIFIER)
+            val senderFullName = intent.getStringExtra(KEY_SENDER_ACCOUNT_FULL_NAME)
+            val citedStatusId = intent.getStringExtra(KEY_CITED_STATUS_ID)
+            val visibility = intent.getSerializableExtra(KEY_VISIBILITY) as Status.Visibility
+            val spoiler = intent.getStringExtra(KEY_SPOILER).orEmpty()
+            val mentions = intent.getStringArrayExtra(KEY_MENTIONS).orEmpty()
 
             val account = accountManager.getAccountById(senderId)
 
@@ -66,7 +76,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                     return
                 }
 
-                val builder = NotificationCompat.Builder(context, NotificationHelper.CHANNEL_MENTION + senderIdentifier)
+                val builder = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
                     .setSmallIcon(R.drawable.ic_notify)
                     .setColor(context.getColor(R.color.tusky_blue))
                     .setGroup(senderFullName)
@@ -108,7 +118,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
 
                 context.startService(sendIntent)
 
-                val builder = NotificationCompat.Builder(context, NotificationHelper.CHANNEL_MENTION + senderIdentifier)
+                val builder = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
                     .setSmallIcon(R.drawable.ic_notify)
                     .setColor(context.getColor(R.color.notification_color))
                     .setGroup(senderFullName)
@@ -131,6 +141,6 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
     private fun getReplyMessage(intent: Intent): CharSequence {
         val remoteInput = RemoteInput.getResultsFromIntent(intent)
 
-        return remoteInput?.getCharSequence(NotificationHelper.KEY_REPLY, "") ?: ""
+        return remoteInput?.getCharSequence(KEY_REPLY, "") ?: ""
     }
 }

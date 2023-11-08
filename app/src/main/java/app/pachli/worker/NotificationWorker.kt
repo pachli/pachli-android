@@ -23,9 +23,9 @@ import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import app.pachli.R
+import app.pachli.components.notifications.NOTIFICATION_ID_FETCH_NOTIFICATION
 import app.pachli.components.notifications.NotificationFetcher
-import app.pachli.components.notifications.NotificationHelper
-import app.pachli.components.notifications.NotificationHelper.NOTIFICATION_ID_FETCH_NOTIFICATION
+import app.pachli.components.notifications.createWorkerNotification
 import javax.inject.Inject
 
 /** Fetch and show new notifications. */
@@ -34,7 +34,7 @@ class NotificationWorker(
     params: WorkerParameters,
     private val notificationsFetcher: NotificationFetcher,
 ) : CoroutineWorker(appContext, params) {
-    val notification: Notification = NotificationHelper.createWorkerNotification(applicationContext, R.string.notification_notification_worker)
+    val notification: Notification = createWorkerNotification(applicationContext, R.string.notification_notification_worker)
 
     override suspend fun doWork(): Result {
         notificationsFetcher.fetchAndShow()

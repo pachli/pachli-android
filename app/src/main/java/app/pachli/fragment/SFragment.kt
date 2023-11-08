@@ -521,15 +521,11 @@ abstract class SFragment : Fragment() {
     private fun requestDownloadAllMedia(status: Status) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            (activity as BaseActivity).requestPermissions(permissions) { _: Array<String?>?, grantResults: IntArray ->
+            (activity as BaseActivity).requestPermissions(permissions) { _, grantResults ->
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     downloadAllMedia(status)
                 } else {
-                    Toast.makeText(
-                        context,
-                        R.string.error_media_download_permission,
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                    Toast.makeText(context, R.string.error_media_download_permission, Toast.LENGTH_SHORT).show()
                 }
             }
         } else {

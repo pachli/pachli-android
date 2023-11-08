@@ -46,6 +46,10 @@ android {
         buildConfigField("String", "SUPPORT_ACCOUNT_URL", "\"$SUPPORT_ACCOUNT_URL\"")
     }
     buildTypes {
+        debug {
+            getIsDefault().set(true)
+        }
+
         release {
             minifyEnabled true
             shrinkResources true
@@ -54,12 +58,30 @@ android {
     }
 
     flavorDimensions += "color"
+    flavorDimensions += "store"
+
     productFlavors {
-        blue {}
+        blue {
+            dimension "color"
+        }
+
         orange {
+            dimension "color"
             resValue "string", "app_name", APP_NAME + " Current"
             applicationIdSuffix ".current"
             versionNameSuffix "+" + gitSha
+        }
+
+        fdroid {
+            dimension "store"
+        }
+
+        github {
+            dimension "store"
+        }
+
+        google {
+            dimension "store"
         }
     }
 
@@ -114,7 +136,7 @@ android {
         variant.outputs.configureEach {
             // Set the "orange" release versionCode to the number of commits on the
             // branch, to ensure the versionCode updates on every release.
-            if (variant.buildType.name == "release" && variant.flavorName == "orange") {
+            if (variant.buildType.name == "release" && variant.flavorName.startsWith("orange")) {
                 versionCodeOverride = gitRevCount
             }
             outputFileName = "Pachli_${variant.versionName}_${variant.versionCode}_${gitSha}_" +
@@ -198,6 +220,9 @@ dependencies {
 
     implementation libs.bundles.aboutlibraries
     implementation libs.timber
+
+    googleImplementation libs.app.update
+    googleImplementation libs.app.update.ktx
 
     implementation libs.kotlin.result
     implementation libs.semver

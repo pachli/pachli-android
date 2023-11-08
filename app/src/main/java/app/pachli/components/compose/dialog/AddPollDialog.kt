@@ -14,8 +14,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-@file:JvmName("AddPollDialog")
-
 package app.pachli.components.compose.dialog
 
 import android.content.Context

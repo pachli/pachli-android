@@ -1,4 +1,5 @@
-/* Copyright 2017 Andrew Dawson
+/*
+ * Copyright 2023 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -14,15 +15,26 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.interfaces;
+package app.pachli.updatecheck
 
-import androidx.annotation.Nullable;
+import at.connyduck.calladapter.networkresult.NetworkResult
+import retrofit2.http.GET
+import retrofit2.http.Path
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+data class FdroidPackageVersion(
+    val versionName: String,
+    val versionCode: Int
+)
 
-public interface ActionButtonActivity {
+data class FdroidPackage(
+    val packageName: String,
+    val suggestedVersionCode: Int,
+    val packages: List<FdroidPackageVersion>
+)
 
-    /* return the ActionButton of the Activity to hide or show it on scroll */
-    @Nullable
-    FloatingActionButton getActionButton();
+interface FdroidService {
+    @GET("/api/v1/packages/{package}")
+    suspend fun getPackage(
+        @Path("package") pkg: String
+    ): NetworkResult<FdroidPackage>
 }

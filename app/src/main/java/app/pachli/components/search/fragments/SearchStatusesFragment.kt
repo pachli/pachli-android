@@ -414,11 +414,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     downloadAllMedia(status)
                 } else {
-                    Toast.makeText(
-                        context,
-                        R.string.error_media_download_permission,
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                    Toast.makeText(context, R.string.error_media_download_permission, Toast.LENGTH_SHORT).show()
                 }
             }
         } else {

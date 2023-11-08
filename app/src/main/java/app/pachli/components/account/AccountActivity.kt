@@ -113,6 +113,15 @@ class AccountActivity :
 
     private val binding: ActivityAccountBinding by viewBinding(ActivityAccountBinding::inflate)
 
+    override val actionButton: FloatingActionButton?
+        get() {
+            return if (!blocking) {
+                binding.accountFloatingActionButton
+            } else {
+                null
+            }
+        }
+
     private lateinit var accountFieldAdapter: AccountFieldAdapter
 
     private var followState: FollowState = FollowState.NOT_FOLLOWING
@@ -976,14 +985,6 @@ class AccountActivity :
             }
         }
         return false
-    }
-
-    override fun getActionButton(): FloatingActionButton? {
-        return if (!blocking) {
-            binding.accountFloatingActionButton
-        } else {
-            null
-        }
     }
 
     private fun getFullUsername(account: Account): String {

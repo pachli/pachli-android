@@ -26,7 +26,7 @@ import app.pachli.appstore.StatusScheduledEvent
 import app.pachli.components.compose.MediaUploader
 import app.pachli.components.compose.UploadEvent
 import app.pachli.components.drafts.DraftHelper
-import app.pachli.components.notifications.NotificationHelper
+import app.pachli.components.notifications.pendingIntentFlags
 import app.pachli.db.AccountManager
 import app.pachli.entity.Attachment
 import app.pachli.entity.MediaAttribute
@@ -379,7 +379,7 @@ class SendStatusService : Service() {
             this,
             statusId,
             intent,
-            NotificationHelper.pendingIntentFlags(false),
+            pendingIntentFlags(false),
         )
     }
 
@@ -395,7 +395,7 @@ class SendStatusService : Service() {
             this,
             statusId,
             intent,
-            NotificationHelper.pendingIntentFlags(false),
+            pendingIntentFlags(false),
         )
 
         return NotificationCompat.Builder(this@SendStatusService, CHANNEL_ID)

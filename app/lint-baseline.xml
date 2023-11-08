@@ -894,7 +894,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="470"
+            line="479"
             column="9"/>
     </issue>
 
@@ -984,17 +984,6 @@
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
             line="158"
             column="13"/>
-    </issue>
-
-    <issue
-        id="ObsoleteSdkInt"
-        message="Unnecessary; SDK_INT is always >= 23"
-        errorLine1="            return PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);"
-        errorLine2="                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/notifications/NotificationHelper.java"
-            line="864"
-            column="57"/>
     </issue>
 
     <issue
@@ -2071,7 +2060,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="127"
+            line="124"
             column="12"/>
     </issue>
 
@@ -2082,7 +2071,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="154"
+            line="151"
             column="12"/>
     </issue>
 
@@ -2192,7 +2181,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="358"
+            line="367"
             column="29"/>
     </issue>
 
@@ -2203,7 +2192,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="361"
+            line="370"
             column="29"/>
     </issue>
 
@@ -2214,7 +2203,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="367"
+            line="376"
             column="21"/>
     </issue>
 
@@ -2225,7 +2214,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="368"
+            line="377"
             column="21"/>
     </issue>
 
@@ -2236,7 +2225,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="370"
+            line="379"
             column="21"/>
     </issue>
 
@@ -2247,7 +2236,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="380"
+            line="389"
             column="21"/>
     </issue>
 
@@ -2425,6 +2414,17 @@
             file="src/main/java/app/pachli/AccountsInListFragment.kt"
             line="239"
             column="63"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `textStyle` of class `Companion` requires synthetic accessor"
+        errorLine1="            textStyle(sharedPreferencesRepository.getString(PrefKeys.STATUS_TEXT_SIZE, &quot;medium&quot;)!!)"
+        errorLine2="            ~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/BaseActivity.kt"
+            line="105"
+            column="13"/>
     </issue>
 
     <issue
@@ -2995,7 +2995,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="233"
+            line="243"
             column="37"/>
     </issue>
 
@@ -3006,7 +3006,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="237"
+            line="247"
             column="37"/>
     </issue>
 
@@ -3017,7 +3017,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="341"
+            line="351"
             column="25"/>
     </issue>
 
@@ -3028,7 +3028,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="342"
+            line="352"
             column="29"/>
     </issue>
 
@@ -3039,7 +3039,7 @@
         errorLine2="                        ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="344"
+            line="354"
             column="25"/>
     </issue>
 
@@ -3050,7 +3050,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="345"
+            line="355"
             column="29"/>
     </issue>
 
@@ -3061,7 +3061,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="556"
+            line="622"
             column="17"/>
     </issue>
 
@@ -3072,7 +3072,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="559"
+            line="625"
             column="21"/>
     </issue>
 
@@ -3083,7 +3083,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="564"
+            line="630"
             column="17"/>
     </issue>
 
@@ -3094,7 +3094,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="568"
+            line="634"
             column="21"/>
     </issue>
 
@@ -3105,7 +3105,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="573"
+            line="639"
             column="17"/>
     </issue>
 
@@ -3116,7 +3116,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="576"
+            line="642"
             column="21"/>
     </issue>
 
@@ -3127,7 +3127,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="581"
+            line="647"
             column="17"/>
     </issue>
 
@@ -3138,7 +3138,7 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="584"
+            line="650"
             column="21"/>
     </issue>
 
@@ -3149,7 +3149,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="589"
+            line="655"
             column="17"/>
     </issue>
 
@@ -3158,171 +3158,6 @@
         message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
         errorLine1="                    onClick = {"
         errorLine2="                    ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="592"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                primaryDrawerItem {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="596"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    onClick = {"
-        errorLine2="                    ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="599"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                primaryDrawerItem {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="604"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    onClick = {"
-        errorLine2="                    ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="607"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                primaryDrawerItem {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="611"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    onClick = {"
-        errorLine2="                    ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="615"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                secondaryDrawerItem {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="624"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    onClick = {"
-        errorLine2="                    ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="627"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                secondaryDrawerItem {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="632"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    onClick = {"
-        errorLine2="                    ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="635"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                secondaryDrawerItem {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="640"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    onClick = {"
-        errorLine2="                    ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="643"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                secondaryDrawerItem {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="648"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    onClick = ::logout"
-        errorLine2="                    ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="651"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                    primaryDrawerItem {"
-        errorLine2="                    ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
             line="658"
@@ -3331,13 +3166,24 @@
 
     <issue
         id="SyntheticAccessor"
-        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                        onClick = {"
-        errorLine2="                        ~~~~~~~">
+        message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                primaryDrawerItem {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="661"
-            column="25"/>
+            line="662"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    onClick = {"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="665"
+            column="21"/>
     </issue>
 
     <issue
@@ -3364,12 +3210,12 @@
 
     <issue
         id="SyntheticAccessor"
-        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
-        errorLine1="                secondaryDrawerItem {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
+        message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                primaryDrawerItem {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="686"
+            line="677"
             column="17"/>
     </issue>
 
@@ -3380,7 +3226,161 @@
         errorLine2="                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
+            line="681"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                secondaryDrawerItem {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
             line="690"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    onClick = {"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="693"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                secondaryDrawerItem {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="698"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    onClick = {"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="701"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                secondaryDrawerItem {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="706"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    onClick = {"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="709"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                secondaryDrawerItem {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="714"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    onClick = ::logout"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="717"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    primaryDrawerItem {"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="724"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                        onClick = {"
+        errorLine2="                        ~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="727"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `primaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                primaryDrawerItem {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="736"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    onClick = {"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="739"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `secondaryDrawerItem` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                secondaryDrawerItem {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="752"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `setOnClick` of class `MainActivityKt` requires synthetic accessor"
+        errorLine1="                    onClick = {"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/MainActivity.kt"
+            line="756"
             column="21"/>
     </issue>
 
@@ -3391,7 +3391,7 @@
         errorLine2="                ~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="811"
+            line="877"
             column="17"/>
     </issue>
 
@@ -3402,7 +3402,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="813"
+            line="879"
             column="17"/>
     </issue>
 
@@ -3413,7 +3413,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="824"
+            line="890"
             column="17"/>
     </issue>
 
@@ -4751,7 +4751,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="249"
+            line="247"
             column="6"/>
     </issue>
 
@@ -4762,7 +4762,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="277"
+            line="275"
             column="6"/>
     </issue>
 
@@ -4773,7 +4773,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="305"
+            line="303"
             column="6"/>
     </issue>
 
@@ -5114,7 +5114,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="239"
+            line="237"
             column="9"/>
     </issue>
 
@@ -5180,7 +5180,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/util/ShareShortcutHelper.kt"
-            line="87"
+            line="85"
             column="9"/>
     </issue>
 
