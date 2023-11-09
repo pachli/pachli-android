@@ -13,12 +13,6 @@
         </menu>
     </item>
     <item
-        android:id="@+id/status_translate"
-        android:title="@string/action_translate" />
-    <item
-        android:id="@+id/status_translate_undo"
-        android:title="@string/action_translate_undo" />
-    <item
         android:id="@+id/status_copy_link"
         android:title="@string/action_copy_link" />
     <item
@@ -39,4 +33,10 @@
     <item
         android:id="@+id/status_report"
         android:title="@string/action_report" />
+    <item
+        android:id="@+id/status_translate"
+        android:title="@string/action_translate" />
+    <item
+        android:id="@+id/status_translate_undo"
+        android:title="@string/action_translate_undo" />
 </menu>
