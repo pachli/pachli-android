@@ -18,3 +18,6 @@ A clear and concise description of any alternative solutions or features you've 
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
+
+**Mastodon account, for credit**
+If you would like to be credited in the release notes please include your Mastodon account name here.
