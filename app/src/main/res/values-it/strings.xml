@@ -297,7 +297,7 @@
     <string name="action_remove_from_list">Rimuovi un account dalla lista</string>
     <string name="compose_active_account_description">Pubblicando come %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
-    	<item quantity="one">Descrivi il contenuto per gli ipovedenti
+        <item quantity="one">Descrivi il contenuto per gli ipovedenti
 \n(limite di %d caratteri)</item>
         <item quantity="many">Descrivi i contenuti per gli ipovedenti
 \n(limite di %d caratteri)</item>
@@ -497,7 +497,7 @@
     <string name="pref_main_nav_position">Posizione barra di navigazione</string>
     <string name="pref_title_gradient_for_media">Mostra gradienti colorati per i media nascosti</string>
     <string name="dialog_mute_hide_notifications">Nascondi notifiche</string>
-    <string name="title_announcements">Anunci</string>
+    <string name="title_announcements">Annunci</string>
     <string name="pref_title_notification_filter_follow_requests">mi viene richiesto di seguirmi</string>
     <string name="wellbeing_hide_stats_profile">Nascondi le statistiche sui profili</string>
     <string name="wellbeing_hide_stats_posts">Nascondi le statistiche sui post</string>
@@ -702,4 +702,17 @@
     <string name="dialog_delete_filter_positive_action">Cancella</string>
     <string name="dialog_save_profile_changes_message">Vuoi salvare le modifiche al tuo profilo?</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
+    <string name="update_dialog_negative">Non ricordarmelo</string>
+    <string name="pref_title_update_notification_frequency">Informami riguardo le nuove versioni di Pachli</string>
+    <string name="title_tab_public_trending_links">Collegamenti</string>
+    <string name="update_dialog_neutral">Non ricordarmelo per questa versione</string>
+    <string name="pref_title_update_settings">Aggiornamenti Software</string>
+    <string name="error_network_fmt">Si è verificato un errore di rete: %s</string>
+    <string name="error_generic_fmt">Si è verificato un errore: %s</string>
+    <string name="pref_update_notification_frequency_always">Sempre</string>
+    <string name="error_media_upload_sending_fmt">Il caricamento è fallito: %s</string>
+    <string name="pref_update_notification_frequency_never">Mai</string>
+    <string name="title_tab_public_trending_statuses">Post</string>
+    <string name="pref_update_notification_frequency_once_per_version">Una volta per versione</string>
+    <string name="update_dialog_title">Un aggiornamento è disponibile</string>
 </resources>
