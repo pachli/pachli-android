@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.PinEvent
+import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.entity.Status
 import app.pachli.network.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
@@ -25,6 +26,7 @@ class TimelineCasesTest {
 
     private lateinit var api: MastodonApi
     private lateinit var eventHub: EventHub
+    private lateinit var cachedTimelineRepository: CachedTimelineRepository
     private lateinit var timelineCases: TimelineCases
 
     private val statusId = "1234"
@@ -33,7 +35,8 @@ class TimelineCasesTest {
     fun setup() {
         api = mock()
         eventHub = EventHub()
-        timelineCases = TimelineCases(api, eventHub)
+        cachedTimelineRepository = mock()
+        timelineCases = TimelineCases(api, eventHub, cachedTimelineRepository)
     }
 
     @Test

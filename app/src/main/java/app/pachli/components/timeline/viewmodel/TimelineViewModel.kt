@@ -82,18 +82,6 @@ data class UiState(
     val showFabWhileScrolling: Boolean,
 )
 
-/** Preferences the UI reacts to */
-data class UiPrefs(
-    val showFabWhileScrolling: Boolean,
-) {
-    companion object {
-        /** Relevant preference keys. Changes to any of these trigger a display update */
-        val prefKeys = setOf(
-            PrefKeys.FAB_HIDE,
-        )
-    }
-}
-
 // TODO: Ui* classes are copied from NotificationsViewModel. Not yet sure whether these actions
 // are "global" across all timelines (including notifications) or whether notifications are
 // sufficiently different to warrant having a duplicate set. Keeping them duplicated for the
@@ -125,6 +113,8 @@ sealed interface InfallibleUiAction : UiAction {
     // infallible. Reloading the data may fail, but that's handled by the paging system /
     // adapter refresh logic.
     data object LoadNewest : InfallibleUiAction
+
+    data class TranslateUndo(val statusViewData: StatusViewData) : InfallibleUiAction
 }
 
 sealed interface UiSuccess {
@@ -171,6 +161,9 @@ sealed interface StatusAction : FallibleUiAction {
         val choices: List<Int>,
         override val statusViewData: StatusViewData,
     ) : StatusAction
+
+    /** Translate a status */
+    data class Translate(override val statusViewData: StatusViewData) : StatusAction
 }
 
 /** Changes to a status' visible state after API calls */
@@ -185,12 +178,15 @@ sealed interface StatusActionSuccess : UiSuccess {
 
     data class VoteInPoll(override val action: StatusAction.VoteInPoll) : StatusActionSuccess
 
+    data class Translate(override val action: StatusAction.Translate) : StatusActionSuccess
+
     companion object {
         fun from(action: StatusAction) = when (action) {
             is StatusAction.Bookmark -> Bookmark(action)
             is StatusAction.Favourite -> Favourite(action)
             is StatusAction.Reblog -> Reblog(action)
             is StatusAction.VoteInPoll -> VoteInPoll(action)
+            is StatusAction.Translate -> Translate(action)
         }
     }
 }
@@ -239,6 +235,12 @@ sealed interface UiError {
         override val message: Int = R.string.ui_error_vote,
     ) : UiError
 
+    data class TranslateStatus(
+        override val throwable: Throwable,
+        override val action: StatusAction.Translate,
+        override val message: Int = R.string.ui_error_translate_status,
+    ) : UiError
+
     data class GetFilters(
         override val throwable: Throwable,
         override val action: UiAction? = null,
@@ -251,6 +253,7 @@ sealed interface UiError {
             is StatusAction.Favourite -> Favourite(throwable, action)
             is StatusAction.Reblog -> Reblog(throwable, action)
             is StatusAction.VoteInPoll -> VoteInPoll(throwable, action)
+            is StatusAction.Translate -> TranslateStatus(throwable, action)
         }
     }
 }
@@ -350,6 +353,9 @@ abstract class TimelineViewModel(
                                     action.poll.id,
                                     action.choices,
                                 )
+                            is StatusAction.Translate -> {
+                                timelineCases.translate(action.statusViewData)
+                            }
                         }.getOrThrow()
                         uiSuccess.emit(StatusActionSuccess.from(action))
                     } catch (e: Exception) {
@@ -425,6 +431,13 @@ abstract class TimelineViewModel(
                     }
                     reloadFromNewest()
                 }
+        }
+
+        // Undo status translations
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.TranslateUndo>().collectLatest {
+                timelineCases.translateUndo(it.statusViewData)
+            }
         }
 
         viewModelScope.launch {

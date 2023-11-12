@@ -25,6 +25,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
 import android.view.MenuItem
 import android.view.View
@@ -33,7 +34,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.BaseActivity
 import app.pachli.BottomSheetActivity
 import app.pachli.PostLookupFallbackBehavior
@@ -50,14 +53,19 @@ import app.pachli.entity.Attachment
 import app.pachli.entity.Status
 import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.network.MastodonApi
+import app.pachli.network.ServerCapabilitiesRepository
+import app.pachli.network.ServerOperation
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.openLink
 import app.pachli.util.parseAsMastodonHtml
 import app.pachli.view.showMuteAccountDialog
 import app.pachli.viewdata.AttachmentViewData
+import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.TranslationState
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import com.google.android.material.snackbar.Snackbar
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -82,6 +90,11 @@ abstract class SFragment : Fragment() {
     @Inject
     lateinit var timelineCases: TimelineCases
 
+    @Inject
+    lateinit var serverCapabilitiesRepository: ServerCapabilitiesRepository
+
+    private var serverCanTranslate = false
+
     override fun startActivity(intent: Intent) {
         super.startActivity(intent)
         requireActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
@@ -93,6 +106,21 @@ abstract class SFragment : Fragment() {
             context
         } else {
             throw IllegalStateException("Fragment must be attached to a BottomSheetActivity!")
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                serverCapabilitiesRepository.flow.collect {
+                    serverCanTranslate = it.can(
+                        ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE,
+                        ">=1.0".toConstraint(),
+                    )
+                }
+            }
         }
     }
 
@@ -140,8 +168,13 @@ abstract class SFragment : Fragment() {
         requireActivity().startActivity(intent)
     }
 
-    protected fun more(status: Status, view: View, position: Int) {
-        val id = status.actionableId
+    /**
+     * Handles the user clicking the "..." (more) button typically at the bottom-right of
+     * the status.
+     */
+    protected fun more(statusViewData: StatusViewData, view: View, position: Int) {
+        val status = statusViewData.status
+        val actionableId = status.actionableId
         val accountId = status.actionableStatus.account.id
         val accountUsername = status.actionableStatus.account.username
         val statusUrl = status.actionableStatus.url
@@ -170,6 +203,13 @@ abstract class SFragment : Fragment() {
         } else {
             popup.inflate(R.menu.status_more)
             popup.menu.findItem(R.id.status_download_media).isVisible = status.attachments.isNotEmpty()
+            if (serverCanTranslate && canTranslate() && status.visibility != Status.Visibility.PRIVATE && status.visibility != Status.Visibility.DIRECT) {
+                popup.menu.findItem(R.id.status_translate).isVisible = statusViewData.translationState == TranslationState.SHOW_ORIGINAL
+                popup.menu.findItem(R.id.status_translate_undo).isVisible = statusViewData.translationState == TranslationState.SHOW_TRANSLATION
+            } else {
+                popup.menu.findItem(R.id.status_translate).isVisible = false
+                popup.menu.findItem(R.id.status_translate_undo).isVisible = false
+            }
         }
         val menu = popup.menu
         val openAsItem = menu.findItem(R.id.status_open_as)
@@ -249,7 +289,7 @@ abstract class SFragment : Fragment() {
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_report -> {
-                    openReportPage(accountId, accountUsername, id)
+                    openReportPage(accountId, accountUsername, actionableId)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_unreblog_private -> {
@@ -261,15 +301,15 @@ abstract class SFragment : Fragment() {
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete -> {
-                    showConfirmDeleteDialog(id, position)
+                    showConfirmDeleteDialog(actionableId, position)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete_and_redraft -> {
-                    showConfirmEditDialog(id, position, status)
+                    showConfirmEditDialog(actionableId, position, status)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_edit -> {
-                    editStatus(id, status)
+                    editStatus(actionableId, status)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.pin -> {
@@ -288,11 +328,30 @@ abstract class SFragment : Fragment() {
                     }
                     return@setOnMenuItemClickListener true
                 }
+                R.id.status_translate -> {
+                    onTranslate(statusViewData)
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.status_translate_undo -> {
+                    onTranslateUndo(statusViewData)
+                    return@setOnMenuItemClickListener true
+                }
             }
             false
         }
         popup.show()
     }
+
+    /**
+     * True if this class can translate statuses (assuming the server can). Superclasses should
+     * override this if they support translating a status, and also override [onTranslate]
+     * and [onTranslateUndo].
+     */
+    open fun canTranslate() = false
+
+    open fun onTranslate(statusViewData: StatusViewData) {}
+
+    open fun onTranslateUndo(statusViewData: StatusViewData) {}
 
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->

@@ -19,6 +19,7 @@ import app.pachli.db.TimelineDao
 import app.pachli.entity.Account
 import app.pachli.entity.StatusContext
 import app.pachli.network.MastodonApi
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.SharedPreferencesRepository
@@ -166,8 +167,15 @@ class ViewThreadViewModelTest {
             onBlocking { getStatusViewData(any()) } doReturn emptyMap()
         }
 
+        val serverCapabilitiesRepository = ServerCapabilitiesRepository(
+            mastodonApi,
+            accountManager,
+            TestScope(),
+        )
+
         statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
             sharedPreferencesRepository,
+            serverCapabilitiesRepository,
             accountManager,
             accountPreferenceDataStore,
             TestScope(),

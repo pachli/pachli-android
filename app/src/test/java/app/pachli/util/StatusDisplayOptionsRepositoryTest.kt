@@ -25,6 +25,8 @@ import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.MainCoroutineRule
 import app.pachli.db.AccountManager
 import app.pachli.entity.Account
+import app.pachli.network.MastodonApi
+import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.PrefKeys
 import com.google.common.truth.Truth.assertThat
@@ -62,6 +64,9 @@ class StatusDisplayOptionsRepositoryTest {
 
     @Inject
     lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var mastodonApi: MastodonApi
 
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
@@ -102,8 +107,15 @@ class StatusDisplayOptionsRepositoryTest {
             TestScope(),
         )
 
+        val serverCapabilitiesRepository = ServerCapabilitiesRepository(
+            mastodonApi,
+            accountManager,
+            TestScope(),
+        )
+
         statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
             sharedPreferencesRepository,
+            serverCapabilitiesRepository,
             accountManager,
             accountPreferenceDataStore,
             TestScope(),

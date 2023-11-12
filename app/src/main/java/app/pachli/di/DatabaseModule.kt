@@ -65,6 +65,9 @@ object DatabaseModule {
 
     @Provides
     fun provideRemoteKeyDao(appDatabase: AppDatabase) = appDatabase.remoteKeyDao()
+
+    @Provides
+    fun providesTranslatedStatusDao(appDatabase: AppDatabase) = appDatabase.translatedStatusDao()
 }
 
 /**

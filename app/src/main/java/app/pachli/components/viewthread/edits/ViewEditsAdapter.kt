@@ -19,8 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.PollAdapter
-import app.pachli.adapter.PollAdapter.Companion.MULTIPLE
-import app.pachli.adapter.PollAdapter.Companion.SINGLE
+import app.pachli.adapter.PollAdapter.DisplayMode
 import app.pachli.databinding.ItemStatusEditBinding
 import app.pachli.entity.Attachment.Focus
 import app.pachli.entity.StatusEdit
@@ -133,24 +132,20 @@ class ViewEditsAdapter(
             // https://github.com/mastodon/mastodon/issues/22571
             // binding.statusEditPollDescription.show()
 
-            val pollAdapter = PollAdapter()
+            val pollAdapter = PollAdapter(
+                options = edit.poll.options.map { PollOptionViewData.from(it, false) },
+                votesCount = 0,
+                votersCount = null,
+                edit.emojis,
+                animateEmojis = animateEmojis,
+                displayMode = if (edit.poll.multiple) DisplayMode.MULTIPLE_CHOICE else DisplayMode.SINGLE_CHOICE,
+                enabled = false,
+                resultClickListener = null,
+                pollOptionClickListener = null,
+            )
+
             binding.statusEditPollOptions.adapter = pollAdapter
             binding.statusEditPollOptions.layoutManager = LinearLayoutManager(context)
-
-            pollAdapter.setup(
-                options = edit.poll.options.map { PollOptionViewData.from(it, false) },
-                voteCount = 0,
-                votersCount = null,
-                emojis = edit.emojis,
-                mode = if (edit.poll.multiple) { // not reported by the api
-                    MULTIPLE
-                } else {
-                    SINGLE
-                },
-                resultClickListener = null,
-                animateEmojis = animateEmojis,
-                enabled = false,
-            )
         }
 
         if (edit.mediaAttachments.isEmpty()) {

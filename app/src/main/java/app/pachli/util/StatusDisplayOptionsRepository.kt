@@ -22,8 +22,11 @@ import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.db.AccountEntity
 import app.pachli.db.AccountManager
 import app.pachli.di.ApplicationScope
+import app.pachli.network.ServerCapabilitiesRepository
+import app.pachli.network.ServerOperation
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.PrefKeys
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -43,6 +46,7 @@ import javax.inject.Singleton
 @Singleton
 class StatusDisplayOptionsRepository @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val serverCapabilitiesRepository: ServerCapabilitiesRepository,
     private val accountManager: AccountManager,
     private val accountPreferenceDataStore: AccountPreferenceDataStore,
     @ApplicationScope private val externalScope: CoroutineScope,
@@ -146,6 +150,17 @@ class StatusDisplayOptionsRepository @Inject constructor(
                 }
             }
         }
+
+        externalScope.launch {
+            serverCapabilitiesRepository.flow.collect { serverCapabilities ->
+                Timber.d("Updating because server capabilities changed")
+                _flow.update {
+                    it.copy(
+                        canTranslate = serverCapabilities.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()),
+                    )
+                }
+            }
+        }
     }
 
     @VisibleForTesting(otherwise = PRIVATE)
@@ -168,6 +183,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
             showStatsInline = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_STATS_INLINE, default.showStatsInline),
             showSensitiveMedia = account?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
             openSpoiler = account?.alwaysOpenSpoiler ?: default.openSpoiler,
+            canTranslate = default.canTranslate,
         )
     }
 }

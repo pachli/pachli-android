@@ -72,6 +72,7 @@ import app.pachli.util.visible
 import app.pachli.util.withPresentationState
 import app.pachli.viewdata.AttachmentViewData
 import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.TranslationState
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -289,6 +290,7 @@ class TimelineFragment :
                                     statusViewData.status.copy(
                                         poll = it.action.poll.votedCopy(it.action.choices),
                                     )
+                                is StatusActionSuccess.Translate -> statusViewData.status
                             }
                             (indexedViewData.value as StatusViewData).status = status
 
@@ -610,8 +612,8 @@ class TimelineFragment :
     }
 
     override fun onMore(view: View, position: Int) {
-        val status = adapter.peek(position) ?: return
-        super.more(status.status, view, position)
+        val statusViewData = adapter.peek(position) ?: return
+        super.more(statusViewData, view, position)
     }
 
     override fun onOpenReblog(position: Int) {
@@ -646,13 +648,32 @@ class TimelineFragment :
         viewModel.changeContentCollapsed(isCollapsed, status)
     }
 
+    // Can only translate the home timeline at the moment
+    override fun canTranslate() = timelineKind == TimelineKind.Home
+
+    override fun onTranslate(statusViewData: StatusViewData) {
+        viewModel.accept(StatusAction.Translate(statusViewData))
+    }
+
+    override fun onTranslateUndo(statusViewData: StatusViewData) {
+        viewModel.accept(InfallibleUiAction.TranslateUndo(statusViewData))
+    }
+
     override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {
-        val status = adapter.peek(position) ?: return
-        super.viewMedia(
-            attachmentIndex,
-            AttachmentViewData.list(status.actionable),
-            view,
-        )
+        val statusViewData = adapter.peek(position) ?: return
+
+        // Pass the translated media descriptions through (if appropriate)
+        val actionable = if (statusViewData.translationState == TranslationState.SHOW_TRANSLATION) {
+            statusViewData.actionable.copy(
+                attachments = statusViewData.translation?.attachments?.zip(statusViewData.actionable.attachments) { t, a ->
+                    a.copy(description = t.description)
+                } ?: statusViewData.actionable.attachments,
+            )
+        } else {
+            statusViewData.actionable
+        }
+
+        super.viewMedia(attachmentIndex, AttachmentViewData.list(actionable), view)
     }
 
     override fun onViewThread(position: Int) {

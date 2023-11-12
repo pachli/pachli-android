@@ -3,6 +3,7 @@ package app.pachli
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.entity.Status
 import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.TranslationState
 import com.google.gson.Gson
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -44,12 +45,14 @@ class StatusComparisonTest {
             isExpanded = false,
             isShowingContent = false,
             isCollapsed = false,
+            translationState = TranslationState.SHOW_ORIGINAL,
         )
         val viewdata2 = StatusViewData(
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
             isCollapsed = false,
+            translationState = TranslationState.SHOW_ORIGINAL,
         )
         assertEquals(viewdata1, viewdata2)
     }
@@ -61,12 +64,14 @@ class StatusComparisonTest {
             isExpanded = true,
             isShowingContent = false,
             isCollapsed = false,
+            translationState = TranslationState.SHOW_ORIGINAL,
         )
         val viewdata2 = StatusViewData(
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
             isCollapsed = false,
+            translationState = TranslationState.SHOW_ORIGINAL,
         )
         assertNotEquals(viewdata1, viewdata2)
     }
@@ -78,12 +83,14 @@ class StatusComparisonTest {
             isExpanded = true,
             isShowingContent = false,
             isCollapsed = false,
+            translationState = TranslationState.SHOW_ORIGINAL,
         )
         val viewdata2 = StatusViewData(
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
             isCollapsed = false,
+            translationState = TranslationState.SHOW_ORIGINAL,
         )
         assertNotEquals(viewdata1, viewdata2)
     }

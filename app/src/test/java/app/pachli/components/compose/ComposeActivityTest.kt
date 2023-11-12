@@ -25,8 +25,8 @@ import app.pachli.R
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.db.AccountManager
 import app.pachli.entity.Account
-import app.pachli.entity.Instance
 import app.pachli.entity.InstanceConfiguration
+import app.pachli.entity.InstanceV1
 import app.pachli.entity.StatusConfiguration
 import app.pachli.network.MastodonApi
 import app.pachli.rules.lazyActivityScenarioRule
@@ -69,7 +69,7 @@ class ComposeActivityTest {
         launchActivity = false,
     )
 
-    private var getInstanceCallback: (() -> Instance)? = null
+    private var getInstanceCallback: (() -> InstanceV1)? = null
 
     @Inject
     lateinit var mastodonApi: MastodonApi
@@ -85,7 +85,7 @@ class ComposeActivityTest {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
-            onBlocking { getInstance() } doAnswer {
+            onBlocking { getInstanceV1() } doAnswer {
                 getInstanceCallback?.invoke().let { instance ->
                     if (instance == null) {
                         NetworkResult.failure(Throwable())
@@ -555,8 +555,8 @@ class ComposeActivityTest {
         activity.findViewById<EditText>(R.id.composeEditField).setText(text ?: "Some text")
     }
 
-    private fun getInstanceWithCustomConfiguration(maximumLegacyTootCharacters: Int? = null, configuration: InstanceConfiguration? = null): Instance {
-        return Instance(
+    private fun getInstanceWithCustomConfiguration(maximumLegacyTootCharacters: Int? = null, configuration: InstanceConfiguration? = null): InstanceV1 {
+        return InstanceV1(
             uri = "https://example.token",
             version = "2.6.3",
             maxTootChars = maximumLegacyTootCharacters,

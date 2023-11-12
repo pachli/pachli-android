@@ -16,6 +16,7 @@
 
 package app.pachli.db
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -29,6 +30,7 @@ import app.pachli.entity.HashTag
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
 import app.pachli.entity.TimelineAccount
+import app.pachli.viewdata.TranslationState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -193,6 +195,9 @@ data class StatusViewDataEntity(
     val contentShowing: Boolean,
     /** Corresponds to [app.pachli.viewdata.StatusViewData.isCollapsed] */
     val contentCollapsed: Boolean,
+    /** Show the translated version of the status (if it exists) */
+    @ColumnInfo(defaultValue = "SHOW_ORIGINAL")
+    val translationState: TranslationState,
 )
 
 val attachmentArrayListType: Type = object : TypeToken<ArrayList<Attachment>>() {}.type
@@ -209,6 +214,8 @@ data class TimelineStatusWithAccount(
     val reblogAccount: TimelineAccountEntity? = null, // null when no reblog
     @Embedded(prefix = "svd_")
     val viewData: StatusViewDataEntity? = null,
+    @Embedded(prefix = "t_")
+    val translatedStatus: TranslatedStatusEntity? = null,
 ) {
     fun toStatus(gson: Gson): Status {
         val attachments: ArrayList<Attachment> = gson.fromJson(

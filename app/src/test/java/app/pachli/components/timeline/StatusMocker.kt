@@ -7,6 +7,7 @@ import app.pachli.db.TimelineStatusWithAccount
 import app.pachli.entity.Status
 import app.pachli.entity.TimelineAccount
 import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.TranslationState
 import com.google.gson.Gson
 import java.util.Date
 
@@ -86,6 +87,7 @@ fun mockStatusViewData(
     isShowingContent = isShowingContent,
     isCollapsed = isCollapsed,
     isDetailed = isDetailed,
+    translationState = TranslationState.SHOW_ORIGINAL,
 )
 
 fun mockStatusEntityWithAccount(
@@ -113,6 +115,7 @@ fun mockStatusEntityWithAccount(
             expanded = expanded,
             contentShowing = false,
             contentCollapsed = true,
+            translationState = TranslationState.SHOW_ORIGINAL,
         ),
     )
 }

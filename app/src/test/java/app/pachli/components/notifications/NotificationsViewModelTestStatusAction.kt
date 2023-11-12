@@ -20,6 +20,7 @@ package app.pachli.components.notifications
 import app.cash.turbine.test
 import app.pachli.FilterV1Test.Companion.mockStatus
 import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.TranslationState
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
@@ -46,6 +47,7 @@ class NotificationsViewModelTestStatusAction : NotificationsViewModelTestBase() 
         isExpanded = true,
         isShowingContent = false,
         isCollapsed = false,
+        translationState = TranslationState.SHOW_ORIGINAL,
     )
 
     /** Action to bookmark a status */

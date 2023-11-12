@@ -17,9 +17,11 @@ package app.pachli.viewdata
 
 import android.os.Build
 import android.text.Spanned
+import android.text.SpannedString
 import app.pachli.components.conversation.ConversationAccountEntity
 import app.pachli.components.conversation.ConversationStatusEntity
 import app.pachli.db.TimelineStatusWithAccount
+import app.pachli.db.TranslatedStatusEntity
 import app.pachli.entity.Filter
 import app.pachli.entity.Poll
 import app.pachli.entity.Status
@@ -28,11 +30,24 @@ import app.pachli.util.replaceCrashingCharacters
 import app.pachli.util.shouldTrimStatus
 import com.google.gson.Gson
 
+enum class TranslationState {
+    /** Show the original, untranslated status */
+    SHOW_ORIGINAL,
+
+    /** Show the original, untranslated status, but translation is happening */
+    TRANSLATING,
+
+    /** Show the translated status */
+    SHOW_TRANSLATION,
+}
+
 /**
  * Data required to display a status.
  */
 data class StatusViewData(
     var status: Status,
+    var translation: TranslatedStatusEntity? = null,
+
     /**
      * If the status includes a non-empty content warning ([spoilerText]), specifies whether
      * just the content warning is showing (false), or the whole status content is showing (true).
@@ -67,6 +82,9 @@ data class StatusViewData(
     // if the Filter.Action class subtypes carried the FilterResult information with them,
     // and it's impossible to construct them with an empty list.
     var filterAction: Filter.Action = Filter.Action.NONE,
+
+    /** True if the translated content should be shown (if it exists) */
+    val translationState: TranslationState,
 ) {
     val id: String
         get() = status.id
@@ -79,10 +97,20 @@ data class StatusViewData(
      */
     val isCollapsible: Boolean
 
+    private val _content: Spanned
+
+    private val _translatedContent: Spanned
+
     val content: Spanned
+        get() = if (translationState == TranslationState.SHOW_TRANSLATION) _translatedContent else _content
+
+    private val _spoilerText: String
+    private val _translatedSpoilerText: String
 
     /** The content warning, may be the empty string */
     val spoilerText: String
+        get() = if (translationState == TranslationState.SHOW_TRANSLATION) _translatedSpoilerText else _spoilerText
+
     val username: String
 
     val actionable: Status
@@ -104,14 +132,22 @@ data class StatusViewData(
     init {
         if (Build.VERSION.SDK_INT == 23) {
             // https://github.com/tuskyapp/Tusky/issues/563
-            this.content = replaceCrashingCharacters(status.actionableStatus.content.parseAsMastodonHtml())
-            this.spoilerText =
+            this._content = replaceCrashingCharacters(status.actionableStatus.content.parseAsMastodonHtml())
+            this._spoilerText =
                 replaceCrashingCharacters(status.actionableStatus.spoilerText).toString()
             this.username =
                 replaceCrashingCharacters(status.actionableStatus.account.username).toString()
+            this._translatedContent = translation?.content?.let {
+                replaceCrashingCharacters(it.parseAsMastodonHtml())
+            } ?: SpannedString("")
+            this._translatedSpoilerText = translation?.spoilerText?.let {
+                replaceCrashingCharacters(it).toString()
+            } ?: ""
         } else {
-            this.content = status.actionableStatus.content.parseAsMastodonHtml()
-            this.spoilerText = status.actionableStatus.spoilerText
+            this._content = status.actionableStatus.content.parseAsMastodonHtml()
+            this._translatedContent = translation?.content?.parseAsMastodonHtml() ?: SpannedString("")
+            this._spoilerText = status.actionableStatus.spoilerText
+            this._translatedSpoilerText = translation?.spoilerText ?: ""
             this.username = status.actionableStatus.account.username
         }
         this.isCollapsible = shouldTrimStatus(this.content)
@@ -163,6 +199,8 @@ data class StatusViewData(
             isCollapsed: Boolean,
             isDetailed: Boolean = false,
             filterAction: Filter.Action = Filter.Action.NONE,
+            translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
+            translation: TranslatedStatusEntity? = null,
         ) = StatusViewData(
             status = status,
             isShowingContent = isShowingContent,
@@ -170,6 +208,8 @@ data class StatusViewData(
             isExpanded = isExpanded,
             isDetailed = isDetailed,
             filterAction = filterAction,
+            translationState = translationState,
+            translation = translation,
         )
 
         fun from(conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
@@ -207,6 +247,7 @@ data class StatusViewData(
             isExpanded = conversationStatusEntity.expanded,
             isShowingContent = conversationStatusEntity.showingHiddenContent,
             isCollapsed = conversationStatusEntity.collapsed,
+            translationState = TranslationState.SHOW_ORIGINAL, // TODO: Include this in conversationStatusEntity
         )
 
         fun from(
@@ -215,14 +256,17 @@ data class StatusViewData(
             isExpanded: Boolean,
             isShowingContent: Boolean,
             isDetailed: Boolean = false,
+            translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
         ): StatusViewData {
             val status = timelineStatusWithAccount.toStatus(gson)
             return StatusViewData(
                 status = status,
+                translation = timelineStatusWithAccount.translatedStatus,
                 isExpanded = timelineStatusWithAccount.viewData?.expanded ?: isExpanded,
                 isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (isShowingContent || !status.actionableStatus.sensitive),
                 isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                 isDetailed = isDetailed,
+                translationState = timelineStatusWithAccount.viewData?.translationState ?: translationState,
             )
         }
     }

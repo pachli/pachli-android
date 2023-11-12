@@ -50,11 +50,15 @@ rb.displayName as 'rb_displayName', rb.url as 'rb_url', rb.avatar as 'rb_avatar'
 rb.emojis as 'rb_emojis', rb.bot as 'rb_bot',
 svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
 svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
-svd.contentCollapsed as 'svd_contentCollapsed'
+svd.contentCollapsed as 'svd_contentCollapsed', svd.translationState as 'svd_translationState',
+t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content',
+t.spoilerText as 't_spoilerText', t.poll as 't_poll', t.attachments as 't_attachments',
+t.provider as 't_provider'
 FROM TimelineStatusEntity s
 LEFT JOIN TimelineAccountEntity a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
 LEFT JOIN TimelineAccountEntity rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN StatusViewDataEntity svd ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+LEFT JOIN TranslatedStatusEntity t ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
 WHERE s.timelineUserId = :account
 ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC""",
     )
@@ -92,11 +96,15 @@ rb.displayName as 'rb_displayName', rb.url as 'rb_url', rb.avatar as 'rb_avatar'
 rb.emojis as 'rb_emojis', rb.bot as 'rb_bot',
 svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
 svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
-svd.contentCollapsed as 'svd_contentCollapsed'
+svd.contentCollapsed as 'svd_contentCollapsed', svd.translationState as 'svd_translationState',
+t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content',
+t.spoilerText as 't_spoilerText', t.poll as 't_poll', t.attachments as 't_attachments',
+t.provider as 't_provider'
 FROM TimelineStatusEntity s
 LEFT JOIN TimelineAccountEntity a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
 LEFT JOIN TimelineAccountEntity rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN StatusViewDataEntity svd ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+LEFT JOIN TranslatedStatusEntity t ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
 WHERE (s.serverId = :statusId OR s.reblogServerId = :statusId)
 AND s.authorServerId IS NOT NULL""",
     )
@@ -136,12 +144,20 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
     abstract suspend fun removeAllByUser(accountId: Long, userId: String)
 
     /**
-     * Removes everything in the TimelineStatusEntity and TimelineAccountEntity tables for one user account
+     * Removes everything for one account in the following tables:
+     *
+     * - TimelineStatusEntity
+     * - TimelineAccountEntity
+     * - StatusViewDataEntity
+     * - TranslatedStatusEntity
+     *
      * @param accountId id of the account for which to clean tables
      */
     suspend fun removeAll(accountId: Long) {
         removeAllStatuses(accountId)
         removeAllAccounts(accountId)
+        removeAllStatusViewData(accountId)
+        removeAllTranslatedStatus(accountId)
     }
 
     @Query("DELETE FROM TimelineStatusEntity WHERE timelineUserId = :accountId")
@@ -152,6 +168,9 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
 
     @Query("DELETE FROM StatusViewDataEntity WHERE timelineUserId = :accountId")
     abstract suspend fun removeAllStatusViewData(accountId: Long)
+
+    @Query("DELETE FROM TranslatedStatusEntity WHERE timelineUserId = :accountId")
+    abstract suspend fun removeAllTranslatedStatus(accountId: Long)
 
     @Query(
         """DELETE FROM TimelineStatusEntity WHERE timelineUserId = :accountId
@@ -168,6 +187,7 @@ AND serverId = :statusId""",
         cleanupStatuses(accountId, limit)
         cleanupAccounts(accountId)
         cleanupStatusViewData(accountId, limit)
+        cleanupTranslatedStatus(accountId, limit)
     }
 
     /**
@@ -208,6 +228,21 @@ AND serverId = :statusId""",
         """,
     )
     abstract suspend fun cleanupStatusViewData(accountId: Long, limit: Int)
+
+    /**
+     * Cleans the TranslatedStatusEntity table of old data, keeping the most recent [limit]
+     * entries.
+     */
+    @Query(
+        """DELETE
+             FROM TranslatedStatusEntity
+            WHERE timelineUserId = :accountId
+              AND serverId NOT IN (
+                SELECT serverId FROM TranslatedStatusEntity WHERE timelineUserId = :accountId ORDER BY LENGTH(serverId) DESC, serverId DESC LIMIT :limit
+              )
+        """,
+    )
+    abstract suspend fun cleanupTranslatedStatus(accountId: Long, limit: Int)
 
     @Query(
         """UPDATE TimelineStatusEntity SET poll = :poll
