@@ -25,6 +25,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
 import android.view.MenuItem
 import android.view.View
@@ -33,7 +34,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.BaseActivity
 import app.pachli.BottomSheetActivity
 import app.pachli.PostLookupFallbackBehavior
@@ -104,10 +107,19 @@ abstract class SFragment : Fragment() {
         } else {
             throw IllegalStateException("Fragment must be attached to a BottomSheetActivity!")
         }
+    }
 
-        lifecycleScope.launch {
-            serverCapabilitiesRepository.flow.collect {
-                serverCanTranslate = it.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                serverCapabilitiesRepository.flow.collect {
+                    serverCanTranslate = it.can(
+                        ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE,
+                        ">=1.0".toConstraint(),
+                    )
+                }
             }
         }
     }
@@ -254,14 +266,6 @@ abstract class SFragment : Fragment() {
                     )
                     return@setOnMenuItemClickListener true
                 }
-                R.id.status_translate -> {
-                    onTranslate(statusViewData)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_translate_undo -> {
-                    onTranslateUndo(statusViewData)
-                    return@setOnMenuItemClickListener true
-                }
                 R.id.status_copy_link -> {
                     (requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).apply {
                         setPrimaryClip(ClipData.newPlainText(null, statusUrl))
@@ -322,6 +326,14 @@ abstract class SFragment : Fragment() {
                     lifecycleScope.launch {
                         timelineCases.muteConversation(status.id, status.muted != true)
                     }
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.status_translate -> {
+                    onTranslate(statusViewData)
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.status_translate_undo -> {
+                    onTranslateUndo(statusViewData)
                     return@setOnMenuItemClickListener true
                 }
             }
