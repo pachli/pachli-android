@@ -1,5 +1,24 @@
 # Pachli changelog
 
+## v1.4.0
+
+### New features and other improvements
+
+- Periodically check for updates and alert user (#[236](https://github.com/pachli/pachli-android/pull/236))
+
+### Significant bug fixes
+
+- Show preference changes immediately (#[234](https://github.com/pachli/pachli-android/pull/234))
+- Honour the FAB_HIDE preference in timelines (#[227](https://github.com/pachli/pachli-android/pull/227))
+- Ensure system controls are visible on older devices (#[224](https://github.com/pachli/pachli-android/pull/224))
+- Remove progressbar from status timelines (#[208](https://github.com/pachli/pachli-android/pull/208))
+- Restore image aspect ratio when drag ends (#[207](https://github.com/pachli/pachli-android/pull/207))
+- Prevent potential crash when filters are slow to load (#[205](https://github.com/pachli/pachli-android/pull/205))
+
+### Translations
+
+- Update Italian translations (#[240](https://github.com/pachli/pachli-android/pull/240))
+
 ## v1.3.0
 
 ### New features and other improvements
