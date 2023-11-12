@@ -658,17 +658,6 @@
 
     <issue
         id="Typos"
-        message="&quot;perchè&quot; is a common misspelling; did you mean &quot;perché&quot;?"
-        errorLine1="    &lt;string name=&quot;report_description_1&quot;>La segnalazione sarà inviata al moderatore del tuo server. Puoi spiegare perchè stai segnalando l\&apos;utente qui sotto:&lt;/string>"
-        errorLine2="                                                                                                                 ^">
-        <location
-            file="src/main/res/values-it/strings.xml"
-            line="429"
-            column="114"/>
-    </issue>
-
-    <issue
-        id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;pref_title_gradient_for_media&quot;>Vis fargerike gradienter for skjult media&lt;/string>"
         errorLine2="                                                                                     ^">
@@ -3655,7 +3644,7 @@
         errorLine2="                                               ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/SFragment.kt"
-            line="211"
+            line="223"
             column="48"/>
     </issue>
 
@@ -3931,17 +3920,6 @@
         <location
             file="src/main/res/values-ja/strings.xml"
             line="285"
-            column="37"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;caption_blobmoji&quot;>Le emoji Blob di Android 4.4-7.1&lt;/string>"
-        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-it/strings.xml"
-            line="311"
             column="37"/>
     </issue>
 
