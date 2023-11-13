@@ -30,6 +30,7 @@ import android.os.Environment
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.CallSuper
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
@@ -109,6 +110,7 @@ abstract class SFragment : Fragment() {
         }
     }
 
+    @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
