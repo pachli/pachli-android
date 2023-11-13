@@ -41,6 +41,7 @@
 
 # keep members of our model classes, they are used in json de/serialization
 -keepclassmembers class app.pachli.entity.* { *; }
+-keepclassmembers class app.pachli.network.model.* { *; }
 
 -keep public enum app.pachli.entity.*$** {
     **[] $VALUES;
