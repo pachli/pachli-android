@@ -1,1 +1,1 @@
-A full-featured Android client for the Mastodon and similar servers.
+A full-featured Android client for Mastodon and similar servers.
