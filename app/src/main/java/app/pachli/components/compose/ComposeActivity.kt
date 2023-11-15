@@ -65,6 +65,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import app.pachli.BaseActivity
 import app.pachli.BuildConfig
+import app.pachli.HASHTAG
 import app.pachli.R
 import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.LocaleAdapter
@@ -379,7 +380,11 @@ class ComposeActivity :
         )
         binding.composeEditField.setTokenizer(ComposeTokenizer())
 
-        binding.composeEditField.setText(startingText)
+        if (intent.getStringExtra(HASHTAG) == null) {
+            binding.composeEditField.setText(startingText)
+        } else {
+            binding.composeEditField.setText(getString(R.string.input_text_hashtag, intent.getStringExtra(HASHTAG)))
+        }
         binding.composeEditField.setSelection(binding.composeEditField.length())
 
         val mentionColour = binding.composeEditField.linkTextColors.defaultColor
