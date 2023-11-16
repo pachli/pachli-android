@@ -346,7 +346,7 @@
     <string name="pref_title_notification_filter_poll">投票の集計が完了した</string>
     <string name="notification_poll_name">投票</string>
     <string name="notification_poll_description">投票の集計が完了したときの通知</string>
-    <string name="pref_title_thread_filter_keywords">会話</string>
+    <string name="pref_title_thread_filter_keywords">スレッド</string>
     <string name="caption_notoemoji">Googleの現在の絵文字セットです</string>
     <string name="action_add_poll">投票</string>
     <string name="action_mentions">返信</string>
@@ -685,7 +685,7 @@
     <string name="about_copy">バージョンとデバイス情報をコピーする</string>
     <string name="about_device_info">%s %s
 \nAndroid バージョン: %s
-\nSDK バージョン: %d</string>
+\nSDK レベル: %d</string>
     <string name="about_account_info_title">あなたのアカウント</string>
     <string name="label_image">画像</string>
     <string name="status_filter_placeholder_label_format">フィルタ済み: %s</string>
@@ -693,4 +693,17 @@
     <string name="confirmation_hashtag_unmuted">%s を非表示にしました</string>
     <string name="pref_title_show_self_boosts">セルフブーストを表示</string>
     <string name="notification_summary_report_format">%sさん・%d件のポストが添付されています</string>
+    <string name="ui_error_translate_status">翻訳に失敗しました: %s</string>
+    <string name="update_dialog_negative">通知しない</string>
+    <string name="translating">翻訳中です…</string>
+    <string name="pref_title_update_notification_frequency">Pachli最新バージョンへの更新頻度</string>
+    <string name="update_dialog_neutral">このバージョンは通知しないでください</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="pref_title_update_settings">ソフトウェアアップデート</string>
+    <string name="pref_update_notification_frequency_always">常に</string>
+    <string name="pref_update_notification_frequency_never">しない</string>
+    <string name="pref_update_notification_frequency_once_per_version">バージョンにつき１回</string>
+    <string name="action_translate">翻訳</string>
+    <string name="update_dialog_title">アップデート可能です</string>
+    <string name="action_translate_undo">翻訳を元に戻す</string>
 </resources>
