@@ -844,6 +844,4 @@
 
     <string name="translating">Translating…</string>
     <string name="translation_provider_fmt">%1$s</string>
-
-    <string name="input_text_hashtag">#%s\n</string>
 </resources>

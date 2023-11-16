@@ -110,10 +110,22 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
             }
         }
 
-        binding.composeButton.setOnClickListener {
-            val composeIntent = Intent(applicationContext, ComposeActivity::class.java)
-            composeIntent.putExtra(HASHTAG, hashtag ?: "unchi")
-            startActivity(composeIntent)
+        val composeIntent = when (timelineKind) {
+            is TimelineKind.Tag -> {
+                val tag = (timelineKind as TimelineKind.Tag).tags.first()
+                ComposeActivity.startIntent(
+                    this,
+                    ComposeActivity.ComposeOptions(content = getString(R.string.title_tag).format(tag)),
+                )
+            }
+            else -> null
+        }
+
+        if (composeIntent == null) {
+            binding.composeButton.hide()
+        } else {
+            binding.composeButton.setOnClickListener { startActivity(composeIntent) }
+            binding.composeButton.show()
         }
     }
 
