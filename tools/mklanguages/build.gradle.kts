@@ -21,7 +21,7 @@ application {
 
 dependencies {
     // ICU
-    implementation("com.ibm.icu:icu4j:73.2")
+    implementation("com.ibm.icu:icu4j:74.1")
 
     // Parsing
     implementation("com.github.h0tk3y.betterParse:better-parse:0.4.4")
