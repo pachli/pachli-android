@@ -17,11 +17,13 @@
 
 package app.pachli.updatecheck
 
+import androidx.annotation.Keep
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.gson.annotations.SerializedName
 import retrofit2.http.GET
 import retrofit2.http.Path
 
+@Keep
 data class GitHubReleaseAsset(
     /** File name for the asset, e.g., "113.apk" */
     val name: String,
@@ -30,6 +32,7 @@ data class GitHubReleaseAsset(
     @SerializedName("content_type") val contentType: String
 )
 
+@Keep
 data class GitHubRelease(
     /** URL for the release's web page */
     @SerializedName("html_url") val htmlUrl: String,

@@ -21,18 +21,18 @@ application {
 
 dependencies {
     // ICU
-    implementation("com.ibm.icu:icu4j:73.2")
+    implementation("com.ibm.icu:icu4j:74.1")
 
     // Parsing
     implementation("com.github.h0tk3y.betterParse:better-parse:0.4.4")
 
     // Logging
-    implementation("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-28")
-    implementation("ch.qos.logback:logback-classic:1.3.0")
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+    implementation("ch.qos.logback:logback-classic:1.4.11")
 
     // Testing
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.0") // for parameterized tests
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.1") // for parameterized tests
 }
 
 tasks.test {
