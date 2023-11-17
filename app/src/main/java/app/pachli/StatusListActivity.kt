@@ -115,7 +115,10 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
                 val tag = (timelineKind as TimelineKind.Tag).tags.first()
                 ComposeActivity.startIntent(
                     this,
-                    ComposeActivity.ComposeOptions(content = getString(R.string.title_tag).format(tag)),
+                    ComposeActivity.ComposeOptions(
+                        content = getString(R.string.title_tag_with_initial_position).format(tag),
+                        initialCursorPosition = ComposeActivity.InitialCursorPosition.START,
+                    ),
                 )
             }
             else -> null

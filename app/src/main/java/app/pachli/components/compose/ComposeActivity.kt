@@ -285,6 +285,8 @@ class ComposeActivity :
         binding.composeEditField.post {
             binding.composeEditField.requestFocus()
         }
+
+        binding.composeEditField.setSelection(0)
     }
 
     private fun applyShareIntent(intent: Intent, savedInstanceState: Bundle?) {
@@ -1305,6 +1307,15 @@ class ComposeActivity :
         EDIT_SCHEDULED,
     }
 
+    /**
+     * Initial position of the cursor in EditText when the compose button is clicked
+     * in a hashtag timeline
+     */
+    enum class InitialCursorPosition {
+        START,
+        END,
+    }
+
     @Parcelize
     data class ComposeOptions(
         // Let's keep fields var until all consumers are Kotlin
@@ -1329,6 +1340,7 @@ class ComposeActivity :
         var language: String? = null,
         var statusId: String? = null,
         var kind: ComposeKind? = null,
+        var initialCursorPosition: InitialCursorPosition = InitialCursorPosition.END,
     ) : Parcelable
 
     companion object {
