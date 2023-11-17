@@ -1,7 +1,7 @@
 [versions]
 aboutlibraries = "10.8.3"
 agp = "8.1.2"
-androidx-activity = "1.7.2"
+androidx-activity = "1.8.1"
 androidx-appcompat = "1.6.1"
 androidx-browser = "1.7.0"
 androidx-cardview = "1.0.0"
