@@ -260,7 +260,7 @@ class ComposeActivity :
         }
 
         setupLanguageSpinner(getInitialLanguages(composeOptions?.language, activeAccount))
-        setupComposeField(sharedPreferencesRepository, viewModel.startingText)
+        setupComposeField(sharedPreferencesRepository, viewModel.startingText, composeOptions)
         setupContentWarningField(composeOptions?.contentWarning)
         setupPollView()
         applyShareIntent(intent, savedInstanceState)
@@ -285,8 +285,6 @@ class ComposeActivity :
         binding.composeEditField.post {
             binding.composeEditField.requestFocus()
         }
-
-        binding.composeEditField.setSelection(0)
     }
 
     private fun applyShareIntent(intent: Intent, savedInstanceState: Bundle?) {
@@ -366,7 +364,11 @@ class ComposeActivity :
         binding.composeContentWarningField.doOnTextChanged { _, _, _, _ -> updateVisibleCharactersLeft() }
     }
 
-    private fun setupComposeField(preferences: SharedPreferencesRepository, startingText: String?) {
+    private fun setupComposeField(
+        preferences: SharedPreferencesRepository,
+        startingText: String?,
+        composeOptions: ComposeOptions?,
+    ) {
         binding.composeEditField.setOnReceiveContentListener(this)
 
         binding.composeEditField.setOnKeyListener { _, keyCode, event -> this.onKeyDown(keyCode, event) }
@@ -382,7 +384,13 @@ class ComposeActivity :
         binding.composeEditField.setTokenizer(ComposeTokenizer())
 
         binding.composeEditField.setText(startingText)
-        binding.composeEditField.setSelection(binding.composeEditField.length())
+
+        when (composeOptions?.initialCursorPosition ?: InitialCursorPosition.END) {
+            InitialCursorPosition.START -> binding.composeEditField.setSelection(0)
+            InitialCursorPosition.END -> binding.composeEditField.setSelection(
+                binding.composeEditField.length(),
+            )
+        }
 
         val mentionColour = binding.composeEditField.linkTextColors.defaultColor
         highlightSpans(binding.composeEditField.text, mentionColour)
