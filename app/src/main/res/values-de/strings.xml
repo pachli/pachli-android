@@ -81,8 +81,8 @@
     <string name="action_view_account_preferences">Profileinstellungen</string>
     <string name="action_view_favourites">Favoriten</string>
     <string name="action_view_mutes">Stummgeschaltete Profile</string>
-    <string name="action_view_blocks">Blockierte Profile</string>
-    <string name="action_view_follow_requests">Folgeanfrage</string>
+    <string name="action_view_blocks">Blockierte Nutzer</string>
+    <string name="action_view_follow_requests">Folgeanfragen</string>
     <string name="action_view_media">Medien</string>
     <string name="action_open_in_web">Im Browser öffnen</string>
     <string name="action_add_media">Mediendateien hinzufügen</string>
@@ -243,7 +243,7 @@
     <string name="pref_title_alway_show_sensitive_media">Mediendateien mit Inhaltswarnung immer anzeigen</string>
     <string name="title_media">Medien</string>
     <string name="replying_to">Antworten an @%s</string>
-    <string name="pref_title_thread_filter_keywords">Unterhaltungen</string>
+    <string name="pref_title_thread_filter_keywords">Themen</string>
     <string name="filter_addition_title">Filter hinzufügen</string>
     <string name="filter_edit_title">Filter bearbeiten</string>
     <string name="filter_dialog_remove_button">Entfernen</string>
@@ -663,7 +663,7 @@
     <string name="about_device_info_title">Dein Gerät</string>
     <string name="about_device_info">%s %s
 \nAndroid-Version: %s
-\nSDK-Version: %d</string>
+\nSDK-Level: %d</string>
     <string name="about_account_info_title">Dein Konto</string>
     <string name="about_account_info">\@%s@%s
 \nVersion: %s</string>
@@ -706,4 +706,7 @@
     <string name="title_tab_public_trending_hashtags">Hashtags</string>
     <string name="label_image">Bild</string>
     <string name="action_translate_undo">Übersetzung rückgängig machen</string>
+    <string name="reaction_name_and_count">%1$s %2$d</string>
+    <string name="announcement_date">%1$s %2$s</string>
+    <string name="announcement_date_updated">(Aktualisiert: %1$s)</string>
 </resources>
