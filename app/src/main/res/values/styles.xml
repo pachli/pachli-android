@@ -83,6 +83,8 @@
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
     </style>
 
+    <style name="AppTheme" parent="Theme.Pachli" />
+
     <style name="Pachli.Widget.Toolbar" parent="Widget.Material3.Toolbar">
         <item name="android:minHeight">?attr/actionBarSize</item>
     </style>
@@ -143,6 +145,17 @@
 
         <!-- TODO: Remove this, use colorControlNormal everywhere instead of iconColor -->
         <item name="iconColor">?attr/colorControlNormal</item>
+
+        <item name="toolbarStyle">@style/Pachli.Widget.Toolbar.Black</item>
+        <item name="tabStyle">@style/Pachli.Widget.Material3.TabLayout</item>
+    </style>
+
+    <style name="Pachli.Widget.Toolbar.Black" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="Pachli.Widget.Material3.TabLayout" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@color/black</item>
     </style>
 
     <style name="Theme.Pachli.Black" parent="Base.Theme.Black" />

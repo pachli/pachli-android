@@ -46,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="4dp"
-        android:background="?android:textColorPrimary"
+        android:background="?colorOutline"
         android:importantForAccessibility="no"
         app:layout_constraintEnd_toEndOf="@+id/status_edit_content_warning_description"
         app:layout_constraintStart_toStartOf="parent"

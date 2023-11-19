@@ -17,15 +17,18 @@
 
 package app.pachli.updatecheck
 
+import androidx.annotation.Keep
 import at.connyduck.calladapter.networkresult.NetworkResult
 import retrofit2.http.GET
 import retrofit2.http.Path
 
+@Keep
 data class FdroidPackageVersion(
     val versionName: String,
     val versionCode: Int
 )
 
+@Keep
 data class FdroidPackage(
     val packageName: String,
     val suggestedVersionCode: Int,
