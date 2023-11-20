@@ -66,4 +66,13 @@
 
     <dimen name="timeline_status_avatar_height">48dp</dimen>
     <dimen name="timeline_status_avatar_width">48dp</dimen>
+
+    <!-- Adjust the dimensions of items in the Material drawer to provide a
+         slightly tighter layout while ensuring that minimum touch sizes are
+         maintained. -->
+    <dimen name="material_drawer_item_primary">48dp</dimen>
+    <dimen name="material_drawer_item_primary_icon">52dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_padding">12dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_padding_left">18dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_padding_right">14dp</dimen>
 </resources>
