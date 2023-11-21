@@ -709,4 +709,6 @@
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="announcement_date_updated">(Aktualisiert: %1$s)</string>
+    <string name="janky_animation_title">Möglicherweise müssen Sie Ihr Gerät neu starten</string>
+    <string name="janky_animation_msg">Diese Version von Pachli kann auf einigen Geräten einen Android-Bug auslösen und fehlerhafte Animationen anzeigen.\n\nZum Beispiel, wenn Sie auf einen Beitrag tippen, um ein Thema anzuzeigen.\n\nWenn Sie dies sehen, müssen Sie Ihr Gerät neu starten.\n\nSie müssen dies nur einmal tun.\n\nDies ist ein Android-Fehler, für den Pachli nichts kann.</string>
 </resources>
