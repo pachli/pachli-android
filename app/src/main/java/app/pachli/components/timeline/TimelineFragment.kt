@@ -414,10 +414,11 @@ class TimelineFragment :
                         .collect { (loadState, presentationState) ->
                             when (presentationState) {
                                 PresentationState.ERROR -> {
-                                    val message =
-                                        (loadState.refresh as LoadState.Error).error.getErrorString(
-                                            requireContext(),
-                                        )
+                                    val error = (loadState.mediator?.refresh as? LoadState.Error)?.error
+                                        ?: (loadState.source.refresh as? LoadState.Error)?.error
+                                        ?: IllegalStateException("unknown error")
+
+                                    val message = error.getErrorString(requireContext())
 
                                     // Show errors as a snackbar if there is existing content to show
                                     // (either cached, or in the adapter), or as a full screen error
@@ -433,8 +434,7 @@ class TimelineFragment :
                                             .setAction(R.string.action_retry) { adapter.retry() }
                                         snackbar!!.show()
                                     } else {
-                                        val drawableRes =
-                                            (loadState.refresh as LoadState.Error).error.getDrawableRes()
+                                        val drawableRes = error.getDrawableRes()
                                         binding.statusView.setup(drawableRes, message) {
                                             snackbar?.dismiss()
                                             adapter.retry()
