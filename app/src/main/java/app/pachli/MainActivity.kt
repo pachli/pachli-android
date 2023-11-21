@@ -47,6 +47,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.IntentCompat
+import androidx.core.content.edit
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
@@ -410,7 +411,22 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             recreate()
         }
 
+        // TODO: This can be removed after 2024-03-01, assume everyone has upgraded by then
+        if (sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_JANKY_ANIMATION_WARNING, true)) {
+            showJankyAnimationWarning()
+        }
+
         checkForUpdate()
+    }
+
+    /** Warn the user about possibly-broken animations. */
+    private fun showJankyAnimationWarning() = lifecycleScope.launch {
+        AlertDialog.Builder(this@MainActivity)
+            .setTitle(R.string.janky_animation_title)
+            .setMessage(R.string.janky_animation_msg)
+            .create()
+            .await(android.R.string.ok)
+        sharedPreferencesRepository.edit { putBoolean(PrefKeys.SHOW_JANKY_ANIMATION_WARNING, false) }
     }
 
     /**
@@ -772,6 +788,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 arrayOf(
                     "Clear home timeline cache",
                     "Remove first 40 statuses",
+                    "Reset janky animation warning flag"
                 ),
             ) { _, which ->
                 Timber.d("Developer tools: $which")
@@ -791,6 +808,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                                 developerToolsUseCase.deleteFirstKStatuses(it.id, 40)
                             }
                         }
+                    }
+                    2 -> {
+                        developerToolsUseCase.resetJankyAnimationWarningFlag()
                     }
                 }
             }
