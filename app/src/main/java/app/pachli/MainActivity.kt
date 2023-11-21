@@ -788,7 +788,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 arrayOf(
                     "Clear home timeline cache",
                     "Remove first 40 statuses",
-                    "Reset janky animation warning flag"
+                    "Reset janky animation warning flag",
                 ),
             ) { _, which ->
                 Timber.d("Developer tools: $which")
