@@ -11,6 +11,7 @@ Pachli is a full-featured Android client for Mastodon, with a cooperative develo
 Features include:
 
 - Read, reply, filter, post, favourite, and boost posts
+- Translate posts from other languages
 - Your timeline is cached locally, so you can read when offline
 - Draft posts now to finish them later
 - Write posts now and schedule them to send later

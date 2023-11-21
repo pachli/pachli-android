@@ -19,7 +19,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Pachli"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false"
         android:localeConfig="@xml/locales_config">
 
@@ -117,7 +117,7 @@
             android:configChanges="orientation|screenSize" />
         <activity
             android:name=".ViewMediaActivity"
-            android:theme="@style/Theme.Pachli"
+            android:theme="@style/AppTheme"
             android:configChanges="orientation|screenSize|keyboardHidden|screenLayout|smallestScreenSize" />
         <activity
             android:name=".components.account.AccountActivity"

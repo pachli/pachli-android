@@ -23,6 +23,7 @@ import androidx.core.text.parseAsHtml
 import app.pachli.R
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.PollOption
+import app.pachli.core.network.model.TranslatedPoll
 import java.util.Date
 import kotlin.math.roundToInt
 
@@ -35,7 +36,15 @@ data class PollViewData(
     val votersCount: Int?,
     val options: List<PollOptionViewData>,
     var voted: Boolean,
+    val translatedPoll: TranslatedPoll?,
 ) {
+    /**
+     * @param timeInMs A timestamp in milliseconds-since-the-epoch
+     * @return true if this poll is either marked as expired, or [timeInMs] is after this poll's
+     *     expiry time.
+     */
+    fun expired(timeInMs: Long) = expired || ((expiresAt != null) && (timeInMs > expiresAt.time))
+
     companion object {
         fun from(poll: Poll) = PollViewData(
             id = poll.id,
@@ -46,6 +55,7 @@ data class PollViewData(
             votersCount = poll.votersCount,
             options = poll.options.mapIndexed { index, option -> PollOptionViewData.from(option, poll.ownVotes?.contains(index) == true) },
             voted = poll.voted,
+            translatedPoll = null,
         )
     }
 }

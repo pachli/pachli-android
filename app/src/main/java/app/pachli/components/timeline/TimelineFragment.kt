@@ -51,6 +51,7 @@ import app.pachli.components.timeline.viewmodel.StatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiSuccess
+import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Status
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
@@ -177,6 +178,7 @@ class TimelineFragment :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         layoutManager = LinearLayoutManager(context)
@@ -289,6 +291,7 @@ class TimelineFragment :
                                     statusViewData.status.copy(
                                         poll = it.action.poll.votedCopy(it.action.choices),
                                     )
+                                is StatusActionSuccess.Translate -> statusViewData.status
                             }
                             (indexedViewData.value as StatusViewData).status = status
 
@@ -411,10 +414,11 @@ class TimelineFragment :
                         .collect { (loadState, presentationState) ->
                             when (presentationState) {
                                 PresentationState.ERROR -> {
-                                    val message =
-                                        (loadState.refresh as LoadState.Error).error.getErrorString(
-                                            requireContext(),
-                                        )
+                                    val error = (loadState.mediator?.refresh as? LoadState.Error)?.error
+                                        ?: (loadState.source.refresh as? LoadState.Error)?.error
+                                        ?: IllegalStateException("unknown error")
+
+                                    val message = error.getErrorString(requireContext())
 
                                     // Show errors as a snackbar if there is existing content to show
                                     // (either cached, or in the adapter), or as a full screen error
@@ -430,8 +434,7 @@ class TimelineFragment :
                                             .setAction(R.string.action_retry) { adapter.retry() }
                                         snackbar!!.show()
                                     } else {
-                                        val drawableRes =
-                                            (loadState.refresh as LoadState.Error).error.getDrawableRes()
+                                        val drawableRes = error.getDrawableRes()
                                         binding.statusView.setup(drawableRes, message) {
                                             snackbar?.dismiss()
                                             adapter.retry()
@@ -610,8 +613,8 @@ class TimelineFragment :
     }
 
     override fun onMore(view: View, position: Int) {
-        val status = adapter.peek(position) ?: return
-        super.more(status.status, view, position)
+        val statusViewData = adapter.peek(position) ?: return
+        super.more(statusViewData, view, position)
     }
 
     override fun onOpenReblog(position: Int) {
@@ -646,13 +649,32 @@ class TimelineFragment :
         viewModel.changeContentCollapsed(isCollapsed, status)
     }
 
+    // Can only translate the home timeline at the moment
+    override fun canTranslate() = timelineKind == TimelineKind.Home
+
+    override fun onTranslate(statusViewData: StatusViewData) {
+        viewModel.accept(StatusAction.Translate(statusViewData))
+    }
+
+    override fun onTranslateUndo(statusViewData: StatusViewData) {
+        viewModel.accept(InfallibleUiAction.TranslateUndo(statusViewData))
+    }
+
     override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {
-        val status = adapter.peek(position) ?: return
-        super.viewMedia(
-            attachmentIndex,
-            AttachmentViewData.list(status.actionable),
-            view,
-        )
+        val statusViewData = adapter.peek(position) ?: return
+
+        // Pass the translated media descriptions through (if appropriate)
+        val actionable = if (statusViewData.translationState == TranslationState.SHOW_TRANSLATION) {
+            statusViewData.actionable.copy(
+                attachments = statusViewData.translation?.attachments?.zip(statusViewData.actionable.attachments) { t, a ->
+                    a.copy(description = t.description)
+                } ?: statusViewData.actionable.attachments,
+            )
+        } else {
+            statusViewData.actionable
+        }
+
+        super.viewMedia(attachmentIndex, AttachmentViewData.list(actionable), view)
     }
 
     override fun onViewThread(position: Int) {

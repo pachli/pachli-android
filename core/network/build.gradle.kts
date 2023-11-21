@@ -19,7 +19,9 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)
+    implementation(libs.kotlin.result)
     implementation(libs.networkresult.calladapter)
+    implementation(libs.semver)
 
     testImplementation(libs.mockwebserver)
 }

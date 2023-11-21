@@ -26,12 +26,15 @@ import app.pachli.appstore.PinEvent
 import app.pachli.appstore.PollVoteEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusDeletedEvent
+import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.getServerErrorMessage
+import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
@@ -42,6 +45,7 @@ import javax.inject.Inject
 class TimelineCases @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
+    private val cachedTimelineRepository: CachedTimelineRepository,
 ) {
 
     suspend fun reblog(statusId: String, reblog: Boolean): NetworkResult<Status> {
@@ -138,6 +142,18 @@ class TimelineCases @Inject constructor(
 
     suspend fun rejectFollowRequest(accountId: String): NetworkResult<Relationship> {
         return mastodonApi.rejectFollowRequest(accountId)
+    }
+
+    suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
+        return cachedTimelineRepository.translate(statusViewData)
+    }
+
+    suspend fun translateUndo(statusViewData: StatusViewData) {
+        cachedTimelineRepository.translateUndo(statusViewData)
+    }
+
+    companion object {
+        private const val TAG = "TimelineCases"
     }
 }
 

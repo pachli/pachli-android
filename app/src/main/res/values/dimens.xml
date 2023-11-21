@@ -1,4 +1,6 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="status_display_name_padding_end">4dp</dimen>
     <dimen name="status_reblogged_bar_padding_top">8dp</dimen>
     <dimen name="status_media_preview_margin_top">8dp</dimen>
@@ -66,4 +68,16 @@
 
     <dimen name="timeline_status_avatar_height">48dp</dimen>
     <dimen name="timeline_status_avatar_width">48dp</dimen>
+
+    <!-- Adjust the dimensions of items in the Material drawer to provide a
+         slightly tighter layout while ensuring that minimum touch sizes are
+         maintained.
+
+         Lint can't determine that these are resources are used, so flags a
+         false warning which needs to be ignored. -->
+    <dimen tools:ignore="UnusedResources" name="material_drawer_item_primary">48dp</dimen>
+    <dimen tools:ignore="UnusedResources" name="material_drawer_item_primary_icon">52dp</dimen>
+    <dimen tools:ignore="UnusedResources" name="material_drawer_item_primary_icon_padding">12dp</dimen>
+    <dimen tools:ignore="UnusedResources" name="material_drawer_item_primary_icon_padding_left">18dp</dimen>
+    <dimen tools:ignore="UnusedResources" name="material_drawer_item_primary_icon_padding_right">14dp</dimen>
 </resources>

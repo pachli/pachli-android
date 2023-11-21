@@ -1,0 +1,15 @@
+Pachli 1.4.0
+
+New features:
+
+- Periodically check for updates and alert user 
+
+Fixes:
+
+- Show preference changes immediately 
+- Honour the FAB_HIDE preference in timelines 
+- Ensure system controls are visible on older devices 
+- Remove progressbar from status timelines 
+- Restore image aspect ratio when drag ends 
+- Prevent potential crash when filters are slow to load 
+- Update Italian translations 

@@ -15,19 +15,14 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package app.pachli.core.database.dao
 
-subprojects {
-    apply(plugin = "kotlin")
-    apply(plugin = "application")
+import androidx.room.Dao
+import androidx.room.Upsert
+import app.pachli.core.database.model.TranslatedStatusEntity
 
-    dependencies {
-        "implementation"("com.github.ajalt.clikt:clikt:3.5.4")
-    }
-
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
-        }
-    }
+@Dao
+interface TranslatedStatusDao {
+    @Upsert
+    suspend fun upsert(translatedStatusEntity: TranslatedStatusEntity)
 }

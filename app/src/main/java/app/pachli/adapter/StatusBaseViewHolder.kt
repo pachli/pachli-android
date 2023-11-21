@@ -23,6 +23,7 @@ import app.pachli.R
 import app.pachli.ViewMediaActivity.Companion.newSingleImageIntent
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.formatNumber
+import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.PreviewCardKind
@@ -41,8 +42,10 @@ import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.hide
 import app.pachli.util.iconResource
 import app.pachli.util.loadAvatar
+import app.pachli.util.makeIcon
 import app.pachli.util.setClickableMentions
 import app.pachli.util.setClickableText
+import app.pachli.util.show
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.view.MediaPreviewLayout
 import app.pachli.view.PollView
@@ -54,6 +57,7 @@ import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.color.MaterialColors
+import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import java.text.NumberFormat
 import java.util.Date
 
@@ -96,6 +100,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
     private val avatarRadius36dp: Int
     private val avatarRadius24dp: Int
     private val mediaPreviewUnloaded: Drawable
+    private val translationProvider: TextView?
 
     init {
         context = itemView.context
@@ -145,6 +150,10 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
                 moreButton,
             ),
         )
+        translationProvider = itemView.findViewById<TextView?>(R.id.translationProvider)?.apply {
+            val icon = makeIcon(context, GoogleMaterial.Icon.gmd_translate, textSize.toInt())
+            setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+        }
     }
 
     protected fun setDisplayName(
@@ -245,6 +254,24 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
         listener: StatusActionListener,
     ) {
         val (_, _, _, _, _, _, _, _, _, emojis, _, _, _, _, _, _, _, _, _, _, mentions, tags, _, _, _, poll) = status.actionable
+        when (status.translationState) {
+            TranslationState.SHOW_ORIGINAL -> translationProvider?.hide()
+            TranslationState.TRANSLATING -> {
+                translationProvider?.apply {
+                    text = context.getString(R.string.translating)
+                    show()
+                }
+            }
+            TranslationState.SHOW_TRANSLATION -> {
+                translationProvider?.apply {
+                    status.translation?.provider?.let {
+                        text = context.getString(R.string.translation_provider_fmt, it)
+                        show()
+                    }
+                }
+            }
+        }
+
         val content = status.content
         if (expanded) {
             val emojifiedText =
@@ -255,8 +282,14 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             }
 
             poll?.let {
+                val pollViewData = if (status.translationState == TranslationState.SHOW_TRANSLATION) {
+                    from(it).copy(translatedPoll = status.translation?.poll)
+                } else {
+                    from(it)
+                }
+
                 pollView.bind(
-                    from(it),
+                    pollViewData,
                     emojis,
                     statusDisplayOptions,
                     numberFormat,
@@ -706,7 +739,13 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             setReblogged(actionable.reblogged)
             setFavourited(actionable.favourited)
             setBookmarked(actionable.bookmarked)
-            val attachments = actionable.attachments
+            val attachments = if (status.translationState == TranslationState.SHOW_TRANSLATION) {
+                status.translation?.attachments?.zip(actionable.attachments) { t, a ->
+                    a.copy(description = t.description)
+                } ?: actionable.attachments
+            } else {
+                actionable.attachments
+            }
             val sensitive = actionable.sensitive
             if (statusDisplayOptions.mediaPreviewEnabled && hasPreviewableAttachment(attachments)) {
                 setMediaPreviews(

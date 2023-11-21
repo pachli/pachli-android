@@ -35,6 +35,8 @@ import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.TranslatedStatusEntity
+import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
@@ -55,6 +57,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -142,6 +145,8 @@ class ViewThreadViewModel @Inject constructor(
                         isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                         isDetailed = true,
+                        translationState = timelineStatusWithAccount.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                        translation = timelineStatusWithAccount.translatedStatus,
                     )
                 } else {
                     StatusViewData.from(
@@ -150,6 +155,7 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = alwaysOpenSpoiler,
                         isShowingContent = (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isDetailed = true,
+                        translationState = TranslationState.SHOW_ORIGINAL,
                     )
                 }
             } else {
@@ -178,6 +184,8 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = detailedStatus.isExpanded,
                         isCollapsed = detailedStatus.isCollapsed,
                         isDetailed = true,
+                        translationState = detailedStatus.translationState,
+                        translation = detailedStatus.translation,
                     )
                 }
             }
@@ -196,6 +204,7 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = svd?.expanded ?: alwaysOpenSpoiler,
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
+                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
                     )
                 }.filterByFilterAction()
                 val descendants = statusContext.descendants.map {
@@ -207,6 +216,7 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = svd?.expanded ?: alwaysOpenSpoiler,
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
+                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
                     )
                 }.filterByFilterAction()
                 val statuses = ancestors + detailedStatus + descendants
@@ -435,6 +445,44 @@ class ViewThreadViewModel @Inject constructor(
                 )
                 else -> uiState
             }
+        }
+    }
+
+    fun translate(statusViewData: StatusViewData) {
+        viewModelScope.launch {
+            repository.translate(statusViewData).fold({
+                val translatedEntity = TranslatedStatusEntity(
+                    serverId = statusViewData.actionableId,
+                    timelineUserId = activeAccount.id,
+                    content = it.content,
+                    spoilerText = it.spoilerText,
+                    poll = it.poll,
+                    attachments = it.attachments,
+                    provider = it.provider,
+                )
+                updateStatusViewData(statusViewData.status.id) { viewData ->
+                    viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
+                }
+            }, {
+                // Mastodon returns 403 if it thinks the original status language is the
+                // same as the user's language, ignoring the actual content of the status
+                // (https://github.com/mastodon/documentation/issues/1330). Nothing useful
+                // to do here so swallow the error
+                if (it is HttpException && it.code() == 403) return@fold
+
+                _errors.emit(it)
+            },)
+        }
+    }
+
+    fun translateUndo(statusViewData: StatusViewData) {
+        updateStatusViewData(statusViewData.status.id) { viewData ->
+            viewData.copy(translationState = TranslationState.SHOW_ORIGINAL)
+        }
+        viewModelScope.launch {
+            repository.saveStatusViewData(
+                statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL),
+            )
         }
     }
 

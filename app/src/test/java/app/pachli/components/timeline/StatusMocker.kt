@@ -4,6 +4,7 @@ import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.viewdata.StatusViewData
@@ -86,6 +87,7 @@ fun mockStatusViewData(
     isShowingContent = isShowingContent,
     isCollapsed = isCollapsed,
     isDetailed = isDetailed,
+    translationState = TranslationState.SHOW_ORIGINAL,
 )
 
 fun mockStatusEntityWithAccount(
@@ -113,6 +115,7 @@ fun mockStatusEntityWithAccount(
             expanded = expanded,
             contentShowing = false,
             contentCollapsed = true,
+            translationState = TranslationState.SHOW_ORIGINAL,
         ),
     )
 }

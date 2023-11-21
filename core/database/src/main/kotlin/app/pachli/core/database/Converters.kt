@@ -28,6 +28,8 @@ import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.TranslatedAttachment
+import app.pachli.core.network.model.TranslatedPoll
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.net.URLDecoder
@@ -174,5 +176,25 @@ class Converters @Inject constructor(
     @TypeConverter
     fun jsonToFilterResultList(filterResultListJson: String?): List<FilterResult>? {
         return gson.fromJson(filterResultListJson, object : TypeToken<List<FilterResult>>() {}.type)
+    }
+
+    @TypeConverter
+    fun translatedPolltoJson(translatedPoll: TranslatedPoll?): String? {
+        return gson.toJson(translatedPoll)
+    }
+
+    @TypeConverter
+    fun jsonToTranslatedPoll(translatedPollJson: String?): TranslatedPoll? {
+        return gson.fromJson(translatedPollJson, TranslatedPoll::class.java)
+    }
+
+    @TypeConverter
+    fun translatedAttachmentToJson(translatedAttachment: List<TranslatedAttachment>?): String {
+        return gson.toJson(translatedAttachment)
+    }
+
+    @TypeConverter
+    fun jsonToTranslatedAttachment(translatedAttachmentJson: String): List<TranslatedAttachment>? {
+        return gson.fromJson(translatedAttachmentJson, object : TypeToken<List<TranslatedAttachment>>() {}.type)
     }
 }

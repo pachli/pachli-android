@@ -28,7 +28,8 @@ import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.HashTag
-import app.pachli.core.network.model.Instance
+import app.pachli.core.network.model.InstanceV1
+import app.pachli.core.network.model.InstanceV2
 import app.pachli.core.network.model.Marker
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.MediaUploadResult
@@ -44,6 +45,7 @@ import app.pachli.core.network.model.StatusContext
 import app.pachli.core.network.model.StatusEdit
 import app.pachli.core.network.model.StatusSource
 import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.model.Translation
 import app.pachli.core.network.model.TrendingTag
 import app.pachli.core.network.model.TrendsLink
 import at.connyduck.calladapter.networkresult.NetworkResult
@@ -85,7 +87,10 @@ interface MastodonApi {
     suspend fun getCustomEmojis(): NetworkResult<List<Emoji>>
 
     @GET("api/v1/instance")
-    suspend fun getInstance(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<Instance>
+    suspend fun getInstanceV1(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV1>
+
+    @GET("api/v2/instance")
+    suspend fun getInstanceV2(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV2>
 
     @GET("api/v1/filters")
     suspend fun getFiltersV1(): NetworkResult<List<FilterV1>>
@@ -292,6 +297,11 @@ interface MastodonApi {
     suspend fun unmuteConversation(
         @Path("id") statusId: String,
     ): NetworkResult<Status>
+
+    @POST("api/v1/statuses/{id}/translate")
+    suspend fun translate(
+        @Path("id") statusId: String,
+    ): NetworkResult<Translation>
 
     @GET("api/v1/scheduled_statuses")
     suspend fun scheduledStatuses(

@@ -21,6 +21,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -81,12 +82,44 @@ class PollView @JvmOverloads constructor(
         absoluteTimeFormatter: AbsoluteTimeFormatter,
         listener: OnClickListener,
     ) {
-        val adapter = PollAdapter()
+        val now = System.currentTimeMillis()
+        var displayMode: PollAdapter.DisplayMode = PollAdapter.DisplayMode.RESULT
+        var resultClickListener: View.OnClickListener? = null
+        var pollOptionClickListener: View.OnClickListener? = null
+
+        // Translated? Create new options from old, using the translated title
+        val options = pollViewData.translatedPoll?.let {
+            it.options.zip(pollViewData.options) { t, o ->
+                o.copy(title = t.title)
+            }
+        } ?: pollViewData.options
+
+        val canVote = !(pollViewData.expired(now) || pollViewData.voted)
+        if (canVote) {
+            pollOptionClickListener = View.OnClickListener {
+                binding.statusPollButton.isEnabled = options.firstOrNull { it.selected } != null
+            }
+            displayMode = if (pollViewData.multiple) PollAdapter.DisplayMode.MULTIPLE_CHOICE else PollAdapter.DisplayMode.SINGLE_CHOICE
+        } else {
+            resultClickListener = View.OnClickListener { listener.onClick(null) }
+            binding.statusPollButton.hide()
+        }
+
+        val adapter = PollAdapter(
+            options = options,
+            votesCount = pollViewData.votesCount,
+            votersCount = pollViewData.votersCount,
+            emojis = emojis,
+            animateEmojis = statusDisplayOptions.animateEmojis,
+            displayMode = displayMode,
+            enabled = true,
+            resultClickListener = resultClickListener,
+            pollOptionClickListener = pollOptionClickListener,
+        )
+
         binding.statusPollOptions.adapter = adapter
         binding.statusPollOptions.layoutManager = LinearLayoutManager(context)
         (binding.statusPollOptions.itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false
-
-        val now = System.currentTimeMillis()
 
         binding.statusPollOptions.show()
 
@@ -99,37 +132,10 @@ class PollView @JvmOverloads constructor(
         )
         binding.statusPollDescription.show()
 
-        val expired = pollViewData.expired || ((pollViewData.expiresAt != null) && (now > pollViewData.expiresAt.time))
-
         // Poll expired or already voted, can't vote now
-        if (expired || pollViewData.voted) {
-            adapter.setup(
-                pollViewData.options,
-                pollViewData.votesCount,
-                pollViewData.votersCount,
-                emojis,
-                PollAdapter.RESULT,
-                { listener.onClick(null) },
-                statusDisplayOptions.animateEmojis,
-            )
-            binding.statusPollButton.hide()
-            return
-        }
+        if (!canVote) return
 
-        // Active poll, can vote
-        adapter.setup(
-            pollViewData.options,
-            pollViewData.votesCount,
-            pollViewData.votersCount,
-            emojis,
-            if (pollViewData.multiple) PollAdapter.MULTIPLE else PollAdapter.SINGLE,
-            null,
-            statusDisplayOptions.animateEmojis,
-            true,
-        ) {
-            binding.statusPollButton.isEnabled = adapter.getSelected().isNotEmpty()
-        }
-
+        // Set up voting
         binding.statusPollButton.show()
         binding.statusPollButton.isEnabled = false
         binding.statusPollButton.setOnClickListener {

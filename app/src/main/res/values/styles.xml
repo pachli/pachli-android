@@ -61,8 +61,6 @@
         <item name="postSplashScreenTheme">@style/Theme.Pachli</item>
     </style>
 
-    <style name="AppDialogActivityTheme" parent="@style/Theme.Pachli" />
-
     <style name="Theme.Pachli" parent="Base.Theme.Pachli">
         <!-- Provide default text sizes. These are overwritten in BaseActivity, but
              if they are missing then the Android Studio layout preview crashes
@@ -80,8 +78,13 @@
 
         <item name="preferenceTheme">@style/AppPreferenceTheme</item>
 
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
     </style>
+
+    <style name="AppTheme" parent="Theme.Pachli" />
+
+    <style name="AppDialogActivityTheme" parent="AppTheme" />
 
     <style name="Pachli.Widget.Toolbar" parent="Widget.Material3.Toolbar">
         <item name="android:minHeight">?attr/actionBarSize</item>
@@ -143,6 +146,17 @@
 
         <!-- TODO: Remove this, use colorControlNormal everywhere instead of iconColor -->
         <item name="iconColor">?attr/colorControlNormal</item>
+
+        <item name="toolbarStyle">@style/Pachli.Widget.Toolbar.Black</item>
+        <item name="tabStyle">@style/Pachli.Widget.Material3.TabLayout</item>
+    </style>
+
+    <style name="Pachli.Widget.Toolbar.Black" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="Pachli.Widget.Material3.TabLayout" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@color/black</item>
     </style>
 
     <style name="Theme.Pachli.Black" parent="Base.Theme.Black" />

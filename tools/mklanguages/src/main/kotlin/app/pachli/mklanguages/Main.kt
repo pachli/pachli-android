@@ -27,7 +27,8 @@ import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.ibm.icu.text.CaseMap
 import com.ibm.icu.text.Collator
 import com.ibm.icu.util.ULocale
-import io.github.oshai.KotlinLogging
+import io.github.oshai.kotlinlogging.DelegatingKLogger
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -106,10 +107,10 @@ class App : CliktCommand(help = """Update languages in donottranslate.xml""") {
 
     override fun run() {
         System.setProperty("file.encoding", "UTF8")
-        (log.underlyingLogger as Logger).level = if (verbose) Level.INFO else Level.WARN
+        ((log as? DelegatingKLogger<*>)?.underlyingLogger as Logger).level = if (verbose) Level.INFO else Level.WARN
 
         val cwd = Paths.get("").toAbsolutePath()
-        log.info("working directory: $cwd")
+        log.info { "working directory: $cwd" }
 
         val resourcePath = findResourcePath(cwd) ?: throw UsageError("could not find app/src/main/res in tree")
 
@@ -125,11 +126,11 @@ class App : CliktCommand(help = """Update languages in donottranslate.xml""") {
         val locales = resourceDirs
             .asSequence()
             .map { it.fileName.toString() }
-            .onEach { log.info("parsing directory name: $it") }
+            .onEach { log.info { "parsing directory name: $it" } }
             // Special-case ber, see https://github.com/tuskyapp/Tusky/issues/3637
             .map { if (it == "values-ber") "values-b+tzm+Tfng" else it }
             .mapNotNull { valuesParser.parseToEnd(it).locale }
-            .onEach { log.info("  --> $it") }
+            .onEach { log.info { "  --> $it" } }
             .toMutableList()
             .apply { add(Locale(lang = "en")) }
             .map { ULocale(it.lang, it.region, it.script) }
@@ -199,7 +200,7 @@ class App : CliktCommand(help = """Update languages in donottranslate.xml""") {
         // Close, then replace donotranslate.xml
         w.close()
         Files.move(tmpFile.toPath(), donottranslate_xml, StandardCopyOption.REPLACE_EXISTING)
-        log.info("replaced ${donottranslate_xml.toAbsolutePath()}")
+        log.info { "replaced ${donottranslate_xml.toAbsolutePath()}" }
     }
 }
 

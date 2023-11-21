@@ -81,8 +81,8 @@
     <string name="action_view_account_preferences">Profileinstellungen</string>
     <string name="action_view_favourites">Favoriten</string>
     <string name="action_view_mutes">Stummgeschaltete Profile</string>
-    <string name="action_view_blocks">Blockierte Profile</string>
-    <string name="action_view_follow_requests">Folgeanfrage</string>
+    <string name="action_view_blocks">Blockierte Nutzer</string>
+    <string name="action_view_follow_requests">Folgeanfragen</string>
     <string name="action_view_media">Medien</string>
     <string name="action_open_in_web">Im Browser öffnen</string>
     <string name="action_add_media">Mediendateien hinzufügen</string>
@@ -243,7 +243,7 @@
     <string name="pref_title_alway_show_sensitive_media">Mediendateien mit Inhaltswarnung immer anzeigen</string>
     <string name="title_media">Medien</string>
     <string name="replying_to">Antworten an @%s</string>
-    <string name="pref_title_thread_filter_keywords">Unterhaltungen</string>
+    <string name="pref_title_thread_filter_keywords">Themen</string>
     <string name="filter_addition_title">Filter hinzufügen</string>
     <string name="filter_edit_title">Filter bearbeiten</string>
     <string name="filter_dialog_remove_button">Entfernen</string>
@@ -663,7 +663,7 @@
     <string name="about_device_info_title">Dein Gerät</string>
     <string name="about_device_info">%s %s
 \nAndroid-Version: %s
-\nSDK-Version: %d</string>
+\nSDK-Level: %d</string>
     <string name="about_account_info_title">Dein Konto</string>
     <string name="about_account_info">\@%s@%s
 \nVersion: %s</string>
@@ -671,4 +671,44 @@
     <string name="about_copy">Version und Geräteinformationen kopieren</string>
     <string name="list_exclusive_label">Nicht in der Startseite anzeigen</string>
     <string name="error_media_upload_sending_fmt">Das Hochladen ist fehlgeschlagen: %s</string>
+    <string name="ui_error_translate_status">Übersetzung fehlgeschlagen: %s</string>
+    <string name="update_dialog_negative">Erinnere mich nie</string>
+    <string name="translating">Übersetze…</string>
+    <string name="dialog_delete_filter_positive_action">Löschen</string>
+    <string name="pref_title_update_notification_frequency">Benachrichtige mich über neue Versionen von Pachli</string>
+    <string name="title_public_trending_links">Angesagte Links</string>
+    <string name="title_tab_public_trending_links">Links</string>
+    <string name="update_dialog_neutral">Erinnere mich nicht mehr für diese Version</string>
+    <string name="dialog_delete_filter_text">Filter \'%1$s\' löschen?</string>
+    <string name="error_media_playback">Wiedergabe fehlgeschlagen: %s</string>
+    <string name="title_public_trending">Trends</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="pref_title_update_settings">Softwareaktualisierungen</string>
+    <string name="title_public_trending_statuses">Angesagte Beiträge</string>
+    <string name="load_newest_statuses">Neueste Beiträge laden</string>
+    <string name="error_network_fmt">Ein Netzwerkfehler ist aufgetreten: %s</string>
+    <string name="dialog_save_profile_changes_message">Möchtest du deine Profiländerungen speichern?</string>
+    <string name="error_generic_fmt">Es ist ein Fehler aufgetreten: %s</string>
+    <string name="pref_update_notification_frequency_always">Immer</string>
+    <string name="pref_update_notification_frequency_never">Nie</string>
+    <string name="pref_title_show_self_boosts_description">Jemand teilt einen eigenen Beitrag</string>
+    <string name="ui_error_filter_v1_load">Filter laden fehlgeschlagen: %s</string>
+    <string name="confirmation_hashtag_muted">#%s ausgeblendet</string>
+    <string name="confirmation_hashtag_unmuted">#%s nicht mehr ausgeblendet</string>
+    <string name="pref_title_show_self_boosts">Selbst geteilte Beiträge anzeigen</string>
+    <string name="title_tab_public_trending_statuses">Beiträge</string>
+    <string name="pref_update_notification_frequency_once_per_version">Einmal pro Version</string>
+    <string name="about_privacy_policy">Datenschutzrichtlinie</string>
+    <string name="error_404_not_found">Dein Server unterstützt diese Funktion nicht</string>
+    <string name="pref_title_font_family">Schriftfamilie</string>
+    <string name="action_translate">Übersetzen</string>
+    <string name="update_dialog_title">Eine Aktualisierung ist verfügbar</string>
+    <string name="title_tab_public_trending_hashtags">Hashtags</string>
+    <string name="label_image">Bild</string>
+    <string name="action_translate_undo">Übersetzung rückgängig machen</string>
+    <string name="reaction_name_and_count">%1$s %2$d</string>
+    <string name="announcement_date">%1$s %2$s</string>
+    <string name="announcement_date_updated">(Aktualisiert: %1$s)</string>
+    <string name="janky_animation_title">Möglicherweise müssen Sie Ihr Gerät neu starten</string>
+    <string name="janky_animation_msg">Diese Version von Pachli kann auf einigen Geräten einen Android-Bug auslösen und fehlerhafte Animationen anzeigen.\n\nZum Beispiel, wenn Sie auf einen Beitrag tippen, um ein Thema anzuzeigen.\n\nWenn Sie dies sehen, müssen Sie Ihr Gerät neu starten.\n\nSie müssen dies nur einmal tun.\n\nDies ist ein Android-Fehler, für den Pachli nichts kann.</string>
 </resources>

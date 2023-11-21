@@ -103,6 +103,7 @@ class ViewThreadFragment :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         binding.swipeRefreshLayout.setOnRefreshListener(this)
@@ -215,7 +216,8 @@ class ViewThreadFragment :
         lifecycleScope.launch {
             viewModel.errors.collect { throwable ->
                 Timber.w("failed to load status context", throwable)
-                Snackbar.make(binding.root, R.string.error_generic, Snackbar.LENGTH_SHORT)
+                val msg = view.context.getString(R.string.error_generic_fmt, throwable)
+                Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.action_retry) {
                         viewModel.retry(thisThreadsStatusId)
                     }
@@ -254,6 +256,16 @@ class ViewThreadFragment :
             }
             else -> false
         }
+    }
+
+    override fun canTranslate() = true
+
+    override fun onTranslate(statusViewData: StatusViewData) {
+        viewModel.translate(statusViewData)
+    }
+
+    override fun onTranslateUndo(statusViewData: StatusViewData) {
+        viewModel.translateUndo(statusViewData)
     }
 
     override fun onResume() {
@@ -307,7 +319,7 @@ class ViewThreadFragment :
     }
 
     override fun onMore(view: View, position: Int) {
-        super.more(adapter.currentList[position].status, view, position)
+        super.more(adapter.currentList[position], view, position)
     }
 
     override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {

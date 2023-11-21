@@ -28,6 +28,7 @@ import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.DraftEntity
@@ -36,6 +37,7 @@ import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
+import app.pachli.core.database.model.TranslatedStatusEntity
 
 @Suppress("ClassName")
 @Database(
@@ -48,10 +50,12 @@ import app.pachli.core.database.model.TimelineStatusEntity
         ConversationEntity::class,
         RemoteKeyEntity::class,
         StatusViewDataEntity::class,
+        TranslatedStatusEntity::class,
     ],
-    version = 2,
+    version = 3,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
+        AutoMigration(from = 2, to = 3),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -61,6 +65,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun timelineDao(): TimelineDao
     abstract fun draftDao(): DraftDao
     abstract fun remoteKeyDao(): RemoteKeyDao
+    abstract fun translatedStatusDao(): TranslatedStatusDao
 
     @DeleteColumn("TimelineStatusEntity", "expanded")
     @DeleteColumn("TimelineStatusEntity", "contentCollapsed")

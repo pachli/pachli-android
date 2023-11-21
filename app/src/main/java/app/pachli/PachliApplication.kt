@@ -18,6 +18,7 @@
 package app.pachli
 
 import android.app.Application
+import androidx.core.content.edit
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -119,6 +120,14 @@ class PachliApplication : Application() {
     private fun upgradeSharedPreferences(oldVersion: Int, newVersion: Int) {
         Timber.d("Upgrading shared preferences: $oldVersion -> $newVersion")
         val editor = sharedPreferencesRepository.edit()
+
+        if (oldVersion != NEW_INSTALL_SCHEMA_VERSION) {
+            // Upgrading rather than a new install. Possibly show the janky animation warning,
+            // see https://github.com/material-components/material-components-android/issues/3644
+            if (!sharedPreferencesRepository.contains(PrefKeys.SHOW_JANKY_ANIMATION_WARNING)) {
+                sharedPreferencesRepository.edit { putBoolean(PrefKeys.SHOW_JANKY_ANIMATION_WARNING, true) }
+            }
+        }
 
         // General usage is:
         //

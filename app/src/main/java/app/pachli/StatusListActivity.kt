@@ -26,15 +26,19 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FilterChangedEvent
+import app.pachli.components.compose.ComposeActivity
 import app.pachli.components.timeline.TimelineFragment
 import app.pachli.components.timeline.TimelineKind
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterV1
 import app.pachli.databinding.ActivityStatuslistBinding
+import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
+import app.pachli.util.unsafeLazy
 import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -47,7 +51,7 @@ import javax.inject.Inject
  * the user's favourites, bookmarks, etc.
  */
 @AndroidEntryPoint
-class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost {
+class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonActivity {
     @Inject
     lateinit var eventHub: EventHub
 
@@ -56,6 +60,8 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost {
 
     override val appBarLayout: AppBarLayout
         get() = binding.includedToolbar.appbar
+
+    override val actionButton: FloatingActionButton? by unsafeLazy { binding.composeButton }
 
     /**
      * If showing statuses with a hashtag, the hashtag being used, without the
@@ -102,6 +108,27 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost {
                 val fragment = TimelineFragment.newInstance(timelineKind)
                 replace(R.id.fragmentContainer, fragment)
             }
+        }
+
+        val composeIntent = when (timelineKind) {
+            is TimelineKind.Tag -> {
+                val tag = (timelineKind as TimelineKind.Tag).tags.first()
+                ComposeActivity.startIntent(
+                    this,
+                    ComposeActivity.ComposeOptions(
+                        content = getString(R.string.title_tag_with_initial_position).format(tag),
+                        initialCursorPosition = ComposeActivity.InitialCursorPosition.START,
+                    ),
+                )
+            }
+            else -> null
+        }
+
+        if (composeIntent == null) {
+            binding.composeButton.hide()
+        } else {
+            binding.composeButton.setOnClickListener { startActivity(composeIntent) }
+            binding.composeButton.show()
         }
     }
 

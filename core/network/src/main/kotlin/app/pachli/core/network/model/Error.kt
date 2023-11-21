@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.entity
+package app.pachli.core.network.model
 
 /** @see [Error](https://docs.joinmastodon.org/entities/Error/) */
 data class Error(
