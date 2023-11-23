@@ -127,6 +127,12 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
                     ComposeActivity.ComposeOptions(),
                 )
             }
+            is TimelineKind.UserList -> {
+                ComposeActivity.startIntent(
+                    this,
+                    ComposeActivity.ComposeOptions(),
+                )
+            }
             else -> null
         }
 
