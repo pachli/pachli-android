@@ -37,30 +37,16 @@ tasks.withType<KotlinCompile>().configureEach {
 
 dependencies {
     compileOnly(libs.android.gradlePlugin)
-//    compileOnly(libs.firebase.crashlytics.gradlePlugin)
-//    compileOnly(libs.firebase.performance.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
 }
 
 gradlePlugin {
     plugins {
-//        register("androidApplicationCompose") {
-//            id = "pachli.android.application.compose"
-//            implementationClass = "AndroidApplicationComposeConventionPlugin"
-//        }
-//        register("androidApplication") {
-//            id = "pachli.android.application"
-//            implementationClass = "AndroidApplicationConventionPlugin"
-//        }
-//        register("androidApplicationJacoco") {
-//            id = "pachli.android.application.jacoco"
-//            implementationClass = "AndroidApplicationJacocoConventionPlugin"
-//        }
-//        register("androidLibraryCompose") {
-//            id = "pachli.android.library.compose"
-//            implementationClass = "AndroidLibraryComposeConventionPlugin"
-//        }
+        register("androidApplication") {
+            id = "pachli.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
         register("androidLibrary") {
             id = "pachli.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
@@ -85,10 +71,6 @@ gradlePlugin {
             id = "pachli.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
-//        register("androidFirebase") {
-//            id = "pachli.android.application.firebase"
-//            implementationClass = "AndroidApplicationFirebaseConventionPlugin"
-//        }
         register("androidFlavors") {
             id = "pachli.android.application.flavors"
             implementationClass = "AndroidApplicationFlavorsConventionPlugin"
@@ -97,9 +79,5 @@ gradlePlugin {
             id = "pachli.android.lint"
             implementationClass = "AndroidLintConventionPlugin"
         }
-//        register("jvmLibrary") {
-//            id = "pachli.jvm.library"
-//            implementationClass = "JvmLibraryConventionPlugin"
-//        }
     }
 }
