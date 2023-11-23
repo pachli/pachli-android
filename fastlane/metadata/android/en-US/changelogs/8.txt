@@ -1,0 +1,15 @@
+Pachli 2.0.0
+
+New features:
+
+- Translate statuses on cached timelines 
+- Display compose button when viewing hashtags and favorites
+- Increase the amount of information in link previews 
+- Warn the user about an Android animation bug 
+
+Fixes:
+
+- Prevent a ClassCastException when handling timeline errors 
+- Update theme colours
+- Ensure update-related data classes are retained 
+- Update German, Italian, and Japanese translations 
