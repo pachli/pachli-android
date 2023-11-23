@@ -1,5 +1,28 @@
 # Pachli changelog
 
+## v2.0.0
+
+### New features and other improvements
+
+- Translate statuses on cached timelines (#[220](https://github.com/pachli/pachli-android/pull/220), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Display compose button when viewing hashtags (#[254](https://github.com/pachli/pachli-android/pull/254), [sanao](https://github.com/pachli/pachli-android/commits?author=naosak1006@gmail.com))
+- Display compose button when viewing favorites list (#[276](https://github.com/pachli/pachli-android/pull/276), [sanao](https://github.com/pachli/pachli-android/commits?author=naosak1006@gmail.com))
+- Increase the amount of information in link previews (#[275](https://github.com/pachli/pachli-android/pull/275), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Warn the user about an Android animation bug (#[274](https://github.com/pachli/pachli-android/pull/274), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Prevent a ClassCastException when handling timeline errors (#[273](https://github.com/pachli/pachli-android/pull/273), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use transparent system bar on all Android versions (#[272](https://github.com/pachli/pachli-android/pull/272), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure update-related data classes are retained (#[269](https://github.com/pachli/pachli-android/pull/269), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Update themes to correct poll/black theme issues (#[255](https://github.com/pachli/pachli-android/pull/255), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update German translations ([vinz](https://github.com/pachli/pachli-android/commits?author=vinz@vinzv.de))
+- Update Japanese translations ([sanao](https://github.com/pachli/pachli-android/commits?author=jinsei@sanao.dev))
+- Update Italian translations ([chaoscalm](https://github.com/pachli/pachli-android/commits?author=g.ammazzini@gmail.com))
+
 ## v1.4.0
 
 ### New features and other improvements

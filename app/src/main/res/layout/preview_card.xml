@@ -53,7 +53,7 @@
                 android:layout_marginBottom="4dp"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-medium"
-                android:lines="1"
+                android:maxLines="2"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="?attr/status_text_medium"
                 tools:ignore="SelectableText" />
@@ -65,7 +65,7 @@
                 android:layout_marginBottom="4dp"
                 android:ellipsize="end"
                 android:lineSpacingMultiplier="1.1"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="?attr/status_text_medium"
                 tools:ignore="SelectableText" />
