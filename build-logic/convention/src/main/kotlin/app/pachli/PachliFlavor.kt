@@ -55,6 +55,7 @@ fun configureFlavors(
 ) {
     commonExtension.apply {
         flavorDimensions += FlavorDimension.color.name
+        flavorDimensions += FlavorDimension.store.name
         productFlavors {
             PachliFlavor.values().forEach { flavor ->
                 create(flavor.name) {
