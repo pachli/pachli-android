@@ -706,4 +706,14 @@
     <string name="action_translate">翻訳</string>
     <string name="update_dialog_title">アップデート可能です</string>
     <string name="action_translate_undo">翻訳を元に戻す</string>
+    <string name="janky_animation_msg">このバージョンのPachliは、一部のデバイスでAndroidのバグにより、アニメーションが崩れる可能性があります
+\n
+\n例えば、投稿をタップしてスレッドを見る場合などです
+\n
+\nこのバグが発生したら、デバイスを再起動する必要があります。
+\n
+\nこの作業は一度だけで大丈夫です。
+\n
+\nこれはAndroid側のバグであり、Pachliではどうすることもできません。</string>
+    <string name="janky_animation_title">デバイスを再起動する必要があるかもしれません</string>
 </resources>
