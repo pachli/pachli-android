@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Ocorreu um erro.</string>
+    <string name="error_generic">Um erro ocorreu.</string>
     <string name="error_empty">Não pode estar vazio.</string>
     <string name="error_invalid_domain">Domínio inválido</string>
     <string name="error_failed_app_registration">Falha na autenticação com essa instância. Se isso persistir, tente Entrar pelo Navegador no menu.</string>
@@ -127,11 +127,11 @@
     <string name="label_header">Capa</string>
     <string name="link_whats_an_instance">O que é uma instância?</string>
     <string name="login_connection">Conectando…</string>
-    <string name="dialog_whats_an_instance">"O domínio de qualquer instância pode ser inserido aqui, tal como mastodon.social, masto.donte.com.br, colorid.es ou &lt;a href=\"https://instances.social\"&gt;qualquer outro!&lt;/a&gt;
+    <string name="dialog_whats_an_instance">"O domínio de qualquer instância pode ser inserido aqui, tal como mastodon.social, masto.donte.com.br, colorid.es ou &lt;a href=\"https://instances.social\"&gt;qualquer outro&lt;/a&gt;!
 \n
 \nSe não tem uma conta ainda, insira o nome da instância que gostaria de participar e crie uma conta lá.
 \n
-\nUma instância é um lugar único onde tua conta é hospedada, mas pode se comunicar facilmente e seguir pessoas de outras instâncias como se todos estivessem no mesmo lugar.
+\nUma instância é um lugar único onde tua conta é hospedada, mas pode te comunicar facilmente e seguir pessoas de outras instâncias como se todos estivessem no mesmo lugar.
 \n
 \nMais informações podem ser encontradas em &lt;a href=https://joinmastodon.org/pt-BR\"&gt;joinmastodon.org/pt-BR&lt;/a&gt;. "</string>
     <string name="dialog_title_finishing_media_upload">Envio de mídia terminando</string>
@@ -322,12 +322,9 @@
     <string name="action_add_to_list">Adicionar conta à lista</string>
     <string name="action_remove_from_list">Remover conta da lista</string>
     <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Descreva para deficientes visuais
-\n(até %d caractere)</item>
-        <item quantity="many">Descreva para deficientes visuais
-\n(até %d caracteres)</item>
-        <item quantity="other">Descreva para deficientes visuais
-\n(até %d caracteres)</item>
+        <item quantity="one">Descreva para pessoa com deficiência visual (até %d caracteres)</item>
+        <item quantity="many">Descreva para pessoas com deficiência visual (até %d caracteres)</item>
+        <item quantity="other">Descreva para pessoas com deficiência visual (até %d caracteres)</item>
     </plurals>
     <string name="label_remote_account">As informações abaixo podem refletir incompletamente o perfil do usuário. Toque aqui para abrir o perfil completo no navegador.</string>
     <string name="unpin_action">Desafixar</string>
@@ -655,7 +652,7 @@
     <string name="dialog_save_profile_changes_message">Quer salvar as alterações do teu perfil?</string>
     <string name="error_generic_fmt">Ocorreu um erro: %s</string>
     <string name="action_add_reaction">reagir</string>
-    <string name="ui_error_favourite">Favoritar Toot falhou: %s</string>
+    <string name="ui_error_favourite">Favoritar o Toot falhou: %s</string>
     <string name="ui_error_bookmark">Salvar Toot falhou: %s</string>
     <string name="notification_unknown_name">Desconhecido</string>
     <string name="total_usage">Uso total</string>
@@ -666,7 +663,7 @@
     <string name="action_refresh">Atualizar</string>
     <string name="filter_keyword_addition_title">Adicionar palavra-chave</string>
     <string name="label_filter_keywords">Palavras-chave ou frases para filtrar</string>
-    <string name="pref_title_show_self_boosts_description">Alguém está dando Boost no próprio Toot</string>
+    <string name="pref_title_show_self_boosts_description">Alguém dando Boost no próprio Toot</string>
     <string name="title_migration_relogin">Reautentique para notificações Push</string>
     <string name="hint_description">Descrição</string>
     <string name="notification_report_format">Nova denúncia sobre %s</string>
