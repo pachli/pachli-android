@@ -20,7 +20,6 @@ import com.android.build.gradle.internal.api.ApkVariantOutputImpl
 plugins {
     alias(libs.plugins.pachli.android.application)
     alias(libs.plugins.pachli.android.hilt)
-    alias(libs.plugins.pachli.android.room)
     alias(libs.plugins.kotlin.parcelize)  // TODO: Add to application and library plugin?
     alias(libs.plugins.aboutlibraries)
 
@@ -127,6 +126,10 @@ markdown2resource {
 }
 
 dependencies {
+    // CachedTimelineRemoteMediator needs the @Transaction annotation from Room
+    compileOnly(libs.bundles.room)
+    testCompileOnly(libs.bundles.room)
+
     implementation(projects.core.accounts)
     implementation(projects.core.common)
     implementation(projects.core.database)
