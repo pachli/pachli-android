@@ -96,9 +96,11 @@ android {
         outputs.configureEach {
             this as ApkVariantOutputImpl
             // Set the "orange" release versionCode to the number of commits on the
-            // branch, to ensure the versionCode updates on every release.
+            // branch, to ensure the versionCode updates on every release. Include the
+            // SHA of the current commit to help with troubleshooting bug reports
             if (buildType.name == "release" && flavorName.startsWith("orange")) {
                 versionCodeOverride = getGitRevCount()
+                versionNameOverride = "$versionName+${getGitSha()}"
             }
             outputFileName = "Pachli_${versionName}_${versionCode}_${getGitSha()}_${flavorName}_${buildType.name}.apk"
         }
