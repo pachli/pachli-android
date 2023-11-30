@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2018 charlag
  *
  * This file is a part of Pachli.
  *
@@ -20,7 +20,6 @@ package app.pachli.core.network.di
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
-import android.util.Log
 import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.BuildConfig
 import app.pachli.core.network.json.Rfc3339DateJsonAdapter

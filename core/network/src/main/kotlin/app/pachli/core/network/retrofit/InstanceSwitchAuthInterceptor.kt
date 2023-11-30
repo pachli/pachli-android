@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2022 Tusky Contributors
  *
  * This file is a part of Pachli.
  *
@@ -17,7 +17,6 @@
 
 package app.pachli.core.network.retrofit
 
-import android.util.Log
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType

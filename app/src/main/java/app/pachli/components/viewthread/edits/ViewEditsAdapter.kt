@@ -21,7 +21,6 @@ import app.pachli.R
 import app.pachli.adapter.PollAdapter
 import app.pachli.adapter.PollAdapter.DisplayMode
 import app.pachli.core.common.util.AbsoluteTimeFormatter
-import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.StatusEdit
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemStatusEditBinding
@@ -184,7 +183,7 @@ class ViewEditsAdapter(
                         .centerInside()
                         .into(imageView)
                 } else {
-                    val focus: Attachment.Focus? = attachment.meta?.focus
+                    val focus = attachment.meta?.focus
 
                     if (focus != null) {
                         imageView.setFocalPoint(focus)

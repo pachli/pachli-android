@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2018 Conny Duck
  *
  * This file is a part of Pachli.
  *

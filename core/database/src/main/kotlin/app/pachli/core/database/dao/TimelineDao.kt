@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2021 Tusky Contributors
  *
  * This file is a part of Pachli.
  *

@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class AccountPreferenceDataStore @Inject constructor(
     private val accountManager: AccountManager,
-    @app.pachli.core.common.di.ApplicationScope private val externalScope: CoroutineScope,
+    @ApplicationScope private val externalScope: CoroutineScope,
 ) : PreferenceDataStore() {
     /** Flow of key/values that have been updated in the preferences */
     val changes = MutableSharedFlow<Pair<String, Boolean>>()

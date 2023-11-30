@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2019 kyori19
  *
  * This file is a part of Pachli.
  *

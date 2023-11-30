@@ -17,6 +17,10 @@
 
 package app.pachli.core.network
 
+import app.pachli.core.network.ServerKind.AKKOMA
+import app.pachli.core.network.ServerKind.MASTODON
+import app.pachli.core.network.ServerKind.PLEROMA
+import app.pachli.core.network.ServerKind.UNKNOWN
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import io.github.z4kn4fein.semver.Version
@@ -38,19 +42,19 @@ class ServerKindTest(
             return listOf(
                 arrayOf(
                     "4.0.0",
-                    Ok(Pair(ServerKind.MASTODON, Version.parse("4.0.0", strict = false))),
+                    Ok(Pair(MASTODON, Version.parse("4.0.0", strict = false))),
                 ),
                 arrayOf(
                     "4.2.1 (compatible; Iceshrimp 2023.11)",
-                    Ok(Pair(ServerKind.UNKNOWN, Version.parse("2023.11", strict = false))),
+                    Ok(Pair(UNKNOWN, Version.parse("2023.11", strict = false))),
                 ),
                 arrayOf(
                     "2.7.2 (compatible; Akkoma 3.10.3-202-g1b838627-1-CI-COMMIT-TAG---)",
-                    Ok(Pair(ServerKind.AKKOMA, Version.parse("3.10.3-202-g1b838627-1-CI-COMMIT-TAG---", strict = false))),
+                    Ok(Pair(AKKOMA, Version.parse("3.10.3-202-g1b838627-1-CI-COMMIT-TAG---", strict = false))),
                 ),
                 arrayOf(
                     "2.7.2 (compatible; Pleroma 2.5.54-640-gacbec640.develop+soapbox)",
-                    Ok(Pair(ServerKind.PLEROMA, Version.parse("2.5.54-640-gacbec640.develop+soapbox", strict = false))),
+                    Ok(Pair(PLEROMA, Version.parse("2.5.54-640-gacbec640.develop+soapbox", strict = false))),
                 ),
             )
         }

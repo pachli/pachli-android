@@ -20,6 +20,7 @@ package app.pachli.util
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.ServerOperation
 import app.pachli.core.preferences.PrefKeys
@@ -49,7 +50,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
     private val serverCapabilitiesRepository: ServerCapabilitiesRepository,
     private val accountManager: AccountManager,
     private val accountPreferenceDataStore: AccountPreferenceDataStore,
-    @app.pachli.core.common.di.ApplicationScope private val externalScope: CoroutineScope,
+    @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     /** Default status display options */
     private val default = StatusDisplayOptions()

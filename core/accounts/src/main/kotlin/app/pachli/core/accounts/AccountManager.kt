@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2018 Conny Duck
  *
  * This file is a part of Pachli.
  *
@@ -18,7 +18,6 @@
 package app.pachli.core.accounts
 
 import android.content.Context
-import android.util.Log
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -36,7 +35,6 @@ import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
-
 
 
 @Singleton

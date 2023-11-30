@@ -24,7 +24,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import app.pachli.R
 import app.pachli.core.network.model.Status
 
-// TODO: Not part of the [Status] implementation because that modules doesn't
+// TODO: Not part of the [Status] implementation because that module doesn't
 // store resources (yet).
 
 /**
