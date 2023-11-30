@@ -29,12 +29,12 @@ class AndroidHiltConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                "implementation"(libs.findLibrary("hilt.android").get())
-                "ksp"(libs.findLibrary("hilt.compiler").get())
-//                add("testImplementation", libs.findLibrary("hilt.android.testing").get())
-                "testImplementation"(libs.findLibrary("hilt.android.testing").get())
-                "kspTest"(libs.findLibrary("hilt.compiler").get())
-                "kspAndroidTest"(libs.findLibrary("hilt.compiler").get())
+                add("implementation", libs.findLibrary("hilt.android").get())
+                add("ksp", libs.findLibrary("hilt.compiler").get())
+                add("testImplementation", libs.findLibrary("hilt.android.testing").get())
+                add("testImplementation", libs.findLibrary("hilt.android.testing").get())
+                add("kspTest", (libs.findLibrary("hilt.compiler").get()))
+                add("kspAndroidTest", libs.findLibrary("hilt.compiler").get())
             }
         }
     }

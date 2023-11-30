@@ -51,18 +51,6 @@ gradlePlugin {
             id = "pachli.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
-//        register("androidFeature") {
-//            id = "pachli.android.feature"
-//            implementationClass = "AndroidFeatureConventionPlugin"
-//        }
-//        register("androidLibraryJacoco") {
-//            id = "pachli.android.library.jacoco"
-//            implementationClass = "AndroidLibraryJacocoConventionPlugin"
-//        }
-//        register("androidTest") {
-//            id = "pachli.android.test"
-//            implementationClass = "AndroidTestConventionPlugin"
-//        }
         register("androidHilt") {
             id = "pachli.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
@@ -70,10 +58,6 @@ gradlePlugin {
         register("androidRoom") {
             id = "pachli.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
-        }
-        register("androidFlavors") {
-            id = "pachli.android.application.flavors"
-            implementationClass = "AndroidApplicationFlavorsConventionPlugin"
         }
         register("androidLint") {
             id = "pachli.android.lint"

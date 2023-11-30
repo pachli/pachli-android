@@ -54,5 +54,3 @@ fun defaultTabs() = listOf(
     TabData.from(TabKind.LOCAL),
     TabData.from(TabKind.DIRECT)
 )
-
-fun List<TabData>.hasTab(kind: TabKind): Boolean = this.find { it.kind == kind } != null

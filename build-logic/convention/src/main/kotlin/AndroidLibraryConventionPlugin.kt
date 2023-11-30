@@ -18,6 +18,7 @@
  */
 
 import app.pachli.configureFlavors
+import app.pachli.disableUnnecessaryAndroidTests
 import app.pachli.libs
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
@@ -40,11 +41,9 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = 34
                 configureFlavors(this)
-//                configureGradleManagedDevices(this)
             }
             extensions.configure<LibraryAndroidComponentsExtension> {
-//                configurePrintApksTask(this)
-//                disableUnnecessaryAndroidTests(target)
+                disableUnnecessaryAndroidTests(target)
             }
             dependencies {
                 add("implementation", libs.findLibrary("timber").get())

@@ -18,7 +18,6 @@
 import app.pachli.configureFlavors
 import app.pachli.libs
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -32,22 +31,13 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
                 apply("pachli.android.lint")
             }
-
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = 34
                 configureFlavors(this)
             }
-            extensions.configure<ApplicationAndroidComponentsExtension> {
-//                configurePrintApksTask(this)
-//                disableUnnecessaryAndroidTests(target)
-            }
             dependencies {
                 add("implementation", libs.findLibrary("timber").get())
-//                add("testImplementation", kotlin("test"))
-//                add("testImplementation", project(":core:testing"))
-//                add("androidTestImplementation", kotlin("test"))
-//                add("androidTestImplementation", project(":core:testing"))
             }
         }
     }
