@@ -42,9 +42,11 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 defaultConfig.targetSdk = 34
                 configureFlavors(this)
             }
+
             extensions.configure<LibraryAndroidComponentsExtension> {
                 disableUnnecessaryAndroidTests(target)
             }
+
             dependencies {
                 add("implementation", libs.findLibrary("timber").get())
                 add("testImplementation", kotlin("test"))

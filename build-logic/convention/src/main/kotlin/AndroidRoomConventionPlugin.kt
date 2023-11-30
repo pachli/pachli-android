@@ -28,7 +28,6 @@ import org.gradle.process.CommandLineArgumentProvider
 import java.io.File
 
 class AndroidRoomConventionPlugin : Plugin<Project> {
-
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply("com.google.devtools.ksp")

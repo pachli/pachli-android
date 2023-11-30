@@ -31,11 +31,13 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
                 apply("pachli.android.lint")
             }
+
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = 34
                 configureFlavors(this)
             }
+
             dependencies {
                 add("implementation", libs.findLibrary("timber").get())
             }
