@@ -20,7 +20,7 @@ import com.android.build.gradle.internal.api.ApkVariantOutputImpl
 plugins {
     alias(libs.plugins.pachli.android.application)
     alias(libs.plugins.pachli.android.hilt)
-    alias(libs.plugins.kotlin.parcelize)  // TODO: Add to application and library plugin?
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.aboutlibraries)
 
     id("app.pachli.plugins.markdown2resource")
