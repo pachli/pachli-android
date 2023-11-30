@@ -36,5 +36,5 @@ dependencies {
     implementation(projects.core.preferences)
 
     // Because of the use of @SerializedName in DraftEntity
-    implementation(libs.gson)
+    compileOnly(libs.gson)
 }
