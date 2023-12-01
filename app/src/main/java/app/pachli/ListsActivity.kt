@@ -134,13 +134,9 @@ class ListsActivity : BaseActivity() {
             editText.text?.let { editText.setSelection(it.length) }
         }
 
-        list?.let {
-            if (it.exclusive == null) {
-                binding.exclusiveCheckbox.visible(false)
-            } else {
-                binding.exclusiveCheckbox.isChecked = it.exclusive!!
-            }
-        }
+        list?.exclusive?.let {
+            binding.exclusiveCheckbox.isChecked = isTaskRoot
+        } ?: binding.exclusiveCheckbox.hide()
     }
 
     private fun showListDeleteDialog(list: MastoList) {
