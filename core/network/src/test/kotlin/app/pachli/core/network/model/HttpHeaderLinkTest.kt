@@ -15,10 +15,9 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.network.model
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.core.network.model.HttpHeaderLink
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
