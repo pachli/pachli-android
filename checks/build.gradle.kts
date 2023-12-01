@@ -15,31 +15,24 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    `java-gradle-plugin`
-    `maven-publish`
-    kotlin("jvm") version "1.9.20"
+    id("java-library")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.android.lint)
 }
 
-group = "app.pachli.plugins"
-version = "0.0.1"
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
-gradlePlugin {
-    plugins {
-        create("markdown2resource") {
-            id = "app.pachli.plugins.markdown2resource"
-            implementationClass = "app.pachli.plugins.markdown2resource.Markdown2ResourcePlugin"
-        }
+tasks.jar {
+    manifest {
+        attributes["Lint-Registry-v2"] = "app.pachli.lint.checks.LintRegistry"
     }
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:8.1.2")
-    implementation("org.jetbrains:markdown:0.5.2")
-    implementation("com.squareup:javapoet:1.13.0")
-}
-
-kotlin {
-    jvmToolchain(17)
+    compileOnly(libs.bundles.lint.api)
+    testImplementation(libs.bundles.lint.tests)
 }

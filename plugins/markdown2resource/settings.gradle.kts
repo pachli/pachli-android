@@ -15,31 +15,16 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
-plugins {
-    `java-gradle-plugin`
-    `maven-publish`
-    kotlin("jvm") version "1.9.20"
-}
-
-group = "app.pachli.plugins"
-version = "0.0.1"
-
-gradlePlugin {
-    plugins {
-        create("markdown2resource") {
-            id = "app.pachli.plugins.markdown2resource"
-            implementationClass = "app.pachli.plugins.markdown2resource.Markdown2ResourcePlugin"
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    versionCatalogs {
+        create("libs") {
+            from(files("../../gradle/libs.versions.toml"))
         }
     }
 }
 
-dependencies {
-    implementation("com.android.tools.build:gradle:8.1.2")
-    implementation("org.jetbrains:markdown:0.5.2")
-    implementation("com.squareup:javapoet:1.13.0")
-}
-
-kotlin {
-    jvmToolchain(17)
-}
+rootProject.name = "markdown2resource-plugin"
