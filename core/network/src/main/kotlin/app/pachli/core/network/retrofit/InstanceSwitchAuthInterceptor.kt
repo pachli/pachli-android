@@ -29,9 +29,10 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-// TODO: Explain that AccountManager is not used here to avoid a circular dependency,
-// instead, AM injects the Singleton instance and sets credentials when the active
-// account changes.
+// AccountManager can not be used here as that would create a circular dependency
+// between core.network and core.accounts. Instead, the singleton instance of this
+// InstanceSwitchAuthInterceptor is injected in to AccountManager, and
+// AccountManager updates `credentials` when the active account changes.
 
 @Singleton
 class InstanceSwitchAuthInterceptor @Inject constructor() : Interceptor {
