@@ -42,6 +42,7 @@ enum class PachliFlavor(
     orange(
         FlavorDimension.color,
         applicationIdSuffix = ".current",
+        appName = "Pachli Current",
     ),
     fdroid(FlavorDimension.store),
     github(FlavorDimension.store),
