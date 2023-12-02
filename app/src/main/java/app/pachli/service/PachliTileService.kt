@@ -16,23 +16,39 @@
 
 package app.pachli.service
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.service.quicksettings.TileService
 import app.pachli.MainActivity
 import app.pachli.components.compose.ComposeActivity
+import app.pachli.components.notifications.pendingIntentFlags
 
 /**
  * Small Addition that adds in a QuickSettings tile
  * opens the Compose activity or shows an account selector when multiple accounts are present
  */
-
 @TargetApi(24)
 class PachliTileService : TileService() {
-
+    @SuppressLint("StartActivityAndCollapseDeprecated")
     override fun onClick() {
         val intent = MainActivity.composeIntent(this, ComposeActivity.ComposeOptions())
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivityAndCollapse(intent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            startActivityAndCollapse(getActivityPendingIntent(this, 0, intent))
+        } else {
+            startActivityAndCollapse(intent)
+        }
+    }
+
+    private fun getActivityPendingIntent(context: Context, requestCode: Int, intent: Intent): PendingIntent {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getActivity(context, requestCode, intent, pendingIntentFlags(false))
+        } else {
+            PendingIntent.getActivity(context, requestCode, intent, pendingIntentFlags(false))
+        }
     }
 }

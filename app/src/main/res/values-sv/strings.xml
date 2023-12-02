@@ -257,7 +257,7 @@
     <string name="title_media">Media</string>
     <string name="replying_to">Svarar till @%s</string>
     <string name="pref_title_public_filter_keywords">Offentliga tidslinjer</string>
-    <string name="pref_title_thread_filter_keywords">Konversationer</string>
+    <string name="pref_title_thread_filter_keywords">Trådar</string>
     <string name="filter_addition_title">Lägg till filter</string>
     <string name="filter_edit_title">Redigera filter</string>
     <string name="filter_dialog_remove_button">Ta bort</string>
@@ -352,7 +352,7 @@
     <string name="download_media">Ladda ned media</string>
     <string name="downloading_media">Laddar ned media</string>
     <string name="edit_hashtag_hint">Hashtag utan #</string>
-    <string name="compose_shortcut_long_label">Skriv inlägg</string>
+    <string name="compose_shortcut_long_label">Skriv toot</string>
     <string name="compose_shortcut_short_label">Skriv</string>
     <string name="notifications_clear">Rensa</string>
     <string name="notifications_apply_filter">Filtrera</string>
@@ -670,4 +670,55 @@
     <string name="error_missing_edits">Din server vet att det här inlägget har redigerats, men har ingen kopia av ändringarna, så de kan inte visas för dig.
 \n
 \nDet är <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon problem #25398</a>.</string>
+    <string name="ui_error_translate_status">Översättning misslyckades: %s</string>
+    <string name="update_dialog_negative">Påminna mig aldrig</string>
+    <string name="translating">Översätter…</string>
+    <string name="dialog_delete_filter_positive_action">Radera</string>
+    <string name="pref_title_update_notification_frequency">Skicka en avisering vid en ny Pachli-version</string>
+    <string name="title_public_trending_links">Trendande länkar</string>
+    <string name="title_tab_public_trending_links">Länkar</string>
+    <string name="update_dialog_neutral">Påminna mig inte för den här versionen</string>
+    <string name="reaction_name_and_count">%1$s %2$d</string>
+    <string name="dialog_delete_filter_text">Radera filter \'%1$s\'?</string>
+    <string name="error_media_playback">Uppspelning misslyckades: %s</string>
+    <string name="title_public_trending">Trendande</string>
+    <string name="janky_animation_msg">Denna version av Pachli kan visa ett Android-fel på några enheter som visar trasiga animationer, t.ex. vid tappning av en toot för att visa en tråd. Om du ser denna bör du starta om din enhet.</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="pref_title_update_settings">Mjukvaruuppdateringar</string>
+    <string name="title_public_trending_statuses">Trendande toots</string>
+    <string name="announcement_date">%1$s %2$s</string>
+    <string name="load_newest_statuses">Ladda de nyaste inläggen</string>
+    <string name="about_device_info_title">Din enhet</string>
+    <string name="error_network_fmt">Ett nätverksfel har uppstått: %s</string>
+    <string name="dialog_save_profile_changes_message">Vill du spara dina profiländringar?</string>
+    <string name="error_generic_fmt">Ett fel har uppstått: %s</string>
+    <string name="pref_update_notification_frequency_always">Alltid</string>
+    <string name="error_media_upload_sending_fmt">Uppladdning misslyckades: %s</string>
+    <string name="pref_update_notification_frequency_never">Aldrig</string>
+    <string name="pref_title_show_self_boosts_description">Någon som knuffar sin toot</string>
+    <string name="ui_error_filter_v1_load">Laddning av filter misslyckades: %s</string>
+    <string name="confirmation_hashtag_muted">#%s dold</string>
+    <string name="janky_animation_title">Du behöver kanske starta om din enhet</string>
+    <string name="confirmation_hashtag_unmuted">#%s avdold</string>
+    <string name="pref_title_show_self_boosts">Visa självknuffar</string>
+    <string name="announcement_date_updated">(Uppdaterad: %1$s)</string>
+    <string name="title_tab_public_trending_statuses">Toots</string>
+    <string name="about_copied">Kopierade version- och enhetsinformation</string>
+    <string name="pref_update_notification_frequency_once_per_version">En gång per version</string>
+    <string name="about_privacy_policy">Integritetspolicy</string>
+    <string name="error_404_not_found">Din server stöder inte denna funktion</string>
+    <string name="pref_title_font_family">Fontfamilj</string>
+    <string name="list_exclusive_label">Dölj från hemtidlinjen</string>
+    <string name="action_translate">Översätta</string>
+    <string name="about_account_info">\@%s@%s
+\nVersion: %s</string>
+    <string name="about_copy">Kopiera version- och enhetsinformation</string>
+    <string name="update_dialog_title">En uppdatering är tillgänglig</string>
+    <string name="about_device_info">%s %s
+\nAndroid-version: %s
+\nSDK-nivå: %d</string>
+    <string name="title_tab_public_trending_hashtags">Hashtaggar</string>
+    <string name="about_account_info_title">Ditt konto</string>
+    <string name="label_image">Bild</string>
+    <string name="action_translate_undo">Ångra översättning</string>
 </resources>
