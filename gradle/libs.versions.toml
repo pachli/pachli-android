@@ -1,6 +1,6 @@
 [versions]
 aboutlibraries = "10.9.2"
-agp = "8.1.4"
+agp = "8.2.0"
 androidx-activity = "1.8.1"
 androidx-appcompat = "1.6.1"
 androidx-browser = "1.7.0"
@@ -42,7 +42,7 @@ kotlin = "1.9.20"
 kotlin-result = "1.1.8"
 ksp = "1.9.20-1.0.14"
 image-cropper = "4.3.2"
-lint = "31.1.4" # = agp + 23.0.0 (= 8.1.2), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
+lint = "31.2.0" # = agp + 23.0.0 (= 8.2.0), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
 material = "1.10.0"
 material-drawer = "9.0.2"
 material-typeface = "4.0.0.2-kotlin"
