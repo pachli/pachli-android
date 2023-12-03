@@ -121,7 +121,13 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
                     ),
                 )
             }
-            is TimelineKind.Favourites, TimelineKind.Bookmarks -> {
+            is TimelineKind.Favourites -> {
+                ComposeActivity.startIntent(
+                    this,
+                    ComposeActivity.ComposeOptions(),
+                )
+            }
+            is TimelineKind.Bookmarks -> {
                 ComposeActivity.startIntent(
                     this,
                     ComposeActivity.ComposeOptions(),
