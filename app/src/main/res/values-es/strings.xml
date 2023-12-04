@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_generic">Ha ocurrido un error.</string>
-    <string name="error_network">Se ha producido un error de red. Por favor, comprueba tu conexión e inténtalo de nuevo.</string>
+    <string name="error_network">Ha ocurrido un error de red. Por favor, comprueba tu conexión e inténtalo de nuevo.</string>
     <string name="error_empty">Este campo no puede estar vacío.</string>
     <string name="error_invalid_domain">Nombre de dominio incorrecto</string>
     <string name="error_failed_app_registration">Fallo de autenticación con esta instancia. Si esto persiste, prueba en el menú Iniciar sesión con el navegador.</string>
@@ -60,7 +60,7 @@
     <string name="action_compose">Redactar</string>
     <string name="action_login">Iniciar sesión con Pachli</string>
     <string name="action_logout">Cerrar sesión</string>
-    <string name="action_logout_confirm">¿Seguro que quiere cerrar la sesión de %1$s?</string>
+    <string name="action_logout_confirm">¿Seguro que quiere cerrar la sesión de %1$s? Esto eliminará todos los datos locales de la cuenta, incluyendo borradores y preferencias.</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Dejar de seguir</string>
     <string name="action_block">Bloquear</string>
@@ -178,7 +178,7 @@
     <string name="pref_title_http_proxy_port">Puerto del proxy HTTP</string>
     <string name="pref_default_post_privacy">Visibilidad por defecto</string>
     <string name="pref_default_media_sensitivity">Marcar siempre medios como sensibles</string>
-    <string name="pref_publishing">Publicaciones</string>
+    <string name="pref_publishing">Publicaciones (sincronizada con servidor)</string>
     <string name="pref_failed_to_sync">Error al sincronizar los ajustes</string>
     <string name="post_privacy_public">Público</string>
     <string name="post_privacy_unlisted">Oculto</string>
@@ -218,9 +218,7 @@
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">        Sitio del proyecto:\n
-        https://pachli.app
-    </string>
+    <string name="about_project_site">Sitio del proyecto: https://pachli.app</string>
     <string name="about_bug_feature_request_site">        Reporte de errores y peticiones de características:\n
         https://github.com/pachli/pachli-android/issues
     </string>
@@ -252,12 +250,9 @@
     <string name="title_lists">Listas</string>
     <string name="compose_active_account_description">Publicar como %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Descripción para personas con problemas de visión
-\n(Límite de %d caracter)</item>
-        <item quantity="many">Descripción para personas con problemas de visión
-\n(Límite de %d caracteres)</item>
-        <item quantity="other">Descripción para personas con problemas de visión
-\n(Límite de %d caracteres)</item>
+        <item quantity="one">Descripción para persona con problema de visión (Límite de %d caracteres)</item>
+        <item quantity="many">Descripción para personas con problema de visión (Límite de %d caracteres)</item>
+        <item quantity="other">Descripción para personas con problema de visión (Límite de %d caracteres)</item>
     </plurals>
     <string name="action_set_caption">Añadir leyenda</string>
     <string name="action_remove">Eliminar</string>
@@ -438,7 +433,7 @@
     <string name="poll_allow_multiple_choices">Opciones múltiples</string>
     <string name="poll_new_choice_hint">Opción %d</string>
     <string name="edit_poll">Editar</string>
-    <string name="title_scheduled_posts">Estados programados</string>
+    <string name="title_scheduled_posts">Publicaciones programadas</string>
     <string name="action_edit">Editar</string>
     <string name="action_access_scheduled_posts">Estados programados</string>
     <string name="action_schedule_post">Programar estado</string>
@@ -537,8 +532,8 @@
     <string name="notification_update_format">%s editó su publicación</string>
     <string name="action_dismiss">Descartar</string>
     <string name="action_details">Detalles</string>
-    <string name="error_loading_account_details">Fallo cargando los detalles de la cuenta</string>
-    <string name="error_could_not_load_login_page">Fallo cargando la página de ingreso.</string>
+    <string name="error_loading_account_details">Falló cargar los detalles de la cuenta</string>
+    <string name="error_could_not_load_login_page">Falló al cargar la página de ingreso.</string>
     <string name="delete_scheduled_post_warning">¿Eliminar publicación programada\?</string>
     <string name="set_focus_description">Toca o arrastra el círculo para centrar el foco de la imagen, que será visible en las miniaturas.</string>
     <string name="compose_save_draft_loses_media">¿Guardar este borrador\? (Los adjuntos se subirán de nuevo cuando vuelvas a él.)</string>
@@ -571,8 +566,8 @@
     <string name="instance_rule_title">Normas de %s</string>
     <string name="notification_sign_up_name">Creación de cuentas</string>
     <string name="action_edit_image">Editar imagen</string>
-    <string name="failed_to_add_to_list">Fallo al añadir la cuenta a la lista</string>
-    <string name="failed_to_remove_from_list">Fallo al eliminar la cuenta de la lista</string>
+    <string name="failed_to_add_to_list">Falló añadir la cuenta a la lista</string>
+    <string name="failed_to_remove_from_list">Falló al eliminar la cuenta de la lista</string>
     <string name="action_add_or_remove_from_list">Añadir o quitar de la lista</string>
     <string name="hint_media_description_missing">El contenido debería tener una descripción.</string>
     <string name="report_category_violation">Violación de una regla</string>
@@ -595,7 +590,7 @@
     <string name="post_media_alt">ALT</string>
     <string name="action_unfollow_hashtag_format">¿Dejar de seguir a #%s\?</string>
     <string name="post_edited">%s editado</string>
-    <string name="error_status_source_load">Fallo al cargar el estado desde el servidor.</string>
+    <string name="error_status_source_load">Falló al cargar el estado de la origen desde el servidor.</string>
     <string name="confirmation_hashtag_unfollowed">Dejaste de seguir a #%s</string>
     <string name="pref_title_notification_filter_reports">Hay una nueva denuncia</string>
     <string name="action_discard">Descartar cambios</string>
@@ -608,7 +603,7 @@
     <string name="a11y_label_loading_thread">Cargando hilo</string>
     <string name="mute_notifications_switch">Silenciar notificaciones</string>
     <string name="status_edit_info">%1$s ha editado</string>
-    <string name="status_created_info">%1$s ha editado</string>
+    <string name="status_created_info">%1$s ha creado</string>
     <string name="pref_summary_http_proxy_disabled">Desactivado</string>
     <string name="pref_summary_http_proxy_missing">&lt;sin establecer&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;inválido&gt;</string>
@@ -658,7 +653,7 @@
     <string name="hint_filter_title">Mi filtro</string>
     <string name="filter_edit_keyword_title">Editar palabra</string>
     <string name="filter_description_format">%s: %s</string>
-    <string name="ui_error_reblog">Fallo al impulsar publicación: %s</string>
+    <string name="ui_error_reblog">Falló al impulsar publicación: %s</string>
     <string name="ui_error_vote">Fallo al votar en la encuesta: %s</string>
     <string name="label_filter_title">Título</string>
     <string name="filter_action_warn">Aviso</string>
@@ -675,4 +670,69 @@
     <string name="notification_notification_worker">Obteniendo notificaciones…</string>
     <string name="load_newest_notifications">Cargar nuevas notificaciones</string>
     <string name="compose_delete_draft">¿Eliminar borrador\?</string>
+    <string name="ui_error_translate_status">La traducción falló: %s</string>
+    <string name="update_dialog_negative">Nunca me recuerdas</string>
+    <string name="translating">Traduciendo…</string>
+    <string name="dialog_delete_filter_positive_action">Borrar</string>
+    <string name="notification_listenable_worker_name">Actividad de fondo</string>
+    <string name="pref_title_update_notification_frequency">Notifícame sobre nuevas versiones de Pachli</string>
+    <string name="title_public_trending_links">Enlaces en tendencia</string>
+    <string name="title_tab_public_trending_links">Enlaces</string>
+    <string name="update_dialog_neutral">No me recuerdes para esta versión</string>
+    <string name="reaction_name_and_count">%1$s %2$d</string>
+    <string name="dialog_delete_filter_text">Elimina filtro \'%1$s\'?</string>
+    <string name="error_media_playback">La reproducción falló: %s</string>
+    <string name="title_public_trending">En tendencia</string>
+    <string name="janky_animation_msg">Esta versión de Pachli puede desencadenar un error de Android en algunos dispositivos, y mostrar animaciones rotas.
+\n
+\nPor ejemplo, al tocar una publicación para ver una conversación.
+\n
+\nSi ves esto, necesitarás reiniciar tu dispositivo.
+\n
+\nSólo tienes que hacer esto una vez.
+\n
+\nEsto un error de Android, no hay nada que Pachli pueda hacer.</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="pref_title_update_settings">Actualizaciones de programa</string>
+    <string name="title_public_trending_statuses">Publicaciones en tendencia</string>
+    <string name="announcement_date">%1$s %2$s</string>
+    <string name="load_newest_statuses">Carga publicaciones más nuevas</string>
+    <string name="about_device_info_title">Tu dispositivo</string>
+    <string name="error_network_fmt">Ha ocurrido un error de red: %s</string>
+    <string name="dialog_save_profile_changes_message">¿Quieres guardar tus cambios de perfil?</string>
+    <string name="error_generic_fmt">Ha ocurrido un error: %s</string>
+    <string name="pref_update_notification_frequency_always">Siempre</string>
+    <string name="error_media_upload_sending_fmt">La carga falló: %s</string>
+    <string name="pref_update_notification_frequency_never">Nunca</string>
+    <string name="pref_title_show_self_boosts_description">Alguien impulsa su propia publicación</string>
+    <string name="ui_error_filter_v1_load">La carga de filtros falló: %s</string>
+    <string name="confirmation_hashtag_muted">#%s oculto(s)</string>
+    <string name="janky_animation_title">Es posible que necesite reiniciar su dispositivo</string>
+    <string name="confirmation_hashtag_unmuted">#%s visible</string>
+    <string name="pref_title_show_self_boosts">Mostrar auto-impulsos</string>
+    <string name="announcement_date_updated">(Actualizado: %1$s)</string>
+    <string name="title_tab_public_trending_statuses">Publicaciones</string>
+    <string name="about_copied">Informaciones de versión y dispositivo copiadas</string>
+    <string name="pref_update_notification_frequency_once_per_version">Una vez por versión</string>
+    <string name="about_privacy_policy">Política de privacidad</string>
+    <string name="error_404_not_found">Su servidor no soporta esta función</string>
+    <string name="pref_title_font_family">Familia de fuente</string>
+    <string name="notification_listenable_worker_description">Notificaciones cuando Pachli está trabajando en el fondo</string>
+    <string name="list_exclusive_label">Oculta de la cronología de inicio</string>
+    <string name="action_translate">Traducir</string>
+    <string name="error_missing_edits">Tu servidor sabe que esta publicación fue editada, pero no tiene una copia de las ediciones, así que no pueden ser asomados a ti.
+\n
+\nEsto es <a href="https://github.com/mastodon/mastodon/issues/25398">problema de Mastodon #25398</a>.</string>
+    <string name="about_account_info">\@%s@%s
+\nVersión: %s</string>
+    <string name="about_copy">Copiar las informaciones de versión y dispositivo</string>
+    <string name="update_dialog_title">Una actualización está disponible</string>
+    <string name="about_device_info">%s %s
+\nVersión de Android: %s
+\nSDK nivel: %d</string>
+    <string name="title_tab_public_trending_hashtags">Etiquetas</string>
+    <string name="about_account_info_title">Tu cuenta</string>
+    <string name="label_image">Imagen</string>
+    <string name="action_translate_undo">Deshace traducción</string>
+    <string name="notification_prune_cache">Mantenimiento de caché…</string>
 </resources>
