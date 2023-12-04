@@ -29,14 +29,16 @@ import app.pachli.components.accountlist.AccountListActivity
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.makeNotification
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.TabKind
+import app.pachli.core.database.model.defaultTabs
+import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.testing.rules.lazyActivityScenarioRule
 import app.pachli.db.DraftsAlert
-import app.pachli.entity.Account
-import app.pachli.entity.Notification
-import app.pachli.entity.TimelineAccount
-import app.pachli.network.MastodonApi
-import app.pachli.rules.lazyActivityScenarioRule
 import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
@@ -151,7 +153,7 @@ class MainActivityTest {
         rule.launch(intent)
         rule.getScenario().onActivity {
             val currentTab = it.findViewById<ViewPager2>(R.id.viewPager).currentItem
-            val notificationTab = defaultTabs().indexOfFirst { it.id == NOTIFICATIONS }
+            val notificationTab = defaultTabs().indexOfFirst { it.kind == TabKind.NOTIFICATIONS }
             assertEquals(currentTab, notificationTab)
         }
     }

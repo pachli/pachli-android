@@ -15,11 +15,11 @@ import androidx.lifecycle.lifecycleScope
 import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.appstore.EventHub
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterKeyword
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityEditFilterBinding
 import app.pachli.databinding.DialogFilterBinding
-import app.pachli.entity.Filter
-import app.pachli.entity.FilterKeyword
-import app.pachli.network.MastodonApi
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import at.connyduck.calladapter.networkresult.fold

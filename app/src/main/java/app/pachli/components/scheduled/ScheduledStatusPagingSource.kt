@@ -18,8 +18,8 @@ package app.pachli.components.scheduled
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import app.pachli.entity.ScheduledStatus
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.model.ScheduledStatus
+import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.getOrElse
 
 class ScheduledStatusPagingSourceFactory(

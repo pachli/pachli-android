@@ -18,10 +18,10 @@ package app.pachli.pager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import app.pachli.TabData
+import app.pachli.TabViewData
 import app.pachli.util.CustomFragmentStateAdapter
 
-class MainPagerAdapter(var tabs: List<TabData>, activity: FragmentActivity) : CustomFragmentStateAdapter(activity) {
+class MainPagerAdapter(var tabs: List<TabViewData>, activity: FragmentActivity) : CustomFragmentStateAdapter(activity) {
 
     override fun createFragment(position: Int): Fragment {
         val tab = tabs[position]

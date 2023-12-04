@@ -10,14 +10,14 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.databinding.ItemStatusDetailedBinding
-import app.pachli.entity.description
-import app.pachli.entity.icon
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.CardViewMode
 import app.pachli.util.NoUnderlineURLSpan
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.createClickableText
+import app.pachli.util.description
 import app.pachli.util.hide
+import app.pachli.util.icon
 import app.pachli.util.show
 import app.pachli.viewdata.StatusViewData
 import java.text.DateFormat

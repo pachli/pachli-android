@@ -20,7 +20,7 @@ package app.pachli.updatecheck
 import android.content.Intent
 import android.net.Uri
 import app.pachli.BuildConfig
-import app.pachli.util.SharedPreferencesRepository
+import app.pachli.core.preferences.SharedPreferencesRepository
 import com.google.android.play.core.appupdate.AppUpdateManager
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject

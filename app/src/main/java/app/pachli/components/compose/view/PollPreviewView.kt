@@ -22,8 +22,8 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import app.pachli.R
 import app.pachli.adapter.PreviewPollOptionsAdapter
+import app.pachli.core.network.model.NewPoll
 import app.pachli.databinding.ViewPollPreviewBinding
-import app.pachli.entity.NewPoll
 
 class PollPreviewView @JvmOverloads constructor(
     context: Context?,

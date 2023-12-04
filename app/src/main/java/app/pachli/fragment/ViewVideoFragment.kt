@@ -49,8 +49,8 @@ import androidx.media3.ui.AspectRatioFrameLayout
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.ViewMediaActivity
+import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.FragmentViewVideoBinding
-import app.pachli.entity.Attachment
 import app.pachli.util.hide
 import app.pachli.util.viewBinding
 import app.pachli.util.visible

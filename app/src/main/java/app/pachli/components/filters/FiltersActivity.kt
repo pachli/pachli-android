@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import app.pachli.BaseActivity
 import app.pachli.R
+import app.pachli.core.network.model.Filter
 import app.pachli.databinding.ActivityFiltersBinding
-import app.pachli.entity.Filter
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding

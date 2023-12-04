@@ -1,7 +1,7 @@
 package app.pachli.appstore
 
-import app.pachli.db.AccountManager
-import app.pachli.db.TimelineDao
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.database.dao.TimelineDao
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

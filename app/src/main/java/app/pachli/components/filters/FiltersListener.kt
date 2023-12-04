@@ -1,6 +1,6 @@
 package app.pachli.components.filters
 
-import app.pachli.entity.Filter
+import app.pachli.core.network.model.Filter
 
 interface FiltersListener {
     fun deleteFilter(filter: Filter)

@@ -22,9 +22,9 @@ import app.pachli.R
 import app.pachli.components.notifications.disablePullNotifications
 import app.pachli.components.notifications.enablePullNotifications
 import app.pachli.components.notifications.notificationsAreEnabled
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
-import app.pachli.settings.PrefKeys
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preferenceCategory
 import app.pachli.settings.switchPreference

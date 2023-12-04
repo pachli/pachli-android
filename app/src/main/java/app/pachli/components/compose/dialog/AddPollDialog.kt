@@ -22,8 +22,8 @@ import android.view.WindowManager
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import app.pachli.R
+import app.pachli.core.network.model.NewPoll
 import app.pachli.databinding.DialogAddPollBinding
-import app.pachli.entity.NewPoll
 
 fun showAddPollDialog(
     context: Context,

@@ -24,11 +24,11 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.annotation.WorkerThread
 import app.pachli.R
+import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.TimelineAccount
 import app.pachli.databinding.ItemAutocompleteAccountBinding
 import app.pachli.databinding.ItemAutocompleteEmojiBinding
 import app.pachli.databinding.ItemAutocompleteHashtagBinding
-import app.pachli.entity.Emoji
-import app.pachli.entity.TimelineAccount
 import app.pachli.util.emojify
 import app.pachli.util.loadAvatar
 import app.pachli.util.visible

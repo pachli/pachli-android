@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FilterChangedEvent
-import app.pachli.entity.Filter
-import app.pachli.entity.FilterKeyword
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterKeyword
+import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

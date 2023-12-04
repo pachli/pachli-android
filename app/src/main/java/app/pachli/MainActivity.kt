@@ -77,17 +77,18 @@ import app.pachli.components.preference.PreferencesActivity
 import app.pachli.components.scheduled.ScheduledStatusActivity
 import app.pachli.components.search.SearchActivity
 import app.pachli.components.trending.TrendingActivity
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.TabKind
+import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.Notification
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ActivityMainBinding
-import app.pachli.db.AccountEntity
 import app.pachli.db.DraftsAlert
-import app.pachli.entity.Account
-import app.pachli.entity.Notification
 import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.FabFragment
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.pager.MainPagerAdapter
-import app.pachli.settings.PrefKeys
 import app.pachli.updatecheck.UpdateCheck
 import app.pachli.updatecheck.UpdateNotificationFrequency
 import app.pachli.usecase.DeveloperToolsUseCase
@@ -854,7 +855,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // Save the previous tab so it can be restored later
         val previousTab = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)
 
-        val tabs = accountManager.activeAccount!!.tabPreferences
+        val tabs = accountManager.activeAccount!!.tabPreferences.map { TabViewData.from(it) }
 
         // Detach any existing mediator before changing tab contents and attaching a new mediator
         tabLayoutMediator?.detach()
@@ -865,8 +866,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         tabLayoutMediator = TabLayoutMediator(activeTabLayout, binding.viewPager, true) {
                 tab: TabLayout.Tab, position: Int ->
             tab.icon = AppCompatResources.getDrawable(this@MainActivity, tabs[position].icon)
-            tab.contentDescription = when (tabs[position].id) {
-                LIST -> tabs[position].arguments[1]
+            tab.contentDescription = when (tabs[position].kind) {
+                TabKind.LIST -> tabs[position].arguments[1]
                 else -> getString(tabs[position].text)
             }
         }.also { it.attach() }
@@ -876,7 +877,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // - The previously selected tab (if it hasn't been removed)
         // - Left-most tab
         val position = if (selectNotificationTab) {
-            tabs.indexOfFirst { it.id == NOTIFICATIONS }
+            tabs.indexOfFirst { it.kind == TabKind.NOTIFICATIONS }
         } else {
             previousTab?.let { tabs.indexOfFirst { it == previousTab } }
         }.takeIf { it != -1 } ?: 0

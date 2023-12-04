@@ -6,11 +6,11 @@ import app.pachli.components.notifications.deleteNotificationChannelsForAccount
 import app.pachli.components.notifications.disablePullNotifications
 import app.pachli.components.notifications.disableUnifiedPushNotificationsForAccount
 import app.pachli.components.notifications.notificationsAreEnabled
-import app.pachli.db.AccountManager
-import app.pachli.db.ConversationsDao
-import app.pachli.db.RemoteKeyDao
-import app.pachli.db.TimelineDao
-import app.pachli.network.MastodonApi
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.database.dao.ConversationsDao
+import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.removeShortcut
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

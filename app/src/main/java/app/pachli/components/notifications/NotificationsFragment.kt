@@ -26,6 +26,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
@@ -45,10 +46,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.timeline.TimelineLoadStateAdapter
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.Status
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
-import app.pachli.entity.Filter
-import app.pachli.entity.Notification
-import app.pachli.entity.Status
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.ActionButtonActivity
@@ -698,7 +699,7 @@ class FilterDialogFragment(
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val context = requireContext()
 
-        val items = Notification.Type.visibleTypes.map { getString(it.uiString) }.toTypedArray()
+        val items = Notification.Type.visibleTypes.map { getString(it.uiString()) }.toTypedArray()
         val checkedItems = Notification.Type.visibleTypes.map {
             !activeFilter.contains(it)
         }.toBooleanArray()
@@ -718,4 +719,19 @@ class FilterDialogFragment(
             .setNegativeButton(android.R.string.cancel) { _, _ -> }
         return builder.create()
     }
+}
+
+@StringRes
+fun Notification.Type.uiString(): Int = when (this) {
+    Notification.Type.UNKNOWN -> R.string.notification_unknown_name
+    Notification.Type.MENTION -> R.string.notification_mention_name
+    Notification.Type.REBLOG -> R.string.notification_boost_name
+    Notification.Type.FAVOURITE -> R.string.notification_favourite_name
+    Notification.Type.FOLLOW -> R.string.notification_follow_name
+    Notification.Type.FOLLOW_REQUEST -> R.string.notification_follow_request_name
+    Notification.Type.POLL -> R.string.notification_poll_name
+    Notification.Type.STATUS -> R.string.notification_subscription_name
+    Notification.Type.SIGN_UP -> R.string.notification_sign_up_name
+    Notification.Type.UPDATE -> R.string.notification_update_name
+    Notification.Type.REPORT -> R.string.notification_report_name
 }

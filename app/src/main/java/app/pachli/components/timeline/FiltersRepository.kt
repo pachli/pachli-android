@@ -17,9 +17,9 @@
 
 package app.pachli.components.timeline
 
-import app.pachli.entity.Filter
-import app.pachli.entity.FilterV1
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterV1
+import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrThrow
 import retrofit2.HttpException

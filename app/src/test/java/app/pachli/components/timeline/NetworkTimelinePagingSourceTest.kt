@@ -23,7 +23,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.Page
 import app.pachli.components.timeline.viewmodel.PageCache
-import app.pachli.entity.Status
+import app.pachli.core.network.model.Status
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Test

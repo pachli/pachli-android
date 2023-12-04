@@ -3,7 +3,7 @@ package app.pachli.pager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import app.pachli.ViewMediaAdapter
-import app.pachli.entity.Attachment
+import app.pachli.core.network.model.Attachment
 import app.pachli.fragment.ViewMediaFragment
 import java.lang.ref.WeakReference
 

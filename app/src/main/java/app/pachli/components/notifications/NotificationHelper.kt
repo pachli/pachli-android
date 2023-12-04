@@ -45,12 +45,12 @@ import app.pachli.MainActivity.Companion.composeIntent
 import app.pachli.MainActivity.Companion.openNotificationIntent
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
-import app.pachli.entity.Notification
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.model.Notification
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.receiver.SendStatusBroadcastReceiver
-import app.pachli.util.parseAsMastodonHtml
-import app.pachli.util.unicodeWrap
 import app.pachli.viewdata.buildDescription
 import app.pachli.viewdata.calculatePercent
 import app.pachli.worker.NotificationWorker
@@ -811,20 +811,20 @@ private fun bodyForType(
         Notification.Type.MENTION, Notification.Type.FAVOURITE, Notification.Type.REBLOG, Notification.Type.STATUS -> {
             val status = notification.status!!
             return if (!TextUtils.isEmpty(status.spoilerText) && !alwaysOpenSpoiler) {
-                notification.status.spoilerText
+                status.spoilerText
             } else {
-                notification.status.content.parseAsMastodonHtml().toString()
+                status.content.parseAsMastodonHtml().toString()
             }
         }
 
         Notification.Type.POLL -> {
             val status = notification.status!!
             return if (!TextUtils.isEmpty(status.spoilerText) && !alwaysOpenSpoiler) {
-                notification.status.spoilerText
+                status.spoilerText
             } else {
-                val builder = StringBuilder(notification.status.content.parseAsMastodonHtml())
+                val builder = StringBuilder(status.content.parseAsMastodonHtml())
                 builder.append('\n')
-                val poll = notification.status.poll!!
+                val poll = status.poll!!
                 val options = poll.options
                 for (i in options.indices) {
                     val (title, votesCount) = options[i]
@@ -832,7 +832,7 @@ private fun bodyForType(
                         buildDescription(
                             title,
                             calculatePercent(votesCount, poll.votersCount, poll.votesCount),
-                            poll.ownVotes != null && poll.ownVotes.contains(i),
+                            poll.ownVotes != null && poll.ownVotes!!.contains(i),
                             context,
                         ),
                     )

@@ -55,16 +55,17 @@ import app.pachli.components.account.list.ListsForAccountFragment
 import app.pachli.components.accountlist.AccountListActivity
 import app.pachli.components.compose.ComposeActivity
 import app.pachli.components.report.ReportActivity
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.Relationship
+import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ActivityAccountBinding
-import app.pachli.db.AccountEntity
 import app.pachli.db.DraftsAlert
-import app.pachli.entity.Account
-import app.pachli.entity.Relationship
 import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.LinkListener
 import app.pachli.interfaces.ReselectableFragment
-import app.pachli.settings.PrefKeys
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
@@ -72,7 +73,6 @@ import app.pachli.util.emojify
 import app.pachli.util.getDomain
 import app.pachli.util.hide
 import app.pachli.util.loadAvatar
-import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.setClickableText
 import app.pachli.util.show
@@ -659,9 +659,9 @@ class AccountActivity :
                 viewModel.changeSubscribingState()
             }
             if (relation.notifying != null) {
-                subscribing = relation.notifying
+                subscribing = relation.notifying!!
             } else if (relation.subscribing != null) {
-                subscribing = relation.subscribing
+                subscribing = relation.subscribing!!
             }
         }
 

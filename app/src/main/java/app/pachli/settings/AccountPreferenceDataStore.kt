@@ -1,9 +1,10 @@
 package app.pachli.settings
 
 import androidx.preference.PreferenceDataStore
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
-import app.pachli.di.ApplicationScope
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.preferences.PrefKeys
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch

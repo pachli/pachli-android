@@ -4,10 +4,8 @@
 -optimizations !code/simplification/cast,!field/*,!class/merging/*
 -optimizationpasses 6
 -allowaccessmodification
--dontpreverify
 
 -dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
 -keepattributes *Annotation*
 
 # For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
@@ -40,18 +38,17 @@
 # Pachli specific options
 
 # keep members of our model classes, they are used in json de/serialization
--keepclassmembers class app.pachli.entity.* { *; }
--keepclassmembers class app.pachli.network.model.* { *; }
+-keepclassmembers class app.pachli.core.network.model.* { *; }
 
--keep public enum app.pachli.entity.*$** {
+-keep public enum app.pachli.core.network.model.*$** {
     **[] $VALUES;
     public *;
 }
 
--keepclassmembers class app.pachli.components.conversation.ConversationAccountEntity { *; }
--keepclassmembers class app.pachli.db.DraftAttachment { *; }
+-keepclassmembers class app.pachli.core.database.model.ConversationAccountEntity { *; }
+-keepclassmembers class app.pachli.core.database.model.DraftAttachment { *; }
 
--keep enum app.pachli.db.DraftAttachment$Type {
+-keep enum app.pachli.core.database.model.DraftAttachment$Type {
     public *;
 }
 

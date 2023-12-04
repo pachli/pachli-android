@@ -4,11 +4,12 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import app.pachli.db.AccountManager
-import app.pachli.db.ConversationsDao
-import app.pachli.di.TransactionProvider
-import app.pachli.network.MastodonApi
-import app.pachli.util.HttpHeaderLink
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.database.dao.ConversationsDao
+import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.ConversationEntity
+import app.pachli.core.network.model.HttpHeaderLink
+import app.pachli.core.network.retrofit.MastodonApi
 import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)

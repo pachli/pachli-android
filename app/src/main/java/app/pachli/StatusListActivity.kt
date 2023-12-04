@@ -29,9 +29,9 @@ import app.pachli.appstore.FilterChangedEvent
 import app.pachli.components.compose.ComposeActivity
 import app.pachli.components.timeline.TimelineFragment
 import app.pachli.components.timeline.TimelineKind
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterV1
 import app.pachli.databinding.ActivityStatuslistBinding
-import app.pachli.entity.Filter
-import app.pachli.entity.FilterV1
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.util.unsafeLazy

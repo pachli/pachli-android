@@ -20,8 +20,8 @@ package app.pachli.updatecheck
 import android.content.Intent
 import androidx.core.content.edit
 import app.pachli.BuildConfig
-import app.pachli.settings.PrefKeys
-import app.pachli.util.SharedPreferencesRepository
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import javax.inject.Singleton
 import kotlin.time.Duration.Companion.hours
 

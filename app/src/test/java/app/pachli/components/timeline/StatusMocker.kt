@@ -1,13 +1,13 @@
 package app.pachli.components.timeline
 
-import app.pachli.db.StatusViewDataEntity
-import app.pachli.db.TimelineAccountEntity
-import app.pachli.db.TimelineStatusEntity
-import app.pachli.db.TimelineStatusWithAccount
-import app.pachli.entity.Status
-import app.pachli.entity.TimelineAccount
+import app.pachli.core.database.model.StatusViewDataEntity
+import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.TimelineStatusEntity
+import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TranslationState
+import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.TimelineAccount
 import app.pachli.viewdata.StatusViewData
-import app.pachli.viewdata.TranslationState
 import com.google.gson.Gson
 import java.util.Date
 

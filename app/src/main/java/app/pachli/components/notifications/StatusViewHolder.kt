@@ -19,9 +19,9 @@ package app.pachli.components.notifications
 
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewHolder
+import app.pachli.core.network.model.Notification
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
-import app.pachli.entity.Notification
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.NotificationViewData

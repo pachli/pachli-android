@@ -19,13 +19,14 @@ package app.pachli.util
 
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
-import app.pachli.di.ApplicationScope
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.ServerOperation
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.network.ServerCapabilitiesRepository
-import app.pachli.network.ServerOperation
 import app.pachli.settings.AccountPreferenceDataStore
-import app.pachli.settings.PrefKeys
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow

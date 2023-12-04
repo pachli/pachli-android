@@ -33,12 +33,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.ViewMediaActivity
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.network.model.Attachment
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentTimelineBinding
-import app.pachli.db.AccountManager
-import app.pachli.entity.Attachment
 import app.pachli.interfaces.RefreshableFragment
-import app.pachli.settings.PrefKeys
-import app.pachli.util.SharedPreferencesRepository
 import app.pachli.util.hide
 import app.pachli.util.openLink
 import app.pachli.util.show

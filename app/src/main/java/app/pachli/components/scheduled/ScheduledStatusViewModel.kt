@@ -22,8 +22,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import app.pachli.appstore.EventHub
-import app.pachli.entity.ScheduledStatus
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.model.ScheduledStatus
+import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

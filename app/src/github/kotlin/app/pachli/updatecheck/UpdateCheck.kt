@@ -19,7 +19,7 @@ package app.pachli.updatecheck
 
 import android.content.Intent
 import android.net.Uri
-import app.pachli.util.SharedPreferencesRepository
+import app.pachli.core.preferences.SharedPreferencesRepository
 import javax.inject.Inject
 
 class UpdateCheck @Inject constructor(

@@ -26,8 +26,8 @@ import androidx.work.WorkerParameters
 import app.pachli.R
 import app.pachli.components.notifications.NOTIFICATION_ID_PRUNE_CACHE
 import app.pachli.components.notifications.createWorkerNotification
-import app.pachli.db.AccountManager
-import app.pachli.db.TimelineDao
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.database.dao.TimelineDao
 import timber.log.Timber
 import javax.inject.Inject
 

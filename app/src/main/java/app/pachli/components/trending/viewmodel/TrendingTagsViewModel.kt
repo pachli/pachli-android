@@ -20,11 +20,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FilterChangedEvent
-import app.pachli.entity.Filter
-import app.pachli.entity.TrendingTag
-import app.pachli.entity.end
-import app.pachli.entity.start
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.TrendingTag
+import app.pachli.core.network.model.end
+import app.pachli.core.network.model.start
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.viewdata.TrendingViewData
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -27,10 +27,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity
+import app.pachli.core.database.model.DraftEntity
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ActivityDraftsBinding
-import app.pachli.db.DraftEntity
 import app.pachli.db.DraftsAlert
-import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.visible
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -103,7 +103,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
 
         lifecycleScope.launch {
             bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-            viewModel.getStatus(draft.inReplyToId)
+            viewModel.getStatus(draft.inReplyToId!!)
                 .fold(
                     { status ->
                         val composeOptions = ComposeActivity.ComposeOptions(

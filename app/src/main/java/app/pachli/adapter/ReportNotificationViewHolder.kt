@@ -23,14 +23,14 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.notifications.NotificationActionListener
 import app.pachli.components.notifications.NotificationsPagingAdapter
+import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.network.model.Report
+import app.pachli.core.network.model.TimelineAccount
 import app.pachli.databinding.ItemReportNotificationBinding
-import app.pachli.entity.Report
-import app.pachli.entity.TimelineAccount
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.emojify
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.loadAvatar
-import app.pachli.util.unicodeWrap
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import java.util.Date

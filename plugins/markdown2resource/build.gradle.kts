@@ -22,11 +22,6 @@ plugins {
     kotlin("jvm") version "1.9.20"
 }
 
-repositories {
-    google()
-    mavenCentral()
-}
-
 group = "app.pachli.plugins"
 version = "0.0.1"
 

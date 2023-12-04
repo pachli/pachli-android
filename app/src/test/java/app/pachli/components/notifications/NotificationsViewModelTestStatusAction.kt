@@ -19,8 +19,8 @@ package app.pachli.components.notifications
 
 import app.cash.turbine.test
 import app.pachli.FilterV1Test.Companion.mockStatus
+import app.pachli.core.database.model.TranslationState
 import app.pachli.viewdata.StatusViewData
-import app.pachli.viewdata.TranslationState
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest

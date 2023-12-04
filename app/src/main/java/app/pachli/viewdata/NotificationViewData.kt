@@ -17,10 +17,10 @@
 
 package app.pachli.viewdata
 
-import app.pachli.entity.Filter
-import app.pachli.entity.Notification
-import app.pachli.entity.Report
-import app.pachli.entity.TimelineAccount
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.Report
+import app.pachli.core.network.model.TimelineAccount
 
 data class NotificationViewData(
     val type: Notification.Type,

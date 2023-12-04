@@ -23,12 +23,12 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import app.pachli.R
 import app.pachli.components.login.LoginActivity
-import app.pachli.db.AccountEntity
-import app.pachli.db.AccountManager
-import app.pachli.entity.Notification
-import app.pachli.network.MastodonApi
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.model.Notification
+import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.util.CryptoUtil
-import app.pachli.util.SharedPreferencesRepository
 import at.connyduck.calladapter.networkresult.onFailure
 import at.connyduck.calladapter.networkresult.onSuccess
 import com.google.android.material.snackbar.Snackbar

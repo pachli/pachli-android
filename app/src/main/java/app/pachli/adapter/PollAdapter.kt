@@ -20,8 +20,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.core.network.model.Emoji
 import app.pachli.databinding.ItemPollBinding
-import app.pachli.entity.Emoji
 import app.pachli.util.BindingHolder
 import app.pachli.util.emojify
 import app.pachli.util.visible

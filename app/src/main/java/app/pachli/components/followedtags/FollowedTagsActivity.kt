@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.compose.ComposeAutoCompleteAdapter
+import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ActivityFollowedTagsBinding
 import app.pachli.interfaces.HashtagActionListener
-import app.pachli.network.MastodonApi
-import app.pachli.settings.PrefKeys
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding

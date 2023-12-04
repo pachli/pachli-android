@@ -25,6 +25,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.SmartLengthInputFilter
 import app.pachli.util.StatusDisplayOptions

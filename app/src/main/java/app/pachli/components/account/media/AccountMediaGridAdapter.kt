@@ -11,8 +11,8 @@ import androidx.core.view.setPadding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.R
+import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.ItemAccountMediaBinding
-import app.pachli.entity.Attachment
 import app.pachli.util.BindingHolder
 import app.pachli.util.decodeBlurHash
 import app.pachli.util.getFormattedDescription

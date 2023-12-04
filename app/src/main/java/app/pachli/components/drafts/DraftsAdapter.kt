@@ -22,8 +22,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.core.database.model.DraftEntity
 import app.pachli.databinding.ItemDraftBinding
-import app.pachli.db.DraftEntity
 import app.pachli.util.BindingHolder
 import app.pachli.util.hide
 import app.pachli.util.show
@@ -80,12 +80,10 @@ class DraftsAdapter(
             holder.binding.draftMediaPreview.visible(draft.attachments.isNotEmpty())
             (holder.binding.draftMediaPreview.adapter as DraftMediaAdapter).submitList(draft.attachments)
 
-            if (draft.poll != null) {
+            draft.poll?.apply {
                 holder.binding.draftPoll.show()
-                holder.binding.draftPoll.setPoll(draft.poll)
-            } else {
-                holder.binding.draftPoll.hide()
-            }
+                holder.binding.draftPoll.setPoll(this)
+            } ?: holder.binding.draftPoll.hide()
         }
     }
 }

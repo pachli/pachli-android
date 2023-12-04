@@ -1,9 +1,9 @@
 package app.pachli.network
 
-import app.pachli.entity.Filter
-import app.pachli.entity.FilterV1
-import app.pachli.entity.Status
-import app.pachli.util.parseAsMastodonHtml
+import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterV1
+import app.pachli.core.network.model.Status
+import app.pachli.core.network.parseAsMastodonHtml
 import java.util.Date
 import java.util.regex.Pattern
 

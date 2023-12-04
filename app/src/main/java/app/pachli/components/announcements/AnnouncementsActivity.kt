@@ -32,8 +32,8 @@ import app.pachli.R
 import app.pachli.StatusListActivity
 import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.OnEmojiSelectedListener
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ActivityAnnouncementsBinding
-import app.pachli.settings.PrefKeys
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success

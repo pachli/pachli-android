@@ -10,7 +10,7 @@ import android.graphics.Point
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import app.pachli.entity.Attachment
+import app.pachli.core.network.model.Attachment
 import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min

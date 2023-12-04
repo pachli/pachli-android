@@ -3,7 +3,7 @@ package app.pachli.util
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.db.AccountEntity
+import app.pachli.core.database.model.AccountEntity
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

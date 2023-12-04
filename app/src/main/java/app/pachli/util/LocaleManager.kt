@@ -22,7 +22,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.preference.PreferenceDataStore
 import app.pachli.R
-import app.pachli.settings.PrefKeys
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.preferences.getNonNullString
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton

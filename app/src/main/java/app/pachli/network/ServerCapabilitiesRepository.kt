@@ -17,8 +17,10 @@
 
 package app.pachli.network
 
-import app.pachli.db.AccountManager
-import app.pachli.di.ApplicationScope
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.network.ServerCapabilities
+import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.getOr
 import kotlinx.coroutines.CoroutineScope

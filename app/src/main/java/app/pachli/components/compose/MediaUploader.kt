@@ -30,13 +30,13 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.components.instanceinfo.InstanceInfo
-import app.pachli.network.MediaUploadApi
+import app.pachli.core.common.string.randomAlphanumericString
+import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.network.ProgressRequestBody
 import app.pachli.util.MEDIA_SIZE_UNKNOWN
 import app.pachli.util.getImageSquarePixels
 import app.pachli.util.getMediaSize
 import app.pachli.util.getServerErrorMessage
-import app.pachli.util.randomAlphanumericString
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

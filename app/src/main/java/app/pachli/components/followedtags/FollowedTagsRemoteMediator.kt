@@ -4,9 +4,9 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import app.pachli.entity.HashTag
-import app.pachli.network.MastodonApi
-import app.pachli.util.HttpHeaderLink
+import app.pachli.core.network.model.HashTag
+import app.pachli.core.network.model.HttpHeaderLink
+import app.pachli.core.network.retrofit.MastodonApi
 import retrofit2.HttpException
 import retrofit2.Response
 

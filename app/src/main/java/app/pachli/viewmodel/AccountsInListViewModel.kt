@@ -18,8 +18,8 @@ package app.pachli.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.entity.TimelineAccount
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.Either
 import app.pachli.util.Either.Left
 import app.pachli.util.Either.Right

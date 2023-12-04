@@ -27,7 +27,7 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import app.pachli.MainActivity
 import app.pachli.R
-import app.pachli.db.AccountEntity
+import app.pachli.core.database.model.AccountEntity
 import com.bumptech.glide.Glide
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers

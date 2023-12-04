@@ -23,11 +23,11 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
 import app.pachli.R
-import app.pachli.entity.Attachment
-import app.pachli.entity.Emoji
-import app.pachli.entity.Status
+import app.pachli.core.common.util.AbsoluteTimeFormatter
+import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.Status
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.buildDescription
@@ -109,11 +109,9 @@ class StatusViewHelper(private val itemView: View) {
                     .centerInside()
                     .into(mediaPreviews[i])
             } else {
-                val placeholder = if (attachment.blurhash != null) {
-                    decodeBlurHash(context, attachment.blurhash)
-                } else {
-                    mediaPreviewUnloaded
-                }
+                val placeholder = attachment.blurhash?.let {
+                    decodeBlurHash(context, it)
+                } ?: mediaPreviewUnloaded
                 val meta = attachment.meta
                 val focus = meta?.focus
                 if (showingContent) {
@@ -138,7 +136,7 @@ class StatusViewHelper(private val itemView: View) {
                 } else {
                     mediaPreviews[i].removeFocalPoint()
                     if (statusDisplayOptions.useBlurhash && attachment.blurhash != null) {
-                        val blurhashBitmap = decodeBlurHash(context, attachment.blurhash)
+                        val blurhashBitmap = decodeBlurHash(context, attachment.blurhash!!)
                         mediaPreviews[i].setImageDrawable(blurhashBitmap)
                     } else {
                         mediaPreviews[i].setImageDrawable(mediaPreviewUnloaded)
@@ -237,7 +235,7 @@ class StatusViewHelper(private val itemView: View) {
         mediaLabel.text = labelText
 
         // Set the icon next to the label.
-        val drawableId = getLabelIcon(attachments[0].type)
+        val drawableId = attachments[0].iconResource()
         mediaLabel.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
 
         mediaLabel.setOnClickListener { listener.onViewMedia(null, 0) }
@@ -249,16 +247,6 @@ class StatusViewHelper(private val itemView: View) {
             Attachment.Type.GIFV, Attachment.Type.VIDEO -> context.getString(R.string.post_media_video)
             Attachment.Type.AUDIO -> context.getString(R.string.post_media_audio)
             else -> context.getString(R.string.post_media_attachments)
-        }
-    }
-
-    @DrawableRes
-    private fun getLabelIcon(type: Attachment.Type): Int {
-        return when (type) {
-            Attachment.Type.IMAGE -> R.drawable.ic_photo_24dp
-            Attachment.Type.GIFV, Attachment.Type.VIDEO -> R.drawable.ic_videocam_24dp
-            Attachment.Type.AUDIO -> R.drawable.ic_music_box_24dp
-            else -> R.drawable.ic_attach_file_24dp
         }
     }
 

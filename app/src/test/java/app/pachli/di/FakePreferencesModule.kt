@@ -18,7 +18,8 @@
 package app.pachli.di
 
 import android.content.SharedPreferences
-import app.pachli.fakes.InMemorySharedPreferences
+import app.pachli.core.preferences.di.PreferencesModule
+import app.pachli.core.testing.fakes.InMemorySharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent

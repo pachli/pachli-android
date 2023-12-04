@@ -20,7 +20,7 @@ import android.graphics.Matrix
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
-import app.pachli.entity.Attachment
+import app.pachli.core.network.model.Attachment
 import app.pachli.util.FocalPointUtil
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException

@@ -20,8 +20,8 @@ package app.pachli.components.trending.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.trending.TrendingLinksRepository
-import app.pachli.db.AccountManager
-import app.pachli.entity.TrendsLink
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.network.model.TrendsLink
 import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.throttleFirst
 import at.connyduck.calladapter.networkresult.fold

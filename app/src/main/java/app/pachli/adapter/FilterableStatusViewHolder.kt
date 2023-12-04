@@ -19,8 +19,8 @@ package app.pachli.adapter
 
 import android.view.View
 import app.pachli.R
+import app.pachli.core.network.model.Filter
 import app.pachli.databinding.ItemStatusWrapperBinding
-import app.pachli.entity.Filter
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.StatusViewData

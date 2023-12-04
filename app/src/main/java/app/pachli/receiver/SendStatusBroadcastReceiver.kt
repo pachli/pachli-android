@@ -37,11 +37,11 @@ import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_IDENTIFIER
 import app.pachli.components.notifications.KEY_SPOILER
 import app.pachli.components.notifications.KEY_VISIBILITY
 import app.pachli.components.notifications.REPLY_ACTION
-import app.pachli.db.AccountManager
-import app.pachli.entity.Status
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.string.randomAlphanumericString
+import app.pachli.core.network.model.Status
 import app.pachli.service.SendStatusService
 import app.pachli.service.StatusToSend
-import app.pachli.util.randomAlphanumericString
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject

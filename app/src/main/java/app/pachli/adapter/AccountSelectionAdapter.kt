@@ -23,9 +23,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.preference.PreferenceManager
 import app.pachli.R
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ItemAutocompleteAccountBinding
-import app.pachli.db.AccountEntity
-import app.pachli.settings.PrefKeys
 import app.pachli.util.emojify
 import app.pachli.util.loadAvatar
 

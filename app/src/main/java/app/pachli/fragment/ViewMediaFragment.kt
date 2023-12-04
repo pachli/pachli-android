@@ -23,7 +23,7 @@ import androidx.annotation.OptIn
 import androidx.fragment.app.Fragment
 import androidx.media3.common.util.UnstableApi
 import app.pachli.ViewMediaActivity
-import app.pachli.entity.Attachment
+import app.pachli.core.network.model.Attachment
 
 abstract class ViewMediaFragment : Fragment() {
     private var toolbarVisibilityDisposable: Function0<Boolean>? = null

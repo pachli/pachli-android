@@ -20,17 +20,16 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.PollAdapter
 import app.pachli.adapter.PollAdapter.DisplayMode
+import app.pachli.core.common.util.AbsoluteTimeFormatter
+import app.pachli.core.network.model.StatusEdit
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemStatusEditBinding
-import app.pachli.entity.Attachment.Focus
-import app.pachli.entity.StatusEdit
 import app.pachli.interfaces.LinkListener
-import app.pachli.util.AbsoluteTimeFormatter
 import app.pachli.util.BindingHolder
 import app.pachli.util.aspectRatios
 import app.pachli.util.decodeBlurHash
 import app.pachli.util.emojify
 import app.pachli.util.hide
-import app.pachli.util.parseAsMastodonHtml
 import app.pachli.util.setClickableText
 import app.pachli.util.show
 import app.pachli.util.visible
@@ -122,7 +121,8 @@ class ViewEditsAdapter(
 
         setClickableText(binding.statusEditContent, emojifiedText, emptyList(), emptyList(), listener)
 
-        if (edit.poll == null) {
+        val poll = edit.poll
+        if (poll == null) {
             binding.statusEditPollOptions.hide()
             binding.statusEditPollDescription.hide()
         } else {
@@ -133,12 +133,12 @@ class ViewEditsAdapter(
             // binding.statusEditPollDescription.show()
 
             val pollAdapter = PollAdapter(
-                options = edit.poll.options.map { PollOptionViewData.from(it, false) },
+                options = poll.options.map { PollOptionViewData.from(it, false) },
                 votesCount = 0,
                 votersCount = null,
                 edit.emojis,
                 animateEmojis = animateEmojis,
-                displayMode = if (edit.poll.multiple) DisplayMode.MULTIPLE_CHOICE else DisplayMode.SINGLE_CHOICE,
+                displayMode = if (poll.multiple) DisplayMode.MULTIPLE_CHOICE else DisplayMode.SINGLE_CHOICE,
                 enabled = false,
                 resultClickListener = null,
                 pollOptionClickListener = null,
@@ -183,7 +183,7 @@ class ViewEditsAdapter(
                         .centerInside()
                         .into(imageView)
                 } else {
-                    val focus: Focus? = attachment.meta?.focus
+                    val focus = attachment.meta?.focus
 
                     if (focus != null) {
                         imageView.setFocalPoint(focus)

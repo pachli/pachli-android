@@ -17,8 +17,8 @@
 package app.pachli.components.search.adapter
 
 import app.pachli.components.search.SearchType
-import app.pachli.entity.SearchResult
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.model.SearchResult
+import app.pachli.core.network.retrofit.MastodonApi
 
 class SearchPagingSourceFactory<T : Any>(
     private val mastodonApi: MastodonApi,

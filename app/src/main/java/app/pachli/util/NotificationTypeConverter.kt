@@ -16,7 +16,7 @@
 
 package app.pachli.util
 
-import app.pachli.entity.Notification
+import app.pachli.core.network.model.Notification
 import org.json.JSONArray
 
 /**

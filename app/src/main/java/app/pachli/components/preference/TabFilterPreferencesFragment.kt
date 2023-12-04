@@ -19,7 +19,7 @@ package app.pachli.components.preference
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
-import app.pachli.settings.PrefKeys
+import app.pachli.core.preferences.PrefKeys
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preferenceCategory
 import app.pachli.settings.switchPreference

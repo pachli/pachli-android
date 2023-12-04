@@ -18,8 +18,8 @@ package app.pachli.components.account.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.entity.MastoList
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.model.MastoList
+import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.getOrThrow
 import at.connyduck.calladapter.networkresult.onFailure
 import at.connyduck.calladapter.networkresult.onSuccess

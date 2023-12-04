@@ -18,10 +18,10 @@
 package app.pachli.usecase
 
 import androidx.core.content.edit
-import app.pachli.db.TimelineDao
-import app.pachli.di.TransactionProvider
-import app.pachli.settings.PrefKeys
-import app.pachli.util.SharedPreferencesRepository
+import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import javax.inject.Inject
 
 /**

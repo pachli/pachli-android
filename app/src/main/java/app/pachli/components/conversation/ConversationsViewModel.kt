@@ -23,10 +23,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
-import app.pachli.db.AccountManager
-import app.pachli.db.ConversationsDao
-import app.pachli.di.TransactionProvider
-import app.pachli.network.MastodonApi
+import app.pachli.core.accounts.AccountManager
+import app.pachli.core.database.dao.ConversationsDao
+import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.ConversationEntity
+import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.EmptyPagingSource
 import at.connyduck.calladapter.networkresult.fold

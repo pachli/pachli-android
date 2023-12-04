@@ -5,8 +5,8 @@ import app.cash.turbine.test
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.PinEvent
 import app.pachli.components.timeline.CachedTimelineRepository
-import app.pachli.entity.Status
-import app.pachli.network.MastodonApi
+import app.pachli.core.network.model.Status
+import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
 import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody.Companion.toResponseBody

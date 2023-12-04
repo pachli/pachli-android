@@ -20,8 +20,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.TooltipCompat
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.core.network.model.Emoji
 import app.pachli.databinding.ItemEmojiButtonBinding
-import app.pachli.entity.Emoji
 import app.pachli.util.BindingHolder
 import com.bumptech.glide.Glide
 import java.util.Locale
@@ -32,7 +32,7 @@ class EmojiAdapter(
     private val animate: Boolean,
 ) : RecyclerView.Adapter<BindingHolder<ItemEmojiButtonBinding>>() {
 
-    private val emojiList: List<Emoji> = emojiList.filter { emoji -> emoji.visibleInPicker == null || emoji.visibleInPicker }
+    private val emojiList: List<Emoji> = emojiList.filter { emoji -> emoji.visibleInPicker == null || emoji.visibleInPicker!! }
         .sortedBy { it.shortcode.lowercase(Locale.ROOT) }
 
     override fun getItemCount() = emojiList.size

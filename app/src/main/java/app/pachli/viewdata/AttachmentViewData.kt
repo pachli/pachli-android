@@ -17,8 +17,8 @@
 package app.pachli.viewdata
 
 import android.os.Parcelable
-import app.pachli.entity.Attachment
-import app.pachli.entity.Status
+import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Status
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 

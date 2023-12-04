@@ -22,8 +22,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import app.pachli.R
+import app.pachli.core.network.model.TrendsLink
 import app.pachli.databinding.ItemTrendingLinkBinding
-import app.pachli.entity.TrendsLink
 import app.pachli.util.StatusDisplayOptions
 
 class TrendingLinksAdapter(

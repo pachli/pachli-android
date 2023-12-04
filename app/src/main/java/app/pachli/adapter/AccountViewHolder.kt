@@ -19,8 +19,8 @@ package app.pachli.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.network.model.TimelineAccount
 import app.pachli.databinding.ItemAccountBinding
-import app.pachli.entity.TimelineAccount
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.LinkListener
 import app.pachli.util.emojify
