@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import app.pachli.components.account.media.AccountMediaFragment
 import app.pachli.components.timeline.TimelineFragment
-import app.pachli.components.timeline.TimelineKind
+import app.pachli.core.network.model.TimelineKind
 import app.pachli.interfaces.RefreshableFragment
 import app.pachli.util.CustomFragmentStateAdapter
 

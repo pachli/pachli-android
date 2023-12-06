@@ -43,12 +43,12 @@ import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
-import app.pachli.components.timeline.TimelineKind
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.TimelineKind
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.network.FilterModel

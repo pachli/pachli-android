@@ -3644,7 +3644,7 @@
         errorLine2="                                              ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="195"
+            line="196"
             column="47"/>
     </issue>
 

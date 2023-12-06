@@ -1,7 +1,6 @@
 package app.pachli.core.network.model
 
 import android.os.Parcelable
-import app.pachli.components.timeline.TimelineKind
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import java.util.Date
