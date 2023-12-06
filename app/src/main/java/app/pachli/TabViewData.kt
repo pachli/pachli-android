@@ -24,11 +24,11 @@ import androidx.fragment.app.Fragment
 import app.pachli.components.conversation.ConversationsFragment
 import app.pachli.components.notifications.NotificationsFragment
 import app.pachli.components.timeline.TimelineFragment
-import app.pachli.components.timeline.TimelineKind
 import app.pachli.components.trending.TrendingLinksFragment
 import app.pachli.components.trending.TrendingTagsFragment
 import app.pachli.core.database.model.TabData
 import app.pachli.core.database.model.TabKind
+import app.pachli.core.network.model.TimelineKind
 
 /**
  * Wrap a [TabData] with additional information to display a tab with that data.

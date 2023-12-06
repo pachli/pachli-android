@@ -18,6 +18,7 @@
 package app.pachli.components.timeline
 
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
+import app.pachli.core.network.model.TimelineKind
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest

@@ -32,7 +32,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import app.pachli.BottomSheetActivity
 import app.pachli.R
 import app.pachli.components.timeline.TimelineFragment
-import app.pachli.components.timeline.TimelineKind
+import app.pachli.core.network.model.TimelineKind
 import app.pachli.databinding.ActivityTrendingBinding
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.util.reduceSwipeSensitivity

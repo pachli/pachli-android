@@ -33,6 +33,7 @@ import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.network.model.TimelineKind
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.EmptyPagingSource

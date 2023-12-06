@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.timeline
+package app.pachli.core.network.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

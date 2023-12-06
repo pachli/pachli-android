@@ -53,6 +53,7 @@ import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiSuccess
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.TimelineKind
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
