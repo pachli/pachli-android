@@ -33,6 +33,7 @@ import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TabKind
 import app.pachli.core.database.model.defaultTabs
+import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.TimelineAccount
@@ -176,7 +177,7 @@ class MainActivityTest {
                 nextActivity.component,
             )
             assertEquals(
-                AccountListActivity.Type.FOLLOW_REQUESTS,
+                AccountListActivityIntent.Kind.FOLLOW_REQUESTS,
                 nextActivity.getSerializableExtra("type"),
             )
         }

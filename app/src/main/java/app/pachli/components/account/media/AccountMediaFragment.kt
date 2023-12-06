@@ -32,8 +32,9 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.ViewMediaActivity
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -43,7 +44,6 @@ import app.pachli.util.hide
 import app.pachli.util.openLink
 import app.pachli.util.show
 import app.pachli.util.viewBinding
-import app.pachli.viewdata.AttachmentViewData
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -175,7 +175,7 @@ class AccountMediaFragment :
             Attachment.Type.VIDEO,
             Attachment.Type.AUDIO,
             -> {
-                val intent = ViewMediaActivity.newIntent(context, attachmentsFromSameStatus, currentIndex)
+                val intent = ViewMediaActivityIntent(requireContext(), attachmentsFromSameStatus, currentIndex)
                 if (activity != null) {
                     val url = selected.attachment.url
                     ViewCompat.setTransitionName(view, url)

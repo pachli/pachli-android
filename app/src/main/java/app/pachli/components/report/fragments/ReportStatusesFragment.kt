@@ -33,20 +33,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.StatusListActivity
-import app.pachli.ViewMediaActivity
-import app.pachli.components.account.AccountActivity
 import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
 import app.pachli.components.report.adapter.AdapterHandler
 import app.pachli.components.report.adapter.StatusesAdapter
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.navigation.AccountActivityIntent
+import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
 import app.pachli.databinding.FragmentReportStatusesBinding
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
-import app.pachli.viewdata.AttachmentViewData
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -82,7 +82,7 @@ class ReportStatusesFragment :
             when (actionable.attachments[idx].type) {
                 Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
                     val attachments = AttachmentViewData.list(actionable)
-                    val intent = ViewMediaActivity.newIntent(context, attachments, idx)
+                    val intent = ViewMediaActivityIntent(requireContext(), attachments, idx)
                     if (v != null) {
                         val url = actionable.attachments[idx].url
                         ViewCompat.setTransitionName(v, url)
@@ -209,9 +209,9 @@ class ReportStatusesFragment :
         return viewModel.isStatusChecked(id)
     }
 
-    override fun onViewAccount(id: String) = startActivity(AccountActivity.getIntent(requireContext(), id))
+    override fun onViewAccount(id: String) = startActivity(AccountActivityIntent(requireContext(), id))
 
-    override fun onViewTag(tag: String) = startActivity(StatusListActivity.newHashtagIntent(requireContext(), tag))
+    override fun onViewTag(tag: String) = startActivity(StatusListActivityIntent.hashtag(requireContext(), tag))
 
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
 

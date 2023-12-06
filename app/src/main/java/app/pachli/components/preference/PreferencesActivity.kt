@@ -16,7 +16,6 @@
 
 package app.pachli.components.preference
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
@@ -26,9 +25,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.BaseActivity
-import app.pachli.MainActivity
 import app.pachli.R
 import app.pachli.appstore.EventHub
+import app.pachli.core.navigation.MainActivityIntent
+import app.pachli.core.navigation.PreferencesActivityIntent
+import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.PrefKeys.APP_THEME
 import app.pachli.core.preferences.getNonNullString
@@ -41,6 +42,9 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * Show specific preferences.
+ */
 @AndroidEntryPoint
 class PreferencesActivity :
     BaseActivity(),
@@ -55,7 +59,7 @@ class PreferencesActivity :
              * Either the back stack activities need to all be recreated, or do the easier thing, which
              * is hijack the back button press and use it to launch a new MainActivity and clear the
              * back stack. */
-            val intent = Intent(this@PreferencesActivity, MainActivity::class.java)
+            val intent = MainActivityIntent(this@PreferencesActivity)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivityWithSlideInAnimation(intent)
         }
@@ -73,15 +77,15 @@ class PreferencesActivity :
             setDisplayShowHomeEnabled(true)
         }
 
-        val preferenceType = intent.getIntExtra(EXTRA_PREFERENCE_TYPE, 0)
+        val preferenceType = PreferencesActivityIntent.getPreferenceType(intent)
 
         val fragmentTag = "preference_fragment_$preferenceType"
 
         val fragment: Fragment = supportFragmentManager.findFragmentByTag(fragmentTag)
             ?: when (preferenceType) {
-                GENERAL_PREFERENCES -> PreferencesFragment.newInstance()
-                ACCOUNT_PREFERENCES -> AccountPreferencesFragment.newInstance()
-                NOTIFICATION_PREFERENCES -> NotificationPreferencesFragment.newInstance()
+                PreferenceScreen.GENERAL -> PreferencesFragment.newInstance()
+                PreferenceScreen.ACCOUNT -> AccountPreferencesFragment.newInstance()
+                PreferenceScreen.NOTIFICATION -> NotificationPreferencesFragment.newInstance()
                 else -> throw IllegalArgumentException("preferenceType not known")
             }
 
@@ -164,17 +168,6 @@ class PreferencesActivity :
     }
 
     companion object {
-        const val GENERAL_PREFERENCES = 0
-        const val ACCOUNT_PREFERENCES = 1
-        const val NOTIFICATION_PREFERENCES = 2
-        private const val EXTRA_PREFERENCE_TYPE = "EXTRA_PREFERENCE_TYPE"
         private const val EXTRA_RESTART_ON_BACK = "restart"
-
-        @JvmStatic
-        fun newIntent(context: Context, preferenceType: Int): Intent {
-            val intent = Intent(context, PreferencesActivity::class.java)
-            intent.putExtra(EXTRA_PREFERENCE_TYPE, preferenceType)
-            return intent
-        }
     }
 }

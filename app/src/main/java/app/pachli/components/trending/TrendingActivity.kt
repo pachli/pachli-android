@@ -18,8 +18,6 @@
 package app.pachli.components.trending
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -85,10 +83,6 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return super.onOptionsItemSelected(menuItem)
-    }
-
-    companion object {
-        fun getIntent(context: Context) = Intent(context, TrendingActivity::class.java)
     }
 }
 

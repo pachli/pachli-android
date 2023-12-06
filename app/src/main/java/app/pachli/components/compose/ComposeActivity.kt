@@ -19,7 +19,6 @@ package app.pachli.components.compose
 import android.Manifest
 import android.app.ProgressDialog
 import android.content.ClipData
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -28,7 +27,6 @@ import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import android.provider.MediaStore
 import android.text.Spanned
 import android.text.style.URLSpan
@@ -77,10 +75,11 @@ import app.pachli.components.compose.view.ComposeOptionsListener
 import app.pachli.components.compose.view.ComposeScheduleView
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.DraftAttachment
+import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.PrefKeys.APP_THEME
@@ -116,7 +115,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -125,6 +123,10 @@ import java.util.Locale
 import kotlin.math.max
 import kotlin.math.min
 
+/**
+ * Compose a status, either by creating one from scratch, or by editing an existing
+ * status, draft, or scheduled status.
+ */
 @AndroidEntryPoint
 class ComposeActivity :
     BaseActivity(),
@@ -233,7 +235,7 @@ class ComposeActivity :
 
         /* If the composer is started up as a reply to another post, override the "starting" state
          * based on what the intent from the reply request passes. */
-        val composeOptions: ComposeOptions? = IntentCompat.getParcelableExtra(intent, COMPOSE_OPTIONS_EXTRA, ComposeOptions::class.java)
+        val composeOptions: ComposeOptions? = ComposeActivityIntent.getOptions(intent)
         viewModel.setup(composeOptions)
 
         setupButtons()
@@ -1297,60 +1299,6 @@ class ComposeActivity :
         viewModel.updateDescription(localId, description)
     }
 
-    /**
-     * Status' kind. This particularly affects how the status is handled if the user
-     * backs out of the edit.
-     */
-    enum class ComposeKind {
-        /** Status is new */
-        NEW,
-
-        /** Editing a posted status */
-        EDIT_POSTED,
-
-        /** Editing a status started as an existing draft */
-        EDIT_DRAFT,
-
-        /** Editing an an existing scheduled status */
-        EDIT_SCHEDULED,
-    }
-
-    /**
-     * Initial position of the cursor in EditText when the compose button is clicked
-     * in a hashtag timeline
-     */
-    enum class InitialCursorPosition {
-        START,
-        END,
-    }
-
-    @Parcelize
-    data class ComposeOptions(
-        // Let's keep fields var until all consumers are Kotlin
-        var scheduledTootId: String? = null,
-        var draftId: Int? = null,
-        var content: String? = null,
-        var mediaUrls: List<String>? = null,
-        var mediaDescriptions: List<String>? = null,
-        var mentionedUsernames: Set<String>? = null,
-        var inReplyToId: String? = null,
-        var replyVisibility: Status.Visibility? = null,
-        var visibility: Status.Visibility? = null,
-        var contentWarning: String? = null,
-        var replyingStatusAuthor: String? = null,
-        var replyingStatusContent: String? = null,
-        var mediaAttachments: List<Attachment>? = null,
-        var draftAttachments: List<DraftAttachment>? = null,
-        var scheduledAt: String? = null,
-        var sensitive: Boolean? = null,
-        var poll: NewPoll? = null,
-        var modifiedInitialState: Boolean? = null,
-        var language: String? = null,
-        var statusId: String? = null,
-        var kind: ComposeKind? = null,
-        var initialCursorPosition: InitialCursorPosition = InitialCursorPosition.END,
-    ) : Parcelable
-
     companion object {
         private const val PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
 
@@ -1359,20 +1307,6 @@ class ComposeActivity :
         private const val VISIBILITY_KEY = "VISIBILITY"
         private const val SCHEDULED_TIME_KEY = "SCHEDULE"
         private const val CONTENT_WARNING_VISIBLE_KEY = "CONTENT_WARNING_VISIBLE"
-
-        /**
-         * @param options ComposeOptions to configure the ComposeActivity
-         * @return an Intent to start the ComposeActivity
-         */
-        @JvmStatic
-        fun startIntent(
-            context: Context,
-            options: ComposeOptions,
-        ): Intent {
-            return Intent(context, ComposeActivity::class.java).apply {
-                putExtra(COMPOSE_OPTIONS_EXTRA, options)
-            }
-        }
 
         fun canHandleMimeType(mimeType: String?): Boolean {
             return mimeType != null && (mimeType.startsWith("image/") || mimeType.startsWith("video/") || mimeType.startsWith("audio/") || mimeType == "text/plain")

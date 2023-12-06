@@ -16,6 +16,7 @@
  */
 package app.pachli.components.notifications
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationChannelGroup
 import android.app.NotificationManager
@@ -44,10 +45,10 @@ import app.pachli.MainActivity
 import app.pachli.MainActivity.Companion.composeIntent
 import app.pachli.MainActivity.Companion.openNotificationIntent
 import app.pachli.R
-import app.pachli.components.compose.ComposeActivity
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.receiver.SendStatusBroadcastReceiver
@@ -382,6 +383,9 @@ private fun getStatusReplyIntent(
     }
     mentionedUsernames.removeAll(setOf(account.username))
     mentionedUsernames = ArrayList(LinkedHashSet(mentionedUsernames))
+
+    // TODO: Revisit suppressing this when this file is moved
+    @SuppressLint("IntentDetector")
     val replyIntent = Intent(context, SendStatusBroadcastReceiver::class.java)
         .setAction(REPLY_ACTION)
         .putExtra(KEY_SENDER_ACCOUNT_ID, account.id)
@@ -417,16 +421,17 @@ private fun getStatusComposeIntent(
             mentionedUsernames.add(mentionedUsername)
         }
     }
-    val composeOptions = ComposeActivity.ComposeOptions()
-    composeOptions.inReplyToId = inReplyToId
-    composeOptions.replyVisibility = replyVisibility
-    composeOptions.contentWarning = contentWarning
-    composeOptions.replyingStatusAuthor = citedLocalAuthor
-    composeOptions.replyingStatusContent = citedText
-    composeOptions.mentionedUsernames = mentionedUsernames
-    composeOptions.modifiedInitialState = true
-    composeOptions.language = language
-    composeOptions.kind = ComposeActivity.ComposeKind.NEW
+    val composeOptions = ComposeOptions(
+        inReplyToId = inReplyToId,
+        replyVisibility = replyVisibility,
+        contentWarning = contentWarning,
+        replyingStatusAuthor = citedLocalAuthor,
+        replyingStatusContent = citedText,
+        mentionedUsernames = mentionedUsernames,
+        modifiedInitialState = true,
+        language = language,
+        kind = ComposeOptions.ComposeKind.NEW,
+    )
     val composeIntent =
         composeIntent(context, composeOptions, account.id, body.id, account.id.toInt())
     composeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

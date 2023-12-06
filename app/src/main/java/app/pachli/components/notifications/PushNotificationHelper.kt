@@ -22,9 +22,10 @@ import android.os.Build
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import app.pachli.R
-import app.pachli.components.login.LoginActivity
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.navigation.LoginActivityIntent
+import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -78,7 +79,12 @@ private fun showMigrationExplanationDialog(
         if (currentAccountNeedsMigration(accountManager)) {
             setMessage(R.string.dialog_push_notification_migration)
             setPositiveButton(R.string.title_migration_relogin) { _, _ ->
-                context.startActivity(LoginActivity.getIntent(context, LoginActivity.MODE_MIGRATION))
+                context.startActivity(
+                    LoginActivityIntent(
+                        context,
+                        LoginMode.MIGRATION,
+                    ),
+                )
             }
         } else {
             setMessage(R.string.dialog_push_notification_migration_other_accounts)

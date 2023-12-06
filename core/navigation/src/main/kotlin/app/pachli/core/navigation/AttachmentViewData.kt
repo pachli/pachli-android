@@ -1,4 +1,5 @@
-/* Copyright 2022 Tusky Contributors
+/*
+ * Copyright 2022 Tusky Contributors
  *
  * This file is a part of Pachli.
  *
@@ -14,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.viewdata
+package app.pachli.core.navigation
 
 import android.os.Parcelable
 import app.pachli.core.network.model.Attachment

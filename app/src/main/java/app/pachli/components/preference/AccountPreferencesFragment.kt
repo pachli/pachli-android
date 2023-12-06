@@ -24,15 +24,18 @@ import androidx.preference.PreferenceFragmentCompat
 import app.pachli.BaseActivity
 import app.pachli.BuildConfig
 import app.pachli.R
-import app.pachli.TabPreferenceActivity
 import app.pachli.appstore.EventHub
-import app.pachli.components.accountlist.AccountListActivity
-import app.pachli.components.filters.FiltersActivity
-import app.pachli.components.followedtags.FollowedTagsActivity
-import app.pachli.components.instancemute.InstanceListActivity
-import app.pachli.components.login.LoginActivity
 import app.pachli.components.notifications.currentAccountNeedsMigration
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.navigation.AccountListActivityIntent
+import app.pachli.core.navigation.FiltersActivityIntent
+import app.pachli.core.navigation.FollowedTagsActivityIntent
+import app.pachli.core.navigation.InstanceListActivityIntent
+import app.pachli.core.navigation.LoginActivityIntent
+import app.pachli.core.navigation.LoginActivityIntent.LoginMode
+import app.pachli.core.navigation.PreferencesActivityIntent
+import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
+import app.pachli.core.navigation.TabPreferenceActivityIntent
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
@@ -90,7 +93,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setTitle(R.string.title_tab_preferences)
                 setIcon(R.drawable.ic_tabs)
                 setOnPreferenceClickListener {
-                    val intent = Intent(context, TabPreferenceActivity::class.java)
+                    val intent = TabPreferenceActivityIntent(context)
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
@@ -104,7 +107,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setTitle(R.string.title_followed_hashtags)
                 setIcon(R.drawable.ic_hashtag)
                 setOnPreferenceClickListener {
-                    val intent = Intent(context, FollowedTagsActivity::class.java)
+                    val intent = FollowedTagsActivityIntent(context)
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
@@ -118,8 +121,10 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setTitle(R.string.action_view_mutes)
                 setIcon(R.drawable.ic_mute_24dp)
                 setOnPreferenceClickListener {
-                    val intent = Intent(context, AccountListActivity::class.java)
-                    intent.putExtra("type", AccountListActivity.Type.MUTES)
+                    val intent = AccountListActivityIntent(
+                        context,
+                        AccountListActivityIntent.Kind.MUTES,
+                    )
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
@@ -133,8 +138,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setTitle(R.string.action_view_blocks)
                 icon = makeIcon(GoogleMaterial.Icon.gmd_block)
                 setOnPreferenceClickListener {
-                    val intent = Intent(context, AccountListActivity::class.java)
-                    intent.putExtra("type", AccountListActivity.Type.BLOCKS)
+                    val intent = AccountListActivityIntent(context, AccountListActivityIntent.Kind.BLOCKS)
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
@@ -148,7 +152,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setTitle(R.string.title_domain_mutes)
                 setIcon(R.drawable.ic_mute_24dp)
                 setOnPreferenceClickListener {
-                    val intent = Intent(context, InstanceListActivity::class.java)
+                    val intent = InstanceListActivityIntent(context)
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
@@ -163,7 +167,10 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(R.string.title_migration_relogin)
                     setIcon(R.drawable.ic_logout)
                     setOnPreferenceClickListener {
-                        val intent = LoginActivity.getIntent(context, LoginActivity.MODE_MIGRATION)
+                        val intent = LoginActivityIntent(
+                            context,
+                            LoginMode.MIGRATION,
+                        )
                         (activity as BaseActivity).startActivityWithSlideInAnimation(intent)
                         true
                     }
@@ -280,7 +287,10 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
         } else {
             activity?.let {
                 val intent =
-                    PreferencesActivity.newIntent(it, PreferencesActivity.NOTIFICATION_PREFERENCES)
+                    PreferencesActivityIntent(
+                        it,
+                        PreferenceScreen.NOTIFICATION,
+                    )
                 it.startActivity(intent)
                 it.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
             }
@@ -346,7 +356,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
     }
 
     private fun launchFilterActivity() {
-        val intent = Intent(context, FiltersActivity::class.java)
+        val intent = FiltersActivityIntent(requireContext())
         activity?.startActivity(intent)
         activity?.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
     }

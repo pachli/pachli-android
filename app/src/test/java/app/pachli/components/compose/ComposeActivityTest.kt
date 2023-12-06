@@ -24,6 +24,8 @@ import app.pachli.PachliApplication
 import app.pachli.R
 import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
@@ -138,7 +140,7 @@ class ComposeActivityTest {
 
     @Test
     fun whenModifiedInitialState_andCloseButtonPressed_notFinish() {
-        rule.launch(intent(ComposeActivity.ComposeOptions(modifiedInitialState = true)))
+        rule.launch(intent(ComposeOptions(modifiedInitialState = true)))
         rule.getScenario().onActivity {
             clickUp(it)
             assertFalse(it.isFinishing)
@@ -167,7 +169,7 @@ class ComposeActivityTest {
 
     @Test
     fun whenModifiedInitialState_andBackButtonPressed_notFinish() {
-        rule.launch(intent(ComposeActivity.ComposeOptions(modifiedInitialState = true)))
+        rule.launch(intent(ComposeOptions(modifiedInitialState = true)))
         rule.getScenario().onActivity {
             clickBack(it)
             assertFalse(it.isFinishing)
@@ -512,7 +514,7 @@ class ComposeActivityTest {
 
     @Test
     fun languageGivenInComposeOptionsIsRespected() {
-        rule.launch(intent(ComposeActivity.ComposeOptions(language = "no")))
+        rule.launch(intent(ComposeOptions(language = "no")))
         rule.getScenario().onActivity {
             assertEquals("no", it.selectedLanguage)
         }
@@ -522,7 +524,7 @@ class ComposeActivityTest {
     fun modernLanguageCodeIsUsed() {
         // https://github.com/tuskyapp/Tusky/issues/2903
         // "ji" was deprecated in favor of "yi"
-        rule.launch(intent(ComposeActivity.ComposeOptions(language = "ji")))
+        rule.launch(intent(ComposeOptions(language = "ji")))
         rule.getScenario().onActivity {
             assertEquals("yi", it.selectedLanguage)
         }
@@ -530,14 +532,14 @@ class ComposeActivityTest {
 
     @Test
     fun unknownLanguageGivenInComposeOptionsIsRespected() {
-        rule.launch(intent(ComposeActivity.ComposeOptions(language = "zzz")))
+        rule.launch(intent(ComposeOptions(language = "zzz")))
         rule.getScenario().onActivity {
             assertEquals("zzz", it.selectedLanguage)
         }
     }
 
     /** Returns an intent to launch [ComposeActivity] with the given options */
-    private fun intent(composeOptions: ComposeActivity.ComposeOptions) = ComposeActivity.startIntent(
+    private fun intent(composeOptions: ComposeOptions) = ComposeActivityIntent(
         ApplicationProvider.getApplicationContext(),
         composeOptions,
     )

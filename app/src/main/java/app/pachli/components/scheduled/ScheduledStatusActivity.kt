@@ -16,8 +16,6 @@
 
 package app.pachli.components.scheduled
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -32,7 +30,8 @@ import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.StatusScheduledEvent
-import app.pachli.components.compose.ComposeActivity
+import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.network.model.ScheduledStatus
 import app.pachli.databinding.ActivityScheduledStatusBinding
 import app.pachli.util.hide
@@ -151,9 +150,9 @@ class ScheduledStatusActivity :
     }
 
     override fun edit(item: ScheduledStatus) {
-        val intent = ComposeActivity.startIntent(
+        val intent = ComposeActivityIntent(
             this,
-            ComposeActivity.ComposeOptions(
+            ComposeOptions(
                 scheduledTootId = item.id,
                 content = item.params.text,
                 contentWarning = item.params.spoilerText,
@@ -162,7 +161,7 @@ class ScheduledStatusActivity :
                 visibility = item.params.visibility,
                 scheduledAt = item.scheduledAt,
                 sensitive = item.params.sensitive,
-                kind = ComposeActivity.ComposeKind.EDIT_SCHEDULED,
+                kind = ComposeOptions.ComposeKind.EDIT_SCHEDULED,
             ),
         )
         startActivity(intent)
@@ -176,9 +175,5 @@ class ScheduledStatusActivity :
                 viewModel.deleteScheduledStatus(item)
             }
             .show()
-    }
-
-    companion object {
-        fun newIntent(context: Context) = Intent(context, ScheduledStatusActivity::class.java)
     }
 }

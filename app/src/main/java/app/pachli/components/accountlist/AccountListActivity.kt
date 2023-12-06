@@ -16,18 +16,27 @@
 
 package app.pachli.components.accountlist
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.commit
 import app.pachli.BottomSheetActivity
 import app.pachli.R
+import app.pachli.core.navigation.AccountListActivityIntent
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.BLOCKS
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.FAVOURITED
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOWERS
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOWS
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOW_REQUESTS
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.MUTES
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.REBLOGGED
 import app.pachli.databinding.ActivityAccountListBinding
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.util.viewBinding
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Show a list of accounts of a particular kind.
+ */
 @AndroidEntryPoint
 class AccountListActivity : BottomSheetActivity(), AppBarLayoutHost {
     private val binding: ActivityAccountListBinding by viewBinding(ActivityAccountListBinding::inflate)
@@ -35,52 +44,30 @@ class AccountListActivity : BottomSheetActivity(), AppBarLayoutHost {
     override val appBarLayout: AppBarLayout
         get() = binding.includedToolbar.appbar
 
-    enum class Type {
-        FOLLOWS,
-        FOLLOWERS,
-        BLOCKS,
-        MUTES,
-        FOLLOW_REQUESTS,
-        REBLOGGED,
-        FAVOURITED,
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val type = intent.getSerializableExtra(EXTRA_TYPE) as Type
-        val id: String? = intent.getStringExtra(EXTRA_ID)
+        val kind = AccountListActivityIntent.getKind(intent)
+        val id = AccountListActivityIntent.getId(intent)
 
         setSupportActionBar(binding.includedToolbar.toolbar)
         supportActionBar?.apply {
-            when (type) {
-                Type.BLOCKS -> setTitle(R.string.title_blocks)
-                Type.MUTES -> setTitle(R.string.title_mutes)
-                Type.FOLLOW_REQUESTS -> setTitle(R.string.title_follow_requests)
-                Type.FOLLOWERS -> setTitle(R.string.title_followers)
-                Type.FOLLOWS -> setTitle(R.string.title_follows)
-                Type.REBLOGGED -> setTitle(R.string.title_reblogged_by)
-                Type.FAVOURITED -> setTitle(R.string.title_favourited_by)
+            when (kind) {
+                BLOCKS -> setTitle(R.string.title_blocks)
+                MUTES -> setTitle(R.string.title_mutes)
+                FOLLOW_REQUESTS -> setTitle(R.string.title_follow_requests)
+                FOLLOWERS -> setTitle(R.string.title_followers)
+                FOLLOWS -> setTitle(R.string.title_follows)
+                REBLOGGED -> setTitle(R.string.title_reblogged_by)
+                FAVOURITED -> setTitle(R.string.title_favourited_by)
             }
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
 
         supportFragmentManager.commit {
-            replace(R.id.fragment_container, AccountListFragment.newInstance(type, id))
-        }
-    }
-
-    companion object {
-        private const val EXTRA_TYPE = "type"
-        private const val EXTRA_ID = "id"
-
-        fun newIntent(context: Context, type: Type, id: String? = null): Intent {
-            return Intent(context, AccountListActivity::class.java).apply {
-                putExtra(EXTRA_TYPE, type)
-                putExtra(EXTRA_ID, id)
-            }
+            replace(R.id.fragment_container, AccountListFragment.newInstance(kind, id))
         }
     }
 }

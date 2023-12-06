@@ -1,5 +1,6 @@
 package app.pachli.service
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -373,6 +374,8 @@ class SendStatusService : Service() {
     }
 
     private fun cancelSendingIntent(statusId: Int): PendingIntent {
+        // TODO: Revisit suppressing this when this file is moved
+        @SuppressLint("IntentDetector")
         val intent = Intent(this, SendStatusService::class.java)
         intent.putExtra(KEY_CANCEL, statusId)
         return PendingIntent.getService(
@@ -428,6 +431,8 @@ class SendStatusService : Service() {
             context: Context,
             statusToSend: StatusToSend,
         ): Intent {
+            // TODO: Revisit suppressing this when this file is moved
+            @SuppressLint("IntentDetector")
             val intent = Intent(context, SendStatusService::class.java)
             intent.putExtra(KEY_STATUS, statusToSend)
 

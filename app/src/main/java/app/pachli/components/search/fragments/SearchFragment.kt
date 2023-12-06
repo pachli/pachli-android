@@ -18,9 +18,9 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import app.pachli.BottomSheetActivity
 import app.pachli.R
-import app.pachli.StatusListActivity
-import app.pachli.components.account.AccountActivity
 import app.pachli.components.search.SearchViewModel
+import app.pachli.core.navigation.AccountActivityIntent
+import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.FragmentSearchBinding
 import app.pachli.interfaces.LinkListener
@@ -141,11 +141,11 @@ abstract class SearchFragment<T : Any> :
     }
 
     override fun onViewAccount(id: String) {
-        bottomSheetActivity?.startActivityWithSlideInAnimation(AccountActivity.getIntent(requireContext(), id))
+        bottomSheetActivity?.startActivityWithSlideInAnimation(AccountActivityIntent(requireContext(), id))
     }
 
     override fun onViewTag(tag: String) {
-        bottomSheetActivity?.startActivityWithSlideInAnimation(StatusListActivity.newHashtagIntent(requireContext(), tag))
+        bottomSheetActivity?.startActivityWithSlideInAnimation(StatusListActivityIntent.hashtag(requireContext(), tag))
     }
 
     override fun onViewUrl(url: String) {

@@ -17,7 +17,6 @@
 
 package app.pachli
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
@@ -44,6 +43,7 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.database.model.TabData
 import app.pachli.core.database.model.TabKind
+import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityTabPreferenceBinding
@@ -303,7 +303,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         val dialogBuilder = AlertDialog.Builder(this)
             .setTitle(R.string.select_list_title)
             .setNeutralButton(R.string.select_list_manage) { _, _ ->
-                val listIntent = Intent(applicationContext, ListsActivity::class.java)
+                val listIntent = ListActivityIntent(applicationContext)
                 startActivity(listIntent)
             }
             .setNegativeButton(android.R.string.cancel, null)

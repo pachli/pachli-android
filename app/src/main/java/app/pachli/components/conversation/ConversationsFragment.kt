@@ -36,10 +36,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.StatusListActivity
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.appstore.EventHub
-import app.pachli.components.account.AccountActivity
+import app.pachli.core.navigation.AccountActivityIntent
+import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentTimelineBinding
@@ -52,7 +53,6 @@ import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
-import app.pachli.viewdata.AttachmentViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -327,12 +327,12 @@ class ConversationsFragment :
     }
 
     override fun onViewAccount(id: String) {
-        val intent = AccountActivity.getIntent(requireContext(), id)
+        val intent = AccountActivityIntent(requireContext(), id)
         startActivity(intent)
     }
 
     override fun onViewTag(tag: String) {
-        val intent = StatusListActivity.newHashtagIntent(requireContext(), tag)
+        val intent = StatusListActivityIntent.hashtag(requireContext(), tag)
         startActivity(intent)
     }
 

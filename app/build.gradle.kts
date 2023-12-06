@@ -135,6 +135,7 @@ dependencies {
     implementation(projects.core.accounts)
     implementation(projects.core.common)
     implementation(projects.core.database)
+    implementation(projects.core.navigation)
     implementation(projects.core.network)
     implementation(projects.core.preferences)
 

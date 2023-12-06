@@ -25,9 +25,9 @@ import androidx.core.app.Person
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
-import app.pachli.MainActivity
 import app.pachli.R
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.navigation.MainActivityIntent
 import com.bumptech.glide.Glide
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -67,7 +67,7 @@ fun updateShortcut(context: Context, account: AccountEntity) {
             .build()
 
         // This intent will be sent when the user clicks on one of the launcher shortcuts. Intent from share sheet will be different
-        val intent = Intent(context, MainActivity::class.java).apply {
+        val intent = MainActivityIntent(context).apply {
             action = Intent.ACTION_SEND
             type = "text/plain"
             putExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID, account.id.toString())

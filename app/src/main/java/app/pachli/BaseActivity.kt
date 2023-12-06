@@ -34,9 +34,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import app.pachli.MainActivity.Companion.redirectIntent
 import app.pachli.adapter.AccountSelectionAdapter
-import app.pachli.components.login.LoginActivity
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.PrefKeys.APP_THEME
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -182,7 +182,7 @@ abstract class BaseActivity : AppCompatActivity() {
     private fun redirectIfNotLoggedIn() {
         val account = accountManager.activeAccount
         if (account == null) {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = ListActivityIntent(this)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivityWithSlideInAnimation(intent)
             finish()

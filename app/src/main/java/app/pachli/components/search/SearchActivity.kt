@@ -153,8 +153,4 @@ class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTe
 
         return false
     }
-
-    companion object {
-        fun getIntent(context: Context) = Intent(context, SearchActivity::class.java)
-    }
 }

@@ -17,7 +17,6 @@
 package app.pachli.components.drafts
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -26,8 +25,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BaseActivity
 import app.pachli.R
-import app.pachli.components.compose.ComposeActivity
 import app.pachli.core.database.model.DraftEntity
+import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ActivityDraftsBinding
 import app.pachli.db.DraftsAlert
@@ -106,7 +106,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
             viewModel.getStatus(draft.inReplyToId!!)
                 .fold(
                     { status ->
-                        val composeOptions = ComposeActivity.ComposeOptions(
+                        val composeOptions = ComposeOptions(
                             draftId = draft.id,
                             content = draft.content,
                             contentWarning = draft.contentWarning,
@@ -120,12 +120,12 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                             scheduledAt = draft.scheduledAt,
                             language = draft.language,
                             statusId = draft.statusId,
-                            kind = ComposeActivity.ComposeKind.EDIT_DRAFT,
+                            kind = ComposeOptions.ComposeKind.EDIT_DRAFT,
                         )
 
                         bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
 
-                        startActivity(ComposeActivity.startIntent(context, composeOptions))
+                        startActivity(ComposeActivityIntent(context, composeOptions))
                     },
                     { throwable ->
                         bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
@@ -147,7 +147,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
     }
 
     private fun openDraftWithoutReply(draft: DraftEntity) {
-        val composeOptions = ComposeActivity.ComposeOptions(
+        val composeOptions = ComposeOptions(
             draftId = draft.id,
             content = draft.content,
             contentWarning = draft.contentWarning,
@@ -158,10 +158,10 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
             scheduledAt = draft.scheduledAt,
             language = draft.language,
             statusId = draft.statusId,
-            kind = ComposeActivity.ComposeKind.EDIT_DRAFT,
+            kind = ComposeOptions.ComposeKind.EDIT_DRAFT,
         )
 
-        startActivity(ComposeActivity.startIntent(this, composeOptions))
+        startActivity(ComposeActivityIntent(this, composeOptions))
     }
 
     override fun onDeleteDraft(draft: DraftEntity) {
@@ -171,9 +171,5 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                 viewModel.restoreDraft(draft)
             }
             .show()
-    }
-
-    companion object {
-        fun newIntent(context: Context) = Intent(context, DraftsActivity::class.java)
     }
 }

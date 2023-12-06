@@ -46,6 +46,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.timeline.TimelineLoadStateAdapter
+import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
@@ -63,7 +64,6 @@ import app.pachli.util.openLink
 import app.pachli.util.show
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
-import app.pachli.viewdata.AttachmentViewData.Companion.list
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
