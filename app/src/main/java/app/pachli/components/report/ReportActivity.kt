@@ -40,7 +40,7 @@ class ReportActivity : BottomSheetActivity() {
         val accountId = ReportActivityIntent.getAccountId(intent)
         val accountUserName = ReportActivityIntent.getAccountUserName(intent)
         if (accountId.isBlank() || accountUserName.isBlank()) {
-            throw IllegalStateException("accountId ($accountId) or accountUserName ($accountUserName) is null")
+            throw IllegalStateException("accountId ($accountId) or accountUserName ($accountUserName) is blank")
         }
 
         viewModel.init(accountId, accountUserName, ReportActivityIntent.getStatusId(intent))

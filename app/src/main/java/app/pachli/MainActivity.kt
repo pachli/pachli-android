@@ -46,7 +46,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
-import androidx.core.content.IntentCompat
 import androidx.core.content.edit
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.content.res.ResourcesCompat
@@ -74,6 +73,7 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AnnouncementsActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.*
 import app.pachli.core.navigation.DraftsActivityIntent
 import app.pachli.core.navigation.EditProfileActivityIntent
 import app.pachli.core.navigation.ListActivityIntent
@@ -540,7 +540,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun forwardToComposeActivity(intent: Intent) {
-        val composeOptions = IntentCompat.getParcelableExtra(intent, COMPOSE_OPTIONS, ComposeActivityIntent.ComposeOptions::class.java)
+        val composeOptions = ComposeActivityIntent.getOptions(intent)
 
         val composeIntent = if (composeOptions != null) {
             ComposeActivityIntent(this, composeOptions)
@@ -1236,7 +1236,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         @JvmStatic
         fun composeIntent(
             context: Context,
-            options: ComposeActivityIntent.ComposeOptions,
+            options: ComposeOptions,
             pachliAccountId: Long = -1,
             notificationTag: String? = null,
             notificationId: Int = -1,

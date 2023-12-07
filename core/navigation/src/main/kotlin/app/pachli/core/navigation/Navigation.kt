@@ -259,7 +259,7 @@ class PreferencesActivityIntent(context: Context, screen: PreferenceScreen) : In
     }
 
     companion object {
-        private const val EXTRA_PREFERENCE_SCREEN = "EXTRA_PREFERENCE_SCREEN"
+        private const val EXTRA_PREFERENCE_SCREEN = "preferenceScreen"
 
         /** @return the `screen` passed to this intent */
         fun getPreferenceType(intent: Intent) = intent.getSerializableExtra(EXTRA_PREFERENCE_SCREEN)!! as PreferenceScreen
@@ -282,9 +282,9 @@ class ReportActivityIntent(context: Context, accountId: String, userName: String
     }
 
     companion object {
-        private const val EXTRA_ACCOUNT_ID = "account_id"
-        private const val EXTRA_ACCOUNT_USERNAME = "account_username"
-        private const val EXTRA_STATUS_ID = "status_id"
+        private const val EXTRA_ACCOUNT_ID = "accountId"
+        private const val EXTRA_ACCOUNT_USERNAME = "accountUsername"
+        private const val EXTRA_STATUS_ID = "statusId"
 
         /** @return the `accountId` passed to this intent */
         fun getAccountId(intent: Intent) = intent.getStringExtra(EXTRA_ACCOUNT_ID)!!
@@ -380,7 +380,7 @@ class ViewMediaActivityIntent private constructor(context: Context) : Intent() {
     companion object {
         private const val EXTRA_ATTACHMENTS = "attachments"
         private const val EXTRA_ATTACHMENT_INDEX = "index"
-        private const val EXTRA_SINGLE_IMAGE_URL = "single_image"
+        private const val EXTRA_SINGLE_IMAGE_URL = "singleImage"
 
         /** @return the list of [AttachmentViewData] passed in this intent, or null */
         fun getAttachments(intent: Intent): ArrayList<AttachmentViewData>? = IntentCompat.getParcelableArrayListExtra(intent, EXTRA_ATTACHMENTS, AttachmentViewData::class.java)

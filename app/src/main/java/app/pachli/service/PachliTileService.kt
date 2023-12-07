@@ -25,7 +25,7 @@ import android.os.Build
 import android.service.quicksettings.TileService
 import app.pachli.MainActivity
 import app.pachli.components.notifications.pendingIntentFlags
-import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.*
 
 /**
  * Small Addition that adds in a QuickSettings tile
@@ -35,7 +35,7 @@ import app.pachli.core.navigation.ComposeActivityIntent
 class PachliTileService : TileService() {
     @SuppressLint("StartActivityAndCollapseDeprecated")
     override fun onClick() {
-        val intent = MainActivity.composeIntent(this, ComposeActivityIntent.ComposeOptions())
+        val intent = MainActivity.composeIntent(this, ComposeOptions())
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             startActivityAndCollapse(getActivityPendingIntent(this, 0, intent))

@@ -121,10 +121,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setTitle(R.string.action_view_mutes)
                 setIcon(R.drawable.ic_mute_24dp)
                 setOnPreferenceClickListener {
-                    val intent = AccountListActivityIntent(
-                        context,
-                        AccountListActivityIntent.Kind.MUTES,
-                    )
+                    val intent = AccountListActivityIntent(context, AccountListActivityIntent.Kind.MUTES)
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
                         R.anim.slide_from_right,
@@ -167,10 +164,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(R.string.title_migration_relogin)
                     setIcon(R.drawable.ic_logout)
                     setOnPreferenceClickListener {
-                        val intent = LoginActivityIntent(
-                            context,
-                            LoginMode.MIGRATION,
-                        )
+                        val intent = LoginActivityIntent(context, LoginMode.MIGRATION)
                         (activity as BaseActivity).startActivityWithSlideInAnimation(intent)
                         true
                     }
@@ -287,10 +281,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
         } else {
             activity?.let {
                 val intent =
-                    PreferencesActivityIntent(
-                        it,
-                        PreferenceScreen.NOTIFICATION,
-                    )
+                    PreferencesActivityIntent(it, PreferenceScreen.NOTIFICATION)
                 it.startActivity(intent)
                 it.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
             }
