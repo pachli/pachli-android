@@ -73,7 +73,7 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AnnouncementsActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
-import app.pachli.core.navigation.ComposeActivityIntent.*
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.DraftsActivityIntent
 import app.pachli.core.navigation.EditProfileActivityIntent
 import app.pachli.core.navigation.ListActivityIntent
@@ -715,10 +715,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.action_view_account_preferences
                     iconRes = R.drawable.ic_account_settings
                     onClick = {
-                        val intent = PreferencesActivityIntent(
-                            context,
-                            PreferenceScreen.ACCOUNT,
-                        )
+                        val intent = PreferencesActivityIntent(context, PreferenceScreen.ACCOUNT)
                         startActivityWithSlideInAnimation(intent)
                     }
                 },
@@ -958,10 +955,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // open LoginActivity to add new account
         if (profile.identifier == DRAWER_ITEM_ADD_ACCOUNT) {
             startActivityWithSlideInAnimation(
-                LoginActivityIntent(
-                    this,
-                    LoginMode.ADDITIONAL_LOGIN,
-                ),
+                LoginActivityIntent(this, LoginMode.ADDITIONAL_LOGIN),
             )
             return
         }

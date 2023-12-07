@@ -25,7 +25,7 @@ import android.os.Build
 import android.service.quicksettings.TileService
 import app.pachli.MainActivity
 import app.pachli.components.notifications.pendingIntentFlags
-import app.pachli.core.navigation.ComposeActivityIntent.*
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 
 /**
  * Small Addition that adds in a QuickSettings tile
