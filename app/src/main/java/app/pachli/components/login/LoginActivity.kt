@@ -30,8 +30,9 @@ import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import app.pachli.BaseActivity
 import app.pachli.BuildConfig
-import app.pachli.MainActivity
 import app.pachli.R
+import app.pachli.core.navigation.LoginActivityIntent
+import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.model.AccessToken
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.getNonNullString
@@ -48,7 +49,11 @@ import okhttp3.HttpUrl
 import timber.log.Timber
 import javax.inject.Inject
 
-/** Main login page, the first thing that users see. Has prompt for instance and login button. */
+/**
+ * Main login page, the first thing that users see.
+ *
+ * Has prompt for instance and login button.
+ */
 @AndroidEntryPoint
 class LoginActivity : BaseActivity() {
 
@@ -318,7 +323,7 @@ class LoginActivity : BaseActivity() {
                 newAccount = newAccount,
             )
 
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = MainActivityIntent(this)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
@@ -343,32 +348,18 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun isAdditionalLogin(): Boolean {
-        return intent.getIntExtra(LOGIN_MODE, MODE_DEFAULT) == MODE_ADDITIONAL_LOGIN
+        return LoginActivityIntent.getLoginMode(intent) == LoginActivityIntent.LoginMode.ADDITIONAL_LOGIN
     }
 
     private fun isAccountMigration(): Boolean {
-        return intent.getIntExtra(LOGIN_MODE, MODE_DEFAULT) == MODE_MIGRATION
+        return LoginActivityIntent.getLoginMode(intent) == LoginActivityIntent.LoginMode.MIGRATION
     }
 
     companion object {
         private const val OAUTH_SCOPES = "read write follow push"
-        private const val LOGIN_MODE = "LOGIN_MODE"
         private const val DOMAIN = "domain"
         private const val CLIENT_ID = "clientId"
         private const val CLIENT_SECRET = "clientSecret"
-
-        const val MODE_DEFAULT = 0
-        const val MODE_ADDITIONAL_LOGIN = 1
-
-        // "Migration" is used to update the OAuth scope granted to the client
-        const val MODE_MIGRATION = 2
-
-        @JvmStatic
-        fun getIntent(context: Context, mode: Int): Intent {
-            val loginIntent = Intent(context, LoginActivity::class.java)
-            loginIntent.putExtra(LOGIN_MODE, mode)
-            return loginIntent
-        }
 
         /** Make sure the user-entered text is just a fully-qualified domain name.  */
         private fun canonicalizeDomain(domain: String): String {

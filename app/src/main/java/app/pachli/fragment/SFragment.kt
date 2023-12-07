@@ -42,15 +42,15 @@ import app.pachli.BaseActivity
 import app.pachli.BottomSheetActivity
 import app.pachli.PostLookupFallbackBehavior
 import app.pachli.R
-import app.pachli.StatusListActivity.Companion.newHashtagIntent
-import app.pachli.ViewMediaActivity.Companion.newIntent
-import app.pachli.components.compose.ComposeActivity
-import app.pachli.components.compose.ComposeActivity.Companion.startIntent
-import app.pachli.components.compose.ComposeActivity.ComposeOptions
-import app.pachli.components.report.ReportActivity.Companion.getIntent
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.ReportActivityIntent
+import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.ServerOperation
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
@@ -61,7 +61,6 @@ import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.openLink
 import app.pachli.view.showMuteAccountDialog
-import app.pachli.viewdata.AttachmentViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
@@ -163,10 +162,10 @@ abstract class SFragment : Fragment() {
             replyingStatusAuthor = account.localUsername,
             replyingStatusContent = actionableStatus.content.parseAsMastodonHtml().toString(),
             language = actionableStatus.language,
-            kind = ComposeActivity.ComposeKind.NEW,
+            kind = ComposeOptions.ComposeKind.NEW,
         )
 
-        val intent = startIntent(requireContext(), composeOptions)
+        val intent = ComposeActivityIntent(requireContext(), composeOptions)
         requireActivity().startActivity(intent)
     }
 
@@ -379,7 +378,7 @@ abstract class SFragment : Fragment() {
         val (attachment) = attachments[urlIndex]
         when (attachment.type) {
             Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
-                val intent = newIntent(context, attachments, urlIndex)
+                val intent = ViewMediaActivityIntent(requireContext(), attachments, urlIndex)
                 if (view != null) {
                     val url = attachment.url
                     view.transitionName = url
@@ -400,11 +399,11 @@ abstract class SFragment : Fragment() {
     }
 
     protected fun viewTag(tag: String) {
-        startActivity(newHashtagIntent(requireContext(), tag))
+        startActivity(StatusListActivityIntent.hashtag(requireContext(), tag))
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
-        startActivity(getIntent(requireContext(), accountId, accountUsername, statusId))
+        startActivity(ReportActivityIntent(requireContext(), accountId, accountUsername, statusId))
     }
 
     private fun showConfirmDeleteDialog(id: String, position: Int) {
@@ -455,9 +454,9 @@ abstract class SFragment : Fragment() {
                                 modifiedInitialState = true,
                                 language = sourceStatus.language,
                                 poll = sourceStatus.poll?.toNewPoll(sourceStatus.createdAt),
-                                kind = ComposeActivity.ComposeKind.NEW,
+                                kind = ComposeOptions.ComposeKind.NEW,
                             )
-                            startActivity(startIntent(requireContext(), composeOptions))
+                            startActivity(ComposeActivityIntent(requireContext(), composeOptions))
                         },
                         { error: Throwable? ->
                             Timber.w(error, "error deleting status")
@@ -485,9 +484,9 @@ abstract class SFragment : Fragment() {
                         language = status.language,
                         statusId = source.id,
                         poll = status.poll?.toNewPoll(status.createdAt),
-                        kind = ComposeActivity.ComposeKind.EDIT_POSTED,
+                        kind = ComposeOptions.ComposeKind.EDIT_POSTED,
                     )
-                    startActivity(startIntent(requireContext(), composeOptions))
+                    startActivity(ComposeActivityIntent(requireContext(), composeOptions))
                 },
                 {
                     Snackbar.make(

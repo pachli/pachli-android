@@ -16,8 +16,6 @@
 
 package app.pachli.components.announcements
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -29,9 +27,9 @@ import androidx.core.view.MenuProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BottomSheetActivity
 import app.pachli.R
-import app.pachli.StatusListActivity
 import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.OnEmojiSelectedListener
+import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ActivityAnnouncementsBinding
 import app.pachli.util.Error
@@ -185,7 +183,7 @@ class AnnouncementsActivity :
     }
 
     override fun onViewTag(tag: String) {
-        val intent = StatusListActivity.newHashtagIntent(this, tag)
+        val intent = StatusListActivityIntent.hashtag(this, tag)
         startActivityWithSlideInAnimation(intent)
     }
 
@@ -195,9 +193,5 @@ class AnnouncementsActivity :
 
     override fun onViewUrl(url: String) {
         viewUrl(url)
-    }
-
-    companion object {
-        fun newIntent(context: Context) = Intent(context, AnnouncementsActivity::class.java)
     }
 }

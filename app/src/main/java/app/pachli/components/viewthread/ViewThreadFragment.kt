@@ -34,9 +34,9 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.BaseActivity
 import app.pachli.R
-import app.pachli.components.accountlist.AccountListActivity
-import app.pachli.components.accountlist.AccountListActivity.Companion.newIntent
 import app.pachli.components.viewthread.edits.ViewEditsFragment
+import app.pachli.core.navigation.AccountListActivityIntent
+import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
@@ -45,7 +45,6 @@ import app.pachli.util.hide
 import app.pachli.util.openLink
 import app.pachli.util.show
 import app.pachli.util.viewBinding
-import app.pachli.viewdata.AttachmentViewData.Companion.list
 import app.pachli.viewdata.StatusViewData
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -366,13 +365,13 @@ class ViewThreadFragment :
 
     override fun onShowReblogs(position: Int) {
         val statusId = adapter.currentList[position].id
-        val intent = newIntent(requireContext(), AccountListActivity.Type.REBLOGGED, statusId)
+        val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.REBLOGGED, statusId)
         (requireActivity() as BaseActivity).startActivityWithSlideInAnimation(intent)
     }
 
     override fun onShowFavs(position: Int) {
         val statusId = adapter.currentList[position].id
-        val intent = newIntent(requireContext(), AccountListActivity.Type.FAVOURITED, statusId)
+        val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.FAVOURITED, statusId)
         (requireActivity() as BaseActivity).startActivityWithSlideInAnimation(intent)
     }
 
@@ -423,7 +422,7 @@ class ViewThreadFragment :
         private const val ID_EXTRA = "id"
         private const val URL_EXTRA = "url"
 
-        fun newInstance(id: String, url: String): ViewThreadFragment {
+        fun newInstance(id: String, url: String?): ViewThreadFragment {
             val arguments = Bundle(2)
             val fragment = ViewThreadFragment()
             arguments.putString(ID_EXTRA, id)

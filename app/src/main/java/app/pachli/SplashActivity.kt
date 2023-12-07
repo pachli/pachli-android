@@ -18,12 +18,13 @@
 package app.pachli
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import app.pachli.components.login.LoginActivity
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.navigation.LoginActivityIntent
+import app.pachli.core.navigation.LoginActivityIntent.LoginMode
+import app.pachli.core.navigation.MainActivityIntent
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -41,9 +42,9 @@ class SplashActivity : AppCompatActivity() {
         /** Determine whether the user is currently logged in, and if so go ahead and load the
          *  timeline. Otherwise, start the activity_login screen. */
         val intent = if (accountManager.activeAccount != null) {
-            Intent(this, MainActivity::class.java)
+            MainActivityIntent(this)
         } else {
-            LoginActivity.getIntent(this, LoginActivity.MODE_DEFAULT)
+            LoginActivityIntent(this, LoginMode.DEFAULT)
         }
         startActivity(intent)
         finish()

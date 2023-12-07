@@ -38,12 +38,13 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.BaseActivity
 import app.pachli.R
-import app.pachli.ViewMediaActivity
-import app.pachli.components.compose.ComposeActivity
-import app.pachli.components.compose.ComposeActivity.ComposeOptions
-import app.pachli.components.report.ReportActivity
 import app.pachli.components.search.adapter.SearchStatusesAdapter
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.ReportActivityIntent
+import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.Status.Mention
@@ -52,7 +53,6 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.openLink
 import app.pachli.view.showMuteAccountDialog
-import app.pachli.viewdata.AttachmentViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -119,8 +119,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             when (actionable.attachments[attachmentIndex].type) {
                 Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
                     val attachments = AttachmentViewData.list(actionable)
-                    val intent = ViewMediaActivity.newIntent(
-                        context,
+                    val intent = ViewMediaActivityIntent(
+                        requireContext(),
                         attachments,
                         attachmentIndex,
                     )
@@ -202,7 +202,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 remove(viewModel.activeAccount?.username)
             }
 
-        val intent = ComposeActivity.startIntent(
+        val intent = ComposeActivityIntent(
             requireContext(),
             ComposeOptions(
                 inReplyToId = status.actionableId,
@@ -212,7 +212,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 replyingStatusAuthor = actionableStatus.account.localUsername,
                 replyingStatusContent = status.content.toString(),
                 language = actionableStatus.language,
-                kind = ComposeActivity.ComposeKind.NEW,
+                kind = ComposeOptions.ComposeKind.NEW,
             ),
         )
         bottomSheetActivity?.startActivityWithSlideInAnimation(intent)
@@ -423,7 +423,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
-        startActivity(ReportActivity.getIntent(requireContext(), accountId, accountUsername, statusId))
+        startActivity(ReportActivityIntent(requireContext(), accountId, accountUsername, statusId))
     }
 
     private fun showConfirmDeleteDialog(id: String, position: Int) {
@@ -455,7 +455,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                                     deletedStatus
                                 }
 
-                                val intent = ComposeActivity.startIntent(
+                                val intent = ComposeActivityIntent(
                                     requireContext(),
                                     ComposeOptions(
                                         content = redraftStatus.text.orEmpty(),
@@ -466,7 +466,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                                         sensitive = redraftStatus.sensitive,
                                         poll = redraftStatus.poll?.toNewPoll(status.createdAt),
                                         language = redraftStatus.language,
-                                        kind = ComposeActivity.ComposeKind.NEW,
+                                        kind = ComposeOptions.ComposeKind.NEW,
                                     ),
                                 )
                                 startActivity(intent)
@@ -497,9 +497,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                         language = status.language,
                         statusId = source.id,
                         poll = status.poll?.toNewPoll(status.createdAt),
-                        kind = ComposeActivity.ComposeKind.EDIT_POSTED,
+                        kind = ComposeOptions.ComposeKind.EDIT_POSTED,
                     )
-                    startActivity(ComposeActivity.startIntent(requireContext(), composeOptions))
+                    startActivity(ComposeActivityIntent(requireContext(), composeOptions))
                 },
                 {
                     Snackbar.make(

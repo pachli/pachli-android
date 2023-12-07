@@ -47,15 +47,17 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.BottomSheetActivity
-import app.pachli.EditProfileActivity
 import app.pachli.R
-import app.pachli.StatusListActivity
-import app.pachli.ViewMediaActivity
 import app.pachli.components.account.list.ListsForAccountFragment
-import app.pachli.components.accountlist.AccountListActivity
-import app.pachli.components.compose.ComposeActivity
-import app.pachli.components.report.ReportActivity
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.navigation.AccountActivityIntent
+import app.pachli.core.navigation.AccountListActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.EditProfileActivityIntent
+import app.pachli.core.navigation.ReportActivityIntent
+import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.parseAsMastodonHtml
@@ -100,6 +102,9 @@ import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.abs
 
+/**
+ * Show a single account's profile details.
+ */
 @AndroidEntryPoint
 class AccountActivity :
     BottomSheetActivity(),
@@ -172,7 +177,7 @@ class AccountActivity :
         addMenuProvider(this)
 
         // Obtain information to fill out the profile.
-        viewModel.setAccountInfo(intent.getStringExtra(KEY_ACCOUNT_ID)!!)
+        viewModel.setAccountInfo(AccountActivityIntent.getAccountId(intent))
 
         animateAvatar = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
         animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
@@ -221,12 +226,12 @@ class AccountActivity :
         binding.accountFieldList.adapter = accountFieldAdapter
 
         val accountListClickListener = { v: View ->
-            val type = when (v.id) {
-                R.id.accountFollowers -> AccountListActivity.Type.FOLLOWERS
-                R.id.accountFollowing -> AccountListActivity.Type.FOLLOWS
+            val kind = when (v.id) {
+                R.id.accountFollowers -> AccountListActivityIntent.Kind.FOLLOWERS
+                R.id.accountFollowing -> AccountListActivityIntent.Kind.FOLLOWS
                 else -> throw AssertionError()
             }
-            val accountListIntent = AccountListActivity.newIntent(this, type, viewModel.accountId)
+            val accountListIntent = AccountListActivityIntent(this, kind, viewModel.accountId)
             startActivityWithSlideInAnimation(accountListIntent)
         }
         binding.accountFollowers.setOnClickListener(accountListClickListener)
@@ -540,7 +545,7 @@ class AccountActivity :
     private fun viewImage(view: View, uri: String) {
         view.transitionName = uri
         startActivity(
-            ViewMediaActivity.newSingleImageIntent(view.context, uri),
+            ViewMediaActivityIntent(view.context, uri),
             ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, uri).toBundle(),
         )
     }
@@ -606,7 +611,7 @@ class AccountActivity :
 
             binding.accountFollowButton.setOnClickListener {
                 if (viewModel.isSelf) {
-                    val intent = Intent(this@AccountActivity, EditProfileActivity::class.java)
+                    val intent = EditProfileActivityIntent(this@AccountActivity)
                     startActivity(intent)
                     return@setOnClickListener
                 }
@@ -879,26 +884,25 @@ class AccountActivity :
     private fun mention() {
         loadedAccount?.let {
             val options = if (viewModel.isSelf) {
-                ComposeActivity.ComposeOptions(kind = ComposeActivity.ComposeKind.NEW)
+                ComposeOptions(kind = ComposeOptions.ComposeKind.NEW)
             } else {
-                ComposeActivity.ComposeOptions(
+                ComposeOptions(
                     mentionedUsernames = setOf(it.username),
-                    kind = ComposeActivity.ComposeKind.NEW,
+                    kind = ComposeOptions.ComposeKind.NEW,
                 )
             }
-            val intent = ComposeActivity.startIntent(this, options)
+            val intent = ComposeActivityIntent(this, options)
             startActivity(intent)
         }
     }
 
     override fun onViewTag(tag: String) {
-        val intent = StatusListActivity.newHashtagIntent(this, tag)
+        val intent = StatusListActivityIntent.hashtag(this, tag)
         startActivityWithSlideInAnimation(intent)
     }
 
     override fun onViewAccount(id: String) {
-        val intent = Intent(this, AccountActivity::class.java)
-        intent.putExtra("id", id)
+        val intent = AccountActivityIntent(this, id)
         startActivityWithSlideInAnimation(intent)
     }
 
@@ -979,7 +983,7 @@ class AccountActivity :
             }
             R.id.action_report -> {
                 loadedAccount?.let { loadedAccount ->
-                    startActivity(ReportActivity.getIntent(this, viewModel.accountId, loadedAccount.username))
+                    startActivity(ReportActivityIntent(this, viewModel.accountId, loadedAccount.username))
                 }
                 return true
             }
@@ -999,14 +1003,6 @@ class AccountActivity :
     }
 
     companion object {
-        private const val KEY_ACCOUNT_ID = "id"
         private val argbEvaluator = ArgbEvaluator()
-
-        @JvmStatic
-        fun getIntent(context: Context, accountId: String): Intent {
-            val intent = Intent(context, AccountActivity::class.java)
-            intent.putExtra(KEY_ACCOUNT_ID, accountId)
-            return intent
-        }
     }
 }

@@ -50,6 +50,7 @@ mockito-inline = "5.2.0"
 mockito-kotlin = "5.2.1"
 networkresult-calladapter = "1.0.0"
 okhttp = "4.12.0"
+quadrant = "1.7"
 retrofit = "2.9.0"
 robolectric = "4.11.1"
 rxandroid3 = "3.0.2"
@@ -76,6 +77,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 ktlint = "org.jlleitschuh.gradle.ktlint:11.6.1"
 room = { id = "androidx.room", version.ref = "androidx-room" }
+quadrant = { id = "com.gaelmarhic.quadrant", version.ref = "quadrant" }
 
 # Plugins defined by this project
 pachli-android-application = { id = "pachli.android.application", version = "unspecified" }

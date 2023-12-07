@@ -28,9 +28,6 @@ import app.pachli.BaseActivity
 import app.pachli.BottomSheetActivity
 import app.pachli.PostLookupFallbackBehavior
 import app.pachli.R
-import app.pachli.StatusListActivity
-import app.pachli.components.account.AccountActivity
-import app.pachli.components.accountlist.AccountListActivity.Type
 import app.pachli.components.accountlist.adapter.AccountAdapter
 import app.pachli.components.accountlist.adapter.BlocksAdapter
 import app.pachli.components.accountlist.adapter.FollowAdapter
@@ -38,6 +35,16 @@ import app.pachli.components.accountlist.adapter.FollowRequestsAdapter
 import app.pachli.components.accountlist.adapter.FollowRequestsHeaderAdapter
 import app.pachli.components.accountlist.adapter.MutesAdapter
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.navigation.AccountActivityIntent
+import app.pachli.core.navigation.AccountListActivityIntent.Kind
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.BLOCKS
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.FAVOURITED
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOWERS
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOWS
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOW_REQUESTS
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.MUTES
+import app.pachli.core.navigation.AccountListActivityIntent.Kind.REBLOGGED
+import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.TimelineAccount
@@ -80,7 +87,7 @@ class AccountListFragment :
 
     private val binding by viewBinding(FragmentAccountListBinding::bind)
 
-    private lateinit var type: Type
+    private lateinit var kind: Kind
     private var id: String? = null
 
     private lateinit var scrollListener: EndlessOnScrollListener
@@ -90,7 +97,7 @@ class AccountListFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        type = requireArguments().getSerializable(ARG_TYPE) as Type
+        kind = requireArguments().getSerializable(ARG_KIND) as Kind
         id = requireArguments().getString(ARG_ID)
     }
 
@@ -112,10 +119,10 @@ class AccountListFragment :
 
         val activeAccount = accountManager.activeAccount!!
 
-        adapter = when (type) {
-            Type.BLOCKS -> BlocksAdapter(this, animateAvatar, animateEmojis, showBotOverlay)
-            Type.MUTES -> MutesAdapter(this, animateAvatar, animateEmojis, showBotOverlay)
-            Type.FOLLOW_REQUESTS -> {
+        adapter = when (kind) {
+            BLOCKS -> BlocksAdapter(this, animateAvatar, animateEmojis, showBotOverlay)
+            MUTES -> MutesAdapter(this, animateAvatar, animateEmojis, showBotOverlay)
+            FOLLOW_REQUESTS -> {
                 val headerAdapter = FollowRequestsHeaderAdapter(
                     instanceName = activeAccount.domain,
                     accountLocked = activeAccount.locked,
@@ -151,12 +158,12 @@ class AccountListFragment :
 
     override fun onViewTag(tag: String) {
         (activity as BaseActivity?)
-            ?.startActivityWithSlideInAnimation(StatusListActivity.newHashtagIntent(requireContext(), tag))
+            ?.startActivityWithSlideInAnimation(StatusListActivityIntent.hashtag(requireContext(), tag))
     }
 
     override fun onViewAccount(id: String) {
         (activity as BaseActivity?)?.let {
-            val intent = AccountActivity.getIntent(it, id)
+            val intent = AccountActivityIntent(it, id)
             it.startActivityWithSlideInAnimation(intent)
         }
     }
@@ -283,31 +290,31 @@ class AccountListFragment :
     }
 
     private suspend fun getFetchCallByListType(fromId: String?): Response<List<TimelineAccount>> {
-        return when (type) {
-            Type.FOLLOWS -> {
-                val accountId = requireId(type, id)
+        return when (kind) {
+            FOLLOWS -> {
+                val accountId = requireId(kind, id)
                 api.accountFollowing(accountId, fromId)
             }
-            Type.FOLLOWERS -> {
-                val accountId = requireId(type, id)
+            FOLLOWERS -> {
+                val accountId = requireId(kind, id)
                 api.accountFollowers(accountId, fromId)
             }
-            Type.BLOCKS -> api.blocks(fromId)
-            Type.MUTES -> api.mutes(fromId)
-            Type.FOLLOW_REQUESTS -> api.followRequests(fromId)
-            Type.REBLOGGED -> {
-                val statusId = requireId(type, id)
+            BLOCKS -> api.blocks(fromId)
+            MUTES -> api.mutes(fromId)
+            FOLLOW_REQUESTS -> api.followRequests(fromId)
+            REBLOGGED -> {
+                val statusId = requireId(kind, id)
                 api.statusRebloggedBy(statusId, fromId)
             }
-            Type.FAVOURITED -> {
-                val statusId = requireId(type, id)
+            FAVOURITED -> {
+                val statusId = requireId(kind, id)
                 api.statusFavouritedBy(statusId, fromId)
             }
         }
     }
 
-    private fun requireId(type: Type, id: String?): String {
-        return requireNotNull(id) { "id must not be null for type " + type.name }
+    private fun requireId(kind: Kind, id: String?): String {
+        return requireNotNull(id) { "id must not be null for kind " + kind.name }
     }
 
     private fun fetchAccounts(fromId: String? = null) {
@@ -410,13 +417,13 @@ class AccountListFragment :
     }
 
     companion object {
-        private const val ARG_TYPE = "type"
+        private const val ARG_KIND = "kind"
         private const val ARG_ID = "id"
 
-        fun newInstance(type: Type, id: String? = null): AccountListFragment {
+        fun newInstance(kind: Kind, id: String? = null): AccountListFragment {
             return AccountListFragment().apply {
                 arguments = Bundle(3).apply {
-                    putSerializable(ARG_TYPE, type)
+                    putSerializable(ARG_KIND, kind)
                     putString(ARG_ID, id)
                 }
             }

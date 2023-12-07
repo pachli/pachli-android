@@ -17,13 +17,12 @@
 
 plugins {
     alias(libs.plugins.pachli.android.library)
-    alias(libs.plugins.pachli.android.hilt)
-    alias(libs.plugins.pachli.android.room)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.quadrant)
 }
 
 android {
-    namespace = "app.pachli.core.database"
+    namespace = "app.pachli.core.navigation"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -31,10 +30,8 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.common)
-    implementation(projects.core.network)
-    implementation(projects.core.preferences)
+    implementation(projects.core.database) // For DraftAttachment, used in ComposeOptions
+    implementation(projects.core.network) // For Attachment, used in AttachmentViewData
 
-    // Because of the use of @SerializedName in DraftEntity
-    implementation(libs.gson)
+    implementation(libs.androidx.core.ktx) // IntentCompat
 }

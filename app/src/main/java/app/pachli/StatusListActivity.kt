@@ -17,8 +17,6 @@
 
 package app.pachli
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -26,8 +24,10 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FilterChangedEvent
-import app.pachli.components.compose.ComposeActivity
 import app.pachli.components.timeline.TimelineFragment
+import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.TimelineKind
@@ -84,7 +84,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
 
         setSupportActionBar(binding.includedToolbar.toolbar)
 
-        timelineKind = intent.getParcelableExtra(EXTRA_KIND)!!
+        timelineKind = StatusListActivityIntent.getKind(intent)
 
         val title = when (timelineKind) {
             is TimelineKind.Favourites -> getString(R.string.title_favourites)
@@ -113,11 +113,11 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
         val composeIntent = when (timelineKind) {
             is TimelineKind.Tag -> {
                 val tag = (timelineKind as TimelineKind.Tag).tags.first()
-                ComposeActivity.startIntent(
+                ComposeActivityIntent(
                     this,
-                    ComposeActivity.ComposeOptions(
+                    ComposeOptions(
                         content = getString(R.string.title_tag_with_initial_position).format(tag),
-                        initialCursorPosition = ComposeActivity.InitialCursorPosition.START,
+                        initialCursorPosition = ComposeOptions.InitialCursorPosition.START,
                     ),
                 )
             }
@@ -125,10 +125,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
             is TimelineKind.Favourites,
             is TimelineKind.UserList,
             -> {
-                ComposeActivity.startIntent(
-                    this,
-                    ComposeActivity.ComposeOptions(),
-                )
+                ComposeActivityIntent(this, ComposeOptions())
             }
             else -> null
         }
@@ -366,30 +363,5 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
         }
 
         return true
-    }
-
-    companion object {
-        private const val EXTRA_KIND = "kind"
-
-        fun newFavouritesIntent(context: Context) =
-            Intent(context, StatusListActivity::class.java).apply {
-                putExtra(EXTRA_KIND, TimelineKind.Favourites)
-            }
-
-        fun newBookmarksIntent(context: Context) =
-            Intent(context, StatusListActivity::class.java).apply {
-                putExtra(EXTRA_KIND, TimelineKind.Bookmarks)
-            }
-
-        fun newListIntent(context: Context, listId: String, listTitle: String) =
-            Intent(context, StatusListActivity::class.java).apply {
-                putExtra(EXTRA_KIND, TimelineKind.UserList(listId, listTitle))
-            }
-
-        @JvmStatic
-        fun newHashtagIntent(context: Context, hashtag: String) =
-            Intent(context, StatusListActivity::class.java).apply {
-                putExtra(EXTRA_KIND, TimelineKind.Tag(listOf(hashtag)))
-            }
     }
 }

@@ -38,8 +38,8 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.BaseActivity
 import app.pachli.R
-import app.pachli.StatusListActivity
 import app.pachli.components.trending.viewmodel.TrendingTagsViewModel
+import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.databinding.FragmentTrendingTagsBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
@@ -173,7 +173,7 @@ class TrendingTagsFragment :
 
     fun onViewTag(tag: String) {
         (requireActivity() as BaseActivity).startActivityWithSlideInAnimation(
-            StatusListActivity.newHashtagIntent(
+            StatusListActivityIntent.hashtag(
                 requireContext(),
                 tag,
             ),

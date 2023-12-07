@@ -42,8 +42,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
-import app.pachli.components.accountlist.AccountListActivity
-import app.pachli.components.accountlist.AccountListActivity.Companion.newIntent
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
@@ -52,6 +50,8 @@ import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiSuccess
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.navigation.AccountListActivityIntent
+import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineKind
 import app.pachli.databinding.FragmentTimelineBinding
@@ -72,7 +72,6 @@ import app.pachli.util.show
 import app.pachli.util.viewBinding
 import app.pachli.util.visible
 import app.pachli.util.withPresentationState
-import app.pachli.viewdata.AttachmentViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
@@ -635,13 +634,13 @@ class TimelineFragment :
 
     override fun onShowReblogs(position: Int) {
         val statusId = adapter.peek(position)?.id ?: return
-        val intent = newIntent(requireContext(), AccountListActivity.Type.REBLOGGED, statusId)
+        val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.REBLOGGED, statusId)
         (activity as BaseActivity).startActivityWithSlideInAnimation(intent)
     }
 
     override fun onShowFavs(position: Int) {
         val statusId = adapter.peek(position)?.id ?: return
-        val intent = newIntent(requireContext(), AccountListActivity.Type.FAVOURITED, statusId)
+        val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.FAVOURITED, statusId)
         (activity as BaseActivity).startActivityWithSlideInAnimation(intent)
     }
 

@@ -11,6 +11,7 @@ import androidx.core.view.setPadding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.R
+import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.ItemAccountMediaBinding
 import app.pachli.util.BindingHolder
@@ -18,7 +19,6 @@ import app.pachli.util.decodeBlurHash
 import app.pachli.util.getFormattedDescription
 import app.pachli.util.hide
 import app.pachli.util.show
-import app.pachli.viewdata.AttachmentViewData
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import java.util.Random

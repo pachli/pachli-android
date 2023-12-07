@@ -16,16 +16,18 @@
 
 package app.pachli.components.viewthread
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.commit
 import app.pachli.BottomSheetActivity
 import app.pachli.R
+import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.databinding.ActivityViewThreadBinding
 import app.pachli.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * View the statuses in a single thread.
+ */
 @AndroidEntryPoint
 class ViewThreadActivity : BottomSheetActivity() {
     private val binding by viewBinding(ActivityViewThreadBinding::inflate)
@@ -39,8 +41,8 @@ class ViewThreadActivity : BottomSheetActivity() {
             setDisplayShowHomeEnabled(true)
             setDisplayShowTitleEnabled(true)
         }
-        val id = intent.getStringExtra(ID_EXTRA)!!
-        val url = intent.getStringExtra(URL_EXTRA)!!
+        val id = ViewThreadActivityIntent.getStatusId(intent)
+        val url = ViewThreadActivityIntent.getUrl(intent)
         val fragment =
             supportFragmentManager.findFragmentByTag(FRAGMENT_TAG + id) as ViewThreadFragment?
                 ?: ViewThreadFragment.newInstance(id, url)
@@ -51,15 +53,6 @@ class ViewThreadActivity : BottomSheetActivity() {
     }
 
     companion object {
-        fun startIntent(context: Context, id: String, url: String): Intent {
-            val intent = Intent(context, ViewThreadActivity::class.java)
-            intent.putExtra(ID_EXTRA, id)
-            intent.putExtra(URL_EXTRA, url)
-            return intent
-        }
-
-        private const val ID_EXTRA = "id"
-        private const val URL_EXTRA = "url"
         private const val FRAGMENT_TAG = "ViewThreadFragment_"
     }
 }

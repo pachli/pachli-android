@@ -24,7 +24,6 @@ import android.app.DownloadManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -40,13 +39,14 @@ import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
-import androidx.core.content.IntentCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import app.pachli.BuildConfig.APPLICATION_ID
-import app.pachli.components.viewthread.ViewThreadActivity
+import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.ViewMediaActivityIntent
+import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.ActivityViewMediaBinding
 import app.pachli.fragment.ViewImageFragment
@@ -55,7 +55,6 @@ import app.pachli.pager.ImagePagerAdapter
 import app.pachli.pager.SingleImagePagerAdapter
 import app.pachli.util.getTemporaryMediaFilename
 import app.pachli.util.viewBinding
-import app.pachli.viewdata.AttachmentViewData
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider
 import autodispose2.autoDispose
 import com.bumptech.glide.Glide
@@ -73,6 +72,9 @@ import java.util.Locale
 
 typealias ToolbarVisibilityListener = (isVisible: Boolean) -> Unit
 
+/**
+ * Show one or more media items (pictures, video, audio, etc).
+ */
 @AndroidEntryPoint
 class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener, ViewVideoFragment.VideoActionsListener {
     private val binding by viewBinding(ActivityViewMediaBinding::inflate)
@@ -100,8 +102,8 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
         supportPostponeEnterTransition()
 
         // Gather the parameters.
-        attachments = IntentCompat.getParcelableArrayListExtra(intent, EXTRA_ATTACHMENTS, AttachmentViewData::class.java)
-        val initialPosition = intent.getIntExtra(EXTRA_ATTACHMENT_INDEX, 0)
+        attachments = ViewMediaActivityIntent.getAttachments(intent)
+        val initialPosition = ViewMediaActivityIntent.getAttachmentIndex(intent)
 
         // Adapter is actually of existential type PageAdapter & SharedElementsTransitionListener
         // but it cannot be expressed and if I don't specify type explicitly compilation fails
@@ -111,7 +113,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
             // Setup the view pager.
             ImagePagerAdapter(this, realAttachs, initialPosition)
         } else {
-            imageUrl = intent.getStringExtra(EXTRA_SINGLE_IMAGE_URL)
+            imageUrl = ViewMediaActivityIntent.getImageUrl(intent)
                 ?: throw IllegalArgumentException("attachment list or image url has to be set")
 
             SingleImagePagerAdapter(this, imageUrl!!)
@@ -241,7 +243,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
 
     private fun onOpenStatus() {
         val attach = attachments!![binding.viewPager.currentItem]
-        startActivityWithSlideInAnimation(ViewThreadActivity.startIntent(this, attach.statusId, attach.statusUrl))
+        startActivityWithSlideInAnimation(ViewThreadActivityIntent(this, attach.statusId, attach.statusUrl))
     }
 
     private fun copyLink() {
@@ -343,27 +345,6 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
         downloadManager.enqueue(request)
 
         shareFile(file, mimeType)
-    }
-
-    companion object {
-        private const val EXTRA_ATTACHMENTS = "attachments"
-        private const val EXTRA_ATTACHMENT_INDEX = "index"
-        private const val EXTRA_SINGLE_IMAGE_URL = "single_image"
-
-        @JvmStatic
-        fun newIntent(context: Context?, attachments: List<AttachmentViewData>, index: Int): Intent {
-            val intent = Intent(context, ViewMediaActivity::class.java)
-            intent.putParcelableArrayListExtra(EXTRA_ATTACHMENTS, ArrayList(attachments))
-            intent.putExtra(EXTRA_ATTACHMENT_INDEX, index)
-            return intent
-        }
-
-        @JvmStatic
-        fun newSingleImageIntent(context: Context, url: String): Intent {
-            val intent = Intent(context, ViewMediaActivity::class.java)
-            intent.putExtra(EXTRA_SINGLE_IMAGE_URL, url)
-            return intent
-        }
     }
 }
 

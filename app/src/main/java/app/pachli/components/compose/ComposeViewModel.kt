@@ -20,7 +20,6 @@ import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.components.compose.ComposeActivity.ComposeKind
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.components.compose.ComposeAutoCompleteAdapter.AutocompleteResult
 import app.pachli.components.drafts.DraftHelper
@@ -29,6 +28,8 @@ import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.components.search.SearchType
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.string.randomAlphanumericString
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.NewPoll
@@ -412,7 +413,7 @@ class ComposeViewModel @Inject constructor(
         }
     }
 
-    fun setup(composeOptions: ComposeActivity.ComposeOptions?) {
+    fun setup(composeOptions: ComposeOptions?) {
         if (setupComplete) {
             return
         }

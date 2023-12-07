@@ -39,6 +39,7 @@ import androidx.lifecycle.lifecycleScope
 import app.pachli.BaseActivity
 import app.pachli.BuildConfig
 import app.pachli.R
+import app.pachli.core.navigation.LoginWebViewActivityIntent
 import app.pachli.databinding.ActivityLoginWebviewBinding
 import app.pachli.util.hide
 import app.pachli.util.viewBinding
@@ -51,7 +52,7 @@ import timber.log.Timber
 /** Contract for starting [LoginWebViewActivity]. */
 class OauthLogin : ActivityResultContract<LoginData, LoginResult>() {
     override fun createIntent(context: Context, input: LoginData): Intent {
-        val intent = Intent(context, LoginWebViewActivity::class.java)
+        val intent = LoginWebViewActivityIntent(context)
         intent.putExtra(DATA_EXTRA, input)
         return intent
     }

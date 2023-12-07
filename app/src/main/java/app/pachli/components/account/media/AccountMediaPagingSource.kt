@@ -18,7 +18,7 @@ package app.pachli.components.account.media
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import app.pachli.viewdata.AttachmentViewData
+import app.pachli.core.navigation.AttachmentViewData
 
 class AccountMediaPagingSource(
     private val viewModel: AccountMediaViewModel,

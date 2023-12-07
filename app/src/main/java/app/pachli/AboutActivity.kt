@@ -3,7 +3,6 @@ package app.pachli
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
@@ -16,6 +15,8 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.lifecycleScope
 import app.pachli.components.instanceinfo.InstanceInfoRepository
+import app.pachli.core.navigation.LicenseActivityIntent
+import app.pachli.core.navigation.PrivacyPolicyActivityIntent
 import app.pachli.databinding.ActivityAboutBinding
 import app.pachli.util.NoUnderlineURLSpan
 import app.pachli.util.hide
@@ -76,8 +77,7 @@ class AboutActivity : BottomSheetActivity() {
         binding.aboutBugsFeaturesInfoTextView.setClickableTextWithoutUnderlines(R.string.about_bug_feature_request_site)
 
         binding.aboutPrivacyPolicyTextView.setOnClickListener {
-            val intent = Intent(this, PrivacyPolicyActivity::class.java)
-            startActivity(intent)
+            startActivity(PrivacyPolicyActivityIntent(this))
         }
 
         binding.appProfileButton.setOnClickListener {
@@ -85,7 +85,7 @@ class AboutActivity : BottomSheetActivity() {
         }
 
         binding.aboutLicensesButton.setOnClickListener {
-            startActivityWithSlideInAnimation(Intent(this, LicenseActivity::class.java))
+            startActivityWithSlideInAnimation(LicenseActivityIntent(this))
         }
 
         binding.copyDeviceInfo.setOnClickListener {

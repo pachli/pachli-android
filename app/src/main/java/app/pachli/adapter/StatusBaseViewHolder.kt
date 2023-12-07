@@ -20,10 +20,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.ViewMediaActivity.Companion.newSingleImageIntent
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.PreviewCardKind
@@ -877,7 +877,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             cardView.bind(card, status.actionable.sensitive, statusDisplayOptions) { target ->
                 if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
                     context.startActivity(
-                        newSingleImageIntent(context, card.embedUrl),
+                        ViewMediaActivityIntent(context, card.embedUrl),
                     )
                 } else {
                     listener.onViewUrl(card.url)
