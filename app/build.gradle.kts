@@ -187,6 +187,8 @@ dependencies {
     implementation(libs.kotlin.result)
     implementation(libs.semver)
 
+    debugImplementation(libs.leakcanary)
+
     testImplementation(projects.core.testing)
     testImplementation(libs.androidx.test.junit)
     testImplementation(libs.robolectric)
