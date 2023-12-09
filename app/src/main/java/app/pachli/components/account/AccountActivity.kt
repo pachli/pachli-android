@@ -503,13 +503,15 @@ class AccountActivity :
     private fun updateAccountJoinedDate() {
         loadedAccount?.let { account ->
             try {
-                binding.accountDateJoined.text = resources.getString(
-                    R.string.account_date_joined,
-                    SimpleDateFormat("MMMM, yyyy", Locale.getDefault()).format(account.createdAt),
-                )
-                binding.accountDateJoined.visibility = View.VISIBLE
+                account.createdAt?.let { createdAt ->
+                    binding.accountDateJoined.text = resources.getString(
+                        R.string.account_date_joined,
+                        SimpleDateFormat("MMMM, yyyy", Locale.getDefault()).format(createdAt),
+                    )
+                    binding.accountDateJoined.show()
+                } ?: binding.accountDateJoined.hide()
             } catch (e: ParseException) {
-                binding.accountDateJoined.visibility = View.GONE
+                binding.accountDateJoined.hide()
             }
         }
     }
