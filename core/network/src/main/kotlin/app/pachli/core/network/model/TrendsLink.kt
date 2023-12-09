@@ -41,7 +41,7 @@ interface PreviewCard {
     val title: String
     val description: String
     val kind: PreviewCardKind
-    val authorName: String
+    val authorName: String? // Not supposed to be null, per API, but seen null in the wild
     val authorUrl: String
     val providerName: String
     val providerUrl: String
