@@ -350,7 +350,7 @@ abstract class StatusBaseViewHolder protected constructor(itemView: View) :
             avatar,
             avatarRadius,
             statusDisplayOptions.animateAvatars,
-            listOf(CompositeWithOpaqueBackground(avatar)),
+            listOf(CompositeWithOpaqueBackground(MaterialColors.getColor(avatar, android.R.attr.colorBackground))),
         )
     }
 
