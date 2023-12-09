@@ -240,7 +240,7 @@ class TimelineFragment :
                         )
                         snackbar = Snackbar.make(
                             // Without this the FAB will not move out of the way
-                            (activity as ActionButtonActivity).actionButton ?: binding.root,
+                            (activity as? ActionButtonActivity)?.actionButton ?: binding.root,
                             message,
                             Snackbar.LENGTH_INDEFINITE,
                         ).setTextMaxLines(5)
