@@ -23,6 +23,7 @@ import app.pachli.R
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
+import app.pachli.core.preferences.AppTheme.Companion.APP_THEME_DEFAULT
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.settings.emojiPreference
 import app.pachli.settings.listPreference
@@ -32,7 +33,6 @@ import app.pachli.settings.preferenceCategory
 import app.pachli.settings.sliderPreference
 import app.pachli.settings.switchPreference
 import app.pachli.updatecheck.UpdateNotificationFrequency
-import app.pachli.util.APP_THEME_DEFAULT
 import app.pachli.util.LocaleManager
 import app.pachli.util.deserialize
 import app.pachli.util.makeIcon
@@ -60,7 +60,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
         makePreferenceScreen {
             preferenceCategory(R.string.pref_title_appearance_settings) {
                 listPreference {
-                    setDefaultValue(APP_THEME_DEFAULT)
+                    setDefaultValue(APP_THEME_DEFAULT.value)
                     setEntries(R.array.app_theme_names)
                     entryValues = AppTheme.stringValues()
                     key = PrefKeys.APP_THEME

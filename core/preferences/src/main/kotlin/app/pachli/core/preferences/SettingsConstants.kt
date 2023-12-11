@@ -1,5 +1,11 @@
 package app.pachli.core.preferences
 
+/**
+ * Possible themes.
+ *
+ * The order of the values is important, and must be kept in sync with
+ * R.array.app_theme_names.
+ */
 enum class AppTheme(val value: String) {
     NIGHT("night"),
     DAY("day"),
@@ -9,7 +15,16 @@ enum class AppTheme(val value: String) {
     ;
 
     companion object {
-        fun stringValues() = values().map { it.value }.toTypedArray()
+        val APP_THEME_DEFAULT = AUTO_SYSTEM
+
+        fun stringValues() = entries.map { it.value }.toTypedArray()
+
+        fun from(sharedPreferencesRepository: SharedPreferencesRepository): AppTheme {
+            val pref = sharedPreferencesRepository.getString(PrefKeys.APP_THEME, null)
+                ?: return APP_THEME_DEFAULT
+
+            return enumValueOf(pref.uppercase())
+        }
     }
 }
 

@@ -81,14 +81,12 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCu
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
+import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
-import app.pachli.core.preferences.PrefKeys.APP_THEME
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.ActivityComposeBinding
-import app.pachli.util.APP_THEME_DEFAULT
 import app.pachli.util.MentionSpan
 import app.pachli.util.PickMediaFiles
-import app.pachli.util.THEME_BLACK
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getMediaSize
@@ -205,8 +203,8 @@ class ComposeActivity :
 
         activeAccount = accountManager.activeAccount ?: return
 
-        val theme = sharedPreferencesRepository.getString(APP_THEME, APP_THEME_DEFAULT)
-        if (theme == THEME_BLACK) {
+        val theme = AppTheme.from(sharedPreferencesRepository)
+        if (theme == AppTheme.BLACK) {
             setTheme(R.style.AppDialogActivityBlackTheme)
         }
         setContentView(binding.root)

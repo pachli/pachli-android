@@ -24,19 +24,13 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.AttrRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.use
+import app.pachli.core.preferences.AppTheme
 import com.google.android.material.color.MaterialColors
 
 /**
  * Provides runtime compatibility to obtain theme information and re-theme views, especially where
  * the ability to do so is not supported in resource files.
  */
-
-const val THEME_NIGHT = "night"
-const val THEME_DAY = "day"
-const val THEME_BLACK = "black"
-const val THEME_AUTO = "auto"
-const val THEME_SYSTEM = "auto_system"
-const val APP_THEME_DEFAULT = THEME_SYSTEM
 
 fun getDimension(context: Context, @AttrRes attribute: Int): Int {
     return context.obtainStyledAttributes(intArrayOf(attribute)).use { array ->
@@ -51,18 +45,17 @@ fun setDrawableTint(context: Context, drawable: Drawable, @AttrRes attribute: In
     )
 }
 
-fun setAppNightMode(flavor: String?) {
+fun setAppNightMode(flavor: AppTheme) {
     when (flavor) {
-        THEME_NIGHT, THEME_BLACK -> AppCompatDelegate.setDefaultNightMode(
+        AppTheme.NIGHT, AppTheme.BLACK -> AppCompatDelegate.setDefaultNightMode(
             AppCompatDelegate.MODE_NIGHT_YES,
         )
-        THEME_DAY -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        THEME_AUTO -> AppCompatDelegate.setDefaultNightMode(
+        AppTheme.DAY -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        AppTheme.AUTO -> AppCompatDelegate.setDefaultNightMode(
             AppCompatDelegate.MODE_NIGHT_AUTO_TIME,
         )
-        THEME_SYSTEM -> AppCompatDelegate.setDefaultNightMode(
+        AppTheme.AUTO_SYSTEM -> AppCompatDelegate.setDefaultNightMode(
             AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
         )
-        else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 }
