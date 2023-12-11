@@ -43,6 +43,11 @@
     <dimen name="min_report_button_width">160dp</dimen>
     <dimen name="account_avatar_background_radius">14dp</dimen>
 
+    <dimen name="profile_badge_stroke_width">1dp</dimen>
+    <dimen name="profile_badge_min_height">24dp</dimen>
+    <dimen name="profile_badge_icon_size">16dp</dimen>
+    <dimen name="profile_badge_icon_start_padding">4dp</dimen>
+    <dimen name="profile_badge_icon_end_padding">0dp</dimen>
 
     <dimen name="card_radius">5dp</dimen>
 
