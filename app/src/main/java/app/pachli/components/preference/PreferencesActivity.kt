@@ -30,11 +30,10 @@ import app.pachli.appstore.EventHub
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
+import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.PrefKeys.APP_THEME
-import app.pachli.core.preferences.getNonNullString
 import app.pachli.databinding.ActivityPreferencesBinding
-import app.pachli.util.APP_THEME_DEFAULT
 import app.pachli.util.setAppNightMode
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
@@ -102,7 +101,7 @@ class PreferencesActivity :
             sharedPreferencesRepository.changes.filterNotNull().collect { key ->
                 when (key) {
                     APP_THEME -> {
-                        val theme = sharedPreferencesRepository.getNonNullString(APP_THEME, APP_THEME_DEFAULT)
+                        val theme = AppTheme.from(sharedPreferencesRepository)
                         Timber.d("activeTheme: %s", theme)
                         setAppNightMode(theme)
 

@@ -24,12 +24,11 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import app.pachli.components.notifications.createWorkerNotificationChannel
+import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.NEW_INSTALL_SCHEMA_VERSION
 import app.pachli.core.preferences.PrefKeys
-import app.pachli.core.preferences.PrefKeys.APP_THEME
 import app.pachli.core.preferences.SCHEMA_VERSION
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.util.APP_THEME_DEFAULT
 import app.pachli.util.LocaleManager
 import app.pachli.util.setAppNightMode
 import app.pachli.worker.PruneCacheWorker
@@ -88,7 +87,7 @@ class PachliApplication : Application() {
         EmojiPackHelper.init(this, DefaultEmojiPackList.get(this), allowPackImports = false)
 
         // init night mode
-        val theme = sharedPreferencesRepository.getString(APP_THEME, APP_THEME_DEFAULT)
+        val theme = AppTheme.from(sharedPreferencesRepository)
         setAppNightMode(theme)
 
         localeManager.setLocale()

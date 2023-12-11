@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Modifications to this list or order must be kept in sync with
+         SettingsConstants.AppTheme -->
     <string-array name="app_theme_names">
         <item>@string/app_them_dark</item>
         <item>@string/app_theme_light</item>
