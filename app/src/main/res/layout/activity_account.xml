@@ -150,42 +150,43 @@
                         app:srcCompat="@drawable/ic_reblog_private_24dp"
                         tools:visibility="visible" />
 
-                    <TextView
-                        android:id="@+id/accountFollowsYouTextView"
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/accountFollowsYouChip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:background="@drawable/profile_badge_background"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:minHeight="@dimen/profile_badge_min_height"
                         android:text="@string/follows_you"
                         android:textSize="?attr/status_text_small"
-                        android:textColor="?colorOnPrimaryContainer"
                         android:visibility="gone"
+                        app:chipBackgroundColor="#0000"
+                        app:chipMinHeight="@dimen/profile_badge_min_height"
+                        app:chipStrokeColor="?android:attr/textColorTertiary"
+                        app:chipStrokeWidth="@dimen/profile_badge_stroke_width"
+                        app:ensureMinTouchTargetSize="false"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/accountUsernameTextView"
                         tools:visibility="visible" />
 
-                    <TextView
-                        android:id="@+id/accountBadgeTextView"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/accountBadgeContainer"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:layout_marginTop="6dp"
-                        android:background="@drawable/profile_badge_background"
-                        android:textColor="?colorOnPrimaryContainer"
-                        android:text="@string/profile_badge_bot_text"
-                        android:textSize="?attr/status_text_small"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/accountFollowsYouTextView"
-                        app:layout_constraintTop_toBottomOf="@id/accountUsernameTextView"
-                        app:layout_goneMarginStart="0dp"
-                        tools:visibility="visible" />
+                        app:chipSpacingVertical="4dp"
+                        app:layout_constraintStart_toEndOf="@id/accountUsernameTextView"
+                        app:layout_constraintTop_toBottomOf="@id/accountFollowsYouChip"
+                        app:layout_goneMarginStart="0dp" />
 
                     <androidx.constraintlayout.widget.Barrier
                         android:id="@+id/labelBarrier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:barrierDirection="bottom"
-                        app:constraint_referenced_ids="accountFollowsYouTextView,accountBadgeTextView" />
+                        app:constraint_referenced_ids="accountFollowsYouChip,accountBadgeContainer" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/accountNoteTextInputLayout"

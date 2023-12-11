@@ -38,7 +38,7 @@ data class Account(
     val emojis: List<Emoji>? = emptyList(), // nullable for backward compatibility
     val fields: List<Field>? = emptyList(), // nullable for backward compatibility
     val moved: Account? = null,
-
+    val roles: List<Role>? = emptyList()
 ) {
 
     val name: String
@@ -68,4 +68,14 @@ data class Field(
 data class StringField(
     val name: String,
     val value: String,
+)
+
+/** [Mastodon Entities: Role](https://docs.joinmastodon.org/entities/Role) */
+data class Role(
+    /** Displayable name of the role */
+    val name: String,
+    /** Colour to use for the role badge, may be the empty string */
+    val color: String,
+    /** True if the badge should be displayed on the account profile */
+    val highlighted: Boolean,
 )
