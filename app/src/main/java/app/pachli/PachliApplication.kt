@@ -18,6 +18,7 @@
 package app.pachli
 
 import android.app.Application
+import android.content.Context
 import androidx.core.content.edit
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -55,6 +56,12 @@ class PachliApplication : Application() {
 
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+
+        initCrashReporter(this)
+    }
 
     override fun onCreate() {
         // Uncomment me to get StrictMode violation logs
