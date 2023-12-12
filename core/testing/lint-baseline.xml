@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.1.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.1.2)" variant="all" version="8.1.2">
+<issues format="6" by="lint 8.2.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.2.0)" variant="all" version="8.2.0">
 
     <issue
         id="InvalidPackage"
@@ -69,6 +69,17 @@
         message="Invalid package reference in org.robolectric:utils; not included in Android: `javax.inject`. Referenced from `org.robolectric.util.inject.Injector`.">
         <location
             file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/utils/4.11.1/12828864aac49e8ebcf2de03d3d33919ca8a1b01/utils-4.11.1.jar"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 24 (current min is 23): `java.util.Collection#removeIf`"
+        errorLine1="        spans.removeIf { span -> span.span == what }"
+        errorLine2="              ~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/testing/fakes/FakeSpannable.kt"
+            line="36"
+            column="15"/>
     </issue>
 
     <issue

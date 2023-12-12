@@ -75,6 +75,7 @@ import app.pachli.components.compose.dialog.showAddPollDialog
 import app.pachli.components.compose.view.ComposeOptionsListener
 import app.pachli.components.compose.view.ComposeScheduleView
 import app.pachli.components.instanceinfo.InstanceInfoRepository
+import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -117,7 +118,6 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
-import java.text.BreakIterator
 import java.text.DecimalFormat
 import java.util.Locale
 import kotlin.math.max
@@ -1358,20 +1358,6 @@ class ComposeActivity :
             contentWarning?.let { length += it.toString().mastodonLength() }
 
             return length
-        }
-
-        /**
-         * @return the "Mastodon" length of a string. [String.length] counts emojis as
-         * multiple characters, but Mastodon treats them as a single character.
-         */
-        private fun String.mastodonLength(): Int {
-            val breakIterator = BreakIterator.getCharacterInstance()
-            breakIterator.setText(this)
-            var count = 0
-            while (breakIterator.next() != BreakIterator.DONE) {
-                count++
-            }
-            return count
         }
 
         /**
