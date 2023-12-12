@@ -17,6 +17,22 @@ dependencyResolutionManagement {
     }
 }
 
+plugins {
+    id("com.gradle.enterprise") version "3.16"
+}
+
+val isCiBuild = !System.getenv("CI").isNullOrBlank()
+
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
+        isUploadInBackground = !isCiBuild
+        tag(if (isCiBuild) "CI" else "Local")
+        publishAlwaysIf(isCiBuild)
+    }
+}
+
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
