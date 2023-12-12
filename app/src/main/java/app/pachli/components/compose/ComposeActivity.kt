@@ -28,6 +28,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputFilter
 import android.text.Spanned
 import android.text.style.URLSpan
 import android.view.KeyEvent
@@ -116,6 +117,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
+import java.text.BreakIterator
 import java.text.DecimalFormat
 import java.util.Locale
 import kotlin.math.max
@@ -1323,6 +1325,7 @@ class ComposeActivity :
          *   (https://docs.joinmastodon.org/user/posting/#mentions)
          * - Hashtags are always treated as their actual length, including the "#"
          *   (https://docs.joinmastodon.org/user/posting/#hashtags)
+         * - Emojis are treated as a single character
          *
          * Content warning text is always treated as its full length, URLs and other entities
          * are not treated differently.
@@ -1332,9 +1335,8 @@ class ComposeActivity :
          * @param urlLength the number of characters attributed to URLs
          * @return the effective status length
          */
-        @JvmStatic
         fun statusLength(body: Spanned, contentWarning: Spanned?, urlLength: Int): Int {
-            var length = body.length - body.getSpans(0, body.length, URLSpan::class.java)
+            var length = body.toString().mastodonLength() - body.getSpans(0, body.length, URLSpan::class.java)
                 .fold(0) { acc, span ->
                     // Accumulate a count of characters to be *ignored* in the final length
                     acc + when (span) {
@@ -1347,15 +1349,64 @@ class ComposeActivity :
                         }
                         else -> {
                             // Expected to be negative if the URL length < maxUrlLength
-                            span.url.length - urlLength
+                            span.url.mastodonLength() - urlLength
                         }
                     }
                 }
 
             // Content warning text is treated as is, URLs or mentions there are not special
-            contentWarning?.let { length += it.length }
+            contentWarning?.let { length += it.toString().mastodonLength() }
 
             return length
+        }
+
+        /**
+         * @return the "Mastodon" length of a string. [String.length] counts emojis as
+         * multiple characters, but Mastodon treats them as a single character.
+         */
+        private fun String.mastodonLength(): Int {
+            val breakIterator = BreakIterator.getCharacterInstance()
+            breakIterator.setText(this)
+            var count = 0
+            while (breakIterator.next() != BreakIterator.DONE) {
+                count++
+            }
+            return count
+        }
+
+        /**
+         * [InputFilter] that uses the "Mastodon" length of a string, where emojis always
+         * count as a single character.
+         *
+         * Unlike [InputFilter.LengthFilter] the source input is not trimmed if it is
+         * too long, it's just rejected.
+         */
+        class MastodonLengthFilter(private val maxLength: Int) : InputFilter {
+            override fun filter(
+                source: CharSequence?,
+                start: Int,
+                end: Int,
+                dest: Spanned?,
+                dstart: Int,
+                dend: Int,
+            ): CharSequence? {
+                val destRemovedLength = dest?.subSequence(dstart, dend).toString().mastodonLength()
+                val available = maxLength - dest.toString().mastodonLength() + destRemovedLength
+                val sourceLength = source?.subSequence(start, end).toString().mastodonLength()
+
+                // Not enough space to insert the new text
+                if (sourceLength > available) return REJECT
+
+                return ALLOW
+            }
+
+            companion object {
+                /** Filter result allowing the changes */
+                val ALLOW = null
+
+                /** Filter result preventing the changes */
+                const val REJECT = ""
+            }
         }
     }
 }

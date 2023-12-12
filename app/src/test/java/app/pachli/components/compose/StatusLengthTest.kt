@@ -17,7 +17,7 @@
 
 package app.pachli.components.compose
 
-import app.pachli.SpanUtilsTest
+import app.pachli.core.testing.fakes.FakeSpannable
 import app.pachli.util.highlightSpans
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -53,7 +53,7 @@ class StatusLengthTest(
 
     @Test
     fun statusLength_matchesExpectations() {
-        val spannedText = SpanUtilsTest.FakeSpannable(text)
+        val spannedText = FakeSpannable(text)
         highlightSpans(spannedText, 0)
 
         assertEquals(
@@ -64,10 +64,10 @@ class StatusLengthTest(
 
     @Test
     fun statusLength_withCwText_matchesExpectations() {
-        val spannedText = SpanUtilsTest.FakeSpannable(text)
+        val spannedText = FakeSpannable(text)
         highlightSpans(spannedText, 0)
 
-        val cwText = SpanUtilsTest.FakeSpannable(
+        val cwText = FakeSpannable(
             "a @example@example.org #hashtagmention and http://example.org URL",
         )
         assertEquals(
