@@ -409,4 +409,5 @@
     <string name="account_username_copied">Käyttäjätunnus kopioitu</string>
     <string name="action_translate_undo">Peru käännös</string>
     <string name="action_discard">Hylkää muutokset</string>
+    <string name="profile_metadata_add">lisää dataa</string>
 </resources>
