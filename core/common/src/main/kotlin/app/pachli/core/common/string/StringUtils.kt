@@ -1,6 +1,7 @@
 package app.pachli.core.common.string
 
 import android.text.Spanned
+import java.text.BreakIterator
 import java.util.Random
 
 private const val POSSIBLE_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -42,6 +43,20 @@ fun String.isLessThan(other: String): Boolean {
  */
 fun String.isLessThanOrEqual(other: String): Boolean {
     return this == other || isLessThan(other)
+}
+
+/**
+ * @return the "Mastodon" length of a string. [String.length] counts emojis as
+ * multiple characters, but Mastodon treats them as a single character.
+ */
+fun String.mastodonLength(): Int {
+    val breakIterator = BreakIterator.getCharacterInstance()
+    breakIterator.setText(this)
+    var count = 0
+    while (breakIterator.next() != BreakIterator.DONE) {
+        count++
+    }
+    return count
 }
 
 fun Spanned.trimTrailingWhitespace(): Spanned {

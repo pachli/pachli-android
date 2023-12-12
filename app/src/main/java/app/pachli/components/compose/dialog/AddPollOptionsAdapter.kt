@@ -16,13 +16,13 @@
 
 package app.pachli.components.compose.dialog
 
-import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.components.compose.ComposeActivity.Companion.MastodonLengthFilter
 import app.pachli.databinding.ItemAddPollOptionBinding
 import app.pachli.util.BindingHolder
 import app.pachli.util.visible
@@ -45,7 +45,7 @@ class AddPollOptionsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemAddPollOptionBinding> {
         val binding = ItemAddPollOptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val holder = BindingHolder(binding)
-        binding.optionEditText.filters = arrayOf(InputFilter.LengthFilter(maxOptionLength))
+        binding.optionEditText.filters = arrayOf(MastodonLengthFilter(maxOptionLength))
 
         binding.optionEditText.doOnTextChanged { s, _, _, _ ->
             val pos = holder.bindingAdapterPosition
