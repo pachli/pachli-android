@@ -189,6 +189,8 @@ dependencies {
 
     debugImplementation(libs.leakcanary)
 
+    orangeImplementation(libs.bundles.acra)
+
     testImplementation(projects.core.testing)
     testImplementation(libs.androidx.test.junit)
     testImplementation(libs.robolectric)

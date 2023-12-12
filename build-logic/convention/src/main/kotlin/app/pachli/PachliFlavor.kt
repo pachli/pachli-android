@@ -36,7 +36,8 @@ enum class PachliFlavor(
     val appName: String = "Pachli",
     val customLogoUrl: String = "",
     val customInstance: String = "",
-    val supportAccountUrl: String = "https://mastodon.social/@Pachli"
+    val supportAccountUrl: String = "https://mastodon.social/@Pachli",
+    val supportEmail: String = "team@pachli.app",
 ) {
     blue(FlavorDimension.color),
     orange(
@@ -73,6 +74,7 @@ fun configureFlavors(
                     buildConfigField("String", "CUSTOM_LOGO_URL", "\"${flavor.customLogoUrl}\"")
                     buildConfigField("String", "CUSTOM_INSTANCE", "\"${flavor.customInstance}\"")
                     buildConfigField("String", "SUPPORT_ACCOUNT_URL", "\"${flavor.supportAccountUrl}\"")
+                    buildConfigField("String", "SUPPORT_EMAIL", "\"${flavor.supportEmail}\"")
                 }
             }
         }
