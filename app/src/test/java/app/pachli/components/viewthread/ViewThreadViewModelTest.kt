@@ -165,6 +165,7 @@ class ViewThreadViewModelTest {
 
         val cachedTimelineRepository: CachedTimelineRepository = mock {
             onBlocking { getStatusViewData(any()) } doReturn emptyMap()
+            onBlocking { getStatusTranslations(any()) } doReturn emptyMap()
         }
 
         val serverCapabilitiesRepository = ServerCapabilitiesRepository(
