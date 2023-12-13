@@ -18,6 +18,7 @@ package app.pachli.viewdata
 import android.os.Build
 import android.text.Spanned
 import android.text.SpannedString
+import app.pachli.BuildConfig
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.ConversationStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
@@ -191,16 +192,29 @@ data class StatusViewData(
             filterAction: Filter.Action = Filter.Action.NONE,
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
             translation: TranslatedStatusEntity? = null,
-        ) = StatusViewData(
-            status = status,
-            isShowingContent = isShowingContent,
-            isCollapsed = isCollapsed,
-            isExpanded = isExpanded,
-            isDetailed = isDetailed,
-            filterAction = filterAction,
-            translationState = translationState,
-            translation = translation,
-        )
+        ): StatusViewData {
+            if (BuildConfig.DEBUG) {
+                // TODO: Ensure that invalid state is not representable.
+                // Currently the translation is encoded in both `translationState` and
+                // `translation`. If they get out of sync then this will fire. It would be
+                // better to encode the translation in a single type (enum, sealed class?)
+                // that can only represent valid states, so this can't happen.
+                if (translationState == TranslationState.SHOW_TRANSLATION && translation == null) {
+                    throw IllegalStateException("trying to show a null translation")
+                }
+            }
+
+            return StatusViewData(
+                status = status,
+                isShowingContent = isShowingContent,
+                isCollapsed = isCollapsed,
+                isExpanded = isExpanded,
+                isDetailed = isDetailed,
+                filterAction = filterAction,
+                translationState = translationState,
+                translation = translation,
+            )
+        }
 
         fun from(conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
             status = Status(
