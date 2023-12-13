@@ -20,7 +20,7 @@ package app.pachli.core.database.dao
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.MapInfo
+import androidx.room.MapColumn
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import androidx.room.Upsert
@@ -263,14 +263,14 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
      * @param serverIds the IDs of the statuses to check
      * @return Map between serverIds and any cached viewdata for those statuses
      */
-    @MapInfo(keyColumn = "serverId")
     @Query(
         """SELECT *
              FROM StatusViewDataEntity
             WHERE timelineUserId = :accountId
               AND serverId IN (:serverIds)""",
     )
-    abstract suspend fun getStatusViewData(accountId: Long, serverIds: List<String>): Map<String, StatusViewDataEntity>
+    abstract suspend fun getStatusViewData(accountId: Long, serverIds: List<String>):
+        Map<@MapColumn(columnName = "serverId") String, StatusViewDataEntity>
 
     @Query(
         """UPDATE TimelineStatusEntity SET pinned = :pinned
