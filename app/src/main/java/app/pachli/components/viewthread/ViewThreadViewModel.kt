@@ -195,8 +195,8 @@ class ViewThreadViewModel @Inject constructor(
             contextResult.fold({ statusContext ->
                 val ids = statusContext.ancestors.map { it.id } + statusContext.descendants.map { it.id }
                 val cachedViewData = repository.getStatusViewData(ids)
-                val ancestors = statusContext.ancestors.map {
-                        status ->
+                val cachedTranslations = repository.getStatusTranslations(ids)
+                val ancestors = statusContext.ancestors.map { status ->
                     val svd = cachedViewData[status.id]
                     StatusViewData.from(
                         status,
@@ -205,6 +205,7 @@ class ViewThreadViewModel @Inject constructor(
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
                         translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                        translation = cachedTranslations[status.id],
                     )
                 }.filterByFilterAction()
                 val descendants = statusContext.descendants.map {
@@ -217,6 +218,7 @@ class ViewThreadViewModel @Inject constructor(
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
                         translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                        translation = cachedTranslations[status.id],
                     )
                 }.filterByFilterAction()
                 val statuses = ancestors + detailedStatus + descendants

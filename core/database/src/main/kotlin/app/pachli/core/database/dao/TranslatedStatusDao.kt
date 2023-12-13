@@ -18,6 +18,8 @@
 package app.pachli.core.database.dao
 
 import androidx.room.Dao
+import androidx.room.MapColumn
+import androidx.room.Query
 import androidx.room.Upsert
 import app.pachli.core.database.model.TranslatedStatusEntity
 
@@ -25,4 +27,16 @@ import app.pachli.core.database.model.TranslatedStatusEntity
 interface TranslatedStatusDao {
     @Upsert
     suspend fun upsert(translatedStatusEntity: TranslatedStatusEntity)
+
+    /**
+     * @return map from statusIDs to known translations for those IDs
+     */
+    @Query(
+        """SELECT *
+            FROM TranslatedStatusEntity
+            WHERE timelineUserId = :accountId
+            AND serverId IN (:serverIds)""",
+    )
+    suspend fun getTranslations(accountId: Long, serverIds: List<String>):
+        Map<@MapColumn(columnName = "serverId") String, TranslatedStatusEntity>
 }
