@@ -772,7 +772,7 @@ class AccountActivity :
             }
         }
 
-        if (loadedAccount?.bot == false) {
+        if (loadedAccount?.bot == true) {
             val badgeView = getBadge(
                 MaterialColors.getColor(
                     binding.accountBadgeContainer,
