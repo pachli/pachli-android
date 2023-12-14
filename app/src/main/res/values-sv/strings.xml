@@ -721,4 +721,15 @@
     <string name="about_account_info_title">Ditt konto</string>
     <string name="label_image">Bild</string>
     <string name="action_translate_undo">Ångra översättning</string>
+    <string name="acra_dialog_text">Förlåt för det. Klicka på OK för att förbereda ett e-postmeddelande till utvecklarna med detaljer</string>
+    <string name="acra_email_body">Denna data kommer att skickas till utvecklarna.
+\n
+\nKontrollera att den inte innehåller något du inte vill dela, och beskriv vad du gjorde när kraschen inträffade.
+\n
+\n ----
+\nDin beskrivning här:
+\n
+\n----
+\n</string>
+    <string name="acra_dialog_title">%1$s kraschade</string>
 </resources>
