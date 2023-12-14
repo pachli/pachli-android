@@ -28,9 +28,9 @@ enum class TabKind(val repr: String) {
     LOCAL("Local"),
     FEDERATED("Federated"),
     DIRECT("Direct"),
-    TRENDING_TAGS("TrendingTags"),
-    TRENDING_LINKS("TrendingLinks"),
-    TRENDING_STATUSES("TrendingStatuses"),
+    TRENDING_TAGS("Trending_Tags"),
+    TRENDING_LINKS("Trending_Links"),
+    TRENDING_STATUSES("Trending_Statuses"),
     HASHTAG("Hashtag"),
     LIST("List"),
     BOOKMARKS("Bookmarks")
