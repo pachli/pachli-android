@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+New features:
+
+- Show roles on profiles 
+- Show compose button when viewing lists 
+- Show compose button when viewing bookmarks list 
+
+Fixes:
+
+- Show translated content in threads
+- Calculate length of posts and polls with emojis correctly 
+- Prevent crash
+  - If a preview card has no author
+  - If an error occurs in a timeline without a FAB 
+  - On profile if account has null `createdAt` field 
+- Update translations

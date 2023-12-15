@@ -1,5 +1,32 @@
 # Pachli changelog
 
+## v2.1.0
+
+### New features and other improvements
+
+- Show roles on profiles (#[312](https://github.com/pachli/pachli-android/pull/312), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Display compose button when viewing lists (#[279](https://github.com/pachli/pachli-android/pull/279), [sanao](https://github.com/pachli/pachli-android/commits?author=naosak1006@gmail.com))
+- Display compose button when viewing bookmarks list (#[278](https://github.com/pachli/pachli-android/pull/278), [sanao](https://github.com/pachli/pachli-android/commits?author=naosak1006@gmail.com))
+
+### Significant bug fixes
+
+- Show translated content when viewing a thread (#[320](https://github.com/pachli/pachli-android/pull/320), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Calculate length of posts and polls with emojis correctly (#[315](https://github.com/pachli/pachli-android/pull/315), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent crash if a preview card does not have an author ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent crash if an error is shown in a timeline without a FAB ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent crash showing profile if account has null `createdAt` field ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent memory leak in CompositeWithOpaqueBackground (#[309](https://github.com/pachli/pachli-android/pull/309), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent UnsupportedOperationException in PachliTileService (#[288](https://github.com/pachli/pachli-android/pull/288), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update English (United Kingdom) translations ([Jener Gomes](https://github.com/pachli/pachli-android/commits?author=jenerg1@gmail.com))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Japanese translations ([sanao](https://github.com/pachli/pachli-android/commits?author=jinsei@sanao.dev))
+- Update Portuguese (Brazil) translations ([Jener Gomes](https://github.com/pachli/pachli-android/commits?author=jenerg1@gmail.com))
+- Update Spanish translations ([Jener Gomes](https://github.com/pachli/pachli-android/commits?author=jenerg1@gmail.com))
+- Update Swedish translations ([Luna Jernberg](https://github.com/pachli/pachli-android/commits?author=bittin@reimu.nl))
+
 ## v2.0.0
 
 ### New features and other improvements
