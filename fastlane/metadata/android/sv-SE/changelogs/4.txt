@@ -1,0 +1,5 @@
+Pachli 1.2.1
+
+Nya funktioner:
+
+- Länk till integritetspolicyn från "Om"

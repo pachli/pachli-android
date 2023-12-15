@@ -1,0 +1,15 @@
+Pachli 1.4.0
+
+Nya funktioner:
+
+- Kontrollera regelbundet efter uppdateringar och varna användaren
+
+Fixat:
+
+- Visa inställningar omedelbart
+- Respektera FAB_HIDE-inställningen i tidslinjer
+- Se till att systemkontrollerna är synliga på äldre enheter
+- Ta bort förloppsindikatorn från statustidslinjer
+- Återställ bildformat när dra slutar
+- Förhindrade potentiell krasch när filtren laddas långsamt
+- Uppdaterade italienska översättningar

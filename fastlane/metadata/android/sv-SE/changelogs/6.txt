@@ -1,0 +1,19 @@
+Pachli 1.3.0
+
+Nya funktioner:
+
+- Lägg till en preferens för att dölja "självförstärkningar"
+- Visa fullständig visning och användarnamn i profilvyn
+- Förbättra visningen av "dolda" länkar
+- Justera UX-beteende för videouppspelning
+
+Fixar:
+
+- Se till att ett tomt tidslinjemeddelande är synligt
+- Använd Pachli blå och orange för meddelandeikoner
+- Visa media när du återupptar ViewMediaFragment
+- Visa trådindikatorer och andra avdelare med materialfärger
+
+Översättningar:
+
+- Uppdaterade polska och japanska översättningar

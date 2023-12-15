@@ -1,0 +1,11 @@
+Pachli är en fullfjädrad klient för Mastodon och liknande servrar.
+
+• Läs, svara, filtrera, posta, favorita och förstärka inlägg
+• Översätt inlägg från andra språk
+• Din tidslinje cachelagras lokalt så att du kan läsa när du är offline
+• Gör utkast till inlägg nu, för att slutföra dem senare
+• Skriv inlägg nu, schemalägg dem för att skicka senare
+• Läs och posta från flera konton
+• Flera teman
+• Fokuserat på att säkerställa att all funktionalitet är tillgänglig för personer med tillgänglighetsbehov
+• Öppen källkod, https://github.com/pachli
