@@ -25,7 +25,7 @@
 - Update Japanese translations ([sanao](https://github.com/pachli/pachli-android/commits?author=jinsei@sanao.dev))
 - Update Portuguese (Brazil) translations ([Jener Gomes](https://github.com/pachli/pachli-android/commits?author=jenerg1@gmail.com))
 - Update Spanish translations ([Jener Gomes](https://github.com/pachli/pachli-android/commits?author=jenerg1@gmail.com))
-- Update Swedish translations ([bittin1ddc447d824349b2](https://github.com/pachli/pachli-android/commits?author=bittin@reimu.nl))
+- Update Swedish translations ([Luna Jernberg](https://github.com/pachli/pachli-android/commits?author=bittin@reimu.nl))
 
 ## v2.0.0
 
