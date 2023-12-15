@@ -1,0 +1,10 @@
+Pachli 1.1
+
+Fixar:
+- Använd rätt kontrastfärg på hashtaggflikar
+- Skala den monokroma ikonen så att den passar
+- Återställ användarens hemmatidslinjeposition
+- Se till att uppdateringen inte skapar en lucka i tidslinjen
+- Visa FAB enligt användarens preferenser
+- Åtgärda verktygsfältsflimmer när du rullar listor
+- Åtgärda kraschar när du går in i MainActivity på Pixel C-enheter

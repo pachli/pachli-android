@@ -1,0 +1,12 @@
+Pachli 1.2
+
+Nya funktioner:
+
+- Visa vertikala rullningslister på rullningsbara listor
+
+Fixar:
+
+- Återställ användarens läsposition under alla omständigheter
+- Aktivera/inaktivera röstknapp när användaren kan/inte kan rösta
+- Använd rätt färg för statusfältet
+- Se till att texten i omröstningsalternativet är synlig mot bakgrunden

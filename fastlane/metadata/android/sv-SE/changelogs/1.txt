@@ -1,0 +1,19 @@
+Nya funktioner inkluderar:
+
+- "Ladda mer" inte längre, inlägg laddas medans du rullar
+- Populära länkar och inlägg
+- Mer än 5 flikar
+- Välj från en rad tillgängliga typsnitt
+- Ny mediaspelare
+- Filter i aviseringar
+- Markera listor som "exklusiva"
+- Lägg till "bokmärken" till flikar
+
+Buggfixar inkluderar:
+
+- Bilder "fastnar" inte när du zoomar eller sveper mellan dem
+
+UX ändringar inkluderar:
+- En visuell uppfräschning, nytt färgschema
+- Bestäm standardtemat från dina Android inställningar
+- "Rensa aviseringar" är ett menyalternativ

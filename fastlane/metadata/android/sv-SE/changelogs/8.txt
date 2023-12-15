@@ -1,0 +1,15 @@
+Pachli 2.0.0
+
+Nya funktioner:
+
+- Översatt status på cachade tidslinjer
+- Visa skrivknapp när du tittar på hashtags och favoriter
+- Öka mängden information i länkförhandsgranskningar
+- Varnar användaren om en Android-animationsbugg
+
+Fixar:
+
+- Förhindra en ClassCastException vid hantering av tidslinjefel
+- Uppdatera temafärger
+- Se till att uppdateringsrelaterade dataklasser behålls
+- Uppdaterade tyska, italienska och japanska översättningar
