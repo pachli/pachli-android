@@ -652,4 +652,83 @@
     <string name="socket_timeout_exception">Contact zoeken met je server duurde te lang</string>
     <string name="dialog_delete_filter_positive_action">Verwijder</string>
     <string name="dialog_delete_filter_text">Verwijder filter \'%1$s\'\?</string>
+    <string name="ui_error_translate_status">Vertaling faalde: %s</string>
+    <string name="update_dialog_negative">Herinner mij nooit</string>
+    <string name="translating">Vertalen…</string>
+    <string name="pref_title_update_notification_frequency">Vertel mij over nieuwe versies van Pachli</string>
+    <string name="title_public_trending_links">Opkomende links</string>
+    <string name="title_tab_public_trending_links">Koppelingen</string>
+    <string name="update_dialog_neutral">Herinner mij niet voor deze versie</string>
+    <string name="reaction_name_and_count">%1$s %2$d</string>
+    <string name="error_media_playback">Afspelen mislukt: %s</string>
+    <string name="title_public_trending">Opkomend</string>
+    <string name="janky_animation_msg">Deze versie van Pachli kan mogelijk een Android bug veroorzaken op sommige apparaten, en toont kapotte animaties.
+\n
+\nBijvoorbeeld als je een post aanklikt om een gesprek te bekijken.
+\n
+\nAls je dit ziet, dan moet je je apparaat herstarten.
+\n
+\nJe hoeft dit enkel eenmalig te doen.
+\n
+\nDit is een bug in Android, Pachli kan hier niet iets aan doen.</string>
+    <string name="description_browser_login">Mogelijk ondersteunt dit extra authenticatie opties, maar dit vereist een ondersteunde browser.</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_login">Werkt in de meeste gevallen. Geen data wordt gelekt naar andere apps.</string>
+    <string name="pref_title_update_settings">Software updates</string>
+    <string name="title_public_trending_statuses">Opkomende posts</string>
+    <string name="announcement_date">%1$s %2$s</string>
+    <string name="load_newest_statuses">Laad nieuwe posts</string>
+    <string name="notification_report_description">Notificaties over moderatie rapporten</string>
+    <string name="about_device_info_title">Jouw apparaat</string>
+    <string name="error_network_fmt">Er deed zich een netwerkfout voor: %s</string>
+    <string name="dialog_save_profile_changes_message">Wil je je profiel wijzigingen opslaan?</string>
+    <string name="error_generic_fmt">Er deed zich een fout voor: %s</string>
+    <string name="ui_error_favourite">Post als favoriet markeren faalde: %s</string>
+    <string name="ui_error_bookmark">Bookmarken van post faalde: %s</string>
+    <string name="compose_save_draft_loses_media">Voorlopige versie opslaan? (Bijlagen zullen worden geupload als je de versie herstelt.)</string>
+    <string name="pref_update_notification_frequency_always">Altijd</string>
+    <string name="pref_update_notification_frequency_never">Nooit</string>
+    <string name="filter_keyword_addition_title">Voeg sleutelwoord toe</string>
+    <string name="label_filter_keywords">Sleutelwoorden of zinnen om te filteren</string>
+    <string name="pref_title_show_self_boosts_description">Iemand die hun eigen post boost</string>
+    <string name="acra_dialog_text">Sorry daarvoor. Klik op OK om een e-mail op te stellen naar de ontwikkelaars met alle details</string>
+    <string name="ui_error_filter_v1_load">Laden van filters faalde: %s</string>
+    <string name="confirmation_hashtag_muted">#%s verborgen</string>
+    <string name="janky_animation_title">Mogelijk is het noodzakelijk om je apparaat opnieuw op te starten</string>
+    <string name="confirmation_hashtag_unmuted">#%s niet meer verborgen</string>
+    <string name="pref_title_show_self_boosts">Toon zelf-boosts</string>
+    <string name="announcement_date_updated">(Bijgewerkt: %1$s)</string>
+    <string name="title_tab_public_trending_statuses">Posts</string>
+    <string name="help_empty_home">Dit is je <b>Thuis tijdlijn</b>. Het toont de meest recente posts van accounts die je volgt.
+\n
+\nOm meer accounts te vinden, kun je ze ontdekken in een van de andere tijdlijnen. Bijvoorbeeld de lokale tijdlijn van jouw instance [iconics gmd_group]. Of je kunt zoeken op naam [iconics gmd_search]; bijvoorbeeld als je zoekt op Pachli dan vind je ons Mastodon account.</string>
+    <string name="acra_email_body">Deze data wordt verzonden naar de ontwikkelaars.
+\n
+\nControleer alsjeblieft of er niks tussen zit dat je niet met ons wilt delen, omschrijf wat je deed wanneer de crash gebeurde.
+\n
+\n ----
+\nJe omschrijving hier:
+\n
+\n ----
+\n</string>
+    <string name="pref_update_notification_frequency_once_per_version">Eenmaal per versie</string>
+    <string name="about_privacy_policy">Privacy beleid</string>
+    <string name="error_404_not_found">Je server beschikt niet over ondersteuning voor deze feature</string>
+    <string name="pref_title_font_family">Lettertype-familie</string>
+    <string name="list_exclusive_label">Verberg op de Thuis tijdlijn</string>
+    <string name="ui_success_rejected_follow_request">Volg verzoek geblokkeerd</string>
+    <string name="action_translate">Vertalen</string>
+    <string name="a11y_label_loading_thread">Laden van gesprek</string>
+    <string name="error_missing_edits">Je server weet dat deze post is bewerkt, maar heeft geen kopie van de bewerkingen en kan deze dus niet tonen.
+\n
+\nDit is <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon issue #25398</a>.</string>
+    <string name="label_filter_context">Filter contexten</string>
+    <string name="update_dialog_title">Een update is beschikbaar</string>
+    <string name="title_tab_public_trending_hashtags">Hashtags</string>
+    <string name="filter_edit_keyword_title">Bewerk sleutelwoord</string>
+    <string name="label_image">Afbeelding</string>
+    <string name="action_translate_undo">Vertaling ongedaan maken</string>
+    <string name="notification_prune_cache">Cache onderhoud…</string>
+    <string name="pref_ui_text_size">UI tekst grootte</string>
+    <string name="acra_dialog_title">%1$s crashed</string>
 </resources>
