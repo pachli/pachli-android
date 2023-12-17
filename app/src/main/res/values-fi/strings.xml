@@ -149,7 +149,7 @@
     <string name="action_unfollow">Seurataan</string>
     <string name="action_follow">Seuraa</string>
     <string name="action_send_public">TUUT!</string>
-    <string name="title_view_thread">Lanka</string>
+    <string name="title_view_thread">Ketju</string>
     <string name="title_scheduled_posts">Ajastetut tuuttaukset</string>
     <string name="action_reply">Vastaa</string>
     <string name="post_username_format">\@%s</string>
@@ -200,7 +200,7 @@
     <string name="download_image">Ladataan kuvaa %1$s</string>
     <string name="action_mute_conversation">Mykistä keskustelu</string>
     <string name="error_generic">Tapahtui virhe.</string>
-    <string name="action_logout_confirm">Halutako varmasti kirjautua ulos tililtä %s1\?</string>
+    <string name="action_logout_confirm">Halutako varmasti kirjautua ulos tililtä %s1? Tämä poistaa kaiken laittellesi tallennetun tiedon tilistä, mukaanlukien luonnokset ja asetukset.</string>
     <string name="action_unreblog">Poista jako</string>
     <string name="action_create_list">Luo lista</string>
     <string name="action_mute_domain">Mykistä %s</string>
@@ -217,7 +217,7 @@
 \n(enintään %d merkkiä)</item>
     </plurals>
     <string name="edit_hashtag_hint">Aihetunniste ilman #-merkkiä</string>
-    <string name="title_domain_mutes">Piilotetus verkkonimet</string>
+    <string name="title_domain_mutes">Piilotetut verkkotunnukset</string>
     <string name="action_share_as">Jaa…</string>
     <string name="error_no_web_browser_found">Verkkoselainta ei löytynyt.</string>
     <string name="action_delete_conversation">Poista keskustelu</string>
@@ -225,8 +225,8 @@
     <string name="notification_subscription_format">%s julkaisi juuri</string>
     <string name="action_quick_reply">Vastaa nopeasti</string>
     <string name="action_hide_reblogs">Piilota jaetut julkaisut</string>
-    <string name="footer_empty">Täällä ei ole mitään. Liu\'uta alaspäin päivittääksesi!</string>
-    <string name="error_network">Verkkovirhe! Tarkista yhteytesi ja yritä uudelleen!</string>
+    <string name="footer_empty">Täällä ei ole mitään. Vedä alas päivittääksesi!</string>
+    <string name="error_network">Verkkovirhe. Tarkista yhteytesi ja yritä uudelleen.</string>
     <string name="action_open_media_n">Avaa media No. %d</string>
     <string name="error_sender_account_gone">Julkaisun lähettäminen epäonnistui.</string>
     <string name="error_empty">Tätä kenttää ei voi jättää tyhjäksi.</string>
@@ -297,7 +297,7 @@
     <string name="post_media_attachments">Liitteet</string>
     <string name="title_media">Media</string>
     <string name="pref_title_public_filter_keywords">Julkiset aikajanat</string>
-    <string name="pref_title_thread_filter_keywords">Langat</string>
+    <string name="pref_title_thread_filter_keywords">Ketjut</string>
     <string name="filter_addition_title">Lisää suodatin</string>
     <string name="later">Myöhemmin</string>
     <string name="description_post_cw">Sisältövaroitus: %s</string>
@@ -421,7 +421,7 @@
     <string name="pref_title_notification_filter_sign_ups">joku rekisteröityi</string>
     <string name="notification_listenable_worker_name">Taustatoiminta</string>
     <string name="pref_title_hide_follow_button">Piilota kirjoita-painike vieritettäessä</string>
-    <string name="send_post_notification_error_title">Julkaisun lähettäminen epäonnistui.</string>
+    <string name="send_post_notification_error_title">Julkaisun lähettäminen epäonnistui</string>
     <string name="pref_title_notification_filter_follow_requests">seuraamista pyydetty</string>
     <string name="pref_title_notification_filters">Ilmoita kun</string>
     <string name="status_filter_placeholder_label_format">Suodatettu: %s</string>
@@ -494,4 +494,114 @@
     <string name="pref_main_nav_position_option_top">Yläreuna</string>
     <string name="notification_prune_cache">Välimuistin ylläpito…</string>
     <string name="pref_ui_text_size">Käyttöliittymän tekstikoko</string>
+    <string name="ui_error_translate_status">Kääntäminen epäonnistui: %s</string>
+    <string name="update_dialog_negative">Älä muistuta koskaan</string>
+    <string name="translating">Käännetään…</string>
+    <string name="dialog_delete_filter_positive_action">Poista</string>
+    <string name="ui_error_reblog">Julkaisun tehostaminen epäonnistui: %s</string>
+    <string name="review_notifications">Katso ilmoitukset</string>
+    <string name="dialog_delete_list_warning">Haluatko todella poistaa listan %s?</string>
+    <string name="action_subscribe_account">Tilaa</string>
+    <string name="pref_title_update_notification_frequency">Ilmoita Pachlin uusista versioista</string>
+    <string name="filter_action_warn">Varoita</string>
+    <string name="action_unfollow_hashtag_format">Lopeta tilin #%s seuraamninen?</string>
+    <string name="no_lists">Sinulla ei ole listoja.</string>
+    <string name="ui_error_vote">Äänestäminen epäonnistui: %s</string>
+    <string name="update_dialog_neutral">Älä muistuta enää tästä versiosta</string>
+    <string name="ui_error_reject_follow_request">Seuraajapyynnön hylkääminen epäonnistui: %s</string>
+    <string name="ui_error_clear_notifications">Ilmoitusten nollaaminen epäonnistui: %s</string>
+    <string name="pref_title_show_self_username">Näytä kättäjänimi työkalurivissä</string>
+    <string name="reaction_name_and_count">%1$s %2$d</string>
+    <string name="dialog_delete_filter_text">Poistetaanko suodatin \'%1$s\'?</string>
+    <string name="follow_requests_info">Vaikka tiliäsi ei ole lukittu, palvelimen %1$s ylläpito arvelee, että saatat haluta hyväksyä näiden tilien seuraajapyynnöt käsin.</string>
+    <string name="language_display_name_format">%s (%s)</string>
+    <string name="total_accounts">Tilien kokonaismärä</string>
+    <string name="hint_filter_title">Suodattimeni</string>
+    <string name="pref_title_confirm_favourites">Pyydä vahvistus ennen tykkäystä</string>
+    <string name="ui_success_accepted_follow_request">Seuraajapyyntö hyväksytty</string>
+    <string name="report_category_other">Muu</string>
+    <string name="error_media_playback">Toisto epäonnistui: %s</string>
+    <string name="drafts_failed_loading_reply">Vastaustietojn lataaminen epäonnistui</string>
+    <string name="instance_rule_title">Palvelimen %s säännöt</string>
+    <string name="warning_scheduling_interval">Lyhin ajastusväli Mastodonissa on 5 minuuttia.</string>
+    <string name="dialog_push_notification_migration_other_accounts">Olet kirjautunut uudelleen nykyiseen tiliisi myöntääksesi Pachlille tilausluvan. Sinulla on kuitenkin muitakin tilejä, joita ei ole siirretty tällä tavalla. Vaihda niihin ja kirjaudu uudelleen yksi kerrallaan, jotta UnifiedPush-ilmoitusten tuki voidaan ottaa käyttöön.</string>
+    <string name="mute_notifications_switch">Hiljennä ilmoitukset</string>
+    <string name="accessibility_talking_about_tag">%1$d käyttäjää keskustelee aihetunnisteesta %2$s</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="status_edit_info">Muokattu: %1$s</string>
+    <string name="pref_title_update_settings">Ohjelmiston päivitykset</string>
+    <string name="wellbeing_hide_stats_profile">Piilota profiilien tilastonumerot</string>
+    <string name="announcement_date">%1$s%2$s</string>
+    <string name="socket_timeout_exception">Yhteydenotto palvelimeen kesti liian kauan</string>
+    <string name="load_newest_statuses">Lataa uusimmat julkaisut</string>
+    <string name="dialog_save_profile_changes_message">Haluatko tallentaa profiilisi muutokset?</string>
+    <string name="ui_error_favourite">Julkaisun tykkääminen epäonnistui: %s</string>
+    <string name="pachli_compose_post_quicksetting_label">Kirjoita julkaisu</string>
+    <string name="ui_error_bookmark">Kirjamerkin liittäminen julkaisuun epäonnistui: %s</string>
+    <string name="no_scheduled_posts">Sinulla ei ole ajastettuja julkaisuja.</string>
+    <string name="report_category_spam">Roskapostia</string>
+    <string name="total_usage">Kokonaiskäyttö</string>
+    <string name="pref_update_notification_frequency_always">Aina</string>
+    <string name="pref_title_wellbeing_mode">Hyvinvointi</string>
+    <string name="pref_update_notification_frequency_never">Ei koskaan</string>
+    <string name="filter_keyword_display_format">%s (koko sana)</string>
+    <string name="action_refresh">Päivitä</string>
+    <plurals name="error_upload_max_media_reached">
+        <item quantity="one">Et voi ladata useamipa medialiitteitä kuin %1$d.</item>
+        <item quantity="other">Et voi ladata useamipa medialiitteitä kuin %1$d.</item>
+    </plurals>
+    <string name="filter_keyword_addition_title">Lisää avainsana</string>
+    <string name="report_category_violation">Sääntörikkomus</string>
+    <string name="label_filter_keywords">Avainsanat tai jonot jotka suodatetaan</string>
+    <string name="drafts_post_reply_removed">Julkaisu, johon olit kirjoittanut vastausluonnoksen, on poistettu</string>
+    <string name="acra_dialog_text">Pyydämme anteeksi. Paina OK jos haluat lähettää kehittäjille yksityiskohtaiset tiedot</string>
+    <string name="limit_notifications">Rajoita aikajanan ilmoituksia</string>
+    <string name="account_date_joined">Liittyi %1$s</string>
+    <string name="ui_error_unknown">tuntematon syy</string>
+    <string name="ui_error_filter_v1_load">Suodattimien lataaminen epäonnistui: %s</string>
+    <string name="janky_animation_title">Saatat joutua käynnistämään laitteesi uudelleen</string>
+    <string name="announcement_date_updated">(Päivitetty: %1$s)</string>
+    <string name="about_copied">Tiedot versiosta ja laitteesta kopioitu</string>
+    <string name="instance_rule_info">Kirjautumalla sisään hyväksyt palvelimen %s säännöt.</string>
+    <string name="tips_push_notification_migration">Kirjaudu uudelleen kaikille tileille push-ilmoitusten ottamiseksi käyttöön.</string>
+    <string name="pref_update_notification_frequency_once_per_version">Kerran jokaisesta versiosta</string>
+    <string name="filter_description_hide">Piilota täysin</string>
+    <string name="filter_description_format">%s: %s</string>
+    <string name="pref_title_hide_top_toolbar">Piilota työkalurivin otsikko</string>
+    <string name="filter_action_hide">Piilota</string>
+    <string name="label_filter_title">Otsikko</string>
+    <string name="action_unsubscribe_account">Peru tilaus</string>
+    <string name="no_announcements">Ilmoituksia ei ole.</string>
+    <string name="ui_error_accept_follow_request">Seuraajapyynnön hyväksyminen epäonnistui: %s</string>
+    <string name="ui_success_rejected_follow_request">Seuraajapyyntö estetty</string>
+    <string name="no_drafts">Sinulla ei ole luonnoksia.</string>
+    <string name="a11y_label_loading_thread">Ketjua ladataan</string>
+    <string name="error_missing_edits">Palvelimesi tietää, että tätä julkaisua on muokattu, mutta sillä ei ole kopiota muokkauksista, joten niitä ei voida näyttää.
+\n
+\nTämä on <a href="https://github.com/mastodon/mastodon/issues/25398"> Mastodon-tehtävä #25398 </a>.</string>
+    <string name="delete_scheduled_post_warning">Poistetaanko tämä ajastettu julkaisu?</string>
+    <string name="drafts_post_failed_to_send">Julkaisun lähettäminen epäonnistui!</string>
+    <string name="label_filter_context">Suodattimen kontekstit</string>
+    <string name="about_copy">Kopio tiedot versiosta ja laitteesta</string>
+    <string name="pref_title_confirm_reblogs">Pyydä vahvistus ennen tehostamista</string>
+    <string name="account_note_hint">Yksityinen muistiinpano tästä tilistä</string>
+    <string name="dialog_push_notification_migration">Push-ilmoitusten käyttämiseksi UnifiedPushin kautta Pachli tarvitsee luvan tilata Mastodon-palvelimellesi ilmoitukset. Tämä edellyttää Pachlille myönnettyjen OAuthin laajuuksien muuttamista. Uudelleenkirjautumisvaihtoehdon käyttäminen täällä tai tilin asetuksissa tallentaa kaikki paikalliset luonnokset ja välimuistin.</string>
+    <string name="label_filter_action">Suodattimen toiminta</string>
+    <string name="update_dialog_title">Päivitys on saatavilla</string>
+    <string name="filter_edit_keyword_title">Muokkaa avainsanaa</string>
+    <string name="filter_description_warn">Piilota varoituksen taakse</string>
+    <string name="saving_draft">Luonnosta tallennetaan…</string>
+    <string name="wellbeing_mode_notice">Tietoja, jotka saattavat vaikuttaa henkiseen hyvinvointiin, piilotetaan. Tähän sisältyy:
+\n
+\nIlmoitukset tykkäyksistä/Tehostuksista/Seuraajista
+\nTykkäysten/Tehostusten laskurit julkaisuissa
+\nSeuraaja/Julkaisumäärät profiileissa
+\n
+\nTämä ei veikuta push-ilmoituksiin, mutta voit muuttaa ilmoitusasetukset erikseen.</string>
+    <string name="wellbeing_hide_stats_posts">Piilota julkaisujen laskurit</string>
+    <string name="status_created_info">Luotu: %1$s</string>
+    <string name="action_add">Lisää</string>
+    <string name="load_newest_notifications">Lataa uusimmat ilmoitukset</string>
+    <string name="pref_title_show_cards_in_timelines">Näytä linkkien esikatselut aikajanoissa</string>
+    <string name="acra_dialog_title">%1$s kaatui</string>
 </resources>
