@@ -43,8 +43,16 @@ data class TabData(val kind: TabKind, val arguments: List<String> = emptyList())
         fun from(kind: TabKind, arguments: List<String> = emptyList()) =
             TabData(kind, arguments)
 
-        fun from(kind: String, arguments: List<String> = emptyList()) =
-            TabData(TabKind.valueOf(kind.uppercase()), arguments)
+        fun from(kind: String, arguments: List<String> = emptyList()): TabData {
+            // Work around for https://github.com/pachli/pachli-android/issues/329,
+            // as the Trending... kinds may have been serialised without the `_`
+            return when(kind) {
+                "TrendingTags" -> TabData(TabKind.TRENDING_TAGS, arguments)
+                "TrendingLinks" -> TabData(TabKind.TRENDING_LINKS, arguments)
+                "TrendingStatuses" -> TabData(TabKind.TRENDING_STATUSES, arguments)
+                else -> TabData(TabKind.valueOf(kind.uppercase()), arguments)
+            }
+        }
     }
 }
 
