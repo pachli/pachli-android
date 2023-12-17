@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Nya funktioner:
+
+- Visa roller på profiler
+- Visa skrivknapp när du visar listor
+- Visa skrivknapp när du tittar på bokmärkeslistan 
+
+Fixar:
+
+- Visa översatt innehåll i trådar
+- Beräkna längden på inlägg och omröstningar med emojis korrekt
+- Förhindra krascher
+- Om ett förhandsgranskningskort inte har någon författare
+- Om ett fel uppstår i en tidslinje utan FAB
+- På profilen om kontot har noll "createdAt"-fält
+- Uppdaterade översättningar

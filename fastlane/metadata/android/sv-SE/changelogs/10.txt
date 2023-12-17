@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Fixar:
+
+-Förhindra krasch om det finns en trendflik
