@@ -1,5 +1,11 @@
 # Pachli changelog
 
+## v2.1.1
+
+### Significant bug fixes
+
+- Prevent crash if a trending tab is present (#[330](https://github.com/pachli/pachli-android/pull/330), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
 ## v2.1.0
 
 ### New features and other improvements
