@@ -200,7 +200,7 @@
     <string name="download_image">Ladataan kuvaa %1$s</string>
     <string name="action_mute_conversation">Mykistä keskustelu</string>
     <string name="error_generic">Tapahtui virhe.</string>
-    <string name="action_logout_confirm">Halutako varmasti kirjautua ulos tililtä %s1? Tämä poistaa kaiken laittellesi tallennetun tiedon tilistä, mukaanlukien luonnokset ja asetukset.</string>
+    <string name="action_logout_confirm">Halutako varmasti kirjautua ulos tililtä %1$s? Tämä poistaa kaiken laittellesi tallennetun tiedon tilistä, mukaanlukien luonnokset ja asetukset.</string>
     <string name="action_unreblog">Poista jako</string>
     <string name="action_create_list">Luo lista</string>
     <string name="action_mute_domain">Mykistä %s</string>
@@ -211,10 +211,8 @@
     <string name="action_show_reblogs">Näytä jaetut julkaisut</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s ja %4$d muuta</string>
     <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Kuvaa sisältö näkövammaisille
-\n(enintään %d merkkiä)</item>
-        <item quantity="other">Kuvaa sisältö näkövammaisille
-\n(enintään %d merkkiä)</item>
+        <item quantity="one">Kuvaa sisältö näkövammaisille (enintään %d merkkiä)</item>
+        <item quantity="other">Kuvaa sisältö näkövammaisille (enintään %d merkkiä)</item>
     </plurals>
     <string name="edit_hashtag_hint">Aihetunniste ilman #-merkkiä</string>
     <string name="title_domain_mutes">Piilotetut verkkotunnukset</string>
@@ -237,7 +235,7 @@
     <string name="notification_summary_small">%1$s ja %2$s</string>
     <string name="error_invalid_domain">Syöttämäsi verkkonimi on virheellinen</string>
     <string name="action_unmute_desc">Poista mykistys tililtä %s</string>
-    <string name="action_compose">Kirjoita julkaisu</string>
+    <string name="action_compose">Kirjoita</string>
     <string name="hint_search_people_list">Hae seuraamiasi henkilöitä</string>
     <string name="message_empty">Täällä ei ole mitään.</string>
     <string name="notification_sign_up_format">%s rekisteröityi</string>
@@ -604,4 +602,125 @@
     <string name="load_newest_notifications">Lataa uusimmat ilmoitukset</string>
     <string name="pref_title_show_cards_in_timelines">Näytä linkkien esikatselut aikajanoissa</string>
     <string name="acra_dialog_title">%1$s kaatui</string>
+    <string name="pref_title_enable_swipe_for_tabs">Vaihda välilehteä pyyhkäisemällä</string>
+    <string name="report_remote_instance">Lähetä edelleen %s</string>
+    <string name="poll_info_time_absolute">päättyy %s</string>
+    <string name="description_post_language">Julkaisun kieli</string>
+    <string name="duration_30_days">30 päivää</string>
+    <string name="reblog_private">Tehosta alkuperäiselle yleisölle</string>
+    <string name="compose_preview_image_description">Toiminnot kuvalle %s</string>
+    <string name="post_lookup_error_format">Julkaisun %s haku epäonnistui</string>
+    <string name="caption_twemoji">Mastodonin oletusemojit</string>
+    <string name="poll_info_format"> <!-- 15 ääntä • 1 tunti jäljellä --> %1$s• %2$s</string>
+    <string name="action_compose_shortcut">Kirjoita</string>
+    <string name="unreblog_private">Peru tehostus</string>
+    <string name="description_post_reblogged">Tehostettu</string>
+    <string name="caption_blobmoji">Blob-emojit Androidin versoioista 4.4–7.1</string>
+    <string name="account_moved_description">%1$s on siirtynyt tänne:</string>
+    <string name="description_visibility_direct">Vain mainitut</string>
+    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="description_post_favourited">Tykätty</string>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">%d tunti jäljellä</item>
+        <item quantity="other">%d tuntia jäljellä</item>
+    </plurals>
+    <string name="title_favourited_by">Tykännyt</string>
+    <string name="send_post_notification_saved_content">Kopio julkaisusta on tallennettu luonnoksiisi</string>
+    <string name="janky_animation_msg">Tämä Pachlin versio voi laukaista Android-virheen joissakin laitteissa ja näyttää rikkinäisiä animaatioita.
+\n
+\nEsimerkiksi, kun napautat viestiä katsoaksesi ketjun.
+\n
+\nJos näin tapahtuu, sinun täytyy käynnistää laite uudelleen.
+\n
+\nNäin tarvitsee tehdä vain kerran.
+\n
+\nTämä on Androidin bugi, jolle Pachli ei voi mitään.</string>
+    <string name="description_browser_login">Saattaa tukea muita tunnistautumistapoja, mutta vaatii tuetun verkkoselaimen.</string>
+    <string name="report_description_1">Raportti lähetetään palvelimesi moderaattorille. Alla voit selittää miksi raportoit tämän tilin:</string>
+    <plurals name="reblogs">
+        <item quantity="one"><b>%s</b> Tehostus</item>
+        <item quantity="other"><b>%s</b> Tehostusta</item>
+    </plurals>
+    <string name="caption_notoemoji">Googlen nykyiset emojit</string>
+    <string name="failed_report">Raportointi epäonnistui</string>
+    <string name="description_login">Toimii yleensä. Dataa ei vuoda muihin sovelluksiin.</string>
+    <string name="label_remote_account">Alla olevat tiedot eivät välttämättä näytä kaikkea käyttäjän profiilista. Paina avataksesi täydellisen profiilin selaimessa.</string>
+    <string name="report_description_remote_instance">Tili on toisella palvelimella. Lähetetäänkö sinnekin nimetön kopio raportista?</string>
+    <string name="conversation_2_recipients">%1$s ja %2$s</string>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s ääni</item>
+        <item quantity="other">%s ääntä</item>
+    </plurals>
+    <string name="select_list_manage">Hallinnoi listoja</string>
+    <string name="hint_additional_info">Lisäkommentteja</string>
+    <string name="download_fonts">Nämä emojikokoelmat on ensin ladattava</string>
+    <string name="failed_fetch_posts">Julkaisujen nouto epäonnistui</string>
+    <string name="duration_60_days">60 päivää</string>
+    <string name="compose_shortcut_short_label">Kirjoita</string>
+    <string name="poll_ended_voted">Kysely jossa olet äänestänyt on päättynyt</string>
+    <string name="profile_metadata_label">Profiilin metadata</string>
+    <string name="title_reblogged_by">Tehostanut</string>
+    <string name="conversation_1_recipients">%1$s</string>
+    <string name="notification_clear_text">Haluatko varmasti poistaa kaikki ilmoituksesi pysyvästi?</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">%d sekunti jäljellä</item>
+        <item quantity="other">%d sekuntia jäljellä</item>
+    </plurals>
+    <string name="profile_metadata_label_label">Etiketti</string>
+    <string name="label_duration">Kesto</string>
+    <string name="pref_title_show_stat_inline">Näytä julkaisujen tilastot aikajanassa</string>
+    <string name="restart_required">Sovellus on käynnistettävä uudelleen</string>
+    <string name="restart_emoji">Pachli on käynnistettävä uudelleen muutosten ottamiseksi käyttöön</string>
+    <string name="duration_14_days">14 päivää</string>
+    <string name="conversation_more_recipients">%1$s, %2$s ja vielä %3$d</string>
+    <string name="filter_apply">Käytä</string>
+    <string name="help_empty_home">Tämä on sinun <b>kotiaikajanasi</b>. Se näyttää seuraamiesi tilien uusimmat julkaisut.
+\n
+\nJos haluat tutkia muita tilejä, voit löytää niitä toisesta aikajanasta, esimerkiksi oman instanssisi paikallisesta aikajanasta [iconics gmd_group]. Voit myös etsiä niitä nimeltä [iconics gmd_search]; etsi esimerkiksi sanalla ”Pachli” löytääksesi Mastodon-tilimme.</string>
+    <string name="notifications_clear">Poista ilmoitukset</string>
+    <string name="hint_list_name">Listan nimi</string>
+    <string name="acra_email_body">Nämä tiedot lähetetään kehittäjille.
+\n
+\nTarkista, että tiedot eivät sisällä mitään, mitä et halua jakaa, ja kerro, mitä teit, kun ohjelma kaatui.
+\n
+\n------
+\nKirjoita kuvaus tähän:
+\n
+\n------
+\n</string>
+    <string name="expand_collapse_all_posts">Avaa/Sulje kaikki julkasut</string>
+    <string name="select_list_title">Valitse lista</string>
+    <string name="duration_indefinite">Loputon</string>
+    <string name="caption_systememoji">Laitteesi oletusemojit</string>
+    <string name="list_exclusive_label">Piilota kotiaikajanalta</string>
+    <string name="performing_lookup_title">Etsitään…</string>
+    <string name="failed_search">Haku epäonnistui</string>
+    <string name="error_list_load">Listojen lataaminen epäonnistui</string>
+    <string name="report_sent_success">Raportti käyttäjästä @%s lähetetty</string>
+    <string name="compose_shortcut_long_label">Kirjoita julkaisu</string>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s henkilö</item>
+        <item quantity="other">%s henkilöä</item>
+    </plurals>
+    <string name="license_description">Pachlissa on koodia ja osioita näistä vapaan lähdekoodin projekteista:</string>
+    <string name="select_list_empty">Sinulla ei vielä ole listoja</string>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">%d päivä jäljellä</item>
+        <item quantity="other">%d päivää jäljellä</item>
+    </plurals>
+    <string name="description_post_edited">Muokattu</string>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">%d minuutti jäljellä</item>
+        <item quantity="other">%d minuuttia jäljellä</item>
+    </plurals>
+    <string name="error_no_custom_emojis">Instanssissa %s ei ole omia hymiöitä</string>
+    <string name="poll_ended_created">Kysely jonka olet luonut on päättynyt</string>
+    <string name="description_post_bookmarked">Kirjanmerkki lisätty</string>
+    <plurals name="favs">
+        <item quantity="one"><b>%1$s</b> Tykkäys</item>
+        <item quantity="other"><b>%1$s</b> Tykkäystä</item>
+    </plurals>
+    <string name="description_poll">Kysely jossa vaihtoehdot: %1$s, %2$s, %3$s, %4$s, %5$s</string>
+    <string name="duration_no_change">(Ei muutosta)</string>
+    <string name="description_post_media">Media: %s</string>
 </resources>
