@@ -250,4 +250,16 @@
     <string name="error_unmuting_hashtag_format">Kesalahan mengaktifkan #%s</string>
     <string name="error_status_source_load">Gagal memuat sumber status dari server.</string>
     <string name="title_public_trending_hashtags">Hashtag yang sedang tren</string>
+    <string name="title_public_trending_links">Tautan Trending</string>
+    <string name="title_tab_public_trending_links">Tautan</string>
+    <string name="title_public_trending">Sedang tren</string>
+    <string name="title_public_trending_statuses">Postingan trending</string>
+    <string name="error_network_fmt">Jaringan error: %s</string>
+    <string name="error_generic_fmt">Terjadi error: %s</string>
+    <string name="title_edits">Sunting</string>
+    <string name="title_followed_hashtags">Tagar yang diikuti</string>
+    <string name="error_media_upload_sending_fmt">Upload gagal: %s</string>
+    <string name="title_tab_public_trending_statuses">Postingan</string>
+    <string name="error_404_not_found">Server Anda tidak mendukung fitur ini</string>
+    <string name="title_tab_public_trending_hashtags">Tagar</string>
 </resources>
