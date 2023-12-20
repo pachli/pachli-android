@@ -129,9 +129,9 @@
     <string name="login_connection">Conectando…</string>
     <string name="dialog_whats_an_instance">"O domínio de qualquer instância pode ser inserido aqui, tal como mastodon.social, masto.donte.com.br, colorid.es ou &lt;a href=\"https://instances.social\"&gt;qualquer outro&lt;/a&gt;!
 \n
-\nSe não tem uma conta ainda, insira o nome da instância que gostaria de participar e crie uma conta lá.
+\nSe não tens uma conta ainda, insira o nome da instância que gostarias de participar e cria uma conta lá.
 \n
-\nUma instância é um lugar único onde tua conta é hospedada, mas pode te comunicar facilmente e seguir pessoas de outras instâncias como se todos estivessem no mesmo lugar.
+\nUma instância é um lugar único onde a tua conta é hospedada, mas podes te comunicar facilmente e seguir pessoas de outras instâncias como se todos estivessem no mesmo lugar.
 \n
 \nMais informações podem ser encontradas em &lt;a href=https://joinmastodon.org/pt-BR\"&gt;joinmastodon.org/pt-BR&lt;/a&gt;. "</string>
     <string name="dialog_title_finishing_media_upload">Envio de mídia terminando</string>
@@ -730,4 +730,15 @@
     <string name="load_newest_notifications">Carregar notificações mais recentes</string>
     <string name="action_discard">Descartar mudanças</string>
     <string name="pref_ui_text_size">Tamanho do texto da UI</string>
+    <string name="acra_dialog_text">Desculpas por isso. Clique em OK para preparar uma mensagem aos desenvolvedores com detalhes</string>
+    <string name="acra_email_body">Esses dados serão enviados aos desenvolvedores.
+\n
+\nPor favor, verifique se ele não inclui algo que não queriras compartilhar e, por favor, descreva o que estavas fazendo quando a falha aconteceu.
+\n
+\n----
+\nA tua descrição aqui:
+\n
+\n----
+\n</string>
+    <string name="acra_dialog_title">%1$s travou</string>
 </resources>
