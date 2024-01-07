@@ -258,8 +258,8 @@
     <string name="title_lists">Lijsten</string>
     <string name="compose_active_account_description">Berichten plaatsen als %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Omschrijf inhoud voor iemand met een visuele beperking (tekenlimiet is %d)</item>
-        <item quantity="other">Omschrijf inhoud voor mensen met een visuele beperking (tekenlimiet is %d)</item>
+        <item quantity="one">Omschrijf de inhoud voor iemand met een visuele beperking (tekenlimiet is %d)</item>
+        <item quantity="other">Omschrijf de inhoud voor mensen met een visuele beperking (tekenlimiet is %d)</item>
     </plurals>
     <string name="action_set_caption">Beschrijving toevoegen</string>
     <string name="action_remove">Verwijderen</string>
@@ -642,7 +642,7 @@
     <string name="notification_listenable_worker_description">Meldingen als Pachli werkt op de achtergrond</string>
     <string name="about_device_info">%s %s
 \nAndroid versie: %s
-\nSDK versie: %d</string>
+\nSDK niveau: %d</string>
     <string name="about_account_info_title">Je account</string>
     <string name="about_account_info">\@%s@%s
 \nVersie: %s</string>
