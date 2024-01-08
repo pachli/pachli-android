@@ -49,6 +49,8 @@ import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -72,8 +74,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import timber.log.Timber
-import javax.inject.Inject
-import kotlin.time.Duration.Companion.milliseconds
 
 data class UiState(
     /** Filtered notification types */
@@ -333,6 +333,7 @@ class NotificationsViewModel @Inject constructor(
     // message, as it will be confusing to the user.
     val uiSuccess = MutableSharedFlow<UiSuccess>()
 
+    @Suppress("ktlint:standard:property-naming")
     /** Channel for error results */
     // Errors are sent to a channel to ensure that any errors that occur *before* there are any
     // subscribers are retained. If this was a SharedFlow any errors would be dropped, and if it

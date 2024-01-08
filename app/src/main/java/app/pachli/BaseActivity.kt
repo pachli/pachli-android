@@ -51,8 +51,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.EntryPointAccessors.fromApplication
 import dagger.hilt.components.SingletonComponent
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 @AndroidEntryPoint
 abstract class BaseActivity : AppCompatActivity() {

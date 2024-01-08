@@ -38,6 +38,13 @@ import app.pachli.util.getImageSquarePixels
 import app.pachli.util.getMediaSize
 import app.pachli.util.getServerErrorMessage
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.util.Date
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -56,13 +63,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import retrofit2.HttpException
 import timber.log.Timber
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
-import java.util.Date
-import javax.inject.Inject
-import javax.inject.Singleton
 
 sealed interface FinalUploadEvent
 
@@ -85,9 +85,9 @@ fun createNewImageFile(context: Context, suffix: String = ".jpg"): File {
     val imageFileName = "Pachli_${randomId}_"
     val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(
-        imageFileName, /* prefix */
-        suffix, /* suffix */
-        storageDir, /* directory */
+        imageFileName,
+        suffix,
+        storageDir,
     )
 }
 
@@ -259,9 +259,9 @@ class MediaUploader @Inject constructor(
             // .m4a files. See https://github.com/tuskyapp/Tusky/issues/3189 for details.
             // Sniff the content of the file to determine the actual type.
             if (mimeType != null && (
-                mimeType.startsWith("audio/", ignoreCase = true) ||
-                    mimeType.startsWith("video/", ignoreCase = true)
-                )
+                    mimeType.startsWith("audio/", ignoreCase = true) ||
+                        mimeType.startsWith("video/", ignoreCase = true)
+                    )
             ) {
                 val retriever = MediaMetadataRetriever()
                 retriever.setDataSource(context, media.uri)

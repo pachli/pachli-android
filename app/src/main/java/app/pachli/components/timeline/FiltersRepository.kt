@@ -22,9 +22,9 @@ import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrThrow
-import retrofit2.HttpException
 import javax.inject.Inject
 import javax.inject.Singleton
+import retrofit2.HttpException
 
 sealed interface FilterKind {
     /** API v1 filter, filtering happens client side */

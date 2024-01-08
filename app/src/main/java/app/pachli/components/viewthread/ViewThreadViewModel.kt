@@ -49,6 +49,7 @@ import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.getOrThrow
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.BufferOverflow
@@ -59,7 +60,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class ViewThreadViewModel @Inject constructor(
@@ -235,7 +235,7 @@ class ViewThreadViewModel @Inject constructor(
                     detailedStatusPosition = 0,
                     revealButton = RevealButtonState.NO_BUTTON,
                 )
-            },)
+            })
         }
     }
 
@@ -473,7 +473,7 @@ class ViewThreadViewModel @Inject constructor(
                 if (it is HttpException && it.code() == 403) return@fold
 
                 _errors.emit(it)
-            },)
+            })
         }
     }
 
@@ -643,5 +643,7 @@ sealed interface ThreadUiState {
 }
 
 enum class RevealButtonState {
-    NO_BUTTON, REVEAL, HIDE
+    NO_BUTTON,
+    REVEAL,
+    HIDE,
 }

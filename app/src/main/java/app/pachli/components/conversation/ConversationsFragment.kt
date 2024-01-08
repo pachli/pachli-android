@@ -61,13 +61,13 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
 
 @AndroidEntryPoint
 class ConversationsFragment :

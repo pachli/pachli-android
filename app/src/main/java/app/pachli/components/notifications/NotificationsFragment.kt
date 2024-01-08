@@ -324,7 +324,8 @@ class NotificationsFragment :
                         when (it) {
                             is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation ->
                                 adapter.refresh()
-                            else -> { /* nothing to do */
+                            else -> {
+                                /* nothing to do */
                             }
                         }
                     }

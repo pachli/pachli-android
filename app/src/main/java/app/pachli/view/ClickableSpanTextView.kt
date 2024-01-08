@@ -38,10 +38,10 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.doOnLayout
 import app.pachli.BuildConfig
 import app.pachli.R
-import timber.log.Timber
 import java.lang.Float.max
 import java.lang.Float.min
 import kotlin.math.abs
+import timber.log.Timber
 
 /**
  * Displays text to the user with optional [ClickableSpan]s. Extends the touchable area of the spans

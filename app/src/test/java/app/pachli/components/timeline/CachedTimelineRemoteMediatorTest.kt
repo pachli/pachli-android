@@ -22,6 +22,7 @@ import app.pachli.core.database.model.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import com.google.common.truth.Truth.assertThat
 import com.google.gson.Gson
+import java.io.IOException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
@@ -39,7 +40,6 @@ import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
 import retrofit2.HttpException
 import retrofit2.Response
-import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class CachedTimelineRemoteMediatorTest {

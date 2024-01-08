@@ -40,11 +40,11 @@ import de.c1710.filemojicompat_defaults.DefaultEmojiPackList
 import de.c1710.filemojicompat_ui.helpers.EmojiPackHelper
 import de.c1710.filemojicompat_ui.helpers.EmojiPreference
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
-import org.conscrypt.Conscrypt
-import timber.log.Timber
 import java.security.Security
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import org.conscrypt.Conscrypt
+import timber.log.Timber
 
 @HiltAndroidApp
 class PachliApplication : Application() {

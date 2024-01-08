@@ -25,6 +25,8 @@ import app.pachli.R
 import app.pachli.core.network.model.NewPoll
 import app.pachli.databinding.DialogAddPollBinding
 
+const val DAY_SECONDS = 60 * 60 * 24
+
 fun showAddPollDialog(
     context: Context,
     poll: NewPoll?,
@@ -74,7 +76,6 @@ fun showAddPollDialog(
         }
     }
 
-    val DAY_SECONDS = 60 * 60 * 24
     val desiredDuration = poll?.expiresIn ?: DAY_SECONDS
     val pollDurationId = durations.indexOfLast {
         it <= desiredDuration

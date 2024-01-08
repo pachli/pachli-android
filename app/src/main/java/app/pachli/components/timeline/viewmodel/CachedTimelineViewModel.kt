@@ -39,13 +39,13 @@ import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.viewdata.StatusViewData
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * TimelineViewModel that caches all statuses in a local database

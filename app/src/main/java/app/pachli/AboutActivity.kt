@@ -22,8 +22,8 @@ import app.pachli.util.NoUnderlineURLSpan
 import app.pachli.util.hide
 import app.pachli.util.show
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AboutActivity : BottomSheetActivity() {

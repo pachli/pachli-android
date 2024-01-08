@@ -26,13 +26,13 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import com.google.gson.Gson
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import okhttp3.ResponseBody
 import retrofit2.Response
 import timber.log.Timber
-import javax.inject.Inject
 
 class NotificationsRepository @Inject constructor(
     private val mastodonApi: MastodonApi,

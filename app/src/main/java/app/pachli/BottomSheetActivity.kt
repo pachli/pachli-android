@@ -30,8 +30,8 @@ import app.pachli.util.looksLikeMastodonUrl
 import app.pachli.util.openLink
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /** this is the base class for all activities that open links
  *  links are checked against the api if they are mastodon links so they can be opened in Tusky
@@ -97,7 +97,7 @@ abstract class BottomSheetActivity : BaseActivity() {
                     onEndSearch(url)
                     performUrlFallbackAction(url, lookupFallbackBehavior)
                 }
-            },)
+            })
         }
     }
 

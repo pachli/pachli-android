@@ -20,11 +20,11 @@ import app.pachli.util.Success
 import app.pachli.util.getDomain
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class AccountViewModel @Inject constructor(
@@ -137,8 +137,8 @@ class AccountViewModel @Inject constructor(
 
     fun changeSubscribingState() {
         val relationship = relationshipData.value?.data
-        if (relationship?.notifying == true || /* Mastodon 3.3.0rc1 */
-            relationship?.subscribing == true /* Pleroma */
+        if (relationship?.notifying == true || // Mastodon 3.3.0rc1
+            relationship?.subscribing == true // Pleroma
         ) {
             changeRelationship(RelationShipAction.UNSUBSCRIBE)
         } else {
@@ -156,7 +156,7 @@ class AccountViewModel @Inject constructor(
                 }
             }, { e ->
                 Timber.e("Error muting $instance", e)
-            },)
+            })
         }
     }
 
@@ -169,7 +169,7 @@ class AccountViewModel @Inject constructor(
                 }
             }, { e ->
                 Timber.e("Error unmuting $instance", e)
-            },)
+            })
         }
     }
 
@@ -317,6 +317,13 @@ class AccountViewModel @Inject constructor(
     }
 
     enum class RelationShipAction {
-        FOLLOW, UNFOLLOW, BLOCK, UNBLOCK, MUTE, UNMUTE, SUBSCRIBE, UNSUBSCRIBE
+        FOLLOW,
+        UNFOLLOW,
+        BLOCK,
+        UNBLOCK,
+        MUTE,
+        UNMUTE,
+        SUBSCRIBE,
+        UNSUBSCRIBE,
     }
 }

@@ -124,7 +124,10 @@ class EditProfileActivity : BaseActivity() {
         binding.fieldList.layoutManager = LinearLayoutManager(this)
         binding.fieldList.adapter = accountFieldEditAdapter
 
-        val plusDrawable = IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).apply { sizeDp = 12; colorInt = Color.WHITE }
+        val plusDrawable = IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).apply {
+            sizeDp = 12
+            colorInt = Color.WHITE
+        }
 
         binding.addFieldButton.setCompoundDrawablesRelativeWithIntrinsicBounds(plusDrawable, null, null, null)
 

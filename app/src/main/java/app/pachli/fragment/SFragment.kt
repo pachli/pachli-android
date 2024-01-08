@@ -66,9 +66,9 @@ import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import com.google.android.material.snackbar.Snackbar
 import io.github.z4kn4fein.semver.constraints.toConstraint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 /* Note from Andrew on Jan. 22, 2017: This class is a design problem for me, so I left it with an
  * awkward name. TimelineFragment and NotificationFragment have significant overlap but the nature

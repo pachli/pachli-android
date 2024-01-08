@@ -55,11 +55,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountPreferencesFragment : PreferenceFragmentCompat() {

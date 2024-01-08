@@ -28,11 +28,11 @@ import app.pachli.core.network.model.Marker
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.delay
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.min
 import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.delay
+import timber.log.Timber
 
 /**
  * Fetch Mastodon notifications and show Android notifications, with summaries, for them.

@@ -41,14 +41,14 @@ import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
 import com.google.gson.Gson
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 // TODO: This is very similar to NetworkTimelineRepository. They could be merged (and the use
 // of the cache be made a parameter to getStatusStream), except that they return Pagers of
@@ -213,7 +213,7 @@ class CachedTimelineRepository @Inject constructor(
         }, {
             // Reset the translation state
             saveStatusViewData(statusViewData)
-        },)
+        })
         return translation
     }
 

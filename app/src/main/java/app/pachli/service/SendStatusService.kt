@@ -38,6 +38,9 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.unsafeLazy
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -48,9 +51,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.parcelize.Parcelize
 import retrofit2.HttpException
 import timber.log.Timber
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SendStatusService : Service() {
@@ -194,7 +194,7 @@ class SendStatusService : Service() {
                                 failOrRetry(throwable, statusId)
 
                                 return@launch
-                            },)
+                            })
                     }
                 }
             }
@@ -260,7 +260,7 @@ class SendStatusService : Service() {
             }, { throwable ->
                 Timber.w("failed sending status", throwable)
                 failOrRetry(throwable, statusId)
-            },)
+            })
             stopSelfWhenDone()
         }
     }
@@ -480,7 +480,8 @@ data class StatusToSend(
 @Parcelize
 data class MediaToSend(
     val localId: Int,
-    val id: String?, // null if media is not yet completely uploaded
+    // null if media is not yet completely uploaded
+    val id: String?,
     val uri: String,
     val description: String?,
     val focus: Attachment.Focus?,

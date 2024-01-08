@@ -30,6 +30,10 @@ import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.io.IOException
+import java.time.Instant
+import java.util.Date
+import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestScope
@@ -44,10 +48,6 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
-import java.io.IOException
-import java.time.Instant
-import java.util.Date
-import javax.inject.Inject
 
 open class PachliHiltApplication : PachliApplication()
 

@@ -21,10 +21,10 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class LoginWebViewViewModel @Inject constructor(
@@ -43,7 +43,7 @@ class LoginWebViewViewModel @Inject constructor(
                     instanceRules.value = instance.rules?.map { rule -> rule.text }.orEmpty()
                 }, { throwable ->
                     Timber.w("failed to load instance info", throwable)
-                },)
+                })
             }
         }
     }

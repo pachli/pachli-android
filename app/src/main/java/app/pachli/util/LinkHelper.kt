@@ -48,10 +48,10 @@ import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.color
 import com.mikepenz.iconics.utils.size
-import timber.log.Timber
 import java.lang.ref.WeakReference
 import java.net.URI
 import java.net.URISyntaxException
+import timber.log.Timber
 
 fun getDomain(urlString: String?): String {
     val host = urlString?.toUri()?.host ?: return ""

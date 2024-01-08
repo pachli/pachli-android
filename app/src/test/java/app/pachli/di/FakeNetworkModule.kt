@@ -26,10 +26,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import okhttp3.OkHttpClient
-import org.mockito.kotlin.mock
 import java.util.Date
 import javax.inject.Singleton
+import okhttp3.OkHttpClient
+import org.mockito.kotlin.mock
 
 @TestInstallIn(
     components = [SingletonComponent::class],

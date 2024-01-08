@@ -26,6 +26,8 @@ import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.throttleFirst
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,8 +36,6 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import kotlin.time.Duration.Companion.milliseconds
 
 sealed interface UiAction
 

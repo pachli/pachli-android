@@ -12,8 +12,8 @@ import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 @HiltViewModel
 class FollowedTagsViewModel @Inject constructor(
@@ -43,6 +43,6 @@ class FollowedTagsViewModel @Inject constructor(
             }, { e ->
                 Timber.e("Autocomplete search for $token failed.", e)
                 emptyList()
-            },)
+            })
     }
 }

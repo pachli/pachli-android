@@ -41,10 +41,10 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Show a list of statuses of a particular type; containing a particular hashtag,

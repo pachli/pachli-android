@@ -30,6 +30,12 @@ import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
 import app.pachli.util.copyToFile
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -37,12 +43,6 @@ import okhttp3.Request
 import okio.buffer
 import okio.sink
 import timber.log.Timber
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import javax.inject.Inject
 
 class DraftHelper @Inject constructor(
     @ApplicationContext val context: Context,

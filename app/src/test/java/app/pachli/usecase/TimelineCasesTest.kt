@@ -8,6 +8,7 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
+import java.util.Date
 import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
@@ -19,7 +20,6 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.stub
 import retrofit2.HttpException
 import retrofit2.Response
-import java.util.Date
 
 @RunWith(AndroidJUnit4::class)
 class TimelineCasesTest {

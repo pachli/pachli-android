@@ -39,8 +39,8 @@ import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import at.connyduck.calladapter.networkresult.onSuccess
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class TimelineCases @Inject constructor(
     private val mastodonApi: MastodonApi,
@@ -123,7 +123,7 @@ class TimelineCases @Inject constructor(
         }, { e ->
             Timber.w("Failed to change pin state", e)
             NetworkResult.failure(TimelineError(e.getServerErrorMessage()))
-        },)
+        })
     }
 
     suspend fun voteInPoll(statusId: String, pollId: String, choices: List<Int>): NetworkResult<Poll> {

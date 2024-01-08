@@ -44,10 +44,10 @@ import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import okhttp3.HttpUrl
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Main login page, the first thing that users see.
@@ -333,7 +333,7 @@ class LoginActivity : BaseActivity() {
             binding.domainTextInputLayout.error =
                 getString(R.string.error_loading_account_details)
             Timber.e(getString(R.string.error_loading_account_details), e)
-        },)
+        })
     }
 
     private fun setLoading(loadingState: Boolean) {

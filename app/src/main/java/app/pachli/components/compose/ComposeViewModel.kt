@@ -40,6 +40,7 @@ import app.pachli.service.ServiceClient
 import app.pachli.service.StatusToSend
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -53,7 +54,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class ComposeViewModel @Inject constructor(
@@ -168,7 +168,11 @@ class ComposeViewModel @Inject constructor(
                             item.copy(
                                 id = event.mediaId,
                                 uploadPercent = -1,
-                                state = if (event.processed) { QueuedMedia.State.PROCESSED } else { QueuedMedia.State.UNPROCESSED },
+                                state = if (event.processed) {
+                                    QueuedMedia.State.PROCESSED
+                                } else {
+                                    QueuedMedia.State.UNPROCESSED
+                                },
                             )
                         is UploadEvent.ErrorEvent -> {
                             media.update { mediaList -> mediaList.filter { it.localId != mediaItem.localId } }
@@ -383,7 +387,7 @@ class ComposeViewModel @Inject constructor(
                     }, { e ->
                         Timber.e("Autocomplete search for $token failed.", e)
                         emptyList()
-                    },)
+                    })
             }
             '#' -> {
                 return api.searchSync(query = token, type = SearchType.Hashtag.apiParameter, limit = 10)
@@ -392,7 +396,7 @@ class ComposeViewModel @Inject constructor(
                     }, { e ->
                         Timber.e("Autocomplete search for $token failed.", e)
                         emptyList()
-                    },)
+                    })
             }
             ':' -> {
                 val emojiList = emoji.replayCache.firstOrNull() ?: return emptyList()

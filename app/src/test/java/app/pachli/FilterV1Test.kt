@@ -26,13 +26,13 @@ import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.PollOption
 import app.pachli.core.network.model.Status
 import app.pachli.network.FilterModel
+import java.time.Instant
+import java.util.Date
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
-import java.time.Instant
-import java.util.Date
 
 @RunWith(AndroidJUnit4::class)
 class FilterV1Test {

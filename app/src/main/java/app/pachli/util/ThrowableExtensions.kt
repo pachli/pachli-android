@@ -2,10 +2,10 @@ package app.pachli.util
 
 import android.content.Context
 import app.pachli.R
+import java.io.IOException
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.HttpException
-import java.io.IOException
 
 /**
  * checks if this throwable indicates an error causes by a 4xx/5xx server response and

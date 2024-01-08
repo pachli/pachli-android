@@ -32,10 +32,10 @@ import app.pachli.usecase.TimelineCases
 import app.pachli.util.EmptyPagingSource
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class ConversationsViewModel @Inject constructor(
@@ -81,7 +81,7 @@ class ConversationsViewModel @Inject constructor(
                 saveConversationToDb(newConversation)
             }, { e ->
                 Timber.w("failed to favourite status", e)
-            },)
+            })
         }
     }
 
@@ -96,7 +96,7 @@ class ConversationsViewModel @Inject constructor(
                 saveConversationToDb(newConversation)
             }, { e ->
                 Timber.w("failed to bookmark status", e)
-            },)
+            })
         }
     }
 
@@ -112,7 +112,7 @@ class ConversationsViewModel @Inject constructor(
                     saveConversationToDb(newConversation)
                 }, { e ->
                     Timber.w("failed to vote in poll", e)
-                },)
+                })
         }
     }
 

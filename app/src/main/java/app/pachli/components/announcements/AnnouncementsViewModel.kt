@@ -32,9 +32,9 @@ import app.pachli.util.Resource
 import app.pachli.util.Success
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class AnnouncementsViewModel @Inject constructor(

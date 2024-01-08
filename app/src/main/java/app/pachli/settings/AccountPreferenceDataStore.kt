@@ -5,10 +5,10 @@ import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.preferences.PrefKeys
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class AccountPreferenceDataStore @Inject constructor(
     private val accountManager: AccountManager,

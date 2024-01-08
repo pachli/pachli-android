@@ -34,6 +34,9 @@ import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.time.Instant
+import java.util.Date
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -43,9 +46,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import java.time.Instant
-import java.util.Date
-import javax.inject.Inject
 
 open class PachliHiltApplication : PachliApplication()
 

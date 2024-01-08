@@ -121,8 +121,6 @@ enum class UserRefreshState {
 
     /** A refresh or prepend operation was [LoadState.Error] */
     ERROR,
-
-    ;
 }
 
 /**
@@ -185,7 +183,9 @@ fun Flow<CombinedLoadStates>.asRefreshState(): Flow<UserRefreshState> {
         refresh = when (loadState.refresh) {
             is LoadState.Loading -> if (refresh == UserRefreshState.WAITING) UserRefreshState.ACTIVE else refresh
             is LoadState.NotLoading -> if (refresh == UserRefreshState.ACTIVE) UserRefreshState.COMPLETE else refresh
-            else -> { throw IllegalStateException("can't happen, LoadState.Error is already handled") }
+            else -> {
+                throw IllegalStateException("can't happen, LoadState.Error is already handled")
+            }
         }
 
         // Prepend can only transition to active if there is an active or complete refresh

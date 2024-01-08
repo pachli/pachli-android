@@ -4,9 +4,9 @@ sealed interface Resource<T> {
     val data: T?
 }
 
-class Loading<T> (override val data: T? = null) : Resource<T>
+class Loading<T>(override val data: T? = null) : Resource<T>
 
-class Success<T> (override val data: T? = null) : Resource<T>
+class Success<T>(override val data: T? = null) : Resource<T>
 
 class Error<T>(
     override val data: T? = null,

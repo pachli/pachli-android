@@ -60,14 +60,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.regex.Pattern
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.regex.Pattern
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {

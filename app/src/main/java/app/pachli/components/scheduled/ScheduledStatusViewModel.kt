@@ -26,9 +26,9 @@ import app.pachli.core.network.model.ScheduledStatus
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class ScheduledStatusViewModel @Inject constructor(

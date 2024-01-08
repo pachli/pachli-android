@@ -23,8 +23,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import org.mockito.kotlin.mock
 import javax.inject.Singleton
+import org.mockito.kotlin.mock
 
 /**
  * Provides an empty mock. Use like:

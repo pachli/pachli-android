@@ -36,6 +36,10 @@ import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.time.Instant
+import java.util.Date
+import java.util.Locale
+import javax.inject.Inject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -49,10 +53,6 @@ import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
 import org.robolectric.fakes.RoboMenuItem
-import java.time.Instant
-import java.util.Date
-import java.util.Locale
-import javax.inject.Inject
 
 open class PachliHiltApplication : PachliApplication()
 

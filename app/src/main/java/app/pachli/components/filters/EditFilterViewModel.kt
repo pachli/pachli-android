@@ -10,10 +10,10 @@ import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import javax.inject.Inject
 
 @HiltViewModel
 class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub: EventHub) : ViewModel() {

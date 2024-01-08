@@ -25,12 +25,12 @@ import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.worker.NotificationWorker
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.unifiedpush.android.connector.MessagingReceiver
 import timber.log.Timber
-import javax.inject.Inject
 
 @DelicateCoroutinesApi
 @AndroidEntryPoint

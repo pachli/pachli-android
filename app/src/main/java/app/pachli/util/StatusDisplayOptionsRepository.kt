@@ -28,6 +28,8 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import io.github.z4kn4fein.semver.constraints.toConstraint
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,8 +37,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Repository for [StatusDisplayOptions], exposed through the [flow] property.
@@ -125,7 +125,9 @@ class StatusDisplayOptionsRepository @Inject constructor(
                         PrefKeys.SHOW_STATS_INLINE -> prev.copy(
                             showStatsInline = sharedPreferencesRepository.getBoolean(key, default.showStatsInline),
                         )
-                        else -> { prev }
+                        else -> {
+                            prev
+                        }
                     }
                 }
             }
@@ -146,7 +148,9 @@ class StatusDisplayOptionsRepository @Inject constructor(
                         PrefKeys.MEDIA_PREVIEW_ENABLED -> prev.copy(mediaPreviewEnabled = value)
                         PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> prev.copy(showSensitiveMedia = value)
                         PrefKeys.ALWAYS_OPEN_SPOILER -> prev.copy(openSpoiler = value)
-                        else -> { prev }
+                        else -> {
+                            prev
+                        }
                     }
                 }
             }

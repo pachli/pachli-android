@@ -45,8 +45,8 @@ import app.pachli.util.viewBinding
 import app.pachli.viewmodel.AccountsInListViewModel
 import app.pachli.viewmodel.State
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 private typealias AccountInfo = Pair<TimelineAccount, Boolean>
 
