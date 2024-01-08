@@ -64,7 +64,7 @@ jobs:
 
       - name: Upload APK Release Asset
         id: upload-release-asset-apk
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
           path: ${{steps.sign_app_apk.outputs.signedReleaseFile}}
