@@ -26,10 +26,10 @@ import app.pachli.R
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.navigation.DraftsActivityIntent
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * This class manages an alert popup when a post has failed and been saved to drafts.

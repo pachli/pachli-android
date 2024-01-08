@@ -33,11 +33,11 @@ import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -127,7 +127,7 @@ class SearchViewModel @Inject constructor(
                 )
             }, { t ->
                 Timber.d("Failed to reblog status ${statusViewData.id}", t)
-            },)
+            })
         }
     }
 

@@ -21,12 +21,12 @@ import app.pachli.BuildConfig
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
-import retrofit2.HttpException
-import retrofit2.Response
-import timber.log.Timber
 import java.util.TreeMap
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
+import retrofit2.HttpException
+import retrofit2.Response
+import timber.log.Timber
 
 /** A page of data from the Mastodon API */
 data class Page(

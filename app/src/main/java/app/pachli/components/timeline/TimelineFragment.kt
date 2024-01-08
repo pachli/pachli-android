@@ -82,6 +82,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -91,7 +92,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import kotlin.time.Duration.Companion.seconds
 
 @AndroidEntryPoint
 class TimelineFragment :
@@ -212,7 +212,10 @@ class TimelineFragment :
          */
         // TODO: Copied from NotificationsFragment
         val updateTimestampFlow = flow {
-            while (true) { delay(60.seconds); emit(Unit) }
+            while (true) {
+                delay(60.seconds)
+                emit(Unit)
+            }
         }.onEach {
             adapter.notifyItemRangeChanged(0, adapter.itemCount, listOf(StatusBaseViewHolder.Key.KEY_CREATED))
         }

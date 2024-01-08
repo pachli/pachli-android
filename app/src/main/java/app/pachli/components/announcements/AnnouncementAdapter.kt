@@ -130,7 +130,13 @@ class AnnouncementAdapter(
                         spanBuilder.setSpan(span, 0, 1, 0)
                         Glide.with(this)
                             .asDrawable()
-                            .load(if (animateEmojis) { reaction.url } else { reaction.staticUrl })
+                            .load(
+                                if (animateEmojis) {
+                                    reaction.url
+                                } else {
+                                    reaction.staticUrl
+                                },
+                            )
                             .into(span.getTarget(animateEmojis))
                         this.text = spanBuilder
                     }

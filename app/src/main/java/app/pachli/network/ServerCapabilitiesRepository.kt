@@ -23,12 +23,12 @@ import app.pachli.core.network.ServerCapabilities
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.getOr
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class ServerCapabilitiesRepository @Inject constructor(
@@ -58,7 +58,7 @@ class ServerCapabilitiesRepository @Inject constructor(
             {
                 mastodonApi.getInstanceV1().fold({ instance ->
                     ServerCapabilities.from(instance).getOr { null }
-                }, { null },)
+                }, { null })
             },
         ) ?: ServerCapabilities()
     }

@@ -21,10 +21,10 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
+import timber.log.Timber
 
 /**
  * Workers implement this and are added to the map in [app.pachli.di.WorkerModule]

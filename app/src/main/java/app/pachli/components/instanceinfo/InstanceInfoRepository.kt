@@ -25,10 +25,10 @@ import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.onSuccess
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 class InstanceInfoRepository @Inject constructor(
     private val api: MastodonApi,
@@ -77,12 +77,18 @@ class InstanceInfoRepository @Inject constructor(
                         maxFieldNameLength = instance.pleroma?.metadata?.fieldLimits?.nameLength,
                         maxFieldValueLength = instance.pleroma?.metadata?.fieldLimits?.valueLength,
                     )
-                    try { instanceDao.upsert(instanceEntity) } catch (_: Exception) { }
+                    try {
+                        instanceDao.upsert(instanceEntity)
+                    } catch (_: Exception) { }
                     instanceEntity
                 },
                 { throwable ->
                     Timber.w("failed to instance, falling back to cache and default values", throwable)
-                    try { instanceDao.getInstanceInfo(instanceName) } catch (_: Exception) { null }
+                    try {
+                        instanceDao.getInstanceInfo(instanceName)
+                    } catch (_: Exception) {
+                        null
+                    }
                 },
             ).let { instanceInfo: InstanceInfoEntity? ->
                 InstanceInfo(

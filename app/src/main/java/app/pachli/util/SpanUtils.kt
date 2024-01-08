@@ -43,7 +43,8 @@ private val finders = mapOf(
     FoundMatchType.HTTP_URL to PatternFinder(':', HTTP_URL_REGEX, 5, Character::isWhitespace),
     FoundMatchType.HTTPS_URL to PatternFinder(':', HTTPS_URL_REGEX, 6, Character::isWhitespace),
     FoundMatchType.TAG to PatternFinder('#', TAG_REGEX, 1, ::isValidForTagPrefix),
-    FoundMatchType.MENTION to PatternFinder('@', MENTION_REGEX, 1, Character::isWhitespace), // TODO: We also need a proper validator for mentions
+    // TODO: We also need a proper validator for mentions
+    FoundMatchType.MENTION to PatternFinder('@', MENTION_REGEX, 1, Character::isWhitespace),
 )
 
 private enum class FoundMatchType {

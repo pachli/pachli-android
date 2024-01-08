@@ -237,7 +237,10 @@ class ListsActivity : BaseActivity() {
                 .apply {
                     val iconColor = MaterialColors.getColor(nameTextView, android.R.attr.textColorTertiary)
                     val context = nameTextView.context
-                    val icon = IconicsDrawable(context, GoogleMaterial.Icon.gmd_list).apply { sizeDp = 20; colorInt = iconColor }
+                    val icon = IconicsDrawable(context, GoogleMaterial.Icon.gmd_list).apply {
+                        sizeDp = 20
+                        colorInt = iconColor
+                    }
 
                     nameTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
                 }

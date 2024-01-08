@@ -1,7 +1,7 @@
 package app.pachli.components.timeline.util
 
-import retrofit2.HttpException
 import java.io.IOException
+import retrofit2.HttpException
 
 fun Throwable.isExpected() = this is IOException || this is HttpException
 

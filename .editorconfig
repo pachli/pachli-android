@@ -7,14 +7,21 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-# Disable wildcard imports
 [*.{java,kt}]
+ktlint_code_style = android_studio
+
+ij_kotlin_imports_layout = *
+
+# Disable wildcard imports
 ij_kotlin_name_count_to_use_star_import = 999
 ij_kotlin_name_count_to_use_star_import_for_members = 999
 ij_java_class_count_to_use_import_on_demand = 999
+
 # Require trailing comma
 ij_kotlin_allow_trailing_comma = true
 ij_kotlin_allow_trailing_comma_on_call_site = true
+
+max_line_length = off
 
 [*.{yml,yaml}]
 indent_size = 2

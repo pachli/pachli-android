@@ -31,10 +31,10 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineKind
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.getDomain
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
-import javax.inject.Inject
 
 // Things that make this more difficult than it should be:
 //

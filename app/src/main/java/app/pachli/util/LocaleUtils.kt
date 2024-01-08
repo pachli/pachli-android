@@ -19,8 +19,8 @@ package app.pachli.util
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import app.pachli.core.database.model.AccountEntity
-import timber.log.Timber
 import java.util.Locale
+import timber.log.Timber
 
 private const val TAG: String = "LocaleUtils"
 

@@ -66,12 +66,12 @@ data class StatusViewData(
      */
     val isDetailed: Boolean = false,
 
-    /** Whether this status should be filtered, and if so, how */
     // TODO: This means that null checks are required elsewhere in the code to deal with
     // the possibility that this might not be NONE, but that status.filtered is null or
     // empty (e.g., StatusBaseViewHolder.setupFilterPlaceholder()). It would be better
     // if the Filter.Action class subtypes carried the FilterResult information with them,
     // and it's impossible to construct them with an empty list.
+    /** Whether this status should be filtered, and if so, how */
     var filterAction: Filter.Action = Filter.Action.NONE,
 
     /** True if the translated content should be shown (if it exists) */
@@ -90,12 +90,15 @@ data class StatusViewData(
 
     private val _content: Spanned
 
+    @Suppress("ktlint:standard:property-naming")
     private val _translatedContent: Spanned
 
     val content: Spanned
         get() = if (translationState == TranslationState.SHOW_TRANSLATION) _translatedContent else _content
 
     private val _spoilerText: String
+
+    @Suppress("ktlint:standard:property-naming")
     private val _translatedSpoilerText: String
 
     /** The content warning, may be the empty string */
@@ -251,7 +254,8 @@ data class StatusViewData(
             isExpanded = conversationStatusEntity.expanded,
             isShowingContent = conversationStatusEntity.showingHiddenContent,
             isCollapsed = conversationStatusEntity.collapsed,
-            translationState = TranslationState.SHOW_ORIGINAL, // TODO: Include this in conversationStatusEntity
+            // TODO: Include translationState in conversationStatusEntity
+            translationState = TranslationState.SHOW_ORIGINAL,
         )
 
         fun from(

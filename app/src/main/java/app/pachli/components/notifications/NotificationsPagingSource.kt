@@ -25,12 +25,12 @@ import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import com.google.gson.Gson
+import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.Headers
 import retrofit2.Response
 import timber.log.Timber
-import javax.inject.Inject
 
 private val INVALID = LoadResult.Invalid<String, Notification>()
 

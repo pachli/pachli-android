@@ -10,11 +10,11 @@ import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import javax.inject.Inject
 
 @HiltViewModel
 class FiltersViewModel @Inject constructor(
@@ -23,7 +23,11 @@ class FiltersViewModel @Inject constructor(
 ) : ViewModel() {
 
     enum class LoadingState {
-        INITIAL, LOADING, LOADED, ERROR_NETWORK, ERROR_OTHER
+        INITIAL,
+        LOADING,
+        LOADED,
+        ERROR_NETWORK,
+        ERROR_OTHER,
     }
 
     data class State(val filters: List<Filter>, val loadingState: LoadingState)

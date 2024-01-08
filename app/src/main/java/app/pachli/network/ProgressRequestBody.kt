@@ -17,11 +17,11 @@
 
 package app.pachli.network
 
+import java.io.IOException
+import java.io.InputStream
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import okio.BufferedSink
-import java.io.IOException
-import java.io.InputStream
 
 class ProgressRequestBody(
     private val content: InputStream,

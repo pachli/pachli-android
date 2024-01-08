@@ -111,17 +111,17 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.text.DecimalFormat
 import java.util.Locale
 import kotlin.math.max
 import kotlin.math.min
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Compose a status, either by creating one from scratch, or by editing an existing
@@ -186,7 +186,8 @@ class ComposeActivity :
                         uriNew,
                         size,
                         itemOld.description,
-                        null, // Intentionally reset focus when cropping
+                        // Intentionally reset focus when cropping
+                        null,
                         itemOld,
                     )
                 }
@@ -515,13 +516,22 @@ class ComposeActivity :
 
         val textColor = MaterialColors.getColor(binding.root, android.R.attr.textColorTertiary)
 
-        val cameraIcon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_camera_alt).apply { colorInt = textColor; sizeDp = 18 }
+        val cameraIcon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_camera_alt).apply {
+            colorInt = textColor
+            sizeDp = 18
+        }
         binding.actionPhotoTake.setCompoundDrawablesRelativeWithIntrinsicBounds(cameraIcon, null, null, null)
 
-        val imageIcon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_image).apply { colorInt = textColor; sizeDp = 18 }
+        val imageIcon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_image).apply {
+            colorInt = textColor
+            sizeDp = 18
+        }
         binding.actionPhotoPick.setCompoundDrawablesRelativeWithIntrinsicBounds(imageIcon, null, null, null)
 
-        val pollIcon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_poll).apply { colorInt = textColor; sizeDp = 18 }
+        val pollIcon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_poll).apply {
+            colorInt = textColor
+            sizeDp = 18
+        }
         binding.addPollTextActionTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(pollIcon, null, null, null)
 
         binding.actionPhotoTake.visible(Intent(MediaStore.ACTION_IMAGE_CAPTURE).resolveActivity(packageManager) != null)
@@ -1274,10 +1284,15 @@ class ComposeActivity :
         val state: State,
     ) {
         enum class Type {
-            IMAGE, VIDEO, AUDIO;
+            IMAGE,
+            VIDEO,
+            AUDIO,
         }
         enum class State {
-            UPLOADING, UNPROCESSED, PROCESSED, PUBLISHED
+            UPLOADING,
+            UNPROCESSED,
+            PROCESSED,
+            PUBLISHED,
         }
     }
 

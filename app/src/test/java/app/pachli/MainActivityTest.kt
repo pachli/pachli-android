@@ -45,6 +45,9 @@ import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import java.time.Instant
+import java.util.Date
+import javax.inject.Inject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -59,9 +62,6 @@ import org.mockito.kotlin.stub
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.android.util.concurrent.BackgroundExecutor.runInBackground
 import org.robolectric.annotation.Config
-import java.time.Instant
-import java.util.Date
-import javax.inject.Inject
 
 open class PachliHiltApplication : PachliApplication()
 

@@ -43,8 +43,8 @@ import app.pachli.core.network.model.Status
 import app.pachli.service.SendStatusService
 import app.pachli.service.StatusToSend
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SendStatusBroadcastReceiver : BroadcastReceiver() {

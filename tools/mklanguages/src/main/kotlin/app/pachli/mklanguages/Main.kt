@@ -151,8 +151,8 @@ class App : CliktCommand(help = """Update languages in donottranslate.xml""") {
         // `language_entries` and `language_values` arrays with fresh data.
         val tmpFile = createTempFile().toFile()
         val w = tmpFile.printWriter()
-        val donottranslate_xml = resourcePath / "values" / "donottranslate.xml"
-        donottranslate_xml.toFile().useLines { lines ->
+        val donottranslateXml = resourcePath / "values" / "donottranslate.xml"
+        donottranslateXml.toFile().useLines { lines ->
             var inLanguageEntries = false
             var inLanguageValues = false
 
@@ -199,8 +199,8 @@ class App : CliktCommand(help = """Update languages in donottranslate.xml""") {
 
         // Close, then replace donotranslate.xml
         w.close()
-        Files.move(tmpFile.toPath(), donottranslate_xml, StandardCopyOption.REPLACE_EXISTING)
-        log.info { "replaced ${donottranslate_xml.toAbsolutePath()}" }
+        Files.move(tmpFile.toPath(), donottranslateXml, StandardCopyOption.REPLACE_EXISTING)
+        log.info { "replaced ${donottranslateXml.toAbsolutePath()}" }
     }
 }
 

@@ -40,12 +40,12 @@ import app.pachli.util.Success
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class ReportViewModel @Inject constructor(
@@ -195,7 +195,7 @@ class ReportViewModel @Inject constructor(
                 }
             }, { t ->
                 blockStateMutable.value = Error(false, t.message)
-            },)
+            })
         }
         blockStateMutable.value = Loading()
     }
@@ -208,7 +208,7 @@ class ReportViewModel @Inject constructor(
                     reportingStateMutable.value = Success(true)
                 }, { error ->
                     reportingStateMutable.value = Error(cause = error)
-                },)
+                })
         }
     }
 

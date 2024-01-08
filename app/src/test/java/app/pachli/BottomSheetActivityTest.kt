@@ -24,6 +24,7 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.MainCoroutineRule
 import at.connyduck.calladapter.networkresult.NetworkResult
+import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -38,7 +39,6 @@ import org.mockito.ArgumentMatchers.anyBoolean
 import org.mockito.Mockito.eq
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
-import java.util.Date
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class BottomSheetActivityTest {

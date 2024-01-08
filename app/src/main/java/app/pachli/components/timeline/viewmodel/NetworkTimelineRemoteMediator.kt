@@ -27,11 +27,11 @@ import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineKind
 import app.pachli.core.network.retrofit.MastodonApi
+import java.io.IOException
 import kotlinx.coroutines.CoroutineScope
 import retrofit2.HttpException
 import retrofit2.Response
 import timber.log.Timber
-import java.io.IOException
 
 /** Remote mediator for accessing timelines that are not backed by the database. */
 @OptIn(ExperimentalPagingApi::class)

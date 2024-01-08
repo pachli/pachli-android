@@ -17,13 +17,13 @@
 package app.pachli.util
 
 import android.util.Base64
+import java.security.KeyPairGenerator
+import java.security.SecureRandom
+import java.security.Security
 import org.bouncycastle.jce.ECNamedCurveTable
 import org.bouncycastle.jce.interfaces.ECPrivateKey
 import org.bouncycastle.jce.interfaces.ECPublicKey
 import org.bouncycastle.jce.provider.BouncyCastleProvider
-import java.security.KeyPairGenerator
-import java.security.SecureRandom
-import java.security.Security
 
 object CryptoUtil {
     const val CURVE_PRIME256_V1 = "prime256v1"

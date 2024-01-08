@@ -36,10 +36,10 @@ import app.pachli.core.preferences.PrefKeys.APP_THEME
 import app.pachli.databinding.ActivityPreferencesBinding
 import app.pachli.util.setAppNightMode
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Show specific preferences.

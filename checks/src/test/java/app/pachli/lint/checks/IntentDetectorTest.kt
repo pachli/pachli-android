@@ -21,6 +21,7 @@ import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Issue
 
+@Suppress("ktlint:standard:function-naming")
 class IntentDetectorTest : LintDetectorTest() {
     override fun getDetector(): Detector = IntentDetector()
 

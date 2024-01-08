@@ -27,10 +27,10 @@ import app.pachli.components.notifications.updateUnifiedPushSubscription
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.retrofit.MastodonApi
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @DelicateCoroutinesApi
 @AndroidEntryPoint

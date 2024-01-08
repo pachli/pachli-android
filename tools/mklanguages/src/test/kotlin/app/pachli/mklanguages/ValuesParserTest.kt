@@ -18,13 +18,13 @@
 package app.pachli.mklanguages
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
+import java.util.stream.Stream
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import java.util.stream.Stream
 
 @Execution(ExecutionMode.CONCURRENT)
 internal class ValuesParserTest {

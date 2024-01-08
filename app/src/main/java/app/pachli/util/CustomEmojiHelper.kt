@@ -55,7 +55,13 @@ fun CharSequence.emojify(emojis: List<Emoji>?, view: View, animate: Boolean): Ch
             builder.setSpan(span, matcher.start(), matcher.end(), 0)
             Glide.with(view)
                 .asDrawable()
-                .load(if (animate) { url } else { staticUrl })
+                .load(
+                    if (animate) {
+                        url
+                    } else {
+                        staticUrl
+                    },
+                )
                 .into(span.getTarget(animate))
         }
     }

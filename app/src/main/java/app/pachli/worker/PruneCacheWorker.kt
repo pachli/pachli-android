@@ -28,8 +28,8 @@ import app.pachli.components.notifications.NOTIFICATION_ID_PRUNE_CACHE
 import app.pachli.components.notifications.createWorkerNotification
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.TimelineDao
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 /** Prune the database cache of old statuses. */
 class PruneCacheWorker(

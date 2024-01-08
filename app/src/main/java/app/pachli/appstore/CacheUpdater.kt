@@ -3,12 +3,12 @@ package app.pachli.appstore
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.TimelineDao
 import com.google.gson.Gson
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class CacheUpdater @Inject constructor(
     eventHub: EventHub,

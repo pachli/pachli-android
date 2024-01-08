@@ -28,14 +28,14 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.viewdata.TrendingViewData
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.io.IOException
+import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.io.IOException
-import javax.inject.Inject
 
 @HiltViewModel
 class TrendingTagsViewModel @Inject constructor(
@@ -43,7 +43,12 @@ class TrendingTagsViewModel @Inject constructor(
     private val eventHub: EventHub,
 ) : ViewModel() {
     enum class LoadingState {
-        INITIAL, LOADING, REFRESHING, LOADED, ERROR_NETWORK, ERROR_OTHER
+        INITIAL,
+        LOADING,
+        REFRESHING,
+        LOADED,
+        ERROR_NETWORK,
+        ERROR_OTHER,
     }
 
     data class TrendingTagsUiState(

@@ -64,11 +64,11 @@ import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import timber.log.Timber
-import java.io.IOException
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountListFragment :
@@ -228,7 +228,7 @@ class AccountListFragment :
                 onBlockSuccess(block, id, position)
             }, {
                 onBlockFailure(block, id, it)
-            },)
+            })
         }
     }
 
