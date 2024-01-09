@@ -39,6 +39,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.net.IDN
+import java.net.InetSocketAddress
+import java.net.Proxy
+import java.util.Date
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 import okhttp3.Cache
 import okhttp3.OkHttp
 import okhttp3.OkHttpClient
@@ -47,12 +53,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import timber.log.Timber
-import java.net.IDN
-import java.net.InetSocketAddress
-import java.net.Proxy
-import java.util.Date
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module

@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 class UpdateCheck @Inject constructor(
     sharedPreferencesRepository: SharedPreferencesRepository,
-    private val gitHubService: GitHubService
+    private val gitHubService: GitHubService,
 ) : UpdateCheckBase(sharedPreferencesRepository) {
     private val versionCodeExtractor = """(\d+)\.apk""".toRegex()
 

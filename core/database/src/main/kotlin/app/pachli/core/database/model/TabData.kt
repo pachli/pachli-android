@@ -33,7 +33,7 @@ enum class TabKind(val repr: String) {
     TRENDING_STATUSES("Trending_Statuses"),
     HASHTAG("Hashtag"),
     LIST("List"),
-    BOOKMARKS("Bookmarks")
+    BOOKMARKS("Bookmarks"),
 }
 
 /** this would be a good case for a sealed class, but that does not work nice with Room */
@@ -46,7 +46,7 @@ data class TabData(val kind: TabKind, val arguments: List<String> = emptyList())
         fun from(kind: String, arguments: List<String> = emptyList()): TabData {
             // Work around for https://github.com/pachli/pachli-android/issues/329,
             // as the Trending... kinds may have been serialised without the `_`
-            return when(kind) {
+            return when (kind) {
                 "TrendingTags" -> TabData(TabKind.TRENDING_TAGS, arguments)
                 "TrendingLinks" -> TabData(TabKind.TRENDING_LINKS, arguments)
                 "TrendingStatuses" -> TabData(TabKind.TRENDING_STATUSES, arguments)
@@ -60,5 +60,5 @@ fun defaultTabs() = listOf(
     TabData.from(TabKind.HOME),
     TabData.from(TabKind.NOTIFICATIONS),
     TabData.from(TabKind.LOCAL),
-    TabData.from(TabKind.DIRECT)
+    TabData.from(TabKind.DIRECT),
 )

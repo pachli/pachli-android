@@ -27,15 +27,15 @@ data class TimelineAccount(
     val id: String,
     @SerializedName("username") val localUsername: String,
     @SerializedName("acct") val username: String,
-
+    // should never be null per Api definition, but some servers break the contract
     @Deprecated("prefer the `name` property, which is not-null and not-empty")
-    @SerializedName("display_name")
-    val displayName: String?, // should never be null per Api definition, but some servers break the contract
+    val displayName: String?,
     val url: String,
     val avatar: String,
     val note: String,
     val bot: Boolean = false,
-    val emojis: List<Emoji>? = emptyList(), // nullable for backward compatibility
+    // nullable for backward compatibility
+    val emojis: List<Emoji>? = emptyList(),
 ) {
 
     @Suppress("DEPRECATION")

@@ -25,19 +25,19 @@ import retrofit2.http.Path
 @Keep
 data class FdroidPackageVersion(
     val versionName: String,
-    val versionCode: Int
+    val versionCode: Int,
 )
 
 @Keep
 data class FdroidPackage(
     val packageName: String,
     val suggestedVersionCode: Int,
-    val packages: List<FdroidPackageVersion>
+    val packages: List<FdroidPackageVersion>,
 )
 
 interface FdroidService {
     @GET("/api/v1/packages/{package}")
     suspend fun getPackage(
-        @Path("package") pkg: String
+        @Path("package") pkg: String,
     ): NetworkResult<FdroidPackage>
 }

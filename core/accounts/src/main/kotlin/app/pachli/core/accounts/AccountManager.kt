@@ -27,14 +27,14 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import java.util.Locale
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.Locale
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class AccountManager @Inject constructor(
@@ -54,7 +54,7 @@ class AccountManager @Inject constructor(
             instanceSwitchAuthInterceptor.credentials = value?.let {
                 InstanceSwitchAuthInterceptor.Credentials(
                     accessToken = it.accessToken,
-                    domain = it.domain
+                    domain = it.domain,
                 )
             }
             externalScope.launch { _activeAccountFlow.emit(value) }

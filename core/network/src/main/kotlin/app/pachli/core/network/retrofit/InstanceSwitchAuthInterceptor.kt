@@ -17,6 +17,9 @@
 
 package app.pachli.core.network.retrofit
 
+import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -25,9 +28,6 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 import timber.log.Timber
-import java.io.IOException
-import javax.inject.Inject
-import javax.inject.Singleton
 
 // AccountManager can not be used here as that would create a circular dependency
 // between core.network and core.accounts. Instead, the singleton instance of this

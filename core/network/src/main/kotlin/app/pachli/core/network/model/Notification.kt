@@ -117,8 +117,8 @@ data class Notification(
     fun rewriteToStatusTypeIfNeeded(accountId: String): Notification {
         if (type == Type.MENTION && status != null) {
             return if (status.mentions.any {
-                it.id == accountId
-            }
+                    it.id == accountId
+                }
             ) {
                 this
             } else {

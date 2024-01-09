@@ -27,7 +27,7 @@ import javax.inject.Singleton
 @Singleton
 class UpdateCheck @Inject constructor(
     sharedPreferencesRepository: SharedPreferencesRepository,
-    private val fdroidService: FdroidService
+    private val fdroidService: FdroidService,
 ) : UpdateCheckBase(sharedPreferencesRepository) {
     override val updateIntent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")

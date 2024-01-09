@@ -20,12 +20,12 @@ package app.pachli.core.preferences
 import android.content.SharedPreferences
 import androidx.annotation.Keep
 import app.pachli.core.common.di.ApplicationScope
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * An implementation of [SharedPreferences] that exposes all changes to the

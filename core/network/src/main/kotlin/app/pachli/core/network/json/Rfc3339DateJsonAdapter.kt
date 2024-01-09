@@ -21,9 +21,9 @@ import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
-import timber.log.Timber
 import java.io.IOException
 import java.util.Date
+import timber.log.Timber
 
 class Rfc3339DateJsonAdapter : TypeAdapter<Date?>() {
 
