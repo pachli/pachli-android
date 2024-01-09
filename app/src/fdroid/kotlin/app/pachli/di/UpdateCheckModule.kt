@@ -24,11 +24,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -37,7 +37,7 @@ object UpdateCheckModule {
     @Singleton
     fun providesFdroidService(
         httpClient: OkHttpClient,
-        gson: Gson
+        gson: Gson,
     ): FdroidService = Retrofit.Builder()
         .baseUrl("https://f-droid.org")
         .client(httpClient)

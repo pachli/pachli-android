@@ -17,14 +17,14 @@
 
 package app.pachli.core.common.util
 
-import org.junit.AfterClass
-import org.junit.Assert.assertEquals
-import org.junit.BeforeClass
-import org.junit.Test
 import java.time.Instant
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import org.junit.AfterClass
+import org.junit.Assert.assertEquals
+import org.junit.BeforeClass
+import org.junit.Test
 
 class AbsoluteTimeFormatterTest {
     companion object {

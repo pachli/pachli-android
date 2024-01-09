@@ -37,6 +37,12 @@ interface TranslatedStatusDao {
             WHERE timelineUserId = :accountId
             AND serverId IN (:serverIds)""",
     )
-    suspend fun getTranslations(accountId: Long, serverIds: List<String>):
-        Map<@MapColumn(columnName = "serverId") String, TranslatedStatusEntity>
+    suspend fun getTranslations(
+        accountId: Long,
+        serverIds: List<String>,
+    ): Map<
+        @MapColumn(columnName = "serverId")
+        String,
+        TranslatedStatusEntity,
+        >
 }

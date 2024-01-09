@@ -69,7 +69,7 @@ class InstanceV1SwitchAuthInterceptorTest {
         val interceptor = InstanceSwitchAuthInterceptor()
         interceptor.credentials = InstanceSwitchAuthInterceptor.Credentials(
             accessToken = "fakeToken",
-            domain = "test.domain"
+            domain = "test.domain",
         )
 
         val okHttpClient = OkHttpClient.Builder()
@@ -96,7 +96,7 @@ class InstanceV1SwitchAuthInterceptorTest {
         val interceptor = InstanceSwitchAuthInterceptor()
         interceptor.credentials = InstanceSwitchAuthInterceptor.Credentials(
             accessToken = "fakeToken",
-            domain = mockWebServer.hostName
+            domain = mockWebServer.hostName,
         )
 
         val okHttpClient = OkHttpClient.Builder()

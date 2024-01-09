@@ -269,8 +269,14 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
             WHERE timelineUserId = :accountId
               AND serverId IN (:serverIds)""",
     )
-    abstract suspend fun getStatusViewData(accountId: Long, serverIds: List<String>):
-        Map<@MapColumn(columnName = "serverId") String, StatusViewDataEntity>
+    abstract suspend fun getStatusViewData(
+        accountId: Long,
+        serverIds: List<String>,
+    ): Map<
+        @MapColumn(columnName = "serverId")
+        String,
+        StatusViewDataEntity,
+        >
 
     @Query(
         """UPDATE TimelineStatusEntity SET pinned = :pinned

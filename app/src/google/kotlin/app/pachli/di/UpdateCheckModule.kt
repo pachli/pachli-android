@@ -33,6 +33,6 @@ object UpdateCheckModule {
     @Provides
     @Singleton
     fun providesAppUpdateManager(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): AppUpdateManager = AppUpdateManagerFactory.create(context)
 }

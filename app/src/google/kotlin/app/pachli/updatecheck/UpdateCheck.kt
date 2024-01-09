@@ -22,16 +22,17 @@ import android.net.Uri
 import app.pachli.BuildConfig
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.google.android.play.core.appupdate.AppUpdateManager
-import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 class UpdateCheck @Inject constructor(
     sharedPreferencesRepository: SharedPreferencesRepository,
-    private val appUpdateManager: AppUpdateManager
+    private val appUpdateManager: AppUpdateManager,
 ) : UpdateCheckBase(sharedPreferencesRepository) {
     override val updateIntent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse(
-            "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
+            "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}",
+        )
         setPackage("com.android.vending")
     }
 

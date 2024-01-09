@@ -44,26 +44,26 @@ data class TranslatedStatusEntity(
     /** The translated text of the status (HTML), equivalent to [Status.content] */
     val content: String,
 
+    // Not documented, see https://github.com/mastodon/documentation/issues/1248
     /**
      * The translated spoiler text of the status (text), if it exists, equivalent to
      * [app.pachli.core.network.model.Status.spoilerText]
      */
-    // Not documented, see https://github.com/mastodon/documentation/issues/1248
     val spoilerText: String,
 
+    // Not documented, see https://github.com/mastodon/documentation/issues/1248
     /**
      * The translated poll (if it exists). Does not contain all the poll data, only the
      * translated text. Vote counts and other metadata has to be determined from the original
      * poll object.
      */
-    // Not documented, see https://github.com/mastodon/documentation/issues/1248
     val poll: TranslatedPoll?,
 
+    // Not documented, see https://github.com/mastodon/documentation/issues/1248
     /**
      * Translated descriptions for media attachments, if any were attached. Other metadata has
      * to be determined from the original attachment.
      */
-    // Not documented, see https://github.com/mastodon/documentation/issues/1248
     val attachments: List<TranslatedAttachment>,
 
     /** The service that provided the machine translation */

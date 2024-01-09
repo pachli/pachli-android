@@ -69,7 +69,8 @@ class Converters @Inject constructor(
         return str?.split(";")
             ?.map {
                 val data = it.split(":")
-                TabData.from(data[0], data.drop(1).map { s -> URLDecoder.decode(s, "UTF-8") })            }
+                TabData.from(data[0], data.drop(1).map { s -> URLDecoder.decode(s, "UTF-8") })
+            }
     }
 
     @TypeConverter

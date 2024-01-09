@@ -30,22 +30,22 @@ data class Translation(
      */
     @SerializedName("detected_source_language") val detectedSourceLanguage: String,
 
+    // Not documented, see https://github.com/mastodon/documentation/issues/1248
     /**
      * The translated spoiler text of the status (text), if it exists, equivalent to
      * [Status.spoilerText]
      */
-    // Not documented, see https://github.com/mastodon/documentation/issues/1248
     @SerializedName("spoiler_text") val spoilerText: String,
 
-    /** The translated poll (if it exists) */
     // Not documented, see https://github.com/mastodon/documentation/issues/1248
+    /** The translated poll (if it exists) */
     val poll: TranslatedPoll?,
 
+    // Not documented, see https://github.com/mastodon/documentation/issues/1248
     /**
      * Translated descriptions for media attachments, if any were attached. Other metadata has
      * to be determined from the original attachment.
      */
-    // Not documented, see https://github.com/mastodon/documentation/issues/1248
     @SerializedName("media_attachments") val attachments: List<TranslatedAttachment>,
 
     /** The service that provided the machine translation */

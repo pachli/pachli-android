@@ -288,8 +288,10 @@ class ReportActivityIntent(context: Context, accountId: String, userName: String
 
         /** @return the `accountId` passed to this intent */
         fun getAccountId(intent: Intent) = intent.getStringExtra(EXTRA_ACCOUNT_ID)!!
+
         /** @return the `userName` passed to this intent */
         fun getAccountUserName(intent: Intent) = intent.getStringExtra(EXTRA_ACCOUNT_USERNAME)!!
+
         /** @return the `statusId` passed to this intent, or null */
         fun getStatusId(intent: Intent) = intent.getStringExtra(EXTRA_STATUS_ID)
     }
@@ -298,7 +300,7 @@ class ReportActivityIntent(context: Context, accountId: String, userName: String
 /**
  * Use one of [bookmarks], [favourites], [hashtag], or [list] to construct.
  */
-class StatusListActivityIntent private constructor (context: Context) : Intent() {
+class StatusListActivityIntent private constructor(context: Context) : Intent() {
     init {
         setClassName(context, "app.pachli${QuadrantConstants.STATUS_LIST_ACTIVITY}")
     }
@@ -412,71 +414,104 @@ class ViewThreadActivityIntent(context: Context, statusId: String, statusUrl: St
 
         /** @return the `statusId` passed to this intent */
         fun getStatusId(intent: Intent) = intent.getStringExtra(EXTRA_STATUS_ID)!!
+
         /** @return the `statusUrl` passed to this intent, or null */
         fun getUrl(intent: Intent) = intent.getStringExtra(EXTRA_STATUS_URL)
     }
 }
 
 class AboutActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.ABOUT_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.ABOUT_ACTIVITY}")
+    }
 }
 
 class AnnouncementsActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.ANNOUNCEMENTS_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.ANNOUNCEMENTS_ACTIVITY}")
+    }
 }
 
 class DraftsActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.DRAFTS_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.DRAFTS_ACTIVITY}")
+    }
 }
 
 class EditProfileActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.EDIT_PROFILE_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.EDIT_PROFILE_ACTIVITY}")
+    }
 }
 
 class FiltersActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.FILTERS_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.FILTERS_ACTIVITY}")
+    }
 }
 
 class FollowedTagsActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.FOLLOWED_TAGS_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.FOLLOWED_TAGS_ACTIVITY}")
+    }
 }
 
 class InstanceListActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.INSTANCE_LIST_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.INSTANCE_LIST_ACTIVITY}")
+    }
 }
 
 class LicenseActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.LICENSE_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.LICENSE_ACTIVITY}")
+    }
 }
 
 class ListActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.LISTS_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.LISTS_ACTIVITY}")
+    }
 }
 
 class LoginWebViewActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.LOGIN_WEB_VIEW_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.LOGIN_WEB_VIEW_ACTIVITY}")
+    }
 }
 
 class MainActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.MAIN_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.MAIN_ACTIVITY}")
+    }
 }
 
 class PrivacyPolicyActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.PRIVACY_POLICY_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.PRIVACY_POLICY_ACTIVITY}")
+    }
 }
 
 class ScheduledStatusActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.SCHEDULED_STATUS_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.SCHEDULED_STATUS_ACTIVITY}")
+    }
 }
 
 class SearchActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.SEARCH_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.SEARCH_ACTIVITY}")
+    }
 }
 
 class TabPreferenceActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.TAB_PREFERENCE_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.TAB_PREFERENCE_ACTIVITY}")
+    }
 }
 
 class TrendingActivityIntent(context: Context) : Intent() {
-    init { setClassName(context, "app.pachli${QuadrantConstants.TRENDING_ACTIVITY}") }
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.TRENDING_ACTIVITY}")
+    }
 }

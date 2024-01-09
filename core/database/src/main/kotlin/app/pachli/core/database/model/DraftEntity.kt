@@ -65,6 +65,8 @@ data class DraftAttachment(
         get() = uriString.toUri()
 
     enum class Type {
-        IMAGE, VIDEO, AUDIO;
+        IMAGE,
+        VIDEO,
+        AUDIO,
     }
 }

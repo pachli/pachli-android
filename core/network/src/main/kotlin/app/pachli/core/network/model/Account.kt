@@ -23,8 +23,10 @@ data class Account(
     val id: String,
     @SerializedName("username") val localUsername: String,
     @SerializedName("acct") val username: String,
-    @SerializedName("display_name") val displayName: String?, // should never be null per API definition, but some servers break the contract
-    @SerializedName("created_at") val createdAt: Date?, // should never be null per API definition, but some servers break the contract
+    // should never be null per API definition, but some servers break the contract
+    @SerializedName("display_name") val displayName: String?,
+    // should never be null per API definition, but some servers break the contract
+    @SerializedName("created_at") val createdAt: Date?,
     val note: String,
     val url: String,
     val avatar: String,
@@ -35,10 +37,12 @@ data class Account(
     @SerializedName("statuses_count") val statusesCount: Int = 0,
     val source: AccountSource? = null,
     val bot: Boolean = false,
-    val emojis: List<Emoji>? = emptyList(), // nullable for backward compatibility
-    val fields: List<Field>? = emptyList(), // nullable for backward compatibility
+    // nullable for backward compatibility
+    val emojis: List<Emoji>? = emptyList(),
+    // nullable for backward compatibility
+    val fields: List<Field>? = emptyList(),
     val moved: Account? = null,
-    val roles: List<Role>? = emptyList()
+    val roles: List<Role>? = emptyList(),
 ) {
 
     val name: String

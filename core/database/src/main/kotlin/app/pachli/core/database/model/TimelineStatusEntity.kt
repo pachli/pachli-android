@@ -64,7 +64,8 @@ import java.util.Date
 )
 @TypeConverters(Converters::class)
 data class TimelineStatusEntity(
-    val serverId: String, // id never flips: we need it for sorting so it's a real id
+    // id never flips: we need it for sorting so it's a real id
+    val serverId: String,
     val url: String?,
     // our local id for the logged in user in case there are multiple accounts per instance
     val timelineUserId: Long,
@@ -88,7 +89,8 @@ data class TimelineStatusEntity(
     val mentions: String?,
     val tags: String?,
     val application: String?,
-    val reblogServerId: String?, // if it has a reblogged status, it's id is stored here
+    // if it has a reblogged status, it's id is stored here
+    val reblogServerId: String?,
     val reblogAccountId: String?,
     val poll: String?,
     val muted: Boolean?,
@@ -222,8 +224,9 @@ data class TimelineStatusWithAccount(
     val status: TimelineStatusEntity,
     @Embedded(prefix = "a_")
     val account: TimelineAccountEntity,
+    // null when no reblog
     @Embedded(prefix = "rb_")
-    val reblogAccount: TimelineAccountEntity? = null, // null when no reblog
+    val reblogAccount: TimelineAccountEntity? = null,
     @Embedded(prefix = "svd_")
     val viewData: StatusViewDataEntity? = null,
     @Embedded(prefix = "t_")
@@ -286,13 +289,15 @@ data class TimelineStatusWithAccount(
         return if (reblog != null) {
             Status(
                 id = status.serverId,
-                url = null, // no url for reblogs
+                // no url for reblogs
+                url = null,
                 account = reblogAccount!!.toTimelineAccount(gson),
                 inReplyToId = null,
                 inReplyToAccountId = null,
                 reblog = reblog,
                 content = "",
-                createdAt = Date(status.createdAt), // lie but whatever?
+                // lie but whatever?
+                createdAt = Date(status.createdAt),
                 editedAt = null,
                 emojis = listOf(),
                 reblogsCount = 0,
