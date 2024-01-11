@@ -262,4 +262,23 @@
     <string name="title_tab_public_trending_statuses">Postingan</string>
     <string name="error_404_not_found">Server Anda tidak mendukung fitur ini</string>
     <string name="title_tab_public_trending_hashtags">Tagar</string>
+    <string name="notification_header_report_format">%s dilaporkan %s</string>
+    <string name="dialog_follow_hashtag_title">Ikuti tagar</string>
+    <string name="dialog_follow_hashtag_hint">#tagar</string>
+    <string name="post_media_alt">ALT</string>
+    <string name="post_content_show_less">Tutup</string>
+    <string name="post_edited">Diedit %s</string>
+    <string name="notification_report_format">Laporan baru tentang %s</string>
+    <string name="notification_summary_report_format">%s - %d posting terlampir</string>
+    <string name="action_bookmark">Penanda</string>
+    <string name="action_browser_login">Masuk dengan Browser</string>
+    <string name="action_post_failed">Unggahan gagal</string>
+    <string name="action_post_failed_detail">Postingan Anda gagal diunggah dan telah disimpan ke draf.
+\n
+\nServer tidak dapat dihubungi, atau server menolak postingan Anda.</string>
+    <string name="action_post_failed_detail_plural">Tulisan Anda gagal diunggah dan telah disimpan ke draf.
+\n
+\nServer tidak dapat dihubungi, atau server menolak tulisan Anda.</string>
+    <string name="action_post_failed_show_drafts">Tampilkan draf</string>
+    <string name="action_post_failed_do_nothing">Abaikan</string>
 </resources>
