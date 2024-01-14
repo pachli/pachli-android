@@ -23,14 +23,18 @@ import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
+import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.fakes.InMemorySharedPreferences
 import app.pachli.core.testing.rules.MainCoroutineRule
-import app.pachli.network.ServerCapabilitiesRepository
+import app.pachli.network.ServerRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.StatusDisplayOptionsRepository
+import at.connyduck.calladapter.networkresult.NetworkResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestScope
 import okhttp3.ResponseBody
@@ -38,6 +42,7 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
+import org.mockito.kotlin.any
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
@@ -112,15 +117,32 @@ abstract class NotificationsViewModelTestBase {
             onBlocking { getInstanceV1() } doAnswer { null }
         }
 
-        val serverCapabilitiesRepository = ServerCapabilitiesRepository(
+        val nodeInfoApi: NodeInfoApi = mock {
+            onBlocking { nodeInfoJrd() } doReturn NetworkResult.success(
+                UnvalidatedJrd(
+                    listOf(
+                        UnvalidatedJrd.Link(
+                            "http://nodeinfo.diaspora.software/ns/schema/2.1",
+                            "https://example.com",
+                        ),
+                    ),
+                ),
+            )
+            onBlocking { nodeInfo(any()) } doReturn NetworkResult.success(
+                UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
+            )
+        }
+
+        val serverRepository = ServerRepository(
             mastodonApi,
+            nodeInfoApi,
             accountManager,
             TestScope(),
         )
 
         statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
             sharedPreferencesRepository,
-            serverCapabilitiesRepository,
+            serverRepository,
             accountManager,
             accountPreferenceDataStore,
             TestScope(),

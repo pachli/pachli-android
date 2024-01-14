@@ -51,19 +51,21 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
-import app.pachli.core.network.ServerOperation
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.interfaces.AccountSelectionListener
-import app.pachli.network.ServerCapabilitiesRepository
+import app.pachli.network.ServerRepository
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.openLink
 import app.pachli.view.showMuteAccountDialog
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
@@ -91,7 +93,7 @@ abstract class SFragment : Fragment() {
     lateinit var timelineCases: TimelineCases
 
     @Inject
-    lateinit var serverCapabilitiesRepository: ServerCapabilitiesRepository
+    lateinit var serverRepository: ServerRepository
 
     private var serverCanTranslate = false
 
@@ -115,11 +117,24 @@ abstract class SFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                serverCapabilitiesRepository.flow.collect {
-                    serverCanTranslate = it.can(
-                        ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE,
-                        ">=1.0".toConstraint(),
-                    )
+                serverRepository.flow.collect { result ->
+                    result.onSuccess {
+                        serverCanTranslate = it?.can(
+                            operation = ORG_JOINMASTODON_STATUSES_TRANSLATE,
+                            constraint = ">=1.0".toConstraint(),
+                        ) ?: false
+                    }
+                    result.onFailure {
+                        val msg = getString(
+                            R.string.server_repository_error,
+                            it.msg(requireContext()),
+                        )
+                        Timber.e(msg)
+                        Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE)
+                            .setTextMaxLines(5)
+                            .show()
+                        serverCanTranslate = false
+                    }
                 }
             }
         }

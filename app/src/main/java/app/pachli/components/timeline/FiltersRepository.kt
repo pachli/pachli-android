@@ -17,11 +17,16 @@
 
 package app.pachli.components.timeline
 
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.network.ServerRepository
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrThrow
+import com.github.michaelbull.result.getOrElse
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import javax.inject.Singleton
 import retrofit2.HttpException
@@ -38,6 +43,7 @@ sealed interface FilterKind {
 @Singleton
 class FiltersRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
+    private val serverRepository: ServerRepository,
 ) {
     /**
      * Get the current set of filters.
@@ -47,15 +53,29 @@ class FiltersRepository @Inject constructor(
      *
      * @throws HttpException if the requests fail
      */
-    suspend fun getFilters(): FilterKind = mastodonApi.getFilters().fold(
-        { filters -> FilterKind.V2(filters) },
-        { throwable ->
-            if (throwable is HttpException && throwable.code() == 404) {
-                val filters = mastodonApi.getFiltersV1().getOrThrow()
-                FilterKind.V1(filters)
-            } else {
-                throw throwable
-            }
-        },
-    )
+    suspend fun getFilters(): FilterKind {
+        // If fetching capabilities failed then assume no filtering
+        val capabilities = serverRepository.flow.value.getOrElse {
+            return FilterKind.V2(emptyList())
+        } ?: return FilterKind.V2(emptyList())
+
+        // If the server doesn't support filtering then return an empty list of filters
+        if (!capabilities.can(ORG_JOINMASTODON_FILTERS_CLIENT, ">=1.0.0".toConstraint()) &&
+            !capabilities.can(ORG_JOINMASTODON_FILTERS_SERVER, ">=1.0.0".toConstraint())
+        ) {
+            return FilterKind.V2(emptyList())
+        }
+
+        return mastodonApi.getFilters().fold(
+            { filters -> FilterKind.V2(filters) },
+            { throwable ->
+                if (throwable is HttpException && throwable.code() == 404) {
+                    val filters = mastodonApi.getFiltersV1().getOrThrow()
+                    FilterKind.V1(filters)
+                } else {
+                    throw throwable
+                }
+            },
+        )
+    }
 }

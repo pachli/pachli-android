@@ -184,7 +184,6 @@ dependencies {
     googleImplementation(libs.app.update)
     googleImplementation(libs.app.update.ktx)
 
-    implementation(libs.kotlin.result)
     implementation(libs.semver)
 
     debugImplementation(libs.leakcanary)

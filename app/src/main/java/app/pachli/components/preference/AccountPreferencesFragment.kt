@@ -36,10 +36,13 @@ import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.TabPreferenceActivityIntent
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.network.ServerRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
@@ -51,10 +54,12 @@ import app.pachli.util.getLocaleList
 import app.pachli.util.getPachliDisplayName
 import app.pachli.util.makeIcon
 import app.pachli.util.unsafeLazy
+import com.github.michaelbull.result.getOrElse
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import retrofit2.Call
 import retrofit2.Callback
@@ -68,6 +73,9 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
 
     @Inject
     lateinit var mastodonApi: MastodonApi
+
+    @Inject
+    lateinit var serverRepository: ServerRepository
 
     @Inject
     lateinit var eventHub: EventHub
@@ -178,6 +186,15 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     launchFilterActivity()
                     true
                 }
+                val server = serverRepository.flow.value.getOrElse { null }
+                isEnabled = server?.let {
+                    it.can(
+                        ORG_JOINMASTODON_FILTERS_CLIENT, ">1.0.0".toConstraint(),
+                    ) || it.can(
+                        ORG_JOINMASTODON_FILTERS_SERVER, ">1.0.0".toConstraint(),
+                    )
+                } ?: false
+                if (!isEnabled) summary = context.getString(R.string.pref_summary_timeline_filters)
             }
 
             preferenceCategory(R.string.pref_publishing) {
