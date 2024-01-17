@@ -21,14 +21,12 @@ import androidx.core.content.edit
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.PachliApplication
-import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.rules.MainCoroutineRule
-import app.pachli.network.ServerCapabilitiesRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.CustomTestApplication
@@ -38,7 +36,6 @@ import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -72,11 +69,11 @@ class StatusDisplayOptionsRepositoryTest {
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
-    // Not injected as it expects an active account, so constructed by hand in setup()
-    private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
+    @Inject
+    lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
 
-    // Not injected, as it depends on accountPreferenceDataStore
-    private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+    @Inject
+    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     private val defaultStatusDisplayOptions = StatusDisplayOptions()
 
@@ -101,25 +98,6 @@ class StatusDisplayOptionsRepositoryTest {
                 avatar = "",
                 header = "",
             ),
-        )
-
-        accountPreferenceDataStore = AccountPreferenceDataStore(
-            accountManager,
-            TestScope(),
-        )
-
-        val serverCapabilitiesRepository = ServerCapabilitiesRepository(
-            mastodonApi,
-            accountManager,
-            TestScope(),
-        )
-
-        statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
-            sharedPreferencesRepository,
-            serverCapabilitiesRepository,
-            accountManager,
-            accountPreferenceDataStore,
-            TestScope(),
         )
     }
 
