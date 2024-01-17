@@ -20,8 +20,6 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.StatusContext
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.network.ServerCapabilitiesRepository
-import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.StatusDisplayOptionsRepository
 import at.connyduck.calladapter.networkresult.NetworkResult
@@ -36,7 +34,6 @@ import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestScope
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -113,9 +110,8 @@ class ViewThreadViewModelTest {
     @BindValue @JvmField
     val filtersRepository: FiltersRepository = mock()
 
-    private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
-
-    private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+    @Inject
+    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     private lateinit var viewModel: ViewThreadViewModel
 
@@ -158,29 +154,10 @@ class ViewThreadViewModelTest {
             ),
         )
 
-        accountPreferenceDataStore = AccountPreferenceDataStore(
-            accountManager,
-            TestScope(),
-        )
-
         val cachedTimelineRepository: CachedTimelineRepository = mock {
             onBlocking { getStatusViewData(any()) } doReturn emptyMap()
             onBlocking { getStatusTranslations(any()) } doReturn emptyMap()
         }
-
-        val serverCapabilitiesRepository = ServerCapabilitiesRepository(
-            mastodonApi,
-            accountManager,
-            TestScope(),
-        )
-
-        statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
-            sharedPreferencesRepository,
-            serverCapabilitiesRepository,
-            accountManager,
-            accountPreferenceDataStore,
-            TestScope(),
-        )
 
         viewModel = ViewThreadViewModel(
             mastodonApi,

@@ -28,9 +28,8 @@ import app.pachli.core.network.model.TimelineKind
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.rules.MainCoroutineRule
-import app.pachli.network.ServerCapabilitiesRepository
-import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.HiltTestApplication_Application
 import app.pachli.util.StatusDisplayOptionsRepository
 import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -38,7 +37,6 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
-import kotlinx.coroutines.test.TestScope
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
@@ -77,9 +75,10 @@ abstract class NetworkTimelineViewModelTestBase {
     @Inject
     lateinit var networkTimelineRepository: NetworkTimelineRepository
 
-    private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
+    @Inject
+    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+
     protected lateinit var timelineCases: TimelineCases
-    private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
     protected lateinit var viewModel: TimelineViewModel
 
     private val eventHub = EventHub()
@@ -119,26 +118,7 @@ abstract class NetworkTimelineViewModelTestBase {
             ),
         )
 
-        accountPreferenceDataStore = AccountPreferenceDataStore(
-            accountManager,
-            TestScope(),
-        )
-
         timelineCases = mock()
-
-        val serverCapabilitiesRepository = ServerCapabilitiesRepository(
-            mastodonApi,
-            accountManager,
-            TestScope(),
-        )
-
-        statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
-            sharedPreferencesRepository,
-            serverCapabilitiesRepository,
-            accountManager,
-            accountPreferenceDataStore,
-            TestScope(),
-        )
 
         viewModel = NetworkTimelineViewModel(
             SavedStateHandle(mapOf(TimelineViewModel.TIMELINE_KIND_TAG to TimelineKind.Bookmarks)),
