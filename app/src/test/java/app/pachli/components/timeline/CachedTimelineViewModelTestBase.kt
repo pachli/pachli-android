@@ -26,7 +26,10 @@ import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.TimelineKind
+import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
+import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.usecase.TimelineCases
@@ -44,6 +47,7 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
+import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
@@ -72,6 +76,9 @@ abstract class CachedTimelineViewModelTestBase {
 
     @Inject
     lateinit var mastodonApi: MastodonApi
+
+    @Inject
+    lateinit var nodeInfoApi: NodeInfoApi
 
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
@@ -104,6 +111,23 @@ abstract class CachedTimelineViewModelTestBase {
         mastodonApi.stub {
             onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
             onBlocking { getFilters() } doReturn NetworkResult.success(emptyList())
+        }
+
+        reset(nodeInfoApi)
+        nodeInfoApi.stub {
+            onBlocking { nodeInfoJrd() } doReturn NetworkResult.success(
+                UnvalidatedJrd(
+                    listOf(
+                        UnvalidatedJrd.Link(
+                            "http://nodeinfo.diaspora.software/ns/schema/2.1",
+                            "https://example.com",
+                        ),
+                    ),
+                ),
+            )
+            onBlocking { nodeInfo(any()) } doReturn NetworkResult.success(
+                UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
+            )
         }
 
         accountManager.addAccount(

@@ -23,11 +23,15 @@ import app.cash.turbine.test
 import app.pachli.PachliApplication
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
+import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.settings.AccountPreferenceDataStore
+import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -42,6 +46,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.reset
+import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
 
 open class PachliHiltApplication : PachliApplication()
@@ -67,6 +75,9 @@ class StatusDisplayOptionsRepositoryTest {
     lateinit var mastodonApi: MastodonApi
 
     @Inject
+    lateinit var nodeInfoApi: NodeInfoApi
+
+    @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     @Inject
@@ -80,6 +91,23 @@ class StatusDisplayOptionsRepositoryTest {
     @Before
     fun setup() {
         hilt.inject()
+
+        reset(nodeInfoApi)
+        nodeInfoApi.stub {
+            onBlocking { nodeInfoJrd() } doReturn NetworkResult.success(
+                UnvalidatedJrd(
+                    listOf(
+                        UnvalidatedJrd.Link(
+                            "http://nodeinfo.diaspora.software/ns/schema/2.1",
+                            "https://example.com",
+                        ),
+                    ),
+                ),
+            )
+            onBlocking { nodeInfo(any()) } doReturn NetworkResult.success(
+                UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
+            )
+        }
 
         accountManager.addAccount(
             accessToken = "token",

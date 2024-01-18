@@ -22,11 +22,13 @@ import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.network.ServerOperation
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.network.ServerCapabilitiesRepository
+import app.pachli.network.ServerRepository
 import app.pachli.settings.AccountPreferenceDataStore
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -47,7 +49,7 @@ import timber.log.Timber
 @Singleton
 class StatusDisplayOptionsRepository @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val serverCapabilitiesRepository: ServerCapabilitiesRepository,
+    private val serverRepository: ServerRepository,
     private val accountManager: AccountManager,
     private val accountPreferenceDataStore: AccountPreferenceDataStore,
     @ApplicationScope private val externalScope: CoroutineScope,
@@ -157,13 +159,16 @@ class StatusDisplayOptionsRepository @Inject constructor(
         }
 
         externalScope.launch {
-            serverCapabilitiesRepository.flow.collect { serverCapabilities ->
+            serverRepository.flow.collect { result ->
                 Timber.d("Updating because server capabilities changed")
-                _flow.update {
-                    it.copy(
-                        canTranslate = serverCapabilities.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()),
-                    )
+                result.onSuccess { server ->
+                    _flow.update {
+                        it.copy(
+                            canTranslate = server?.can(ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()) ?: false,
+                        )
+                    }
                 }
+                result.onFailure { _flow.update { it.copy(canTranslate = false) } }
             }
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,21 +15,21 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-plugins {
-    alias(libs.plugins.pachli.android.library)
-    alias(libs.plugins.pachli.android.hilt)
-    alias(libs.plugins.kotlin.parcelize)
-}
+package app.pachli.core.network.di
 
-android {
-    namespace = "app.pachli.core.common"
+import app.pachli.core.network.retrofit.NodeInfoApi
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+import retrofit2.Retrofit
+import retrofit2.create
 
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-}
-
-dependencies {
-    api(libs.kotlin.result)
-    api(libs.kotlin.result.coroutines)
+@InstallIn(SingletonComponent::class)
+@Module
+class NodeInfoApiModule {
+    @Provides
+    @Singleton
+    fun providesNodeInfoApi(retrofit: Retrofit): NodeInfoApi = retrofit.create()
 }
