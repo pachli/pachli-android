@@ -540,7 +540,15 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             if (redirectUrl != null) {
                 viewUrl(redirectUrl, PostLookupFallbackBehavior.DISPLAY_ERROR)
             }
+
+            handleMastodonRedirectIntent(intent)
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        handleMastodonRedirectIntent(intent)
     }
 
     private fun forwardToComposeActivity(intent: Intent) {
@@ -1164,6 +1172,14 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             accountManager.activeAccount!!.fullName
         } else {
             null
+        }
+    }
+
+    private fun handleMastodonRedirectIntent(intent: Intent?) {
+        if (intent?.action == "dev.zwander.mastodonredirect.intent.action.OPEN_FEDI_LINK") {
+            intent.dataString?.let { url ->
+                viewUrl(url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
+            }
         }
     }
 

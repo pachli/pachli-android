@@ -37,7 +37,7 @@ import timber.log.Timber
  * @param uri the uri to open
  * @param context context
  */
-fun openLinkInCustomTab(uri: Uri, context: Context) {
+fun openLinkInCustomTab(uri: Uri, context: Context, forceBrowser: Boolean = false) {
     val toolbarColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK)
     val navigationbarColor = MaterialColors.getColor(context, android.R.attr.navigationBarColor, Color.BLACK)
     val navigationbarDividerColor = MaterialColors.getColor(context, com.google.android.material.R.attr.dividerColor, Color.BLACK)
@@ -55,7 +55,7 @@ fun openLinkInCustomTab(uri: Uri, context: Context) {
         customTabsIntent.launchUrl(context, uri)
     } catch (e: ActivityNotFoundException) {
         Timber.w("Activity was not found for intent $customTabsIntent")
-        openLinkInBrowser(uri, context)
+        openLinkInBrowser(uri, context, forceBrowser)
     }
 }
 
@@ -65,8 +65,14 @@ fun openLinkInCustomTab(uri: Uri, context: Context) {
  * @param uri the uri to open
  * @param context context
  */
-private fun openLinkInBrowser(uri: Uri?, context: Context) {
+private fun openLinkInBrowser(uri: Uri?, context: Context, forceBrowser: Boolean = false) {
     val intent = Intent(Intent.ACTION_VIEW, uri)
+
+    if (forceBrowser) {
+        // Forces the link to open in the browser instead of another deep-linked app.
+        intent.selector = Intent(Intent.ACTION_VIEW, Uri.parse("https://"))
+    }
+
     try {
         context.startActivity(intent)
     } catch (e: ActivityNotFoundException) {
@@ -80,13 +86,13 @@ private fun openLinkInBrowser(uri: Uri?, context: Context) {
  * @receiver the Context to open the link from
  * @param url a string containing the url to open
  */
-fun Context.openLink(url: String) {
+fun Context.openLink(url: String, forceBrowser: Boolean = false) {
     val uri = url.toUri().normalizeScheme()
     val useCustomTabs = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PrefKeys.CUSTOM_TABS, false)
 
     if (useCustomTabs) {
-        openLinkInCustomTab(uri, this)
+        openLinkInCustomTab(uri, this, forceBrowser)
     } else {
-        openLinkInBrowser(uri, this)
+        openLinkInBrowser(uri, this, forceBrowser)
     }
 }
