@@ -55,13 +55,11 @@ class FiltersRepository @Inject constructor(
      */
     suspend fun getFilters(): FilterKind {
         // If fetching capabilities failed then assume no filtering
-        val capabilities = serverRepository.flow.value.getOrElse {
-            return FilterKind.V2(emptyList())
-        } ?: return FilterKind.V2(emptyList())
+        val server = serverRepository.flow.value.getOrElse { null } ?: return FilterKind.V2(emptyList())
 
         // If the server doesn't support filtering then return an empty list of filters
-        if (!capabilities.can(ORG_JOINMASTODON_FILTERS_CLIENT, ">=1.0.0".toConstraint()) &&
-            !capabilities.can(ORG_JOINMASTODON_FILTERS_SERVER, ">=1.0.0".toConstraint())
+        if (!server.can(ORG_JOINMASTODON_FILTERS_CLIENT, ">=1.0.0".toConstraint()) &&
+            !server.can(ORG_JOINMASTODON_FILTERS_SERVER, ">=1.0.0".toConstraint())
         ) {
             return FilterKind.V2(emptyList())
         }
