@@ -203,11 +203,11 @@ enum class TranslationState {
 data class StatusViewDataEntity(
     val serverId: String,
     val timelineUserId: Long,
-    /** Corresponds to [app.pachli.viewdata.StatusViewData.isExpanded] */
+    /** Corresponds to [app.pachli.viewdata.IStatusViewData.isExpanded] */
     val expanded: Boolean,
-    /** Corresponds to [app.pachli.viewdata.StatusViewData.isShowingContent] */
+    /** Corresponds to [app.pachli.viewdata.IStatusViewData.isShowingContent] */
     val contentShowing: Boolean,
-    /** Corresponds to [app.pachli.viewdata.StatusViewData.isCollapsed] */
+    /** Corresponds to [app.pachli.viewdata.IStatusViewData.isCollapsed] */
     val contentCollapsed: Boolean,
     /** Show the translated version of the status (if it exists) */
     @ColumnInfo(defaultValue = "SHOW_ORIGINAL")

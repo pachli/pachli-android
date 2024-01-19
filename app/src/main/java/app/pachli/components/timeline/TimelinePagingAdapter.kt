@@ -33,17 +33,17 @@ import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.StatusViewData
 
 class TimelinePagingAdapter(
-    private val statusListener: StatusActionListener,
+    private val statusListener: StatusActionListener<StatusViewData>,
     var statusDisplayOptions: StatusDisplayOptions,
 ) : PagingDataAdapter<StatusViewData, RecyclerView.ViewHolder>(TimelineDifferCallback) {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
         return when (viewType) {
             VIEW_TYPE_STATUS_FILTERED -> {
-                FilterableStatusViewHolder(ItemStatusWrapperBinding.inflate(inflater, viewGroup, false))
+                FilterableStatusViewHolder<StatusViewData>(ItemStatusWrapperBinding.inflate(inflater, viewGroup, false))
             }
             VIEW_TYPE_STATUS -> {
-                StatusViewHolder(ItemStatusBinding.inflate(inflater, viewGroup, false))
+                StatusViewHolder<StatusViewData>(ItemStatusBinding.inflate(inflater, viewGroup, false))
             }
             else -> return object : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_placeholder, viewGroup, false)) {}
         }
@@ -67,7 +67,7 @@ class TimelinePagingAdapter(
         payloads: List<*>?,
     ) {
         getItem(position)?.let {
-            (viewHolder as StatusViewHolder).setupWithStatus(
+            (viewHolder as StatusViewHolder<StatusViewData>).setupWithStatus(
                 it,
                 statusListener,
                 statusDisplayOptions,

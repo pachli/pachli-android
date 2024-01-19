@@ -24,9 +24,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.EmptyPagingSource
@@ -42,6 +42,7 @@ class ConversationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
     transactionProvider: TransactionProvider,
     private val conversationsDao: ConversationsDao,
+    private val converters: Converters,
     private val accountManager: AccountManager,
     private val api: MastodonApi,
 ) : ViewModel() {
@@ -70,89 +71,95 @@ class ConversationsViewModel @Inject constructor(
         }
         .cachedIn(viewModelScope)
 
-    fun favourite(favourite: Boolean, conversation: ConversationViewData) {
+    /**
+     * @param lastStatusId ID of the last status in the conversation
+     */
+    fun favourite(favourite: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            timelineCases.favourite(conversation.lastStatus.id, favourite).fold({
-                val newConversation = conversation.toConversationEntity(
-                    accountId = accountManager.activeAccount!!.id,
-                    favourited = favourite,
+            timelineCases.favourite(lastStatusId, favourite).fold({
+                conversationsDao.setFavourited(
+                    accountManager.activeAccount!!.id,
+                    lastStatusId,
+                    favourite,
                 )
-
-                saveConversationToDb(newConversation)
             }, { e ->
                 Timber.w("failed to favourite status", e)
             })
         }
     }
 
-    fun bookmark(bookmark: Boolean, conversation: ConversationViewData) {
+    /**
+     * @param lastStatusId ID of the last status in the conversation
+     */
+    fun bookmark(bookmark: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            timelineCases.bookmark(conversation.lastStatus.id, bookmark).fold({
-                val newConversation = conversation.toConversationEntity(
-                    accountId = accountManager.activeAccount!!.id,
-                    bookmarked = bookmark,
+            timelineCases.bookmark(lastStatusId, bookmark).fold({
+                conversationsDao.setBookmarked(
+                    accountManager.activeAccount!!.id,
+                    lastStatusId,
+                    bookmark,
                 )
-
-                saveConversationToDb(newConversation)
             }, { e ->
                 Timber.w("failed to bookmark status", e)
             })
         }
     }
 
-    fun voteInPoll(choices: List<Int>, conversation: ConversationViewData) {
+    /**
+     * @param lastStatusId ID of the last status in the conversation
+     */
+    fun voteInPoll(choices: List<Int>, lastStatusId: String, pollId: String) {
         viewModelScope.launch {
-            timelineCases.voteInPoll(conversation.lastStatus.id, conversation.lastStatus.status.poll?.id!!, choices)
+            timelineCases.voteInPoll(lastStatusId, pollId, choices)
                 .fold({ poll ->
-                    val newConversation = conversation.toConversationEntity(
-                        accountId = accountManager.activeAccount!!.id,
-                        poll = poll,
+                    conversationsDao.setVoted(
+                        accountManager.activeAccount!!.id,
+                        lastStatusId,
+                        converters.pollToJson(poll)!!,
                     )
-
-                    saveConversationToDb(newConversation)
                 }, { e ->
                     Timber.w("failed to vote in poll", e)
                 })
         }
     }
 
-    fun expandHiddenStatus(expanded: Boolean, conversation: ConversationViewData) {
+    fun expandHiddenStatus(expanded: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            val newConversation = conversation.toConversationEntity(
-                accountId = accountManager.activeAccount!!.id,
-                expanded = expanded,
+            conversationsDao.setExpanded(
+                accountManager.activeAccount!!.id,
+                lastStatusId,
+                expanded,
             )
-            saveConversationToDb(newConversation)
         }
     }
 
-    fun collapseLongStatus(collapsed: Boolean, conversation: ConversationViewData) {
+    fun collapseLongStatus(collapsed: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            val newConversation = conversation.toConversationEntity(
-                accountId = accountManager.activeAccount!!.id,
-                collapsed = collapsed,
+            conversationsDao.setCollapsed(
+                accountManager.activeAccount!!.id,
+                lastStatusId,
+                collapsed,
             )
-            saveConversationToDb(newConversation)
         }
     }
 
-    fun showContent(showing: Boolean, conversation: ConversationViewData) {
+    fun showContent(showingHiddenContent: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            val newConversation = conversation.toConversationEntity(
-                accountId = accountManager.activeAccount!!.id,
-                showingHiddenContent = showing,
+            conversationsDao.setShowingHiddenContent(
+                accountManager.activeAccount!!.id,
+                lastStatusId,
+                showingHiddenContent,
             )
-            saveConversationToDb(newConversation)
         }
     }
 
-    fun remove(conversation: ConversationViewData) {
+    fun remove(viewData: ConversationViewData) {
         viewModelScope.launch {
             try {
-                api.deleteConversation(conversationId = conversation.id)
+                api.deleteConversation(conversationId = viewData.id)
 
                 conversationsDao.delete(
-                    id = conversation.id,
+                    id = viewData.id,
                     accountId = accountManager.activeAccount!!.id,
                 )
             } catch (e: Exception) {
@@ -161,27 +168,19 @@ class ConversationsViewModel @Inject constructor(
         }
     }
 
-    fun muteConversation(conversation: ConversationViewData) {
+    fun muteConversation(muted: Boolean, lastStatusId: String) {
         viewModelScope.launch {
             try {
-                timelineCases.muteConversation(
-                    conversation.lastStatus.id,
-                    !(conversation.lastStatus.status.muted ?: false),
-                )
+                timelineCases.muteConversation(lastStatusId, muted)
 
-                val newConversation = conversation.toConversationEntity(
-                    accountId = accountManager.activeAccount!!.id,
-                    muted = !(conversation.lastStatus.status.muted ?: false),
+                conversationsDao.setMuted(
+                    accountManager.activeAccount!!.id,
+                    lastStatusId,
+                    muted,
                 )
-
-                conversationsDao.insert(newConversation)
             } catch (e: Exception) {
                 Timber.w("failed to mute conversation", e)
             }
         }
-    }
-
-    private suspend fun saveConversationToDb(conversation: ConversationEntity) {
-        conversationsDao.insert(conversation)
     }
 }

@@ -23,25 +23,25 @@ import app.pachli.core.network.model.Filter
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptions
-import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.IStatusViewData
 
-open class FilterableStatusViewHolder(
+open class FilterableStatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusWrapperBinding,
-) : StatusViewHolder(binding.statusContainer, binding.root) {
+) : StatusViewHolder<T>(binding.statusContainer, binding.root) {
 
     override fun setupWithStatus(
-        status: StatusViewData,
-        listener: StatusActionListener,
+        viewData: T,
+        listener: StatusActionListener<T>,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: Any?,
     ) {
-        super.setupWithStatus(status, listener, statusDisplayOptions, payloads)
-        setupFilterPlaceholder(status, listener)
+        super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
+        setupFilterPlaceholder(viewData, listener)
     }
 
     private fun setupFilterPlaceholder(
-        status: StatusViewData,
-        listener: StatusActionListener,
+        status: T,
+        listener: StatusActionListener<T>,
     ) {
         if (status.filterAction !== Filter.Action.WARN) {
             showFilteredPlaceholder(false)
@@ -75,9 +75,7 @@ open class FilterableStatusViewHolder(
             matchedFilter.title,
         )
         binding.statusFilteredPlaceholder.statusFilterShowAnyway.setOnClickListener {
-            listener.clearWarningAction(
-                bindingAdapterPosition,
-            )
+            listener.clearWarningAction(status)
         }
     }
 

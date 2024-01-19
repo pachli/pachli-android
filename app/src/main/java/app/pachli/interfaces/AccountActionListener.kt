@@ -21,5 +21,5 @@ interface AccountActionListener {
     fun onViewAccount(id: String)
     fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean)
     fun onBlock(block: Boolean, id: String, position: Int)
-    fun onRespondToFollowRequest(accept: Boolean, id: String, position: Int)
+    fun onRespondToFollowRequest(accept: Boolean, accountId: String, position: Int)
 }

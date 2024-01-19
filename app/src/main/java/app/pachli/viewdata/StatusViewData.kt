@@ -19,13 +19,11 @@ import android.os.Build
 import android.text.Spanned
 import android.text.SpannedString
 import app.pachli.BuildConfig
-import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.ConversationStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Filter
-import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.replaceCrashingCharacters
@@ -33,11 +31,15 @@ import app.pachli.util.shouldTrimStatus
 import com.google.gson.Gson
 
 /**
- * Data required to display a status.
+ * Interface for the data shown when viewing a status, or something that wraps
+ * a status, like [NotificationViewData] or
+ * [app.pachli.components.conversation.ConversationViewData].
  */
-data class StatusViewData(
-    var status: Status,
-    var translation: TranslatedStatusEntity? = null,
+interface IStatusViewData {
+    val username: String
+    val rebloggedAvatar: String?
+
+    var translation: TranslatedStatusEntity?
 
     /**
      * If the status includes a non-empty content warning ([spoilerText]), specifies whether
@@ -45,40 +47,13 @@ data class StatusViewData(
      *
      * Ignored if there is no content warning.
      */
-    val isExpanded: Boolean,
+    val isExpanded: Boolean
+
     /**
      * If the status contains attached media, specifies whether whether the media is shown
      * (true), or not (false).
      */
-    val isShowingContent: Boolean,
-
-    /**
-     * Specifies whether the content of this status is currently limited in visibility to the first
-     * 500 characters or not.
-     *
-     * @return Whether the status is collapsed or fully expanded.
-     */
-    val isCollapsed: Boolean,
-
-    /**
-     * Specifies whether this status should be shown with the "detailed" layout, meaning it is
-     * the status that has a focus when viewing a thread.
-     */
-    val isDetailed: Boolean = false,
-
-    // TODO: This means that null checks are required elsewhere in the code to deal with
-    // the possibility that this might not be NONE, but that status.filtered is null or
-    // empty (e.g., StatusBaseViewHolder.setupFilterPlaceholder()). It would be better
-    // if the Filter.Action class subtypes carried the FilterResult information with them,
-    // and it's impossible to construct them with an empty list.
-    /** Whether this status should be filtered, and if so, how */
-    var filterAction: Filter.Action = Filter.Action.NONE,
-
-    /** True if the translated content should be shown (if it exists) */
-    val translationState: TranslationState,
-) {
-    val id: String
-        get() = status.id
+    val isShowingContent: Boolean
 
     /**
      * Specifies whether the content of this status is long enough to be automatically
@@ -88,12 +63,86 @@ data class StatusViewData(
      */
     val isCollapsible: Boolean
 
+    /**
+     * Specifies whether the content of this status is currently limited in visibility to the first
+     * 500 characters or not.
+     *
+     * @return Whether the status is collapsed or fully expanded.
+     */
+    val isCollapsed: Boolean
+
+    /** The content warning, may be the empty string */
+    val spoilerText: String
+
+    /**
+     * The content to show for this status. May be the original content, or
+     * translated, depending on `translationState`.
+     */
+    val content: Spanned
+
+    /** The underlying network status */
+    val status: Status
+
+    /**
+     * The "actionable" status; the one on which the user can perform actions
+     * (reblog, favourite, reply, etc).
+     *
+     * A status may refer to another status. For example, if this is status `B`,
+     * and `B` is a reblog of status `A`, then `A` is the "actionable" status.
+     *
+     * If this is a top-level status (e.g., it's not a reblog, etc) then `status`
+     * and `actionable` are the same.
+     */
+    val actionable: Status
+
+    /**
+     * The ID of the [actionable] status.
+     */
+    val actionableId: String
+
+    val rebloggingStatus: Status?
+
+    // TODO: This means that null checks are required elsewhere in the code to deal with
+    // the possibility that this might not be NONE, but that status.filtered is null or
+    // empty (e.g., StatusBaseViewHolder.setupFilterPlaceholder()). It would be better
+    // if the Filter.Action class subtypes carried the FilterResult information with them,
+    // and it's impossible to construct them with an empty list.
+    /** Whether this status should be filtered, and if so, how */
+    var filterAction: Filter.Action
+
+    /** The current translation state */
+    val translationState: TranslationState
+}
+
+/**
+ * Data required to display a status.
+ */
+data class StatusViewData(
+    override var status: Status,
+    override var translation: TranslatedStatusEntity? = null,
+    override val isExpanded: Boolean,
+    override val isShowingContent: Boolean,
+    override val isCollapsed: Boolean,
+    override var filterAction: Filter.Action = Filter.Action.NONE,
+    override val translationState: TranslationState,
+
+    /**
+     * Specifies whether this status should be shown with the "detailed" layout, meaning it is
+     * the status that has a focus when viewing a thread.
+     */
+    val isDetailed: Boolean = false,
+) : IStatusViewData {
+    val id: String
+        get() = status.id
+
+    override val isCollapsible: Boolean
+
     private val _content: Spanned
 
     @Suppress("ktlint:standard:property-naming")
     private val _translatedContent: Spanned
 
-    val content: Spanned
+    override val content: Spanned
         get() = if (translationState == TranslationState.SHOW_TRANSLATION) _translatedContent else _content
 
     private val _spoilerText: String
@@ -101,26 +150,25 @@ data class StatusViewData(
     @Suppress("ktlint:standard:property-naming")
     private val _translatedSpoilerText: String
 
-    /** The content warning, may be the empty string */
-    val spoilerText: String
+    override val spoilerText: String
         get() = if (translationState == TranslationState.SHOW_TRANSLATION) _translatedSpoilerText else _spoilerText
 
-    val username: String
+    override val username: String
 
-    val actionable: Status
+    override val actionable: Status
         get() = status.actionableStatus
 
-    val actionableId: String
+    override val actionableId: String
         get() = status.actionableStatus.id
 
-    val rebloggedAvatar: String?
+    override val rebloggedAvatar: String?
         get() = if (status.reblog != null) {
             status.account.avatar
         } else {
             null
         }
 
-    val rebloggingStatus: Status?
+    override val rebloggingStatus: Status?
         get() = if (status.reblog != null) status else null
 
     init {
@@ -149,41 +197,6 @@ data class StatusViewData(
 
     /** Helper for Java */
     fun copyWithCollapsed(isCollapsed: Boolean) = copy(isCollapsed = isCollapsed)
-
-    fun toConversationStatusEntity(
-        favourited: Boolean = status.favourited,
-        bookmarked: Boolean = status.bookmarked,
-        muted: Boolean = status.muted ?: false,
-        poll: Poll? = status.poll,
-        expanded: Boolean = isExpanded,
-        collapsed: Boolean = isCollapsed,
-        showingHiddenContent: Boolean = isShowingContent,
-    ) = ConversationStatusEntity(
-        id = id,
-        url = status.url,
-        inReplyToId = status.inReplyToId,
-        inReplyToAccountId = status.inReplyToAccountId,
-        account = ConversationAccountEntity.from(status.account),
-        content = status.content,
-        createdAt = status.createdAt,
-        editedAt = status.editedAt,
-        emojis = status.emojis,
-        favouritesCount = status.favouritesCount,
-        repliesCount = status.repliesCount,
-        favourited = favourited,
-        bookmarked = bookmarked,
-        sensitive = status.sensitive,
-        spoilerText = status.spoilerText,
-        attachments = status.attachments,
-        mentions = status.mentions,
-        tags = status.tags,
-        showingHiddenContent = showingHiddenContent,
-        expanded = expanded,
-        collapsed = collapsed,
-        muted = muted,
-        poll = poll,
-        language = status.language,
-    )
 
     companion object {
         fun from(

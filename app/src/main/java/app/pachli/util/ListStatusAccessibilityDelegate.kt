@@ -18,18 +18,19 @@ import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.interfaces.StatusActionListener
+import app.pachli.viewdata.IStatusViewData
 import app.pachli.viewdata.StatusViewData
 import kotlin.math.min
 
 // Not using lambdas because there's boxing of int then
-fun interface StatusProvider {
-    fun getStatus(pos: Int): StatusViewData?
+fun interface StatusProvider<T> {
+    fun getStatus(pos: Int): T?
 }
 
-class ListStatusAccessibilityDelegate(
+class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val recyclerView: RecyclerView,
-    private val statusActionListener: StatusActionListener,
-    private val statusProvider: StatusProvider,
+    private val statusActionListener: StatusActionListener<T>,
+    private val statusProvider: StatusProvider<T>,
 ) : RecyclerViewAccessibilityDelegate(recyclerView) {
     private val a11yManager = context.getSystemService(Context.ACCESSIBILITY_SERVICE)
         as AccessibilityManager
@@ -100,43 +101,42 @@ class ListStatusAccessibilityDelegate(
             args: Bundle?,
         ): Boolean {
             val pos = recyclerView.getChildAdapterPosition(host)
+            val status = statusProvider.getStatus(pos) ?: return false
             when (action) {
                 R.id.action_reply -> {
                     interrupt()
-                    statusActionListener.onReply(pos)
+                    statusActionListener.onReply(status)
                 }
-                R.id.action_favourite -> statusActionListener.onFavourite(true, pos)
-                R.id.action_unfavourite -> statusActionListener.onFavourite(false, pos)
-                R.id.action_bookmark -> statusActionListener.onBookmark(true, pos)
-                R.id.action_unbookmark -> statusActionListener.onBookmark(false, pos)
-                R.id.action_reblog -> statusActionListener.onReblog(true, pos)
-                R.id.action_unreblog -> statusActionListener.onReblog(false, pos)
+                R.id.action_favourite -> statusActionListener.onFavourite(status, true)
+                R.id.action_unfavourite -> statusActionListener.onFavourite(status, false)
+                R.id.action_bookmark -> statusActionListener.onBookmark(status, true)
+                R.id.action_unbookmark -> statusActionListener.onBookmark(status, false)
+                R.id.action_reblog -> statusActionListener.onReblog(status, true)
+                R.id.action_unreblog -> statusActionListener.onReblog(status, false)
                 R.id.action_open_profile -> {
                     interrupt()
-                    statusActionListener.onViewAccount(
-                        (statusProvider.getStatus(pos) as StatusViewData).actionable.account.id,
-                    )
+                    statusActionListener.onViewAccount(status.actionable.account.id)
                 }
                 R.id.action_open_media_1 -> {
                     interrupt()
-                    statusActionListener.onViewMedia(pos, 0, null)
+                    statusActionListener.onViewMedia(status, 0, null)
                 }
                 R.id.action_open_media_2 -> {
                     interrupt()
-                    statusActionListener.onViewMedia(pos, 1, null)
+                    statusActionListener.onViewMedia(status, 1, null)
                 }
                 R.id.action_open_media_3 -> {
                     interrupt()
-                    statusActionListener.onViewMedia(pos, 2, null)
+                    statusActionListener.onViewMedia(status, 2, null)
                 }
                 R.id.action_open_media_4 -> {
                     interrupt()
-                    statusActionListener.onViewMedia(pos, 3, null)
+                    statusActionListener.onViewMedia(status, 3, null)
                 }
                 R.id.action_expand_cw -> {
                     // Toggling it directly to avoid animations
                     // which cannot be disabled for detailed status for some reason
-                    val holder = recyclerView.getChildViewHolder(host) as StatusBaseViewHolder
+                    val holder = recyclerView.getChildViewHolder(host) as StatusBaseViewHolder<IStatusViewData>
                     holder.toggleContentWarning()
                     // Stop and restart narrator before it reads old description.
                     // Would be nice if we could *just* read the content here but doesn't seem
@@ -144,7 +144,7 @@ class ListStatusAccessibilityDelegate(
                     forceFocus(host)
                 }
                 R.id.action_collapse_cw -> {
-                    statusActionListener.onExpandedChange(false, pos)
+                    statusActionListener.onExpandedChange(status, false)
                     interrupt()
                 }
                 R.id.action_links -> showLinksDialog(host)
@@ -152,18 +152,18 @@ class ListStatusAccessibilityDelegate(
                 R.id.action_hashtags -> showHashtagsDialog(host)
                 R.id.action_open_reblogger -> {
                     interrupt()
-                    statusActionListener.onOpenReblog(pos)
+                    statusActionListener.onOpenReblog(status.actionable)
                 }
                 R.id.action_open_reblogged_by -> {
                     interrupt()
-                    statusActionListener.onShowReblogs(pos)
+                    statusActionListener.onShowReblogs(status.actionableId)
                 }
                 R.id.action_open_faved_by -> {
                     interrupt()
-                    statusActionListener.onShowFavs(pos)
+                    statusActionListener.onShowFavs(status.actionableId)
                 }
                 R.id.action_more -> {
-                    statusActionListener.onMore(host, pos)
+                    statusActionListener.onMore(host, status)
                 }
                 else -> return super.performAccessibilityAction(host, action, args)
             }
@@ -224,7 +224,7 @@ class ListStatusAccessibilityDelegate(
                 .let { forceFocus(it.listView) }
         }
 
-        private fun getStatus(childView: View): StatusViewData {
+        private fun getStatus(childView: View): T {
             return statusProvider.getStatus(recyclerView.getChildAdapterPosition(childView))!!
         }
     }

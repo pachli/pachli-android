@@ -28,9 +28,9 @@ import app.pachli.viewdata.NotificationViewData
 
 internal class StatusViewHolder(
     binding: ItemStatusBinding,
-    private val statusActionListener: StatusActionListener,
+    private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val accountId: String,
-) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder(binding) {
+) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder<NotificationViewData>(binding) {
 
     override fun bind(
         viewData: NotificationViewData,
@@ -47,7 +47,7 @@ internal class StatusViewHolder(
                 showStatusContent(true)
             }
             setupWithStatus(
-                statusViewData,
+                viewData,
                 statusActionListener,
                 statusDisplayOptions,
                 payloads?.firstOrNull(),
@@ -63,9 +63,9 @@ internal class StatusViewHolder(
 
 class FilterableStatusViewHolder(
     binding: ItemStatusWrapperBinding,
-    private val statusActionListener: StatusActionListener,
+    private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val accountId: String,
-) : NotificationsPagingAdapter.ViewHolder, FilterableStatusViewHolder(binding) {
+) : NotificationsPagingAdapter.ViewHolder, FilterableStatusViewHolder<NotificationViewData>(binding) {
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
         viewData: NotificationViewData,
@@ -82,7 +82,7 @@ class FilterableStatusViewHolder(
                 showStatusContent(true)
             }
             setupWithStatus(
-                statusViewData,
+                viewData,
                 statusActionListener,
                 statusDisplayOptions,
                 payloads?.firstOrNull(),

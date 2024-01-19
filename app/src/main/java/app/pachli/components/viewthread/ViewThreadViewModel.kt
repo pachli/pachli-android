@@ -38,6 +38,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.network.FilterModel
@@ -289,12 +290,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun voteInPoll(choices: List<Int>, status: StatusViewData): Job = viewModelScope.launch {
-        val poll = status.status.actionableStatus.poll ?: run {
-            Timber.w("No poll on status ${status.id}")
-            return@launch
-        }
-
+    fun voteInPoll(poll: Poll, choices: List<Int>, status: StatusViewData): Job = viewModelScope.launch {
         val votedPoll = poll.votedCopy(choices)
         updateStatus(status.id) { status ->
             status.copy(poll = votedPoll)

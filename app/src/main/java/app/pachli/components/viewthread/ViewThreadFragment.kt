@@ -37,6 +37,8 @@ import app.pachli.R
 import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Status
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
@@ -58,9 +60,9 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class ViewThreadFragment :
-    SFragment(),
+    SFragment<StatusViewData>(),
     OnRefreshListener,
-    StatusActionListener,
+    StatusActionListener<StatusViewData>,
     MenuProvider {
 
     private val viewModel: ViewThreadViewModel by viewModels()
@@ -298,45 +300,40 @@ class ViewThreadFragment :
         viewModel.refresh(thisThreadsStatusId)
     }
 
-    override fun onReply(position: Int) {
-        super.reply(adapter.currentList[position].status)
+    override fun onReply(viewData: StatusViewData) {
+        super.reply(viewData.actionable)
     }
 
-    override fun onReblog(reblog: Boolean, position: Int) {
-        val status = adapter.currentList[position]
-        viewModel.reblog(reblog, status)
+    override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
+        viewModel.reblog(reblog, viewData)
     }
 
-    override fun onFavourite(favourite: Boolean, position: Int) {
-        val status = adapter.currentList[position]
-        viewModel.favorite(favourite, status)
+    override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
+        viewModel.favorite(favourite, viewData)
     }
 
-    override fun onBookmark(bookmark: Boolean, position: Int) {
-        val status = adapter.currentList[position]
-        viewModel.bookmark(bookmark, status)
+    override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) {
+        viewModel.bookmark(bookmark, viewData)
     }
 
-    override fun onMore(view: View, position: Int) {
-        super.more(adapter.currentList[position], view, position)
+    override fun onMore(view: View, viewData: StatusViewData) {
+        super.more(view, viewData)
     }
 
-    override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {
-        val status = adapter.currentList[position].status
+    override fun onViewMedia(viewData: StatusViewData, attachmentIndex: Int, view: View?) {
         super.viewMedia(
             attachmentIndex,
-            list(status, alwaysShowSensitiveMedia),
+            list(viewData.actionable, alwaysShowSensitiveMedia),
             view,
         )
     }
 
-    override fun onViewThread(position: Int) {
-        val status = adapter.currentList[position]
+    override fun onViewThread(status: Status) {
         if (thisThreadsStatusId == status.id) {
             // If already viewing this thread, don't reopen it.
             return
         }
-        super.viewThread(status.actionableId, status.actionable.url)
+        super.viewThread(status.actionableId, status.actionableStatus.url)
     }
 
     override fun onViewUrl(url: String) {
@@ -351,32 +348,30 @@ class ViewThreadFragment :
         super.onViewUrl(url)
     }
 
-    override fun onOpenReblog(position: Int) {
+    override fun onOpenReblog(status: Status) {
         // there are no reblogs in threads
     }
 
-    override fun onExpandedChange(expanded: Boolean, position: Int) {
-        viewModel.changeExpanded(expanded, adapter.currentList[position])
+    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+        viewModel.changeExpanded(expanded, viewData)
     }
 
-    override fun onContentHiddenChange(isShowing: Boolean, position: Int) {
-        viewModel.changeContentShowing(isShowing, adapter.currentList[position])
+    override fun onContentHiddenChange(viewData: StatusViewData, isShowing: Boolean) {
+        viewModel.changeContentShowing(isShowing, viewData)
     }
 
-    override fun onShowReblogs(position: Int) {
-        val statusId = adapter.currentList[position].id
+    override fun onShowReblogs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.REBLOGGED, statusId)
         (requireActivity() as BaseActivity).startActivityWithSlideInAnimation(intent)
     }
 
-    override fun onShowFavs(position: Int) {
-        val statusId = adapter.currentList[position].id
+    override fun onShowFavs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.FAVOURITED, statusId)
         (requireActivity() as BaseActivity).startActivityWithSlideInAnimation(intent)
     }
 
-    override fun onContentCollapsedChange(isCollapsed: Boolean, position: Int) {
-        viewModel.changeContentCollapsed(isCollapsed, adapter.currentList[position])
+    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+        viewModel.changeContentCollapsed(isCollapsed, viewData)
     }
 
     override fun onViewTag(tag: String) {
@@ -387,25 +382,21 @@ class ViewThreadFragment :
         super.viewAccount(id)
     }
 
-    public override fun removeItem(position: Int) {
-        adapter.currentList.getOrNull(position)?.let { status ->
-            if (status.isDetailed) {
-                // the main status we are viewing is being removed, finish the activity
-                activity?.finish()
-                return
-            }
-            viewModel.removeStatus(status)
+    public override fun removeItem(viewData: StatusViewData) {
+        if (viewData.isDetailed) {
+            // the main status we are viewing is being removed, finish the activity
+            activity?.finish()
+            return
         }
+        viewModel.removeStatus(viewData)
     }
 
-    override fun onVoteInPoll(position: Int, choices: List<Int>) {
-        val status = adapter.currentList[position]
-        viewModel.voteInPoll(choices, status)
+    override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) {
+        viewModel.voteInPoll(poll, choices, viewData)
     }
 
-    override fun onShowEdits(position: Int) {
-        val status = adapter.currentList[position]
-        val viewEditsFragment = ViewEditsFragment.newInstance(status.actionableId)
+    override fun onShowEdits(statusId: String) {
+        val viewEditsFragment = ViewEditsFragment.newInstance(statusId)
 
         parentFragmentManager.commit {
             setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left, R.anim.slide_from_left, R.anim.slide_to_right)
@@ -414,8 +405,8 @@ class ViewThreadFragment :
         }
     }
 
-    override fun clearWarningAction(position: Int) {
-        viewModel.clearWarning(adapter.currentList[position])
+    override fun clearWarningAction(viewData: StatusViewData) {
+        viewModel.clearWarning(viewData)
     }
 
     companion object {

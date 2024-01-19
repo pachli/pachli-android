@@ -87,26 +87,27 @@ interface NotificationActionListener {
      * the warning is being changed.
      *
      * @param expanded the desired state of the content behind the content warning
-     * @param position the adapter position of the view
      *
      */
-    fun onExpandedChange(expanded: Boolean, position: Int)
+    fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long
      * status content is interacted with.
      *
      * @param isCollapsed Whether the status content is shown in a collapsed state or fully.
-     * @param position    The position of the status in the list.
      */
-    fun onNotificationContentCollapsedChange(isCollapsed: Boolean, position: Int)
+    fun onNotificationContentCollapsedChange(
+        isCollapsed: Boolean,
+        viewData: NotificationViewData,
+    )
 }
 
 class NotificationsPagingAdapter(
     diffCallback: DiffUtil.ItemCallback<NotificationViewData>,
     /** ID of the the account that notifications are being displayed for */
     private val accountId: String,
-    private val statusActionListener: StatusActionListener,
+    private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val notificationActionListener: NotificationActionListener,
     private val accountActionListener: AccountActionListener,
     var statusDisplayOptions: StatusDisplayOptions,

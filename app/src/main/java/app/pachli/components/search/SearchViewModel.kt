@@ -25,6 +25,7 @@ import app.pachli.components.search.adapter.SearchPagingSourceFactory
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.DeletedStatus
+import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.usecase.TimelineCases
@@ -139,8 +140,8 @@ class SearchViewModel @Inject constructor(
         updateStatusViewData(statusViewData.copy(isCollapsed = collapsed))
     }
 
-    fun voteInPoll(statusViewData: StatusViewData, choices: List<Int>) {
-        val votedPoll = statusViewData.status.actionableStatus.poll!!.votedCopy(choices)
+    fun voteInPoll(statusViewData: StatusViewData, poll: Poll, choices: List<Int>) {
+        val votedPoll = poll.votedCopy(choices)
         updateStatus(statusViewData.status.copy(poll = votedPoll))
         viewModelScope.launch {
             timelineCases.voteInPoll(statusViewData.id, votedPoll.id, choices)

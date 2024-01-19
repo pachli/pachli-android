@@ -28,16 +28,16 @@ import app.pachli.viewdata.StatusViewData
 
 class SearchStatusesAdapter(
     private val statusDisplayOptions: StatusDisplayOptions,
-    private val statusListener: StatusActionListener,
-) : PagingDataAdapter<StatusViewData, StatusViewHolder>(STATUS_COMPARATOR) {
+    private val statusListener: StatusActionListener<StatusViewData>,
+) : PagingDataAdapter<StatusViewData, StatusViewHolder<StatusViewData>>(STATUS_COMPARATOR) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder<StatusViewData> {
         return StatusViewHolder(
             ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }
 
-    override fun onBindViewHolder(holder: StatusViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StatusViewHolder<StatusViewData>, position: Int) {
         getItem(position)?.let { item ->
             holder.setupWithStatus(item, statusListener, statusDisplayOptions)
         }

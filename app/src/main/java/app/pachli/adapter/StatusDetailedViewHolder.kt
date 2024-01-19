@@ -7,7 +7,6 @@ import android.text.method.LinkMovementMethod
 import android.text.style.DynamicDrawableSpan
 import android.text.style.ImageSpan
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.databinding.ItemStatusDetailedBinding
 import app.pachli.interfaces.StatusActionListener
@@ -24,14 +23,14 @@ import java.text.DateFormat
 
 class StatusDetailedViewHolder(
     private val binding: ItemStatusDetailedBinding,
-) : StatusBaseViewHolder(binding.root) {
+) : StatusBaseViewHolder<StatusViewData>(binding.root) {
 
     override fun setMetaData(
-        statusViewData: StatusViewData,
+        viewData: StatusViewData,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener,
+        listener: StatusActionListener<StatusViewData>,
     ) {
-        val (_, _, _, _, _, _, _, createdAt, editedAt, _, _, _, _, _, _, _, _, _, visibility, _, _, _, app) = statusViewData.actionable
+        val (_, _, _, _, _, _, _, createdAt, editedAt, _, _, _, _, _, _, _, _, _, visibility, _, _, _, app) = viewData.actionable
         val visibilityIcon = visibility.icon(metaInfo)
         val visibilityString = visibility.description(context)
         val sb = SpannableStringBuilder(visibilityString)
@@ -50,10 +49,10 @@ class StatusDetailedViewHolder(
             val spanStart = sb.length
             val spanEnd = spanStart + editedAtString.length
             sb.append(editedAtString)
-            statusViewData.status.editedAt?.also {
+            viewData.status.editedAt?.also {
                 val editedClickSpan: NoUnderlineURLSpan = object : NoUnderlineURLSpan("") {
                     override fun onClick(view: View) {
-                        listener.onShowEdits(bindingAdapterPosition)
+                        listener.onShowEdits(viewData.actionableId)
                     }
                 }
                 sb.setSpan(editedClickSpan, spanStart, spanEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -71,9 +70,10 @@ class StatusDetailedViewHolder(
     }
 
     private fun setReblogAndFavCount(
+        viewData: StatusViewData,
         reblogCount: Int,
         favCount: Int,
-        listener: StatusActionListener,
+        listener: StatusActionListener<StatusViewData>,
     ) {
         if (reblogCount > 0) {
             binding.statusReblogs.text = getReblogsText(reblogCount)
@@ -93,28 +93,26 @@ class StatusDetailedViewHolder(
             binding.statusInfoDivider.show()
         }
         binding.statusReblogs.setOnClickListener {
-            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
-            listener.onShowReblogs(position)
+            listener.onShowReblogs(viewData.actionableId)
         }
         binding.statusFavourites.setOnClickListener {
-            val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
-            listener.onShowFavs(position)
+            listener.onShowFavs(viewData.actionableId)
         }
     }
 
     override fun setupWithStatus(
-        status: StatusViewData,
-        listener: StatusActionListener,
+        viewData: StatusViewData,
+        listener: StatusActionListener<StatusViewData>,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: Any?,
     ) {
         // We never collapse statuses in the detail view
         val uncollapsedStatus =
-            if (status.isCollapsible && status.isCollapsed) status.copyWithCollapsed(false) else status
+            if (viewData.isCollapsible && viewData.isCollapsed) viewData.copyWithCollapsed(false) else viewData
         super.setupWithStatus(uncollapsedStatus, listener, statusDisplayOptions, payloads)
         setupCard(
             uncollapsedStatus,
-            status.isExpanded,
+            viewData.isExpanded,
             CardViewMode.FULL_WIDTH,
             statusDisplayOptions,
             listener,
@@ -122,7 +120,7 @@ class StatusDetailedViewHolder(
         if (payloads == null) {
             val (_, _, _, _, _, _, _, _, _, _, reblogsCount, favouritesCount) = uncollapsedStatus.actionable
             if (!statusDisplayOptions.hideStats) {
-                setReblogAndFavCount(reblogsCount, favouritesCount, listener)
+                setReblogAndFavCount(viewData, reblogsCount, favouritesCount, listener)
             } else {
                 hideQuantitativeStats()
             }

@@ -34,10 +34,10 @@ import app.pachli.viewdata.StatusViewData
 
 class ThreadAdapter(
     private val statusDisplayOptions: StatusDisplayOptions,
-    private val statusActionListener: StatusActionListener,
-) : ListAdapter<StatusViewData, StatusBaseViewHolder>(ThreadDifferCallback) {
+    private val statusActionListener: StatusActionListener<StatusViewData>,
+) : ListAdapter<StatusViewData, StatusBaseViewHolder<StatusViewData>>(ThreadDifferCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusBaseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusBaseViewHolder<StatusViewData> {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             VIEW_TYPE_STATUS -> {
@@ -53,7 +53,7 @@ class ThreadAdapter(
         }
     }
 
-    override fun onBindViewHolder(viewHolder: StatusBaseViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: StatusBaseViewHolder<StatusViewData>, position: Int) {
         val status = getItem(position)
         viewHolder.setupWithStatus(status, statusActionListener, statusDisplayOptions)
     }

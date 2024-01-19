@@ -41,6 +41,8 @@ import app.pachli.appstore.EventHub
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentTimelineBinding
@@ -71,9 +73,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ConversationsFragment :
-    SFragment(),
+    SFragment<ConversationViewData>(),
     OnRefreshListener,
-    StatusActionListener,
+    StatusActionListener<ConversationViewData>,
     ReselectableFragment,
     MenuProvider {
 
@@ -252,78 +254,63 @@ class ConversationsFragment :
         adapter.refresh()
     }
 
-    override fun onReblog(reblog: Boolean, position: Int) {
+    override fun onReblog(viewData: ConversationViewData, reblog: Boolean) {
         // its impossible to reblog private messages
     }
 
-    override fun onFavourite(favourite: Boolean, position: Int) {
-        adapter.peek(position)?.let { conversation ->
-            viewModel.favourite(favourite, conversation)
-        }
+    override fun onFavourite(viewData: ConversationViewData, favourite: Boolean) {
+        viewModel.favourite(favourite, viewData.lastStatus.actionableId)
     }
 
-    override fun onBookmark(favourite: Boolean, position: Int) {
-        adapter.peek(position)?.let { conversation ->
-            viewModel.bookmark(favourite, conversation)
-        }
+    override fun onBookmark(viewData: ConversationViewData, bookmark: Boolean) {
+        viewModel.bookmark(bookmark, viewData.lastStatus.actionableId)
     }
 
-    override fun onMore(view: View, position: Int) {
-        adapter.peek(position)?.let { conversation ->
+    override fun onMore(view: View, viewData: ConversationViewData) {
+        val status = viewData.lastStatus.status
 
-            val popup = PopupMenu(requireContext(), view)
-            popup.inflate(R.menu.conversation_more)
+        val popup = PopupMenu(requireContext(), view)
+        popup.inflate(R.menu.conversation_more)
 
-            if (conversation.lastStatus.status.muted == true) {
-                popup.menu.removeItem(R.id.status_mute_conversation)
-            } else {
-                popup.menu.removeItem(R.id.status_unmute_conversation)
+        if (status.muted == true) {
+            popup.menu.removeItem(R.id.status_mute_conversation)
+        } else {
+            popup.menu.removeItem(R.id.status_unmute_conversation)
+        }
+
+        popup.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.status_mute_conversation -> viewModel.muteConversation(true, viewData.lastStatus.id)
+                R.id.status_unmute_conversation -> viewModel.muteConversation(false, viewData.lastStatus.id)
+                R.id.conversation_delete -> deleteConversation(viewData)
             }
-
-            popup.setOnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.status_mute_conversation -> viewModel.muteConversation(conversation)
-                    R.id.status_unmute_conversation -> viewModel.muteConversation(conversation)
-                    R.id.conversation_delete -> deleteConversation(conversation)
-                }
-                true
-            }
-            popup.show()
+            true
         }
+        popup.show()
     }
 
-    override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {
-        adapter.peek(position)?.let { conversation ->
-            viewMedia(attachmentIndex, AttachmentViewData.list(conversation.lastStatus.status), view)
-        }
+    override fun onViewMedia(viewData: ConversationViewData, attachmentIndex: Int, view: View?) {
+        viewMedia(attachmentIndex, AttachmentViewData.list(viewData.lastStatus.status), view)
     }
 
-    override fun onViewThread(position: Int) {
-        adapter.peek(position)?.let { conversation ->
-            viewThread(conversation.lastStatus.id, conversation.lastStatus.status.url)
-        }
+    override fun onViewThread(status: Status) {
+        viewThread(status.id, status.url)
     }
 
-    override fun onOpenReblog(position: Int) {
+    override fun onOpenReblog(status: Status) {
         // there are no reblogs in conversations
     }
 
-    override fun onExpandedChange(expanded: Boolean, position: Int) {
-        adapter.peek(position)?.let { conversation ->
-            viewModel.expandHiddenStatus(expanded, conversation)
-        }
+    override fun onExpandedChange(viewData: ConversationViewData, expanded: Boolean) {
+        viewModel.expandHiddenStatus(expanded, viewData.lastStatus.id)
     }
 
-    override fun onContentHiddenChange(isShowing: Boolean, position: Int) {
-        adapter.peek(position)?.let { conversation ->
-            viewModel.showContent(isShowing, conversation)
-        }
+    override fun onContentHiddenChange(viewData: ConversationViewData, isShowing: Boolean) {
+        viewModel.showContent(isShowing, viewData.lastStatus.id)
     }
 
-    override fun onContentCollapsedChange(isCollapsed: Boolean, position: Int) {
-        adapter.peek(position)?.let { conversation ->
-            viewModel.collapseLongStatus(isCollapsed, conversation)
-        }
+    override fun onContentCollapsedChange(viewData: ConversationViewData, isCollapsed: Boolean) {
+        viewModel.collapseLongStatus(isCollapsed, viewData.lastStatus.id)
     }
 
     override fun onViewAccount(id: String) {
@@ -336,23 +323,19 @@ class ConversationsFragment :
         startActivity(intent)
     }
 
-    override fun removeItem(position: Int) {
+    override fun removeItem(viewData: ConversationViewData) {
         // not needed
     }
 
-    override fun onReply(position: Int) {
-        adapter.peek(position)?.let { conversation ->
-            reply(conversation.lastStatus.status)
-        }
+    override fun onReply(viewData: ConversationViewData) {
+        reply(viewData.lastStatus.actionable)
     }
 
-    override fun onVoteInPoll(position: Int, choices: List<Int>) {
-        adapter.peek(position)?.let { conversation ->
-            viewModel.voteInPoll(choices, conversation)
-        }
+    override fun onVoteInPoll(viewData: ConversationViewData, poll: Poll, choices: List<Int>) {
+        viewModel.voteInPoll(choices, viewData.lastStatus.actionableId, poll.id)
     }
 
-    override fun clearWarningAction(position: Int) {
+    override fun clearWarningAction(viewData: ConversationViewData) {
     }
 
     override fun onReselect() {

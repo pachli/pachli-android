@@ -40,4 +40,67 @@ interface ConversationsDao {
 
     @Query("DELETE FROM ConversationEntity WHERE accountId = :accountId")
     suspend fun deleteForAccount(accountId: Long)
+
+    @Query(
+        """
+UPDATE ConversationEntity
+SET s_bookmarked = :bookmarked
+WHERE accountId = :accountId AND s_id = :lastStatusId
+""",
+    )
+    suspend fun setBookmarked(accountId: Long, lastStatusId: String, bookmarked: Boolean)
+
+    @Query(
+        """
+UPDATE ConversationEntity
+SET s_collapsed = :collapsed
+WHERE accountId = :accountId AND s_id = :lastStatusId
+""",
+    )
+    suspend fun setCollapsed(accountId: Long, lastStatusId: String, collapsed: Boolean)
+
+    @Query(
+        """
+UPDATE ConversationEntity
+SET s_expanded = :expanded
+WHERE accountId = :accountId AND s_id = :lastStatusId
+""",
+    )
+    suspend fun setExpanded(accountId: Long, lastStatusId: String, expanded: Boolean)
+
+    @Query(
+        """
+UPDATE ConversationEntity
+SET s_favourited = :favourited
+WHERE accountId = :accountId AND s_id = :lastStatusId
+""",
+    )
+    suspend fun setFavourited(accountId: Long, lastStatusId: String, favourited: Boolean)
+
+    @Query(
+        """
+UPDATE ConversationEntity
+SET s_muted = :muted
+WHERE accountId = :accountId AND s_id = :lastStatusId
+""",
+    )
+    suspend fun setMuted(accountId: Long, lastStatusId: String, muted: Boolean)
+
+    @Query(
+        """
+UPDATE ConversationEntity
+SET s_showingHiddenContent = :showingHiddenContent
+WHERE accountId = :accountId AND s_id = :lastStatusId
+""",
+    )
+    suspend fun setShowingHiddenContent(accountId: Long, lastStatusId: String, showingHiddenContent: Boolean)
+
+    @Query(
+        """
+ UPDATE ConversationEntity
+ SET s_poll = :poll
+ WHERE accountId = :accountId AND s_id = :lastStatusId
+ """,
+    )
+    suspend fun setVoted(accountId: Long, lastStatusId: String, poll: String)
 }

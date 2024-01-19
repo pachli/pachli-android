@@ -18,45 +18,44 @@
 package app.pachli.interfaces
 
 import android.view.View
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Status
+import app.pachli.viewdata.IStatusViewData
 
-interface StatusActionListener : LinkListener {
-    fun onReply(position: Int)
-    fun onReblog(reblog: Boolean, position: Int)
-    fun onFavourite(favourite: Boolean, position: Int)
-    fun onBookmark(bookmark: Boolean, position: Int)
-    fun onMore(view: View, position: Int)
-    fun onViewMedia(position: Int, attachmentIndex: Int, view: View?)
-    fun onViewThread(position: Int)
+interface StatusActionListener<T : IStatusViewData> : LinkListener {
+    fun onReply(viewData: T)
+    fun onReblog(viewData: T, reblog: Boolean)
+    fun onFavourite(viewData: T, favourite: Boolean)
+    fun onBookmark(viewData: T, bookmark: Boolean)
+    fun onMore(view: View, viewData: T)
+    fun onViewMedia(viewData: T, attachmentIndex: Int, view: View?)
+    fun onViewThread(status: Status)
 
     /**
      * Open reblog author for the status.
-     * @param position At which position in the list status is located
      */
-    fun onOpenReblog(position: Int)
-    fun onExpandedChange(expanded: Boolean, position: Int)
-    fun onContentHiddenChange(isShowing: Boolean, position: Int)
+    fun onOpenReblog(status: Status)
+    fun onExpandedChange(viewData: T, expanded: Boolean)
+    fun onContentHiddenChange(viewData: T, isShowing: Boolean)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long
      * status content is interacted with.
      *
      * @param isCollapsed Whether the status content is shown in a collapsed state or fully.
-     * @param position    The position of the status in the list.
      */
-    fun onContentCollapsedChange(isCollapsed: Boolean, position: Int)
+    fun onContentCollapsedChange(viewData: T, isCollapsed: Boolean)
 
     /**
      * called when the reblog count has been clicked
-     * @param position The position of the status in the list.
      */
-    fun onShowReblogs(position: Int) {}
+    fun onShowReblogs(statusId: String) {}
 
     /**
      * called when the favourite count has been clicked
-     * @param position The position of the status in the list.
      */
-    fun onShowFavs(position: Int) {}
-    fun onVoteInPoll(position: Int, choices: List<Int>)
-    fun onShowEdits(position: Int) {}
-    fun clearWarningAction(position: Int)
+    fun onShowFavs(statusId: String) {}
+    fun onVoteInPoll(viewData: T, poll: Poll, choices: List<Int>)
+    fun onShowEdits(statusId: String) {}
+    fun clearWarningAction(viewData: T)
 }

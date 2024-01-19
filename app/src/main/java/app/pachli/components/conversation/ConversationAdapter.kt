@@ -27,7 +27,7 @@ import app.pachli.util.StatusDisplayOptions
 
 class ConversationAdapter(
     private var statusDisplayOptions: StatusDisplayOptions,
-    private val listener: StatusActionListener,
+    private val listener: StatusActionListener<ConversationViewData>,
 ) : PagingDataAdapter<ConversationViewData, ConversationViewHolder>(CONVERSATION_COMPARATOR) {
 
     var mediaPreviewEnabled: Boolean
