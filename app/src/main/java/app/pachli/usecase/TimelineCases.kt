@@ -151,10 +151,6 @@ class TimelineCases @Inject constructor(
     suspend fun translateUndo(statusViewData: StatusViewData) {
         cachedTimelineRepository.translateUndo(statusViewData)
     }
-
-    companion object {
-        private const val TAG = "TimelineCases"
-    }
 }
 
 class TimelineError(message: String?) : RuntimeException(message)
