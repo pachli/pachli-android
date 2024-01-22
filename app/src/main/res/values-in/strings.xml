@@ -281,4 +281,18 @@
 \nServer tidak dapat dihubungi, atau server menolak tulisan Anda.</string>
     <string name="action_post_failed_show_drafts">Tampilkan draf</string>
     <string name="action_post_failed_do_nothing">Abaikan</string>
+    <string name="pref_title_show_self_boosts">Tampilkan self-boosts</string>
+    <string name="pref_title_show_self_boosts_description">Seseorang memboosting pos mereka sendiri</string>
+    <string name="action_send">TOOT</string>
+    <string name="action_share_account_link">Bagikan tautan ke akun</string>
+    <string name="action_share_account_username">Bagikan nama pengguna akun</string>
+    <string name="action_discard">Buang perubahan</string>
+    <string name="action_continue_edit">Lanjutkan pengeditan</string>
+    <string name="action_send_public">TOOT!</string>
+    <string name="action_mentions">Menyebutkan</string>
+    <string name="action_translate">Terjemah</string>
+    <string name="action_translate_undo">Batalkan terjemahan</string>
+    <string name="title_mentions_dialog">Menyebutkan</string>
+    <string name="send_account_link_to">Bagikan URL akun ke…</string>
+    <string name="send_account_username_to">Bagikan nama pengguna akun ke…</string>
 </resources>
