@@ -127,6 +127,7 @@ abstract class SFragment : Fragment() {
                     result.onFailure {
                         val msg = getString(
                             R.string.server_repository_error,
+                            accountManager.activeAccount!!.domain,
                             it.msg(requireContext()),
                         )
                         Timber.e(msg)

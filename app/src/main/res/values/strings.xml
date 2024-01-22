@@ -766,7 +766,7 @@ Your description here:\n\n
 ----\n
 </string>
 
-    <string name="server_repository_error">Could not fetch server info: %1$s</string>
+    <string name="server_repository_error">Could not fetch server info for %1$s: %2$s</string>
     <string name="server_repository_error_get_well_known_node_info">fetching /.well-known/nodeinfo failed: %1$s</string>
     <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo did not contain understandable schemas</string>
     <string name="server_repository_error_get_node_info">fetching nodeinfo %1$s failed: %2$s</string>

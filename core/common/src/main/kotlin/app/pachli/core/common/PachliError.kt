@@ -19,12 +19,6 @@ package app.pachli.core.common
 
 import android.content.Context
 import androidx.annotation.StringRes
-import com.github.michaelbull.result.Err
-import com.github.michaelbull.result.Ok
-import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.getError
-import com.github.michaelbull.result.getOr
-import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * Base class for errors throughout the app.
@@ -81,48 +75,5 @@ open class PachliError(
         val args = mutableListOf(*formatArgs)
         source?.let { args.add(it.msg(context)) }
         return context.getString(resourceId, *args.toTypedArray())
-    }
-}
-
-// See https://www.jacobras.nl/2022/04/resilient-use-cases-with-kotlin-result-coroutines-and-annotations/
-
-/**
- * Like [runCatching], but with proper coroutines cancellation handling. Also only catches [Exception] instead of [Throwable].
- *
- * Cancellation exceptions need to be rethrown. See https://github.com/Kotlin/kotlinx.coroutines/issues/1814.
- */
-inline fun <R> resultOf(block: () -> R): Result<R, Exception> {
-    return try {
-        Ok(block())
-    } catch (e: CancellationException) {
-        throw e
-    } catch (e: Exception) {
-        Err(e)
-    }
-}
-
-/**
- * Like [runCatching], but with proper coroutines cancellation handling. Also only catches [Exception] instead of [Throwable].
- *
- * Cancellation exceptions need to be rethrown. See https://github.com/Kotlin/kotlinx.coroutines/issues/1814.
- */
-inline fun <T, R> T.resultOf(block: T.() -> R): Result<R, Exception> {
-    return try {
-        Ok(block())
-    } catch (e: CancellationException) {
-        throw e
-    } catch (e: Exception) {
-        Err(e)
-    }
-}
-
-/**
- * Like [mapCatching], but uses [resultOf] instead of [runCatching].
- */
-inline fun <R, T> Result<T, Exception>.mapResult(transform: (value: T) -> R): Result<R, Exception> {
-    val successResult = getOr { null } // getOrNull()
-    return when {
-        successResult != null -> resultOf { transform(successResult) }
-        else -> Err(getError() ?: error("Unreachable state"))
     }
 }
