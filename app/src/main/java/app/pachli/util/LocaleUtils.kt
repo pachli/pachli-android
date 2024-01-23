@@ -22,8 +22,6 @@ import app.pachli.core.database.model.AccountEntity
 import java.util.Locale
 import timber.log.Timber
 
-private const val TAG: String = "LocaleUtils"
-
 private fun LocaleListCompat.toList(): List<Locale> {
     val list = mutableListOf<Locale>()
     for (index in 0 until this.size()) {
