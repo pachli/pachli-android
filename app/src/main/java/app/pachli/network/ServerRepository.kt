@@ -27,7 +27,7 @@ import app.pachli.core.network.model.nodeinfo.NodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.network.ServerRepository.Error.Capabilities
-import app.pachli.network.ServerRepository.Error.GetInstanceInfo
+import app.pachli.network.ServerRepository.Error.GetInstanceInfoV1
 import app.pachli.network.ServerRepository.Error.GetNodeInfo
 import app.pachli.network.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.network.ServerRepository.Error.UnsupportedSchema
@@ -75,8 +75,8 @@ class ServerRepository @Inject constructor(
     }
 
     /**
-     * @return the current server or a [Server.Error] subclass error if the
-     * server can not be determined.
+     * @return the server info or a [Server.Error] if the server info can not
+     * be determined.
      */
     private suspend fun getServer(): Result<Server, Error> = binding {
         // Fetch the /.well-known/nodeinfo document
@@ -107,7 +107,7 @@ class ServerRepository @Inject constructor(
             {
                 mastodonApi.getInstanceV1().fold(
                     { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
-                    { Err(GetInstanceInfo(it)) },
+                    { Err(GetInstanceInfoV1(it)) },
                 )
             },
         ).bind()
@@ -139,7 +139,7 @@ class ServerRepository @Inject constructor(
             source = error,
         )
 
-        data class GetInstanceInfo(val throwable: Throwable) : Error(
+        data class GetInstanceInfoV1(val throwable: Throwable) : Error(
             R.string.server_repository_error_get_instance_info,
             throwable.localizedMessage,
         )
