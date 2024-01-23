@@ -80,6 +80,8 @@
 
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+
+        <item name="graphViewStyle">@style/Pachli.Widget.GraphView</item>
     </style>
 
     <style name="AppTheme" parent="Theme.Pachli" />
@@ -157,6 +159,12 @@
 
     <style name="Pachli.Widget.Material3.TabLayout" parent="Widget.Material3.TabLayout">
         <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="Pachli.Widget.GraphView" parent="">
+        <item name="primaryLineColor">@color/pachli_blue</item>
+        <item name="secondaryLineColor">@color/pachli_orange</item>
+        <item name="lineWidth">2sp</item>
     </style>
 
     <style name="Theme.Pachli.Black" parent="Base.Theme.Black" />
