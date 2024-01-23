@@ -18,6 +18,7 @@
 package app.pachli.core.network
 
 import app.pachli.core.network.ServerKind.AKKOMA
+import app.pachli.core.network.ServerKind.FRIENDICA
 import app.pachli.core.network.ServerKind.GOTOSOCIAL
 import app.pachli.core.network.ServerKind.MASTODON
 import app.pachli.core.network.ServerKind.PLEROMA
@@ -43,7 +44,10 @@ import app.pachli.core.network.model.nodeinfo.NodeInfo
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.google.common.truth.Truth.assertWithMessage
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import io.github.z4kn4fein.semver.toVersion
+import java.io.BufferedReader
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -238,6 +242,22 @@ class ServerTest(
                         ),
                     ),
                 ),
+                arrayOf(
+                    Triple(
+                        "Friendica can filter",
+                        NodeInfo.Software("friendica", "2023.05-1542"),
+                        defaultInstance,
+                    ),
+                    Ok(
+                        Server(
+                            kind = FRIENDICA,
+                            version = "2023.5.0".toVersion(),
+                            capabilities = mapOf(
+                                ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                            ),
+                        ),
+                    ),
+                ),
             )
         }
     }
@@ -250,5 +270,62 @@ class ServerTest(
         assertWithMessage(msg)
             .that(Server.from(software, instanceV2))
             .isEqualTo(want)
+    }
+}
+
+class ServerVersionTest() {
+    private val gson = Gson()
+
+    private fun loadJsonAsString(fileName: String): String {
+        return javaClass.getResourceAsStream("/$fileName")!!
+            .bufferedReader().use(BufferedReader::readText)
+    }
+
+    /**
+     * Test that parsing all possible versions succeeds.
+     *
+     * To do this tools/mkserverversions generates a JSON file that
+     * contains a map of server names to a list of server version strings
+     * that have been seen by Fediverse Observer. These version strings
+     * are then parsed and are all expected to parse correctly.
+     */
+    @Test
+    fun parseVersionString() {
+        val mapType: TypeToken<Map<String, Set<String>>> =
+            object : TypeToken<Map<String, Set<String>>>() {}
+
+        val serverVersions = gson.fromJson(
+            loadJsonAsString("server-versions.json5"),
+            mapType,
+        )
+
+        // Sanity check that data was loaded correctly. Expect at least 5 distinct keys
+        assertWithMessage("number of server types in server-versions.json5 is too low")
+            .that(serverVersions.size)
+            .isGreaterThan(5)
+
+        for (entry in serverVersions.entries) {
+            for (version in entry.value) {
+                val serverKind = ServerKind.from(
+                    NodeInfo.Software(
+                        name = entry.key,
+                        version = version,
+                    ),
+                )
+
+                // Skip unknown/unsupported servers, as their version strings
+                // could be anything.
+                if (serverKind == UNKNOWN) continue
+
+                val result = Server.parseVersionString(
+                    serverKind,
+                    version,
+                )
+
+                assertWithMessage("${entry.key} : $version")
+                    .that(result)
+                    .isInstanceOf(Ok::class.java)
+            }
+        }
     }
 }

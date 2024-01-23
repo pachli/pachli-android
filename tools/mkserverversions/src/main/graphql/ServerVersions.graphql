@@ -1,0 +1,6 @@
+query ServerVersions {
+    nodes(status: "UP") {
+        softwarename
+        fullversion
+    }
+}
