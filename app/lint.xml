@@ -33,9 +33,10 @@
     <!-- Logs are stripped in release builds. -->
     <issue id="LogConditional" severity="ignore" />
 
-    <!-- Newer dependencies are handled by Renovate, and don't need a warning -->
+    <!-- Newer dependencies are handled by GH Actions, and don't need a warning -->
     <issue id="GradleDependency" severity="ignore" />
     <issue id="NewerVersionAvailable" severity="ignore" />
+    <issue id="AndroidGradlePluginVersion" severity="ignore" />
 
     <!-- Typographical quotes are not something we care about at the moment -->
     <issue id="TypographyQuotes" severity="ignore" />
