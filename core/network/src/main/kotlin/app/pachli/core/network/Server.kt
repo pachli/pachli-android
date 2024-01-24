@@ -24,6 +24,7 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.network.Server.Error.UnparseableVersion
 import app.pachli.core.network.ServerKind.AKKOMA
 import app.pachli.core.network.ServerKind.FEDIBIRD
+import app.pachli.core.network.ServerKind.FIREFISH
 import app.pachli.core.network.ServerKind.FRIENDICA
 import app.pachli.core.network.ServerKind.GLITCH
 import app.pachli.core.network.ServerKind.GOTOSOCIAL
@@ -156,7 +157,7 @@ data class Server(
                 // the server operator has changed them. Try looking for a matching
                 // <major>.<minor>.<patch> somewhere in the version string and hope
                 // it's correct
-                AKKOMA, FEDIBIRD, GLITCH, HOMETOWN, MASTODON, PIXELFED, UNKNOWN -> {
+                AKKOMA, FEDIBIRD, FIREFISH, GLITCH, HOMETOWN, MASTODON, PIXELFED, UNKNOWN -> {
                     val rx = """(?<major>\d+)\.(?<minor>\d+).(?<patch>\d+)""".toRegex()
                     rx.find(version)
                         .toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
@@ -272,7 +273,7 @@ data class Server(
 
                 // Everything else. Assume server side filtering and no translation. This may be an
                 // incorrect assumption.
-                AKKOMA, FEDIBIRD, FRIENDICA, GLITCH, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, SHARKEY, UNKNOWN -> {
+                AKKOMA, FEDIBIRD, FIREFISH, FRIENDICA, GLITCH, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, SHARKEY, UNKNOWN -> {
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                 }
             }
@@ -300,6 +301,7 @@ data class Server(
 enum class ServerKind {
     AKKOMA,
     FEDIBIRD,
+    FIREFISH,
     FRIENDICA,
     GLITCH,
     GOTOSOCIAL,
@@ -321,6 +323,7 @@ enum class ServerKind {
         fun from(s: NodeInfo.Software) = when (s.name.lowercase()) {
             "akkoma" -> AKKOMA
             "fedibird" -> FEDIBIRD
+            "firefish" -> FIREFISH
             "friendica" -> FRIENDICA
             "gotosocial" -> GOTOSOCIAL
             "hometown" -> HOMETOWN
