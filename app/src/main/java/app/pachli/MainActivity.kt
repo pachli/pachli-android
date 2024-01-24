@@ -603,34 +603,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
 
-        DrawerImageLoader.init(
-            object : AbstractDrawerImageLoader() {
-                override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable, tag: String?) {
-                    if (animateAvatars) {
-                        glide.load(uri)
-                            .placeholder(placeholder)
-                            .into(imageView)
-                    } else {
-                        glide.asBitmap()
-                            .load(uri)
-                            .placeholder(placeholder)
-                            .into(imageView)
-                    }
-                }
-
-                override fun cancel(imageView: ImageView) {
-                    glide.clear(imageView)
-                }
-
-                override fun placeholder(ctx: Context, tag: String?): Drawable {
-                    if (tag == DrawerImageLoader.Tags.PROFILE.name || tag == DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name) {
-                        return AppCompatResources.getDrawable(ctx, R.drawable.avatar_default)!!
-                    }
-
-                    return super.placeholder(ctx, tag)
-                }
-            },
-        )
+        DrawerImageLoader.init(MainDrawerImageLoader(glide, animateAvatars))
 
         binding.mainDrawer.apply {
             refreshMainDrawerItems(addSearchButton)
@@ -1291,3 +1264,28 @@ private var AbstractDrawerItem<*, *>.onClick: () -> Unit
             false
         }
     }
+
+/**
+ * Load images in to the drawer using the [RequestManager] in [glide].
+ */
+class MainDrawerImageLoader(val glide: RequestManager, val animateAvatars: Boolean) : AbstractDrawerImageLoader() {
+    override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable, tag: String?) {
+        if (animateAvatars) {
+            glide.load(uri).placeholder(placeholder).into(imageView)
+        } else {
+            glide.asBitmap().load(uri).placeholder(placeholder).into(imageView)
+        }
+    }
+
+    override fun cancel(imageView: ImageView) {
+        glide.clear(imageView)
+    }
+
+    override fun placeholder(ctx: Context, tag: String?): Drawable {
+        if (tag == DrawerImageLoader.Tags.PROFILE.name || tag == DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name) {
+            return AppCompatResources.getDrawable(ctx, R.drawable.avatar_default)!!
+        }
+
+        return super.placeholder(ctx, tag)
+    }
+}
