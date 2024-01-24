@@ -18,6 +18,7 @@
 package app.pachli.core.network
 
 import app.pachli.core.network.ServerKind.AKKOMA
+import app.pachli.core.network.ServerKind.FIREFISH
 import app.pachli.core.network.ServerKind.FRIENDICA
 import app.pachli.core.network.ServerKind.GOTOSOCIAL
 import app.pachli.core.network.ServerKind.MASTODON
@@ -234,7 +235,7 @@ class ServerTest(
                     ),
                     Ok(
                         Server(
-                            kind = UNKNOWN,
+                            kind = FIREFISH,
                             version = "1.1.0-dev29-hf1".toVersion(),
                             capabilities = mapOf(
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
