@@ -1433,7 +1433,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/colors.xml"
-            line="101"
+            line="105"
             column="12"/>
     </issue>
 
@@ -1444,7 +1444,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/colors.xml"
-            line="102"
+            line="106"
             column="12"/>
     </issue>
 
@@ -2027,7 +2027,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="127"
+            line="129"
             column="12"/>
     </issue>
 
@@ -2038,7 +2038,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="165"
+            line="173"
             column="12"/>
     </issue>
 
@@ -4791,55 +4791,11 @@
     <issue
         id="SelectableText"
         message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout-land/item_trending_cell.xml"
-            line="33"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_trending_cell.xml"
-            line="33"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout-land/item_trending_cell.xml"
-            line="50"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_trending_cell.xml"
-            line="50"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
         errorLine1="        &lt;TextView"
         errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout-land/item_trending_cell.xml"
-            line="79"
+            line="41"
             column="10"/>
     </issue>
 
@@ -4850,7 +4806,7 @@
         errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout/item_trending_cell.xml"
-            line="79"
+            line="41"
             column="10"/>
     </issue>
 
@@ -4861,7 +4817,7 @@
         errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout-land/item_trending_cell.xml"
-            line="94"
+            line="56"
             column="10"/>
     </issue>
 
@@ -4872,7 +4828,7 @@
         errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout/item_trending_cell.xml"
-            line="94"
+            line="56"
             column="10"/>
     </issue>
 
@@ -4883,7 +4839,7 @@
         errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout-land/item_trending_cell.xml"
-            line="125"
+            line="87"
             column="10"/>
     </issue>
 
@@ -4894,7 +4850,7 @@
         errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout/item_trending_cell.xml"
-            line="126"
+            line="88"
             column="10"/>
     </issue>
 
@@ -4983,50 +4939,6 @@
         <location
             file="src/main/res/layout/item_status.xml"
             line="237"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="SmallSp"
-        message="Avoid using sizes smaller than `11sp`: `8sp`"
-        errorLine1="        android:textSize=&quot;8sp&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout-land/item_trending_cell.xml"
-            line="42"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="SmallSp"
-        message="Avoid using sizes smaller than `11sp`: `8sp`"
-        errorLine1="        android:textSize=&quot;8sp&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_trending_cell.xml"
-            line="42"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="SmallSp"
-        message="Avoid using sizes smaller than `11sp`: `8sp`"
-        errorLine1="        android:textSize=&quot;8sp&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout-land/item_trending_cell.xml"
-            line="59"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="SmallSp"
-        message="Avoid using sizes smaller than `11sp`: `8sp`"
-        errorLine1="        android:textSize=&quot;8sp&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_trending_cell.xml"
-            line="59"
             column="9"/>
     </issue>
 
@@ -5181,50 +5093,6 @@
         <location
             file="src/main/res/layout/item_status_notification.xml"
             line="22"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="RtlSymmetry"
-        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="        android:paddingStart=&quot;6dp&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout-land/item_trending_cell.xml"
-            line="38"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="RtlSymmetry"
-        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="        android:paddingStart=&quot;6dp&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_trending_cell.xml"
-            line="38"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="RtlSymmetry"
-        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="        android:paddingStart=&quot;6dp&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout-land/item_trending_cell.xml"
-            line="55"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="RtlSymmetry"
-        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="        android:paddingStart=&quot;6dp&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_trending_cell.xml"
-            line="55"
             column="9"/>
     </issue>
 

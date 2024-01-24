@@ -26,15 +26,18 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
-import androidx.core.content.res.use
+import androidx.core.content.withStyledAttributes
+import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.R
+import app.pachli.core.common.util.formatNumber
+import com.google.android.material.color.MaterialColors
 import kotlin.math.max
 
 class GraphView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-) : View(context, attrs, defStyleAttr) {
+    defStyleAttr: Int = R.attr.graphViewStyle,
+) : View(context, attrs, defStyleAttr, R.style.Pachli_Widget_GraphView) {
     @get:ColorInt
     @ColorInt
     var primaryLineColor = 0
@@ -56,12 +59,17 @@ class GraphView @JvmOverloads constructor(
 
     private var proportionalTrending = false
 
-    private lateinit var primaryLinePaint: Paint
-    private lateinit var secondaryLinePaint: Paint
-    private lateinit var primaryCirclePaint: Paint
-    private lateinit var secondaryCirclePaint: Paint
-    private lateinit var graphPaint: Paint
-    private lateinit var metaPaint: Paint
+    private val primaryLinePaint: Paint
+    private val secondaryLinePaint: Paint
+    private val primaryCirclePaint: Paint
+    private val secondaryCirclePaint: Paint
+    private val primaryTextPaint: Paint
+    private val secondaryTextPaint: Paint
+    private var labelTextSize: Float = dpToPx(11f, context.resources.displayMetrics)
+    private val graphPaint: Paint
+    private val metaPaint: Paint
+
+    private var paddingEnd: Float = 0f
 
     private lateinit var sizeRect: Rect
     private var primaryLinePath: Path = Path()
@@ -69,25 +77,9 @@ class GraphView @JvmOverloads constructor(
 
     var maxTrendingValue: Long = 300
     var primaryLineData: List<Long> = if (isInEditMode) {
-        listOf(
-            30,
-            60,
-            70,
-            80,
-            130,
-            190,
-            80,
-        )
+        listOf(30, 60, 70, 80, 130, 190, 80)
     } else {
-        listOf(
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-        )
+        listOf(1, 1, 1, 1, 1, 1, 1)
     }
         set(value) {
             field = value.map { max(1, it) }
@@ -96,25 +88,9 @@ class GraphView @JvmOverloads constructor(
         }
 
     var secondaryLineData: List<Long> = if (isInEditMode) {
-        listOf(
-            10,
-            20,
-            40,
-            60,
-            100,
-            132,
-            20,
-        )
+        listOf(10, 20, 40, 60, 100, 132, 20)
     } else {
-        listOf(
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-        )
+        listOf(1, 1, 1, 1, 1, 1, 1)
     }
         set(value) {
             field = value.map { max(1, it) }
@@ -123,48 +99,41 @@ class GraphView @JvmOverloads constructor(
         }
 
     init {
-        initFromXML(attrs)
-    }
-
-    private fun initFromXML(attr: AttributeSet?) {
-        context.obtainStyledAttributes(attr, R.styleable.GraphView).use { a ->
-            primaryLineColor = context.getColor(
-                a.getResourceId(
-                    R.styleable.GraphView_primaryLineColor,
-                    R.color.tusky_blue,
-                ),
+        context.withStyledAttributes(attrs, R.styleable.GraphView, defStyleAttr, R.style.Pachli_Widget_GraphView) {
+            primaryLineColor = getColor(
+                R.styleable.GraphView_primaryLineColor,
+                MaterialColors.getColor(this@GraphView, com.google.android.material.R.attr.colorPrimary),
             )
 
-            secondaryLineColor = context.getColor(
-                a.getResourceId(
-                    R.styleable.GraphView_secondaryLineColor,
-                    R.color.tusky_red,
-                ),
+            secondaryLineColor = getColor(
+                R.styleable.GraphView_secondaryLineColor,
+                MaterialColors.getColor(this@GraphView, com.google.android.material.R.attr.colorSecondary),
             )
 
-            lineWidth = a.getDimensionPixelSize(
+            metaColor = getColor(
+                R.styleable.GraphView_metaColor,
+                MaterialColors.getColor(this@GraphView, com.google.android.material.R.attr.colorOutline),
+            )
+
+            lineWidth = getDimensionPixelSize(
                 R.styleable.GraphView_lineWidth,
                 R.dimen.graph_line_thickness,
             ).toFloat()
 
-            graphColor = context.getColor(
-                a.getResourceId(
-                    R.styleable.GraphView_graphColor,
-                    android.R.attr.colorBackground,
-                ),
+            graphColor = getColor(
+                R.styleable.GraphView_graphColor,
+                MaterialColors.getColor(this@GraphView, android.R.attr.colorBackground),
             )
 
-            metaColor = context.getColor(
-                a.getResourceId(
-                    R.styleable.GraphView_metaColor,
-                    com.google.android.material.R.attr.dividerColor,
-                ),
-            )
-
-            proportionalTrending = a.getBoolean(
+            proportionalTrending = getBoolean(
                 R.styleable.GraphView_proportionalTrending,
                 proportionalTrending,
             )
+
+            labelTextSize = getDimensionPixelSize(
+                R.styleable.GraphView_labelTextSize,
+                labelTextSize.toInt(),
+            ).toFloat()
         }
 
         primaryLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -189,6 +158,20 @@ class GraphView @JvmOverloads constructor(
             style = Paint.Style.FILL
         }
 
+        primaryTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = primaryLineColor
+            style = Paint.Style.FILL
+            textSize = labelTextSize
+            textAlign = Paint.Align.RIGHT
+        }
+
+        secondaryTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = secondaryLineColor
+            style = Paint.Style.FILL
+            textSize = labelTextSize
+            textAlign = Paint.Align.RIGHT
+        }
+
         graphPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = graphColor
         }
@@ -198,6 +181,14 @@ class GraphView @JvmOverloads constructor(
             strokeWidth = 0f
             style = Paint.Style.STROKE
         }
+
+        // Determine how much padding to leave on the right/end of the chart so there's
+        // space for the labels. The widest possible label string is "1000.0M", so
+        // compute that width, with some additional space on the left to separate the
+        // label from the line.
+        val labelBounds = Rect()
+        primaryTextPaint.getTextBounds("1000.0M", 0, 7, labelBounds)
+        paddingEnd = (4 * lineWidth) + labelBounds.width() + labelBounds.left
     }
 
     private fun initializeVertices() {
@@ -264,7 +255,7 @@ class GraphView @JvmOverloads constructor(
         }
     }
 
-    private fun dataSpacing(data: List<Any>) = width.toFloat() / max(data.size - 1, 1).toFloat()
+    private fun dataSpacing(data: List<Any>) = (width.toFloat() - paddingEnd) / max(data.size - 1, 1).toFloat()
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -279,7 +270,7 @@ class GraphView @JvmOverloads constructor(
             val pointDistance = dataSpacing(primaryLineData)
 
             // Vertical tick marks
-            for (i in 0 until primaryLineData.size + 1) {
+            for (i in primaryLineData.indices) {
                 drawLine(
                     i * pointDistance,
                     height.toFloat(),
@@ -290,7 +281,7 @@ class GraphView @JvmOverloads constructor(
             }
 
             // X-axis
-            drawLine(0f, height.toFloat(), width.toFloat(), height.toFloat(), metaPaint)
+            drawLine(0f, height.toFloat(), width.toFloat() - paddingEnd, height.toFloat(), metaPaint)
 
             // Data lines
             drawLine(
@@ -298,36 +289,84 @@ class GraphView @JvmOverloads constructor(
                 linePath = secondaryLinePath,
                 linePaint = secondaryLinePaint,
                 circlePaint = secondaryCirclePaint,
-                lineThickness = lineWidth,
             )
             drawLine(
                 canvas = canvas,
                 linePath = primaryLinePath,
                 linePaint = primaryLinePaint,
                 circlePaint = primaryCirclePaint,
-                lineThickness = lineWidth,
+            )
+
+            // Data text
+            drawEndText(
+                canvas,
+                formatNumber(primaryLineData.last(), 1000),
+                formatNumber(secondaryLineData.last(), 1000),
+                primaryLinePath,
+                secondaryLinePath,
             )
         }
     }
 
-    private fun drawLine(
-        canvas: Canvas,
-        linePath: Path,
-        linePaint: Paint,
-        circlePaint: Paint,
-        lineThickness: Float,
-    ) {
+    private fun drawLine(canvas: Canvas, linePath: Path, linePaint: Paint, circlePaint: Paint) {
         canvas.apply {
-            drawPath(
-                linePath,
-                linePaint,
-            )
-
-            val pm = PathMeasure(linePath, false)
-            val coord = floatArrayOf(0f, 0f)
-            pm.getPosTan(pm.length * 1f, coord, null)
-
-            drawCircle(coord[0], coord[1], lineThickness * 2f, circlePaint)
+            drawPath(linePath, linePaint)
+            val (x, y) = pathEnd(linePath)
+            drawCircle(x, y, lineWidth * 2f, circlePaint)
         }
+    }
+
+    private fun drawEndText(
+        canvas: Canvas,
+        primaryValue: String,
+        secondaryValue: String,
+        primaryLinePath: Path,
+        secondaryLinePath: Path,
+    ) {
+        var (primaryX, primaryY) = pathEnd(primaryLinePath)
+        var (_, secondaryY) = pathEnd(secondaryLinePath)
+
+        val primaryBounds = Rect()
+        val secondaryBounds = Rect()
+        primaryTextPaint.getTextBounds(primaryValue, 0, primaryValue.length, primaryBounds)
+        secondaryTextPaint.getTextBounds(secondaryValue, 0, secondaryValue.length, secondaryBounds)
+
+        // Adjust both texts to horizontally align with their respective circle endpoints
+        primaryY += primaryBounds.height().toFloat() / 2
+        secondaryY += secondaryBounds.height().toFloat() / 2
+
+        // Force the two apart if they overlap
+        val overlap = primaryY - (secondaryY - secondaryBounds.height())
+        // First try and force them both apart
+        if (overlap > 0) {
+            secondaryY += (overlap / 2) + 5
+            primaryY -= (overlap / 2) + 5
+        }
+        // Now, if secondary is off the canvas move both of them up to compensate
+        val secondaryClip = secondaryY - canvas.height
+        if (secondaryClip > 0) {
+            secondaryY -= secondaryClip
+            primaryY -= secondaryClip
+        }
+
+        // The number text is right aligned to ensure they line up. The primary text
+        // (total usage) is always going to be larger than the secondary text, so use
+        // that to determine the X position of the right-hand edge of the text. This is:
+        // - primaryX
+        // - + 4 * lineWidth (spacing between the line circle and the text)
+        // - + primaryBounds.width() (width of the text)
+        // - + primaryBounds.left (left margin of the text)
+        val textX = primaryX + (4 * lineWidth) + primaryBounds.width() + primaryBounds.left
+        canvas.apply {
+            drawText(primaryValue, textX, primaryY, primaryTextPaint)
+            drawText(secondaryValue, textX, secondaryY, secondaryTextPaint)
+        }
+    }
+
+    private fun pathEnd(path: Path): Pair<Float, Float> {
+        val pm = PathMeasure(path, false)
+        val coord = floatArrayOf(0f, 0f)
+        pm.getPosTan(pm.length * 1f, coord, null)
+        return Pair(coord[0], coord[1])
     }
 }

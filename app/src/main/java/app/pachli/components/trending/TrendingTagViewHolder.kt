@@ -41,9 +41,6 @@ class TrendingTagViewHolder(
         val totalAccounts = tagViewData.accounts.sum()
         binding.totalAccounts.text = formatNumber(totalAccounts, 1000)
 
-        binding.currentUsage.text = tagViewData.usage.last().toString()
-        binding.currentAccounts.text = tagViewData.usage.last().toString()
-
         itemView.setOnClickListener {
             onViewTag(tagViewData.name)
         }
