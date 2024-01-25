@@ -361,7 +361,7 @@
     <string name="notification_clear_text">Är du säker på att du vill rensa dina aviseringar permanent\?</string>
     <string name="action_delete_and_redraft">Radera och skriv på nytt</string>
     <string name="dialog_redraft_post_warning">Radera och skriv ny toot\?</string>
-    <string name="poll_info_format"> <!-- 15 röster • 1 timme kvar --> %1$s • %2$s</string>
+    <string name="poll_info_format"> \u0020<!-- 15 röster • 1 timme kvar --> \u0020%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s röst</item>
         <item quantity="other">%s röster</item>
@@ -732,4 +732,12 @@
 \n----
 \n</string>
     <string name="acra_dialog_title">%1$s kraschade</string>
+    <string name="server_repository_error">Kunde inte hämta serverinformation för %1$s: %2$s</string>
+    <string name="server_repository_error_get_well_known_node_info">misslyckades med att hämta /.well-known/nodeinfo: %1$s</string>
+    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo innehöll inte begripliga scheman</string>
+    <string name="server_repository_error_get_node_info">hämtning av nodeinfo %1$s misslyckades: %2$s</string>
+    <string name="server_repository_error_validate_node_info">validering av nodeinfo %1$s misslyckades: %2$s</string>
+    <string name="server_repository_error_get_instance_info">hämtning av /api/v1/instance misslyckades: %1$s</string>
+    <string name="server_repository_error_capabilities">tolkning av serverfunktioner misslyckades: %1$s</string>
+    <string name="pref_summary_timeline_filters">Din server stöder inte filter</string>
 </resources>

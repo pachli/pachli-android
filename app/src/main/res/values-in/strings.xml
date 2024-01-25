@@ -250,4 +250,49 @@
     <string name="error_unmuting_hashtag_format">Kesalahan mengaktifkan #%s</string>
     <string name="error_status_source_load">Gagal memuat sumber status dari server.</string>
     <string name="title_public_trending_hashtags">Hashtag yang sedang tren</string>
+    <string name="title_public_trending_links">Tautan Trending</string>
+    <string name="title_tab_public_trending_links">Tautan</string>
+    <string name="title_public_trending">Sedang tren</string>
+    <string name="title_public_trending_statuses">Postingan trending</string>
+    <string name="error_network_fmt">Jaringan error: %s</string>
+    <string name="error_generic_fmt">Terjadi error: %s</string>
+    <string name="title_edits">Sunting</string>
+    <string name="title_followed_hashtags">Tagar yang diikuti</string>
+    <string name="error_media_upload_sending_fmt">Upload gagal: %s</string>
+    <string name="title_tab_public_trending_statuses">Postingan</string>
+    <string name="error_404_not_found">Server Anda tidak mendukung fitur ini</string>
+    <string name="title_tab_public_trending_hashtags">Tagar</string>
+    <string name="notification_header_report_format">%s dilaporkan %s</string>
+    <string name="dialog_follow_hashtag_title">Ikuti tagar</string>
+    <string name="dialog_follow_hashtag_hint">#tagar</string>
+    <string name="post_media_alt">ALT</string>
+    <string name="post_content_show_less">Tutup</string>
+    <string name="post_edited">Diedit %s</string>
+    <string name="notification_report_format">Laporan baru tentang %s</string>
+    <string name="notification_summary_report_format">%s - %d posting terlampir</string>
+    <string name="action_bookmark">Penanda</string>
+    <string name="action_browser_login">Masuk dengan Browser</string>
+    <string name="action_post_failed">Unggahan gagal</string>
+    <string name="action_post_failed_detail">Postingan Anda gagal diunggah dan telah disimpan ke draf.
+\n
+\nServer tidak dapat dihubungi, atau server menolak postingan Anda.</string>
+    <string name="action_post_failed_detail_plural">Tulisan Anda gagal diunggah dan telah disimpan ke draf.
+\n
+\nServer tidak dapat dihubungi, atau server menolak tulisan Anda.</string>
+    <string name="action_post_failed_show_drafts">Tampilkan draf</string>
+    <string name="action_post_failed_do_nothing">Abaikan</string>
+    <string name="pref_title_show_self_boosts">Tampilkan self-boosts</string>
+    <string name="pref_title_show_self_boosts_description">Seseorang memboosting pos mereka sendiri</string>
+    <string name="action_send">TOOT</string>
+    <string name="action_share_account_link">Bagikan tautan ke akun</string>
+    <string name="action_share_account_username">Bagikan nama pengguna akun</string>
+    <string name="action_discard">Buang perubahan</string>
+    <string name="action_continue_edit">Lanjutkan pengeditan</string>
+    <string name="action_send_public">TOOT!</string>
+    <string name="action_mentions">Menyebutkan</string>
+    <string name="action_translate">Terjemah</string>
+    <string name="action_translate_undo">Batalkan terjemahan</string>
+    <string name="title_mentions_dialog">Menyebutkan</string>
+    <string name="send_account_link_to">Bagikan URL akun ke…</string>
+    <string name="send_account_username_to">Bagikan nama pengguna akun ke…</string>
 </resources>
