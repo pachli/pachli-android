@@ -18,13 +18,22 @@
 package app.pachli.core.network
 
 import androidx.annotation.StringRes
+import androidx.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.common.PachliError
-import app.pachli.core.common.resultOf
 import app.pachli.core.network.Server.Error.UnparseableVersion
 import app.pachli.core.network.ServerKind.AKKOMA
+import app.pachli.core.network.ServerKind.FEDIBIRD
+import app.pachli.core.network.ServerKind.FIREFISH
+import app.pachli.core.network.ServerKind.FRIENDICA
+import app.pachli.core.network.ServerKind.GLITCH
 import app.pachli.core.network.ServerKind.GOTOSOCIAL
+import app.pachli.core.network.ServerKind.HOMETOWN
+import app.pachli.core.network.ServerKind.ICESHRIMP
 import app.pachli.core.network.ServerKind.MASTODON
+import app.pachli.core.network.ServerKind.PIXELFED
 import app.pachli.core.network.ServerKind.PLEROMA
+import app.pachli.core.network.ServerKind.SHARKEY
 import app.pachli.core.network.ServerKind.UNKNOWN
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
@@ -32,14 +41,19 @@ import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLA
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
 import app.pachli.core.network.model.nodeinfo.NodeInfo
+import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.binding
-import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.coroutines.runSuspendCatching
 import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.recover
+import com.github.michaelbull.result.toResultOr
 import io.github.z4kn4fein.semver.Version
 import io.github.z4kn4fein.semver.constraints.Constraint
 import io.github.z4kn4fein.semver.satisfies
 import io.github.z4kn4fein.semver.toVersion
+import java.text.ParseException
 import kotlin.collections.set
 
 /**
@@ -97,7 +111,7 @@ data class Server(
          * Constructs a server from its [NodeInfo] and [InstanceV2] details.
          */
         fun from(software: NodeInfo.Software, instanceV2: InstanceV2): Result<Server, Error> = binding {
-            val serverKind = ServerKind.from(software.name)
+            val serverKind = ServerKind.from(software)
             val version = parseVersionString(serverKind, software.version).bind()
             val capabilities = capabilitiesFromServerVersion(serverKind, version)
 
@@ -120,7 +134,7 @@ data class Server(
          * Constructs a server from its [NodeInfo] and [InstanceV1] details.
          */
         fun from(software: NodeInfo.Software, instanceV1: InstanceV1): Result<Server, Error> = binding {
-            val serverKind = ServerKind.from(software.name)
+            val serverKind = ServerKind.from(software)
             val version = parseVersionString(serverKind, software.version).bind()
             val capabilities = capabilitiesFromServerVersion(serverKind, version)
 
@@ -130,37 +144,108 @@ data class Server(
         /**
          * Parse a [version] string from the given [serverKind] in to a [Version].
          */
-        private fun parseVersionString(serverKind: ServerKind, version: String): Result<Version, UnparseableVersion> = binding {
-            // Real world examples of version strings from nodeinfo
-            // pleroma - 2.6.50-875-g2eb5c453.service-origin+soapbox
-            // akkoma - 3.9.3-0-gd83f5f66f-blob
-            // firefish - 1.1.0-dev29-hf1
-            // hometown - 4.0.10+hometown-1.1.1
-            // cherrypick - 4.6.0+cs-8f0ba0f
-            // gotosocial - 0.13.1-SNAPSHOT git-dfc7656
+        @VisibleForTesting(otherwise = PRIVATE)
+        fun parseVersionString(serverKind: ServerKind, version: String): Result<Version, Error> {
+            val result = runSuspendCatching {
+                Version.parse(version, strict = false)
+            }.mapError { UnparseableVersion(version, it) }
 
-            val semver = when (serverKind) {
-                // These servers have semver compatible versions
-                AKKOMA, MASTODON, PLEROMA, UNKNOWN -> {
-                    resultOf { Version.parse(version, strict = false) }
-                        .mapError { UnparseableVersion(version, it) }.bind()
+            if (result is Ok) return result
+
+            return when (serverKind) {
+                // These servers should have semver compatible versions, but perhaps
+                // the server operator has changed them. Try looking for a matching
+                // <major>.<minor>.<patch> somewhere in the version string and hope
+                // it's correct
+                AKKOMA, FEDIBIRD, FIREFISH, GLITCH, HOMETOWN, MASTODON, PIXELFED, UNKNOWN -> {
+                    val rx = """(?<major>\d+)\.(?<minor>\d+).(?<patch>\d+)""".toRegex()
+                    rx.find(version)
+                        .toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
+                        .andThen {
+                            val adjusted = "${it.groups["major"]?.value}.${it.groups["minor"]?.value}.${it.groups["patch"]?.value}"
+                            runSuspendCatching { Version.parse(adjusted, strict = false) }
+                                .mapError { UnparseableVersion(version, it) }
+                        }
                 }
-                // GoToSocial does not report a semver compatible version, expect something
-                // where the possible version number is space-separated, like "0.13.1 git-ccecf5a"
+
+                // Friendica does not report a semver compatible version, expect something
+                // where the version looks like "yyyy.mm", with an optional suffix that
+                // starts with a "-". The date-like parts of the string may have leading
+                // zeros.
+                //
+                // Try to extract the "yyyy.mm", without any leading zeros, append ".0".
+                // https://github.com/friendica/friendica/issues/11264
+                FRIENDICA -> {
+                    val rx = """^0*(?<major>\d+)\.0*(?<minor>\d+)""".toRegex()
+                    rx.find(version)
+                        .toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
+                        .andThen {
+                            val adjusted = "${it.groups["major"]?.value}.${it.groups["minor"]?.value}.0"
+                            runSuspendCatching { Version.parse(adjusted, strict = false) }
+                                .mapError { UnparseableVersion(version, it) }
+                        }
+                }
+
+                // GoToSocial does not always report a semver compatible version, and is all
+                // over the place, including:
+                //
+                // - "" (empty)
+                // - "git-8ab30d0"
+                // - "kalaclista git-212fecf"
+                // - "f4fcffc8b56ef73c184ae17892b69181961c15c7"
+                //
+                // as well as instances where the version number is semver compatible, but is
+                // separated by whitespace or a "_".
+                //
                 // https://github.com/superseriousbusiness/gotosocial/issues/1953
+                //
+                // Since GoToSocial has comparatively few features at the moment just fall
+                // back to "0.0.0" if there are problems.
                 GOTOSOCIAL -> {
-                    // Try and parse as semver, just in case
-                    resultOf { Version.parse(version, strict = false) }
-                        .getOrElse {
-                            // Didn't parse, use the first component, fall back to 0.0.0
-                            val components = version.split(" ")
-                            resultOf { Version.parse(components[0], strict = false) }
-                                .getOrElse { "0.0.0".toVersion() }
+                    // Failed, split on spaces and parse the first component
+                    val components = version.split(" ", "_")
+                    runSuspendCatching { Version.parse(components[0], strict = false) }
+                        .recover { "0.0.0".toVersion() }
+                }
+
+                // IceShrimp uses "yyyy.mm.dd" with leading zeros in the month and day
+                // components, similar to Friendica.
+                // https://iceshrimp.dev/iceshrimp/iceshrimp/issues/502 and
+                // https://iceshrimp.dev/iceshrimp/iceshrimp-rewrite/issues/1
+                ICESHRIMP -> {
+                    val rx = """^0*(?<major>\d+)\.0*(?<minor>\d+)\.0*(?<patch>\d+)""".toRegex()
+                    rx.find(version).toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
+                        .andThen {
+                            val adjusted = "${it.groups["major"]?.value}.${it.groups["minor"]?.value ?: 0}.${it.groups["patch"]?.value ?: 0}"
+                            runSuspendCatching { Version.parse(adjusted, strict = false) }
+                                .mapError { UnparseableVersion(adjusted, it) }
+                        }
+                }
+
+                // Seen "Pleroma 0.9.0 d93789dfde3c44c76a56732088a897ddddfe9716" in
+                // the wild
+                PLEROMA -> {
+                    val rx = """Pleroma (?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)""".toRegex()
+                    rx.find(version).toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
+                        .andThen {
+                            val adjusted = "${it.groups["major"]?.value}.${it.groups["minor"]?.value}.${it.groups["patch"]?.value}"
+                            runSuspendCatching { Version.parse(adjusted, strict = false) }
+                                .mapError { UnparseableVersion(adjusted, it) }
+                        }
+                }
+
+                // Uses format "yyyy.mm.dd" with an optional ".beta..." suffix.
+                // https://git.joinsharkey.org/Sharkey/Sharkey/issues/371
+                SHARKEY -> {
+                    val rx = """^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)""".toRegex()
+                    rx.find(version).toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
+                        .andThen {
+                            val adjusted = "${it.groups["major"]?.value}.${it.groups["minor"]?.value}.${it.groups["patch"]?.value}"
+                            runSuspendCatching { Version.parse(adjusted, strict = false) }
+                                .mapError { UnparseableVersion(adjusted, it) }
                         }
                 }
             }
-
-            semver
         }
 
         /**
@@ -188,7 +273,7 @@ data class Server(
 
                 // Everything else. Assume server side filtering and no translation. This may be an
                 // incorrect assumption.
-                AKKOMA, PLEROMA, UNKNOWN -> {
+                AKKOMA, FEDIBIRD, FIREFISH, FRIENDICA, GLITCH, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, SHARKEY, UNKNOWN -> {
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                 }
             }
@@ -210,20 +295,47 @@ data class Server(
     }
 }
 
+/**
+ * Servers that are known to implement the Mastodon client API
+ */
 enum class ServerKind {
     AKKOMA,
+    FEDIBIRD,
+    FIREFISH,
+    FRIENDICA,
+    GLITCH,
     GOTOSOCIAL,
+    HOMETOWN,
+    ICESHRIMP,
     MASTODON,
     PLEROMA,
+    PIXELFED,
+    SHARKEY,
+
+    /**
+     * Catch-all for servers we don't recognise but that responded to either
+     * /api/v1/instance or /api/v2/instance
+     */
     UNKNOWN,
     ;
 
     companion object {
-        fun from(s: String) = when (s.lowercase()) {
+        fun from(s: NodeInfo.Software) = when (s.name.lowercase()) {
             "akkoma" -> AKKOMA
+            "fedibird" -> FEDIBIRD
+            "firefish" -> FIREFISH
+            "friendica" -> FRIENDICA
             "gotosocial" -> GOTOSOCIAL
-            "mastodon" -> MASTODON
+            "hometown" -> HOMETOWN
+            "iceshrimp" -> ICESHRIMP
+            "mastodon" -> {
+                // Glitch doesn't report a different software name it stuffs it
+                // in the version (https://github.com/glitch-soc/mastodon/issues/2582).
+                if (s.version.contains("+glitch")) GLITCH else MASTODON
+            }
+            "pixelfed" -> PIXELFED
             "pleroma" -> PLEROMA
+            "sharkey" -> SHARKEY
             else -> UNKNOWN
         }
     }

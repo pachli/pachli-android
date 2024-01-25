@@ -65,4 +65,4 @@ Keep the status quo.
 
 * Good, because contributors do not need to do anything different
 * Bad, because contributors and reviewers can have different expectations of what is reasonable to include in a PR description, causing friction at review time
-* Bad, because it keeps the burden on the person responsible for maintaining release notes and changelogs is still high
+* Bad, because it keeps the burden on the person responsible for maintaining release notes and changelogs, which remains high

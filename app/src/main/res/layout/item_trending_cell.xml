@@ -21,48 +21,10 @@
         android:importantForAccessibility="no"
         app:graphColor="?android:colorBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/current_usage"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lineWidth="2sp"
-        app:metaColor="@color/tusky_blue_light"
-        app:primaryLineColor="@color/tusky_blue"
-        app:proportionalTrending="true"
-        app:secondaryLineColor="@color/tusky_red" />
-
-    <TextView
-        android:id="@+id/current_usage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:importantForAccessibility="no"
-        android:paddingStart="6dp"
-        android:textAlignment="textEnd"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/tusky_blue"
-        android:textSize="8sp"
-        android:textStyle="normal"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintBottom_toTopOf="@id/current_accounts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/graph"
-        tools:text="12 345" />
-
-    <TextView
-        android:id="@+id/current_accounts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:importantForAccessibility="no"
-        android:paddingStart="6dp"
-        android:textAlignment="textEnd"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/tusky_red"
-        android:textSize="8sp"
-        android:textStyle="normal"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintBottom_toBottomOf="@id/graph"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/graph"
-        tools:text="12 345" />
+        app:proportionalTrending="true" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/legend_container"
@@ -99,7 +61,7 @@
             android:importantForAccessibility="no"
             android:textAlignment="textEnd"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textColor="@color/tusky_blue"
+            android:textColor="@color/pachli_blue"
             android:textStyle="normal|bold"
             app:layout_constrainedWidth="false"
             app:layout_constraintEnd_toStartOf="@id/usageLabel"
@@ -132,7 +94,7 @@
             android:importantForAccessibility="no"
             android:textAlignment="textEnd"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textColor="@color/tusky_red"
+            android:textColor="@color/pachli_orange"
             android:textStyle="normal|bold"
             app:layout_constrainedWidth="false"
             app:layout_constraintEnd_toStartOf="@+id/accountsLabel"

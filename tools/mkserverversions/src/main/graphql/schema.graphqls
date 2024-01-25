@@ -1,0 +1,353 @@
+type Node {
+    "A unique idenifier the database creates"
+    id: Int!
+    "The name in the nodeinfo"
+    name: String
+    "The HTML Title tag of the server homepage"
+    metatitle: String
+    "The HTML Description tag of the server homepage"
+    metadescription: String
+    "The full json of the nodeinfo"
+    metanodeinfo: String
+    "The full json of the IP data from the IP"
+    metalocation: String
+    "The owner defined in your nodeinfo"
+    owner: String
+    "The HTML Image tag of the server homepage"
+    metaimage: String
+    "The Onion address from your web server header Onion-Location"
+    onion: String
+    "The i2p address from your web server header X-I2P-Location"
+    i2p: String
+    "The link to the terms of service based on best known for your software (owner editable)"
+    terms: String
+    "The link to the privacy policy based on best known for your software (owner editable)"
+    pp: String
+    "The link to the support based on best known for your software (owner editable)"
+    support: String
+    "The camo json data string from the nodeinfo"
+    camo: String
+    "The zipcode found from the IP location data"
+    zipcode: String
+    "The domain of server"
+    domain: String
+    "A open text field for the public comments on the server"
+    podmin_statement: String
+    "The main code version from the git repository for the software"
+    masterversion: String
+    "The short human readable version from the nodeinfo"
+    shortversion: String
+    "The software name from the nodeinfo"
+    softwarename: String
+    "Days we have been checking the server"
+    daysmonitored: Int
+    "Months we have been checking your server"
+    monthsmonitored: Int
+    "The full version found on the server from the nodeinfo"
+    fullversion: String
+    "Score based on the checks of the server being online each time checked"
+    score: Int
+    "The IP from looking at the DNS records"
+    ip: String
+    "Detected language from your html title and description tags on the site"
+    detectedlanguage: String
+    "Detected country code from the IP data"
+    country: String
+    "Detected country name from the IP data"
+    countryname: String
+    "Detected city name from the IP data"
+    city: String
+    "Detected state name from the IP data"
+    state: String
+    "Detected lattitude from the IP data"
+    lat: String
+    "Detected longitude name from the IP data"
+    long: String
+    "The IPv6 Address from DNS records"
+    ipv6: String
+    "True or False that the SSL certificate valid"
+    sslvalid: String
+    "If server allow new users to register or not from the nodeinfo"
+    signup: Boolean
+    "All total users on the server from the nodeinfo"
+    total_users: Int
+    "All total users last 6 months on the server from the nodeinfo"
+    active_users_halfyear: Int
+    "All total users last 1 month on the server from the nodeinfo"
+    active_users_monthly: Int
+    "All posts from the server from the nodeinfo"
+    local_posts: Int
+    "Percent server up from our checks"
+    uptime_alltime: String
+    "Current status of the server. 1 = UP. More at https://gitlab.com/diasporg/poduptime/-/blob/master/lib/PodStatus.php"
+    status: Int
+    "Latency connecting to the server"
+    latency: Int
+    "If you support XMPP from the nodeinfo"
+    service_xmpp: Boolean
+    "Json string of the services the server supports from the nodeinfo"
+    services: String
+    "Json string of the protocols the server supports from the nodeinfo"
+    protocols: String
+    "When the SSL certificate expires"
+    sslexpire: String
+    "DNSSEC Signature True or False"
+    dnssec: Boolean
+    "Type of Webserver"
+    servertype: String
+    "All comments on the server from the nodeinfo"
+    comment_counts: Int
+    "How the server is weighed in the table and search results"
+    weight: Int
+    "Date this data was updated"
+    date_updated: String
+    "Date last checked your server"
+    date_laststats: String
+    "Date added your server"
+    date_created: String
+    "Date server score hit 0"
+    date_diedoff: String
+    "Date server language was checked"
+    date_lastlanguage: String
+}
+
+type Nodes {
+    "A unique idenifier the database creates"
+    id: Int!
+    "The name in the nodeinfo"
+    name: String
+    "The HTML Title tag of the server homepage"
+    metatitle: String
+    "The HTML Description tag of the server homepage"
+    metadescription: String
+    "The full json of the nodeinfo"
+    metanodeinfo: String
+    "The full json of the IP data from the IP"
+    metalocation: String
+    "The owner defined in your nodeinfo"
+    owner: String
+    "The HTML Image tag of the server homepage"
+    metaimage: String
+    "The Onion address from your web server header Onion-Location"
+    onion: String
+    "The i2p address from your web server header X-I2P-Location"
+    i2p: String
+    "The link to the terms of service based on best known for your software (owner editable)"
+    terms: String
+    "The link to the privacy policy based on best known for your software (owner editable)"
+    pp: String
+    "The link to the support based on best known for your software (owner editable)"
+    support: String
+    "The camo json data string from the nodeinfo"
+    camo: String
+    "The zipcode found from the IP location data"
+    zipcode: String
+    "The domain of server"
+    domain: String
+    "A open text field for the public comments on the server"
+    podmin_statement: String
+    "The main code version from the git repository for the software"
+    masterversion: String
+    "The short human readable version from the nodeinfo"
+    shortversion: String
+    "The software name from the nodeinfo"
+    softwarename: String
+    "Days we have been checking the server"
+    daysmonitored: Int
+    "Months we have been checking your server"
+    monthsmonitored: Int
+    "The full version found on the server from the nodeinfo"
+    fullversion: String
+    "Score based on the checks of the server being online each time checked"
+    score: Int
+    "The IP from looking at the DNS records"
+    ip: String
+    "Detected language from your html title and description tags on the site"
+    detectedlanguage: String
+    "Detected country code from the IP data"
+    country: String
+    "Detected country name from the IP data"
+    countryname: String
+    "Detected city name from the IP data"
+    city: String
+    "Detected state name from the IP data"
+    state: String
+    "Detected lattitude from the IP data"
+    lat: String
+    "Detected longitude name from the IP data"
+    long: String
+    "The IPv6 Address from DNS records"
+    ipv6: String
+    "True or False that the SSL certificate valid"
+    sslvalid: String
+    "If server allow new users to register or not from the nodeinfo"
+    signup: Boolean
+    "All total users on the server from the nodeinfo"
+    total_users: Int
+    "All total users last 6 months on the server from the nodeinfo"
+    active_users_halfyear: Int
+    "All total users last 1 month on the server from the nodeinfo"
+    active_users_monthly: Int
+    "All posts from the server from the nodeinfo"
+    local_posts: Int
+    "Percent server up from our checks"
+    uptime_alltime: String
+    "Current status of the server. 1 = UP. More at https://gitlab.com/diasporg/poduptime/-/blob/master/lib/PodStatus.php"
+    status: Int
+    "Latency connecting to the server"
+    latency: Int
+    "If you support XMPP from the nodeinfo"
+    service_xmpp: Boolean
+    "Json string of the services the server supports from the nodeinfo"
+    services: String
+    "Json string of the protocols the server supports from the nodeinfo"
+    protocols: String
+    "When the SSL certificate expires"
+    sslexpire: String
+    "Type of Webserver"
+    servertype: String
+    "DNSSEC Signature True or False"
+    dnssec: Boolean
+    "All comments on the server from the nodeinfo"
+    comment_counts: Int
+    "How the server is weighed in the table and search results"
+    weight: Int
+    "Date this data was updated"
+    date_updated: String
+    "Date last checked your server"
+    date_laststats: String
+    "Date added your server"
+    date_created: String
+    "Date server score hit 0"
+    date_diedoff: String
+    "Date server language was checked"
+    date_lastlanguage: String
+}
+
+type Click {
+    "A unique idenifier the database creates"
+    id: Int!
+    "The domain of server"
+    domain: String
+    "Clicks by a user to this domain"
+    manualclick: Int
+    "Auto sends from the go.php auto pick method"
+    autoclick: Int
+    "Datestamp of the click"
+    date_clicked: String
+}
+
+type Check {
+    "A unique idenifier the database creates"
+    id: Int!
+    "The domain of server"
+    domain: String
+    "Was server online"
+    online: Boolean
+    "If error what was it"
+    error: String
+    "Latency from checking server"
+    latency: Int
+    "Total users in nodeinfo"
+    total_users: Int
+    "Active users in last 6 months from nodeinfo"
+    active_users_halfyear: Int
+    "Active users in last month from nodeinfo"
+    active_users_monthly: Int
+    "Total posts in nodeinfo"
+    local_posts: Int
+    "Total comments in nodeinfo"
+    comment_counts: Int
+    "Version code in human format"
+    shortversion: String
+    "Full version code"
+    version: String
+    "Date Checked"
+    date_checked: String
+}
+
+type MonthlyStat {
+    "A unique idenifier the database creates"
+    id: Int!
+    "Software Name"
+    softwarename: String
+    "Total users for the Software"
+    total_users: Int
+    "Total active users for the Software Halfyear"
+    total_active_users_halfyear: Int
+    "Total active users for the Software Monthly"
+    total_active_users_monthly: Int
+    "Total posts for the Software"
+    total_posts: Int
+    "Total comments for the Software"
+    total_comments: Int
+    "Total servers for the Software"
+    total_pods: Int
+    "Total uptime for Software"
+    total_uptime: Int
+    "Date last updated the monthly stats, this is always represented as the first day of the month for these stats"
+    date_checked: String
+}
+
+type DailyStat {
+    "A unique idenifier the database creates"
+    id: Int!
+    "Software Name"
+    softwarename: String
+    "Total users for the Software"
+    total_users: Int
+    "Total active users for the Software Halfyear"
+    total_active_users_halfyear: Int
+    "Total active users for the Software Monthly"
+    total_active_users_monthly: Int
+    "Total posts for the Software"
+    total_posts: Int
+    "Total comments for the Software"
+    total_comments: Int
+    "Total servers for the Software"
+    total_pods: Int
+    "Total uptime for Software"
+    total_uptime: Int
+    "Date last updated the monthly stats, this is always represented as the first day of the month for these stats"
+    date_checked: String
+}
+
+type MasterVersion {
+    "A unique idenifier the database creates"
+    id: Int!
+    "Software name from the git repo"
+    software: String
+    "Version label from git repo"
+    version: String
+    "Last development branch update"
+    devlastcommit: String
+    "The date of the git release"
+    releasedate: String
+    "Date masterversions updated from git"
+    date_checked: String
+}
+
+type Software {
+    "Name of software"
+    softwarename: String
+    count: Int
+}
+
+type Query {
+    "A full list of all servers in the database."
+    nodes ("UP, DOWN, RECHECK, PAUSED, SYSTEM_DELETED, USER_DELETED" status: String, "Name of a federated software type, like diaspora or mastodon" softwarename: String): [Node]
+    "A single server by domain name"
+    node (domain: String): [Node]
+    "All auto and manual clicks to a server"
+    clicks (limit: Int, domain: String): [Click]
+    "All checks ran to servers"
+    checks (limit: Int, domain: String, "true, false" online: String): [Check]
+    "All monthlystats data"
+    monthlystats ("Name of a federated software type, like diaspora or mastodon or all" softwarename: String, "true, false - only the latest result" mostcurrent: String): [MonthlyStat]
+    "All dailystats data"
+    dailystats ("Name of a federated software type, like diaspora or mastodon or all" softwarename: String, "true, false - only the latest result" mostcurrent: String): [DailyStat]
+    "All git master code versions"
+    masterversions: [MasterVersion]
+    "All software types data"
+    softwares: [Software]
+}

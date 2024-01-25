@@ -28,19 +28,24 @@ import app.pachli.components.timeline.TimelineFragment
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.TimelineKind
 import app.pachli.databinding.ActivityStatuslistBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
+import app.pachli.network.ServerRepository
 import app.pachli.util.unsafeLazy
 import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.getOrElse
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -54,6 +59,9 @@ import timber.log.Timber
 class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonActivity {
     @Inject
     lateinit var eventHub: EventHub
+
+    @Inject
+    lateinit var serverRepository: ServerRepository
 
     private val binding: ActivityStatuslistBinding by viewBinding(ActivityStatuslistBinding::inflate)
     private lateinit var timelineKind: TimelineKind
@@ -212,6 +220,19 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
      */
     private fun updateMuteTagMenuItems() {
         val tagWithHash = hashtag?.let { "#$it" } ?: return
+
+        // If there's no server info, or the server can't filter then it's impossible
+        // to mute hashtags, so disable the functionality.
+        val server = serverRepository.flow.value.getOrElse { null }
+        if (server == null || (
+                !server.can(ORG_JOINMASTODON_FILTERS_CLIENT, ">=1.0.0".toConstraint()) &&
+                    !server.can(ORG_JOINMASTODON_FILTERS_SERVER, ">=1.0.0".toConstraint())
+                )
+        ) {
+            muteTagItem?.isVisible = false
+            unmuteTagItem?.isVisible = false
+            return
+        }
 
         muteTagItem?.isVisible = true
         muteTagItem?.isEnabled = false

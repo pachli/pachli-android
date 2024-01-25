@@ -29,7 +29,7 @@ data class TimelineAccount(
     @SerializedName("acct") val username: String,
     // should never be null per Api definition, but some servers break the contract
     @Deprecated("prefer the `name` property, which is not-null and not-empty")
-    val displayName: String?,
+    @SerializedName("display_name") val displayName: String?,
     val url: String,
     val avatar: String,
     val note: String,

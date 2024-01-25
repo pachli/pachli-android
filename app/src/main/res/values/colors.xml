@@ -65,12 +65,16 @@
     <!-- end of material base colors -->
 
     <color name="tusky_blue">#2b90d9</color>
-    <color name="tusky_blue_light">#56a7e1</color>
     <color name="tusky_orange">#ca8f04</color>
     <color name="tusky_orange_light">#fab207</color>
     <color name="tusky_green">#19a341</color>
     <color name="tusky_green_light">#25d069</color>
-    <color name="tusky_red">#DF1553</color>
+
+    <color name="pachli_blue">#006382</color>
+    <color name="pachli_orange">#F37B2F</color>
+    <!-- Commented out for the time being as unused, but kept here as reference -->
+<!--    <color name="pachli_dark_gray">#30383A</color>-->
+<!--    <color name="pachli_light_gray">#D4D2C6</color>-->
 
     <color name="white">#fff</color>
     <color name="black">#000</color>
