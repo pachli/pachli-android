@@ -46,6 +46,7 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.Status.Mention
 import app.pachli.interfaces.AccountSelectionListener
@@ -64,7 +65,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionListener {
+class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionListener<StatusViewData> {
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
@@ -84,109 +85,80 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         return SearchStatusesAdapter(statusDisplayOptions, this)
     }
 
-    override fun onContentHiddenChange(isShowing: Boolean, position: Int) {
-        searchAdapter.peek(position)?.let {
-            viewModel.contentHiddenChange(it, isShowing)
-        }
+    override fun onContentHiddenChange(viewData: StatusViewData, isShowing: Boolean) {
+        viewModel.contentHiddenChange(viewData, isShowing)
     }
 
-    override fun onReply(position: Int) {
-        searchAdapter.peek(position)?.let { status ->
-            reply(status)
-        }
+    override fun onReply(viewData: StatusViewData) {
+        reply(viewData)
     }
 
-    override fun onFavourite(favourite: Boolean, position: Int) {
-        searchAdapter.peek(position)?.let { status ->
-            viewModel.favorite(status, favourite)
-        }
+    override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
+        viewModel.favorite(viewData, favourite)
     }
 
-    override fun onBookmark(bookmark: Boolean, position: Int) {
-        searchAdapter.peek(position)?.let { status ->
-            viewModel.bookmark(status, bookmark)
-        }
+    override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) {
+        viewModel.bookmark(viewData, bookmark)
     }
 
-    override fun onMore(view: View, position: Int) {
-        searchAdapter.peek(position)?.status?.let {
-            more(it, view, position)
-        }
+    override fun onMore(view: View, viewData: StatusViewData) {
+        more(viewData, view)
     }
 
-    override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {
-        searchAdapter.peek(position)?.status?.actionableStatus?.let { actionable ->
-            when (actionable.attachments[attachmentIndex].type) {
-                Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
-                    val attachments = AttachmentViewData.list(actionable)
-                    val intent = ViewMediaActivityIntent(
-                        requireContext(),
-                        attachments,
-                        attachmentIndex,
+    override fun onViewMedia(viewData: StatusViewData, attachmentIndex: Int, view: View?) {
+        val actionable = viewData.actionable
+        when (actionable.attachments[attachmentIndex].type) {
+            Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
+                val attachments = AttachmentViewData.list(actionable)
+                val intent = ViewMediaActivityIntent(
+                    requireContext(),
+                    attachments,
+                    attachmentIndex,
+                )
+                if (view != null) {
+                    val url = actionable.attachments[attachmentIndex].url
+                    ViewCompat.setTransitionName(view, url)
+                    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        requireActivity(),
+                        view,
+                        url,
                     )
-                    if (view != null) {
-                        val url = actionable.attachments[attachmentIndex].url
-                        ViewCompat.setTransitionName(view, url)
-                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            requireActivity(),
-                            view,
-                            url,
-                        )
-                        startActivity(intent, options.toBundle())
-                    } else {
-                        startActivity(intent)
-                    }
+                    startActivity(intent, options.toBundle())
+                } else {
+                    startActivity(intent)
                 }
-                Attachment.Type.UNKNOWN -> {
-                    context?.openLink(actionable.attachments[attachmentIndex].url)
-                }
+            }
+            Attachment.Type.UNKNOWN -> {
+                context?.openLink(actionable.attachments[attachmentIndex].url)
             }
         }
     }
 
-    override fun onViewThread(position: Int) {
-        searchAdapter.peek(position)?.status?.let { status ->
-            val actionableStatus = status.actionableStatus
-            bottomSheetActivity?.viewThread(actionableStatus.id, actionableStatus.url)
-        }
+    override fun onViewThread(status: Status) {
+        val actionableStatus = status.actionableStatus
+        bottomSheetActivity?.viewThread(actionableStatus.id, actionableStatus.url)
     }
 
-    override fun onOpenReblog(position: Int) {
-        searchAdapter.peek(position)?.status?.let { status ->
-            bottomSheetActivity?.viewAccount(status.account.id)
-        }
+    override fun onOpenReblog(status: Status) {
+        bottomSheetActivity?.viewAccount(status.account.id)
     }
 
-    override fun onExpandedChange(expanded: Boolean, position: Int) {
-        searchAdapter.peek(position)?.let {
-            viewModel.expandedChange(it, expanded)
-        }
+    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+        viewModel.expandedChange(viewData, expanded)
     }
 
-    override fun onContentCollapsedChange(isCollapsed: Boolean, position: Int) {
-        searchAdapter.peek(position)?.let {
-            viewModel.collapsedChange(it, isCollapsed)
-        }
+    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+        viewModel.collapsedChange(viewData, isCollapsed)
     }
 
-    override fun onVoteInPoll(position: Int, choices: List<Int>) {
-        searchAdapter.peek(position)?.let {
-            viewModel.voteInPoll(it, choices)
-        }
+    override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) {
+        viewModel.voteInPoll(viewData, poll, choices)
     }
 
-    override fun clearWarningAction(position: Int) {}
+    override fun clearWarningAction(viewData: StatusViewData) {}
 
-    private fun removeItem(position: Int) {
-        searchAdapter.peek(position)?.let {
-            viewModel.removeItem(it)
-        }
-    }
-
-    override fun onReblog(reblog: Boolean, position: Int) {
-        searchAdapter.peek(position)?.let { status ->
-            viewModel.reblog(status, reblog)
-        }
+    override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
+        viewModel.reblog(viewData, reblog)
     }
 
     companion object {
@@ -218,11 +190,12 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         bottomSheetActivity?.startActivityWithSlideInAnimation(intent)
     }
 
-    private fun more(status: Status, view: View, position: Int) {
-        val id = status.actionableId
-        val accountId = status.actionableStatus.account.id
-        val accountUsername = status.actionableStatus.account.username
-        val statusUrl = status.actionableStatus.url
+    private fun more(statusViewData: StatusViewData, view: View) {
+        val id = statusViewData.actionableId
+        val status = statusViewData.actionable
+        val accountId = status.account.id
+        val accountUsername = status.account.username
+        val statusUrl = status.url
         val loggedInAccountId = viewModel.activeAccount?.accountId
 
         val popup = PopupMenu(view.context, view)
@@ -312,9 +285,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_mute_conversation -> {
-                    searchAdapter.peek(position)?.let { foundStatus ->
-                        viewModel.muteConversation(foundStatus, status.muted != true)
-                    }
+                    viewModel.muteConversation(statusViewData, status.muted != true)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_mute -> {
@@ -330,23 +301,23 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_unreblog_private -> {
-                    onReblog(false, position)
+                    onReblog(statusViewData, false)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_reblog_private -> {
-                    onReblog(true, position)
+                    onReblog(statusViewData, true)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete -> {
-                    showConfirmDeleteDialog(id, position)
+                    showConfirmDeleteDialog(statusViewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete_and_redraft -> {
-                    showConfirmEditDialog(id, position, status)
+                    showConfirmEditDialog(statusViewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_edit -> {
-                    editStatus(id, position, status)
+                    editStatus(id, status)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.pin -> {
@@ -426,31 +397,33 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         startActivity(ReportActivityIntent(requireContext(), accountId, accountUsername, statusId))
     }
 
-    private fun showConfirmDeleteDialog(id: String, position: Int) {
+    // TODO: Identical to the same function in SFragment.kt
+    private fun showConfirmDeleteDialog(statusViewData: StatusViewData) {
         context?.let {
             AlertDialog.Builder(it)
                 .setMessage(R.string.dialog_delete_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
-                    viewModel.deleteStatusAsync(id)
-                    removeItem(position)
+                    viewModel.deleteStatusAsync(statusViewData.id)
+                    viewModel.removeItem(statusViewData)
                 }
                 .setNegativeButton(android.R.string.cancel, null)
                 .show()
         }
     }
 
-    private fun showConfirmEditDialog(id: String, position: Int, status: Status) {
+    // TODO: Identical to the same function in SFragment.kt
+    private fun showConfirmEditDialog(statusViewData: StatusViewData) {
         activity?.let {
             AlertDialog.Builder(it)
                 .setMessage(R.string.dialog_redraft_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     lifecycleScope.launch {
-                        viewModel.deleteStatusAsync(id).await().fold(
+                        viewModel.deleteStatusAsync(statusViewData.id).await().fold(
                             { deletedStatus ->
-                                removeItem(position)
+                                viewModel.removeItem(statusViewData)
 
                                 val redraftStatus = if (deletedStatus.isEmpty()) {
-                                    status.toDeletedStatus()
+                                    statusViewData.status.toDeletedStatus()
                                 } else {
                                     deletedStatus
                                 }
@@ -464,7 +437,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                                         contentWarning = redraftStatus.spoilerText,
                                         mediaAttachments = redraftStatus.attachments,
                                         sensitive = redraftStatus.sensitive,
-                                        poll = redraftStatus.poll?.toNewPoll(status.createdAt),
+                                        poll = redraftStatus.poll?.toNewPoll(redraftStatus.createdAt),
                                         language = redraftStatus.language,
                                         kind = ComposeOptions.ComposeKind.NEW,
                                     ),
@@ -483,7 +456,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         }
     }
 
-    private fun editStatus(id: String, position: Int, status: Status) {
+    private fun editStatus(id: String, status: Status) {
         lifecycleScope.launch {
             mastodonApi.statusSource(id).fold(
                 { source ->

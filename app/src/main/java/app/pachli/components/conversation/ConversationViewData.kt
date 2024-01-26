@@ -18,44 +18,22 @@ package app.pachli.components.conversation
 
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.ConversationEntity
-import app.pachli.core.network.model.Poll
+import app.pachli.viewdata.IStatusViewData
 import app.pachli.viewdata.StatusViewData
 
+/**
+ * Data necessary to show a conversation.
+ *
+ * Each conversation wraps the [StatusViewData] for the last status in the
+ * conversation for display.
+ */
 data class ConversationViewData(
     val id: String,
     val order: Int,
     val accounts: List<ConversationAccountEntity>,
     val unread: Boolean,
     val lastStatus: StatusViewData,
-) {
-    fun toConversationEntity(
-        accountId: Long,
-        favourited: Boolean = lastStatus.status.favourited,
-        bookmarked: Boolean = lastStatus.status.bookmarked,
-        muted: Boolean = lastStatus.status.muted ?: false,
-        poll: Poll? = lastStatus.status.poll,
-        expanded: Boolean = lastStatus.isExpanded,
-        collapsed: Boolean = lastStatus.isCollapsed,
-        showingHiddenContent: Boolean = lastStatus.isShowingContent,
-    ): ConversationEntity {
-        return ConversationEntity(
-            accountId = accountId,
-            id = id,
-            order = order,
-            accounts = accounts,
-            unread = unread,
-            lastStatus = lastStatus.toConversationStatusEntity(
-                favourited = favourited,
-                bookmarked = bookmarked,
-                muted = muted,
-                poll = poll,
-                expanded = expanded,
-                collapsed = collapsed,
-                showingHiddenContent = showingHiddenContent,
-            ),
-        )
-    }
-
+) : IStatusViewData by lastStatus {
     companion object {
         fun from(conversationEntity: ConversationEntity) = ConversationViewData(
             id = conversationEntity.id,

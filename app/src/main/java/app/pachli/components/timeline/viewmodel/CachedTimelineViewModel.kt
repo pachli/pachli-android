@@ -136,9 +136,9 @@ class CachedTimelineViewModel @Inject constructor(
         }
     }
 
-    override fun clearWarning(status: StatusViewData) {
+    override fun clearWarning(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            repository.clearStatusWarning(status.actionableId)
+            repository.clearStatusWarning(statusViewData.actionableId)
         }
     }
 

@@ -2423,7 +2423,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="152"
+            line="154"
             column="29"/>
     </issue>
 
@@ -2434,7 +2434,7 @@
         errorLine2="                                    ~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="154"
+            line="156"
             column="37"/>
     </issue>
 
@@ -2522,7 +2522,7 @@
         errorLine2="                            ~~~~~~~">
         <location
             file="src/main/java/app/pachli/util/ListStatusAccessibilityDelegate.kt"
-            line="75"
+            line="76"
             column="29"/>
     </issue>
 
@@ -2533,7 +2533,7 @@
         errorLine2="                    ~~~~~~~~">
         <location
             file="src/main/java/app/pachli/util/ListStatusAccessibilityDelegate.kt"
-            line="81"
+            line="82"
             column="21"/>
     </issue>
 
@@ -2544,7 +2544,7 @@
         errorLine2="                    ~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/util/ListStatusAccessibilityDelegate.kt"
-            line="86"
+            line="87"
             column="21"/>
     </issue>
 
@@ -2555,7 +2555,7 @@
         errorLine2="                    ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/util/ListStatusAccessibilityDelegate.kt"
-            line="105"
+            line="107"
             column="21"/>
     </issue>
 
@@ -2566,7 +2566,7 @@
         errorLine2="                    ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/util/ListStatusAccessibilityDelegate.kt"
-            line="115"
+            line="117"
             column="21"/>
     </issue>
 
@@ -3523,7 +3523,7 @@
         errorLine2="                                          ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="169"
+            line="161"
             column="43"/>
     </issue>
 
@@ -3534,15 +3534,26 @@
         errorLine2="                                               ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/SFragment.kt"
-            line="240"
+            line="235"
             column="48"/>
     </issue>
 
     <issue
         id="SyntheticAccessor"
         message="Access to `private` method `getContentWarningDescription` of class `Companion` requires synthetic accessor"
-        errorLine1="            getContentWarningDescription(context, status),"
+        errorLine1="            getContentWarningDescription(context, viewData),"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
+            line="808"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
+        message="Access to `private` method `getReblogDescription` of class `Companion` requires synthetic accessor"
+        errorLine1="            getReblogDescription(context, viewData),"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
             line="812"
@@ -3551,23 +3562,12 @@
 
     <issue
         id="SyntheticAccessor"
-        message="Access to `private` method `getReblogDescription` of class `Companion` requires synthetic accessor"
-        errorLine1="            getReblogDescription(context, status),"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
-            line="816"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
         message="Access to `private` method `getMediaDescription` of class `Companion` requires synthetic accessor"
-        errorLine1="            getMediaDescription(context, status),"
+        errorLine1="            getMediaDescription(context, viewData),"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
-            line="821"
+            line="817"
             column="13"/>
     </issue>
 
@@ -3644,7 +3644,7 @@
         errorLine2="                                              ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="195"
+            line="196"
             column="47"/>
     </issue>
 

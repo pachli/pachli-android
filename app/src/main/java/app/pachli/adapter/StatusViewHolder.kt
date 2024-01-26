@@ -19,7 +19,6 @@ package app.pachli.adapter
 import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
@@ -33,26 +32,26 @@ import app.pachli.util.emojify
 import app.pachli.util.hide
 import app.pachli.util.show
 import app.pachli.util.visible
-import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.IStatusViewData
 import at.connyduck.sparkbutton.helpers.Utils
 
-open class StatusViewHolder(
+open class StatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusBinding,
     root: View? = null,
-) : StatusBaseViewHolder(root ?: binding.root) {
+) : StatusBaseViewHolder<T>(root ?: binding.root) {
 
     override fun setupWithStatus(
-        status: StatusViewData,
-        listener: StatusActionListener,
+        viewData: T,
+        listener: StatusActionListener<T>,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: Any?,
     ) = with(binding) {
         if (payloads == null) {
-            val sensitive = !TextUtils.isEmpty(status.actionable.spoilerText)
-            val expanded = status.isExpanded
-            setupCollapsedState(sensitive, expanded, status, listener)
-            val reblogging = status.rebloggingStatus
-            if (reblogging == null || status.filterAction === Filter.Action.WARN) {
+            val sensitive = !TextUtils.isEmpty(viewData.actionable.spoilerText)
+            val expanded = viewData.isExpanded
+            setupCollapsedState(viewData, sensitive, expanded, listener)
+            val reblogging = viewData.rebloggingStatus
+            if (reblogging == null || viewData.filterAction === Filter.Action.WARN) {
                 statusInfo.hide()
             } else {
                 val rebloggedByDisplayName = reblogging.account.name
@@ -62,15 +61,15 @@ open class StatusViewHolder(
                     statusDisplayOptions,
                 )
                 statusInfo.setOnClickListener {
-                    listener.onOpenReblog(bindingAdapterPosition)
+                    listener.onOpenReblog(viewData.status)
                 }
             }
         }
         statusReblogsCount.visible(statusDisplayOptions.showStatsInline)
         statusFavouritesCount.visible(statusDisplayOptions.showStatsInline)
-        setFavouritedCount(status.actionable.favouritesCount)
-        setReblogsCount(status.actionable.reblogsCount)
-        super.setupWithStatus(status, listener, statusDisplayOptions, payloads)
+        setFavouritedCount(viewData.actionable.favouritesCount)
+        setReblogsCount(viewData.actionable.reblogsCount)
+        super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
     }
 
     private fun setRebloggedByDisplayName(
@@ -109,22 +108,18 @@ open class StatusViewHolder(
     }
 
     private fun setupCollapsedState(
+        viewData: T,
         sensitive: Boolean,
         expanded: Boolean,
-        status: StatusViewData,
-        listener: StatusActionListener,
+        listener: StatusActionListener<T>,
     ) = with(binding) {
         /* input filter for TextViews have to be set before text */
-        if (status.isCollapsible && (!sensitive || expanded)) {
+        if (viewData.isCollapsible && (!sensitive || expanded)) {
             buttonToggleContent.setOnClickListener {
-                val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
-                listener.onContentCollapsedChange(
-                    !status.isCollapsed,
-                    position,
-                )
+                listener.onContentCollapsedChange(viewData, !viewData.isCollapsed)
             }
             buttonToggleContent.show()
-            if (status.isCollapsed) {
+            if (viewData.isCollapsed) {
                 buttonToggleContent.setText(R.string.post_content_warning_show_more)
                 content.filters = COLLAPSE_INPUT_FILTER
             } else {
@@ -143,14 +138,14 @@ open class StatusViewHolder(
     }
 
     override fun toggleExpandedState(
+        viewData: T,
         sensitive: Boolean,
         expanded: Boolean,
-        status: StatusViewData,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener,
+        listener: StatusActionListener<T>,
     ) {
-        setupCollapsedState(sensitive, expanded, status, listener)
-        super.toggleExpandedState(sensitive, expanded, status, statusDisplayOptions, listener)
+        setupCollapsedState(viewData, sensitive, expanded, listener)
+        super.toggleExpandedState(viewData, sensitive, expanded, statusDisplayOptions, listener)
     }
 
     companion object {

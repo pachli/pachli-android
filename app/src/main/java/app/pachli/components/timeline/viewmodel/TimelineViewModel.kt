@@ -497,7 +497,7 @@ abstract class TimelineViewModel(
         reload.getAndUpdate { it + 1 }
     }
 
-    abstract fun clearWarning(status: StatusViewData)
+    abstract fun clearWarning(statusViewData: StatusViewData)
 
     /** Triggered when currently displayed data must be reloaded. */
     protected abstract suspend fun invalidate()

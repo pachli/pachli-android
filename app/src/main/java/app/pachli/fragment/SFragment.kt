@@ -57,11 +57,12 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.interfaces.AccountSelectionListener
+import app.pachli.interfaces.StatusActionListener
 import app.pachli.network.ServerRepository
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.openLink
 import app.pachli.view.showMuteAccountDialog
-import app.pachli.viewdata.StatusViewData
+import app.pachli.viewdata.IStatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import com.github.michaelbull.result.onFailure
@@ -72,15 +73,9 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-/* Note from Andrew on Jan. 22, 2017: This class is a design problem for me, so I left it with an
- * awkward name. TimelineFragment and NotificationFragment have significant overlap but the nature
- * of that is complicated by how they're coupled with Status and Notification and the corresponding
- * adapters. I feel like the profile pages and thread viewer, which I haven't made yet, will also
- * overlap functionality. So, I'm momentarily leaving it and hopefully working on those will clear
- * up what needs to be where. */
-abstract class SFragment : Fragment() {
-    protected abstract fun removeItem(position: Int)
-    protected abstract fun onReblog(reblog: Boolean, position: Int)
+abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener<T> {
+    protected abstract fun removeItem(viewData: T)
+
     private lateinit var bottomSheetActivity: BottomSheetActivity
 
     @Inject
@@ -154,7 +149,7 @@ abstract class SFragment : Fragment() {
         bottomSheetActivity.viewAccount(accountId!!)
     }
 
-    open fun onViewUrl(url: String) {
+    override fun onViewUrl(url: String) {
         bottomSheetActivity.viewUrl(url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
     }
 
@@ -189,12 +184,12 @@ abstract class SFragment : Fragment() {
      * Handles the user clicking the "..." (more) button typically at the bottom-right of
      * the status.
      */
-    protected fun more(statusViewData: StatusViewData, view: View, position: Int) {
-        val status = statusViewData.status
-        val actionableId = status.actionableId
-        val accountId = status.actionableStatus.account.id
-        val accountUsername = status.actionableStatus.account.username
-        val statusUrl = status.actionableStatus.url
+    protected fun more(view: View, viewData: T) {
+        val status = viewData.status
+        val actionableId = viewData.actionableId
+        val accountId = viewData.actionable.account.id
+        val accountUsername = viewData.actionable.account.username
+        val statusUrl = viewData.actionable.url
         var loggedInAccountId: String? = null
         val activeAccount = accountManager.activeAccount
         if (activeAccount != null) {
@@ -221,8 +216,8 @@ abstract class SFragment : Fragment() {
             popup.inflate(R.menu.status_more)
             popup.menu.findItem(R.id.status_download_media).isVisible = status.attachments.isNotEmpty()
             if (serverCanTranslate && canTranslate() && status.visibility != Status.Visibility.PRIVATE && status.visibility != Status.Visibility.DIRECT) {
-                popup.menu.findItem(R.id.status_translate).isVisible = statusViewData.translationState == TranslationState.SHOW_ORIGINAL
-                popup.menu.findItem(R.id.status_translate_undo).isVisible = statusViewData.translationState == TranslationState.SHOW_TRANSLATION
+                popup.menu.findItem(R.id.status_translate).isVisible = viewData.translationState == TranslationState.SHOW_ORIGINAL
+                popup.menu.findItem(R.id.status_translate_undo).isVisible = viewData.translationState == TranslationState.SHOW_TRANSLATION
             } else {
                 popup.menu.findItem(R.id.status_translate).isVisible = false
                 popup.menu.findItem(R.id.status_translate_undo).isVisible = false
@@ -310,19 +305,19 @@ abstract class SFragment : Fragment() {
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_unreblog_private -> {
-                    onReblog(false, position)
+                    onReblog(viewData, false)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_reblog_private -> {
-                    onReblog(true, position)
+                    onReblog(viewData, true)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete -> {
-                    showConfirmDeleteDialog(actionableId, position)
+                    showConfirmDeleteDialog(viewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete_and_redraft -> {
-                    showConfirmEditDialog(actionableId, position, status)
+                    showConfirmEditDialog(viewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_edit -> {
@@ -346,11 +341,11 @@ abstract class SFragment : Fragment() {
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_translate -> {
-                    onTranslate(statusViewData)
+                    onTranslate(viewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_translate_undo -> {
-                    onTranslateUndo(statusViewData)
+                    onTranslateUndo(viewData)
                     return@setOnMenuItemClickListener true
                 }
             }
@@ -366,9 +361,9 @@ abstract class SFragment : Fragment() {
      */
     open fun canTranslate() = false
 
-    open fun onTranslate(statusViewData: StatusViewData) {}
+    open fun onTranslate(statusViewData: T) {}
 
-    open fun onTranslateUndo(statusViewData: StatusViewData) {}
+    open fun onTranslateUndo(statusViewData: T) {}
 
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->
@@ -422,12 +417,12 @@ abstract class SFragment : Fragment() {
         startActivity(ReportActivityIntent(requireContext(), accountId, accountUsername, statusId))
     }
 
-    private fun showConfirmDeleteDialog(id: String, position: Int) {
+    private fun showConfirmDeleteDialog(viewData: T) {
         AlertDialog.Builder(requireActivity())
             .setMessage(R.string.dialog_delete_post_warning)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 lifecycleScope.launch {
-                    val result = timelineCases.delete(id).exceptionOrNull()
+                    val result = timelineCases.delete(viewData.status.id).exceptionOrNull()
                     if (result != null) {
                         Timber.w("error deleting status", result)
                         Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT).show()
@@ -437,14 +432,14 @@ abstract class SFragment : Fragment() {
                     // removes the item if the timelineCases.delete() call succeeded.
                     //
                     // Either way, this logic should be in the view model.
-                    removeItem(position)
+                    removeItem(viewData)
                 }
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 
-    private fun showConfirmEditDialog(id: String, position: Int, status: Status) {
+    private fun showConfirmEditDialog(statusViewData: T) {
         if (activity == null) {
             return
         }
@@ -452,11 +447,11 @@ abstract class SFragment : Fragment() {
             .setMessage(R.string.dialog_redraft_post_warning)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 lifecycleScope.launch {
-                    timelineCases.delete(id).fold(
+                    timelineCases.delete(statusViewData.status.id).fold(
                         { deletedStatus ->
-                            removeItem(position)
+                            removeItem(statusViewData)
                             val sourceStatus = if (deletedStatus.isEmpty()) {
-                                status.toDeletedStatus()
+                                statusViewData.status.toDeletedStatus()
                             } else {
                                 deletedStatus
                             }

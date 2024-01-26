@@ -195,9 +195,9 @@ class NetworkTimelineViewModel @Inject constructor(
         reloadKeepingReadingPosition()
     }
 
-    override fun clearWarning(status: StatusViewData) {
+    override fun clearWarning(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            repository.updateActionableStatusById(status.actionableId) {
+            repository.updateActionableStatusById(statusViewData.actionableId) {
                 it.copy(filtered = null)
             }
         }

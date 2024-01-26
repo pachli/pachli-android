@@ -22,7 +22,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.database.model.ConversationAccountEntity
@@ -36,8 +35,8 @@ import app.pachli.util.show
 class ConversationViewHolder internal constructor(
     itemView: View,
     private val statusDisplayOptions: StatusDisplayOptions,
-    private val listener: StatusActionListener,
-) : StatusBaseViewHolder(itemView) {
+    private val listener: StatusActionListener<ConversationViewData>,
+) : StatusBaseViewHolder<ConversationViewData>(itemView) {
     private val conversationNameTextView: TextView
     private val contentCollapseButton: Button
     private val avatars: Array<ImageView>
@@ -53,31 +52,25 @@ class ConversationViewHolder internal constructor(
     }
 
     fun setupWithConversation(
-        conversation: ConversationViewData,
+        viewData: ConversationViewData,
         payloads: Any?,
     ) {
-        val statusViewData = conversation.lastStatus
-        val (_, _, account, inReplyToId, _, _, _, _, _, _, _, _, _, _, favourited, bookmarked, sensitive, _, _, attachments) = statusViewData.status
+        val (_, _, account, inReplyToId, _, _, _, _, _, _, _, _, _, _, favourited, bookmarked, sensitive, _, _, attachments) = viewData.status
         if (payloads == null) {
-            setupCollapsedState(
-                statusViewData.isCollapsible,
-                statusViewData.isCollapsed,
-                statusViewData.isExpanded,
-                statusViewData.spoilerText,
-                listener,
-            )
+            setupCollapsedState(viewData, listener)
             setDisplayName(account.name, account.emojis, statusDisplayOptions)
             setUsername(account.username)
-            setMetaData(statusViewData, statusDisplayOptions, listener)
+            setMetaData(viewData, statusDisplayOptions, listener)
             setIsReply(inReplyToId != null)
             setFavourited(favourited)
             setBookmarked(bookmarked)
             if (statusDisplayOptions.mediaPreviewEnabled && hasPreviewableAttachment(attachments)) {
                 setMediaPreviews(
+                    viewData,
                     attachments,
                     sensitive,
                     listener,
-                    statusViewData.isShowingContent,
+                    viewData.isShowingContent,
                     statusDisplayOptions.useBlurhash,
                 )
                 if (attachments.isEmpty()) {
@@ -88,24 +81,25 @@ class ConversationViewHolder internal constructor(
                     mediaLabel.visibility = View.GONE
                 }
             } else {
-                setMediaLabel(attachments, sensitive, listener, statusViewData.isShowingContent)
+                setMediaLabel(viewData, attachments, sensitive, listener, viewData.isShowingContent)
                 // Hide all unused views.
                 mediaPreview.visibility = View.GONE
                 hideSensitiveMediaWarning()
             }
             setupButtons(
+                viewData,
                 listener,
                 account.id,
                 statusDisplayOptions,
             )
-            setSpoilerAndContent(statusViewData, statusDisplayOptions, listener)
-            setConversationName(conversation.accounts)
-            setAvatars(conversation.accounts)
+            setSpoilerAndContent(viewData, statusDisplayOptions, listener)
+            setConversationName(viewData.accounts)
+            setAvatars(viewData.accounts)
         } else {
             if (payloads is List<*>) {
                 for (item in payloads) {
                     if (Key.KEY_CREATED == item) {
-                        setMetaData(statusViewData, statusDisplayOptions, listener)
+                        setMetaData(viewData, statusDisplayOptions, listener)
                     }
                 }
             }
@@ -147,20 +141,16 @@ class ConversationViewHolder internal constructor(
     }
 
     private fun setupCollapsedState(
-        collapsible: Boolean,
-        collapsed: Boolean,
-        expanded: Boolean,
-        spoilerText: String,
-        listener: StatusActionListener,
+        viewData: ConversationViewData,
+        listener: StatusActionListener<ConversationViewData>,
     ) {
         /* input filter for TextViews have to be set before text */
-        if (collapsible && (expanded || TextUtils.isEmpty(spoilerText))) {
+        if (viewData.isCollapsible && (viewData.isExpanded || TextUtils.isEmpty(viewData.spoilerText))) {
             contentCollapseButton.setOnClickListener {
-                val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
-                listener.onContentCollapsedChange(!collapsed, position)
+                listener.onContentCollapsedChange(viewData, !viewData.isCollapsed)
             }
             contentCollapseButton.show()
-            if (collapsed) {
+            if (viewData.isCollapsed) {
                 contentCollapseButton.setText(R.string.post_content_warning_show_more)
                 content.filters = COLLAPSE_INPUT_FILTER
             } else {

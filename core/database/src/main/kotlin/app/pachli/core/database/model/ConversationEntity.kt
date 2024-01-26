@@ -43,6 +43,7 @@ data class ConversationEntity(
     companion object {
         fun from(
             conversation: Conversation,
+            /** Pachli account ID (timelineUserId in other entities) */
             accountId: Long,
             order: Int,
             expanded: Boolean,

@@ -49,6 +49,7 @@ import app.pachli.components.timeline.TimelineLoadStateAdapter
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
 import app.pachli.fragment.SFragment
@@ -86,8 +87,8 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class NotificationsFragment :
-    SFragment(),
-    StatusActionListener,
+    SFragment<NotificationViewData>(),
+    StatusActionListener<NotificationViewData>,
     NotificationActionListener,
     AccountActionListener,
     OnRefreshListener,
@@ -144,17 +145,8 @@ class NotificationsFragment :
         layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.setAccessibilityDelegateCompat(
-            ListStatusAccessibilityDelegate(
-                binding.recyclerView,
-                this,
-            ) { pos: Int ->
-                val notification = adapter.snapshot().getOrNull(pos)
-                // We support replies only for now
-                if (notification is NotificationViewData) {
-                    notification.statusViewData
-                } else {
-                    null
-                }
+            ListStatusAccessibilityDelegate(binding.recyclerView, this) { pos: Int ->
+                adapter.snapshot().getOrNull(pos)
             },
         )
         binding.recyclerView.addItemDecoration(
@@ -513,90 +505,93 @@ class NotificationsFragment :
         clearNotificationsForAccount(requireContext(), viewModel.account)
     }
 
-    override fun onReply(position: Int) {
-        val status = adapter.peek(position)?.statusViewData?.status ?: return
-        super.reply(status)
+    override fun onReply(viewData: NotificationViewData) {
+        super.reply(viewData.statusViewData!!.actionable)
     }
 
-    override fun onReblog(reblog: Boolean, position: Int) {
-        val statusViewData = adapter.peek(position)?.statusViewData ?: return
-        viewModel.accept(StatusAction.Reblog(reblog, statusViewData))
+    override fun onReblog(viewData: NotificationViewData, reblog: Boolean) {
+        viewModel.accept(StatusAction.Reblog(reblog, viewData.statusViewData!!))
     }
 
-    override fun onFavourite(favourite: Boolean, position: Int) {
-        val statusViewData = adapter.peek(position)?.statusViewData ?: return
-        viewModel.accept(StatusAction.Favourite(favourite, statusViewData))
+    override fun onFavourite(viewData: NotificationViewData, favourite: Boolean) {
+        viewModel.accept(StatusAction.Favourite(favourite, viewData.statusViewData!!))
     }
 
-    override fun onBookmark(bookmark: Boolean, position: Int) {
-        val statusViewData = adapter.peek(position)?.statusViewData ?: return
-        viewModel.accept(StatusAction.Bookmark(bookmark, statusViewData))
+    override fun onBookmark(viewData: NotificationViewData, bookmark: Boolean) {
+        viewModel.accept(StatusAction.Bookmark(bookmark, viewData.statusViewData!!))
     }
 
-    override fun onVoteInPoll(position: Int, choices: List<Int>) {
-        val statusViewData = adapter.peek(position)?.statusViewData ?: return
-        val poll = statusViewData.actionable.poll ?: return
-        viewModel.accept(StatusAction.VoteInPoll(poll, choices, statusViewData))
+    override fun onVoteInPoll(viewData: NotificationViewData, poll: Poll, choices: List<Int>) {
+        viewModel.accept(StatusAction.VoteInPoll(poll, choices, viewData.statusViewData!!))
     }
 
-    override fun onMore(view: View, position: Int) {
-        val statusViewData = adapter.peek(position)?.statusViewData ?: return
-        super.more(statusViewData, view, position)
+    override fun onMore(view: View, viewData: NotificationViewData) {
+        super.more(view, viewData)
     }
 
-    override fun onViewMedia(position: Int, attachmentIndex: Int, view: View?) {
-        val status = adapter.peek(position)?.statusViewData?.status ?: return
+    override fun onViewMedia(viewData: NotificationViewData, attachmentIndex: Int, view: View?) {
         super.viewMedia(
             attachmentIndex,
-            list(status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
+            list(viewData.statusViewData!!.status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
             view,
         )
     }
 
-    override fun onViewThread(position: Int) {
-        val status = adapter.peek(position)?.statusViewData?.status ?: return
+    override fun onViewThread(status: Status) {
         super.viewThread(status.actionableId, status.actionableStatus.url)
     }
 
-    override fun onOpenReblog(position: Int) {
-        val account = adapter.peek(position)?.account!!
-        onViewAccount(account.id)
+    override fun onOpenReblog(status: Status) {
+        onViewAccount(status.account.id)
     }
 
-    override fun onExpandedChange(expanded: Boolean, position: Int) {
-        val notificationViewData = adapter.snapshot()[position] ?: return
-        notificationViewData.statusViewData = notificationViewData.statusViewData?.copy(
-            isExpanded = expanded,
-        )
-        adapter.notifyItemChanged(position)
+    override fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean) {
+        adapter.snapshot().withIndex()
+            .filter {
+                it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
+            }
+            .map {
+                it.value?.statusViewData = it.value?.statusViewData?.copy(isExpanded = expanded)
+                adapter.notifyItemChanged(it.index)
+            }
     }
 
-    override fun onContentHiddenChange(isShowing: Boolean, position: Int) {
-        val notificationViewData = adapter.snapshot()[position] ?: return
-        notificationViewData.statusViewData = notificationViewData.statusViewData?.copy(
-            isShowingContent = isShowing,
-        )
-        adapter.notifyItemChanged(position)
+    override fun onContentHiddenChange(viewData: NotificationViewData, isShowing: Boolean) {
+        adapter.snapshot().withIndex()
+            .filter {
+                it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
+            }
+            .map {
+                it.value?.statusViewData = it.value?.statusViewData?.copy(isShowingContent = isShowing)
+                adapter.notifyItemChanged(it.index)
+            }
     }
 
-    override fun onContentCollapsedChange(isCollapsed: Boolean, position: Int) {
-        val notificationViewData = adapter.snapshot()[position] ?: return
-        notificationViewData.statusViewData = notificationViewData.statusViewData?.copy(
-            isCollapsed = isCollapsed,
-        )
-        adapter.notifyItemChanged(position)
+    override fun onContentCollapsedChange(viewData: NotificationViewData, isCollapsed: Boolean) {
+        adapter.snapshot().withIndex().filter {
+            it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
+        }
+            .map {
+                it.value?.statusViewData = it.value?.statusViewData?.copy(isCollapsed = isCollapsed)
+                adapter.notifyItemChanged(it.index)
+            }
     }
 
-    override fun onNotificationContentCollapsedChange(isCollapsed: Boolean, position: Int) {
-        onContentCollapsedChange(isCollapsed, position)
+    override fun onNotificationContentCollapsedChange(
+        isCollapsed: Boolean,
+        viewData: NotificationViewData,
+    ) {
+        onContentCollapsedChange(viewData, isCollapsed)
     }
 
-    override fun clearWarningAction(position: Int) {
-        val notificationViewData = adapter.snapshot()[position] ?: return
-        notificationViewData.statusViewData = notificationViewData.statusViewData?.copy(
-            filterAction = Filter.Action.NONE,
-        )
-        adapter.notifyItemChanged(position)
+    override fun clearWarningAction(viewData: NotificationViewData) {
+        adapter.snapshot().withIndex().filter { it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId }
+            .map {
+                it.value?.statusViewData = it.value?.statusViewData?.copy(
+                    filterAction = Filter.Action.NONE,
+                )
+                adapter.notifyItemChanged(it.index)
+            }
     }
 
     private fun clearNotifications() {
@@ -648,7 +643,7 @@ class NotificationsFragment :
         )
     }
 
-    public override fun removeItem(position: Int) {
+    override fun removeItem(viewData: NotificationViewData) {
         // Empty -- this fragment doesn't remove items
     }
 
