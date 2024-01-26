@@ -177,13 +177,12 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<T>,
     ) {
-        val (_, _, _, _, _, _, _, _, _, emojis) = viewData.actionable
         val spoilerText = viewData.spoilerText
         val sensitive = !TextUtils.isEmpty(spoilerText)
         val expanded = viewData.isExpanded
         if (sensitive) {
             val emojiSpoiler = spoilerText.emojify(
-                emojis,
+                viewData.actionable.emojis,
                 contentWarningDescription,
                 statusDisplayOptions.animateEmojis,
             )
@@ -231,10 +230,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
         listener: StatusActionListener<T>,
     ) {
         contentWarningDescription.invalidate()
-        val adapterPosition = bindingAdapterPosition
-        if (adapterPosition != RecyclerView.NO_POSITION) {
-            listener.onExpandedChange(viewData, expanded)
-        }
+        listener.onExpandedChange(viewData, expanded)
         setContentWarningButtonText(expanded)
         setTextVisible(sensitive, expanded, viewData, statusDisplayOptions, listener)
         setupCard(
@@ -537,17 +533,13 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
             descriptionIndicator.visibility =
                 if (hasDescription && showingContent) View.VISIBLE else View.GONE
             sensitiveMediaShow.setOnClickListener { v: View ->
-                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onContentHiddenChange(viewData, false)
-                }
+                listener.onContentHiddenChange(viewData, false)
                 v.visibility = View.GONE
                 sensitiveMediaWarning.visibility = View.VISIBLE
                 descriptionIndicator.visibility = View.GONE
             }
             sensitiveMediaWarning.setOnClickListener { v: View ->
-                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onContentHiddenChange(viewData, true)
-                }
+                listener.onContentHiddenChange(viewData, true)
                 v.visibility = View.GONE
                 sensitiveMediaShow.visibility = View.VISIBLE
                 descriptionIndicator.visibility = if (hasDescription) View.VISIBLE else View.GONE
