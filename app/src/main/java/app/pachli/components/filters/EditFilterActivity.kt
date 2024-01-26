@@ -156,8 +156,8 @@ class EditFilterActivity : BaseActivity() {
         }
         lifecycleScope.launch {
             viewModel.contexts.collect { contexts ->
-                for (entry in contextSwitches) {
-                    entry.key.isChecked = contexts.contains(entry.value)
+                for ((key, value) in contextSwitches) {
+                    key.isChecked = contexts.contains(value)
                 }
             }
         }
