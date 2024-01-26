@@ -213,9 +213,9 @@ class ClickableSpanTextView @JvmOverloads constructor(
                 val y = event.y
 
                 // If the user has clicked directly on a span then use it, ignoring any overlap
-                for (entry in spanRects) {
-                    if (!entry.key.contains(x, y)) continue
-                    clickedSpan = entry.value
+                for ((rect, span) in spanRects) {
+                    if (!rect.contains(x, y)) continue
+                    clickedSpan = span
                     Timber.v("span click: ${(clickedSpan as URLSpan).url}")
                     return super.onTouchEvent(event)
                 }
@@ -354,12 +354,12 @@ class ClickableSpanTextView @JvmOverloads constructor(
         // showSpanBoundaries is false.
         if (BuildConfig.DEBUG && showSpanBoundaries) {
             canvas.save()
-            for (entry in delegateRects) {
-                canvas.drawRect(entry.key, paddingDebugPaint)
+            for (rect in delegateRects.keys) {
+                canvas.drawRect(rect, paddingDebugPaint)
             }
 
-            for (entry in spanRects) {
-                canvas.drawRect(entry.key, spanDebugPaint)
+            for (rect in spanRects.keys) {
+                canvas.drawRect(rect, spanDebugPaint)
             }
             canvas.restore()
         }

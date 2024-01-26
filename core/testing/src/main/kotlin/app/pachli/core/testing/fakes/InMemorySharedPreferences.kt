@@ -123,9 +123,9 @@ class InMemorySharedPreferences(
                 listeners.forEach { it.onSharedPreferenceChanged(sharedPreferences, key) }
             }
 
-            edits.forEach { entry ->
-                store[entry.key] = entry.value
-                listeners.forEach { it.onSharedPreferenceChanged(sharedPreferences, entry.key) }
+            edits.forEach { (key, value) ->
+                store[key] = value
+                listeners.forEach { it.onSharedPreferenceChanged(sharedPreferences, key) }
             }
 
             deletes.clear()

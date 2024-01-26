@@ -305,11 +305,11 @@ class ServerVersionTest() {
             .that(serverVersions.size)
             .isGreaterThan(5)
 
-        for (entry in serverVersions.entries) {
-            for (version in entry.value) {
+        for ((name, versions) in serverVersions.entries) {
+            for (version in versions) {
                 val serverKind = ServerKind.from(
                     NodeInfo.Software(
-                        name = entry.key,
+                        name = name,
                         version = version,
                     ),
                 )
@@ -323,7 +323,7 @@ class ServerVersionTest() {
                     version,
                 )
 
-                assertWithMessage("${entry.key} : $version")
+                assertWithMessage("$name : $version")
                     .that(result)
                     .isInstanceOf(Ok::class.java)
             }
