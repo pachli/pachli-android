@@ -76,10 +76,6 @@ android {
     }
 
     testOptions {
-        unitTests {
-            isReturnDefaultValues = true
-            isIncludeAndroidResources = true
-        }
         unitTests.all {
             it.systemProperty("robolectric.logging.enabled", "true")
             it.systemProperty("robolectric.lazyload", "ON")
@@ -98,9 +94,11 @@ android {
             // Set the "orange" release versionCode to the number of commits on the
             // branch, to ensure the versionCode updates on every release. Include the
             // SHA of the current commit to help with troubleshooting bug reports
+            if (flavorName.startsWith("orange")) {
+                versionNameOverride = "$versionName+${getGitSha()}"
+            }
             if (buildType.name == "release" && flavorName.startsWith("orange")) {
                 versionCodeOverride = getGitRevCount()
-                versionNameOverride = "$versionName+${getGitSha()}"
             }
             outputFileName = "Pachli_${versionName}_${versionCode}_${getGitSha()}_${flavorName}_${buildType.name}.apk"
         }
@@ -133,11 +131,14 @@ dependencies {
     testCompileOnly(libs.bundles.room)
 
     implementation(projects.core.accounts)
+    implementation(projects.core.activity)
     implementation(projects.core.common)
     implementation(projects.core.database)
+    implementation(projects.core.designsystem)
     implementation(projects.core.navigation)
     implementation(projects.core.network)
     implementation(projects.core.preferences)
+    implementation(projects.feature.login)
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.rx3)

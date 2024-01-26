@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_invalid_domain">Ievadīts nederīgs domēns</string>
     <string name="error_empty">Tas nevar būt tukšs.</string>
-    <string name="error_failed_app_registration">Autentificēšana ar šo instanci neizdevās. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
-    <string name="error_authorization_unknown">Radās neidentificēta autorizācijas kļūda. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
-    <string name="error_authorization_denied">Autorizācija tika liegta. Ja ir pārliecība, ka ievadīti pareizi pieslēgšanās dati, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
     <string name="error_no_web_browser_found">Nevarēja atrast tīmekļa pārlūku, ko izmantot.</string>
-    <string name="error_could_not_load_login_page">Nevarēja ielādēt pieslēgšanās lapu.</string>
     <string name="error_compose_character_limit">Ieraksts ir pārāk garš!</string>
-    <string name="error_loading_account_details">Neizdevās ielādēt konta datus</string>
     <string name="error_image_edit_failed">Attēlu nevarēja rediģēt.</string>
     <string name="error_media_upload_type">Šī veida failu nevar augšupielādēt.</string>
     <string name="error_media_upload_opening">Šo failu nevarēja atvērt.</string>
@@ -40,7 +34,6 @@
     <string name="post_media_alt">ALT</string>
     <string name="action_quick_reply">Ātrā atbilde</string>
     <string name="action_reply">Atbildēt</string>
-    <string name="action_login">Pieslēgties ar Pachli</string>
     <string name="action_bookmark">Atzīmēt ar grāmatzīmi</string>
     <string name="action_unbookmark">Noņemt grāmatzīmi</string>
     <string name="action_follow">Sekot</string>
@@ -48,7 +41,6 @@
     <string name="action_unfollow">Pārtraukt sekošanu</string>
     <string name="action_edit">Labot</string>
     <string name="action_delete">Dzēst</string>
-    <string name="action_close">Aizvērt</string>
     <string name="action_view_profile">Profils</string>
     <string name="action_delete_conversation">Dzēst sarunu</string>
     <string name="action_view_preferences">Iestatījumi</string>
@@ -81,17 +73,13 @@
     <string name="title_hashtags_dialog">Tēmturi</string>
     <string name="confirmation_reported">Nosūtīts!</string>
     <string name="action_copy_link">Nokopēt saiti</string>
-    <string name="action_open_as">Atvērt kā %s</string>
     <string name="confirmation_unblocked">Lietotājs atbloķēts</string>
     <string name="post_sent">Nosūtīts!</string>
     <string name="hint_note">Biogrāfija</string>
-    <string name="hint_domain">Kura instance\?</string>
     <string name="hint_content_warning">Satura brīdinājums</string>
     <string name="post_sent_long">Atbilde sekmīgi nosūtīta.</string>
     <string name="label_avatar">Avatars</string>
-    <string name="login_connection">Savienojas…</string>
     <string name="search_no_results">Nav rezultātu</string>
-    <string name="link_whats_an_instance">Kas ir instance\?</string>
     <string name="label_quick_reply">Atbildēt…</string>
     <string name="dialog_download_image">Lejupielādēt</string>
     <string name="dialog_delete_post_warning">Dzēst šo ierakstu\?</string>
@@ -214,7 +202,6 @@
     <string name="post_text_size_smallest">Mazākais</string>
     <string name="post_media_images">Attēli</string>
     <string name="action_remove">Noņemt</string>
-    <string name="profile_badge_bot_text">Bots</string>
     <string name="description_visibility_private">Sekotāji</string>
     <string name="list">Saraksts</string>
     <string name="account_note_saved">Saglabāts!</string>
@@ -249,7 +236,6 @@
     <string name="send_post_notification_channel_name">Sūta ierakstus</string>
     <string name="emoji_style">Emocijzīmju stils</string>
     <string name="add_hashtag_title">Pievienot tēmturi</string>
-    <string name="instance_rule_title">%s noteikumi</string>
     <string name="pref_title_show_cards_in_timelines">Rādīt saišu priekšskatījumus laika līnijās</string>
     <string name="drafts_post_failed_to_send">Neizdevās nosūtīt šo ierakstu!</string>
     <string name="title_blocks">Bloķētie lietotāji</string>
@@ -263,7 +249,6 @@
     <string name="restart_emoji">Lai pielietotu šīs izmaiņas, ir jāpārstartē Pachli</string>
     <string name="error_status_source_load">Neizdevās ielādēt statusa avotu no servera.</string>
     <string name="error_sender_account_gone">Sūtot ziņu, radās kļūda.</string>
-    <string name="title_login">Pieslēgties</string>
     <string name="title_posts_pinned">Piesprausts</string>
     <string name="title_followed_hashtags">Sekotie tēmturi</string>
     <string name="post_boosted_format">%s pastiprināja</string>
@@ -304,7 +289,6 @@
     <string name="pin_action">Piespraust</string>
     <string name="action_unfollow_hashtag_format">Vai pārtraukt sekot #%s\?</string>
     <string name="about_pachli_account">Pachli profils</string>
-    <string name="performing_lookup_title">Meklē…</string>
     <string name="mute_notifications_switch">Apklusināt paziņojumus</string>
     <string name="action_reblog">Pastiprināt</string>
     <string name="title_edits">Labojumi</string>
@@ -333,7 +317,6 @@
     <string name="pref_title_show_boosts">Parādīt pastiprinājumus</string>
     <string name="status_count_one_plus">1+</string>
     <string name="status_created_at_now">tikko</string>
-    <string name="error_retrieving_oauth_token">Neizdevās iegūt pieteikšanās pilnvaru. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
     <string name="error_media_upload_permission">Nepieciešama atļauja lasīt multividi.</string>
     <string name="error_media_download_permission">Nepieciešama atļauja saglabāt multividi.</string>
     <string name="error_following_hashtag_format">Radās kļūda, sākot sekot #%s</string>
@@ -367,7 +350,6 @@
     <string name="account_note_hint">Tava privātā piezīme par šo kontu</string>
     <string name="dialog_delete_list_warning">Vai tiešām vēlies dzēst sarakstu %s\?</string>
     <string name="follow_requests_info">Lai arī tavs konts nav privāts, %1$s amatpersonas uzskatīja, ka, iespējams, vēlēsies manuāli pārskatīt sekošanas pieprasījumus no šiem kontiem.</string>
-    <string name="instance_rule_info">Pieslēdzoties tu piekrīti %s noteikumiem.</string>
     <string name="compose_active_account_description">Publicē kā %1$s</string>
     <string name="failed_to_add_to_list">Neizdevās pievienot kontu sarakstam</string>
     <string name="failed_to_remove_from_list">Neizdevās noņemt kontu no saraksta</string>
@@ -531,7 +513,6 @@
     <string name="action_post_failed_do_nothing">Aizvākt</string>
     <string name="edit_hashtag_hint">Tēmturis bez #</string>
     <string name="status_edit_info">%1$s laboja</string>
-    <string name="action_browser_login">Pieslēgties ar pārlūku</string>
     <string name="description_login">Strādā vairumā gadījumu. Dati netiek nopludināti uz citām lietotnēm.</string>
     <string name="poll_info_time_absolute">beidzas %s</string>
     <string name="pref_title_confirm_favourites">Pirms pievienošanas izlasei rādīt apstiprināšanas dialogu</string>
@@ -559,13 +540,6 @@
 \n
 \n Pašpiegādātie paziņojumi netiks ietekmēti, bet paziņojumu preferences var pārskatīt manuāli.</string>
     <string name="description_browser_login">Var atbalstīt papildu autentifikācijas metodes, bet ir nepieciešama atbalstīta pārlūkprogramma.</string>
-    <string name="dialog_whats_an_instance">Šeit var ievadīt jebkuras instances adresi vai domēnu, piemēram, mastodon.social, icosahedron.website, social.tchncs.de un <a href="https://instances.social">citus!</a>
-\n
-\nJa tev vēl nav konta, vari ievadīt tās instances nosaukumu, kurai vēlies pievienoties un izveidot kontu.
-\n
-\nInstance ir vieta, kur tiek mitināts tavs konts, taču tu vari viegli sazināties ar cilvēkiem citās instancēs un sekot tiem, it kā atrastos tajā pašā vietnē.
-\n
-\nVairāk informācijas var atrast <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="failed_fetch_posts">Neizdevās iegūt ierakstus</string>
     <string name="accessibility_talking_about_tag">%1$d cilvēki runā par tēmturi %2$s</string>
     <string name="total_usage">Kopējais lietojums</string>

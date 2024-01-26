@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">کردنەوە وەک %s</string>
+    <string name="post_lookup_error_format">هەڵە لە گەڕان بەدوای بابەت %s</string>
+    <string name="performing_lookup_title">ئەنجامدانی گەڕان…</string>
+</resources>

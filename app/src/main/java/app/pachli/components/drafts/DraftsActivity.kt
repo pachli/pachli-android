@@ -23,15 +23,15 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import app.pachli.BaseActivity
 import app.pachli.R
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ActivityDraftsBinding
 import app.pachli.db.DraftsAlert
-import app.pachli.util.visible
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.divider.MaterialDividerItemDecoration

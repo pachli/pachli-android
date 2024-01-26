@@ -11,11 +11,11 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import app.pachli.R
+import app.pachli.core.common.extensions.visible
 import app.pachli.databinding.ViewBackgroundMessageBinding
 import app.pachli.util.addDrawables
 import app.pachli.util.getDrawableRes
 import app.pachli.util.getErrorString
-import app.pachli.util.visible
 
 /**
  * This view is used for screens with content which may be empty or might have failed to download.

@@ -24,14 +24,15 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.annotation.WorkerThread
 import app.pachli.R
+import app.pachli.core.activity.databinding.ItemAutocompleteAccountBinding
+import app.pachli.core.activity.emojify
+import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.extensions.visible
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.TimelineAccount
-import app.pachli.databinding.ItemAutocompleteAccountBinding
 import app.pachli.databinding.ItemAutocompleteEmojiBinding
 import app.pachli.databinding.ItemAutocompleteHashtagBinding
-import app.pachli.util.emojify
-import app.pachli.util.loadAvatar
-import app.pachli.util.visible
 import com.bumptech.glide.Glide
 
 class ComposeAutoCompleteAdapter(
@@ -109,7 +110,7 @@ class ComposeAutoCompleteAdapter(
                 val account = accountResult.account
                 binding.username.text = context.getString(R.string.post_username_format, account.username)
                 binding.displayName.text = account.name.emojify(account.emojis, binding.displayName, animateEmojis)
-                val avatarRadius = context.resources.getDimensionPixelSize(R.dimen.avatar_radius_42dp)
+                val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_42dp)
                 loadAvatar(
                     account.avatar,
                     binding.avatar,

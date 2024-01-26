@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">گشودن به عنوان %s</string>
+    <string name="post_lookup_error_format">خطا در یافتن فرستهٔ %s</string>
+    <string name="performing_lookup_title">در حال جست‌وجو…</string>
+</resources>

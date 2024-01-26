@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">Abrir como %s</string>
+    <string name="post_lookup_error_format">Erro ao pesquisar toot %s</string>
+    <string name="performing_lookup_title">A fazer pesquisa…</string>
+</resources>

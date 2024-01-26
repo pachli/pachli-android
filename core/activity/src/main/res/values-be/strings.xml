@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">Адкрыць як %s</string>
+    <string name="post_lookup_error_format">Памылка пошуку допісу %s</string>
+    <string name="performing_lookup_title">Выконваю пошук…</string>
+</resources>

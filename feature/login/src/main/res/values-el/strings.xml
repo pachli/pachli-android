@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_close">Κλείσιμο</string>
+    <string name="error_loading_account_details">Η φόρτωση λεπτομερειών λογαριασμού απέτυχε</string>
+    <string name="action_login">Σύνδεση με Mastodon</string>
+    <string name="login_connection">Σύνδεση…</string>
+    <string name="title_login">Σύνδεση</string>
+    <string name="error_could_not_load_login_page">Δεν ήταν δυνατή η φόρτωση της σελίδας εισόδου χρήστη.</string>
+</resources>

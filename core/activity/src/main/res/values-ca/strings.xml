@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">Obre com a %s</string>
+    <string name="post_lookup_error_format">S\'ha produït un error en cercar la publicació %s</string>
+    <string name="performing_lookup_title">Cercant…</string>
+</resources>

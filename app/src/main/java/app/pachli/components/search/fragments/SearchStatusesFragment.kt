@@ -36,9 +36,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.search.adapter.SearchStatusesAdapter
+import app.pachli.core.activity.AccountSelectionListener
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.openLink
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -49,10 +51,8 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.Status.Mention
-import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.StatusDisplayOptionsRepository
-import app.pachli.util.openLink
 import app.pachli.view.showMuteAccountDialog
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold

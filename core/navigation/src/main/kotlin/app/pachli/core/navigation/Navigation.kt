@@ -30,6 +30,7 @@ import app.pachli.core.navigation.StatusListActivityIntent.Companion.list
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.NewPoll
+import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineKind
 import com.gaelmarhic.quadrant.QuadrantConstants
@@ -233,6 +234,92 @@ class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEF
 
         /** @return the `loginMode` passed to this intent */
         fun getLoginMode(intent: Intent) = intent.getSerializableExtra(EXTRA_LOGIN_MODE)!! as LoginMode
+    }
+}
+
+class MainActivityIntent(context: Context) : Intent() {
+    init {
+        setClassName(context, "app.pachli${QuadrantConstants.MAIN_ACTIVITY}")
+    }
+
+    companion object {
+        private const val EXTRA_PACHLI_ACCOUNT_ID = "pachliAccountId"
+        private const val EXTRA_NOTIFICATION_TYPE = "notificationType"
+        private const val EXTRA_COMPOSE_OPTIONS = "composeOptions"
+        private const val EXTRA_NOTIFICATION_TAG = "notificationTag"
+        private const val EXTRA_NOTIFICATION_ID = "notificationId"
+        private const val EXTRA_REDIRECT_URL = "redirectUrl"
+        private const val EXTRA_OPEN_DRAFTS = "openDrafts"
+
+        fun hasComposeOptions(intent: Intent) = intent.hasExtra(EXTRA_COMPOSE_OPTIONS)
+        fun hasNotificationType(intent: Intent) = intent.hasExtra(EXTRA_NOTIFICATION_TYPE)
+
+        fun getPachliAccountId(intent: Intent) = intent.getLongExtra(EXTRA_PACHLI_ACCOUNT_ID, -1)
+        fun getNotificationType(intent: Intent) = intent.getSerializableExtra(EXTRA_NOTIFICATION_TYPE) as Notification.Type
+        fun getNotificationTag(intent: Intent) = intent.getStringExtra(EXTRA_NOTIFICATION_TAG)
+        fun getNotificationId(intent: Intent) = intent.getIntExtra(EXTRA_NOTIFICATION_ID, -1)
+        fun getRedirectUrl(intent: Intent) = intent.getStringExtra(EXTRA_REDIRECT_URL)
+        fun getOpenDrafts(intent: Intent) = intent.getBooleanExtra(EXTRA_OPEN_DRAFTS, false)
+
+        fun setPachliAccountId(intent: Intent, pachliAccountId: Long) {
+            intent.putExtra(EXTRA_PACHLI_ACCOUNT_ID, pachliAccountId)
+        }
+
+        /**
+         * Switches the active account to the provided accountId and then stays on MainActivity
+         */
+        fun switchAccount(context: Context, pachliAccountId: Long) = MainActivityIntent(context).apply {
+            putExtra(EXTRA_PACHLI_ACCOUNT_ID, pachliAccountId)
+        }
+
+        /**
+         * Switches the active account to the accountId and takes the user to the correct place according to the notification they clicked
+         */
+        fun openNotification(
+            context: Context,
+            pachliAccountId: Long,
+            type: Notification.Type,
+        ) = switchAccount(context, pachliAccountId).apply {
+            putExtra(EXTRA_NOTIFICATION_TYPE, type)
+        }
+
+        /**
+         * Switches the active account to the accountId and then opens ComposeActivity with the provided options
+         * @param pachliAccountId the id of the Pachli account to open the screen with. Set to -1 for current account.
+         * @param notificationId optional id of the notification that should be cancelled when this intent is opened
+         * @param notificationTag optional tag of the notification that should be cancelled when this intent is opened
+         */
+        fun openCompose(
+            context: Context,
+            options: ComposeActivityIntent.ComposeOptions,
+            pachliAccountId: Long = -1,
+            notificationTag: String? = null,
+            notificationId: Int = -1,
+        ) = switchAccount(context, pachliAccountId).apply {
+            action = ACTION_SEND
+            putExtra(EXTRA_COMPOSE_OPTIONS, options)
+            putExtra(EXTRA_NOTIFICATION_TAG, notificationTag)
+            putExtra(EXTRA_NOTIFICATION_ID, notificationId)
+        }
+
+        /**
+         * switches the active account to the accountId and then tries to resolve and show the provided url
+         */
+        fun redirect(
+            context: Context,
+            pachliAccountId: Long,
+            url: String,
+        ) = switchAccount(context, pachliAccountId).apply {
+            putExtra(EXTRA_REDIRECT_URL, url)
+            flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        /**
+         * switches the active account to the provided accountId and then opens drafts
+         */
+        fun openDrafts(context: Context, pachliAccountId: Long) = switchAccount(context, pachliAccountId).apply {
+            putExtra(EXTRA_OPEN_DRAFTS, true)
+        }
     }
 }
 
@@ -477,12 +564,6 @@ class ListActivityIntent(context: Context) : Intent() {
 class LoginWebViewActivityIntent(context: Context) : Intent() {
     init {
         setClassName(context, "app.pachli${QuadrantConstants.LOGIN_WEB_VIEW_ACTIVITY}")
-    }
-}
-
-class MainActivityIntent(context: Context) : Intent() {
-    init {
-        setClassName(context, "app.pachli${QuadrantConstants.MAIN_ACTIVITY}")
     }
 }
 

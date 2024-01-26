@@ -23,14 +23,15 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.notifications.NotificationActionListener
 import app.pachli.components.notifications.NotificationsPagingAdapter
+import app.pachli.core.activity.emojify
+import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Report
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.databinding.ItemReportNotificationBinding
 import app.pachli.util.StatusDisplayOptions
-import app.pachli.util.emojify
 import app.pachli.util.getRelativeTimeSpanString
-import app.pachli.util.loadAvatar
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import java.util.Date
@@ -101,13 +102,13 @@ class ReportNotificationViewHolder(
         loadAvatar(
             report.targetAccount.avatar,
             binding.notificationReporteeAvatar,
-            itemView.context.resources.getDimensionPixelSize(R.dimen.avatar_radius_36dp),
+            itemView.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp),
             animateAvatar,
         )
         loadAvatar(
             reporter.avatar,
             binding.notificationReporterAvatar,
-            itemView.context.resources.getDimensionPixelSize(R.dimen.avatar_radius_24dp),
+            itemView.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp),
             animateAvatar,
         )
     }

@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_empty">Не можа быць пустым.</string>
-    <string name="error_invalid_domain">Уведзены недапушчальны дамен</string>
-    <string name="error_failed_app_registration">Памылка праверкі сапраўднасці на гэтым серверы. Калі праблема застаецца, паспрабуйце ўвайсці з браўзера з меню.</string>
     <string name="error_no_web_browser_found">Браўзер не знойдзены.</string>
-    <string name="error_authorization_denied">Аўтарызацыя была адхілена. Калі ўпэўнены што ўвялі сапраўдныя ўліковыя даныя, паспрабуйце ўвайсці з браўзера з меню.</string>
-    <string name="error_loading_account_details">Дэталі ўліковага запісу не атрыманы</string>
     <string name="error_generic">Здарылася памылка.</string>
     <string name="error_network">Здарылася сеткавая памылка! Калі ласка, праверце злучэнне і паспрабуйце зноў!</string>
-    <string name="error_authorization_unknown">Адбылася невядомая памылка праверкі сапраўднасці. Калі праблема застаецца, паспрабуйце ўвайсці з браўзера з меню.</string>
-    <string name="error_retrieving_oauth_token">Токен уваходу не атрыманы. Калі праблема застаецца, паспрабуйце ўвайсці з браўзера з меню.</string>
     <string name="error_compose_character_limit">Допіс занадта доўгі!</string>
     <string name="error_multimedia_size_limit">Памер відэа- ды аўдыяфайлаў не можа перавышаць %s Мб.</string>
     <string name="error_media_upload_type">Немагчыма запампаваць файл гэтага тыпу.</string>
@@ -20,14 +14,12 @@
     <string name="error_unfollowing_hashtag_format">Памылка адпіскі ад #%s</string>
     <string name="error_following_hashtags_unsupported">Гэты сервер не падтрымлівае падпіску на хэштэгі.</string>
     <string name="error_muting_hashtag_format">Памылка ігнаравання #%s</string>
-    <string name="error_could_not_load_login_page">Немагчыма загрузіць старонку ўваходу.</string>
     <string name="error_image_edit_failed">Немагчыма рэдагаваць выяву.</string>
     <string name="error_media_upload_permission">Патрабуецца дазвол на чытанне медыя.</string>
     <string name="error_sender_account_gone">Памылка дасылання допісу.</string>
     <string name="error_following_hashtag_format">Памылка падпіскі на #%s</string>
     <string name="error_unmuting_hashtag_format">Памылка адмены ігнаравання #%s</string>
     <string name="error_status_source_load">Не атрымалася загрузіць крыніцу статусу з сервера.</string>
-    <string name="title_login">Уваход</string>
     <string name="title_home">Галоўная</string>
     <string name="title_notifications">Апавяшчэнні</string>
     <string name="title_public_local">Лакальная</string>
@@ -114,7 +106,6 @@
     <string name="confirmation_unblocked">Карыстальнік разблакаваны</string>
     <string name="post_sent">Дасланы!</string>
     <string name="post_sent_long">Адказ дасланы паспяхова.</string>
-    <string name="hint_domain">Які сервер\?</string>
     <string name="hint_compose">Што адбываецца\?</string>
     <string name="hint_content_warning">Папярэджанне пра змесціва</string>
     <string name="hint_display_name">Бачнае імя</string>
@@ -182,17 +173,9 @@
         <item quantity="other">%d новых узаемадзеянняў</item>
     </plurals>
     <string name="description_account_locked">Заблакаваны ўліковы запіс</string>
-    <string name="dialog_whats_an_instance">Сюды можна ўвесці адрас або дамен любога сервера, напрыклад mastodon.social, icosahedron.website, social.tchncs.de ды <a href="https://instances.social">больш!</a>
-\n
-\nКалі ў вас яшчэ няма ўліковага запісу, вы можаце ўвесці назву сервера, да якога вы жадаеце далучыцца, і стварыць там уліковы запіс.
-\n
-\nСервер — гэта месца, дзе размяшчаецца ваш уліковы запіс, але вы можаце лёгка размаўляць з людзьмі і падпісвацца на іх на іншых серверах, нібыта вы знаходзіцеся на тым жа сайце.
-\n
-\nПадрабязней на <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_unbookmark">Выдаліць з закладак</string>
     <string name="action_more">Разгарнуць</string>
     <string name="action_compose">Напісаць</string>
-    <string name="action_login">Увайсці з Pachli</string>
     <string name="action_logout">Выхад</string>
     <string name="action_logout_confirm">Вы ўпэўнены, што жадаеце выйсці з уліковага запісу %1$s\?</string>
     <string name="action_follow">Падпісацца</string>
@@ -208,7 +191,6 @@
     <string name="action_send">ПАШЫРЫЦЬ</string>
     <string name="action_send_public">ПАШЫРЫЦЬ!</string>
     <string name="action_retry">Паўтарыць</string>
-    <string name="action_close">Закрыць</string>
     <string name="action_view_profile">Профіль</string>
     <string name="action_view_preferences">Налады</string>
     <string name="action_view_account_preferences">Налады ўліковага запісу</string>
@@ -246,7 +228,6 @@
     <string name="action_links">Спасылкі</string>
     <string name="action_mentions">Згадкі</string>
     <string name="action_copy_link">Капіяваць спасылку</string>
-    <string name="action_open_as">Адкрыць як %s</string>
     <string name="confirmation_unmuted">Прыхоўванне карыстальніка скасавана</string>
     <string name="confirmation_domain_unmuted">%s адкрыты</string>
     <string name="confirmation_hashtag_unfollowed">адпісаны(-ая) ад #%s</string>
@@ -257,8 +238,6 @@
     <string name="label_quick_reply">Адказаць…</string>
     <string name="label_avatar">Аватар</string>
     <string name="label_header">Загаловак</string>
-    <string name="link_whats_an_instance">Што такое сервер\?</string>
-    <string name="login_connection">Злучэнне…</string>
     <string name="dialog_message_uploading_media">Запампоўваецца…</string>
     <string name="dialog_download_image">Спампаваць</string>
     <string name="dialog_message_cancel_follow_request">Адклікаць запыт на падпіску\?</string>
@@ -361,7 +340,6 @@
         <item quantity="other">Апісанне змесціва для людзей з дэфектам зроку (ліміт у %d сімвалаў)</item>
     </plurals>
     <string name="compose_save_draft_loses_media">Захаваць чарнавік\? (Далучэнні будуць запампаваныя зноў, калі Вы аднавіце чарнавік.)</string>
-    <string name="performing_lookup_title">Выконваю пошук…</string>
     <string name="caption_notoemoji">Бягучы набор эмодзі ад Google</string>
     <string name="caption_twemoji">Тыповы набор эмодзі Mastodon</string>
     <string name="download_failed">Не атрымалася спампаваць</string>
@@ -434,7 +412,6 @@
     <string name="action_open_post">Адкрыць допіс</string>
     <string name="restart_required">Патрэбна перазапусціць праграму</string>
     <string name="restart_emoji">Патрэбна перазапусціць Pachli, каб прымяніць гэтыя змены</string>
-    <string name="profile_badge_bot_text">Бот</string>
     <string name="account_moved_description">%1$s пераехаў(-ла) да:</string>
     <string name="restart">Перазапусціць</string>
     <string name="reblog_private">Пашырыць для пачатковай аўдыторыі</string>
@@ -556,7 +533,6 @@
     <string name="poll_allow_multiple_choices">Некалькі варыянтаў</string>
     <string name="add_poll_choice">Дадаць варыянт</string>
     <string name="edit_poll">Змяніць</string>
-    <string name="post_lookup_error_format">Памылка пошуку допісу %s</string>
     <string name="account_date_joined">Далучыўся(-лася) %1$s</string>
     <string name="account_note_saved">Захавана!</string>
     <string name="dialog_push_notification_migration_other_accounts">Вы паўторна зайшлі ў бягучы ўліковы запіс, каб дазволіць Pachli падпісацца на push-апавяшчэнні. Але ў Вас яшчэ засталіся ўліковыя запісы, якія не мігрыравалі такім чынам. Пераключыцеся на іх і зайдзіце паўторна, каб уключыць падтрымку апавяшчэнняў праз UnifiedPush.</string>
@@ -597,10 +573,8 @@
     <string name="wellbeing_hide_stats_profile">Схаваць колькасную статыстыку профіляў</string>
     <string name="report_category_violation">Парушэнне правіла</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
-    <string name="instance_rule_title">Правілы %s</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="delete_scheduled_post_warning">Выдаліць гэты запланаваны допіс\?</string>
-    <string name="instance_rule_info">Увайшоўшы, Вы пагаджаецеся з правіламі %s.</string>
     <string name="poll_new_choice_hint">Варыянт %d</string>
     <string name="drafts_post_failed_to_send">Не атрымалася даслаць гэты допіс!</string>
     <string name="tips_push_notification_migration">Увайдзіце зноў на ўсіх уліковых запісах, каб push-апавяшчэнні запрацавалі.</string>
@@ -621,7 +595,6 @@
     <string name="action_post_failed_show_drafts">Паказаць чарнавікі</string>
     <string name="action_post_failed_do_nothing">Адмяніць</string>
     <string name="description_login">Працуе амаль заўсёды. Даныя не ўцякаюць у іншыя праграмы.</string>
-    <string name="action_browser_login">Увайсці з браўзера</string>
     <string name="notification_unknown_name">Невядома</string>
     <string name="status_filtered_show_anyway">Усё роўна паказаць</string>
     <string name="status_filter_placeholder_label_format">Адфільтрована: %s</string>

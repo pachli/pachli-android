@@ -3,12 +3,7 @@
     <string name="error_generic">應用程式出現異常。</string>
     <string name="error_network">網絡請求出錯，請檢查互聯網連接並重試！</string>
     <string name="error_empty">內容不能為空。</string>
-    <string name="error_invalid_domain">該域名無效</string>
-    <string name="error_failed_app_registration">無法通過該伺服器的身份驗證。如果此問題持續發生，請嘗試選單中的“在瀏覽器中登錄”。</string>
     <string name="error_no_web_browser_found">沒有可用的瀏覽器。</string>
-    <string name="error_authorization_unknown">認證過程出現未知錯誤。如果此問題持續發生，請嘗試選單中的“在瀏覽器中登錄”。</string>
-    <string name="error_authorization_denied">授權被拒絕。</string>
-    <string name="error_retrieving_oauth_token">無法獲取登入資訊。</string>
     <string name="error_compose_character_limit">嘟文太長了！</string>
     <string name="error_media_upload_type">無法上傳此類型的檔案。</string>
     <string name="error_media_upload_opening">此檔案無法開啟。</string>
@@ -60,7 +55,6 @@
     <string name="action_unfavourite">取消最愛</string>
     <string name="action_more">更多</string>
     <string name="action_compose">撰寫嘟文</string>
-    <string name="action_login">登入 Mastodon 帳號</string>
     <string name="action_logout">登出</string>
     <string name="action_logout_confirm">確定要登出 %1$s 嗎？</string>
     <string name="action_follow">關注</string>
@@ -75,7 +69,6 @@
     <string name="action_send">嘟嘟</string>
     <string name="action_send_public">嘟嘟！</string>
     <string name="action_retry">重試</string>
-    <string name="action_close">關閉</string>
     <string name="action_view_profile">個人資料</string>
     <string name="action_view_preferences">設定</string>
     <string name="action_view_account_preferences">帳戶設定</string>
@@ -117,7 +110,6 @@
     <string name="action_open_media_n">打開媒體 #%d</string>
     <string name="download_image">正在下載 %1$s</string>
     <string name="action_copy_link">複製連結</string>
-    <string name="action_open_as">打開為 %s</string>
     <string name="action_share_as">分享為 …</string>
     <string name="download_media">下載媒體</string>
     <string name="downloading_media">正在下載媒體</string>
@@ -129,7 +121,6 @@
     <string name="confirmation_unmuted">已解除靜音</string>
     <string name="post_sent">已發送！</string>
     <string name="post_sent_long">成功送出回覆。</string>
-    <string name="hint_domain">哪一個域名？</string>
     <string name="hint_compose">有什麼新鮮事？</string>
     <string name="hint_content_warning">敏感內容警告</string>
     <string name="hint_display_name">暱稱</string>
@@ -139,15 +130,6 @@
     <string name="label_quick_reply">回覆…</string>
     <string name="label_avatar">頭像</string>
     <string name="label_header">標題</string>
-    <string name="link_whats_an_instance">什麼是站點？</string>
-    <string name="login_connection">正在連線…</string>
-    <string name="dialog_whats_an_instance">輸入你帳號所在的 Mastodon 站點的域名或地址，譬如 mastodon.social、icosahedron.website、social.tchncs.de 和 <a href="https://instances.social">更多</a>
-\n
-\n如果你還沒有帳號，你可以輸入你想要加入的域名並在此建立新帳號。
-\n
-\n一個站點是一個託管你的帳號的地方，但是你可以很容易的跟不同站台的人們交流，就像是在同一個站台一樣。
-\n
-\n更多資訊可以在 <a href="https://joinmastodon.org">joinmastodon.org</a> 查看。 </string>
     <string name="dialog_title_finishing_media_upload">正在完成上傳</string>
     <string name="dialog_message_uploading_media">正在上傳…</string>
     <string name="dialog_download_image">下載</string>
@@ -302,7 +284,6 @@
     <string name="emoji_style">表情符號風格</string>
     <string name="system_default">系統預設</string>
     <string name="download_fonts">你需要先下載這些表情符號包</string>
-    <string name="performing_lookup_title">正在查詢…</string>
     <string name="expand_collapse_all_posts">展開/摺疊所有嘟文</string>
     <string name="action_open_post">開啟嘟文</string>
     <string name="restart_required">需要重啟應用程式</string>
@@ -314,7 +295,6 @@
     <string name="caption_twemoji">Mastodon 使用的表情符號</string>
     <!-- string name="emoji_shortcode_format" translatable="false">:%s:</string -->
     <string name="download_failed">下載失敗</string>
-    <string name="profile_badge_bot_text">機器人</string>
     <string name="account_moved_description">%1$s 已遷移到：</string>
     <string name="reblog_private">轉嘟（可見者不變）</string>
     <string name="unreblog_private">取消轉嘟</string>
@@ -495,7 +475,6 @@
     <string name="action_view_bookmarks">我的書籤</string>
     <string name="action_bookmark">書籤</string>
     <string name="about_powered_by_pachli">由 Pachli 提供</string>
-    <string name="post_lookup_error_format">尋找嘟文時發生錯誤 %s</string>
     <string name="action_reset_schedule">重設</string>
     <string name="action_schedule_post">排程嘟文</string>
     <string name="action_access_scheduled_posts">排程的嘟文</string>
@@ -508,11 +487,7 @@
     <string name="pref_title_alway_open_spoiler">總是顯示被標注為內容警告的嘟文</string>
     <string name="failed_search">搜尋失敗</string>
     <string name="title_accounts">帳號</string>
-    <string name="title_login">登入</string>
-    <string name="error_could_not_load_login_page">無法載入登入頁面。</string>
     <string name="delete_scheduled_post_warning">確定要刪除這則排程嘟文嗎？</string>
-    <string name="instance_rule_info">登入既代表您已同意 %s 的規定。</string>
-    <string name="instance_rule_title">%s 的規定</string>
     <string name="dialog_delete_conversation_warning">確認要刪除此對話嗎？</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="set_focus_description">輕按或拖動圓圈來選擇總是在縮圖中可視的關注點。</string>
@@ -560,7 +535,6 @@
     <string name="duration_14_days">14 天</string>
     <string name="dialog_push_notification_migration">為了透過 UnifiedPush使用推播功能，Pachli 需要獲得訂閱您 Mastodon 服務器上的通知之權限。這會需要重新登入才能更改授予 Pachli 的 OAuth 範疇。在此頁面或帳戶設定頁面中使用重新登入選項將會保留您所有的本機草稿和快取。</string>
     <string name="dialog_push_notification_migration_other_accounts">您已重新登入當前帳號並授予 Pachli 推送訂閱的權限。 然而，您仍擁有其他帳號未以此種方式遷移。 請切換到該帳號，並且逐一重新登入，以啟用 UnifiedPush 的通知支援。</string>
-    <string name="error_loading_account_details">加載賬戶詳情失敗</string>
     <string name="notification_sign_up_format">%s 已註冊</string>
     <string name="notification_update_format">%s 編輯了他們的嘟文</string>
     <string name="error_image_edit_failed">這張圖片不能編輯。</string>

@@ -28,13 +28,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import app.pachli.R
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.extensions.visible
+import app.pachli.core.designsystem.R as DR
 import app.pachli.databinding.FragmentListsForAccountBinding
 import app.pachli.databinding.ItemAddOrRemoveFromListBinding
 import app.pachli.util.BindingHolder
-import app.pachli.util.hide
-import app.pachli.util.show
-import app.pachli.util.viewBinding
-import app.pachli.util.visible
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -50,7 +51,7 @@ class ListsForAccountFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.AppDialogFragmentStyle)
+        setStyle(STYLE_NORMAL, DR.style.AppDialogFragmentStyle)
 
         viewModel.setup(requireArguments().getString(ARG_ACCOUNT_ID)!!)
     }

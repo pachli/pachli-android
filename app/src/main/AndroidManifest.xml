@@ -40,7 +40,7 @@
 
         </activity>
         <activity
-            android:name=".components.login.LoginActivity"
+            android:name=".feature.login.LoginActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
@@ -54,7 +54,7 @@
                     android:scheme="@string/oauth_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".components.login.LoginWebViewActivity" />
+        <activity android:name=".feature.login.LoginWebViewActivity" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|screenLayout|smallestScreenSize"

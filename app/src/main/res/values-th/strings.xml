@@ -93,7 +93,6 @@
     <string name="unreblog_private">ยกเลิกบูสต์</string>
     <string name="reblog_private">บูสต์โพสต์ต้นฉบับ</string>
     <string name="account_moved_description">%1$s ได้ย้ายไปที่ :</string>
-    <string name="profile_badge_bot_text">บอต</string>
     <string name="download_failed">ดาวน์โหลดล้มเหลว</string>
     <string name="caption_notoemoji">ชุดเอโมจิปัจจุบันจากกูเกิล</string>
     <string name="caption_twemoji">ชุดเอโมจิจาก Mastodon</string>
@@ -105,7 +104,6 @@
     <string name="restart_required">จำเป็นต้องเริ่มแอปใหม่</string>
     <string name="action_open_post">เปิด Toot</string>
     <string name="expand_collapse_all_posts">ขยาย/ย่อทั้งหมด</string>
-    <string name="performing_lookup_title">กำลังค้นหา…</string>
     <string name="download_fonts">ต้องดาวน์โหลดชุดเอโมจิเหล่านี้ก่อน</string>
     <string name="system_default">ค่าปริยายของระบบ</string>
     <string name="emoji_style">รูปแบบเอโมจิ</string>
@@ -260,15 +258,7 @@
     <string name="dialog_download_image">ดาวน์โหลด</string>
     <string name="dialog_message_uploading_media">กำลังอัปโหลด…</string>
     <string name="dialog_title_finishing_media_upload">กำลังอัปโหลดสื่อใกล้เสร็จ</string>
-    <string name="dialog_whats_an_instance">ใส่ที่อยู่หรือโดเมนของ Instance ได้ที่นี่ เช่น mastodon.social icosahedron.website social.tchncs.de และ <a href="https://instances.social">อีกมากมาย!</a>
-\n
-\nถ้ายังไม่มีบัญชี สามารถใส่ชื่อ Instance ที่ต้องการจะร่วมแล้วสร้างบัญชีที่นั่น
-\n
-\nInstance คือที่ที่หนึ่งไว้โฮสต์บัญชีคุณ แต่คุณยังสามารถสื่อสาร ติดตามบุคคลบน Instance อื่นได้เหมือนอยู่บนไซต์เดียวกัน
-\n
-\nพบข้อมูลเพิ่มเติมได้ที่ <a href="https://joinmastodon.org">joinmastodon.org</a> </string>
     <string name="label_header">ภาพหัวบน</string>
-    <string name="login_connection">กำลังเชื่อมต่อ…</string>
     <string name="label_avatar">อวตาร</string>
     <string name="label_quick_reply">ตอบกลับ…</string>
     <string name="search_no_results">ไม่มีผลลัพธ์</string>
@@ -277,7 +267,6 @@
     <string name="hint_display_name">ชื่อที่ใช้แสดง</string>
     <string name="hint_content_warning">คำเตือนเนื้อหา</string>
     <string name="hint_compose">เกิดอะไรขึ้นเอย\?</string>
-    <string name="hint_domain">Instance ไหน\?</string>
     <string name="post_sent_long">ตอบกลับสำเร็จ</string>
     <string name="post_sent">ส่งแล้ว!</string>
     <string name="confirmation_domain_unmuted">เลิกซ่อน %s แล้ว</string>
@@ -290,7 +279,6 @@
     <string name="downloading_media">กำลังดาวน์โหลดสื่อ</string>
     <string name="download_media">ดาวน์โหลดสื่อ</string>
     <string name="action_share_as">แบ่งปันโดย…</string>
-    <string name="action_open_as">เปิดเป็น %s</string>
     <string name="action_copy_link">คัดลอกลิงก์</string>
     <string name="download_image">กำลังดาวน์โหลด %1$s</string>
     <string name="action_open_media_n">เปิดสื่อ #%d</string>
@@ -336,7 +324,6 @@
     <string name="action_view_bookmarks">ที่คั่นหน้า</string>
     <string name="action_view_favourites">ชื่นชอบ</string>
     <string name="action_view_profile">โปรไฟล์</string>
-    <string name="action_close">ปิด</string>
     <string name="action_retry">ลองอีกครั้ง</string>
     <string name="action_send_public">โพสต์!</string>
     <string name="action_send">โพสต์</string>
@@ -405,11 +392,7 @@
     <string name="error_media_upload_opening">ไม่สามารถเปิดไฟล์ได้</string>
     <string name="error_media_upload_type">ไม่สามารถอัปโหลดไฟล์ประเภทนี้ได้</string>
     <string name="error_compose_character_limit">ข้อความสถานะยาวเกินไป!</string>
-    <string name="error_retrieving_oauth_token">ไม่สามารถรับโทเค็นการเข้าสู่ระบบ</string>
-    <string name="error_authorization_denied">การขออนุญาตสิทธิถูกปฏิเสธ</string>
-    <string name="error_authorization_unknown">เกิดข้อผิดพลาดในการขออนุญาตสิทธิโดยไม่ทราบสาเหตุ</string>
     <string name="error_no_web_browser_found">ไม่พบเว็บเบราว์เซอร์ที่จะใช้งาน</string>
-    <string name="error_invalid_domain">โดเมนที่ป้อนไม่ถูกต้อง</string>
     <string name="error_empty">ต้องใส่ข้อความ</string>
     <string name="error_network">เกิดข้อผิดพลาดเครือข่าย! กรุณาตรวจสอบการเชื่อมต่อและลองอีกครั้ง!</string>
     <string name="error_generic">เกิดข้อผิดพลาด</string>
@@ -424,16 +407,12 @@
     <string name="action_logout">ออกจากระบบ</string>
     <string name="title_drafts">ฉบับร่าง</string>
     <string name="title_favourites">ชื่นชอบ</string>
-    <string name="error_failed_app_registration">การยืนยันตัวตนกับเซิร์ฟเวอร์นั้นล้มเหลว</string>
-    <string name="link_whats_an_instance">Instance คือ\?</string>
-    <string name="action_login">เข้าสู่ระบบด้วย Mastodon</string>
     <string name="poll_allow_multiple_choices">เลือกได้หลายตัวเลือก</string>
     <string name="pref_title_confirm_reblogs">แสดงข้อความยืนยันก่อนที่จะบูสต์</string>
     <string name="pref_title_show_cards_in_timelines">แสดงตัวอย่างลิงก์ในไทม์ไลน์</string>
     <string name="warning_scheduling_interval">Mastodon กำหนดเวลาขั้นต่ำ 5 นาที</string>
     <string name="no_scheduled_posts">ไม่มีสถานะแบบตั้งเวลาใด ๆ</string>
     <string name="no_drafts">ไม่มีฉบับร่างใด ๆ</string>
-    <string name="post_lookup_error_format">การค้นหาโพสต์ %s เกิดข้อผิดผลาด</string>
     <string name="edit_poll">แก้ไข</string>
     <string name="poll_new_choice_hint">ตัวเลือกที่ %d</string>
     <string name="pref_main_nav_position_option_bottom">ล่าง</string>

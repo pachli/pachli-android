@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Adressen eller domänen för varje instans kan anges
+		här, till exempel mastodon.social, icosahedron.website, social.tchncs.de och
+        <a href="https://instances.social"> mer! </a>
+        \n\nOm du inte har något konto kan du ange namnet på instansen du vill ansluta till och skapa ett konto där.
+        \n\nEn instans är en plats där ditt konto finns, men du kan enkelt kommunicera med och följa andra personer på andra instanser,
+        som om du var på samma sajt.
+        \n\nMer information finns på <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Stäng</string>
+    <string name="action_browser_login">Inloggning via webbläsaren</string>
+    <string name="error_invalid_domain">Ogiltig domän angiven</string>
+    <string name="error_failed_app_registration">Misslyckades att autentisera med den instansen. Om detta kvarstår, försök Logga in i webbläsaren från menyn.</string>
+    <string name="error_authorization_unknown">Ett oidentifierat auktoriseringsfel inträffade. Om detta kvarstår, försök Logga in i webbläsaren från menyn.</string>
+    <string name="error_authorization_denied">Auktorisering nekades. Om du är säker på att du har angett rätt referenser, prova Logga in i webbläsaren från menyn.</string>
+    <string name="error_retrieving_oauth_token">Misslyckades med att hämta en inloggningstoken. Om detta kvarstår, försök Logga in i webbläsaren från menyn.</string>
+    <string name="error_loading_account_details">Kunde inte ladda kontodetaljer</string>
+    <string name="hint_domain">Vilken instans?</string>
+    <string name="action_login">Logga in med Pachli</string>
+    <string name="link_whats_an_instance">Vad är en instans?</string>
+    <string name="login_connection">Ansluter…</string>
+    <string name="title_login">Logga in</string>
+    <string name="error_could_not_load_login_page">Kunde inte ladda inloggningssidan.</string>
+    <string name="instance_rule_info">Genom att logga in accepterar du reglerna på %s.</string>
+    <string name="instance_rule_title">%s regler</string>
+</resources>

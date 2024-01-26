@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">%s として開く</string>
+    <string name="post_lookup_error_format">投稿 %s の検索エラー</string>
+    <string name="performing_lookup_title">検索中…</string>
+</resources>

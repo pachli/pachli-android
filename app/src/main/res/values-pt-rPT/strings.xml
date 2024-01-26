@@ -21,8 +21,6 @@
     <string name="follow_requests_info">Apesar do seu perfil não ser privado, %1$s exige que você reveja manualmente as solicitações para te seguir destes perfis.</string>
     <string name="action_subscribe_account">Subscrever</string>
     <string name="action_unsubscribe_account">Remover subscrição</string>
-    <string name="error_authorization_denied">Autorização negada.</string>
-    <string name="error_retrieving_oauth_token">Erro ao adquirir token de login.</string>
     <string name="error_compose_character_limit">O toot é muito extenso!</string>
     <string name="error_media_upload_type">Esse tipo de ficheiro não pode ser enviado.</string>
     <string name="error_media_upload_opening">Não foi possível abrir esse ficheiro.</string>
@@ -84,7 +82,6 @@
     <string name="action_unbookmark">Remover dos itens guardados</string>
     <string name="action_more">Mais</string>
     <string name="action_compose">Escrever</string>
-    <string name="action_login">Entrar com Mastodon</string>
     <string name="action_logout">Sair</string>
     <string name="action_logout_confirm">Tem a certeza que deseja sair da conta %1$s\?</string>
     <string name="action_follow">Seguir</string>
@@ -101,7 +98,6 @@
     <string name="action_send">TOOT</string>
     <string name="action_send_public">TOOT!</string>
     <string name="action_retry">Tentar novamente</string>
-    <string name="action_close">Fechar</string>
     <string name="action_view_profile">Perfil</string>
     <string name="action_view_preferences">Configurações</string>
     <string name="action_view_account_preferences">Configurações da Conta</string>
@@ -148,7 +144,6 @@
     <string name="action_open_media_n">Abrir conteúdo multimédia #%d</string>
     <string name="download_image">A descarregar %1$s</string>
     <string name="action_copy_link">Copiar a hiperligação</string>
-    <string name="action_open_as">Abrir como %s</string>
     <string name="action_share_as">Partilhar como…</string>
     <string name="download_media">Descarregar conteúdo multimédia</string>
     <string name="downloading_media">A descarregar conteúdo multimédia</string>
@@ -161,7 +156,6 @@
     <string name="confirmation_domain_unmuted">%s desbloqueada</string>
     <string name="post_sent">Enviado!</string>
     <string name="post_sent_long">Resposta enviada com sucesso.</string>
-    <string name="hint_domain">Que instância\?</string>
     <string name="hint_compose">Em que está a pensar\?</string>
     <string name="hint_content_warning">Aviso de conteúdo</string>
     <string name="hint_display_name">Nome</string>
@@ -171,15 +165,6 @@
     <string name="label_quick_reply">Responder…</string>
     <string name="label_avatar">Avatar</string>
     <string name="label_header">Cabeçalho</string>
-    <string name="link_whats_an_instance">O que é uma instância\?</string>
-    <string name="login_connection">A ligar…</string>
-    <string name="dialog_whats_an_instance">O endereço IP ou domínio de qualquer instância pode ser inserido aqui, como por exemplo mastodon.social, masto.pt, pleroma.pt ou qualquer <a href="https://instances.social">outro!</a>
-\n
-\nSe ainda não tem uma conta, insira o nome da instância onde pretende participar e crie uma conta lá.
-\n
-\nUma instância é o local onde sua conta é criada, mas pode facilmente seguir e comunicar com pessoas de outras instâncias como se estivessem todos no mesmo site.
-\n
-\nMais informações disponíveis em <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="dialog_title_finishing_media_upload">A Terminar Envio de Conteúdo Multimédia</string>
     <string name="dialog_message_uploading_media">A enviar…</string>
     <string name="dialog_download_image">Descarregar</string>
@@ -349,7 +334,6 @@
     <string name="emoji_style">Estilo dos emojis</string>
     <string name="system_default">Padrão do sistema</string>
     <string name="download_fonts">É necessário descarregar estes pacotes de emojis primeiro</string>
-    <string name="performing_lookup_title">A fazer pesquisa…</string>
     <string name="expand_collapse_all_posts">Expandir/Contrair todos os toots</string>
     <string name="action_open_post">Abrir toot</string>
     <string name="restart_required">É necessário reiniciar a aplicação</string>
@@ -360,7 +344,6 @@
     <string name="caption_twemoji">Pacote de emojis padrão do Mastodon</string>
     <string name="caption_notoemoji">Pacote de emojis atuais da Google</string>
     <string name="download_failed">Erro ao descarregar</string>
-    <string name="profile_badge_bot_text">Robô</string>
     <string name="account_moved_description">%1$s mudou-se para:</string>
     <string name="reblog_private">Dar boost para o público inicial</string>
     <string name="unreblog_private">Desfazer boost</string>
@@ -479,7 +462,6 @@
     <string name="poll_allow_multiple_choices">Escolha múltipla</string>
     <string name="poll_new_choice_hint">Opção %d</string>
     <string name="edit_poll">Editar</string>
-    <string name="post_lookup_error_format">Erro ao pesquisar toot %s</string>
     <string name="no_drafts">Não tem rascunhos.</string>
     <string name="no_scheduled_posts">Não tem toots agendados.</string>
     <string name="account_note_saved">Guardado!</string>
@@ -513,19 +495,13 @@
     <string name="error_generic">Ocorreu um erro.</string>
     <string name="error_network">Ocorreu um erro de conetividade! Por favor, verifique a sua ligação e tente novamente!</string>
     <string name="error_empty">Isto não pode estar vazio.</string>
-    <string name="error_invalid_domain">A instância inserida é inválida</string>
-    <string name="error_failed_app_registration">Erro ao autenticar com esta instância.</string>
     <string name="error_no_web_browser_found">Não foi possível encontrar um navegador.</string>
-    <string name="error_authorization_unknown">Ocorreu um erro de autorização não identificado.</string>
-    <string name="title_login">Entrar</string>
     <string name="action_save">Guardar</string>
     <string name="action_edit_profile">Editar perfil</string>
     <string name="action_edit_own_profile">Editar</string>
     <string name="action_undo">Desfazer</string>
     <string name="action_accept">Aceitar</string>
     <string name="action_reject">Rejeitar</string>
-    <string name="error_could_not_load_login_page">Não foi possível carregar a página de autenticação.</string>
-    <string name="error_loading_account_details">Erro ao carregar os detalhes da conta</string>
     <string name="tips_push_notification_migration">Faz novamente login em todas as contas para ativar as notificações push.</string>
     <string name="account_date_joined">Criada em %1$s</string>
     <string name="dialog_push_notification_migration">Para ativar as notificações push através de UnifiedPush, o Pachli necessita de permissão para subscrever as notificações da tua instância Mastodon. Isto obriga a fazer login novamente, por forma a alterar o escopo das permissões fornecidas ao Pachli pelo OAuth. Usar a opção de novo login, aqui ou nas Configurações da Conta, preservará todos os teus rascunhos e cache locais.</string>
@@ -572,7 +548,6 @@
     <string name="action_post_failed_do_nothing">Descartar</string>
     <string name="post_media_alt">ALT</string>
     <string name="error_muting_hashtag_format">Erro a silenciar #%s</string>
-    <string name="action_browser_login">Iniciar sessão com navegador</string>
     <string name="notification_header_report_format">%s reportou %s</string>
     <string name="action_discard">Descartar alterações</string>
     <string name="action_continue_edit">Continuar a editar</string>

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pachli_website" translatable="false">https://pachli.app</string>
     <string name="about_app_version">%1$s %2$s</string>
 
-    <string name="oauth_scheme" translatable="false">oauth2redirect</string>
-    <string name="preferences_file_key" translatable="false">app.pachli.PREFERENCES</string>
 
     <string name="at_symbol" translatable="false">\@</string>
     <string name="hash_symbol" translatable="false">#</string>
@@ -202,16 +199,6 @@
         <!-- Display name, cw?, content?, poll? relative date, edited?, reposted by?, reposted?, favorited?, bookmarked?, username, media?; visibility, fav number?, reblog number?-->
         %1$s; %2$s; %3$s, %15$s %4$s, %5$s, %6$s; %7$s, %8$s, %9$s, %10$s, %11$s; %12$s, %13$s, %14$s
     </string>
-
-    <string-array name="rick_roll_domains" translatable="false">
-        <item>gab.com</item>
-        <item>gab.ai</item>
-        <item>spinster.xyz</item>
-        <item>truthsocial.com</item>
-    </string-array>
-
-    <string name="rick_roll_url">https://www.youtube.com/watch?v=dQw4w9WgXcQ</string>
-
 
     <string-array name="poll_duration_names">
         <item>@string/duration_5_min</item>

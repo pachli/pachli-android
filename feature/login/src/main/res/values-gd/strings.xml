@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">’S urrainn dhut seòladh no àrainn-lìn aig ionstans sam bith a chur a-steach an-seo, can mastodon.social, icosahedron.website, social.tchncs.de agus <a href="https://instances.social">a bharrachd!</a>
+\n
+\nMur eil cunntas agad fhathast, cuir a-steach ainm an ionstans sa bheil thu airson ballrachd fhaighinn airson cunntas a chruthachadh ann.
+\n
+\n’S e an t-aon àite far an cruthaich thu cunntas a th’ ann an ionstans ud ’s a nì an t-òstadh dhan chunntas agad. Gidheadh, ’s urrainn dhut conaltradh le daoine a tha air ionstans eile agus leantainn orra mar gun robh sibh air an aon làrach.
+\n
+\nGheibh thu barrachd fiosrachaidh air <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="action_close">Dùin</string>
+    <string name="action_browser_login">Clàraich a-steach le brabhsair</string>
+    <string name="error_invalid_domain">Chuir thu a-steach àrainn-lìn mì-dhligheach</string>
+    <string name="error_failed_app_registration">Dh’fhàillig leis an dearbhadh leis an ionstans ud. Ma mhaireas an duilgheadas seo, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
+    <string name="error_authorization_unknown">Thachair mearachd leis an ùghdarrachadh nach do dh’aithnich sinn. Ma mhaireas an duilgheadas seo, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
+    <string name="error_authorization_denied">Chaidh an t-ùghdarrachadh a dhiùltadh. Ma tha thu cinnteach gun do chuir thu a-steach an teisteas ceart, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
+    <string name="error_retrieving_oauth_token">Cha deach leinn tòcan clàraidh a-steach fhaighinn. Ma mhaireas an duilgheadas seo, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
+    <string name="error_loading_account_details">Mearachd a’ luchdadh fiosrachadh a’ chunntais</string>
+    <string name="hint_domain">Cò an t-ionstans\?</string>
+    <string name="action_login">Clàraich a-steach le Pachli</string>
+    <string name="link_whats_an_instance">Dè a th’ ann an ionstans\?</string>
+    <string name="login_connection">A’ dèanamh ceangal…</string>
+    <string name="title_login">Clàraich a-steach</string>
+    <string name="error_could_not_load_login_page">Cha b’ urrainn dhuinn duilleag a’ chlàraidh a-steach fhosgladh.</string>
+    <string name="instance_rule_info">Le clàradh a-steach, bidh tu ag aontachadh ri riaghailtean %s.</string>
+    <string name="instance_rule_title">riaghailtean %s</string>
+</resources>

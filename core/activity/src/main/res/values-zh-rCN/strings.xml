@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">打开为 %s</string>
+    <string name="post_lookup_error_format">查找嘟文时出错 %s</string>
+    <string name="performing_lookup_title">正在查询…</string>
+</resources>

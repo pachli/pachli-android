@@ -22,7 +22,11 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.report.model.StatusViewState
+import app.pachli.core.activity.emojify
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status
@@ -32,13 +36,10 @@ import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.StatusViewHelper
 import app.pachli.util.StatusViewHelper.Companion.COLLAPSE_INPUT_FILTER
 import app.pachli.util.StatusViewHelper.Companion.NO_INPUT_FILTER
-import app.pachli.util.emojify
 import app.pachli.util.getRelativeTimeSpanString
-import app.pachli.util.hide
 import app.pachli.util.setClickableMentions
 import app.pachli.util.setClickableText
 import app.pachli.util.shouldTrimStatus
-import app.pachli.util.show
 import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.StatusViewData
 import java.util.Date
@@ -51,7 +52,7 @@ open class StatusViewHolder(
     private val getStatusForPosition: (Int) -> StatusViewData?,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private val mediaViewHeight = itemView.context.resources.getDimensionPixelSize(R.dimen.status_media_preview_height)
+    private val mediaViewHeight = itemView.context.resources.getDimensionPixelSize(DR.dimen.status_media_preview_height)
     private val statusViewHelper = StatusViewHelper(itemView)
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
 

@@ -8,6 +8,8 @@ import android.text.style.DynamicDrawableSpan
 import android.text.style.ImageSpan
 import android.view.View
 import app.pachli.R
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.databinding.ItemStatusDetailedBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.CardViewMode
@@ -15,9 +17,7 @@ import app.pachli.util.NoUnderlineURLSpan
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.createClickableText
 import app.pachli.util.description
-import app.pachli.util.hide
 import app.pachli.util.icon
-import app.pachli.util.show
 import app.pachli.viewdata.StatusViewData
 import java.text.DateFormat
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">请输入你账号所在的 Mastodon 站点的域名，比如 mastodon.social，icosahedron.website，social.tchncs.de，<a href="https://instances.social">等等</a> 。
+\n
+\n还没有 Mastodon 账号？你也可以输入想注册的 Mastodon 站点的域名，然后在该服务器创建新的账号并授权 Pachli 登入。
+\n
+\n在 Mastodon 里，你的账号信息储存在某一特定实例当中，但 Mastodon 可使跨站互动和站内互动一样简单。
+\n
+\n可以前往 <a href="https://joinmastodon.org">https://joinmastodon.org</a> 了解更多信息。 </string>
+    <string name="action_close">关闭</string>
+    <string name="action_browser_login">用浏览器登录</string>
+    <string name="error_invalid_domain">该域名无效</string>
+    <string name="error_failed_app_registration">未能通过该实例的身份验证。如果这个问题持续，请从菜单处尝试“在浏览器中登录”。</string>
+    <string name="error_authorization_unknown">发生不明授权错误。如果这个问题持续，请从菜单处尝试 “在浏览器中登录”。</string>
+    <string name="error_authorization_denied">授权被拒绝。如果你确定提供了正确的凭据，请从菜单处尝试“在浏览器中登录”。</string>
+    <string name="error_retrieving_oauth_token">未能获取登录令牌。如果这个问题持续，请从菜单处尝试 “在浏览器中登录”。</string>
+    <string name="error_loading_account_details">加载账户详情失败</string>
+    <string name="hint_domain">哪个实例？</string>
+    <string name="action_login">用 Pachli 登录</string>
+    <string name="link_whats_an_instance">什么是实例？</string>
+    <string name="login_connection">正在连接…</string>
+    <string name="title_login">登录</string>
+    <string name="error_could_not_load_login_page">无法加载登录页。</string>
+    <string name="instance_rule_info">登录即表示您同意 %s 的规定。</string>
+    <string name="instance_rule_title">%s 的规定</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Hægt er að setja hér inn vistfang eða lén á hvaða tilviki sem er, svo sem mastodon.social, icosahedron.website, social.tchncs.de og <a href="https://instances.social">fleiri!</a>
+\n
+\nEf þú ert ekki ennþá með notandaaðgang, geturðu sett inn nafnið á því tilviki sem þú vilt tilheyra og búið til aðgang þar.
+\n
+\nTilvik er ákveðinn einn vefþjónn þar sem notandaaðgangurinn þinn er hýstur, en eftir sem áður er auðvelt fyrir þig að eiga í samskiptum við fólk og fylgjast með einstaklingum á öðrum tilvikum, rétt eins og þið væruð á sama vefsvæðinu.
+\n
+\nNánari upplýsingar má finna á <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="action_close">Loka</string>
+    <string name="action_browser_login">Skrá inn í vafra</string>
+    <string name="error_invalid_domain">Ógilt lén sett inn</string>
+    <string name="error_failed_app_registration">Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
+    <string name="error_authorization_unknown">Óskilgreind auðkenningarvilla kom upp. Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
+    <string name="error_authorization_denied">Heimild var hafnað. Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
+    <string name="error_retrieving_oauth_token">Mistókst að fá innskráningarteikn. Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
+    <string name="error_loading_account_details">Mistókst að hlaða inn nánari upplýsingum notandaaðgangs</string>
+    <string name="hint_domain">Hvaða tilvik\?</string>
+    <string name="action_login">Skrá inn með Pachli</string>
+    <string name="link_whats_an_instance">Hvað er tilvik\?</string>
+    <string name="login_connection">Tengist…</string>
+    <string name="title_login">Skrá inn</string>
+    <string name="error_could_not_load_login_page">Gat ekki lesið innskráningarsíðuna.</string>
+    <string name="instance_rule_info">Með því að skrá þig inn samþykkir þú reglurnar á %s.</string>
+    <string name="instance_rule_title">Reglur %s</string>
+</resources>

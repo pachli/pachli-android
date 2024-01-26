@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_login">Skrá inn með Pachli</string>
-    <string name="link_whats_an_instance">Hvað er tilvik\?</string>
     <string name="title_favourites">Eftirlæti</string>
     <string name="title_drafts">Drög</string>
     <string name="action_logout">Skrá út</string>
@@ -15,12 +13,7 @@
     <string name="error_generic">Villa kom upp.</string>
     <string name="error_network">Villa kom upp í netkerfi. Athugaðu nettenginguna þína og prófaðu svo aftur.</string>
     <string name="error_empty">Þetta má ekki vera tómt.</string>
-    <string name="error_invalid_domain">Ógilt lén sett inn</string>
-    <string name="error_failed_app_registration">Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
     <string name="error_no_web_browser_found">Gat ekki fundið neinn vafra til að nota.</string>
-    <string name="error_authorization_unknown">Óskilgreind auðkenningarvilla kom upp. Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
-    <string name="error_authorization_denied">Heimild var hafnað. Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
-    <string name="error_retrieving_oauth_token">Mistókst að fá innskráningarteikn. Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
     <string name="error_compose_character_limit">Færslan er of löng!</string>
     <string name="error_media_upload_type">Þessa tegund skrár er ekki hægt að senda inn.</string>
     <string name="error_media_upload_opening">Ekki var hægt að opna skrána.</string>
@@ -88,7 +81,6 @@
     <string name="action_send">BIRTA</string>
     <string name="action_send_public">BIRTA!</string>
     <string name="action_retry">Reyna aftur</string>
-    <string name="action_close">Loka</string>
     <string name="action_view_profile">Notandasnið</string>
     <string name="action_view_favourites">Eftirlæti</string>
     <string name="action_view_bookmarks">Bókamerki</string>
@@ -133,7 +125,6 @@
     <string name="action_open_media_n">Opna myndefni #%d</string>
     <string name="download_image">Sæki %1$s</string>
     <string name="action_copy_link">Afrita tengilinn</string>
-    <string name="action_open_as">Opna sem %s</string>
     <string name="action_share_as">Deila sem …</string>
     <string name="download_media">Sækja myndefni</string>
     <string name="downloading_media">Næ í myndefni</string>
@@ -146,7 +137,6 @@
     <string name="confirmation_domain_unmuted">Hætt að fela %s</string>
     <string name="post_sent">Sent!</string>
     <string name="post_sent_long">Það tókst að senda svarið.</string>
-    <string name="hint_domain">Hvaða tilvik\?</string>
     <string name="hint_compose">Hvað er í gangi hérna\?</string>
     <string name="hint_content_warning">Aðvörun vegna efnis</string>
     <string name="hint_display_name">Birtingarnafn</string>
@@ -156,14 +146,6 @@
     <string name="label_quick_reply">Svara…</string>
     <string name="label_avatar">Auðkennismynd</string>
     <string name="label_header">Haus</string>
-    <string name="login_connection">Tengist…</string>
-    <string name="dialog_whats_an_instance">Hægt er að setja hér inn vistfang eða lén á hvaða tilviki sem er, svo sem mastodon.social, icosahedron.website, social.tchncs.de og <a href="https://instances.social">fleiri!</a>
-\n
-\nEf þú ert ekki ennþá með notandaaðgang, geturðu sett inn nafnið á því tilviki sem þú vilt tilheyra og búið til aðgang þar.
-\n
-\nTilvik er ákveðinn einn vefþjónn þar sem notandaaðgangurinn þinn er hýstur, en eftir sem áður er auðvelt fyrir þig að eiga í samskiptum við fólk og fylgjast með einstaklingum á öðrum tilvikum, rétt eins og þið væruð á sama vefsvæðinu.
-\n
-\nNánari upplýsingar má finna á <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="dialog_title_finishing_media_upload">Klára innsendingu myndefnis</string>
     <string name="dialog_message_uploading_media">Sendi inn…</string>
     <string name="dialog_download_image">Sækja</string>
@@ -314,7 +296,6 @@
     <string name="emoji_style">Stíll tjáningartákna</string>
     <string name="system_default">Sjálfgefið í kerfinu</string>
     <string name="download_fonts">Þú þarft fyrst að ná í þessi táknmyndasett</string>
-    <string name="performing_lookup_title">Framkvæmi uppflettingu…</string>
     <string name="expand_collapse_all_posts">Þenja út / Fella saman allar stöðufærslur</string>
     <string name="action_open_post">Opna færslu</string>
     <string name="restart_required">Endurræsing forrits er nauðsynleg</string>
@@ -326,7 +307,6 @@
     <string name="caption_twemoji">Staðlaða Mastodon táknmyndasettið</string>
     <string name="caption_notoemoji">Núverandi táknmyndasett Google</string>
     <string name="download_failed">Niðurhal mistókst</string>
-    <string name="profile_badge_bot_text">Róbót</string>
     <string name="account_moved_description">%1$s hefur verið flutt á:</string>
     <string name="reblog_private">Endurbirta til upphaflegra lesenda</string>
     <string name="unreblog_private">Taka úr endurbirtingu</string>
@@ -400,7 +380,6 @@
     <string name="poll_allow_multiple_choices">Margir valkostir</string>
     <string name="poll_new_choice_hint">Valkostur %d</string>
     <string name="edit_poll">Breyta</string>
-    <string name="post_lookup_error_format">Villa við að fletta upp færslunni %s</string>
     <string name="no_drafts">Þú ert ekki með nein drög.</string>
     <string name="no_scheduled_posts">Þú ert ekki með neinar áætlaðar stöðufærslur.</string>
     <string name="warning_scheduling_interval">Mastodon er með 5 mínútna lágmarksbil fyrir áætlaðar aðgerðir.</string>
@@ -513,9 +492,7 @@
     <string name="account_date_joined">Skráði sig %1$s</string>
     <string name="tips_push_notification_migration">Skrá aftur inn alla aðganga til að virkja stuðning við ýti-tilkynningar.</string>
     <string name="dialog_push_notification_migration">Til þess að geta sent ýti-tilkynningar í gegnum UnifiedPush, þarf Pachli heimild til að gerast áskrifandi að tilkynningum á Mastodon-netþjóninum þínum. Þetta krefst þess að skráð sé inn aftur til að breyta vægi OAuth-heimilda sem Pachli er úthlutað. Notaðu endurinnskráninguna hérna eða í kjörstillingum aðgangsins þíns til að varðveita öll drögin þín og skyndiminni á tækinu.</string>
-    <string name="title_login">Skrá inn</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="error_could_not_load_login_page">Gat ekki lesið innskráningarsíðuna.</string>
     <string name="action_edit_image">Breyta mynd</string>
     <string name="saving_draft">Vista drög…</string>
     <string name="title_migration_relogin">Skráðu aftur inn fyrir ýti-tilkynningar</string>
@@ -527,11 +504,8 @@
     <string name="duration_no_change">(engin breyting)</string>
     <string name="error_following_hashtag_format">Villa við að fylgjast með #%s</string>
     <string name="error_unfollowing_hashtag_format">Villa við að hætta að fylgjast með #%s</string>
-    <string name="error_loading_account_details">Mistókst að hlaða inn nánari upplýsingum notandaaðgangs</string>
     <string name="error_image_edit_failed">Ekki var hægt að breyta myndinni.</string>
     <string name="delete_scheduled_post_warning">Eyða þessari áætluðu færslu\?</string>
-    <string name="instance_rule_title">Reglur %s</string>
-    <string name="instance_rule_info">Með því að skrá þig inn samþykkir þú reglurnar á %s.</string>
     <string name="action_add_reaction">bæta við viðbrögðum</string>
     <string name="set_focus_description">Ýttu eða dragðu hringinn til að setja virknistað sem verður ævinlega sýnilegur í smámyndum.</string>
     <string name="compose_save_draft_loses_media">Vista drög\? (Viðhengi verða send inn aftur þegar þú endurheimtir drögin.)</string>
@@ -598,7 +572,6 @@
     <string name="action_post_failed_detail_plural">Ekki tókst að senda inn færslurnar þína og hafa þær verið vistaðar í Drög.
 \n
 \nAnnað hvort náðist ekki í netþjóninn, eða hann hafnaði færslunum.</string>
-    <string name="action_browser_login">Skrá inn í vafra</string>
     <string name="description_login">Virkar í flestum tilvikum. Engum gögnum er lekið til annarra forrita.</string>
     <string name="description_browser_login">Gæti stutt fleiri aðferðir til auðkenningar, en krefst studds vafra.</string>
     <string name="total_usage">Heildarnotkun</string>

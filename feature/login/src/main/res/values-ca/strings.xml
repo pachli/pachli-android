@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Aquí pots introduir l\'adreça o domini de qualsevol instància,
+        com ara mastodont.cat, mastodon.social, icosahedron.website o
+        <a href="https://instances.social">molts més!</a>
+        \n\nSi encara no tens cap copte, pots introduir el nom de la instància on t\'agradaria
+        unir-te i crear un compte allà.\n\nUna instànica és un únic lloc on el teu compte s\'hostatja
+        , però pots comunicar-te fàcilment i seguir amics d\'altres instàncies com si fossiu en el mateix lloc.
+        \n\nTens més informació a <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Tanca</string>
+    <string name="action_browser_login">Inicieu sessió amb el navegador</string>
+    <string name="error_invalid_domain">El domini que s\'ha introduït no és vàlid</string>
+    <string name="error_failed_app_registration">No s\'ha pogut autenticar amb aquesta instància. Si això continua, proveu d\'iniciar sessió al navegador des del menú.</string>
+    <string name="error_authorization_unknown">S\'ha produït un error d\'autorització no identificat. Si això continua, proveu d\'iniciar sessió al navegador des del menú.</string>
+    <string name="error_authorization_denied">S\'ha denegat l\'autorització. Si esteu segur que heu proporcionat les credencials correctes, proveu d\'iniciar sessió al navegador des del menú.</string>
+    <string name="error_retrieving_oauth_token">No s\'ha pogut obtenir el token d\'inici de sessió. Si això continua, proveu d\'iniciar sessió al navegador des del menú.</string>
+    <string name="error_loading_account_details">No s\'han pogut carregar els detalls del compte</string>
+    <string name="hint_domain">Quina instància?</string>
+    <string name="action_login">Inicia sessió amb Pachli</string>
+    <string name="link_whats_an_instance">Què és una instància?</string>
+    <string name="login_connection">S\'està connectant…</string>
+    <string name="title_login">Iniciar Sessió</string>
+    <string name="error_could_not_load_login_page">No s\'ha pogut carregar la pàgina d\'inici de sessió.</string>
+    <string name="instance_rule_info">En iniciar sessió, accepteu les regles de %s.</string>
+    <string name="instance_rule_title">%s regles</string>
+</resources>

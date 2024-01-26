@@ -20,19 +20,20 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.PollAdapter
 import app.pachli.adapter.PollAdapter.DisplayMode
+import app.pachli.core.activity.decodeBlurHash
+import app.pachli.core.activity.emojify
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.AbsoluteTimeFormatter
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.StatusEdit
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemStatusEditBinding
 import app.pachli.interfaces.LinkListener
 import app.pachli.util.BindingHolder
 import app.pachli.util.aspectRatios
-import app.pachli.util.decodeBlurHash
-import app.pachli.util.emojify
-import app.pachli.util.hide
 import app.pachli.util.setClickableText
-import app.pachli.util.show
-import app.pachli.util.visible
 import app.pachli.viewdata.PollOptionViewData
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
@@ -65,9 +66,9 @@ class ViewEditsAdapter(
         val typedValue = TypedValue()
         val context = binding.root.context
         val displayMetrics = context.resources.displayMetrics
-        context.theme.resolveAttribute(R.attr.status_text_large, typedValue, true)
+        context.theme.resolveAttribute(DR.attr.status_text_large, typedValue, true)
         largeTextSizePx = typedValue.getDimension(displayMetrics)
-        context.theme.resolveAttribute(R.attr.status_text_medium, typedValue, true)
+        context.theme.resolveAttribute(DR.attr.status_text_medium, typedValue, true)
         mediumTextSizePx = typedValue.getDimension(displayMetrics)
 
         return BindingHolder(binding)
@@ -286,7 +287,7 @@ class PachliTagHandler(val context: Context) : Html.TagHandler {
         private var bgColor: Int
 
         init {
-            bgColor = context.getColor(R.color.view_edits_background_delete)
+            bgColor = context.getColor(DR.color.view_edits_background_delete)
         }
 
         override fun updateDrawState(tp: TextPaint) {
@@ -300,7 +301,7 @@ class PachliTagHandler(val context: Context) : Html.TagHandler {
         private var bgColor: Int
 
         init {
-            bgColor = context.getColor(R.color.view_edits_background_insert)
+            bgColor = context.getColor(DR.color.view_edits_background_insert)
         }
 
         override fun updateDrawState(tp: TextPaint) {

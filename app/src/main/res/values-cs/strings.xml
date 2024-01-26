@@ -3,12 +3,7 @@
     <string name="error_generic">Vyskytla se chyba.</string>
     <string name="error_network">Vyskytla se chyba sítě! Prosím zkontrolujte své připojení a zkuste to znovu!</string>
     <string name="error_empty">Toto nemůže být prázdné.</string>
-    <string name="error_invalid_domain">Byla zadána neplatná doména</string>
-    <string name="error_failed_app_registration">Autentizace s tímto serverem nebyla úspěšná.</string>
     <string name="error_no_web_browser_found">Nepodařilo se najít webový prohlížeč, který lze použít.</string>
-    <string name="error_authorization_unknown">Vyskytla se neidentifikovaná chyba autorizace.</string>
-    <string name="error_authorization_denied">Autorizace byla zamítnuta.</string>
-    <string name="error_retrieving_oauth_token">Nepodařilo se získat přihlašovací token.</string>
     <string name="error_compose_character_limit">Příspěvek je příliš dlouhý!</string>
     <string name="error_media_upload_type">Tento typ souboru nemůže být nahrán.</string>
     <string name="error_media_upload_opening">Tento soubor se nepodařilo otevřít.</string>
@@ -60,7 +55,6 @@
     <string name="action_unfavourite">Odstranit oblíbení</string>
     <string name="action_more">Více</string>
     <string name="action_compose">Napsat</string>
-    <string name="action_login">Přihlásit se účtem Mastodon</string>
     <string name="action_logout">Odhlásit se</string>
     <string name="action_logout_confirm">Jste si jistý/á, že se chcete odhlásit z účtu %1$s?</string>
     <string name="action_follow">Sledovat</string>
@@ -74,7 +68,6 @@
     <string name="action_send">TOOTNOUT</string>
     <string name="action_send_public">TOOTNOUT!</string>
     <string name="action_retry">Zkusit znovu</string>
-    <string name="action_close">Zavřít</string>
     <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Předvolby</string>
     <string name="action_view_account_preferences">Předvolby účtu</string>
@@ -116,7 +109,6 @@
     <string name="action_open_media_n">Otevřít médium #%d</string>
     <string name="download_image">Stahuji %1$s</string>
     <string name="action_copy_link">Zkopírovat odkaz</string>
-    <string name="action_open_as">Otevřít jako %s</string>
     <string name="action_share_as">Sdílet jako…</string>
     <string name="download_media">Stáhnout média</string>
     <string name="downloading_media">Stahuji média</string>
@@ -128,7 +120,6 @@
     <string name="confirmation_unmuted">Skrytí uživatele bylo zrušeno</string>
     <string name="post_sent">Odesláno!</string>
     <string name="post_sent_long">Odpověď byla úspěšně odeslána.</string>
-    <string name="hint_domain">Který server?</string>
     <string name="hint_compose">Co se právě děje?</string>
     <string name="hint_content_warning">Varování o obsahu</string>
     <string name="hint_display_name">Zobrazované jméno</string>
@@ -138,17 +129,6 @@
     <string name="label_quick_reply">Odpovědět…</string>
     <string name="label_avatar">Avatar</string>
     <string name="label_header">Záhlaví</string>
-    <string name="link_whats_an_instance">Co je to server\?</string>
-    <string name="login_connection">Připojuji se…</string>
-    <string name="dialog_whats_an_instance">Sem může být zadána adresa či doména jakéhokoliv
-        serveru, například mastodon.social, icosahedron.website, social.tchncs.de
-        a <a href="https://instances.social">další!</a>
-        \n\nPokud ještě nemáte účet, můžete zadat název instance, ke které se chcete
-        připojit, a vytvořit si tam účet.\n\nServer je jedno místo, kde je hostován váš
-        účet, můžete však jednoduše komunikovat a sledovat lidi na jiných serverech, jako by
-        byli na stejné stránce.
-        \n\nDalší informace mohou být nalezeny na stránce <a href="https://joinmastodon.org">joinmastodon.org</a>.
-    </string>
     <string name="dialog_title_finishing_media_upload">Dokončuji nahrávání médií</string>
     <string name="dialog_message_uploading_media">Nahrávám…</string>
     <string name="dialog_download_image">Stáhnout</string>
@@ -306,7 +286,6 @@
     <string name="emoji_style">Styl emoji</string>
     <string name="system_default">Výchozí nastavení systému</string>
     <string name="download_fonts">Musíte si nejprve stáhnout tyto sady emoji</string>
-    <string name="performing_lookup_title">Provádím prohledávání…</string>
     <string name="expand_collapse_all_posts">Rozbalit/Sbalit všechny příspěvky</string>
     <string name="action_open_post">Otevřít příspěvek</string>
     <string name="restart_required">Je vyžadováno restartování aplikace</string>
@@ -317,7 +296,6 @@
     <string name="caption_blobmoji">Blob Emoji známá z Androidu 4.4–7.1</string>
     <string name="caption_twemoji">Standardní sada emoji na Mastodonu</string>
     <string name="download_failed">Stahování selhalo</string>
-    <string name="profile_badge_bot_text">Robot</string>
     <string name="account_moved_description">%1$s se přesunul/a na:</string>
     <string name="reblog_private">Boostnout původnímu publiku</string>
     <string name="unreblog_private">Zrušit boost</string>
@@ -437,7 +415,6 @@
     <string name="filter_dialog_whole_word_description">Je-li klíčové slovo nebo fráze pouze alfanumerická, bude použita pouze, pokud odpovídá celému slovu</string>
     <string name="title_accounts">Účty</string>
     <string name="failed_search">Hledání selhalo</string>
-    <string name="post_lookup_error_format">Chyba při hledání příspěvku %s</string>
     <string name="notification_follow_request_description">Upozornění na žádosti o sledování</string>
     <string name="notification_follow_request_name">Žádosti o sledování</string>
     <string name="pref_main_nav_position_option_bottom">Dole</string>
@@ -469,12 +446,9 @@
     <string name="pref_title_confirm_reblogs">Zobrazit dialogové okno s potvrzením při boostování</string>
     <string name="notification_subscription_format">%s právě zveřejnil/a příspěvek</string>
     <string name="title_announcements">Oznámení</string>
-    <string name="title_login">Přihlášení</string>
     <string name="notification_sign_up_format">%s se zaregistroval/a</string>
     <string name="title_migration_relogin">Přihlaste se znovu pro push oznámení</string>
-    <string name="error_could_not_load_login_page">Nepodařilo se načíst přihlášovací stránku.</string>
     <string name="drafts_post_failed_to_send">Tento příspěvek se nepodařilo odeslat!</string>
-    <string name="error_loading_account_details">Nepodařilo se načíst detaily účtu</string>
     <string name="drafts_failed_loading_reply">Nepodařilo se načíst informace o odpovědi</string>
     <string name="error_image_edit_failed">Obrázek se nepodařilo upravit.</string>
     <plurals name="poll_info_people">
@@ -494,8 +468,6 @@
     </plurals>
     <string name="delete_scheduled_post_warning">Smazat tento naplánovaný příspěvek\?</string>
     <string name="notification_subscription_description">Upozornění na nový toot někoho, koho sledujete.</string>
-    <string name="instance_rule_info">Přihlášením souhlasíte s pravidly serveru %s.</string>
-    <string name="instance_rule_title">Pravidla serveru %s</string>
     <string name="wellbeing_mode_notice">Některé informace, které mohou ovlivnit Vaši duševní pohodu, mohou být skryty. To zahrnuje:
 \n
 \n - Upozornění na boosty, oblíbené a sledování

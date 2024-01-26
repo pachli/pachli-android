@@ -18,8 +18,9 @@ package app.pachli.components.accountlist
 
 import android.os.Bundle
 import androidx.fragment.app.commit
-import app.pachli.BottomSheetActivity
 import app.pachli.R
+import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.BLOCKS
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.FAVOURITED
@@ -30,7 +31,6 @@ import app.pachli.core.navigation.AccountListActivityIntent.Kind.MUTES
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.REBLOGGED
 import app.pachli.databinding.ActivityAccountListBinding
 import app.pachli.interfaces.AppBarLayoutHost
-import app.pachli.util.viewBinding
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -18,7 +18,6 @@ import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.IntentCompat
-import app.pachli.MainActivity
 import app.pachli.R
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.StatusComposedEvent
@@ -29,6 +28,8 @@ import app.pachli.components.compose.UploadEvent
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.pendingIntentFlags
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.designsystem.R as DR
+import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.MediaAttribute
 import app.pachli.core.network.model.NewPoll
@@ -101,7 +102,7 @@ class SendStatusService : Service() {
                 .setContentText(notificationText)
                 .setProgress(1, 0, true)
                 .setOngoing(true)
-                .setColor(getColor(R.color.notification_color))
+                .setColor(getColor(DR.color.notification_color))
                 .addAction(0, getString(android.R.string.cancel), cancelSendingIntent(sendingNotificationId))
 
             if (statusesToSend.size == 0 || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -392,7 +393,7 @@ class SendStatusService : Service() {
         accountId: Long,
         statusId: Int,
     ): Notification {
-        val intent = MainActivity.draftIntent(this, accountId)
+        val intent = MainActivityIntent.openDrafts(this, accountId)
 
         val pendingIntent = PendingIntent.getActivity(
             this,
@@ -405,7 +406,7 @@ class SendStatusService : Service() {
             .setSmallIcon(R.drawable.ic_notify)
             .setContentTitle(getString(title))
             .setContentText(getString(content))
-            .setColor(getColor(R.color.notification_color))
+            .setColor(getColor(DR.color.notification_color))
             .setAutoCancel(true)
             .setOngoing(false)
             .setContentIntent(pendingIntent)

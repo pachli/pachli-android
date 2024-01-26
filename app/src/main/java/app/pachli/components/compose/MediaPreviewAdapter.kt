@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.compose.view.ProgressImageView
+import app.pachli.core.designsystem.R as DR
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
@@ -72,7 +73,7 @@ class MediaPreviewAdapter(
     }
 
     private val thumbnailViewSize =
-        context.resources.getDimensionPixelSize(R.dimen.compose_media_preview_size)
+        context.resources.getDimensionPixelSize(DR.dimen.compose_media_preview_size)
 
     override fun getItemCount(): Int = differ.currentList.size
 
@@ -129,9 +130,9 @@ class MediaPreviewAdapter(
         init {
             val layoutParams = ConstraintLayout.LayoutParams(thumbnailViewSize, thumbnailViewSize)
             val margin = itemView.context.resources
-                .getDimensionPixelSize(R.dimen.compose_media_preview_margin)
+                .getDimensionPixelSize(DR.dimen.compose_media_preview_margin)
             val marginBottom = itemView.context.resources
-                .getDimensionPixelSize(R.dimen.compose_media_preview_margin_bottom)
+                .getDimensionPixelSize(DR.dimen.compose_media_preview_margin_bottom)
             layoutParams.setMargins(margin, 0, margin, marginBottom)
             progressImageView.layoutParams = layoutParams
             progressImageView.scaleType = ImageView.ScaleType.CENTER_CROP

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">%s(으)로 열기</string>
+    <string name="performing_lookup_title">탐색하고 있습니다…</string>
+</resources>

@@ -24,13 +24,13 @@ import androidx.fragment.app.activityViewModels
 import app.pachli.R
 import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.databinding.FragmentReportNoteBinding
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
-import app.pachli.util.hide
-import app.pachli.util.show
-import app.pachli.util.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException

@@ -10,7 +10,6 @@
     <string name="action_logout">Clàraich a-mach</string>
     <string name="title_drafts">Dreachdan</string>
     <string name="title_favourites">Annsachdan</string>
-    <string name="link_whats_an_instance">Dè a th’ ann an ionstans\?</string>
     <string name="edit_poll">Deasaich</string>
     <string name="filter_edit_title">Deasaich a’ chriathrag</string>
     <string name="pref_title_edit_notification_settings">Brathan</string>
@@ -24,14 +23,12 @@
     <string name="hint_note">Sgeul-beatha</string>
     <string name="label_quick_reply">Freagair…</string>
     <string name="hint_search">Lorg…</string>
-    <string name="action_login">Clàraich a-steach le Pachli</string>
     <string name="action_send_public">POSTAICH!</string>
     <string name="action_emoji_keyboard">Meur-chlàr Emoji</string>
     <string name="action_unfollow">Na lean tuilleadh</string>
     <string name="action_follow">Lean</string>
     <string name="action_more">Barrachd</string>
     <string name="action_retry">Feuch ris a-rithist</string>
-    <string name="action_close">Dùin</string>
     <string name="action_send">POSTAICH</string>
     <string name="action_delete">Sguab às</string>
     <string name="action_delete_and_redraft">Sguab às is dèan dreachd ùr air</string>
@@ -103,7 +100,6 @@
     <string name="warning_scheduling_interval">Feumaidh co-dhiù 5 mionaidean a bhith eadar postaichean sgeidealaichte air Mastodon.</string>
     <string name="no_scheduled_posts">Chan eil post sam bith air an sgeideal agad.</string>
     <string name="no_drafts">Chan eil dreachd sam bith agad.</string>
-    <string name="post_lookup_error_format">Thachair mearachd le lorg a’ phuist %s</string>
     <string name="poll_new_choice_hint">Roghainn %d</string>
     <string name="poll_allow_multiple_choices">Iomadh roghainn</string>
     <string name="add_poll_choice">Cuir roghainn ris</string>
@@ -210,7 +206,6 @@
     <string name="unreblog_private">Na brosnaich tuilleadh</string>
     <string name="reblog_private">Brosnaich dhan èisteachd thùsail</string>
     <string name="account_moved_description">Chaidh %1$s a ghluasad gu:</string>
-    <string name="profile_badge_bot_text">Robotair</string>
     <string name="download_failed">Dh’fhàillig an luchdadh a-nuas</string>
     <string name="caption_notoemoji">Seata làithreach nan Emoji aig Google</string>
     <string name="caption_twemoji">Seata stannardach nan Emoji aig Mastodon</string>
@@ -222,7 +217,6 @@
     <string name="restart_required">Feumaidh tu an aplacaid ath-thòiseachadh</string>
     <string name="action_open_post">Fosgail am post</string>
     <string name="expand_collapse_all_posts">Leudaich/Co-theannaich gach post</string>
-    <string name="performing_lookup_title">’Ga lorg…</string>
     <string name="download_fonts">Feumaidh tu na seataichean seo de dh’Emojis a luchdadh a-nuas an toiseach</string>
     <string name="system_default">Bun-roghainn an t-siostaim</string>
     <string name="emoji_style">Stoidhle nan Emojis</string>
@@ -264,13 +258,6 @@
     <string name="notification_boost_description">Brathan nuair a thèid post agad brosnachadh</string>
     <string name="dialog_redraft_post_warning">A bheil thu airson am post seo a sguabadh às is dreachd ùr a dhèanamh air\?</string>
     <string name="dialog_delete_post_warning">A bheil thu airson am post seo a sguabadh às\?</string>
-    <string name="dialog_whats_an_instance">’S urrainn dhut seòladh no àrainn-lìn aig ionstans sam bith a chur a-steach an-seo, can mastodon.social, icosahedron.website, social.tchncs.de agus <a href="https://instances.social">a bharrachd!</a>
-\n
-\nMur eil cunntas agad fhathast, cuir a-steach ainm an ionstans sa bheil thu airson ballrachd fhaighinn airson cunntas a chruthachadh ann.
-\n
-\n’S e an t-aon àite far an cruthaich thu cunntas a th’ ann an ionstans ud ’s a nì an t-òstadh dhan chunntas agad. Gidheadh, ’s urrainn dhut conaltradh le daoine a tha air ionstans eile agus leantainn orra mar gun robh sibh air an aon làrach.
-\n
-\nGheibh thu barrachd fiosrachaidh air <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="send_post_content_to">Co-roinn am post le…</string>
     <string name="send_post_link_to">Co-roinn URL a’ phuist le…</string>
     <string name="action_schedule_post">Cuir post air an sgeideal</string>
@@ -402,11 +389,9 @@
     <string name="dialog_download_image">Luchdaich a-nuas</string>
     <string name="dialog_message_uploading_media">’Ga luchdadh suas…</string>
     <string name="dialog_title_finishing_media_upload">A’ crìochnachadh luchdadh suas meadhanan</string>
-    <string name="login_connection">A’ dèanamh ceangal…</string>
     <string name="label_header">Bann-cinn</string>
     <string name="label_avatar">Avatar</string>
     <string name="search_no_results">Chan eil toradh ann</string>
-    <string name="hint_domain">Cò an t-ionstans\?</string>
     <string name="post_sent_long">Chaidh an fhreagairt a chur.</string>
     <string name="post_sent">Chaidh a chur!</string>
     <string name="confirmation_domain_unmuted">Chan eil %s falaichte tuilleadh</string>
@@ -417,7 +402,6 @@
     <string name="downloading_media">A’ luchdadh a-nuas meadhanan</string>
     <string name="download_media">Luchdaich a-nuas meadhanan</string>
     <string name="action_share_as">Co-roinn mar …</string>
-    <string name="action_open_as">Fosgail mar %s</string>
     <string name="action_copy_link">Dèan lethbhreac dhen cheangal</string>
     <string name="download_image">A’ luchdadh a-nuas %1$s</string>
     <string name="action_open_media_n">Fosgail meadhan #%d</string>
@@ -501,12 +485,7 @@
     <string name="error_media_upload_opening">Cha b’ urrainn dhuinn am faidhle sin fhosgladh.</string>
     <string name="error_media_upload_type">Cha ghabh an seòrsa de dh’fhaidhle seo a luchdadh suas.</string>
     <string name="error_compose_character_limit">Tha am post ro fhada!</string>
-    <string name="error_retrieving_oauth_token">Cha deach leinn tòcan clàraidh a-steach fhaighinn. Ma mhaireas an duilgheadas seo, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
-    <string name="error_authorization_denied">Chaidh an t-ùghdarrachadh a dhiùltadh. Ma tha thu cinnteach gun do chuir thu a-steach an teisteas ceart, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
-    <string name="error_authorization_unknown">Thachair mearachd leis an ùghdarrachadh nach do dh’aithnich sinn. Ma mhaireas an duilgheadas seo, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
     <string name="error_no_web_browser_found">Cha do lorg sinn brabhsair-lìn a chleachdadh sinn.</string>
-    <string name="error_failed_app_registration">Dh’fhàillig leis an dearbhadh leis an ionstans ud. Ma mhaireas an duilgheadas seo, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
-    <string name="error_invalid_domain">Chuir thu a-steach àrainn-lìn mì-dhligheach</string>
     <string name="error_empty">Chan fhaod seo a bhith falamh.</string>
     <string name="error_network">Thachair mearachd leis an lìonra. Thoir sùil air a’ cheangal agad is feuch ris a-rithist.</string>
     <string name="error_generic">Thachair mearachd.</string>
@@ -530,8 +509,6 @@
     <string name="notification_update_name">Deasachadh puist</string>
     <string name="notification_update_description">Brathan nuair a thèid postaichean a rinn thu conaltradh leotha a dheasachadh</string>
     <string name="pref_title_notification_filter_updates">chaidh post a rinn mi conaltradh leis a deasachadh</string>
-    <string name="title_login">Clàraich a-steach</string>
-    <string name="error_could_not_load_login_page">Cha b’ urrainn dhuinn duilleag a’ chlàraidh a-steach fhosgladh.</string>
     <string name="saving_draft">A’ sàbhaladh na dreuchd…</string>
     <string name="action_dismiss">Leig seachad</string>
     <string name="action_details">Fiosrachadh</string>
@@ -543,7 +520,6 @@
     <string name="error_following_hashtag_format">Mearachd a’ leantainn air #%s</string>
     <string name="error_multimedia_size_limit">Chan fhaod na faidhlichean video ’ fuaime a bhith nas motha na %s MB.</string>
     <string name="error_unfollowing_hashtag_format">Mearachd a’ sgur de leantainn air #%s</string>
-    <string name="error_loading_account_details">Mearachd a’ luchdadh fiosrachadh a’ chunntais</string>
     <string name="error_image_edit_failed">Cha b’ urrainn dhuinn an dealbh a dheasachadh.</string>
     <string name="dialog_push_notification_migration">Airson brathan putaidh slighe UnifiedPush a chleachdadh, feumaidh Pachli cead airson fo-sgrìobhadh air brathan air an fhrithealaiche Mastodon agad fhaighinn. Bidh feum air clàradh a-steach às ùr airson na sgòpaichean OAuth a chaidh a cheadachadh dha Pachli atharrachadh. Ma nì thu clàradh a-steach às ùr an-seo no ann an “Roghainnean a’ chunntais”, cumaidh sinn na dreachdan is an tasgadan ionadail agad.</string>
     <string name="dialog_push_notification_migration_other_accounts">Rinn thu clàradh a-steach às ùr dhan chunntas làithreach agad airson cead fo-sgrìobhadh putaidh a thoirt dha Pachli. Gidheadh, cha cunntasan eile agad fhathast nach deach imrich air an dòigh sin. Geàrr leum thuca is dèan clàradh a-steach às ùr do gach fear dhiubh airson taic do bhrathan UnifiedPush a chur an comas dhaibh.</string>
@@ -558,8 +534,6 @@
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">Suidhich puing an fhòcais</string>
     <string name="delete_scheduled_post_warning">A bheil thu airson am post sgeidealaichte seo a sguabadh às\?</string>
-    <string name="instance_rule_info">Le clàradh a-steach, bidh tu ag aontachadh ri riaghailtean %s.</string>
-    <string name="instance_rule_title">riaghailtean %s</string>
     <string name="action_add_reaction">cuir freagairt ris</string>
     <string name="failed_to_pin">Dh’fhàillig leis a’ phrìneachadh</string>
     <string name="failed_to_unpin">Dh’fhàillig leis an dì-phrìneachadh</string>
@@ -598,7 +572,6 @@
     <string name="action_post_failed_do_nothing">Leig seachad</string>
     <string name="confirmation_hashtag_unfollowed">Chan eil #%s a’ leantainn tuilleadh</string>
     <string name="description_post_edited">Chaidh a dheasachadh</string>
-    <string name="action_browser_login">Clàraich a-steach le brabhsair</string>
     <string name="pref_title_notification_filter_reports">bhios gearan ùr ann</string>
     <string name="action_add_or_remove_from_list">Cuir ris no thoir air falbh on liosta</string>
     <string name="failed_to_add_to_list">Cha deach leinn an cunntas a chur ris an liosta</string>

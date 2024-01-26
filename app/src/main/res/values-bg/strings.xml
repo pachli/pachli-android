@@ -100,7 +100,6 @@
     <string name="unreblog_private">Отсподеляне</string>
     <string name="reblog_private">Споделяне с оригиналната аудитория</string>
     <string name="account_moved_description">%1$s се премести в:</string>
-    <string name="profile_badge_bot_text">Бот</string>
     <string name="download_failed">Изтеглянето се провали</string>
     <string name="caption_notoemoji">Текущият набор от емоджита на Google</string>
     <string name="download_fonts">Първо ще трябва да изтеглите тези емоджи комплекти</string>
@@ -113,7 +112,6 @@
     <string name="restart_required">Изисква се рестартиране на приложението</string>
     <string name="action_open_post">Отваряне на публикация</string>
     <string name="expand_collapse_all_posts">Разгъване/свиване на всички състояния</string>
-    <string name="performing_lookup_title">Извършва се търсене…</string>
     <string name="system_default">По подразбиране от системата</string>
     <string name="emoji_style">Стил на емоджи</string>
     <string name="error_no_custom_emojis">Инстанцията ви %s няма персонализирани емоджита</string>
@@ -251,21 +249,6 @@
     <string name="dialog_download_image">Изтегляне</string>
     <string name="dialog_message_uploading_media">Качване…</string>
     <string name="dialog_title_finishing_media_upload">Завършване на мултимедийно качване</string>
-    <string name="dialog_whats_an_instance">Тук може да се въведе адресът или домейнът на която и да е инстанция, като mastodon.social, icosahedron.website, social.tchncs.de и &lt;a href=\"https://instances.social\"&gt;други!&lt;/a&gt;
-\n
-\nАко все още нямате акаунт, можете да въведете името на инстанцията, към който искате да се присъедините, и да създадете акаунт там.
-\n
-\nИнстанцията е единично място, където се хоства акаунтът ви, но можете лесно да комуникирате и да следвате хора в други инстанции, сякаш сте на същия сайт.
-\n
-\nПовече информация можете да намерите на &lt;a href=\"https://joinmastodon.org\"&gt;joinmastodon.org&lt;/a&gt;. <a href="https://instances.social">more!</a>
-\n
-\nIf you don\'t yet have an account, you can enter the name of the instance you\'d like to join and create an account there.
-\n
-\nAn instance is a single place where your account is hosted, but you can easily communicate with and follow folks on other instances as though you were on the same site.
-\n
-\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
-    <string name="login_connection">Свързване…</string>
-    <string name="link_whats_an_instance">Какво е инстанция\?</string>
     <string name="label_header">Заглавна част</string>
     <string name="label_avatar">Аватар</string>
     <string name="label_quick_reply">Отговор…</string>
@@ -275,7 +258,6 @@
     <string name="hint_display_name">Показвано име</string>
     <string name="hint_content_warning">Предупреждение за съдържание</string>
     <string name="hint_compose">Какво се случва\?</string>
-    <string name="hint_domain">Коя инстанция\?</string>
     <string name="post_sent_long">Отговорът е изпратен успешно.</string>
     <string name="post_sent">Изпратено!</string>
     <string name="confirmation_domain_unmuted">%s е разкрит</string>
@@ -288,7 +270,6 @@
     <string name="downloading_media">Теглене на мултимедия</string>
     <string name="download_media">Изтегляне на мултимедия</string>
     <string name="action_share_as">Споделяне като …</string>
-    <string name="action_open_as">Отваряне като %s</string>
     <string name="action_copy_link">Копиране на връзката</string>
     <string name="download_image">Изтегляне на %1$s</string>
     <string name="action_open_media_n">Отваряне на мултимедия #%d</string>
@@ -341,7 +322,6 @@
     <string name="action_view_account_preferences">Предпочитания за акаунт</string>
     <string name="action_view_preferences">Предпочитания</string>
     <string name="action_view_profile">Профил</string>
-    <string name="action_close">Затваряне</string>
     <string name="action_retry">Повторен опит</string>
     <string name="action_send_public">ПУБЛИКУВАНЕ!</string>
     <string name="action_send">ИЗПРАЩАНЕ</string>
@@ -357,7 +337,6 @@
     <string name="action_follow">Последване</string>
     <string name="action_logout_confirm">Сигурни ли сте, че искате да излезете от акаунта %1$s\?</string>
     <string name="action_logout">Излизане</string>
-    <string name="action_login">Влизане с Mastodon</string>
     <string name="action_compose">Композиране</string>
     <string name="action_more">Още</string>
     <string name="action_unfavourite">Премахване от любими</string>
@@ -414,12 +393,7 @@
     <string name="error_media_upload_opening">Този файл не можа да бъде отворен.</string>
     <string name="error_media_upload_type">Този тип файл не може да бъде качен.</string>
     <string name="error_compose_character_limit">Състоянието е твърде дълго!</string>
-    <string name="error_retrieving_oauth_token">Получаването на токен за вход бе неуспешно.</string>
-    <string name="error_authorization_denied">Упълномощаването е отказано.</string>
-    <string name="error_authorization_unknown">Възникна неидентифицирана грешка при упълномощаване.</string>
     <string name="error_no_web_browser_found">Неуспешно намиране на уеб браузър, който да се използва.</string>
-    <string name="error_failed_app_registration">Неуспешно удостоверяване с тази инстанция.</string>
-    <string name="error_invalid_domain">Въведен е невалиден домейн</string>
     <string name="error_empty">Това не може да бъде празно.</string>
     <string name="error_network">Възникна грешка в мрежата! Моля, проверете връзката си и опитайте отново!</string>
     <string name="error_generic">Възникна грешка.</string>
@@ -451,7 +425,6 @@
     <string name="no_announcements">Няма оповестявания.</string>
     <string name="no_scheduled_posts">Нямате планирани състояния.</string>
     <string name="no_drafts">Нямате чернови.</string>
-    <string name="post_lookup_error_format">Грешка при търсенето на публикация %s</string>
     <string name="edit_poll">Редакция</string>
     <string name="poll_new_choice_hint">Избор %d</string>
     <string name="poll_allow_multiple_choices">Множество избора</string>

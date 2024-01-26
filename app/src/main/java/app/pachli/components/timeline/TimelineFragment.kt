@@ -39,7 +39,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
@@ -49,6 +48,11 @@ import app.pachli.components.timeline.viewmodel.StatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiSuccess
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
@@ -68,10 +72,6 @@ import app.pachli.util.UserRefreshState
 import app.pachli.util.asRefreshState
 import app.pachli.util.getDrawableRes
 import app.pachli.util.getErrorString
-import app.pachli.util.hide
-import app.pachli.util.show
-import app.pachli.util.viewBinding
-import app.pachli.util.visible
 import app.pachli.util.withPresentationState
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.sparkbutton.helpers.Utils

@@ -2,12 +2,7 @@
 <resources>
     <string name="error_generic">பிழை ஏற்பட்டது.</string>
     <string name="error_empty">இது காலியாக இருக்க கூடாது.</string>
-    <string name="error_invalid_domain">தவறான டொமைன் உள்ளிடப்பட்டுள்ளது</string>
-    <string name="error_failed_app_registration">அந்த instance(களத்தினை)-யை அங்கீகரிப்பதில் தோல்வி.</string>
     <string name="error_no_web_browser_found">வலை உலாவிகள் ஏதுமில்லை</string>
-    <string name="error_authorization_unknown">அடையாளம் தெரியாத அங்கீகார பிழை ஏற்பட்டுள்ளது.</string>
-    <string name="error_authorization_denied">அங்கீகாரம் மறுக்கப்பட்டுள்ளது</string>
-    <string name="error_retrieving_oauth_token">உள்நுழைவு டோக்கனைப் பெறுவதில் தோல்வி.</string>
     <string name="error_compose_character_limit">நிலை மிக நீளமாக உள்ளது!</string>
     <string name="error_media_upload_type">இந்த வகை கோப்பை பதிவேற்ற முடியாது.</string>
     <string name="error_media_upload_opening">அந்த கோப்பை திறக்க முடியவில்லை.</string>
@@ -47,7 +42,6 @@
     <string name="action_favourite">பிடித்தவை</string>
     <string name="action_more">மேலும்</string>
     <string name="action_compose">எழுது</string>
-    <string name="action_login">Mastodon மூலம்  உள்நுழைய</string>
     <string name="action_logout">வெளியேறு</string>
     <string name="action_logout_confirm">நீங்கள்  %1$s கணக்கிலிருந்து வெளியேற விரும்புகிறீர்களா?</string>
     <string name="action_follow">பின்பற்று</string>
@@ -59,7 +53,6 @@
     <string name="action_report">புகார்</string>
     <string name="action_delete">நீக்கு</string>
     <string name="action_retry">மீண்டும் முயற்சி</string>
-    <string name="action_close">மூடு</string>
     <string name="action_view_profile">சுயவிவரம்</string>
     <string name="action_view_preferences">முன்னுரிமைகள்</string>
     <string name="action_view_favourites">விரும்பியவை</string>
@@ -97,7 +90,6 @@
     <string name="confirmation_unmuted">பயனர் ஒலிக்க செய்யபட்டது</string>
     <string name="post_sent">அனுப்பு!</string>
     <string name="post_sent_long">வெற்றிகரமாக பதிலளிக்கபட்டது.</string>
-    <string name="hint_domain">எந்த instance(களம்)?</string>
     <string name="hint_compose">என்ன நடக்கிறது?</string>
     <string name="hint_content_warning">உள்ளடக்க எச்சரிக்கை</string>
     <string name="hint_display_name">காட்சி பெயர்</string>
@@ -107,13 +99,6 @@
     <string name="label_quick_reply">பதிலளி…</string>
     <string name="label_avatar">தோற்றம்</string>
     <string name="label_header">தலைப்பு</string>
-    <string name="link_whats_an_instance">Instance(களம்) என்றால் என்ன?</string>
-    <string name="login_connection">இணைக்கபடுகிறது…</string>
-    <string name="dialog_whats_an_instance">ஏதேனும் instance-ன் முகவரியையோ அல்லது களத்தின் முகவரியையோ இங்கு உள்ளிடவும், உதாரணமாக mastodon.social, icosahedron.website, social.tchncs.de, மற்றும்
-        <a href="https://instances.social">மேலும்!</a>
-        \n\nபயனர் கணக்கு இல்லையெனில் புதிய கணக்கிற்கான instance(களம்)-னை பதிவிடவும். நீங்கள் குறிப்பிடப்படும் களத்தில் உங்கள் கணக்கு பதிவாகும்.\n\nமேலும் இங்கு குறிப்பிடப்பட்ட ஏதேனும் ஒரு களத்தில் மட்டுமே உங்களால்  கணக்கு ஆரம்பித்துக்கொள்ள இயலும் இருப்பினும் நம்மால் மற்ற களங்களில் உள்ள நண்பர்களையும் தொடர்பு கொள்ள இயலும் .
-        \n\nமேலும் தகவல்கள் அறிய <a href="https://joinmastodon.org">joinmastodon.org</a>.
-    </string>
     <string name="dialog_title_finishing_media_upload">மீடியா பதிவேற்றம் முடிகிறது</string>
     <string name="dialog_message_uploading_media">ஏற்றுகிறது …</string>
     <string name="dialog_download_image">பதிவிறக்க</string>
@@ -230,7 +215,6 @@
     <string name="emoji_style">Emoji பாணி</string>
     <string name="system_default">அமைப்பின் இயல்புநிலை</string>
     <string name="download_fonts">தாங்கள் முதலில் இந்த Emoji sets-னை பதிவிறக்கவேண்டும்</string>
-    <string name="performing_lookup_title">சேயல்பாட்டு தேடல்…</string>
     <string name="expand_collapse_all_posts">அதிகமாக்கு/கம்மியாக்கு பற்றிய நிலைகள்</string>
     <string name="action_open_post">Tootயை திற</string>
     <string name="restart_required">செயலி மறுதொடக்கம் தேவைபடுகிறது</string>
@@ -241,7 +225,6 @@
     <string name="caption_blobmoji">Android 4.4–7.1-லிருந்தே Blob emojis பயன்படுத்தபடுகிறது</string>
     <string name="caption_twemoji">Mastodon-னின் வழக்கமான emoji set</string>
     <string name="download_failed">பதிவிறக்கம் தோல்வியுற்றது</string>
-    <string name="profile_badge_bot_text">இயலி</string>
     <string name="account_moved_description">%1$s கணக்கு நகர்த்தபட்டது இதற்க்கு:</string>
     <string name="reblog_private">அசலான பார்வையாளர்களுக்கு மட்டும் மேலேற்று</string>
     <string name="unreblog_private">மேலேற்றத்தை தவிர்</string>

@@ -20,6 +20,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import app.pachli.R
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Status
 import com.google.android.material.button.MaterialButton
 import com.mikepenz.iconics.IconicsDrawable
@@ -34,7 +35,7 @@ class TootButton
     defStyleAttr: Int = 0,
 ) : MaterialButton(context, attrs, defStyleAttr) {
 
-    private val smallStyle: Boolean = context.resources.getBoolean(R.bool.show_small_toot_button)
+    private val smallStyle: Boolean = context.resources.getBoolean(DR.bool.show_small_toot_button)
 
     init {
         if (smallStyle) {
@@ -43,7 +44,7 @@ class TootButton
             setText(R.string.action_send)
             iconGravity = ICON_GRAVITY_TEXT_START
         }
-        val padding = resources.getDimensionPixelSize(R.dimen.toot_button_horizontal_padding)
+        val padding = resources.getDimensionPixelSize(DR.dimen.toot_button_horizontal_padding)
         setPadding(padding, 0, padding, 0)
     }
 

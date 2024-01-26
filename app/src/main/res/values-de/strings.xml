@@ -3,12 +3,7 @@
     <string name="error_generic">Ein Fehler ist aufgetreten.</string>
     <string name="error_network">Ein Netzwerkfehler ist aufgetreten. Bitte überprüfe deine Internetverbindung und versuche es erneut.</string>
     <string name="error_empty">Das darf nicht leer sein.</string>
-    <string name="error_invalid_domain">Ungültige Domain angegeben</string>
-    <string name="error_failed_app_registration">Authentifizieren mit dieser Instanz fehlgeschlagen. Falls das Problem weiter besteht, versuche dich über den Browser anzumelden.</string>
     <string name="error_no_web_browser_found">Kein Webbrowser gefunden.</string>
-    <string name="error_authorization_unknown">Ein unbekannter Fehler ist bei der Autorisierung aufgetreten. Falls das Problem weiter besteht, versuche dich über den Browser anzumelden.</string>
-    <string name="error_authorization_denied">Autorisierung wurde abgelehnt. Wenn du dir sicher bist, dass du die korrekten Anmeldedaten eingegeben hast, versuche dich über den Browser anzumelden.</string>
-    <string name="error_retrieving_oauth_token">Es konnte kein Anmelde-Token abgerufen werden. Falls das Problem weiter besteht, versuche dich über den Browser anzumelden.</string>
     <string name="error_compose_character_limit">Der Beitrag ist zu lang!</string>
     <string name="error_media_upload_type">Dieser Dateityp kann nicht hochgeladen werden.</string>
     <string name="error_media_upload_opening">Die Datei konnte nicht geöffnet werden.</string>
@@ -61,7 +56,6 @@
     <string name="action_unfavourite">Aus Favoriten entfernen</string>
     <string name="action_more">Mehr</string>
     <string name="action_compose">Beitrag erstellen</string>
-    <string name="action_login">Mit Pachli anmelden</string>
     <string name="action_logout">Abmelden</string>
     <string name="action_logout_confirm">Möchtest du %1$s wirklich abmelden\? Dadurch werden alle lokalen Daten des Profils, wie Entwürfe und Einstellungen, gelöscht.</string>
     <string name="action_follow">Folgen</string>
@@ -75,7 +69,6 @@
     <string name="action_send">TRÖT</string>
     <string name="action_send_public">TRÖT!</string>
     <string name="action_retry">Erneut versuchen</string>
-    <string name="action_close">Schließen</string>
     <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Einstellungen</string>
     <string name="action_view_account_preferences">Profileinstellungen</string>
@@ -116,7 +109,6 @@
     <string name="action_open_media_n">Datei #%d öffnen</string>
     <string name="download_image">%1$s heruntergeladen</string>
     <string name="action_copy_link">Link kopieren</string>
-    <string name="action_open_as">Als %s öffnen</string>
     <string name="action_share_as">Teilen als …</string>
     <string name="send_post_link_to">Beitragslink teilen an …</string>
     <string name="send_post_content_to">Beitrag teilen an …</string>
@@ -126,7 +118,6 @@
     <string name="confirmation_unmuted">Stummschaltung des Profils aufgehoben</string>
     <string name="post_sent">Gesendet!</string>
     <string name="post_sent_long">Antwort erfolgreich gesendet.</string>
-    <string name="hint_domain">Welche Instanz?</string>
     <string name="hint_compose">Was gibt\'s Neues?</string>
     <string name="hint_content_warning">Inhaltswarnung</string>
     <string name="hint_display_name">Anzeigename</string>
@@ -138,15 +129,6 @@
     <string name="label_quick_reply">Antworten …</string>
     <string name="label_avatar">Profilbild</string>
     <string name="label_header">Titelbild</string>
-    <string name="link_whats_an_instance">Was ist eine Instanz\?</string>
-    <string name="login_connection">Wird verbunden …</string>
-    <string name="dialog_whats_an_instance">Die Adresse oder Domain einer Instanz kann hier eingegeben werden, wie z. B. mastodon.social, icosahedron.website, social.tchncs.de, and <a href="https://instances.social">more!</a>
-\n
-\nWenn du bis jetzt kein Konto hast, kannst du hier den Namen einer Instanz eingeben und dort ein Konto einrichten.
-\n
-\nEine Instanz ist ein einzelner Ort, an dem dein Konto gehostet ist, aber du kannst dennoch mit anderen Leuten interagieren, als wärt ihr alle auf derselben Website.
-\n
-\nWeitere Informationen gibt es auf <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="dialog_title_finishing_media_upload">Hochladen der Datei wird abgeschlossen</string>
     <string name="dialog_message_uploading_media">Wird hochgeladen …</string>
     <string name="dialog_download_image">Herunterladen</string>
@@ -276,7 +258,6 @@
     <string name="emoji_style">Emoji-Stil</string>
     <string name="system_default">Systemstandard</string>
     <string name="download_fonts">Du musst diese Emoji-Sets zunächst herunterladen</string>
-    <string name="performing_lookup_title">Wird nachgeschlagen …</string>
     <string name="expand_collapse_all_posts">Alle Beiträge aus-/einklappen</string>
     <string name="action_open_post">Beitrag öffnen</string>
     <string name="restart_required">App-Neustart erforderlich</string>
@@ -288,7 +269,6 @@
     <string name="caption_twemoji">Die Standard-Emojis von Mastodon</string>
     <string name="caption_notoemoji">Die aktuellen Emojis von Google</string>
     <string name="download_failed">Download fehlgeschlagen</string>
-    <string name="profile_badge_bot_text">Bot</string>
     <string name="account_moved_description">%1$s ist umgezogen auf:</string>
     <string name="reblog_private">An ursprüngliches Publikum teilen</string>
     <string name="unreblog_private">Nicht mehr teilen</string>
@@ -422,7 +402,6 @@
     <string name="select_list_manage">Listen verwalten</string>
     <string name="error_list_load">Fehler beim Laden der Listen</string>
     <string name="list">Liste</string>
-    <string name="post_lookup_error_format">Fehler beim Nachschlagen von %s</string>
     <string name="no_drafts">Du hast keine Entwürfe.</string>
     <string name="no_scheduled_posts">Du hast keine geplanten Beiträge.</string>
     <string name="warning_scheduling_interval">Das Datum des geplanten Beitrags muss mindestens 5 Minuten in der Zukunft liegen.</string>
@@ -520,8 +499,6 @@
     <string name="notification_sign_up_format">%s hat sich registriert</string>
     <string name="pref_title_notification_filter_sign_ups">jemand sich registriert</string>
     <string name="notification_update_description">Benachrichtigungen, wenn Beiträge bearbeitet werden, mit denen du interagiert hast</string>
-    <string name="title_login">Anmelden</string>
-    <string name="error_could_not_load_login_page">Die Anmeldeseite konnte nicht geladen werden.</string>
     <string name="notification_update_name">Beitragsbearbeitungen</string>
     <string name="title_migration_relogin">Neuanmeldung für Push-Benachrichtigungen</string>
     <string name="action_dismiss">Ablehnen</string>
@@ -531,7 +508,6 @@
     <string name="account_date_joined">%1$s beigetreten</string>
     <string name="status_count_one_plus">1+</string>
     <string name="status_created_at_now">Jetzt</string>
-    <string name="error_loading_account_details">Fehler beim Laden der Kontodetails</string>
     <string name="action_edit_image">Bild bearbeiten</string>
     <string name="action_details">Details</string>
     <string name="error_image_edit_failed">Das Bild konnte nicht bearbeitet werden.</string>
@@ -540,8 +516,6 @@
     <string name="error_following_hashtag_format">Fehler beim Folgen von #%s</string>
     <string name="error_unfollowing_hashtag_format">Fehler beim Entfolgen von #%s</string>
     <string name="delete_scheduled_post_warning">Diesen geplanten Beitrag löschen\?</string>
-    <string name="instance_rule_title">%s-Regeln</string>
-    <string name="instance_rule_info">Mit dem Anmelden stimmst du den Regeln von %s zu.</string>
     <string name="set_focus_description">Tippe oder ziehe den Kreis auf die Stelle, die in Vorschaubildern immer sichtbar sein soll.</string>
     <string name="compose_save_draft_loses_media">Entwurf speichern\? (Anhänge werden erneut hochgeladen, sobald du den Entwurf wiederherstellst.)</string>
     <string name="duration_no_change">(Keine Änderung)</string>
@@ -593,7 +567,6 @@
     <string name="post_edited">Bearbeitet %s</string>
     <string name="action_discard">Änderungen verwerfen</string>
     <string name="action_continue_edit">Bearbeiten fortsetzen</string>
-    <string name="action_browser_login">Mit Browser anmelden</string>
     <string name="action_share_account_username">Name des Profils teilen</string>
     <string name="action_share_account_link">Link zum Profil teilen</string>
     <string name="send_account_link_to">Profil-Link teilen an …</string>

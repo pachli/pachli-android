@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_login">Qqen ɣer Maṣṭudun</string>
     <string name="title_favourites">Ismenyifen</string>
     <string name="title_drafts">Irewwayen</string>
     <string name="action_logout">Ffeɣ</string>
@@ -34,7 +33,6 @@
     <string name="action_send">Jewweq</string>
     <string name="action_send_public">JEWWEQ!</string>
     <string name="action_retry">Ɛreḍ tikkelt-nniḍen</string>
-    <string name="action_close">Mdel</string>
     <string name="action_view_profile">Amaɣnu</string>
     <string name="action_view_favourites">Ismenyifen</string>
     <string name="action_open_in_web">Ldi deg uminig</string>
@@ -50,7 +48,6 @@
     <string name="no_drafts">Ur tesɛiḍ ara irewwayen.</string>
     <string name="error_generic">Tella-d tucḍa.</string>
     <string name="title_notifications">Tilɣa</string>
-    <string name="link_whats_an_instance">D acu i ttummant\?</string>
     <string name="title_bookmarks">Ticraḍ</string>
     <string name="action_bookmark">Rnu ɣer ticraḍ</string>
     <string name="action_view_bookmarks">Ticraḍ</string>
@@ -62,11 +59,9 @@
     <string name="action_emoji_keyboard">Anasiw n imujiyen</string>
     <string name="action_add_tab">Rnu iccer</string>
     <string name="action_copy_link">Nɣel aseɣwen</string>
-    <string name="action_open_as">Ldi amzun d %s</string>
     <string name="action_share_as">Bḍu amzun d…</string>
     <string name="send_post_link_to">Bḍu aseɣwen n tijewwiq s…</string>
     <string name="send_post_content_to">Bḍu tijewwiqt d…</string>
-    <string name="hint_domain">Anta tummant\?</string>
     <string name="hint_compose">d-acu i gellan d amaynut\?</string>
     <string name="hint_search">Nadi…</string>
     <string name="label_quick_reply">Tiririn…</string>
@@ -138,7 +133,6 @@
     <string name="action_reject">Ggami</string>
     <string name="download_image">Yessidired %1$s</string>
     <string name="send_media_to">Bḍu tugna s…</string>
-    <string name="login_connection">itteqqen…</string>
     <string name="dialog_message_uploading_media">Issalay…</string>
     <string name="pref_title_notification_filter_poll">fukken kran n wadɣaren</string>
     <string name="pref_title_timeline_filters">Imzizdigen</string>
@@ -156,7 +150,6 @@
     <string name="replying_to">Tettaraḍ-as i @%s</string>
     <string name="pref_title_thread_filter_keywords">Idewenniyen</string>
     <string name="lock_account_label">Rgel amiḍan</string>
-    <string name="performing_lookup_title">Yettnadi…</string>
     <string name="restart">Ales tanekra</string>
     <string name="download_failed">Tuccḍa n usider</string>
     <string name="account_moved_description">Igujj %1$s ɣer:</string>
@@ -221,7 +214,6 @@
     <string name="abbreviated_seconds_ago">%dtsn</string>
     <string name="compose_save_draft">Sekles amzun d arewway\?</string>
     <string name="later">Ticki</string>
-    <string name="profile_badge_bot_text">Aṛubut</string>
     <string name="description_post_bookmarked">Yettwarna ɣer ticṛad</string>
     <string name="abbreviated_in_hours">deg %dsr</string>
     <string name="abbreviated_in_minutes">deg %dtsd</string>

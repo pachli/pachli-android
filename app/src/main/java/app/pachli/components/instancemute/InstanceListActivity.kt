@@ -1,9 +1,9 @@
 package app.pachli.components.instancemute
 
 import android.os.Bundle
-import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.instancemute.fragment.InstanceListFragment
+import app.pachli.core.activity.BaseActivity
 import app.pachli.databinding.ActivityAccountListBinding
 import dagger.hilt.android.AndroidEntryPoint
 

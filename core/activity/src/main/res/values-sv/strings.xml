@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">Öppna med %s</string>
+    <string name="post_lookup_error_format">Fel vid uppslagning av status %s</string>
+    <string name="performing_lookup_title">Utför sökning…</string>
+</resources>

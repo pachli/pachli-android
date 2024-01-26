@@ -29,20 +29,21 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import app.pachli.BottomSheetActivity
 import app.pachli.R
+import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.emojify
+import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentViewEditsBinding
 import app.pachli.interfaces.LinkListener
-import app.pachli.util.emojify
-import app.pachli.util.hide
-import app.pachli.util.loadAvatar
-import app.pachli.util.show
-import app.pachli.util.viewBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.mikepenz.iconics.IconicsDrawable
@@ -89,7 +90,7 @@ class ViewEditsFragment :
         val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
         val animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
         val useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, true)
-        val avatarRadius: Int = requireContext().resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp)
+        val avatarRadius: Int = requireContext().resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collect { uiState ->

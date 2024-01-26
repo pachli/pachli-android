@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">Mở với tư cách %s</string>
+    <string name="post_lookup_error_format">Lỗi khi tìm tút %s</string>
+    <string name="performing_lookup_title">Đang tra cứu…</string>
+</resources>

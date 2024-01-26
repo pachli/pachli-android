@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Сюди можна ввести адресу або домен будь-якого сервера, наприклад mastodon.social, icosahedron.website, social.tchncs.de та <a href="https://instances.social">більше!</a>
+\n
+\nЯкщо у вас ще немає облікового запису, ви можете ввести назву сервера, до якого ви хочете приєднатися та створити там обліковий запис.
+\n
+\nСервер — єдине місце, де розміщено ваш обліковий запис, але ви можете легко спілкуватися з людьми та стежити за ними на інших серверах, ніби ви перебуваєте на тому ж сайті.
+\n
+\nДокладніше на <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="action_close">Закрити</string>
+    <string name="action_browser_login">Увійти через браузер</string>
+    <string name="error_invalid_domain">Введено недійсний домен</string>
+    <string name="error_failed_app_registration">Помилка автентифікації цього сервера. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>
+    <string name="error_authorization_unknown">Сталася помилка невпізнання авторизації. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>
+    <string name="error_authorization_denied">Авторизацію відхилено. Якщо ви впевнені, що вказали правильні облікові дані, спробуйте увійти через браузер з меню.</string>
+    <string name="error_retrieving_oauth_token">Не вдалося отримати токен входу. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>
+    <string name="error_loading_account_details">Не вдалося завантажити подробиці облікового запису</string>
+    <string name="hint_domain">Котрий сервер\?</string>
+    <string name="action_login">Увійти з Pachli</string>
+    <string name="link_whats_an_instance">Що таке сервер\?</string>
+    <string name="login_connection">Зʼєднання…</string>
+    <string name="title_login">Вхід</string>
+    <string name="error_could_not_load_login_page">Не вдалося завантажити сторінку входу.</string>
+    <string name="instance_rule_info">Увійшовши, ви погоджуєтесь з правилами %s.</string>
+    <string name="instance_rule_title">Правила %s</string>
+</resources>

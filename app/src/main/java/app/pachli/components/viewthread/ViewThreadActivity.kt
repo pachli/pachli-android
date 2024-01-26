@@ -18,11 +18,11 @@ package app.pachli.components.viewthread
 
 import android.os.Bundle
 import androidx.fragment.app.commit
-import app.pachli.BottomSheetActivity
 import app.pachli.R
+import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.databinding.ActivityViewThreadBinding
-import app.pachli.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

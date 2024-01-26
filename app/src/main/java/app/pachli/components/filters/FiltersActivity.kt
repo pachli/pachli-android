@@ -4,15 +4,16 @@ import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import app.pachli.BaseActivity
 import app.pachli.R
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.extensions.visible
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.EditFilterActivityIntent
 import app.pachli.core.network.model.Filter
 import app.pachli.databinding.ActivityFiltersBinding
-import app.pachli.util.hide
-import app.pachli.util.show
-import app.pachli.util.viewBinding
-import app.pachli.util.visible
 import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -97,7 +98,7 @@ class FiltersActivity : BaseActivity(), FiltersListener {
     private fun launchEditFilterActivity(filter: Filter? = null) {
         val intent = EditFilterActivityIntent(this, filter)
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+        overridePendingTransition(DR.anim.slide_from_right, DR.anim.slide_to_left)
     }
 
     override fun deleteFilter(filter: Filter) {

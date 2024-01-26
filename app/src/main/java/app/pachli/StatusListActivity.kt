@@ -25,6 +25,8 @@ import androidx.lifecycle.lifecycleScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FilterChangedEvent
 import app.pachli.components.timeline.TimelineFragment
+import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.StatusListActivityIntent
@@ -38,7 +40,6 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.network.ServerRepository
 import app.pachli.util.unsafeLazy
-import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.getOrElse
 import com.google.android.material.appbar.AppBarLayout

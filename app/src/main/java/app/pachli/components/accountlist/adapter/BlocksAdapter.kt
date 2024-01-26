@@ -19,12 +19,13 @@ package app.pachli.components.accountlist.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import app.pachli.R
+import app.pachli.core.activity.emojify
+import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.extensions.visible
+import app.pachli.core.designsystem.R as DR
 import app.pachli.databinding.ItemBlockedUserBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.util.BindingHolder
-import app.pachli.util.emojify
-import app.pachli.util.loadAvatar
-import app.pachli.util.visible
 
 /** Displays a list of blocked accounts. */
 class BlocksAdapter(
@@ -54,7 +55,7 @@ class BlocksAdapter(
         val formattedUsername = context.getString(R.string.post_username_format, account.username)
         binding.blockedUserUsername.text = formattedUsername
 
-        val avatarRadius = context.resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp)
+        val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
         loadAvatar(account.avatar, binding.blockedUserAvatar, avatarRadius, animateAvatar)
 
         binding.blockedUserBotBadge.visible(showBotOverlay && account.bot)

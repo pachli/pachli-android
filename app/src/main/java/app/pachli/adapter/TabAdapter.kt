@@ -24,13 +24,14 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import app.pachli.R
 import app.pachli.TabViewData
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.database.model.TabKind
+import app.pachli.core.designsystem.R as DR
 import app.pachli.databinding.ItemTabPreferenceBinding
 import app.pachli.databinding.ItemTabPreferenceSmallBinding
 import app.pachli.util.BindingHolder
-import app.pachli.util.hide
 import app.pachli.util.setDrawableTint
-import app.pachli.util.show
 import com.google.android.material.chip.Chip
 
 interface ItemInteractionListener {
@@ -103,7 +104,7 @@ class TabAdapter(
             setDrawableTint(
                 holder.itemView.context,
                 binding.removeButton.drawable,
-                (if (removeButtonEnabled) android.R.attr.textColorTertiary else R.attr.textColorDisabled),
+                (if (removeButtonEnabled) android.R.attr.textColorTertiary else DR.attr.textColorDisabled),
             )
 
             if (tab.kind == TabKind.HASHTAG) {

@@ -21,6 +21,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.AppTheme.Companion.APP_THEME_DEFAULT
@@ -54,7 +55,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     @Inject
     lateinit var localeManager: LocaleManager
 
-    private val iconSize by unsafeLazy { resources.getDimensionPixelSize(R.dimen.preference_icon_size) }
+    private val iconSize by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.preference_icon_size) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         makePreferenceScreen {

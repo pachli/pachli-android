@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Bármely példány címét vagy domain nevét beírhatod ide, mint a mastodon.social, az icosahedron.website, a social.tchncs.de és <a href="https://instances.social">mások!</a>
+\n
+\nHa még nincs fiókod, beírhatod annak a példánynak a címét, amelyhez csatlakoznál, majd azon létrehozhatsz egy fiókot.
+\n
+\nA példány az a hely, ahol a fiókadataidat tárolják, de ettől még ugyanúgy kommunikálhatsz más példányokon lévő emberekkel, mintha ugyanazon az oldalon lennétek.
+\n
+\nTöbb információt találhatsz itt: <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="action_close">Bezárás</string>
+    <string name="action_browser_login">Bejelentkezés Böngészővel</string>
+    <string name="error_invalid_domain">Helytelen domain</string>
+    <string name="error_failed_app_registration">Sikertelen hitelesítés ezen a példányon. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben.</string>
+    <string name="error_authorization_unknown">Azonosítatlan hitelesítési hiba történt. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben.</string>
+    <string name="error_authorization_denied">Engedély megtagadva. Ha biztos vagy benne, hogy a megfelelő hitelesítési adatokat adtad meg, próbáld a Bejelentkezés Böngészőben funkciót a menüben.</string>
+    <string name="error_retrieving_oauth_token">Bejelentkezési token megszerzése sikertelen. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben.</string>
+    <string name="error_loading_account_details">Nem sikerült betölteni a fiókadatokat</string>
+    <string name="hint_domain">Melyik példány\?</string>
+    <string name="action_login">Bejelentkezés Pachlival</string>
+    <string name="link_whats_an_instance">Mi az a példány\?</string>
+    <string name="login_connection">Csatlakozás…</string>
+    <string name="title_login">Bejelentkezés</string>
+    <string name="error_could_not_load_login_page">Nem tudtuk betölteni a bejelentkező oldalt.</string>
+    <string name="instance_rule_info">A bejelentkezéssel elfogadod a %s szabályait.</string>
+    <string name="instance_rule_title">%s szabályai</string>
+</resources>

@@ -11,12 +11,7 @@
     <string name="error_media_upload_permission">श्रव्यदृश्यसामग्र्यः द्रष्टुमनुमतिर्दातव्या ।</string>
     <string name="error_media_upload_opening">सा सञ्चिका नोद्घाट्यते ।</string>
     <string name="error_media_upload_type">नैतादृशा सञ्चिका उपारोपणीया ।</string>
-    <string name="error_retrieving_oauth_token">सम्प्रवेशस्तोकं न लब्धम् ।</string>
-    <string name="error_authorization_denied">प्रमाणीकरणं निषिद्धम् ।</string>
-    <string name="error_authorization_unknown">अज्ञातः प्रमाणीकरणदोषो जातः ।</string>
     <string name="error_no_web_browser_found">प्रयोजनार्थं जालसञ्चारकं न लब्धम् ।</string>
-    <string name="error_failed_app_registration">तेन विशिष्टस्थलेन प्रमाणीकरणं विफलं जातम् ।</string>
-    <string name="error_invalid_domain">अवैधानिकप्रदेशः प्रविष्टः</string>
     <string name="error_empty">नैतद्रिक्तं भवितुमर्हति ।</string>
     <string name="error_network">दोषो जातः । कृपया भवतोऽन्तर्जालीयसम्पर्कं परीक्ष्य पुनश्च यत्यताम् !</string>
     <string name="error_generic">दोषो जातः ।</string>
@@ -67,7 +62,6 @@
     <string name="action_follow">अनुस्रियताम्</string>
     <string name="action_logout_confirm">नूनमेव बहिर्गन्तुमीहते %1$s इति व्यक्तित्वलेखात् \?</string>
     <string name="action_logout">बहिर्गम्यताम्</string>
-    <string name="action_login">मास्टुडोनमाध्यमेन सम्प्रविश्यताम्</string>
     <string name="action_compose">रच्यताम्</string>
     <string name="action_more">अधिकम्</string>
     <string name="action_unfavourite">प्रियता निष्क्रियताम्</string>
@@ -92,7 +86,6 @@
     <string name="action_view_account_preferences">लेखाविन्यासाः</string>
     <string name="action_view_preferences">विन्यासाः</string>
     <string name="action_view_profile">व्यक्तिविवरणम्</string>
-    <string name="action_close">पिधीयताम्</string>
     <string name="action_retry">पुनः यत्यताम्</string>
     <string name="action_unmute_desc">%s सशब्दं क्रियताम्</string>
     <string name="action_unmute">सशब्दम्</string>
@@ -106,7 +99,6 @@
     <string name="downloading_media">सामग्री अवारोप्यमाणा</string>
     <string name="download_media">सामग्री अवारोप्यताम्</string>
     <string name="action_share_as">एवं विभाज्यताम् …</string>
-    <string name="action_open_as">%s एवमुद्घाट्यताम्</string>
     <string name="action_copy_link">जालस्थलं प्रतिलिख्यताम्</string>
     <string name="download_image">अवारोप्यमाणम् %1$s</string>
     <string name="action_open_media_n">उद्घाट्यताम् #%d</string>
@@ -144,8 +136,6 @@
     <string name="confirmation_unmuted">भोक्ता सशब्दः कृतः</string>
     <string name="confirmation_unblocked">निरवरोधः कृतः</string>
     <string name="confirmation_reported">प्रेषितम्!</string>
-    <string name="login_connection">सम्पर्कः क्रियते…</string>
-    <string name="link_whats_an_instance">किं नाम विशिष्टस्थलम्\?</string>
     <string name="label_header">शीर्षः</string>
     <string name="label_avatar">अवतारः</string>
     <string name="label_quick_reply">प्रत्युत्तरम् …</string>
@@ -155,7 +145,6 @@
     <string name="hint_display_name">नाम</string>
     <string name="hint_content_warning">विषयप्रत्यादेशः</string>
     <string name="hint_compose">किं वर्तमानमस्ति \?</string>
-    <string name="hint_domain">किं विशिष्टस्थलम् \?</string>
     <string name="post_sent_long">सफलं प्रत्युत्तरप्रेषणम् ।</string>
     <string name="post_sent">प्रेषितम्!</string>
     <string name="confirmation_domain_unmuted">%s अनावृतः</string>
@@ -181,13 +170,6 @@
     <string name="dialog_download_image">अवारोप्यताम्</string>
     <string name="dialog_message_uploading_media">उपारोप्यमाणम्…</string>
     <string name="dialog_title_finishing_media_upload">सामग्रीणामुपारोपणसिद्धिः वर्तमाना</string>
-    <string name="dialog_whats_an_instance">कस्याऽपि विशिष्टस्थलस्य सङ्केतसूत्रमत्र टङ्कयितुं शक्यते mastodon.social, icosahedron.website, social.tchncs.de, तथेैव<a href="https://instances.social">अधिकम्</a>
-\n
-\nयदि युष्माकं व्यक्तिगतलेखाऽत्र न वर्तते तर्हि तस्य विशिष्टस्थलस्य नाम टङ्कयित्वा तत्र निर्मातुं शक्नुथ ।
-\n
-\nविशिष्टस्थलमित्युक्ते स्थलमेकं यत्र युष्माकं लेखाः आश्रिताः, किन्तु साफल्येनैवाऽन्यविशिष्टस्थलीयैः सह सम्पर्कयितुं शक्यते ।
-\n
-\nअधिकमत्र प्राप्यते <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="hint_search_people_list">येषामुसरणं करोषि तेष्वन्विष्यताम्</string>
     <string name="action_delete_list">सूचिर्नश्यताम्</string>
     <string name="action_rename_list">पुनः सूचिनामकरणं क्रियताम्</string>
@@ -329,7 +311,6 @@
     <string name="compose_active_account_description">%1$s लेखया प्रकटनं क्रियते</string>
     <string name="action_remove_from_list">सूच्याः लेखा नश्यताम्</string>
     <string name="action_add_to_list">सूच्यां लेखा स्थाप्यताम्</string>
-    <string name="profile_badge_bot_text">यन्त्रम्</string>
     <string name="download_failed">अवारोपणे दोषः</string>
     <string name="caption_notoemoji">गुगलस्य वर्तमानभावचिह्नसमूहः</string>
     <string name="caption_twemoji">मास्टोडोनस्य पूर्वनिविष्टभावचिह्नसमूहः</string>
@@ -341,7 +322,6 @@
     <string name="restart_required">अनुप्रयोगप्रारम्भः आवश्यकः</string>
     <string name="action_open_post">दौत्यमुद्घाट्यताम्</string>
     <string name="expand_collapse_all_posts">विस्तार्यन्तां नश्यन्तां वा स्थतयः</string>
-    <string name="performing_lookup_title">अन्वेषणं भवद्वर्तते…</string>
     <string name="pin_action">कीलयतु</string>
     <string name="unpin_action">कीलनं नश्यताम्</string>
     <string name="label_remote_account">अधो लिखितवार्तोपभोक्तुः व्यक्तित्वविवरणमांशिकरूपेण प्रतिबिम्बयेत् । व्यक्तित्वविवरणमुद्घाट्यतां कश्मिंश्चिदपि जालसञ्चारके ।</string>
@@ -455,7 +435,6 @@
     <string name="total_usage">समस्त-उपयोगः</string>
     <string name="total_accounts">सकललेखाः</string>
     <string name="a11y_label_loading_thread">दौत्यमाला दृश्यते</string>
-    <string name="instance_rule_title">%s नियमाः</string>
     <string name="duration_indefinite">अपरिमितम्</string>
     <string name="action_set_focus">केन्द्रबिन्दुं स्थाप्यताम्</string>
     <string name="mute_notifications_switch">सूचनाः निशब्दाः करोतु</string>
@@ -481,7 +460,6 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="duration_30_days">३० दिनानि</string>
     <string name="report_category_other">अन्यम्</string>
-    <string name="title_login">सम्प्रवेशः</string>
     <string name="dialog_delete_conversation_warning">इदं सम्भाषणं निष्कास्यताम् \?</string>
     <string name="pref_title_notification_filter_sign_ups">कश्चन पञ्जीकरणम् अकरोत्</string>
     <string name="pref_show_self_username_always">सर्वदा</string>
@@ -503,7 +481,6 @@
     <string name="report_category_violation">नियम-उल्लङ्घनम्</string>
     <string name="error_muting_hashtag_format">#%s-निश्रेणिचिह्नशीर्षकस्य निशब्दीकरणे दोषः</string>
     <string name="error_unmuting_hashtag_format">#%s-निश्रेणिचिह्नशीर्षकस्य सशब्दीकरणे दोषः</string>
-    <string name="action_browser_login">जालसञ्चारकेन सम्प्रविश्यताम्</string>
     <string name="action_add_reaction">प्रतिक्रियां योजयतु</string>
     <string name="notification_header_report_format">%s-व्यक्तिः %s-व्यक्तिं प्रति आवेदनमकरोत्</string>
     <string name="action_discard">परिवर्तनानि निष्कासयतु</string>
@@ -532,8 +509,6 @@
     <string name="account_note_saved">रक्षितम् !</string>
     <string name="title_announcements">उद्घोषणाः</string>
     <string name="error_image_edit_failed">चित्रं सम्पादयितुं न शक्यते।</string>
-    <string name="error_loading_account_details">व्यक्तित्वलेखस्य विवरणानि दर्शनं विफलं जातम्</string>
-    <string name="error_could_not_load_login_page">सम्प्रवेशपुटं दर्शयितुं न शक्यते।</string>
     <string name="title_migration_relogin">पुनःसम्प्रवेशाय विज्ञापन-ज्ञापनसूचनाः</string>
     <string name="dialog_follow_hashtag_hint">#निश्रेणिचिह्नशीर्षकः</string>
     <string name="dialog_follow_hashtag_title">व्यक्तित्वविवरणलेखा अनुसरतु</string>

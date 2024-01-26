@@ -37,13 +37,18 @@ import android.view.MenuItem
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.invalidateOptionsMenu
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import app.pachli.BuildConfig.APPLICATION_ID
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
@@ -54,7 +59,6 @@ import app.pachli.fragment.ViewVideoFragment
 import app.pachli.pager.ImagePagerAdapter
 import app.pachli.pager.SingleImagePagerAdapter
 import app.pachli.util.getTemporaryMediaFilename
-import app.pachli.util.viewBinding
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider
 import autodispose2.autoDispose
 import com.bumptech.glide.Glide

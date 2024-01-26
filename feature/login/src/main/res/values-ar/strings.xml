@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">بإمكانك إدخال عنوان أي مثيل خادوم ماستدون هنا. على سبيل المثال mastodon.social أو icosahedron.website أو social.tchncs.de أوالإطلاع على <a href="https://instances.social">لاكتشاف المزيد !</a>
+\n
+\n إن كنت لا تملك حسابا بإمكانك إدخال اسم مثيل خادوم تريد الانضمام إليه قصد إنشاء حسابك عليه.
+\n
+\n نعني بمثيل الخادوم المكان الذي استُضِيف فيه حسابك و يمكنك التواصل مع أصدقائك و متابعيك و كأنكم على موقع واحد و ذلك حتى و إن كانت حساباتهم مُستضافة على مثيلات خوادم أخرى.
+\n
+\n للمزيد مِن التفاصيل إطّلع على <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="action_close">إغلاق</string>
+    <string name="action_browser_login">الولوج باستخدام متصفح</string>
+    <string name="error_invalid_domain">اسم النطاق الذي قمتَ بإدخاله غير صالح</string>
+    <string name="error_failed_app_registration">أخففت المصادقة مع مثيل الخادم هذا.</string>
+    <string name="error_authorization_unknown">لقد وقع هناك خطأ مجهول في التصريح.</string>
+    <string name="error_authorization_denied">تم رفض التصريح.</string>
+    <string name="error_retrieving_oauth_token">فشل الحصول على رمز الولوج.</string>
+    <string name="error_loading_account_details">فشلت عملية تحميل تفاصيل الحساب</string>
+    <string name="hint_domain">أي مثيل خادم؟</string>
+    <string name="action_login">الولوج باستخدام Pachli</string>
+    <string name="link_whats_an_instance">ماذا نعني بمثيل الخادم؟</string>
+    <string name="login_connection">الإتصال جارٍ…</string>
+    <string name="title_login">تسجيل الدخول</string>
+    <string name="error_could_not_load_login_page">فشل الوصول الى صفحة تسجيل الدخول.</string>
+    <string name="instance_rule_info">بتسجيل الدخول، أنت توافق على %s.</string>
+    <string name="instance_rule_title">%s شروط</string>
+</resources>

@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.database.model.DraftAttachment
+import app.pachli.core.designsystem.R as DR
 import app.pachli.view.MediaPreviewImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -76,12 +77,12 @@ class DraftMediaAdapter(
         RecyclerView.ViewHolder(imageView) {
         init {
             val thumbnailViewSize =
-                imageView.context.resources.getDimensionPixelSize(R.dimen.compose_media_preview_size)
+                imageView.context.resources.getDimensionPixelSize(DR.dimen.compose_media_preview_size)
             val layoutParams = ConstraintLayout.LayoutParams(thumbnailViewSize, thumbnailViewSize)
             val margin = itemView.context.resources
-                .getDimensionPixelSize(R.dimen.compose_media_preview_margin)
+                .getDimensionPixelSize(DR.dimen.compose_media_preview_margin)
             val marginBottom = itemView.context.resources
-                .getDimensionPixelSize(R.dimen.compose_media_preview_margin_bottom)
+                .getDimensionPixelSize(DR.dimen.compose_media_preview_margin_bottom)
             layoutParams.setMargins(margin, 0, margin, marginBottom)
             imageView.layoutParams = layoutParams
             imageView.scaleType = ImageView.ScaleType.CENTER_CROP

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hint_compose">چی خەریکه ڕوودەدات؟</string>
-    <string name="hint_domain">کام نموونە؟</string>
     <string name="post_sent_long">وەڵام دانەوە کە بە سەرکەوتوویی نێردرا.</string>
     <string name="post_sent">ناردن!</string>
     <string name="confirmation_domain_unmuted">%s نەشاراوە</string>
@@ -14,7 +13,6 @@
     <string name="downloading_media">داگرتنی میدیا</string>
     <string name="download_media">داگرتنی میدیا</string>
     <string name="action_share_as">هاوبەش کردن وەک …</string>
-    <string name="action_open_as">کردنەوە وەک %s</string>
     <string name="action_copy_link">بەستەرەکە ڕوونوس بکە</string>
     <string name="download_image">داگرتنی %1$s</string>
     <string name="action_open_media_n">کردنەوەی میدیا #%d</string>
@@ -66,7 +64,6 @@
     <string name="action_view_account_preferences">پەسەندکراوەکانی ئەژمێر</string>
     <string name="action_view_preferences">پەسەندەکان</string>
     <string name="action_view_profile">پرۆفایل</string>
-    <string name="action_close">دابخە</string>
     <string name="action_retry">دووبارە هەوڵ بدە</string>
     <string name="action_send_public">توت!</string>
     <string name="action_send">توت</string>
@@ -82,7 +79,6 @@
     <string name="action_follow">شوێنی بکەوە</string>
     <string name="action_logout_confirm">ئایا دڵنیایت لەوەی دەتەوێت بچیتەدەرەوە لە هەژماری %1$s؟</string>
     <string name="action_logout">چوونەدەرەوە</string>
-    <string name="action_login">چوونەژوورەوە لەگەڵ ماستۆدۆن</string>
     <string name="action_compose">دروستکردن</string>
     <string name="action_more">زیاتر</string>
     <string name="action_unfavourite">لابردنی دڵخوازەکان</string>
@@ -140,12 +136,7 @@
     <string name="error_media_upload_opening">ئەم فایلە ناتوانرێت بکرێتەوە.</string>
     <string name="error_media_upload_type">ناتوانیت لەم جۆرە فایلانە بەرز بکەیتەوە.</string>
     <string name="error_compose_character_limit">ئەم نووسینە زۆر درێژە!</string>
-    <string name="error_retrieving_oauth_token">سەرکەوتوو نەبوو لە بەدەستهێنانی نیشانەی چوونەژوورەوە.</string>
-    <string name="error_authorization_denied">ڕێپێدان ڕەتکرایەوە.</string>
-    <string name="error_authorization_unknown">هەڵەیەک بۆ مۆڵەتدانی نەناسراو ڕووی دا.</string>
     <string name="error_no_web_browser_found">نەیتوانی وێبگەڕبدۆزێتەوە بۆ بەکارهێنان.</string>
-    <string name="error_failed_app_registration">سەرکەوتوو نەبوو، ڕاستکردنەوە لەگەڵ ئەم نمونەیە.</string>
-    <string name="error_invalid_domain">دۆمەینێکی نادروستت نووسیوە</string>
     <string name="error_empty">ناکرێت ئەمە بەتاڵ بێت.</string>
     <string name="error_network">هەڵەیەک لە پەیوەندییەکەدا ڕوویدا. تکایە دڵنیا ببەوە لە بەردەستبوونی هێڵی ئینتەرنێت.</string>
     <string name="error_generic">هەڵەیەک ڕوویدا.</string>
@@ -206,15 +197,6 @@
     <string name="dialog_download_image">داگرتن</string>
     <string name="dialog_message_uploading_media">بارکردن…</string>
     <string name="dialog_title_finishing_media_upload">تەواوکردنی بارکردنی میدیا</string>
-    <string name="dialog_whats_an_instance">ناونیشان یان دۆمەینی هەر نمونەیەک دەکرێت لێرە تێبنووسرێت، وەک <a href="https://instances.social">فرەتر!</a>
-\n
-\nئەگەر هێشتا ئەژمێرێکت نیە، دەتوانیت ناوی ئەو نمونەیە داخڵ بکەیت کە دەتەوێت بیبەستیت و ئەژمێرێک دروست بکەیت لەوێ.
-\n
-\nنموونەیەک تاکە شوێنە کە ئەژمێرەکەت میوانداری کراوە، بەڵام دەتوانیت بە ئاسانی پەیوەندی لەگەڵ بکەیت و دوای ئەو خەڵکانە بکەویت لە نمونەکانی تر وەک ئەوەی تۆ لە هەمان سایت دابیت.
-\n
-\nزانیاری زیاتر دەتوانرێت بدۆزرێتەوە لە <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
-    <string name="login_connection">گرێدان…</string>
-    <string name="link_whats_an_instance">نموونەیەک چییە؟</string>
     <string name="label_header">سەرپەڕە</string>
     <string name="label_avatar">وێنۆچکە</string>
     <string name="label_quick_reply">وەڵام…</string>
@@ -253,7 +235,6 @@
     <string name="no_announcements">هیچ ڕاگه یه نراوێک له بەرده رنه کەون.</string>
     <string name="no_scheduled_posts">هیچ بارێکی خشتەکراوت نیە.</string>
     <string name="no_drafts">هیچ ڕەشنووسێکت نییە.</string>
-    <string name="post_lookup_error_format">هەڵە لە گەڕان بەدوای بابەت %s</string>
     <string name="edit_poll">دەستکاریکردن</string>
     <string name="poll_new_choice_hint">هەڵبژاردنی %d</string>
     <string name="poll_allow_multiple_choices">چەند هەڵبژاردنێک</string>
@@ -347,7 +328,6 @@
     <string name="unreblog_private">بێ هێزکردن</string>
     <string name="reblog_private">بەرزکردنەوە بۆ جەماوەری ڕەسەن</string>
     <string name="account_moved_description">%1$s گواسترایەوە بۆ:</string>
-    <string name="profile_badge_bot_text">بۆت</string>
     <string name="download_failed">داگرتن سەرکەوتوو نەبوو</string>
     <string name="caption_notoemoji">کۆمەڵە ئیمۆجیەکەی ئێستای گووگڵ</string>
     <string name="caption_twemoji">سێتی ئیمۆجی پێوانەیی ماتۆدۆن</string>
@@ -359,7 +339,6 @@
     <string name="restart_required">دەسپێکردنەوەی کاربەرنامە پێویستە</string>
     <string name="action_open_post">کردنەوە توت</string>
     <string name="expand_collapse_all_posts">فراوانکردن/نوشتانەوەی هەموو بارەکان</string>
-    <string name="performing_lookup_title">ئەنجامدانی گەڕان…</string>
     <string name="download_fonts">تۆ پێویستە سەرەتا ئەم سێتە ئیمۆجییانە دابگریت</string>
     <string name="system_default">سیستەمی بنەڕەت</string>
     <string name="emoji_style">شێوازی ئیمۆجی</string>

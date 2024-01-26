@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import app.pachli.R
+import app.pachli.core.designsystem.R as DR
 import kotlin.math.roundToInt
 
 /**
@@ -16,7 +17,7 @@ import kotlin.math.roundToInt
 class MediaPreviewLayout(context: Context, attrs: AttributeSet? = null) :
     ViewGroup(context, attrs) {
 
-    private val spacing = context.resources.getDimensionPixelOffset(R.dimen.preview_image_spacing)
+    private val spacing = context.resources.getDimensionPixelOffset(DR.dimen.preview_image_spacing)
 
     /**
      * An ordered list of aspect ratios used for layout. An image view for each aspect ratio passed

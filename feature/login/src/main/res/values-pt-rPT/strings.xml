@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">O endereço IP ou domínio de qualquer instância pode ser inserido aqui, como por exemplo mastodon.social, masto.pt, pleroma.pt ou qualquer <a href="https://instances.social">outro!</a>
+\n
+\nSe ainda não tem uma conta, insira o nome da instância onde pretende participar e crie uma conta lá.
+\n
+\nUma instância é o local onde sua conta é criada, mas pode facilmente seguir e comunicar com pessoas de outras instâncias como se estivessem todos no mesmo site.
+\n
+\nMais informações disponíveis em <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="action_close">Fechar</string>
+    <string name="action_browser_login">Iniciar sessão com navegador</string>
+    <string name="error_invalid_domain">A instância inserida é inválida</string>
+    <string name="error_failed_app_registration">Erro ao autenticar com esta instância.</string>
+    <string name="error_authorization_unknown">Ocorreu um erro de autorização não identificado.</string>
+    <string name="error_authorization_denied">Autorização negada.</string>
+    <string name="error_retrieving_oauth_token">Erro ao adquirir token de login.</string>
+    <string name="error_loading_account_details">Erro ao carregar os detalhes da conta</string>
+    <string name="hint_domain">Que instância\?</string>
+    <string name="action_login">Entrar com Mastodon</string>
+    <string name="link_whats_an_instance">O que é uma instância\?</string>
+    <string name="login_connection">A ligar…</string>
+    <string name="title_login">Entrar</string>
+    <string name="error_could_not_load_login_page">Não foi possível carregar a página de autenticação.</string>
+</resources>

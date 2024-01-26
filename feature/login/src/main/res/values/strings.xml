@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">The address or domain of any instance can be entered
+        here, such as mastodon.social, icosahedron.website, social.tchncs.de, and
+        <a href="https://instances.social">more!</a>
+        \n\nIf you don\'t yet have an account, you can enter the name of the instance you\'d like to
+        join and create an account there.\n\nAn instance is a single place where your account is
+        hosted, but you can easily communicate with and follow folks on other instances as though
+        you were on the same site.
+        \n\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Close</string>
+    <string name="action_browser_login">Login with Browser</string>
+    <string name="error_invalid_domain">Invalid domain entered</string>
+    <string name="error_failed_app_registration">Failed authenticating with that instance. If this persists, try "Login in Browser" from the menu.</string>
+    <string name="error_authorization_unknown">An unidentified authorization error occurred. If this persists, try "Login in Browser" from the menu.</string>
+    <string name="error_authorization_denied">Authorization was denied. If you\'re sure that you supplied the correct credentials, try "Login in Browser" from the menu.</string>
+    <string name="error_retrieving_oauth_token">Failed getting a login token. If this persists, try "Login in Browser" from the menu.</string>
+    <string name="error_loading_account_details">Failed loading account details</string>
+    <string name="hint_domain">Which instance?</string>
+    <string name="action_login">Login with Pachli</string>
+    <string name="link_whats_an_instance">What\'s an instance?</string>
+    <string name="login_connection">Connecting…</string>
+    <string name="title_login">Login</string>
+    <string name="error_could_not_load_login_page">Could not load the login page.</string>
+    <string name="instance_rule_info">By logging in you agree to the rules of %s.</string>
+    <string name="instance_rule_title">%s rules</string>
+</resources>

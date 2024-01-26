@@ -11,14 +11,15 @@ import androidx.core.view.setPadding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.R
+import app.pachli.core.activity.decodeBlurHash
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.ItemAccountMediaBinding
 import app.pachli.util.BindingHolder
-import app.pachli.util.decodeBlurHash
 import app.pachli.util.getFormattedDescription
-import app.pachli.util.hide
-import app.pachli.util.show
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import java.util.Random
@@ -71,7 +72,7 @@ class AccountMediaGridAdapter(
             if (item.attachment.type == Attachment.Type.AUDIO) {
                 overlay.hide()
 
-                imageView.setPadding(context.resources.getDimensionPixelSize(R.dimen.profile_media_audio_icon_padding))
+                imageView.setPadding(context.resources.getDimensionPixelSize(DR.dimen.profile_media_audio_icon_padding))
 
                 Glide.with(imageView)
                     .load(R.drawable.ic_music_box_preview_24dp)

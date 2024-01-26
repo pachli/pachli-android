@@ -19,13 +19,14 @@ package app.pachli.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.activity.emojify
+import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.extensions.visible
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.databinding.ItemAccountBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.LinkListener
-import app.pachli.util.emojify
-import app.pachli.util.loadAvatar
-import app.pachli.util.visible
 
 class AccountViewHolder(
     private val binding: ItemAccountBinding,
@@ -53,7 +54,7 @@ class AccountViewHolder(
         binding.accountDisplayName.text = emojifiedName
 
         val avatarRadius = binding.accountAvatar.context.resources
-            .getDimensionPixelSize(R.dimen.avatar_radius_48dp)
+            .getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
         loadAvatar(account.avatar, binding.accountAvatar, avatarRadius, animateAvatar)
 
         binding.accountBotBadge.visible(showBotOverlay && account.bot)

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">Dobrir coma %s</string>
+    <string name="post_lookup_error_format">Error en cercant la publicacion %s</string>
+    <string name="performing_lookup_title">Recèrca…</string>
+</resources>

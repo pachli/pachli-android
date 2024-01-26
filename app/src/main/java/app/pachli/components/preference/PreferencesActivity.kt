@@ -24,9 +24,10 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.appstore.EventHub
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
@@ -136,10 +137,10 @@ class PreferencesActivity :
         fragment.setTargetFragment(caller, 0)
         supportFragmentManager.commit {
             setCustomAnimations(
-                R.anim.slide_from_right,
-                R.anim.slide_to_left,
-                R.anim.slide_from_left,
-                R.anim.slide_to_right,
+                DR.anim.slide_from_right,
+                DR.anim.slide_to_left,
+                DR.anim.slide_from_left,
+                DR.anim.slide_to_right,
             )
             replace(R.id.fragment_container, fragment)
             addToBackStack(null)
@@ -163,7 +164,7 @@ class PreferencesActivity :
         intent.putExtras(savedInstanceState)
         startActivityWithSlideInAnimation(intent)
         finish()
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        overridePendingTransition(DR.anim.fade_in, DR.anim.fade_out)
     }
 
     companion object {

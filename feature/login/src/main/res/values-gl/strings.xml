@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Aquí podes escribir o enderezo ou dominio de calquera instancia, como mastodon.social, icosahedron.website, social.techncs.de, e <a href="https://instances.social">máis!</a>
+\n
+\nSe aínda non tes unha conta, podes escribir o nome da instancia á que desexas unirte e crear unha conta nela.
+\n
+\nUnha instancia é o lugar onde se hospeda a túa conta, pero podes comunicarte facilmente e seguir a persoas noutras instancias como se estiveses alí.
+\n
+\nPodes atopar máis información en <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="action_close">Pechar</string>
+    <string name="action_browser_login">Acceder no Navegador</string>
+    <string name="error_invalid_domain">O dominio escrito non é válido</string>
+    <string name="error_failed_app_registration">Fallou a autenticación nesta instancia. Se persiste, inténtao desde Acceder no Navegador no menú.</string>
+    <string name="error_authorization_unknown">Aconteceu un erro non identificado na autorización. Se persiste, inténtao desde Acceder no Navedor.</string>
+    <string name="error_authorization_denied">A autorización foi rexeitada. Se tes a certeza de que as credenciais son correctas, inténtao desde Acceder no Navegador no menú.</string>
+    <string name="error_retrieving_oauth_token">Non se obtivo o token de acceso. Se non o consigues, inténtao desde Acceder no Navegador.</string>
+    <string name="error_loading_account_details">Fallou a carga dos detalles da conta</string>
+    <string name="hint_domain">En que instancia\?</string>
+    <string name="action_login">Acceder con Pachli</string>
+    <string name="link_whats_an_instance">Que é unha instancia\?</string>
+    <string name="login_connection">Conectando…</string>
+    <string name="title_login">Acceder</string>
+    <string name="error_could_not_load_login_page">Non se puido cargar a páxina de inicio.</string>
+    <string name="instance_rule_info">Ao iniciar sesión aceptas as normas de %s.</string>
+    <string name="instance_rule_title">Normas de %s</string>
+</resources>

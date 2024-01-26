@@ -34,8 +34,11 @@ dependencies {
     // class app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor, unresolved supertypes: okhttp3.Interceptor
     compileOnly(libs.bundles.okhttp)
 
+    // AccountManager exposes AccountEntity as part of its public API
+    // TODO: This should be wrapped in a type from this module to prevent this
+    api(projects.core.database)
+
     implementation(projects.core.common)
-    implementation(projects.core.database)
     implementation(projects.core.network)
     implementation(projects.core.preferences)
 }

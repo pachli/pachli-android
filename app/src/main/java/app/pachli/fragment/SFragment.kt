@@ -38,13 +38,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import app.pachli.BaseActivity
-import app.pachli.BottomSheetActivity
-import app.pachli.PostLookupFallbackBehavior
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.activity.AccountSelectionListener
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.PostLookupFallbackBehavior
+import app.pachli.core.activity.openLink
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -56,11 +59,9 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.network.ServerRepository
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.openLink
 import app.pachli.view.showMuteAccountDialog
 import app.pachli.viewdata.IStatusViewData
 import at.connyduck.calladapter.networkresult.fold
@@ -94,7 +95,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     override fun startActivity(intent: Intent) {
         super.startActivity(intent)
-        requireActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+        requireActivity().overridePendingTransition(DR.anim.slide_from_right, DR.anim.slide_to_left)
     }
 
     override fun onAttach(context: Context) {

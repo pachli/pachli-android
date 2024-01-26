@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">%s के रूप में खोलें</string>
+    <string name="post_lookup_error_format">%s पोस्ट खोजने में त्रुटि</string>
+    <string name="performing_lookup_title">देखने की क्रिया जारी…</string>
+</resources>

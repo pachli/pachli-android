@@ -2,12 +2,7 @@
 <resources>
     <string name="error_generic">Bu gwall.</string>
     <string name="error_empty">Ni all hwn fod yn wag.</string>
-    <string name="error_invalid_domain">Rhoddwyd parth annilys</string>
-    <string name="error_failed_app_registration">Methu awdurdodi gyda\'r gweinydd hwnnw. Os bydd hyn yn parhau, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen.</string>
     <string name="error_no_web_browser_found">Methu dod o hyd i borwr gwe i\'w ddefnyddio.</string>
-    <string name="error_authorization_unknown">Bu gwall awdurdodi anhysbys. Os bydd hyn yn parhau, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen.</string>
-    <string name="error_authorization_denied">Gwrthodwyd awdurdodi. Os ydych chi\'n siŵr dy fod di wedi gyflenwi\'r manylion cywir, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen.</string>
-    <string name="error_retrieving_oauth_token">Methu cael tocyn mewngofnodi. Os bydd hyn yn parhau, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen.</string>
     <string name="error_compose_character_limit">Mae\'ch neges yn rhy hir!</string>
     <string name="error_media_upload_type">Ni allwch lanlwytho\'r math hwnnw o ffeil.</string>
     <string name="error_media_upload_opening">Nid oedd modd agor y ffeil honno.</string>
@@ -52,7 +47,6 @@
     <string name="action_favourite">Hoffi</string>
     <string name="action_more">Mwy</string>
     <string name="action_compose">Creu</string>
-    <string name="action_login">Mewngofnodi â Pachli</string>
     <string name="action_logout">Allgofnodi</string>
     <string name="action_logout_confirm">Ydych chi\'n siŵr eich bod am allgofnodi o\'r cyfrif %1$s\? Bydd hyn yn dileu\'r holl ddata lleol, gan gynnwys drafftiau a chyfeiriadau.</string>
     <string name="action_follow">Dilyn</string>
@@ -66,7 +60,6 @@
     <string name="action_send">TŴTIO</string>
     <string name="action_send_public">TŴTIO!</string>
     <string name="action_retry">Ceisio eto</string>
-    <string name="action_close">Cau</string>
     <string name="action_view_profile">Proffil</string>
     <string name="action_view_preferences">Dewisiadau</string>
     <string name="action_view_favourites">Ffefrynnau</string>
@@ -104,7 +97,6 @@
     <string name="confirmation_unmuted">Dad-dawyd defnyddiwr</string>
     <string name="post_sent">Anfonwyd!</string>
     <string name="post_sent_long">Anfonwyd yr ymateb yn llwyddiannus.</string>
-    <string name="hint_domain">Pa weinydd\?</string>
     <string name="hint_compose">Beth sy\'n digwydd?</string>
     <string name="hint_content_warning">Rhybudd cynnwys</string>
     <string name="hint_display_name">Enw dangos</string>
@@ -114,15 +106,6 @@
     <string name="label_quick_reply">Ymateb…</string>
     <string name="label_avatar">Llun proffil</string>
     <string name="label_header">Pennyn</string>
-    <string name="link_whats_an_instance">Beth yw gweinydd\?</string>
-    <string name="login_connection">Yn cysylltu…</string>
-    <string name="dialog_whats_an_instance">Gallwch roi cyfeiriad neu barth unrhyw enghraifft yma, fel mastodon.social, twt.cymru, social.tchncs.de, a <a href="https://instances.social">mwy!</a>
-\n
-\nOs nad oes gennych gyfrif, gallwch roi enw\'r enghraifft yr hoffech ymuno ag ef a chreu cyfrif yno.
-\n
-\nEnghraifft yw\'r man y mae\'ch cyfrif wedi ei gynnal, ond gallwch yn hawdd gyfathrebu â phobl a\'u dilyn ar enghreifftiau eraill fel petai chi yn yr unfan.
-\n
-\nRhagor o wybodaeth yn <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="dialog_title_finishing_media_upload">Yn Gorffen Lanlwytho\'r Cyfryngau</string>
     <string name="dialog_message_uploading_media">Yn lanlwytho…</string>
     <string name="dialog_download_image">Lawrlwytho</string>
@@ -247,7 +230,6 @@
     <string name="emoji_style">Arddull emoji</string>
     <string name="system_default">Rhagosodiad system</string>
     <string name="download_fonts">Bydd angen i chi lwytho\'r setiau emoji hyn i lawr yn gyntaf</string>
-    <string name="performing_lookup_title">Wrthi\'n chwilio…</string>
     <string name="expand_collapse_all_posts">Chwyddo/lleihau pob neges</string>
     <string name="action_open_post">Agor y neges</string>
     <string name="restart_required">Angen ailddechrau\'r ap</string>
@@ -338,19 +320,15 @@
     <string name="pref_title_notification_filter_subscriptions">mae rhywun rwy\'n tanysgrifio iddi/o wedi cyhoeddi neges newydd</string>
     <string name="filter_dialog_whole_word">Gair cyfan</string>
     <string name="filter_add_description">Ymadrodd i\'w hidlo</string>
-    <string name="action_open_as">Agor fel %s</string>
     <string name="action_reset_schedule">Ailosod</string>
     <string name="title_bookmarks">Tudalnodau</string>
     <string name="notification_follow_request_format">Ceisiodd %s i\'ch dilyn chi</string>
-    <string name="title_login">Mewngofnodi</string>
     <string name="notification_sign_up_format">Cofrestrodd %s</string>
     <string name="action_unbookmark">Tynnu\'r tudalnod</string>
     <string name="action_unmute_desc">Dad-dewi %s</string>
     <string name="title_migration_relogin">Mewngofnodwch eto i gael hysbysiadau gwthio</string>
     <string name="title_announcements">Cyhoeddiadau</string>
-    <string name="error_could_not_load_login_page">Methu llwytho\'r dudalen mewngofnodi.</string>
     <string name="title_scheduled_posts">Negeseuon a amserlennwyd</string>
-    <string name="error_loading_account_details">Wedi methu llwytho manylion cyfrif</string>
     <string name="pref_title_timelines">Ffrydiau</string>
     <string name="title_favourited_by">Hoffwyd gan</string>
     <string name="error_image_edit_failed">Methu golygu\'r ddelwedd.</string>
@@ -394,7 +372,6 @@
     <string name="action_create_list">Creu rhestr</string>
     <string name="action_rename_list">Diweddaru\'r rhestr</string>
     <string name="hint_search_people_list">Chwilio am bobl rydych chi\'n eu dilyn</string>
-    <string name="profile_badge_bot_text">Bot</string>
     <string name="action_edit_image">Golygu llun</string>
     <string name="title_reblogged_by">Hybwyd gan</string>
     <string name="label_duration">Hyd</string>
@@ -466,7 +443,6 @@
     <string name="action_add_or_remove_from_list">Ychwanegu at neu dynnu oddi ar restr</string>
     <string name="failed_to_add_to_list">Wedi methu ag ychwanegu\'r cyfrif at y rhestr</string>
     <string name="failed_to_remove_from_list">Wedi methu tynnu\'r cyfrif o\'r rhestr</string>
-    <string name="instance_rule_info">Drwy fewngofnodi rydych yn cytuno i reolau %s.</string>
     <string name="compose_save_draft_loses_media">Cadw drafft\? (Bydd atodiadau\'n cael eu lanlwytho eto pan fyddwch chi\'n adfer y drafft.)</string>
     <string name="description_post_reblogged">Ailflogiwyd</string>
     <string name="dialog_push_notification_migration_other_accounts">Rydych wedi ail-fewngofnodi i\'ch cyfrif cyfredol i roi caniatâd tanysgrifio gwthio i Pachli. Fodd bynnag, mae gennych gyfrifon eraill o hyd nad ydyn nhw wedi\'u mudo fel hyn. Newidiwch atyn nhw ac ail-fewngofnodi fesul un er mwyn galluogi cefnogaeth hysbysiadau UnifiedPush.</string>
@@ -491,11 +467,9 @@
     <string name="button_done">Wedi gorffen</string>
     <string name="report_sent_success">Wedi adrodd ar @%s yn llwyddiannus</string>
     <string name="limit_notifications">Cyfyngu ar hysbysiadau ffrydiau</string>
-    <string name="post_lookup_error_format">Gwall wrth chwilio am y neges %s</string>
     <string name="pref_title_show_self_username">Dangos enw defnyddiwr mewn bariau offer</string>
     <string name="pref_title_confirm_favourites">Dangos cadarnhad cyn hoffi</string>
     <string name="pref_title_hide_top_toolbar">Cuddio teitl y bar offer uchaf</string>
-    <string name="instance_rule_title">Rheolau %s</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="error_following_hashtags_unsupported">Nid yw\'r gweinydd hwn yn cefnogi\'r hashnodau canlynol.</string>
     <string name="poll_info_closed">wedi cau</string>
@@ -637,7 +611,6 @@
     <string name="pref_summary_http_proxy_disabled">Analluogwyd</string>
     <string name="pref_summary_http_proxy_missing">&lt;heb ei osod&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;annilys&gt;</string>
-    <string name="action_browser_login">Mewngofnodi â phorwr</string>
     <string name="description_login">Yn gweithio yn y rhan mwyaf o achosion. Nid oes unrhyw ddata yn cael ei ollwng i apiau eraill.</string>
     <string name="description_browser_login">Gall gefnogi dulliau dilysu ychwanegol, ond mae angen porwr a gefnogir.</string>
     <string name="action_post_failed_detail">Methodd eich neges â lanlwytho a chafodd ei chadw i\'ch drafftiau.

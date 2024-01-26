@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">인스턴스의 도메인 주소나 IP주소를 입력하실 수 있습니다. mastodon.social, icosahedron.website, social.tchncs.de 등이 있으며, 그 외에도 <a href="https://instances.social">더 많은 인스턴스</a>가 당신을 기다리고 있습니다!
+\n
+\n만약 계정이 없으시다면, 인스턴스 주소를 입력하신 후에 계정을 만드실 수 있습니다.
+\n
+\n여러분이 어느 인스턴스에 가입하시더라도, 다른 인스턴스에 있는 유저들과 문제 없이 소통하실 수 있습니다.
+\n
+\n자세한 사항은 <a href="https://joinmastodon.org">joinmastodon.org</a>을 참조하세요. </string>
+    <string name="action_close">닫기</string>
+    <string name="error_invalid_domain">도메인이 올바르지 않습니다</string>
+    <string name="error_failed_app_registration">해당 인스턴스에 대한 인증에 실패했습니다.</string>
+    <string name="error_authorization_unknown">알 수 없는 인증 오류가 발생했습니다.</string>
+    <string name="error_authorization_denied">인증이 거부되었습니다.</string>
+    <string name="error_retrieving_oauth_token">로그인 토큰을 받아올 수 없습니다.</string>
+    <string name="hint_domain">인스턴스 주소</string>
+    <string name="action_login">마스토돈에 로그인</string>
+    <string name="link_whats_an_instance">인스턴스가 무엇인가요\?</string>
+    <string name="login_connection">연결 중…</string>
+</resources>

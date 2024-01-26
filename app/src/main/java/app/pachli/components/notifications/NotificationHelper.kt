@@ -42,13 +42,13 @@ import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import app.pachli.BuildConfig
 import app.pachli.MainActivity
-import app.pachli.MainActivity.Companion.composeIntent
-import app.pachli.MainActivity.Companion.openNotificationIntent
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.receiver.SendStatusBroadcastReceiver
@@ -168,10 +168,10 @@ fun makeNotification(
         target.get()
     } catch (e: ExecutionException) {
         Timber.w(e, "error loading account avatar")
-        BitmapFactory.decodeResource(context.resources, R.drawable.avatar_default)
+        BitmapFactory.decodeResource(context.resources, DR.drawable.avatar_default)
     } catch (e: InterruptedException) {
         Timber.w(e, "error loading account avatar")
-        BitmapFactory.decodeResource(context.resources, R.drawable.avatar_default)
+        BitmapFactory.decodeResource(context.resources, DR.drawable.avatar_default)
     }
     builder.setLargeIcon(accountAvatar)
 
@@ -295,8 +295,11 @@ fun updateSummaryNotifications(
                 EXTRA_NOTIFICATION_TYPE,
             ) as Notification.Type?
             )!!
-        val summaryResultIntent =
-            openNotificationIntent(context, accountId.toLong(), notificationType)
+        val summaryResultIntent = MainActivityIntent.openNotification(
+            context,
+            accountId.toLong(),
+            notificationType,
+        )
         val summaryStackBuilder = TaskStackBuilder.create(context)
         summaryStackBuilder.addParentStack(MainActivity::class.java)
         summaryStackBuilder.addNextIntent(summaryResultIntent)
@@ -313,7 +316,7 @@ fun updateSummaryNotifications(
         val summaryBuilder = NotificationCompat.Builder(context, channelId!!)
             .setSmallIcon(R.drawable.ic_notify)
             .setContentIntent(summaryResultPendingIntent)
-            .setColor(context.getColor(R.color.notification_color))
+            .setColor(context.getColor(DR.color.notification_color))
             .setAutoCancel(true)
             .setShortcutId(account.id.toString())
             .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
@@ -347,7 +350,7 @@ private fun newAndroidNotification(
     body: Notification,
     account: AccountEntity,
 ): NotificationCompat.Builder {
-    val eventResultIntent = openNotificationIntent(context, account.id, body.type)
+    val eventResultIntent = MainActivityIntent.openNotification(context, account.id, body.type)
     val eventStackBuilder = TaskStackBuilder.create(context)
     eventStackBuilder.addParentStack(MainActivity::class.java)
     eventStackBuilder.addNextIntent(eventResultIntent)
@@ -359,7 +362,7 @@ private fun newAndroidNotification(
     val builder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(R.drawable.ic_notify)
         .setContentIntent(eventResultPendingIntent)
-        .setColor(context.getColor(R.color.notification_color))
+        .setColor(context.getColor(DR.color.notification_color))
         .setGroup(channelId)
         .setAutoCancel(true)
         .setShortcutId(account.id.toString())
@@ -433,7 +436,7 @@ private fun getStatusComposeIntent(
         kind = ComposeOptions.ComposeKind.NEW,
     )
     val composeIntent =
-        composeIntent(context, composeOptions, account.id, body.id, account.id.toInt())
+        MainActivityIntent.openCompose(context, composeOptions, account.id, body.id, account.id.toInt())
     composeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     return PendingIntent.getActivity(
         context.applicationContext,
