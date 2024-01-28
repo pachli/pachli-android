@@ -74,6 +74,10 @@ class ServerRepository @Inject constructor(
         }
     }
 
+    fun retry() = externalScope.launch {
+        _flow.emit(getServer())
+    }
+
     /**
      * @return the server info or a [Server.Error] if the server info can not
      * be determined.
