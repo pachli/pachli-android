@@ -247,7 +247,7 @@ class TimelineFragment :
                             (activity as? ActionButtonActivity)?.actionButton ?: binding.root,
                             message,
                             Snackbar.LENGTH_INDEFINITE,
-                        ).setTextMaxLines(5)
+                        )
                         error.action?.let { action ->
                             snackbar!!.setAction(R.string.action_retry) {
                                 viewModel.accept(action)
@@ -434,7 +434,6 @@ class TimelineFragment :
                                             message,
                                             Snackbar.LENGTH_INDEFINITE,
                                         )
-                                            .setTextMaxLines(5)
                                             .setAction(R.string.action_retry) { adapter.retry() }
                                         snackbar!!.show()
                                     } else {

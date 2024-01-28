@@ -127,7 +127,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         )
                         Timber.e(msg)
                         Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE)
-                            .setTextMaxLines(5)
+                            .setAction(R.string.action_retry) { serverRepository.retry() }
                             .show()
                         serverCanTranslate = false
                     }
