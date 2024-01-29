@@ -22,9 +22,10 @@ jobs:
 
       - uses: gradle/wrapper-validation-action@v1
 
-      - uses: gradle/gradle-build-action@v2
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - run: chmod +x ./gradlew
 
