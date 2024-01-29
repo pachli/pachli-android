@@ -228,7 +228,7 @@ class NotificationsFragment :
                             (activity as ActionButtonActivity).actionButton ?: binding.root,
                             message,
                             Snackbar.LENGTH_INDEFINITE,
-                        ).setTextMaxLines(5)
+                        )
                         error.action?.let { action ->
                             snackbar.setAction(R.string.action_retry) {
                                 viewModel.accept(action)

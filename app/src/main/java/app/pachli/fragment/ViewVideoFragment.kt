@@ -244,7 +244,6 @@ class ViewVideoFragment : ViewMediaFragment() {
                     error.cause?.message ?: error.message,
                 )
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
-                    .setTextMaxLines(10)
                     .setAction(R.string.action_retry) { player?.prepare() }
                     .show()
             }
