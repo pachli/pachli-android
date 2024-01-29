@@ -1,5 +1,26 @@
 # Pachli changelog
 
+## v2.2.0
+
+### New features and other improvements
+
+- Disable filter functionality if not supported by the server (#[366](https://github.com/pachli/pachli-android/pull/366), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Ensure actions happen against the correct status (#[373](https://github.com/pachli/pachli-android/pull/373), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't leak MainActivity in DrawerImageLoader (#[382](https://github.com/pachli/pachli-android/pull/382), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show correct trending tag values at the end of the chart lines (#[380](https://github.com/pachli/pachli-android/pull/380), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Swedish translations ([Luna Jernberg](https://github.com/pachli/pachli-android/commits?author=bittin@reimu.nl))
+- Update Indonesian translations ([Reza Almanda](https://github.com/pachli/pachli-android/commits?author=rezaalmanda27@gmail.com))
+- Update Dutch translations ([Martijn de Boer](https://github.com/pachli/pachli-android/commits?author=github@sexybiggetje.nl))
+- Update Portuguese (Brazil) translations ([Jener Gomes](https://github.com/pachli/pachli-android/commits?author=jenerg1@gmail.com))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Arabic translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+
 ## v2.1.1
 
 ### Significant bug fixes
