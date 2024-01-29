@@ -1,0 +1,17 @@
+Pachli 2.2.0
+
+New features:
+
+- Disable filter functionality if not supported by the server 
+
+Fixes:
+
+- Ensure actions happen against the correct status 
+- Don't leak MainActivity in DrawerImageLoader 
+- Show correct trending tag values at the end of the chart lines 
+- Update Swedish translations 
+- Update Indonesian translations 
+- Update Dutch translations 
+- Update Portuguese 
+- Update Finnish translations 
+- Update Arabic translations 
