@@ -3691,39 +3691,6 @@
     <issue
         id="SelectableText"
         message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="        &lt;TextView"
-        errorLine2="         ~~~~~~~~">
-        <location
-            file="src/main/res/layout/card_license.xml"
-            line="15"
-            column="10"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="        &lt;TextView"
-        errorLine2="         ~~~~~~~~">
-        <location
-            file="src/main/res/layout/card_license.xml"
-            line="22"
-            column="10"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="        &lt;TextView"
-        errorLine2="         ~~~~~~~~">
-        <location
-            file="src/main/res/layout/card_license.xml"
-            line="28"
-            column="10"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
         errorLine1="    &lt;TextView android:id=&quot;@+id/warning&quot;"
         errorLine2="     ~~~~~~~~">
         <location
