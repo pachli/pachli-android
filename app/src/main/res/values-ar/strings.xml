@@ -693,4 +693,14 @@
     <string name="notification_prune_cache">صيانة ذاكرة التخزين المؤقتة…</string>
     <string name="pref_ui_text_size">حجم نص واجهة المستخدم</string>
     <string name="acra_dialog_title">لقد تحطّم %1$s</string>
+    <string name="load_newest_notifications">تحميل أحدث الإشعارات</string>
+    <string name="label_filter_context">السياقات التي تم تصفيتها</string>
+    <string name="dialog_follow_hashtag_hint">#وسم</string>
+    <string name="pref_title_show_self_boosts">إظهار المعاد نشرها ذاتيا</string>
+    <string name="confirmation_hashtag_muted">#%s مخفي</string>
+    <string name="pref_summary_timeline_filters">خادمك الخاص لا يدعم عوامل التصفية</string>
+    <string name="load_newest_statuses">تحميل أحدث المنشورات</string>
+    <string name="announcement_date_updated">(تم تحديثه: %1$s)</string>
+    <string name="about_account_info">\@%s@%s
+\nالإصدار: %s</string>
 </resources>
