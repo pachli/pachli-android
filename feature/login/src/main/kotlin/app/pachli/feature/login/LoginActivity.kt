@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Pachli Association
+ * Copyright 2017 Andrew Dawson
  *
  * This file is a part of Pachli.
  *
