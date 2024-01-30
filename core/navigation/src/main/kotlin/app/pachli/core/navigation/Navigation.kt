@@ -43,7 +43,7 @@ import kotlinx.parcelize.Parcelize
  */
 class AccountActivityIntent(context: Context, accountId: String) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.ACCOUNT_ACTIVITY}")
+        setClassName(context, QuadrantConstants.ACCOUNT_ACTIVITY)
         putExtra(EXTRA_KEY_ACCOUNT_ID, accountId)
     }
 
@@ -87,7 +87,7 @@ class AccountListActivityIntent(context: Context, kind: Kind, id: String? = null
     }
 
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.ACCOUNT_LIST_ACTIVITY}")
+        setClassName(context, QuadrantConstants.ACCOUNT_LIST_ACTIVITY)
         putExtra(EXTRA_KIND, kind)
         putExtra(EXTRA_ID, id)
     }
@@ -166,7 +166,7 @@ class ComposeActivityIntent(context: Context) : Intent() {
     }
 
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.COMPOSE_ACTIVITY}")
+        setClassName(context, QuadrantConstants.COMPOSE_ACTIVITY)
     }
 
     /**
@@ -193,7 +193,7 @@ class ComposeActivityIntent(context: Context) : Intent() {
  */
 class EditFilterActivityIntent(context: Context, filter: Filter? = null) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.EDIT_FILTER_ACTIVITY}")
+        setClassName(context, QuadrantConstants.EDIT_FILTER_ACTIVITY)
         filter?.let {
             putExtra(EXTRA_FILTER_TO_EDIT, it)
         }
@@ -225,7 +225,7 @@ class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEF
     }
 
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.LOGIN_ACTIVITY}")
+        setClassName(context, QuadrantConstants.LOGIN_ACTIVITY)
         putExtra(EXTRA_LOGIN_MODE, loginMode)
     }
 
@@ -239,7 +239,7 @@ class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEF
 
 class MainActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.MAIN_ACTIVITY}")
+        setClassName(context, QuadrantConstants.MAIN_ACTIVITY)
     }
 
     companion object {
@@ -341,7 +341,7 @@ class PreferencesActivityIntent(context: Context, screen: PreferenceScreen) : In
         NOTIFICATION,
     }
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.PREFERENCES_ACTIVITY}")
+        setClassName(context, QuadrantConstants.PREFERENCES_ACTIVITY)
         putExtra(EXTRA_PREFERENCE_SCREEN, screen)
     }
 
@@ -362,7 +362,7 @@ class PreferencesActivityIntent(context: Context, screen: PreferenceScreen) : In
  */
 class ReportActivityIntent(context: Context, accountId: String, userName: String, statusId: String? = null) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.REPORT_ACTIVITY}")
+        setClassName(context, QuadrantConstants.REPORT_ACTIVITY)
         putExtra(EXTRA_ACCOUNT_ID, accountId)
         putExtra(EXTRA_ACCOUNT_USERNAME, userName)
         putExtra(EXTRA_STATUS_ID, statusId)
@@ -389,7 +389,7 @@ class ReportActivityIntent(context: Context, accountId: String, userName: String
  */
 class StatusListActivityIntent private constructor(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.STATUS_LIST_ACTIVITY}")
+        setClassName(context, QuadrantConstants.STATUS_LIST_ACTIVITY)
     }
 
     companion object {
@@ -441,7 +441,7 @@ class StatusListActivityIntent private constructor(context: Context) : Intent() 
 
 class ViewMediaActivityIntent private constructor(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.VIEW_MEDIA_ACTIVITY}")
+        setClassName(context, QuadrantConstants.VIEW_MEDIA_ACTIVITY)
     }
 
     /**
@@ -490,7 +490,7 @@ class ViewMediaActivityIntent private constructor(context: Context) : Intent() {
  */
 class ViewThreadActivityIntent(context: Context, statusId: String, statusUrl: String? = null) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.VIEW_THREAD_ACTIVITY}")
+        setClassName(context, QuadrantConstants.VIEW_THREAD_ACTIVITY)
         putExtra(EXTRA_STATUS_ID, statusId)
         putExtra(EXTRA_STATUS_URL, statusUrl)
     }
@@ -509,90 +509,90 @@ class ViewThreadActivityIntent(context: Context, statusId: String, statusUrl: St
 
 class AboutActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.ABOUT_ACTIVITY}")
+        setClassName(context, QuadrantConstants.ABOUT_ACTIVITY)
     }
 }
 
 class AnnouncementsActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.ANNOUNCEMENTS_ACTIVITY}")
+        setClassName(context, QuadrantConstants.ANNOUNCEMENTS_ACTIVITY)
     }
 }
 
 class DraftsActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.DRAFTS_ACTIVITY}")
+        setClassName(context, QuadrantConstants.DRAFTS_ACTIVITY)
     }
 }
 
 class EditProfileActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.EDIT_PROFILE_ACTIVITY}")
+        setClassName(context, QuadrantConstants.EDIT_PROFILE_ACTIVITY)
     }
 }
 
 class FiltersActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.FILTERS_ACTIVITY}")
+        setClassName(context, QuadrantConstants.FILTERS_ACTIVITY)
     }
 }
 
 class FollowedTagsActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.FOLLOWED_TAGS_ACTIVITY}")
+        setClassName(context, QuadrantConstants.FOLLOWED_TAGS_ACTIVITY)
     }
 }
 
 class InstanceListActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.INSTANCE_LIST_ACTIVITY}")
+        setClassName(context, QuadrantConstants.INSTANCE_LIST_ACTIVITY)
     }
 }
 
 class LicenseActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.LICENSE_ACTIVITY}")
+        setClassName(context, QuadrantConstants.LICENSE_ACTIVITY)
     }
 }
 
 class ListActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.LISTS_ACTIVITY}")
+        setClassName(context, QuadrantConstants.LISTS_ACTIVITY)
     }
 }
 
 class LoginWebViewActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.LOGIN_WEB_VIEW_ACTIVITY}")
+        setClassName(context, QuadrantConstants.LOGIN_WEB_VIEW_ACTIVITY)
     }
 }
 
 class PrivacyPolicyActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.PRIVACY_POLICY_ACTIVITY}")
+        setClassName(context, QuadrantConstants.PRIVACY_POLICY_ACTIVITY)
     }
 }
 
 class ScheduledStatusActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.SCHEDULED_STATUS_ACTIVITY}")
+        setClassName(context, QuadrantConstants.SCHEDULED_STATUS_ACTIVITY)
     }
 }
 
 class SearchActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.SEARCH_ACTIVITY}")
+        setClassName(context, QuadrantConstants.SEARCH_ACTIVITY)
     }
 }
 
 class TabPreferenceActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.TAB_PREFERENCE_ACTIVITY}")
+        setClassName(context, QuadrantConstants.TAB_PREFERENCE_ACTIVITY)
     }
 }
 
 class TrendingActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, "app.pachli${QuadrantConstants.TRENDING_ACTIVITY}")
+        setClassName(context, QuadrantConstants.TRENDING_ACTIVITY)
     }
 }
