@@ -44,12 +44,15 @@ If you do not already have an account you will need to register first. You can a
 
 ## Choosing a component
 
-After signing in you should see a screen with at least two "Components"
+After signing in you should see a screen with multiple components. They correspond to the different modules Pachli is split in to. Broadly, there are "core" modules and "feature" modules.
 
-Choose either:
+A "feature" module corresponds to a screen or set of screens that the user interacts with, while "core" modules contain code and UI strings that are common across Pachli.
 
-- "UI strings" to change the text that appears in the application
-- "Fastlane Metadata" to change the description and release notes
+The modules have a ":" separated suffix which corresponds to where Pachli is available, either "F-Droid", "Google, "GitHub", or "Main" (if the module is not specific to one of those).
+
+The "Fastlane Metadata" module contains the description and release notes used in these stores.
+
+Choose a component to work on by clicking on it.
 
 This should load a table of active languages the component is being translated to, as well as some statistics for each language.
 
@@ -79,7 +82,7 @@ It will be added to the list, and you can start submitting translation suggestio
 
 Using Weblate means that you do not directly submit pull requests to the project. Weblate batches up changes and submits them on your behalf.
 
-The changes you make will be attributed to your account.
+The changes you make will be attributed to your account. Your contributions will also be included in the release announcement and blog post (e.g., [Pachli 2.2.0 released](https://pachli.app/pachli/2024/01/29/2.2.0-release.html)) for each release.
 
 ## Guidelines for translations
 
