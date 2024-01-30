@@ -679,17 +679,6 @@
     </issue>
 
     <issue
-        id="ExtraTranslation"
-        message="&quot;post_lookup_error_format&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;post_lookup_error_format&quot;>Julkaisun %s haku epäonnistui&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-fi/strings.xml"
-            line="587"
-            column="13"/>
-    </issue>
-
-    <issue
         id="ImpliedQuantity"
         message="The quantity `&apos;one&apos;` matches more than one specific number in this locale (0, 1), but the message did not \&#xA;include a formatting argument (such as `%d`). This is usually an internationalization error. See full issue \&#xA;explanation for more."
         errorLine1="        &lt;item quantity=&quot;one&quot;>برهم‌کنشی جدید&lt;/item>"
@@ -1830,17 +1819,6 @@
         <location
             file="src/main/res/values/strings.xml"
             line="582"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.post_lookup_error_format` appears to be unused"
-        errorLine1="    &lt;string name=&quot;post_lookup_error_format&quot;>Julkaisun %s haku epäonnistui&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-fi/strings.xml"
-            line="587"
             column="13"/>
     </issue>
 

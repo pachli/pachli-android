@@ -584,7 +584,6 @@
     <string name="duration_30_days">30 päivää</string>
     <string name="reblog_private">Tehosta alkuperäiselle yleisölle</string>
     <string name="compose_preview_image_description">Toiminnot kuvalle %s</string>
-    <string name="post_lookup_error_format">Julkaisun %s haku epäonnistui</string>
     <string name="caption_twemoji">Mastodonin oletusemojit</string>
     <string name="poll_info_format"> <!-- 15 ääntä • 1 tunti jäljellä --> %1$s• %2$s</string>
     <string name="action_compose_shortcut">Kirjoita</string>

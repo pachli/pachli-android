@@ -8,7 +8,7 @@
         errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="131"
+            line="133"
             column="42"/>
     </issue>
 
@@ -19,7 +19,7 @@
         errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="132"
+            line="134"
             column="43"/>
     </issue>
 
