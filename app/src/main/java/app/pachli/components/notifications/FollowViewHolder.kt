@@ -19,15 +19,16 @@ package app.pachli.components.notifications
 
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.activity.emojify
+import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.interfaces.LinkListener
 import app.pachli.util.StatusDisplayOptions
-import app.pachli.util.emojify
-import app.pachli.util.loadAvatar
 import app.pachli.util.setClickableText
 import app.pachli.viewdata.NotificationViewData
 
@@ -37,7 +38,7 @@ class FollowViewHolder(
     private val linkListener: LinkListener,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
     private val avatarRadius42dp = itemView.context.resources.getDimensionPixelSize(
-        R.dimen.avatar_radius_42dp,
+        DR.dimen.avatar_radius_42dp,
     )
 
     override fun bind(

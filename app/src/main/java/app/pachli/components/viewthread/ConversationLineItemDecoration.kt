@@ -24,13 +24,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.designsystem.R as DR
 
 class ConversationLineItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private val divider: Drawable = ContextCompat.getDrawable(context, R.drawable.conversation_thread_line)!!
 
-    private val avatarTopMargin = context.resources.getDimensionPixelSize(R.dimen.account_avatar_margin)
-    private val halfAvatarHeight = context.resources.getDimensionPixelSize(R.dimen.timeline_status_avatar_height) / 2
-    private val statusLineMarginStart = context.resources.getDimensionPixelSize(R.dimen.status_line_margin_start)
+    private val avatarTopMargin = context.resources.getDimensionPixelSize(DR.dimen.account_avatar_margin)
+    private val halfAvatarHeight = context.resources.getDimensionPixelSize(DR.dimen.timeline_status_avatar_height) / 2
+    private val statusLineMarginStart = context.resources.getDimensionPixelSize(DR.dimen.status_line_margin_start)
 
     override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val dividerStart = parent.paddingStart + statusLineMarginStart

@@ -37,15 +37,16 @@ import app.pachli.R
 import app.pachli.components.trending.viewmodel.InfallibleUiAction
 import app.pachli.components.trending.viewmodel.LoadState
 import app.pachli.components.trending.viewmodel.TrendingLinksViewModel
+import app.pachli.core.activity.openLink
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.designsystem.R as DR
 import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.RefreshableFragment
 import app.pachli.interfaces.ReselectableFragment
-import app.pachli.util.hide
-import app.pachli.util.openLink
-import app.pachli.util.show
-import app.pachli.util.viewBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
@@ -77,7 +78,7 @@ class TrendingLinksFragment :
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         binding.recyclerView.layoutManager = getLayoutManager(
-            requireContext().resources.getInteger(R.integer.trending_column_count),
+            requireContext().resources.getInteger(DR.integer.trending_column_count),
         )
     }
 
@@ -167,7 +168,7 @@ class TrendingLinksFragment :
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager =
-            getLayoutManager(requireContext().resources.getInteger(R.integer.trending_column_count))
+            getLayoutManager(requireContext().resources.getInteger(DR.integer.trending_column_count))
         binding.recyclerView.setHasFixedSize(true)
         (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         binding.recyclerView.adapter = adapter

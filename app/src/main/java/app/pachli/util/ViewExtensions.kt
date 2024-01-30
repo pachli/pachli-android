@@ -16,23 +16,10 @@
 
 package app.pachli.util
 
-import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import timber.log.Timber
-
-fun View.show() {
-    this.visibility = View.VISIBLE
-}
-
-fun View.hide() {
-    this.visibility = View.GONE
-}
-
-fun View.visible(visible: Boolean, or: Int = View.GONE) {
-    this.visibility = if (visible) View.VISIBLE else or
-}
 
 /**
  * Reduce ViewPager2's sensitivity to horizontal swipes.

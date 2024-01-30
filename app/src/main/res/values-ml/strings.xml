@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_login">മസ്റ്റഡോൺ വഴി പ്രവേശിക്കുക</string>
-    <string name="link_whats_an_instance">എന്താണ് ഒരു ഇൻസ്റ്റൻസ്\?</string>
     <string name="title_favourites">പ്രിയപ്പെട്ടവ</string>
     <string name="title_drafts">കരടുകൾ</string>
     <string name="action_logout">പുറത്തിറങ്ങുക</string>
@@ -15,12 +13,7 @@
     <string name="error_generic">ഒരു പിഴവ് സംഭവിച്ചിരിക്കുന്നു.</string>
     <string name="error_network">ഒരു നെറ്റ്‌വർക്ക് പിഴവ് സംഭവിച്ചിരിക്കുന്നു! ദയവായി താങ്കളുടെ കണക്ഷൻ പരിശോധിച്ചിട്ട് വീണ്ടും ശ്രമിക്കൂ!</string>
     <string name="error_empty">ഇത് ശൂന്യമാവാൻ പാടില്ല.</string>
-    <string name="error_invalid_domain">അസാധുവായ ഡൊമൈൻ നൽകിയിരിക്കുന്നു</string>
-    <string name="error_failed_app_registration">ആ ഇൻസ്റ്റൻസുമായി ആധികാരികത ഉറപ്പുവരുത്തുന്നതിൽ പരാജയപ്പെട്ടിരിക്കുന്നു.</string>
     <string name="error_no_web_browser_found">ഉപയോഗിക്കാനായി ഒരു വെബ് ബ്രൗസർ കണ്ടെത്താനായില്ല.</string>
-    <string name="error_authorization_unknown">അജ്ഞാതമായ ഒരു ആധികാരികതാപിഴവ് സംഭവിച്ചിരിക്കുന്നു.</string>
-    <string name="error_authorization_denied">ആധികാരികത ഉറപ്പുവരുത്താനായില്ല.</string>
-    <string name="error_retrieving_oauth_token">ഒരു പ്രവേശന ടോക്കൺ ലഭ്യമാക്കുന്നതിൽ പരാജയപ്പെട്ടു.</string>
     <string name="error_compose_character_limit">ഈ സ്റ്റാറ്റസ് വളരെ നീളമേറിയതാണ്!</string>
     <string name="error_media_upload_type">ഇത്തരം ഫയൽ അപ്‌ലോഡ് ചെയ്യാൻ സാധിക്കില്ല.</string>
     <string name="error_media_upload_opening">ഈ ഫയൽ തുറക്കാനായില്ല.</string>
@@ -78,7 +71,6 @@
     <string name="action_view_bookmarks">ബൂക്കമാർക്ക്</string>
     <string name="action_view_favourites">ഇഷ്ടപ്പെട്ടത്</string>
     <string name="action_view_profile">പ്രൊഫൈൽ</string>
-    <string name="action_close">നിർത്തുക</string>
     <string name="action_send_public">ടൂട്ട്!</string>
     <string name="action_send">ടൂട്ട്</string>
     <string name="action_delete_and_redraft">നീക്കം ചെയ്യത് പുതിയത് എഴുതുക</string>
@@ -123,7 +115,6 @@
     <string name="filter_apply">പ്രയോഗിക്കുക</string>
     <string name="add_account_name">അക്കൗണ്ട് ചേർക്കുക</string>
     <string name="pref_title_notification_filter_mentions">സൂചിപ്പിച്ചു</string>
-    <string name="profile_badge_bot_text">യന്ത്രം‍</string>
     <string name="pref_title_appearance_settings">രൂപം</string>
     <string name="follows_you">നിങ്ങളെ പിന്തുടരുന്നു</string>
     <string name="action_photo_take">ഫോട്ടോ എടുക്കുക</string>

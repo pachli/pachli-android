@@ -39,6 +39,7 @@ import app.pachli.components.notifications.KEY_VISIBILITY
 import app.pachli.components.notifications.REPLY_ACTION
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.string.randomAlphanumericString
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Status
 import app.pachli.service.SendStatusService
 import app.pachli.service.StatusToSend
@@ -78,7 +79,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
 
                 val builder = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
                     .setSmallIcon(R.drawable.ic_notify)
-                    .setColor(context.getColor(R.color.tusky_blue))
+                    .setColor(context.getColor(DR.color.tusky_blue))
                     .setGroup(senderFullName)
                     .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
 
@@ -120,7 +121,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
 
                 val builder = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
                     .setSmallIcon(R.drawable.ic_notify)
-                    .setColor(context.getColor(R.color.notification_color))
+                    .setColor(context.getColor(DR.color.notification_color))
                     .setGroup(senderFullName)
                     .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
 

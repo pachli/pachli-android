@@ -28,16 +28,16 @@ import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.core.content.withStyledAttributes
 import androidx.core.util.TypedValueCompat.dpToPx
-import app.pachli.R
 import app.pachli.core.common.util.formatNumber
+import app.pachli.core.designsystem.R as DR
 import com.google.android.material.color.MaterialColors
 import kotlin.math.max
 
 class GraphView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.attr.graphViewStyle,
-) : View(context, attrs, defStyleAttr, R.style.Pachli_Widget_GraphView) {
+    defStyleAttr: Int = DR.attr.graphViewStyle,
+) : View(context, attrs, defStyleAttr, DR.style.Pachli_Widget_GraphView) {
     @get:ColorInt
     @ColorInt
     var primaryLineColor = 0
@@ -99,39 +99,39 @@ class GraphView @JvmOverloads constructor(
         }
 
     init {
-        context.withStyledAttributes(attrs, R.styleable.GraphView, defStyleAttr, R.style.Pachli_Widget_GraphView) {
+        context.withStyledAttributes(attrs, DR.styleable.GraphView, defStyleAttr, DR.style.Pachli_Widget_GraphView) {
             primaryLineColor = getColor(
-                R.styleable.GraphView_primaryLineColor,
+                DR.styleable.GraphView_primaryLineColor,
                 MaterialColors.getColor(this@GraphView, com.google.android.material.R.attr.colorPrimary),
             )
 
             secondaryLineColor = getColor(
-                R.styleable.GraphView_secondaryLineColor,
+                DR.styleable.GraphView_secondaryLineColor,
                 MaterialColors.getColor(this@GraphView, com.google.android.material.R.attr.colorSecondary),
             )
 
             metaColor = getColor(
-                R.styleable.GraphView_metaColor,
+                DR.styleable.GraphView_metaColor,
                 MaterialColors.getColor(this@GraphView, com.google.android.material.R.attr.colorOutline),
             )
 
             lineWidth = getDimensionPixelSize(
-                R.styleable.GraphView_lineWidth,
-                R.dimen.graph_line_thickness,
+                DR.styleable.GraphView_lineWidth,
+                DR.dimen.graph_line_thickness,
             ).toFloat()
 
             graphColor = getColor(
-                R.styleable.GraphView_graphColor,
+                DR.styleable.GraphView_graphColor,
                 MaterialColors.getColor(this@GraphView, android.R.attr.colorBackground),
             )
 
             proportionalTrending = getBoolean(
-                R.styleable.GraphView_proportionalTrending,
+                DR.styleable.GraphView_proportionalTrending,
                 proportionalTrending,
             )
 
             labelTextSize = getDimensionPixelSize(
-                R.styleable.GraphView_labelTextSize,
+                DR.styleable.GraphView_labelTextSize,
                 labelTextSize.toInt(),
             ).toFloat()
         }

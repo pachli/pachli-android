@@ -18,12 +18,12 @@ package app.pachli.components.report
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import app.pachli.BottomSheetActivity
 import app.pachli.R
 import app.pachli.components.report.adapter.ReportPagerAdapter
+import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.databinding.ActivityReportBinding
-import app.pachli.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

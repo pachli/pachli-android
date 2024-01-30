@@ -3,12 +3,7 @@
     <string name="error_generic">Ha ocurrido un error.</string>
     <string name="error_network">Ha ocurrido un error de red. Por favor, comprueba tu conexión e inténtalo de nuevo.</string>
     <string name="error_empty">Este campo no puede estar vacío.</string>
-    <string name="error_invalid_domain">Nombre de dominio incorrecto</string>
-    <string name="error_failed_app_registration">Fallo de autenticación con esta instancia. Si esto persiste, prueba en el menú Iniciar sesión con el navegador.</string>
     <string name="error_no_web_browser_found">No se ha encontrado ningún navegador web.</string>
-    <string name="error_authorization_unknown">Ocurrió un error de autorización no identificado. Si esto persiste, prueba en el menú Iniciar sesión con el navegador.</string>
-    <string name="error_authorization_denied">La autorización falló. Si estás seguro de que has suministrado las credenciales correctas, prueba en el menú Iniciar sesión con el navegador.</string>
-    <string name="error_retrieving_oauth_token">Fallo al obtener identificador de login. Si esto persiste, prueba en el menú Iniciar sesión con el navegador.</string>
     <string name="error_compose_character_limit">¡La publicación es demasiado larga!</string>
     <string name="error_media_upload_type">No se admite este tipo de archivo.</string>
     <string name="error_media_upload_opening">No pudo abrirse el fichero.</string>
@@ -58,7 +53,6 @@
     <string name="action_favourite">Favorito</string>
     <string name="action_more">Más</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_login">Iniciar sesión con Pachli</string>
     <string name="action_logout">Cerrar sesión</string>
     <string name="action_logout_confirm">¿Seguro que quiere cerrar la sesión de %1$s? Esto eliminará todos los datos locales de la cuenta, incluyendo borradores y preferencias.</string>
     <string name="action_follow">Seguir</string>
@@ -72,7 +66,6 @@
     <string name="action_send">TOOT</string>
     <string name="action_send_public">¡Publicar!</string>
     <string name="action_retry">Reintentar</string>
-    <string name="action_close">Cerrar</string>
     <string name="action_view_profile">Perfil</string>
     <string name="action_view_preferences">Ajustes</string>
     <string name="action_view_account_preferences">Preferencias de cuenta</string>
@@ -104,7 +97,6 @@
     <string name="action_add_tab">Añadir pestaña</string>
     <string name="download_image">Descargando %1$s</string>
     <string name="action_copy_link">Copiar el enlace</string>
-    <string name="action_open_as">Abrir como %s</string>
     <string name="action_share_as">Compartir como…</string>
     <string name="send_post_link_to">Compartir URL…</string>
     <string name="send_post_content_to">Compartir contenido…</string>
@@ -114,7 +106,6 @@
     <string name="confirmation_unmuted">El usuario ya no está silenciado</string>
     <string name="post_sent">¡Enviado!</string>
     <string name="post_sent_long">Respuesta enviada correctamente.</string>
-    <string name="hint_domain">¿Qué instancia\?</string>
     <string name="hint_compose">¿En qué estás pensando?</string>
     <string name="hint_content_warning">Aviso de contenido</string>
     <string name="hint_display_name">Nombre</string>
@@ -124,17 +115,6 @@
     <string name="label_quick_reply">Respuesta…</string>
     <string name="label_avatar">Avatar</string>
     <string name="label_header">Cabecera</string>
-    <string name="link_whats_an_instance">¿Qué es una instancia?</string>
-    <string name="login_connection">Conectando…</string>
-    <string name="dialog_whats_an_instance">Introduzca aquí dirección o dominio de cualquier instancia,
-        como mastodon.social, icosahedron.website, social.tchncs.de y
-        <a href="https://instances.social">más!</a>
-        \n\nSi todavia no tiene una cuenta, puede indicar el nombre de la instancia a la que quiere
-        unirse y crear una cuenta allí.\n\nUna instancia es el sitio único donde su cuenta
-        está alojada, pero puede comunicarse y seguir usuarios de otras instancias como si
-        estuvieran en la misma.
-        \n\nPuede consultar más información en <a href="https://joinmastodon.org">joinmastodon.org</a>.
-    </string>
     <string name="dialog_title_finishing_media_upload">Terminando de subir multimedia</string>
     <string name="dialog_message_uploading_media">Subiendo…</string>
     <string name="dialog_download_image">Descargar</string>
@@ -269,7 +249,6 @@
     <string name="emoji_style">Estilo de los emojis</string>
     <string name="system_default">Sistema</string>
     <string name="download_fonts">Tendrás que descargarlos primero</string>
-    <string name="performing_lookup_title">Buscando…</string>
     <string name="expand_collapse_all_posts">Expandir/ocultar todos los estados</string>
     <string name="action_open_post">Abrir</string>
     <string name="restart_required">Reinicio requerido</string>
@@ -280,7 +259,6 @@
     <string name="caption_blobmoji">Los emojis de Android 4.4 a 7.1</string>
     <string name="caption_twemoji">Pack estándar de Emojis de Mastodon</string>
     <string name="download_failed">Descarga fallida</string>
-    <string name="profile_badge_bot_text">Bot</string>
     <string name="account_moved_description">%1$s se trasladó a:</string>
     <string name="reblog_private">Volver a compartir</string>
     <string name="unreblog_private">Dejar de compartir</string>
@@ -438,7 +416,6 @@
     <string name="action_access_scheduled_posts">Estados programados</string>
     <string name="action_schedule_post">Programar estado</string>
     <string name="action_reset_schedule">Reiniciar</string>
-    <string name="post_lookup_error_format">Error al buscar el post %s</string>
     <string name="about_powered_by_pachli">Potenciado por Pachli</string>
     <string name="title_bookmarks">Marcadores</string>
     <string name="action_bookmark">Marcador</string>
@@ -526,14 +503,11 @@
     <string name="pref_title_notification_filter_sign_ups">alguien se registró</string>
     <string name="error_following_hashtag_format">Error al seguir #%s</string>
     <string name="error_unfollowing_hashtag_format">Error dejando de seguir #%s</string>
-    <string name="title_login">Ingreso</string>
     <string name="title_migration_relogin">Reingresa para activar notificaciones push</string>
     <string name="notification_sign_up_format">%s se registró</string>
     <string name="notification_update_format">%s editó su publicación</string>
     <string name="action_dismiss">Descartar</string>
     <string name="action_details">Detalles</string>
-    <string name="error_loading_account_details">Falló cargar los detalles de la cuenta</string>
-    <string name="error_could_not_load_login_page">Falló al cargar la página de ingreso.</string>
     <string name="delete_scheduled_post_warning">¿Eliminar publicación programada\?</string>
     <string name="set_focus_description">Toca o arrastra el círculo para centrar el foco de la imagen, que será visible en las miniaturas.</string>
     <string name="compose_save_draft_loses_media">¿Guardar este borrador\? (Los adjuntos se subirán de nuevo cuando vuelvas a él.)</string>
@@ -562,8 +536,6 @@
     <string name="pachli_compose_post_quicksetting_label">Escribir publicación</string>
     <string name="saving_draft">Guardando borrador…</string>
     <string name="dialog_push_notification_migration_other_accounts">Has vuelto a iniciar sesión en esta cuenta para dar permiso de notificaciones push a Pachli. Sin embargo, aún hay otras cuentas que no tienen este permiso. Cambia a estas cuentas y vuelve a iniciar sesión, una a una, para activar el soporte de notificaciones de UnifiedPush.</string>
-    <string name="instance_rule_info">Al iniciar sesión aceptas las normas de %s.</string>
-    <string name="instance_rule_title">Normas de %s</string>
     <string name="notification_sign_up_name">Creación de cuentas</string>
     <string name="action_edit_image">Editar imagen</string>
     <string name="failed_to_add_to_list">Falló añadir la cuenta a la lista</string>
@@ -599,7 +571,6 @@
     <string name="title_edits">Ediciones</string>
     <string name="action_post_failed">La subida falló</string>
     <string name="action_post_failed_do_nothing">Descartar</string>
-    <string name="action_browser_login">Iniciar sesión con el navegador</string>
     <string name="a11y_label_loading_thread">Cargando hilo</string>
     <string name="mute_notifications_switch">Silenciar notificaciones</string>
     <string name="status_edit_info">%1$s ha editado</string>

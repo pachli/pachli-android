@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">Farklı aç %s</string>
+    <string name="post_lookup_error_format">%s gönderisi aranırken hata oluştu</string>
+    <string name="performing_lookup_title">Araştırılıyor…</string>
+</resources>

@@ -25,7 +25,6 @@
     <string name="action_open_in_web">අතිරික්සුවෙන් විවෘත කරන්න</string>
     <string name="action_report">වාර්තා කරන්න</string>
     <string name="search_no_results">ප්‍රතිඵල නැත</string>
-    <string name="login_connection">සම්බන්ධ වෙමින්…</string>
     <string name="pref_title_notifications_enabled">දැනුම්දීම්</string>
     <string name="post_privacy_public">ප්‍රසිද්ධ</string>
     <string name="post_media_attachments">ඇමුණුම්</string>
@@ -75,13 +74,11 @@
     <string name="app_theme_light">දීප්ත</string>
     <string name="compose_save_draft">කටුපිටපත සුරකින්නද\?</string>
     <string name="post_sensitive_media_title">සංවේදී අන්තර්ගතයකි</string>
-    <string name="profile_badge_bot_text">ස්වයංක්‍රමලේඛය</string>
     <string name="action_bookmark">පොත්යොමුව</string>
     <string name="caption_notoemoji">ගූගල් හි වත්මන් ඉමෝජි කට්ටලය</string>
     <string name="app_theme_auto">ස්වයංක්‍රීව ඉර බැසීමේදී</string>
     <string name="failed_report">වාර්තා කිරීමට අසමත් විය</string>
     <string name="abbreviated_years_ago">අවු. %d</string>
-    <string name="action_open_as">%s ලෙස විවෘත කරන්න</string>
     <string name="action_open_faved_by">ප්‍රියතමයන් පෙන්වන්න</string>
     <string name="abbreviated_in_minutes">වි. %d කින්</string>
     <plurals name="poll_info_votes">
@@ -240,11 +237,9 @@
     <string name="dialog_block_warning">\@%s අවහිර\?</string>
     <string name="pref_title_notification_alert_light">ආලෝකය සමඟ දන්වන්න</string>
     <string name="account_note_hint">මෙම ගිණුම පිළිබඳව ඔබගේ පෞද්ගලික සටහන</string>
-    <string name="action_close">වසන්න</string>
     <string name="title_notifications">දැනුම්දීම්</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_sent">යැවිණි!</string>
-    <string name="action_login">මාස්ටඩන් සමඟ පිවිසෙන්න</string>
     <string name="poll_vote">ජන්දය</string>
     <string name="filter_dialog_whole_word">මුළු වචනය</string>
     <string name="drafts_post_failed_to_send">මෙම ටූට් යැවීමට අසමත් විය!</string>

@@ -37,7 +37,7 @@ import android.view.ViewConfiguration
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.doOnLayout
 import app.pachli.BuildConfig
-import app.pachli.R
+import app.pachli.core.designsystem.R as DR
 import java.lang.Float.max
 import java.lang.Float.min
 import kotlin.math.abs
@@ -75,7 +75,7 @@ class ClickableSpanTextView @JvmOverloads constructor(
     private var clickedSpan: ClickableSpan? = null
 
     /** The minimum size, in pixels, of a touchable area for accessibility purposes */
-    private val minDimenPx = resources.getDimensionPixelSize(R.dimen.minimum_touch_target)
+    private val minDimenPx = resources.getDimensionPixelSize(DR.dimen.minimum_touch_target)
 
     /**
      * Debugging helper. Normally false, set this to true to show a border around spans, and

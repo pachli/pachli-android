@@ -32,9 +32,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.viewthread.edits.ViewEditsFragment
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.openLink
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.core.network.model.Poll
@@ -43,10 +48,6 @@ import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
-import app.pachli.util.hide
-import app.pachli.util.openLink
-import app.pachli.util.show
-import app.pachli.util.viewBinding
 import app.pachli.viewdata.StatusViewData
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -399,7 +400,7 @@ class ViewThreadFragment :
         val viewEditsFragment = ViewEditsFragment.newInstance(statusId)
 
         parentFragmentManager.commit {
-            setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left, R.anim.slide_from_left, R.anim.slide_to_right)
+            setCustomAnimations(DR.anim.slide_from_right, DR.anim.slide_to_left, DR.anim.slide_from_left, DR.anim.slide_to_right)
             replace(R.id.fragment_container, viewEditsFragment, "ViewEditsFragment_$id")
             addToBackStack(null)
         }

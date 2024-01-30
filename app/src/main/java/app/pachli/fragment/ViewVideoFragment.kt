@@ -49,11 +49,11 @@ import androidx.media3.ui.AspectRatioFrameLayout
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.ViewMediaActivity
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.FragmentViewVideoBinding
-import app.pachli.util.hide
-import app.pachli.util.viewBinding
-import app.pachli.util.visible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition

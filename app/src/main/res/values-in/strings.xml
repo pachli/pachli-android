@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_empty">Kolom ini tidak boleh kosong.</string>
-    <string name="error_invalid_domain">Domain yang dimasukkan tidak valid</string>
     <string name="error_no_web_browser_found">Tidak dapat menemukan browser untuk digunakan.</string>
-    <string name="error_authorization_unknown">"Terjadi kesalahan otorisasi yang tidak diketahui. Jika ini  berlanjut, coba Masuk di Browser dari menu."</string>
-    <string name="error_authorization_denied">Otorisasi ditolak. Jika Anda yakin telah memberikan kredensial yang benar, coba Masuk di Browser dari menu.</string>
-    <string name="error_retrieving_oauth_token">Gagal mendapatkan token masuk. Jika ini terus berlanjut, coba Masuk di Browser dari menu.</string>
-    <string name="title_login">Masuk</string>
     <string name="title_home">Beranda</string>
     <string name="title_notifications">Notifikasi</string>
     <string name="title_public_local">Lokal</string>
@@ -20,7 +15,6 @@
     <string name="title_view_thread">Utas</string>
     <string name="error_following_hashtag_format">Terjadi kesalahan saat mengikuti #%s</string>
     <string name="error_unfollowing_hashtag_format">Terjadi kesalahan saat berhenti mengikuti #%s</string>
-    <string name="error_could_not_load_login_page">Tidak dapat memuat halaman masuk.</string>
     <string name="title_posts">Postingan</string>
     <string name="title_posts_with_replies">Dengan balasan</string>
     <string name="title_posts_pinned">Disematkan</string>
@@ -52,7 +46,6 @@
     <string name="action_report">Laporkan</string>
     <string name="action_delete">Hapus</string>
     <string name="action_retry">Coba lagi</string>
-    <string name="action_close">Tutup</string>
     <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Preferensi</string>
     <string name="action_view_account_preferences">Preferensi Akun</string>
@@ -90,7 +83,6 @@
     <string name="post_sent_long">Balasan berhasil dikirim.</string>
     <string name="hint_compose">Apa yang terjadi\?</string>
     <string name="hint_search">Cari…</string>
-    <string name="login_connection">Menghubungkan…</string>
     <string name="dialog_title_finishing_media_upload">Menyelesaikan Pengunggahan Media</string>
     <string name="dialog_block_warning">Blokir @%s\?</string>
     <string name="dialog_mute_warning">Bisukan @%s\?</string>
@@ -140,7 +132,6 @@
     <string name="account_note_saved">Disimpan!</string>
     <string name="error_generic">Terjadi kesalahan.</string>
     <string name="error_network">Terjadi kesalahan pada jaringan! Harap periksa koneksi Anda dan coba lagi!</string>
-    <string name="error_loading_account_details">Gagal memuat detail akun</string>
     <string name="error_sender_account_gone">Gagal mengirim postingan.</string>
     <string name="title_mutes">Pengguna dibisukan</string>
     <string name="title_announcements">Pengumuman</string>
@@ -163,7 +154,6 @@
     <string name="add_account_name">Tambah Akun</string>
     <string name="error_create_list">Tidak dapat membuat daftar</string>
     <string name="later">Nanti</string>
-    <string name="error_failed_app_registration">Gagal mengautentikasi dengan instance tersebut. Jika ini berlanjut, coba Masuk di Browser dari menu.</string>
     <string name="pachli_compose_post_quicksetting_label">Tulis Postingan</string>
     <string name="error_media_upload_image_or_video">Gambar dan video tidak dapat disematkan ke dalam post yang sama.</string>
     <string name="title_public_federated">Federasi</string>
@@ -187,7 +177,6 @@
     <string name="action_unbookmark">Hapus bookmark</string>
     <string name="action_more">Lebih</string>
     <string name="action_compose">Menyusun</string>
-    <string name="action_login">Masuk dengan Mastodon</string>
     <string name="action_logout">Keluar</string>
     <string name="action_logout_confirm">Apakah kamu yakin ingin keluar dari akun %1$s\?</string>
     <string name="action_hide_reblogs">Sembunyikan boost</string>
@@ -216,13 +205,10 @@
     <string name="title_hashtags_dialog">Hashtag</string>
     <string name="title_links_dialog">Tautan</string>
     <string name="action_open_media_n">Buka media #%d</string>
-    <string name="action_open_as">Buka sebagai %s</string>
     <string name="send_media_to">Bagikan media kepada…</string>
     <string name="confirmation_unblocked">Pengguna ter-unblock</string>
-    <string name="hint_domain">Instansi yang mana\?</string>
     <string name="hint_note">Bio</string>
     <string name="search_no_results">Tidak ada hasil</string>
-    <string name="link_whats_an_instance">Apa itu instansi\?</string>
     <string name="dialog_download_image">Unduh</string>
     <string name="dialog_message_cancel_follow_request">Tarik kembali permintaan mengikuti\?</string>
     <string name="mute_domain_warning_dialog_ok">Sembunyikan keseluruhan domain</string>
@@ -271,7 +257,6 @@
     <string name="notification_report_format">Laporan baru tentang %s</string>
     <string name="notification_summary_report_format">%s - %d posting terlampir</string>
     <string name="action_bookmark">Penanda</string>
-    <string name="action_browser_login">Masuk dengan Browser</string>
     <string name="action_post_failed">Unggahan gagal</string>
     <string name="action_post_failed_detail">Postingan Anda gagal diunggah dan telah disimpan ke draf.
 \n

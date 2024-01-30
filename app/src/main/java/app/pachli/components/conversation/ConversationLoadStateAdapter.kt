@@ -20,9 +20,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
+import app.pachli.core.common.extensions.visible
 import app.pachli.databinding.ItemNetworkStateBinding
 import app.pachli.util.BindingHolder
-import app.pachli.util.visible
 
 class ConversationLoadStateAdapter(
     private val retryCallback: () -> Unit,

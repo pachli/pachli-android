@@ -27,13 +27,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.adapter.PollAdapter
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.network.model.Emoji
 import app.pachli.databinding.StatusPollBinding
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.formatPollDuration
-import app.pachli.util.hide
-import app.pachli.util.show
 import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.buildDescription
 import app.pachli.viewdata.calculatePercent

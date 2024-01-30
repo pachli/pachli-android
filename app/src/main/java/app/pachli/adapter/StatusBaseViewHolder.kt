@@ -20,9 +20,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.activity.decodeBlurHash
+import app.pachli.core.activity.emojify
+import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
@@ -33,19 +39,14 @@ import app.pachli.util.CardViewMode
 import app.pachli.util.CompositeWithOpaqueBackground
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.aspectRatios
-import app.pachli.util.decodeBlurHash
 import app.pachli.util.description
-import app.pachli.util.emojify
 import app.pachli.util.expandTouchSizeToFillRow
 import app.pachli.util.getFormattedDescription
 import app.pachli.util.getRelativeTimeSpanString
-import app.pachli.util.hide
 import app.pachli.util.iconResource
-import app.pachli.util.loadAvatar
 import app.pachli.util.makeIcon
 import app.pachli.util.setClickableMentions
 import app.pachli.util.setClickableText
-import app.pachli.util.show
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.view.MediaPreviewLayout
 import app.pachli.view.PollView
@@ -136,9 +137,9 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
         filteredPlaceholderLabel = itemView.findViewById(R.id.status_filter_label)
         filteredPlaceholderShowButton = itemView.findViewById(R.id.status_filter_show_anyway)
         statusContainer = itemView.findViewById(R.id.status_container)
-        avatarRadius48dp = context.resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp)
-        avatarRadius36dp = context.resources.getDimensionPixelSize(R.dimen.avatar_radius_36dp)
-        avatarRadius24dp = context.resources.getDimensionPixelSize(R.dimen.avatar_radius_24dp)
+        avatarRadius48dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
+        avatarRadius36dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
+        avatarRadius24dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp)
         mediaPreviewUnloaded =
             ColorDrawable(MaterialColors.getColor(itemView, android.R.attr.textColorLink))
         (itemView as ViewGroup).expandTouchSizeToFillRow(
@@ -318,7 +319,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
             if (statusDisplayOptions.showBotOverlay && isBot) {
                 avatarInset.visibility = View.VISIBLE
                 Glide.with(avatarInset)
-                    .load(R.drawable.bot_badge)
+                    .load(DR.drawable.bot_badge)
                     .into(avatarInset)
             } else {
                 avatarInset.visibility = View.GONE

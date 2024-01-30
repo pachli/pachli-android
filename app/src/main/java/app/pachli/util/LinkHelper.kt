@@ -16,11 +16,6 @@
 
 package app.pachli.util
 
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.net.Uri
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -32,16 +27,12 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.VisibleForTesting
-import androidx.browser.customtabs.CustomTabColorSchemeParams
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
-import androidx.preference.PreferenceManager
 import app.pachli.R
+import app.pachli.core.activity.EmojiSpan
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status.Mention
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.interfaces.LinkListener
-import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize
@@ -49,9 +40,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.color
 import com.mikepenz.iconics.utils.size
 import java.lang.ref.WeakReference
-import java.net.URI
-import java.net.URISyntaxException
-import timber.log.Timber
 
 fun getDomain(urlString: String?): String {
     val host = urlString?.toUri()?.host ?: return ""
@@ -238,114 +226,6 @@ fun setClickableMentions(view: TextView, mentions: List<Mention>?, listener: Lin
 fun createClickableText(text: String, link: String): CharSequence {
     return SpannableStringBuilder(text).apply {
         setSpan(NoUnderlineURLSpan(link), 0, text.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-    }
-}
-
-/**
- * Opens a link, depending on the settings, either in the browser or in a custom tab
- *
- * @receiver the Context to open the link from
- * @param url a string containing the url to open
- */
-fun Context.openLink(url: String) {
-    val uri = url.toUri().normalizeScheme()
-    val useCustomTabs = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PrefKeys.CUSTOM_TABS, false)
-
-    if (useCustomTabs) {
-        openLinkInCustomTab(uri, this)
-    } else {
-        openLinkInBrowser(uri, this)
-    }
-}
-
-/**
- * opens a link in the browser via Intent.ACTION_VIEW
- *
- * @param uri the uri to open
- * @param context context
- */
-private fun openLinkInBrowser(uri: Uri?, context: Context) {
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-    try {
-        context.startActivity(intent)
-    } catch (e: ActivityNotFoundException) {
-        Timber.w("Activity was not found for intent, $intent")
-    }
-}
-
-/**
- * tries to open a link in a custom tab
- * falls back to browser if not possible
- *
- * @param uri the uri to open
- * @param context context
- */
-fun openLinkInCustomTab(uri: Uri, context: Context) {
-    val toolbarColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK)
-    val navigationbarColor = MaterialColors.getColor(context, android.R.attr.navigationBarColor, Color.BLACK)
-    val navigationbarDividerColor = MaterialColors.getColor(context, com.google.android.material.R.attr.dividerColor, Color.BLACK)
-    val colorSchemeParams = CustomTabColorSchemeParams.Builder()
-        .setToolbarColor(toolbarColor)
-        .setNavigationBarColor(navigationbarColor)
-        .setNavigationBarDividerColor(navigationbarDividerColor)
-        .build()
-    val customTabsIntent = CustomTabsIntent.Builder()
-        .setDefaultColorSchemeParams(colorSchemeParams)
-        .setShowTitle(true)
-        .build()
-
-    try {
-        customTabsIntent.launchUrl(context, uri)
-    } catch (e: ActivityNotFoundException) {
-        Timber.w("Activity was not found for intent $customTabsIntent")
-        openLinkInBrowser(uri, context)
-    }
-}
-
-// https://mastodon.foo.bar/@User
-// https://mastodon.foo.bar/@User/43456787654678
-// https://mastodon.foo.bar/users/User/statuses/43456787654678
-// https://pleroma.foo.bar/users/User
-// https://pleroma.foo.bar/users/9qTHT2ANWUdXzENqC0
-// https://pleroma.foo.bar/notice/9sBHWIlwwGZi5QGlHc
-// https://pleroma.foo.bar/objects/d4643c42-3ae0-4b73-b8b0-c725f5819207
-// https://friendica.foo.bar/profile/user
-// https://friendica.foo.bar/display/d4643c42-3ae0-4b73-b8b0-c725f5819207
-// https://misskey.foo.bar/notes/83w6r388br (always lowercase)
-// https://pixelfed.social/p/connyduck/391263492998670833
-// https://pixelfed.social/connyduck
-// https://gts.foo.bar/@goblin/statuses/01GH9XANCJ0TA8Y95VE9H3Y0Q2
-// https://gts.foo.bar/@goblin
-// https://foo.microblog.pub/o/5b64045effd24f48a27d7059f6cb38f5
-fun looksLikeMastodonUrl(urlString: String): Boolean {
-    val uri: URI
-    try {
-        uri = URI(urlString)
-    } catch (e: URISyntaxException) {
-        return false
-    }
-
-    if (uri.query != null ||
-        uri.fragment != null ||
-        uri.path == null
-    ) {
-        return false
-    }
-
-    return uri.path.let {
-        it.matches("^/@[^/]+$".toRegex()) ||
-            it.matches("^/@[^/]+/\\d+$".toRegex()) ||
-            it.matches("^/users/[^/]+/statuses/\\d+$".toRegex()) ||
-            it.matches("^/users/\\w+$".toRegex()) ||
-            it.matches("^/notice/[a-zA-Z0-9]+$".toRegex()) ||
-            it.matches("^/objects/[-a-f0-9]+$".toRegex()) ||
-            it.matches("^/notes/[a-z0-9]+$".toRegex()) ||
-            it.matches("^/display/[-a-f0-9]+$".toRegex()) ||
-            it.matches("^/profile/\\w+$".toRegex()) ||
-            it.matches("^/p/\\w+/\\d+$".toRegex()) ||
-            it.matches("^/\\w+$".toRegex()) ||
-            it.matches("^/@[^/]+/statuses/[a-zA-Z0-9]+$".toRegex()) ||
-            it.matches("^/o/[a-f0-9]+$".toRegex())
     }
 }
 

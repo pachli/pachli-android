@@ -17,7 +17,6 @@
     <string name="notification_follow_format">%s theo dõi bạn</string>
     <string name="notification_favourite_format">%s thích tút của bạn</string>
     <string name="notification_reblog_format">%s đăng lại tút của bạn</string>
-    <string name="post_lookup_error_format">Lỗi khi tìm tút %s</string>
     <string name="error_no_custom_emojis">Máy chủ %s không có emoji tùy chỉnh</string>
     <string name="send_post_notification_error_title">Lỗi đăng tút</string>
     <string name="error_delete_list">Không thể xóa danh sách</string>
@@ -31,15 +30,10 @@
     <string name="error_media_upload_opening">Không thể mở tập tin.</string>
     <string name="error_media_upload_type">Không hỗ trợ định dạng này.</string>
     <string name="error_compose_character_limit">Vượt quá số ký tự cho phép!</string>
-    <string name="error_retrieving_oauth_token">Lấy token đăng nhập thất bại.</string>
-    <string name="error_authorization_denied">Truy cập bị từ chối.</string>
-    <string name="error_authorization_unknown">Xảy ra lỗi khi cố gắng truy cập.</string>
     <string name="error_no_web_browser_found">Không tìm thấy trình duyệt web.</string>
-    <string name="error_invalid_domain">Tên miền không hợp lệ</string>
     <string name="error_empty">Không được để trống.</string>
     <string name="error_network">Rớt mạng! Xin kiểm tra kết nối và thử lại!</string>
     <string name="error_generic">Đã có lỗi xảy ra.</string>
-    <string name="error_failed_app_registration">Máy chủ này không cấp quyền truy cập.</string>
     <string name="title_lists">Danh sách</string>
     <string name="action_lists">Danh sách</string>
     <string name="about_title_activity">Thông tin</string>
@@ -56,7 +50,6 @@
     <string name="filter_dialog_update_button">Cập nhật</string>
     <string name="filter_dialog_remove_button">Xóa</string>
     <string name="action_send">ĐĂNG</string>
-    <string name="action_login">Đăng nhập Mastodon</string>
     <string name="dialog_redraft_post_warning">Xóa và viết lại tút này\?</string>
     <string name="dialog_delete_post_warning">Xóa tút này\?</string>
     <string name="dialog_unfollow_warning">Bỏ theo dõi người này\?</string>
@@ -64,14 +57,6 @@
     <string name="dialog_download_image">Tải về</string>
     <string name="dialog_message_uploading_media">Đang tải…</string>
     <string name="dialog_title_finishing_media_upload">Đã tải xong tập tin</string>
-    <string name="dialog_whats_an_instance">Bạn phải nhập một tên miền. Ví dụ mastodon.social, icosahedron.website, social.tchncs.de và <a href="https://instances.social">vô số khác!</a>
-\n
-\nNếu chưa có tài khoản, bạn phải tạo tài khoản ở đó trước.
-\n
-\nMáy chủ, nói cách khác là một cộng đồng nơi mà bạn đăng ký tài khoản trên đó, nhưng bạn vẫn có thể dễ dàng giao tiếp và theo dõi mọi người trên các máy chủ khác.
-\n
-\nTham khảo <a href="https://joinmastodon.org">joinmastodon.org</a> </string>
-    <string name="login_connection">Đang kết nối…</string>
     <string name="label_header">Ảnh bìa</string>
     <string name="label_avatar">Ảnh đại diện</string>
     <string name="label_quick_reply">Trả lời…</string>
@@ -81,7 +66,6 @@
     <string name="hint_display_name">Biệt danh</string>
     <string name="hint_content_warning">Nội dung bạn muốn ẩn</string>
     <string name="hint_compose">Bạn đang nghĩ về điều gì\?</string>
-    <string name="hint_domain">Bạn ở máy chủ nào\?</string>
     <string name="post_sent_long">Đã gửi trả lời tút.</string>
     <string name="post_sent">Đã đăng!</string>
     <string name="confirmation_domain_unmuted">Đã bỏ ẩn %s</string>
@@ -94,7 +78,6 @@
     <string name="downloading_media">Đang lưu vào thiết bị</string>
     <string name="download_media">Tải xuống</string>
     <string name="action_share_as">Đăng lại với tư cách …</string>
-    <string name="action_open_as">Mở với tư cách %s</string>
     <string name="action_copy_link">Chép URL</string>
     <string name="download_image">Đang tải %1$s</string>
     <string name="action_open_media_n">Mở tập tin #%d</string>
@@ -140,7 +123,6 @@
     <string name="action_view_bookmarks">Lưu</string>
     <string name="action_view_favourites">Thích</string>
     <string name="action_view_profile">Trang hồ sơ</string>
-    <string name="action_close">Đóng</string>
     <string name="action_retry">Thử lại</string>
     <string name="action_delete_and_redraft">Xóa &amp; viết lại</string>
     <string name="action_delete">Xóa</string>
@@ -197,7 +179,6 @@
     <string name="title_home">Trang chính</string>
     <string name="title_drafts">Những tút nháp</string>
     <string name="title_favourites">Những tút đã thích</string>
-    <string name="link_whats_an_instance">Máy chủ là gì\?</string>
     <string name="pref_title_show_media_preview">Hiện xem trước hình ảnh</string>
     <string name="pref_title_show_replies">Hiện những trả lời</string>
     <string name="pref_title_show_boosts">Hiện lượt đăng lại</string>
@@ -401,7 +382,6 @@
     <string name="unreblog_private">Hủy đăng lại</string>
     <string name="reblog_private">Đăng lại công khai</string>
     <string name="account_moved_description">%1$s đã chuyển sang:</string>
-    <string name="profile_badge_bot_text">Tài khoản Bot</string>
     <string name="download_failed">Tải về thất bại</string>
     <string name="caption_notoemoji">Emoji của Google</string>
     <string name="caption_twemoji">Emoji chính thức của Mastodon</string>
@@ -413,7 +393,6 @@
     <string name="restart_required">Yêu cầu khởi động lại ứng dụng</string>
     <string name="action_open_post">Đọc tút</string>
     <string name="expand_collapse_all_posts">Mở rộng/Thu gọn toàn bộ tút</string>
-    <string name="performing_lookup_title">Đang tra cứu…</string>
     <string name="download_fonts">Bạn cần tải về bộ emoji này trước</string>
     <string name="system_default">Mặc định của thiết bị</string>
     <string name="emoji_style">Emoji</string>
@@ -498,8 +477,6 @@
     <string name="pref_title_notification_filter_updates">khi một tút mà tôi tương tác bị sửa</string>
     <string name="notification_update_name">Sửa tút</string>
     <string name="notification_update_description">Thông báo khi tút mà tôi tương tác bị sửa</string>
-    <string name="title_login">Đăng nhập</string>
-    <string name="error_could_not_load_login_page">Không thể tải trang đăng nhập.</string>
     <string name="saving_draft">Đang lưu nháp…</string>
     <string name="action_dismiss">Bỏ qua</string>
     <string name="title_migration_relogin">Đăng nhập lại để hiện thông báo đẩy</string>
@@ -511,7 +488,6 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_edit_image">Sửa ảnh</string>
     <string name="error_image_edit_failed">Hình ảnh này không thể sửa.</string>
-    <string name="error_loading_account_details">Không thể tải thông tin tài khoản</string>
     <string name="error_multimedia_size_limit">Video và audio không thể quá %s MB.</string>
     <string name="error_following_hashtag_format">Lỗi khi theo dõi #%s</string>
     <string name="error_unfollowing_hashtag_format">Lỗi khi bỏ theo dõi #%s</string>
@@ -526,8 +502,6 @@
     <string name="pref_show_self_username_disambiguate">Khi đăng nhập nhiều tài khoản</string>
     <string name="pref_show_self_username_never">Không hiện</string>
     <string name="delete_scheduled_post_warning">Bạn có chắc muốn xóa tút đã lên lịch\?</string>
-    <string name="instance_rule_info">Đăng nhập nghĩa là bạn đồng ý với nội quy của %s.</string>
-    <string name="instance_rule_title">Nội quy của %s</string>
     <string name="compose_save_draft_loses_media">Lưu bản nháp\? (Bạn sẽ cần tải lên lại file đính kèm)</string>
     <string name="failed_to_unpin">Không thể bỏ ghim</string>
     <string name="failed_to_pin">Không thể ghim</string>
@@ -577,7 +551,6 @@
     <string name="pref_summary_http_proxy_missing">&lt;không đặt&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;không hợp lệ&gt;</string>
     <string name="description_browser_login">Có thể hỗ trợ các phương thức xác thực bổ sung nhưng yêu cầu trình duyệt được hỗ trợ.</string>
-    <string name="action_browser_login">Đăng nhập bằng trình duyệt</string>
     <string name="description_login">Đăng nhập ổn định. Dữ liệu sẽ không bị lộ.</string>
     <string name="action_post_failed">Tải lên thất bại</string>
     <string name="action_post_failed_detail">Tút của bạn không tải lên được và đã được lưu nháp.

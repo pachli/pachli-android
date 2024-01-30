@@ -2,12 +2,7 @@
 <resources>
     <string name="error_generic">Wystąpił błąd.</string>
     <string name="error_empty">To nie może pozostać puste.</string>
-    <string name="error_invalid_domain">Wprowadzono nieprawidłową domenę</string>
-    <string name="error_failed_app_registration">Nie udało się uwierzytelnić z tą instancją. Jeśli problem będzie się powtarzał, spróbuj zalogować się za pomocą przeglądarki z menu aplikacji.</string>
     <string name="error_no_web_browser_found">Nie znaleziono przeglądarki internetowej.</string>
-    <string name="error_authorization_unknown">Wystąpił nieokreślony błąd podczas próby autoryzacji. Jeśli problem będzie się powtarzał, spróbuj zalogować się za pomocą przeglądarki z menu aplikacji.</string>
-    <string name="error_authorization_denied">Odmówiono autoryzacji. Jeśli jesteś pewien poprawności wprowadzonych danych, spróbuj zalogowania się za pomocą przeglądarki dostępnej w menu.</string>
-    <string name="error_retrieving_oauth_token">Nie udało się uzyskać tokenu logowania. Jeśli problem będzie się powtarzał, spróbuj zalogować się za pomocą przeglądarki z menu aplikacji.</string>
     <string name="error_compose_character_limit">Zbyt długi wpis!</string>
     <string name="error_media_upload_type">Ten format pliku nie może zostać wysłany.</string>
     <string name="error_media_upload_opening">Nie można otworzyć tego pliku.</string>
@@ -50,7 +45,6 @@
     <string name="action_favourite">Dodaj do ulubionych</string>
     <string name="action_more">Więcej</string>
     <string name="action_compose">Napisz</string>
-    <string name="action_login">Zaloguj się z Pachli</string>
     <string name="action_logout">Wyloguj się</string>
     <string name="action_logout_confirm">Czy na pewno chcesz wylogować się z konta %1$s?</string>
     <string name="action_follow">Obserwuj</string>
@@ -64,7 +58,6 @@
     <string name="action_send">Wyślij</string>
     <string name="action_send_public">Wyślij!</string>
     <string name="action_retry">Spróbuj ponownie</string>
-    <string name="action_close">Zamknij</string>
     <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Preferencje</string>
     <string name="action_view_favourites">Ulubione</string>
@@ -101,7 +94,6 @@
     <string name="confirmation_unmuted">Cofnięto wyciszenie użytkownika</string>
     <string name="post_sent">Wyślij!</string>
     <string name="post_sent_long">Odpowiedź wysłano pomyślnie.</string>
-    <string name="hint_domain">Jaka instancja?</string>
     <string name="hint_compose">Co Ci chodzi po głowie?</string>
     <string name="hint_content_warning">Ostrzeżenie o zawartości</string>
     <string name="hint_display_name">Nazwa wyświetlana</string>
@@ -111,15 +103,6 @@
     <string name="label_quick_reply">Odpowiedz…</string>
     <string name="label_avatar">Obraz profilowy</string>
     <string name="label_header">Nagłówek</string>
-    <string name="link_whats_an_instance">Czym jest instancja?</string>
-    <string name="login_connection">Łączenie…</string>
-    <string name="dialog_whats_an_instance">Tutaj można wprowadzić domenę lub adres instancji, np. mastodon.social, icosahedron.website, social.tchncs.de, i <a href="https://instances.social">wiele więcej!</a>
-\n
-\nJeżeli nie posiadasz jeszcze konta, wprowadź tu nazwę instancji, na której chcesz się zarejestrować.
-\n
-\nInstancja jest miejscem, na którym znajduje się twoje konto, lecz możesz prosto komunikować się z ludźmi na innych instancjach i obserwować ich, tak jakbyście byli na jednej stronie.
-\n
-\nWięcej informacji można znaleźć na <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="dialog_title_finishing_media_upload">Kończenie wysyłania treści</string>
     <string name="dialog_message_uploading_media">Wysyłanie…</string>
     <string name="dialog_download_image">Pobierz</string>
@@ -243,7 +226,6 @@
     <string name="emoji_style">Styl emoji</string>
     <string name="system_default">Domyślny systemu</string>
     <string name="download_fonts">Musisz najpierw pobrać te zestawy emoji</string>
-    <string name="performing_lookup_title">Wyszukiwanie…</string>
     <string name="expand_collapse_all_posts">Rozwiń/zwiń wszystkie wpisy</string>
     <string name="action_open_post">Otwórz wpis</string>
     <string name="restart_required">Wymagane jest ponowne uruchomienie</string>
@@ -278,7 +260,6 @@
     <string name="title_hashtags_dialog">Hashtagi</string>
     <string name="title_mentions_dialog">Wzmianki</string>
     <string name="title_links_dialog">Linki</string>
-    <string name="action_open_as">Otwórz jako %s</string>
     <string name="action_share_as">Udostępnij jako …</string>
     <string name="title_tab_preferences">Zakładki</string>
     <string name="title_domain_mutes">Ukryte domeny</string>
@@ -342,7 +323,6 @@
 \n(maksymalna długość: %d)</item>
     </plurals>
     <string name="caption_notoemoji">Aktualny zestaw emoji Google</string>
-    <string name="profile_badge_bot_text">Bot</string>
     <string name="pref_title_absolute_time">Użyj czasu absolutnego</string>
     <string name="label_remote_account">Informacje poniżej mogą niekompletnie przedstawiać profil użytkownika. Kliknij by otworzyć pełny profil w przeglądarce.</string>
     <string name="unpin_action">Odepnij z profilu</string>
@@ -448,7 +428,6 @@
     <string name="action_schedule_post">Zaplanuj wpis</string>
     <string name="action_reset_schedule">Resetuj</string>
     <string name="about_powered_by_pachli">Napędzane przez Pachli</string>
-    <string name="post_lookup_error_format">Błąd przy wyszukiwaniu wpisu %s</string>
     <string name="title_bookmarks">Zakładki</string>
     <string name="action_bookmark">Dodaj do zakładek</string>
     <string name="action_view_bookmarks">Zakładki</string>
@@ -535,7 +514,6 @@
     <string name="duration_180_days">180 dni</string>
     <string name="duration_365_days">365 dni</string>
     <string name="pachli_compose_post_quicksetting_label">Utwórz wpis</string>
-    <string name="title_login">Login</string>
     <string name="notification_sign_up_format">%s zarejestrował/a się</string>
     <string name="notification_sign_up_name">Rejestracje</string>
     <string name="notification_sign_up_description">Powiadomienia o nowych użytkownikach</string>
@@ -545,7 +523,6 @@
     <string name="notification_update_format">%s edytował/a swój wpis</string>
     <string name="notification_update_name">Edycje wpisów</string>
     <string name="saving_draft">Zapisywanie szkicu…</string>
-    <string name="error_could_not_load_login_page">Nie można załadować strony logowania.</string>
     <string name="dialog_push_notification_migration_other_accounts">Zalogowałeś/-aś się ponownie na swoje konto, aby przyzwolić Pachli na wysyłanie powiadomień push. Masz jednak inne konta które nie zostały zmigrowane. Przełącz się na nie i zaloguj się ponownie aby włączyć wsparcie dla powiadomień UnifiedPush.</string>
     <string name="status_count_one_plus">1+</string>
     <string name="account_date_joined">Dołączył/-a %1$s</string>
@@ -556,7 +533,6 @@
     <string name="title_migration_relogin">Zaloguj się ponownie aby włączyć powiadomienia push</string>
     <string name="action_dismiss">Odrzuć</string>
     <string name="action_details">Detale</string>
-    <string name="error_loading_account_details">Ładowanie informacji o koncie nie powiodło się</string>
     <string name="error_multimedia_size_limit">Pliki wideo i audio nie mogą przekraczać rozmiarem %s MB.</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="description_post_language">Język wpisu</string>
@@ -585,19 +561,16 @@
     <string name="error_following_hashtags_unsupported">Ta instancja nie wspiera obserwowania hashtagów.</string>
     <string name="title_followed_hashtags">Obserwowane hashtagi</string>
     <string name="a11y_label_loading_thread">Ładowanie wątku</string>
-    <string name="instance_rule_info">Logując się akceptujesz regulamin %s.</string>
     <string name="no_lists">Nie masz żadnych list.</string>
     <string name="mute_notifications_switch">Wycisz powiadomienia</string>
     <string name="status_edit_info">%1$s edytował</string>
     <string name="status_created_info">%1$s stworzył</string>
     <string name="title_edits">Edycje</string>
     <string name="compose_unsaved_changes">Masz niezapisane zmiany.</string>
-    <string name="instance_rule_title">%s regulamin</string>
     <string name="action_post_failed">Błąd wysyłania</string>
     <string name="action_post_failed_show_drafts">Pokaż szkice</string>
     <string name="action_post_failed_do_nothing">Odrzuć</string>
     <string name="post_media_alt">ALT</string>
-    <string name="action_browser_login">Zaloguj się przez przeglądarkę</string>
     <string name="action_continue_edit">Kontynuuj edycję</string>
     <string name="report_category_spam">Spam</string>
     <string name="send_account_link_to">Udostępnij link do konta…</string>

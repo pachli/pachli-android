@@ -18,6 +18,7 @@
 package app.pachli
 
 import android.app.Application
+import app.pachli.core.designsystem.R as DR
 import org.acra.config.dialog
 import org.acra.config.mailSender
 import org.acra.data.StringFormat
@@ -34,7 +35,7 @@ fun initCrashReporter(app: Application) {
         dialog {
             title = app.getString(R.string.acra_dialog_title, app.getString(R.string.app_name))
             text = app.getString(R.string.acra_dialog_text)
-            resIcon = R.mipmap.ic_launcher
+            resIcon = DR.mipmap.ic_launcher
             resTheme = android.R.style.Theme_Material_Light_Dialog_Alert
         }
 

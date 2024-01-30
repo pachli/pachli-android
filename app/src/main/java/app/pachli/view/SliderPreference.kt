@@ -25,9 +25,10 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import app.pachli.R
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.designsystem.R as DR
 import app.pachli.databinding.PrefSliderBinding
-import app.pachli.util.hide
-import app.pachli.util.show
 import com.google.android.material.slider.LabelFormatter.LABEL_GONE
 import com.google.android.material.slider.Slider
 import java.lang.Float.max
@@ -113,20 +114,20 @@ class SliderPreference @JvmOverloads constructor(
         // preference layout to the right of the title and summary.
         layoutResource = R.layout.pref_slider
 
-        val a = context.obtainStyledAttributes(attrs, R.styleable.SliderPreference, defStyleAttr, defStyleRes)
+        val a = context.obtainStyledAttributes(attrs, DR.styleable.SliderPreference, defStyleAttr, defStyleRes)
 
-        value = a.getFloat(R.styleable.SliderPreference_android_value, DEFAULT_VALUE)
-        valueFrom = a.getFloat(R.styleable.SliderPreference_android_valueFrom, DEFAULT_VALUE_FROM)
-        valueTo = a.getFloat(R.styleable.SliderPreference_android_valueTo, DEFAULT_VALUE_TO)
-        stepSize = a.getFloat(R.styleable.SliderPreference_android_stepSize, DEFAULT_STEP_SIZE)
-        format = a.getString(R.styleable.SliderPreference_format) ?: DEFAULT_FORMAT
+        value = a.getFloat(DR.styleable.SliderPreference_android_value, DEFAULT_VALUE)
+        valueFrom = a.getFloat(DR.styleable.SliderPreference_android_valueFrom, DEFAULT_VALUE_FROM)
+        valueTo = a.getFloat(DR.styleable.SliderPreference_android_valueTo, DEFAULT_VALUE_TO)
+        stepSize = a.getFloat(DR.styleable.SliderPreference_android_stepSize, DEFAULT_STEP_SIZE)
+        format = a.getString(DR.styleable.SliderPreference_format) ?: DEFAULT_FORMAT
 
-        val decrementIconResource = a.getResourceId(R.styleable.SliderPreference_iconStart, -1)
+        val decrementIconResource = a.getResourceId(DR.styleable.SliderPreference_iconStart, -1)
         if (decrementIconResource != -1) {
             decrementIcon = AppCompatResources.getDrawable(context, decrementIconResource)
         }
 
-        val incrementIconResource = a.getResourceId(R.styleable.SliderPreference_iconEnd, -1)
+        val incrementIconResource = a.getResourceId(DR.styleable.SliderPreference_iconEnd, -1)
         if (incrementIconResource != -1) {
             incrementIcon = AppCompatResources.getDrawable(context, incrementIconResource)
         }

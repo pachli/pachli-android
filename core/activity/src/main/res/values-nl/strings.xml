@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">Als %s openen</string>
+    <string name="post_lookup_error_format">Fout tijdens het opzoeken van bericht %s</string>
+    <string name="performing_lookup_title">Aan het zoeken…</string>
+</resources>

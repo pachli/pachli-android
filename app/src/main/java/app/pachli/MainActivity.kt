@@ -66,14 +66,22 @@ import app.pachli.components.notifications.disableAllNotifications
 import app.pachli.components.notifications.enablePushNotificationsWithFallback
 import app.pachli.components.notifications.notificationsAreEnabled
 import app.pachli.components.notifications.showMigrationNoticeIfNecessary
+import app.pachli.core.activity.AccountSelectionListener
+import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.PostLookupFallbackBehavior
+import app.pachli.core.activity.emojify
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TabKind
+import app.pachli.core.designsystem.EmbeddedFontFamily
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AboutActivityIntent
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AnnouncementsActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.DraftsActivityIntent
 import app.pachli.core.navigation.EditProfileActivityIntent
 import app.pachli.core.navigation.ListActivityIntent
@@ -91,7 +99,6 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ActivityMainBinding
 import app.pachli.db.DraftsAlert
-import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.FabFragment
 import app.pachli.interfaces.ReselectableFragment
@@ -100,17 +107,12 @@ import app.pachli.updatecheck.UpdateCheck
 import app.pachli.updatecheck.UpdateNotificationFrequency
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
-import app.pachli.util.EmbeddedFontFamily
 import app.pachli.util.await
 import app.pachli.util.deleteStaleCachedMedia
-import app.pachli.util.emojify
 import app.pachli.util.getDimension
-import app.pachli.util.hide
 import app.pachli.util.reduceSwipeSensitivity
-import app.pachli.util.show
 import app.pachli.util.unsafeLazy
 import app.pachli.util.updateShortcut
-import app.pachli.util.viewBinding
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -209,18 +211,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // check for savedInstanceState in order to not handle intent events more than once
         if (intent != null && savedInstanceState == null) {
-            val notificationId = intent.getIntExtra(NOTIFICATION_ID, -1)
+            val notificationId = MainActivityIntent.getNotificationId(intent)
             if (notificationId != -1) {
                 // opened from a notification action, cancel the notification
                 val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-                notificationManager.cancel(intent.getStringExtra(NOTIFICATION_TAG), notificationId)
+                notificationManager.cancel(MainActivityIntent.getNotificationTag(intent), notificationId)
             }
 
             /** there are two possibilities the accountId can be passed to MainActivity:
              * - from our code as Long Intent Extra PACHLI_ACCOUNT_ID
              * - from share shortcuts as String 'android.intent.extra.shortcut.ID'
              */
-            var pachliAccountId = intent.getLongExtra(PACHLI_ACCOUNT_ID, -1)
+            var pachliAccountId = MainActivityIntent.getPachliAccountId(intent)
             if (pachliAccountId == -1L) {
                 val accountIdString = intent.getStringExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID)
                 if (accountIdString != null) {
@@ -232,9 +234,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 accountManager.setActiveAccount(pachliAccountId)
             }
 
-            val openDrafts = intent.getBooleanExtra(OPEN_DRAFTS, false)
+            val openDrafts = MainActivityIntent.getOpenDrafts(intent)
 
-            if (canHandleMimeType(intent.type) || intent.hasExtra(COMPOSE_OPTIONS)) {
+            if (canHandleMimeType(intent.type) || MainActivityIntent.hasComposeOptions(intent)) {
                 // Sharing to Tusky from an external app
                 if (accountRequested) {
                     // The correct account is already active
@@ -252,7 +254,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                                     forwardToComposeActivity(intent)
                                 } else {
                                     // A different account was requested, restart the activity
-                                    intent.putExtra(PACHLI_ACCOUNT_ID, requestedId)
+                                    MainActivityIntent.setPachliAccountId(intent, requestedId)
                                     changeAccount(requestedId, intent)
                                 }
                             }
@@ -262,10 +264,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             } else if (openDrafts) {
                 val intent = DraftsActivityIntent(this)
                 startActivity(intent)
-            } else if (accountRequested && intent.hasExtra(NOTIFICATION_TYPE)) {
+            } else if (accountRequested && MainActivityIntent.hasNotificationType(intent)) {
                 // user clicked a notification, show follow requests for type FOLLOW_REQUEST,
                 // otherwise show notification tab
-                if (intent.getSerializableExtra(NOTIFICATION_TYPE) == Notification.Type.FOLLOW_REQUEST) {
+                if (MainActivityIntent.getNotificationType(intent) == Notification.Type.FOLLOW_REQUEST) {
                     val intent = AccountListActivityIntent(this, AccountListActivityIntent.Kind.FOLLOW_REQUESTS)
                     startActivityWithSlideInAnimation(intent)
                 } else {
@@ -487,7 +489,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         .setTitle(R.string.update_dialog_title)
         .setMessage(R.string.update_dialog_message)
         .setCancelable(true)
-        .setIcon(R.mipmap.ic_launcher)
+        .setIcon(DR.mipmap.ic_launcher)
         .create()
         .await(R.string.update_dialog_positive, R.string.update_dialog_negative, R.string.update_dialog_neutral)
 
@@ -532,7 +534,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         super.onPostCreate(savedInstanceState)
 
         if (intent != null) {
-            val redirectUrl = intent.getStringExtra(REDIRECT_URL)
+            val redirectUrl = MainActivityIntent.getRedirectUrl(intent)
             if (redirectUrl != null) {
                 viewUrl(redirectUrl, PostLookupFallbackBehavior.DISPLAY_ERROR)
             }
@@ -820,7 +822,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     private fun setupTabs(selectNotificationTab: Boolean) {
         val activeTabLayout = if (sharedPreferencesRepository.getString(PrefKeys.MAIN_NAV_POSITION, "top") == "bottom") {
             val actionBarSize = getDimension(this, androidx.appcompat.R.attr.actionBarSize)
-            val fabMargin = resources.getDimensionPixelSize(R.dimen.fabMargin)
+            val fabMargin = resources.getDimensionPixelSize(DR.dimen.fabMargin)
             (binding.composeButton.layoutParams as CoordinatorLayout.LayoutParams).bottomMargin = actionBarSize + fabMargin
             binding.topNav.hide()
             binding.bottomTabLayout
@@ -863,7 +865,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }.takeIf { it != -1 } ?: 0
         binding.viewPager.setCurrentItem(position, false)
 
-        val pageMargin = resources.getDimensionPixelSize(R.dimen.tab_page_margin)
+        val pageMargin = resources.getDimensionPixelSize(DR.dimen.tab_page_margin)
         binding.viewPager.setPageTransformer(MarginPageTransformer(pageMargin))
 
         val enableSwipeForTabs = sharedPreferencesRepository.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
@@ -950,8 +952,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         startActivity(intent)
         finishWithoutSlideOutAnimation()
         overridePendingTransition(
-            R.anim.explode,
-            R.anim.explode,
+            DR.anim.explode,
+            DR.anim.explode,
         )
     }
 
@@ -1040,17 +1042,17 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             binding.mainToolbar
         }
 
-        val navIconSize = resources.getDimensionPixelSize(R.dimen.avatar_toolbar_nav_icon_size)
+        val navIconSize = resources.getDimensionPixelSize(DR.dimen.avatar_toolbar_nav_icon_size)
 
         if (animateAvatars) {
             glide.asDrawable().load(avatarUrl).transform(
                 RoundedCorners(
                     resources.getDimensionPixelSize(
-                        R.dimen.avatar_radius_36dp,
+                        DR.dimen.avatar_radius_36dp,
                     ),
                 ),
             )
-                .apply { if (showPlaceholder) placeholder(R.drawable.avatar_default) }
+                .apply { if (showPlaceholder) placeholder(DR.drawable.avatar_default) }
                 .into(
                     object : CustomTarget<Drawable>(navIconSize, navIconSize) {
 
@@ -1079,11 +1081,11 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             glide.asBitmap().load(avatarUrl).transform(
                 RoundedCorners(
                     resources.getDimensionPixelSize(
-                        R.dimen.avatar_radius_36dp,
+                        DR.dimen.avatar_radius_36dp,
                     ),
                 ),
             )
-                .apply { if (showPlaceholder) placeholder(R.drawable.avatar_default) }
+                .apply { if (showPlaceholder) placeholder(DR.drawable.avatar_default) }
                 .into(
                     object : CustomTarget<Bitmap>(navIconSize, navIconSize) {
                         override fun onLoadStarted(placeholder: Drawable?) {
@@ -1166,75 +1168,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     companion object {
         private const val DRAWER_ITEM_ADD_ACCOUNT: Long = -13
         private const val DRAWER_ITEM_ANNOUNCEMENTS: Long = 14
-        private const val REDIRECT_URL = "redirectUrl"
-        private const val OPEN_DRAFTS = "draft"
-        private const val PACHLI_ACCOUNT_ID = "pachliAccountId"
-        private const val COMPOSE_OPTIONS = "composeOptions"
-        private const val NOTIFICATION_TYPE = "notificationType"
-        private const val NOTIFICATION_TAG = "notificationTag"
-        private const val NOTIFICATION_ID = "notificationId"
-
-        /**
-         * Switches the active account to the provided accountId and then stays on MainActivity
-         */
-        @JvmStatic
-        fun accountSwitchIntent(context: Context, pachliAccountId: Long): Intent {
-            return MainActivityIntent(context).apply {
-                putExtra(PACHLI_ACCOUNT_ID, pachliAccountId)
-            }
-        }
-
-        /**
-         * Switches the active account to the accountId and takes the user to the correct place according to the notification they clicked
-         */
-        @JvmStatic
-        fun openNotificationIntent(context: Context, pachliAccountId: Long, type: Notification.Type): Intent {
-            return accountSwitchIntent(context, pachliAccountId).apply {
-                putExtra(NOTIFICATION_TYPE, type)
-            }
-        }
-
-        /**
-         * Switches the active account to the accountId and then opens ComposeActivity with the provided options
-         * @param pachliAccountId the id of the Pachli account to open the screen with. Set to -1 for current account.
-         * @param notificationId optional id of the notification that should be cancelled when this intent is opened
-         * @param notificationTag optional tag of the notification that should be cancelled when this intent is opened
-         */
-        @JvmStatic
-        fun composeIntent(
-            context: Context,
-            options: ComposeOptions,
-            pachliAccountId: Long = -1,
-            notificationTag: String? = null,
-            notificationId: Int = -1,
-        ): Intent {
-            return accountSwitchIntent(context, pachliAccountId).apply {
-                action = Intent.ACTION_SEND // so it can be opened via shortcuts
-                putExtra(COMPOSE_OPTIONS, options)
-                putExtra(NOTIFICATION_TAG, notificationTag)
-                putExtra(NOTIFICATION_ID, notificationId)
-            }
-        }
-
-        /**
-         * switches the active account to the accountId and then tries to resolve and show the provided url
-         */
-        @JvmStatic
-        fun redirectIntent(context: Context, pachliAccountId: Long, url: String): Intent {
-            return accountSwitchIntent(context, pachliAccountId).apply {
-                putExtra(REDIRECT_URL, url)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-        }
-
-        /**
-         * switches the active account to the provided accountId and then opens drafts
-         */
-        fun draftIntent(context: Context, pachliAccountId: Long): Intent {
-            return accountSwitchIntent(context, pachliAccountId).apply {
-                putExtra(OPEN_DRAFTS, true)
-            }
-        }
     }
 }
 
@@ -1283,7 +1216,7 @@ class MainDrawerImageLoader(val glide: RequestManager, val animateAvatars: Boole
 
     override fun placeholder(ctx: Context, tag: String?): Drawable {
         if (tag == DrawerImageLoader.Tags.PROFILE.name || tag == DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name) {
-            return AppCompatResources.getDrawable(ctx, R.drawable.avatar_default)!!
+            return AppCompatResources.getDrawable(ctx, DR.drawable.avatar_default)!!
         }
 
         return super.placeholder(ctx, tag)

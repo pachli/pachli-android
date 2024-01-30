@@ -18,8 +18,8 @@
 package app.pachli.core.network.di
 
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
+import app.pachli.core.common.util.versionName
 import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.BuildConfig
 import app.pachli.core.network.json.Rfc3339DateJsonAdapter
@@ -71,11 +71,7 @@ object NetworkModule {
         preferences: SharedPreferencesRepository,
         instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     ): OkHttpClient {
-        val versionName = try {
-            context.packageManager.getPackageInfo(context.packageName, 0).versionName
-        } catch (e: PackageManager.NameNotFoundException) {
-            "unknown"
-        }
+        val versionName = versionName(context)
         val httpProxyEnabled = preferences.getBoolean(HTTP_PROXY_ENABLED, false)
         val httpServer = preferences.getNonNullString(HTTP_PROXY_SERVER, "")
         val httpPort = preferences.getNonNullString(HTTP_PROXY_PORT, "-1").toIntOrNull() ?: -1

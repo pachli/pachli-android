@@ -36,18 +36,19 @@ import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import app.pachli.BaseActivity
 import app.pachli.R
 import app.pachli.components.trending.viewmodel.TrendingTagsViewModel
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.databinding.FragmentTrendingTagsBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.RefreshableFragment
 import app.pachli.interfaces.ReselectableFragment
-import app.pachli.util.hide
-import app.pachli.util.show
-import app.pachli.util.viewBinding
 import app.pachli.viewdata.TrendingViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
@@ -77,7 +78,7 @@ class TrendingTagsFragment :
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         val columnCount =
-            requireContext().resources.getInteger(R.integer.trending_column_count)
+            requireContext().resources.getInteger(DR.integer.trending_column_count)
         setupLayoutManager(columnCount)
     }
 
@@ -135,7 +136,7 @@ class TrendingTagsFragment :
 
     private fun setupRecyclerView() {
         val columnCount =
-            requireContext().resources.getInteger(R.integer.trending_column_count)
+            requireContext().resources.getInteger(DR.integer.trending_column_count)
         setupLayoutManager(columnCount)
 
         binding.recyclerView.setHasFixedSize(true)

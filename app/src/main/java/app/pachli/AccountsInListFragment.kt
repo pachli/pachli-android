@@ -29,6 +29,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
+import app.pachli.core.activity.emojify
+import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -36,12 +42,7 @@ import app.pachli.databinding.FragmentAccountsInListBinding
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.util.BindingHolder
 import app.pachli.util.Either
-import app.pachli.util.emojify
-import app.pachli.util.hide
-import app.pachli.util.loadAvatar
-import app.pachli.util.show
 import app.pachli.util.unsafeLazy
-import app.pachli.util.viewBinding
 import app.pachli.viewmodel.AccountsInListViewModel
 import app.pachli.viewmodel.State
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,7 +62,7 @@ class AccountsInListFragment : DialogFragment() {
     private val adapter = Adapter()
     private val searchAdapter = SearchAdapter()
 
-    private val radius by unsafeLazy { resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp) }
+    private val radius by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp) }
 
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
@@ -71,7 +72,7 @@ class AccountsInListFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.AppDialogFragmentStyle)
+        setStyle(STYLE_NORMAL, DR.style.AppDialogFragmentStyle)
         val args = requireArguments()
         listId = args.getString(LIST_ID_ARG)!!
         listName = args.getString(LIST_NAME_ARG)!!

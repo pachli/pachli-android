@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">"O domínio de qualquer instância pode ser inserido aqui, tal como mastodon.social, masto.donte.com.br, colorid.es ou &lt;a href=\"https://instances.social\"&gt;qualquer outro&lt;/a&gt;!
+\n
+\nSe não tem uma conta ainda, insira o nome da instância que gostaria de participar e crie uma conta lá.
+\n
+\nUma instância é um lugar único onde tua conta é hospedada, mas pode te comunicar facilmente e seguir pessoas de outras instâncias como se todos estivessem no mesmo lugar.
+\n
+\nMais informações podem ser encontradas em &lt;a href=https://joinmastodon.org/pt-BR\"&gt;joinmastodon.org/pt-BR&lt;/a&gt;. "</string>
+    <string name="action_close">Fechar</string>
+    <string name="action_browser_login">Entrar com navegador</string>
+    <string name="error_invalid_domain">Domínio inválido</string>
+    <string name="error_failed_app_registration">Falha na autenticação com essa instância. Se isso persistir, tente Entrar pelo Navegador no menu.</string>
+    <string name="error_authorization_unknown">Ocorreu um erro de autorização não identificado. Se isso persistir, tente Entrar pelo Navegador no menu.</string>
+    <string name="error_authorization_denied">A autorização foi negada. Se você tiver certeza de que forneceu as credenciais corretas, tente Entrar pelo Navegador no menu.</string>
+    <string name="error_retrieving_oauth_token">Falha ao obter um Token de login. Se isso persistir, tente Entrar pelo Navegador no menu.</string>
+    <string name="error_loading_account_details">Falha ao carregar detalhes da conta</string>
+    <string name="hint_domain">Qual instância?</string>
+    <string name="action_login">Entrar com Pachli</string>
+    <string name="link_whats_an_instance">O que é uma instância?</string>
+    <string name="login_connection">Conectando…</string>
+    <string name="title_login">Entrar</string>
+    <string name="error_could_not_load_login_page">Não foi possível carregar a página de login.</string>
+    <string name="instance_rule_info">Ao entrar, você concorda com as regras de %s.</string>
+    <string name="instance_rule_title">%s regras</string>
+</resources>

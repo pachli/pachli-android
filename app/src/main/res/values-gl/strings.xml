@@ -36,7 +36,6 @@
     <string name="action_view_account_preferences">Preferencias da conta</string>
     <string name="action_view_preferences">Preferencias</string>
     <string name="action_view_profile">Perfil</string>
-    <string name="action_close">Pechar</string>
     <string name="action_retry">Intenta outra vez</string>
     <string name="action_send_public">TOOT!</string>
     <string name="action_send">TOOT</string>
@@ -52,7 +51,6 @@
     <string name="action_follow">Seguir</string>
     <string name="action_logout_confirm">Tes a certeza de querer pechar a sesión %1$s\? Isto eliminará todos os datos locais da conta, incluíndo borradores e preferencias.</string>
     <string name="action_logout">Pechar sesión</string>
-    <string name="action_login">Acceder con Pachli</string>
     <string name="action_compose">Redactar</string>
     <string name="action_more">Máis</string>
     <string name="action_unfavourite">Eliminar favorito</string>
@@ -111,12 +109,7 @@
     <string name="error_media_upload_opening">Non se puido abrir o ficheiro.</string>
     <string name="error_media_upload_type">Non pode subirse ese tipo de ficheiro.</string>
     <string name="error_compose_character_limit">A publicación é demasiado longa!</string>
-    <string name="error_retrieving_oauth_token">Non se obtivo o token de acceso. Se non o consigues, inténtao desde Acceder no Navegador.</string>
-    <string name="error_authorization_denied">A autorización foi rexeitada. Se tes a certeza de que as credenciais son correctas, inténtao desde Acceder no Navegador no menú.</string>
-    <string name="error_authorization_unknown">Aconteceu un erro non identificado na autorización. Se persiste, inténtao desde Acceder no Navedor.</string>
     <string name="error_no_web_browser_found">Non se atopou un navegador para utilizar.</string>
-    <string name="error_failed_app_registration">Fallou a autenticación nesta instancia. Se persiste, inténtao desde Acceder no Navegador no menú.</string>
-    <string name="error_invalid_domain">O dominio escrito non é válido</string>
     <string name="error_empty">Esto non pode estar baleiro.</string>
     <string name="error_network">Houbo un fallo na rede. Comproba a conexión e inténtao outra vez.</string>
     <string name="error_generic">Algo fallou.</string>
@@ -218,7 +211,6 @@
     <string name="unreblog_private">Retirar promoción</string>
     <string name="reblog_private">Promover para a audiencia orixinal</string>
     <string name="account_moved_description">%1$s migrou a:</string>
-    <string name="profile_badge_bot_text">Bot</string>
     <string name="download_failed">Fallou a descarga</string>
     <string name="caption_notoemoji">Conxunto actual de emojis de Google</string>
     <string name="caption_twemoji">Conxunto de emojis estándar en Mastodon</string>
@@ -230,7 +222,6 @@
     <string name="restart_required">Require reiniciar app</string>
     <string name="action_open_post">Abrir toot</string>
     <string name="expand_collapse_all_posts">Expandir/Pregar tódolos estados</string>
-    <string name="performing_lookup_title">Realizando a busca…</string>
     <string name="download_fonts">Deberás descargar primeiro estos conxuntos de emojis</string>
     <string name="system_default">Por defecto no sistema</string>
     <string name="emoji_style">Estilo dos emoji</string>
@@ -399,15 +390,6 @@
     <string name="dialog_download_image">Descargar</string>
     <string name="dialog_message_uploading_media">Subindo…</string>
     <string name="dialog_title_finishing_media_upload">Rematando a subida multimedia</string>
-    <string name="dialog_whats_an_instance">Aquí podes escribir o enderezo ou dominio de calquera instancia, como mastodon.social, icosahedron.website, social.techncs.de, e <a href="https://instances.social">máis!</a>
-\n
-\nSe aínda non tes unha conta, podes escribir o nome da instancia á que desexas unirte e crear unha conta nela.
-\n
-\nUnha instancia é o lugar onde se hospeda a túa conta, pero podes comunicarte facilmente e seguir a persoas noutras instancias como se estiveses alí.
-\n
-\nPodes atopar máis información en <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
-    <string name="login_connection">Conectando…</string>
-    <string name="link_whats_an_instance">Que é unha instancia\?</string>
     <string name="label_header">Cabeceira</string>
     <string name="label_avatar">Avatar</string>
     <string name="label_quick_reply">Responder…</string>
@@ -446,7 +428,6 @@
     <string name="no_announcements">Non hai anuncios.</string>
     <string name="no_scheduled_posts">Non tes estados programados.</string>
     <string name="no_drafts">Non tes borradores.</string>
-    <string name="post_lookup_error_format">Erro ao buscar publicación %s</string>
     <string name="edit_poll">Editar</string>
     <string name="poll_new_choice_hint">Opción %d</string>
     <string name="poll_allow_multiple_choices">Múltiples opcións</string>
@@ -458,7 +439,6 @@
     <string name="duration_1_hour">1 hora</string>
     <string name="duration_30_min">30 minutos</string>
     <string name="duration_5_min">5 minutos</string>
-    <string name="hint_domain">En que instancia\?</string>
     <string name="post_sent_long">Resposta enviada correctamente.</string>
     <string name="post_sent">Enviado!</string>
     <string name="confirmation_domain_unmuted">%s visible</string>
@@ -471,7 +451,6 @@
     <string name="downloading_media">Descargando multimedia</string>
     <string name="download_media">Descargar multimedia</string>
     <string name="action_share_as">Compartir como …</string>
-    <string name="action_open_as">Abrir como %s</string>
     <string name="action_copy_link">Copiar ligazón</string>
     <string name="download_image">Descargando %1$s</string>
     <string name="action_open_media_n">Abrir multimedia #%d</string>
@@ -508,7 +487,6 @@
     <string name="notification_update_name">Edicións da publicación</string>
     <string name="account_date_joined">Creada %1$s</string>
     <string name="tips_push_notification_migration">Volve a acceder con tódalas contas para activar as notificacións push.</string>
-    <string name="title_login">Acceder</string>
     <string name="notification_update_description">Notificacións cando son editadas publicacións coas que interactuaches</string>
     <string name="dialog_push_notification_migration">Para poder usar as notificacións push vía UnifiedPush, Pachli require o permiso para subscribirse ás notificacións do teu servidor Mastodon. É necesario volver a acceder para cambiar os ámbitos OAuth concedidos a Pachli. Usando aquí, ou nas preferencias da Conta, a opción de volver a acceder conservarás os borradores locais e caché.</string>
     <string name="dialog_push_notification_migration_other_accounts">Volveches a acceder para obter as notificacións push en Pachli. Aínda así tes algunha outra conta que non foi migrada a este modo. Cambia a esas contas e volve a conectar unha a unha para activar o soporte para notificacións de UnifiedPush.</string>
@@ -516,11 +494,9 @@
     <string name="notification_update_format">%s editou a publicación</string>
     <string name="action_dismiss">Desbotar</string>
     <string name="action_details">Detalles</string>
-    <string name="error_could_not_load_login_page">Non se puido cargar a páxina de inicio.</string>
     <string name="saving_draft">Gardando borrador…</string>
     <string name="status_count_one_plus">1+</string>
     <string name="action_edit_image">Editar imaxe</string>
-    <string name="error_loading_account_details">Fallou a carga dos detalles da conta</string>
     <string name="error_image_edit_failed">A imaxe non puido ser editada.</string>
     <string name="set_focus_description">Toca ou arrastra o círculo para elexir onde centrar a imaxe e sexa máis visible nas miniaturas.</string>
     <string name="duration_no_change">(Sen cambio)</string>
@@ -531,8 +507,6 @@
     <string name="action_set_focus">Establece foco</string>
     <string name="error_following_hashtag_format">Erro ao seguir #%s</string>
     <string name="error_unfollowing_hashtag_format">Error ao retirar seguimento de #%s</string>
-    <string name="instance_rule_title">Normas de %s</string>
-    <string name="instance_rule_info">Ao iniciar sesión aceptas as normas de %s.</string>
     <string name="action_add_reaction">engadir reacción</string>
     <string name="compose_save_draft_loses_media">Gardar borrador\? (Os adxuntos serán subidos outra vez cando restablezas o borrador.)</string>
     <string name="pref_title_show_self_username">Mostrar identificador na barra ferramentas</string>
@@ -595,7 +569,6 @@
 \nPode que o servidor non estivese accesible ou que rexeitase as publicacións.</string>
     <string name="action_post_failed_show_drafts">Mostrar borradores</string>
     <string name="action_post_failed_do_nothing">Desbotar</string>
-    <string name="action_browser_login">Acceder no Navegador</string>
     <string name="description_browser_login">Pode ter soporte para métodos adicionais de autenticación, pero require un navegador soportado.</string>
     <string name="description_login">Funciona case sempre. Non se filtran datos a outras apps.</string>
     <string name="accessibility_talking_about_tag">%1$d persoas están falando acerca do cancelo %2$s</string>

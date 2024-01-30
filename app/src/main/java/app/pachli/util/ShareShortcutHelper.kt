@@ -25,8 +25,8 @@ import androidx.core.app.Person
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
-import app.pachli.R
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.MainActivityIntent
 import com.bumptech.glide.Glide
 import io.reactivex.rxjava3.core.Single
@@ -34,20 +34,20 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 fun updateShortcut(context: Context, account: AccountEntity) {
     Single.fromCallable {
-        val innerSize = context.resources.getDimensionPixelSize(R.dimen.adaptive_bitmap_inner_size)
-        val outerSize = context.resources.getDimensionPixelSize(R.dimen.adaptive_bitmap_outer_size)
+        val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
+        val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
 
         val bmp = if (TextUtils.isEmpty(account.profilePictureUrl)) {
             Glide.with(context)
                 .asBitmap()
-                .load(R.drawable.avatar_default)
+                .load(DR.drawable.avatar_default)
                 .submit(innerSize, innerSize)
                 .get()
         } else {
             Glide.with(context)
                 .asBitmap()
                 .load(account.profilePictureUrl)
-                .error(R.drawable.avatar_default)
+                .error(DR.drawable.avatar_default)
                 .submit(innerSize, innerSize)
                 .get()
         }

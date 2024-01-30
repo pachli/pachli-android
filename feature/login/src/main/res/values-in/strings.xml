@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_close">Tutup</string>
+    <string name="error_invalid_domain">Domain yang dimasukkan tidak valid</string>
+    <string name="error_failed_app_registration">Gagal mengautentikasi dengan instance tersebut. Jika ini berlanjut, coba Masuk di Browser dari menu.</string>
+    <string name="error_authorization_unknown">"Terjadi kesalahan otorisasi yang tidak diketahui. Jika ini  berlanjut, coba Masuk di Browser dari menu."</string>
+    <string name="error_authorization_denied">Otorisasi ditolak. Jika Anda yakin telah memberikan kredensial yang benar, coba Masuk di Browser dari menu.</string>
+    <string name="error_retrieving_oauth_token">Gagal mendapatkan token masuk. Jika ini terus berlanjut, coba Masuk di Browser dari menu.</string>
+    <string name="error_loading_account_details">Gagal memuat detail akun</string>
+    <string name="hint_domain">Instansi yang mana\?</string>
+    <string name="action_login">Masuk dengan Mastodon</string>
+    <string name="link_whats_an_instance">Apa itu instansi\?</string>
+    <string name="login_connection">Menghubungkan…</string>
+    <string name="title_login">Masuk</string>
+    <string name="error_could_not_load_login_page">Tidak dapat memuat halaman masuk.</string>
+    <string name="action_browser_login">Masuk dengan Browser</string>
+</resources>

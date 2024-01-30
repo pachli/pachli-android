@@ -3,10 +3,7 @@
     <string name="error_generic">Pojavila se je napaka.</string>
     <string name="error_network">Prišlo je do omrežne napake! Preverite povezavo in poskusite znova!</string>
     <string name="error_empty">To ne sme biti prazno.</string>
-    <string name="error_invalid_domain">Vnesena je neveljavna domena</string>
     <string name="error_no_web_browser_found">Spletnega brskalnika ni bilo mogoče najti.</string>
-    <string name="error_authorization_denied">Pooblastitev je bila zavrnjena.</string>
-    <string name="error_retrieving_oauth_token">Ni bilo mogoče pridobiti žetona za prijavo.</string>
     <string name="error_compose_character_limit">Status je predolgo!</string>
     <string name="error_media_upload_type">Te vrste datoteke ni mogoče poslati.</string>
     <string name="error_media_upload_opening">Te datoteke ni bilo mogoče odpreti.</string>
@@ -56,7 +53,6 @@
     <string name="action_favourite">Vzljubi</string>
     <string name="action_more">Več</string>
     <string name="action_compose">Sestavi</string>
-    <string name="action_login">Prijavite se z Mastodonom</string>
     <string name="action_logout">Odjava</string>
     <string name="action_logout_confirm">Ali ste prepričani, da se želite odjaviti iz računa %1$s\?</string>
     <string name="action_follow">Sledi</string>
@@ -70,7 +66,6 @@
     <string name="action_send">TUTNI</string>
     <string name="action_send_public">TUTNI!</string>
     <string name="action_retry">Poskusi znova</string>
-    <string name="action_close">Zapri</string>
     <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Možnosti</string>
     <string name="action_view_account_preferences">Možnosti računa</string>
@@ -109,7 +104,6 @@
     <string name="action_open_media_n">Odpri medij #%d</string>
     <string name="download_image">Prejemanje %1$s</string>
     <string name="action_copy_link">Kopiraj povezavo</string>
-    <string name="action_open_as">Odpri kot %s</string>
     <string name="action_share_as">Deli kot …</string>
     <string name="download_media">Prenos medija</string>
     <string name="downloading_media">Prejemanje medija</string>
@@ -128,24 +122,12 @@
     <string name="label_quick_reply">Odgovori…</string>
     <string name="label_avatar">Podoba</string>
     <string name="label_header">Glava</string>
-    <string name="login_connection">Povezovanje…</string>
-    <string name="error_failed_app_registration">Overitev s to instanco ni uspela.</string>
-    <string name="error_authorization_unknown">Prišlo je do neznane napake pri pooblastitvi.</string>
     <string name="action_unfavourite">Odstrani priljubljene</string>
     <string name="action_unmute">Prekini utišanje</string>
     <string name="action_hashtags">Ključniki</string>
     <string name="title_hashtags_dialog">Ključniki</string>
     <string name="confirmation_unblocked">Odblokiran uporabnik</string>
     <string name="confirmation_unmuted">Prekinjeno utišanje uporabnika</string>
-    <string name="hint_domain">Katero vozlišče\?</string>
-    <string name="link_whats_an_instance">Kaj je instanca\?</string>
-    <string name="dialog_whats_an_instance">Tu lahko vnesete naslov ali domeno katerega koli vozlišča, na primer mastodon.social, icosahedron.website, social.tchncs.de in <a href="https://instances.social"> več! </a>
-\n
-\nČe še nimate računa, lahko vnesete ime vozlišča, kateremu bi se radi pridružili, in tam ustvarite račun.
-\n
-\nVozlišče je ena lokacija, kjer je gostovanje vašega računa, vendar lahko preprosto komunicirate in sledite ljudem na drugih vozliščih, kot da bi bili na isti lokaciji.
-\n
-\nVeč informacij najdete na naslovu <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="dialog_title_finishing_media_upload">Dokončanje pošiljanja medija</string>
     <string name="dialog_message_uploading_media">Pošiljanje…</string>
     <string name="dialog_download_image">Prejmi</string>
@@ -273,7 +255,6 @@
     <string name="emoji_style">Slog emotikonov</string>
     <string name="system_default">Privzete nastavitve sistema</string>
     <string name="download_fonts">Najprej boste morali prenesti te emotikone</string>
-    <string name="performing_lookup_title">Izvajanje iskanja…</string>
     <string name="expand_collapse_all_posts">Razširi/Strni vse statuse</string>
     <string name="action_open_post">Odpri tut</string>
     <string name="restart_required">Potreben je ponovni zagon aplikacije</string>
@@ -284,7 +265,6 @@
     <string name="caption_blobmoji">Blob emotikoni so znani od Android 4.4-7.1</string>
     <string name="caption_twemoji">Mastodonov privzeti komplet emotikonov</string>
     <string name="download_failed">Prenos ni uspel</string>
-    <string name="profile_badge_bot_text">Robot</string>
     <string name="account_moved_description">%1$s se je prestavil/a na:</string>
     <string name="reblog_private">Spodbudi izvirnemu občinstvu</string>
     <string name="unreblog_private">Prekini spodbudo</string>
@@ -423,7 +403,6 @@
     <string name="action_access_scheduled_posts">Napovedani tuti</string>
     <string name="action_reset_schedule">Ponastavi</string>
     <string name="action_schedule_post">Napovej tut</string>
-    <string name="post_lookup_error_format">Napaka pri iskanju objave %s</string>
     <string name="about_powered_by_pachli">Poganja ga Pachli</string>
     <string name="post_boosted_format">%s spodbudil</string>
     <string name="hashtags">Ključniki</string>

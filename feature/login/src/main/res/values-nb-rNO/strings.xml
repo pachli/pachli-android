@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Addressen eller domenet til enhver instans kan legges til her, f. eks. mastodon.social, icosahedron.website, social.tchncs.de og <a href="https://instances.social">mer!</a>
+\n
+\nHvis du ikke har en konto kan du oppgi navnet på instansen du vil bli medlem av, og lage en konto der.
+\n
+\nEn instans der hvor du har kontoen din, men du kan lett kommunisere med og følge andre personer på andre instanser, som om du var på den samme nettsiden.
+\n
+\nDu kan finne mer info på <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="action_close">Steng</string>
+    <string name="action_browser_login">Logg inn med nettleseren</string>
+    <string name="error_invalid_domain">Ugyldig domene</string>
+    <string name="error_failed_app_registration">Kunne ikke autentisere med den instansen. Hvis dette fortsetter å skje, prøv å logge inn i nettleseren fra menyen.</string>
+    <string name="error_authorization_unknown">En ukjent autoriseringsfeil oppsto. Hvis dette fortsetter, prøv å logge inn i nettleseren fra menyen.</string>
+    <string name="error_authorization_denied">Autorisasjon ble nektet. Hvis du er sikker på at du ga riktige data, prøv å logge inn i nettleseren fra menyen.</string>
+    <string name="error_retrieving_oauth_token">Henting av logintoken feilet. Hvis dette fortsetter prøv å logge in i nettleseren fra menyen.</string>
+    <string name="error_loading_account_details">Lasting av kontodetaljer feilet</string>
+    <string name="hint_domain">Hvilken instanse\?</string>
+    <string name="action_login">Logg inn med Pachli</string>
+    <string name="link_whats_an_instance">Hva er en instans\?</string>
+    <string name="login_connection">Kobler til…</string>
+    <string name="title_login">Logg inn</string>
+    <string name="error_could_not_load_login_page">Klarte ikke å laste innloggingssiden.</string>
+    <string name="instance_rule_info">Ved å logge inn godtar du reglene på %s.</string>
+    <string name="instance_rule_title">Regler på %s</string>
+</resources>

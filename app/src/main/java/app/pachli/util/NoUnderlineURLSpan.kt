@@ -19,6 +19,7 @@ package app.pachli.util
 import android.text.TextPaint
 import android.text.style.URLSpan
 import android.view.View
+import app.pachli.core.activity.openLink
 
 open class NoUnderlineURLSpan(val url: String) : URLSpan(url) {
 

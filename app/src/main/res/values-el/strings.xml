@@ -68,7 +68,6 @@
     <string name="title_mutes">Χρήστες σε σίγαση</string>
     <string name="action_hide_reblogs">Απόκρυψη προωθήσεων</string>
     <string name="action_view_preferences">Προτιμήσεις</string>
-    <string name="title_login">Σύνδεση</string>
     <string name="title_announcements">Ανακοινώσεις</string>
     <string name="action_access_drafts">Προσχέδια</string>
     <string name="notification_sign_up_format">ο/η %s έκανε εγγραφή</string>
@@ -77,10 +76,8 @@
     <string name="action_unmute">Άρση σίγασης</string>
     <string name="action_favourite">Αγαπημένο</string>
     <string name="title_links_dialog">Σύνδεσμοι</string>
-    <string name="action_close">Κλείσιμο</string>
     <string name="title_notifications">Ειδοποιήσεις</string>
     <string name="action_compose">Γράψτε</string>
-    <string name="action_login">Σύνδεση με Mastodon</string>
     <string name="action_edit_own_profile">Επεξεργασία</string>
     <string name="action_reblog">Προώθηση</string>
     <string name="dialog_unfollow_warning">Άρση ακολούθησης αυτού του λογαριασμού;</string>
@@ -88,7 +85,6 @@
     <string name="action_unbookmark">Αφαίρεση σελιδοδείκτη</string>
     <string name="action_content_warning">Προειδοποίηση περιεχομένου</string>
     <string name="action_links">Σύνδεσμοι</string>
-    <string name="login_connection">Σύνδεση…</string>
     <string name="action_access_scheduled_posts">Προγραμματισμένες δημοσιεύσεις</string>
     <string name="action_schedule_post">Προγραμματισμός δημοσίευσης</string>
     <string name="title_scheduled_posts">Προγραμματισμένες δημοσιεύσεις</string>
@@ -107,8 +103,6 @@
     <string name="error_unfollowing_hashtag_format">Σφάλμα μη-ακολουθίας #%s</string>
     <string name="error_media_upload_sending_fmt">Το ανέβασμα απέτυχε: %s</string>
     <string name="error_media_upload_sending">Το ανέβασμα αρχείου απέτυχε.</string>
-    <string name="error_loading_account_details">Η φόρτωση λεπτομερειών λογαριασμού απέτυχε</string>
     <string name="title_home">Αρχική Σελίδα</string>
     <string name="error_sender_account_gone">Σφάλμα αποστολής ανάρτησης.</string>
-    <string name="error_could_not_load_login_page">Δεν ήταν δυνατή η φόρτωση της σελίδας εισόδου χρήστη.</string>
 </resources>

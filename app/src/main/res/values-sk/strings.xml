@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_login">Prihlásiť sa účtom Mastodon</string>
     <string name="title_drafts">Koncepty</string>
     <string name="action_logout">Odhlásiť sa</string>
     <string name="action_view_preferences">Nastavenia</string>
@@ -27,13 +26,10 @@
     <string name="report_username_format">Nahlásiť používateľa @%s</string>
     <string name="action_quick_reply">Rýchla odpoveď</string>
     <string name="action_reply">Odpovedať</string>
-    <string name="link_whats_an_instance">Čo je server\?</string>
     <string name="title_favourites">Obľúbené</string>
     <string name="about_title_activity">O aplikácii</string>
     <string name="error_network">Vyskytla sa chyba v sieti! Prosím skontrolujte svoje pripojenie a skúste to znova!</string>
     <string name="error_empty">Toto nemôže byť prázdne.</string>
-    <string name="error_authorization_denied">Autorizácia bola zamietnutá.</string>
-    <string name="error_retrieving_oauth_token">Nepodarilo sa získať prihlasovací token.</string>
     <string name="error_media_upload_opening">Súbor sa nepodarilo otvoriť.</string>
     <string name="title_home">Domov</string>
     <string name="title_tab_preferences">Panely</string>
@@ -57,12 +53,10 @@
     <string name="action_open_media_n">Otvoriť médium #%d</string>
     <string name="download_image">Sťahovanie %1$s</string>
     <string name="action_copy_link">Kopírovať odkaz</string>
-    <string name="action_open_as">Otvoriť ako %s</string>
     <string name="confirmation_reported">Odoslané!</string>
     <string name="confirmation_unblocked">Používateľ bol odblokovaný</string>
     <string name="post_sent">Odoslané!</string>
     <string name="post_sent_long">Odpoveď bola úspešne odoslaná.</string>
-    <string name="hint_domain">Ktorý server\?</string>
     <string name="hint_display_name">Zobrazované meno</string>
     <string name="hint_note">O vás</string>
     <string name="hint_search">Hľadať…</string>
@@ -70,10 +64,7 @@
     <string name="label_quick_reply">Odpovedať…</string>
     <string name="dialog_message_uploading_media">Nahrávanie…</string>
     <string name="dialog_download_image">Stiahnuť</string>
-    <string name="error_invalid_domain">Neplatná doména</string>
-    <string name="error_failed_app_registration">Autentizácia servru zlyhala.</string>
     <string name="error_no_web_browser_found">Nepodarilo sa nájsť použiteľný webový prehliadač.</string>
-    <string name="error_authorization_unknown">Vyskytla sa neidentifikovaná chyba autorizácie.</string>
     <string name="error_compose_character_limit">Príspevok je príliš dlhý!</string>
     <string name="error_media_upload_type">Tento typ súboru nemôže byť nahraný.</string>
     <string name="error_sender_account_gone">Chyba pri odosielaní tootu.</string>
@@ -100,10 +91,8 @@
     <string name="compose_save_draft">Uložiť koncept\?</string>
     <string name="send_post_notification_channel_name">Odosielanie tootov</string>
     <string name="send_post_notification_cancel_title">Odosielanie bolo zrušené</string>
-    <string name="performing_lookup_title">Vyhľadávanie…</string>
     <string name="later">Neskôr</string>
     <string name="restart">Reštartovať</string>
-    <string name="profile_badge_bot_text">Robot</string>
     <string name="profile_metadata_label">Metadáta profilu</string>
     <string name="profile_metadata_add">pridať dáta</string>
     <string name="profile_metadata_content_label">Obsah</string>

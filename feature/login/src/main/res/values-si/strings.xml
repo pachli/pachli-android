@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_close">වසන්න</string>
+    <string name="action_login">මාස්ටඩන් සමඟ පිවිසෙන්න</string>
+    <string name="login_connection">සම්බන්ධ වෙමින්…</string>
+</resources>

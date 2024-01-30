@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Het adres of domein van elke Mastodonserver kan hier worden ingevoerd, zoals mastodon.social, mastodon.nl, octodon.social en <a href="https://instances.social">nog veel meer!</a>
+\n
+\nWanneer je nog geen account hebt, kun je de naam van de Mastodonserver waar jij je graag wil registeren invoeren, waarna je daar een account kunt aanmaken.
+\n
+\nEen Mastodonserver (Engels: instance) is een computerserver waar jouw account zich bevindt (vergelijk het met een e-mailserver). Je kan eenvoudig mensen van andere servers volgen en met ze communiceren, alsof jullie met elkaar op dezelfde website zitten.
+\n
+\n Meer informatie kun je vinden op <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="action_close">Sluiten</string>
+    <string name="action_browser_login">Inloggen met een browser</string>
+    <string name="error_invalid_domain">Ongeldige domeinnaam ingevoerd</string>
+    <string name="error_failed_app_registration">Authenticatie met die server is mislukt. Als het probleem blijft, probeer dan de browser login via het menu.</string>
+    <string name="error_authorization_unknown">Er deed zich een onbekende autorisatiefout voor. Als dit blijft, probeer dan “ Via de browser inloggen” in het menu.</string>
+    <string name="error_authorization_denied">Autorisatie werd geweigerd. Als u zeker weet dat u de correcte gegevens heeft ingevoerd, probeer dan in te loggen in de browser via het menu.</string>
+    <string name="error_retrieving_oauth_token">Kon geen inlogsleutel verkrijgen. Als het probleem zich blijft herhalen; probeer dan de browser login via menu.</string>
+    <string name="error_loading_account_details">Laden van accountdetails mislukt</string>
+    <string name="hint_domain">Welke Mastodonserver?</string>
+    <string name="action_login">Aanmelden met Pachli</string>
+    <string name="link_whats_an_instance">Wat is een Mastodonserver?</string>
+    <string name="login_connection">Aan het verbinden…</string>
+    <string name="title_login">Inloggen</string>
+    <string name="error_could_not_load_login_page">De inlogpagina kon niet worden geladen.</string>
+    <string name="instance_rule_info">Door in te loggen ben je het eens met de regels van %s.</string>
+    <string name="instance_rule_title">%s regels</string>
+</resources>

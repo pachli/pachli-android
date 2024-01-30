@@ -35,13 +35,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.adapter.AccountFieldEditAdapter
 import app.pachli.components.instanceinfo.InstanceInfoRepository
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.designsystem.R as DR
 import app.pachli.databinding.ActivityEditProfileBinding
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
 import app.pachli.util.await
-import app.pachli.util.show
-import app.pachli.util.viewBinding
 import app.pachli.viewmodel.EditProfileViewModel
 import app.pachli.viewmodel.ProfileDataInUi
 import com.bumptech.glide.Glide
@@ -160,10 +162,10 @@ class EditProfileActivity : BaseActivity() {
                         if (viewModel.avatarData.value == null) {
                             Glide.with(this)
                                 .load(me.avatar)
-                                .placeholder(R.drawable.avatar_default)
+                                .placeholder(DR.drawable.avatar_default)
                                 .transform(
                                     FitCenter(),
-                                    RoundedCorners(resources.getDimensionPixelSize(R.dimen.avatar_radius_80dp)),
+                                    RoundedCorners(resources.getDimensionPixelSize(DR.dimen.avatar_radius_80dp)),
                                 )
                                 .into(binding.avatarPreview)
                         }
@@ -254,7 +256,7 @@ class EditProfileActivity : BaseActivity() {
             if (roundedCorners) {
                 glide.transform(
                     FitCenter(),
-                    RoundedCorners(resources.getDimensionPixelSize(R.dimen.avatar_radius_80dp)),
+                    RoundedCorners(resources.getDimensionPixelSize(DR.dimen.avatar_radius_80dp)),
                 ).into(imageView)
             } else {
                 glide.into(imageView)

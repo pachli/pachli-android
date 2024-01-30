@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Is féidir an seoladh nó fearann a ghabhann le hásc ar bith a chur isteach anseo, mar shampla mastodon.social, icosahedron.website, social.tchncs.de, agus <a href="https://instances.social">níos mó!</a>
+\n
+\nMuna bhfuil cuntas agat fós, is féidir leat ainm an áisc ar mhaith leat a bheith páirteach ann a chur isteach, agus cuntas a chruthú ann.
+\n
+\nIs éard atá i gceist le hásc na láthair amháin ina ndéantar do chuntas a óstáil, ach is féidir leat cumarsáid a dhéanamh go héasca le daoine eile agus iad a leanúint ar áisc eile mar a bheadh sibh ar an suíomh céanna.
+\n
+\nIs féidir tuilleadh faisnéise a fháil ag <a href="https://joinmastodon.org"> joinmastodon.org </a>. </string>
+    <string name="action_close">Dún</string>
+    <string name="error_invalid_domain">Fearann neamhbhailí iontráilte</string>
+    <string name="error_failed_app_registration">Theip ar fhíordheimhniú leis an ásc sin.</string>
+    <string name="error_authorization_unknown">Tharla earráid údaraithe neamhaitheanta.</string>
+    <string name="error_authorization_denied">Diúltaíodh údarú.</string>
+    <string name="error_retrieving_oauth_token">Theip ar chomhartha logála isteach a fháil.</string>
+    <string name="error_loading_account_details">Theip ar sonraí an chuntais a lódáil</string>
+    <string name="hint_domain">Cén ásc\?</string>
+    <string name="action_login">Logáil isteach le Mastodon</string>
+    <string name="link_whats_an_instance">Cad is ásc ann\?</string>
+    <string name="login_connection">Ag nascadh…</string>
+    <string name="title_login">Logáil isteach</string>
+    <string name="instance_rule_title">Rialacha %s</string>
+</resources>

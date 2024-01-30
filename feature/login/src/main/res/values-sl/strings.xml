@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Tu lahko vnesete naslov ali domeno katerega koli vozlišča, na primer mastodon.social, icosahedron.website, social.tchncs.de in <a href="https://instances.social"> več! </a>
+\n
+\nČe še nimate računa, lahko vnesete ime vozlišča, kateremu bi se radi pridružili, in tam ustvarite račun.
+\n
+\nVozlišče je ena lokacija, kjer je gostovanje vašega računa, vendar lahko preprosto komunicirate in sledite ljudem na drugih vozliščih, kot da bi bili na isti lokaciji.
+\n
+\nVeč informacij najdete na naslovu <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+    <string name="action_close">Zapri</string>
+    <string name="error_invalid_domain">Vnesena je neveljavna domena</string>
+    <string name="error_failed_app_registration">Overitev s to instanco ni uspela.</string>
+    <string name="error_authorization_unknown">Prišlo je do neznane napake pri pooblastitvi.</string>
+    <string name="error_authorization_denied">Pooblastitev je bila zavrnjena.</string>
+    <string name="error_retrieving_oauth_token">Ni bilo mogoče pridobiti žetona za prijavo.</string>
+    <string name="hint_domain">Katero vozlišče\?</string>
+    <string name="action_login">Prijavite se z Mastodonom</string>
+    <string name="link_whats_an_instance">Kaj je instanca\?</string>
+    <string name="login_connection">Povezovanje…</string>
+</resources>

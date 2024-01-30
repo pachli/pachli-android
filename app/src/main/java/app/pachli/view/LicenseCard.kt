@@ -21,10 +21,10 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.core.content.res.use
-import app.pachli.R
+import app.pachli.core.activity.openLink
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.designsystem.R as DR
 import app.pachli.databinding.CardLicenseBinding
-import app.pachli.util.hide
-import app.pachli.util.openLink
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.color.MaterialColors
 
@@ -42,14 +42,14 @@ class LicenseCard
 
         val (name, license, link) = context.theme.obtainStyledAttributes(
             attrs,
-            R.styleable.LicenseCard,
+            DR.styleable.LicenseCard,
             0,
             0,
         ).use { a ->
             Triple(
-                a.getString(R.styleable.LicenseCard_name),
-                a.getString(R.styleable.LicenseCard_license),
-                a.getString(R.styleable.LicenseCard_link),
+                a.getString(DR.styleable.LicenseCard_name),
+                a.getString(DR.styleable.LicenseCard_license),
+                a.getString(DR.styleable.LicenseCard_link),
             )
         }
 

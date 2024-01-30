@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">เปิดเป็น %s</string>
+    <string name="post_lookup_error_format">การค้นหาโพสต์ %s เกิดข้อผิดผลาด</string>
+    <string name="performing_lookup_title">กำลังค้นหา…</string>
+</resources>

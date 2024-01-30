@@ -24,13 +24,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.SmartLengthInputFilter
 import app.pachli.util.StatusDisplayOptions
-import app.pachli.util.hide
-import app.pachli.util.loadAvatar
-import app.pachli.util.show
 
 class ConversationViewHolder internal constructor(
     itemView: View,

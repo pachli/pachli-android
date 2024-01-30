@@ -36,8 +36,6 @@
     <string name="action_logout">Вийти</string>
     <string name="title_drafts">Чернетки</string>
     <string name="title_favourites">Вподобане</string>
-    <string name="action_login">Увійти з Pachli</string>
-    <string name="login_connection">Зʼєднання…</string>
     <string name="search_no_results">Немає результатів</string>
     <string name="hint_search">Пошук…</string>
     <string name="hint_note">Про себе</string>
@@ -45,7 +43,6 @@
     <string name="post_sent">Надіслано!</string>
     <string name="confirmation_reported">Надіслано!</string>
     <string name="action_share_as">Поділитися як …</string>
-    <string name="action_open_as">Відкрити як %s</string>
     <string name="action_copy_link">Копіювати посилання</string>
     <string name="download_image">Завантаження %1$s</string>
     <string name="title_links_dialog">Посилання</string>
@@ -75,7 +72,6 @@
     <string name="action_view_bookmarks">Закладки</string>
     <string name="action_view_favourites">Вподобане</string>
     <string name="action_view_profile">Профіль</string>
-    <string name="action_close">Закрити</string>
     <string name="action_retry">Повторити</string>
     <string name="action_delete_and_redraft">Видалити та перестворити</string>
     <string name="action_delete">Видалити</string>
@@ -139,11 +135,6 @@
     <string name="title_view_thread">Тред</string>
     <string name="title_tab_preferences">Вкладки</string>
     <string name="error_media_upload_sending">Не вдалося відвантажити.</string>
-    <string name="error_retrieving_oauth_token">Не вдалося отримати токен входу. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>
-    <string name="error_authorization_denied">Авторизацію відхилено. Якщо ви впевнені, що вказали правильні облікові дані, спробуйте увійти через браузер з меню.</string>
-    <string name="error_authorization_unknown">Сталася помилка невпізнання авторизації. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>
-    <string name="error_failed_app_registration">Помилка автентифікації цього сервера. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>
-    <string name="error_invalid_domain">Введено недійсний домен</string>
     <string name="action_open_reblogged_by">Показати поширення</string>
     <string name="pref_title_show_boosts">Показати поширення</string>
     <string name="pref_title_post_tabs">Вкладки</string>
@@ -172,7 +163,6 @@
     <string name="action_open_drawer">Відкрити меню</string>
     <string name="caption_blobmoji">Емодзі Blob з Android 4.4–7.1</string>
     <string name="caption_systememoji">Типовий набір емодзі пристрою</string>
-    <string name="performing_lookup_title">Виконання пошуку…</string>
     <string name="download_fonts">Спочатку потрібно буде завантажити ці набори емодзі</string>
     <string name="system_default">Типовий системний</string>
     <string name="emoji_style">Стиль емодзі</string>
@@ -256,7 +246,6 @@
     <string name="description_post_media">Медіа: %s</string>
     <string name="title_reblogged_by">Поширює</string>
     <string name="profile_metadata_content_label">Вміст</string>
-    <string name="profile_badge_bot_text">Бот</string>
     <string name="restart">Перезапустити</string>
     <string name="later">Пізніше</string>
     <string name="restart_emoji">Вам потрібно буде перезапустити Pachli, щоб застосувати ці зміни</string>
@@ -414,15 +403,6 @@
     <string name="dialog_download_image">Завантаження</string>
     <string name="dialog_message_uploading_media">Відвантаження…</string>
     <string name="dialog_title_finishing_media_upload">Завершення відвантаження медіа</string>
-    <string name="dialog_whats_an_instance">Сюди можна ввести адресу або домен будь-якого сервера, наприклад mastodon.social, icosahedron.website, social.tchncs.de та <a href="https://instances.social">більше!</a>
-\n
-\nЯкщо у вас ще немає облікового запису, ви можете ввести назву сервера, до якого ви хочете приєднатися та створити там обліковий запис.
-\n
-\nСервер — єдине місце, де розміщено ваш обліковий запис, але ви можете легко спілкуватися з людьми та стежити за ними на інших серверах, ніби ви перебуваєте на тому ж сайті.
-\n
-\nДокладніше на <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
-    <string name="link_whats_an_instance">Що таке сервер\?</string>
-    <string name="hint_domain">Котрий сервер\?</string>
     <string name="label_header">Заголовок</string>
     <string name="label_avatar">Аватар</string>
     <string name="label_quick_reply">Відповісти…</string>
@@ -468,7 +448,6 @@
     <string name="no_announcements">Оголошень немає.</string>
     <string name="no_scheduled_posts">Немає запланованих дописів.</string>
     <string name="no_drafts">У вас немає чернеток.</string>
-    <string name="post_lookup_error_format">Помилка пошуку допису %s</string>
     <string name="pref_title_enable_swipe_for_tabs">Увімкнути перемикання між вкладками жестом проведення пальцем</string>
     <string name="failed_search">Не вдалося здійснити пошук</string>
     <string name="report_description_remote_instance">Обліковий запис з іншого сервера. Надіслати анонімізовану копію звіту й туди\?</string>
@@ -530,8 +509,6 @@
     <string name="pref_title_notification_filter_updates">допис, з яким у мене була взаємодія, відредаговано</string>
     <string name="notification_update_description">Сповіщення, коли редагується повідомлення, з яким ви взаємодіяли</string>
     <string name="notification_update_name">Редакції допису</string>
-    <string name="title_login">Вхід</string>
-    <string name="error_could_not_load_login_page">Не вдалося завантажити сторінку входу.</string>
     <string name="saving_draft">Збереження чернетки…</string>
     <string name="action_dismiss">Відхилити</string>
     <string name="action_details">Подробиці</string>
@@ -543,7 +520,6 @@
     <string name="action_edit_image">Редагувати зображення</string>
     <string name="status_count_one_plus">1+</string>
     <string name="error_image_edit_failed">Неможливо редагувати зображення.</string>
-    <string name="error_loading_account_details">Не вдалося завантажити подробиці облікового запису</string>
     <string name="error_following_hashtag_format">Помилка підписки на #%s</string>
     <string name="error_multimedia_size_limit">Розмір відео та аудіофайлів не може перевищувати %s Мб.</string>
     <string name="error_unfollowing_hashtag_format">Помилка скасування підписки на #%s</string>
@@ -558,8 +534,6 @@
     <string name="pref_show_self_username_never">Ніколи</string>
     <string name="pref_title_show_self_username">Показувати ім\'я користувача на панелях інструментів</string>
     <string name="delete_scheduled_post_warning">Видалити цей запланований допис\?</string>
-    <string name="instance_rule_info">Увійшовши, ви погоджуєтесь з правилами %s.</string>
-    <string name="instance_rule_title">Правила %s</string>
     <string name="failed_to_pin">Не вдалося прикріпити</string>
     <string name="failed_to_unpin">Не вдалося відкріпити</string>
     <string name="compose_save_draft_loses_media">Зберегти чернетку\? (Вкладення будуть завантажені знову, коли ви відновите чернетку.)</string>
@@ -608,7 +582,6 @@
     <string name="pref_summary_http_proxy_disabled">Вимкнено</string>
     <string name="pref_summary_http_proxy_missing">&lt;не налаштовано&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;недійсний&gt;</string>
-    <string name="action_browser_login">Увійти через браузер</string>
     <string name="description_login">Працює в більшості випадків. Дані не витікають в інші застосунки.</string>
     <string name="description_browser_login">Може підтримувати додаткові методи автентифікації, але для цього потрібен підтримуваний браузер.</string>
     <string name="action_post_failed">Не вдалося вивантажити</string>

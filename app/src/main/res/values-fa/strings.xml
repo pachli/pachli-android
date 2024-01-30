@@ -2,12 +2,7 @@
 <resources>
     <string name="error_generic">خطایی رخ داد.</string>
     <string name="error_empty">این نمی‌تواند خالی باشد.</string>
-    <string name="error_invalid_domain">دامنهٔ نامعتبر وارد شده</string>
-    <string name="error_failed_app_registration">احراز هویت با این نمونه شکست خورد. اگر مشکل ادامه داشت، ورود در مرورگر را از فهرست بیازمایید.</string>
     <string name="error_no_web_browser_found">مرورگری برای استفاده پیدا نشد.</string>
-    <string name="error_authorization_unknown">خطای احراز هویت ناشناخته‌ای رخ داد. اگر مشکل ادامه داشت، ورود در مرورگر را از فهرست بیازمایید.</string>
-    <string name="error_authorization_denied">احراز هویت رد شد. اگر مطمئنید که اطّلاعات را درست وارد کرده‌اید، ورود در مرورگر را از فهرست بیازمایید.</string>
-    <string name="error_retrieving_oauth_token">دریافت ژتون ورود شکست خورد. اگر مشکل ادامه داشت، ورود در مرورگر را از فهرست بیازمایید.</string>
     <string name="error_compose_character_limit">فرسته خیلی طولانی است!</string>
     <string name="error_media_upload_type">این گونهٔ پرونده نمی‌تواند بارگذاری شود.</string>
     <string name="error_media_upload_opening">این پرونده نتوانست گشوده شود.</string>
@@ -52,7 +47,6 @@
     <string name="action_favourite">برگزیدن</string>
     <string name="action_more">بیش‌تر</string>
     <string name="action_compose">ایجاد</string>
-    <string name="action_login">ورود با تاسکی</string>
     <string name="action_logout">خروج</string>
     <string name="action_follow">پیگیری</string>
     <string name="action_unfollow">ناپیگیری</string>
@@ -65,7 +59,6 @@
     <string name="action_send">بوق</string>
     <string name="action_send_public">بوق!</string>
     <string name="action_retry">تلاش دوباره</string>
-    <string name="action_close">بستن</string>
     <string name="action_view_profile">نمایه</string>
     <string name="action_view_preferences">ترجیحات</string>
     <string name="action_view_account_preferences">ترجیحات حساب</string>
@@ -104,7 +97,6 @@
     <string name="confirmation_unmuted">کاربر ناخموش شد</string>
     <string name="post_sent">فرستاده شد!</string>
     <string name="post_sent_long">پاسخ با موفّقیت فرستاده شد‌.</string>
-    <string name="hint_domain">کدام نمونه؟</string>
     <string name="hint_compose">چه خبر؟</string>
     <string name="hint_content_warning">هشدار محتوا</string>
     <string name="hint_display_name">نام نمایشی</string>
@@ -114,15 +106,6 @@
     <string name="label_quick_reply">پاسخ…</string>
     <string name="label_avatar">آواتار</string>
     <string name="label_header">سرایند</string>
-    <string name="link_whats_an_instance">نمونه چیست؟</string>
-    <string name="login_connection">در حال وصل شدن…</string>
-    <string name="dialog_whats_an_instance">نشانی یا دامنهٔ هر نمونه‌ای می‌تواند وارد شود، مثل mastodon.social, icosahedron.website, social.tchncs.de, و <a href="https://instances.social">بیش‌تر!</a>.
-\n
-\n اگر هنوز حسابی ندارید، می‌توانید نام نمونه مورد نظر را وارد کرده و در آن حسابی بسازید.
-\n
-\n نمونه، جاییست که حسابتان رویش میزبانی می‌شود، ولی به راحتی می‌توانید با دیگر افراد روی نمونه‌های دیگر ارتباط داشته و دنبالشان کنید؛ انگار که روی یک پایگاه باشید.
-\n
-\nاطّلاعات بیش‌تر می‌تواند در <a href="https://joinmastodon.org">joinmastodon.org</a> پیدا شود. </string>
     <string name="dialog_title_finishing_media_upload">پایان بارگذاری رسانه</string>
     <string name="dialog_message_uploading_media">در حال بارگذاری…</string>
     <string name="dialog_download_image">بارگیری</string>
@@ -245,7 +228,6 @@
     <string name="emoji_style">سبک اموجی</string>
     <string name="system_default">پیش‌گزیدهٔ سامانه</string>
     <string name="download_fonts">نخست باید این مجموعه‌های اموجی را بارگیری کنید</string>
-    <string name="performing_lookup_title">در حال جست‌وجو…</string>
     <string name="expand_collapse_all_posts">گسترش/جمع کردن تمام فرسته‌ها</string>
     <string name="action_open_post">گشودن فرسته</string>
     <string name="restart_required">نیاز به آغاز دوبارهٔ کاره</string>
@@ -256,7 +238,6 @@
     <string name="caption_blobmoji">اموجی‌های اندروید ۴.۴ تا ۷.۱</string>
     <string name="caption_twemoji">مجموعه اموجی استاندارد ماستودون</string>
     <string name="download_failed">شکست در بارگیری</string>
-    <string name="profile_badge_bot_text">بات</string>
     <string name="account_moved_description">%1$s منتقل شد به:</string>
     <string name="reblog_private">تقویت برای مخاطب اصلی</string>
     <string name="unreblog_private">ناتقویت</string>
@@ -293,7 +274,6 @@
     <string name="title_mentions_dialog">اشاره‌ها</string>
     <string name="title_links_dialog">پیوندها</string>
     <string name="action_open_media_n">گشودن رسانه #%d</string>
-    <string name="action_open_as">گشودن به عنوان %s</string>
     <string name="action_share_as">هم‌رسانی به عنوان …</string>
     <string name="download_media">بارگیری رسانه</string>
     <string name="downloading_media">در حال بارگیری رسانه</string>
@@ -413,7 +393,6 @@
     <string name="poll_info_format"> .<!-- ۱۵ رأی • ۱ ساعت مانده --> %1$s • %2$s</string>
     <string name="report_description_1">گزارش به ناظرهای کارسازتان ارسال خواهد شد. در زیر می‌توانید توضیحی در باب چرایی گزارش این حساب بنویسید:</string>
     <string name="report_description_remote_instance">این حساب از کارسازی دیگر است. رونوشتی ناشناس از گزارش، به آن‌جا نیز ارسال شود؟</string>
-    <string name="post_lookup_error_format">خطا در یافتن فرستهٔ %s</string>
     <string name="about_powered_by_pachli">قدرت‌گرفته از تاسکی</string>
     <string name="title_bookmarks">نشانک‌ها</string>
     <string name="action_bookmark">نشانک</string>
@@ -498,7 +477,6 @@
     <string name="dialog_delete_conversation_warning">حذف این گفت‌وگو؟</string>
     <string name="action_delete_conversation">حذف گفت‌وگو</string>
     <string name="account_date_joined">در %1$s پیوست</string>
-    <string name="title_login">ورود</string>
     <string name="notification_sign_up_format">%s ثبت‌نام کرد</string>
     <string name="pref_title_confirm_favourites">نمایش تأیید پیش از برگزیدن</string>
     <string name="pachli_compose_post_quicksetting_label">ایجاد فرسته</string>
@@ -515,7 +493,6 @@
     <string name="duration_180_days">۱۸۰ روز</string>
     <string name="status_count_one_plus">۱+</string>
     <string name="dialog_push_notification_migration">تاسکی برای استفاده از آگاهی‌های ارسالی با UnifiedPush نیاز به اجازهٔ اشتراک آگاهی‌ها روی کارساز ماستودنتان دارد. این کار نیازمند ورود دوباره برای تغییر حوزه‌های OAuth اعطایی به تاسکی است. استفاده از گزینهٔ ورود دوباره در این‌جا یا در ترجیحات حساب، تمامی انباره‌ها و پیش‌نویس‌های محلیتان را نگه خواهد داشت.</string>
-    <string name="error_could_not_load_login_page">نتوانست صفحهٔ ورود را بار کند.</string>
     <string name="pref_title_notification_filter_sign_ups">کسی ثبت‌نام کرد</string>
     <string name="notification_update_name">ویرایش‌های فرسته</string>
     <string name="action_edit_image">ویرایش تصویر</string>
@@ -530,8 +507,6 @@
     <string name="error_following_hashtag_format">خطا در پی‌گیری #%s</string>
     <string name="error_unfollowing_hashtag_format">خطا در ناپی‌گیری #%s</string>
     <string name="delete_scheduled_post_warning">حذف این فرستهٔ زمان‌بسته؟</string>
-    <string name="instance_rule_title">قواعد %s</string>
-    <string name="instance_rule_info">با ورودتان، قواعد %s را می‌پذیرید.</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="failed_to_pin">شکست در سنجاق کردن</string>
     <string name="failed_to_unpin">شکست در برداشتن سنجاق</string>
@@ -546,7 +521,6 @@
     <string name="action_add_reaction">افزودن واکنش</string>
     <string name="action_set_focus">تنظیم نقطهٔ تمرکز</string>
     <string name="duration_no_change">(بدون تغییر)</string>
-    <string name="error_loading_account_details">شکست در بار کردن جزییات حساب</string>
     <string name="set_focus_description">ضربه زده یا دایره را کشیده تا نقطهٔ کانونی‌ای که همواره باید در بندانگشتی‌ها نمایان باشد را برگزینید.</string>
     <string name="compose_save_draft_loses_media">ذخیرهٔ پیش‌نویس؟ (پیوست‌ها هنگام بازگردانی پیش‌نویس، دوباره بارگذاری خواهند شد)</string>
     <string name="action_add_or_remove_from_list">افزودن یا برداشتن از سیاهه</string>
@@ -597,7 +571,6 @@
     <string name="description_browser_login">ممکن است از روش‌های تأیید خویت اضافی پشتیبانی کند؛ ولی نیازمند مرورگری پشتیبانی شده است.</string>
     <string name="action_discard">دور انداختن تغییرات</string>
     <string name="action_continue_edit">ادامهٔ ویرایش</string>
-    <string name="action_browser_login">ورود با مرورگر</string>
     <string name="compose_unsaved_changes">تغییراتی ذخیره نشده دارید.</string>
     <string name="action_share_account_link">هم‌رسانی پیوند به حساب</string>
     <string name="action_share_account_username">هم‌رسانی نام کاربری حساب</string>

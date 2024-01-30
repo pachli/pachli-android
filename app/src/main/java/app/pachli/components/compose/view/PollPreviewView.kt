@@ -22,6 +22,7 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import app.pachli.R
 import app.pachli.adapter.PreviewPollOptionsAdapter
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.NewPoll
 import app.pachli.databinding.ViewPollPreviewBinding
 
@@ -41,7 +42,7 @@ class PollPreviewView @JvmOverloads constructor(
 
         setBackgroundResource(R.drawable.card_frame)
 
-        val padding = resources.getDimensionPixelSize(R.dimen.poll_preview_padding)
+        val padding = resources.getDimensionPixelSize(DR.dimen.poll_preview_padding)
 
         setPadding(padding, padding, padding, padding)
 

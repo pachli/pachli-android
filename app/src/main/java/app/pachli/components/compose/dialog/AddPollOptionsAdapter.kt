@@ -23,9 +23,9 @@ import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.Companion.MastodonLengthFilter
+import app.pachli.core.common.extensions.visible
 import app.pachli.databinding.ItemAddPollOptionBinding
 import app.pachli.util.BindingHolder
-import app.pachli.util.visible
 
 class AddPollOptionsAdapter(
     private var options: MutableList<String>,

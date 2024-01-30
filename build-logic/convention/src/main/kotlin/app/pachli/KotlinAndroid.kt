@@ -40,6 +40,10 @@ internal fun Project.configureKotlinAndroid(
                 // Without this Robolectric skips some tests with "doesn't support legacy
                 // resources mode after P" message
                 isIncludeAndroidResources = true
+
+                // Without this Robolectric fails some tests with
+                // "Method myLooper in android.os.Looper not mocked"
+                isReturnDefaultValues = true
             }
         }
 

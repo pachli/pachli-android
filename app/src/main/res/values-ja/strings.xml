@@ -2,12 +2,7 @@
 <resources>
     <string name="error_generic">エラーが発生しました。</string>
     <string name="error_empty">本文なしでは投稿できません。</string>
-    <string name="error_invalid_domain">無効なドメインです</string>
-    <string name="error_failed_app_registration">そのインスタンスでの認証に失敗しました。失敗が続く場合、メニューからブラウザでのログインを試してください。</string>
     <string name="error_no_web_browser_found">ウェブブラウザが見つかりませんでした。</string>
-    <string name="error_authorization_unknown">不明な承認エラーが発生しました。失敗が続く場合、メニューからブラウザでのログインを試してください。</string>
-    <string name="error_authorization_denied">認証が拒否されました。正しい認証情報を入力したことが確かな場合、メニューからブラウザでのログインを試してください。</string>
-    <string name="error_retrieving_oauth_token">ログイントークンの取得に失敗しました。もし失敗が続く場合、メニューからブラウザでのログインを試してください。</string>
     <string name="error_compose_character_limit">投稿文が長すぎます！</string>
     <string name="error_media_upload_type">その形式のファイルはアップロードできません。</string>
     <string name="error_media_upload_opening">ファイルを開けませんでした。</string>
@@ -56,7 +51,6 @@
     <string name="action_favourite">お気に入り</string>
     <string name="action_more">その他</string>
     <string name="action_compose">投稿する</string>
-    <string name="action_login">Pachli でログイン</string>
     <string name="action_logout">ログアウト</string>
     <string name="action_logout_confirm">アカウント %1$s からログアウトしてもよろしいですか？ログアウトすると、下書きや詳細設定を含めて、ローカルに保存されているアカウントの全てのデータが削除されます。</string>
     <string name="action_follow">フォローする</string>
@@ -71,7 +65,6 @@
     <string name="action_send">トゥート</string>
     <string name="action_send_public">トゥート！</string>
     <string name="action_retry">再試行</string>
-    <string name="action_close">閉じる</string>
     <string name="action_view_profile">プロフィール</string>
     <string name="action_view_preferences">設定</string>
     <string name="action_view_account_preferences">アカウント設定</string>
@@ -107,7 +100,6 @@
     <string name="title_links_dialog">リンク</string>
     <string name="download_image">%1$s をダウンロードしています</string>
     <string name="action_copy_link">リンクをコピー</string>
-    <string name="action_open_as">%s として開く</string>
     <string name="action_share_as">共有先…</string>
     <string name="send_post_link_to">投稿URLを共有…</string>
     <string name="send_post_content_to">投稿を共有…</string>
@@ -117,7 +109,6 @@
     <string name="confirmation_unmuted">ミュートを解除しました</string>
     <string name="post_sent">送信しました！</string>
     <string name="post_sent_long">返信しました。</string>
-    <string name="hint_domain">インスタンス</string>
     <string name="hint_compose">今なにしてる？</string>
     <string name="hint_content_warning">注意書き</string>
     <string name="hint_display_name">表示名</string>
@@ -127,15 +118,6 @@
     <string name="label_quick_reply">返信…</string>
     <string name="label_avatar">アイコン</string>
     <string name="label_header">ヘッダー</string>
-    <string name="link_whats_an_instance">インスタンスとは？</string>
-    <string name="login_connection">接続中…</string>
-    <string name="dialog_whats_an_instance">mastodon.social, icosahedron.website, social.tchncs.deや<a href="https://instances.social">その他</a> のような、あらゆるインスタンスのアドレスやドメインを入力できます。
-\n
-\nまだアカウントをお持ちでない場合は、参加したいインスタンスの名前を入力することで そのインスタンスにアカウントを作成できます。
-\n
-\nインスタンスはあなたのアカウントが提供される単独の場所ですが、他のインスタンスのユーザーとあたかも同じ場所にいるように簡単にコミュニケーションをとったりフォローしたりできます。
-\n
-\nさらに詳しい情報は<a href="https://joinmastodon.org">joinmastodon.org</a>でご覧いただけます。 </string>
     <string name="dialog_title_finishing_media_upload">メディアをアップロードしています</string>
     <string name="dialog_message_uploading_media">アップロード中…</string>
     <string name="dialog_download_image">ダウンロード</string>
@@ -274,7 +256,6 @@
     <string name="emoji_style">絵文字スタイル</string>
     <string name="system_default">システムのデフォルト</string>
     <string name="download_fonts">最初にこれらの絵文字セットをダウンロードする必要があります</string>
-    <string name="performing_lookup_title">検索中…</string>
     <string name="expand_collapse_all_posts">全て開く/閉じる</string>
     <string name="action_open_post">投稿を開く</string>
     <string name="restart_required">アプリの再起動が必要です</string>
@@ -285,7 +266,6 @@
     <string name="caption_blobmoji">Android 4.4-7.1で知られる、Blob絵文字です</string>
     <string name="caption_twemoji">Mastodonの標準絵文字セットです</string>
     <string name="download_failed">ダウンロード失敗</string>
-    <string name="profile_badge_bot_text">ボット</string>
     <string name="account_moved_description">%1$s は引っ越しました:</string>
     <string name="reblog_private">ブースト</string>
     <string name="unreblog_private">ブーストを解除</string>
@@ -453,7 +433,6 @@
     <string name="mute_domain_warning_dialog_ok">ドメイン全体を非表示</string>
     <string name="about_powered_by_pachli">Pachliによって提供されています</string>
     <string name="delete_scheduled_post_warning">この予約投稿を削除しますか？</string>
-    <string name="instance_rule_info">ログインにより %s のルールに同意することになります。</string>
     <string name="action_unbookmark">ブックマークを削除</string>
     <string name="action_delete_conversation">会話を削除</string>
     <string name="action_details">詳細情報</string>
@@ -492,10 +471,8 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="error_multimedia_size_limit">ビデオと音声ファイルのサイズは %s MB を超えることはできません。</string>
     <string name="error_image_edit_failed">画像が編集できませんでした。</string>
-    <string name="title_login">ログイン</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_edit_image">画像の編集</string>
-    <string name="instance_rule_title">%s のルール</string>
     <string name="error_following_hashtags_unsupported">このインスタンスはハッシュタグのフォローに対応していません。</string>
     <string name="title_followed_hashtags">フォローしたハッシュタグ</string>
     <string name="confirmation_domain_unmuted">%s のミュートが解除されました</string>
@@ -556,8 +533,6 @@
     <string name="error_following_hashtag_format">#%s のフォローエラー</string>
     <string name="title_migration_relogin">プッシュ通知受け取るには再ログインしてください</string>
     <string name="error_unfollowing_hashtag_format">#%s のフォロー解除エラー</string>
-    <string name="error_could_not_load_login_page">ログインページが読み込めませんでした。</string>
-    <string name="error_loading_account_details">アカウントの詳細情報の読み込みに失敗しました</string>
     <string name="hint_media_description_missing">メディアには説明文が必要です。</string>
     <string name="title_edits">編集</string>
     <string name="post_media_alt">ALT</string>
@@ -577,7 +552,6 @@
     <string name="account_date_joined">%1$s に参加</string>
     <string name="status_edit_info">%1$s 編集</string>
     <string name="status_created_info">%1$s の投稿</string>
-    <string name="post_lookup_error_format">投稿 %s の検索エラー</string>
     <string name="follow_requests_info">アカウントがロックされていなかったとしても、%1$s のスタッフは以下のアカウントのフォローリクエストを確認した方がいいと判断しました。</string>
     <string name="action_set_focus">中心点の設定</string>
     <string name="compose_unsaved_changes">保存していない変更があります。</string>
@@ -594,7 +568,6 @@
 \nサーバーと接続できなかったか、投稿が拒否されました。</string>
     <string name="action_post_failed_show_drafts">下書きを表示</string>
     <string name="action_post_failed_do_nothing">閉じる</string>
-    <string name="action_browser_login">ブラウザでログイン</string>
     <string name="description_login">ほとんどの場合に動作します。他のアプリにはデータが漏洩しません。</string>
     <string name="description_browser_login">追加の認証方法がサポートされる可能性がありますが、対応ブラウザが必要です。</string>
     <string name="action_post_failed_detail_plural">アップロードに失敗した投稿は下書きに保存されました。

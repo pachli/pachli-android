@@ -3,12 +3,7 @@
     <string name="error_generic">Ett fel har uppstått.</string>
     <string name="error_network">Ett nätverksfel uppstod. Kontrollera din anslutning och försök igen.</string>
     <string name="error_empty">Detta kan inte vara tomt.</string>
-    <string name="error_invalid_domain">Ogiltig domän angiven</string>
-    <string name="error_failed_app_registration">Misslyckades att autentisera med den instansen. Om detta kvarstår, försök Logga in i webbläsaren från menyn.</string>
     <string name="error_no_web_browser_found">Det gick inte att hitta en webbläsare.</string>
-    <string name="error_authorization_unknown">Ett oidentifierat auktoriseringsfel inträffade. Om detta kvarstår, försök Logga in i webbläsaren från menyn.</string>
-    <string name="error_authorization_denied">Auktorisering nekades. Om du är säker på att du har angett rätt referenser, prova Logga in i webbläsaren från menyn.</string>
-    <string name="error_retrieving_oauth_token">Misslyckades med att hämta en inloggningstoken. Om detta kvarstår, försök Logga in i webbläsaren från menyn.</string>
     <string name="error_compose_character_limit">Inlägget är för långt!</string>
     <string name="error_media_upload_type">Den typen av fil kan inte laddas upp.</string>
     <string name="error_media_upload_opening">Den filen kunde inte öppnas.</string>
@@ -60,7 +55,6 @@
     <string name="action_unfavourite">Ta bort favorit</string>
     <string name="action_more">Mer</string>
     <string name="action_compose">Skriv</string>
-    <string name="action_login">Logga in med Pachli</string>
     <string name="action_logout">Logga ut</string>
     <string name="action_logout_confirm">Är du säker på att du vill logga ut från kontot %1$s?</string>
     <string name="action_follow">Följ</string>
@@ -74,7 +68,6 @@
     <string name="action_send">TOOT</string>
     <string name="action_send_public">TOOT!</string>
     <string name="action_retry">Försök igen</string>
-    <string name="action_close">Stäng</string>
     <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Inställningar</string>
     <string name="action_view_account_preferences">Kontospecifika inställningar</string>
@@ -116,7 +109,6 @@
     <string name="action_open_media_n">Öppna media #%d</string>
     <string name="download_image">Laddar ned %1$s</string>
     <string name="action_copy_link">Kopiera länk</string>
-    <string name="action_open_as">Öppna med %s</string>
     <string name="action_share_as">Dela som …</string>
     <string name="send_post_link_to">Dela toot-URL till…</string>
     <string name="send_post_content_to">Dela toot till…</string>
@@ -126,7 +118,6 @@
     <string name="confirmation_unmuted">Användaren är inte tystad längre</string>
     <string name="post_sent">Skickat!</string>
     <string name="post_sent_long">Svar skickades framgångsrikt.</string>
-    <string name="hint_domain">Vilken instans?</string>
     <string name="hint_compose">Vad händer?</string>
     <string name="hint_content_warning">Innehållsvarning</string>
     <string name="hint_display_name">Visningsnamn</string>
@@ -136,16 +127,6 @@
     <string name="label_quick_reply">Svara…</string>
     <string name="label_avatar">Profilbild</string>
     <string name="label_header">Bakgrundsbild</string>
-    <string name="link_whats_an_instance">Vad är en instans?</string>
-    <string name="login_connection">Ansluter…</string>
-    <string name="dialog_whats_an_instance">Adressen eller domänen för varje instans kan anges
-		här, till exempel mastodon.social, icosahedron.website, social.tchncs.de och
-        <a href="https://instances.social"> mer! </a>
-        \n\nOm du inte har något konto kan du ange namnet på instansen du vill ansluta till och skapa ett konto där.
-        \n\nEn instans är en plats där ditt konto finns, men du kan enkelt kommunicera med och följa andra personer på andra instanser,
-        som om du var på samma sajt.
-        \n\nMer information finns på <a href="https://joinmastodon.org">joinmastodon.org</a>.
-    </string>
     <string name="dialog_title_finishing_media_upload">Uppladdning av media</string>
     <string name="dialog_message_uploading_media">Laddar upp…</string>
     <string name="dialog_download_image">Ladda ned</string>
@@ -296,7 +277,6 @@
     <string name="emoji_style">Emojis</string>
     <string name="system_default">Systemstandard</string>
     <string name="download_fonts">Du behöver ladda ned dessa emojis först</string>
-    <string name="performing_lookup_title">Utför sökning…</string>
     <string name="expand_collapse_all_posts">Expandera/Dölj alla statusar</string>
     <string name="action_open_post">Öppna toot</string>
     <string name="restart_required">Omstart av appen krävs</string>
@@ -307,7 +287,6 @@
     <string name="caption_blobmoji">Emojis baserade på The Blob emojis från Android 4.4–7.1</string>
     <string name="caption_twemoji">Mastodon\'s standard emojis</string>
     <string name="download_failed">Nedladdning misslyckad</string>
-    <string name="profile_badge_bot_text">Robot</string>
     <string name="account_moved_description">%1$s har flyttat till:</string>
     <string name="reblog_private">Knuffa till ursprunglig målgrupp</string>
     <string name="unreblog_private">Ta bort knuff</string>
@@ -433,7 +412,6 @@
     <string name="action_access_scheduled_posts">Schemalagda toots</string>
     <string name="action_schedule_post">Schemalägg toot</string>
     <string name="action_reset_schedule">Återställ</string>
-    <string name="post_lookup_error_format">Fel vid uppslagning av status %s</string>
     <string name="title_bookmarks">Bokmärken</string>
     <string name="action_bookmark">Bokmärk</string>
     <string name="action_view_bookmarks">Bokmärken</string>
@@ -494,8 +472,6 @@
         <item quantity="other">Du kan inte ladda upp fler än %1$d mediebilagor.</item>
     </plurals>
     <string name="delete_scheduled_post_warning">Radera detta schemalagda inlägg\?</string>
-    <string name="instance_rule_info">Genom att logga in accepterar du reglerna på %s.</string>
-    <string name="instance_rule_title">%s regler</string>
     <string name="error_unfollowing_hashtag_format">Kunde inte avfölja #%s</string>
     <string name="dialog_delete_conversation_warning">Radera denna konversation\?</string>
     <string name="pref_show_self_username_always">Alltid</string>
@@ -552,9 +528,6 @@
     <string name="title_migration_relogin">Logga in igen för pushnotiser</string>
     <string name="action_dismiss">Avvisa</string>
     <string name="action_details">Detaljer</string>
-    <string name="error_loading_account_details">Kunde inte ladda kontodetaljer</string>
-    <string name="title_login">Logga in</string>
-    <string name="error_could_not_load_login_page">Kunde inte ladda inloggningssidan.</string>
     <string name="compose_save_draft_loses_media">Spara utkast\? (Bilagor kommer att laddas upp igen när du återställer utkastet.)</string>
     <string name="failed_to_pin">Kunde inte fästa</string>
     <string name="failed_to_unpin">Kunde inte lossa</string>
@@ -605,7 +578,6 @@
 \n
 \nAntingen kunde servern inte kontaktas, eller så nekades uppladdningen.</string>
     <string name="action_post_failed_show_drafts">Visa utkast</string>
-    <string name="action_browser_login">Inloggning via webbläsaren</string>
     <string name="pref_summary_http_proxy_disabled">Inaktiverad</string>
     <string name="pref_summary_http_proxy_missing">&lt;ej angiven&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;felaktig&gt;</string>

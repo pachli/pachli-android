@@ -2,12 +2,7 @@
 <resources>
     <string name="error_generic">S\'es produch una error.</string>
     <string name="error_empty">Aquò pot pas èsser void.</string>
-    <string name="error_invalid_domain">Lo domeni picat es pas valid</string>
-    <string name="error_failed_app_registration">L\'autenticacion en aquesta instància a fracassat. Se ten de se produire, ensajatz la connexion via Navigador via lo menú.</string>
     <string name="error_no_web_browser_found">Cap de navegador web pas trobat d’utilizar.</string>
-    <string name="error_authorization_unknown">S\'es produch una error d\'autorizacion pas identificada. Se ten de se produire, ensajatz la connexion via Navigador via lo menú.</string>
-    <string name="error_authorization_denied">L\'autorizacion es estada regetada.</string>
-    <string name="error_retrieving_oauth_token">Fracàs de l’obtencion del geton d\'iniciacion de session.</string>
     <string name="error_compose_character_limit">La publicacion es tròp longa !</string>
     <string name="error_media_upload_type">Aqueste tip de fichièr se pòt pas mandar.</string>
     <string name="error_media_upload_opening">Aqueste tip de fichièr se pòt pas dobrir.</string>
@@ -51,7 +46,6 @@
     <string name="action_favourite">Aimar</string>
     <string name="action_more">Mai</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_login">Començar la session amb Pachli</string>
     <string name="action_logout">Tampar la session</string>
     <string name="action_logout_confirm">Volètz vertadièrament vos desconnectar del compte %1$s ?</string>
     <string name="action_follow">Seguir</string>
@@ -65,7 +59,6 @@
     <string name="action_send">TUT</string>
     <string name="action_send_public">TUT !</string>
     <string name="action_retry">Tornar ensajar</string>
-    <string name="action_close">Tampar</string>
     <string name="action_view_profile">Perfil</string>
     <string name="action_view_preferences">Preferéncias</string>
     <string name="action_view_favourites">Preferits</string>
@@ -103,7 +96,6 @@
     <string name="confirmation_unmuted">Utilizaire sortit del silenci</string>
     <string name="post_sent">Enviat !</string>
     <string name="post_sent_long">Responsa ben enviada.</string>
-    <string name="hint_domain">Quina instància ?</string>
     <string name="hint_compose">A de qué pensatz ?</string>
     <string name="hint_content_warning">Avís de contengut</string>
     <string name="hint_display_name">Nom visible</string>
@@ -112,15 +104,6 @@
     <string name="search_no_results">I a pas cap de resulat</string>
     <string name="label_quick_reply">Responsa…</string>
     <string name="label_header">Bandièra</string>
-    <string name="link_whats_an_instance">Que es una instància ?</string>
-    <string name="login_connection">Connexion…</string>
-    <string name="dialog_whats_an_instance">Aquí podètz picar l\'adreça o domini de quina que siá instància,
-        coma mastodont.cat, mastodon.social, icosahedron.website o
-        <a href="https://instances.social">fòrca mai !</a>
-        \n\nSi encara non avètz cap de compte, podètz picar lo nom de l’instància ont vos agradariá
-        anar e crear un compte enlà.\n\n
-        \n\nAvètz mas d’informacins a <a href="https://joinmastodon.org">joinmastodon.org</a>.
-    </string>
     <string name="dialog_title_finishing_media_upload">Finalizacion del mandadís del mèdia</string>
     <string name="dialog_message_uploading_media">Mandadís…</string>
     <string name="dialog_download_image">Telecargar</string>
@@ -239,7 +222,6 @@
     <string name="emoji_style">Estil dels Emoji</string>
     <string name="system_default">Çò del sistèma</string>
     <string name="download_fonts">D’en primièr vos cal telecargar los emojis seguents</string>
-    <string name="performing_lookup_title">Recèrca…</string>
     <string name="expand_collapse_all_posts">Desplegar/Plegar totes los estatuts</string>
     <string name="action_open_post">Dobrir lo tut</string>
     <string name="restart_required">Reaviada necessària</string>
@@ -250,7 +232,6 @@
     <string name="caption_blobmoji">Emoji basats en Blob emojis coneguts d\'Android 4.4–7.1</string>
     <string name="caption_twemoji">Emoji estandards de Mastodon</string>
     <string name="download_failed">Fracàs del telecargament</string>
-    <string name="profile_badge_bot_text">Robòt</string>
     <string name="account_moved_description">%1$s mudèt los catons a :</string>
     <string name="reblog_private">Partejar al public d’origina</string>
     <string name="unreblog_private">Quitar de partejar</string>
@@ -284,7 +265,6 @@
     <string name="title_mentions_dialog">Mencions</string>
     <string name="title_links_dialog">Ligams</string>
     <string name="action_open_media_n">Dobrir lo mèdia #%d</string>
-    <string name="action_open_as">Dobrir coma %s</string>
     <string name="action_share_as">Partejar coma…</string>
     <string name="download_media">Telecargar lo mèdia</string>
     <string name="downloading_media">Telecargament del mèdia</string>
@@ -426,7 +406,6 @@
     <string name="action_access_scheduled_posts">Tuts planificats</string>
     <string name="action_schedule_post">Planificar de tuts</string>
     <string name="action_reset_schedule">Escafar</string>
-    <string name="post_lookup_error_format">Error en cercant la publicacion %s</string>
     <string name="about_powered_by_pachli">Propulsat per Pachli</string>
     <string name="title_bookmarks">Marcapaginas</string>
     <string name="action_bookmark">Ajustar als marcapaginas</string>
@@ -497,7 +476,6 @@
     <string name="failed_to_pin">Fracàs en penjant</string>
     <string name="failed_to_unpin">Fracàs en despenjant</string>
     <string name="description_post_language">Lenga de la publicacion</string>
-    <string name="title_login">Se desconnectar</string>
     <string name="pref_show_self_username_always">Totjorn</string>
     <string name="pref_show_self_username_never">Jamai</string>
     <string name="notification_update_name">Publicacions modificadas</string>
@@ -511,7 +489,6 @@
     <string name="action_dismiss">Ignorar</string>
     <string name="action_details">Detalhs</string>
     <string name="action_edit_image">Modificar l’imatge</string>
-    <string name="instance_rule_title">%s règlas</string>
     <string name="pachli_compose_post_quicksetting_label">Compausar una publicacion</string>
     <string name="account_date_joined">Arribada del %1$s</string>
     <string name="saving_draft">Enregistrament del borrolhon…</string>
@@ -519,8 +496,6 @@
     <string name="error_image_edit_failed">Se podiá pas modificar l’imatge.</string>
     <string name="pref_title_wellbeing_mode">Benestar</string>
     <string name="duration_no_change">(Cap de modificacion)</string>
-    <string name="error_loading_account_details">Fracàs del cargament dels detalhs del compte</string>
-    <string name="error_could_not_load_login_page">Cargament impossible de la pagina de connexion.</string>
     <string name="duration_60_days">60 jorns</string>
     <string name="duration_90_days">90 jorns</string>
     <string name="duration_180_days">180 jorns</string>
@@ -541,7 +516,6 @@
     <string name="pref_title_notification_filter_updates">una publicacion ont ai agut una reaccion es modificada</string>
     <string name="delete_scheduled_post_warning">Suprimir la publicacion programada \?</string>
     <string name="drafts_post_reply_removed">La publicacion a la quala respondiá lo borrolhon foguèt suprimida</string>
-    <string name="instance_rule_info">En vos connectant acceptatz las règlas de %s.</string>
     <string name="action_unfollow_hashtag_format">Quitar de seguir #%s \?</string>
     <string name="status_created_at_now">ara</string>
     <string name="notification_report_format">Senhalament novèl sus %s</string>
@@ -605,7 +579,6 @@
     <string name="action_post_failed_detail_plural">Vòstras publicacions an pas pogut s’enviar e son estadas salvadas als borrolhons.
 \n
 \nSiá se podiá pas contactar lo servidor, siá aquel a regetat las publicacions.</string>
-    <string name="action_browser_login">Connexion via Navigador</string>
     <string name="description_browser_login">Poiriá prendre en carga de metòdes d’autentificacions suplementaris, mas requerís un navigador compatible.</string>
     <string name="description_login">Fonciona los tres quarts del temps. Cap de donadas pèrdon pas per las autras aplicacions.</string>
     <string name="dialog_follow_hashtag_title">Seguir lo hashtag</string>

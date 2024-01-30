@@ -2,12 +2,7 @@
 <resources>
     <string name="error_generic">S\'ha produït un error.</string>
     <string name="error_empty">Això no pot estar buit.</string>
-    <string name="error_invalid_domain">El domini que s\'ha introduït no és vàlid</string>
-    <string name="error_failed_app_registration">No s\'ha pogut autenticar amb aquesta instància. Si això continua, proveu d\'iniciar sessió al navegador des del menú.</string>
     <string name="error_no_web_browser_found">No s\'ha trobat cap navegador web per a utilitzar.</string>
-    <string name="error_authorization_unknown">S\'ha produït un error d\'autorització no identificat. Si això continua, proveu d\'iniciar sessió al navegador des del menú.</string>
-    <string name="error_authorization_denied">S\'ha denegat l\'autorització. Si esteu segur que heu proporcionat les credencials correctes, proveu d\'iniciar sessió al navegador des del menú.</string>
-    <string name="error_retrieving_oauth_token">No s\'ha pogut obtenir el token d\'inici de sessió. Si això continua, proveu d\'iniciar sessió al navegador des del menú.</string>
     <string name="error_compose_character_limit">La publicació és massa llarga!</string>
     <string name="error_media_upload_type">No es pot pujar aquest tipus de fitxer.</string>
     <string name="error_media_upload_opening">No es pot obrir aquest tipus de fitxer.</string>
@@ -46,7 +41,6 @@
     <string name="action_favourite">Preferit</string>
     <string name="action_more">Més</string>
     <string name="action_compose">Escriure</string>
-    <string name="action_login">Inicia sessió amb Pachli</string>
     <string name="action_logout">Tanca sessió</string>
     <string name="action_follow">Segueix</string>
     <string name="action_unfollow">Deixa de seguir</string>
@@ -57,7 +51,6 @@
     <string name="action_send">PUBLICA</string>
     <string name="action_send_public">PUBLICA!</string>
     <string name="action_retry">Torna a intentar-ho</string>
-    <string name="action_close">Tanca</string>
     <string name="action_view_profile">Perfil</string>
     <string name="action_view_preferences">Preferències</string>
     <string name="action_view_favourites">Preferits</string>
@@ -87,7 +80,6 @@
     <string name="confirmation_reported">Enviat!</string>
     <string name="confirmation_unblocked">Usuari desblocat</string>
     <string name="confirmation_unmuted">Usuari sense silenciar</string>
-    <string name="hint_domain">Quina instància?</string>
     <string name="hint_compose">Què està passant?</string>
     <string name="hint_content_warning">Avís de contingut</string>
     <string name="hint_display_name">Nom visible</string>
@@ -96,16 +88,6 @@
     <string name="search_no_results">No hi ha cap resultat</string>
     <string name="label_avatar">Avatar</string>
     <string name="label_header">Capçalera</string>
-    <string name="link_whats_an_instance">Què és una instància?</string>
-    <string name="login_connection">S\'està connectant…</string>
-    <string name="dialog_whats_an_instance">Aquí pots introduir l\'adreça o domini de qualsevol instància,
-        com ara mastodont.cat, mastodon.social, icosahedron.website o
-        <a href="https://instances.social">molts més!</a>
-        \n\nSi encara no tens cap copte, pots introduir el nom de la instància on t\'agradaria
-        unir-te i crear un compte allà.\n\nUna instànica és un únic lloc on el teu compte s\'hostatja
-        , però pots comunicar-te fàcilment i seguir amics d\'altres instàncies com si fossiu en el mateix lloc.
-        \n\nTens més informació a <a href="https://joinmastodon.org">joinmastodon.org</a>.
-    </string>
     <string name="dialog_title_finishing_media_upload">S\'està finalitzant la pujada de material multimèdia</string>
     <string name="dialog_message_uploading_media">S\'està pujant…</string>
     <string name="dialog_download_image">Baixa</string>
@@ -229,7 +211,6 @@
     <string name="title_posts_with_replies">Amb respostes</string>
     <string name="action_emoji_keyboard">Teclat d\'emojis</string>
     <string name="action_open_media_n">Obrir el media #%d</string>
-    <string name="action_open_as">Obre com a %s</string>
     <string name="downloading_media">S\'està Descarregant media</string>
     <string name="post_sent_long">Resposta enviada correctament.</string>
     <string name="label_quick_reply">Resposta …</string>
@@ -304,7 +285,6 @@
     <string name="emoji_style">Estil dels emojis</string>
     <string name="system_default">Sistema per defecte</string>
     <string name="download_fonts">Hauràs de descarregar el joc d\'emojis</string>
-    <string name="performing_lookup_title">Cercant…</string>
     <string name="expand_collapse_all_posts">Expandir/ocultar tots els estats</string>
     <string name="action_open_post">Obre la publicació</string>
     <string name="restart_required">Cal reiniciar l\'aplicació</string>
@@ -315,7 +295,6 @@
     <string name="caption_blobmoji">Els emojis d\'Android 4.4 a 7.1</string>
     <string name="caption_twemoji">Emojis estàndard de Mastodont</string>
     <string name="download_failed">Descàrrega fallida</string>
-    <string name="profile_badge_bot_text">Bot</string>
     <string name="account_moved_description">%1$s s\'ha trasllat a:</string>
     <string name="reblog_private">Tornar a impulsar</string>
     <string name="unreblog_private">No impulsar</string>
@@ -419,7 +398,6 @@
     <string name="description_post_bookmarked">S\'ha afegit a les adreces d\'interès</string>
     <string name="select_list_title">Seleccionar la llista</string>
     <string name="list">Llista</string>
-    <string name="post_lookup_error_format">S\'ha produït un error en cercar la publicació %s</string>
     <string name="no_scheduled_posts">No tens cap estat planificat.</string>
     <string name="no_drafts">No teniu cap esborrany.</string>
     <string name="warning_scheduling_interval">L\'interval mínim de planificació a Mastodon és de 5 minuts.</string>
@@ -491,8 +469,6 @@
     <string name="wellbeing_hide_stats_profile">Amaga les estadístiques quantitatives dels perfils</string>
     <string name="wellbeing_hide_stats_posts">Amaga les estadístiques quantitatives de les publicacions</string>
     <string name="limit_notifications">Limita les notificacions de la cronologia</string>
-    <string name="error_could_not_load_login_page">No s\'ha pogut carregar la pàgina d\'inici de sessió.</string>
-    <string name="error_loading_account_details">No s\'han pogut carregar els detalls del compte</string>
     <string name="action_add_or_remove_from_list">Afegeix o elimina de la llista</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="dialog_delete_conversation_warning">Vols suprimir aquesta conversa\?</string>
@@ -541,7 +517,6 @@
     <string name="notification_update_description">Les notificacions quan s\'editen les publicacions amb les quals has interaccionat</string>
     <string name="notification_report_description">Notificacions sobre informes de moderació</string>
     <string name="status_created_at_now">ara</string>
-    <string name="action_browser_login">Inicieu sessió amb el navegador</string>
     <string name="action_add_reaction">afegir reacció</string>
     <string name="action_share_account_link">Comparteix l\'enllaç al compte</string>
     <string name="action_share_account_username">Comparteix el nom d\'usuari del compte</string>
@@ -557,12 +532,10 @@
     <string name="error_status_source_load">No s\'ha pogut carregar la font d\'estat des del servidor.</string>
     <string name="title_followed_hashtags">Hashtags seguits</string>
     <string name="notification_sign_up_description">Notificacions sobre nous usuaris</string>
-    <string name="title_login">Iniciar Sessió</string>
     <string name="title_migration_relogin">Torneu a iniciar sessió per rebre notificacions push</string>
     <string name="a11y_label_loading_thread">S\'està carregant el fil</string>
     <string name="compose_save_draft_loses_media">Guardar l\'esborrany\? (Els fitxers adjunts es tornaran a penjar quan recupereu l\'esborrany.)</string>
     <string name="dialog_push_notification_migration_other_accounts">Heu tornat a iniciar sessió al vostre compte actual per concedir permís de subscripció push a Pachli. Tanmateix, encara teniu altres comptes que no s\'han migrat d\'aquesta manera. Canvieu-los i torneu a iniciar sessió un per un per activar el suport de notificacions UnifiedPush.</string>
-    <string name="instance_rule_info">En iniciar sessió, accepteu les regles de %s.</string>
     <string name="action_edit_image">Edita la imatge</string>
     <string name="failed_to_pin">No s\'ha pogut fixar</string>
     <string name="failed_to_unpin">No s\'ha pogut desfixar</string>
@@ -607,7 +580,6 @@
     <string name="status_edit_info">%1$s ha editat</string>
     <string name="action_subscribe_account">Subscriu-te</string>
     <string name="action_unsubscribe_account">Cancel·la la subscripció</string>
-    <string name="instance_rule_title">%s regles</string>
     <string name="mute_notifications_switch">Silencia les notificacions</string>
     <string name="status_created_info">%1$s ha creat</string>
     <string name="title_public_trending_hashtags">Hashtags populars</string>

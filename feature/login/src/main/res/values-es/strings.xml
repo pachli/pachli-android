@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Introduzca aquí dirección o dominio de cualquier instancia,
+        como mastodon.social, icosahedron.website, social.tchncs.de y
+        <a href="https://instances.social">más!</a>
+        \n\nSi todavia no tiene una cuenta, puede indicar el nombre de la instancia a la que quiere
+        unirse y crear una cuenta allí.\n\nUna instancia es el sitio único donde su cuenta
+        está alojada, pero puede comunicarse y seguir usuarios de otras instancias como si
+        estuvieran en la misma.
+        \n\nPuede consultar más información en <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Cerrar</string>
+    <string name="action_browser_login">Iniciar sesión con el navegador</string>
+    <string name="error_invalid_domain">Nombre de dominio incorrecto</string>
+    <string name="error_failed_app_registration">Fallo de autenticación con esta instancia. Si esto persiste, prueba en el menú Iniciar sesión con el navegador.</string>
+    <string name="error_authorization_unknown">Ocurrió un error de autorización no identificado. Si esto persiste, prueba en el menú Iniciar sesión con el navegador.</string>
+    <string name="error_authorization_denied">La autorización falló. Si estás seguro de que has suministrado las credenciales correctas, prueba en el menú Iniciar sesión con el navegador.</string>
+    <string name="error_retrieving_oauth_token">Fallo al obtener identificador de login. Si esto persiste, prueba en el menú Iniciar sesión con el navegador.</string>
+    <string name="error_loading_account_details">Falló cargar los detalles de la cuenta</string>
+    <string name="hint_domain">¿Qué instancia\?</string>
+    <string name="action_login">Iniciar sesión con Pachli</string>
+    <string name="link_whats_an_instance">¿Qué es una instancia?</string>
+    <string name="login_connection">Conectando…</string>
+    <string name="title_login">Ingreso</string>
+    <string name="error_could_not_load_login_page">Falló al cargar la página de ingreso.</string>
+    <string name="instance_rule_info">Al iniciar sesión aceptas las normas de %s.</string>
+    <string name="instance_rule_title">Normas de %s</string>
+</resources>

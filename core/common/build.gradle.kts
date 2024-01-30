@@ -32,4 +32,6 @@ android {
 dependencies {
     api(libs.kotlin.result)
     api(libs.kotlin.result.coroutines)
+
+    implementation(libs.androidx.appcompat)
 }

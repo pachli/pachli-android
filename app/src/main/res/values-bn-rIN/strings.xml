@@ -3,12 +3,7 @@
     <string name="error_generic">একটি ত্রুটি ঘটেছে।</string>
     <string name="error_network">একটি নেটওয়ার্ক ত্রুটি ঘটেছে! আপনার সংযোগ পরীক্ষা করে আবার চেষ্টা করুন!</string>
     <string name="error_empty">এই জায়গা খালি হতে পারে না।</string>
-    <string name="error_invalid_domain">অবৈধ ডোমেইন প্রবেশ করানো হয়েছে</string>
-    <string name="error_failed_app_registration">এই ইনস্ট্যান্স এর সঙ্গে প্রমাণীকরণ ব্যর্থ।</string>
     <string name="error_no_web_browser_found">ব্যবহার করার জন্য একটি ওয়েব ব্রাউজার খুঁজে পাওয়া যায়নি।</string>
-    <string name="error_authorization_unknown">একটি অজ্ঞাত প্রমাণীকরণ ত্রুটি ঘটেছে।</string>
-    <string name="error_authorization_denied">অনুমোদন অস্বীকার করা হয়েছে।</string>
-    <string name="error_retrieving_oauth_token">একটি লগইন টোকেন পেতে ব্যর্থ।</string>
     <string name="error_compose_character_limit">এই স্টেটাস টি খুব দীর্ঘ!</string>
     <string name="error_media_upload_type">যে ধরনের ফাইল আপলোড করা যাবে না।</string>
     <string name="error_media_upload_opening">ওই ফাইল খোলা যাবে না।</string>
@@ -60,7 +55,6 @@
     <string name="action_unfavourite">পছন্দ সরান</string>
     <string name="action_more">অধিক</string>
     <string name="action_compose">রচনা</string>
-    <string name="action_login">মাস্টোডনের সঙ্গে লগইন করো</string>
     <string name="action_logout">লগ আউট</string>
     <string name="action_logout_confirm">আপনি কি অ্যাকাউন্ট %1$s থেকে লগ আউট করতে চান\?</string>
     <string name="action_follow">অনুসরণ কর</string>
@@ -75,7 +69,6 @@
     <string name="action_send">টুট</string>
     <string name="action_send_public">টুট!</string>
     <string name="action_retry">পুনরায় চেষ্টা করা</string>
-    <string name="action_close">বদ্ধ</string>
     <string name="action_view_profile">প্রোফাইল</string>
     <string name="action_view_preferences">পছন্দসমূহ</string>
     <string name="action_view_account_preferences">অ্যাকাউন্টের পছন্দসমূহ</string>
@@ -117,7 +110,6 @@
     <string name="action_open_media_n">মিডিয়া খুলুন #%d</string>
     <string name="download_image">%1$s ডাউনলোড হচ্ছে</string>
     <string name="action_copy_link">লিঙ্ক অনুলিপি করুন</string>
-    <string name="action_open_as">%s হিসাবে খুলুন</string>
     <string name="action_share_as">হিসাবে ভাগ করুন …</string>
     <string name="download_media">মিডিয়া ডাউনলোড করুন</string>
     <string name="downloading_media">মিডিয়া ডাউনলোড করা হচ্ছে</string>
@@ -129,7 +121,6 @@
     <string name="confirmation_unmuted">ব্যবহারকারী সশব্দ</string>
     <string name="post_sent">পাঠানো হয়েছে!</string>
     <string name="post_sent_long">উত্তর সফলভাবে পাঠানো হয়েছে।</string>
-    <string name="hint_domain">কোন ইনস্ট্যান্স\?</string>
     <string name="hint_compose">কি হচ্ছে\?</string>
     <string name="hint_content_warning">সতর্কবার্তা</string>
     <string name="hint_display_name">প্রদর্শন নাম</string>
@@ -139,15 +130,6 @@
     <string name="label_quick_reply">উত্তর…</string>
     <string name="label_avatar">অবতার</string>
     <string name="label_header">হেডার</string>
-    <string name="link_whats_an_instance">ইনস্ট্যান্স কি\?</string>
-    <string name="login_connection">সংযুক্ত হচ্ছে …</string>
-    <string name="dialog_whats_an_instance">কোনও উদাহরণের ঠিকানা বা ডোমেন এখানে প্রবেশ করা যেতে পারে যেমন mastodon.social, icosahedron.website, social.tchncs.de, এবং <a href="https://instances.social"> আরও! </a>
-\n
-\nআপনার যদি এখনো অ্যাকাউন্ট না থাকে তবে আপনি যে ইনস্ট্যান্সটিতে যোগ দিতে চান সেটির নামটি প্রবেশ করতে এবং সেখানে একটি অ্যাকাউন্ট তৈরি করতে পারেন।
-\n
-\nএকটি ইনস্ট্যান্স একটি একক স্থান যেখানে আপনার অ্যাকাউন্ট হোস্ট করা হয়, তবে আপনি সহজেই যোগাযোগ করতে পারেন এবং অন্যান্য ক্ষেত্রে যেমন আপনি একই সাইটে ছিলেন তা অনুসরণ করতে পারেন।
-\n
-\nআরো তথ্য <a href="https://joinmastodon.org"> joinmastodon.org </a> এ পাওয়া যেতে পারে। </string>
     <string name="dialog_title_finishing_media_upload">মিডিয়া আপলোড সমাপ্ত করা হচ্ছে</string>
     <string name="dialog_message_uploading_media">আপলোড হচ্ছে …</string>
     <string name="dialog_download_image">ডাউনলোড</string>
@@ -301,7 +283,6 @@
     <string name="emoji_style">ইমোজি স্টাইল</string>
     <string name="system_default">সিস্টেমের ডিফল্ট</string>
     <string name="download_fonts">আপনাকে প্রথমে এই ইমোজি সেটগুলি ডাউনলোড করতে হবে</string>
-    <string name="performing_lookup_title">অনুসন্ধান করা হচ্ছে …</string>
     <string name="expand_collapse_all_posts">সমস্ত স্টেটাস প্রসারিত/সংকুচিত করুন</string>
     <string name="action_open_post">টুট খুলুন</string>
     <string name="restart_required">অ্যাপ্লিকেশন পুনরায় আরম্ভ করা প্রয়োজন</string>
@@ -313,7 +294,6 @@
     <string name="caption_twemoji">ম্যাস্টোডোন এর মান ইমোজি সেট</string>
     <string name="caption_notoemoji">গুগল এর বর্তমান ইমোজি সেট</string>
     <string name="download_failed">ডাউনলোড ব্যর্থ হয়েছে</string>
-    <string name="profile_badge_bot_text">বট</string>
     <string name="account_moved_description">%1$s স্থানান্তরিত করেছে এতে:</string>
     <string name="reblog_private">মূল শ্রোতাদেড় সমথন পাঠাও</string>
     <string name="unreblog_private">সমর্থন ফেরত</string>
@@ -404,7 +384,6 @@
     <string name="action_schedule_post">নির্ধারিত টুট</string>
     <string name="action_reset_schedule">রিসেট</string>
     <string name="about_powered_by_pachli">টাস্কি দ্বারা চালিত</string>
-    <string name="post_lookup_error_format">%s পোস্ট অনুসন্ধানে ত্রুটি</string>
     <string name="action_view_bookmarks">বুকমার্কগুলি</string>
     <string name="action_bookmark">বুকমার্ক</string>
     <string name="notification_follow_request_format">%s আপনাকে অনুসরণ করার জন্য অনুরোধ করেছে</string>

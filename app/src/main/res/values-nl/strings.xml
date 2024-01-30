@@ -3,12 +3,7 @@
     <string name="error_generic">Er deed zich een fout voor.</string>
     <string name="error_network">Er deed zich een netwerkfout voor. Controleer je verbinding en probeer opnieuw.</string>
     <string name="error_empty">Dit mag niet leeg zijn.</string>
-    <string name="error_invalid_domain">Ongeldige domeinnaam ingevoerd</string>
-    <string name="error_failed_app_registration">Authenticatie met die server is mislukt. Als het probleem blijft, probeer dan de browser login via het menu.</string>
     <string name="error_no_web_browser_found">Kon geen bruikbare webbrowser vinden.</string>
-    <string name="error_authorization_unknown">Er deed zich een onbekende autorisatiefout voor. Als dit blijft, probeer dan “ Via de browser inloggen” in het menu.</string>
-    <string name="error_authorization_denied">Autorisatie werd geweigerd. Als u zeker weet dat u de correcte gegevens heeft ingevoerd, probeer dan in te loggen in de browser via het menu.</string>
-    <string name="error_retrieving_oauth_token">Kon geen inlogsleutel verkrijgen. Als het probleem zich blijft herhalen; probeer dan de browser login via menu.</string>
     <string name="error_compose_character_limit">Tekst van dit bericht is te lang!</string>
     <string name="error_media_upload_type">Bestandstype wordt niet ondersteund.</string>
     <string name="error_media_upload_opening">Bestand kon niet worden geopend.</string>
@@ -60,7 +55,6 @@
     <string name="action_unfavourite">Favoriet verwijderen</string>
     <string name="action_more">Meer</string>
     <string name="action_compose">Bericht schrijven</string>
-    <string name="action_login">Aanmelden met Pachli</string>
     <string name="action_logout">Uitloggen</string>
     <string name="action_logout_confirm">Weet je zeker dat je %1$s wil afmelden\? Dit verwijdert alle lokale gegevens van het account, inclusief conceptberichten en voorkeuren.</string>
     <string name="action_follow">Volgen</string>
@@ -74,7 +68,6 @@
     <string name="action_send">Toot!</string>
     <string name="action_send_public">Toot!</string>
     <string name="action_retry">Opnieuw proberen</string>
-    <string name="action_close">Sluiten</string>
     <string name="action_view_profile">Profiel</string>
     <string name="action_view_preferences">App-voorkeuren</string>
     <string name="action_view_account_preferences">Accountvoorkeuren</string>
@@ -116,7 +109,6 @@
     <string name="action_open_media_n">Media #%d openen</string>
     <string name="download_image">%1$s aan het downloaden</string>
     <string name="action_copy_link">Link kopiëren</string>
-    <string name="action_open_as">Als %s openen</string>
     <string name="action_share_as">Delen als …</string>
     <string name="send_post_link_to">Link van het bericht delen met…</string>
     <string name="send_post_content_to">Inhoud van het bericht delen met…</string>
@@ -126,7 +118,6 @@
     <string name="confirmation_unmuted">Gebruiker wordt niet langer genegeerd</string>
     <string name="post_sent">Verzonden!</string>
     <string name="post_sent_long">Reactie succesvol verzonden.</string>
-    <string name="hint_domain">Welke Mastodonserver?</string>
     <string name="hint_compose">Wat wil je kwijt?</string>
     <string name="hint_content_warning">Tekstwaarschuwing</string>
     <string name="hint_display_name">Weergavenaam</string>
@@ -136,15 +127,6 @@
     <string name="label_quick_reply">Reageren…</string>
     <string name="label_avatar">Avatar</string>
     <string name="label_header">Omslagfoto</string>
-    <string name="link_whats_an_instance">Wat is een Mastodonserver?</string>
-    <string name="login_connection">Aan het verbinden…</string>
-    <string name="dialog_whats_an_instance">Het adres of domein van elke Mastodonserver kan hier worden ingevoerd, zoals mastodon.social, mastodon.nl, octodon.social en <a href="https://instances.social">nog veel meer!</a>
-\n
-\nWanneer je nog geen account hebt, kun je de naam van de Mastodonserver waar jij je graag wil registeren invoeren, waarna je daar een account kunt aanmaken.
-\n
-\nEen Mastodonserver (Engels: instance) is een computerserver waar jouw account zich bevindt (vergelijk het met een e-mailserver). Je kan eenvoudig mensen van andere servers volgen en met ze communiceren, alsof jullie met elkaar op dezelfde website zitten.
-\n
-\n Meer informatie kun je vinden op <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="dialog_title_finishing_media_upload">Uploaden media bijna voltooid</string>
     <string name="dialog_message_uploading_media">Aan het uploaden…</string>
     <string name="dialog_download_image">Downloaden</string>
@@ -276,7 +258,6 @@
     <string name="emoji_style">Emojistijl</string>
     <string name="system_default">Systeemstandaard</string>
     <string name="download_fonts">Je moet eerst deze emoji-sets downloaden</string>
-    <string name="performing_lookup_title">Aan het zoeken…</string>
     <string name="expand_collapse_all_posts">Alle berichten in- of uitklappen</string>
     <string name="action_open_post">Bericht openen</string>
     <string name="restart_required">Herstarten app vereist</string>
@@ -287,7 +268,6 @@
     <string name="caption_blobmoji">De Blob-emojis van Android 4.4–7.1</string>
     <string name="caption_twemoji">Standaard emojiset van Mastodon</string>
     <string name="download_failed">Downloaden mislukt</string>
-    <string name="profile_badge_bot_text">Bot</string>
     <string name="account_moved_description">%1$s is verhuisd naar:</string>
     <string name="reblog_private">Boost naar oorspronkelijke ontvangers</string>
     <string name="unreblog_private">Niet langer boosten</string>
@@ -431,7 +411,6 @@
     <string name="title_accounts">Accounts</string>
     <string name="failed_search">Zoeken mislukt</string>
     <string name="create_poll_title">Poll</string>
-    <string name="post_lookup_error_format">Fout tijdens het opzoeken van bericht %s</string>
     <string name="no_drafts">Je hebt nog geen concepten.</string>
     <string name="no_scheduled_posts">Je hebt nog geen ingeplande berichten.</string>
     <string name="warning_scheduling_interval">Om in te plannen moet je in Mastodon een minimum interval van 5 minuten gebruiken.</string>
@@ -503,7 +482,6 @@
     <string name="tips_push_notification_migration">Alle accounts opnieuw inloggen i.v.m. ondersteuning pushmeldingen.</string>
     <string name="error_multimedia_size_limit">Afbeeldingen en video\'s kunnen niet groter zijn dan %s MB.</string>
     <string name="error_image_edit_failed">Deze afbeelding kon niet worden bewerkt.</string>
-    <string name="title_login">Inloggen</string>
     <string name="title_migration_relogin">Opnieuw inloggen i.v.m. pushmeldingen</string>
     <string name="notification_update_format">%s heeft diens bericht bewerkt</string>
     <string name="action_unbookmark">Bladwijzer verwijderen</string>
@@ -527,8 +505,6 @@
     <string name="pachli_compose_post_quicksetting_label">Bericht schrijven</string>
     <string name="account_date_joined">Geregistreerd in %1$s</string>
     <string name="saving_draft">Concept wordt opgeslagen…</string>
-    <string name="error_loading_account_details">Laden van accountdetails mislukt</string>
-    <string name="error_could_not_load_login_page">De inlogpagina kon niet worden geladen.</string>
     <string name="description_post_language">Taal van jouw berichten</string>
     <string name="duration_no_change">(geen verandering)</string>
     <string name="pref_title_show_self_username">Gebruikersnaam op werkbalken tonen</string>
@@ -557,12 +533,10 @@
     <string name="description_post_edited">Bewerkt</string>
     <string name="status_edit_info">%1$s bewerkte</string>
     <string name="status_created_info">%1$s maakte</string>
-    <string name="instance_rule_info">Door in te loggen ben je het eens met de regels van %s.</string>
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Overig</string>
     <string name="hint_media_description_missing">Media moet een beschrijving hebben.</string>
     <string name="failed_to_unpin">Kan niet losmaken</string>
-    <string name="instance_rule_title">%s regels</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_violation">Regelovertreding</string>
     <string name="no_lists">Je hebt geen lijsten.</string>
@@ -589,7 +563,6 @@
     <string name="action_post_failed_do_nothing">Afwijzen</string>
     <string name="action_post_failed_show_drafts">Concepten tonen</string>
     <string name="error_unmuting_hashtag_format">Fout bij unmuting #%s</string>
-    <string name="action_browser_login">Inloggen met een browser</string>
     <string name="action_add_reaction">reactie toevoegen</string>
     <string name="action_discard">Veranderingen ongedaan maken</string>
     <string name="post_edited">Bewerkt %s</string>

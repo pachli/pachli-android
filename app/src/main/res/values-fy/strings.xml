@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_invalid_domain">Ûnjildich domein ynfierd</string>
     <string name="error_empty">Dit mei net leech wêze.</string>
     <string name="system_default">Systeem standert</string>
     <string name="emoji_style">Emoji styl</string>
@@ -107,7 +106,6 @@
     <string name="dialog_download_image">Delhelje</string>
     <string name="dialog_message_uploading_media">Oan it uploaden…</string>
     <string name="dialog_title_finishing_media_upload">It Uploaden fan Media oan it Ôfrûnjen</string>
-    <string name="login_connection">Oan it ferbinen…</string>
     <string name="label_quick_reply">Reagearre…</string>
     <string name="search_no_results">Gjin resultaten</string>
     <string name="hint_search">Sykje…</string>
@@ -125,7 +123,6 @@
     <string name="downloading_media">Media oan it delheljen</string>
     <string name="download_media">Media delhelje</string>
     <string name="action_share_as">Diele as…</string>
-    <string name="action_open_as">Iepenje as %s</string>
     <string name="action_copy_link">Keppeling kopiearje</string>
     <string name="download_image">Oan it delheljen fan %1$s</string>
     <string name="action_open_media_n">Media #%d iepenje</string>
@@ -171,7 +168,6 @@
     <string name="action_view_account_preferences">Account Foarkarren</string>
     <string name="action_view_preferences">Foarkarren</string>
     <string name="action_view_profile">Profyl</string>
-    <string name="action_close">Slute</string>
     <string name="action_retry">Opnij probearje</string>
     <string name="action_send_public">TOOT!</string>
     <string name="action_send">TOOT</string>
@@ -185,7 +181,6 @@
     <string name="action_unfollow">Net mear folgje</string>
     <string name="action_follow">Folgje</string>
     <string name="action_logout">Útlogge</string>
-    <string name="action_login">Ynlogge mei Mastodon</string>
     <string name="action_compose">Gearstelle</string>
     <string name="action_more">Mear</string>
     <string name="action_unfavourite">Net mear as favoryt oanmerke</string>
@@ -238,9 +233,6 @@
     <string name="error_media_upload_opening">Die triem koe net iepene wurde.</string>
     <string name="error_media_upload_type">Dat type triem kin net upload wurde.</string>
     <string name="error_compose_character_limit">De status is te lang!</string>
-    <string name="error_retrieving_oauth_token">Koe gjin ynlogtoken krije.</string>
-    <string name="error_authorization_denied">Ferifikaasje ôfkard.</string>
-    <string name="error_authorization_unknown">Der die harren in net definiearre flater foar.</string>
     <string name="error_no_web_browser_found">Koe gjin webblêder fine om te brûken.</string>
     <string name="error_network">In netwurk flater die harren foar! Kontrolearje jo ferbining en probearje it noch ris!</string>
     <string name="error_generic">Der die harren in flater foar.</string>

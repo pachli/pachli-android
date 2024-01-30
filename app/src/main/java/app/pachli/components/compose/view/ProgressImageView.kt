@@ -26,6 +26,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import androidx.appcompat.content.res.AppCompatResources
 import app.pachli.R
+import app.pachli.core.designsystem.R as DR
 import app.pachli.view.MediaPreviewImageView
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
@@ -49,7 +50,7 @@ class ProgressImageView
     }
     private val markBgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = context.getColor(R.color.tusky_grey_10)
+        color = context.getColor(DR.color.tusky_grey_10)
     }
     private val captionDrawable = AppCompatResources.getDrawable(
         context,
@@ -74,7 +75,7 @@ class ProgressImageView
         markBgPaint.color = if (checked) {
             MaterialColors.getColor(this, androidx.appcompat.R.attr.colorPrimary)
         } else {
-            context.getColor(R.color.tusky_grey_10)
+            context.getColor(DR.color.tusky_grey_10)
         }
         invalidate()
     }

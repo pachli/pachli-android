@@ -24,9 +24,6 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import app.pachli.BaseActivity
-import app.pachli.BottomSheetActivity
-import app.pachli.PostLookupFallbackBehavior
 import app.pachli.R
 import app.pachli.components.accountlist.adapter.AccountAdapter
 import app.pachli.components.accountlist.adapter.BlocksAdapter
@@ -35,6 +32,12 @@ import app.pachli.components.accountlist.adapter.FollowRequestsAdapter
 import app.pachli.components.accountlist.adapter.FollowRequestsHeaderAdapter
 import app.pachli.components.accountlist.adapter.MutesAdapter
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.PostLookupFallbackBehavior
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent.Kind
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.BLOCKS
@@ -55,9 +58,6 @@ import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.LinkListener
-import app.pachli.util.hide
-import app.pachli.util.show
-import app.pachli.util.viewBinding
 import app.pachli.view.EndlessOnScrollListener
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.color.MaterialColors

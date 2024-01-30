@@ -20,14 +20,7 @@
     <string name="error_network">A network error occurred. Please check your connection and try again.</string>
     <string name="error_network_fmt">A network error occurred: %s</string>
     <string name="error_empty">This cannot be empty.</string>
-    <string name="error_invalid_domain">Invalid domain entered</string>
-    <string name="error_failed_app_registration">Failed authenticating with that instance. If this persists, try "Login in Browser" from the menu.</string>
     <string name="error_no_web_browser_found">Couldn\'t find a web browser to use.</string>
-    <string name="error_authorization_unknown">An unidentified authorization error occurred. If this persists, try "Login in Browser" from the menu.</string>
-    <string name="error_authorization_denied">Authorization was denied. If you\'re sure that you supplied the correct credentials, try "Login in Browser" from the menu.</string>
-    <string name="error_retrieving_oauth_token">Failed getting a login token. If this persists, try "Login in Browser" from the menu.</string>
-    <string name="error_loading_account_details">Failed loading account details</string>
-    <string name="error_could_not_load_login_page">Could not load the login page.</string>
     <string name="error_compose_character_limit">The post is too long!</string>
     <string name="error_multimedia_size_limit">Video and audio files cannot exceed %s MB in size.</string>
     <string name="error_404_not_found">Your server does not support this feature</string>
@@ -46,7 +39,6 @@
     <string name="error_muting_hashtag_format">Error muting #%s</string>
     <string name="error_unmuting_hashtag_format">Error unmuting #%s</string>
     <string name="error_status_source_load">Failed to load the status source from the server.</string>
-    <string name="title_login">Login</string>
     <string name="title_home">Home</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_public_local">Local</string>
@@ -117,8 +109,6 @@
     <string name="action_unbookmark">Remove bookmark</string>
     <string name="action_more">More</string>
     <string name="action_compose">Compose</string>
-    <string name="action_login">Login with Pachli</string>
-    <string name="action_browser_login">Login with Browser</string>
     <string name="action_logout">Log out</string>
     <string name="action_logout_confirm">Are you sure you want to log out of %1$s? This will delete all local data of the account, including drafts and preferences.</string>
     <string name="action_post_failed">Upload failed</string>
@@ -146,7 +136,6 @@
     <string name="action_send">TOOT</string>
     <string name="action_send_public">TOOT!</string>
     <string name="action_retry">Retry</string>
-    <string name="action_close">Close</string>
     <string name="action_view_profile">Profile</string>
     <string name="action_view_preferences">Preferences</string>
     <string name="action_view_account_preferences">Account preferences</string>
@@ -204,7 +193,6 @@
     <string name="action_open_media_n">Open media #%d</string>
     <string name="download_image">Downloading %1$s</string>
     <string name="action_copy_link">Copy the link</string>
-    <string name="action_open_as">Open as %s</string>
     <string name="action_share_as">Share as …</string>
     <string name="download_media">Download media</string>
     <string name="downloading_media">Downloading media</string>
@@ -223,7 +211,6 @@
     <string name="confirmation_hashtag_unfollowed">#%s unfollowed</string>
     <string name="post_sent">Sent!</string>
     <string name="post_sent_long">Reply sent successfully.</string>
-    <string name="hint_domain">Which instance?</string>
     <string name="hint_compose">What\'s happening?</string>
     <string name="hint_content_warning">Content warning</string>
     <string name="hint_display_name">Display name</string>
@@ -236,17 +223,6 @@
     <string name="label_avatar">Avatar</string>
     <string name="label_header">Header</string>
     <string name="label_image">Image</string>
-    <string name="link_whats_an_instance">What\'s an instance?</string>
-    <string name="login_connection">Connecting…</string>
-    <string name="dialog_whats_an_instance">The address or domain of any instance can be entered
-        here, such as mastodon.social, icosahedron.website, social.tchncs.de, and
-        <a href="https://instances.social">more!</a>
-        \n\nIf you don\'t yet have an account, you can enter the name of the instance you\'d like to
-        join and create an account there.\n\nAn instance is a single place where your account is
-        hosted, but you can easily communicate with and follow folks on other instances as though
-        you were on the same site.
-        \n\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>.
-    </string>
     <string name="dialog_title_finishing_media_upload">Finishing Media Upload</string>
     <string name="dialog_message_uploading_media">Uploading…</string>
     <string name="dialog_download_image">Download</string>
@@ -470,7 +446,6 @@
     <string name="emoji_style">Emoji style</string>
     <string name="system_default">System default</string>
     <string name="download_fonts">You\'ll need to download these emoji sets first</string>
-    <string name="performing_lookup_title">Performing lookup…</string>
     <string name="expand_collapse_all_posts">Expand/Collapse all posts</string>
     <string name="action_open_post">Open post</string>
     <string name="restart_required">App restart required</string>
@@ -482,7 +457,6 @@
     <string name="caption_twemoji">Mastodon\'s standard emoji set</string>
     <string name="caption_notoemoji">Google\'s current emoji set</string>
     <string name="download_failed">Download failed</string>
-    <string name="profile_badge_bot_text">Bot</string>
     <string name="account_moved_description">%1$s has moved to:</string>
     <string name="reblog_private">Boost to original audience</string>
     <string name="unreblog_private">Unboost</string>
@@ -634,7 +608,6 @@
     <string name="poll_allow_multiple_choices">Multiple choices</string>
     <string name="poll_new_choice_hint">Choice %d</string>
     <string name="edit_poll">Edit</string>
-    <string name="post_lookup_error_format">Error looking up post %s</string>
     <string name="no_drafts">You don\'t have any drafts.</string>
     <string name="no_scheduled_posts">You don\'t have any scheduled posts.</string>
     <string name="no_announcements">There are no announcements.</string>
@@ -680,8 +653,6 @@
     <string name="dialog_push_notification_migration_other_accounts">You have re-logged into your current account to grant push subscription permission to Pachli. However, you still have other accounts that have not been migrated this way. Switch to them and re-login one by one in order to enable UnifiedPush notifications support.</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="delete_scheduled_post_warning">Delete this scheduled post?</string>
-    <string name="instance_rule_info">By logging in you agree to the rules of %s.</string>
-    <string name="instance_rule_title">%s rules</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_violation">Rule violation</string>
     <string name="report_category_spam">Spam</string>

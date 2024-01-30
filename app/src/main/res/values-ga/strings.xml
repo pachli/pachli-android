@@ -71,7 +71,6 @@
     <string name="dialog_download_image">Íoslódáil</string>
     <string name="dialog_message_uploading_media">Uaslódáil…</string>
     <string name="dialog_title_finishing_media_upload">Uaslódáil Meáin Críochnaithe</string>
-    <string name="login_connection">Ag nascadh…</string>
     <string name="label_header">Ceanntásc</string>
     <string name="label_quick_reply">Freagra…</string>
     <string name="search_no_results">Gan torthaí</string>
@@ -80,7 +79,6 @@
     <string name="hint_display_name">Ainm taispeána</string>
     <string name="hint_content_warning">Rabhadh ábhair</string>
     <string name="hint_compose">Cad atá ag tarlú\?</string>
-    <string name="hint_domain">Cén ásc\?</string>
     <string name="post_sent_long">D\'éirigh le freagra a sheoladh.</string>
     <string name="post_sent">Seolta!</string>
     <string name="confirmation_domain_unmuted">%s neamhcheangailte</string>
@@ -93,7 +91,6 @@
     <string name="downloading_media">Meáin íoslódála</string>
     <string name="download_media">Íoslódáil meáin</string>
     <string name="action_share_as">Comhroinn mar …</string>
-    <string name="action_open_as">Oscail mar %s</string>
     <string name="action_copy_link">Cóipeáil an nasc</string>
     <string name="download_image">Ag íoslódáil %1$s</string>
     <string name="action_open_media_n">Meáin oscailte #%d</string>
@@ -133,7 +130,6 @@
     <string name="action_view_bookmarks">Leabharmharcanna</string>
     <string name="action_view_favourites">Toghanna</string>
     <string name="action_view_profile">Próifíl</string>
-    <string name="action_close">Dún</string>
     <string name="action_retry">Atriail</string>
     <string name="action_send_public">SÉID!</string>
     <string name="action_send">SÉID</string>
@@ -155,11 +151,7 @@
     <string name="action_favourite">Togh</string>
     <string name="error_media_upload_type">Ní féidir an cineál comhaid sin a uaslódáil.</string>
     <string name="error_compose_character_limit">Tá an stádas ró-fhada!</string>
-    <string name="error_retrieving_oauth_token">Theip ar chomhartha logála isteach a fháil.</string>
-    <string name="error_authorization_denied">Diúltaíodh údarú.</string>
-    <string name="error_authorization_unknown">Tharla earráid údaraithe neamhaitheanta.</string>
     <string name="error_no_web_browser_found">Níorbh fhéidir brabhsálaí gréasáin a aimsiú le húsáid.</string>
-    <string name="error_invalid_domain">Fearann neamhbhailí iontráilte</string>
     <string name="error_empty">Ní féidir leis seo a bheith folamh.</string>
     <string name="error_network">Tharla earráid líonra! Seiceáil do nasc agus bain triail eile as!</string>
     <string name="error_generic">Tharla earráid.</string>
@@ -174,9 +166,6 @@
     <string name="action_logout">Logáil Amach</string>
     <string name="title_drafts">Dréachtaí</string>
     <string name="title_favourites">Toghanna</string>
-    <string name="error_failed_app_registration">Theip ar fhíordheimhniú leis an ásc sin.</string>
-    <string name="link_whats_an_instance">Cad is ásc ann\?</string>
-    <string name="action_login">Logáil isteach le Mastodon</string>
     <string name="post_media_images">Íomhánna</string>
     <string name="post_share_link">Comhroinn nasc chuig postáil</string>
     <string name="post_share_content">Comhroinn inneachar na postála</string>
@@ -254,13 +243,6 @@
     <string name="action_mute_conversation">Comhrá tost</string>
     <string name="action_hashtags">Clibeanna hash</string>
     <string name="title_hashtags_dialog">Hashtags</string>
-    <string name="dialog_whats_an_instance">Is féidir an seoladh nó fearann a ghabhann le hásc ar bith a chur isteach anseo, mar shampla mastodon.social, icosahedron.website, social.tchncs.de, agus <a href="https://instances.social">níos mó!</a>
-\n
-\nMuna bhfuil cuntas agat fós, is féidir leat ainm an áisc ar mhaith leat a bheith páirteach ann a chur isteach, agus cuntas a chruthú ann.
-\n
-\nIs éard atá i gceist le hásc na láthair amháin ina ndéantar do chuntas a óstáil, ach is féidir leat cumarsáid a dhéanamh go héasca le daoine eile agus iad a leanúint ar áisc eile mar a bheadh sibh ar an suíomh céanna.
-\n
-\nIs féidir tuilleadh faisnéise a fháil ag <a href="https://joinmastodon.org"> joinmastodon.org </a>. </string>
     <string name="about_project_site">Suíomh Gréasáin an tionscadail:
 \n https://pachli.app</string>
     <string name="about_bug_feature_request_site">Tuarascálacha ar fhabhtanna &amp; iarratais ar ghnéithe:
@@ -330,7 +312,6 @@
     <string name="emoji_style">Stíl Emoji</string>
     <string name="system_default">Réamhshocrú an chórais</string>
     <string name="download_fonts">Caithfear na tacair emoji seo a íoslódáil ar dtús</string>
-    <string name="performing_lookup_title">Amharc taibhithe…</string>
     <string name="action_open_post">Oscail postáil</string>
     <string name="restart_required">Atosú aip de dhíth</string>
     <string name="later">Níos déanaí</string>
@@ -339,7 +320,6 @@
     <string name="caption_blobmoji">Na emojis Blob atá ar eolas ó Android 4.4-7.1</string>
     <string name="caption_twemoji">Tacar emoji caighdeánach Mastodon</string>
     <string name="download_failed">Theip ar íoslódáil</string>
-    <string name="profile_badge_bot_text">Bot</string>
     <string name="account_moved_description">Tá %1$s tar éis bogadh go:</string>
     <string name="reblog_private">Athchraol don bhunlucht léite</string>
     <string name="profile_metadata_label">Meiteashonraí próifíle</string>
@@ -447,7 +427,6 @@
     <string name="poll_allow_multiple_choices">Ilroghanna</string>
     <string name="poll_new_choice_hint">Rogha %d</string>
     <string name="edit_poll">Cuir in Eagar</string>
-    <string name="post_lookup_error_format">Earráid agus an post á lorg %s</string>
     <string name="no_drafts">Níl aon dréacht agat.</string>
     <string name="no_scheduled_posts">Níl aon phostáil sceidealta agat.</string>
     <string name="warning_scheduling_interval">Tá eatramh sceidealaithe íosta 5 nóiméad ag Mastodon.</string>
@@ -482,14 +461,11 @@
 \n - staitisticí Leantóirí/Postálacha ar phróifílí
 \n
 \n Ní chuirfear isteach ar brúfhógraí, ach is féidir leat do chuid sainroghanna phearsanra d\'fhógraí a athbhreithniú de láimh.</string>
-    <string name="error_loading_account_details">Theip ar sonraí an chuntais a lódáil</string>
-    <string name="instance_rule_title">Rialacha %s</string>
     <string name="notification_subscription_name">Postálacha nua</string>
     <string name="account_note_hint">Do nóta príobháideach faoin cuntas seo</string>
     <string name="account_date_joined">Anseo ó %1$s</string>
     <string name="notification_subscription_format">Tá %s tar éis postáil</string>
     <string name="notification_update_format">Chuir %s postáil in eagar</string>
-    <string name="title_login">Logáil isteach</string>
     <string name="notification_sign_up_format">Chláraigh %s</string>
     <string name="action_unbookmark">Bain leabharmharc</string>
     <string name="action_delete_conversation">Scrios comhrá</string>

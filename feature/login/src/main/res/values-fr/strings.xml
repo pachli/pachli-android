@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Indiquer ici l’adresse ou le domaine d’une instance,
+        comme mastodon.social, icosahedron.website, social.tchncs.de,
+        <a href="https://instances.social">et bien d’autres encore</a> (en anglais) !
+        \n\nSi vous ne disposez d’aucun compte, vous pouvez renseigner le nom de l’instance que vous souhaitez rejoindre
+        et y créer un compte.\n\nUne instance est l’endroit où votre compte est
+        hébergé, mais vous pouvez facilement suivre des personnes d’autres instances et communiquer avec elles
+        comme si vous étiez sur le même site.
+        \n\nPour plus d’informations, consultez <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Fermer</string>
+    <string name="action_browser_login">Se connecter avec le navigateur</string>
+    <string name="error_invalid_domain">Le domaine saisi est invalide</string>
+    <string name="error_failed_app_registration">Échec d’authentification auprès de l’instance. Si cela continue à se produire, essayez Se connecter avec le navigateur depuis le menu.</string>
+    <string name="error_authorization_unknown">Une erreur d’autorisation inconnue s’est produite. Si cela continue à se produire, essayez Se connecter avec le navigateur depuis le menu.</string>
+    <string name="error_authorization_denied">Authentification refusée. Si vous êtes sur·e d\'avoir entré les bons identifiants, essayez Se connecter avec le navigateur depuis le menu.</string>
+    <string name="error_retrieving_oauth_token">Impossible de récupérer le jeton d’authentification. Si cela continue à se produire, essayez Se connecter avec le navigateur depuis le menu.</string>
+    <string name="error_loading_account_details">Les détails du compte n\'ont pas pu être chargés</string>
+    <string name="hint_domain">Quelle instance ?</string>
+    <string name="action_login">Se connecter avec Pachli</string>
+    <string name="link_whats_an_instance">Qu’est-ce qu’une instance ?</string>
+    <string name="login_connection">Connexion en cours…</string>
+    <string name="title_login">Se connecter</string>
+    <string name="error_could_not_load_login_page">La page de connexion ne peut être chargée.</string>
+    <string name="instance_rule_info">En vous connectant vous acceptez de vous tenir aux règles de %s.</string>
+    <string name="instance_rule_title">%s règles</string>
+</resources>

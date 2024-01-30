@@ -52,10 +52,18 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
-import app.pachli.BottomSheetActivity
 import app.pachli.R
 import app.pachli.components.account.list.ListsForAccountFragment
+import app.pachli.core.activity.AccountSelectionListener
+import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.emojify
+import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -71,22 +79,15 @@ import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ActivityAccountBinding
 import app.pachli.db.DraftsAlert
-import app.pachli.interfaces.AccountSelectionListener
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.LinkListener
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
-import app.pachli.util.emojify
 import app.pachli.util.getDomain
-import app.pachli.util.hide
-import app.pachli.util.loadAvatar
 import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.setClickableText
-import app.pachli.util.show
-import app.pachli.util.viewBinding
-import app.pachli.util.visible
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
@@ -211,10 +212,10 @@ class AccountActivity :
      */
     private fun loadResources() {
         toolbarColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK)
-        statusBarColorTransparent = getColor(R.color.transparent_statusbar_background)
+        statusBarColorTransparent = getColor(DR.color.transparent_statusbar_background)
         statusBarColorOpaque = toolbarColor
-        avatarSize = resources.getDimension(R.dimen.account_activity_avatar_size)
-        titleVisibleHeight = resources.getDimensionPixelSize(R.dimen.account_activity_scroll_title_visible_height)
+        avatarSize = resources.getDimension(DR.dimen.account_activity_avatar_size)
+        titleVisibleHeight = resources.getDimensionPixelSize(DR.dimen.account_activity_scroll_title_visible_height)
     }
 
     /**
@@ -280,7 +281,7 @@ class AccountActivity :
             tab.text = pageTitles[position]
         }.attach()
 
-        val pageMargin = resources.getDimensionPixelSize(R.dimen.tab_page_margin)
+        val pageMargin = resources.getDimensionPixelSize(DR.dimen.tab_page_margin)
         binding.accountFragmentViewPager.setPageTransformer(MarginPageTransformer(pageMargin))
 
         val enableSwipeForTabs = sharedPreferencesRepository.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
@@ -325,7 +326,7 @@ class AccountActivity :
             setDisplayShowTitleEnabled(false)
         }
 
-        val appBarElevation = resources.getDimension(R.dimen.actionbar_elevation)
+        val appBarElevation = resources.getDimension(DR.dimen.actionbar_elevation)
 
         val toolbarBackground = MaterialShapeDrawable.createWithElevationOverlay(this, appBarElevation)
         toolbarBackground.fillColor = ColorStateList.valueOf(Color.TRANSPARENT)
@@ -354,7 +355,7 @@ class AccountActivity :
             fillColor = ColorStateList.valueOf(toolbarColor)
             elevation = appBarElevation
             shapeAppearanceModel = ShapeAppearanceModel.builder()
-                .setAllCornerSizes(resources.getDimension(R.dimen.account_avatar_background_radius))
+                .setAllCornerSizes(resources.getDimension(DR.dimen.account_avatar_background_radius))
                 .build()
         }
         binding.accountAvatarImageView.background = avatarBackground
@@ -533,7 +534,7 @@ class AccountActivity :
             loadAvatar(
                 account.avatar,
                 binding.accountAvatarImageView,
-                resources.getDimensionPixelSize(R.dimen.avatar_radius_94dp),
+                resources.getDimensionPixelSize(DR.dimen.avatar_radius_94dp),
                 animateAvatar,
             )
 
@@ -585,7 +586,7 @@ class AccountActivity :
             binding.accountMovedDisplayName.text = movedAccount.name
             binding.accountMovedUsername.text = getString(R.string.post_username_format, movedAccount.username)
 
-            val avatarRadius = resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp)
+            val avatarRadius = resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
             loadAvatar(movedAccount.avatar, binding.accountMovedAvatar, avatarRadius, animateAvatar)
 
@@ -779,7 +780,7 @@ class AccountActivity :
                     com.google.android.material.R.attr.colorSurfaceVariant,
                 ),
                 R.drawable.ic_bot_24dp,
-                getString(R.string.profile_badge_bot_text),
+                getString(DR.string.profile_badge_bot_text),
                 isLight,
             )
             binding.accountBadgeContainer.addView(badgeView)
@@ -1079,11 +1080,11 @@ class AccountActivity :
         // Configure the badge
         badge.text = text
         badge.setTextColor(textColor)
-        badge.chipStrokeWidth = resources.getDimension(R.dimen.profile_badge_stroke_width)
+        badge.chipStrokeWidth = resources.getDimension(DR.dimen.profile_badge_stroke_width)
         badge.chipStrokeColor = ColorStateList.valueOf(outlineColor)
         badge.setChipIconResource(icon)
         badge.isChipIconVisible = true
-        badge.chipIconSize = resources.getDimension(R.dimen.profile_badge_icon_size)
+        badge.chipIconSize = resources.getDimension(DR.dimen.profile_badge_icon_size)
         badge.chipIconTint = ColorStateList.valueOf(textColor)
         badge.chipBackgroundColor = ColorStateList.valueOf(backgroundColor)
 
@@ -1093,10 +1094,10 @@ class AccountActivity :
         badge.setEnsureMinTouchTargetSize(false)
 
         // Reset some chip defaults so it looks better for our badge usecase
-        badge.iconStartPadding = resources.getDimension(R.dimen.profile_badge_icon_start_padding)
-        badge.iconEndPadding = resources.getDimension(R.dimen.profile_badge_icon_end_padding)
-        badge.minHeight = resources.getDimensionPixelSize(R.dimen.profile_badge_min_height)
-        badge.chipMinHeight = resources.getDimension(R.dimen.profile_badge_min_height)
+        badge.iconStartPadding = resources.getDimension(DR.dimen.profile_badge_icon_start_padding)
+        badge.iconEndPadding = resources.getDimension(DR.dimen.profile_badge_icon_end_padding)
+        badge.minHeight = resources.getDimensionPixelSize(DR.dimen.profile_badge_min_height)
+        badge.chipMinHeight = resources.getDimension(DR.dimen.profile_badge_min_height)
         badge.updatePadding(top = 0, bottom = 0)
         return badge
     }

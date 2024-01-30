@@ -41,18 +41,20 @@ import app.pachli.adapter.ItemInteractionListener
 import app.pachli.adapter.TabAdapter
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.database.model.TabData
 import app.pachli.core.database.model.TabKind
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.util.getDimension
-import app.pachli.util.hide
-import app.pachli.util.show
 import app.pachli.util.unsafeLazy
-import app.pachli.util.viewBinding
-import app.pachli.util.visible
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -87,7 +89,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
 
     private var tabsChanged = false
 
-    private val selectedItemElevation by unsafeLazy { resources.getDimension(R.dimen.selected_drag_item_elevation) }
+    private val selectedItemElevation by unsafeLazy { resources.getDimension(DR.dimen.selected_drag_item_elevation) }
 
     private val hashtagRegex by unsafeLazy { Pattern.compile("([\\w_]*[\\p{Alpha}_][\\w_]*)", Pattern.CASE_INSENSITIVE) }
 

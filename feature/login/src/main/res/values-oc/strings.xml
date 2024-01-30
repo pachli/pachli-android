@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Aquí podètz picar l\'adreça o domini de quina que siá instància,
+        coma mastodont.cat, mastodon.social, icosahedron.website o
+        <a href="https://instances.social">fòrca mai !</a>
+        \n\nSi encara non avètz cap de compte, podètz picar lo nom de l’instància ont vos agradariá
+        anar e crear un compte enlà.\n\n
+        \n\nAvètz mas d’informacins a <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Tampar</string>
+    <string name="action_browser_login">Connexion via Navigador</string>
+    <string name="error_invalid_domain">Lo domeni picat es pas valid</string>
+    <string name="error_failed_app_registration">L\'autenticacion en aquesta instància a fracassat. Se ten de se produire, ensajatz la connexion via Navigador via lo menú.</string>
+    <string name="error_authorization_unknown">S\'es produch una error d\'autorizacion pas identificada. Se ten de se produire, ensajatz la connexion via Navigador via lo menú.</string>
+    <string name="error_authorization_denied">L\'autorizacion es estada regetada.</string>
+    <string name="error_retrieving_oauth_token">Fracàs de l’obtencion del geton d\'iniciacion de session.</string>
+    <string name="error_loading_account_details">Fracàs del cargament dels detalhs del compte</string>
+    <string name="hint_domain">Quina instància ?</string>
+    <string name="action_login">Començar la session amb Pachli</string>
+    <string name="link_whats_an_instance">Que es una instància ?</string>
+    <string name="login_connection">Connexion…</string>
+    <string name="title_login">Se desconnectar</string>
+    <string name="error_could_not_load_login_page">Cargament impossible de la pagina de connexion.</string>
+    <string name="instance_rule_info">En vos connectant acceptatz las règlas de %s.</string>
+    <string name="instance_rule_title">%s règlas</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_close">Slute</string>
+    <string name="error_invalid_domain">Ûnjildich domein ynfierd</string>
+    <string name="error_authorization_unknown">Der die harren in net definiearre flater foar.</string>
+    <string name="error_authorization_denied">Ferifikaasje ôfkard.</string>
+    <string name="error_retrieving_oauth_token">Koe gjin ynlogtoken krije.</string>
+    <string name="action_login">Ynlogge mei Mastodon</string>
+    <string name="login_connection">Oan it ferbinen…</string>
+</resources>

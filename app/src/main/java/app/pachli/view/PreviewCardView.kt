@@ -24,11 +24,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import app.pachli.R
+import app.pachli.core.activity.decodeBlurHash
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.PreviewCard
 import app.pachli.databinding.PreviewCardBinding
 import app.pachli.util.StatusDisplayOptions
-import app.pachli.util.decodeBlurHash
-import app.pachli.util.hide
 import com.bumptech.glide.Glide
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -60,7 +61,7 @@ class PreviewCardView @JvmOverloads constructor(
     }
 
     private val binding: PreviewCardBinding
-    private val radius = context.resources.getDimensionPixelSize(R.dimen.card_radius).toFloat()
+    private val radius = context.resources.getDimensionPixelSize(DR.dimen.card_radius).toFloat()
 
     init {
         val inflater = context.getSystemService(LayoutInflater::class.java)
@@ -143,7 +144,7 @@ class PreviewCardView @JvmOverloads constructor(
         val cardImageShape = ShapeAppearanceModel.Builder()
         previewCardWrapper.orientation = VERTICAL
         cardImage.layoutParams.height =
-            cardImage.resources.getDimensionPixelSize(R.dimen.card_image_vertical_height)
+            cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_vertical_height)
         cardImage.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
         cardInfo.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
         cardInfo.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -158,7 +159,7 @@ class PreviewCardView @JvmOverloads constructor(
         previewCardWrapper.orientation = HORIZONTAL
         cardImage.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
         cardImage.layoutParams.width =
-            cardImage.resources.getDimensionPixelSize(R.dimen.card_image_horizontal_width)
+            cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_horizontal_width)
         cardInfo.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
         cardInfo.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
         cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, radius)

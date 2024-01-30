@@ -15,12 +15,13 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.lifecycleScope
 import app.pachli.components.instanceinfo.InstanceInfoRepository
+import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.navigation.LicenseActivityIntent
 import app.pachli.core.navigation.PrivacyPolicyActivityIntent
 import app.pachli.databinding.ActivityAboutBinding
 import app.pachli.util.NoUnderlineURLSpan
-import app.pachli.util.hide
-import app.pachli.util.show
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch

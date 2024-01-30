@@ -28,7 +28,7 @@ import androidx.appcompat.R
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.ListPreference
 import androidx.preference.ListPreferenceDialogFragmentCompat
-import app.pachli.util.EmbeddedFontFamily
+import app.pachli.core.designsystem.EmbeddedFontFamily
 
 /**
  * Dialog fragment for choosing a font family. Displays the list of font families with each

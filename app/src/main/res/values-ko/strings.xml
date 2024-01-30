@@ -3,12 +3,7 @@
     <string name="error_generic">오류가 발생했습니다.</string>
     <string name="error_network">네트워크 오류가 발생했습니다! 인터넷 연결을 확인하고 다시 시도하십시오!</string>
     <string name="error_empty">내용을 입력하십시오.</string>
-    <string name="error_invalid_domain">도메인이 올바르지 않습니다</string>
-    <string name="error_failed_app_registration">해당 인스턴스에 대한 인증에 실패했습니다.</string>
     <string name="error_no_web_browser_found">사용 가능한 웹 브라우저를 찾을 수 없습니다.</string>
-    <string name="error_authorization_unknown">알 수 없는 인증 오류가 발생했습니다.</string>
-    <string name="error_authorization_denied">인증이 거부되었습니다.</string>
-    <string name="error_retrieving_oauth_token">로그인 토큰을 받아올 수 없습니다.</string>
     <string name="error_compose_character_limit">게시물 길이가 너무 깁니다!</string>
     <string name="error_media_upload_type">이 파일은 첨부할 수 없습니다.</string>
     <string name="error_media_upload_opening">이 파일을 읽지 못했습니다.</string>
@@ -61,7 +56,6 @@
     <string name="action_unfavourite">좋아요 취소</string>
     <string name="action_more">더 보기</string>
     <string name="action_compose">작성</string>
-    <string name="action_login">마스토돈에 로그인</string>
     <string name="action_logout">로그아웃</string>
     <string name="action_logout_confirm">정말로 %1$s에서 로그아웃하시겠습니까\?</string>
     <string name="action_follow">팔로우</string>
@@ -76,7 +70,6 @@
     <string name="action_send">툿</string>
     <string name="action_send_public">툿!</string>
     <string name="action_retry">다시 시도</string>
-    <string name="action_close">닫기</string>
     <string name="action_view_profile">프로필</string>
     <string name="action_view_preferences">설정</string>
     <string name="action_view_account_preferences">계정 설정</string>
@@ -132,7 +125,6 @@
     <string name="confirmation_domain_unmuted">%s 숨김 해제됨</string>
     <string name="post_sent">보냈습니다!</string>
     <string name="post_sent_long">답장을 보냈습니다.</string>
-    <string name="hint_domain">인스턴스 주소</string>
     <string name="hint_compose">지금 무엇을 하고 있나요\?</string>
     <string name="hint_content_warning">열람 주의</string>
     <string name="hint_display_name">표시되는 이름</string>
@@ -142,15 +134,6 @@
     <string name="label_quick_reply">답장</string>
     <string name="label_avatar">아바타</string>
     <string name="label_header">헤더</string>
-    <string name="link_whats_an_instance">인스턴스가 무엇인가요\?</string>
-    <string name="login_connection">연결 중...</string>
-    <string name="dialog_whats_an_instance">인스턴스의 도메인 주소나 IP주소를 입력하실 수 있습니다. mastodon.social, icosahedron.website, social.tchncs.de 등이 있으며, 그 외에도 <a href="https://instances.social">더 많은 인스턴스</a>가 당신을 기다리고 있습니다!
-\n
-\n만약 계정이 없으시다면, 인스턴스 주소를 입력하신 후에 계정을 만드실 수 있습니다.
-\n
-\n여러분이 어느 인스턴스에 가입하시더라도, 다른 인스턴스에 있는 유저들과 문제 없이 소통하실 수 있습니다.
-\n
-\n자세한 사항은 <a href="https://joinmastodon.org">joinmastodon.org</a>을 참조하세요. </string>
     <string name="dialog_title_finishing_media_upload">미디어 업로드 완료</string>
     <string name="dialog_message_uploading_media">업로드 중...</string>
     <string name="dialog_download_image">다운로드</string>
@@ -308,7 +291,6 @@
     <string name="emoji_style">이모지 스타일</string>
     <string name="system_default">시스템 기본</string>
     <string name="download_fonts">시스템 기본 외의 이모지를 설정하시려면 우선 다운로드해야 합니다</string>
-    <string name="performing_lookup_title">탐색하고 있습니다…</string>
     <string name="expand_collapse_all_posts">모두 보이기/줄이기</string>
     <string name="action_open_post">툿 열기</string>
     <string name="restart_required">어플리케이션 재시작 필요</string>
@@ -320,7 +302,6 @@
     <string name="caption_twemoji">Mastodon 표준 이모지</string>
     <string name="caption_notoemoji">현재 Google이 배포 중인 이모지</string>
     <string name="download_failed">다운로드 실패</string>
-    <string name="profile_badge_bot_text">봇</string>
     <string name="account_moved_description">%1$s는 계정을 이동했습니다:</string>
     <string name="reblog_private">원래의 수신자들에게 부스트</string>
     <string name="unreblog_private">부스트 해제</string>
@@ -395,7 +376,6 @@
     <string name="failed_fetch_posts">게시물을 불러오지 못했습니다</string>
     <string name="report_description_1">인스턴스 관리자에게 신고합니다. 이 계정을 신고하려는 이유를 작성하실 수 있습니다:</string>
     <string name="report_description_remote_instance">이 유저는 다른 인스턴스에 속해 있습니다. 그 인스턴스에도 익명으로 신고 내용을 보내시겠습니까\?</string>
-    <string name="action_open_as">%s(으)로 열기</string>
     <string name="title_accounts">계정</string>
     <string name="failed_search">검색하지 못했습니다</string>
     <string name="pref_title_alway_open_spoiler">열람주의로 설정된 툿을 항상 펼치기</string>

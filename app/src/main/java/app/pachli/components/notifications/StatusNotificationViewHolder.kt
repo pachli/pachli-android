@@ -34,8 +34,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.core.activity.emojify
+import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Notification
 import app.pachli.databinding.ItemStatusNotificationBinding
@@ -43,9 +46,7 @@ import app.pachli.interfaces.LinkListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.SmartLengthInputFilter
 import app.pachli.util.StatusDisplayOptions
-import app.pachli.util.emojify
 import app.pachli.util.getRelativeTimeSpanString
-import app.pachli.util.loadAvatar
 import app.pachli.util.setClickableText
 import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
@@ -70,13 +71,13 @@ internal class StatusNotificationViewHolder(
     private val absoluteTimeFormatter: AbsoluteTimeFormatter,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
     private val avatarRadius48dp = itemView.context.resources.getDimensionPixelSize(
-        R.dimen.avatar_radius_48dp,
+        DR.dimen.avatar_radius_48dp,
     )
     private val avatarRadius36dp = itemView.context.resources.getDimensionPixelSize(
-        R.dimen.avatar_radius_36dp,
+        DR.dimen.avatar_radius_36dp,
     )
     private val avatarRadius24dp = itemView.context.resources.getDimensionPixelSize(
-        R.dimen.avatar_radius_24dp,
+        DR.dimen.avatar_radius_24dp,
     )
 
     override fun bind(
@@ -211,7 +212,7 @@ internal class StatusNotificationViewHolder(
         if (showBotOverlay && isBot) {
             binding.notificationNotificationAvatar.visibility = View.VISIBLE
             Glide.with(binding.notificationNotificationAvatar)
-                .load(R.drawable.bot_badge)
+                .load(DR.drawable.bot_badge)
                 .into(binding.notificationNotificationAvatar)
         } else {
             binding.notificationNotificationAvatar.visibility = View.GONE
@@ -249,23 +250,23 @@ internal class StatusNotificationViewHolder(
         val icon: Drawable?
         when (type) {
             Notification.Type.FAVOURITE -> {
-                icon = getIconWithColor(context, R.drawable.ic_star_24dp, R.color.tusky_orange)
+                icon = getIconWithColor(context, R.drawable.ic_star_24dp, DR.color.tusky_orange)
                 format = context.getString(R.string.notification_favourite_format)
             }
             Notification.Type.REBLOG -> {
-                icon = getIconWithColor(context, R.drawable.ic_repeat_24dp, R.color.tusky_blue)
+                icon = getIconWithColor(context, R.drawable.ic_repeat_24dp, DR.color.tusky_blue)
                 format = context.getString(R.string.notification_reblog_format)
             }
             Notification.Type.STATUS -> {
-                icon = getIconWithColor(context, R.drawable.ic_home_24dp, R.color.tusky_blue)
+                icon = getIconWithColor(context, R.drawable.ic_home_24dp, DR.color.tusky_blue)
                 format = context.getString(R.string.notification_subscription_format)
             }
             Notification.Type.UPDATE -> {
-                icon = getIconWithColor(context, R.drawable.ic_edit_24dp, R.color.tusky_blue)
+                icon = getIconWithColor(context, R.drawable.ic_edit_24dp, DR.color.tusky_blue)
                 format = context.getString(R.string.notification_update_format)
             }
             else -> {
-                icon = getIconWithColor(context, R.drawable.ic_star_24dp, R.color.tusky_orange)
+                icon = getIconWithColor(context, R.drawable.ic_star_24dp, DR.color.tusky_orange)
                 format = context.getString(R.string.notification_favourite_format)
             }
         }

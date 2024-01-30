@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2023 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<resources>
+    <string name="pachli_website" translatable="false">https://pachli.app</string>
+    <string name="oauth_scheme" translatable="false">oauth2redirect</string>
+
+    <string name="preferences_file_key" translatable="false">app.pachli.PREFERENCES</string>
+
+    <string-array name="rick_roll_domains" translatable="false">
+        <item>gab.com</item>
+        <item>gab.ai</item>
+        <item>spinster.xyz</item>
+        <item>truthsocial.com</item>
+    </string-array>
+
+    <string name="rick_roll_url">https://www.youtube.com/watch?v=dQw4w9WgXcQ</string>
+</resources>

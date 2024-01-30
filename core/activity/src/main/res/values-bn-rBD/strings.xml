@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">\'%s হিসাবে খুলুন\'</string>
+    <string name="post_lookup_error_format">\'%s পোস্ট অনুসন্ধানে ত্রুটি\'</string>
+    <string name="performing_lookup_title">অনুসন্ধান করা হচ্ছে …</string>
+</resources>

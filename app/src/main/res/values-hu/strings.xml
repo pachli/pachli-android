@@ -3,12 +3,7 @@
     <string name="error_generic">Hiba történt.</string>
     <string name="error_network">Hálózati hiba történt. Kérjük, ellenőrizd a kapcsolatot, és próbáld meg újra.</string>
     <string name="error_empty">Ez nem lehet üres.</string>
-    <string name="error_invalid_domain">Helytelen domain</string>
-    <string name="error_failed_app_registration">Sikertelen hitelesítés ezen a példányon. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben.</string>
     <string name="error_no_web_browser_found">Nem található használható böngésző.</string>
-    <string name="error_authorization_unknown">Azonosítatlan hitelesítési hiba történt. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben.</string>
-    <string name="error_authorization_denied">Engedély megtagadva. Ha biztos vagy benne, hogy a megfelelő hitelesítési adatokat adtad meg, próbáld a Bejelentkezés Böngészőben funkciót a menüben.</string>
-    <string name="error_retrieving_oauth_token">Bejelentkezési token megszerzése sikertelen. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben.</string>
     <string name="error_compose_character_limit">Túl hosszú a bejegyzés!</string>
     <string name="error_media_upload_type">Ilyen típusú fájlt nem lehet feltölteni.</string>
     <string name="error_media_upload_opening">Fájl megnyitása sikertelen.</string>
@@ -58,7 +53,6 @@
     <string name="action_favourite">Kedvencnek jelölés</string>
     <string name="action_more">Több</string>
     <string name="action_compose">Szerkesztés</string>
-    <string name="action_login">Bejelentkezés Pachlival</string>
     <string name="action_logout">Kijelentkezés</string>
     <string name="action_logout_confirm">Biztosan ki szeretnél jelentkezni a következőből: %1$s?</string>
     <string name="action_follow">Követés</string>
@@ -72,7 +66,6 @@
     <string name="action_send">TÜLK</string>
     <string name="action_send_public">TÜLK!</string>
     <string name="action_retry">Próbáld újra</string>
-    <string name="action_close">Bezárás</string>
     <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Beállítások</string>
     <string name="action_view_account_preferences">Fiókbeállítások</string>
@@ -111,7 +104,6 @@
     <string name="title_links_dialog">Linkek</string>
     <string name="download_image">%1$s letöltése</string>
     <string name="action_copy_link">Link másolása</string>
-    <string name="action_open_as">Megnyitás mint %s</string>
     <string name="action_share_as">Megosztás mint …</string>
     <string name="send_post_link_to">Bejegyzés URL megosztása…</string>
     <string name="send_post_content_to">Bejegyzés megosztása…</string>
@@ -120,7 +112,6 @@
     <string name="confirmation_unmuted">Felhasználó némítása feloldva</string>
     <string name="post_sent">Elküldve!</string>
     <string name="post_sent_long">Válasz sikeresen elküldve.</string>
-    <string name="hint_domain">Melyik példány\?</string>
     <string name="hint_compose">Mi jár a fejedben\?</string>
     <string name="hint_content_warning">Tartalom figyelmeztetés</string>
     <string name="hint_display_name">Megjelenítési név</string>
@@ -130,15 +121,6 @@
     <string name="label_quick_reply">Válasz…</string>
     <string name="label_avatar">Profilkép</string>
     <string name="label_header">Fejléc</string>
-    <string name="link_whats_an_instance">Mi az a példány\?</string>
-    <string name="login_connection">Csatlakozás…</string>
-    <string name="dialog_whats_an_instance">Bármely példány címét vagy domain nevét beírhatod ide, mint a mastodon.social, az icosahedron.website, a social.tchncs.de és <a href="https://instances.social">mások!</a>
-\n
-\nHa még nincs fiókod, beírhatod annak a példánynak a címét, amelyhez csatlakoznál, majd azon létrehozhatsz egy fiókot.
-\n
-\nA példány az a hely, ahol a fiókadataidat tárolják, de ettől még ugyanúgy kommunikálhatsz más példányokon lévő emberekkel, mintha ugyanazon az oldalon lennétek.
-\n
-\nTöbb információt találhatsz itt: <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="dialog_title_finishing_media_upload">Média feltöltés befejezése</string>
     <string name="dialog_message_uploading_media">Feltöltés…</string>
     <string name="dialog_download_image">Letöltés</string>
@@ -248,7 +230,6 @@
     <string name="emoji_style">Emoji stílus</string>
     <string name="system_default">Rendszer alapértelmezés</string>
     <string name="download_fonts">Először le kell töltened ezeket az emoji készleteket</string>
-    <string name="performing_lookup_title">Keresés…</string>
     <string name="action_open_post">Bejegyzés megnyitása</string>
     <string name="restart_required">Az app újraindítása szükséges</string>
     <string name="restart_emoji">A beállítások érvényesítéséhez újra kell indítani a Pachlit</string>
@@ -258,7 +239,6 @@
     <string name="caption_blobmoji">Az Android 4.4–7.1 Blob emodzsijai</string>
     <string name="caption_twemoji">A Mastodon alapértelmezett emodzsi készlete</string>
     <string name="download_failed">Letöltés sikertelen</string>
-    <string name="profile_badge_bot_text">Bot</string>
     <string name="account_moved_description">%1$s elköltözött:</string>
     <string name="license_description">A Pachli a következő nyílt forráskódú projektekből tartalmaz programkódot és más elemeket:</string>
     <string name="profile_metadata_label">Profil metaadatok</string>
@@ -425,7 +405,6 @@
     <string name="action_access_scheduled_posts">Időzített bejegyzések</string>
     <string name="action_schedule_post">Bejegyzés Időzítése</string>
     <string name="action_reset_schedule">Visszaállítás</string>
-    <string name="post_lookup_error_format">Nem találjuk ezt a bejegyzést %s</string>
     <string name="title_bookmarks">Könyvjelzők</string>
     <string name="action_bookmark">Könyvjelzőzés</string>
     <string name="action_view_bookmarks">Könyvjelzők</string>
@@ -522,15 +501,12 @@
     <string name="action_details">Részletek</string>
     <string name="account_date_joined">Csatlakozva %1$s</string>
     <string name="tips_push_notification_migration">Bejelentkezés újra minden fiókkal a leküldéses értesítések engedélyezése érdekében.</string>
-    <string name="title_login">Bejelentkezés</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="error_could_not_load_login_page">Nem tudtuk betölteni a bejelentkező oldalt.</string>
     <string name="saving_draft">Vázlat mentése…</string>
     <string name="dialog_push_notification_migration">Ahhoz, hogy használhass leküldési értesítéseket a UnifiedPush szolgáltatás révén, a Pachli-nak fel kell iratkoznia az értesítésekre a Mastodon kiszolgálódon. Ehhez új bejelentkezésre van szükség, hogy a Pachli számára kiosztott OAuth jogosultságok megváltozzanak. Az újbóli bejelentkezés funkció használata itt vagy a Fiókbeállításoknál meg fogja őrizni a helyi piszkozataidat és a cache tartalmát.</string>
     <string name="dialog_push_notification_migration_other_accounts">Újra bejelentkeztél a fiókodba, hogy feliratkoztasd a Pachli-t a leküldési értesítések használatára. Ugyanakkor vannak még fiókjaid, melyek még nem lettek így migrálva. Válts át rájuk és jelentkezz be újra mindegyikben, hogy ezekben is engedélyezd a UnifiedPush értesítések támogatását.</string>
     <string name="action_edit_image">Kép szerkesztése</string>
     <string name="error_image_edit_failed">A kép nem szerkeszthető.</string>
-    <string name="error_loading_account_details">Nem sikerült betölteni a fiókadatokat</string>
     <string name="pref_title_show_self_username">Felhasználónév mutatása az eszköztáron</string>
     <string name="delete_scheduled_post_warning">Töröljük ezt az időzített bejegyzést\?</string>
     <string name="set_focus_description">Koppintsd vagy húzd a kört, hogy kijelöld azt a fókuszpontot, mely mindig látható lesz az előnézetekben.</string>
@@ -546,8 +522,6 @@
     <string name="error_following_hashtag_format">Hiba a #%s követésekor</string>
     <string name="error_unfollowing_hashtag_format">Hiba a #%s követésének befejezésekor</string>
     <string name="action_add_reaction">reakció hozzáadása</string>
-    <string name="instance_rule_info">A bejelentkezéssel elfogadod a %s szabályait.</string>
-    <string name="instance_rule_title">%s szabályai</string>
     <string name="compose_save_draft_loses_media">Elmentsük a vázlatot\? (A mellékleteket újra feltöltjük, amikor a vázlatot visszaállítod.)</string>
     <string name="failed_to_pin">Nem sikerült kitűzni</string>
     <string name="failed_to_unpin">Nem sikerült a kitűzés visszavonása</string>
@@ -604,7 +578,6 @@
 \nVagy a kiszolgálót nem lehetett elérni, vagy visszautasította a bejegyzést.</string>
     <string name="action_post_failed_show_drafts">Vázlatok mutatása</string>
     <string name="action_post_failed_do_nothing">Elvetés</string>
-    <string name="action_browser_login">Bejelentkezés Böngészővel</string>
     <string name="description_login">A legtöbb esetben működik. Nem szivárog ki adat más alkalmazások számára.</string>
     <string name="description_browser_login">Támogathat más hitelesítési módozatokat is, de ehhez támogatott böngészőre van szükség.</string>
     <string name="title_public_trending_hashtags">Népszerű hashtagek</string>

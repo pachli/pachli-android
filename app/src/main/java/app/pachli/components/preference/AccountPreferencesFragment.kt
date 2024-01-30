@@ -21,12 +21,13 @@ import android.os.Build
 import android.os.Bundle
 import androidx.annotation.DrawableRes
 import androidx.preference.PreferenceFragmentCompat
-import app.pachli.BaseActivity
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.appstore.EventHub
 import app.pachli.components.notifications.currentAccountNeedsMigration
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.FiltersActivityIntent
 import app.pachli.core.navigation.FollowedTagsActivityIntent
@@ -83,7 +84,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
     @Inject
     lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
 
-    private val iconSize by unsafeLazy { resources.getDimensionPixelSize(R.dimen.preference_icon_size) }
+    private val iconSize by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.preference_icon_size) }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         val context = requireContext()
@@ -104,8 +105,8 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     val intent = TabPreferenceActivityIntent(context)
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
-                        R.anim.slide_from_right,
-                        R.anim.slide_to_left,
+                        DR.anim.slide_from_right,
+                        DR.anim.slide_to_left,
                     )
                     true
                 }
@@ -118,8 +119,8 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     val intent = FollowedTagsActivityIntent(context)
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
-                        R.anim.slide_from_right,
-                        R.anim.slide_to_left,
+                        DR.anim.slide_from_right,
+                        DR.anim.slide_to_left,
                     )
                     true
                 }
@@ -132,8 +133,8 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     val intent = AccountListActivityIntent(context, AccountListActivityIntent.Kind.MUTES)
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
-                        R.anim.slide_from_right,
-                        R.anim.slide_to_left,
+                        DR.anim.slide_from_right,
+                        DR.anim.slide_to_left,
                     )
                     true
                 }
@@ -146,8 +147,8 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     val intent = AccountListActivityIntent(context, AccountListActivityIntent.Kind.BLOCKS)
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
-                        R.anim.slide_from_right,
-                        R.anim.slide_to_left,
+                        DR.anim.slide_from_right,
+                        DR.anim.slide_to_left,
                     )
                     true
                 }
@@ -160,8 +161,8 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     val intent = InstanceListActivityIntent(context)
                     activity?.startActivity(intent)
                     activity?.overridePendingTransition(
-                        R.anim.slide_from_right,
-                        R.anim.slide_to_left,
+                        DR.anim.slide_from_right,
+                        DR.anim.slide_to_left,
                     )
                     true
                 }
@@ -300,7 +301,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 val intent =
                     PreferencesActivityIntent(it, PreferenceScreen.NOTIFICATION)
                 it.startActivity(intent)
-                it.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+                it.overridePendingTransition(DR.anim.slide_from_right, DR.anim.slide_to_left)
             }
         }
     }
@@ -366,7 +367,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
     private fun launchFilterActivity() {
         val intent = FiltersActivityIntent(requireContext())
         activity?.startActivity(intent)
-        activity?.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+        activity?.overridePendingTransition(DR.anim.slide_from_right, DR.anim.slide_to_left)
     }
 
     companion object {

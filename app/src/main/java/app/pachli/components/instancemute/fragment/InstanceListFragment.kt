@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.instancemute.adapter.DomainMutesAdapter
 import app.pachli.components.instancemute.interfaces.InstanceActionListener
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.FragmentInstanceListBinding
-import app.pachli.util.hide
-import app.pachli.util.show
-import app.pachli.util.viewBinding
 import app.pachli.view.EndlessOnScrollListener
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.divider.MaterialDividerItemDecoration

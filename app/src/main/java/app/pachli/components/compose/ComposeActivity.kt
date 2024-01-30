@@ -62,7 +62,6 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
-import app.pachli.BaseActivity
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.adapter.EmojiAdapter
@@ -75,8 +74,15 @@ import app.pachli.components.compose.dialog.showAddPollDialog
 import app.pachli.components.compose.view.ComposeOptionsListener
 import app.pachli.components.compose.view.ComposeScheduleView
 import app.pachli.components.instanceinfo.InstanceInfoRepository
+import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
@@ -92,14 +98,9 @@ import app.pachli.util.PickMediaFiles
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getMediaSize
-import app.pachli.util.hide
 import app.pachli.util.highlightSpans
-import app.pachli.util.loadAvatar
 import app.pachli.util.modernLanguageCode
 import app.pachli.util.setDrawableTint
-import app.pachli.util.show
-import app.pachli.util.viewBinding
-import app.pachli.util.visible
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.options
@@ -208,7 +209,7 @@ class ComposeActivity :
 
         val theme = AppTheme.from(sharedPreferencesRepository)
         if (theme == AppTheme.BLACK) {
-            setTheme(R.style.AppDialogActivityBlackTheme)
+            setTheme(DR.style.AppDialogActivityBlackTheme)
         }
         setContentView(binding.root)
 
@@ -681,7 +682,7 @@ class ComposeActivity :
     private fun displayTransientMessage(message: String) {
         val bar = Snackbar.make(binding.activityCompose, message, Snackbar.LENGTH_LONG)
         // necessary so snackbar is shown over everything
-        bar.view.elevation = resources.getDimension(R.dimen.compose_activity_snackbar_elevation)
+        bar.view.elevation = resources.getDimension(DR.dimen.compose_activity_snackbar_elevation)
         bar.setAnchorView(R.id.composeBottomBar)
         bar.show()
     }
@@ -702,7 +703,7 @@ class ComposeActivity :
             @ColorInt val color = if (contentWarningShown) {
                 binding.composeHideMediaButton.setImageResource(R.drawable.ic_hide_media_24dp)
                 binding.composeHideMediaButton.isClickable = false
-                getColor(R.color.transparent_tusky_blue)
+                getColor(DR.color.transparent_tusky_blue)
             } else {
                 binding.composeHideMediaButton.isClickable = true
                 if (markMediaSensitive) {
@@ -868,8 +869,8 @@ class ComposeActivity :
     }
 
     private fun setupPollView() {
-        val margin = resources.getDimensionPixelSize(R.dimen.compose_media_preview_margin)
-        val marginBottom = resources.getDimensionPixelSize(R.dimen.compose_media_preview_margin_bottom)
+        val margin = resources.getDimensionPixelSize(DR.dimen.compose_media_preview_margin)
+        val marginBottom = resources.getDimensionPixelSize(DR.dimen.compose_media_preview_margin_bottom)
 
         val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         layoutParams.setMargins(margin, margin, margin, marginBottom)
@@ -998,7 +999,7 @@ class ComposeActivity :
                 ).apply {
                     setAction(R.string.action_retry) { onMediaPick() }
                     // necessary so snackbar is shown over everything
-                    view.elevation = resources.getDimension(R.dimen.compose_activity_snackbar_elevation)
+                    view.elevation = resources.getDimension(DR.dimen.compose_activity_snackbar_elevation)
                     show()
                 }
             }
@@ -1032,7 +1033,7 @@ class ComposeActivity :
             if (colorActive) {
                 android.R.attr.textColorTertiary
             } else {
-                R.attr.textColorDisabled
+                DR.attr.textColorDisabled
             },
         )
     }

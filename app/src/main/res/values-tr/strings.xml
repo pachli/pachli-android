@@ -3,12 +3,7 @@
     <string name="error_generic">Bir hata oluştu.</string>
     <string name="error_network">Bir ağ hatası oluştu. Lütfen bağlantını kontrol et ve tekrar dene.</string>
     <string name="error_empty">Bu alan boş bırakılmaz.</string>
-    <string name="error_invalid_domain">Girilen alan adı geçersiz</string>
-    <string name="error_failed_app_registration">Bu sunucuda kimlik doğrulama başarısız oldu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
     <string name="error_no_web_browser_found">Kullanılabilir web tarayıcısı bulunamadı.</string>
-    <string name="error_authorization_unknown">Tanımlanamayan bir yetkilendirme hatası oluştu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
-    <string name="error_authorization_denied">Yetkilendirme reddedildi. Doğru hesap bilgilerini girdiğinden eminsen menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
-    <string name="error_retrieving_oauth_token">Giriş belirteci alınırken hata oluştu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
     <string name="error_compose_character_limit">Gönderi çok uzun!</string>
     <string name="error_media_upload_type">Bu tür bir dosya yüklenemez.</string>
     <string name="error_media_upload_opening">Dosya açılamadı.</string>
@@ -58,7 +53,6 @@
     <string name="action_favourite">Gözdele</string>
     <string name="action_more">Devamı</string>
     <string name="action_compose">Oluştur</string>
-    <string name="action_login">Pachli ile giriş yap</string>
     <string name="action_logout">Oturumu kapat</string>
     <string name="action_logout_confirm">Bu oturumu sonlandırmak istediğinizden emin misiniz%1$s\? Bu, taslaklar ve tercihler dahil olmak üzere hesabın tüm yerel verilerini silecektir.</string>
     <string name="action_follow">Takip et</string>
@@ -72,7 +66,6 @@
     <string name="action_send">GÖNDER</string>
     <string name="action_send_public">GÖNDER!</string>
     <string name="action_retry">Tekrar dene</string>
-    <string name="action_close">Kapat</string>
     <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Tercihler</string>
     <string name="action_view_account_preferences">Hesap tercihleri</string>
@@ -104,7 +97,6 @@
     <string name="action_add_tab">Sekme ekle</string>
     <string name="download_image">%1$s indiriliyor</string>
     <string name="action_copy_link">Bağlantıyı kopyala</string>
-    <string name="action_open_as">Farklı aç %s</string>
     <string name="action_share_as">Olarak paylaş …</string>
     <string name="send_post_link_to">Gönderi adresini paylaş…</string>
     <string name="send_post_content_to">Gönderiyi paylaş…</string>
@@ -114,7 +106,6 @@
     <string name="confirmation_unmuted">Kullanıcının sesi açıldı</string>
     <string name="post_sent">İletildi!</string>
     <string name="post_sent_long">Yanıt başarıyla gönderildi.</string>
-    <string name="hint_domain">Hangi sunucu\?</string>
     <string name="hint_compose">Neler oluyor?</string>
     <string name="hint_content_warning">İçerik uyarısı</string>
     <string name="hint_display_name">Görünen ad</string>
@@ -124,15 +115,6 @@
     <string name="label_quick_reply">Yanıt…</string>
     <string name="label_avatar">Profil Görseli</string>
     <string name="label_header">Başlık</string>
-    <string name="link_whats_an_instance">Sunucu nedir\?</string>
-    <string name="login_connection">Bağlantı kuruluyor…</string>
-    <string name="dialog_whats_an_instance">Mastodon gibi herhangi bir örneğin adresi veya etki alanı buraya girilebilirsiniz. örneğin: mastodon.social, mastodon.online, vb. <a href="https://instances.social">daha fazlası!</a>
-\n
-\nHenüz hesabınız yoksa, katılmak istediğiniz sunucunun adını girebilir ve orada bir hesap oluşturabilirsiniz.
-\n
-\nSunucu, hesabınızın barındırıldığı tek yerdir, ancak aynı sitedeymişsiniz gibi diğer sunuculardaki kişilerle kolayca iletişim kurabilir ve onları takip edebilirsiniz.
-\n
-\n Daha fazla bilgiyi <a href="https://joinmastodon.org">joinmastodon.org</a> adresinde bulabilirsiniz. </string>
     <string name="dialog_title_finishing_media_upload">Medya yüklemesi tamamlanıyor</string>
     <string name="dialog_message_uploading_media">Yükleniyor…</string>
     <string name="dialog_download_image">İndir</string>
@@ -260,7 +242,6 @@
     <string name="emoji_style">İfade stili</string>
     <string name="system_default">Sistem varsayılanı</string>
     <string name="download_fonts">Önce bu ifade paketini indirmeniz gerekecek</string>
-    <string name="performing_lookup_title">Araştırılıyor…</string>
     <string name="expand_collapse_all_posts">Tüm durumları Genişlet/Küçült</string>
     <string name="action_open_post">Gönderiyi aç</string>
     <string name="restart_required">Uygulamayı yeniden başlatmanız lazım</string>
@@ -422,14 +403,12 @@
     <string name="poll_allow_multiple_choices">Çoklu seçim</string>
     <string name="edit_poll">Düzenle</string>
     <string name="replying_to">Yanıtlanıyor: %s</string>
-    <string name="profile_badge_bot_text">Alt Metin</string>
     <string name="confirmation_domain_unmuted">%s alan adını gizleme</string>
     <string name="mute_domain_warning_dialog_ok">Alan adından her şeyi gizle</string>
     <string name="pref_title_alway_open_spoiler">Her zaman içerik uyarılarıyla işaretlenmiş alanları genişlet</string>
     <string name="poll_info_time_absolute">%s içinde sona erecek</string>
     <string name="failed_report">Bildirilemedi</string>
     <string name="poll_new_choice_hint">Seçenek %d</string>
-    <string name="post_lookup_error_format">%s gönderisi aranırken hata oluştu</string>
     <string name="no_drafts">Hiç taslağın yok.</string>
     <string name="no_scheduled_posts">Zamanlanmış yayınınız yok.</string>
     <string name="reblog_private">Kendi kitlenizle yeniden paylaşın</string>
@@ -464,9 +443,6 @@
     <string name="error_multimedia_size_limit">Video ve ses dosyaları %s MB boyutunu aşamaz.</string>
     <string name="error_image_edit_failed">Görsel düzenlemedi.</string>
     <string name="error_following_hashtag_format">#%s\'i izleyen hata</string>
-    <string name="title_login">Giriş</string>
-    <string name="error_loading_account_details">Hesap detayları alınırken hata</string>
-    <string name="error_could_not_load_login_page">Giriş ekranı yüklenemedi.</string>
     <string name="error_muting_hashtag_format">Sessize alma hatası #%s</string>
     <string name="action_unfollow_hashtag_format">Takibi bırak #%s\?</string>
     <string name="pref_title_wellbeing_mode">Huzur</string>
@@ -495,8 +471,6 @@
     </plurals>
     <string name="delete_scheduled_post_warning">Bu zamanlanmış yayını sil\?</string>
     <string name="pref_title_notification_filter_updates">etkileşimde bulunduğun bir gönderi düzenlendi</string>
-    <string name="instance_rule_info">Giriş yaparak aşağıdaki kuralları kabul etmiş sayılırsınız %s.</string>
-    <string name="instance_rule_title">%s kural</string>
     <string name="set_focus_description">Küçük görsellerde her zaman görülebilecek odak noktasını seçmek için daireye dokunun veya sürükleyin.</string>
     <string name="action_add_or_remove_from_list">Listeden ekle veya kaldır</string>
     <string name="failed_to_add_to_list">Hesap listeye eklenemedi</string>
@@ -620,7 +594,6 @@
     <string name="ui_error_reblog">Gönderi yeniden paylaşılamadı: %s</string>
     <string name="ui_success_accepted_follow_request">Takip isteği kabul edildi</string>
     <string name="ui_success_rejected_follow_request">Takip isteği engellendi</string>
-    <string name="action_browser_login">Tarayıcı ile Giriş Yap</string>
     <string name="description_login">Çoğu durumda çalışır. Diğer uygulamalara veri sızmaz.</string>
     <string name="description_browser_login">Ek kimlik doğrulama yöntemlerini destekleyebilir ancak desteklenen bir tarayıcı gerektirir.</string>
     <string name="select_list_empty">Henüz hiç listen yok</string>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_open_as">%s bezala ireki</string>
+    <string name="post_lookup_error_format">Errorea agertu da %s mezua bilatzean</string>
+    <string name="performing_lookup_title">Bilatzen…</string>
+</resources>

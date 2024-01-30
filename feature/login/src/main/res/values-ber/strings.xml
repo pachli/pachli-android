@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_close">ⵎⴷⴻⵍ</string>
+    <string name="hint_domain">ⴰⵏⵜⴰ ⵝⵓⵎⵎⴰⵏⵜ\?</string>
+    <string name="action_login">ⵇⵇⴻⵏ ⵖⴻⵔ ⵎⴰⵚⵟⵓⴷⵓⵏ</string>
+    <string name="link_whats_an_instance">ⴸ ⴰⵛⵓ ⵓⴸ ⵜⵜⵓⵎⵎⴰⵏⵜ\?</string>
+</resources>

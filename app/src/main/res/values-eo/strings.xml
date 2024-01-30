@@ -3,12 +3,7 @@
     <string name="error_generic">Eraro okazis.</string>
     <string name="error_network">Reta eraro okazis! Bonvolu kontroli vian konekton kaj klopodi denove!</string>
     <string name="error_empty">Tiu ne povas esti malplena.</string>
-    <string name="error_invalid_domain">Enmetita domajno estas nevalida</string>
-    <string name="error_failed_app_registration">Aŭtentigo en ĉi tiu nodo malsukcesis.</string>
     <string name="error_no_web_browser_found">Ne eblas trovi retumilon.</string>
-    <string name="error_authorization_unknown">Nekonata eraro de aŭtentigo okazis.</string>
-    <string name="error_authorization_denied">Rajtigo rifuzita.</string>
-    <string name="error_retrieving_oauth_token">Akiro de atingoĵetono malsukcesis.</string>
     <string name="error_compose_character_limit">Via mesaĝo estas tro longa!</string>
     <string name="error_media_upload_type">Tia dosiero ne estas alŝutebla.</string>
     <string name="error_media_upload_opening">Tiu dosiero ne povas esti malfermita.</string>
@@ -60,7 +55,6 @@
     <string name="action_unfavourite">Nuligi stelumon</string>
     <string name="action_more">Pli</string>
     <string name="action_compose">Verki</string>
-    <string name="action_login">Ensaluti al Mastodon</string>
     <string name="action_logout">Elsaluti</string>
     <string name="action_logout_confirm">Ĉu vi certas, ke vi volas elsaluti el la konto %1$s\?</string>
     <string name="action_follow">Sekvi</string>
@@ -74,7 +68,6 @@
     <string name="action_send">HUP</string>
     <string name="action_send_public">HUP!</string>
     <string name="action_retry">Reprovi</string>
-    <string name="action_close">Fermi</string>
     <string name="action_view_profile">Profilo</string>
     <string name="action_view_preferences">Agordoj</string>
     <string name="action_view_account_preferences">Agordoj de konto</string>
@@ -116,7 +109,6 @@
     <string name="action_open_media_n">Malfermi aŭdovidaĵon #%d</string>
     <string name="download_image">Elŝutado de %1$s</string>
     <string name="action_copy_link">Kopii la ligilon</string>
-    <string name="action_open_as">Malfermi kiel %s</string>
     <string name="action_share_as">Konigi kiel…</string>
     <string name="download_media">Elŝuti aŭdovidaĵon</string>
     <string name="downloading_media">Elŝutado de la aŭdovidaĵo</string>
@@ -128,7 +120,6 @@
     <string name="confirmation_unmuted">Malsilentigita uzanto</string>
     <string name="post_sent">Sendita!</string>
     <string name="post_sent_long">Respondo sukcese sendita.</string>
-    <string name="hint_domain">Kiu nodo?</string>
     <string name="hint_compose">Kio nova\?</string>
     <string name="hint_content_warning">Enhava averto</string>
     <string name="hint_display_name">Publika nomo</string>
@@ -138,15 +129,6 @@
     <string name="label_quick_reply">Respondi…</string>
     <string name="label_avatar">Profilbildo</string>
     <string name="label_header">Fonbildo</string>
-    <string name="link_whats_an_instance">Kio estas nodo?</string>
-    <string name="login_connection">Konektado…</string>
-    <string name="dialog_whats_an_instance">La adreso aŭ domajno de iu ajn nodo povas esti enmetita ĉi tie, kiel mastodon.social, icosahedron.website, social.tchncs.de, kaj <a href="https://instances.social">pli!</a>
-\n
-\nSe vi ankoraŭ ne havas konton, vi povas enmeti la nomon de la nodo, al kiu vi volas aliĝi, kaj krei konton tie.
-\n
-\nNodo estas unika loko tie, kie via konto estas gastigita, sed vi povas facile komuniki kun homoj, kaj sekvi ilin ĉe aliaj nodoj, kvazaŭ vi estus samreteje.
-\n
-\nPliaj informoj troviĝas ĉe <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="dialog_title_finishing_media_upload">Finante alŝuto de aŭdovidaĵojn</string>
     <string name="dialog_message_uploading_media">Alŝutado…</string>
     <string name="dialog_download_image">Elŝuti</string>
@@ -298,7 +280,6 @@
     <string name="emoji_style">Stilo de emoĝioj</string>
     <string name="system_default">El la sistemo</string>
     <string name="download_fonts">Vi unue devos elŝuti ĉi tiun emoĝiaron</string>
-    <string name="performing_lookup_title">Serĉado…</string>
     <string name="expand_collapse_all_posts">Pligrandigi/malgrandigi ĉiujn mesaĝojn</string>
     <string name="action_open_post">Malfermi mesaĝon</string>
     <string name="restart_required">Restartigo necesas</string>
@@ -309,7 +290,6 @@
     <string name="caption_blobmoji">La emoĝioj «Blob» konataj de Android 4.4−7.1</string>
     <string name="caption_twemoji">Norma emoĝiaro de Mastodon</string>
     <string name="download_failed">Elŝuto malsukcesis</string>
-    <string name="profile_badge_bot_text">Roboto</string>
     <string name="account_moved_description">%1$s moviĝis al:</string>
     <string name="reblog_private">Diskonigi al la originala atentaro</string>
     <string name="unreblog_private">Maldiskonigi</string>
@@ -425,7 +405,6 @@
     <string name="description_post_bookmarked">Aldonita al la legosignoj</string>
     <string name="select_list_title">Elekti la liston</string>
     <string name="list">Listo</string>
-    <string name="post_lookup_error_format">Eraro dum serĉo de la mesaĝo %s</string>
     <string name="no_drafts">Vi havas neniun malneton.</string>
     <string name="no_scheduled_posts">Vi havas neniun planitan mesaĝon.</string>
     <string name="notification_follow_request_name">Petoj de sekvado</string>
@@ -519,7 +498,6 @@
     <string name="follow_requests_info">Kvankam via konto ne estas ŝlosita, la teamo de %1$s pensas, ke vi eble volus permane validigi la sekvopetojn de tiuj ĉi kontoj.</string>
     <string name="error_multimedia_size_limit">Filmetoj kaj sondosieroj ne povas esti pli grandaj ol %s MB.</string>
     <string name="error_image_edit_failed">La bildo ne povis esti redaktita.</string>
-    <string name="title_login">Ensaluti</string>
     <string name="error_following_hashtag_format">Okazis eraro dum la sekvado de #%s</string>
     <string name="error_unfollowing_hashtag_format">Okazos eraro dum la malsekvado de #%s</string>
     <string name="title_migration_relogin">Ensaluti denove por ricevi sciigojn</string>
@@ -539,11 +517,7 @@
     <string name="account_date_joined">Aliĝis je %1$s</string>
     <string name="saving_draft">Konservado de la malneto…</string>
     <string name="tips_push_notification_migration">Ensalutu denove al ĉiuj kontoj por ŝalti sciigojn.</string>
-    <string name="error_could_not_load_login_page">La salutpaĝo ne povis esti ŝargita.</string>
-    <string name="error_loading_account_details">Ŝargo de detaloj pri la konto malsukcesis</string>
     <string name="delete_scheduled_post_warning">Ĉu forigi tiun planitan mesaĝon\?</string>
-    <string name="instance_rule_info">Si vi ensalutas, vi konsentas je la regulo de %s.</string>
-    <string name="instance_rule_title">Regulo de %s</string>
     <string name="duration_no_change">(Neniu ŝanĝo)</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="pref_show_self_username_always">Ĉiam</string>

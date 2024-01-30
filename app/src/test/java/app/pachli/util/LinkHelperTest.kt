@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.R
+import app.pachli.core.activity.BottomSheetActivity.Companion.looksLikeMastodonUrl
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status
 import app.pachli.interfaces.LinkListener
