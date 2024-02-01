@@ -7,7 +7,6 @@
     <string name="post_media_hidden_title">Meáin i bhfolach</string>
     <string name="post_sensitive_media_title">Ábhar íogair</string>
     <string name="post_boosted_format">D\'athchraol %s</string>
-    <string name="title_licenses">Ceadúnais</string>
     <string name="title_scheduled_posts">Postálacha sceidealta</string>
     <string name="title_edit_profile">Cuir do phróifíl in eagar</string>
     <string name="title_follow_requests">Lean Iarrataí</string>
@@ -157,7 +156,6 @@
     <string name="error_generic">Tharla earráid.</string>
     <string name="title_lists">Liostaí</string>
     <string name="action_lists">Liostaí</string>
-    <string name="about_title_activity">Faoi</string>
     <string name="action_reset_schedule">Athshocraigh</string>
     <string name="action_search">Cuardaigh</string>
     <string name="action_edit_profile">Cuir próifíl in eagar</string>
@@ -169,9 +167,6 @@
     <string name="post_media_images">Íomhánna</string>
     <string name="post_share_link">Comhroinn nasc chuig postáil</string>
     <string name="post_share_content">Comhroinn inneachar na postála</string>
-    <string name="about_pachli_account">Próifíl Pachli</string>
-    <string name="about_pachli_license">Is bogearraí foinse oscailte agus saor in aisce é Pachli. Tá sé ceadúnaithe faoi Leagan 3. Ceadúnas Poiblí Ginearálta GNU 3. Is féidir leat an ceadúnas a fheiceáil anseo: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_powered_by_pachli">Cumhachtaithe ag Pachli</string>
     <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Cuntas faoi Ghlas</string>
     <plurals name="notification_title_summary">
@@ -243,10 +238,6 @@
     <string name="action_mute_conversation">Comhrá tost</string>
     <string name="action_hashtags">Clibeanna hash</string>
     <string name="title_hashtags_dialog">Hashtags</string>
-    <string name="about_project_site">Suíomh Gréasáin an tionscadail:
-\n https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Tuarascálacha ar fhabhtanna &amp; iarratais ar ghnéithe:
-\n https://github.com/pachli/pachli-android/issues</string>
     <string name="post_media_video">Físeán</string>
     <string name="state_follow_requested">Lean iarrtha</string>
     <string name="follows_you">Leanann tú</string>
@@ -266,7 +257,6 @@
     <string name="expand_collapse_all_posts">Leathnaigh/Fill na postálacha go léir</string>
     <string name="restart_emoji">Beidh ort Pachli a atosú chun na hathruithe seo a chur i bhfeidhm</string>
     <string name="caption_notoemoji">Sraith emoji reatha Google</string>
-    <string name="license_description">Tá cód agus sócmhainní ó na tionscadail foinse oscailte seo a leanas i Pachli:</string>
     <string name="label_remote_account">Féadfaidh an fhaisnéis thíos próifíl an úsáideora a léiriú go neamhiomlán. Brúigh chun próifíl iomlán a oscailt sa bhrabhsálaí.</string>
     <string name="description_poll">Vótaíocht le roghanna: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="list">Liosta</string>

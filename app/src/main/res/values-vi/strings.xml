@@ -36,7 +36,6 @@
     <string name="error_generic">Đã có lỗi xảy ra.</string>
     <string name="title_lists">Danh sách</string>
     <string name="action_lists">Danh sách</string>
-    <string name="about_title_activity">Thông tin</string>
     <string name="action_reset_schedule">Làm tươi</string>
     <string name="action_search">Tìm kiếm</string>
     <string name="action_edit_profile">Hồ sơ</string>
@@ -157,7 +156,6 @@
     <string name="post_sensitive_media_title">Nhạy cảm</string>
     <string name="post_boosted_format">%s đăng lại</string>
     <string name="post_username_format">\@%s</string>
-    <string name="title_licenses">Giấy phép</string>
     <string name="title_scheduled_posts">Những tút đã lên lịch</string>
     <string name="title_edit_profile">Chỉnh sửa hồ sơ</string>
     <string name="title_follow_requests">Yêu cầu theo dõi</string>
@@ -249,11 +247,6 @@
     <string name="notification_boost_description">Thông báo khi tút của bạn được đăng lại</string>
     <string name="notification_boost_name">Đăng lại</string>
     <string name="notification_follow_request_description">Thông báo về lượt yêu cầu theo dõi</string>
-    <string name="about_bug_feature_request_site">Báo lỗi và đề xuất tính năng
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_project_site">Website dự án: https://pachli.app</string>
-    <string name="about_pachli_license">Pachli là phần mềm mã nguồn mở, được phân phối với giấy phép GNU General Public License Version 3. Bạn có thể tham khảo thêm tại: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_powered_by_pachli">Powered by Pachli</string>
     <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Tài khoản bị khóa</string>
     <string name="notification_poll_description">Thông báo khi một cuộc bình chọn kết thúc</string>
@@ -285,7 +278,6 @@
     <string name="post_media_images">Hình ảnh</string>
     <string name="post_share_link">URL tút</string>
     <string name="post_share_content">Nội dung tút</string>
-    <string name="about_pachli_account">Trang hồ sơ Pachli</string>
     <string name="pref_title_confirm_reblogs">Hỏi trước khi đăng lại tút</string>
     <string name="pref_title_show_cards_in_timelines">Hiện xem trước link</string>
     <string name="warning_scheduling_interval">Mastodon giới hạn tối thiểu 5 phút.</string>
@@ -378,7 +370,6 @@
     <string name="profile_metadata_label_label">Nhãn</string>
     <string name="profile_metadata_add">thêm nội dung</string>
     <string name="profile_metadata_label">Metadata</string>
-    <string name="license_description">Pachli có sử dụng mã nguồn từ những dự án mã nguồn mở sau:</string>
     <string name="unreblog_private">Hủy đăng lại</string>
     <string name="reblog_private">Đăng lại công khai</string>
     <string name="account_moved_description">%1$s đã chuyển sang:</string>
@@ -617,15 +608,6 @@
     <string name="notification_notification_worker">Đang nạp thông báo…</string>
     <string name="notification_prune_cache">Bảo trì bộ nhớ đệm…</string>
     <string name="error_media_upload_sending_fmt">Không thể tải lên: %s</string>
-    <string name="about_device_info">%s %s
-\nAndroid %s
-\nSDK %d</string>
-    <string name="about_account_info_title">Tài khoản của bạn</string>
-    <string name="about_account_info">\@%s@%s
-\nPhiên bản: %s</string>
-    <string name="about_copy">Sao chép phiên bản và thông tin thiết bị</string>
-    <string name="about_copied">Đã sao chép phiên bản và thông tin thiết bị</string>
-    <string name="about_device_info_title">Thiết bị của bạn</string>
     <string name="list_exclusive_label">Ẩn khỏi bảng tin</string>
     <string name="error_media_playback">Không thể phát: %s</string>
     <string name="dialog_delete_filter_text">Xóa bộ lọc \'%1$s\'\?</string>

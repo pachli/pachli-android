@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">Hakkında</string>
+    <string name="about_device_info_title">Cihazınız</string>
+    <string name="about_account_info_title">Hesabınız</string>
+    <string name="about_copied">Kopyalanan sürüm ve cihaz bilgileri</string>
+    <string name="about_copy">Sürüm ve cihaz bilgilerini kopyala</string>
+    <string name="about_powered_by_pachli">Pachli tarafından desteklenmektedir</string>
+    <string name="about_pachli_license">Pachli özgür ve açık kaynak bir yazılımdır. GNU Genel Kamu Lisansı sürüm 3 altında lisanslanmıştır. Lisansı buradan görüntüleyebilirsiniz: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Proje web sayfası: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">"Hata raporları ve özellik istekleri:
+\nhttps://github.com/pachli/pachli-android/issues"</string>
+    <string name="about_pachli_account">Pachli\'nin Profili</string>
+    <string name="title_licenses">Lisanslar</string>
+    <string name="about_device_info">%s %s
+\nAndroid sürüm: %s
+\nSDK sürüm: %d</string>
+    <string name="about_account_info">\@%s@%s
+\nSürüm: %s</string>
+    <string name="license_description">Pachli aşağıdakı açık kaynaklı projelerden kod ve materyal içeriyor:</string>
+</resources>

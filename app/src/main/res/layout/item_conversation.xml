@@ -118,7 +118,7 @@
         app:layout_constraintTop_toTopOf="@id/status_display_name"
         tools:text="13:37" />
 
-    <app.pachli.view.ClickableSpanTextView
+    <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/status_content_warning_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
         tools:text="@string/post_content_warning_show_more"
         tools:visibility="visible" />
 
-    <app.pachli.view.ClickableSpanTextView
+    <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/status_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

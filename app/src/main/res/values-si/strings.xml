@@ -42,7 +42,6 @@
     <string name="action_share">බෙදාගන්න</string>
     <string name="account_moved_description">%1$s ගෙන ගොස් ඇත:</string>
     <string name="post_share_link">ටූට් වෙත සබැඳියක් බෙදාගන්න</string>
-    <string name="title_licenses">බලපත්‍ර</string>
     <string name="action_edit_profile">පැතිකඩ සංස්කරණය</string>
     <string name="hint_display_name">දර්ශන නාමය</string>
     <string name="post_text_size_medium">මධ්‍යම</string>
@@ -99,7 +98,6 @@
     <string name="dialog_mute_warning">\@%s නිහඬ\?</string>
     <string name="compose_shortcut_short_label">රචනා කරන්න</string>
     <string name="poll_ended_voted">ඔබ ජන්දය දුන් මත විමසුව නිම වී ඇත</string>
-    <string name="about_title_activity">පිළිබඳව</string>
     <string name="mute_domain_warning_dialog_ok">සමස්ථ වසම සඟවන්න</string>
     <string name="profile_metadata_label">පැතිකඩ පාරදත්ත</string>
     <string name="action_copy_link">සබැඳිය පිටපත්</string>
@@ -160,8 +158,6 @@
     <string name="post_content_show_more">විහිදන්න</string>
     <string name="action_mute">නිහඬ කරන්න</string>
     <string name="about_pachli_version">ටුස්කි %s</string>
-    <string name="about_project_site">වියමන අඩවිය:
-\n https://pachli.app</string>
     <string name="action_accept">පිළිගන්න</string>
     <string name="abbreviated_in_hours">පැ. %d කින්</string>
     <string name="create_poll_title">මතවිමසුම</string>
@@ -192,7 +188,6 @@
     <string name="download_failed">බාගැනීමට අසමත් විය</string>
     <string name="pref_title_language">භාෂාව</string>
     <string name="account_note_saved">සුරැකිණි!</string>
-    <string name="about_pachli_account">ටුස්කි\'හි පැතිකඩ</string>
     <string name="post_share_content">ටූට්හි අන්තර්ගතය බෙදාගන්න</string>
     <string name="profile_metadata_content_label">අන්තර්ගතය</string>
     <string name="notification_subscription_name">නව ටූට්ස්</string>
@@ -213,7 +208,6 @@
         <item quantity="other">දවස් %d ක් ඉතිරිය</item>
     </plurals>
     <string name="pref_title_notification_alert_sound">ශබ්දය සමඟ දන්වන්න</string>
-    <string name="about_powered_by_pachli">ටුස්කි මගින් බලගන්වා ඇත</string>
     <string name="pref_title_alway_show_sensitive_media">සැමවිටම සංවේදී අන්තර්ගත පෙන්වන්න</string>
     <string name="title_announcements">නිවේදන</string>
     <plurals name="poll_timespan_minutes">
@@ -231,7 +225,6 @@
     <string name="action_mentions">සඳැහුම්</string>
     <string name="filter_dialog_update_button">යාවත්කාල</string>
     <string name="notification_summary_small">%1$s සහ %2$s</string>
-    <string name="about_pachli_license">ටුස්කි යනු නොමිලේ සහ විවෘත-මූලාශ්‍ර මෘදුකාංගයකි. එය ජීඑන්යූ පොදු බලපත්‍ර අනුවාදය 3 යටතේ අවසර ලබා ඇත. ඔබට මෙතැනින් බලපත්‍රය දැකීමට හැකිය: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="title_links_dialog">සබැඳි</string>
     <string name="title_media">මාධ්‍ය</string>
     <string name="dialog_block_warning">\@%s අවහිර\?</string>

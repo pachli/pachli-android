@@ -30,7 +30,6 @@
     <string name="title_follow_requests">Følgeforespørsler</string>
     <string name="title_edit_profile">Endre profilen din</string>
     <string name="title_drafts">Utkast</string>
-    <string name="title_licenses">Lisenser</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s delte</string>
     <string name="post_sensitive_media_title">Sensitivt innhold</string>
@@ -187,11 +186,7 @@
         <item quantity="other">%d nye interaksjoner</item>
     </plurals>
     <string name="description_account_locked">Låst konto</string>
-    <string name="about_title_activity">Om</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_bug_feature_request_site">Rapporter feil og ønsker om funksjonalitet her:
-\n https://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Pachlis Profil</string>
     <string name="post_share_content">Del inneholdet i innlegget</string>
     <string name="post_share_link">Del lenke til tuten</string>
     <string name="post_media_images">Bilder</string>
@@ -233,9 +228,6 @@
     <string name="pref_default_post_privacy">Standardinnstilling for innlegg</string>
     <string name="notification_mention_name">Nye nevnelser</string>
     <string name="notification_mention_descriptions">Varsler om nye nevnelser</string>
-    <string name="about_pachli_license">Pachli er fri og åpen kildekode. Applikasjonen er lisensiert under GNU General Public License versjon 3. Du kan se lisensen her: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_project_site">Hjemmeside:
-\n https://pachli.app</string>
     <string name="abbreviated_in_years">om %dy</string>
     <string name="compose_active_account_description">Poster som %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
@@ -272,7 +264,6 @@
     <string name="account_moved_description">%1$s har flyttet til:</string>
     <string name="reblog_private">Del til opprinnelig publikum</string>
     <string name="unreblog_private">Fjern deling</string>
-    <string name="license_description">Pachli inneholder programkode og elementer fra følgende åpen kildekode-prosjekter:</string>
     <string name="profile_metadata_label">Profilmetadata</string>
     <string name="profile_metadata_add">legg til data</string>
     <string name="profile_metadata_label_label">Ledetekst</string>
@@ -399,7 +390,6 @@
     <string name="action_access_scheduled_posts">Planlagte innlegg</string>
     <string name="action_schedule_post">Planlegg innlegg</string>
     <string name="action_reset_schedule">Tilbakestill</string>
-    <string name="about_powered_by_pachli">Drevet av Pachli</string>
     <string name="title_bookmarks">Bokmerker</string>
     <string name="action_bookmark">Bokmerke</string>
     <string name="action_view_bookmarks">Bokmerker</string>

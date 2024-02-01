@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">A prepaus</string>
+    <string name="about_device_info_title">Vòstre aparelh</string>
+    <string name="about_account_info_title">Vòstre compte</string>
+    <string name="about_powered_by_pachli">Propulsat per Pachli</string>
+    <string name="about_pachli_license">Pachli es programa gratuit, liure e de còdi dobèrt. Es publicat jols tèrmes de la licéncia publica generala GNU version 3. Podètz trobar les licéncia aquí : https://www.gnu.org/licenses/gpl-3.0.ca.html</string>
+    <string name="about_project_site">        Site web del projècte :\n
+        https://pachli.app
+    </string>
+    <string name="about_bug_feature_request_site">        Rapòrts d\'errors e demandas de foncionalitats :\n
+        https://github.com/pachli/pachli-android/issues
+    </string>
+    <string name="about_pachli_account">Perfil de Pachli</string>
+    <string name="title_licenses">Licéncias</string>
+    <string name="about_device_info">%s %s
+\nversion d’Android : %s
+\nversion del SDK : %d</string>
+    <string name="about_account_info">\@%s@%s
+\nVersion : %s</string>
+    <string name="license_description">Pachli content de còdis e compausants dels projèctes liures seguents :</string>
+</resources>

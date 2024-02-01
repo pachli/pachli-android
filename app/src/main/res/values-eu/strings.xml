@@ -26,7 +26,6 @@
     <string name="title_follow_requests">Jarraipen-eskaerak</string>
     <string name="title_edit_profile">Profila editatu</string>
     <string name="title_drafts">Zirriborroak</string>
-    <string name="title_licenses">Lizentziak</string>
     <string name="post_boosted_format">%s-(e)k bultzatu du</string>
     <string name="post_sensitive_media_title">Eduki hunkigarria</string>
     <string name="post_media_hidden_title">Ezkutuko media</string>
@@ -178,22 +177,12 @@
         <item quantity="other">%d interakzio berri</item>
     </plurals>
     <string name="description_account_locked">Kontu babestua</string>
-    <string name="about_title_activity">Honi buruz</string>
-    <string name="about_pachli_license">Pachli software libre eta kode askekoa da.
-        \"GNU General Public License Version 3\" lizentziapean zabaldua.
-        Lizentzia hontaz gehiago irakurtzeko: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">        Proiektuaren gunea:\n
-        https://pachli.app
-    </string>
-    <string name="about_bug_feature_request_site">Akatsen berri-emateak eta hobekuntza-eskariak:
-\n https://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Pachliren profila</string>
     <string name="post_share_content">Tutaren edukia partekatu</string>
     <string name="post_share_link">Tutaren esteka partekatu</string>
     <string name="post_media_images">Irudiak</string>
@@ -247,7 +236,6 @@
     <string name="account_moved_description">%1$s hona mugitu da:</string>
     <string name="reblog_private">Berriz bultzatu</string>
     <string name="unreblog_private">Bultzatzea utzi</string>
-    <string name="license_description">Pachli-k ondorengo proiektuetako kode eta baliabideak ditu:</string>
     <string name="profile_metadata_label">Informazio gehigarria</string>
     <string name="profile_metadata_add">Eremua gehitu</string>
     <string name="profile_metadata_label_label">Etiketa</string>
@@ -300,7 +288,6 @@
     <string name="about_pachli_version">Pachli %s</string>
     <string name="action_hashtags">Traolak</string>
     <string name="title_hashtags_dialog">Traolak</string>
-    <string name="about_powered_by_pachli">Pachli-k sustatuta</string>
     <string name="abbreviated_hours_ago">%dh</string>
     <string name="abbreviated_minutes_ago">%dm</string>
     <string name="abbreviated_seconds_ago">%ds</string>

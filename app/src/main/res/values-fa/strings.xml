@@ -26,7 +26,6 @@
     <string name="title_follow_requests">درخواست‌های پی‌گیری</string>
     <string name="title_edit_profile">ویرایش نمایه‌تان</string>
     <string name="title_drafts">پیش‌نویس‌ها</string>
-    <string name="title_licenses">پروانه‌ها</string>
     <string name="post_boosted_format">%s تقویت کرد</string>
     <string name="post_sensitive_media_title">محتوای حسّاس</string>
     <string name="post_media_hidden_title">رسانهٔ نهفته</string>
@@ -177,18 +176,12 @@
         <item quantity="other">%d برهم‌کنش جدید</item>
     </plurals>
     <string name="description_account_locked">حساب قفل‌شده</string>
-    <string name="about_title_activity">درباره</string>
-    <string name="about_pachli_license">تاسکی نرم‌افزاری آزاد است که تحت نگارش ۳ از پروانهٔ جامع همگانی گنو منتشر شده است. پروانه را می‌توانید از این‌جا ببینید: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">پایگاه وب پروژه: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">گزارش مشکلات و درخواست ویژگی‌ها:
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">نمایهٔ تاسکی</string>
     <string name="post_share_content">هم‌رسانی محتوای فرسته</string>
     <string name="post_share_link">هم‌رسانی پیوند فرسته</string>
     <string name="post_media_images">تصویرها</string>
@@ -241,7 +234,6 @@
     <string name="account_moved_description">%1$s منتقل شد به:</string>
     <string name="reblog_private">تقویت برای مخاطب اصلی</string>
     <string name="unreblog_private">ناتقویت</string>
-    <string name="license_description">تاسکی کد و دارایی‌هایی از پروژه‌های نرم‌افزار آزاد زیر دارد:</string>
     <string name="profile_metadata_label">فرادادهٔ نمایه</string>
     <string name="profile_metadata_add">افزودن داده</string>
     <string name="profile_metadata_label_label">برچسب</string>
@@ -393,7 +385,6 @@
     <string name="poll_info_format"> .<!-- ۱۵ رأی • ۱ ساعت مانده --> %1$s • %2$s</string>
     <string name="report_description_1">گزارش به ناظرهای کارسازتان ارسال خواهد شد. در زیر می‌توانید توضیحی در باب چرایی گزارش این حساب بنویسید:</string>
     <string name="report_description_remote_instance">این حساب از کارسازی دیگر است. رونوشتی ناشناس از گزارش، به آن‌جا نیز ارسال شود؟</string>
-    <string name="about_powered_by_pachli">قدرت‌گرفته از تاسکی</string>
     <string name="title_bookmarks">نشانک‌ها</string>
     <string name="action_bookmark">نشانک</string>
     <string name="action_view_bookmarks">نشانک‌ها</string>
@@ -634,15 +625,6 @@
     <string name="notification_notification_worker">واکشی آگاهی‌ها…</string>
     <string name="notification_prune_cache">نگه‌داری انباره…</string>
     <string name="error_media_upload_sending_fmt">بارگذاری شکست خورد: %s</string>
-    <string name="about_account_info_title">حسابتان</string>
-    <string name="about_device_info_title">افزاره‌تان</string>
-    <string name="about_device_info">%s %s
-\nنگارش اندروید: %s
-\nنگارش SDK‏: %d</string>
-    <string name="about_account_info">‎@%s@%s
-\nنگارش: %s</string>
-    <string name="about_copy">رونوشت از اطّلاعات افزاره و نگارش</string>
-    <string name="about_copied">اطّلاعات افزاره و نگارش رونوشت شد</string>
     <string name="list_exclusive_label">نهفتن از خط زمانی خانگی</string>
     <string name="error_media_playback">پخش شکست خورد: %s</string>
     <string name="dialog_delete_filter_positive_action">حذف</string>

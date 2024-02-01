@@ -18,7 +18,6 @@
     <string name="action_delete_and_redraft">Διαγραφή και αναδιατύπωση</string>
     <string name="action_edit_profile">Επεξεργασία προφίλ</string>
     <string name="action_share">Κοινοποίηση</string>
-    <string name="title_licenses">Άδειες</string>
     <string name="action_open_in_web">Ανοίξτε σε browser</string>
     <string name="action_view_follow_requests">Αιτήματα ακολούθησης</string>
     <string name="action_bookmark">Προσθήκη σελιδοδείκτη</string>

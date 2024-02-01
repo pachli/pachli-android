@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">عن التطبيق</string>
+    <string name="about_device_info_title">جهازك</string>
+    <string name="about_account_info_title">حسابك</string>
+    <string name="about_copied">تم نسخ معلومات الإصدار والجهاز</string>
+    <string name="about_copy">نسخ معلومات الإصدار والجهاز</string>
+    <string name="about_powered_by_pachli">مدعوم بِـ Pachli</string>
+    <string name="about_pachli_license">Tuksy برنامج حر و مفتوح المصدر.         مطور تحت رخصة GNU General Public License Version 3.         يمكنكم الإطلاع على الرخصة على : https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">موقع المشروع :\n
+                   https://pachli.app</string>
+    <string name="about_bug_feature_request_site">تقارير الأخطاء و طلبات التحسينات على  :\n
+                   https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_privacy_policy">سياسة الخصوصية</string>
+    <string name="about_pachli_account">الملف الشخصي لتوسكي</string>
+    <string name="title_licenses">الرّخص</string>
+    <string name="about_account_info">\@%s@%s
+\nالإصدار: %s</string>
+    <string name="license_description">يحتوي توسكي على شيفرة وأوصول صادرة مِن المشاريع المفتوحة التالية :</string>
+</resources>

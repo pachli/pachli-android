@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">سەبارەت</string>
+    <string name="about_powered_by_pachli">لەلایەن تاسکیەوە دەست کراوە بە</string>
+    <string name="about_pachli_license">توسکی سۆفتوێری ئازاد و سەرچاوەی کراوەیە مۆڵەتدراوە بە پێ نامەی گشتی GNU Public Version 3. دەتوانیت لێرە مۆڵەتەکە نیشان بدەی: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">وێبسایتی پڕۆژە:
+\nhttps://pachli.app</string>
+    <string name="about_bug_feature_request_site">ڕاپۆرتەکانی هەڵەکان و داواکاریەکانی تایبەتمەندی:
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">پرۆفایلی تاسکی</string>
+    <string name="title_licenses">مۆڵەتەکان</string>
+    <string name="license_description">تاسکی کۆد و سەرمایەکانی تێدایە لەم پڕۆژە کراوەی سەرچاوە:</string>
+</resources>

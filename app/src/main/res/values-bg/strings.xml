@@ -96,7 +96,6 @@
     <string name="profile_metadata_label_label">Етикет</string>
     <string name="profile_metadata_add">добавяне на данни</string>
     <string name="profile_metadata_label">Профилни метаданни</string>
-    <string name="license_description">Pachli съдържа код и активи от следните проекти с отворен код:</string>
     <string name="unreblog_private">Отсподеляне</string>
     <string name="reblog_private">Споделяне с оригиналната аудитория</string>
     <string name="account_moved_description">%1$s се премести в:</string>
@@ -175,15 +174,7 @@
     <string name="post_media_images">Изображения</string>
     <string name="post_share_link">Споделяне на връзка към публикация</string>
     <string name="post_share_content">Споделяне на съдържание на публикация</string>
-    <string name="about_pachli_account">Профилът на Pachli</string>
-    <string name="about_bug_feature_request_site">Доклади за грешки и заявки за функции:
-\n https://github.com/pachli/pachli-android/issues</string>
-    <string name="about_project_site">Уебсайт на проекта:
-\n https://pachli.app</string>
-    <string name="about_pachli_license">Pachli е свободен софтуер с отворен код. Той е лицензиран под Общият публичен лиценз на GNU Версия 3. Можете да видите лиценза тук: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_powered_by_pachli">Осъществено от Pachli</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_title_activity">Относно</string>
     <string name="description_account_locked">Заключен акаунт</string>
     <plurals name="notification_title_summary">
         <item quantity="other">%d нови взаимодействия</item>
@@ -364,7 +355,6 @@
     <string name="post_sensitive_media_title">Деликатно съдържание</string>
     <string name="post_boosted_format">%s сподели</string>
     <string name="post_username_format">\@%s</string>
-    <string name="title_licenses">Лицензи</string>
     <string name="title_announcements">Оповестявания</string>
     <string name="title_scheduled_posts">Планирани публикации</string>
     <string name="title_drafts">Чернови</string>

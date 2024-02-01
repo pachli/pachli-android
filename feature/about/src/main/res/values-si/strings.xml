@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">පිළිබඳව</string>
+    <string name="about_powered_by_pachli">ටුස්කි මගින් බලගන්වා ඇත</string>
+    <string name="about_pachli_license">ටුස්කි යනු නොමිලේ සහ විවෘත-මූලාශ්‍ර මෘදුකාංගයකි. එය ජීඑන්යූ පොදු බලපත්‍ර අනුවාදය 3 යටතේ අවසර ලබා ඇත. ඔබට මෙතැනින් බලපත්‍රය දැකීමට හැකිය: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">වියමන අඩවිය:
+\n https://pachli.app</string>
+    <string name="about_pachli_account">ටුස්කි\'හි පැතිකඩ</string>
+    <string name="title_licenses">බලපත්‍ර</string>
+</resources>

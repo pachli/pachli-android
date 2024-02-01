@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">О приложении</string>
+    <string name="about_powered_by_pachli">Работает на Pachli</string>
+    <string name="about_pachli_license">Pachli — это свободное приложение с открытым исходным кодом. Выпускается по лицензии GNU General Public License Version 3. Вы можете прочитать текст лицензии здесь: https://www.gnu.org/licenses/gpl-3.0.ru.html</string>
+    <string name="about_project_site">
+           Веб-сайт проекта:\n
+           https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Отчеты об ошибках и ваши пожелания:
+\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Профиль Pachli</string>
+    <string name="title_licenses">Лицензии</string>
+    <string name="license_description">Pachli содержит код и ассеты из следующих приложений с открытым исходным кодом:</string>
+</resources>

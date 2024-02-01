@@ -35,7 +35,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/errorphant_offline" />
 
-        <app.pachli.view.ClickableSpanTextView
+        <app.pachli.core.ui.ClickableSpanTextView
             android:id="@+id/messageTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

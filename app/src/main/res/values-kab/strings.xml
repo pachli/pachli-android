@@ -7,7 +7,6 @@
     <string name="action_view_account_preferences">Iɣewwaṛen n umiḍan</string>
     <string name="action_edit_profile">Ẓreg amaɣnu</string>
     <string name="action_search">Nadi</string>
-    <string name="about_title_activity">Ɣef</string>
     <string name="action_lists">Tabdart</string>
     <string name="title_lists">Tabdarin</string>
     <string name="error_compose_character_limit">Izen-ik·im aṭas i ɣezzif!</string>
@@ -79,7 +78,6 @@
     <string name="notification_summary_medium">%1$s, %2$s, akked %3$s</string>
     <string name="notification_summary_small">%1$s akked %2$s</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_pachli_account">Amaɣnu n Pachli</string>
     <string name="post_media_images">Tugniwin</string>
     <string name="post_media_video">Tibidyutin</string>
     <string name="follows_you">Yeṭṭafar-ik·ikem-id</string>
@@ -206,9 +204,6 @@
     <string name="search_no_results">Ula d yiwen n ugmuḍ</string>
     <string name="post_privacy_followers_only">I yimeḍfaṛen kan</string>
     <string name="pref_post_text_size">Teɣzi n weḍṛis</string>
-    <string name="about_powered_by_pachli">Yettwamdemmar s Pachli</string>
-    <string name="about_project_site">Asmel Web n usenfaṛ:
-\n https://pachli.app</string>
     <string name="abbreviated_hours_ago">%dsr</string>
     <string name="abbreviated_minutes_ago">%dtsd</string>
     <string name="abbreviated_seconds_ago">%dtsn</string>
@@ -228,7 +223,6 @@
     <string name="error_media_upload_sending">Asali ur yeddi ara.</string>
     <string name="error_sender_account_gone">Tuccḍa deg tuzna n tijewwiqt.</string>
     <string name="title_public_local">Adigan</string>
-    <string name="title_licenses">Turagin</string>
     <string name="post_boosted_format">Yebḍa-t %s</string>
     <string name="notification_reblog_format">%s yebḍa izen-ik·im</string>
     <string name="notification_favourite_format">%s yerna izen-ik·im ɣer ismenyafen-is</string>

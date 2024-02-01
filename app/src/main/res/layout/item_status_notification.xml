@@ -93,7 +93,7 @@
         app:layout_constraintBaseline_toBaselineOf="@id/status_display_name"
         tools:text="13:37" />
 
-    <app.pachli.view.ClickableSpanTextView
+    <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/notification_content_warning_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
         app:layout_constraintTop_toBottomOf="@id/notification_content_warning_description"
         tools:text="@string/post_content_warning_show_more" />
 
-    <app.pachli.view.ClickableSpanTextView
+    <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/notification_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">Про застосунок</string>
+    <string name="about_device_info_title">Ваш пристрій</string>
+    <string name="about_account_info_title">Ваш обліковий запис</string>
+    <string name="about_copied">Версію та відомості про пристрій скопійовано</string>
+    <string name="about_copy">Скопіювати версію та відомості про пристрій</string>
+    <string name="about_powered_by_pachli">Створено Pachli</string>
+    <string name="about_pachli_license">Pachli — вільне та відкрите програмне забезпечення. Ліцензовано загальною громадською ліцензією GNU версії 3, ви можете переглянути ліцензію тут: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Вебсайт проєкту: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Звіти про вади та запити функцій:
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Профіль Pachli</string>
+    <string name="title_licenses">Ліцензії</string>
+    <string name="about_device_info">%s %s
+\nВерсія Android: %s
+\nВерсія SDK: %d</string>
+    <string name="about_account_info">\@%s@%s
+\nВерсія: %s</string>
+    <string name="license_description">Pachli містить код та засоби з таких проєктів з відкритим кодом:</string>
+</resources>

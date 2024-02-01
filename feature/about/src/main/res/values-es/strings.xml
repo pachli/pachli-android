@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">Acerca de</string>
+    <string name="about_device_info_title">Tu dispositivo</string>
+    <string name="about_account_info">\@%s@%s
+\nVersión: %s</string>
+    <string name="about_copied">Informaciones de versión y dispositivo copiadas</string>
+    <string name="about_account_info_title">Tu cuenta</string>
+    <string name="about_copy">Copiar las informaciones de versión y dispositivo</string>
+    <string name="about_powered_by_pachli">Potenciado por Pachli</string>
+    <string name="about_pachli_license">Pachli es un software libre y de código abierto.
+        Está licenciado bajo la licencia \"GNU General Public License Version 3\".
+        Puedes leer sobre la misma en: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Sitio del proyecto: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">        Reporte de errores y peticiones de características:\n
+        https://github.com/pachli/pachli-android/issues
+    </string>
+    <string name="about_privacy_policy">Política de privacidad</string>
+    <string name="about_pachli_account">Perfil de Pachli</string>
+    <string name="title_licenses">Licencias</string>
+    <string name="about_device_info">%s %s
+\nVersión de Android: %s
+\nSDK nivel: %d</string>
+    <string name="license_description">Pachli contiene código y recursos de los siguientes proyectos:</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">Mu dhèidhinn</string>
+    <string name="about_device_info_title">An t-uidheam agad</string>
+    <string name="about_account_info_title">An cunntas agad</string>
+    <string name="about_copied">Chaidh lethbhreac de thionndadh is fiosrachadh an uidheim a dhèanamh</string>
+    <string name="about_copy">Dèan lethbhreac de thionndadh is fiosrachadh an uidheim</string>
+    <string name="about_powered_by_pachli">Le cumhachd Pachli</string>
+    <string name="about_pachli_license">’S e bathar-bog saor le bun-tùs fosgailte a th’ ann an Pachli. Tha e fo cheadachas GNU General Public License tionndadh 3. Chì thu an ceadachas an-seo: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Làrach-lìn a’ phròiseict: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Aithrisean air bugaichean ⁊ iarrtasan air gleusan:
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Pròifil Pachli</string>
+    <string name="title_licenses">Ceadachasan</string>
+    <string name="about_device_info">%s %s
+\nTionndadh dhe Android: %s
+\nTionndadh dhen SDK: %d</string>
+    <string name="about_account_info">\@%s@%s
+\nTionndadh: %s</string>
+    <string name="license_description">Tha còs is maoin o na pròiseactan open source seo am broinn Pachli:</string>
+</resources>

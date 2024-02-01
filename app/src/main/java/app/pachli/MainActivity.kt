@@ -703,7 +703,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     }
                 },
                 secondaryDrawerItem {
-                    nameRes = R.string.about_title_activity
+                    nameRes = app.pachli.feature.about.R.string.about_title_activity
                     iconicsIcon = GoogleMaterial.Icon.gmd_info
                     onClick = {
                         val intent = AboutActivityIntent(context)

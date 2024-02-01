@@ -58,7 +58,6 @@
     <string name="post_content_show_less">Contrair</string>
     <string name="title_scheduled_posts">Toots agendados</string>
     <string name="title_announcements">Anúncios</string>
-    <string name="title_licenses">Licenças</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s deu boost</string>
     <string name="message_empty">Nada aqui.</string>
@@ -260,16 +259,8 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s e %4$d outros</string>
     <string name="notification_summary_medium">%1$s, %2$s e %3$s</string>
     <string name="description_account_locked">Perfil Privado</string>
-    <string name="about_title_activity">Sobre</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_powered_by_pachli">A correr o Pachli</string>
     <string name="filter_dialog_update_button">Atualizar</string>
-    <string name="about_pachli_license">Pachli é um software livre e de código aberto, licenciado com a versão 3 da GNU General Public License. Pode ler a licença aqui: https://www.gnu.org/licenses/gpl-3.0.pt-br.html</string>
-    <string name="about_project_site">Página do projeto:
-\n https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Reporte de erros e pedidos de funcionalidades:
-\n https://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Perfil do Pachli</string>
     <string name="post_share_content">Partilhar conteúdo do toot</string>
     <string name="post_share_link">Partilhar hiperligação do toot</string>
     <string name="post_media_images">Imagens</string>
@@ -347,7 +338,6 @@
     <string name="account_moved_description">%1$s mudou-se para:</string>
     <string name="reblog_private">Dar boost para o público inicial</string>
     <string name="unreblog_private">Desfazer boost</string>
-    <string name="license_description">O Pachli contém código e recursos dos seguintes projetos de código aberto:</string>
     <string name="profile_metadata_label">Metadados do perfil</string>
     <string name="profile_metadata_add">adicionar dados</string>
     <string name="profile_metadata_label_label">Rótulo</string>

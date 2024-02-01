@@ -65,7 +65,7 @@
         app:layout_constraintBaseline_toBaselineOf="@id/notification_display_name"
         tools:text="\@testuser" />
 
-    <app.pachli.view.ClickableSpanTextView
+    <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/notification_account_note"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
