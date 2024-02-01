@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="node_info_error_no_software_version">mjukvaruversionen saknas, är tom eller blank</string>
+    <string name="node_info_error_no_software">innehöll inget mjukvarublock</string>
+    <string name="node_info_error_no_software_name">mjukvarunamnet saknas, är tomt eller blankt</string>
+    <string name="server_error_unparseable_version">Kunde inte analysera \"%1$s\" som en version: %2$s</string>
+</resources>
