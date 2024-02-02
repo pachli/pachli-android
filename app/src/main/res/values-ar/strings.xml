@@ -692,7 +692,6 @@
     <string name="action_translate_undo">إلغاء الترجمة</string>
     <string name="notification_prune_cache">صيانة ذاكرة التخزين المؤقتة…</string>
     <string name="pref_ui_text_size">حجم نص واجهة المستخدم</string>
-    <string name="acra_dialog_title">لقد تحطّم %1$s</string>
     <string name="load_newest_notifications">تحميل أحدث الإشعارات</string>
     <string name="label_filter_context">السياقات التي تم تصفيتها</string>
     <string name="dialog_follow_hashtag_hint">#وسم</string>

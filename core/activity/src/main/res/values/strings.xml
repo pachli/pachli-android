@@ -3,4 +3,5 @@
     <string name="post_lookup_error_format">Error looking up post %s</string>
     <string name="action_open_as">Open as %s</string>
     <string name="performing_lookup_title">Performing lookup…</string>
+    <string name="send_error_report">Send error report</string>
 </resources>

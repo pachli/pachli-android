@@ -19,7 +19,7 @@
         errorLine2="            ~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/activity/BaseActivity.kt"
-            line="101"
+            line="104"
             column="13"/>
     </issue>
 

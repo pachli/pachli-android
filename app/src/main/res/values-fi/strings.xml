@@ -528,7 +528,6 @@
     <string name="report_category_violation">Sääntörikkomus</string>
     <string name="label_filter_keywords">Avainsanat tai jonot jotka suodatetaan</string>
     <string name="drafts_post_reply_removed">Julkaisu, johon olit kirjoittanut vastausluonnoksen, on poistettu</string>
-    <string name="acra_dialog_text">Pyydämme anteeksi. Paina OK jos haluat lähettää kehittäjille yksityiskohtaiset tiedot</string>
     <string name="limit_notifications">Rajoita aikajanan ilmoituksia</string>
     <string name="account_date_joined">Liittyi %1$s</string>
     <string name="ui_error_unknown">tuntematon syy</string>
@@ -576,7 +575,6 @@
     <string name="action_add">Lisää</string>
     <string name="load_newest_notifications">Lataa uusimmat ilmoitukset</string>
     <string name="pref_title_show_cards_in_timelines">Näytä linkkien esikatselut aikajanoissa</string>
-    <string name="acra_dialog_title">%1$s kaatui</string>
     <string name="pref_title_enable_swipe_for_tabs">Vaihda välilehteä pyyhkäisemällä</string>
     <string name="report_remote_instance">Lähetä edelleen %s</string>
     <string name="poll_info_time_absolute">päättyy %s</string>
@@ -653,15 +651,6 @@
 \nJos haluat tutkia muita tilejä, voit löytää niitä toisesta aikajanasta, esimerkiksi oman instanssisi paikallisesta aikajanasta [iconics gmd_group]. Voit myös etsiä niitä nimeltä [iconics gmd_search]; etsi esimerkiksi sanalla ”Pachli” löytääksesi Mastodon-tilimme.</string>
     <string name="notifications_clear">Poista ilmoitukset</string>
     <string name="hint_list_name">Listan nimi</string>
-    <string name="acra_email_body">Nämä tiedot lähetetään kehittäjille.
-\n
-\nTarkista, että tiedot eivät sisällä mitään, mitä et halua jakaa, ja kerro, mitä teit, kun ohjelma kaatui.
-\n
-\n------
-\nKirjoita kuvaus tähän:
-\n
-\n------
-\n</string>
     <string name="expand_collapse_all_posts">Avaa/Sulje kaikki julkasut</string>
     <string name="select_list_title">Valitse lista</string>
     <string name="duration_indefinite">Loputon</string>

@@ -24,16 +24,19 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import app.pachli.core.accounts.AccountManager
-import app.pachli.core.accounts.BuildConfig
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
@@ -53,7 +56,7 @@ import javax.inject.Inject
 import timber.log.Timber
 
 @AndroidEntryPoint
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), MenuProvider {
     @Inject
     lateinit var accountManager: AccountManager
 
@@ -292,6 +295,24 @@ abstract class BaseActivity : AppCompatActivity() {
         val permissionsCopy = arrayOfNulls<String>(permissionsToRequest.size)
         permissionsToRequest.toArray(permissionsCopy)
         ActivityCompat.requestPermissions(this, permissionsCopy, newKey)
+    }
+
+    @CallSuper
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        if (BuildConfig.FLAVOR_color != "orange") return
+        menuInflater.inflate(R.menu.activity_base, menu)
+    }
+
+    @CallSuper
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        if (BuildConfig.FLAVOR_color != "orange") return false
+        return when (menuItem.itemId) {
+            R.id.action_crash_report -> {
+                triggerCrashReport()
+                true
+            }
+            else -> false
+        }
     }
 
     companion object {

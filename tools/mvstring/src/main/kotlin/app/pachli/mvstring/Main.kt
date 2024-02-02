@@ -23,6 +23,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.UsageError
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.multiple
+import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import io.github.oshai.kotlinlogging.DelegatingKLogger
@@ -52,7 +53,9 @@ private val log = KotlinLogging.logger {}
 class App : CliktCommand(help = """Move string resources between modules""") {
     private val args by argument().multiple()
 
-    private val verbose by option("-n", "--verbose", help = "show additional information").flag()
+    private val verbose by option("-v", "--verbose", help = "show additional information").flag()
+    private val srcVariant by option("--srcVariant").default("main")
+    private val dstVariant by option("--dstVariant").default("main")
 
     /**
      * Returns the full path to a module's `.../src/main/res` directory, starting from the
@@ -60,7 +63,7 @@ class App : CliktCommand(help = """Move string resources between modules""") {
      *
      * @return the path, or null if it's not a subtree of [start] or any of its parents.
      */
-    private fun findResourcePath(start: Path, variant: String = "main"): Path? {
+    private fun findResourcePath(start: Path, variant: String): Path? {
         val suffix = Path("src/$variant/res")
 
         var prefix = start
@@ -89,8 +92,8 @@ class App : CliktCommand(help = """Move string resources between modules""") {
         val cwd = Paths.get("").toAbsolutePath()
         log.info { "working directory: $cwd" }
 
-        val srcRes = findResourcePath(Path(src)) ?: throw UsageError("no resources in $src")
-        val dstRes = findResourcePath(Path(dst)) ?: throw UsageError("no resources in $dst")
+        val srcRes = findResourcePath(Path(src), srcVariant) ?: throw UsageError("no resources in $src")
+        val dstRes = findResourcePath(Path(dst), dstVariant) ?: throw UsageError("no resources in $dst")
 
         // Enumerate all the values-* directories that contain a strings.xml file
         val resourceDirs =

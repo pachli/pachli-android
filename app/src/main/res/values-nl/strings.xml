@@ -664,7 +664,6 @@
     <string name="filter_keyword_addition_title">Voeg sleutelwoord toe</string>
     <string name="label_filter_keywords">Sleutelwoorden of zinnen om te filteren</string>
     <string name="pref_title_show_self_boosts_description">Iemand die hun eigen post boost</string>
-    <string name="acra_dialog_text">Sorry daarvoor. Klik op OK om een e-mail op te stellen naar de ontwikkelaars met alle details</string>
     <string name="ui_error_filter_v1_load">Laden van filters faalde: %s</string>
     <string name="confirmation_hashtag_muted">#%s verborgen</string>
     <string name="janky_animation_title">Mogelijk is het noodzakelijk om je apparaat opnieuw op te starten</string>
@@ -675,15 +674,6 @@
     <string name="help_empty_home">Dit is je <b>Thuis tijdlijn</b>. Het toont de meest recente posts van accounts die je volgt.
 \n
 \nOm meer accounts te vinden, kun je ze ontdekken in een van de andere tijdlijnen. Bijvoorbeeld de lokale tijdlijn van jouw instance [iconics gmd_group]. Of je kunt zoeken op naam [iconics gmd_search]; bijvoorbeeld als je zoekt op Pachli dan vind je ons Mastodon account.</string>
-    <string name="acra_email_body">Deze data wordt verzonden naar de ontwikkelaars.
-\n
-\nControleer alsjeblieft of er niks tussen zit dat je niet met ons wilt delen, omschrijf wat je deed wanneer de crash gebeurde.
-\n
-\n ----
-\nJe omschrijving hier:
-\n
-\n ----
-\n</string>
     <string name="pref_update_notification_frequency_once_per_version">Eenmaal per versie</string>
     <string name="about_privacy_policy">Privacy beleid</string>
     <string name="error_404_not_found">Je server beschikt niet over ondersteuning voor deze feature</string>
@@ -703,5 +693,4 @@
     <string name="action_translate_undo">Vertaling ongedaan maken</string>
     <string name="notification_prune_cache">Cache onderhoud…</string>
     <string name="pref_ui_text_size">UI tekst grootte</string>
-    <string name="acra_dialog_title">%1$s crashed</string>
 </resources>

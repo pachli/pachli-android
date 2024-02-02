@@ -15,10 +15,11 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli
+package app.pachli.core.activity
 
 import android.app.Application
 import app.pachli.core.designsystem.R as DR
+import org.acra.ACRA
 import org.acra.config.dialog
 import org.acra.config.mailSender
 import org.acra.data.StringFormat
@@ -45,4 +46,11 @@ fun initCrashReporter(app: Application) {
             body = app.getString(R.string.acra_email_body)
         }
     }
+}
+
+/**
+ * Trigger a report without a crash.
+ */
+fun triggerCrashReport() {
+    ACRA.errorReporter.handleException(null, false)
 }

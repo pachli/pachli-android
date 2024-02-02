@@ -15,9 +15,10 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli
+package app.pachli.core.activity
 
 import android.app.Application
 
 /** Do nothing in blue builds */
 fun initCrashReporter(app: Application) {}
+fun triggerCrashReport() {}

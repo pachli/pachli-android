@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="acra_dialog_title">%1$s crashed</string>
+    <string name="acra_dialog_text">Sorry daarvoor. Klik op OK om een e-mail op te stellen naar de ontwikkelaars met alle details</string>
+    <string name="acra_email_body">Deze data wordt verzonden naar de ontwikkelaars.
+\n
+\nControleer alsjeblieft of er niks tussen zit dat je niet met ons wilt delen, omschrijf wat je deed wanneer de crash gebeurde.
+\n
+\n ----
+\nJe omschrijving hier:
+\n
+\n ----
+\n</string>
+</resources>

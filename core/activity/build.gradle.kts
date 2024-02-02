@@ -49,6 +49,9 @@ dependencies {
     implementation(libs.bundles.glide)
     implementation(libs.networkresult.calladapter)
 
+    // Crash reporting in orange (Pachli Current) builds only
+    orangeImplementation(libs.bundles.acra)
+
     // BottomSheetActivityTest uses mockito
     testImplementation(libs.bundles.mockito)
 }
