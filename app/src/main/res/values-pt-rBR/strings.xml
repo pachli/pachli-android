@@ -684,15 +684,4 @@
     <string name="load_newest_notifications">Carregar notificações mais recentes</string>
     <string name="action_discard">Descartar mudanças</string>
     <string name="pref_ui_text_size">Tamanho do texto da UI</string>
-    <string name="acra_dialog_text">Desculpas por isso. Clique em OK para preparar uma mensagem aos desenvolvedores com detalhes</string>
-    <string name="acra_email_body">Esses dados serão enviados aos desenvolvedores.
-\n
-\nPor favor, verifique se ele não inclui algo que não queriras compartilhar e, por favor, descreva o que estavas fazendo quando a falha aconteceu.
-\n
-\n----
-\nA tua descrição aqui:
-\n
-\n----
-\n</string>
-    <string name="acra_dialog_title">%1$s travou</string>
 </resources>

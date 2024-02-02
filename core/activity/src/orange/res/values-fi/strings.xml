@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="acra_dialog_title">%1$s kaatui</string>
+    <string name="acra_dialog_text">Pyydämme anteeksi. Paina OK jos haluat lähettää kehittäjille yksityiskohtaiset tiedot</string>
+    <string name="acra_email_body">Nämä tiedot lähetetään kehittäjille.
+\n
+\nTarkista, että tiedot eivät sisällä mitään, mitä et halua jakaa, ja kerro, mitä teit, kun ohjelma kaatui.
+\n
+\n------
+\nKirjoita kuvaus tähän:
+\n
+\n------
+\n</string>
+</resources>

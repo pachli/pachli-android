@@ -125,6 +125,7 @@ class ScheduledStatusActivity :
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
         menuInflater.inflate(R.menu.activity_announcements, menu)
         menu.findItem(R.id.action_search)?.apply {
             icon = IconicsDrawable(this@ScheduledStatusActivity, GoogleMaterial.Icon.gmd_search).apply {
@@ -135,6 +136,7 @@ class ScheduledStatusActivity :
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        super.onMenuItemSelected(menuItem)
         return when (menuItem.itemId) {
             R.id.action_refresh -> {
                 binding.swipeRefreshLayout.isRefreshing = true

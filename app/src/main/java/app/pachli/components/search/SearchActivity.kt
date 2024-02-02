@@ -75,6 +75,7 @@ class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTe
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
         menuInflater.inflate(R.menu.search_toolbar, menu)
         val searchViewMenuItem = menu.findItem(R.id.action_search)
         searchViewMenuItem.expandActionView()
@@ -83,6 +84,7 @@ class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTe
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        super.onMenuItemSelected(menuItem)
         return false
     }
 

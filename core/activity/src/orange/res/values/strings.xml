@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="acra_dialog_title">%1$s error report</string>
+    <string name="acra_dialog_text">Click OK to prepare an e-mail to the developers with details</string>
+    <string name="acra_email_body">This data will be sent to the developers.\n\n
+
+Please check to make sure it does not include anything you don\'t want to share, and please describe what you were doing when the crash happened.\n\n
+
+----\n
+Your description here:\n\n
+
+----\n
+</string>
+</resources>

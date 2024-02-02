@@ -805,6 +805,7 @@ class AccountActivity :
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
         menuInflater.inflate(R.menu.account_toolbar, menu)
 
         val openAsItem = menu.findItem(R.id.action_open_as)
@@ -964,6 +965,7 @@ class AccountActivity :
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
+        super.onMenuItemSelected(item)
         when (item.itemId) {
             R.id.action_open_in_web -> {
                 // If the account isn't loaded yet, eat the input.

@@ -382,6 +382,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
         menuInflater.inflate(R.menu.activity_main, menu)
         menu.findItem(R.id.action_search)?.apply {
             icon = IconicsDrawable(this@MainActivity, GoogleMaterial.Icon.gmd_search).apply {
@@ -392,20 +393,21 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     override fun onPrepareMenu(menu: Menu) {
-        super.onPrepareMenu(menu)
+        super<BottomSheetActivity>.onPrepareMenu(menu)
 
         // If the main toolbar is hidden then there's no space in the top/bottomNav to show
         // the menu items as icons, so forceably disable them
         if (!binding.mainToolbar.isVisible) menu.forEach { it.setShowAsAction(SHOW_AS_ACTION_NEVER) }
     }
 
-    override fun onMenuItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        super.onMenuItemSelected(menuItem)
+        return when (menuItem.itemId) {
             R.id.action_search -> {
                 startActivity(SearchActivityIntent(this@MainActivity))
                 true
             }
-            else -> super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(menuItem)
         }
     }
 

@@ -25,6 +25,7 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import app.pachli.components.notifications.createWorkerNotificationChannel
+import app.pachli.core.activity.initCrashReporter
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.NEW_INSTALL_SCHEMA_VERSION
 import app.pachli.core.preferences.PrefKeys

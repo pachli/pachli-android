@@ -47,6 +47,9 @@ dependencies {
     // Loading avatars
     implementation(libs.bundles.glide)
 
+    // Crash reporting in orange (Pachli Current) builds only
+    orangeImplementation(libs.bundles.acra)
+
     // BottomSheetActivityTest uses mockito
     testImplementation(libs.bundles.mockito)
 }

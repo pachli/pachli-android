@@ -78,10 +78,12 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
         menuInflater.inflate(R.menu.activity_trending, menu)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        super.onMenuItemSelected(menuItem)
         return super.onOptionsItemSelected(menuItem)
     }
 }
