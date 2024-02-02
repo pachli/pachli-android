@@ -1,0 +1,1 @@
+Klien Android berfitur lengkap untuk Mastodon dan server serupa.
