@@ -627,4 +627,16 @@
     <string name="filter_keyword_addition_title">Ajouter un mot-clé</string>
     <string name="filter_edit_keyword_title">Modifier mot-clé</string>
     <string name="filter_description_format">%s : %s</string>
+    <string name="action_translate_undo">Annuler la traduction</string>
+    <string name="error_media_upload_sending_fmt">Le téléversement a échoué : %s</string>
+    <string name="title_public_trending_statuses">Publications en tendance</string>
+    <string name="title_tab_public_trending_hashtags">Hashtags</string>
+    <string name="action_translate">Traduire</string>
+    <string name="error_generic_fmt">Une erreur s\'est produite : %s</string>
+    <string name="error_network_fmt">Une erreur réseau s\'est produite : %s</string>
+    <string name="error_404_not_found">Votre serveur ne prend pas en charge cette fonctionnalité</string>
+    <string name="title_public_trending">Tendances</string>
+    <string name="title_public_trending_links">Liens en tendance</string>
+    <string name="title_tab_public_trending_links">Liens</string>
+    <string name="title_tab_public_trending_statuses">Publications</string>
 </resources>
