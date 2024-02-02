@@ -277,4 +277,15 @@
     <string name="title_mentions_dialog">Menyebutkan</string>
     <string name="send_account_link_to">Bagikan URL akun ke…</string>
     <string name="send_account_username_to">Bagikan nama pengguna akun ke…</string>
+    <string name="label_image">Gambar</string>
+    <string name="hint_description">Deskripsi</string>
+    <string name="hint_media_description_missing">Media harus memiliki deskripsi.</string>
+    <string name="label_avatar">Avatar</string>
+    <string name="label_header">Header</string>
+    <string name="confirmation_unmuted">Pengguna tidak dibisukan</string>
+    <string name="account_username_copied">Nama pengguna disalin</string>
+    <string name="confirmation_domain_unmuted">%s tidak tersembunyi</string>
+    <string name="confirmation_hashtag_muted">#%s tersembunyi</string>
+    <string name="confirmation_hashtag_unmuted">#%s tidak tersembunyi</string>
+    <string name="confirmation_hashtag_unfollowed">#%s berhenti mengikuti</string>
 </resources>
