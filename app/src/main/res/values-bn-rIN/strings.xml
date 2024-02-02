@@ -30,7 +30,6 @@
     <string name="title_follow_requests">অনুরোধ অনুসরণ করুন</string>
     <string name="title_edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
     <string name="title_drafts">খসড়াগুলো</string>
-    <string name="title_licenses">লাইসেন্সগুলি</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s সমর্থন দিয়েছে</string>
     <string name="post_sensitive_media_title">সংবেদনশীল কন্টেন্ট</string>
@@ -209,20 +208,13 @@
         <item quantity="other">%d নতুন মিথস্ক্রিয়া</item>
     </plurals>
     <string name="description_account_locked">লক অ্যাকাউন্ট</string>
-    <string name="about_title_activity">সম্পর্কিত</string>
     <string name="about_pachli_version">টাস্কি %s</string>
-    <string name="about_pachli_license">টাস্কি মুক্ত এবং ওপেন সোর্স সফ্টওয়্যার। এটি GNU জেনারেল পাবলিক লাইসেন্স সংস্করণ 3 এর অধীনে লাইসেন্সযুক্ত। আপনি এখানে লাইসেন্স দেখতে পারেন: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">প্রকল্প ওয়েবসাইট:
-\nhttps://pachli.app</string>
-    <string name="about_bug_feature_request_site">বাগ রিপোর্ট এবং বৈশিষ্ট্য অনুরোধ:
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">টাস্কির প্রোফাইল</string>
     <string name="post_share_content">টুট এর কন্টেন্ট ভাগ করুন</string>
     <string name="post_share_link">টুট এর সাথে লিংক ভাগ করুন</string>
     <string name="post_media_images">চিত্রগুলি</string>
@@ -297,7 +289,6 @@
     <string name="account_moved_description">%1$s স্থানান্তরিত করেছে এতে:</string>
     <string name="reblog_private">মূল শ্রোতাদেড় সমথন পাঠাও</string>
     <string name="unreblog_private">সমর্থন ফেরত</string>
-    <string name="license_description">টাস্কি নিম্নলিখিত ওপেন সোর্স প্রকল্প থেকে কোড এবং সম্পদ রয়েছে:</string>
     <string name="profile_metadata_label">প্রোফাইল মেটাডেটা</string>
     <string name="profile_metadata_add">তথ্য যোগ করুন</string>
     <string name="profile_metadata_label_label">লেবেল</string>
@@ -383,7 +374,6 @@
     <string name="action_access_scheduled_posts">নির্ধারিত টুটগুলি</string>
     <string name="action_schedule_post">নির্ধারিত টুট</string>
     <string name="action_reset_schedule">রিসেট</string>
-    <string name="about_powered_by_pachli">টাস্কি দ্বারা চালিত</string>
     <string name="action_view_bookmarks">বুকমার্কগুলি</string>
     <string name="action_bookmark">বুকমার্ক</string>
     <string name="notification_follow_request_format">%s আপনাকে অনুসরণ করার জন্য অনুরোধ করেছে</string>

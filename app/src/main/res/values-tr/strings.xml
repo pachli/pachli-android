@@ -30,7 +30,6 @@
     <string name="title_follow_requests">Takip istekleri</string>
     <string name="title_edit_profile">Profili düzenle</string>
     <string name="title_drafts">Taslaklar</string>
-    <string name="title_licenses">Lisanslar</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s yeniden paylaştı</string>
     <string name="post_sensitive_media_title">Hassas medya</string>
@@ -186,19 +185,13 @@
         <item quantity="other">%d yeni etkileşimler</item>
     </plurals>
     <string name="description_account_locked">Kilitli Hesap</string>
-    <string name="about_title_activity">Hakkında</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_pachli_license">Pachli özgür ve açık kaynak bir yazılımdır. GNU Genel Kamu Lisansı sürüm 3 altında lisanslanmıştır. Lisansı buradan görüntüleyebilirsiniz: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Proje web sayfası: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">"Hata raporları ve özellik istekleri:
-\nhttps://github.com/pachli/pachli-android/issues"</string>
-    <string name="about_pachli_account">Pachli\'nin Profili</string>
     <string name="post_share_content">Gönderinin içeriğini paylaş</string>
     <string name="post_share_link">Gönderinin adresini paylaş</string>
     <string name="post_media_images">Görseller</string>
@@ -254,7 +247,6 @@
     <string name="download_failed">İndirme başarısız</string>
     <string name="account_moved_description">%1$s buraya taşındı:</string>
     <string name="unreblog_private">Yeniden paylaşımı iptal et</string>
-    <string name="license_description">Pachli aşağıdakı açık kaynaklı projelerden kod ve materyal içeriyor:</string>
     <string name="profile_metadata_label">Profil meta verileri</string>
     <string name="profile_metadata_add">veri ekle</string>
     <string name="profile_metadata_label_label">Etiket</string>
@@ -385,7 +377,6 @@
     <string name="action_reset_schedule">Sıfırla</string>
     <string name="dialog_redraft_post_warning">Bu durumu silip yeniden düzenlemek istiyor musunuz\?</string>
     <string name="pref_title_bot_overlay">Botlar için işaret göster</string>
-    <string name="about_powered_by_pachli">Pachli tarafından desteklenmektedir</string>
     <string name="description_post_bookmarked">Yerimine eklendi</string>
     <string name="select_list_title">Liste seç</string>
     <string name="list">Liste</string>
@@ -634,15 +625,6 @@
 \n
 \nBu <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon sorununu #25398</a>.</string>
     <string name="error_media_upload_sending_fmt">Yükleme başarısız oldu: %s</string>
-    <string name="about_device_info_title">Cihazınız</string>
-    <string name="about_device_info">%s %s
-\nAndroid sürüm: %s
-\nSDK sürüm: %d</string>
-    <string name="about_account_info_title">Hesabınız</string>
-    <string name="about_account_info">\@%s@%s
-\nSürüm: %s</string>
-    <string name="about_copy">Sürüm ve cihaz bilgilerini kopyala</string>
-    <string name="about_copied">Kopyalanan sürüm ve cihaz bilgileri</string>
     <string name="list_exclusive_label">Anasayfa ağ akışından gizle</string>
     <string name="error_media_playback">Oynatma başarısız oldu: %s</string>
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">Om</string>
+    <string name="about_device_info_title">Din enhet</string>
+    <string name="about_account_info">\@%s@%s
+\nVersion: %s</string>
+    <string name="about_copied">Kopierade version- och enhetsinformation</string>
+    <string name="about_account_info_title">Ditt konto</string>
+    <string name="about_copy">Kopiera version- och enhetsinformation</string>
+    <string name="about_powered_by_pachli">Drivs av Pachli</string>
+    <string name="about_pachli_license">Pachli är fri programvara med öppen källkod. Det är licensierat under GNU General Public License version 3. Du kan läsa mer om licensen här: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">        Pachlis webbsida:\n
+        https://pachli.app
+    </string>
+    <string name="about_bug_feature_request_site">        Buggrapporter &amp; funktionsförslag:\n
+        https://github.com/pachli/pachli-android/issues
+    </string>
+    <string name="about_privacy_policy">Integritetspolicy</string>
+    <string name="about_pachli_account">Pachlis Profil</string>
+    <string name="title_licenses">Licenser</string>
+    <string name="about_device_info">%s %s
+\nAndroid-version: %s
+\nSDK-nivå: %d</string>
+    <string name="license_description">Pachli innehåller kod och tillgångar från följande öppen källkodsprojekt:</string>
+</resources>

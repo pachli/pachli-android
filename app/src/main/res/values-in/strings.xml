@@ -30,7 +30,6 @@
     <string name="error_compose_character_limit">Postingan terlalu panjang!</string>
     <string name="error_media_upload_permission">Izin untuk membaca media diperlukan.</string>
     <string name="error_media_download_permission">Izin untuk menyimpan media diperlukan.</string>
-    <string name="title_licenses">Lisensi</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_media_hidden_title">Media disembunyikan</string>
     <string name="post_sensitive_media_directions">Klik untuk melihat</string>
@@ -109,9 +108,7 @@
     <string name="notification_follow_name">Pengikut Baru</string>
     <string name="notification_follow_description">Notifikasi tentang pengikut baru</string>
     <string name="notification_sign_up_name">Daftar</string>
-    <string name="about_title_activity">Tentang</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_powered_by_pachli">Dipersembahkan oleh Pachli</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_audio">Audio</string>
     <string name="post_media_attachments">Lampiran</string>

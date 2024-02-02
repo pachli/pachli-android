@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">Quant a</string>
+    <string name="about_powered_by_pachli">Desenvolupat per Pachli</string>
+    <string name="about_pachli_license">Pachli és programari gratuït, lliure i de codi obert.
+        Està llicenciat en els termes de la Llicència Pública General GNU versió 3.
+        Podeu trobar les llicència aquí: https://www.gnu.org/licenses/gpl-3.0.ca.html</string>
+    <string name="about_project_site">
+        Lloc web del projecte:\n
+        https://pachli.app
+    </string>
+    <string name="about_bug_feature_request_site">
+        Informes d\'errors i peticions de funcionalitats:\n
+        https://github.com/pachli/pachli-android/issues
+    </string>
+    <string name="about_pachli_account">Perfil del Pachli</string>
+    <string name="title_licenses">Llicències</string>
+    <string name="license_description">Pachli conté codi i recursos dels següents projectes:</string>
+</resources>

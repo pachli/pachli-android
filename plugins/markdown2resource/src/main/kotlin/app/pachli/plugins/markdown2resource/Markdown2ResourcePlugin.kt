@@ -17,10 +17,12 @@
 
 package app.pachli.plugins.markdown2resource
 
-import com.android.build.gradle.AppExtension
+import com.android.build.gradle.LibraryExtension
 import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.TypeSpec
+import java.io.IOException
+import javax.lang.model.element.Modifier
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
@@ -37,8 +39,6 @@ import org.gradle.configurationcache.extensions.capitalized
 import org.intellij.markdown.flavours.gfm.GFMFlavourDescriptor
 import org.intellij.markdown.html.HtmlGenerator
 import org.intellij.markdown.parser.MarkdownParser
-import java.io.IOException
-import javax.lang.model.element.Modifier
 
 interface Markdown2ResourcePluginExtension {
     /** List of files */
@@ -88,7 +88,7 @@ abstract class Markdown2ResourceTask : DefaultTask() {
             val parsedTree = MarkdownParser(flavour).buildMarkdownTreeFromString(f)
             val html = HtmlGenerator(f, parsedTree, flavour).generateHtml()
 
-            val resourceName = markdownFile.asFile.absoluteFile.name.replace("""[./\\]""".toRegex(), "_", )
+            val resourceName = markdownFile.asFile.absoluteFile.name.replace("""[./\\]""".toRegex(), "_")
             logger.info("  Resource name: ${resourceClassName.get()}.${stringClassName.get()}.$resourceName")
 
             stringClass.addField(
@@ -127,13 +127,13 @@ class Markdown2ResourcePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         val extension = target.extensions.create(
             "markdown2resource",
-            Markdown2ResourcePluginExtension::class.java
+            Markdown2ResourcePluginExtension::class.java,
         )
         extension.resourceClassName.convention("markdownR")
         extension.stringClassName.convention("html")
 
-        target.extensions.findByType(AppExtension::class.java)?.let { appExtension ->
-            appExtension.applicationVariants.all { variant ->
+        target.extensions.findByType(LibraryExtension::class.java)?.let { appExtension ->
+            appExtension.libraryVariants.all { variant ->
                 val outputDir =
                     target.layout.buildDirectory.dir("generated/source/${variant.name}")
                 val taskName = "markdown2resource${variant.name.capitalized()}"

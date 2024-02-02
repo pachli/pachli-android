@@ -26,7 +26,6 @@
     <string name="post_sensitive_media_title">संवेदनशीलो विषयः</string>
     <string name="post_boosted_format">%s अप्रकाशयत्</string>
     <string name="post_username_format">\@%s</string>
-    <string name="title_licenses">अनुज्ञापत्राणि</string>
     <string name="title_scheduled_posts">कालबद्धदौत्यानि</string>
     <string name="title_drafts">लेखविकर्षाः</string>
     <string name="title_edit_profile">स्वीयव्यक्तिविवरणं सम्पाद्यताम्</string>
@@ -211,15 +210,7 @@
     <string name="post_media_images">चित्राणि</string>
     <string name="post_share_link">दौत्याय जालस्थानं विभाज्यताम्</string>
     <string name="post_share_content">दौत्यविषयो विभाज्यताम्</string>
-    <string name="about_pachli_account">टस्कीवर्यस्य व्यक्तिगतविवरणम्</string>
-    <string name="about_bug_feature_request_site">अशुद्धीनामावेदनं वैशिष्ट्यनिवेदनञ्च
-\n https://github.com/pachli/pachli-android/issues</string>
-    <string name="about_project_site">प्रकल्पस्य जालसूत्रम् :
-\n https://pachli.app</string>
-    <string name="about_pachli_license">टस्कीत्यनावृतस्रोतो निःशुल्कतन्त्रांशः। GNU General Public License Version 3 इत्यनेनाऽनुज्ञापितः। अत्राऽनुज्ञापत्रं द्रष्टुं शक्यते:-https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_powered_by_pachli">टस्कीत्यनेनाऽऽश्रितः</string>
     <string name="about_pachli_version">टस्की %s</string>
-    <string name="about_title_activity">विज्ञप्तिः</string>
     <string name="description_account_locked">कपाटितव्यक्तिविवरणलेखः</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d नवपरस्परक्रिया</item>
@@ -330,7 +321,6 @@
     <string name="profile_metadata_label_label">लक्षः</string>
     <string name="profile_metadata_add">दत्तं युज्यताम्</string>
     <string name="profile_metadata_label">व्यक्तिगतविवरणदत्तांशः</string>
-    <string name="license_description">टस्कीत्यस्मिन्निम्नलिखितेभ्योऽनावृतस्रोतःप्रकल्पेभ्यो विध्यादेशाः सन्ति:</string>
     <string name="unreblog_private">प्रकाशनंं नश्यताम्</string>
     <string name="reblog_private">मूलदर्शकेभ्यः प्रकाश्यताम्</string>
     <string name="account_moved_description">%1$s मित्रमत्र प्रस्थितम्:</string>

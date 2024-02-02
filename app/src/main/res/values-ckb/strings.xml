@@ -106,7 +106,6 @@
     <string name="post_sensitive_media_title">ناوەڕۆکی هەستیار</string>
     <string name="post_boosted_format">%s پۆستی کردەوە</string>
     <string name="post_username_format">\@%s</string>
-    <string name="title_licenses">مۆڵەتەکان</string>
     <string name="title_announcements">ڕاگه یه نراوەکان</string>
     <string name="title_scheduled_posts">توتی خشتەکراو</string>
     <string name="title_edit_profile">دەستکاری پرۆفایلەکەت بکە</string>
@@ -241,7 +240,6 @@
     <string name="add_poll_choice">زیادکردنی هەڵبژاردن</string>
     <string name="create_poll_title">ڕاپرسی</string>
     <string name="pref_title_enable_swipe_for_tabs">چالاککردنی ئاماژەکردنی لێدانی چالاک بۆ گۆڕین لە نێوان خشتەبەندەکان</string>
-    <string name="license_description">تاسکی کۆد و سەرمایەکانی تێدایە لەم پڕۆژە کراوەی سەرچاوە:</string>
     <string name="failed_search">گەڕانەکە سەرکەوتوو نەبوو</string>
     <string name="title_accounts">ئەژمێرەکان</string>
     <string name="report_description_remote_instance">هەژمارەلە ڕاژەیەکی دیکەیە ترە. کۆپیەکی بێ سەروبەر بنێرە بۆ ڕاپۆرتەکە لەوێ؟</string>
@@ -400,15 +398,7 @@
     <string name="post_media_images">وێنەکان</string>
     <string name="post_share_link">هاوبەشکردنی لینک بۆ توت</string>
     <string name="post_share_content">هاوبەشکردنی ناوەڕۆکی دووت</string>
-    <string name="about_pachli_account">پرۆفایلی تاسکی</string>
-    <string name="about_bug_feature_request_site">ڕاپۆرتەکانی هەڵەکان و داواکاریەکانی تایبەتمەندی:
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_project_site">وێبسایتی پڕۆژە:
-\nhttps://pachli.app</string>
-    <string name="about_pachli_license">توسکی سۆفتوێری ئازاد و سەرچاوەی کراوەیە مۆڵەتدراوە بە پێ نامەی گشتی GNU Public Version 3. دەتوانیت لێرە مۆڵەتەکە نیشان بدەی: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_powered_by_pachli">لەلایەن تاسکیەوە دەست کراوە بە</string>
     <string name="about_pachli_version">توسکی %s</string>
-    <string name="about_title_activity">سەبارەت</string>
     <string name="description_account_locked">هەژماری داخراو</string>
     <plurals name="notification_title_summary">
         <item quantity="other">%d چالاکی نوێ</item>

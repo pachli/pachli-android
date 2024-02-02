@@ -30,7 +30,6 @@
     <string name="title_follow_requests">Folgeanfragen</string>
     <string name="title_edit_profile">Dein Profil bearbeiten</string>
     <string name="title_drafts">Entwürfe</string>
-    <string name="title_licenses">Lizenzen</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s teilte</string>
     <string name="post_sensitive_media_title">Inhaltswarnung</string>
@@ -203,18 +202,12 @@
         <item quantity="other">%d neue Interaktionen</item>
     </plurals>
     <string name="description_account_locked">Geschütztes Profil</string>
-    <string name="about_title_activity">Über</string>
-    <string name="about_pachli_license">Pachli ist eine freie und quelloffene Software und ist lizenziert unter der GNU General Public License Version 3. Du kannst die Lizenz hier einsehen: https://www.gnu.org/licenses/gpl-3.0.de.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Website des Projekts: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Fehlermeldungen und Verbesserungsvorschläge:
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Profil von Pachli</string>
     <string name="post_share_content">Inhalt des Beitrags teilen</string>
     <string name="post_share_link">Link zum Beitrag teilen</string>
     <string name="post_media_images">Bilder</string>
@@ -272,7 +265,6 @@
     <string name="account_moved_description">%1$s ist umgezogen auf:</string>
     <string name="reblog_private">An ursprüngliches Publikum teilen</string>
     <string name="unreblog_private">Nicht mehr teilen</string>
-    <string name="license_description">Pachli enthält Code und Inhalte von den folgenden Open-Source-Projekten:</string>
     <string name="profile_metadata_label">Profil-Metadaten</string>
     <string name="profile_metadata_add">Feld hinzufügen</string>
     <string name="profile_metadata_label_label">Bezeichnung</string>
@@ -395,7 +387,6 @@
     <string name="title_bookmarks">Lesezeichen</string>
     <string name="action_bookmark">Lesezeichen</string>
     <string name="action_view_bookmarks">Lesezeichen</string>
-    <string name="about_powered_by_pachli">Unterstützt von Pachli</string>
     <string name="description_post_bookmarked">Als Lesezeichen gespeichert</string>
     <string name="select_list_title">Liste auswählen</string>
     <string name="select_list_empty">Du hast noch keine Listen</string>
@@ -633,15 +624,6 @@
     <string name="error_missing_edits">Deinem Server ist bekannt, dass dieser Beitrag bearbeitet wurde. Allerdings besitzt er keine Kopien der Änderungen, weshalb diese nicht angezeigt werden können.
 \n
 \nHierbei handelt es sich um <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon Issue #25398</a>.</string>
-    <string name="about_device_info_title">Dein Gerät</string>
-    <string name="about_device_info">%s %s
-\nAndroid-Version: %s
-\nSDK-Level: %d</string>
-    <string name="about_account_info_title">Dein Konto</string>
-    <string name="about_account_info">\@%s@%s
-\nVersion: %s</string>
-    <string name="about_copied">Version und Geräteinformationen kopiert</string>
-    <string name="about_copy">Version und Geräteinformationen kopieren</string>
     <string name="list_exclusive_label">Nicht in der Startseite anzeigen</string>
     <string name="error_media_upload_sending_fmt">Das Hochladen ist fehlgeschlagen: %s</string>
     <string name="ui_error_translate_status">Übersetzung fehlgeschlagen: %s</string>
@@ -671,7 +653,6 @@
     <string name="pref_title_show_self_boosts">Selbst geteilte Beiträge anzeigen</string>
     <string name="title_tab_public_trending_statuses">Beiträge</string>
     <string name="pref_update_notification_frequency_once_per_version">Einmal pro Version</string>
-    <string name="about_privacy_policy">Datenschutzrichtlinie</string>
     <string name="error_404_not_found">Dein Server unterstützt diese Funktion nicht</string>
     <string name="pref_title_font_family">Schriftfamilie</string>
     <string name="action_translate">Übersetzen</string>

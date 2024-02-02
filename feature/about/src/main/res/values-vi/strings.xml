@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">Thông tin</string>
+    <string name="about_device_info">%s %s
+\nAndroid %s
+\nSDK %d</string>
+    <string name="about_account_info_title">Tài khoản của bạn</string>
+    <string name="about_copied">Đã sao chép phiên bản và thông tin thiết bị</string>
+    <string name="about_device_info_title">Thiết bị của bạn</string>
+    <string name="about_copy">Sao chép phiên bản và thông tin thiết bị</string>
+    <string name="about_powered_by_pachli">Powered by Pachli</string>
+    <string name="about_pachli_license">Pachli là phần mềm mã nguồn mở, được phân phối với giấy phép GNU General Public License Version 3. Bạn có thể tham khảo thêm tại: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Website dự án: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Báo lỗi và đề xuất tính năng
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Trang hồ sơ Pachli</string>
+    <string name="title_licenses">Giấy phép</string>
+    <string name="about_account_info">\@%s@%s
+\nPhiên bản: %s</string>
+    <string name="license_description">Pachli có sử dụng mã nguồn từ những dự án mã nguồn mở sau:</string>
+</resources>

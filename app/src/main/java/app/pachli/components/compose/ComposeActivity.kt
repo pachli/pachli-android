@@ -73,7 +73,6 @@ import app.pachli.components.compose.dialog.makeFocusDialog
 import app.pachli.components.compose.dialog.showAddPollDialog
 import app.pachli.components.compose.view.ComposeOptionsListener
 import app.pachli.components.compose.view.ComposeScheduleView
-import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
@@ -81,6 +80,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.mastodonLength
+import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -92,8 +92,8 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.MentionSpan
 import app.pachli.databinding.ActivityComposeBinding
-import app.pachli.util.MentionSpan
 import app.pachli.util.PickMediaFiles
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList

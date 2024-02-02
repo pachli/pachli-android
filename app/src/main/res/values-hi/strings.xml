@@ -7,7 +7,6 @@
     <string name="action_view_account_preferences">खाता प्राथमिकताएं</string>
     <string name="action_edit_profile">प्रोफाइल एडिट करें</string>
     <string name="action_search">खोज</string>
-    <string name="about_title_activity">के बारे में</string>
     <string name="title_posts_with_replies">उत्तरों के साथ</string>
     <string name="title_followers">अनुगामी</string>
     <string name="action_reply">उत्तर दें</string>
@@ -54,15 +53,7 @@
     <string name="title_posts_pinned">पिन की गई</string>
     <string name="title_posts">पोस्ट</string>
     <string name="title_home">घर</string>
-    <string name="license_description">टस्की में निम्नलिखित ओपन सोर्स परियोजनाओं से कोड और संपत्ति हैं:</string>
     <string name="restart_emoji">इन परिवर्तनों को लागू करने के लिए आपको टस्की को पुनः आरंभ करना होगा</string>
-    <string name="about_pachli_account">टस्की की प्रोफाइल</string>
-    <string name="about_bug_feature_request_site">बग रिपोर्ट और सुविधा अनुरोध:
-\n https://github.com/pachli/pachli-android/issues</string>
-    <string name="about_project_site">परियोजना की वेबसाइट:
-\n https://pachli.app</string>
-    <string name="about_pachli_license">टस्की स्वतंत्र और ओपन-सोर्स सॉफ्टवेयर है। यह GNU जनरल पब्लिक लाइसेंस संस्करण 3 के तहत लाइसेंस प्राप्त है। आप लाइसेंस यहां देख सकते हैं: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_powered_by_pachli">टस्की द्वारा संचालित</string>
     <string name="about_pachli_version">टस्की %s</string>
     <string name="description_account_locked">बंद खाता</string>
     <string name="notification_summary_small">%1$s तथा %2$s</string>
@@ -176,7 +167,6 @@
     <string name="post_media_hidden_title">मीडिया छिपा हुआ</string>
     <string name="post_sensitive_media_title">संवेदनशील विषय वस्तु</string>
     <string name="post_username_format">\@%s</string>
-    <string name="title_licenses">लाइसेंस</string>
     <string name="title_view_thread">टूट</string>
     <string name="title_scheduled_posts">अनुसूचित टूट</string>
     <string name="title_domain_mutes">छिपे हुए डोमेन</string>

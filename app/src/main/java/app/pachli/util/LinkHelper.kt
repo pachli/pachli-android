@@ -32,6 +32,8 @@ import app.pachli.R
 import app.pachli.core.activity.EmojiSpan
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status.Mention
+import app.pachli.core.ui.MentionSpan
+import app.pachli.core.ui.NoUnderlineURLSpan
 import app.pachli.interfaces.LinkListener
 import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable

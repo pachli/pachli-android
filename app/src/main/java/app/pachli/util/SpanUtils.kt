@@ -10,6 +10,8 @@ import android.text.style.DynamicDrawableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
 import android.text.style.URLSpan
+import app.pachli.core.ui.MentionSpan
+import app.pachli.core.ui.NoUnderlineURLSpan
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import java.util.regex.Pattern

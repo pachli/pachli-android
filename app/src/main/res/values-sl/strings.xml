@@ -30,7 +30,6 @@
     <string name="title_follow_requests">Zahteve za Sledenje</string>
     <string name="title_edit_profile">Uredi svoj profil</string>
     <string name="title_drafts">Osnutki</string>
-    <string name="title_licenses">Licence</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_sensitive_media_title">Občutljiva vsebina</string>
     <string name="post_media_hidden_title">Medij je skrit</string>
@@ -188,14 +187,7 @@
         <item quantity="other">%d novih interakcij</item>
     </plurals>
     <string name="description_account_locked">Zaklenjen račun</string>
-    <string name="about_title_activity">O aplikaciji</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_pachli_license">Pachli je prosta in odprtokodna programska oprema. Licencirana je pod licenco GNU General Public License različice 3. Licenco si lahko ogledate tukaj: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_project_site">Spletna stran projekta:
-\nhttps://pachli.app</string>
-    <string name="about_bug_feature_request_site">Poročila o napakah in želje za nove funkcije:
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Profil Pachli</string>
     <string name="post_share_content">Deli vsebino tuta</string>
     <string name="post_share_link">Deli povezavo do tuta</string>
     <string name="post_media_images">Slike</string>
@@ -268,7 +260,6 @@
     <string name="account_moved_description">%1$s se je prestavil/a na:</string>
     <string name="reblog_private">Spodbudi izvirnemu občinstvu</string>
     <string name="unreblog_private">Prekini spodbudo</string>
-    <string name="license_description">Pachli vsebuje kodo in sredstva iz naslednjih odprtokodnih projektov:</string>
     <string name="profile_metadata_label">Metapodatki profila</string>
     <string name="profile_metadata_add">dodaj podatke</string>
     <string name="profile_metadata_label_label">Oznaka</string>
@@ -403,7 +394,6 @@
     <string name="action_access_scheduled_posts">Napovedani tuti</string>
     <string name="action_reset_schedule">Ponastavi</string>
     <string name="action_schedule_post">Napovej tut</string>
-    <string name="about_powered_by_pachli">Poganja ga Pachli</string>
     <string name="post_boosted_format">%s spodbudil</string>
     <string name="hashtags">Ključniki</string>
     <string name="notification_follow_request_name">Zahteve za Sledenje</string>

@@ -30,7 +30,6 @@
     <string name="title_follow_requests">Demandes d’abonnement</string>
     <string name="title_edit_profile">Modifier votre profil</string>
     <string name="title_drafts">Brouillons</string>
-    <string name="title_licenses">Licences</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s a partagé</string>
     <string name="post_sensitive_media_title">Contenu sensible</string>
@@ -204,24 +203,13 @@
         <item quantity="other">%d nouvelles interactions</item>
     </plurals>
     <string name="description_account_locked">Compte verrouillé</string>
-    <string name="about_title_activity">À propos</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_pachli_license">Pachli est une application libre et open source.
-        Elle est publiée sous licence publique générale GNU version 3.
-        Vous pouvez consulter la licence ici : https://www.gnu.org/licenses/gpl-3.0.fr.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">      Site du projet :\n
-      https://pachli.app
-    </string>
-    <string name="about_bug_feature_request_site">      Rapports d’anomalies &amp; demandes de fonctionnalités :\n
-      https://github.com/pachli/pachli-android/issues
-    </string>
-    <string name="about_pachli_account">Profil de Pachli</string>
     <string name="post_share_content">Partager le contenu du message</string>
     <string name="post_share_link">Partager le lien du message</string>
     <string name="post_media_images">Images</string>
@@ -296,7 +284,6 @@
     <string name="account_moved_description">%1$s a déménagé vers :</string>
     <string name="reblog_private">Partager à l’audience originale</string>
     <string name="unreblog_private">Annuler le partage</string>
-    <string name="license_description">Pachli contient du code et des ressources issus des projets open source suivants :</string>
     <string name="profile_metadata_label">Métadonnées du profil</string>
     <string name="profile_metadata_add">Ajouter des données</string>
     <string name="profile_metadata_label_label">Étiquette</string>
@@ -414,7 +401,6 @@
     <string name="action_access_scheduled_posts">Messages programmés</string>
     <string name="action_schedule_post">Planifier le message</string>
     <string name="action_reset_schedule">Réinitialiser</string>
-    <string name="about_powered_by_pachli">Propulsé par Pachli</string>
     <string name="title_bookmarks">Signets</string>
     <string name="action_bookmark">Marquer comme signet</string>
     <string name="action_view_bookmarks">Signets</string>

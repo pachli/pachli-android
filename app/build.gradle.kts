@@ -21,9 +21,6 @@ plugins {
     alias(libs.plugins.pachli.android.application)
     alias(libs.plugins.pachli.android.hilt)
     alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.aboutlibraries)
-
-    id("app.pachli.plugins.markdown2resource")
 }
 
 apply(from = "gitTools.gradle")
@@ -114,17 +111,6 @@ configurations {
     }
 }
 
-aboutLibraries {
-    configPath = "licenses"
-    includePlatform = false
-    duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
-    prettyPrint = true
-}
-
-markdown2resource {
-    files.add(layout.projectDirectory.file("../PRIVACY.md"))
-}
-
 dependencies {
     // CachedTimelineRemoteMediator needs the @Transaction annotation from Room
     compileOnly(libs.bundles.room)
@@ -133,11 +119,15 @@ dependencies {
     implementation(projects.core.accounts)
     implementation(projects.core.activity)
     implementation(projects.core.common)
+    implementation(projects.core.data)
     implementation(projects.core.database)
     implementation(projects.core.designsystem)
     implementation(projects.core.navigation)
     implementation(projects.core.network)
     implementation(projects.core.preferences)
+    implementation(projects.core.ui)
+
+    implementation(projects.feature.about)
     implementation(projects.feature.login)
 
     implementation(libs.kotlinx.coroutines.android)
@@ -150,7 +140,6 @@ dependencies {
     implementation(libs.gson)
 
     implementation(libs.bundles.retrofit)
-    implementation(libs.networkresult.calladapter)
 
     implementation(libs.bundles.okhttp)
 
@@ -179,7 +168,6 @@ dependencies {
 
     implementation(libs.bundles.xmldiff)
 
-    implementation(libs.bundles.aboutlibraries)
     implementation(libs.timber)
 
     googleImplementation(libs.app.update)

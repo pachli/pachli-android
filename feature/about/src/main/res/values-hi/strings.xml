@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">के बारे में</string>
+    <string name="about_powered_by_pachli">टस्की द्वारा संचालित</string>
+    <string name="about_pachli_license">टस्की स्वतंत्र और ओपन-सोर्स सॉफ्टवेयर है। यह GNU जनरल पब्लिक लाइसेंस संस्करण 3 के तहत लाइसेंस प्राप्त है। आप लाइसेंस यहां देख सकते हैं: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">परियोजना की वेबसाइट:
+\n https://pachli.app</string>
+    <string name="about_bug_feature_request_site">बग रिपोर्ट और सुविधा अनुरोध:
+\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">टस्की की प्रोफाइल</string>
+    <string name="title_licenses">लाइसेंस</string>
+    <string name="license_description">टस्की में निम्नलिखित ओपन सोर्स परियोजनाओं से कोड और संपत्ति हैं:</string>
+</resources>

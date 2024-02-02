@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">이 앱에 관하여</string>
+    <string name="about_pachli_license">Pachli는 무료이며 오픈 소스입니다. 이 프로젝트는 GNU General Public License Version 3에 의해 배포됩니다. 이 페이지에서 라이선스 전문(영문)을 열람하실 수 있습니다: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">프로젝트 홈페이지:
+\n https://pachli.app</string>
+    <string name="about_bug_feature_request_site">버그 신고/건의사항:
+\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Pachli 공식 계정</string>
+    <string name="title_licenses">라이선스</string>
+    <string name="license_description">Pachli에는 다음 오픈 소스 프로젝트의 요소/코드를 일부 활용하였습니다:</string>
+</resources>

@@ -42,5 +42,4 @@ dependencies {
 
     // Loading the logo
     implementation(libs.bundles.glide)
-    implementation(libs.networkresult.calladapter)
 }

@@ -43,7 +43,6 @@
     <string name="title_blocks">Заблакаваныя карыстальнікі</string>
     <string name="title_migration_relogin">Увайдзіце зноў, каб атрымліваць push-апавяшчэнні</string>
     <string name="title_announcements">Аб\'явы</string>
-    <string name="title_licenses">Ліцэнзіі</string>
     <string name="title_followed_hashtags">Падпіскі на хэштэгі</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s пашырыў(-ла)</string>
@@ -287,12 +286,7 @@
     <string name="notification_summary_medium">%1$s, %2$s ды %3$s</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s ды %4$d іншых</string>
     <string name="notification_summary_small">%1$s ды %2$s</string>
-    <string name="about_title_activity">Пра праграму</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_powered_by_pachli">Зроблена Pachli</string>
-    <string name="about_project_site">Вэбсайт праекту:
-\n https://pachli.app</string>
-    <string name="about_pachli_account">Профіль Pachli</string>
     <string name="post_share_content">Падзяліцца зместам допісу</string>
     <string name="post_share_link">Падзяліцца спасылкай на допіс</string>
     <string name="post_media_images">Выявы</string>
@@ -317,9 +311,6 @@
     <string name="replying_to">Адказ для @%s</string>
     <string name="pref_title_public_filter_keywords">Публічныя стужкі</string>
     <string name="pref_title_thread_filter_keywords">Размовы</string>
-    <string name="about_pachli_license">Pachli — свабодная праграма з адкрытым зыходным кодам. Зроблена пад GNU General Public License Version 3. Вы можаце паглядзець ліцэнзію тут: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_bug_feature_request_site">Справаздачы аб памылках і пажаданні:
-\n https://github.com/pachli/pachli-android/issues</string>
     <string name="filter_addition_title">Дадаць фільтр</string>
     <string name="follows_you">Вашы падпісчыкі</string>
     <string name="pref_title_alway_show_sensitive_media">Заўсёды паказваць далікатны змест</string>
@@ -415,7 +406,6 @@
     <string name="account_moved_description">%1$s пераехаў(-ла) да:</string>
     <string name="restart">Перазапусціць</string>
     <string name="reblog_private">Пашырыць для пачатковай аўдыторыі</string>
-    <string name="license_description">Pachli змяшчае код і рэсурсы з наступных праграм з адкрытым зыходным кодам:</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s і %2$s</string>
     <string name="description_post_media">Медыя: %s</string>

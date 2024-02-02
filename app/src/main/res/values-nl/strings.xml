@@ -30,7 +30,6 @@
     <string name="title_follow_requests">Volgverzoeken</string>
     <string name="title_edit_profile">Profiel bewerken</string>
     <string name="title_drafts">Concepten</string>
-    <string name="title_licenses">Licenties</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s boostte</string>
     <string name="post_sensitive_media_title">Gevoelige inhoud</string>
@@ -200,20 +199,13 @@
         <item quantity="other">%d nieuwe interacties</item>
     </plurals>
     <string name="description_account_locked">Besloten account</string>
-    <string name="about_title_activity">Over</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_pachli_license">Pachli is opensource- en vrije software. De licentie valt onder de GNU Algemene Publieke Licentie versie 3. Je kunt de licentie hier bekijken: https://www.gnu.org/licenses/gpl-3.0.nl.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Projectwebsite:
-\nhttps://pachli.app</string>
-    <string name="about_bug_feature_request_site">Foutmeldingen &amp; nieuwe functies aanvragen:
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Pachli\'s profiel</string>
     <string name="post_share_content">Inhoud van bericht delen</string>
     <string name="post_share_link">Link van het bericht delen</string>
     <string name="post_media_images">Afbeeldingen</string>
@@ -271,7 +263,6 @@
     <string name="account_moved_description">%1$s is verhuisd naar:</string>
     <string name="reblog_private">Boost naar oorspronkelijke ontvangers</string>
     <string name="unreblog_private">Niet langer boosten</string>
-    <string name="license_description">Pachli bevat broncode en onderdelen van de volgende opensourceprojecten:</string>
     <string name="profile_metadata_label">Metadata profiel</string>
     <string name="profile_metadata_add">Metadata toevoegen</string>
     <string name="profile_metadata_label_label">Label</string>
@@ -403,7 +394,6 @@
     <string name="action_access_scheduled_posts">Ingeplande berichten</string>
     <string name="action_schedule_post">Ingepland bericht</string>
     <string name="action_reset_schedule">Herstellen</string>
-    <string name="about_powered_by_pachli">Mogelijk gemaakt door Pachli</string>
     <string name="pref_title_alway_open_spoiler">Berichten met tekstwaarschuwingen altijd uitklappen</string>
     <string name="description_post_bookmarked">Als bladwijzer toegevoegd</string>
     <string name="select_list_title">Kies een lijst</string>
@@ -613,14 +603,6 @@
     <string name="notification_notification_worker">Meldingen ophalen…</string>
     <string name="notification_listenable_worker_name">Achtergrond activiteit</string>
     <string name="notification_listenable_worker_description">Meldingen als Pachli werkt op de achtergrond</string>
-    <string name="about_device_info">%s %s
-\nAndroid versie: %s
-\nSDK niveau: %d</string>
-    <string name="about_account_info_title">Je account</string>
-    <string name="about_account_info">\@%s@%s
-\nVersie: %s</string>
-    <string name="about_copy">Kopieer versie en apparaatinformatie</string>
-    <string name="about_copied">Versie en apparaatinformatie gekopieerd</string>
     <string name="error_media_upload_sending_fmt">De upload is mislukt: %s</string>
     <string name="socket_timeout_exception">Contact zoeken met je server duurde te lang</string>
     <string name="dialog_delete_filter_positive_action">Verwijder</string>
@@ -652,7 +634,6 @@
     <string name="announcement_date">%1$s %2$s</string>
     <string name="load_newest_statuses">Laad nieuwe posts</string>
     <string name="notification_report_description">Notificaties over moderatie rapporten</string>
-    <string name="about_device_info_title">Jouw apparaat</string>
     <string name="error_network_fmt">Er deed zich een netwerkfout voor: %s</string>
     <string name="dialog_save_profile_changes_message">Wil je je profiel wijzigingen opslaan?</string>
     <string name="error_generic_fmt">Er deed zich een fout voor: %s</string>
@@ -685,7 +666,6 @@
 \n ----
 \n</string>
     <string name="pref_update_notification_frequency_once_per_version">Eenmaal per versie</string>
-    <string name="about_privacy_policy">Privacy beleid</string>
     <string name="error_404_not_found">Je server beschikt niet over ondersteuning voor deze feature</string>
     <string name="pref_title_font_family">Lettertype-familie</string>
     <string name="list_exclusive_label">Verberg op de Thuis tijdlijn</string>

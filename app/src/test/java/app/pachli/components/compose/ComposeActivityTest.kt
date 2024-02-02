@@ -22,8 +22,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.PachliApplication
 import app.pachli.R
-import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.network.model.Account

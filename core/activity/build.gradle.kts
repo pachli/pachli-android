@@ -46,7 +46,6 @@ dependencies {
 
     // Loading avatars
     implementation(libs.bundles.glide)
-    implementation(libs.networkresult.calladapter)
 
     // BottomSheetActivityTest uses mockito
     testImplementation(libs.bundles.mockito)

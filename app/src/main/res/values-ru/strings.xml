@@ -30,7 +30,6 @@
     <string name="title_follow_requests">Запросы на подписку</string>
     <string name="title_edit_profile">Редактировать профиль</string>
     <string name="title_drafts">Черновики</string>
-    <string name="title_licenses">Лицензии</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s продвинул(а)</string>
     <string name="post_sensitive_media_title">Чувствительный контент</string>
@@ -209,16 +208,8 @@
         <item quantity="other">Новых событий: %d</item>
     </plurals>
     <string name="description_account_locked">Закрытый аккаунт</string>
-    <string name="about_title_activity">О приложении</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_pachli_license">Pachli — это свободное приложение с открытым исходным кодом. Выпускается по лицензии GNU General Public License Version 3. Вы можете прочитать текст лицензии здесь: https://www.gnu.org/licenses/gpl-3.0.ru.html</string>
     <!-- note to translators: the url can be changed to link to the localized version of the license -->
-    <string name="about_project_site">
-           Веб-сайт проекта:\n
-           https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Отчеты об ошибках и ваши пожелания:
-\n https://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Профиль Pachli</string>
     <string name="post_share_content">Поделиться содержанием гудка</string>
     <string name="post_share_link">Поделиться ссылкой на гудок</string>
     <string name="post_media_images">Изображения</string>
@@ -316,7 +307,6 @@
     <string name="account_moved_description">%1$s переехал(а) на:</string>
     <string name="reblog_private">Продвинуть для исходной аудитории</string>
     <string name="unreblog_private">Убрать продвижение</string>
-    <string name="license_description">Pachli содержит код и ассеты из следующих приложений с открытым исходным кодом:</string>
     <string name="profile_metadata_label">Метаданные профиля</string>
     <string name="profile_metadata_add">добавить данные</string>
     <string name="profile_metadata_label_label">Заголовок</string>
@@ -427,7 +417,6 @@
     <string name="title_bookmarks">Закладки</string>
     <string name="action_bookmark">Добавить в закладки</string>
     <string name="action_view_bookmarks">Закладки</string>
-    <string name="about_powered_by_pachli">Работает на Pachli</string>
     <string name="description_post_bookmarked">Добавлено в закладки</string>
     <string name="select_list_title">Выбрать список</string>
     <string name="list">Список</string>
