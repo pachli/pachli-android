@@ -36,6 +36,8 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.versionName
 import app.pachli.core.data.repository.InstanceInfoRepository
+import app.pachli.core.navigation.LicenseActivityIntent
+import app.pachli.core.navigation.PrivacyPolicyActivityIntent
 import app.pachli.core.ui.NoUnderlineURLSpan
 import app.pachli.feature.about.databinding.ActivityAboutBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -100,7 +102,7 @@ class AboutActivity : BottomSheetActivity() {
         binding.aboutBugsFeaturesInfoTextView.setClickableTextWithoutUnderlines(R.string.about_bug_feature_request_site)
 
         binding.aboutPrivacyPolicyTextView.setOnClickListener {
-            startActivity(app.pachli.core.navigation.PrivacyPolicyActivityIntent(this))
+            startActivity(PrivacyPolicyActivityIntent(this))
         }
 
         binding.appProfileButton.setOnClickListener {
@@ -108,7 +110,7 @@ class AboutActivity : BottomSheetActivity() {
         }
 
         binding.aboutLicensesButton.setOnClickListener {
-            startActivityWithSlideInAnimation(app.pachli.core.navigation.LicenseActivityIntent(this))
+            startActivityWithSlideInAnimation(LicenseActivityIntent(this))
         }
 
         binding.copyDeviceInfo.setOnClickListener {

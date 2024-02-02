@@ -18,7 +18,6 @@
 plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
-    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.aboutlibraries)
 
     id("app.pachli.plugins.markdown2resource")
