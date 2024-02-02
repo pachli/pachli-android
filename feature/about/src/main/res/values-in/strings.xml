@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">Tentang</string>
+    <string name="about_powered_by_pachli">Dipersembahkan oleh Pachli</string>
+    <string name="title_licenses">Lisensi</string>
+</resources>

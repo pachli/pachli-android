@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">विज्ञप्तिः</string>
+    <string name="about_powered_by_pachli">टस्कीत्यनेनाऽऽश्रितः</string>
+    <string name="about_pachli_license">टस्कीत्यनावृतस्रोतो निःशुल्कतन्त्रांशः। GNU General Public License Version 3 इत्यनेनाऽनुज्ञापितः। अत्राऽनुज्ञापत्रं द्रष्टुं शक्यते:-https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">प्रकल्पस्य जालसूत्रम् :
+\n https://pachli.app</string>
+    <string name="about_bug_feature_request_site">अशुद्धीनामावेदनं वैशिष्ट्यनिवेदनञ्च
+\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">टस्कीवर्यस्य व्यक्तिगतविवरणम्</string>
+    <string name="title_licenses">अनुज्ञापत्राणि</string>
+    <string name="license_description">टस्कीत्यस्मिन्निम्नलिखितेभ्योऽनावृतस्रोतःप्रकल्पेभ्यो विध्यादेशाः सन्ति:</string>
+</resources>

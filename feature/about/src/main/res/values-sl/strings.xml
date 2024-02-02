@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">O aplikaciji</string>
+    <string name="about_powered_by_pachli">Poganja ga Pachli</string>
+    <string name="about_pachli_license">Pachli je prosta in odprtokodna programska oprema. Licencirana je pod licenco GNU General Public License različice 3. Licenco si lahko ogledate tukaj: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Spletna stran projekta:
+\nhttps://pachli.app</string>
+    <string name="about_bug_feature_request_site">Poročila o napakah in želje za nove funkcije:
+\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Profil Pachli</string>
+    <string name="title_licenses">Licence</string>
+    <string name="license_description">Pachli vsebuje kodo in sredstva iz naslednjih odprtokodnih projektov:</string>
+</resources>

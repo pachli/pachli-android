@@ -31,7 +31,6 @@
     <string name="title_follow_requests">팔로우 요청</string>
     <string name="title_edit_profile">프로필 편집</string>
     <string name="title_drafts">임시 저장</string>
-    <string name="title_licenses">라이선스</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s님이 부스트 했습니다</string>
     <string name="post_sensitive_media_title">민감한 미디어</string>
@@ -215,20 +214,13 @@
         <item quantity="other">%d개의 새로운 알림이 있습니다</item>
     </plurals>
     <string name="description_account_locked">계정 잠김</string>
-    <string name="about_title_activity">이 앱에 관하여</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_pachli_license">Pachli는 무료이며 오픈 소스입니다. 이 프로젝트는 GNU General Public License Version 3에 의해 배포됩니다. 이 페이지에서 라이선스 전문(영문)을 열람하실 수 있습니다: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">프로젝트 홈페이지:
-\n https://pachli.app</string>
-    <string name="about_bug_feature_request_site">버그 신고/건의사항:
-\n https://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Pachli 공식 계정</string>
     <string name="post_share_content">이 툿의 내용 공유</string>
     <string name="post_share_link">이 툿의 링크 공유</string>
     <string name="post_media_images">사진</string>
@@ -305,7 +297,6 @@
     <string name="account_moved_description">%1$s는 계정을 이동했습니다:</string>
     <string name="reblog_private">원래의 수신자들에게 부스트</string>
     <string name="unreblog_private">부스트 해제</string>
-    <string name="license_description">Pachli에는 다음 오픈 소스 프로젝트의 요소/코드를 일부 활용하였습니다:</string>
     <string name="profile_metadata_label">프로필 메타데이터</string>
     <string name="profile_metadata_add">항목 추가</string>
     <string name="profile_metadata_label_label">라벨</string>

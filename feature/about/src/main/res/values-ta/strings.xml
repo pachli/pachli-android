@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">பற்றி</string>
+    <string name="about_pachli_license">Pachli ஒரு கட்டற்ற மற்றும் திறந்த மூல மென்பொருள். இதன் உரிமம் GNU General Public License(பொது உரிமம்) பதிப்பு 3 -ன் கீழ் உள்ளது. நீங்கள் உரிமம் பற்றி காண: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">        	திட்டத்தின் வலைத்தளம்:\n
+        https://pachli.app
+    </string>
+    <string name="about_bug_feature_request_site">        	பிழை அறிக்கைகள் &amp; அம்ச கோரிக்கைகள்:\n
+        https://github.com/pachli/pachli-android/issues
+    </string>
+    <string name="about_pachli_account">Pachli-ன் கணக்கு</string>
+    <string name="license_description">Pachli கொண்டுள்ள நிரல்  மற்றும் துணுக்குகள் பின்வரும் திறந்த மூல திட்டங்கள்:</string>
+</resources>

@@ -44,7 +44,6 @@
     <string name="post_share_link">Keppeling nei toot diele</string>
     <string name="post_share_content">Ynhâld fan toot diele</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_title_activity">Oer</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d nije ynteraksje</item>
         <item quantity="other">%d nije ynteraksjes</item>
@@ -203,7 +202,6 @@
     <string name="post_media_hidden_title">Media ferburgen</string>
     <string name="post_sensitive_media_title">Gefoelige ynhâld</string>
     <string name="post_username_format">\@%s</string>
-    <string name="title_licenses">Lisinsjes</string>
     <string name="title_scheduled_posts">Ynplanne toots</string>
     <string name="title_drafts">Sketsen</string>
     <string name="title_edit_profile">Jo profyl oanpasse</string>

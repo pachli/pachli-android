@@ -18,7 +18,6 @@
 plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
-    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -47,7 +46,6 @@ dependencies {
 
     // Loading avatars
     implementation(libs.bundles.glide)
-    implementation(libs.networkresult.calladapter)
 
     // Crash reporting in orange (Pachli Current) builds only
     orangeImplementation(libs.bundles.acra)

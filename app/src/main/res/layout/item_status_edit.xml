@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="\@Pachli edited 18th December 2022" />
 
-    <app.pachli.view.ClickableSpanTextView
+    <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/status_edit_content_warning_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -36,7 +36,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)
-    implementation(libs.networkresult.calladapter)
+    api(libs.networkresult.calladapter)
     implementation(libs.semver)
 
     testImplementation(libs.mockwebserver)

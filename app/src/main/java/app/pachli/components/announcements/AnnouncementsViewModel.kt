@@ -22,7 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.AnnouncementReadEvent
 import app.pachli.appstore.EventHub
-import app.pachli.components.instanceinfo.InstanceInfoRepository
+import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.retrofit.MastodonApi

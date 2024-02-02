@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">Um hugbúnaðinn</string>
+    <string name="about_powered_by_pachli">Keyrir á Pachli</string>
+    <string name="about_pachli_license">Pachli er frjáls hugbúnaður með opinn grunnkóða. Hann er gefinn út með GNU General Public notkunarleyfi, útgáfu 3. Þú getur skoðað notkunarleyfið hér: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Vefsvæði verkefnisins:
+\n https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Villutilkynningar og beiðnir um nýja eiginleika:
+\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_pachli_account">Notandasnið Pachli</string>
+    <string name="title_licenses">Notkunarleyfi</string>
+    <string name="license_description">Pachli inniheldur kóða og gögn frá eftirfarandi verkefnum með opinn grunnkóða:</string>
+</resources>

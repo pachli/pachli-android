@@ -29,8 +29,8 @@ import androidx.core.net.toUri
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
-import app.pachli.components.instanceinfo.InstanceInfo
 import app.pachli.core.common.string.randomAlphanumericString
+import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.network.ProgressRequestBody
 import app.pachli.util.MEDIA_SIZE_UNKNOWN

@@ -35,7 +35,6 @@
     <string name="title_follow_requests">Richieste di seguirti</string>
     <string name="title_edit_profile">Modifica il tuo profilo</string>
     <string name="title_drafts">Bozze</string>
-    <string name="title_licenses">Licenze</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s ha condiviso</string>
     <string name="post_sensitive_media_title">Contenuto sensibile</string>
@@ -218,25 +217,13 @@
     <string name="notification_notification_worker">Recupero notifiche…</string>
     <string name="notification_prune_cache">Pulizia cache…</string>
     <string name="description_account_locked">Account bloccato</string>
-    <string name="about_title_activity">A proposito</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_device_info_title">Il tuo dispositivo</string>
-    <string name="about_device_info">%s %s\nVersione Android: %s\nLivello SDK: %d</string>
-    <string name="about_account_info_title">Il tuo account</string>
-    <string name="about_account_info">\@%s\@%s\nVersione: %s</string>
-    <string name="about_pachli_license">Pachli è un programma libero ed open source.
-		È distribuito con licenza GNU General Public License Version 3.
-		Puoi leggere la licenza qui: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Sito web del progetto: https://pachli.app</string>
-    <string name="about_privacy_policy">Privacy policy</string>
-    <string name="about_bug_feature_request_site">Segnala problemi e richiedi funzionalità: https://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Profilo di Pachli</string>
     <string name="post_share_content">Condividi contenuto</string>
     <string name="post_share_link">Condividi collegamento</string>
     <string name="post_media_images">Immagini</string>
@@ -314,7 +301,6 @@
     <string name="account_moved_description">%1$s si è spostato su:</string>
     <string name="reblog_private">Condividi con la visibilità del messaggio originale</string>
     <string name="unreblog_private">Annulla condivisione</string>
-    <string name="license_description">Pachli contiene codice e risorse dai seguenti progetti open source:</string>
     <string name="profile_metadata_label">Metadati del profilo</string>
     <string name="profile_metadata_add">aggiungi dati</string>
     <string name="profile_metadata_label_label">Etichetta</string>
@@ -386,7 +372,6 @@
     <string name="action_edit">Modifica</string>
     <string name="action_view_bookmarks">Segnalibri</string>
     <string name="action_add_poll">Aggiungi sondaggio</string>
-    <string name="about_powered_by_pachli">Fatto usando Pachli</string>
     <string name="pref_title_alway_open_spoiler">Espandi sempre i messaggi segnalati come contenuto sensibile</string>
     <string name="description_post_bookmarked">Messo nei segnalibri</string>
     <string name="description_poll">Sondaggio con scelte: %1$s, %2$s, %3$s, %4$s; %5$s</string>
@@ -668,8 +653,6 @@
     <string name="error_missing_edits">Il tuo server sa che questo post è stato modificato, ma non ha una copia delle modifiche, quindi non ti può essere mostrato.
 \n
 \nQuesto è il <a href="https://github.com/mastodon/mastodon/issues/25398">problema Mastodon #25398</a>.</string>
-    <string name="about_copy">Copia la versione e le informazioni sul dispositivo</string>
-    <string name="about_copied">Versione e informazioni dispositivo copiate</string>
     <string name="error_media_playback">Riproduzione fallita: %s</string>
     <string name="dialog_delete_filter_text">Cancella filtro \'%1$s\'?"</string>
     <string name="dialog_delete_filter_positive_action">Cancella</string>

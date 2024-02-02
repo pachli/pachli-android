@@ -29,7 +29,6 @@
     <string name="title_follow_requests">フォローリクエスト</string>
     <string name="title_edit_profile">プロフィールを編集</string>
     <string name="title_drafts">下書き</string>
-    <string name="title_licenses">ライセンス</string>
     <string name="post_boosted_format">%sさんがブーストしました</string>
     <string name="post_sensitive_media_title">閲覧注意</string>
     <string name="post_media_hidden_title">非表示のメディア</string>
@@ -190,24 +189,13 @@
         <item quantity="other">%d件の新しい通知</item>
     </plurals>
     <string name="description_account_locked">非公開アカウント</string>
-    <string name="about_title_activity">このアプリについて</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_pachli_license">Pachliは無料のオープンソースソフトウェアです。<!--
-     -->GNU General Public License Version 3 の下で使用許諾されています。<!--
-     -->ライセンスはここからご覧いただけます： https://www.gnu.org/licenses/gpl-3.0.ja.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">        プロジェクトのWebサイト（英語）：\n
-        https://pachli.app
-    </string>
-    <string name="about_bug_feature_request_site">        バグ報告 &amp; 機能リクエスト（英語）：\n
-        https://github.com/pachli/pachli-android/issues
-    </string>
-    <string name="about_pachli_account">Pachli公式アカウント</string>
     <string name="post_share_content">投稿の内容を共有</string>
     <string name="post_share_link">投稿へのリンクを共有</string>
     <string name="post_media_images">画像</string>
@@ -269,7 +257,6 @@
     <string name="account_moved_description">%1$s は引っ越しました:</string>
     <string name="reblog_private">ブースト</string>
     <string name="unreblog_private">ブーストを解除</string>
-    <string name="license_description">Pachliは、以下のオープンソース プロジェクトからのコードとアセットを含んでいます:</string>
     <string name="profile_metadata_label">プロフィール メタデータ</string>
     <string name="profile_metadata_add">データを追加</string>
     <string name="profile_metadata_label_label">ラベル</string>
@@ -431,7 +418,6 @@
     <string name="mute_domain_warning">本当に %s のすべてをブロックするのですか？ そのドメインからのコンテンツは、公開タイムラインや通知に表示されなくなります。また、そのドメインのフォロワーは削除されます。</string>
     <string name="post_media_audio">音声</string>
     <string name="mute_domain_warning_dialog_ok">ドメイン全体を非表示</string>
-    <string name="about_powered_by_pachli">Pachliによって提供されています</string>
     <string name="delete_scheduled_post_warning">この予約投稿を削除しますか？</string>
     <string name="action_unbookmark">ブックマークを削除</string>
     <string name="action_delete_conversation">会話を削除</string>
@@ -627,7 +613,6 @@
     <string name="title_tab_public_trending_links">リンク</string>
     <string name="title_public_trending">トレンド</string>
     <string name="title_public_trending_statuses">トレンドの投稿</string>
-    <string name="about_device_info_title">あなたのデバイス</string>
     <string name="dialog_save_profile_changes_message">プロフィールの変更を保存しますか\?</string>
     <string name="error_generic_fmt">エラーが発生しました: %s</string>
     <string name="title_tab_public_trending_statuses">投稿</string>
@@ -648,18 +633,9 @@
     <string name="help_empty_home">これはあなたの<b>ホームタイムライン</b>です。あなたがフォローしているアカウントの最新のポストが表示されます。
 \n
 \nあなたのインスタンスのローカルタイムラインや他のタイムラインから、他のアカウントを見つけることができます（[iconics gmd_group]）。また、名前で検索することもできます（[iconics gmd_search]）；例えば、Pachliを検索すると、当社のMastodonアカウントを見つけることができます。</string>
-    <string name="about_copied">バージョンとデバイス情報をコピーしました</string>
-    <string name="about_privacy_policy">プライバシーポリシー</string>
     <string name="pref_title_font_family">フォント</string>
     <string name="list_exclusive_label">ホームタイムラインから隠す</string>
-    <string name="about_account_info">\@%s@%s
-\nバージョン: %s</string>
     <string name="description_poll">選択肢付きの投票: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="about_copy">バージョンとデバイス情報をコピーする</string>
-    <string name="about_device_info">%s %s
-\nAndroid バージョン: %s
-\nSDK レベル: %d</string>
-    <string name="about_account_info_title">あなたのアカウント</string>
     <string name="label_image">画像</string>
     <string name="status_filter_placeholder_label_format">フィルタ済み: %s</string>
     <string name="pref_title_show_self_boosts_description">自分の投稿をブーストすること</string>

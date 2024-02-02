@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="about_title_activity">À propos</string>
+    <string name="about_powered_by_pachli">Propulsé par Pachli</string>
+    <string name="about_pachli_license">Pachli est une application libre et open source.
+        Elle est publiée sous licence publique générale GNU version 3.
+        Vous pouvez consulter la licence ici : https://www.gnu.org/licenses/gpl-3.0.fr.html</string>
+    <string name="about_project_site">      Site du projet :\n
+      https://pachli.app
+    </string>
+    <string name="about_bug_feature_request_site">      Rapports d’anomalies &amp; demandes de fonctionnalités :\n
+      https://github.com/pachli/pachli-android/issues
+    </string>
+    <string name="about_pachli_account">Profil de Pachli</string>
+    <string name="title_licenses">Licences</string>
+    <string name="license_description">Pachli contient du code et des ressources issus des projets open source suivants :</string>
+</resources>

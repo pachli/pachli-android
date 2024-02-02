@@ -34,10 +34,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.adapter.AccountFieldEditAdapter
-import app.pachli.components.instanceinfo.InstanceInfoRepository
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.designsystem.R as DR
 import app.pachli.databinding.ActivityEditProfileBinding
 import app.pachli.util.Error

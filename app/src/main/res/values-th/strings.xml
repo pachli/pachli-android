@@ -89,7 +89,6 @@
     <string name="profile_metadata_label_label">ป้าย</string>
     <string name="profile_metadata_add">เพิ่มข้อมูล</string>
     <string name="profile_metadata_label">ข้อมูลอภิพันธุ์</string>
-    <string name="license_description">Pachli มีโค้ดและสินทรัพย์จากโครงการโอเพนซอร์สต่อไปนี้:</string>
     <string name="unreblog_private">ยกเลิกบูสต์</string>
     <string name="reblog_private">บูสต์โพสต์ต้นฉบับ</string>
     <string name="account_moved_description">%1$s ได้ย้ายไปที่ :</string>
@@ -164,13 +163,6 @@
     <string name="post_media_images">ภาพ</string>
     <string name="post_share_link">แบ่งปันลิงก์ Toot</string>
     <string name="post_share_content">แบ่งปันเนื้อหา Toot</string>
-    <string name="about_pachli_account">บัญชีทางการของ Pachli</string>
-    <string name="about_bug_feature_request_site">รายงานช่องโหว่ และ ขอฟีเจอร์ (ภาษาอังกฤษ):
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_project_site">เว็บไซต์โปรเจกต์:
-\nhttps://pachli.app</string>
-    <string name="about_pachli_license">Pachli คือซอฟต์แวร์เสรีและโอเพนซอร์ส ภายใต้สัญญาอนุญาต GNU General Public License Version 3 ดูสัญญาที่ : https://www.gnu.org/licenses/gpl-3.0.ja.html</string>
-    <string name="about_powered_by_pachli">ขับเคลื่อนด้วย Pachli</string>
     <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">บัญชีไม่สาธารณะ</string>
     <plurals name="notification_title_summary">
@@ -364,7 +356,6 @@
     <string name="post_sensitive_media_title">เนื้อหาอ่อนไหว</string>
     <string name="post_boosted_format">%s ได้ดัน</string>
     <string name="post_username_format">\@%s</string>
-    <string name="title_licenses">สัญญาอนุญาต</string>
     <string name="title_scheduled_posts">โพสต์แบบกำหนดเวลา</string>
     <string name="title_edit_profile">แก้ไขโปรไฟล์</string>
     <string name="title_follow_requests">คำขอติดตาม</string>
@@ -398,7 +389,6 @@
     <string name="error_generic">เกิดข้อผิดพลาด</string>
     <string name="title_lists">รายการ</string>
     <string name="action_lists">รายการ</string>
-    <string name="about_title_activity">เกี่ยวกับแอปนี้</string>
     <string name="action_reset_schedule">ล้างค่า</string>
     <string name="action_search">ค้นหา</string>
     <string name="action_edit_profile">แก้ไขโปรไฟล์</string>

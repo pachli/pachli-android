@@ -30,7 +30,6 @@
     <string name="title_follow_requests">Solicitudes</string>
     <string name="title_edit_profile">Editar tu perfil</string>
     <string name="title_drafts">Borradores</string>
-    <string name="title_licenses">Licencias</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s compartió</string>
     <string name="post_sensitive_media_title">Contenido sensible</string>
@@ -187,22 +186,13 @@
         <item quantity="other">%d nuevas interacciones</item>
     </plurals>
     <string name="description_account_locked">Cuenta protegida</string>
-    <string name="about_title_activity">Acerca de</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_pachli_license">Pachli es un software libre y de código abierto.
-        Está licenciado bajo la licencia \"GNU General Public License Version 3\".
-        Puedes leer sobre la misma en: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Sitio del proyecto: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">        Reporte de errores y peticiones de características:\n
-        https://github.com/pachli/pachli-android/issues
-    </string>
-    <string name="about_pachli_account">Perfil de Pachli</string>
     <string name="post_share_content">Compartir contenido</string>
     <string name="post_share_link">Compartir enlace</string>
     <string name="post_media_images">Imágenes</string>
@@ -262,7 +252,6 @@
     <string name="account_moved_description">%1$s se trasladó a:</string>
     <string name="reblog_private">Volver a compartir</string>
     <string name="unreblog_private">Dejar de compartir</string>
-    <string name="license_description">Pachli contiene código y recursos de los siguientes proyectos:</string>
     <string name="profile_metadata_label">Información adicional</string>
     <string name="profile_metadata_add">añadir campo</string>
     <string name="profile_metadata_label_label">Etiqueta</string>
@@ -416,7 +405,6 @@
     <string name="action_access_scheduled_posts">Estados programados</string>
     <string name="action_schedule_post">Programar estado</string>
     <string name="action_reset_schedule">Reiniciar</string>
-    <string name="about_powered_by_pachli">Potenciado por Pachli</string>
     <string name="title_bookmarks">Marcadores</string>
     <string name="action_bookmark">Marcador</string>
     <string name="action_view_bookmarks">Marcadores</string>
@@ -668,7 +656,6 @@
     <string name="title_public_trending_statuses">Publicaciones en tendencia</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="load_newest_statuses">Carga publicaciones más nuevas</string>
-    <string name="about_device_info_title">Tu dispositivo</string>
     <string name="error_network_fmt">Ha ocurrido un error de red: %s</string>
     <string name="dialog_save_profile_changes_message">¿Quieres guardar tus cambios de perfil?</string>
     <string name="error_generic_fmt">Ha ocurrido un error: %s</string>
@@ -683,9 +670,7 @@
     <string name="pref_title_show_self_boosts">Mostrar auto-impulsos</string>
     <string name="announcement_date_updated">(Actualizado: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Publicaciones</string>
-    <string name="about_copied">Informaciones de versión y dispositivo copiadas</string>
     <string name="pref_update_notification_frequency_once_per_version">Una vez por versión</string>
-    <string name="about_privacy_policy">Política de privacidad</string>
     <string name="error_404_not_found">Su servidor no soporta esta función</string>
     <string name="pref_title_font_family">Familia de fuente</string>
     <string name="notification_listenable_worker_description">Notificaciones cuando Pachli está trabajando en el fondo</string>
@@ -694,15 +679,8 @@
     <string name="error_missing_edits">Tu servidor sabe que esta publicación fue editada, pero no tiene una copia de las ediciones, así que no pueden ser asomados a ti.
 \n
 \nEsto es <a href="https://github.com/mastodon/mastodon/issues/25398">problema de Mastodon #25398</a>.</string>
-    <string name="about_account_info">\@%s@%s
-\nVersión: %s</string>
-    <string name="about_copy">Copiar las informaciones de versión y dispositivo</string>
     <string name="update_dialog_title">Una actualización está disponible</string>
-    <string name="about_device_info">%s %s
-\nVersión de Android: %s
-\nSDK nivel: %d</string>
     <string name="title_tab_public_trending_hashtags">Etiquetas</string>
-    <string name="about_account_info_title">Tu cuenta</string>
     <string name="label_image">Imagen</string>
     <string name="action_translate_undo">Deshace traducción</string>
     <string name="notification_prune_cache">Mantenimiento de caché…</string>

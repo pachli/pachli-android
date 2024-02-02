@@ -78,7 +78,6 @@
     <string name="post_sensitive_media_title">Contido sensible</string>
     <string name="post_boosted_format">%s promoveu</string>
     <string name="post_username_format">\@%s</string>
-    <string name="title_licenses">Licenzas</string>
     <string name="title_announcements">Anuncios</string>
     <string name="title_scheduled_posts">Toots programados</string>
     <string name="title_drafts">Borradores</string>
@@ -207,7 +206,6 @@
     <string name="profile_metadata_label_label">Etiqueta</string>
     <string name="profile_metadata_add">engadir datos</string>
     <string name="profile_metadata_label">Metadatos do perfil</string>
-    <string name="license_description">Pachli ten código e ferramentas dos seguintes proxectos de código aberto:</string>
     <string name="unreblog_private">Retirar promoción</string>
     <string name="reblog_private">Promover para a audiencia orixinal</string>
     <string name="account_moved_description">%1$s migrou a:</string>
@@ -286,14 +284,7 @@
     <string name="post_media_images">Imaxes</string>
     <string name="post_share_link">Compartir ligazón ao toot</string>
     <string name="post_share_content">Compartir contido do toot</string>
-    <string name="about_pachli_account">Perfil de Pachli</string>
-    <string name="about_bug_feature_request_site">Informar de fallos e solicitar funcións:
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_project_site">Web do proxecto: https://pachli.app</string>
-    <string name="about_pachli_license">Pachli é software libre e de código aberto. Está baixo a licenza GNU General Public License Version 3. Podes ver a licenza aquí: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_powered_by_pachli">Desenvolta por Pachli</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_title_activity">Acerca de</string>
     <string name="description_account_locked">Conta bloqueada</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d nova interacción</item>
@@ -627,15 +618,6 @@
     <string name="notification_notification_worker">Obtendo as notificacións…</string>
     <string name="notification_prune_cache">Mantemento da caché…</string>
     <string name="error_media_upload_sending_fmt">Fallou a subida: %s</string>
-    <string name="about_device_info_title">O teu dispositivo</string>
-    <string name="about_device_info">%s %s
-\nVersión de Android: %s
-\nVersión SDK: %d</string>
-    <string name="about_account_info_title">A túa conta</string>
-    <string name="about_account_info">\@%s@%s
-\nVersión: %s</string>
-    <string name="about_copied">Copiouse a información sobre o dispositivo e versión</string>
-    <string name="about_copy">Copiar a información da versión e o dispositivo</string>
     <string name="dialog_delete_filter_positive_action">Eliminar</string>
     <string name="list_exclusive_label">Agochar na cronoloxía de inicio</string>
     <string name="dialog_delete_filter_text">Eliminar o filtro \'%1$s\'\?</string>

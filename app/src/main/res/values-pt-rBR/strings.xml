@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Pedidos para te seguir</string>
     <string name="title_edit_profile">Editar perfil</string>
     <string name="title_drafts">Rascunhos</string>
-    <string name="title_licenses">Licenças</string>
     <string name="post_boosted_format">%s deu Boost</string>
     <string name="post_sensitive_media_title">Mídia sensível</string>
     <string name="post_media_hidden_title">Mídia sensível</string>
@@ -188,19 +187,13 @@
         <item quantity="other">%d novas interações</item>
     </plurals>
     <string name="description_account_locked">Perfil trancado</string>
-    <string name="about_title_activity">Sobre</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="about_pachli_license">Pachli é um software livre e de código aberto. Ele é licenciado sob a versão 3 da Licença Pública Geral GNU. Ela pode ser acessada aqui: https://www.gnu.org/licenses/gpl-3.0.pt-br.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">Sítio do projeto: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Relatos de falhas e solicitações de funcionalidades:
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Perfil do Pachli</string>
     <string name="post_share_content">Compartilhar conteúdo do Toot</string>
     <string name="post_share_link">Compartilhar URL do Toot</string>
     <string name="post_media_images">Imagens</string>
@@ -254,7 +247,6 @@
     <string name="account_moved_description">%1$s mudou-se para:</string>
     <string name="reblog_private">Dar Boost para o mesmo público</string>
     <string name="unreblog_private">Desfazer Boost</string>
-    <string name="license_description">O Pachli contém código e recursos dos seguintes projetos de código aberto:</string>
     <string name="profile_metadata_label">Metadados do perfil</string>
     <string name="profile_metadata_add">Adicionar dado</string>
     <string name="profile_metadata_label_label">Rótulo</string>
@@ -415,7 +407,6 @@
     <string name="title_bookmarks">Salvos</string>
     <string name="action_bookmark">Salvar</string>
     <string name="action_view_bookmarks">Salvos</string>
-    <string name="about_powered_by_pachli">Desenvolvido por Pachli</string>
     <string name="description_post_bookmarked">Salvo</string>
     <string name="select_list_title">Selecionar lista</string>
     <string name="list">Lista</string>
@@ -620,7 +611,6 @@
     <string name="select_list_manage">Gerenciar listas</string>
     <string name="load_newest_statuses">Carregar Toots mais recentes</string>
     <string name="notification_report_description">Notificações sobre denúncias da moderação</string>
-    <string name="about_device_info_title">Meu dispositivo</string>
     <string name="error_network_fmt">Ocorreu um erro de rede: %s</string>
     <string name="dialog_save_profile_changes_message">Quer salvar as alterações do teu perfil?</string>
     <string name="error_generic_fmt">Ocorreu um erro: %s</string>
@@ -653,14 +643,12 @@
     <string name="help_empty_home">Esta é a tua <b>linha do tempo inicial</b>. Ela mostra as postagens recentes das contas que você segue.
 \n
 \nPara explorar contas, pode descobri-las em uma das outras linhas do tempo. Por exemplo, a linha do tempo local da tua instância [iconics gmd_group]. Ou pode pesquisá-las por nome [iconics gmd_search]; por exemplo, pesquise Pachli para encontrar nossa conta Mastodon.</string>
-    <string name="about_copied">Versão e informações do dispositivo copiadas</string>
     <string name="pref_update_notification_frequency_once_per_version">Uma vez por versão</string>
     <string name="notification_report_name">Denúncias</string>
     <string name="filter_description_hide">Ocultar completamente</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="notification_summary_report_format">%s · %d Toots anexados</string>
     <string name="send_account_link_to">Compartilhar URL da conta para…</string>
-    <string name="about_privacy_policy">Política de privacidade</string>
     <string name="post_media_image">Imagem</string>
     <string name="error_404_not_found">Tua instância não suporta este recurso</string>
     <string name="filter_action_hide">Ocultar</string>
@@ -683,19 +671,12 @@
 \nA instância não pôde ser contatada ou rejeitou o Toot.</string>
     <string name="select_list_empty">Ainda não tens listas</string>
     <string name="label_filter_context">Contextos do filtro</string>
-    <string name="about_account_info">\@%s@%s
-\nVersão: %s</string>
     <string name="pref_title_account_filter_keywords">Perfis</string>
-    <string name="about_copy">Copiar a versão e as informações do dispositivo</string>
     <string name="label_filter_action">Ação do filtro</string>
     <string name="update_dialog_title">Uma atualização está disponível</string>
-    <string name="about_device_info">%s %s
-\nVersão do Android: %s
-\nNível SDK: %d</string>
     <string name="title_tab_public_trending_hashtags">Hashtags</string>
     <string name="filter_edit_keyword_title">Editar palavra-chave</string>
     <string name="filter_description_warn">Ocultar com um aviso</string>
-    <string name="about_account_info_title">Minha conta</string>
     <string name="label_image">Imagem</string>
     <string name="action_add">Adicionar</string>
     <string name="action_translate_undo">Desfazer tradução</string>

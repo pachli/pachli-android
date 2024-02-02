@@ -30,7 +30,6 @@
     <string name="title_follow_requests">關注請求</string>
     <string name="title_edit_profile">編輯個人資料</string>
     <string name="title_drafts">草稿</string>
-    <string name="title_licenses">開源授權</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s 轉嘟了</string>
     <string name="post_sensitive_media_title">敏感內容</string>
@@ -207,23 +206,12 @@
         <item quantity="other">%d 個新互動</item>
     </plurals>
     <string name="description_account_locked">鎖嘟用戶</string>
-    <string name="about_title_activity">關於 Pachli</string>
-    <string name="about_pachli_license">Pachli 是基於 GNU General Public License Version 3 許可證開源的自由軟體完整的許可證協議：https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
            to show we do not mean the software is gratis. Source: https://www.gnu.org/philosophy/free-sw.html
          * the url can be changed to link to the localized version of the license.
     -->
-    <string name="about_project_site">
-        專案網站：\n
-        https://pachli.app
-    </string>
-    <string name="about_bug_feature_request_site">
-        問題回報：\n
-        https://github.com/pachli/pachli-android/issues
-    </string>
-    <string name="about_pachli_account">Pachli 官方帳號</string>
     <string name="post_share_content">分享嘟文內容</string>
     <string name="post_share_link">分享嘟文連結</string>
     <string name="post_media_images">照片</string>
@@ -297,7 +285,6 @@
     <string name="account_moved_description">%1$s 已遷移到：</string>
     <string name="reblog_private">轉嘟（可見者不變）</string>
     <string name="unreblog_private">取消轉嘟</string>
-    <string name="license_description">Pachli 使用了以下開源專案的原始碼：</string>
     <string name="profile_metadata_label">個人資料附加資訊</string>
     <string name="profile_metadata_add">新增資訊</string>
     <string name="profile_metadata_label_label">標籤</string>

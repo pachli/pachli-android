@@ -2,7 +2,6 @@
 <resources>
     <string name="title_lists">Liostaichean</string>
     <string name="action_lists">Liostaichean</string>
-    <string name="about_title_activity">Mu dhèidhinn</string>
     <string name="action_reset_schedule">Ath-shuidhich</string>
     <string name="action_search">Lorg</string>
     <string name="action_view_account_preferences">Roghainnean a’ chunntais</string>
@@ -202,7 +201,6 @@
     <string name="profile_metadata_label_label">Leubail</string>
     <string name="profile_metadata_add">cuir dàta ris</string>
     <string name="profile_metadata_label">Meata-dàta na pròifile</string>
-    <string name="license_description">Tha còs is maoin o na pròiseactan open source seo am broinn Pachli:</string>
     <string name="unreblog_private">Na brosnaich tuilleadh</string>
     <string name="reblog_private">Brosnaich dhan èisteachd thùsail</string>
     <string name="account_moved_description">Chaidh %1$s a ghluasad gu:</string>
@@ -253,7 +251,6 @@
     <string name="pref_title_alway_open_spoiler">Leudaich postaichean ris a bheil rabhadh susbainte an-còmhnaidh</string>
     <string name="post_share_link">Co-roinn ceangal dhan phost</string>
     <string name="post_share_content">Co-roinn susbaint a’ phuist</string>
-    <string name="about_pachli_license">’S e bathar-bog saor le bun-tùs fosgailte a th’ ann an Pachli. Tha e fo cheadachas GNU General Public License tionndadh 3. Chì thu an ceadachas an-seo: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="notification_favourite_description">Brathan nuair a thèid post agad a chomharrachadh ’na annsachd</string>
     <string name="notification_boost_description">Brathan nuair a thèid post agad brosnachadh</string>
     <string name="dialog_redraft_post_warning">A bheil thu airson am post seo a sguabadh às is dreachd ùr a dhèanamh air\?</string>
@@ -298,11 +295,6 @@
     <string name="state_follow_requested">Iarrtas leantainn air</string>
     <string name="post_media_video">Videothan</string>
     <string name="post_media_images">Dealbhan</string>
-    <string name="about_pachli_account">Pròifil Pachli</string>
-    <string name="about_bug_feature_request_site">Aithrisean air bugaichean ⁊ iarrtasan air gleusan:
-\nhttps://github.com/pachli/pachli-android/issues</string>
-    <string name="about_project_site">Làrach-lìn a’ phròiseict: https://pachli.app</string>
-    <string name="about_powered_by_pachli">Le cumhachd Pachli</string>
     <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Cunntas glaiste</string>
     <plurals name="notification_title_summary">
@@ -462,7 +454,6 @@
     <string name="post_sensitive_media_title">Susbaint fhrionasach</string>
     <string name="post_boosted_format">’Ga bhrosnachadh le %s</string>
     <string name="post_username_format">\@%s</string>
-    <string name="title_licenses">Ceadachasan</string>
     <string name="title_follow_requests">Iarrtasan leantainn</string>
     <string name="title_domain_mutes">Àrainnean falaichte</string>
     <string name="title_blocks">Cleachdaichean bacte</string>
@@ -648,15 +639,6 @@
     <string name="notification_listenable_worker_description">Brathan nuair a bhios Pachli ag obair sa chùlaibh</string>
     <string name="notification_notification_worker">A’ faighinn nam brathan…</string>
     <string name="notification_prune_cache">Obair-ghlèidhidh air an tasgadan…</string>
-    <string name="about_device_info_title">An t-uidheam agad</string>
-    <string name="about_device_info">%s %s
-\nTionndadh dhe Android: %s
-\nTionndadh dhen SDK: %d</string>
-    <string name="about_account_info_title">An cunntas agad</string>
-    <string name="about_account_info">\@%s@%s
-\nTionndadh: %s</string>
-    <string name="about_copy">Dèan lethbhreac de thionndadh is fiosrachadh an uidheim</string>
-    <string name="about_copied">Chaidh lethbhreac de thionndadh is fiosrachadh an uidheim a dhèanamh</string>
     <string name="list_exclusive_label">Falaich o loidhne-ama na dachaigh</string>
     <string name="error_media_upload_sending_fmt">Dh’fhàillig leis an luchdadh suas: %s</string>
 </resources>

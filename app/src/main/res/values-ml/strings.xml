@@ -7,7 +7,6 @@
     <string name="action_view_account_preferences">അക്കൗണ്ട് മുൻഗണനകൾ</string>
     <string name="action_edit_profile">പ്രൊഫൈൽ തിരുത്തുക</string>
     <string name="action_search">തിരയുക</string>
-    <string name="about_title_activity">വിവരം</string>
     <string name="action_lists">പട്ടികകൾ</string>
     <string name="title_lists">പട്ടികകൾ</string>
     <string name="error_generic">ഒരു പിഴവ് സംഭവിച്ചിരിക്കുന്നു.</string>
@@ -59,7 +58,6 @@
     <string name="post_sensitive_media_directions">തുറന്ന് കാണുവാൻ</string>
     <string name="post_media_hidden_title">മറയ്ക്കപ്പെട്ട മീഡിയ</string>
     <string name="post_sensitive_media_title">സെൻസിറ്റീവ് ഉള്ളടക്കം</string>
-    <string name="title_licenses">അനുവാദം</string>
     <string name="title_scheduled_posts">മുന്‍നിശ്ചയിച്ച ടൂറ്റ്‌സ്</string>
     <string name="title_bookmarks">ബുക് മാർക്ക്</string>
     <string name="action_reset_schedule">പുനഃക്രമീകരിക്കുക</string>
