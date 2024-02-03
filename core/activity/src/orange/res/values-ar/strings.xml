@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="acra_dialog_title">لقد تحطّم %1$s</string>
+    <string name="acra_email_body">سترسل هذه البيانات إلى المطورين.
+\n
+\n يرجى التحقق للتأكد من أنها لا تشمل أي شيء لا تود مشاركته، ويرجى وصف ما كنت تفعل عندما وقع الحادث.
+\n
+\n ----
+\nوصفك هنا:
+\n
+\n ----
+\n</string>
 </resources>
