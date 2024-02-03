@@ -20,7 +20,7 @@ plugins {
 }
 
 application {
-    mainClass.set("app.pachli.mkserverversions.MainKt")
+    mainClass = "app.pachli.mkserverversions.MainKt"
 }
 
 dependencies {
@@ -44,6 +44,6 @@ tasks.test {
 
 apollo {
     service("service") {
-        packageName.set("app.pachli.mkserverversions.fediverseobserver")
+        packageName = "app.pachli.mkserverversions.fediverseobserver"
     }
 }

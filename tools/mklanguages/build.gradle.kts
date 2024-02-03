@@ -16,7 +16,7 @@
  */
 
 application {
-    mainClass.set("app.pachli.mklanguages.MainKt")
+    mainClass = "app.pachli.mklanguages.MainKt"
 }
 
 dependencies {

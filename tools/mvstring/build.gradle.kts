@@ -16,7 +16,7 @@
  */
 
 application {
-    mainClass.set("app.pachli.mvstring.MainKt")
+    mainClass = "app.pachli.mvstring.MainKt"
 }
 
 dependencies {
