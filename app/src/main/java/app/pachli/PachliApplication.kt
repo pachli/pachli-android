@@ -25,6 +25,7 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import app.pachli.components.notifications.createWorkerNotificationChannel
+import app.pachli.core.activity.TreeRing
 import app.pachli.core.activity.initCrashReporter
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.NEW_INSTALL_SCHEMA_VERSION
@@ -81,7 +82,10 @@ class PachliApplication : Application() {
 
         AutoDisposePlugins.setHideProxies(false) // a small performance optimization
 
-        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
+        when {
+            BuildConfig.DEBUG -> Timber.plant(Timber.DebugTree())
+            BuildConfig.FLAVOR_color == "orange" -> Timber.plant(TreeRing)
+        }
 
         // Migrate shared preference keys and defaults from version to version.
         val oldVersion = sharedPreferencesRepository.getInt(PrefKeys.SCHEMA_VERSION, NEW_INSTALL_SCHEMA_VERSION)

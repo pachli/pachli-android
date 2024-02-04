@@ -18,7 +18,14 @@
 package app.pachli.core.activity
 
 import android.app.Application
+import timber.log.Timber
 
 /** Do nothing in blue builds */
 fun initCrashReporter(app: Application) {}
 fun triggerCrashReport() {}
+
+object TreeRing : Timber.Tree() {
+    override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
+        // Do nothing
+    }
+}
