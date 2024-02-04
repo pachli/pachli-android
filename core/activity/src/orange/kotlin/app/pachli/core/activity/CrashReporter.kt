@@ -18,12 +18,21 @@
 package app.pachli.core.activity
 
 import android.app.Application
+import android.content.Context
+import android.util.Log
 import app.pachli.core.designsystem.R as DR
+import com.google.auto.service.AutoService
+import java.time.Instant
 import org.acra.ACRA
+import org.acra.builder.ReportBuilder
+import org.acra.collector.Collector
+import org.acra.config.CoreConfiguration
 import org.acra.config.dialog
 import org.acra.config.mailSender
+import org.acra.data.CrashReportData
 import org.acra.data.StringFormat
 import org.acra.ktx.initAcra
+import timber.log.Timber
 
 /**
  * Initialise ACRA.
@@ -53,4 +62,65 @@ fun initCrashReporter(app: Application) {
  */
 fun triggerCrashReport() {
     ACRA.errorReporter.handleException(null, false)
+}
+
+/**
+ * [Timber.Tree] that logs in to ring buffer, keeping the most recent 1,000 log
+ * entries.
+ */
+object TreeRing : Timber.DebugTree() {
+    /**
+     * Store the components of a log line without doing any formatting or other
+     * work at logging time.
+     */
+    data class LogEntry(
+        val instant: Instant,
+        val priority: Int,
+        val tag: String?,
+        val message: String,
+        val t: Throwable?,
+    )
+
+    val buffer = RingBuffer<LogEntry>(1000)
+
+    override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
+        buffer.add(LogEntry(Instant.now(), priority, tag, message, t))
+    }
+}
+
+/**
+ * Acra collector that appends the contents of the [TreeRing] log to the Acra
+ * report.
+ */
+@AutoService(Collector::class)
+class TreeRingCollector : Collector {
+    /** Map log priority values to characters to use when displaying the log */
+    private val priority = mapOf(
+        Log.VERBOSE to 'V',
+        Log.DEBUG to 'D',
+        Log.INFO to 'I',
+        Log.WARN to 'W',
+        Log.ERROR to 'E',
+        Log.ASSERT to 'A',
+    )
+
+    override fun collect(
+        context: Context,
+        config: CoreConfiguration,
+        reportBuilder: ReportBuilder,
+        crashReportData: CrashReportData,
+    ) {
+        crashReportData.put(
+            "TreeRing",
+            TreeRing.buffer.toList().joinToString("\n") {
+                "%s %c/%s: %s%s".format(
+                    it.instant.toString(),
+                    priority[it.priority] ?: '?',
+                    it.tag,
+                    it.message,
+                    it.t?.let { t -> " $t" } ?: "",
+                )
+            },
+        )
+    }
 }

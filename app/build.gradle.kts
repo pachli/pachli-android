@@ -53,6 +53,10 @@ android {
         }
     }
 
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
+
     packaging {
         resources.excludes.apply {
             add("LICENSE_OFL")
@@ -112,6 +116,8 @@ configurations {
 }
 
 dependencies {
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
     // CachedTimelineRemoteMediator needs the @Transaction annotation from Room
     compileOnly(libs.bundles.room)
     testCompileOnly(libs.bundles.room)
