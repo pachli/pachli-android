@@ -35,7 +35,7 @@ dependencies {
 
     // Testing
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.1") // for parameterized tests
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2") // for parameterized tests
 }
 
 tasks.test {
