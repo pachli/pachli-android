@@ -17,137 +17,83 @@
 
 package app.pachli.feature.about
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.os.Build
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.method.LinkMovementMethod
-import android.text.style.URLSpan
-import android.text.util.Linkify
-import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.StringRes
-import androidx.lifecycle.lifecycleScope
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import app.pachli.core.activity.BottomSheetActivity
-import app.pachli.core.common.extensions.hide
-import app.pachli.core.common.extensions.show
-import app.pachli.core.common.util.versionName
-import app.pachli.core.data.repository.InstanceInfoRepository
-import app.pachli.core.navigation.LicenseActivityIntent
-import app.pachli.core.navigation.PrivacyPolicyActivityIntent
-import app.pachli.core.ui.NoUnderlineURLSpan
+import app.pachli.core.designsystem.R as DR
+import app.pachli.core.ui.reduceSwipeSensitivity
 import app.pachli.feature.about.databinding.ActivityAboutBinding
+import com.bumptech.glide.request.target.FixedSizeDrawable
+import com.google.android.material.tabs.TabLayoutMediator
+import com.mikepenz.aboutlibraries.LibsBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AboutActivity : BottomSheetActivity() {
-    @Inject
-    lateinit var instanceInfoRepository: InstanceInfoRepository
-
+class AboutActivity : BottomSheetActivity(), MenuProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.includedToolbar.toolbar)
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.run {
+            val navIconSize = resources.getDimensionPixelSize(DR.dimen.avatar_toolbar_nav_icon_size)
+            navigationIcon = FixedSizeDrawable(
+                AppCompatResources.getDrawable(this@AboutActivity, DR.mipmap.ic_launcher),
+                navIconSize,
+                navIconSize,
+            )
+        }
         supportActionBar?.run {
-            setDisplayHomeAsUpEnabled(true)
+            setTitle(R.string.app_name)
             setDisplayShowHomeEnabled(true)
         }
 
-        setTitle(R.string.about_title_activity)
+        val adapter = AboutFragmentAdapter(this)
+        binding.pager.adapter = adapter
+        binding.pager.reduceSwipeSensitivity()
 
-        binding.versionTextView.text = getString(
-            R.string.about_app_version,
-            getString(
-                R.string.app_name,
-            ),
-            versionName(this),
+        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
+            tab.text = adapter.title(position)
+        }.attach()
+
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                @SuppressLint("SyntheticAccessor")
+                override fun handleOnBackPressed() {
+                    if (binding.pager.currentItem != 0) binding.pager.currentItem = 0 else finish()
+                }
+            },
         )
-
-        binding.deviceInfo.text = getString(
-            R.string.about_device_info,
-            Build.MANUFACTURER,
-            Build.MODEL,
-            Build.VERSION.RELEASE,
-            Build.VERSION.SDK_INT,
-        )
-
-        lifecycleScope.launch {
-            accountManager.activeAccount?.let { account ->
-                val instanceInfo = instanceInfoRepository.getInstanceInfo()
-                binding.accountInfo.text = getString(
-                    R.string.about_account_info,
-                    account.username,
-                    account.domain,
-                    instanceInfo.version,
-                )
-                binding.accountInfoTitle.show()
-                binding.accountInfo.show()
-            }
-        }
-
-        if (BuildConfig.CUSTOM_INSTANCE.isBlank()) {
-            binding.aboutPoweredBy.hide()
-        }
-
-        binding.aboutLicenseInfoTextView.setClickableTextWithoutUnderlines(R.string.about_pachli_license)
-        binding.aboutWebsiteInfoTextView.setClickableTextWithoutUnderlines(R.string.about_project_site)
-        binding.aboutBugsFeaturesInfoTextView.setClickableTextWithoutUnderlines(R.string.about_bug_feature_request_site)
-
-        binding.aboutPrivacyPolicyTextView.setOnClickListener {
-            startActivity(PrivacyPolicyActivityIntent(this))
-        }
-
-        binding.appProfileButton.setOnClickListener {
-            viewUrl(BuildConfig.SUPPORT_ACCOUNT_URL)
-        }
-
-        binding.aboutLicensesButton.setOnClickListener {
-            startActivityWithSlideInAnimation(LicenseActivityIntent(this))
-        }
-
-        binding.copyDeviceInfo.setOnClickListener {
-            val text = "${binding.versionTextView.text}\n\nDevice:\n\n${binding.deviceInfo.text}\n\nAccount:\n\n${binding.accountInfo.text}"
-            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("Pachli version information", text)
-            clipboard.setPrimaryClip(clip)
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                Toast.makeText(
-                    this,
-                    getString(R.string.about_copied),
-                    Toast.LENGTH_SHORT,
-                ).show()
-            }
-        }
     }
 }
 
-internal fun TextView.setClickableTextWithoutUnderlines(@StringRes textId: Int) {
-    val text = SpannableString(context.getText(textId))
+class AboutFragmentAdapter(val activity: FragmentActivity) : FragmentStateAdapter(activity) {
+    override fun getItemCount() = 3
 
-    Linkify.addLinks(text, Linkify.WEB_URLS)
-
-    val builder = SpannableStringBuilder(text)
-    val urlSpans = text.getSpans(0, text.length, URLSpan::class.java)
-    for (span in urlSpans) {
-        val start = builder.getSpanStart(span)
-        val end = builder.getSpanEnd(span)
-        val flags = builder.getSpanFlags(span)
-
-        val customSpan = NoUnderlineURLSpan(span.url)
-
-        builder.removeSpan(span)
-        builder.setSpan(customSpan, start, end, flags)
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> AboutFragment.newInstance()
+            1 -> LibsBuilder().supportFragment()
+            2 -> PrivacyPolicyFragment.newInstance()
+            else -> throw IllegalStateException()
+        }
     }
 
-    setText(builder)
-    linksClickable = true
-    movementMethod = LinkMovementMethod.getInstance()
+    fun title(position: Int): CharSequence {
+        return when (position) {
+            0 -> "About"
+            1 -> activity.getString(R.string.title_licenses)
+            2 -> activity.getString(R.string.about_privacy_policy)
+            else -> throw IllegalStateException()
+        }
+    }
 }

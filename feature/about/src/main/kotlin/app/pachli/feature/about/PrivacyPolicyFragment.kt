@@ -19,17 +19,23 @@ package app.pachli.feature.about
 
 import android.os.Bundle
 import android.util.Base64
-import app.pachli.core.activity.BaseActivity
-import app.pachli.feature.about.databinding.ActivityPrivacyPolicyBinding
+import android.view.View
+import androidx.fragment.app.Fragment
+import app.pachli.core.common.extensions.viewBinding
+import app.pachli.feature.about.databinding.FragmentPrivacyPolicyBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PrivacyPolicyActivity : BaseActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = ActivityPrivacyPolicyBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+class PrivacyPolicyFragment : Fragment(R.layout.fragment_privacy_policy) {
+    private val binding by viewBinding(FragmentPrivacyPolicyBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val encoded = Base64.encodeToString(markdownR.html.PRIVACY_md.toByteArray(), Base64.NO_PADDING)
         binding.policy.loadData(encoded, "text/html", "base64")
+    }
+
+    companion object {
+        fun newInstance() = PrivacyPolicyFragment()
     }
 }
