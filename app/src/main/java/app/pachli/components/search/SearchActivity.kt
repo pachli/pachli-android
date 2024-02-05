@@ -31,8 +31,8 @@ import app.pachli.components.search.adapter.SearchPagerAdapter
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.reduceSwipeSensitivity
 import app.pachli.databinding.ActivitySearchBinding
-import app.pachli.util.reduceSwipeSensitivity
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -549,12 +549,6 @@ class InstanceListActivityIntent(context: Context) : Intent() {
     }
 }
 
-class LicenseActivityIntent(context: Context) : Intent() {
-    init {
-        setClassName(context, QuadrantConstants.LICENSE_ACTIVITY)
-    }
-}
-
 class ListActivityIntent(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.LISTS_ACTIVITY)
@@ -564,12 +558,6 @@ class ListActivityIntent(context: Context) : Intent() {
 class LoginWebViewActivityIntent(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.LOGIN_WEB_VIEW_ACTIVITY)
-    }
-}
-
-class PrivacyPolicyActivityIntent(context: Context) : Intent() {
-    init {
-        setClassName(context, QuadrantConstants.PRIVACY_POLICY_ACTIVITY)
     }
 }
 

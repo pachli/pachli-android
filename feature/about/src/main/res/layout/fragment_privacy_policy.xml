@@ -18,4 +18,6 @@
 <WebView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/policy"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/text_content_margin"
+    android:layout_marginEnd="@dimen/text_content_margin" />
