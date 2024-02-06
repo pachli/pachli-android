@@ -227,6 +227,7 @@ class ViewVideoFragment : ViewMediaFragment() {
                 }
             }
 
+            @SuppressLint("SyntheticAccessor")
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 binding.videoView.keepScreenOn = isPlaying
 

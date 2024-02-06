@@ -3440,28 +3440,6 @@
     </issue>
 
     <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `getBinding` of class `ViewVideoFragment` requires synthetic accessor"
-        errorLine1="                binding.videoView.keepScreenOn = isPlaying"
-        errorLine2="                ~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="231"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `hideToolbarAfterDelay` of class `ViewVideoFragment` requires synthetic accessor"
-        errorLine1="                    hideToolbarAfterDelay()"
-        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="235"
-            column="21"/>
-    </issue>
-
-    <issue
         id="TypographyDashes"
         message="Replace &quot;--&quot; with an &quot;em dash&quot; character (—, &amp;#8212;) ?"
         errorLine1="    &lt;string name=&quot;poll_info_format&quot;>&quot; &amp;lt;!-- 15 votes • 1 hour left --&amp;gt; %1$s • %2$s&quot;&lt;!-- 15 votes • 1 hour left -->"
