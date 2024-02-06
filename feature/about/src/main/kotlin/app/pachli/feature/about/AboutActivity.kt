@@ -90,7 +90,7 @@ class AboutFragmentAdapter(val activity: FragmentActivity) : FragmentStateAdapte
 
     fun title(position: Int): CharSequence {
         return when (position) {
-            0 -> "About"
+            0 -> activity.getString(R.string.about_title_activity)
             1 -> activity.getString(R.string.title_licenses)
             2 -> activity.getString(R.string.about_privacy_policy)
             else -> throw IllegalStateException()
