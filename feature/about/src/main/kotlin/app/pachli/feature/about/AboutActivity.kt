@@ -17,7 +17,6 @@
 
 package app.pachli.feature.about
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
@@ -67,7 +66,6 @@ class AboutActivity : BottomSheetActivity(), MenuProvider {
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
-                @SuppressLint("SyntheticAccessor")
                 override fun handleOnBackPressed() {
                     if (binding.pager.currentItem != 0) binding.pager.currentItem = 0 else finish()
                 }

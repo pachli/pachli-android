@@ -17,7 +17,6 @@
 
 package app.pachli.components.trending
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -69,7 +68,6 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
-                @SuppressLint("SyntheticAccessor")
                 override fun handleOnBackPressed() {
                     if (binding.pager.currentItem != 0) binding.pager.currentItem = 0 else finish()
                 }

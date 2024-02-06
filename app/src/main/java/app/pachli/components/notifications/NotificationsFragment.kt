@@ -161,7 +161,6 @@ class NotificationsFragment :
                     actionButton?.visible(viewModel.uiState.value.showFabWhileScrolling || dy == 0)
                 }
 
-                @Suppress("SyntheticAccessor")
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     newState != SCROLL_STATE_IDLE && return
 
