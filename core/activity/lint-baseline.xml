@@ -13,17 +13,6 @@
     </issue>
 
     <issue
-        id="SyntheticAccessor"
-        message="Access to `private` method `textStyle` of class `Companion` requires synthetic accessor"
-        errorLine1="            textStyle(sharedPreferencesRepository.getString(PrefKeys.STATUS_TEXT_SIZE, &quot;medium&quot;)!!)"
-        errorLine2="            ~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/activity/BaseActivity.kt"
-            line="104"
-            column="13"/>
-    </issue>
-
-    <issue
         id="SelectableText"
         message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
         errorLine1="    &lt;TextView"

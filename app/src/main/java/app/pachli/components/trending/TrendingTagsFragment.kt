@@ -17,7 +17,6 @@
 
 package app.pachli.components.trending
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -90,7 +89,6 @@ class TrendingTagsFragment :
 
         adapter.registerAdapterDataObserver(
             object : RecyclerView.AdapterDataObserver() {
-                @SuppressLint("SyntheticAccessor")
                 override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                     if (positionStart == 0 && adapter.itemCount != itemCount) {
                         binding.recyclerView.post {

@@ -211,7 +211,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         }
 
         mediaPlayerListener = object : Player.Listener {
-            @SuppressLint("ClickableViewAccessibility", "SyntheticAccessor")
+            @SuppressLint("ClickableViewAccessibility")
             @OptIn(UnstableApi::class)
             override fun onPlaybackStateChanged(playbackState: Int) {
                 when (playbackState) {
@@ -238,7 +238,6 @@ class ViewVideoFragment : ViewMediaFragment() {
                 }
             }
 
-            @SuppressLint("SyntheticAccessor")
             override fun onPlayerError(error: PlaybackException) {
                 binding.progressBar.hide()
                 val message = getString(
@@ -337,7 +336,6 @@ class ViewVideoFragment : ViewMediaFragment() {
             mediaAttachment.previewUrl?.let { url ->
                 Glide.with(this).load(url).into(
                     object : CustomTarget<Drawable>() {
-                        @SuppressLint("SyntheticAccessor")
                         override fun onResourceReady(
                             resource: Drawable,
                             transition: Transition<in Drawable>?,
@@ -346,7 +344,6 @@ class ViewVideoFragment : ViewMediaFragment() {
                             binding.videoView.defaultArtwork = resource
                         }
 
-                        @SuppressLint("SyntheticAccessor")
                         override fun onLoadCleared(placeholder: Drawable?) {
                             view ?: return
                             binding.videoView.defaultArtwork = null
@@ -408,7 +405,6 @@ class ViewVideoFragment : ViewMediaFragment() {
         binding.mediaDescription.animate().alpha(alpha)
             .setListener(
                 object : AnimatorListenerAdapter() {
-                    @SuppressLint("SyntheticAccessor")
                     override fun onAnimationEnd(animation: Animator) {
                         view ?: return
                         binding.mediaDescription.visible(isDescriptionVisible)

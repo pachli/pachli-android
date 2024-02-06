@@ -51,6 +51,10 @@
     <!-- Set OldTargetApi back to warning -->
     <issue id="OldTargetApi" severity="warning" />
 
+    <!-- Disable SyntheticAccessor warnings; R8 handles them effectively, see
+         https://github.com/google/dagger/issues/635#issuecomment-459110004 -->
+    <issue id="SyntheticAccessor" severity="ignore" />
+
     <!-- Mark all other lint issues as errors -->
     <issue id="all" severity="error" />
 </lint>
