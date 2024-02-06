@@ -228,6 +228,8 @@ class ViewVideoFragment : ViewMediaFragment() {
             }
 
             override fun onIsPlayingChanged(isPlaying: Boolean) {
+                binding.videoView.keepScreenOn = isPlaying
+
                 if (isAudio) return
                 if (isPlaying) {
                     hideToolbarAfterDelay()
