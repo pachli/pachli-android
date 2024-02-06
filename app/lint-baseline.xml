@@ -3441,12 +3441,23 @@
 
     <issue
         id="SyntheticAccessor"
+        message="Access to `private` method `getBinding` of class `ViewVideoFragment` requires synthetic accessor"
+        errorLine1="                binding.videoView.keepScreenOn = isPlaying"
+        errorLine2="                ~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
+            line="231"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="SyntheticAccessor"
         message="Access to `private` method `hideToolbarAfterDelay` of class `ViewVideoFragment` requires synthetic accessor"
         errorLine1="                    hideToolbarAfterDelay()"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/fragment/ViewVideoFragment.kt"
-            line="233"
+            line="235"
             column="21"/>
     </issue>
 
