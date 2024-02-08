@@ -148,7 +148,7 @@ class ComposeActivityIntent(context: Context) : Intent() {
             /** Editing a status started as an existing draft */
             EDIT_DRAFT,
 
-            /** Editing an an existing scheduled status */
+            /** Editing an existing scheduled status */
             EDIT_SCHEDULED,
         }
 
@@ -210,7 +210,7 @@ class EditFilterActivityIntent(context: Context, filter: Filter? = null) : Inten
 /**
  * @param context
  * @param loginMode See [LoginMode]
- * @see [app.pachli.components.login.LoginActivity]
+ * @see [app.pachli.feature.login.LoginActivity]
  */
 class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEFAULT) : Intent() {
     /** How to log in */
@@ -472,7 +472,7 @@ class ViewMediaActivityIntent private constructor(context: Context) : Intent() {
         private const val EXTRA_SINGLE_IMAGE_URL = "singleImage"
 
         /** @return the list of [AttachmentViewData] passed in this intent, or null */
-        fun getAttachments(intent: Intent): ArrayList<AttachmentViewData>? = IntentCompat.getParcelableArrayListExtra(intent, EXTRA_ATTACHMENTS, AttachmentViewData::class.java)
+        fun getAttachments(intent: Intent): List<AttachmentViewData>? = IntentCompat.getParcelableArrayListExtra(intent, EXTRA_ATTACHMENTS, AttachmentViewData::class.java)
 
         /** @return the index of the attachment to show, or 0 */
         fun getAttachmentIndex(intent: Intent) = intent.getIntExtra(EXTRA_ATTACHMENT_INDEX, 0)

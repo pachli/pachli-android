@@ -22,6 +22,7 @@ import app.pachli.components.search.SearchType
 import app.pachli.core.network.model.SearchResult
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.getOrElse
+import timber.log.Timber
 
 class SearchPagingSource<T : Any>(
     private val mastodonApi: MastodonApi,
@@ -61,7 +62,10 @@ class SearchPagingSource<T : Any>(
             limit = params.loadSize,
             offset = currentKey,
             following = false,
-        ).getOrElse { return LoadResult.Error(it) }
+        ).getOrElse {
+            Timber.w(it)
+            return LoadResult.Error(it)
+        }
 
         val res = parser(data)
 

@@ -26,7 +26,7 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.StatusDisplayOptionsRepository
 import at.connyduck.calladapter.networkresult.NetworkResult
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -111,7 +111,7 @@ class ViewThreadViewModelTest {
     lateinit var timelineDao: TimelineDao
 
     @Inject
-    lateinit var gson: Gson
+    lateinit var moshi: Moshi
 
     @BindValue @JvmField
     val filtersRepository: FiltersRepository = mock()
@@ -188,7 +188,7 @@ class ViewThreadViewModelTest {
             eventHub,
             accountManager,
             timelineDao,
-            gson,
+            moshi,
             cachedTimelineRepository,
             statusDisplayOptionsRepository,
             filtersRepository,

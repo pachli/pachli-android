@@ -143,7 +143,9 @@ dependencies {
 
     implementation(libs.android.material)
 
-    implementation(libs.gson)
+    implementation(libs.moshi)
+    implementation(libs.moshi.adapters)
+    ksp(libs.moshi.codegen)
 
     implementation(libs.bundles.retrofit)
 

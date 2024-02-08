@@ -25,7 +25,8 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.UsageError
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
-import com.google.gson.GsonBuilder
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 import io.github.oshai.kotlinlogging.DelegatingKLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import java.nio.file.Path
@@ -65,6 +66,7 @@ class App : CliktCommand(help = """Update server-versions.json5""") {
         return null
     }
 
+    @OptIn(ExperimentalStdlibApi::class)
     override fun run() = runBlocking {
         System.setProperty("file.encoding", "UTF8")
         ((log as? DelegatingKLogger<*>)?.underlyingLogger as Logger).level = if (verbose) Level.INFO else Level.WARN
@@ -102,8 +104,8 @@ class App : CliktCommand(help = """Update server-versions.json5""") {
             }
         }
 
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        w.print(gson.toJson(m))
+        val moshi = Moshi.Builder().build()
+        w.print(moshi.adapter<Map<String, Set<String>>>().indent("  ").toJson(m))
         w.close()
     }
 }

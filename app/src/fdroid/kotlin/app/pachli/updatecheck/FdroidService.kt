@@ -19,16 +19,19 @@ package app.pachli.updatecheck
 
 import androidx.annotation.Keep
 import at.connyduck.calladapter.networkresult.NetworkResult
+import com.squareup.moshi.JsonClass
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class FdroidPackageVersion(
     val versionName: String,
     val versionCode: Int,
 )
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class FdroidPackage(
     val packageName: String,
     val suggestedVersionCode: Int,

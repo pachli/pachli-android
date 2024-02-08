@@ -17,22 +17,24 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Card(
     override val url: String,
     override val title: String,
     override val description: String,
-    @SerializedName("type") override val kind: PreviewCardKind,
-    @SerializedName("author_name") override val authorName: String,
-    @SerializedName("author_url") override val authorUrl: String,
-    @SerializedName("provider_name") override val providerName: String,
-    @SerializedName("provider_url") override val providerUrl: String,
+    @Json(name = "type") override val kind: PreviewCardKind,
+    @Json(name = "author_name") override val authorName: String,
+    @Json(name = "author_url") override val authorUrl: String,
+    @Json(name = "provider_name") override val providerName: String,
+    @Json(name = "provider_url") override val providerUrl: String,
     override val html: String,
     override val width: Int,
     override val height: Int,
     override val image: String? = null,
-    @SerializedName("embed_url") override val embedUrl: String,
+    @Json(name = "embed_url") override val embedUrl: String,
     override val blurhash: String? = null,
 ) : PreviewCard {
 

@@ -37,7 +37,7 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.viewdata.StatusViewData
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -61,7 +61,7 @@ class CachedTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-    private val gson: Gson,
+    private val moshi: Moshi,
 ) : TimelineViewModel(
     savedStateHandle,
     timelineCases,
@@ -93,7 +93,7 @@ class CachedTimelineViewModel @Inject constructor(
                     .map {
                         StatusViewData.from(
                             it,
-                            gson,
+                            moshi,
                             isExpanded = activeAccount.alwaysOpenSpoiler,
                             isShowingContent = activeAccount.alwaysShowSensitiveMedia,
                         )

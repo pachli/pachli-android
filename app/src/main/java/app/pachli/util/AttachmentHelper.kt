@@ -27,8 +27,11 @@ private fun formatDuration(durationInSeconds: Double): String {
 fun List<Attachment>.aspectRatios(): List<Double> {
     return map { attachment ->
         // clamp ratio between 2:1 & 1:2, defaulting to 16:9
-        val size = (attachment.meta?.small ?: attachment.meta?.original) ?: return@map 1.7778
-        val aspect = if (size.aspect > 0) size.aspect else size.width.toDouble() / size.height
-        aspect.coerceIn(0.5, 2.0)
+        val (width, height, aspect) = (attachment.meta?.small ?: attachment.meta?.original) ?: return@map 1.7778
+        width ?: return@map 1.778
+        height ?: return@map 1.778
+        aspect ?: return@map 1.778
+        val adjustedAspect = if (aspect > 0) aspect else width.toDouble() / height
+        adjustedAspect.coerceIn(0.5, 2.0)
     }
 }

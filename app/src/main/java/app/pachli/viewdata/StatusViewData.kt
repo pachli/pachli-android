@@ -28,7 +28,7 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.replaceCrashingCharacters
 import app.pachli.util.shouldTrimStatus
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 
 /**
  * Interface for the data shown when viewing a status, or something that wraps
@@ -273,13 +273,13 @@ data class StatusViewData(
 
         fun from(
             timelineStatusWithAccount: TimelineStatusWithAccount,
-            gson: Gson,
+            moshi: Moshi,
             isExpanded: Boolean,
             isShowingContent: Boolean,
             isDetailed: Boolean = false,
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
         ): StatusViewData {
-            val status = timelineStatusWithAccount.toStatus(gson)
+            val status = timelineStatusWithAccount.toStatus(moshi)
             return StatusViewData(
                 status = status,
                 translation = timelineStatusWithAccount.translatedStatus,

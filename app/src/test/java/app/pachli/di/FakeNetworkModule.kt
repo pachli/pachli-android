@@ -19,9 +19,9 @@ package app.pachli.di
 
 import app.pachli.components.compose.MediaUploader
 import app.pachli.core.network.di.NetworkModule
-import app.pachli.core.network.json.Rfc3339DateJsonAdapter
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import app.pachli.core.network.json.GuardedAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -39,9 +39,10 @@ import org.mockito.kotlin.mock
 object FakeNetworkModule {
     @Provides
     @Singleton
-    fun providesGson(): Gson = GsonBuilder()
-        .registerTypeAdapter(Date::class.java, Rfc3339DateJsonAdapter())
-        .create()
+    fun providesMoshi(): Moshi = Moshi.Builder()
+        .add(Date::class.java, Rfc3339DateJsonAdapter())
+        .add(GuardedAdapter.Companion.GuardedAdapterFactory())
+        .build()
 
     @Provides
     @Singleton

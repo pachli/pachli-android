@@ -79,7 +79,6 @@ abstract class SearchFragment<T : Any> :
         }
 
         adapter.addLoadStateListener { loadState ->
-
             if (loadState.refresh is LoadState.Error) {
                 showError()
             }

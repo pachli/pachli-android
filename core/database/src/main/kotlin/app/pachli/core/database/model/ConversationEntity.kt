@@ -28,6 +28,7 @@ import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
 @Entity(primaryKeys = ["id", "accountId"])
@@ -65,6 +66,7 @@ data class ConversationEntity(
     }
 }
 
+@JsonClass(generateAdapter = true)
 data class ConversationAccountEntity(
     val id: String,
     val localUsername: String,

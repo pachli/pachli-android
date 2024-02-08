@@ -19,23 +19,26 @@ package app.pachli.updatecheck
 
 import androidx.annotation.Keep
 import at.connyduck.calladapter.networkresult.NetworkResult
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class GitHubReleaseAsset(
     /** File name for the asset, e.g., "113.apk" */
     val name: String,
 
     /** MIME content type for the asset, e.g., "application/vnd.android.package-archive" */
-    @SerializedName("content_type") val contentType: String,
+    @Json(name = "content_type") val contentType: String,
 )
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class GitHubRelease(
     /** URL for the release's web page */
-    @SerializedName("html_url") val htmlUrl: String,
+    @Json(name = "html_url") val htmlUrl: String,
     val assets: List<GitHubReleaseAsset>,
 )
 

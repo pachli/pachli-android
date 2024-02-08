@@ -17,19 +17,21 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /**
  * Same as [Account], but only with the attributes required in timelines.
  * Prefer this class over [Account] because it uses way less memory & deserializes faster from json.
  */
+@JsonClass(generateAdapter = true)
 data class TimelineAccount(
     val id: String,
-    @SerializedName("username") val localUsername: String,
-    @SerializedName("acct") val username: String,
+    @Json(name = "username") val localUsername: String,
+    @Json(name = "acct") val username: String,
     // should never be null per Api definition, but some servers break the contract
     @Deprecated("prefer the `name` property, which is not-null and not-empty")
-    @SerializedName("display_name") val displayName: String?,
+    @Json(name = "display_name") val displayName: String?,
     val url: String,
     val avatar: String,
     val note: String,

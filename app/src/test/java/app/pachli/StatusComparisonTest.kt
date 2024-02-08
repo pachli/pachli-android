@@ -2,9 +2,13 @@ package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.network.json.GuardedAdapter.Companion.GuardedAdapterFactory
 import app.pachli.core.network.model.Status
 import app.pachli.viewdata.StatusViewData
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
+import java.util.Date
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
@@ -12,6 +16,9 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class StatusComparisonTest {
+    private val moshi = Moshi.Builder()
+        .add(Date::class.java, Rfc3339DateJsonAdapter())
+        .add(GuardedAdapterFactory()).build()
 
     @Test
     fun `two equal statuses - should be equal`() {
@@ -35,8 +42,6 @@ class StatusComparisonTest {
     fun `accounts with different notes in json - should not be equal`() {
         assertNotEquals(createStatus(note = "Test"), createStatus(note = "Test 123456"))
     }
-
-    private val gson = Gson()
 
     @Test
     fun `two equal status view data - should be equal`() {
@@ -95,6 +100,7 @@ class StatusComparisonTest {
         assertNotEquals(viewdata1, viewdata2)
     }
 
+    @OptIn(ExperimentalStdlibApi::class)
     private fun createStatus(
         id: String = "123456",
         content: String = """
@@ -206,6 +212,6 @@ class StatusComparisonTest {
                 "poll": null
             }
         """.trimIndent()
-        return gson.fromJson(statusJson, Status::class.java)
+        return moshi.adapter<Status>().fromJson(statusJson)!!
     }
 }

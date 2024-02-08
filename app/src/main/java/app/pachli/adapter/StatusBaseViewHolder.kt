@@ -901,6 +901,8 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
         protected fun hasPreviewableAttachment(attachments: List<Attachment>): Boolean {
             for (attachment in attachments) {
                 if (attachment.type == Attachment.Type.UNKNOWN) return false
+
+                if (attachment.meta?.original?.width == null && attachment.meta?.small?.width == null) return false
             }
             return true
         }

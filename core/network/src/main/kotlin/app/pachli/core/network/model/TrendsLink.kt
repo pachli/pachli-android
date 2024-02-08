@@ -17,19 +17,20 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 enum class PreviewCardKind {
-    @SerializedName("link")
+    @Json(name = "link")
     LINK,
 
-    @SerializedName("photo")
+    @Json(name = "photo")
     PHOTO,
 
-    @SerializedName("video")
+    @Json(name = "video")
     VIDEO,
 
-    @SerializedName("rich")
+    @Json(name = "rich")
     RICH,
 }
 
@@ -53,6 +54,7 @@ interface PreviewCard {
     val blurhash: String?
 }
 
+@JsonClass(generateAdapter = true)
 data class LinkHistory(
     val day: String,
     val accounts: Int,
@@ -60,20 +62,21 @@ data class LinkHistory(
 )
 
 /** Represents a https://docs.joinmastodon.org/entities/PreviewCard/#trends-link */
+@JsonClass(generateAdapter = true)
 data class TrendsLink(
     override val url: String,
     override val title: String,
     override val description: String,
-    @SerializedName("type") override val kind: PreviewCardKind,
-    @SerializedName("author_name") override val authorName: String,
-    @SerializedName("author_url") override val authorUrl: String,
-    @SerializedName("provider_name") override val providerName: String,
-    @SerializedName("provider_url") override val providerUrl: String,
+    @Json(name = "type") override val kind: PreviewCardKind,
+    @Json(name = "author_name") override val authorName: String,
+    @Json(name = "author_url") override val authorUrl: String,
+    @Json(name = "provider_name") override val providerName: String,
+    @Json(name = "provider_url") override val providerUrl: String,
     override val html: String,
     override val width: Int,
     override val height: Int,
     override val image: String? = null,
-    @SerializedName("embed_url") override val embedUrl: String,
+    @Json(name = "embed_url") override val embedUrl: String,
     override val blurhash: String? = null,
     val history: List<LinkHistory>,
 ) : PreviewCard

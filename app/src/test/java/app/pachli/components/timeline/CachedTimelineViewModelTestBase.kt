@@ -35,7 +35,7 @@ import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.StatusDisplayOptionsRepository
 import at.connyduck.calladapter.networkresult.NetworkResult
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -91,6 +91,9 @@ abstract class CachedTimelineViewModelTestBase {
 
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+
+    @Inject
+    lateinit var moshi: Moshi
 
     protected lateinit var timelineCases: TimelineCases
     protected lateinit var viewModel: TimelineViewModel
@@ -160,7 +163,7 @@ abstract class CachedTimelineViewModelTestBase {
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
-            Gson(),
+            moshi,
         )
     }
 }

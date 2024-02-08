@@ -16,11 +16,13 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class ScheduledStatus(
     val id: String,
-    @SerializedName("scheduled_at") val scheduledAt: String,
+    @Json(name = "scheduled_at") val scheduledAt: String,
     val params: StatusParams,
-    @SerializedName("media_attachments") val mediaAttachments: ArrayList<Attachment>,
+    @Json(name = "media_attachments") val mediaAttachments: List<Attachment>,
 )

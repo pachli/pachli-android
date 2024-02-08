@@ -25,7 +25,7 @@ import androidx.paging.PagingSource
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -36,7 +36,7 @@ import timber.log.Timber
 
 class NotificationsRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val gson: Gson,
+    private val moshi: Moshi,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     private var factory: InvalidatingPagingSourceFactory<String, Notification>? = null
@@ -53,7 +53,7 @@ class NotificationsRepository @Inject constructor(
         Timber.d("getNotificationsStream(), filtering: $filter")
 
         factory = InvalidatingPagingSourceFactory {
-            NotificationsPagingSource(mastodonApi, gson, filter)
+            NotificationsPagingSource(mastodonApi, moshi, filter)
         }
 
         return Pager(

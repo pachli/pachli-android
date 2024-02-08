@@ -1,13 +1,18 @@
 package app.pachli.core.network.json
 
+import app.pachli.core.network.json.GuardedAdapter.Companion.GuardedAdapterFactory
 import app.pachli.core.network.model.Relationship
-import com.google.gson.Gson
-import org.junit.Assert.assertEquals
+import com.google.common.truth.Truth.assertThat
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 import org.junit.Test
 
-class GuardedBooleanAdapterTest {
+@OptIn(ExperimentalStdlibApi::class)
+class GuardedAdapterTest {
 
-    private val gson = Gson()
+    private val moshi = Moshi.Builder()
+        .add(GuardedAdapterFactory())
+        .build()
 
     @Test
     fun `should deserialize Relationship when attribute 'subscribing' is a boolean`() {
@@ -30,7 +35,7 @@ class GuardedBooleanAdapterTest {
             }
         """.trimIndent()
 
-        assertEquals(
+        assertThat(moshi.adapter<Relationship>().fromJson(jsonInput)).isEqualTo(
             Relationship(
                 id = "1",
                 following = true,
@@ -45,7 +50,6 @@ class GuardedBooleanAdapterTest {
                 note = "Hi",
                 notifying = false,
             ),
-            gson.fromJson(jsonInput, Relationship::class.java),
         )
     }
 
@@ -70,7 +74,7 @@ class GuardedBooleanAdapterTest {
             }
         """.trimIndent()
 
-        assertEquals(
+        assertThat(moshi.adapter<Relationship>().fromJson(jsonInput)).isEqualTo(
             Relationship(
                 id = "2",
                 following = true,
@@ -85,7 +89,6 @@ class GuardedBooleanAdapterTest {
                 note = "Hi",
                 notifying = false,
             ),
-            gson.fromJson(jsonInput, Relationship::class.java),
         )
     }
 
@@ -109,7 +112,7 @@ class GuardedBooleanAdapterTest {
             }
         """.trimIndent()
 
-        assertEquals(
+        assertThat(moshi.adapter<Relationship>().fromJson(jsonInput)).isEqualTo(
             Relationship(
                 id = "3",
                 following = true,
@@ -124,7 +127,6 @@ class GuardedBooleanAdapterTest {
                 note = "Hi",
                 notifying = false,
             ),
-            gson.fromJson(jsonInput, Relationship::class.java),
         )
     }
 }
