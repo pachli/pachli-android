@@ -1,8 +1,5 @@
 name: CI
 
-# Run on pull_request_target to access secrets.GRADLE_ENCRYPTION_KEY,
-# and ensure permissions are marked read-only
-
 on:
   push:
     tags:
