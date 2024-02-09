@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2023 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/android_notifications_enabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:text="@string/notification_details_android_notifications_enabled" />
+
+        <TextView
+            android:id="@+id/notificationsEnabledHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="32dp"
+            android:text="@string/notification_details_notifications_enabled_help" />
+
+        <TextView
+            android:id="@+id/notificationsEnabledAccounts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="32dp"
+            android:paddingEnd="8dp"
+            android:textIsSelectable="false" />
+
+        <TextView
+            android:id="@+id/notificationMethod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="8dp"
+            android:textIsSelectable="false" />
+
+        <LinearLayout
+            android:id="@+id/pushSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_details_push_notifications_with_unifiedpush"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+            <CheckBox
+                android:id="@+id/unifiedPushAvailable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="@string/notification_details_unifiedpush_available" />
+
+            <TextView
+                android:id="@+id/unifiedPushAvailableHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:text="@string/notification_details_unifiedpush_available_help" />
+
+            <CheckBox
+                android:id="@+id/anyAccountNeedsMigration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_details_any_account_needs_migration" />
+
+            <TextView
+                android:id="@+id/anyAccountNeedsMigrationHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:text="@string/notification_details_any_account_needs_migration_help" />
+
+            <TextView
+                android:id="@+id/anyAccountNeedsMigrationAccounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:textIsSelectable="false" />
+
+            <CheckBox
+                android:id="@+id/accountsUnifiedPushUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_details_accounts_unified_push_url" />
+
+            <TextView
+                android:id="@+id/accountsUnifiedPushUrlHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:text="@string/notification_details_accounts_unified_push_url_help" />
+
+            <TextView
+                android:id="@+id/accountsUnifiedPushUrlAccounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:textIsSelectable="false" />
+
+            <CheckBox
+                android:id="@+id/accountsUnifiedPushSubscription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_details_accounts_unified_push_subscription" />
+
+            <TextView
+                android:id="@+id/accountsUnifiedPushSubscriptionHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:text="@string/notification_details_accounts_unified_push_subscription_help" />
+
+            <TextView
+                android:id="@+id/accountsUnifiedPushSubscriptionAccounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:textIsSelectable="false" />
+
+            <CheckBox
+                android:id="@+id/ntfyExempt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="@string/notification_details_ntfy_exempt" />
+
+            <TextView
+                android:id="@+id/ntfyExemptHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:text="@string/notification_details_ntfy_exempt_help" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pullSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_details_pull_section"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+            <CheckBox
+                android:id="@+id/pachliExempt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="@string/notification_details_pachli_exempt" />
+
+            <TextView
+                android:id="@+id/pachliExemptHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:text="@string/notification_details_pachli_exempt_help" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/notification_details_workers_help" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/workInfoRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/lastFetchLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:text="@string/notification_details_last_fetch_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/notification_details_last_fetch_help" />
+
+            <TextView
+                android:id="@+id/lastFetch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textIsSelectable="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/usageEventSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_details_usage_event"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+            <TextView
+                android:id="@+id/usageEventLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/notification_details_usage_event_label" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/usageEventRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

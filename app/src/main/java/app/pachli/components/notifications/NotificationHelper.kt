@@ -44,6 +44,7 @@ import app.pachli.BuildConfig
 import app.pachli.MainActivity
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
@@ -111,7 +112,6 @@ private const val EXTRA_NOTIFICATION_TYPE =
 /**
  * Takes a given Mastodon notification and creates a new Android notification or updates the
  * existing Android notification.
- *
  *
  * The Android notification has it's tag set to the Mastodon notification ID, and it's ID set
  * to the ID of the account that received the notification.
@@ -557,34 +557,52 @@ fun deleteNotificationChannelsForAccount(account: AccountEntity, context: Contex
     }
 }
 
-fun notificationsAreEnabled(context: Context, accountManager: AccountManager): Boolean {
+/**
+ * @return True if at least one account has Android notifications enabled.
+ */
+fun androidNotificationsAreEnabled(context: Context, accountManager: AccountManager): Boolean {
+    Timber.d("Checking if Android notifications are enabled")
+
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        Timber.d("${Build.VERSION.SDK_INT} >= ${Build.VERSION_CODES.O}, checking notification manager")
         // on Android >= O notifications are enabled if at least one channel is enabled
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (notificationManager.areNotificationsEnabled()) {
             for (channel in notificationManager.notificationChannels) {
+                Timber.d("Checking NotificationChannel ${channel.id} / importance: ${channel.importance}")
                 if (channel != null && channel.importance > NotificationManager.IMPORTANCE_NONE) {
                     Timber.d("NotificationsEnabled")
+                    Timber.d("Channel notification importance > ${NotificationManager.IMPORTANCE_NONE}, enabling notifications")
+                    NotificationConfig.androidNotificationsEnabled = true
                     return true
+                } else {
+                    Timber.d("Channel notification importance <= ${NotificationManager.IMPORTANCE_NONE}, skipping")
                 }
             }
         }
-        Timber.d("NotificationsDisabled")
+        Timber.i("Notifications disabled because no notification channels are enabled")
+        NotificationConfig.androidNotificationsEnabled = false
         false
     } else {
         // on Android < O notifications are enabled if at least one account has notification enabled
-        accountManager.areNotificationsEnabled()
+        Timber.d("${Build.VERSION.SDK_INT} < ${Build.VERSION_CODES.O}, checking account manager\")")
+        val result = accountManager.areAndroidNotificationsEnabled()
+        Timber.d("Did any accounts have notifications enabled?: $result")
+        NotificationConfig.androidNotificationsEnabled = result
+        return result
     }
 }
 
 fun enablePullNotifications(context: Context) {
+    Timber.i("Enabling pull notifications for all accounts")
     val workManager = WorkManager.getInstance(context)
     workManager.cancelAllWorkByTag(NOTIFICATION_PULL_TAG)
 
     // Periodic work requests are supposed to start running soon after being enqueued. In
     // practice that may not be soon enough, so create and enqueue an expedited one-time
     // request to get new notifications immediately.
+    Timber.d("Enqueing immediate notification worker")
     val fetchNotifications: WorkRequest = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
         .setExpedited(OutOfQuotaPolicy.DROP_WORK_REQUEST)
         .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
@@ -603,11 +621,13 @@ fun enablePullNotifications(context: Context) {
         .build()
     workManager.enqueue(workRequest)
     Timber.d("enabled notification checks with %d ms interval", PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS)
+    NotificationConfig.notificationMethod = NotificationConfig.Method.Pull
 }
 
 fun disablePullNotifications(context: Context) {
     WorkManager.getInstance(context).cancelAllWorkByTag(NOTIFICATION_PULL_TAG)
-    Timber.d("disabled notification checks")
+    Timber.w("Disabling pull notifications for all accounts")
+    NotificationConfig.notificationMethod = NotificationConfig.Method.Unknown
 }
 
 fun clearNotificationsForAccount(context: Context, account: AccountEntity) {

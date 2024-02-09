@@ -34,6 +34,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
 import java.net.URLDecoder
 import java.net.URLEncoder
+import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -199,4 +200,16 @@ class Converters @Inject constructor(
     fun jsonToTranslatedAttachment(translatedAttachmentJson: String): List<TranslatedAttachment>? {
         return moshi.adapter<List<TranslatedAttachment>?>().fromJson(translatedAttachmentJson)
     }
+
+    @TypeConverter
+    fun instantToLong(instant: Instant) = instant.toEpochMilli()
+
+    @TypeConverter
+    fun longToInstant(millis: Long): Instant = Instant.ofEpochMilli(millis)
+
+    @TypeConverter
+    fun throwableToString(t: Throwable) = t.message
+
+    @TypeConverter
+    fun stringToThrowable(s: String) = Throwable(message = s)
 }

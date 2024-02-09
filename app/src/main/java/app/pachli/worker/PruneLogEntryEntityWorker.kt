@@ -21,35 +21,43 @@ import android.app.Notification
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
+import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
 import app.pachli.R
-import app.pachli.components.notifications.NOTIFICATION_ID_FETCH_NOTIFICATION
-import app.pachli.components.notifications.NotificationFetcher
+import app.pachli.components.notifications.NOTIFICATION_ID_PRUNE_CACHE
 import app.pachli.components.notifications.createWorkerNotification
+import app.pachli.core.database.dao.LogEntryDao
+import java.time.Instant
 import javax.inject.Inject
-import timber.log.Timber
+import kotlin.time.Duration.Companion.hours
 
-/** Fetch and show new notifications. */
-class NotificationWorker(
+/** Prune the database cache of old statuses. */
+class PruneLogEntryEntityWorker(
     appContext: Context,
-    params: WorkerParameters,
-    private val notificationsFetcher: NotificationFetcher,
-) : CoroutineWorker(appContext, params) {
-    val notification: Notification = createWorkerNotification(applicationContext, R.string.notification_notification_worker)
+    workerParams: WorkerParameters,
+    private val logEntryDao: LogEntryDao,
+) : CoroutineWorker(appContext, workerParams) {
+    val notification: Notification = createWorkerNotification(applicationContext, R.string.notification_prune_cache)
 
     override suspend fun doWork(): Result {
-        Timber.d("NotificationWorker.doWork() started")
-        notificationsFetcher.fetchAndShow()
+        val now = Instant.now()
+        val oldest = now.minusMillis(OLDEST_ENTRY.inWholeMilliseconds)
+        logEntryDao.prune(oldest)
         return Result.success()
     }
 
-    override suspend fun getForegroundInfo() = ForegroundInfo(NOTIFICATION_ID_FETCH_NOTIFICATION, notification)
+    override suspend fun getForegroundInfo() = ForegroundInfo(NOTIFICATION_ID_PRUNE_CACHE, notification)
+
+    companion object {
+        private val OLDEST_ENTRY = 48.hours
+        const val PERIODIC_WORK_TAG = "PruneLogEntryEntityWorker_periodic"
+    }
 
     class Factory @Inject constructor(
-        private val notificationsFetcher: NotificationFetcher,
+        private val logEntryDao: LogEntryDao,
     ) : ChildWorkerFactory {
-        override fun createWorker(appContext: Context, params: WorkerParameters): CoroutineWorker {
-            return NotificationWorker(appContext, params, notificationsFetcher)
+        override fun createWorker(appContext: Context, params: WorkerParameters): ListenableWorker {
+            return PruneLogEntryEntityWorker(appContext, params, logEntryDao)
         }
     }
 }

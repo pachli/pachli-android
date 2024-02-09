@@ -32,6 +32,7 @@ data class Notification(
 ) {
 
     /** From https://docs.joinmastodon.org/entities/Notification/#type */
+    @JsonClass(generateAdapter = false)
     enum class Type(val presentation: String) {
         @Json(name = "unknown")
         UNKNOWN("unknown"),

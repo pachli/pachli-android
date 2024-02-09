@@ -19,7 +19,7 @@ package app.pachli.core.activity
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
+import app.pachli.core.database.model.LogEntry
 import app.pachli.core.designsystem.R as DR
 import com.google.auto.service.AutoService
 import java.time.Instant
@@ -73,18 +73,18 @@ object TreeRing : Timber.DebugTree() {
      * Store the components of a log line without doing any formatting or other
      * work at logging time.
      */
-    data class LogEntry(
-        val instant: Instant,
-        val priority: Int,
-        val tag: String?,
-        val message: String,
-        val t: Throwable?,
-    )
+    data class TreeRingLogEntry(
+        override val instant: Instant,
+        override val priority: Int,
+        override val tag: String?,
+        override val message: String,
+        override val t: Throwable?,
+    ) : LogEntry
 
-    val buffer = RingBuffer<LogEntry>(1000)
+    val buffer = RingBuffer<TreeRingLogEntry>(1000)
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        buffer.add(LogEntry(Instant.now(), priority, tag, message, t))
+        buffer.add(TreeRingLogEntry(Instant.now(), priority, tag, message, t))
     }
 }
 
@@ -94,15 +94,6 @@ object TreeRing : Timber.DebugTree() {
  */
 @AutoService(Collector::class)
 class TreeRingCollector : Collector {
-    /** Map log priority values to characters to use when displaying the log */
-    private val priority = mapOf(
-        Log.VERBOSE to 'V',
-        Log.DEBUG to 'D',
-        Log.INFO to 'I',
-        Log.WARN to 'W',
-        Log.ERROR to 'E',
-        Log.ASSERT to 'A',
-    )
 
     override fun collect(
         context: Context,
@@ -112,15 +103,7 @@ class TreeRingCollector : Collector {
     ) {
         crashReportData.put(
             "TreeRing",
-            TreeRing.buffer.toList().joinToString("\n") {
-                "%s %c/%s: %s%s".format(
-                    it.instant.toString(),
-                    priority[it.priority] ?: '?',
-                    it.tag,
-                    it.message,
-                    it.t?.let { t -> " $t" } ?: "",
-                )
-            },
+            TreeRing.buffer.toList().joinToString("\n"),
         )
     }
 }
