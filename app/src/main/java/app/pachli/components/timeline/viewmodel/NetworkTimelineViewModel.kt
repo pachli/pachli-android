@@ -84,7 +84,7 @@ class NetworkTimelineViewModel @Inject constructor(
     private fun getStatuses(
         initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
-        Timber.d("getStatuses: kind: $timelineKind, initialKey: $initialKey")
+        Timber.d("getStatuses: kind: %s, initialKey: %s", timelineKind, initialKey)
         return repository.getStatusStream(viewModelScope, kind = timelineKind, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map {
@@ -122,8 +122,8 @@ class NetworkTimelineViewModel @Inject constructor(
     }
 
     override fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
-        Timber.d("changeContentCollapsed: $isCollapsed")
-        Timber.d("  " + status.content)
+        Timber.d("changeContentCollapsed: %s", isCollapsed)
+        Timber.d("   %s", status.content)
         modifiedViewData[status.id] = status.copy(
             isCollapsed = isCollapsed,
         )

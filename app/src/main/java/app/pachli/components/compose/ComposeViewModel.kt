@@ -385,7 +385,7 @@ class ComposeViewModel @Inject constructor(
                     .fold({ accounts ->
                         accounts.map { AutocompleteResult.AccountResult(it) }
                     }, { e ->
-                        Timber.e("Autocomplete search for $token failed.", e)
+                        Timber.e(e, "Autocomplete search for %s failed.", token)
                         emptyList()
                     })
             }
@@ -394,7 +394,7 @@ class ComposeViewModel @Inject constructor(
                     .fold({ searchResult ->
                         searchResult.hashtags.map { AutocompleteResult.HashtagResult(it.name) }
                     }, { e ->
-                        Timber.e("Autocomplete search for $token failed.", e)
+                        Timber.e(e, "Autocomplete search for %s failed.", token)
                         emptyList()
                     })
             }
@@ -411,7 +411,7 @@ class ComposeViewModel @Inject constructor(
                 }
             }
             else -> {
-                Timber.w("Unexpected autocompletion token: $token")
+                Timber.w("Unexpected autocompletion token: %s", token)
                 return emptyList()
             }
         }

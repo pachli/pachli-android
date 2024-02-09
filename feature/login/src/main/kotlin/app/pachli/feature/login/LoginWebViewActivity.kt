@@ -149,7 +149,7 @@ class LoginWebViewActivity : BaseActivity() {
                 request: WebResourceRequest,
                 error: WebResourceError,
             ) {
-                Timber.d("Failed to load ${data.url}: $error")
+                Timber.d("Failed to load %s: %s", data.url, error)
                 sendResult(LoginResult.Err(getString(R.string.error_could_not_load_login_page)))
             }
 

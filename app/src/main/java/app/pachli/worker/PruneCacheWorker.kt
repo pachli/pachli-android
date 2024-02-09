@@ -42,7 +42,7 @@ class PruneCacheWorker(
 
     override suspend fun doWork(): Result {
         for (account in accountManager.accounts) {
-            Timber.d("Pruning database using account ID: ${account.id}")
+            Timber.d("Pruning database using account ID: %d", account.id)
             timelineDao.cleanup(account.id, MAX_STATUSES_IN_CACHE)
         }
         return Result.success()

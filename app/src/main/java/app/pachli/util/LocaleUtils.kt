@@ -46,7 +46,7 @@ private fun ensureLanguagesAreFirst(locales: MutableList<Locale>, languages: Lis
                 // - Your per-account posting language is set to one android doesn't know (e.g. toki pona)
                 // - Replying to a post in a language android doesn't know
                 locales.add(0, Locale(language))
-                Timber.w("Attempting to use unknown language tag '$language'")
+                Timber.w("Attempting to use unknown language tag '%s'", language)
                 continue
             }
         }

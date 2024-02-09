@@ -83,7 +83,7 @@ class ConversationsViewModel @Inject constructor(
                     favourite,
                 )
             }, { e ->
-                Timber.w("failed to favourite status", e)
+                Timber.w(e, "failed to favourite status")
             })
         }
     }
@@ -100,7 +100,7 @@ class ConversationsViewModel @Inject constructor(
                     bookmark,
                 )
             }, { e ->
-                Timber.w("failed to bookmark status", e)
+                Timber.w(e, "failed to bookmark status")
             })
         }
     }
@@ -118,7 +118,7 @@ class ConversationsViewModel @Inject constructor(
                         converters.pollToJson(poll)!!,
                     )
                 }, { e ->
-                    Timber.w("failed to vote in poll", e)
+                    Timber.w(e, "failed to vote in poll")
                 })
         }
     }
@@ -163,7 +163,7 @@ class ConversationsViewModel @Inject constructor(
                     accountId = accountManager.activeAccount!!.id,
                 )
             } catch (e: Exception) {
-                Timber.w("failed to delete conversation", e)
+                Timber.w(e, "failed to delete conversation")
             }
         }
     }
@@ -179,7 +179,7 @@ class ConversationsViewModel @Inject constructor(
                     muted,
                 )
             } catch (e: Exception) {
-                Timber.w("failed to mute conversation", e)
+                Timber.w(e, "failed to mute conversation")
             }
         }
     }

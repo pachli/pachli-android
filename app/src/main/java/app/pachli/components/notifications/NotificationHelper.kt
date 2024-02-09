@@ -602,7 +602,7 @@ fun enablePullNotifications(context: Context) {
         .setInitialDelay(5, TimeUnit.MINUTES)
         .build()
     workManager.enqueue(workRequest)
-    Timber.d("enabled notification checks with " + PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS + "ms interval")
+    Timber.d("enabled notification checks with %d ms interval", PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS)
 }
 
 fun disablePullNotifications(context: Context) {

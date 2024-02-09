@@ -43,7 +43,7 @@ class NotificationsPagingSource @Inject constructor(
 ) : PagingSource<String, Notification>() {
     @OptIn(ExperimentalStdlibApi::class)
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Notification> {
-        Timber.d("load() with ${params.javaClass.simpleName} for key: ${params.key}")
+        Timber.d("load() with %s for key: %s", params.javaClass.simpleName, params.key)
 
         try {
             val response = when (params) {
@@ -203,7 +203,7 @@ class NotificationsPagingSource @Inject constructor(
     override fun getRefreshKey(state: PagingState<String, Notification>): String? {
         return state.anchorPosition?.let { anchorPosition ->
             val id = state.closestItemToPosition(anchorPosition)?.id
-            Timber.d("  getRefreshKey returning $id")
+            Timber.d("  getRefreshKey returning %s", id)
             return id
         }
     }

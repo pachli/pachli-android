@@ -147,7 +147,7 @@ class SendStatusService : Service() {
                     when (val uploadState = mediaUploader.getMediaUploadState(mediaItem.localId)) {
                         is UploadEvent.FinishedEvent -> mediaItem.copy(id = uploadState.mediaId, processed = uploadState.processed)
                         is UploadEvent.ErrorEvent -> {
-                            Timber.w("failed uploading media", uploadState.error)
+                            Timber.w(uploadState.error, "failed uploading media")
                             failSending(statusId)
                             stopSelfWhenDone()
                             return@launch
@@ -179,7 +179,7 @@ class SendStatusService : Service() {
                     mediaCheckRetries++
                 }
             } catch (e: Exception) {
-                Timber.w("failed getting media status", e)
+                Timber.w(e, "failed getting media status")
                 retrySending(statusId)
                 return@launch
             }
@@ -192,7 +192,7 @@ class SendStatusService : Service() {
                         mastodonApi.updateMedia(mediaItem.id!!, mediaItem.description, mediaItem.focus?.toMastodonApiString())
                             .fold({
                             }, { throwable ->
-                                Timber.w("failed to update media on status send", throwable)
+                                Timber.w(throwable, "failed to update media on status send")
                                 failOrRetry(throwable, statusId)
 
                                 return@launch
@@ -269,7 +269,7 @@ class SendStatusService : Service() {
 
                 notificationManager.cancel(statusId)
             }, { throwable ->
-                Timber.w("failed sending status: $throwable")
+                Timber.w(throwable, "failed sending status")
                 failOrRetry(throwable, statusId)
             })
             stopSelfWhenDone()

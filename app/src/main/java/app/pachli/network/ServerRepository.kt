@@ -100,7 +100,7 @@ class ServerRepository @Inject constructor(
 
         val nodeInfoUrl = nodeInfoUrlResult.bind()
 
-        Timber.d("Loading node info from $nodeInfoUrl")
+        Timber.d("Loading node info from %s", nodeInfoUrl)
         val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).fold(
             { NodeInfo.from(it).mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
             { Err(GetNodeInfo(nodeInfoUrl, it)) },

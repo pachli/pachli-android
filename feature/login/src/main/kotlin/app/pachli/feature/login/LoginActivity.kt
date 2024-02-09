@@ -297,7 +297,7 @@ class LoginActivity : BaseActivity() {
                 setLoading(false)
                 binding.domainTextInputLayout.error =
                     getString(R.string.error_retrieving_oauth_token)
-                Timber.e(getString(R.string.error_retrieving_oauth_token), e)
+                Timber.e(e, getString(R.string.error_retrieving_oauth_token))
             },
         )
     }
@@ -330,7 +330,7 @@ class LoginActivity : BaseActivity() {
             setLoading(false)
             binding.domainTextInputLayout.error =
                 getString(R.string.error_loading_account_details)
-            Timber.e(getString(R.string.error_loading_account_details), e)
+            Timber.e(e, getString(R.string.error_loading_account_details))
         })
     }
 

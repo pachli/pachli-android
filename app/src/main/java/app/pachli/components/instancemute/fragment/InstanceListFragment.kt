@@ -70,7 +70,7 @@ class InstanceListFragment :
                 api.blockDomain(instance).fold({
                     adapter.addItem(instance)
                 }, { e ->
-                    Timber.e("Error muting domain $instance", e)
+                    Timber.e(e, "Error muting domain %s", instance)
                 })
             } else {
                 api.unblockDomain(instance).fold({
@@ -81,7 +81,7 @@ class InstanceListFragment :
                         }
                         .show()
                 }, { e ->
-                    Timber.e("Error unmuting domain $instance", e)
+                    Timber.e(e, "Error unmuting domain %s", instance)
                 })
             }
         }
@@ -136,7 +136,7 @@ class InstanceListFragment :
     private fun onFetchInstancesFailure(throwable: Throwable) {
         fetching = false
         binding.instanceProgressBar.hide()
-        Timber.e("Fetch failure", throwable)
+        Timber.e(throwable, "Fetch failure")
 
         if (adapter.itemCount == 0) {
             binding.messageView.show()

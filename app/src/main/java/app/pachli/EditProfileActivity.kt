@@ -320,7 +320,7 @@ class EditProfileActivity : BaseActivity() {
     }
 
     private fun onPickFailure(throwable: Throwable?) {
-        Timber.w("failed to pick media", throwable)
+        Timber.w(throwable, "failed to pick media")
         Snackbar.make(binding.avatarButton, R.string.error_media_upload_sending, Snackbar.LENGTH_LONG).show()
     }
 

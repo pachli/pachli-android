@@ -425,7 +425,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 lifecycleScope.launch {
                     val result = timelineCases.delete(viewData.status.id).exceptionOrNull()
                     if (result != null) {
-                        Timber.w("error deleting status", result)
+                        Timber.w(result, "error deleting status")
                         Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT).show()
                     }
                     // XXX: Removes the item even if there was an error. This is probably not

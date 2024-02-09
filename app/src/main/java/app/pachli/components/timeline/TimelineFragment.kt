@@ -236,12 +236,12 @@ class TimelineFragment :
                 // TODO: Very similar to same code in NotificationsFragment
                 launch {
                     viewModel.uiError.collect { error ->
-                        Timber.d(error.toString())
                         val message = getString(
                             error.message,
                             error.throwable.localizedMessage
                                 ?: getString(R.string.ui_error_unknown),
                         )
+                        Timber.d(error.throwable, message)
                         snackbar = Snackbar.make(
                             // Without this the FAB will not move out of the way
                             (activity as? ActionButtonActivity)?.actionButton ?: binding.root,
@@ -518,7 +518,7 @@ class TimelineFragment :
             ?.let { adapter.snapshot().getOrNull(it)?.id }
 
         id?.let {
-            Timber.d("Saving ID: $it")
+            Timber.d("Saving ID: %s", it)
             viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = it))
         }
     }
@@ -726,7 +726,7 @@ class TimelineFragment :
 
         val wasEnabled = talkBackWasEnabled
         talkBackWasEnabled = a11yManager?.isEnabled == true
-        Timber.d("talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
+        Timber.d("talkback was enabled: %s, now %s", wasEnabled, talkBackWasEnabled)
         if (talkBackWasEnabled && !wasEnabled) {
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }

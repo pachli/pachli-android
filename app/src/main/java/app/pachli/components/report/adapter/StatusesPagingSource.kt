@@ -69,7 +69,7 @@ class StatusesPagingSource(
                 nextKey = result.lastOrNull()?.id,
             )
         } catch (e: Exception) {
-            Timber.w("failed to load statuses", e)
+            Timber.w(e, "failed to load statuses")
             return LoadResult.Error(e)
         }
     }

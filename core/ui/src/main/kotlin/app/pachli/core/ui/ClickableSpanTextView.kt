@@ -215,7 +215,7 @@ class ClickableSpanTextView @JvmOverloads constructor(
                 for ((rect, span) in spanRects) {
                     if (!rect.contains(x, y)) continue
                     clickedSpan = span
-                    Timber.v("span click: ${(clickedSpan as URLSpan).url}")
+                    Timber.v("span click: %s", (clickedSpan as URLSpan).url)
                     return super.onTouchEvent(event)
                 }
 
@@ -230,13 +230,13 @@ class ClickableSpanTextView @JvmOverloads constructor(
                         activeEntry = entry
                         continue
                     }
-                    Timber.v("Overlap: ${(entry.value as URLSpan).url} ${(activeEntry.value as URLSpan).url}")
+                    Timber.v("Overlap: %s %s", (entry.value as URLSpan).url, (activeEntry.value as URLSpan).url)
                     if (isClickOnFirst(entry.key, activeEntry.key, x, y)) {
                         activeEntry = entry
                     }
                 }
                 clickedSpan = activeEntry?.value
-                clickedSpan?.let { Timber.v("padding click: ${(clickedSpan as URLSpan).url}") }
+                clickedSpan?.let { Timber.v("padding click: %s", (clickedSpan as URLSpan).url) }
                 return super.onTouchEvent(event)
             }
             ACTION_UP -> {
@@ -334,7 +334,7 @@ class ClickableSpanTextView @JvmOverloads constructor(
      * @return true if the click was closer to the first rectangle than the second
      */
     private fun isClickOnFirst(first: RectF, second: RectF, x: Float, y: Float): Boolean {
-        Timber.v("first: $first second: $second click: $x $y")
+        Timber.v("first: %s second: %s click: %f %f", first, second, x, y)
         val (firstDiff, secondDiff) = if (first.top == second.top) {
             Timber.v("left/right overlap")
             Pair(abs(first.centerX() - x), abs(second.centerX() - x))
@@ -342,7 +342,7 @@ class ClickableSpanTextView @JvmOverloads constructor(
             Timber.v("top/bottom overlap")
             Pair(abs(first.centerY() - y), abs(second.centerY() - y))
         }
-        Timber.d("firstDiff: $firstDiff secondDiff: $secondDiff")
+        Timber.d("firstDiff: %f secondDiff: %f", firstDiff, secondDiff)
         return firstDiff < secondDiff
     }
 

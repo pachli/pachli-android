@@ -127,7 +127,7 @@ class SearchViewModel @Inject constructor(
                     ),
                 )
             }, { t ->
-                Timber.d("Failed to reblog status ${statusViewData.id}", t)
+                Timber.d(t, "Failed to reblog status %s", statusViewData.id)
             })
         }
     }
@@ -145,7 +145,7 @@ class SearchViewModel @Inject constructor(
         updateStatus(statusViewData.status.copy(poll = votedPoll))
         viewModelScope.launch {
             timelineCases.voteInPoll(statusViewData.id, votedPoll.id, choices)
-                .onFailure { t -> Timber.d("Failed to vote in poll: ${statusViewData.id}", t) }
+                .onFailure { t -> Timber.d(t, "Failed to vote in poll: %s", statusViewData.id) }
         }
     }
 

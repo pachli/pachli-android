@@ -153,7 +153,7 @@ class DraftHelper @Inject constructor(
     suspend fun deleteAttachments(draft: DraftEntity) = withContext(Dispatchers.IO) {
         draft.attachments.forEach { attachment ->
             if (context.contentResolver.delete(attachment.uri, null, null) == 0) {
-                Timber.e("Did not delete file ${attachment.uriString}")
+                Timber.e("Did not delete file %s", attachment.uriString)
             }
         }
     }
@@ -193,7 +193,7 @@ class DraftHelper @Inject constructor(
                     }
                 }
             } catch (ex: IOException) {
-                Timber.w("failed to save media", ex)
+                Timber.w(ex, "failed to save media")
                 return null
             }
         } else {

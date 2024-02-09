@@ -56,7 +56,7 @@ class WorkerFactory @Inject constructor(
             // Class might be missing if it was renamed / moved to a different package, as
             // periodic work requests from before the rename might still exist. Catch and
             // return null, which should stop future requests.
-            Timber.d("Invalid class: $workerClassName", e)
+            Timber.d(e, "Invalid class: %s", workerClassName)
             null
         }
         workerFactories[key]?.let {

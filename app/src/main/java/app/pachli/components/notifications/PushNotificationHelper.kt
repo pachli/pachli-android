@@ -192,10 +192,10 @@ suspend fun registerUnifiedPushEndpoint(
         auth,
         buildSubscriptionData(context, account),
     ).onFailure { throwable ->
-        Timber.w("Error setting push endpoint for account ${account.id}", throwable)
+        Timber.w(throwable, "Error setting push endpoint for account %d", account.id)
         disableUnifiedPushNotificationsForAccount(context, account)
     }.onSuccess {
-        Timber.d("UnifiedPush registration succeeded for account ${account.id}")
+        Timber.d("UnifiedPush registration succeeded for account %d", account.id)
 
         account.pushPubKey = keyPair.pubkey
         account.pushPrivKey = keyPair.privKey
@@ -214,7 +214,7 @@ suspend fun updateUnifiedPushSubscription(context: Context, api: MastodonApi, ac
             account.domain,
             buildSubscriptionData(context, account),
         ).onSuccess {
-            Timber.d("UnifiedPush subscription updated for account ${account.id}")
+            Timber.d("UnifiedPush subscription updated for account %d", account.id)
 
             account.pushServerKey = it.serverKey
             accountManager.saveAccount(account)
@@ -226,10 +226,10 @@ suspend fun unregisterUnifiedPushEndpoint(api: MastodonApi, accountManager: Acco
     withContext(Dispatchers.IO) {
         api.unsubscribePushNotifications("Bearer ${account.accessToken}", account.domain)
             .onFailure { throwable ->
-                Timber.w("Error unregistering push endpoint for account " + account.id, throwable)
+                Timber.w(throwable, "Error unregistering push endpoint for account %d", account.id)
             }
             .onSuccess {
-                Timber.d("UnifiedPush unregistration succeeded for account " + account.id)
+                Timber.d("UnifiedPush unregistration succeeded for account %d", account.id)
                 // Clear the URL in database
                 account.unifiedPushUrl = ""
                 account.pushServerKey = ""

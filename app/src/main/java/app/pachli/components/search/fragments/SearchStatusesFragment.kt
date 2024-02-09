@@ -445,7 +445,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                                 startActivity(intent)
                             },
                             { error ->
-                                Timber.w("error deleting status", error)
+                                Timber.w(error, "error deleting status")
                                 Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT).show()
                             },
                         )

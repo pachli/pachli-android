@@ -169,7 +169,7 @@ class ViewThreadFragment :
                         binding.statusView.hide()
                     }
                     is ThreadUiState.Error -> {
-                        Timber.w("failed to load status", uiState.throwable)
+                        Timber.w(uiState.throwable, "failed to load status")
                         initialProgressBar.cancel()
                         threadProgressBar.cancel()
 
@@ -217,7 +217,7 @@ class ViewThreadFragment :
 
         lifecycleScope.launch {
             viewModel.errors.collect { throwable ->
-                Timber.w("failed to load status context", throwable)
+                Timber.w(throwable, "failed to load status context")
                 val msg = view.context.getString(R.string.error_generic_fmt, throwable)
                 Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.action_retry) {
