@@ -81,7 +81,7 @@ class AccountViewModel @Inject constructor(
                             isFromOwnDomain = domain == activeAccount.domain
                         },
                         { t ->
-                            Timber.w("failed obtaining account", t)
+                            Timber.w(t, "failed obtaining account")
                             accountData.postValue(Error(cause = t))
                             isDataLoading = false
                             isRefreshing.postValue(false)
@@ -102,7 +102,7 @@ class AccountViewModel @Inject constructor(
                             relationshipData.postValue(if (relationships.isNotEmpty()) Success(relationships[0]) else Error())
                         },
                         { t ->
-                            Timber.w("failed obtaining relationships", t)
+                            Timber.w(t, "failed obtaining relationships")
                             relationshipData.postValue(Error(cause = t))
                         },
                     )
@@ -155,7 +155,7 @@ class AccountViewModel @Inject constructor(
                     relationshipData.postValue(Success(relation.copy(blockingDomain = true)))
                 }
             }, { e ->
-                Timber.e("Error muting $instance", e)
+                Timber.e(e, "Error muting %s", instance)
             })
         }
     }
@@ -168,7 +168,7 @@ class AccountViewModel @Inject constructor(
                     relationshipData.postValue(Success(relation.copy(blockingDomain = false)))
                 }
             }, { e ->
-                Timber.e("Error unmuting $instance", e)
+                Timber.e(e, "Error unmuting %s", instance)
             })
         }
     }
@@ -269,7 +269,7 @@ class AccountViewModel @Inject constructor(
                 }
             },
             { t ->
-                Timber.w("failed loading relationship", t)
+                Timber.w(t, "failed loading relationship")
                 relationshipData.postValue(Error(relation, cause = t))
             },
         )
@@ -288,7 +288,7 @@ class AccountViewModel @Inject constructor(
                         noteSaved.postValue(false)
                     },
                     { t ->
-                        Timber.w("Error updating note", t)
+                        Timber.w(t, "Error updating note")
                     },
                 )
         }

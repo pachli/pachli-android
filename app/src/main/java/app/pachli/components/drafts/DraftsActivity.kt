@@ -130,7 +130,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                     { throwable ->
                         bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
 
-                        Timber.w("failed loading reply information", throwable)
+                        Timber.w(throwable, "failed loading reply information")
 
                         if (throwable is HttpException && throwable.code() == 404) {
                             // the original status to which a reply was drafted has been deleted

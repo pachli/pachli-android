@@ -50,7 +50,7 @@ class NotificationsRepository @Inject constructor(
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
     ): Flow<PagingData<Notification>> {
-        Timber.d("getNotificationsStream(), filtering: $filter")
+        Timber.d("getNotificationsStream(), filtering: %s", filter)
 
         factory = InvalidatingPagingSourceFactory {
             NotificationsPagingSource(mastodonApi, moshi, filter)

@@ -314,7 +314,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe(
                 { result ->
-                    Timber.d("Download image result: $result")
+                    Timber.d("Download image result: %s", result)
                     isCreating = false
                     invalidateOptionsMenu()
                     binding.progressBarShare.visibility = View.GONE
@@ -326,7 +326,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
                     isCreating = false
                     invalidateOptionsMenu()
                     binding.progressBarShare.visibility = View.GONE
-                    Timber.e("Failed to download image", error)
+                    Timber.e(error, "Failed to download image")
                 },
             )
     }

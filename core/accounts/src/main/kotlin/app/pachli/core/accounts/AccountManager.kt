@@ -89,7 +89,7 @@ class AccountManager @Inject constructor(
     ) {
         activeAccount?.let {
             it.isActive = false
-            Timber.d("addAccount: saving account with id " + it.id)
+            Timber.d("addAccount: saving account with id %d", it.id)
 
             accountDao.insertOrReplace(it)
         }
@@ -131,7 +131,7 @@ class AccountManager @Inject constructor(
      */
     fun saveAccount(account: AccountEntity) {
         if (account.id != 0L) {
-            Timber.d("saveAccount: saving account with id " + account.id)
+            Timber.d("saveAccount: saving account with id %d", account.id)
             accountDao.insertOrReplace(account)
         }
     }
@@ -152,7 +152,7 @@ class AccountManager @Inject constructor(
             if (accounts.size > 0) {
                 accounts[0].isActive = true
                 activeAccount = accounts[0]
-                Timber.d("logActiveAccountOut: saving account with id " + accounts[0].id)
+                Timber.d("logActiveAccountOut: saving account with id %d", accounts[0].id)
                 accountDao.insertOrReplace(accounts[0])
             } else {
                 activeAccount = null
@@ -178,7 +178,7 @@ class AccountManager @Inject constructor(
             it.emojis = account.emojis.orEmpty()
             it.locked = account.locked
 
-            Timber.d("updateActiveAccount: saving account with id " + it.id)
+            Timber.d("updateActiveAccount: saving account with id %d", it.id)
             accountDao.insertOrReplace(it)
         }
     }
@@ -193,7 +193,7 @@ class AccountManager @Inject constructor(
         } ?: return // invalid accountId passed, do nothing
 
         activeAccount?.let {
-            Timber.d("setActiveAccount: saving account with id " + it.id)
+            Timber.d("setActiveAccount: saving account with id %d", it.id)
             it.isActive = false
             saveAccount(it)
         }

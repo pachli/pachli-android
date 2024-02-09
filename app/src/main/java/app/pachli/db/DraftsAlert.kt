@@ -56,7 +56,7 @@ class DraftsAlert @Inject constructor(private val draftDao: DraftDao) {
             // at init, at next onResume, or immediately if the context is resumed already.
             if (showAlert) {
                 draftsNeedUserAlert.observe(context) { count ->
-                    Timber.d("User id $activeAccountId changed: Notification-worthy draft count $count")
+                    Timber.d("User id %d changed: Notification-worthy draft count %d", activeAccountId, count)
                     if (count > 0) {
                         AlertDialog.Builder(context)
                             .setTitle(R.string.action_post_failed)
@@ -77,7 +77,7 @@ class DraftsAlert @Inject constructor(private val draftDao: DraftDao) {
                 }
             } else {
                 draftsNeedUserAlert.observe(context) {
-                    Timber.d("User id $activeAccountId: Clean out notification-worthy drafts")
+                    Timber.d("User id %d: Clean out notification-worthy drafts", activeAccountId)
                     clearDraftsAlert(coroutineScope, activeAccountId)
                 }
             }

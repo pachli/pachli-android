@@ -127,7 +127,7 @@ class ViewThreadViewModel @Inject constructor(
         _uiState.value = ThreadUiState.Loading
 
         viewModelScope.launch {
-            Timber.d("Finding status with: $id")
+            Timber.d("Finding status with: %s", id)
             val contextCall = async { api.statusContext(id) }
             val timelineStatusWithAccount = timelineDao.getStatus(id)
 
@@ -265,7 +265,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.reblog(status.actionableId, reblog).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Timber.d("Failed to reblog status " + status.actionableId, t)
+                Timber.d(t, "Failed to reblog status: %s", status.actionableId)
             }
         }
     }
@@ -275,7 +275,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.favourite(status.actionableId, favorite).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Timber.d("Failed to favourite status " + status.actionableId, t)
+                Timber.d(t, "Failed to favourite status: %s ", status.actionableId)
             }
         }
     }
@@ -285,7 +285,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.bookmark(status.actionableId, bookmark).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Timber.d("Failed to bookmark status " + status.actionableId, t)
+                Timber.d(t, "Failed to bookmark status: %s", status.actionableId)
             }
         }
     }
@@ -300,7 +300,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.voteInPoll(status.actionableId, poll.id, choices).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Timber.d("Failed to vote in poll: " + status.actionableId, t)
+                Timber.d(t, "Failed to vote in poll: %s", status.actionableId)
             }
         }
     }

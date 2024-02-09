@@ -85,7 +85,7 @@ class NetworkTimelineRepository @Inject constructor(
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
     ): Flow<PagingData<Status>> {
-        Timber.d("getStatusStream(): key: $initialKey")
+        Timber.d("getStatusStream(): key: %s", initialKey)
 
         factory = InvalidatingPagingSourceFactory {
             NetworkTimelinePagingSource(pageCache)

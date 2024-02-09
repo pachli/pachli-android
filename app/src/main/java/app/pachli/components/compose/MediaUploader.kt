@@ -189,7 +189,7 @@ class MediaUploader @Inject constructor(
                 ContentResolver.SCHEME_FILE -> {
                     val path = uri.path
                     if (path == null) {
-                        Timber.w("empty uri path $uri")
+                        Timber.w("empty uri path %s", uri)
                         throw CouldNotOpenFileException()
                     }
                     val inputFile = File(path)
@@ -209,7 +209,7 @@ class MediaUploader @Inject constructor(
                     }
                 }
                 else -> {
-                    Timber.w("Unknown uri scheme $uri")
+                    Timber.w("Unknown uri scheme %s", uri)
                     throw CouldNotOpenFileException()
                 }
             }

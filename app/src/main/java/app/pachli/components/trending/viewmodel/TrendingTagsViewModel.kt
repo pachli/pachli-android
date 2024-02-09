@@ -112,7 +112,7 @@ class TrendingTagsViewModel @Inject constructor(
                 }
             },
             { error ->
-                Timber.w("failed loading trending tags", error)
+                Timber.w(error, "failed loading trending tags")
                 if (error is IOException) {
                     _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.ERROR_NETWORK)
                 } else {

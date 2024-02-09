@@ -100,7 +100,7 @@ object NetworkModule {
             ProxyConfiguration.create(httpServer, httpPort)?.also { conf ->
                 val address = InetSocketAddress.createUnresolved(IDN.toASCII(conf.hostname), conf.port)
                 builder.proxy(Proxy(Proxy.Type.HTTP, address))
-            } ?: Timber.w("Invalid proxy configuration: ($httpServer, $httpPort)")
+            } ?: Timber.w("Invalid proxy configuration: (%s, %d)", httpServer, httpPort)
         }
 
         return builder

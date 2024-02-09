@@ -99,8 +99,8 @@ data class Page(
             }
 
             val links = Links.from(response.headers()["link"])
-            Timber.d("  link: " + response.headers()["link"])
-            Timber.d("  ${statuses.size} - # statuses loaded")
+            Timber.d("  link: %s", response.headers()["link"])
+            Timber.d("  %d - # statuses loaded", statuses.size)
 
             return success(
                 Page(
@@ -135,7 +135,7 @@ class PageCache : TreeMap<String, Page>(compareBy({ it.length }, { it })) {
         val key = page.data.last().id
 
         Timber.d("Inserting new page:")
-        Timber.d("  $page")
+        Timber.d("  %s", page)
 
         this[key] = page
 
@@ -161,7 +161,7 @@ class PageCache : TreeMap<String, Page>(compareBy({ it.length }, { it })) {
                 Timber.d("  ** empty **")
             } else {
                 this.onEachIndexed { index, entry ->
-                    Timber.d("  $index: ${entry.value}")
+                    Timber.d("  %d: %s", index, entry.value)
                 }
             }
         }

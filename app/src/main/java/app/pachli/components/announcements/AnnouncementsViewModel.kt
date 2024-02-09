@@ -129,7 +129,7 @@ class AnnouncementsViewModel @Inject constructor(
                         )
                     },
                     {
-                        Timber.w("Failed to add reaction to the announcement.", it)
+                        Timber.w(it, "Failed to add reaction to the announcement.")
                     },
                 )
         }
@@ -168,7 +168,7 @@ class AnnouncementsViewModel @Inject constructor(
                         )
                     },
                     {
-                        Timber.w("Failed to remove reaction from the announcement.", it)
+                        Timber.w(it, "Failed to remove reaction from the announcement.")
                     },
                 )
         }

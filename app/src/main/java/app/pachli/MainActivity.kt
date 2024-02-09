@@ -459,12 +459,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         if (frequency == UpdateNotificationFrequency.ONCE_PER_VERSION) {
             val ignoredVersion = sharedPreferencesRepository.getInt(PrefKeys.UPDATE_NOTIFICATION_VERSIONCODE, -1)
             if (latestVersionCode == ignoredVersion) {
-                Timber.d("Ignoring update to $latestVersionCode")
+                Timber.d("Ignoring update to %d", latestVersionCode)
                 return@launch
             }
         }
 
-        Timber.d("New version is: $latestVersionCode")
+        Timber.d("New version is: %d", latestVersionCode)
         when (showUpdateDialog()) {
             AlertDialog.BUTTON_POSITIVE -> {
                 startActivity(updateCheck.updateIntent)
@@ -776,7 +776,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     "Reset janky animation warning flag",
                 ),
             ) { _, which ->
-                Timber.d("Developer tools: $which")
+                Timber.d("Developer tools: %d", which)
                 when (which) {
                     0 -> {
                         Timber.d("Clearing home timeline cache")
@@ -993,7 +993,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 onFetchUserInfoSuccess(userInfo)
             },
             { throwable ->
-                Timber.e("Failed to fetch user info. " + throwable.message)
+                Timber.e(throwable, "Failed to fetch user info.")
             },
         )
     }
@@ -1126,7 +1126,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         updateAnnouncementsBadge()
                     },
                     { throwable ->
-                        Timber.w("Failed to fetch announcements.", throwable)
+                        Timber.w(throwable, "Failed to fetch announcements.")
                     },
                 )
         }

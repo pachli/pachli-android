@@ -80,7 +80,7 @@ class CachedTimelineRepository @Inject constructor(
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
     ): Flow<PagingData<TimelineStatusWithAccount>> {
-        Timber.d("getStatusStream(): key: $initialKey")
+        Timber.d("getStatusStream(): key: %s", initialKey)
 
         return accountManager.activeAccountFlow.flatMapLatest {
             activeAccount = it
@@ -101,7 +101,7 @@ class CachedTimelineRepository @Inject constructor(
                 }
             }
 
-            Timber.d("initialKey: $initialKey is row: $row")
+            Timber.d("initialKey: %s is row: %d", initialKey, row)
 
             Pager(
                 config = PagingConfig(

@@ -413,7 +413,7 @@ abstract class TimelineViewModel(
                     .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                     .distinctUntilChanged()
                     .collectLatest { action ->
-                        Timber.d("Saving Home timeline position at: ${action.visibleId}")
+                        Timber.d("Saving Home timeline position at: %s", action.visibleId)
                         activeAccount.lastVisibleHomeTimelineStatusId = action.visibleId
                         accountManager.saveAccount(activeAccount)
                         readingPositionId = action.visibleId
@@ -538,7 +538,7 @@ abstract class TimelineViewModel(
                     is FilterKind.V2 -> FilterModel(filterKind)
                 }
             } catch (throwable: Throwable) {
-                Timber.d("updateFilter(): Error fetching filters: ${throwable.message}")
+                Timber.d(throwable, "updateFilter(): Error fetching filters")
                 _uiErrorChannel.send(UiError.GetFilters(throwable))
             }
         }

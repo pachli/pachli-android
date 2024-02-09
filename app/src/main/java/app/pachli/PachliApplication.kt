@@ -129,7 +129,7 @@ class PachliApplication : Application() {
     }
 
     private fun upgradeSharedPreferences(oldVersion: Int, newVersion: Int) {
-        Timber.d("Upgrading shared preferences: $oldVersion -> $newVersion")
+        Timber.d("Upgrading shared preferences: %d -> %d", oldVersion, newVersion)
         val editor = sharedPreferencesRepository.edit()
 
         if (oldVersion != NEW_INSTALL_SCHEMA_VERSION) {

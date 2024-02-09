@@ -196,7 +196,7 @@ class ComposeActivity :
         } else if (result == CropImage.CancelledResult) {
             Timber.w("Edit image cancelled by user")
         } else {
-            Timber.w("Edit image failed: " + result.error)
+            Timber.w(result.error, "Edit image failed")
             displayTransientMessage(R.string.error_image_edit_failed)
         }
         viewModel.cropImageItemOld = null

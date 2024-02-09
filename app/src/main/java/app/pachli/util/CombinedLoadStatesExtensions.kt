@@ -166,7 +166,7 @@ fun Flow<CombinedLoadStates>.asRefreshState(): Flow<UserRefreshState> {
         if (BuildConfig.DEBUG) {
             previousLoadState?.let {
                 val loadStateDiff = loadState.diff(previousLoadState)
-                Timber.d("Current state: $refresh $prepend")
+                Timber.d("Current state: %s %s", refresh, prepend)
                 if (loadStateDiff.isNotEmpty()) Timber.d(loadStateDiff)
             }
             previousLoadState = loadState
