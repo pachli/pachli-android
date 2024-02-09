@@ -19,7 +19,6 @@ package app.pachli.di
 
 import app.pachli.updatecheck.FdroidService
 import at.connyduck.calladapter.networkresult.NetworkResultCallAdapterFactory
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +26,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
 @InstallIn(SingletonComponent::class)
@@ -37,11 +36,10 @@ object UpdateCheckModule {
     @Singleton
     fun providesFdroidService(
         httpClient: OkHttpClient,
-        gson: Gson,
     ): FdroidService = Retrofit.Builder()
         .baseUrl("https://f-droid.org")
         .client(httpClient)
-        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addConverterFactory(MoshiConverterFactory.create())
         .addCallAdapterFactory(NetworkResultCallAdapterFactory.create())
         .build()
         .create()

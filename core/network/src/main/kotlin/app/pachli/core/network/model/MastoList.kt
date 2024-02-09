@@ -16,6 +16,9 @@
 
 package app.pachli.core.network.model
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class MastoList(
     val id: String,
     val title: String,

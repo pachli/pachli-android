@@ -20,31 +20,33 @@ package app.pachli.core.network.model
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
 import app.pachli.core.network.parseAsMastodonHtml
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
+@JsonClass(generateAdapter = true)
 data class Status(
     val id: String,
     // not present if it's reblog
     val url: String?,
     val account: TimelineAccount,
-    @SerializedName("in_reply_to_id") val inReplyToId: String?,
-    @SerializedName("in_reply_to_account_id") val inReplyToAccountId: String?,
+    @Json(name = "in_reply_to_id") val inReplyToId: String?,
+    @Json(name = "in_reply_to_account_id") val inReplyToAccountId: String?,
     val reblog: Status?,
     val content: String,
-    @SerializedName("created_at") val createdAt: Date,
-    @SerializedName("edited_at") val editedAt: Date?,
+    @Json(name = "created_at") val createdAt: Date,
+    @Json(name = "edited_at") val editedAt: Date?,
     val emojis: List<Emoji>,
-    @SerializedName("reblogs_count") val reblogsCount: Int,
-    @SerializedName("favourites_count") val favouritesCount: Int,
-    @SerializedName("replies_count") val repliesCount: Int,
+    @Json(name = "reblogs_count") val reblogsCount: Int,
+    @Json(name = "favourites_count") val favouritesCount: Int,
+    @Json(name = "replies_count") val repliesCount: Int,
     val reblogged: Boolean,
     val favourited: Boolean,
     val bookmarked: Boolean,
     val sensitive: Boolean,
-    @SerializedName("spoiler_text") val spoilerText: String,
+    @Json(name = "spoiler_text") val spoilerText: String,
     val visibility: Visibility,
-    @SerializedName("media_attachments") val attachments: List<Attachment>,
+    @Json(name = "media_attachments") val attachments: List<Attachment>,
     val mentions: List<Mention>,
     val tags: List<HashTag>?,
     val application: Application?,
@@ -65,16 +67,16 @@ data class Status(
     enum class Visibility(val num: Int) {
         UNKNOWN(0),
 
-        @SerializedName("public")
+        @Json(name = "public")
         PUBLIC(1),
 
-        @SerializedName("unlisted")
+        @Json(name = "unlisted")
         UNLISTED(2),
 
-        @SerializedName("private")
+        @Json(name = "private")
         PRIVATE(3),
 
-        @SerializedName("direct")
+        @Json(name = "direct")
         DIRECT(4),
         ;
 
@@ -156,13 +158,15 @@ data class Status(
         return builder.toString()
     }
 
+    @JsonClass(generateAdapter = true)
     data class Mention(
         val id: String,
         val url: String,
-        @SerializedName("acct") val username: String,
-        @SerializedName("username") val localUsername: String,
+        @Json(name = "acct") val username: String,
+        @Json(name = "username") val localUsername: String,
     )
 
+    @JsonClass(generateAdapter = true)
     data class Application(
         val name: String,
         val website: String?,

@@ -16,9 +16,11 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /** https://docs.joinmastodon.org/entities/V1_Instance/ */
+@JsonClass(generateAdapter = true)
 data class InstanceV1(
     val uri: String,
     // val title: String,
@@ -29,13 +31,13 @@ data class InstanceV1(
     // val stats: Map<String, Int>?,
     // val thumbnail: String?,
     // val languages: List<String>,
-    // @SerializedName("contact_account") val contactAccount: Account,
-    @SerializedName("max_toot_chars") val maxTootChars: Int?,
-    @SerializedName("poll_limits") val pollConfiguration: PollConfiguration?,
+    // @Json(name = "contact_account") val contactAccount: Account,
+    @Json(name = "max_toot_chars") val maxTootChars: Int?,
+    @Json(name = "poll_limits") val pollConfiguration: PollConfiguration?,
     val configuration: InstanceConfiguration?,
-    @SerializedName("max_media_attachments") val maxMediaAttachments: Int?,
+    @Json(name = "max_media_attachments") val maxMediaAttachments: Int?,
     val pleroma: PleromaConfiguration?,
-    @SerializedName("upload_limit") val uploadLimit: Int?,
+    @Json(name = "upload_limit") val uploadLimit: Int?,
     val rules: List<InstanceRules>?,
 ) {
     override fun hashCode(): Int {
@@ -51,49 +53,57 @@ data class InstanceV1(
     }
 }
 
+@JsonClass(generateAdapter = true)
 data class PollConfiguration(
-    @SerializedName("max_options") val maxOptions: Int?,
-    @SerializedName("max_option_chars") val maxOptionChars: Int?,
-    @SerializedName("max_characters_per_option") val maxCharactersPerOption: Int?,
-    @SerializedName("min_expiration") val minExpiration: Int?,
-    @SerializedName("max_expiration") val maxExpiration: Int?,
+    @Json(name = "max_options") val maxOptions: Int?,
+    @Json(name = "max_option_chars") val maxOptionChars: Int?,
+    @Json(name = "max_characters_per_option") val maxCharactersPerOption: Int?,
+    @Json(name = "min_expiration") val minExpiration: Int?,
+    @Json(name = "max_expiration") val maxExpiration: Int?,
 )
 
+@JsonClass(generateAdapter = true)
 data class InstanceConfiguration(
     val statuses: StatusConfiguration?,
-    @SerializedName("media_attachments") val mediaAttachments: MediaAttachmentConfiguration?,
+    @Json(name = "media_attachments") val mediaAttachments: MediaAttachmentConfiguration?,
     val polls: PollConfiguration?,
 )
 
+@JsonClass(generateAdapter = true)
 data class StatusConfiguration(
-    @SerializedName("max_characters") val maxCharacters: Int?,
-    @SerializedName("max_media_attachments") val maxMediaAttachments: Int?,
-    @SerializedName("characters_reserved_per_url") val charactersReservedPerUrl: Int?,
+    @Json(name = "max_characters") val maxCharacters: Int?,
+    @Json(name = "max_media_attachments") val maxMediaAttachments: Int?,
+    @Json(name = "characters_reserved_per_url") val charactersReservedPerUrl: Int?,
 )
 
+@JsonClass(generateAdapter = true)
 data class MediaAttachmentConfiguration(
-    @SerializedName("supported_mime_types") val supportedMimeTypes: List<String>?,
-    @SerializedName("image_size_limit") val imageSizeLimit: Int?,
-    @SerializedName("image_matrix_limit") val imageMatrixLimit: Int?,
-    @SerializedName("video_size_limit") val videoSizeLimit: Int?,
-    @SerializedName("video_frame_rate_limit") val videoFrameRateLimit: Int?,
-    @SerializedName("video_matrix_limit") val videoMatrixLimit: Int?,
+    @Json(name = "supported_mime_types") val supportedMimeTypes: List<String>?,
+    @Json(name = "image_size_limit") val imageSizeLimit: Int?,
+    @Json(name = "image_matrix_limit") val imageMatrixLimit: Int?,
+    @Json(name = "video_size_limit") val videoSizeLimit: Int?,
+    @Json(name = "video_frame_rate_limit") val videoFrameRateLimit: Int?,
+    @Json(name = "video_matrix_limit") val videoMatrixLimit: Int?,
 )
 
+@JsonClass(generateAdapter = true)
 data class PleromaConfiguration(
     val metadata: PleromaMetadata?,
 )
 
+@JsonClass(generateAdapter = true)
 data class PleromaMetadata(
-    @SerializedName("fields_limits") val fieldLimits: PleromaFieldLimits,
+    @Json(name = "fields_limits") val fieldLimits: PleromaFieldLimits,
 )
 
+@JsonClass(generateAdapter = true)
 data class PleromaFieldLimits(
-    @SerializedName("max_fields") val maxFields: Int?,
-    @SerializedName("name_length") val nameLength: Int?,
-    @SerializedName("value_length") val valueLength: Int?,
+    @Json(name = "max_fields") val maxFields: Int?,
+    @Json(name = "name_length") val nameLength: Int?,
+    @Json(name = "value_length") val valueLength: Int?,
 )
 
+@JsonClass(generateAdapter = true)
 data class InstanceRules(
     val id: String,
     val text: String,

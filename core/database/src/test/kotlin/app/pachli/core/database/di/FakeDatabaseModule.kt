@@ -21,7 +21,7 @@ import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -36,10 +36,10 @@ import javax.inject.Singleton
 object FakeDatabaseModule {
     @Provides
     @Singleton
-    fun providesDatabase(gson: Gson): AppDatabase {
+    fun providesDatabase(moshi: Moshi): AppDatabase {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         return Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
-            .addTypeConverter(Converters(gson))
+            .addTypeConverter(Converters(moshi))
             .allowMainThreadQueries()
             .build()
     }

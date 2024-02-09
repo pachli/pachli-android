@@ -17,13 +17,15 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
+@JsonClass(generateAdapter = true)
 data class Report(
     val id: String,
     val category: String,
-    val status_ids: List<String>?,
-    @SerializedName("created_at") val createdAt: Date,
-    @SerializedName("target_account") val targetAccount: TimelineAccount,
+    @Json(name = "status_ids") val statusIds: List<String>?,
+    @Json(name = "created_at") val createdAt: Date,
+    @Json(name = "target_account") val targetAccount: TimelineAccount,
 )

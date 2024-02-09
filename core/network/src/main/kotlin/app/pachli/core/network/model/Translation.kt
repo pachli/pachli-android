@@ -17,9 +17,11 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /** https://docs.joinmastodon.org/entities/Translation/ */
+@JsonClass(generateAdapter = true)
 data class Translation(
     /** The translated text of the status (HTML), equivalent to [Status.content] */
     val content: String,
@@ -28,14 +30,14 @@ data class Translation(
      * The language of the source text, as auto-detected by the machine translation
      * (ISO 639 language code)
      */
-    @SerializedName("detected_source_language") val detectedSourceLanguage: String,
+    @Json(name = "detected_source_language") val detectedSourceLanguage: String,
 
     // Not documented, see https://github.com/mastodon/documentation/issues/1248
     /**
      * The translated spoiler text of the status (text), if it exists, equivalent to
      * [Status.spoilerText]
      */
-    @SerializedName("spoiler_text") val spoilerText: String,
+    @Json(name = "spoiler_text") val spoilerText: String,
 
     // Not documented, see https://github.com/mastodon/documentation/issues/1248
     /** The translated poll (if it exists) */
@@ -46,7 +48,7 @@ data class Translation(
      * Translated descriptions for media attachments, if any were attached. Other metadata has
      * to be determined from the original attachment.
      */
-    @SerializedName("media_attachments") val attachments: List<TranslatedAttachment>,
+    @Json(name = "media_attachments") val attachments: List<TranslatedAttachment>,
 
     /** The service that provided the machine translation */
     val provider: String,
@@ -56,17 +58,20 @@ data class Translation(
  * A translated poll. Does not contain all the poll data, only the translated text.
  * Vote counts and other metadata has to be determined from the original poll object.
  */
+@JsonClass(generateAdapter = true)
 data class TranslatedPoll(
     val id: String,
     val options: List<TranslatedPollOption>,
 )
 
 /** A translated poll option. */
+@JsonClass(generateAdapter = true)
 data class TranslatedPollOption(
     val title: String,
 )
 
 /** A translated attachment. Only the description is translated */
+@JsonClass(generateAdapter = true)
 data class TranslatedAttachment(
     val id: String,
     val description: String,

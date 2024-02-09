@@ -21,7 +21,7 @@ import androidx.paging.PagingSource
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
@@ -39,15 +39,15 @@ class NotificationsPagingSourceTest {
     @Test
     fun `load() returns error message on HTTP error`() = runTest {
         // Given
-        val jsonError = "{error: 'This is an error'}".toResponseBody()
+        val jsonError = """{"error": "This is an error"}""".toResponseBody()
         val mockApi: MastodonApi = mock {
             onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(429, jsonError)
             onBlocking { notification(any()) } doReturn Response.error(429, jsonError)
         }
 
         val filter = emptySet<Notification.Type>()
-        val gson = Gson()
-        val pagingSource = NotificationsPagingSource(mockApi, gson, filter)
+        val moshi = Moshi.Builder().build()
+        val pagingSource = NotificationsPagingSource(mockApi, moshi, filter)
         val loadingParams = PagingSource.LoadParams.Refresh("0", 5, false)
 
         // When
@@ -65,15 +65,15 @@ class NotificationsPagingSourceTest {
     @Test
     fun `load() returns extended error message on HTTP error`() = runTest {
         // Given
-        val jsonError = "{error: 'This is an error', error_description: 'Description of the error'}".toResponseBody()
+        val jsonError = """{"error": "This is an error", "error_description": "Description of the error"}""".toResponseBody()
         val mockApi: MastodonApi = mock {
             onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(429, jsonError)
             onBlocking { notification(any()) } doReturn Response.error(429, jsonError)
         }
 
         val filter = emptySet<Notification.Type>()
-        val gson = Gson()
-        val pagingSource = NotificationsPagingSource(mockApi, gson, filter)
+        val moshi = Moshi.Builder().build()
+        val pagingSource = NotificationsPagingSource(mockApi, moshi, filter)
         val loadingParams = PagingSource.LoadParams.Refresh("0", 5, false)
 
         // When
@@ -91,15 +91,15 @@ class NotificationsPagingSourceTest {
     @Test
     fun `load() returns default error message on empty HTTP error`() = runTest {
         // Given
-        val jsonError = "{}".toResponseBody()
+        val jsonError = "".toResponseBody()
         val mockApi: MastodonApi = mock {
             onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(429, jsonError)
             onBlocking { notification(any()) } doReturn Response.error(429, jsonError)
         }
 
         val filter = emptySet<Notification.Type>()
-        val gson = Gson()
-        val pagingSource = NotificationsPagingSource(mockApi, gson, filter)
+        val moshi = Moshi.Builder().build()
+        val pagingSource = NotificationsPagingSource(mockApi, moshi, filter)
         val loadingParams = PagingSource.LoadParams.Refresh("0", 5, false)
 
         // When
@@ -124,8 +124,8 @@ class NotificationsPagingSourceTest {
         }
 
         val filter = emptySet<Notification.Type>()
-        val gson = Gson()
-        val pagingSource = NotificationsPagingSource(mockApi, gson, filter)
+        val moshi = Moshi.Builder().build()
+        val pagingSource = NotificationsPagingSource(mockApi, moshi, filter)
         val loadingParams = PagingSource.LoadParams.Refresh("0", 5, false)
 
         // When
@@ -134,7 +134,7 @@ class NotificationsPagingSourceTest {
         // Then
         assertTrue(loadResult is PagingSource.LoadResult.Error)
         assertEquals(
-            "HTTP 429: {'malformedjson} (com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Unterminated string at line 1 column 17 path \$.)",
+            "HTTP 429: {'malformedjson} (com.squareup.moshi.JsonEncodingException: Use JsonReader.setLenient(true) to accept malformed JSON at path \$.)",
             (loadResult as PagingSource.LoadResult.Error).throwable.message,
         )
     }

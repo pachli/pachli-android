@@ -16,10 +16,12 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class NotificationSubscribeResult(
     val id: Int,
     val endpoint: String,
-    @SerializedName("server_key") val serverKey: String,
+    @Json(name = "server_key") val serverKey: String,
 )

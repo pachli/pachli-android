@@ -18,7 +18,7 @@ data class StatusDeletedEvent(val statusId: String) : Event
 /** A status the user wrote was successfully sent */
 // TODO: Rename, calling it "Composed" does not imply anything about the sent state
 data class StatusComposedEvent(val status: Status) : Event
-data class StatusScheduledEvent(val status: Status) : Event
+data object StatusScheduledEvent : Event
 data class StatusEditedEvent(val originalId: String, val status: Status) : Event
 data class ProfileEditedEvent(val newProfileData: Account) : Event
 data class FilterChangedEvent(val filterKind: Filter.Kind) : Event

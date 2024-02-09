@@ -22,7 +22,7 @@ import android.os.Build
 import app.pachli.core.common.util.versionName
 import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.BuildConfig
-import app.pachli.core.network.json.Rfc3339DateJsonAdapter
+import app.pachli.core.network.json.GuardedAdapter.Companion.GuardedAdapterFactory
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_ENABLED
@@ -32,8 +32,8 @@ import app.pachli.core.preferences.ProxyConfiguration
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.getNonNullString
 import at.connyduck.calladapter.networkresult.NetworkResultCallAdapterFactory
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,7 +50,7 @@ import okhttp3.OkHttp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import timber.log.Timber
 
@@ -60,9 +60,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesGson(): Gson = GsonBuilder()
-        .registerTypeAdapter(Date::class.java, Rfc3339DateJsonAdapter())
-        .create()
+    fun providesMoshi(): Moshi = Moshi.Builder()
+        .add(Date::class.java, Rfc3339DateJsonAdapter())
+        .add(GuardedAdapterFactory())
+        .build()
 
     @Provides
     @Singleton
@@ -116,11 +117,11 @@ object NetworkModule {
     @Singleton
     fun providesRetrofit(
         httpClient: OkHttpClient,
-        gson: Gson,
+        moshi: Moshi,
     ): Retrofit {
         return Retrofit.Builder().baseUrl("https://" + MastodonApi.PLACEHOLDER_DOMAIN)
             .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(NetworkResultCallAdapterFactory.create())
             .build()
     }

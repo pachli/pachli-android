@@ -17,32 +17,36 @@
 package app.pachli.core.network.model
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
+@JsonClass(generateAdapter = true)
 data class NewStatus(
     val status: String,
-    @SerializedName("spoiler_text") val warningText: String,
-    @SerializedName("in_reply_to_id") val inReplyToId: String?,
+    @Json(name = "spoiler_text") val warningText: String,
+    @Json(name = "in_reply_to_id") val inReplyToId: String?,
     val visibility: String,
     val sensitive: Boolean,
-    @SerializedName("media_ids") val mediaIds: List<String>?,
-    @SerializedName("media_attributes") val mediaAttributes: List<MediaAttribute>?,
-    @SerializedName("scheduled_at") val scheduledAt: String?,
+    @Json(name = "media_ids") val mediaIds: List<String>?,
+    @Json(name = "media_attributes") val mediaAttributes: List<MediaAttribute>?,
+    @Json(name = "scheduled_at") val scheduledAt: String?,
     val poll: NewPoll?,
     val language: String?,
 )
 
 @Parcelize
+@JsonClass(generateAdapter = true)
 data class NewPoll(
     val options: List<String>,
-    @SerializedName("expires_in") val expiresIn: Int,
+    @Json(name = "expires_in") val expiresIn: Int,
     val multiple: Boolean,
 ) : Parcelable
 
 // It would be nice if we could reuse MediaToSend,
 // but the server requires a different format for focus
 @Parcelize
+@JsonClass(generateAdapter = true)
 data class MediaAttribute(
     val id: String,
     val description: String?,

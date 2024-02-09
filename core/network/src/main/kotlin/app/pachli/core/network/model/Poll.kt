@@ -1,19 +1,21 @@
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
+@JsonClass(generateAdapter = true)
 data class Poll(
     val id: String,
-    @SerializedName("expires_at") val expiresAt: Date?,
+    @Json(name = "expires_at") val expiresAt: Date?,
     val expired: Boolean,
     val multiple: Boolean,
-    @SerializedName("votes_count") val votesCount: Int,
+    @Json(name = "votes_count") val votesCount: Int,
     // nullable for compatibility with Pleroma
-    @SerializedName("voters_count") val votersCount: Int?,
+    @Json(name = "voters_count") val votersCount: Int?,
     val options: List<PollOption>,
     val voted: Boolean,
-    @SerializedName("own_votes") val ownVotes: List<Int>?,
+    @Json(name = "own_votes") val ownVotes: List<Int>?,
 ) {
 
     fun votedCopy(choices: List<Int>): Poll {
@@ -42,7 +44,8 @@ data class Poll(
     )
 }
 
+@JsonClass(generateAdapter = true)
 data class PollOption(
     val title: String,
-    @SerializedName("votes_count") val votesCount: Int,
+    @Json(name = "votes_count") val votesCount: Int,
 )

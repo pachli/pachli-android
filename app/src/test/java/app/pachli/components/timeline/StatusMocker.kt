@@ -5,10 +5,12 @@ import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.network.json.GuardedAdapter.Companion.GuardedAdapterFactory
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.viewdata.StatusViewData
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import java.util.Date
 
 private val fixedDate = Date(1638889052000)
@@ -96,18 +98,21 @@ fun mockStatusEntityWithAccount(
     expanded: Boolean = false,
 ): TimelineStatusWithAccount {
     val mockedStatus = mockStatus(id)
-    val gson = Gson()
+    val moshi = Moshi.Builder()
+        .add(Date::class.java, Rfc3339DateJsonAdapter())
+        .add(GuardedAdapterFactory())
+        .build()
 
     return TimelineStatusWithAccount(
         status = TimelineStatusEntity.from(
             mockedStatus,
             timelineUserId = userId,
-            gson = gson,
+            moshi = moshi,
         ),
         account = TimelineAccountEntity.from(
             mockedStatus.account,
             accountId = userId,
-            gson = gson,
+            moshi = moshi,
         ),
         viewData = StatusViewDataEntity(
             serverId = id,

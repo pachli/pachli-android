@@ -16,25 +16,27 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
+@JsonClass(generateAdapter = true)
 data class Account(
     val id: String,
-    @SerializedName("username") val localUsername: String,
-    @SerializedName("acct") val username: String,
+    @Json(name = "username") val localUsername: String,
+    @Json(name = "acct") val username: String,
     // should never be null per API definition, but some servers break the contract
-    @SerializedName("display_name") val displayName: String?,
+    @Json(name = "display_name") val displayName: String?,
     // should never be null per API definition, but some servers break the contract
-    @SerializedName("created_at") val createdAt: Date?,
+    @Json(name = "created_at") val createdAt: Date?,
     val note: String,
     val url: String,
     val avatar: String,
     val header: String,
     val locked: Boolean = false,
-    @SerializedName("followers_count") val followersCount: Int = 0,
-    @SerializedName("following_count") val followingCount: Int = 0,
-    @SerializedName("statuses_count") val statusesCount: Int = 0,
+    @Json(name = "followers_count") val followersCount: Int = 0,
+    @Json(name = "following_count") val followingCount: Int = 0,
+    @Json(name = "statuses_count") val statusesCount: Int = 0,
     val source: AccountSource? = null,
     val bot: Boolean = false,
     // nullable for backward compatibility
@@ -55,6 +57,7 @@ data class Account(
     fun isRemote(): Boolean = this.username != this.localUsername
 }
 
+@JsonClass(generateAdapter = true)
 data class AccountSource(
     val privacy: Status.Visibility?,
     val sensitive: Boolean?,
@@ -63,18 +66,21 @@ data class AccountSource(
     val language: String?,
 )
 
+@JsonClass(generateAdapter = true)
 data class Field(
     val name: String,
     val value: String,
-    @SerializedName("verified_at") val verifiedAt: Date?,
+    @Json(name = "verified_at") val verifiedAt: Date?,
 )
 
+@JsonClass(generateAdapter = true)
 data class StringField(
     val name: String,
     val value: String,
 )
 
 /** [Mastodon Entities: Role](https://docs.joinmastodon.org/entities/Role) */
+@JsonClass(generateAdapter = true)
 data class Role(
     /** Displayable name of the role */
     val name: String,
