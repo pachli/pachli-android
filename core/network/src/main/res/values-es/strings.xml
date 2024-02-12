@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="node_info_error_no_software_name">nombre del programa faltante, vacío o en blanco</string>
+    <string name="node_info_error_no_software_version">versión del programa faltante, vacía o en blanco</string>
+    <string name="server_error_unparseable_version">no se pudo analizar \"%1$s\" como una versión: %2$s</string>
+</resources>
