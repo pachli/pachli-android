@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">Abrir como %s</string>
     <string name="post_lookup_error_format">Error al buscar el post %s</string>
     <string name="performing_lookup_title">Buscando…</string>
+    <string name="send_error_report">Enviar reporte de error</string>
 </resources>
