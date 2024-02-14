@@ -142,6 +142,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setDefaultValue(false)
                     key = PrefKeys.HIDE_TOP_TOOLBAR
                     setTitle(R.string.pref_title_hide_top_toolbar)
+                    isSingleLineTitle = false
                 }
 
                 switchPreference {
