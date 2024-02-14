@@ -42,7 +42,7 @@ interface PreviewCard {
     val title: String
     val description: String
     val kind: PreviewCardKind
-    val authorName: String? // Not supposed to be null, per API, but seen null in the wild
+    val authorName: String
     val authorUrl: String
     val providerName: String
     val providerUrl: String
@@ -68,7 +68,7 @@ data class TrendsLink(
     override val title: String,
     override val description: String,
     @Json(name = "type") override val kind: PreviewCardKind,
-    @Json(name = "author_name") override val authorName: String,
+    @Json(name = "author_name") override val authorName: String = "",
     @Json(name = "author_url") override val authorUrl: String,
     @Json(name = "provider_name") override val providerName: String,
     @Json(name = "provider_url") override val providerUrl: String,
