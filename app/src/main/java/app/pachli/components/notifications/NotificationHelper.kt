@@ -431,9 +431,13 @@ private fun getStatusComposeIntent(
         language = language,
         kind = ComposeOptions.ComposeKind.NEW,
     )
-    val composeIntent =
-        MainActivityIntent.openCompose(context, composeOptions, account.id, body.id, account.id.toInt())
-    composeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    val composeIntent = MainActivityIntent.openCompose(
+        context,
+        composeOptions,
+        account.id,
+        body.id,
+        account.id.toInt(),
+    )
     return PendingIntent.getActivity(
         context.applicationContext,
         notificationId,

@@ -557,7 +557,11 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
         startActivity(composeIntent)
-        finish()
+
+        // Recreate the activity to ensure it is using the correct active account
+        // (which may have changed while processing the compose intent) and so
+        // the user returns to the timeline when they finish ComposeActivity.
+        recreate()
     }
 
     private fun setupDrawer(
