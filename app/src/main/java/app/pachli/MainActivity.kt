@@ -97,6 +97,7 @@ import app.pachli.core.navigation.TrendingActivityIntent
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.await
 import app.pachli.core.ui.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityMainBinding
 import app.pachli.db.DraftsAlert
@@ -108,7 +109,6 @@ import app.pachli.updatecheck.UpdateCheck
 import app.pachli.updatecheck.UpdateNotificationFrequency
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
-import app.pachli.util.await
 import app.pachli.util.deleteStaleCachedMedia
 import app.pachli.util.getDimension
 import app.pachli.util.unsafeLazy
