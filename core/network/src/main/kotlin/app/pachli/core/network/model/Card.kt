@@ -26,15 +26,24 @@ data class Card(
     override val title: String,
     override val description: String,
     @Json(name = "type") override val kind: PreviewCardKind,
-    @Json(name = "author_name") override val authorName: String,
-    @Json(name = "author_url") override val authorUrl: String,
+    // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
+    @Json(name = "author_name") override val authorName: String = "",
+    // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
+    @Json(name = "author_url") override val authorUrl: String = "",
     @Json(name = "provider_name") override val providerName: String,
     @Json(name = "provider_url") override val providerUrl: String,
-    override val html: String,
-    override val width: Int,
-    override val height: Int,
+    // Missing from Friendica, https://github.com/friendica/friendica/issues/13887
+    // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
+    override val html: String = "",
+    // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
+    override val width: Int = 0,
+    // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
+    override val height: Int = 0,
     override val image: String? = null,
-    @Json(name = "embed_url") override val embedUrl: String,
+    // Missing from Friendica, https://github.com/friendica/friendica/issues/13887
+    // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
+    @Json(name = "embed_url") override val embedUrl: String = "",
+    // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
     override val blurhash: String? = null,
 ) : PreviewCard {
 
