@@ -17,7 +17,10 @@
 package app.pachli.receiver
 
 import android.content.Context
+import androidx.work.Constraints
+import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import app.pachli.components.notifications.registerUnifiedPushEndpoint
 import app.pachli.components.notifications.unregisterUnifiedPushEndpoint
@@ -44,7 +47,10 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
     override fun onMessage(context: Context, message: ByteArray, instance: String) {
         Timber.d("New message received for account %s", instance)
         val workManager = WorkManager.getInstance(context)
-        val request = OneTimeWorkRequest.from(NotificationWorker::class.java)
+        val request = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
+            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+            .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+            .build()
         workManager.enqueue(request)
     }
 
