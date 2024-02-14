@@ -1025,7 +1025,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         updateProfiles()
-        updateShortcut(this, accountManager.activeAccount!!)
+        updateShortcut(applicationContext, accountManager.activeAccount!!)
     }
 
     @SuppressLint("CheckResult")
