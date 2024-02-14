@@ -209,7 +209,7 @@ fun makeNotification(
     // Add the sending account's name, so it can be used when summarising this notification
     val extras = Bundle()
     extras.putString(EXTRA_ACCOUNT_NAME, notif.account.name)
-    extras.putSerializable(EXTRA_NOTIFICATION_TYPE, notif.type)
+    extras.putEnum(EXTRA_NOTIFICATION_TYPE, notif.type)
     builder.addExtras(extras)
 
     // Only alert for the first notification of a batch to avoid multiple alerts at once
@@ -290,11 +290,7 @@ fun updateSummaryNotifications(
         // Create a notification that summarises the other notifications in this group
 
         // All notifications in this group have the same type, so get it from the first.
-        val notificationType = (
-            members[0].notification.extras.getSerializable(
-                EXTRA_NOTIFICATION_TYPE,
-            ) as Notification.Type?
-            )!!
+        val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
         val summaryResultIntent = MainActivityIntent.openNotification(
             context,
             accountId.toLong(),
@@ -871,3 +867,18 @@ fun pendingIntentFlags(mutable: Boolean): Int {
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     }
 }
+
+/**
+ * Returns the enum associated with the given [key].
+ *
+ * @throws IllegalStateException if the value at [key] is not valid for the enum [T].
+ */
+inline fun <reified T : Enum<T>> Bundle.getEnum(key: String) =
+    getInt(key, -1).let { if (it >= 0) enumValues<T>()[it] else throw IllegalStateException("unrecognised enum ordinal: $it") }
+
+/**
+ * Inserts an enum [value] into the mapping of this [Bundle], replacing any
+ * existing value for the given [key].
+ */
+fun <T : Enum<T>> Bundle.putEnum(key: String, value: T?) =
+    putInt(key, value?.ordinal ?: -1)
