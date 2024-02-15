@@ -2,6 +2,7 @@ package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.network.json.DefaultIfNullAdapter.Companion.DefaultIfNullAdapterFactory
 import app.pachli.core.network.json.GuardedAdapter.Companion.GuardedAdapterFactory
 import app.pachli.core.network.model.Status
 import app.pachli.viewdata.StatusViewData
@@ -18,7 +19,9 @@ import org.junit.runner.RunWith
 class StatusComparisonTest {
     private val moshi = Moshi.Builder()
         .add(Date::class.java, Rfc3339DateJsonAdapter())
-        .add(GuardedAdapterFactory()).build()
+        .add(GuardedAdapterFactory())
+        .add(DefaultIfNullAdapterFactory())
+        .build()
 
     @Test
     fun `two equal statuses - should be equal`() {
