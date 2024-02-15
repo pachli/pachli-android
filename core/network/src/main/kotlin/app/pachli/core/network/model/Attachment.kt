@@ -18,6 +18,7 @@
 package app.pachli.core.network.model
 
 import android.os.Parcelable
+import app.pachli.core.network.json.DefaultIfNull
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
@@ -58,6 +59,8 @@ data class Attachment(
     @Parcelize
     @JsonClass(generateAdapter = true)
     data class MetaData(
+        // Fields in Focus may be null, see https://github.com/mastodon/mastodon/issues/29222
+        @DefaultIfNull
         val focus: Focus?,
         val duration: Float?,
         val original: Size?,
@@ -73,8 +76,8 @@ data class Attachment(
     @Parcelize
     @JsonClass(generateAdapter = true)
     data class Focus(
-        val x: Float,
-        val y: Float,
+        val x: Float = 0f,
+        val y: Float = 0f,
     ) : Parcelable {
         fun toMastodonApiString(): String = "$x,$y"
     }
