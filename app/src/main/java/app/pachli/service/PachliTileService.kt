@@ -36,7 +36,6 @@ class PachliTileService : TileService() {
     @SuppressLint("StartActivityAndCollapseDeprecated")
     override fun onClick() {
         val intent = MainActivityIntent.openCompose(this, ComposeOptions())
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             startActivityAndCollapse(getActivityPendingIntent(this, 0, intent))
         } else {

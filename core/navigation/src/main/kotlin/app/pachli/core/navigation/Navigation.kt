@@ -268,7 +268,7 @@ class MainActivityIntent(context: Context) : Intent() {
         /**
          * Switches the active account to the provided accountId and then stays on MainActivity
          */
-        fun switchAccount(context: Context, pachliAccountId: Long) = MainActivityIntent(context).apply {
+        private fun switchAccount(context: Context, pachliAccountId: Long) = MainActivityIntent(context).apply {
             putExtra(EXTRA_PACHLI_ACCOUNT_ID, pachliAccountId)
         }
 
@@ -300,6 +300,7 @@ class MainActivityIntent(context: Context) : Intent() {
             putExtra(EXTRA_COMPOSE_OPTIONS, options)
             putExtra(EXTRA_NOTIFICATION_TAG, notificationTag)
             putExtra(EXTRA_NOTIFICATION_ID, notificationId)
+            flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         }
 
         /**
