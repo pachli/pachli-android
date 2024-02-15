@@ -84,7 +84,15 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
             // This can be CPU intensive depending on the number of edits and the size
             // of each, so don't run this on Dispatchers.Main.
             viewModelScope.launch(Dispatchers.Default) {
-                val sortedEdits = edits.sortedBy { it.createdAt }
+                val sortedEdits = edits
+                    // The XMLLoader expects the outermost content to be enclosed
+                    // in block elements. Multiple block elements without a single
+                    // root are ok ("<p>...</p> <p>...</p>"), but content without
+                    // a block element ("<a ...> some text") is not. Guard against
+                    // this be wrapping everything in a div.
+                    // https://github.com/tuskyapp/Tusky/issues/4253
+                    .map { it.copy(content = "<div>${it.content}</div>") }
+                    .sortedBy { it.createdAt }
                     .reversed()
                     .toMutableList()
 
