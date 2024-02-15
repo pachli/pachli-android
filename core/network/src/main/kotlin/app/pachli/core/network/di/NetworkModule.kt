@@ -22,6 +22,7 @@ import android.os.Build
 import app.pachli.core.common.util.versionName
 import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.BuildConfig
+import app.pachli.core.network.json.DefaultIfNullAdapter.Companion.DefaultIfNullAdapterFactory
 import app.pachli.core.network.json.GuardedAdapter.Companion.GuardedAdapterFactory
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
@@ -63,6 +64,7 @@ object NetworkModule {
     fun providesMoshi(): Moshi = Moshi.Builder()
         .add(Date::class.java, Rfc3339DateJsonAdapter())
         .add(GuardedAdapterFactory())
+        .add(DefaultIfNullAdapterFactory())
         .build()
 
     @Provides
