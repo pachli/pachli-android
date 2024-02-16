@@ -1,4 +1,5 @@
-/* Copyright 2019 Tusky Contributors
+/*
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -14,16 +15,30 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.activity
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
+/**
+ * A [FragmentStateAdapter] that provides [getFragment].
+ *
+ * Useful if the hosting activity or fragment needs to call methods on
+ * one or more of the child fragments (e.g., to trigger a refresh).
+ */
 abstract class CustomFragmentStateAdapter(
-    private val activity: FragmentActivity,
-) : FragmentStateAdapter(activity) {
+    open val fragmentManager: FragmentManager,
+    open val lifecycle: Lifecycle,
+) : FragmentStateAdapter(fragmentManager, lifecycle) {
+    constructor(activity: FragmentActivity) :
+        this(activity.supportFragmentManager, activity.lifecycle)
+
+    constructor(fragment: Fragment) :
+        this(fragment.childFragmentManager, fragment.lifecycle)
 
     fun getFragment(position: Int): Fragment? =
-        activity.supportFragmentManager.findFragmentByTag("f" + getItemId(position))
+        fragmentManager.findFragmentByTag("f" + getItemId(position))
 }
