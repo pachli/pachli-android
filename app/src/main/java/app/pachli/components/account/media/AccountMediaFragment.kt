@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -44,7 +45,6 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentTimelineBinding
-import app.pachli.interfaces.RefreshableFragment
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
