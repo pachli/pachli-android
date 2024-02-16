@@ -1,7 +1,7 @@
 package app.pachli.components.viewthread.edits
 
 import android.content.Context
-import android.graphics.Typeface.DEFAULT_BOLD
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.text.Editable
@@ -11,6 +11,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.style.CharacterStyle
+import android.text.style.MetricAffectingSpan
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -296,8 +297,13 @@ class PachliTagHandler(val context: Context) : Html.TagHandler {
         }
     }
 
-    /** Span that signifies inserted text */
-    class InsertedTextSpan(context: Context) : CharacterStyle() {
+    /**
+     *  Span that signifies inserted text.
+     *
+     *  Derives from [MetricAffectingSpan] as making the font bold can change
+     *  its metrics.
+     */
+    class InsertedTextSpan(context: Context) : MetricAffectingSpan() {
         private var bgColor: Int
 
         init {
@@ -305,8 +311,14 @@ class PachliTagHandler(val context: Context) : Html.TagHandler {
         }
 
         override fun updateDrawState(tp: TextPaint) {
+            updateMeasureState(tp)
             tp.bgColor = bgColor
-            tp.typeface = DEFAULT_BOLD
+        }
+
+        override fun updateMeasureState(tp: TextPaint) {
+            // Try and create a bold version of the active font to preserve
+            // the user's custom font selection.
+            tp.typeface = Typeface.create(tp.typeface, Typeface.BOLD)
         }
     }
 
