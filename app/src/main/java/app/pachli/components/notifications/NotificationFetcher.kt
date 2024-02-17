@@ -55,7 +55,11 @@ class NotificationFetcher @Inject constructor(
     suspend fun fetchAndShow() {
         Timber.d("NotificationFetcher.fetchAndShow() started")
         for (account in accountManager.getAllAccountsOrderedByActive()) {
-            Timber.d("Checking ${account.fullName}, notificationsEnabled = ${account.notificationsEnabled}")
+            Timber.d(
+                "Checking %s$, notificationsEnabled = %s",
+                account.fullName,
+                account.notificationsEnabled,
+            )
             if (account.notificationsEnabled) {
                 try {
                     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -142,7 +146,7 @@ class NotificationFetcher @Inject constructor(
      * than the marker.
      */
     private suspend fun fetchNewNotifications(account: AccountEntity): List<Notification> {
-        Timber.d("fetchNewNotifications(${account.fullName})")
+        Timber.d("fetchNewNotifications(%s)", account.fullName)
         val authHeader = String.format("Bearer %s", account.accessToken)
 
         // Figure out where to read from. Choose the most recent notification ID from:
@@ -175,12 +179,15 @@ class NotificationFetcher @Inject constructor(
                 )
                 if (!response.isSuccessful) {
                     val error = response.errorBody()?.string()
-                    Timber.e("Fetching notifications from server failed: $error")
+                    Timber.e("Fetching notifications from server failed: %s", error)
                     NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Err(error ?: "Unknown error"))
                     break
                 }
                 NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Ok(Unit))
-                Timber.i("Fetching notifications from server succeeded, returned ${response.body()?.size} notifications")
+                Timber.i(
+                    "Fetching notifications from server succeeded, returned %d notifications",
+                    response.body()?.size,
+                )
 
                 // Notifications are returned in the page in order, newest first,
                 // (https://github.com/mastodon/documentation/issues/1226), insert the

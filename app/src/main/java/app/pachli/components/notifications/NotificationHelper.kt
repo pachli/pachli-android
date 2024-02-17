@@ -564,20 +564,28 @@ fun androidNotificationsAreEnabled(context: Context, accountManager: AccountMana
     Timber.d("Checking if Android notifications are enabled")
 
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        Timber.d("${Build.VERSION.SDK_INT} >= ${Build.VERSION_CODES.O}, checking notification manager")
+        Timber.d(
+            "%d >= %d, checking notification manager",
+            Build.VERSION.SDK_INT,
+            Build.VERSION_CODES.O,
+        )
         // on Android >= O notifications are enabled if at least one channel is enabled
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (notificationManager.areNotificationsEnabled()) {
             for (channel in notificationManager.notificationChannels) {
-                Timber.d("Checking NotificationChannel ${channel.id} / importance: ${channel.importance}")
+                Timber.d(
+                    "Checking NotificationChannel %s / importance: %s",
+                    channel.id,
+                    channel.importance,
+                )
                 if (channel != null && channel.importance > NotificationManager.IMPORTANCE_NONE) {
                     Timber.d("NotificationsEnabled")
-                    Timber.d("Channel notification importance > ${NotificationManager.IMPORTANCE_NONE}, enabling notifications")
+                    Timber.d("Channel notification importance > %d, enabling notifications", NotificationManager.IMPORTANCE_NONE)
                     NotificationConfig.androidNotificationsEnabled = true
                     return true
                 } else {
-                    Timber.d("Channel notification importance <= ${NotificationManager.IMPORTANCE_NONE}, skipping")
+                    Timber.d("Channel notification importance <= %d, skipping", NotificationManager.IMPORTANCE_NONE)
                 }
             }
         }
@@ -586,9 +594,13 @@ fun androidNotificationsAreEnabled(context: Context, accountManager: AccountMana
         false
     } else {
         // on Android < O notifications are enabled if at least one account has notification enabled
-        Timber.d("${Build.VERSION.SDK_INT} < ${Build.VERSION_CODES.O}, checking account manager\")")
+        Timber.d(
+            "%d < %d, checking account manager",
+            Build.VERSION.SDK_INT,
+            Build.VERSION_CODES.O,
+        )
         val result = accountManager.areAndroidNotificationsEnabled()
-        Timber.d("Did any accounts have notifications enabled?: $result")
+        Timber.d("Did any accounts have notifications enabled?: %s", result)
         NotificationConfig.androidNotificationsEnabled = result
         return result
     }
