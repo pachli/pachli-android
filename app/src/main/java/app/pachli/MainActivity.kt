@@ -61,10 +61,10 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
+import app.pachli.components.notifications.androidNotificationsAreEnabled
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.disableAllNotifications
 import app.pachli.components.notifications.enablePushNotificationsWithFallback
-import app.pachli.components.notifications.notificationsAreEnabled
 import app.pachli.components.notifications.showMigrationNoticeIfNecessary
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
@@ -1020,7 +1020,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             accountManager,
             sharedPreferencesRepository,
         )
-        if (notificationsAreEnabled(this, accountManager)) {
+        if (androidNotificationsAreEnabled(this, accountManager)) {
             lifecycleScope.launch {
                 enablePushNotificationsWithFallback(this@MainActivity, mastodonApi, accountManager)
             }

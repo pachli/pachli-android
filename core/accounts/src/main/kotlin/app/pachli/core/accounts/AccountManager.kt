@@ -223,9 +223,9 @@ class AccountManager @Inject constructor(
     }
 
     /**
-     * @return true if at least one account has notifications enabled
+     * @return True if at least one account has Android notifications enabled
      */
-    fun areNotificationsEnabled(): Boolean {
+    fun areAndroidNotificationsEnabled(): Boolean {
         return accounts.any { it.notificationsEnabled }
     }
 

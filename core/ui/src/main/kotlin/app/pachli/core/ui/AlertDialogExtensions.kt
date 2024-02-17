@@ -24,7 +24,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
- * Wait for the alert dialog buttons to be clicked, return the ID of the clicked button
+ * Wait for the alert dialog buttons to be clicked, return the ID of the clicked button,
+ * [AlertDialog.BUTTON_POSITIVE], [AlertDialog.BUTTON_NEGATIVE], or
+ * [AlertDialog.BUTTON_NEUTRAL].
  *
  * @param positiveText Text to show on the positive button
  * @param negativeText Optional text to show on the negative button

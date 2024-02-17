@@ -23,6 +23,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
@@ -30,8 +31,12 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.util.CryptoUtil
+import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
 import at.connyduck.calladapter.networkresult.onSuccess
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -43,6 +48,7 @@ private const val KEY_MIGRATION_NOTICE_DISMISSED = "migration_notice_dismissed"
 private fun anyAccountNeedsMigration(accountManager: AccountManager): Boolean =
     accountManager.accounts.any(::accountNeedsMigration)
 
+/** @return True if the account does not have the `push` OAuth scope, false otherwise */
 private fun accountNeedsMigration(account: AccountEntity): Boolean =
     !account.oauthScopes.contains("push")
 
@@ -100,9 +106,14 @@ private fun showMigrationExplanationDialog(
 private suspend fun enableUnifiedPushNotificationsForAccount(context: Context, api: MastodonApi, accountManager: AccountManager, account: AccountEntity) {
     if (isUnifiedPushNotificationEnabledForAccount(account)) {
         // Already registered, update the subscription to match notification settings
-        updateUnifiedPushSubscription(context, api, accountManager, account)
+        val result = updateUnifiedPushSubscription(context, api, accountManager, account)
+        NotificationConfig.notificationMethodAccount[account.fullName] = when (result) {
+            is Err -> NotificationConfig.Method.PushError(result.error)
+            is Ok -> NotificationConfig.Method.Push
+        }
     } else {
         UnifiedPush.registerAppWithDialog(context, account.id.toString(), features = arrayListOf(UnifiedPush.FEATURE_BYTES_MESSAGE))
+        NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Push
     }
 }
 
@@ -118,18 +129,34 @@ fun disableUnifiedPushNotificationsForAccount(context: Context, account: Account
 fun isUnifiedPushNotificationEnabledForAccount(account: AccountEntity): Boolean =
     account.unifiedPushUrl.isNotEmpty()
 
+/** True if one or more UnifiedPush distributors are available */
 private fun isUnifiedPushAvailable(context: Context): Boolean =
     UnifiedPush.getDistributors(context).isNotEmpty()
 
-fun canEnablePushNotifications(context: Context, accountManager: AccountManager): Boolean =
-    isUnifiedPushAvailable(context) && !anyAccountNeedsMigration(accountManager)
+fun canEnablePushNotifications(context: Context, accountManager: AccountManager): Boolean {
+    val unifiedPushAvailable = isUnifiedPushAvailable(context)
+    val anyAccountNeedsMigration = anyAccountNeedsMigration(accountManager)
+
+    NotificationConfig.unifiedPushAvailable = unifiedPushAvailable
+    NotificationConfig.anyAccountNeedsMigration = anyAccountNeedsMigration
+
+    return unifiedPushAvailable && !anyAccountNeedsMigration
+}
 
 suspend fun enablePushNotificationsWithFallback(context: Context, api: MastodonApi, accountManager: AccountManager) {
+    Timber.d("Enabling push notifications with fallback")
     if (!canEnablePushNotifications(context, accountManager)) {
+        Timber.d("Cannot enable push notifications, switching to pull")
+        NotificationConfig.notificationMethod = NotificationConfig.Method.Pull
+        accountManager.accounts.map {
+            NotificationConfig.notificationMethodAccount[it.fullName] = NotificationConfig.Method.Pull
+        }
         // No UP distributors
         enablePullNotifications(context)
         return
     }
+
+    NotificationConfig.notificationMethod = NotificationConfig.Method.Push
 
     val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -153,6 +180,7 @@ private fun disablePushNotifications(context: Context, accountManager: AccountMa
 }
 
 fun disableAllNotifications(context: Context, accountManager: AccountManager) {
+    Timber.d("Disabling all notifications")
     disablePushNotifications(context, accountManager)
     disablePullNotifications(context)
 }
@@ -207,18 +235,21 @@ suspend fun registerUnifiedPushEndpoint(
 }
 
 // Synchronize the enabled / disabled state of notifications with server-side subscription
-suspend fun updateUnifiedPushSubscription(context: Context, api: MastodonApi, accountManager: AccountManager, account: AccountEntity) {
-    withContext(Dispatchers.IO) {
-        api.updatePushNotificationSubscription(
+suspend fun updateUnifiedPushSubscription(context: Context, api: MastodonApi, accountManager: AccountManager, account: AccountEntity): Result<Unit, Throwable> {
+    return withContext(Dispatchers.IO) {
+        return@withContext api.updatePushNotificationSubscription(
             "Bearer ${account.accessToken}",
             account.domain,
             buildSubscriptionData(context, account),
-        ).onSuccess {
+        ).fold({
             Timber.d("UnifiedPush subscription updated for account %d", account.id)
-
             account.pushServerKey = it.serverKey
             accountManager.saveAccount(account)
-        }
+            Ok(Unit)
+        }, {
+            Timber.e(it, "Could not enable UnifiedPush subscription for account %d", account.id)
+            Err(it)
+        })
     }
 }
 

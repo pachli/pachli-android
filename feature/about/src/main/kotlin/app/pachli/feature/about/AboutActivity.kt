@@ -55,6 +55,8 @@ class AboutActivity : BottomSheetActivity(), MenuProvider {
             setDisplayShowHomeEnabled(true)
         }
 
+        addMenuProvider(this)
+
         val adapter = AboutFragmentAdapter(this)
         binding.pager.adapter = adapter
         binding.pager.reduceSwipeSensitivity()
@@ -75,13 +77,14 @@ class AboutActivity : BottomSheetActivity(), MenuProvider {
 }
 
 class AboutFragmentAdapter(val activity: FragmentActivity) : FragmentStateAdapter(activity) {
-    override fun getItemCount() = 3
+    override fun getItemCount() = 4
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> AboutFragment.newInstance()
             1 -> LibsBuilder().supportFragment()
             2 -> PrivacyPolicyFragment.newInstance()
+            3 -> NotificationFragment.newInstance()
             else -> throw IllegalStateException()
         }
     }
@@ -91,6 +94,7 @@ class AboutFragmentAdapter(val activity: FragmentActivity) : FragmentStateAdapte
             0 -> activity.getString(R.string.about_title_activity)
             1 -> activity.getString(R.string.title_licenses)
             2 -> activity.getString(R.string.about_privacy_policy)
+            3 -> "Notifications"
             else -> throw IllegalStateException()
         }
     }

@@ -23,7 +23,12 @@ import java.util.Date
 @JsonClass(generateAdapter = true)
 data class Account(
     val id: String,
+    /** The username of the account, without the domain */
     @Json(name = "username") val localUsername: String,
+    /**
+     * The webfinger account URI. Equal to [localUsername] for local users, or
+     * [localUsername]@domain for remote users.
+     */
     @Json(name = "acct") val username: String,
     // should never be null per API definition, but some servers break the contract
     @Json(name = "display_name") val displayName: String?,

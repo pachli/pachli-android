@@ -68,6 +68,9 @@ object DatabaseModule {
 
     @Provides
     fun providesTranslatedStatusDao(appDatabase: AppDatabase) = appDatabase.translatedStatusDao()
+
+    @Provides
+    fun providesLogEntryDao(appDatabase: AppDatabase) = appDatabase.logEntryDao()
 }
 
 /**

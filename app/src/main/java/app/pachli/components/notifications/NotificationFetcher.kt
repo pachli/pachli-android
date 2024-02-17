@@ -21,13 +21,17 @@ import android.app.NotificationManager
 import android.content.Context
 import androidx.annotation.WorkerThread
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.time.Instant
 import javax.inject.Inject
 import kotlin.math.min
 import kotlin.time.Duration.Companion.milliseconds
@@ -49,7 +53,13 @@ class NotificationFetcher @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
     suspend fun fetchAndShow() {
+        Timber.d("NotificationFetcher.fetchAndShow() started")
         for (account in accountManager.getAllAccountsOrderedByActive()) {
+            Timber.d(
+                "Checking %s$, notificationsEnabled = %s",
+                account.fullName,
+                account.notificationsEnabled,
+            )
             if (account.notificationsEnabled) {
                 try {
                     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -67,6 +77,7 @@ class NotificationFetcher @Inject constructor(
                     // Err on the side of removing *older* notifications to make room for newer
                     // notifications.
                     val currentAndroidNotifications = notificationManager.activeNotifications
+                        .filter { it.tag != null }
                         .sortedWith(compareBy({ it.tag.length }, { it.tag })) // oldest notifications first
 
                     // Check to see if any notifications need to be removed
@@ -135,6 +146,7 @@ class NotificationFetcher @Inject constructor(
      * than the marker.
      */
     private suspend fun fetchNewNotifications(account: AccountEntity): List<Notification> {
+        Timber.d("fetchNewNotifications(%s)", account.fullName)
         val authHeader = String.format("Bearer %s", account.accessToken)
 
         // Figure out where to read from. Choose the most recent notification ID from:
@@ -158,12 +170,24 @@ class NotificationFetcher @Inject constructor(
         // Fetch all outstanding notifications
         val notifications = buildList {
             while (minId != null) {
+                val now = Instant.now()
+                Timber.d("Fetching notifications from server")
                 val response = mastodonApi.notificationsWithAuth(
                     authHeader,
                     account.domain,
                     minId = minId,
                 )
-                if (!response.isSuccessful) break
+                if (!response.isSuccessful) {
+                    val error = response.errorBody()?.string()
+                    Timber.e("Fetching notifications from server failed: %s", error)
+                    NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Err(error ?: "Unknown error"))
+                    break
+                }
+                NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Ok(Unit))
+                Timber.i(
+                    "Fetching notifications from server succeeded, returned %d notifications",
+                    response.body()?.size,
+                )
 
                 // Notifications are returned in the page in order, newest first,
                 // (https://github.com/mastodon/documentation/issues/1226), insert the
