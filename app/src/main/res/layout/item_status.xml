@@ -248,8 +248,8 @@
         android:id="@+id/status_replies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:textSize="?attr/status_text_medium"
+        android:layout_marginStart="40dp"
+        android:textSize="?attr/status_text_small"
         app:layout_constraintBottom_toBottomOf="@id/status_reply"
         app:layout_constraintStart_toStartOf="@id/status_reply"
         app:layout_constraintTop_toTopOf="@id/status_reply"
@@ -276,8 +276,8 @@
         android:id="@+id/status_reblogs_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:textSize="?attr/status_text_medium"
+        android:layout_marginStart="40dp"
+        android:textSize="?attr/status_text_small"
         app:layout_constraintBottom_toBottomOf="@id/status_inset"
         app:layout_constraintStart_toStartOf="@id/status_inset"
         app:layout_constraintTop_toTopOf="@id/status_inset"
@@ -304,12 +304,12 @@
         android:id="@+id/status_favourites_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:textSize="?attr/status_text_medium"
+        android:layout_marginStart="40dp"
+        android:textSize="?attr/status_text_small"
         app:layout_constraintBottom_toBottomOf="@id/status_inset"
         app:layout_constraintStart_toStartOf="@id/status_favourite"
         app:layout_constraintTop_toTopOf="@id/status_inset"
-        tools:text="" />
+        tools:text="1+" />
 
     <at.connyduck.sparkbutton.SparkButton
         android:id="@+id/status_bookmark"
@@ -338,7 +338,6 @@
         android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="@id/status_reply"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/status_bookmark"
         app:layout_constraintTop_toTopOf="@id/status_reply"
         app:srcCompat="@drawable/ic_more_horiz_24dp" />
 
