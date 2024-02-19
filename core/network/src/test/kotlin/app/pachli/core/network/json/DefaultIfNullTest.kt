@@ -1,6 +1,5 @@
 package app.pachli.core.network.json
 
-import app.pachli.core.network.json.DefaultIfNullAdapter.Companion.DefaultIfNullAdapterFactory
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
@@ -11,7 +10,7 @@ import org.junit.Test
 class DefaultIfNullTest {
 
     private val moshi = Moshi.Builder()
-        .add(DefaultIfNullAdapterFactory())
+        .add(DefaultIfNull.Factory())
         .build()
 
     @JsonClass(generateAdapter = true)

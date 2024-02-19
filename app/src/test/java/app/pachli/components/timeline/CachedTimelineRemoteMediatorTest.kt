@@ -20,8 +20,9 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithAccount
-import app.pachli.core.network.json.DefaultIfNullAdapter.Companion.DefaultIfNullAdapterFactory
-import app.pachli.core.network.json.GuardedAdapter.Companion.GuardedAdapterFactory
+import app.pachli.core.network.json.BooleanIfNull
+import app.pachli.core.network.json.DefaultIfNull
+import app.pachli.core.network.json.Guarded
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
@@ -66,8 +67,9 @@ class CachedTimelineRemoteMediatorTest {
 
     private val moshi: Moshi = Moshi.Builder()
         .add(Date::class.java, Rfc3339DateJsonAdapter())
-        .add(GuardedAdapterFactory())
-        .add(DefaultIfNullAdapterFactory())
+        .add(Guarded.Factory())
+        .add(DefaultIfNull.Factory())
+        .add(BooleanIfNull.Factory())
         .build()
 
     @Before
