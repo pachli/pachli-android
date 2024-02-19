@@ -32,47 +32,41 @@ import java.lang.reflect.Type
  */
 @Retention(AnnotationRetention.RUNTIME)
 @JsonQualifier
-annotation class Guarded
-
-/**
- * Parse the given field as either the delegate type, or null if it does not parse
- * as that type.
- */
-class GuardedAdapter(private val delegate: JsonAdapter<*>) : JsonAdapter<Any>() {
-    override fun fromJson(reader: JsonReader): Any? {
-        val peeked = reader.peekJson()
-        val result = try {
-            delegate.fromJson(peeked)
-        } catch (_: JsonDataException) {
-            null
-        } finally {
-            peeked.close()
+annotation class Guarded {
+    class Factory : JsonAdapter.Factory {
+        override fun create(
+            type: Type,
+            annotations: MutableSet<out Annotation>,
+            moshi: Moshi,
+        ): JsonAdapter<*>? {
+            val delegateAnnotations = Types.nextAnnotations(
+                annotations,
+                Guarded::class.java,
+            ) ?: return null
+            val delegate = moshi.nextAdapter<Any>(
+                this,
+                type,
+                delegateAnnotations,
+            )
+            return GuardedAdapter(delegate)
         }
-        reader.skipValue()
-        return result
-    }
 
-    override fun toJson(writer: JsonWriter, value: Any?) {
-        throw UnsupportedOperationException("@Guarded is only used to desererialize objects")
-    }
+        private class GuardedAdapter(private val delegate: JsonAdapter<*>) : JsonAdapter<Any>() {
+            override fun fromJson(reader: JsonReader): Any? {
+                val peeked = reader.peekJson()
+                val result = try {
+                    delegate.fromJson(peeked)
+                } catch (_: JsonDataException) {
+                    null
+                } finally {
+                    peeked.close()
+                }
+                reader.skipValue()
+                return result
+            }
 
-    companion object {
-        class GuardedAdapterFactory : Factory {
-            override fun create(
-                type: Type,
-                annotations: MutableSet<out Annotation>,
-                moshi: Moshi,
-            ): JsonAdapter<*>? {
-                val delegateAnnotations = Types.nextAnnotations(
-                    annotations,
-                    Guarded::class.java,
-                ) ?: return null
-                val delegate = moshi.nextAdapter<Any>(
-                    this,
-                    type,
-                    delegateAnnotations,
-                )
-                return GuardedAdapter(delegate)
+            override fun toJson(writer: JsonWriter, value: Any?) {
+                throw UnsupportedOperationException("@Guarded is only used to desererialize objects")
             }
         }
     }

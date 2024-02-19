@@ -1,6 +1,5 @@
 package app.pachli.core.network.json
 
-import app.pachli.core.network.json.GuardedAdapter.Companion.GuardedAdapterFactory
 import app.pachli.core.network.model.Relationship
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.Moshi
@@ -11,7 +10,7 @@ import org.junit.Test
 class GuardedAdapterTest {
 
     private val moshi = Moshi.Builder()
-        .add(GuardedAdapterFactory())
+        .add(Guarded.Factory())
         .build()
 
     @Test

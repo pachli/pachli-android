@@ -1,5 +1,6 @@
 package app.pachli.core.network.model
 
+import app.pachli.core.network.json.BooleanIfNull
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
@@ -11,10 +12,11 @@ data class Poll(
     val expired: Boolean,
     val multiple: Boolean,
     @Json(name = "votes_count") val votesCount: Int,
-    // nullable for compatibility with Pleroma
     @Json(name = "voters_count") val votersCount: Int?,
     val options: List<PollOption>,
-    val voted: Boolean,
+    // Friendica can incorrectly return null for `voted`. Default to false.
+    // https://github.com/friendica/friendica/issues/13922
+    @BooleanIfNull(false) val voted: Boolean,
     @Json(name = "own_votes") val ownVotes: List<Int>?,
 ) {
 

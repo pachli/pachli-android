@@ -5,8 +5,9 @@ import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.network.json.DefaultIfNullAdapter.Companion.DefaultIfNullAdapterFactory
-import app.pachli.core.network.json.GuardedAdapter.Companion.GuardedAdapterFactory
+import app.pachli.core.network.json.BooleanIfNull
+import app.pachli.core.network.json.DefaultIfNull
+import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.viewdata.StatusViewData
@@ -101,8 +102,9 @@ fun mockStatusEntityWithAccount(
     val mockedStatus = mockStatus(id)
     val moshi = Moshi.Builder()
         .add(Date::class.java, Rfc3339DateJsonAdapter())
-        .add(GuardedAdapterFactory())
-        .add(DefaultIfNullAdapterFactory())
+        .add(Guarded.Factory())
+        .add(DefaultIfNull.Factory())
+        .add(BooleanIfNull.Factory())
         .build()
 
     return TimelineStatusWithAccount(

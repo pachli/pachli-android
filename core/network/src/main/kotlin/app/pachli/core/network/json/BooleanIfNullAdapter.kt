@@ -25,9 +25,27 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import java.lang.reflect.Type
 
+/**
+ * A [JsonQualifier] for use with [Boolean] properties to indicate that their
+ * value be set to the given [value] if the JSON property is `null`.
+ *
+ * Absent properties use the property's default value as normal.
+ *
+ * Usage:
+ * ```
+ * val moshi = Moshi.Builder()
+ *   .add(BooleanIfNull.Factory())
+ *   .build()
+ *
+ * @JsonClass(generateAdapter = true)
+ * data class Foo(
+ *   @BooleanIfNull(false) val data: Boolean
+ * )
+ * ```
+ */
 @Retention(AnnotationRetention.RUNTIME)
 @JsonQualifier
-annotation class DefaultIfNull {
+annotation class BooleanIfNull(val value: Boolean) {
     class Factory : JsonAdapter.Factory {
         override fun create(
             type: Type,
@@ -36,29 +54,25 @@ annotation class DefaultIfNull {
         ): JsonAdapter<*>? {
             val delegateAnnotations = Types.nextAnnotations(
                 annotations,
-                DefaultIfNull::class.java,
+                BooleanIfNull::class.java,
             ) ?: return null
             val delegate = moshi.nextAdapter<Any>(
                 this,
                 type,
                 delegateAnnotations,
             )
-            return DefaultIfNullAdapter(delegate)
+
+            val annotation = annotations.first { it is BooleanIfNull } as BooleanIfNull
+            return Adapter(delegate, annotation.value)
         }
 
-        private class DefaultIfNullAdapter(private val delegate: JsonAdapter<Any>) : JsonAdapter<Any>() {
-            override fun fromJson(reader: JsonReader): Any? {
+        private class Adapter(private val delegate: JsonAdapter<Any>, val default: Boolean) : JsonAdapter<Any>() {
+            override fun fromJson(reader: JsonReader): Any {
                 val value = reader.readJsonValue()
-                if (value is Map<*, *>) {
-                    val withoutNulls = value.filterValues { it != null }
-                    return delegate.fromJsonValue(withoutNulls)
-                }
-                return delegate.fromJsonValue(value)
+                return value as? Boolean ?: default
             }
 
-            override fun toJson(writer: JsonWriter, value: Any?) {
-                return delegate.toJson(writer, value)
-            }
+            override fun toJson(writer: JsonWriter, value: Any?) = delegate.toJson(writer, value)
         }
     }
 }
