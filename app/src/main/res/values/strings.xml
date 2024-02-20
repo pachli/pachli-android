@@ -716,4 +716,7 @@
     <string name="server_repository_error_validate_node_info">validating nodeinfo %1$s failed: %2$s</string>
     <string name="server_repository_error_get_instance_info">fetching /api/v1/instance failed: %1$s</string>
     <string name="server_repository_error_capabilities">parsing server capabilities failed: %1$s</string>
+    <string name="pref_title_update_check_now">Check for update now</string>
+    <string name="pref_update_check_no_updates">There are no updates available</string>
+    <string name="pref_update_next_scheduled_check">Next scheduled check: %1$s</string>
 </resources>
