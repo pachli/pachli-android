@@ -230,7 +230,7 @@ class ServerTest(
                 ),
                 arrayOf(
                     Triple(
-                        "Firefish can filter",
+                        "Firefish can't filter",
                         NodeInfo.Software("firefish", "1.1.0-dev29-hf1"),
                         defaultInstance,
                     ),
@@ -238,9 +238,7 @@ class ServerTest(
                         Server(
                             kind = FIREFISH,
                             version = "1.1.0-dev29-hf1".toVersion(),
-                            capabilities = mapOf(
-                                ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
-                            ),
+                            capabilities = emptyMap(),
                         ),
                     ),
                 ),
