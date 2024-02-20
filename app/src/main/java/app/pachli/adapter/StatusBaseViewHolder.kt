@@ -897,14 +897,14 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
     }
 
     companion object {
+        /**
+         * @return True if all [attachments] are previewable.
+         *
+         * @see Attachment.isPreviewable
+         */
         @JvmStatic
         protected fun hasPreviewableAttachment(attachments: List<Attachment>): Boolean {
-            for (attachment in attachments) {
-                if (attachment.type == Attachment.Type.UNKNOWN) return false
-
-                if (attachment.meta?.original?.width == null && attachment.meta?.small?.width == null) return false
-            }
-            return true
+            return attachments.all { it.isPreviewable() }
         }
 
         private fun getReblogDescription(context: Context, status: IStatusViewData): CharSequence {

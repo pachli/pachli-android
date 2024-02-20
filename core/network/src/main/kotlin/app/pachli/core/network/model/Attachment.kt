@@ -103,4 +103,13 @@ data class Attachment(
                 return (width / height).toDouble()
             }
     }
+
+    /**
+     * @return True if this attachment can be previewed. A previewable attachment
+     *     must be a known type and have a non-null width for the preview image.
+     */
+    fun isPreviewable(): Boolean {
+        if (type == Type.UNKNOWN) return false
+        return !(meta?.original?.width == null && meta?.small?.width == null)
+    }
 }
