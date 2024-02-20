@@ -17,6 +17,13 @@
 package app.pachli.components.preference
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
@@ -26,6 +33,7 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.AppTheme.Companion.APP_THEME_DEFAULT
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.settings.emojiPreference
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
@@ -33,6 +41,8 @@ import app.pachli.settings.preference
 import app.pachli.settings.preferenceCategory
 import app.pachli.settings.sliderPreference
 import app.pachli.settings.switchPreference
+import app.pachli.updatecheck.UpdateCheck
+import app.pachli.updatecheck.UpdateCheckResult.AT_LATEST
 import app.pachli.updatecheck.UpdateNotificationFrequency
 import app.pachli.util.LocaleManager
 import app.pachli.util.deserialize
@@ -45,6 +55,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.views.picker.preference.EmojiPickerPreference
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PreferencesFragment : PreferenceFragmentCompat() {
@@ -55,7 +66,42 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     @Inject
     lateinit var localeManager: LocaleManager
 
+    @Inject
+    lateinit var updateCheck: UpdateCheck
+
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
     private val iconSize by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.preference_icon_size) }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        // Show the "Check for update now" summary. This must also change
+        // depending on the update notification frequency. You can't link two
+        // preferences like that as a dependency, so listen for changes to
+        // the relevant keys and update the summary when they change.
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                sharedPreferencesRepository.changes.collect { prefKey ->
+                    when (prefKey) {
+                        PrefKeys.UPDATE_NOTIFICATION_FREQUENCY,
+                        PrefKeys.UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS,
+                        -> {
+                            findPreference<Preference>(PrefKeys.UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS)?.let {
+                                it.summary = updateCheck.provideSummary(it)
+                            }
+                        }
+                        else -> { /* do nothing */ }
+                    }
+                }
+            }
+        }
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         makePreferenceScreen {
@@ -288,6 +334,8 @@ class PreferencesFragment : PreferenceFragmentCompat() {
             }
 
             preferenceCategory(R.string.pref_title_update_settings) {
+                it.icon = makeIcon(GoogleMaterial.Icon.gmd_upgrade)
+
                 listPreference {
                     setDefaultValue(UpdateNotificationFrequency.ALWAYS.name)
                     setEntries(R.array.pref_update_notification_frequency_names)
@@ -296,7 +344,26 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setSummaryProvider { entry }
                     setTitle(R.string.pref_title_update_notification_frequency)
                     isSingleLineTitle = false
-                    icon = makeIcon(GoogleMaterial.Icon.gmd_upgrade)
+                    icon = makeIcon(GoogleMaterial.Icon.gmd_calendar_today)
+                }
+
+                preference {
+                    title = getString(R.string.pref_title_update_check_now)
+                    key = PrefKeys.UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS
+                    setOnPreferenceClickListener {
+                        lifecycleScope.launch {
+                            if (updateCheck.checkForUpdate(true) == AT_LATEST) {
+                                Toast.makeText(
+                                    this@PreferencesFragment.requireContext(),
+                                    getString(R.string.pref_update_check_no_updates),
+                                    Toast.LENGTH_LONG,
+                                ).show()
+                            }
+                        }
+                        return@setOnPreferenceClickListener true
+                    }
+                    summary = updateCheck.provideSummary(this)
+                    icon = makeIcon(GoogleMaterial.Icon.gmd_refresh)
                 }
             }
         }

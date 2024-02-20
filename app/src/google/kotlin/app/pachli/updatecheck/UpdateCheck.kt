@@ -26,9 +26,10 @@ import javax.inject.Inject
 import kotlinx.coroutines.suspendCancellableCoroutine
 
 class UpdateCheck @Inject constructor(
+    @ApplicationContext context: Context,
     sharedPreferencesRepository: SharedPreferencesRepository,
     private val appUpdateManager: AppUpdateManager,
-) : UpdateCheckBase(sharedPreferencesRepository) {
+) : UpdateCheckBase(context, sharedPreferencesRepository) {
     override val updateIntent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse(
             "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}",

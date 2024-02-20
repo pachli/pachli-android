@@ -36,7 +36,7 @@ import timber.log.Timber
  */
 @Singleton
 class SharedPreferencesRepository @Inject constructor(
-    val sharedPreferences: SharedPreferences,
+    private val sharedPreferences: SharedPreferences,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) : SharedPreferences by sharedPreferences {
     /**
