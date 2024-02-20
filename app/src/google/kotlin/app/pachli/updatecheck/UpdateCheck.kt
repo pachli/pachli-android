@@ -17,11 +17,13 @@
 
 package app.pachli.updatecheck
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import app.pachli.BuildConfig
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.google.android.play.core.appupdate.AppUpdateManager
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.suspendCancellableCoroutine
 

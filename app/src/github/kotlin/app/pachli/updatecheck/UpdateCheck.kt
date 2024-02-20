@@ -17,9 +17,11 @@
 
 package app.pachli.updatecheck
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import app.pachli.core.preferences.SharedPreferencesRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class UpdateCheck @Inject constructor(
