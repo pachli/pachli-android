@@ -271,9 +271,12 @@ data class Server(
                 // GoToSocial can't filter, https://github.com/superseriousbusiness/gotosocial/issues/1472
                 GOTOSOCIAL -> { }
 
+                // FireFish can't filter (conversation in the Firefish dev. chat )
+                FIREFISH -> { }
+
                 // Everything else. Assume server side filtering and no translation. This may be an
                 // incorrect assumption.
-                AKKOMA, FEDIBIRD, FIREFISH, FRIENDICA, GLITCH, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, SHARKEY, UNKNOWN -> {
+                AKKOMA, FEDIBIRD, FRIENDICA, GLITCH, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, SHARKEY, UNKNOWN -> {
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                 }
             }
