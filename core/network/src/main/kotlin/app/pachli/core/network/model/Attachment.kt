@@ -18,7 +18,9 @@
 package app.pachli.core.network.model
 
 import android.os.Parcelable
+import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.DefaultIfNull
+import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
@@ -36,6 +38,7 @@ data class Attachment(
     val blurhash: String?,
 ) : Parcelable {
 
+    @HasDefault
     enum class Type {
         @Json(name = "image")
         IMAGE,
@@ -50,6 +53,7 @@ data class Attachment(
         AUDIO,
 
         @Json(name = "unknown")
+        @Default
         UNKNOWN,
     }
 

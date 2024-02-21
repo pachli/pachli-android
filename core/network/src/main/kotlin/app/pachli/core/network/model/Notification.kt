@@ -17,6 +17,8 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.network.json.Default
+import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -33,8 +35,10 @@ data class Notification(
 
     /** From https://docs.joinmastodon.org/entities/Notification/#type */
     @JsonClass(generateAdapter = false)
+    @HasDefault
     enum class Type(val presentation: String) {
         @Json(name = "unknown")
+        @Default
         UNKNOWN("unknown"),
 
         /** Someone mentioned you */
@@ -80,14 +84,7 @@ data class Notification(
 
         companion object {
             @JvmStatic
-            fun byString(s: String): Type {
-                values().forEach {
-                    if (s == it.presentation) {
-                        return it
-                    }
-                }
-                return UNKNOWN
-            }
+            fun byString(s: String) = entries.firstOrNull { s == it.presentation } ?: UNKNOWN
 
             /** Notification types for UI display (omits UNKNOWN) */
             val visibleTypes = listOf(MENTION, REBLOG, FAVOURITE, FOLLOW, FOLLOW_REQUEST, POLL, STATUS, SIGN_UP, UPDATE, REPORT)
@@ -113,10 +110,7 @@ data class Notification(
     // for Pleroma compatibility that uses Mention type
     fun rewriteToStatusTypeIfNeeded(accountId: String): Notification {
         if (type == Type.MENTION && status != null) {
-            return if (status.mentions.any {
-                    it.id == accountId
-                }
-            ) {
+            return if (status.mentions.any { it.id == accountId }) {
                 this
             } else {
                 copy(type = Type.STATUS)

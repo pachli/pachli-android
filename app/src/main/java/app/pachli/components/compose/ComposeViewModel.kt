@@ -427,8 +427,8 @@ class ComposeViewModel @Inject constructor(
         val preferredVisibility = accountManager.activeAccount!!.defaultPostPrivacy
 
         val replyVisibility = composeOptions?.replyVisibility ?: Status.Visibility.UNKNOWN
-        startingVisibility = Status.Visibility.byNum(
-            preferredVisibility.num.coerceAtLeast(replyVisibility.num),
+        startingVisibility = Status.Visibility.getOrUnknown(
+            preferredVisibility.ordinal.coerceAtLeast(replyVisibility.ordinal),
         )
 
         inReplyToId = composeOptions?.inReplyToId
@@ -471,7 +471,7 @@ class ComposeViewModel @Inject constructor(
         postLanguage = composeOptions?.language
 
         val tootVisibility = composeOptions?.visibility ?: Status.Visibility.UNKNOWN
-        if (tootVisibility.num != Status.Visibility.UNKNOWN.num) {
+        if (tootVisibility != Status.Visibility.UNKNOWN) {
             startingVisibility = tootVisibility
         }
         statusVisibility.value = startingVisibility

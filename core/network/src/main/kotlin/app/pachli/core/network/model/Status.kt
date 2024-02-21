@@ -19,6 +19,9 @@ package app.pachli.core.network.model
 
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
+import app.pachli.core.common.extensions.getOrNull
+import app.pachli.core.network.json.Default
+import app.pachli.core.network.json.HasDefault
 import app.pachli.core.network.parseAsMastodonHtml
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -64,20 +67,22 @@ data class Status(
     val actionableStatus: Status
         get() = reblog ?: this
 
-    enum class Visibility(val num: Int) {
-        UNKNOWN(0),
+    @HasDefault
+    enum class Visibility {
+        @Default
+        UNKNOWN,
 
         @Json(name = "public")
-        PUBLIC(1),
+        PUBLIC,
 
         @Json(name = "unlisted")
-        UNLISTED(2),
+        UNLISTED,
 
         @Json(name = "private")
-        PRIVATE(3),
+        PRIVATE,
 
         @Json(name = "direct")
-        DIRECT(4),
+        DIRECT,
         ;
 
         fun serverString(): String {
@@ -92,16 +97,7 @@ data class Status(
 
         companion object {
             @JvmStatic
-            fun byNum(num: Int): Visibility {
-                return when (num) {
-                    4 -> DIRECT
-                    3 -> PRIVATE
-                    2 -> UNLISTED
-                    1 -> PUBLIC
-                    0 -> UNKNOWN
-                    else -> UNKNOWN
-                }
-            }
+            fun getOrUnknown(index: Int) = Enum.getOrNull<Visibility>(index) ?: UNKNOWN
 
             @JvmStatic
             fun byString(s: String): Visibility {
