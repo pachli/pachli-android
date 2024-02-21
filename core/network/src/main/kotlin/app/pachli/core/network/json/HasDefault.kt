@@ -103,11 +103,11 @@ annotation class HasDefault() {
 
             val enumType = rawType as Class<out Enum<*>>
 
-            val defaultConstant = enumType.enumConstants.firstOrNull {
+            val default = enumType.enumConstants.firstOrNull {
                 it::class.java.getField(it.name).getAnnotation(Default::class.java) != null
             } ?: throw AssertionError("Missing @Default on ${enumType.name}")
 
-            return Adapter(delegate, defaultConstant)
+            return Adapter(delegate, default)
         }
 
         private class Adapter<T : Enum<T>>(

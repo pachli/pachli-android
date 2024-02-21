@@ -67,6 +67,10 @@ data class Status(
     val actionableStatus: Status
         get() = reblog ?: this
 
+    // Note: These are deliberately listed in order, most public to least public.
+    // These are currently serialised to the database by the ordinal value, and
+    // compared by ordinal value, so be extremely careful when adding anything
+    // to this list.
     @HasDefault
     enum class Visibility {
         @Default
