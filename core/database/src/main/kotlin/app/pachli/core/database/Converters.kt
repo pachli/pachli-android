@@ -58,12 +58,12 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun visibilityToInt(visibility: Status.Visibility?): Int {
-        return visibility?.num ?: Status.Visibility.UNKNOWN.num
+        return visibility?.ordinal ?: Status.Visibility.UNKNOWN.ordinal
     }
 
     @TypeConverter
     fun intToVisibility(visibility: Int): Status.Visibility {
-        return Status.Visibility.byNum(visibility)
+        return Status.Visibility.getOrUnknown(visibility)
     }
 
     @TypeConverter

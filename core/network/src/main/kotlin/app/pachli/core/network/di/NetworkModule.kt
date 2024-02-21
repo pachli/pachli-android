@@ -25,6 +25,7 @@ import app.pachli.core.network.BuildConfig
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
+import app.pachli.core.network.json.HasDefault
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_ENABLED
@@ -65,6 +66,7 @@ object NetworkModule {
     fun providesMoshi(): Moshi = Moshi.Builder()
         .add(Date::class.java, Rfc3339DateJsonAdapter())
         .add(Guarded.Factory())
+        .add(HasDefault.Factory())
         .add(DefaultIfNull.Factory())
         .add(BooleanIfNull.Factory())
         .build()

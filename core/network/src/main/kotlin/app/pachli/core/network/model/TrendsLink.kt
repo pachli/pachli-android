@@ -17,10 +17,16 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.network.json.Default
+import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+@HasDefault
 enum class PreviewCardKind {
+    @Default
+    UNKNOWN,
+
     @Json(name = "link")
     LINK,
 
