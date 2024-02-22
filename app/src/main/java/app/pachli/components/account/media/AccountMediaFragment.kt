@@ -29,7 +29,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
@@ -94,11 +95,10 @@ class AccountMediaFragment :
         )
 
         val columnCount = view.context.resources.getInteger(DR.integer.profile_media_column_count)
-        val imageSpacing = view.context.resources.getDimensionPixelSize(DR.dimen.profile_media_spacing)
-
-        binding.recyclerView.addItemDecoration(GridSpacingItemDecoration(columnCount, imageSpacing, 0))
-
-        binding.recyclerView.layoutManager = GridLayoutManager(view.context, columnCount)
+        val layoutManager = StaggeredGridLayoutManager(columnCount, VERTICAL)
+        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = adapter
 
         binding.swipeRefreshLayout.isEnabled = false
