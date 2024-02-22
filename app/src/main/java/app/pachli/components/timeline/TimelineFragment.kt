@@ -492,6 +492,7 @@ class TimelineFragment :
         return when (menuItem.itemId) {
             R.id.action_refresh -> {
                 if (isSwipeToRefreshEnabled) {
+                    Timber.d("Reload because user chose refresh menu item")
                     refreshContent()
                     true
                 } else {
@@ -499,6 +500,7 @@ class TimelineFragment :
                 }
             }
             R.id.action_load_newest -> {
+                Timber.d("Reload because user choose load newest menu item")
                 viewModel.accept(InfallibleUiAction.LoadNewest)
                 refreshContent()
                 true
@@ -556,6 +558,7 @@ class TimelineFragment :
 
     /** Refresh the displayed content, as if the user had swiped on the SwipeRefreshLayout */
     override fun refreshContent() {
+        Timber.d("Reloading via refreshContent")
         binding.swipeRefreshLayout.isRefreshing = true
         onRefresh()
     }
@@ -565,6 +568,7 @@ class TimelineFragment :
      * handled displaying the animated spinner.
      */
     override fun onRefresh() {
+        Timber.d("Reloading via onRefresh")
         binding.statusView.hide()
         snackbar?.dismiss()
         adapter.refresh()

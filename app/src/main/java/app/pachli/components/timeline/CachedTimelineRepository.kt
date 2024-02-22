@@ -180,6 +180,7 @@ class CachedTimelineRepository @Inject constructor(
 
     /** Remove all statuses and invalidate the pager, for the active account */
     suspend fun clearAndReload() = externalScope.launch {
+        Timber.d("clearAndReload()")
         timelineDao.removeAll(activeAccount!!.id)
         factory?.invalidate()
     }.join()
