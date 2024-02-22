@@ -352,7 +352,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS
                     setOnPreferenceClickListener {
                         lifecycleScope.launch {
-                            if (updateCheck.checkForUpdate(true) == AT_LATEST) {
+                            if (updateCheck.checkForUpdate(this@PreferencesFragment.requireContext(), true) == AT_LATEST) {
                                 Toast.makeText(
                                     this@PreferencesFragment.requireContext(),
                                     getString(R.string.pref_update_check_no_updates),

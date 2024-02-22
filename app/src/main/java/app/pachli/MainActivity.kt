@@ -427,7 +427,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             showJankyAnimationWarning()
         }
 
-        lifecycleScope.launch { updateCheck.checkForUpdate() }
+        lifecycleScope.launch { updateCheck.checkForUpdate(this@MainActivity) }
     }
 
     /** Warn the user about possibly-broken animations. */

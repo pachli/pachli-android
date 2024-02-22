@@ -17,18 +17,15 @@
 
 package app.pachli.updatecheck
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import app.pachli.core.preferences.SharedPreferencesRepository
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class UpdateCheck @Inject constructor(
-    @ApplicationContext context: Context,
     sharedPreferencesRepository: SharedPreferencesRepository,
     private val gitHubService: GitHubService,
-) : UpdateCheckBase(context, sharedPreferencesRepository) {
+) : UpdateCheckBase(sharedPreferencesRepository) {
     private val versionCodeExtractor = """(\d+)\.apk""".toRegex()
 
     override val updateIntent = Intent(Intent.ACTION_VIEW).apply {

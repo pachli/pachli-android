@@ -17,21 +17,18 @@
 
 package app.pachli.updatecheck
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import app.pachli.BuildConfig
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.google.android.play.core.appupdate.AppUpdateManager
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.suspendCancellableCoroutine
 
 class UpdateCheck @Inject constructor(
-    @ApplicationContext context: Context,
     sharedPreferencesRepository: SharedPreferencesRepository,
     private val appUpdateManager: AppUpdateManager,
-) : UpdateCheckBase(context, sharedPreferencesRepository) {
+) : UpdateCheckBase(sharedPreferencesRepository) {
     override val updateIntent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse(
             "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}",
