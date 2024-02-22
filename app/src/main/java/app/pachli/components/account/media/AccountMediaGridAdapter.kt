@@ -74,7 +74,6 @@ class AccountMediaGridAdapter(
                     .asBitmap()
                     .load(item.attachment.previewUrl)
                     .placeholder(placeholder)
-//                    .centerInside()
                     .into(preview)
 
                 preview.contentDescription = item.attachment.getFormattedDescription(context)
@@ -86,7 +85,6 @@ class AccountMediaGridAdapter(
 
                 Glide.with(preview)
                     .load(item.attachment.iconResource())
-//                    .centerInside()
                     .into(preview)
 
                 preview.contentDescription = item.attachment.getFormattedDescription(context)
