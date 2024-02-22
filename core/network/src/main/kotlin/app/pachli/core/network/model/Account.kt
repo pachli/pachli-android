@@ -91,6 +91,10 @@ data class Role(
     val name: String,
     /** Colour to use for the role badge, may be the empty string */
     val color: String,
+    // Default value is true, since the property may be missing and the observed
+    // Mastodon behaviour when it is is to highlight the role. Also, this property
+    // being missing breaks InstanceV2 parsing.
+    // See https://github.com/mastodon/mastodon/issues/28327
     /** True if the badge should be displayed on the account profile */
-    val highlighted: Boolean,
+    val highlighted: Boolean = true,
 )

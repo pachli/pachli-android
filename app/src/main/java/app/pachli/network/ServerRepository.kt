@@ -108,7 +108,8 @@ class ServerRepository @Inject constructor(
 
         mastodonApi.getInstanceV2().fold(
             { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
-            {
+            { throwable ->
+                Timber.e(throwable, "Couldn't process /api/v2/instance result")
                 mastodonApi.getInstanceV1().fold(
                     { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
                     { Err(GetInstanceInfoV1(it)) },
