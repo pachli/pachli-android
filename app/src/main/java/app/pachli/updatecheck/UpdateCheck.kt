@@ -34,7 +34,6 @@ import app.pachli.updatecheck.UpdateCheckResult.DIALOG_SHOWN
 import app.pachli.updatecheck.UpdateCheckResult.IGNORED
 import app.pachli.updatecheck.UpdateCheckResult.SKIPPED_BECAUSE_NEVER
 import app.pachli.updatecheck.UpdateCheckResult.SKIPPED_BECAUSE_TOO_SOON
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Instant
 import java.util.Date
 import javax.inject.Singleton
@@ -86,7 +85,6 @@ enum class UpdateCheckResult {
 
 @Singleton
 abstract class UpdateCheckBase(
-    @ApplicationContext private val context: Context,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : Preference.SummaryProvider<Preference> {
     /** An intent that can be used to start the update process (e.g., open a store listing) */
@@ -107,12 +105,14 @@ abstract class UpdateCheckBase(
      * The user can start an update, ignore this version, or dismiss all future update
      * notifications.
      *
+     * @param context Themed context used to display the "Update" dialog. Must be from an
+     *     activity that uses `Theme.AppCompat` or a descendent.
      * @param force If true then the user's preferences for update checking frequency are
      *     ignored and the update check is always performed.
      *
      * @return The result of performing the update check
      */
-    suspend fun checkForUpdate(force: Boolean = false): UpdateCheckResult {
+    suspend fun checkForUpdate(context: Context, force: Boolean = false): UpdateCheckResult {
         val frequency = UpdateNotificationFrequency.from(
             sharedPreferencesRepository.getString(PrefKeys.UPDATE_NOTIFICATION_FREQUENCY, null),
         )
@@ -205,7 +205,7 @@ abstract class UpdateCheckBase(
 
         val dateString = AbsoluteTimeFormatter().format(Date.from(nextCheck))
 
-        return context.getString(R.string.pref_update_next_scheduled_check, dateString)
+        return preference.context.getString(R.string.pref_update_next_scheduled_check, dateString)
     }
 
     companion object {
