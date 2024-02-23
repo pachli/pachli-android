@@ -3,7 +3,7 @@ package app.pachli.components.view
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import app.pachli.BaseActivity
+import app.pachli.core.activity.BaseActivity
 import app.pachli.core.navigation.MainActivityIntent
 import dagger.hilt.android.AndroidEntryPoint
 
