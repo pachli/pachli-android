@@ -259,7 +259,7 @@ class BottomSheetActivityTest {
             bottomSheet = mock()
         }
 
-        override fun openLink(url: String) {
+        override fun openLink(url: String, forceBrowser: Boolean) {
             this.link = url
         }
 

@@ -118,6 +118,7 @@ abstract class BottomSheetActivity : BaseActivity() {
         when (fallbackBehavior) {
             PostLookupFallbackBehavior.OPEN_IN_BROWSER -> openLink(url)
             PostLookupFallbackBehavior.DISPLAY_ERROR -> Toast.makeText(this, getString(R.string.post_lookup_error_format, url), Toast.LENGTH_SHORT).show()
+            PostLookupFallbackBehavior.OPEN_IN_BROWSER_FORCED -> openLink(url, true)
         }
     }
 
@@ -151,8 +152,8 @@ abstract class BottomSheetActivity : BaseActivity() {
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    open fun openLink(url: String) {
-        (this as Context).openLink(url)
+    open fun openLink(url: String, forceBrowser: Boolean = false) {
+        (this as Context).openLink(url, forceBrowser)
     }
 
     private fun showQuerySheet() {
@@ -217,4 +218,5 @@ abstract class BottomSheetActivity : BaseActivity() {
 enum class PostLookupFallbackBehavior {
     OPEN_IN_BROWSER,
     DISPLAY_ERROR,
+    OPEN_IN_BROWSER_FORCED,
 }
