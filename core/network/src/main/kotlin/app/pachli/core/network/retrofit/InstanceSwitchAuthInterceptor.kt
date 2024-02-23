@@ -65,7 +65,7 @@ class InstanceSwitchAuthInterceptor @Inject constructor() : Interceptor {
             val newRequest: Request = builder.build()
 
             if (MastodonApi.PLACEHOLDER_DOMAIN == newRequest.url.host) {
-                Timber.w("no user logged in or no domain header specified - can't make request to " + newRequest.url)
+                Timber.w("no user logged in or no domain header specified - can't make request to %s", newRequest.url)
                 return Response.Builder()
                     .code(400)
                     .message("Bad Request")

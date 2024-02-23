@@ -17,14 +17,14 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.JsonParseException
-import com.google.gson.annotations.JsonAdapter
+import app.pachli.core.network.json.Default
+import app.pachli.core.network.json.HasDefault
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 // TODO: These should be different subclasses per type, so that each subclass can
 // carry the non-null data that it needs.
+@JsonClass(generateAdapter = true)
 data class Notification(
     val type: Type,
     val id: String,
@@ -34,51 +34,57 @@ data class Notification(
 ) {
 
     /** From https://docs.joinmastodon.org/entities/Notification/#type */
-    @JsonAdapter(NotificationTypeAdapter::class)
+    @JsonClass(generateAdapter = false)
+    @HasDefault
     enum class Type(val presentation: String) {
+        @Json(name = "unknown")
+        @Default
         UNKNOWN("unknown"),
 
         /** Someone mentioned you */
+        @Json(name = "mention")
         MENTION("mention"),
 
         /** Someone boosted one of your statuses */
+        @Json(name = "reblog")
         REBLOG("reblog"),
 
         /** Someone favourited one of your statuses */
+        @Json(name = "favourite")
         FAVOURITE("favourite"),
 
         /** Someone followed you */
+        @Json(name = "follow")
         FOLLOW("follow"),
 
         /** Someone requested to follow you */
+        @Json(name = "follow_request")
         FOLLOW_REQUEST("follow_request"),
 
         /** A poll you have voted in or created has ended */
+        @Json(name = "poll")
         POLL("poll"),
 
         /** Someone you enabled notifications for has posted a status */
+        @Json(name = "status")
         STATUS("status"),
 
         /** Someone signed up (optionally sent to admins) */
+        @Json(name = "admin.sign_up")
         SIGN_UP("admin.sign_up"),
 
         /** A status you interacted with has been updated */
+        @Json(name = "update")
         UPDATE("update"),
 
         /** A new report has been filed */
+        @Json(name = "admin.report")
         REPORT("admin.report"),
         ;
 
         companion object {
             @JvmStatic
-            fun byString(s: String): Type {
-                values().forEach {
-                    if (s == it.presentation) {
-                        return it
-                    }
-                }
-                return UNKNOWN
-            }
+            fun byString(s: String) = entries.firstOrNull { s == it.presentation } ?: UNKNOWN
 
             /** Notification types for UI display (omits UNKNOWN) */
             val visibleTypes = listOf(MENTION, REBLOG, FAVOURITE, FOLLOW, FOLLOW_REQUEST, POLL, STATUS, SIGN_UP, UPDATE, REPORT)
@@ -101,25 +107,10 @@ data class Notification(
         return notification?.id == this.id
     }
 
-    class NotificationTypeAdapter : JsonDeserializer<Type> {
-
-        @Throws(JsonParseException::class)
-        override fun deserialize(
-            json: JsonElement,
-            typeOfT: java.lang.reflect.Type,
-            context: JsonDeserializationContext,
-        ): Type {
-            return Type.byString(json.asString)
-        }
-    }
-
     // for Pleroma compatibility that uses Mention type
     fun rewriteToStatusTypeIfNeeded(accountId: String): Notification {
         if (type == Type.MENTION && status != null) {
-            return if (status.mentions.any {
-                    it.id == accountId
-                }
-            ) {
+            return if (status.mentions.any { it.id == accountId }) {
                 this
             } else {
                 copy(type = Type.STATUS)

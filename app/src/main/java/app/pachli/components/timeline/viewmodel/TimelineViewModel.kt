@@ -413,7 +413,7 @@ abstract class TimelineViewModel(
                     .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                     .distinctUntilChanged()
                     .collectLatest { action ->
-                        Timber.d("Saving Home timeline position at: ${action.visibleId}")
+                        Timber.d("Saving Home timeline position at: %s", action.visibleId)
                         activeAccount.lastVisibleHomeTimelineStatusId = action.visibleId
                         accountManager.saveAccount(activeAccount)
                         readingPositionId = action.visibleId
@@ -430,6 +430,7 @@ abstract class TimelineViewModel(
                         activeAccount.lastVisibleHomeTimelineStatusId = null
                         accountManager.saveAccount(activeAccount)
                     }
+                    Timber.d("Reload because InfallibleUiAction.LoadNewest")
                     reloadFromNewest()
                 }
         }
@@ -523,6 +524,7 @@ abstract class TimelineViewModel(
         .filter { filterContextMatchesKind(timelineKind, listOf(it.filterKind)) }
         .map {
             getFilters()
+            Timber.d("Reload because FilterChangedEvent")
             reloadKeepingReadingPosition()
         }
         .onStart { getFilters() }
@@ -538,7 +540,7 @@ abstract class TimelineViewModel(
                     is FilterKind.V2 -> FilterModel(filterKind)
                 }
             } catch (throwable: Throwable) {
-                Timber.d("updateFilter(): Error fetching filters: ${throwable.message}")
+                Timber.d(throwable, "updateFilter(): Error fetching filters")
                 _uiErrorChannel.send(UiError.GetFilters(throwable))
             }
         }
@@ -552,6 +554,7 @@ abstract class TimelineViewModel(
                 val oldRemoveReplies = filterRemoveReplies
                 filterRemoveReplies = timelineKind is TimelineKind.Home && !filter
                 if (oldRemoveReplies != filterRemoveReplies) {
+                    Timber.d("Reload because TAB_FILTER_HOME_REPLIES changed")
                     reloadKeepingReadingPosition()
                 }
             }
@@ -560,6 +563,7 @@ abstract class TimelineViewModel(
                 val oldRemoveReblogs = filterRemoveReblogs
                 filterRemoveReblogs = timelineKind is TimelineKind.Home && !filter
                 if (oldRemoveReblogs != filterRemoveReblogs) {
+                    Timber.d("Reload because TAB_FILTER_HOME_BOOSTS changed")
                     reloadKeepingReadingPosition()
                 }
             }
@@ -568,6 +572,7 @@ abstract class TimelineViewModel(
                 val oldRemoveSelfReblogs = filterRemoveSelfReblogs
                 filterRemoveSelfReblogs = timelineKind is TimelineKind.Home && !filter
                 if (oldRemoveSelfReblogs != filterRemoveSelfReblogs) {
+                    Timber.d("Reload because TAB_SHOW_SOME_SELF_BOOSTS changed")
                     reloadKeepingReadingPosition()
                 }
             }
@@ -580,7 +585,10 @@ abstract class TimelineViewModel(
             is ReblogEvent -> handleReblogEvent(event)
             is BookmarkEvent -> handleBookmarkEvent(event)
             is PinEvent -> handlePinEvent(event)
-            is MuteConversationEvent -> reloadKeepingReadingPosition()
+            is MuteConversationEvent -> {
+                Timber.d("Reload because MuteConversationEvent")
+                reloadKeepingReadingPosition()
+            }
             is UnfollowEvent -> {
                 if (timelineKind is TimelineKind.Home) {
                     val id = event.accountId

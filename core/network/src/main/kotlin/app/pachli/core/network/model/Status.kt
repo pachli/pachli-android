@@ -19,32 +19,37 @@ package app.pachli.core.network.model
 
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
+import app.pachli.core.common.extensions.getOrNull
+import app.pachli.core.network.json.Default
+import app.pachli.core.network.json.HasDefault
 import app.pachli.core.network.parseAsMastodonHtml
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
+@JsonClass(generateAdapter = true)
 data class Status(
     val id: String,
     // not present if it's reblog
     val url: String?,
     val account: TimelineAccount,
-    @SerializedName("in_reply_to_id") val inReplyToId: String?,
-    @SerializedName("in_reply_to_account_id") val inReplyToAccountId: String?,
+    @Json(name = "in_reply_to_id") val inReplyToId: String?,
+    @Json(name = "in_reply_to_account_id") val inReplyToAccountId: String?,
     val reblog: Status?,
     val content: String,
-    @SerializedName("created_at") val createdAt: Date,
-    @SerializedName("edited_at") val editedAt: Date?,
+    @Json(name = "created_at") val createdAt: Date,
+    @Json(name = "edited_at") val editedAt: Date?,
     val emojis: List<Emoji>,
-    @SerializedName("reblogs_count") val reblogsCount: Int,
-    @SerializedName("favourites_count") val favouritesCount: Int,
-    @SerializedName("replies_count") val repliesCount: Int,
+    @Json(name = "reblogs_count") val reblogsCount: Int,
+    @Json(name = "favourites_count") val favouritesCount: Int,
+    @Json(name = "replies_count") val repliesCount: Int,
     val reblogged: Boolean,
     val favourited: Boolean,
     val bookmarked: Boolean,
     val sensitive: Boolean,
-    @SerializedName("spoiler_text") val spoilerText: String,
+    @Json(name = "spoiler_text") val spoilerText: String,
     val visibility: Visibility,
-    @SerializedName("media_attachments") val attachments: List<Attachment>,
+    @Json(name = "media_attachments") val attachments: List<Attachment>,
     val mentions: List<Mention>,
     val tags: List<HashTag>?,
     val application: Application?,
@@ -62,20 +67,26 @@ data class Status(
     val actionableStatus: Status
         get() = reblog ?: this
 
-    enum class Visibility(val num: Int) {
-        UNKNOWN(0),
+    // Note: These are deliberately listed in order, most public to least public.
+    // These are currently serialised to the database by the ordinal value, and
+    // compared by ordinal value, so be extremely careful when adding anything
+    // to this list.
+    @HasDefault
+    enum class Visibility {
+        @Default
+        UNKNOWN,
 
-        @SerializedName("public")
-        PUBLIC(1),
+        @Json(name = "public")
+        PUBLIC,
 
-        @SerializedName("unlisted")
-        UNLISTED(2),
+        @Json(name = "unlisted")
+        UNLISTED,
 
-        @SerializedName("private")
-        PRIVATE(3),
+        @Json(name = "private")
+        PRIVATE,
 
-        @SerializedName("direct")
-        DIRECT(4),
+        @Json(name = "direct")
+        DIRECT,
         ;
 
         fun serverString(): String {
@@ -90,16 +101,7 @@ data class Status(
 
         companion object {
             @JvmStatic
-            fun byNum(num: Int): Visibility {
-                return when (num) {
-                    4 -> DIRECT
-                    3 -> PRIVATE
-                    2 -> UNLISTED
-                    1 -> PUBLIC
-                    0 -> UNKNOWN
-                    else -> UNKNOWN
-                }
-            }
+            fun getOrUnknown(index: Int) = Enum.getOrNull<Visibility>(index) ?: UNKNOWN
 
             @JvmStatic
             fun byString(s: String): Visibility {
@@ -156,13 +158,15 @@ data class Status(
         return builder.toString()
     }
 
+    @JsonClass(generateAdapter = true)
     data class Mention(
         val id: String,
         val url: String,
-        @SerializedName("acct") val username: String,
-        @SerializedName("username") val localUsername: String,
+        @Json(name = "acct") val username: String,
+        @Json(name = "username") val localUsername: String,
     )
 
+    @JsonClass(generateAdapter = true)
     data class Application(
         val name: String,
         val website: String?,

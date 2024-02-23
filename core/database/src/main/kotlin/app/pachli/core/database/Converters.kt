@@ -30,38 +30,40 @@ import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TranslatedAttachment
 import app.pachli.core.network.model.TranslatedPoll
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 import java.net.URLDecoder
 import java.net.URLEncoder
+import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@OptIn(ExperimentalStdlibApi::class)
 @ProvidedTypeConverter
 @Singleton
 class Converters @Inject constructor(
-    private val gson: Gson,
+    private val moshi: Moshi,
 ) {
 
     @TypeConverter
-    fun jsonToEmojiList(emojiListJson: String?): List<Emoji>? {
-        return gson.fromJson(emojiListJson, object : TypeToken<List<Emoji>>() {}.type)
+    fun jsonToEmojiList(json: String?): List<Emoji>? {
+        return json?.let { moshi.adapter<List<Emoji>>().fromJson(it) }
     }
 
     @TypeConverter
     fun emojiListToJson(emojiList: List<Emoji>?): String {
-        return gson.toJson(emojiList)
+        return moshi.adapter<List<Emoji>?>().toJson(emojiList)
     }
 
     @TypeConverter
     fun visibilityToInt(visibility: Status.Visibility?): Int {
-        return visibility?.num ?: Status.Visibility.UNKNOWN.num
+        return visibility?.ordinal ?: Status.Visibility.UNKNOWN.ordinal
     }
 
     @TypeConverter
     fun intToVisibility(visibility: Int): Status.Visibility {
-        return Status.Visibility.byNum(visibility)
+        return Status.Visibility.getOrUnknown(visibility)
     }
 
     @TypeConverter
@@ -81,52 +83,52 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun accountToJson(account: ConversationAccountEntity?): String {
-        return gson.toJson(account)
+        return moshi.adapter<ConversationAccountEntity>().toJson(account)
     }
 
     @TypeConverter
     fun jsonToAccount(accountJson: String?): ConversationAccountEntity? {
-        return gson.fromJson(accountJson, ConversationAccountEntity::class.java)
+        return accountJson?.let { moshi.adapter<ConversationAccountEntity>().fromJson(it) }
     }
 
     @TypeConverter
     fun accountListToJson(accountList: List<ConversationAccountEntity>?): String {
-        return gson.toJson(accountList)
+        return moshi.adapter<List<ConversationAccountEntity>>().toJson(accountList)
     }
 
     @TypeConverter
     fun jsonToAccountList(accountListJson: String?): List<ConversationAccountEntity>? {
-        return gson.fromJson(accountListJson, object : TypeToken<List<ConversationAccountEntity>>() {}.type)
+        return accountListJson?.let { moshi.adapter<List<ConversationAccountEntity>?>().fromJson(it) }
     }
 
     @TypeConverter
     fun attachmentListToJson(attachmentList: List<Attachment>?): String {
-        return gson.toJson(attachmentList)
+        return moshi.adapter<List<Attachment>?>().toJson(attachmentList)
     }
 
     @TypeConverter
     fun jsonToAttachmentList(attachmentListJson: String?): List<Attachment>? {
-        return gson.fromJson(attachmentListJson, object : TypeToken<List<Attachment>>() {}.type)
+        return attachmentListJson?.let { moshi.adapter<List<Attachment>?>().fromJson(it) }
     }
 
     @TypeConverter
     fun mentionListToJson(mentionArray: List<Status.Mention>?): String? {
-        return gson.toJson(mentionArray)
+        return moshi.adapter<List<Status.Mention>?>().toJson(mentionArray)
     }
 
     @TypeConverter
     fun jsonToMentionArray(mentionListJson: String?): List<Status.Mention>? {
-        return gson.fromJson(mentionListJson, object : TypeToken<List<Status.Mention>>() {}.type)
+        return mentionListJson?.let { moshi.adapter<List<Status.Mention>?>().fromJson(it) }
     }
 
     @TypeConverter
     fun tagListToJson(tagArray: List<HashTag>?): String? {
-        return gson.toJson(tagArray)
+        return moshi.adapter<List<HashTag>?>().toJson(tagArray)
     }
 
     @TypeConverter
     fun jsonToTagArray(tagListJson: String?): List<HashTag>? {
-        return gson.fromJson(tagListJson, object : TypeToken<List<HashTag>>() {}.type)
+        return tagListJson?.let { moshi.adapter<List<HashTag>?>().fromJson(it) }
     }
 
     @TypeConverter
@@ -141,61 +143,73 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun pollToJson(poll: Poll?): String? {
-        return gson.toJson(poll)
+        return moshi.adapter<Poll?>().toJson(poll)
     }
 
     @TypeConverter
     fun jsonToPoll(pollJson: String?): Poll? {
-        return gson.fromJson(pollJson, Poll::class.java)
+        return pollJson?.let { moshi.adapter<Poll?>().fromJson(it) }
     }
 
     @TypeConverter
     fun newPollToJson(newPoll: NewPoll?): String? {
-        return gson.toJson(newPoll)
+        return moshi.adapter<NewPoll?>().toJson(newPoll)
     }
 
     @TypeConverter
     fun jsonToNewPoll(newPollJson: String?): NewPoll? {
-        return gson.fromJson(newPollJson, NewPoll::class.java)
+        return newPollJson?.let { moshi.adapter<NewPoll?>().fromJson(it) }
     }
 
     @TypeConverter
     fun draftAttachmentListToJson(draftAttachments: List<DraftAttachment>?): String? {
-        return gson.toJson(draftAttachments)
+        return moshi.adapter<List<DraftAttachment>?>().toJson(draftAttachments)
     }
 
     @TypeConverter
     fun jsonToDraftAttachmentList(draftAttachmentListJson: String?): List<DraftAttachment>? {
-        return gson.fromJson(draftAttachmentListJson, object : TypeToken<List<DraftAttachment>>() {}.type)
+        return draftAttachmentListJson?.let { moshi.adapter<List<DraftAttachment>?>().fromJson(it) }
     }
 
     @TypeConverter
     fun filterResultListToJson(filterResults: List<FilterResult>?): String? {
-        return gson.toJson(filterResults)
+        return moshi.adapter<List<FilterResult>?>().toJson(filterResults)
     }
 
     @TypeConverter
     fun jsonToFilterResultList(filterResultListJson: String?): List<FilterResult>? {
-        return gson.fromJson(filterResultListJson, object : TypeToken<List<FilterResult>>() {}.type)
+        return filterResultListJson?.let { moshi.adapter<List<FilterResult>>().fromJson(it) }
     }
 
     @TypeConverter
     fun translatedPolltoJson(translatedPoll: TranslatedPoll?): String? {
-        return gson.toJson(translatedPoll)
+        return moshi.adapter<TranslatedPoll?>().toJson(translatedPoll)
     }
 
     @TypeConverter
     fun jsonToTranslatedPoll(translatedPollJson: String?): TranslatedPoll? {
-        return gson.fromJson(translatedPollJson, TranslatedPoll::class.java)
+        return translatedPollJson?.let { moshi.adapter<TranslatedPoll?>().fromJson(it) }
     }
 
     @TypeConverter
     fun translatedAttachmentToJson(translatedAttachment: List<TranslatedAttachment>?): String {
-        return gson.toJson(translatedAttachment)
+        return moshi.adapter<List<TranslatedAttachment>?>().toJson(translatedAttachment)
     }
 
     @TypeConverter
     fun jsonToTranslatedAttachment(translatedAttachmentJson: String): List<TranslatedAttachment>? {
-        return gson.fromJson(translatedAttachmentJson, object : TypeToken<List<TranslatedAttachment>>() {}.type)
+        return moshi.adapter<List<TranslatedAttachment>?>().fromJson(translatedAttachmentJson)
     }
+
+    @TypeConverter
+    fun instantToLong(instant: Instant) = instant.toEpochMilli()
+
+    @TypeConverter
+    fun longToInstant(millis: Long): Instant = Instant.ofEpochMilli(millis)
+
+    @TypeConverter
+    fun throwableToString(t: Throwable) = t.message
+
+    @TypeConverter
+    fun stringToThrowable(s: String) = Throwable(message = s)
 }

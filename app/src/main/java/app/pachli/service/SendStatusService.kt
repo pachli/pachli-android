@@ -39,6 +39,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.unsafeLazy
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -146,7 +147,7 @@ class SendStatusService : Service() {
                     when (val uploadState = mediaUploader.getMediaUploadState(mediaItem.localId)) {
                         is UploadEvent.FinishedEvent -> mediaItem.copy(id = uploadState.mediaId, processed = uploadState.processed)
                         is UploadEvent.ErrorEvent -> {
-                            Timber.w("failed uploading media", uploadState.error)
+                            Timber.w(uploadState.error, "failed uploading media")
                             failSending(statusId)
                             stopSelfWhenDone()
                             return@launch
@@ -178,7 +179,7 @@ class SendStatusService : Service() {
                     mediaCheckRetries++
                 }
             } catch (e: Exception) {
-                Timber.w("failed getting media status", e)
+                Timber.w(e, "failed getting media status")
                 retrySending(statusId)
                 return@launch
             }
@@ -191,7 +192,7 @@ class SendStatusService : Service() {
                         mastodonApi.updateMedia(mediaItem.id!!, mediaItem.description, mediaItem.focus?.toMastodonApiString())
                             .fold({
                             }, { throwable ->
-                                Timber.w("failed to update media on status send", throwable)
+                                Timber.w(throwable, "failed to update media on status send")
                                 failOrRetry(throwable, statusId)
 
                                 return@launch
@@ -222,12 +223,21 @@ class SendStatusService : Service() {
             )
 
             val sendResult = if (isNew) {
-                mastodonApi.createStatus(
-                    "Bearer " + account.accessToken,
-                    account.domain,
-                    statusToSend.idempotencyKey,
-                    newStatus,
-                )
+                if (newStatus.scheduledAt == null) {
+                    mastodonApi.createStatus(
+                        "Bearer " + account.accessToken,
+                        account.domain,
+                        statusToSend.idempotencyKey,
+                        newStatus,
+                    )
+                } else {
+                    mastodonApi.createScheduledStatus(
+                        "Bearer " + account.accessToken,
+                        account.domain,
+                        statusToSend.idempotencyKey,
+                        newStatus,
+                    )
+                }
             } else {
                 mastodonApi.editStatus(
                     statusToSend.statusId!!,
@@ -250,16 +260,16 @@ class SendStatusService : Service() {
                 val scheduled = !statusToSend.scheduledAt.isNullOrEmpty()
 
                 if (scheduled) {
-                    eventHub.dispatch(StatusScheduledEvent(sentStatus))
+                    eventHub.dispatch(StatusScheduledEvent)
                 } else if (!isNew) {
-                    eventHub.dispatch(StatusEditedEvent(statusToSend.statusId!!, sentStatus))
+                    eventHub.dispatch(StatusEditedEvent(statusToSend.statusId!!, sentStatus as Status))
                 } else {
-                    eventHub.dispatch(StatusComposedEvent(sentStatus))
+                    eventHub.dispatch(StatusComposedEvent(sentStatus as Status))
                 }
 
                 notificationManager.cancel(statusId)
             }, { throwable ->
-                Timber.w("failed sending status", throwable)
+                Timber.w(throwable, "failed sending status")
                 failOrRetry(throwable, statusId)
             })
             stopSelfWhenDone()
@@ -267,12 +277,13 @@ class SendStatusService : Service() {
     }
 
     private suspend fun failOrRetry(throwable: Throwable, statusId: Int) {
-        if (throwable is HttpException) {
+        when (throwable) {
             // the server refused to accept, save status & show error message
-            failSending(statusId)
-        } else {
+            is HttpException -> failSending(statusId)
             // a network problem occurred, let's retry sending the status
-            retrySending(statusId)
+            is IOException -> retrySending(statusId)
+            // Some other problem, fail
+            else -> failSending(statusId)
         }
     }
 

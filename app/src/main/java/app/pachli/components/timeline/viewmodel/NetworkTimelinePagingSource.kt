@@ -32,7 +32,7 @@ class NetworkTimelinePagingSource @Inject constructor(
 ) : PagingSource<String, Status>() {
 
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Status> {
-        Timber.d("- load(), type = ${params.javaClass.simpleName}, key = ${params.key}")
+        Timber.d("- load(), type = %s, key = %s", params.javaClass.simpleName, params.key)
         pageCache.debug()
 
         val page = synchronized(pageCache) {
@@ -106,7 +106,7 @@ class NetworkTimelinePagingSource @Inject constructor(
             Timber.d("  Returning empty page")
         } else {
             Timber.d("  Returning full page:")
-            Timber.d("     $page")
+            Timber.d("     %s", page)
         }
 
         // Bail if this paging source has already been invalidated. If you do not do this there
@@ -150,7 +150,7 @@ class NetworkTimelinePagingSource @Inject constructor(
             it.getOrNull(it.size / 2)?.id
         }
 
-        Timber.d("- getRefreshKey(), state.anchorPosition = ${state.anchorPosition}, return $refreshKey")
+        Timber.d("- getRefreshKey(), state.anchorPosition = %d, return %s", state.anchorPosition, refreshKey)
         return refreshKey
     }
 }

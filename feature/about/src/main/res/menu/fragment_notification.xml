@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright 2023 Pachli Association
   ~
   ~ This file is a part of Pachli.
@@ -15,7 +16,10 @@
   ~ see <http://www.gnu.org/licenses>.
   -->
 
-<WebView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/policy"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        app:showAsAction="never" />
+</menu>

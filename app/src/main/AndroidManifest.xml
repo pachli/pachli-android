@@ -166,8 +166,6 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".ListsActivity" />
-        <activity android:name=".feature.about.LicenseActivity" />
-        <activity android:name=".feature.about.PrivacyPolicyActivity" />
         <activity android:name=".components.filters.FiltersActivity" />
         <activity android:name=".components.trending.TrendingActivity" />
         <activity android:name=".components.followedtags.FollowedTagsActivity" />

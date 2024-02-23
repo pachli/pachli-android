@@ -37,10 +37,7 @@ import android.view.MenuItem
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.invalidateOptionsMenu
-import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.app.ShareCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
@@ -89,7 +86,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
     var isToolbarVisible = true
         private set
 
-    private var attachments: ArrayList<AttachmentViewData>? = null
+    private var attachments: List<AttachmentViewData>? = null
     private val toolbarVisibilityListeners = mutableListOf<ToolbarVisibilityListener>()
     private var imageUrl: String? = null
 
@@ -317,7 +314,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
             .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
             .subscribe(
                 { result ->
-                    Timber.d("Download image result: $result")
+                    Timber.d("Download image result: %s", result)
                     isCreating = false
                     invalidateOptionsMenu()
                     binding.progressBarShare.visibility = View.GONE
@@ -329,7 +326,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
                     isCreating = false
                     invalidateOptionsMenu()
                     binding.progressBarShare.visibility = View.GONE
-                    Timber.e("Failed to download image", error)
+                    Timber.e(error, "Failed to download image")
                 },
             )
     }

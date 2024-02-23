@@ -17,6 +17,7 @@
 
 package app.pachli.core.network.model
 
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
 /**
@@ -27,6 +28,7 @@ import java.util.Date
  * @param history A list of [TrendingTagHistory]. Each element contains metrics per day for this hashtag.
  * (@param following This is not listed in the APIs at the time of writing, but an instance is delivering it.)
  */
+@JsonClass(generateAdapter = true)
 data class TrendingTag(
     val name: String,
     val history: List<TrendingTagHistory>,
@@ -39,6 +41,7 @@ data class TrendingTag(
  * @param accounts The number of accounts that have posted with this hashtag.
  * @param uses The number of posts with this hashtag.
  */
+@JsonClass(generateAdapter = true)
 data class TrendingTagHistory(
     val day: String,
     val accounts: String,

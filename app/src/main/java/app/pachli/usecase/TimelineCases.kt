@@ -93,7 +93,7 @@ class TimelineCases @Inject constructor(
             mastodonApi.muteAccount(statusId, notifications, duration)
             eventHub.dispatch(MuteEvent(statusId))
         } catch (t: Throwable) {
-            Timber.w("Failed to mute account", t)
+            Timber.w(t, "Failed to mute account")
         }
     }
 
@@ -102,14 +102,14 @@ class TimelineCases @Inject constructor(
             mastodonApi.blockAccount(statusId)
             eventHub.dispatch(BlockEvent(statusId))
         } catch (t: Throwable) {
-            Timber.w("Failed to block account", t)
+            Timber.w(t, "Failed to block account")
         }
     }
 
     suspend fun delete(statusId: String): NetworkResult<DeletedStatus> {
         return mastodonApi.deleteStatus(statusId)
             .onSuccess { eventHub.dispatch(StatusDeletedEvent(statusId)) }
-            .onFailure { Timber.w("Failed to delete status", it) }
+            .onFailure { Timber.w(it, "Failed to delete status") }
     }
 
     suspend fun pin(statusId: String, pin: Boolean): NetworkResult<Status> {
@@ -121,7 +121,7 @@ class TimelineCases @Inject constructor(
             eventHub.dispatch(PinEvent(statusId, pin))
             NetworkResult.success(status)
         }, { e ->
-            Timber.w("Failed to change pin state", e)
+            Timber.w(e, "Failed to change pin state")
             NetworkResult.failure(TimelineError(e.getServerErrorMessage()))
         })
     }

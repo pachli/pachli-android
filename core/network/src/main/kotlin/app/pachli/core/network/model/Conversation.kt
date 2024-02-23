@@ -16,12 +16,14 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Conversation(
     val id: String,
     val accounts: List<TimelineAccount>,
     // should never be null, but apparently its possible https://github.com/tuskyapp/Tusky/issues/1038
-    @SerializedName("last_status") val lastStatus: Status?,
+    @Json(name = "last_status") val lastStatus: Status?,
     val unread: Boolean,
 )

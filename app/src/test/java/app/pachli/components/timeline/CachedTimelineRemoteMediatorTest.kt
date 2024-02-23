@@ -20,9 +20,14 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.network.json.BooleanIfNull
+import app.pachli.core.network.json.DefaultIfNull
+import app.pachli.core.network.json.Guarded
 import com.google.common.truth.Truth.assertThat
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import java.io.IOException
+import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
@@ -60,12 +65,19 @@ class CachedTimelineRemoteMediatorTest {
 
     private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>
 
+    private val moshi: Moshi = Moshi.Builder()
+        .add(Date::class.java, Rfc3339DateJsonAdapter())
+        .add(Guarded.Factory())
+        .add(DefaultIfNull.Factory())
+        .add(BooleanIfNull.Factory())
+        .build()
+
     @Before
     @ExperimentalCoroutinesApi
     fun setup() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
-            .addTypeConverter(Converters(Gson()))
+            .addTypeConverter(Converters(moshi))
             .build()
         transactionProvider = TransactionProvider(db)
 
@@ -91,7 +103,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
-            gson = Gson(),
+            moshi = moshi,
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state()) }
@@ -114,7 +126,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
-            gson = Gson(),
+            moshi = moshi,
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state()) }
@@ -134,7 +146,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
-            gson = Gson(),
+            moshi = moshi,
         )
 
         val state = state(
@@ -174,7 +186,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
-            gson = Gson(),
+            moshi = moshi,
         )
 
         val state = state(
@@ -228,7 +240,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
-            gson = Gson(),
+            moshi = moshi,
         )
 
         val state = state(
@@ -289,7 +301,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
-            gson = Gson(),
+            moshi = moshi,
         )
 
         val state = state(

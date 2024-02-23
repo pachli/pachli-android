@@ -329,7 +329,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     }
 
                     override fun onFailure(call: Call<Account>, t: Throwable) {
-                        Timber.e("failed updating settings on server", t)
+                        Timber.e(t, "failed updating settings on server")
                         showErrorSnackbar(visibility, sensitive)
                     }
                 },

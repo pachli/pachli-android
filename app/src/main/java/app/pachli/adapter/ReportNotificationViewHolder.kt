@@ -91,7 +91,7 @@ class ReportNotificationViewHolder(
         binding.notificationSummary.text = itemView.context.getString(
             R.string.notification_summary_report_format,
             getRelativeTimeSpanString(itemView.context, report.createdAt.time, Date().time),
-            report.status_ids?.size ?: 0,
+            report.statusIds?.size ?: 0,
         )
         binding.notificationCategory.text = getTranslatedCategory(itemView.context, report.category)
 

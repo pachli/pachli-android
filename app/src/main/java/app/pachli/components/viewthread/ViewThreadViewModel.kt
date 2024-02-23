@@ -48,7 +48,7 @@ import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.getOrThrow
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job
@@ -69,7 +69,7 @@ class ViewThreadViewModel @Inject constructor(
     eventHub: EventHub,
     accountManager: AccountManager,
     private val timelineDao: TimelineDao,
-    private val gson: Gson,
+    private val moshi: Moshi,
     private val repository: CachedTimelineRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val filtersRepository: FiltersRepository,
@@ -127,13 +127,13 @@ class ViewThreadViewModel @Inject constructor(
         _uiState.value = ThreadUiState.Loading
 
         viewModelScope.launch {
-            Timber.d("Finding status with: $id")
+            Timber.d("Finding status with: %s", id)
             val contextCall = async { api.statusContext(id) }
             val timelineStatusWithAccount = timelineDao.getStatus(id)
 
             var detailedStatus = if (timelineStatusWithAccount != null) {
                 Timber.d("Loaded status from local timeline")
-                val status = timelineStatusWithAccount.toStatus(gson)
+                val status = timelineStatusWithAccount.toStatus(moshi)
 
                 // Return the correct status, depending on which one matched. If you do not do
                 // this the status IDs will be different between the status that's displayed with
@@ -152,7 +152,7 @@ class ViewThreadViewModel @Inject constructor(
                 } else {
                     StatusViewData.from(
                         timelineStatusWithAccount,
-                        gson,
+                        moshi,
                         isExpanded = alwaysOpenSpoiler,
                         isShowingContent = (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isDetailed = true,
@@ -265,7 +265,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.reblog(status.actionableId, reblog).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Timber.d("Failed to reblog status " + status.actionableId, t)
+                Timber.d(t, "Failed to reblog status: %s", status.actionableId)
             }
         }
     }
@@ -275,7 +275,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.favourite(status.actionableId, favorite).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Timber.d("Failed to favourite status " + status.actionableId, t)
+                Timber.d(t, "Failed to favourite status: %s ", status.actionableId)
             }
         }
     }
@@ -285,7 +285,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.bookmark(status.actionableId, bookmark).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Timber.d("Failed to bookmark status " + status.actionableId, t)
+                Timber.d(t, "Failed to bookmark status: %s", status.actionableId)
             }
         }
     }
@@ -300,7 +300,7 @@ class ViewThreadViewModel @Inject constructor(
             timelineCases.voteInPoll(status.actionableId, poll.id, choices).getOrThrow()
         } catch (t: Exception) {
             ifExpected(t) {
-                Timber.d("Failed to vote in poll: " + status.actionableId, t)
+                Timber.d(t, "Failed to vote in poll: %s", status.actionableId)
             }
         }
     }

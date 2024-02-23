@@ -18,62 +18,53 @@
 package app.pachli.core.network.model
 
 import android.os.Parcelable
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.JsonParseException
-import com.google.gson.annotations.JsonAdapter
-import com.google.gson.annotations.SerializedName
+import app.pachli.core.network.json.Default
+import app.pachli.core.network.json.DefaultIfNull
+import app.pachli.core.network.json.HasDefault
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@JsonClass(generateAdapter = true)
 data class Attachment(
     val id: String,
     val url: String,
     // can be null for e.g. audio attachments
-    @SerializedName("preview_url") val previewUrl: String?,
+    @Json(name = "preview_url") val previewUrl: String?,
     val meta: MetaData?,
     val type: Type,
     val description: String?,
     val blurhash: String?,
 ) : Parcelable {
 
-    @JsonAdapter(MediaTypeDeserializer::class)
+    @HasDefault
     enum class Type {
-        @SerializedName("image")
+        @Json(name = "image")
         IMAGE,
 
-        @SerializedName("gifv")
+        @Json(name = "gifv")
         GIFV,
 
-        @SerializedName("video")
+        @Json(name = "video")
         VIDEO,
 
-        @SerializedName("audio")
+        @Json(name = "audio")
         AUDIO,
 
-        @SerializedName("unknown")
+        @Json(name = "unknown")
+        @Default
         UNKNOWN,
-    }
-
-    class MediaTypeDeserializer : JsonDeserializer<Type> {
-        @Throws(JsonParseException::class)
-        override fun deserialize(json: JsonElement, classOfT: java.lang.reflect.Type, context: JsonDeserializationContext): Type {
-            return when (json.toString()) {
-                "\"image\"" -> Type.IMAGE
-                "\"gifv\"" -> Type.GIFV
-                "\"video\"" -> Type.VIDEO
-                "\"audio\"" -> Type.AUDIO
-                else -> Type.UNKNOWN
-            }
-        }
     }
 
     /**
      * The meta data of an [Attachment].
      */
     @Parcelize
+    @JsonClass(generateAdapter = true)
     data class MetaData(
+        // Fields in Focus may be null, see https://github.com/mastodon/mastodon/issues/29222
+        @DefaultIfNull
         val focus: Focus?,
         val duration: Float?,
         val original: Size?,
@@ -87,9 +78,10 @@ data class Attachment(
      *   https://github.com/jonom/jquery-focuspoint#1-calculate-your-images-focus-point
      */
     @Parcelize
+    @JsonClass(generateAdapter = true)
     data class Focus(
-        val x: Float,
-        val y: Float,
+        val x: Float = 0f,
+        val y: Float = 0f,
     ) : Parcelable {
         fun toMastodonApiString(): String = "$x,$y"
     }
@@ -98,9 +90,30 @@ data class Attachment(
      * The size of an image, used to specify the width/height.
      */
     @Parcelize
+    @JsonClass(generateAdapter = true)
     data class Size(
-        val width: Int,
-        val height: Int,
-        val aspect: Double,
-    ) : Parcelable
+        val width: Int?,
+        val height: Int?,
+        // Not always present, see https://github.com/mastodon/mastodon/issues/29125
+        @Json(name = "aspect")
+        val _aspect: Double?,
+    ) : Parcelable {
+        val aspect: Double
+            get() {
+                if (_aspect != null) return _aspect
+                width ?: return 1.778
+                height ?: return 1.778
+
+                return (width / height).toDouble()
+            }
+    }
+
+    /**
+     * @return True if this attachment can be previewed. A previewable attachment
+     *     must be a known type and have a non-null width for the preview image.
+     */
+    fun isPreviewable(): Boolean {
+        if (type == Type.UNKNOWN) return false
+        return !(meta?.original?.width == null && meta?.small?.width == null)
+    }
 }

@@ -45,9 +45,11 @@ data class AccountEntity(
     var clientSecret: String?,
     var isActive: Boolean,
     var accountId: String = "",
+    /** User's local name, without the leading `@` or the `@domain` portion */
     var username: String = "",
     var displayName: String = "",
     var profilePictureUrl: String = "",
+    /** User wants Android notifications enabled for this account */
     var notificationsEnabled: Boolean = true,
     var notificationsMentioned: Boolean = true,
     var notificationsFollowed: Boolean = true,
@@ -113,6 +115,7 @@ data class AccountEntity(
     val identifier: String
         get() = "$domain:$accountId"
 
+    /** Full account name, of the form `@username@domain` */
     val fullName: String
         get() = "@$username@$domain"
 

@@ -27,6 +27,7 @@ import app.pachli.components.notifications.NOTIFICATION_ID_FETCH_NOTIFICATION
 import app.pachli.components.notifications.NotificationFetcher
 import app.pachli.components.notifications.createWorkerNotification
 import javax.inject.Inject
+import timber.log.Timber
 
 /** Fetch and show new notifications. */
 class NotificationWorker(
@@ -37,6 +38,7 @@ class NotificationWorker(
     val notification: Notification = createWorkerNotification(applicationContext, R.string.notification_notification_worker)
 
     override suspend fun doWork(): Result {
+        Timber.d("NotificationWorker.doWork() started")
         notificationsFetcher.fetchAndShow()
         return Result.success()
     }

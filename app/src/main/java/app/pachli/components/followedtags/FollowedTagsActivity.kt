@@ -104,7 +104,7 @@ class FollowedTagsActivity :
                     binding.followedTagsMessageView.show()
                     val errorState = loadState.refresh as LoadState.Error
                     binding.followedTagsMessageView.setup(errorState.error) { retry() }
-                    Timber.w("error loading followed hashtags", errorState.error)
+                    Timber.w(errorState.error, "error loading followed hashtags")
                 } else {
                     binding.followedTagsView.show()
                     binding.followedTagsMessageView.hide()

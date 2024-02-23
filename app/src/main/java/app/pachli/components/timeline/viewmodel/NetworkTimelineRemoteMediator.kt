@@ -100,7 +100,7 @@ class NetworkTimelineRemoteMediator(
                 }
             }
 
-            Timber.d("- load(), type = $loadType, key = $key")
+            Timber.d("- load(), type = %s, key = %s", loadType, key)
 
             val response = fetchStatusPageByKind(loadType, key, state.config.initialLoadSize)
             val page = Page.tryFrom(response).getOrElse { return MediatorResult.Error(it) }
@@ -113,7 +113,12 @@ class NetworkTimelineRemoteMediator(
                     }
 
                     pageCache.upsert(page)
-                    Timber.d("  Page $loadType complete for $timelineKind, now got ${pageCache.size} pages")
+                    Timber.d(
+                        "  Page %s complete for %s, now got %d pages",
+                        loadType,
+                        timelineKind,
+                        pageCache.size,
+                    )
                     pageCache.debug()
                 }
                 Timber.d("  Invalidating paging source")

@@ -24,7 +24,8 @@ import app.pachli.core.network.model.Error
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -37,11 +38,12 @@ private val INVALID = LoadResult.Invalid<String, Notification>()
 /** [PagingSource] for Mastodon Notifications, identified by the Notification ID */
 class NotificationsPagingSource @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val gson: Gson,
+    private val moshi: Moshi,
     private val notificationFilter: Set<Notification.Type>,
 ) : PagingSource<String, Notification>() {
+    @OptIn(ExperimentalStdlibApi::class)
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Notification> {
-        Timber.d("load() with ${params.javaClass.simpleName} for key: ${params.key}")
+        Timber.d("load() with %s for key: %s", params.javaClass.simpleName, params.key)
 
         try {
             val response = when (params) {
@@ -67,12 +69,12 @@ class NotificationsPagingSource @Inject constructor(
                     if (errorBody.isBlank()) return@let "no reason given"
 
                     val error = try {
-                        gson.fromJson(errorBody, Error::class.java)
+                        moshi.adapter<Error>().fromJson(errorBody)!!
                     } catch (e: Exception) {
                         return@let "$errorBody ($e)"
                     }
 
-                    when (val desc = error.error_description) {
+                    when (val desc = error.errorDescription) {
                         null -> error.error
                         else -> "${error.error}: $desc"
                     }
@@ -201,7 +203,7 @@ class NotificationsPagingSource @Inject constructor(
     override fun getRefreshKey(state: PagingState<String, Notification>): String? {
         return state.anchorPosition?.let { anchorPosition ->
             val id = state.closestItemToPosition(anchorPosition)?.id
-            Timber.d("  getRefreshKey returning $id")
+            Timber.d("  getRefreshKey returning %s", id)
             return id
         }
     }

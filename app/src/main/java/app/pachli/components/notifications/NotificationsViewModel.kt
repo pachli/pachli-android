@@ -358,7 +358,7 @@ class NotificationsViewModel @Inject constructor(
             .distinctUntilChanged()
             // Save each change back to the active account
             .onEach { action ->
-                Timber.d("notificationFilter: $action")
+                Timber.d("notificationFilter: %s", action)
                 account.notificationsFilter = serialize(action.filter)
                 accountManager.saveAccount(account)
             }
@@ -389,7 +389,7 @@ class NotificationsViewModel @Inject constructor(
                 .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                 .distinctUntilChanged()
                 .collectLatest { action ->
-                    Timber.d("Saving visible ID: ${action.visibleId}, active account = ${account.id}")
+                    Timber.d("Saving visible ID: %s, active account = %d", action.visibleId, account.id)
                     account.lastNotificationId = action.visibleId
                     accountManager.saveAccount(account)
                 }
@@ -515,7 +515,7 @@ class NotificationsViewModel @Inject constructor(
         filters: Set<Notification.Type>,
         initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
-        Timber.d("getNotifications: $initialKey")
+        Timber.d("getNotifications: %s", initialKey)
         return repository.getNotificationsStream(filter = filters, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map { notification ->
@@ -553,7 +553,7 @@ class NotificationsViewModel @Inject constructor(
             "0" -> null
             else -> id
         }
-        Timber.d("Restoring at $initialKey")
+        Timber.d("Restoring at %s", initialKey)
         return initialKey
     }
 

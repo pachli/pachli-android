@@ -44,6 +44,7 @@ import app.pachli.BuildConfig
 import app.pachli.MainActivity
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
@@ -111,7 +112,6 @@ private const val EXTRA_NOTIFICATION_TYPE =
 /**
  * Takes a given Mastodon notification and creates a new Android notification or updates the
  * existing Android notification.
- *
  *
  * The Android notification has it's tag set to the Mastodon notification ID, and it's ID set
  * to the ID of the account that received the notification.
@@ -209,7 +209,7 @@ fun makeNotification(
     // Add the sending account's name, so it can be used when summarising this notification
     val extras = Bundle()
     extras.putString(EXTRA_ACCOUNT_NAME, notif.account.name)
-    extras.putSerializable(EXTRA_NOTIFICATION_TYPE, notif.type)
+    extras.putEnum(EXTRA_NOTIFICATION_TYPE, notif.type)
     builder.addExtras(extras)
 
     // Only alert for the first notification of a batch to avoid multiple alerts at once
@@ -290,11 +290,7 @@ fun updateSummaryNotifications(
         // Create a notification that summarises the other notifications in this group
 
         // All notifications in this group have the same type, so get it from the first.
-        val notificationType = (
-            members[0].notification.extras.getSerializable(
-                EXTRA_NOTIFICATION_TYPE,
-            ) as Notification.Type?
-            )!!
+        val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
         val summaryResultIntent = MainActivityIntent.openNotification(
             context,
             accountId.toLong(),
@@ -435,9 +431,13 @@ private fun getStatusComposeIntent(
         language = language,
         kind = ComposeOptions.ComposeKind.NEW,
     )
-    val composeIntent =
-        MainActivityIntent.openCompose(context, composeOptions, account.id, body.id, account.id.toInt())
-    composeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    val composeIntent = MainActivityIntent.openCompose(
+        context,
+        composeOptions,
+        account.id,
+        body.id,
+        account.id.toInt(),
+    )
     return PendingIntent.getActivity(
         context.applicationContext,
         notificationId,
@@ -557,34 +557,64 @@ fun deleteNotificationChannelsForAccount(account: AccountEntity, context: Contex
     }
 }
 
-fun notificationsAreEnabled(context: Context, accountManager: AccountManager): Boolean {
+/**
+ * @return True if at least one account has Android notifications enabled.
+ */
+fun androidNotificationsAreEnabled(context: Context, accountManager: AccountManager): Boolean {
+    Timber.d("Checking if Android notifications are enabled")
+
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        Timber.d(
+            "%d >= %d, checking notification manager",
+            Build.VERSION.SDK_INT,
+            Build.VERSION_CODES.O,
+        )
         // on Android >= O notifications are enabled if at least one channel is enabled
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (notificationManager.areNotificationsEnabled()) {
             for (channel in notificationManager.notificationChannels) {
+                Timber.d(
+                    "Checking NotificationChannel %s / importance: %s",
+                    channel.id,
+                    channel.importance,
+                )
                 if (channel != null && channel.importance > NotificationManager.IMPORTANCE_NONE) {
                     Timber.d("NotificationsEnabled")
+                    Timber.d("Channel notification importance > %d, enabling notifications", NotificationManager.IMPORTANCE_NONE)
+                    NotificationConfig.androidNotificationsEnabled = true
                     return true
+                } else {
+                    Timber.d("Channel notification importance <= %d, skipping", NotificationManager.IMPORTANCE_NONE)
                 }
             }
         }
-        Timber.d("NotificationsDisabled")
+        Timber.i("Notifications disabled because no notification channels are enabled")
+        NotificationConfig.androidNotificationsEnabled = false
         false
     } else {
         // on Android < O notifications are enabled if at least one account has notification enabled
-        accountManager.areNotificationsEnabled()
+        Timber.d(
+            "%d < %d, checking account manager",
+            Build.VERSION.SDK_INT,
+            Build.VERSION_CODES.O,
+        )
+        val result = accountManager.areAndroidNotificationsEnabled()
+        Timber.d("Did any accounts have notifications enabled?: %s", result)
+        NotificationConfig.androidNotificationsEnabled = result
+        return result
     }
 }
 
 fun enablePullNotifications(context: Context) {
+    Timber.i("Enabling pull notifications for all accounts")
     val workManager = WorkManager.getInstance(context)
     workManager.cancelAllWorkByTag(NOTIFICATION_PULL_TAG)
 
     // Periodic work requests are supposed to start running soon after being enqueued. In
     // practice that may not be soon enough, so create and enqueue an expedited one-time
     // request to get new notifications immediately.
+    Timber.d("Enqueing immediate notification worker")
     val fetchNotifications: WorkRequest = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
         .setExpedited(OutOfQuotaPolicy.DROP_WORK_REQUEST)
         .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
@@ -602,12 +632,14 @@ fun enablePullNotifications(context: Context) {
         .setInitialDelay(5, TimeUnit.MINUTES)
         .build()
     workManager.enqueue(workRequest)
-    Timber.d("enabled notification checks with " + PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS + "ms interval")
+    Timber.d("enabled notification checks with %d ms interval", PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS)
+    NotificationConfig.notificationMethod = NotificationConfig.Method.Pull
 }
 
 fun disablePullNotifications(context: Context) {
     WorkManager.getInstance(context).cancelAllWorkByTag(NOTIFICATION_PULL_TAG)
-    Timber.d("disabled notification checks")
+    Timber.w("Disabling pull notifications for all accounts")
+    NotificationConfig.notificationMethod = NotificationConfig.Method.Unknown
 }
 
 fun clearNotificationsForAccount(context: Context, account: AccountEntity) {
@@ -871,3 +903,18 @@ fun pendingIntentFlags(mutable: Boolean): Int {
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     }
 }
+
+/**
+ * Returns the enum associated with the given [key].
+ *
+ * @throws IllegalStateException if the value at [key] is not valid for the enum [T].
+ */
+inline fun <reified T : Enum<T>> Bundle.getEnum(key: String) =
+    getInt(key, -1).let { if (it >= 0) enumValues<T>()[it] else throw IllegalStateException("unrecognised enum ordinal: $it") }
+
+/**
+ * Inserts an enum [value] into the mapping of this [Bundle], replacing any
+ * existing value for the given [key].
+ */
+fun <T : Enum<T>> Bundle.putEnum(key: String, value: T?) =
+    putInt(key, value?.ordinal ?: -1)

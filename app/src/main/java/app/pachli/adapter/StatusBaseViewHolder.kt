@@ -517,9 +517,8 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
                 if (useBlurhash) attachment.blurhash else null,
             )
             val type = attachment.type
-            if (showingContent && (type === Attachment.Type.VIDEO || type === Attachment.Type.GIFV)) {
-                imageView.foreground =
-                    ContextCompat.getDrawable(context, R.drawable.play_indicator_overlay)
+            if (showingContent && type.isPlayable()) {
+                imageView.foreground = ContextCompat.getDrawable(context, R.drawable.play_indicator_overlay)
             } else {
                 imageView.foreground = null
             }
@@ -898,14 +897,14 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
     }
 
     companion object {
+        /**
+         * @return True if all [attachments] are previewable.
+         *
+         * @see Attachment.isPreviewable
+         */
         @JvmStatic
         protected fun hasPreviewableAttachment(attachments: List<Attachment>): Boolean {
-            for ((_, _, _, _, type) in attachments) {
-                if (type === Attachment.Type.AUDIO || type === Attachment.Type.UNKNOWN) {
-                    return false
-                }
-            }
-            return true
+            return attachments.all { it.isPreviewable() }
         }
 
         private fun getReblogDescription(context: Context, status: IStatusViewData): CharSequence {
@@ -939,4 +938,13 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
             }
         }
     }
+}
+
+/**
+ * @return True if this attachment type is playable and should show the playable indicator,
+ *     otherwise false.
+ */
+fun Attachment.Type.isPlayable() = when (this) {
+    Attachment.Type.AUDIO, Attachment.Type.GIFV, Attachment.Type.VIDEO -> true
+    Attachment.Type.IMAGE, Attachment.Type.UNKNOWN -> false
 }

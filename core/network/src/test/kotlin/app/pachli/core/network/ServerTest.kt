@@ -44,9 +44,10 @@ import app.pachli.core.network.model.Users
 import app.pachli.core.network.model.nodeinfo.NodeInfo
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.google.common.reflect.TypeToken
 import com.google.common.truth.Truth.assertWithMessage
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 import io.github.z4kn4fein.semver.toVersion
 import java.io.BufferedReader
 import org.junit.Test
@@ -229,7 +230,7 @@ class ServerTest(
                 ),
                 arrayOf(
                     Triple(
-                        "Firefish can filter",
+                        "Firefish can't filter",
                         NodeInfo.Software("firefish", "1.1.0-dev29-hf1"),
                         defaultInstance,
                     ),
@@ -237,9 +238,7 @@ class ServerTest(
                         Server(
                             kind = FIREFISH,
                             version = "1.1.0-dev29-hf1".toVersion(),
-                            capabilities = mapOf(
-                                ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
-                            ),
+                            capabilities = emptyMap(),
                         ),
                     ),
                 ),
@@ -274,8 +273,8 @@ class ServerTest(
     }
 }
 
-class ServerVersionTest() {
-    private val gson = Gson()
+class ServerVersionTest {
+    private val moshi = Moshi.Builder().build()
 
     private fun loadJsonAsString(fileName: String): String {
         return javaClass.getResourceAsStream("/$fileName")!!
@@ -290,15 +289,15 @@ class ServerVersionTest() {
      * that have been seen by Fediverse Observer. These version strings
      * are then parsed and are all expected to parse correctly.
      */
+    @OptIn(ExperimentalStdlibApi::class)
     @Test
     fun parseVersionString() {
         val mapType: TypeToken<Map<String, Set<String>>> =
             object : TypeToken<Map<String, Set<String>>>() {}
 
-        val serverVersions = gson.fromJson(
-            loadJsonAsString("server-versions.json5"),
-            mapType,
-        )
+        val serverVersions = moshi.adapter<Map<String, Set<String>>>()
+            .lenient()
+            .fromJson(loadJsonAsString("server-versions.json5"))!!
 
         // Sanity check that data was loaded correctly. Expect at least 5 distinct keys
         assertWithMessage("number of server types in server-versions.json5 is too low")

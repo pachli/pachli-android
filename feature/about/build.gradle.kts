@@ -30,6 +30,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["disableAnalytics"] = "true"
     }
+
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
 }
 
 aboutLibraries {
@@ -47,6 +51,7 @@ dependencies {
     implementation(projects.core.activity)
     implementation(projects.core.common)
     implementation(projects.core.data)
+    implementation(projects.core.designsystem)
     implementation(projects.core.navigation)
     implementation(projects.core.ui)
 
@@ -57,4 +62,10 @@ dependencies {
     implementation(libs.bundles.androidx)
 
     implementation(libs.bundles.aboutlibraries)
+
+    // For FixedSizeDrawable
+    implementation(libs.glide.core)
+
+    // For Instant.now() in NotificationLogFragment
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }

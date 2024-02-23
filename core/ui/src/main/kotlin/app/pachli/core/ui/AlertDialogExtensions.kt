@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Tusky Contributors
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.ui
 
 import android.content.DialogInterface
 import androidx.annotation.StringRes
@@ -24,7 +24,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
- * Wait for the alert dialog buttons to be clicked, return the ID of the clicked button
+ * Wait for the alert dialog buttons to be clicked, return the ID of the clicked button,
+ * [AlertDialog.BUTTON_POSITIVE], [AlertDialog.BUTTON_NEGATIVE], or
+ * [AlertDialog.BUTTON_NEUTRAL].
  *
  * @param positiveText Text to show on the positive button
  * @param negativeText Optional text to show on the negative button

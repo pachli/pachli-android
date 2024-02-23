@@ -16,16 +16,18 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
+@JsonClass(generateAdapter = true)
 data class FilterV1(
     val id: String,
     val phrase: String,
     val context: List<String>,
-    @SerializedName("expires_at") val expiresAt: Date?,
+    @Json(name = "expires_at") val expiresAt: Date?,
     val irreversible: Boolean,
-    @SerializedName("whole_word") val wholeWord: Boolean,
+    @Json(name = "whole_word") val wholeWord: Boolean,
 ) {
     companion object {
         const val HOME = "home"

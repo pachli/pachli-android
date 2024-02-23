@@ -33,7 +33,10 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.preferences)
 
-    implementation(libs.gson)
+    implementation(libs.moshi)
+    implementation(libs.moshi.adapters)
+    ksp(libs.moshi.codegen)
+
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)
     api(libs.networkresult.calladapter)

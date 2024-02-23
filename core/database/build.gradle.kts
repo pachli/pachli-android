@@ -28,6 +28,10 @@ android {
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
 }
 
 dependencies {
@@ -35,6 +39,10 @@ dependencies {
     implementation(projects.core.network)
     implementation(projects.core.preferences)
 
-    // Because of the use of @SerializedName in DraftEntity
-    implementation(libs.gson)
+    // Because of the use of @Json in DraftEntity
+    implementation(libs.moshi)
+    implementation(libs.moshi.adapters)
+    ksp(libs.moshi.codegen)
+    // Instant in LogEntryEntity
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }

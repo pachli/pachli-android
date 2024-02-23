@@ -43,7 +43,7 @@ class LoginWebViewViewModel @Inject constructor(
                 api.getInstanceV1(domain).fold({ instance ->
                     instanceRules.value = instance.rules?.map { rule -> rule.text }.orEmpty()
                 }, { throwable ->
-                    Timber.w("failed to load instance info", throwable)
+                    Timber.w(throwable, "failed to load instance info")
                 })
             }
         }

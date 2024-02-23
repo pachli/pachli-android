@@ -148,7 +148,7 @@ class ComposeActivityIntent(context: Context) : Intent() {
             /** Editing a status started as an existing draft */
             EDIT_DRAFT,
 
-            /** Editing an an existing scheduled status */
+            /** Editing an existing scheduled status */
             EDIT_SCHEDULED,
         }
 
@@ -210,7 +210,7 @@ class EditFilterActivityIntent(context: Context, filter: Filter? = null) : Inten
 /**
  * @param context
  * @param loginMode See [LoginMode]
- * @see [app.pachli.components.login.LoginActivity]
+ * @see [app.pachli.feature.login.LoginActivity]
  */
 class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEFAULT) : Intent() {
     /** How to log in */
@@ -268,7 +268,7 @@ class MainActivityIntent(context: Context) : Intent() {
         /**
          * Switches the active account to the provided accountId and then stays on MainActivity
          */
-        fun switchAccount(context: Context, pachliAccountId: Long) = MainActivityIntent(context).apply {
+        private fun switchAccount(context: Context, pachliAccountId: Long) = MainActivityIntent(context).apply {
             putExtra(EXTRA_PACHLI_ACCOUNT_ID, pachliAccountId)
         }
 
@@ -300,6 +300,7 @@ class MainActivityIntent(context: Context) : Intent() {
             putExtra(EXTRA_COMPOSE_OPTIONS, options)
             putExtra(EXTRA_NOTIFICATION_TAG, notificationTag)
             putExtra(EXTRA_NOTIFICATION_ID, notificationId)
+            flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         }
 
         /**
@@ -472,7 +473,7 @@ class ViewMediaActivityIntent private constructor(context: Context) : Intent() {
         private const val EXTRA_SINGLE_IMAGE_URL = "singleImage"
 
         /** @return the list of [AttachmentViewData] passed in this intent, or null */
-        fun getAttachments(intent: Intent): ArrayList<AttachmentViewData>? = IntentCompat.getParcelableArrayListExtra(intent, EXTRA_ATTACHMENTS, AttachmentViewData::class.java)
+        fun getAttachments(intent: Intent): List<AttachmentViewData>? = IntentCompat.getParcelableArrayListExtra(intent, EXTRA_ATTACHMENTS, AttachmentViewData::class.java)
 
         /** @return the index of the attachment to show, or 0 */
         fun getAttachmentIndex(intent: Intent) = intent.getIntExtra(EXTRA_ATTACHMENT_INDEX, 0)
@@ -549,12 +550,6 @@ class InstanceListActivityIntent(context: Context) : Intent() {
     }
 }
 
-class LicenseActivityIntent(context: Context) : Intent() {
-    init {
-        setClassName(context, QuadrantConstants.LICENSE_ACTIVITY)
-    }
-}
-
 class ListActivityIntent(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.LISTS_ACTIVITY)
@@ -564,12 +559,6 @@ class ListActivityIntent(context: Context) : Intent() {
 class LoginWebViewActivityIntent(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.LOGIN_WEB_VIEW_ACTIVITY)
-    }
-}
-
-class PrivacyPolicyActivityIntent(context: Context) : Intent() {
-    init {
-        setClassName(context, QuadrantConstants.PRIVACY_POLICY_ACTIVITY)
     }
 }
 

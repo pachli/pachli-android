@@ -27,7 +27,8 @@ import app.pachli.core.database.Converters
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
 @Entity
@@ -49,17 +50,13 @@ data class DraftEntity(
     val statusId: String?,
 )
 
-/**
- * The alternate names are here because we accidentally published versions were DraftAttachment was minified
- * Tusky 15: uriString = e, description = f, type = g
- * Tusky 16 beta: uriString = i, description = j, type = k
- */
 @Parcelize
+@JsonClass(generateAdapter = true)
 data class DraftAttachment(
-    @SerializedName(value = "uriString", alternate = ["e", "i"]) val uriString: String,
-    @SerializedName(value = "description", alternate = ["f", "j"]) val description: String?,
-    @SerializedName(value = "focus") val focus: Attachment.Focus?,
-    @SerializedName(value = "type", alternate = ["g", "k"]) val type: Type,
+    @Json(name = "uriString") val uriString: String,
+    @Json(name = "description") val description: String?,
+    @Json(name = "focus") val focus: Attachment.Focus?,
+    @Json(name = "type") val type: Type,
 ) : Parcelable {
     val uri: Uri
         get() = uriString.toUri()

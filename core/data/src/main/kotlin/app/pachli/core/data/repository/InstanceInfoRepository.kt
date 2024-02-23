@@ -48,7 +48,7 @@ class InstanceInfoRepository @Inject constructor(
         api.getCustomEmojis()
             .onSuccess { emojiList -> instanceDao.upsert(EmojisEntity(instanceName, emojiList)) }
             .getOrElse { throwable ->
-                Timber.w("failed to load custom emojis, falling back to cache", throwable)
+                Timber.w(throwable, "failed to load custom emojis, falling back to cache")
                 instanceDao.getEmojiInfo(instanceName)?.emojiList.orEmpty()
             }
     }
@@ -85,7 +85,7 @@ class InstanceInfoRepository @Inject constructor(
                     instanceEntity
                 },
                 { throwable ->
-                    Timber.w("failed to instance, falling back to cache and default values", throwable)
+                    Timber.w(throwable, "failed to instance, falling back to cache and default values")
                     try {
                         instanceDao.getInstanceInfo(instanceName)
                     } catch (_: Exception) {

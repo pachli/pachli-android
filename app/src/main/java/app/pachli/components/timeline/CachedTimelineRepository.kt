@@ -40,7 +40,7 @@ import app.pachli.util.EmptyPagingSource
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -66,7 +66,7 @@ class CachedTimelineRepository @Inject constructor(
     val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val translatedStatusDao: TranslatedStatusDao,
-    private val gson: Gson,
+    private val moshi: Moshi,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
@@ -80,7 +80,7 @@ class CachedTimelineRepository @Inject constructor(
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
     ): Flow<PagingData<TimelineStatusWithAccount>> {
-        Timber.d("getStatusStream(): key: $initialKey")
+        Timber.d("getStatusStream(): key: %s", initialKey)
 
         return accountManager.activeAccountFlow.flatMapLatest {
             activeAccount = it
@@ -101,7 +101,7 @@ class CachedTimelineRepository @Inject constructor(
                 }
             }
 
-            Timber.d("initialKey: $initialKey is row: $row")
+            Timber.d("initialKey: %s is row: %d", initialKey, row)
 
             Pager(
                 config = PagingConfig(
@@ -118,7 +118,7 @@ class CachedTimelineRepository @Inject constructor(
                     transactionProvider,
                     timelineDao,
                     remoteKeyDao,
-                    gson,
+                    moshi,
                 ),
                 pagingSourceFactory = factory!!,
             ).flow
@@ -180,6 +180,7 @@ class CachedTimelineRepository @Inject constructor(
 
     /** Remove all statuses and invalidate the pager, for the active account */
     suspend fun clearAndReload() = externalScope.launch {
+        Timber.d("clearAndReload()")
         timelineDao.removeAll(activeAccount!!.id)
         factory?.invalidate()
     }.join()

@@ -17,7 +17,6 @@
 
 package app.pachli.components.trending
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -32,9 +31,9 @@ import app.pachli.components.timeline.TimelineFragment
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.network.model.TimelineKind
+import app.pachli.core.ui.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityTrendingBinding
 import app.pachli.interfaces.AppBarLayoutHost
-import app.pachli.util.reduceSwipeSensitivity
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,7 +68,6 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
-                @SuppressLint("SyntheticAccessor")
                 override fun handleOnBackPressed() {
                     if (binding.pager.currentItem != 0) binding.pager.currentItem = 0 else finish()
                 }

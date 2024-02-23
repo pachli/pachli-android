@@ -49,6 +49,7 @@ import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiSuccess
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -63,7 +64,6 @@ import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
-import app.pachli.interfaces.RefreshableFragment
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
@@ -236,12 +236,12 @@ class TimelineFragment :
                 // TODO: Very similar to same code in NotificationsFragment
                 launch {
                     viewModel.uiError.collect { error ->
-                        Timber.d(error.toString())
                         val message = getString(
                             error.message,
                             error.throwable.localizedMessage
                                 ?: getString(R.string.ui_error_unknown),
                         )
+                        Timber.d(error.throwable, message)
                         snackbar = Snackbar.make(
                             // Without this the FAB will not move out of the way
                             (activity as? ActionButtonActivity)?.actionButton ?: binding.root,
@@ -492,6 +492,7 @@ class TimelineFragment :
         return when (menuItem.itemId) {
             R.id.action_refresh -> {
                 if (isSwipeToRefreshEnabled) {
+                    Timber.d("Reload because user chose refresh menu item")
                     refreshContent()
                     true
                 } else {
@@ -499,6 +500,7 @@ class TimelineFragment :
                 }
             }
             R.id.action_load_newest -> {
+                Timber.d("Reload because user choose load newest menu item")
                 viewModel.accept(InfallibleUiAction.LoadNewest)
                 refreshContent()
                 true
@@ -518,7 +520,7 @@ class TimelineFragment :
             ?.let { adapter.snapshot().getOrNull(it)?.id }
 
         id?.let {
-            Timber.d("Saving ID: $it")
+            Timber.d("Saving ID: %s", it)
             viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = it))
         }
     }
@@ -556,6 +558,7 @@ class TimelineFragment :
 
     /** Refresh the displayed content, as if the user had swiped on the SwipeRefreshLayout */
     override fun refreshContent() {
+        Timber.d("Reloading via refreshContent")
         binding.swipeRefreshLayout.isRefreshing = true
         onRefresh()
     }
@@ -565,6 +568,7 @@ class TimelineFragment :
      * handled displaying the animated spinner.
      */
     override fun onRefresh() {
+        Timber.d("Reloading via onRefresh")
         binding.statusView.hide()
         snackbar?.dismiss()
         adapter.refresh()
@@ -726,7 +730,7 @@ class TimelineFragment :
 
         val wasEnabled = talkBackWasEnabled
         talkBackWasEnabled = a11yManager?.isEnabled == true
-        Timber.d("talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
+        Timber.d("talkback was enabled: %s, now %s", wasEnabled, talkBackWasEnabled)
         if (talkBackWasEnabled && !wasEnabled) {
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }

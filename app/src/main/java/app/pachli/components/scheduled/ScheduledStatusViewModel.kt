@@ -51,7 +51,7 @@ class ScheduledStatusViewModel @Inject constructor(
                     pagingSourceFactory.remove(status)
                 },
                 { throwable ->
-                    Timber.w("Error deleting scheduled status", throwable)
+                    Timber.w(throwable, "Error deleting scheduled status")
                 },
             )
         }

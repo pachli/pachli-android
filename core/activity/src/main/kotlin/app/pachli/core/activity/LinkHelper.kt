@@ -54,7 +54,7 @@ fun openLinkInCustomTab(uri: Uri, context: Context, forceBrowser: Boolean = fals
     try {
         customTabsIntent.launchUrl(context, uri)
     } catch (e: ActivityNotFoundException) {
-        Timber.w("Activity was not found for intent $customTabsIntent")
+        Timber.w(e, "Activity was not found for intent %s", customTabsIntent)
         openLinkInBrowser(uri, context, forceBrowser)
     }
 }
@@ -76,7 +76,7 @@ private fun openLinkInBrowser(uri: Uri?, context: Context, forceBrowser: Boolean
     try {
         context.startActivity(intent)
     } catch (e: ActivityNotFoundException) {
-        Timber.w("Activity was not found for intent, $intent")
+        Timber.w(e, "Activity was not found for intent, %s", intent)
     }
 }
 

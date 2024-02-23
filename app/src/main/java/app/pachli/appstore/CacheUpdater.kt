@@ -2,7 +2,9 @@ package app.pachli.appstore
 
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.TimelineDao
-import com.google.gson.Gson
+import app.pachli.core.network.model.Poll
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -10,11 +12,12 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalStdlibApi::class)
 class CacheUpdater @Inject constructor(
     eventHub: EventHub,
     accountManager: AccountManager,
     timelineDao: TimelineDao,
-    gson: Gson,
+    moshi: Moshi,
 ) {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
@@ -34,7 +37,7 @@ class CacheUpdater @Inject constructor(
                     is StatusDeletedEvent ->
                         timelineDao.delete(accountId, event.statusId)
                     is PollVoteEvent -> {
-                        val pollString = gson.toJson(event.poll)
+                        val pollString = moshi.adapter<Poll>().toJson(event.poll)
                         timelineDao.setVoted(accountId, event.statusId, pollString)
                     }
                     is PinEvent ->

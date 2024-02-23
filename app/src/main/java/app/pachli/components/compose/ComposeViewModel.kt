@@ -385,7 +385,7 @@ class ComposeViewModel @Inject constructor(
                     .fold({ accounts ->
                         accounts.map { AutocompleteResult.AccountResult(it) }
                     }, { e ->
-                        Timber.e("Autocomplete search for $token failed.", e)
+                        Timber.e(e, "Autocomplete search for %s failed.", token)
                         emptyList()
                     })
             }
@@ -394,7 +394,7 @@ class ComposeViewModel @Inject constructor(
                     .fold({ searchResult ->
                         searchResult.hashtags.map { AutocompleteResult.HashtagResult(it.name) }
                     }, { e ->
-                        Timber.e("Autocomplete search for $token failed.", e)
+                        Timber.e(e, "Autocomplete search for %s failed.", token)
                         emptyList()
                     })
             }
@@ -411,7 +411,7 @@ class ComposeViewModel @Inject constructor(
                 }
             }
             else -> {
-                Timber.w("Unexpected autocompletion token: $token")
+                Timber.w("Unexpected autocompletion token: %s", token)
                 return emptyList()
             }
         }
@@ -427,8 +427,8 @@ class ComposeViewModel @Inject constructor(
         val preferredVisibility = accountManager.activeAccount!!.defaultPostPrivacy
 
         val replyVisibility = composeOptions?.replyVisibility ?: Status.Visibility.UNKNOWN
-        startingVisibility = Status.Visibility.byNum(
-            preferredVisibility.num.coerceAtLeast(replyVisibility.num),
+        startingVisibility = Status.Visibility.getOrUnknown(
+            preferredVisibility.ordinal.coerceAtLeast(replyVisibility.ordinal),
         )
 
         inReplyToId = composeOptions?.inReplyToId
@@ -471,7 +471,7 @@ class ComposeViewModel @Inject constructor(
         postLanguage = composeOptions?.language
 
         val tootVisibility = composeOptions?.visibility ?: Status.Visibility.UNKNOWN
-        if (tootVisibility.num != Status.Visibility.UNKNOWN.num) {
+        if (tootVisibility != Status.Visibility.UNKNOWN) {
             startingVisibility = tootVisibility
         }
         statusVisibility.value = startingVisibility

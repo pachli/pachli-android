@@ -16,18 +16,20 @@
 
 package app.pachli.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
+@JsonClass(generateAdapter = true)
 data class DeletedStatus(
     val text: String?,
-    @SerializedName("in_reply_to_id") val inReplyToId: String?,
-    @SerializedName("spoiler_text") val spoilerText: String,
+    @Json(name = "in_reply_to_id") val inReplyToId: String?,
+    @Json(name = "spoiler_text") val spoilerText: String,
     val visibility: Status.Visibility,
     val sensitive: Boolean,
-    @SerializedName("media_attachments") val attachments: List<Attachment>?,
+    @Json(name = "media_attachments") val attachments: List<Attachment>?,
     val poll: Poll?,
-    @SerializedName("created_at") val createdAt: Date,
+    @Json(name = "created_at") val createdAt: Date,
     val language: String?,
 ) {
     fun isEmpty(): Boolean {

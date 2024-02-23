@@ -17,7 +17,10 @@
 package app.pachli.receiver
 
 import android.content.Context
+import androidx.work.Constraints
+import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import app.pachli.components.notifications.registerUnifiedPushEndpoint
 import app.pachli.components.notifications.unregisterUnifiedPushEndpoint
@@ -42,14 +45,17 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
     lateinit var mastodonApi: MastodonApi
 
     override fun onMessage(context: Context, message: ByteArray, instance: String) {
-        Timber.d("New message received for account $instance")
+        Timber.d("New message received for account %s", instance)
         val workManager = WorkManager.getInstance(context)
-        val request = OneTimeWorkRequest.from(NotificationWorker::class.java)
+        val request = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
+            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+            .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+            .build()
         workManager.enqueue(request)
     }
 
     override fun onNewEndpoint(context: Context, endpoint: String, instance: String) {
-        Timber.d("Endpoint available for account $instance: $endpoint")
+        Timber.d("Endpoint available for account %s: %s", instance, endpoint)
         accountManager.getAccountById(instance.toLong())?.let {
             // Launch the coroutine in global scope -- it is short and we don't want to lose the registration event
             // and there is no saner way to use structured concurrency in a receiver
@@ -60,7 +66,7 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
     override fun onRegistrationFailed(context: Context, instance: String) = Unit
 
     override fun onUnregistered(context: Context, instance: String) {
-        Timber.d("Endpoint unregistered for account $instance")
+        Timber.d("Endpoint unregistered for account %s", instance)
         accountManager.getAccountById(instance.toLong())?.let {
             // It's fine if the account does not exist anymore -- that means it has been logged out
             GlobalScope.launch { unregisterUnifiedPushEndpoint(mastodonApi, accountManager, it) }

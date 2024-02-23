@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">Reporte de error %1$s</string>
+    <string name="acra_dialog_text">Clic en OK para redactar un email a los desarrolladores con los detalles</string>
+    <string name="acra_email_body">Esta información se enviará a los desarrolladores.
+\n
+\nAsegúrate de que no incluya nada que no quieras compartir y, por favor, describe lo que estabas haciendo cuando ocurrió el fallo.
+\n
+\n‐‐‐‐
+\nTu descripción aquí:
+\n
+\n----
+\n</string>
+</resources>

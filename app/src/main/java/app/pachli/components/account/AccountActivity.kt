@@ -77,6 +77,7 @@ import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityAccountBinding
 import app.pachli.db.DraftsAlert
 import app.pachli.interfaces.ActionButtonActivity
@@ -86,7 +87,6 @@ import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
 import app.pachli.util.getDomain
-import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.setClickableText
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide

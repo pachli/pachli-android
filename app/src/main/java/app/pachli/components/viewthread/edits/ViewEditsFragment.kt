@@ -103,7 +103,7 @@ class ViewEditsFragment :
                     }
                     EditsUiState.Refreshing -> {}
                     is EditsUiState.Error -> {
-                        Timber.w("failed to load edits", uiState.throwable)
+                        Timber.w(uiState.throwable, "failed to load edits")
 
                         binding.swipeRefreshLayout.isRefreshing = false
                         binding.recyclerView.hide()

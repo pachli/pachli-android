@@ -1,4 +1,5 @@
-/* Copyright 2022 Tusky Contributors
+/*
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -14,21 +15,13 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.network.json
+package app.pachli.core.activity
 
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.JsonParseException
-import java.lang.reflect.Type
-
-class GuardedBooleanAdapter : JsonDeserializer<Boolean?> {
-    @Throws(JsonParseException::class)
-    override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Boolean? {
-        return if (json.isJsonObject) {
-            null
-        } else {
-            json.asBoolean
-        }
-    }
+/**
+ * Fragments with refreshable content should implement this interface so the
+ * activity/fragment hosting them can trigger a refresh.
+ */
+interface RefreshableFragment {
+    /** The displayed content should be refreshed */
+    fun refreshContent()
 }

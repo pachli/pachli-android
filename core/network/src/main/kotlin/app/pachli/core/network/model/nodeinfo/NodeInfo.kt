@@ -26,13 +26,16 @@ import app.pachli.core.network.model.nodeinfo.NodeInfo.Error.NoSoftwareVersion
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.squareup.moshi.JsonClass
 
 /**
  * The JRD document that links to one or more URLs that contain the schema.
  *
  * See https://nodeinfo.diaspora.software/protocol.html.
  */
+@JsonClass(generateAdapter = true)
 data class UnvalidatedJrd(val links: List<Link>) {
+    @JsonClass(generateAdapter = true)
     data class Link(val rel: String, val href: String)
 }
 
@@ -42,7 +45,9 @@ data class UnvalidatedJrd(val links: List<Link>) {
  * See https://nodeinfo.diaspora.software/protocol.html and
  * https://nodeinfo.diaspora.software/schema.html.
  */
+@JsonClass(generateAdapter = true)
 data class UnvalidatedNodeInfo(val software: Software?) {
+    @JsonClass(generateAdapter = true)
     data class Software(val name: String?, val version: String?)
 }
 

@@ -17,7 +17,6 @@
 
 package app.pachli.components.trending
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -39,6 +38,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.components.trending.viewmodel.TrendingTagsViewModel
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -47,7 +47,6 @@ import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.databinding.FragmentTrendingTagsBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
-import app.pachli.interfaces.RefreshableFragment
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.viewdata.TrendingViewData
 import at.connyduck.sparkbutton.helpers.Utils
@@ -90,7 +89,6 @@ class TrendingTagsFragment :
 
         adapter.registerAdapterDataObserver(
             object : RecyclerView.AdapterDataObserver() {
-                @SuppressLint("SyntheticAccessor")
                 override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                     if (positionStart == 0 && adapter.itemCount != itemCount) {
                         binding.recyclerView.post {
@@ -266,7 +264,7 @@ class TrendingTagsFragment :
 
         val wasEnabled = talkBackWasEnabled
         talkBackWasEnabled = a11yManager?.isEnabled == true
-        Timber.d("talkback was enabled: $wasEnabled, now $talkBackWasEnabled")
+        Timber.d("talkback was enabled: %s, now %s", wasEnabled, talkBackWasEnabled)
         if (talkBackWasEnabled && !wasEnabled) {
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }

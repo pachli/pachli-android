@@ -39,11 +39,11 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.ui.await
 import app.pachli.databinding.ActivityEditProfileBinding
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
-import app.pachli.util.await
 import app.pachli.viewmodel.EditProfileViewModel
 import app.pachli.viewmodel.ProfileDataInUi
 import com.bumptech.glide.Glide
@@ -320,7 +320,7 @@ class EditProfileActivity : BaseActivity() {
     }
 
     private fun onPickFailure(throwable: Throwable?) {
-        Timber.w("failed to pick media", throwable)
+        Timber.w(throwable, "failed to pick media")
         Snackbar.make(binding.avatarButton, R.string.error_media_upload_sending, Snackbar.LENGTH_LONG).show()
     }
 

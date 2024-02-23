@@ -36,7 +36,7 @@ import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import java.io.IOException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -54,7 +54,7 @@ class CachedTimelineRemoteMediator(
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
-    private val gson: Gson,
+    private val moshi: Moshi,
 ) : RemoteMediator<Int, TimelineStatusWithAccount>() {
     private val activeAccount = accountManager.activeAccount!!
 
@@ -66,7 +66,7 @@ class CachedTimelineRemoteMediator(
             return MediatorResult.Success(endOfPaginationReached = true)
         }
 
-        Timber.d("load(), LoadType = $loadType")
+        Timber.d("load(), LoadType = %s", loadType)
 
         return try {
             val response = when (loadType) {
@@ -75,7 +75,7 @@ class CachedTimelineRemoteMediator(
                         state.closestItemToPosition(maxOf(0, it - (state.config.pageSize / 2)))
                     }?.status?.serverId
                     val statusId = closestItem ?: initialKey
-                    Timber.d("Loading from item: $statusId")
+                    Timber.d("Loading from item: %s", statusId)
                     getInitialPage(statusId, state.config.pageSize)
                 }
                 LoadType.APPEND -> {
@@ -84,7 +84,7 @@ class CachedTimelineRemoteMediator(
                         TIMELINE_ID,
                         RemoteKeyKind.NEXT,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    Timber.d("Loading from remoteKey: $rke")
+                    Timber.d("Loading from remoteKey: %s", rke)
                     api.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
                 }
                 LoadType.PREPEND -> {
@@ -93,7 +93,7 @@ class CachedTimelineRemoteMediator(
                         TIMELINE_ID,
                         RemoteKeyKind.PREV,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    Timber.d("Loading from remoteKey: $rke")
+                    Timber.d("Loading from remoteKey: %s", rke)
                     api.homeTimeline(minId = rke.key, limit = state.config.pageSize)
                 }
             }
@@ -103,7 +103,7 @@ class CachedTimelineRemoteMediator(
                 return MediatorResult.Error(HttpException(response))
             }
 
-            Timber.d("${statuses.size} - # statuses loaded")
+            Timber.d("%d - # statuses loaded", statuses.size)
 
             // This request succeeded with no new data, and pagination ends (unless this is a
             // REFRESH, which must always set endOfPaginationReached to false).
@@ -112,7 +112,7 @@ class CachedTimelineRemoteMediator(
                 return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
             }
 
-            Timber.d("  ${statuses.first().id}..${statuses.last().id}")
+            Timber.d("  %s..%s", statuses.first().id, statuses.last().id)
 
             val links = Links.from(response.headers()["link"])
 
@@ -254,9 +254,9 @@ class CachedTimelineRemoteMediator(
     @Transaction
     private suspend fun insertStatuses(statuses: List<Status>) {
         for (status in statuses) {
-            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, activeAccount.id, gson))
+            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, activeAccount.id, moshi))
             status.reblog?.account?.let {
-                val account = TimelineAccountEntity.from(it, activeAccount.id, gson)
+                val account = TimelineAccountEntity.from(it, activeAccount.id, moshi)
                 timelineDao.insertAccount(account)
             }
 
@@ -264,7 +264,7 @@ class CachedTimelineRemoteMediator(
                 TimelineStatusEntity.from(
                     status,
                     timelineUserId = activeAccount.id,
-                    gson = gson,
+                    moshi = moshi,
                 ),
             )
         }

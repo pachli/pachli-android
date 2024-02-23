@@ -61,10 +61,10 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
+import app.pachli.components.notifications.androidNotificationsAreEnabled
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.disableAllNotifications
 import app.pachli.components.notifications.enablePushNotificationsWithFallback
-import app.pachli.components.notifications.notificationsAreEnabled
 import app.pachli.components.notifications.showMigrationNoticeIfNecessary
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
@@ -97,6 +97,8 @@ import app.pachli.core.navigation.TrendingActivityIntent
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.await
+import app.pachli.core.ui.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityMainBinding
 import app.pachli.db.DraftsAlert
 import app.pachli.interfaces.ActionButtonActivity
@@ -104,13 +106,10 @@ import app.pachli.interfaces.FabFragment
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.updatecheck.UpdateCheck
-import app.pachli.updatecheck.UpdateNotificationFrequency
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
-import app.pachli.util.await
 import app.pachli.util.deleteStaleCachedMedia
 import app.pachli.util.getDimension
-import app.pachli.util.reduceSwipeSensitivity
 import app.pachli.util.unsafeLazy
 import app.pachli.util.updateShortcut
 import at.connyduck.calladapter.networkresult.fold
@@ -428,7 +427,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             showJankyAnimationWarning()
         }
 
-        checkForUpdate()
+        lifecycleScope.launch { updateCheck.checkForUpdate(this@MainActivity) }
     }
 
     /** Warn the user about possibly-broken animations. */
@@ -440,60 +439,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             .await(android.R.string.ok)
         sharedPreferencesRepository.edit { putBoolean(PrefKeys.SHOW_JANKY_ANIMATION_WARNING, false) }
     }
-
-    /**
-     * Check for available updates, and prompt user to update.
-     *
-     * Show a dialog prompting the user to update if a newer version of the app is available.
-     * The user can start an update, ignore this version, or dismiss all future update
-     * notifications.
-     */
-    private fun checkForUpdate() = lifecycleScope.launch {
-        val frequency = UpdateNotificationFrequency.from(sharedPreferencesRepository.getString(PrefKeys.UPDATE_NOTIFICATION_FREQUENCY, null))
-        if (frequency == UpdateNotificationFrequency.NEVER) return@launch
-
-        val latestVersionCode = updateCheck.getLatestVersionCode()
-
-        if (latestVersionCode <= BuildConfig.VERSION_CODE) return@launch
-
-        if (frequency == UpdateNotificationFrequency.ONCE_PER_VERSION) {
-            val ignoredVersion = sharedPreferencesRepository.getInt(PrefKeys.UPDATE_NOTIFICATION_VERSIONCODE, -1)
-            if (latestVersionCode == ignoredVersion) {
-                Timber.d("Ignoring update to $latestVersionCode")
-                return@launch
-            }
-        }
-
-        Timber.d("New version is: $latestVersionCode")
-        when (showUpdateDialog()) {
-            AlertDialog.BUTTON_POSITIVE -> {
-                startActivity(updateCheck.updateIntent)
-            }
-            AlertDialog.BUTTON_NEUTRAL -> {
-                with(sharedPreferencesRepository.edit()) {
-                    putInt(PrefKeys.UPDATE_NOTIFICATION_VERSIONCODE, latestVersionCode)
-                    apply()
-                }
-            }
-            AlertDialog.BUTTON_NEGATIVE -> {
-                with(sharedPreferencesRepository.edit()) {
-                    putString(
-                        PrefKeys.UPDATE_NOTIFICATION_FREQUENCY,
-                        UpdateNotificationFrequency.NEVER.name,
-                    )
-                    apply()
-                }
-            }
-        }
-    }
-
-    private suspend fun showUpdateDialog() = AlertDialog.Builder(this)
-        .setTitle(R.string.update_dialog_title)
-        .setMessage(R.string.update_dialog_message)
-        .setCancelable(true)
-        .setIcon(DR.mipmap.ic_launcher)
-        .create()
-        .await(R.string.update_dialog_positive, R.string.update_dialog_negative, R.string.update_dialog_neutral)
 
     override fun onStart() {
         super.onStart()
@@ -565,7 +510,11 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
         startActivity(composeIntent)
-        finish()
+
+        // Recreate the activity to ensure it is using the correct active account
+        // (which may have changed while processing the compose intent) and so
+        // the user returns to the timeline when they finish ComposeActivity.
+        recreate()
     }
 
     private fun setupDrawer(
@@ -784,7 +733,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     "Reset janky animation warning flag",
                 ),
             ) { _, which ->
-                Timber.d("Developer tools: $which")
+                Timber.d("Developer tools: %d", which)
                 when (which) {
                     0 -> {
                         Timber.d("Clearing home timeline cache")
@@ -1001,7 +950,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 onFetchUserInfoSuccess(userInfo)
             },
             { throwable ->
-                Timber.e("Failed to fetch user info. " + throwable.message)
+                Timber.e(throwable, "Failed to fetch user info.")
             },
         )
     }
@@ -1024,7 +973,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             accountManager,
             sharedPreferencesRepository,
         )
-        if (notificationsAreEnabled(this, accountManager)) {
+        if (androidNotificationsAreEnabled(this, accountManager)) {
             lifecycleScope.launch {
                 enablePushNotificationsWithFallback(this@MainActivity, mastodonApi, accountManager)
             }
@@ -1033,7 +982,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         updateProfiles()
-        updateShortcut(this, accountManager.activeAccount!!)
+        updateShortcut(applicationContext, accountManager.activeAccount!!)
     }
 
     @SuppressLint("CheckResult")
@@ -1134,7 +1083,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         updateAnnouncementsBadge()
                     },
                     { throwable ->
-                        Timber.w("Failed to fetch announcements.", throwable)
+                        Timber.w(throwable, "Failed to fetch announcements.")
                     },
                 )
         }

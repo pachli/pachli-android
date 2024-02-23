@@ -41,7 +41,7 @@ class FollowedTagsViewModel @Inject constructor(
             .fold({ searchResult ->
                 searchResult.hashtags.map { ComposeAutoCompleteAdapter.AutocompleteResult.HashtagResult(it.name) }
             }, { e ->
-                Timber.e("Autocomplete search for $token failed.", e)
+                Timber.e(e, "Autocomplete search for %s failed.", token)
                 emptyList()
             })
     }
