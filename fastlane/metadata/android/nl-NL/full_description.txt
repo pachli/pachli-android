@@ -1,0 +1,11 @@
+Pachli is een volwaardige client voor Mastodon en vergelijkbare servers.
+
+• Lees, beantwoord, filter, post, favoriet en boost posts
+• Vertaal posts vanuit andere talen
+• Je tijdlijn is lokaal gecahed, dus je kunt offline lezen
+• Schrijf posts nu, rond ze later af
+• Schijf posts nu, agendeer ze om later te versturen
+• Lees en schrijf posts vanaf meerdere accoutns
+• Meerdere thema's
+• Gefocussed op alle functionaliteit beschikbaar maken voor mensen met toegankelijkheidsproblematiek
+• Open source, https://github.com/pachli

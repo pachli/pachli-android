@@ -1,0 +1,17 @@
+Pachli 2.2.0
+
+Nieuwe features:
+
+- Schakel filter functie uit indien niet ondersteund door server
+
+Fixes:
+
+- Zorg dat acties op de correcte status gebeuren
+- Lek MainActivity niet in DrawerImageLoader 
+- Toon correcte trending tags aan het einde van kaart lijnen 
+- Update Swedish vertaling 
+- Update Indonesian vertaling
+- Update Dutch vertaling
+- Update Portuguese vertaling 
+- Update Finnish vertaling
+- Update Arabic vertaling
