@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="node_info_error_no_software">bevatte geen software blok</string>
+    <string name="node_info_error_no_software_name">software naam mist, is leeg of blanco</string>
+    <string name="node_info_error_no_software_version">software versie mist, is leeg of blanco</string>
+    <string name="server_error_unparseable_version">kon \"%1$s\" niet verwerken als een versie: %2$s</string>
+</resources>
