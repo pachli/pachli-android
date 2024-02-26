@@ -101,8 +101,9 @@ data class ThumbnailVersions(
 
 @JsonClass(generateAdapter = true)
 data class Configuration(
+    // May be missing (e.g., Friendica), so provide a default
     /** URLs of interest for clients apps. */
-    val urls: InstanceV2Urls,
+    val urls: InstanceV2Urls = InstanceV2Urls(),
 
     /** Limits related to accounts. */
     val accounts: InstanceV2Accounts,
@@ -116,8 +117,9 @@ data class Configuration(
     /** Limits related to polls. */
     val polls: InstanceV2Polls,
 
+    // May be missing, so provide a default
     /** Hints related to translation. */
-    val translation: InstanceV2Translation,
+    val translation: InstanceV2Translation = InstanceV2Translation(enabled = false),
 )
 
 @JsonClass(generateAdapter = true)
