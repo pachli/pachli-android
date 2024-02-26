@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Tietoja</string>
     <string name="about_device_info_title">Laitteesi</string>
@@ -19,4 +19,21 @@
 \nAndroidversio: %s
 \nSDK-taso: %d</string>
     <string name="license_description">Pachlissa on koodia ja osioita näistä vapaan lähdekoodin projekteista:</string>
+    <string name="notification_details_title">Yksityiskohdat</string>
+    <string name="notification_details_android_notifications_enabled">Androidin ilmoitukset sallittu?</string>
+    <string name="notification_details_notifications_enabled_help">Ilmoituksia ei ole otettu käyttöön millään tileistäsi. Muuta tämä kohdasta Tiliasetukset &gt; Ilmoitukset. Siihen asti kaikki ilmoitukset ovat poissa käytöstä.</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Push-ilmoitukset UnifiedPush-tekniikalla</string>
+    <string name="notification_details_unifiedpush_available">UnifiedPush käytettävissä?</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) ei ole käytettävissä, ilmoitukset haetaan määräajoin. Tämän osion jatko selittää, miksi UnifiedPush ei ole käytössä, mutta ei liity siihen, miten ilmoitukset haetaan nyt.</string>
+    <string name="notification_details_any_account_needs_migration">Onko kaikilla tileillä OAuth-oikeus \'push\'?</string>
+    <string name="notification_details_any_account_needs_migration_help">Yhdellä tai useamalla tilillä ei ole OAuth-oikeutta \'push\', push-ilmoitukset poissa käytöstä.</string>
+    <string name="notification_details_accounts_unified_push_url">Onko kaikilla tileillä UnifiedPush URL?</string>
+    <string name="notification_details_accounts_unified_push_url_help">Yhdelle tai useammalle tilille ei ole asetettu UnifiedPush URL-osoitetta, tämän tilin push-ilmoitukset ovat poissa käytöstä.</string>
+    <string name="notification_details_accounts_unified_push_subscription">Onko kaikilla tileillä tilaus?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Yksi tai useampi tili ei ole onnistunut päivittämään UnifiedPush-tilaustaan eikä saa ilmoituksia.</string>
+    <string name="notification_details_ntfy_exempt">Onko NTFY vapautettu akunkäytön optimoinnista?</string>
+    <string name="notification_details_ntfy_exempt_help">NTFY ei ole vapautettu akunkäytön optimoinnista. Android voi viivyttää ilmoituksia kun näyttö ei ole käytössä.</string>
+    <string name="notification_details_pachli_exempt_help">Pachli ei ole vapautettu akunkäytön optimoinnista. Android saattaa viivyttää ilmoituksia kun näyttö ei ole käytössä.</string>
+    <string name="notification_details_pachli_exempt">Onko Pachli vapautettu akunkäytön optimoinnista?</string>
+    <string name="action_refresh">Päivitä</string>
 </resources>
