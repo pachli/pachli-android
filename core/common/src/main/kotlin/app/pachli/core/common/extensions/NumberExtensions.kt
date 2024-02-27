@@ -15,24 +15,16 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-plugins {
-    alias(libs.plugins.pachli.android.library)
-    alias(libs.plugins.pachli.android.hilt)
-}
+package app.pachli.core.common.extensions
 
-android {
-    namespace = "app.pachli.core.data"
+/** Returns an [Int] byte count equal to this [Int] multiplied by the suffix */
+inline val Int.KiB get() = this * 1024
 
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-}
+/** Returns an [Int] byte count equal to this [Int] multiplied by the suffix */
+inline val Int.MiB get() = this * 1024 * 1024
 
-dependencies {
-    implementation(projects.core.accounts)
-    implementation(projects.core.common)
-    implementation(projects.core.database)
-    implementation(projects.core.network)
+/** Returns a [Long] byte count equal to this [Long] multiplied by the suffix */
+inline val Long.KiB get() = this * 1024
 
-    testImplementation(libs.bundles.mockito)
-}
+/** Returns a [Long] byte count equal to this [Long] multiplied by the suffix */
+inline val Long.MiB get() = this * 1024 * 1024

@@ -37,7 +37,8 @@ data class Account(
     val note: String,
     val url: String,
     val avatar: String,
-    val header: String,
+    // Pixelfed might omit `header`
+    val header: String = "",
     val locked: Boolean = false,
     @Json(name = "followers_count") val followersCount: Int = 0,
     @Json(name = "following_count") val followingCount: Int = 0,

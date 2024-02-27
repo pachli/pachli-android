@@ -93,7 +93,7 @@ fun createNewImageFile(context: Context, suffix: String = ".jpg"): File {
 
 data class PreparedMedia(val type: QueuedMedia.Type, val uri: Uri, val size: Long)
 
-class FileSizeException(val allowedSizeInBytes: Int) : Exception()
+class FileSizeException(val allowedSizeInBytes: Long) : Exception()
 class MediaTypeException : Exception()
 class CouldNotOpenFileException : Exception()
 class UploadServerError(val errorMessage: String) : Exception()
