@@ -17,6 +17,7 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.common.extensions.MiB
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -32,11 +33,12 @@ data class InstanceV2(
     /** The version of Mastodon installed on the instance */
     val version: String,
 
+    // Missing in some Friendica servers, https://github.com/friendica/friendica/issues/13941
     /**
      * The URL for the source code of the software running on this instance, in keeping with AGPL
      * license requirements.
      */
-    @Json(name = "source_url") val sourceUrl: String,
+    @Json(name = "source_url") val sourceUrl: String? = null,
 
     /** A short, plain-text description defined by the admin. */
     val description: String,
@@ -60,7 +62,7 @@ data class InstanceV2(
     val contact: Contact,
 
     /** An itemized list of rules for this website. */
-    val rules: List<Rule>,
+    val rules: List<Rule> = emptyList(),
 )
 
 @JsonClass(generateAdapter = true)
@@ -105,8 +107,9 @@ data class Configuration(
     /** URLs of interest for clients apps. */
     val urls: InstanceV2Urls = InstanceV2Urls(),
 
+    // Missing in some Pleroma servers, https://git.pleroma.social/pleroma/pleroma/-/issues/3251
     /** Limits related to accounts. */
-    val accounts: InstanceV2Accounts,
+    val accounts: InstanceV2Accounts = InstanceV2Accounts(),
 
     /** Limits related to authoring statuses. */
     val statuses: InstanceV2Statuses,
@@ -140,55 +143,58 @@ data class InstanceV2Urls(
 @JsonClass(generateAdapter = true)
 data class InstanceV2Accounts(
     /** The maximum number of featured tags allowed for each account. */
-    @Json(name = "max_featured_tags") val maxFeaturedTags: Int,
+    @Json(name = "max_featured_tags") val maxFeaturedTags: Int = 0,
 )
 
 @JsonClass(generateAdapter = true)
 data class InstanceV2Statuses(
     /** The maximum number of allowed characters per status. */
-    @Json(name = "max_characters") val maxCharacters: Int,
+    @Json(name = "max_characters") val maxCharacters: Int = 500,
 
+    // Missing in some Friendica servers until https://github.com/friendica/friendica/pull/13664
     /** The maximum number of media attachments that can be added to a status. */
-    @Json(name = "max_media_attachments") val maxMediaAttachments: Int,
+    @Json(name = "max_media_attachments") val maxMediaAttachments: Int = 4,
 
+    // Missing in some Pleroma servers, https://git.pleroma.social/pleroma/pleroma/-/issues/3250
     /** Each URL in a status will be assumed to be exactly this many characters. */
-    @Json(name = "characters_reserved_per_url") val charactersReservedPerUrl: Int,
+    @Json(name = "characters_reserved_per_url") val charactersReservedPerUrl: Int = 23,
 )
 
 @JsonClass(generateAdapter = true)
 data class MediaAttachments(
     /** Contains MIME types that can be uploaded. */
-    @Json(name = "supported_mime_types") val supportedMimeTypes: List<String>,
+    @Json(name = "supported_mime_types") val supportedMimeTypes: List<String> = emptyList(),
 
     /** The maximum size of any uploaded image, in bytes. */
-    @Json(name = "image_size_limit") val imageSizeLimit: Int,
+    @Json(name = "image_size_limit") val imageSizeLimit: Long = 10L.MiB,
 
-    /** The maximum number of pixels (width times height) for image uploads. */
-    @Json(name = "image_matrix_limit") val imageMatrixLimit: Int,
+    /** The maximum number of pixels (width x height) for image uploads. */
+    @Json(name = "image_matrix_limit") val imageMatrixLimit: Int = 4096 * 4096,
 
     /** The maximum size of any uploaded video, in bytes. */
-    @Json(name = "video_size_limit") val videoSizeLimit: Int,
+    @Json(name = "video_size_limit") val videoSizeLimit: Long = 40L.MiB,
 
     /** The maximum frame rate for any uploaded video. */
-    @Json(name = "video_frame_rate_limit") val videoFrameRateLimit: Int,
+    @Json(name = "video_frame_rate_limit") val videoFrameRateLimit: Int = 30,
 
     /** The maximum number of pixels (width times height) for video uploads. */
-    @Json(name = "video_matrix_limit") val videoMatrixLimit: Int,
+    @Json(name = "video_matrix_limit") val videoMatrixLimit: Int = 4096 * 4096,
 )
 
 @JsonClass(generateAdapter = true)
 data class InstanceV2Polls(
+    // Some Pleroma servers omit this
     /** Each poll is allowed to have up to this many options. */
-    @Json(name = "max_options") val maxOptions: Int,
+    @Json(name = "max_options") val maxOptions: Int = 4,
 
     /** Each poll option is allowed to have this many characters. */
-    @Json(name = "max_characters_per_option") val maxCharactersPerOption: Int,
+    @Json(name = "max_characters_per_option") val maxCharactersPerOption: Int = 50,
 
     /** The shortest allowed poll duration, in seconds. */
-    @Json(name = "min_expiration") val minExpiration: Int,
+    @Json(name = "min_expiration") val minExpiration: Int = 300,
 
     /** The longest allowed poll duration, in seconds. */
-    @Json(name = "max_expiration") val maxExpiration: Int,
+    @Json(name = "max_expiration") val maxExpiration: Long = 604800,
 )
 
 @JsonClass(generateAdapter = true)
@@ -211,11 +217,13 @@ data class Registrations(
 
 @JsonClass(generateAdapter = true)
 data class Contact(
+    // Pixelfed can return null, see https://github.com/pixelfed/pixelfed/issues/4957
     /** An email address that can be messaged regarding inquiries or issues. */
-    val email: String,
+    val email: String? = null,
 
+    // Mastodon can return null, see https://github.com/mastodon/mastodon/issues/29418
     /** An account that can be contacted natively over the network regarding inquiries or issues. */
-    val account: Account,
+    val account: Account? = null,
 )
 
 /** https://docs.joinmastodon.org/entities/Rule/ */

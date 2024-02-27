@@ -36,7 +36,7 @@ import java.io.FileOutputStream
  */
 fun downsizeImage(
     uri: Uri,
-    sizeLimit: Int,
+    sizeLimit: Long,
     contentResolver: ContentResolver,
     tempFile: File,
 ): Boolean {

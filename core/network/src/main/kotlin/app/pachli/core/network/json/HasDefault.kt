@@ -77,7 +77,7 @@ annotation class Default
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS)
 @JsonQualifier
-annotation class HasDefault() {
+annotation class HasDefault {
     class Factory : JsonAdapter.Factory {
         override fun create(
             type: Type,

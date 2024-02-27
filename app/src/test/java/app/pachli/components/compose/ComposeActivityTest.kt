@@ -30,7 +30,6 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.SearchResult
-import app.pachli.core.network.model.StatusConfiguration
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.lazyActivityScenarioRule
 import at.connyduck.calladapter.networkresult.NetworkResult
@@ -606,29 +605,47 @@ class ComposeActivityTest {
         activity.findViewById<EditText>(R.id.composeEditField).setText(text ?: "Some text")
     }
 
-    private fun getInstanceWithCustomConfiguration(maximumLegacyTootCharacters: Int? = null, configuration: InstanceConfiguration? = null): InstanceV1 {
-        return InstanceV1(
+    private fun getInstanceWithCustomConfiguration(
+        maximumLegacyTootCharacters: Int? = null,
+        configuration: InstanceConfiguration? = null,
+    ): InstanceV1 {
+        var result = InstanceV1(
             uri = "https://example.token",
             version = "2.6.3",
-            maxTootChars = maximumLegacyTootCharacters,
-            pollConfiguration = null,
-            configuration = configuration,
-            maxMediaAttachments = null,
-            pleroma = null,
-            uploadLimit = null,
-            rules = emptyList(),
         )
+
+        maximumLegacyTootCharacters?.let {
+            result = result.copy(maxTootChars = it)
+        }
+        configuration?.let {
+            result = result.copy(configuration = it)
+        }
+
+        return result
     }
 
-    private fun getCustomInstanceConfiguration(maximumStatusCharacters: Int? = null, charactersReservedPerUrl: Int? = null): InstanceConfiguration {
-        return InstanceConfiguration(
-            statuses = StatusConfiguration(
-                maxCharacters = maximumStatusCharacters,
-                maxMediaAttachments = null,
-                charactersReservedPerUrl = charactersReservedPerUrl,
-            ),
-            mediaAttachments = null,
-            polls = null,
-        )
+    private fun getCustomInstanceConfiguration(
+        maximumStatusCharacters: Int? = null,
+        charactersReservedPerUrl: Int? = null,
+    ): InstanceConfiguration {
+        var result = InstanceConfiguration()
+
+        maximumStatusCharacters?.let {
+            result = result.copy(
+                statuses = result.statuses.copy(
+                    maxCharacters = it,
+                ),
+            )
+        }
+
+        charactersReservedPerUrl?.let {
+            result = result.copy(
+                statuses = result.statuses.copy(
+                    charactersReservedPerUrl = it,
+                ),
+            )
+        }
+
+        return result
     }
 }
