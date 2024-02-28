@@ -21,6 +21,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.filters.EditFilterActivity
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.PollOption
@@ -45,7 +46,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "badWord",
-                context = listOf(FilterV1.HOME),
+                contexts = listOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = false,
@@ -53,7 +54,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "badWholeWord",
-                context = listOf(FilterV1.HOME, FilterV1.PUBLIC),
+                contexts = listOf(FilterContext.HOME, FilterContext.PUBLIC),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -61,7 +62,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "@twitter.com",
-                context = listOf(FilterV1.HOME),
+                contexts = listOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -69,7 +70,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "#hashtag",
-                context = listOf(FilterV1.HOME),
+                contexts = listOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -77,7 +78,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "expired",
-                context = listOf(FilterV1.HOME),
+                contexts = listOf(FilterContext.HOME),
                 expiresAt = Date.from(Instant.now().minusSeconds(10)),
                 irreversible = false,
                 wholeWord = true,
@@ -85,7 +86,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "unexpired",
-                context = listOf(FilterV1.HOME),
+                contexts = listOf(FilterContext.HOME),
                 expiresAt = Date.from(Instant.now().plusSeconds(3600)),
                 irreversible = false,
                 wholeWord = true,
@@ -93,14 +94,14 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "href",
-                context = listOf(FilterV1.HOME),
+                contexts = listOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = false,
             ),
         )
 
-        filterModel = FilterModel(Filter.Kind.HOME, filters)
+        filterModel = FilterModel(FilterContext.HOME, filters)
     }
 
     @Test

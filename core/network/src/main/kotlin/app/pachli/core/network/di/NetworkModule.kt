@@ -24,6 +24,7 @@ import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.BuildConfig
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
+import app.pachli.core.network.json.EnumConstantConverterFactory
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.HasDefault
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
@@ -127,6 +128,7 @@ object NetworkModule {
     ): Retrofit {
         return Retrofit.Builder().baseUrl("https://" + MastodonApi.PLACEHOLDER_DOMAIN)
             .client(httpClient)
+            .addConverterFactory(EnumConstantConverterFactory)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(NetworkResultCallAdapterFactory.create())
             .build()

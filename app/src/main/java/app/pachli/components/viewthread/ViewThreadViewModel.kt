@@ -38,6 +38,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
@@ -112,7 +113,7 @@ class ViewThreadViewModel @Inject constructor(
                         is StatusDeletedEvent -> handleStatusDeletedEvent(event)
                         is StatusEditedEvent -> handleStatusEditedEvent(event)
                         is FilterChangedEvent -> {
-                            if (event.filterKind == Filter.Kind.THREAD) {
+                            if (event.filterContext == FilterContext.THREAD) {
                                 loadFilters()
                             }
                         }
@@ -527,8 +528,8 @@ class ViewThreadViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 filterModel = when (val filters = filtersRepository.getFilters()) {
-                    is FilterKind.V1 -> FilterModel(Filter.Kind.THREAD, filters.filters)
-                    is FilterKind.V2 -> FilterModel(Filter.Kind.THREAD)
+                    is FilterKind.V1 -> FilterModel(FilterContext.THREAD, filters.filters)
+                    is FilterKind.V2 -> FilterModel(FilterContext.THREAD)
                 }
                 updateStatuses()
             } catch (_: Exception) {

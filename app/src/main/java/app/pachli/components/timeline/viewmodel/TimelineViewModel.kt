@@ -46,6 +46,7 @@ import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineKind
@@ -521,7 +522,7 @@ abstract class TimelineViewModel(
     /** Updates the current set of filters if filter-related preferences change */
     private fun updateFiltersFromPreferences() = eventHub.events
         .filterIsInstance<FilterChangedEvent>()
-        .filter { filterContextMatchesKind(timelineKind, listOf(it.filterKind)) }
+        .filter { filterContextMatchesKind(timelineKind, listOf(it.filterContext)) }
         .map {
             getFilters()
             Timber.d("Reload because FilterChangedEvent")
@@ -534,10 +535,10 @@ abstract class TimelineViewModel(
         viewModelScope.launch {
             Timber.d("getFilters()")
             try {
-                val filterKind = Filter.Kind.from(timelineKind)
+                val filterContext = FilterContext.from(timelineKind)
                 filterModel = when (val filters = filtersRepository.getFilters()) {
-                    is FilterKind.V1 -> FilterModel(filterKind, filters.filters)
-                    is FilterKind.V2 -> FilterModel(filterKind)
+                    is FilterKind.V1 -> FilterModel(filterContext, filters.filters)
+                    is FilterKind.V2 -> FilterModel(filterContext)
                 }
             } catch (throwable: Throwable) {
                 Timber.d(throwable, "updateFilter(): Error fetching filters")
@@ -635,9 +636,9 @@ abstract class TimelineViewModel(
 
         fun filterContextMatchesKind(
             timelineKind: TimelineKind,
-            filterContext: List<Filter.Kind>,
+            filterContext: List<FilterContext>,
         ): Boolean {
-            return filterContext.contains(Filter.Kind.from(timelineKind))
+            return filterContext.contains(FilterContext.from(timelineKind))
         }
     }
 }

@@ -70,8 +70,8 @@ class FiltersViewModel @Inject constructor(
             api.deleteFilter(filter.id).fold(
                 {
                     this@FiltersViewModel._state.value = State(this@FiltersViewModel._state.value.filters.filter { it.id != filter.id }, LoadingState.LOADED)
-                    for (context in filter.context) {
-                        eventHub.dispatch(FilterChangedEvent(Filter.Kind.from(context)))
+                    for (context in filter.contexts) {
+                        eventHub.dispatch(FilterChangedEvent(context))
                     }
                 },
                 { throwable ->
@@ -79,8 +79,8 @@ class FiltersViewModel @Inject constructor(
                         api.deleteFilterV1(filter.id).fold(
                             {
                                 this@FiltersViewModel._state.value = State(this@FiltersViewModel._state.value.filters.filter { it.id != filter.id }, LoadingState.LOADED)
-                                filter.context.forEach {
-                                    eventHub.dispatch(FilterChangedEvent(Filter.Kind.from(it)))
+                                filter.contexts.forEach {
+                                    eventHub.dispatch(FilterChangedEvent(it))
                                 }
                             },
                             {
