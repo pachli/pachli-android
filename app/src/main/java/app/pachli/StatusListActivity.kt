@@ -33,6 +33,7 @@ import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.TimelineKind
 import app.pachli.databinding.ActivityStatuslistBinding
@@ -243,7 +244,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
             mastodonApi.getFilters().fold(
                 { filters ->
                     mutedFilter = filters.firstOrNull { filter ->
-                        filter.context.contains(Filter.Kind.HOME.kind) && filter.keywords.any {
+                        filter.contexts.contains(FilterContext.HOME) && filter.keywords.any {
                             it.keyword == tagWithHash
                         }
                     }
@@ -254,7 +255,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
                         mastodonApi.getFiltersV1().fold(
                             { filters ->
                                 mutedFilterV1 = filters.firstOrNull { filter ->
-                                    tagWithHash == filter.phrase && filter.context.contains(FilterV1.HOME)
+                                    tagWithHash == filter.phrase && filter.contexts.contains(FilterContext.HOME)
                                 }
                                 updateTagMuteState(mutedFilterV1 != null)
                             },
@@ -288,7 +289,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
         lifecycleScope.launch {
             mastodonApi.createFilter(
                 title = tagWithHash,
-                context = listOf(FilterV1.HOME),
+                context = listOf(FilterContext.HOME),
                 filterAction = Filter.Action.WARN.action,
                 expiresInSeconds = null,
             ).fold(
@@ -296,7 +297,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
                     if (mastodonApi.addFilterKeyword(filterId = filter.id, keyword = tagWithHash, wholeWord = true).isSuccess) {
                         mutedFilter = filter
                         updateTagMuteState(true)
-                        eventHub.dispatch(FilterChangedEvent(Filter.Kind.from(filter.context[0])))
+                        eventHub.dispatch(FilterChangedEvent(filter.contexts[0]))
                         Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_muted, hashtag), Snackbar.LENGTH_SHORT).show()
                     } else {
                         Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
@@ -307,7 +308,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
                     if (throwable is HttpException && throwable.code() == 404) {
                         mastodonApi.createFilterV1(
                             tagWithHash,
-                            listOf(FilterV1.HOME),
+                            listOf(FilterContext.HOME),
                             irreversible = false,
                             wholeWord = true,
                             expiresInSeconds = null,
@@ -315,7 +316,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
                             { filter ->
                                 mutedFilterV1 = filter
                                 updateTagMuteState(true)
-                                eventHub.dispatch(FilterChangedEvent(Filter.Kind.from(filter.context[0])))
+                                eventHub.dispatch(FilterChangedEvent(filter.contexts[0]))
                                 Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_muted, hashtag), Snackbar.LENGTH_SHORT).show()
                             },
                             { throwable ->
@@ -340,23 +341,23 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
 
             val result = if (mutedFilter != null) {
                 val filter = mutedFilter!!
-                if (filter.context.size > 1) {
+                if (filter.contexts.size > 1) {
                     // This filter exists in multiple contexts, just remove the home context
                     mastodonApi.updateFilter(
                         id = filter.id,
-                        context = filter.context.filter { it != Filter.Kind.HOME.kind },
+                        context = filter.contexts.filter { it != FilterContext.HOME },
                     )
                 } else {
                     mastodonApi.deleteFilter(filter.id)
                 }
             } else if (mutedFilterV1 != null) {
                 mutedFilterV1?.let { filter ->
-                    if (filter.context.size > 1) {
+                    if (filter.contexts.size > 1) {
                         // This filter exists in multiple contexts, just remove the home context
                         mastodonApi.updateFilterV1(
                             id = filter.id,
                             phrase = filter.phrase,
-                            context = filter.context.filter { it != FilterV1.HOME },
+                            context = filter.contexts.filter { it != FilterContext.HOME },
                             irreversible = null,
                             wholeWord = null,
                             expiresInSeconds = null,
@@ -373,7 +374,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
                 {
                     updateTagMuteState(false)
                     Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_unmuted, hashtag), Snackbar.LENGTH_SHORT).show()
-                    eventHub.dispatch(FilterChangedEvent(Filter.Kind.HOME))
+                    eventHub.dispatch(FilterChangedEvent(FilterContext.HOME))
                     mutedFilterV1 = null
                     mutedFilter = null
                 },

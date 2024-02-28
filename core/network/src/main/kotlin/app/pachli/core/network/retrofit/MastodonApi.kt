@@ -25,6 +25,7 @@ import app.pachli.core.network.model.Conversation
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.HashTag
@@ -614,7 +615,7 @@ interface MastodonApi {
     @POST("api/v1/filters")
     suspend fun createFilterV1(
         @Field("phrase") phrase: String,
-        @Field("context[]") context: List<String>,
+        @Field("context[]") context: List<FilterContext>,
         @Field("irreversible") irreversible: Boolean?,
         @Field("whole_word") wholeWord: Boolean?,
         @Field("expires_in") expiresInSeconds: Int?,
@@ -625,7 +626,7 @@ interface MastodonApi {
     suspend fun updateFilterV1(
         @Path("id") id: String,
         @Field("phrase") phrase: String,
-        @Field("context[]") context: List<String>,
+        @Field("context[]") context: List<FilterContext>,
         @Field("irreversible") irreversible: Boolean?,
         @Field("whole_word") wholeWord: Boolean?,
         @Field("expires_in") expiresInSeconds: Int?,
@@ -640,7 +641,7 @@ interface MastodonApi {
     @POST("api/v2/filters")
     suspend fun createFilter(
         @Field("title") title: String,
-        @Field("context[]") context: List<String>,
+        @Field("context[]") context: List<FilterContext>,
         @Field("filter_action") filterAction: String,
         @Field("expires_in") expiresInSeconds: Int?,
     ): NetworkResult<Filter>
@@ -650,7 +651,7 @@ interface MastodonApi {
     suspend fun updateFilter(
         @Path("id") id: String,
         @Field("title") title: String? = null,
-        @Field("context[]") context: List<String>? = null,
+        @Field("context[]") context: List<FilterContext>? = null,
         @Field("filter_action") filterAction: String? = null,
         @Field("expires_in") expiresInSeconds: Int? = null,
     ): NetworkResult<Filter>

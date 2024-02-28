@@ -20,7 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FilterChangedEvent
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.TrendingTag
 import app.pachli.core.network.model.end
 import app.pachli.core.network.model.start
@@ -96,7 +96,7 @@ class TrendingTagsViewModel @Inject constructor(
                     TrendingTagsUiState(emptyList(), LoadingState.LOADED)
                 } else {
                     val homeFilters = deferredFilters.await().getOrNull()?.filter { filter ->
-                        filter.context.contains(Filter.Kind.HOME.kind)
+                        filter.contexts.contains(FilterContext.HOME)
                     }
                     val tags = tagResponse
                         .filter { tag ->
