@@ -87,7 +87,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
         val contexts = contexts.value
         val title = title.value
         val durationIndex = duration.value
-        val action = action.value.action
+        val action = action.value
 
         return withContext(viewModelScope.coroutineContext) {
             val success = originalFilter?.let { filter ->
@@ -108,7 +108,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
         }
     }
 
-    private suspend fun createFilter(title: String, contexts: List<FilterContext>, action: String, durationIndex: Int, context: Context): Boolean {
+    private suspend fun createFilter(title: String, contexts: List<FilterContext>, action: Filter.Action, durationIndex: Int, context: Context): Boolean {
         val expiresInSeconds = EditFilterActivity.getSecondsForDurationIndex(durationIndex, context)
         api.createFilter(
             title = title,
@@ -132,7 +132,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
         )
     }
 
-    private suspend fun updateFilter(originalFilter: Filter, title: String, contexts: List<FilterContext>, action: String, durationIndex: Int, context: Context): Boolean {
+    private suspend fun updateFilter(originalFilter: Filter, title: String, contexts: List<FilterContext>, action: Filter.Action, durationIndex: Int, context: Context): Boolean {
         val expiresInSeconds = EditFilterActivity.getSecondsForDurationIndex(durationIndex, context)
         api.updateFilter(
             id = originalFilter.id,

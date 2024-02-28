@@ -290,7 +290,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
             mastodonApi.createFilter(
                 title = tagWithHash,
                 context = listOf(FilterContext.HOME),
-                filterAction = Filter.Action.WARN.action,
+                filterAction = Filter.Action.WARN,
                 expiresInSeconds = null,
             ).fold(
                 { filter ->

@@ -25,15 +25,15 @@ data class Filter(
     // val statuses: List<FilterStatus>,
 ) : Parcelable {
     @HasDefault
-    enum class Action(val action: String) {
+    enum class Action {
         @Json(name = "none")
-        NONE("none"),
+        NONE,
 
         @Json(name = "warn")
         @Default
-        WARN("warn"),
+        WARN,
 
         @Json(name = "hide")
-        HIDE("hide"),
+        HIDE,
     }
 }
