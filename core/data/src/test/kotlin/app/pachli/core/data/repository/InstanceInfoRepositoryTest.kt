@@ -22,7 +22,6 @@ import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
-import app.pachli.core.network.model.StatusConfiguration
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
 import kotlinx.coroutines.test.runTest
@@ -121,29 +120,41 @@ class InstanceInfoRepositoryTest {
         assertEquals(customMaximum * 2, instanceInfo.maxChars)
     }
 
-    private fun getInstanceWithCustomConfiguration(maximumLegacyTootCharacters: Int? = null, configuration: InstanceConfiguration? = null): InstanceV1 {
+    private fun getInstanceWithCustomConfiguration(maximumLegacyTootCharacters: Int? = null, configuration: InstanceConfiguration = InstanceConfiguration()): InstanceV1 {
         return InstanceV1(
             uri = "https://example.token",
             version = "2.6.3",
             maxTootChars = maximumLegacyTootCharacters,
             pollConfiguration = null,
             configuration = configuration,
-            maxMediaAttachments = null,
             pleroma = null,
             uploadLimit = null,
             rules = emptyList(),
         )
     }
 
-    private fun getCustomInstanceConfiguration(maximumStatusCharacters: Int? = null, charactersReservedPerUrl: Int? = null): InstanceConfiguration {
-        return InstanceConfiguration(
-            statuses = StatusConfiguration(
-                maxCharacters = maximumStatusCharacters,
-                maxMediaAttachments = null,
-                charactersReservedPerUrl = charactersReservedPerUrl,
-            ),
-            mediaAttachments = null,
-            polls = null,
-        )
+    private fun getCustomInstanceConfiguration(
+        maximumStatusCharacters: Int? = null,
+        charactersReservedPerUrl: Int? = null,
+    ): InstanceConfiguration {
+        var result = InstanceConfiguration()
+
+        maximumStatusCharacters?.let {
+            result = result.copy(
+                statuses = result.statuses.copy(
+                    maxCharacters = it,
+                ),
+            )
+        }
+
+        charactersReservedPerUrl?.let {
+            result = result.copy(
+                statuses = result.statuses.copy(
+                    charactersReservedPerUrl = it,
+                ),
+            )
+        }
+
+        return result
     }
 }

@@ -27,10 +27,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["disableAnalytics"] = "true"
     }
-
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
 }
 
 dependencies {
@@ -54,7 +50,6 @@ dependencies {
     // Crash reporting in orange (Pachli Current) builds only
     orangeImplementation(libs.bundles.acra)
 
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
     orangeCompileOnly(libs.auto.service.annotations)
     kspOrange(libs.auto.service.ksp)
 
