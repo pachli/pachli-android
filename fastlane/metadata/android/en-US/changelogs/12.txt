@@ -1,0 +1,15 @@
+Pachli 2.3.0
+
+New features:
+
+- Display uncropped media on account media pages 
+- Allow the user to trigger update checks 
+- Show preview for playable audio attachments 
+- Show information about notification fetches
+
+Fixes:
+
+- Keep the screen on while media is playing 
+- Improve legibility of stats labels
+- Show correct account/timeline when composing from notifications 
+- Update Arabic, Dutch, Finnish, French, Indonesian, Spanish, and Swedish translations 

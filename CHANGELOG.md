@@ -1,5 +1,35 @@
 # Pachli changelog
 
+## v2.3.0
+
+### New features and other improvements
+
+- Display uncropped media on account media pages (#[464](https://github.com/pachli/pachli-android/pull/464), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow the user to trigger update checks (#[458](https://github.com/pachli/pachli-android/pull/458), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show a preview for playable audio attachments (#[426](https://github.com/pachli/pachli-android/pull/426), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show information about notification fetches on "About" screen (#[454](https://github.com/pachli/pachli-android/pull/454), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Keep the screen on while media is playing (#[422](https://github.com/pachli/pachli-android/pull/422), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Remove filters from Firefish capabilities (#[459](https://github.com/pachli/pachli-android/pull/459), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve legibility of stats labels for large font sizes (#[457](https://github.com/pachli/pachli-android/pull/457), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use the correct font when showing inserted text (#[453](https://github.com/pachli/pachli-android/pull/453), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show diffs for content that doesn't start with a block element (#[446](https://github.com/pachli/pachli-android/pull/446), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show correct account/timeline when composing from notifications (#[445](https://github.com/pachli/pachli-android/pull/445), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Expedite notification fetches via UnifiedPush (#[440](https://github.com/pachli/pachli-android/pull/440), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow HIDE_TOP_TOOLBAR preference text to wrap (#[439](https://github.com/pachli/pachli-android/pull/439), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Arabic translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Dutch translations ([Martijn de Boer](https://github.com/pachli/pachli-android/commits?author=github@sexybiggetje.nl))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update French translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Indonesian translations ([Reza Almanda](https://github.com/pachli/pachli-android/commits?author=rezaalmanda27@gmail.com))
+- Update Spanish translations ([JuanM](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Swedish translations ([bittin1ddc447d824349b2](https://github.com/pachli/pachli-android/commits?author=bittin@reimu.nl))
+
 ## v2.2.0
 
 ### New features and other improvements
