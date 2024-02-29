@@ -642,7 +642,7 @@ interface MastodonApi {
     suspend fun createFilter(
         @Field("title") title: String,
         @Field("context[]") context: List<FilterContext>,
-        @Field("filter_action") filterAction: String,
+        @Field("filter_action") filterAction: Filter.Action,
         @Field("expires_in") expiresInSeconds: Int?,
     ): NetworkResult<Filter>
 
@@ -652,7 +652,7 @@ interface MastodonApi {
         @Path("id") id: String,
         @Field("title") title: String? = null,
         @Field("context[]") context: List<FilterContext>? = null,
-        @Field("filter_action") filterAction: String? = null,
+        @Field("filter_action") filterAction: Filter.Action? = null,
         @Field("expires_in") expiresInSeconds: Int? = null,
     ): NetworkResult<Filter>
 
