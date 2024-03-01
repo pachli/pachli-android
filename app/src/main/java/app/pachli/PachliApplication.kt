@@ -38,12 +38,10 @@ import app.pachli.util.setAppNightMode
 import app.pachli.worker.PruneCacheWorker
 import app.pachli.worker.PruneLogEntryEntityWorker
 import app.pachli.worker.WorkerFactory
-import autodispose2.AutoDisposePlugins
 import dagger.hilt.android.HiltAndroidApp
 import de.c1710.filemojicompat_defaults.DefaultEmojiPackList
 import de.c1710.filemojicompat_ui.helpers.EmojiPackHelper
 import de.c1710.filemojicompat_ui.helpers.EmojiPreference
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import java.security.Security
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -85,8 +83,6 @@ class PachliApplication : Application() {
 
         Security.insertProviderAt(Conscrypt.newProvider(), 1)
 
-        AutoDisposePlugins.setHideProxies(false) // a small performance optimization
-
         when {
             BuildConfig.DEBUG -> Timber.plant(Timber.DebugTree())
             BuildConfig.FLAVOR_color == "orange" -> Timber.plant(TreeRing)
@@ -109,10 +105,6 @@ class PachliApplication : Application() {
         setAppNightMode(theme)
 
         localeManager.setLocale()
-
-        RxJavaPlugins.setErrorHandler {
-            Timber.tag("RxJava").w(it, "undeliverable exception")
-        }
 
         createWorkerNotificationChannel(this)
 
