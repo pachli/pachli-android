@@ -162,7 +162,8 @@ data class Server(
                     rx.find(version)
                         .toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
                         .andThen {
-                            val adjusted = "${it.groups["major"]?.value}.${it.groups["minor"]?.value}.${it.groups["patch"]?.value}"
+                            // Fetching groups by name instead of index requires API >= 26
+                            val adjusted = "${it.groups[1]?.value}.${it.groups[2]?.value}.${it.groups[3]?.value}"
                             runSuspendCatching { Version.parse(adjusted, strict = false) }
                                 .mapError { UnparseableVersion(version, it) }
                         }
@@ -180,7 +181,8 @@ data class Server(
                     rx.find(version)
                         .toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
                         .andThen {
-                            val adjusted = "${it.groups["major"]?.value}.${it.groups["minor"]?.value}.0"
+                            // Fetching groups by name instead of index requires API >= 26
+                            val adjusted = "${it.groups[1]?.value}.${it.groups[2]?.value}.0"
                             runSuspendCatching { Version.parse(adjusted, strict = false) }
                                 .mapError { UnparseableVersion(version, it) }
                         }
@@ -216,7 +218,8 @@ data class Server(
                     val rx = """^0*(?<major>\d+)\.0*(?<minor>\d+)\.0*(?<patch>\d+)""".toRegex()
                     rx.find(version).toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
                         .andThen {
-                            val adjusted = "${it.groups["major"]?.value}.${it.groups["minor"]?.value ?: 0}.${it.groups["patch"]?.value ?: 0}"
+                            // Fetching groups by name instead of index requires API >= 26
+                            val adjusted = "${it.groups[1]?.value}.${it.groups[2]?.value ?: 0}.${it.groups[3]?.value ?: 0}"
                             runSuspendCatching { Version.parse(adjusted, strict = false) }
                                 .mapError { UnparseableVersion(adjusted, it) }
                         }
@@ -228,7 +231,8 @@ data class Server(
                     val rx = """Pleroma (?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)""".toRegex()
                     rx.find(version).toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
                         .andThen {
-                            val adjusted = "${it.groups["major"]?.value}.${it.groups["minor"]?.value}.${it.groups["patch"]?.value}"
+                            // Fetching groups by name instead of index requires API >= 26
+                            val adjusted = "${it.groups[1]?.value}.${it.groups[2]?.value}.${it.groups[3]?.value}"
                             runSuspendCatching { Version.parse(adjusted, strict = false) }
                                 .mapError { UnparseableVersion(adjusted, it) }
                         }
@@ -240,7 +244,8 @@ data class Server(
                     val rx = """^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)""".toRegex()
                     rx.find(version).toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
                         .andThen {
-                            val adjusted = "${it.groups["major"]?.value}.${it.groups["minor"]?.value}.${it.groups["patch"]?.value}"
+                            // Fetching groups by name instead of index requires API >= 26
+                            val adjusted = "${it.groups[1]?.value}.${it.groups[2]?.value}.${it.groups[3]?.value}"
                             runSuspendCatching { Version.parse(adjusted, strict = false) }
                                 .mapError { UnparseableVersion(adjusted, it) }
                         }
