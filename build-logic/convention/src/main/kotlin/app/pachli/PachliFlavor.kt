@@ -25,7 +25,7 @@ import com.android.build.api.dsl.ProductFlavor
 @Suppress("EnumEntryName")
 enum class FlavorDimension {
     color,
-    store
+    store,
 }
 
 @Suppress("EnumEntryName")
@@ -47,12 +47,12 @@ enum class PachliFlavor(
     ),
     fdroid(FlavorDimension.store),
     github(FlavorDimension.store),
-    google(FlavorDimension.store)
+    google(FlavorDimension.store),
 }
 
 fun configureFlavors(
-    commonExtension: CommonExtension<*, *, *, *, *>,
-    flavorConfigurationBlock: ProductFlavor.(flavor: PachliFlavor) -> Unit = {}
+    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    flavorConfigurationBlock: ProductFlavor.(flavor: PachliFlavor) -> Unit = {},
 ) {
     commonExtension.apply {
         flavorDimensions += FlavorDimension.color.name
