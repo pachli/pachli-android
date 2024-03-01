@@ -170,7 +170,7 @@ class FollowedTagsActivity :
         }
     }
 
-    override fun search(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {
+    override suspend fun search(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {
         return viewModel.searchAutocompleteSuggestions(token)
     }
 

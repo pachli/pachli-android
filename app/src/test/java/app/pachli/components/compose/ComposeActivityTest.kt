@@ -98,7 +98,7 @@ class ComposeActivityTest {
                     }
                 }
             }
-            onBlocking { searchSync(any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn NetworkResult.success(
+            onBlocking { search(any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn NetworkResult.success(
                 SearchResult(emptyList(), emptyList(), emptyList()),
             )
         }
