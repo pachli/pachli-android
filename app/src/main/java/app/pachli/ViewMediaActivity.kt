@@ -25,7 +25,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -40,35 +39,35 @@ import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import app.pachli.BuildConfig.APPLICATION_ID
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
-import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.ActivityViewMediaBinding
 import app.pachli.fragment.ViewImageFragment
 import app.pachli.fragment.ViewVideoFragment
 import app.pachli.pager.ImagePagerAdapter
 import app.pachli.pager.SingleImagePagerAdapter
 import app.pachli.util.getTemporaryMediaFilename
-import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider
-import autodispose2.autoDispose
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.FutureTarget
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
 import java.util.Locale
+import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okio.buffer
+import okio.sink
 import timber.log.Timber
 
 typealias ToolbarVisibilityListener = (isVisible: Boolean) -> Unit
@@ -78,6 +77,9 @@ typealias ToolbarVisibilityListener = (isVisible: Boolean) -> Unit
  */
 @AndroidEntryPoint
 class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener, ViewVideoFragment.VideoActionsListener {
+    @Inject
+    lateinit var okHttpClient: OkHttpClient
+
     private val binding by viewBinding(ActivityViewMediaBinding::inflate)
 
     val toolbar: View
@@ -89,6 +91,9 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
     private var attachments: List<AttachmentViewData>? = null
     private val toolbarVisibilityListeners = mutableListOf<ToolbarVisibilityListener>()
     private var imageUrl: String? = null
+
+    /** True if a download to share media is in progress */
+    private var isDownloading: Boolean = false
 
     fun addToolbarVisibilityListener(listener: ToolbarVisibilityListener): Function0<Boolean> {
         this.toolbarVisibilityListeners.add(listener)
@@ -170,7 +175,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        menu?.findItem(R.id.action_share_media)?.isEnabled = !isCreating
+        menu?.findItem(R.id.action_share_media)?.isEnabled = !isDownloading
         return true
     }
 
@@ -254,98 +259,73 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
     }
 
     private fun shareMedia() {
-        val directory = applicationContext.getExternalFilesDir("Pachli")
+        val directory = applicationContext.getExternalFilesDir(null)
         if (directory == null || !(directory.exists())) {
             Timber.e("Error obtaining directory to save temporary media.")
             return
         }
 
         if (imageUrl != null) {
-            shareImage(directory, imageUrl!!)
+            shareMediaFile(directory, imageUrl!!)
         } else {
             val attachment = attachments!![binding.viewPager.currentItem].attachment
-            when (attachment.type) {
-                Attachment.Type.IMAGE -> shareImage(directory, attachment.url)
-                Attachment.Type.AUDIO,
-                Attachment.Type.VIDEO,
-                Attachment.Type.GIFV,
-                -> shareMediaFile(directory, attachment.url)
-                else -> Timber.e("Unknown media format for sharing.")
-            }
+            shareMediaFile(directory, attachment.url)
         }
     }
 
-    private fun shareFile(file: File, mimeType: String?) {
-        ShareCompat.IntentBuilder(this)
-            .setType(mimeType)
-            .addStream(FileProvider.getUriForFile(applicationContext, "$APPLICATION_ID.fileprovider", file))
-            .setChooserTitle(R.string.send_media_to)
-            .startChooser()
-    }
-
-    private var isCreating: Boolean = false
-
-    private fun shareImage(directory: File, url: String) {
-        isCreating = true
-        binding.progressBarShare.visibility = View.VISIBLE
-        invalidateOptionsMenu()
-        val file = File(directory, getTemporaryMediaFilename("png"))
-        val futureTask: FutureTarget<Bitmap> =
-            Glide.with(applicationContext).asBitmap().load(Uri.parse(url)).submit()
-        Single.fromCallable {
-            val bitmap = futureTask.get()
-            try {
-                val stream = FileOutputStream(file)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                stream.close()
-                return@fromCallable true
-            } catch (fnfe: FileNotFoundException) {
-                Timber.e("Error writing temporary media.")
-            } catch (ioe: IOException) {
-                Timber.e("Error writing temporary media.")
-            }
-            return@fromCallable false
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnDispose {
-                futureTask.cancel(true)
-            }
-            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
-            .subscribe(
-                { result ->
-                    Timber.d("Download image result: %s", result)
-                    isCreating = false
-                    invalidateOptionsMenu()
-                    binding.progressBarShare.visibility = View.GONE
-                    if (result) {
-                        shareFile(file, "image/png")
-                    }
-                },
-                { error ->
-                    isCreating = false
-                    invalidateOptionsMenu()
-                    binding.progressBarShare.visibility = View.GONE
-                    Timber.e(error, "Failed to download image")
-                },
-            )
-    }
-
+    /**
+     * Share media by downloading it to a temporary file and then sharing that
+     * file.
+     *
+     * [DownloadManager] is not used for this as it is not guaranteed to start
+     * downloading the file expediently, and the user may wait a long time.
+     */
     private fun shareMediaFile(directory: File, url: String) {
-        val uri = Uri.parse(url)
+        isDownloading = true
+        binding.progressBarShare.show()
+        invalidateOptionsMenu()
+
         val mimeTypeMap = MimeTypeMap.getSingleton()
         val extension = MimeTypeMap.getFileExtensionFromUrl(url)
         val mimeType = mimeTypeMap.getMimeTypeFromExtension(extension)
         val filename = getTemporaryMediaFilename(extension)
         val file = File(directory, filename)
 
-        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val request = DownloadManager.Request(uri)
-        request.setDestinationUri(Uri.fromFile(file))
-        request.setVisibleInDownloadsUi(false)
-        downloadManager.enqueue(request)
+        lifecycleScope.launch {
+            val request = Request.Builder().url(url).build()
+            val response = async(Dispatchers.IO) {
+                val response = okHttpClient.newCall(request).execute()
+                response.body?.let { body ->
+                    file.sink().buffer().use { it.writeAll(body.source()) }
+                }
+                return@async response
+            }.await()
 
-        shareFile(file, mimeType)
+            isDownloading = false
+            binding.progressBarShare.hide()
+            invalidateOptionsMenu()
+
+            if (!response.isSuccessful) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.error_media_download, url, response.code, response.message),
+                    Snackbar.LENGTH_INDEFINITE,
+                ).show()
+                return@launch
+            }
+
+            ShareCompat.IntentBuilder(this@ViewMediaActivity)
+                .setType(mimeType)
+                .addStream(
+                    FileProvider.getUriForFile(
+                        applicationContext,
+                        "$APPLICATION_ID.fileprovider",
+                        file,
+                    ),
+                )
+                .setChooserTitle(R.string.send_media_to)
+                .startChooser()
+        }
     }
 }
 
