@@ -34,6 +34,7 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.databinding.ItemAutocompleteEmojiBinding
 import app.pachli.databinding.ItemAutocompleteHashtagBinding
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.runBlocking
 
 class ComposeAutoCompleteAdapter(
     private val autocompletionProvider: AutocompletionProvider,
@@ -70,7 +71,10 @@ class ComposeAutoCompleteAdapter(
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val filterResults = FilterResults()
                 if (constraint != null) {
-                    val results = autocompletionProvider.search(constraint.toString())
+                    // runBlocking here is OK because this happens in a worker thread
+                    val results = runBlocking {
+                        autocompletionProvider.search(constraint.toString())
+                    }
                     filterResults.values = results
                     filterResults.count = results.size
                 }
@@ -154,7 +158,7 @@ class ComposeAutoCompleteAdapter(
     }
 
     interface AutocompletionProvider {
-        fun search(token: String): List<AutocompleteResult>
+        suspend fun search(token: String): List<AutocompleteResult>
     }
 
     companion object {
