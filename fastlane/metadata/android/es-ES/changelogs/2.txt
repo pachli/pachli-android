@@ -1,0 +1,11 @@
+Pachli 1.1
+
+Correcciones:
+
+- Usar color de contraste correcto en las etiquetas.
+- Escalar el ícono monocromático para que entre.
+- Restaurar la posición en la línea de tiempo local.
+- Asegurarse de que al recargar no se genere un espacio en la línea de tiempo.
+- Mostrar el FAB de acuerdo a las preferencias.
+- Arreglar el parpadeo de la barra al deslizar en listas.
+- Arreglar colapso al entrar en Actividad Principal desde dispositivos Pixel C.
