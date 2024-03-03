@@ -31,6 +31,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 /**
@@ -165,10 +167,10 @@ fun getImageOrientation(uri: Uri, contentResolver: ContentResolver): Int {
     }
 }
 
-fun deleteStaleCachedMedia(mediaDirectory: File?) {
+suspend fun deleteStaleCachedMedia(mediaDirectory: File?) = withContext(Dispatchers.IO) {
     if (mediaDirectory == null || !mediaDirectory.exists()) {
         // Nothing to do
-        return
+        return@withContext
     }
 
     val twentyfourHoursAgo = Calendar.getInstance()
@@ -182,7 +184,7 @@ fun deleteStaleCachedMedia(mediaDirectory: File?) {
     }
     if (files == null || files.isEmpty()) {
         // Nothing to do
-        return
+        return@withContext
     }
 
     for (file in files) {
