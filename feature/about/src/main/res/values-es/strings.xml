@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Acerca de</string>
     <string name="about_device_info_title">Tu dispositivo</string>
@@ -12,9 +12,8 @@
         Está licenciado bajo la licencia \"GNU General Public License Version 3\".
         Puedes leer sobre la misma en: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="about_project_site">Sitio del proyecto: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">        Reporte de errores y peticiones de características:\n
-        https://github.com/pachli/pachli-android/issues
-    </string>
+    <string name="about_bug_feature_request_site">Reporte de errores y peticiones de características:
+\nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_privacy_policy">Política de privacidad</string>
     <string name="about_pachli_account">Perfil de Pachli</string>
     <string name="title_licenses">Licencias</string>
@@ -22,4 +21,50 @@
 \nVersión de Android: %s
 \nSDK nivel: %d</string>
     <string name="license_description">Pachli contiene código y recursos de los siguientes proyectos:</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Notificaciones push con UnifiedPush</string>
+    <string name="notification_details_any_account_needs_migration">¿Todas las cuentas tienen alcance \'push\' de OAuth?</string>
+    <string name="notification_details_accounts_unified_push_url">¿Todas las cuentas tienen una URL de UnifiedPush?</string>
+    <string name="notification_details_ntfy_exempt">¿NTFY está excluida de la optimización de la batería?</string>
+    <string name="notification_details_pull_section">Notificaciones pull con obtenciones periódicas mediante workers</string>
+    <string name="notification_details_last_fetch_label">Última solicitud /api/v1/notifications</string>
+    <string name="notification_details_usage_event">Restricciones de la administración de energía</string>
+    <string name="notification_details_standby_bucket_exempted">Excluida</string>
+    <string name="notification_details_standby_bucket_frequent">Frecuente. Limitado a 10 minutos cada 2 horas</string>
+    <string name="notification_details_standby_bucket_never">Nunca</string>
+    <string name="notification_details_standby_bucket_unknown">Desconocido</string>
+    <string name="notification_log_title">Registro</string>
+    <string name="notification_log_filter">Filtro</string>
+    <string name="notification_log_download_content_description">Descargar registros</string>
+    <string name="notification_log_sort">Ordenar más recientes primero</string>
+    <string name="notification_log_previous_attempts">Intentos previos: %1$d</string>
+    <string name="notification_log_scheduled_in">Programado en %1$s @ %2$s</string>
+    <string name="notification_log_method_pull">Las notificaciones son obtenidas periódicamente, cada 15 minutos aproximadamente</string>
+    <string name="notification_log_method_unknown">El mecanismo de notificación no ha sido determinado</string>
+    <string name="notification_log_download_failed">Falló la descarga: %1$s</string>
+    <string name="notitication_log_filter_dialog_title">Mostrar prioridades del registro</string>
+    <string name="action_refresh">Recargar</string>
+    <string name="notification_details_title">Detalles</string>
+    <string name="notification_details_android_notifications_enabled">¿Están habilitadas las notificaciones de Android?</string>
+    <string name="notification_details_notifications_enabled_help">Las notificaciones no están habilitadas para ninguna de tus cuentas. Modifícalo en Preferencias de cuenta &gt; Notificaciones. En tanto, todas las notificaciones permanecerán deshabilitadas.</string>
+    <string name="notification_details_unifiedpush_available">¿Está disponible UnifiedPush?</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) no está disponible; las notificaciones serán obtenidas periódicamente. El resto de esta sección explica por qué no se está usando UnifiedPush, pero no es relevante para saber cómo se obtienen las notificaciones actualmente.</string>
+    <string name="notification_details_any_account_needs_migration_help">Una o más cuentas no tienen alcance \'push\' de OAuth; las notificaciones push están deshabilitadas.</string>
+    <string name="notification_details_accounts_unified_push_url_help">Una o más cuentas no están configuradas con una URL de UnifiedPush; las notificaciones push de dichas cuentas están deshabilitadas.</string>
+    <string name="notification_details_accounts_unified_push_subscription">¿Todas las cuentas están suscriptas?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Una o más cuentas fallaron al actualizar sus suscripciones de UnifiedPush y no recibirán notificaciones.</string>
+    <string name="notification_details_pachli_exempt">¿Está Pachli excluida de la optimización de la batería?</string>
+    <string name="notification_details_ntfy_exempt_help">NTFY no está excluida de la optimización de la batería. Android puede estar retrasando las notificaciones mientras la pantalla está apagada.</string>
+    <string name="notification_details_pachli_exempt_help">Pachli no está excluida de la optimización de la batería. Android puede estar retrasando las notificaciones mientras la pantalla está apagada.</string>
+    <string name="notification_details_workers_help">Ésta es la lista de los workers que obtienen nuevas notificaciones. Debería haber uno solo y su estado debería ser o RUNNING o ENQUEUED, en cuyo caso debería estar programado para ejecutarse en menos de 15 minutos.</string>
+    <string name="notification_details_last_fetch_help">Independientemente del método de notificación, esto muestra para cada cuenta cuándo ocurrió la última obtención, si fue exitosa y, en caso contrario, el mensaje de error.</string>
+    <string name="notification_details_usage_event_label">Android limita lo que las apps pueden hacer en segundo plano. Aquí se lista cómo Pachli ha sido restringida en los últimos tres días, más recientes primero.</string>
+    <string name="notification_details_ago">Hace %1$s @ %2$s</string>
+    <string name="notification_details_standby_bucket_active">Activo. Trabajos en segundo plano sin restricciones</string>
+    <string name="notification_details_standby_bucket_working_set">Funcionando. Limitado a 10 minutos cada 2 horas</string>
+    <string name="notification_details_standby_bucket_rare">Inusual. Limitado a 10 minutos cada 24 horas</string>
+    <string name="notification_details_standby_bucket_restricted">Restringido. Una vez al día</string>
+    <string name="notification_log_filter_content_description">Filtrar registros por etiqueta</string>
+    <string name="notification_log_download">Descargar</string>
+    <string name="notification_log_method_push">Las notificaciones son obtenidas mediante UnifiedPush y deberían ser inmediatas</string>
+    <string name="notification_log_method_pusherror">UnifiedPush está habilitado, pero ocurrió un error: %1$s</string>
 </resources>
