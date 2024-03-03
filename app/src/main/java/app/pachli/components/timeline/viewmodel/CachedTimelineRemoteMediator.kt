@@ -71,6 +71,7 @@ class CachedTimelineRemoteMediator(
         return try {
             val response = when (loadType) {
                 LoadType.REFRESH -> {
+                    Timber.e(RuntimeException(), "Stack trace for LoadType.REFRESH")
                     val closestItem = state.anchorPosition?.let {
                         state.closestItemToPosition(maxOf(0, it - (state.config.pageSize / 2)))
                     }?.status?.serverId
