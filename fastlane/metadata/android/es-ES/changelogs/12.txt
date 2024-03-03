@@ -1,0 +1,15 @@
+Pachli 2.3.0
+
+Nuevo:
+
+- Mostrar medios sin recortar en la sección multimedia.
+- Habilitar comprobaciones de actualizaciones manuales.
+- Mostrar previsualizaciones para audios.
+- Mostrar información sobre la obtención de notificaciones.
+
+Correcciones:
+
+- Mantener pantalla encendida al reproducir medios.
+- Mejorar la legibilidad de las etiquetas de estadísticas.
+- Mostrar la cuenta o línea de tiempo correcta al componer desde notificaciones.
+- Traducciones actualizadas: árabe, español, finés, francés, holandés, indonesio y sueco.
