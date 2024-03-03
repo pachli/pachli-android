@@ -70,6 +70,7 @@ import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.emojify
+import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -153,13 +154,17 @@ import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
+    @Inject
+    @ApplicationScope
+    lateinit var externalScope: CoroutineScope
+
     @Inject
     lateinit var eventHub: EventHub
 
@@ -346,7 +351,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
-        Schedulers.io().scheduleDirect {
+        externalScope.launch {
             // Flush old media that was cached for sharing
             deleteStaleCachedMedia(applicationContext.getExternalFilesDir("Pachli"))
         }
