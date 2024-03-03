@@ -979,7 +979,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         updateProfiles()
-        updateShortcut(applicationContext, accountManager.activeAccount!!)
+        externalScope.launch {
+            updateShortcut(applicationContext, accountManager.activeAccount!!)
+        }
     }
 
     @SuppressLint("CheckResult")

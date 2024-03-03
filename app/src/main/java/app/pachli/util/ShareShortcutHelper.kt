@@ -29,64 +29,59 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.MainActivityIntent
 import com.bumptech.glide.Glide
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-fun updateShortcut(context: Context, account: AccountEntity) {
-    Single.fromCallable {
-        val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
-        val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
+suspend fun updateShortcut(context: Context, account: AccountEntity) = withContext(Dispatchers.IO) {
+    val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
+    val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
 
-        val bmp = if (TextUtils.isEmpty(account.profilePictureUrl)) {
-            Glide.with(context)
-                .asBitmap()
-                .load(DR.drawable.avatar_default)
-                .submit(innerSize, innerSize)
-                .get()
-        } else {
-            Glide.with(context)
-                .asBitmap()
-                .load(account.profilePictureUrl)
-                .error(DR.drawable.avatar_default)
-                .submit(innerSize, innerSize)
-                .get()
-        }
-
-        // inset the loaded bitmap inside a 108dp transparent canvas so it looks good as adaptive icon
-        val outBmp = Bitmap.createBitmap(outerSize, outerSize, Bitmap.Config.ARGB_8888)
-
-        val canvas = Canvas(outBmp)
-        canvas.drawBitmap(bmp, (outerSize - innerSize).toFloat() / 2f, (outerSize - innerSize).toFloat() / 2f, null)
-
-        val icon = IconCompat.createWithAdaptiveBitmap(outBmp)
-
-        val person = Person.Builder()
-            .setIcon(icon)
-            .setName(account.displayName)
-            .setKey(account.identifier)
-            .build()
-
-        // This intent will be sent when the user clicks on one of the launcher shortcuts. Intent from share sheet will be different
-        val intent = MainActivityIntent(context).apply {
-            action = Intent.ACTION_SEND
-            type = "text/plain"
-            putExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID, account.id.toString())
-        }
-
-        val shortcutInfo = ShortcutInfoCompat.Builder(context, account.id.toString())
-            .setIntent(intent)
-            .setCategories(setOf("app.pachli.Share"))
-            .setShortLabel(account.displayName)
-            .setPerson(person)
-            .setLongLived(true)
-            .setIcon(icon)
-            .build()
-
-        ShortcutManagerCompat.addDynamicShortcuts(context, listOf(shortcutInfo))
+    val bmp = if (TextUtils.isEmpty(account.profilePictureUrl)) {
+        Glide.with(context)
+            .asBitmap()
+            .load(DR.drawable.avatar_default)
+            .submit(innerSize, innerSize)
+            .get()
+    } else {
+        Glide.with(context)
+            .asBitmap()
+            .load(account.profilePictureUrl)
+            .error(DR.drawable.avatar_default)
+            .submit(innerSize, innerSize)
+            .get()
     }
-        .subscribeOn(Schedulers.io())
-        .onErrorReturnItem(false)
-        .subscribe()
+
+    // inset the loaded bitmap inside a 108dp transparent canvas so it looks good as adaptive icon
+    val outBmp = Bitmap.createBitmap(outerSize, outerSize, Bitmap.Config.ARGB_8888)
+
+    val canvas = Canvas(outBmp)
+    canvas.drawBitmap(bmp, (outerSize - innerSize).toFloat() / 2f, (outerSize - innerSize).toFloat() / 2f, null)
+
+    val icon = IconCompat.createWithAdaptiveBitmap(outBmp)
+
+    val person = Person.Builder()
+        .setIcon(icon)
+        .setName(account.displayName)
+        .setKey(account.identifier)
+        .build()
+
+    // This intent will be sent when the user clicks on one of the launcher shortcuts. Intent from share sheet will be different
+    val intent = MainActivityIntent(context).apply {
+        action = Intent.ACTION_SEND
+        type = "text/plain"
+        putExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID, account.id.toString())
+    }
+
+    val shortcutInfo = ShortcutInfoCompat.Builder(context, account.id.toString())
+        .setIntent(intent)
+        .setCategories(setOf("app.pachli.Share"))
+        .setShortLabel(account.displayName)
+        .setPerson(person)
+        .setLongLived(true)
+        .setIcon(icon)
+        .build()
+
+    ShortcutManagerCompat.addDynamicShortcuts(context, listOf(shortcutInfo))
 }
 
 fun removeShortcut(context: Context, account: AccountEntity) {
