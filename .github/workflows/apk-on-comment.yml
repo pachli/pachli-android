@@ -55,7 +55,7 @@ jobs:
         name: Sign app APK
         id: sign_app_apk
         with:
-          releaseDirectory: app/build/outputs/bundle/orangeGoogleRelease
+          releaseDirectory: app/build/outputs/apk/orangeGoogle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.SIGNING_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
