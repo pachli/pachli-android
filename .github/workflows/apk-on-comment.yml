@@ -1,0 +1,98 @@
+name: "Build and sign APK for PR"
+
+# Based on https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  deploy:
+    name: Deploy
+    # Only run on PR comments containing "/apk"
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/apk')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get branch of PR
+        uses: xt0rted/pull-request-comment-branch@v1
+        id: comment-branch
+
+      - name: Set latest commit status as pending
+        uses: myrotvorets/set-commit-status-action@v2.0.1
+        with:
+          sha: ${{ steps.comment-branch.outputs.head_sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: pending
+
+      - name: Checkout PR branch ${{ steps.comment-branch.outputs.head_ref }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.comment-branch.outputs.head_ref }}
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v2
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Test
+        run: ./gradlew app:testOrangeGoogleReleaseUnitTest --stacktrace
+
+      - name: Build APK
+        run: ./gradlew assembleOrangeGoogleRelease --stacktrace
+
+      - uses: r0adkll/sign-android-release@v1.0.4
+        name: Sign app APK
+        id: sign_app_apk
+        with:
+          releaseDirectory: app/build/outputs/apk/orangeGithub/debug
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.SIGNING_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+      - name: Upload APK Release Asset
+        id: upload-release-asset-apk
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release.apk
+          path: ${{steps.sign_app_apk.outputs.signedReleaseFile}}
+          compression-level: 0
+
+      - name: Add workflow result as comment on PR
+        uses: actions/github-script@v6
+        if: always()
+        with:
+          script: |
+            const name = '${{ github.workflow }}';
+            const workflowUrl = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
+            const apkUrl = '${{ steps.upload-release-asset-apk.outputs.artifact-url }}'
+            const success = '${{ job.status }}' === 'success';
+            const body = `Workflow ${name}: ${success ? 'succeeded ✅' : 'failed ❌'}\nResults: ${workflowUrl}\nAPK: ${apkUrl}`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
+
+      - name: Set latest commit status as ${{ job.status }}
+        uses: myrotvorets/set-commit-status-action@v2.0.1
+        if: always()
+        with:
+          sha: ${{ steps.comment-branch.outputs.head_sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
