@@ -589,7 +589,7 @@
     <string name="hint_description">Descripción</string>
     <string name="post_media_image">Imagen</string>
     <string name="pref_title_account_filter_keywords">Perfiles</string>
-    <string name="action_refresh">Volver a cargar</string>
+    <string name="action_refresh">Recargar</string>
     <string name="notification_unknown_name">Desconocido</string>
     <string name="status_filtered_show_anyway">Mostrar de todas formas</string>
     <string name="status_filter_placeholder_label_format">Filtrado: %s</string>
@@ -692,4 +692,8 @@
     <string name="server_repository_error">No se pudo obtener la info del servidor %1$s: %2$s</string>
     <string name="server_repository_error_get_well_known_node_info">fallo al obtener /.well-known/nodeinfo: %1$s</string>
     <string name="server_repository_error_capabilities">fallo al analizar las capacidades del servidor: %1$s</string>
+    <string name="error_media_download">No se pudo descargar %1$s: %2$d %3$s</string>
+    <string name="pref_title_update_check_now">Buscar actualizaciones ahora</string>
+    <string name="pref_update_check_no_updates">No hay actualizaciones disponibles</string>
+    <string name="pref_update_next_scheduled_check">Próxima comprobación: %1$s</string>
 </resources>
