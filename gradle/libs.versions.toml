@@ -59,7 +59,6 @@ quadrant = "1.9.1"
 retrofit = "2.9.0"
 robolectric = "4.11.1"
 rxandroid3 = "3.0.2"
-rxjava3 = "3.1.8"
 rxkotlin3 = "3.0.1"
 semver = "1.4.2"
 sparkbutton = "4.1.0"
@@ -136,8 +135,6 @@ androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version
 androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "androidx-work" }
 app-update = { module = "com.google.android.play:app-update", version.ref = "app-update" }
 app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "app-update" }
-autodispose-android-lifecycle = { module = "com.uber.autodispose2:autodispose-androidx-lifecycle", version.ref = "autodispose" }
-autodispose-core = { module = "com.uber.autodispose2:autodispose", version.ref = "autodispose" }
 auto-service-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "auto-service"}
 auto-service-ksp = { module = "dev.zacsweers.autoservice:auto-service-ksp", version.ref = "auto-service-ksp"}
 bouncycastle = { module = "org.bouncycastle:bcprov-jdk15on", version.ref = "bouncycastle" }
@@ -159,7 +156,6 @@ junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "kotlin-result" }
 kotlin-result-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "kotlin-result" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
-kotlinx-coroutines-rx3 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-rx3", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 image-cropper = { module = "com.github.CanHub:Android-Image-Cropper", version.ref = "image-cropper" }
@@ -183,9 +179,6 @@ okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-intercepto
 retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
-rxjava3-android = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid3" }
-rxjava3-core = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava3" }
-rxjava3-kotlin = { module = "io.reactivex.rxjava3:rxkotlin", version.ref = "rxkotlin3" }
 semver = { module = "io.github.z4kn4fein:semver", version.ref = "semver" }
 sparkbutton = { module = "com.github.connyduck:sparkbutton", version.ref = "sparkbutton" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
@@ -211,7 +204,6 @@ androidx = ["androidx-core-ktx", "androidx-appcompat", "androidx-fragment-ktx", 
     "androidx-core-splashscreen", "androidx-activity", "androidx-media3-exoplayer", "androidx-media3-exoplayer-dash",
     "androidx-media3-exoplayer-hls", "androidx-media3-exoplayer-rtsp", "androidx-media3-datasource-okhttp", "androidx-media3-ui",
     "android-material"]
-autodispose = ["autodispose-core", "autodispose-android-lifecycle"]
 filemojicompat = ["filemojicompat-core", "filemojicompat-ui", "filemojicompat-defaults"]
 glide = ["glide-core", "glide-okhttp3-integration", "glide-animation-plugin"]
 lint-api = ["kotlin-stdlib", "lint-api", "lint-checks"]
@@ -221,5 +213,4 @@ mockito = ["mockito-kotlin", "mockito-inline"]
 okhttp = ["okhttp-core", "okhttp-logging-interceptor"]
 retrofit = ["retrofit-core", "retrofit-converter-moshi"]
 room = ["androidx-room-ktx", "androidx-room-paging"]
-rxjava3 = ["rxjava3-core", "rxjava3-android", "rxjava3-kotlin"]
 xmldiff = ["diffx", "xmlwriter"]

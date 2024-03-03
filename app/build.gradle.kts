@@ -131,7 +131,6 @@ dependencies {
     implementation(projects.feature.login)
 
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.coroutines.rx3)
 
     implementation(libs.bundles.androidx)
 
@@ -149,10 +148,6 @@ dependencies {
 
     implementation(libs.bundles.glide)
     ksp(libs.glide.compiler)
-
-    implementation(libs.bundles.rxjava3)
-
-    implementation(libs.bundles.autodispose)
 
     implementation(libs.sparkbutton)
 

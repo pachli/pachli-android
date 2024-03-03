@@ -979,6 +979,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         updateProfiles()
+
         externalScope.launch {
             updateShortcut(applicationContext, accountManager.activeAccount!!)
         }
