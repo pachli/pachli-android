@@ -89,6 +89,7 @@ import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.MainActivityIntent
+import app.pachli.core.navigation.NotificationsActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.ScheduledStatusActivityIntent
@@ -575,10 +576,19 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             tintStatusBar = true
             addItems(
                 primaryDrawerItem {
-                    nameRes = R.string.action_edit_profile
-                    iconicsIcon = GoogleMaterial.Icon.gmd_person
+                    nameRes = R.string.title_notifications
+                    iconicsIcon = GoogleMaterial.Icon.gmd_notifications
                     onClick = {
-                        val intent = EditProfileActivityIntent(context)
+                        startActivityWithSlideInAnimation(
+                            NotificationsActivityIntent(context),
+                        )
+                    }
+                },
+                primaryDrawerItem {
+                    nameRes = R.string.action_view_bookmarks
+                    iconicsIcon = GoogleMaterial.Icon.gmd_bookmark
+                    onClick = {
+                        val intent = StatusListActivityIntent.bookmarks(context)
                         startActivityWithSlideInAnimation(intent)
                     }
                 },
@@ -588,14 +598,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     iconicsIcon = GoogleMaterial.Icon.gmd_star
                     onClick = {
                         val intent = StatusListActivityIntent.favourites(context)
-                        startActivityWithSlideInAnimation(intent)
-                    }
-                },
-                primaryDrawerItem {
-                    nameRes = R.string.action_view_bookmarks
-                    iconicsIcon = GoogleMaterial.Icon.gmd_bookmark
-                    onClick = {
-                        val intent = StatusListActivityIntent.bookmarks(context)
                         startActivityWithSlideInAnimation(intent)
                     }
                 },
@@ -655,6 +657,14 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     iconicsIcon = GoogleMaterial.Icon.gmd_settings
                     onClick = {
                         val intent = PreferencesActivityIntent(context, PreferenceScreen.GENERAL)
+                        startActivityWithSlideInAnimation(intent)
+                    }
+                },
+                primaryDrawerItem {
+                    nameRes = R.string.action_edit_profile
+                    iconicsIcon = GoogleMaterial.Icon.gmd_person
+                    onClick = {
+                        val intent = EditProfileActivityIntent(context)
                         startActivityWithSlideInAnimation(intent)
                     }
                 },
