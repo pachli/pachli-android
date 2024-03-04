@@ -1,5 +1,5 @@
 [versions]
-aboutlibraries = "10.10.0"
+aboutlibraries = "11.1.0"
 acra = "5.11.3"
 agp = "8.3.0"
 androidx-activity = "1.8.2"
@@ -39,7 +39,7 @@ filemoji-compat = "3.2.7"
 glide = "4.16.0"
 # Deliberate downgrade, https://github.com/tuskyapp/Tusky/issues/3631
 glide-animation-plugin = "2.23.0"
-hilt = "2.50"
+hilt = "2.51"
 junit = "4.13.2"
 kotlin = "1.9.22"
 kotlin-result = "1.1.18"

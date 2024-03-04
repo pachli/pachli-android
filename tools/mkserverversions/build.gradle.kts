@@ -29,7 +29,7 @@ dependencies {
     implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
 
     // Logging
-    implementation("io.github.oshai:kotlin-logging-jvm:5.1.4")
+    implementation("io.github.oshai:kotlin-logging-jvm:6.0.3")
     implementation("ch.qos.logback:logback-classic:1.4.11")
 
     // Moshi
