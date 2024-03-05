@@ -562,6 +562,12 @@ class LoginWebViewActivityIntent(context: Context) : Intent() {
     }
 }
 
+class NotificationsActivityIntent(context: Context) : Intent() {
+    init {
+        setClassName(context, QuadrantConstants.NOTIFICATIONS_ACTIVITY)
+    }
+}
+
 class ScheduledStatusActivityIntent(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.SCHEDULED_STATUS_ACTIVITY)
