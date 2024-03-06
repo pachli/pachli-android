@@ -17,15 +17,22 @@
 package app.pachli.fragment
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import androidx.annotation.CallSuper
 import androidx.annotation.OptIn
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.util.UnstableApi
 import app.pachli.ViewMediaActivity
 import app.pachli.core.network.model.Attachment
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /** Interface for actions that may happen while media is being displayed */
 interface MediaActionsListener {
@@ -51,16 +58,56 @@ abstract class ViewMediaFragment : Fragment() {
      * Called after [onResume], subclasses should override this and update
      * the contents of views (including loading any media).
      *
+     * @param isToolbarVisible True if the toolbar is visible
      * @param showingDescription True if the media's description should be shown
      */
-    abstract fun setupMediaView(showingDescription: Boolean)
+    abstract fun setupMediaView(
+        isToolbarVisible: Boolean,
+        showingDescription: Boolean,
+    )
 
     /**
      * Called when the visibility of the toolbar changes.
      *
      * @param visible True if the toolbar is visible
      */
-    abstract fun onToolbarVisibilityChange(visible: Boolean)
+    @CallSuper
+    protected open fun onToolbarVisibilityChange(visible: Boolean) {
+        if (visible && shouldScheduleToolbarHide()) {
+            hideToolbarAfterDelay()
+        } else {
+            hideToolbarJob?.cancel()
+        }
+    }
+
+    /**
+     * Called when the toolbar becomes visible, returns whether or not to schedule hiding the toolbar
+     */
+    protected abstract fun shouldScheduleToolbarHide(): Boolean
+
+    /** Hoist toolbar hiding to activity so it can track state across different fragments */
+    private var hideToolbarJob: Job? = null
+
+    /**
+     * Schedule hiding the toolbar after a delay
+     */
+    protected fun hideToolbarAfterDelay() {
+        hideToolbarJob?.cancel()
+        hideToolbarJob = lifecycleScope.launch {
+            delay(CONTROLS_TIMEOUT)
+            mediaActivity.onMediaTap()
+        }
+    }
+
+    /**
+     * Cancel previously scheduled hiding of the toolbar
+     */
+    protected fun cancelToolbarHide() {
+        hideToolbarJob?.cancel()
+    }
+
+    protected lateinit var mediaActivity: ViewMediaActivity
+        private set
 
     protected var showingDescription = false
     protected var isDescriptionVisible = false
@@ -82,6 +129,7 @@ abstract class ViewMediaFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        mediaActivity = activity as ViewMediaActivity
         mediaActionsListener = context as MediaActionsListener
     }
 
@@ -109,16 +157,34 @@ abstract class ViewMediaFragment : Fragment() {
     }
 
     private fun finalizeViewSetup() {
-        val mediaActivity = activity as ViewMediaActivity
-
         showingDescription = !TextUtils.isEmpty(attachment.description)
         isDescriptionVisible = showingDescription
-        setupMediaView(showingDescription && mediaActivity.isToolbarVisible)
+        setupMediaView(mediaActivity.isToolbarVisible, showingDescription && mediaActivity.isToolbarVisible)
 
-        removeToolbarListener = (activity as ViewMediaActivity)
+        removeToolbarListener = mediaActivity
             .addToolbarVisibilityListener { isVisible ->
                 onToolbarVisibilityChange(isVisible)
             }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // If <= API 23 then multi-window mode is not available, so this is a good time to
+        // pause everything
+        if (Build.VERSION.SDK_INT <= 23) {
+            hideToolbarJob?.cancel()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        // If > API 23 then this might be multi-window, and definitely wasn't paused in onPause,
+        // so pause everything now.
+        if (Build.VERSION.SDK_INT > 23) {
+            hideToolbarJob?.cancel()
+        }
     }
 
     override fun onDestroyView() {
@@ -131,6 +197,9 @@ abstract class ViewMediaFragment : Fragment() {
         protected const val ARG_SHOULD_CALL_MEDIA_READY = "shouldCallMediaReady"
 
         protected const val ARG_ATTACHMENT = "attach"
+
+        @JvmStatic
+        protected val CONTROLS_TIMEOUT = 2.seconds // Consistent with YouTube player
 
         /**
          * @param attachment The media attachment to display in the fragment

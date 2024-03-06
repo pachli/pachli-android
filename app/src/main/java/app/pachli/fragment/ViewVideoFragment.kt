@@ -47,14 +47,12 @@ import androidx.media3.exoplayer.util.EventLogger
 import androidx.media3.ui.AspectRatioFrameLayout
 import app.pachli.BuildConfig
 import app.pachli.R
-import app.pachli.ViewMediaActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.FragmentViewVideoBinding
-import app.pachli.fragment.ViewVideoFragment.Companion.CONTROLS_TIMEOUT
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -62,9 +60,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlin.math.abs
-import kotlin.time.Duration.Companion.seconds
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 
@@ -89,10 +84,6 @@ class ViewVideoFragment : ViewMediaFragment() {
 
     private lateinit var toolbar: View
 
-    /** Hoist toolbar hiding to activity so it can track state across different fragments */
-    private var hideToolbarJob: Job? = null
-
-    private lateinit var mediaActivity: ViewMediaActivity
     private lateinit var mediaPlayerListener: Player.Listener
     private var isAudio = false
 
@@ -116,7 +107,6 @@ class ViewVideoFragment : ViewMediaFragment() {
 
     @SuppressLint("PrivateResource", "MissingInflatedId")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        mediaActivity = activity as ViewMediaActivity
         toolbar = mediaActivity.toolbar
         val rootView = inflater.inflate(R.layout.fragment_view_video, container, false)
 
@@ -243,7 +233,7 @@ class ViewVideoFragment : ViewMediaFragment() {
                 if (isPlaying) {
                     hideToolbarAfterDelay()
                 } else {
-                    hideToolbarJob?.cancel()
+                    cancelToolbarHide()
                 }
             }
 
@@ -301,7 +291,6 @@ class ViewVideoFragment : ViewMediaFragment() {
         if (Build.VERSION.SDK_INT <= 23) {
             binding.videoView.onPause()
             releasePlayer()
-            hideToolbarJob?.cancel()
         }
     }
 
@@ -313,7 +302,6 @@ class ViewVideoFragment : ViewMediaFragment() {
         if (Build.VERSION.SDK_INT > 23) {
             binding.videoView.onPause()
             releasePlayer()
-            hideToolbarJob?.cancel()
         }
     }
 
@@ -365,7 +353,10 @@ class ViewVideoFragment : ViewMediaFragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun setupMediaView(showingDescription: Boolean) {
+    override fun setupMediaView(
+        isToolbarVisible: Boolean,
+        showingDescription: Boolean,
+    ) {
         startedTransition = false
 
         binding.mediaDescription.text = attachment.description
@@ -389,15 +380,9 @@ class ViewVideoFragment : ViewMediaFragment() {
         binding.videoView.requestFocus()
     }
 
-    private fun hideToolbarAfterDelay() {
-        hideToolbarJob?.cancel()
-        hideToolbarJob = lifecycleScope.launch {
-            delay(CONTROLS_TIMEOUT)
-            mediaActivity.onMediaTap()
-        }
-    }
-
     override fun onToolbarVisibilityChange(visible: Boolean) {
+        super.onToolbarVisibilityChange(visible)
+
         if (!userVisibleHint) return
         view ?: return
 
@@ -420,16 +405,13 @@ class ViewVideoFragment : ViewMediaFragment() {
                 },
             )
             .start()
+    }
 
-        if (visible && (binding.videoView.player?.isPlaying == true) && !isAudio) {
-            hideToolbarAfterDelay()
-        } else {
-            hideToolbarJob?.cancel()
-        }
+    override fun shouldScheduleToolbarHide(): Boolean {
+        return (binding.videoView.player?.isPlaying == true) && !isAudio
     }
 
     companion object {
-        private val CONTROLS_TIMEOUT = 2.seconds // Consistent with YouTube player
         private const val SEEK_POSITION = "seekPosition"
     }
 }
