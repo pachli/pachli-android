@@ -39,6 +39,9 @@ import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -70,6 +73,7 @@ import okio.sink
 import timber.log.Timber
 
 typealias ToolbarVisibilityListener = (isVisible: Boolean) -> Unit
+typealias MenuItemActionListener = () -> Unit
 
 /**
  * Show one or more media items (pictures, video, audio, etc).
@@ -89,6 +93,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
 
     private var attachmentViewData: List<AttachmentViewData>? = null
     private val toolbarVisibilityListeners = mutableListOf<ToolbarVisibilityListener>()
+    private val menuItemActionListeners = mutableListOf<MenuItemActionListener>()
     private var imageUrl: String? = null
 
     /** True if a download to share media is in progress */
@@ -97,13 +102,33 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     /**
      * Adds [listener] to the list of toolbar listeners and immediately calls
      * it with the current toolbar visibility.
-     *
-     * @return A function that must be called to remove the listener.
+     * The [listener] will be removed when the provided [lifecycle] reaches [Lifecycle.State.DESTROYED].
      */
-    fun addToolbarVisibilityListener(listener: ToolbarVisibilityListener): Function0<Boolean> {
+    fun addToolbarVisibilityListener(lifecycle: Lifecycle, listener: ToolbarVisibilityListener) {
         toolbarVisibilityListeners.add(listener)
         listener(isToolbarVisible)
-        return { toolbarVisibilityListeners.remove(listener) }
+        lifecycle.addObserver(
+            object : DefaultLifecycleObserver {
+                override fun onDestroy(owner: LifecycleOwner) {
+                    toolbarVisibilityListeners.remove(listener)
+                }
+            },
+        )
+    }
+
+    /**
+     * Adds [listener] to the list of menu item action listeners.
+     * The [listener] will be removed when the provided [lifecycle] reaches [Lifecycle.State.DESTROYED].
+     */
+    fun addMenuItemActionListener(lifecycle: Lifecycle, listener: MenuItemActionListener) {
+        menuItemActionListeners.add(listener)
+        lifecycle.addObserver(
+            object : DefaultLifecycleObserver {
+                override fun onDestroy(owner: LifecycleOwner) {
+                    menuItemActionListeners.remove(listener)
+                }
+            },
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -155,6 +180,9 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 R.id.action_open_status -> onOpenStatus()
                 R.id.action_share_media -> shareMedia()
                 R.id.action_copy_media_link -> copyLink()
+            }
+            for (listener in menuItemActionListeners) {
+                listener()
             }
             true
         }

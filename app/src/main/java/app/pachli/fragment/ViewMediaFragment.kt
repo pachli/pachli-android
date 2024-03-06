@@ -51,8 +51,6 @@ interface MediaActionsListener {
 }
 
 abstract class ViewMediaFragment : Fragment() {
-    /** Function to remove the toolbar listener */
-    private var removeToolbarListener: Function0<Boolean>? = null
 
     /**
      * Called after [onResume], subclasses should override this and update
@@ -161,10 +159,9 @@ abstract class ViewMediaFragment : Fragment() {
         isDescriptionVisible = showingDescription
         setupMediaView(mediaActivity.isToolbarVisible, showingDescription && mediaActivity.isToolbarVisible)
 
-        removeToolbarListener = mediaActivity
-            .addToolbarVisibilityListener { isVisible ->
-                onToolbarVisibilityChange(isVisible)
-            }
+        mediaActivity.addToolbarVisibilityListener(viewLifecycleOwner.lifecycle) { isVisible ->
+            onToolbarVisibilityChange(isVisible)
+        }
     }
 
     override fun onPause() {
@@ -188,7 +185,6 @@ abstract class ViewMediaFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        removeToolbarListener?.invoke()
         transitionComplete = null
         super.onDestroyView()
     }

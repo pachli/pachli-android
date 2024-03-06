@@ -24,12 +24,17 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GestureDetectorCompat
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import app.pachli.R
 import app.pachli.core.common.extensions.hide
@@ -191,12 +196,42 @@ class ViewImageFragment : ViewMediaFragment() {
             },
         )
 
+        // Cancel hiding the toolbar whenever interacting with the captionSheet
         val captionSheetParams = (binding.captionSheet.layoutParams as CoordinatorLayout.LayoutParams)
         (captionSheetParams.behavior as BottomSheetBehavior).addBottomSheetCallback(
             object : BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) = cancelToolbarHide()
                 override fun onSlide(bottomSheet: View, slideOffset: Float) = cancelToolbarHide()
             },
+        )
+
+        // Cancel hiding the toolbar whenever interacting with the toolbar (items and overflow menu)
+        mediaActivity.addMenuItemActionListener(viewLifecycleOwner.lifecycle) {
+            cancelToolbarHide()
+        }
+        requireActivity().addMenuProvider(
+            object : MenuProvider {
+                private var isMenuBeingCreated = false
+
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    isMenuBeingCreated = true
+                }
+
+                override fun onPrepareMenu(menu: Menu) {
+                    if (isMenuBeingCreated) {
+                        isMenuBeingCreated = false
+                        return
+                    }
+
+                    // The overflow menu is being opened
+                    cancelToolbarHide()
+                }
+
+                // Not actually called
+                override fun onMenuItemSelected(menuItem: MenuItem) = false
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED,
         )
     }
 
