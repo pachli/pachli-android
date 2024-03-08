@@ -28,6 +28,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -49,6 +50,11 @@ class TimelineDaoTest {
     @Before
     fun setup() {
         hilt.inject()
+    }
+
+    @After
+    fun tearDown() {
+        db.close()
     }
 
     @Test
