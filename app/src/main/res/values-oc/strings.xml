@@ -194,7 +194,6 @@
     <string name="replying_to">En responsa a @%s</string>
     <string name="add_account_name">Apondre un compte</string>
     <string name="add_account_description">Apondre un nòu compte Mastodon</string>
-    <string name="action_lists">Listas</string>
     <string name="title_lists">Listas</string>
     <string name="compose_active_account_description">Publicar coma %1$s</string>
     <string name="action_set_caption">Apondre una legenda</string>
@@ -276,9 +275,9 @@
     <string name="filter_dialog_remove_button">Suprimir</string>
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frasa de filtrar</string>
-    <string name="error_create_list">Creacion impossibla de la lsita</string>
-    <string name="error_rename_list">Impossible de renomenar la lista</string>
-    <string name="error_delete_list">Supression impossibla de la lista</string>
+    <string name="error_create_list_fmt">Creacion impossibla de la lsita \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Impossible de renomenar la lista \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Supression impossibla de la lista \"%1$s\": %2$s</string>
     <string name="action_create_list">Crear una lista</string>
     <string name="action_rename_list">Renomenar la lista</string>
     <string name="action_delete_list">Suprimir la lista</string>

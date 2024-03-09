@@ -110,11 +110,10 @@
     <string name="pref_title_thread_filter_keywords">Sarunas</string>
     <string name="filter_dialog_remove_button">Noņemt</string>
     <string name="filter_dialog_update_button">Atjaunināt</string>
-    <string name="action_lists">Saraksti</string>
     <string name="title_lists">Saraksti</string>
     <string name="filter_edit_title">Labot filtru</string>
     <string name="add_account_name">Pievienot kontu</string>
-    <string name="error_delete_list">Nevarēja dzēst sarakstu</string>
+    <string name="error_delete_list_fmt">Nevarēja dzēst sarakstu \"%1$s\": %2$s</string>
     <string name="action_create_list">Izveidot sarakstu</string>
     <string name="action_rename_list">Pārsaukt sarakstu</string>
     <string name="action_delete_list">Dzēst sarakstu</string>
@@ -174,7 +173,7 @@
     <string name="delete_scheduled_post_warning">Vai dzēst šo ieplānoto ierakstu\?</string>
     <string name="error_generic">Notika kļūda.</string>
     <string name="error_media_upload_sending">Augšupielāde neizdevās.</string>
-    <string name="error_rename_list">Nevarēja pārsaukt sarakstu</string>
+    <string name="error_rename_list_fmt">Nevarēja pārsaukt sarakstu \"%1$s\": %2$s</string>
     <string name="action_add_or_remove_from_list">Pievienot vai noņemt no saraksta</string>
     <string name="edit_poll">Labot</string>
     <string name="action_access_drafts">Melnraksti</string>
@@ -435,7 +434,7 @@
     <string name="a11y_label_loading_thread">Ielādē pavedienu</string>
     <string name="confirmation_hashtag_unfollowed">pārtraukta sekošana #%s</string>
     <string name="confirmation_domain_unmuted">%s atcelta slēpšana</string>
-    <string name="error_create_list">Nevarēja izveidot sarakstu</string>
+    <string name="error_create_list_fmt">Nevarēja izveidot sarakstu \"%1$s\": %2$s</string>
     <string name="filter_add_description">Filtrējamā frāze</string>
     <string name="pref_summary_http_proxy_disabled">Atspējots</string>
     <string name="pref_summary_http_proxy_missing">&lt;nav iestatīts&gt;</string>

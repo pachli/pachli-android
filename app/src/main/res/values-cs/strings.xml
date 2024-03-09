@@ -239,11 +239,10 @@
     <string name="filter_add_description">Fráze k filtrování</string>
     <string name="add_account_name">Přidat účet</string>
     <string name="add_account_description">Přidat nový účet Mastodon</string>
-    <string name="action_lists">Seznamy</string>
     <string name="title_lists">Seznamy</string>
-    <string name="error_create_list">Nelze vytvořit seznam</string>
-    <string name="error_rename_list">Nelze přejmenovat seznam</string>
-    <string name="error_delete_list">Nelze smazat seznam</string>
+    <string name="error_create_list_fmt">Nelze vytvořit seznam \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Nelze přejmenovat seznam \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Nelze smazat seznam \"%1$s\": %2$s</string>
     <string name="action_create_list">Vytvořit seznam</string>
     <string name="action_rename_list">Přejmenovat seznam</string>
     <string name="action_delete_list">Smazat seznam</string>

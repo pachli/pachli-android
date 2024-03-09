@@ -83,7 +83,6 @@
     <string name="unpin_action">Poista kiinnitys</string>
     <string name="action_remove">Poista</string>
     <string name="title_lists">Listat</string>
-    <string name="action_lists">Listat</string>
     <string name="filter_dialog_update_button">Päivitä</string>
     <string name="filter_dialog_remove_button">Poista</string>
     <string name="post_media_audio">Ääni</string>
@@ -340,7 +339,7 @@
     <string name="visibility_public">Julkinen: Julkaise julkisille aikajanoille</string>
     <string name="hint_description">Kuvaus</string>
     <string name="notification_report_format">Uusi raportti %s</string>
-    <string name="error_rename_list">Listaa ei voitu päivittää</string>
+    <string name="error_rename_list_fmt">Listaa ei voitu päivittää \"%1$s\": %2$s</string>
     <string name="send_post_content_to">Jaa julkaisu…</string>
     <string name="confirmation_hashtag_muted">#%s hiljennetty</string>
     <string name="replying_to">Vastaus käyttäjälle @%s</string>
@@ -350,10 +349,10 @@
     <string name="pref_title_alway_open_spoiler">Avaa aina sisältövaroituksella varustetut julkaisut</string>
     <string name="title_tab_public_trending_statuses">Julkaisut</string>
     <string name="action_share_account_link">Jaa linkki tiliin</string>
-    <string name="error_create_list">Listaa ei voitu luoda</string>
+    <string name="error_create_list_fmt">Listaa ei voitu luoda \"%1$s\": %2$s</string>
     <string name="notification_summary_report_format">%s · %d julkaisua liitteenä</string>
     <string name="send_account_link_to">Jaa tilin URL…</string>
-    <string name="error_404_not_found">Palvelimesi ei tue tätä ominaisuutta</string>
+    <string name="error_404_not_found_fmt">Palvelimesi ei tue tätä ominaisuutta: %1$s</string>
     <string name="abbreviated_hours_ago">%dt</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="action_set_focus">Valitse keskipiste</string>
@@ -372,7 +371,7 @@
     <string name="pref_title_account_filter_keywords">Profiilit</string>
     <string name="action_add_or_remove_from_list">Lisää tai poista listalta</string>
     <string name="confirmation_domain_unmuted">%s näytetään</string>
-    <string name="error_delete_list">Listaa ei voitu poistaa</string>
+    <string name="error_delete_list_fmt">Listaa ei voitu poistaa \"%1$s\": %2$s</string>
     <string name="filter_dialog_whole_word">Koko sana</string>
     <string name="title_tab_public_trending_hashtags">Aihetunnisteet</string>
     <string name="error_muting_hashtag_format">Virhe mykistettäessä tiliä #%s</string>

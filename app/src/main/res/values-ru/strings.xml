@@ -264,11 +264,10 @@
     <string name="filter_add_description">Слова на фильтр</string>
     <string name="add_account_name">Добавить аккаунт</string>
     <string name="add_account_description">Добавить новый акканут Mastodon</string>
-    <string name="action_lists">Списки</string>
     <string name="title_lists">Списки</string>
-    <string name="error_create_list">Не удалось создать список</string>
-    <string name="error_rename_list">Не удалось переименовать список</string>
-    <string name="error_delete_list">Не удалось удалить список</string>
+    <string name="error_create_list_fmt">Не удалось создать список \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Не удалось переименовать список \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Не удалось удалить список \"%1$s\": %2$s</string>
     <string name="action_create_list">Создать список</string>
     <string name="action_rename_list">Переименовать список</string>
     <string name="action_delete_list">Удалить список</string>

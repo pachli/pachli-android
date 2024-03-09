@@ -129,9 +129,9 @@
     <string name="action_delete_list">ลบรายการ</string>
     <string name="action_rename_list">เปลี่ยนชื่อรายการ</string>
     <string name="action_create_list">สร้างรายการ</string>
-    <string name="error_delete_list">ไม่สามารถลบรายการได้</string>
-    <string name="error_rename_list">ไม่สามารถเปลี่ยนชื่อรายการได้</string>
-    <string name="error_create_list">ไม่สามารถสร้างรายการได้</string>
+    <string name="error_delete_list_fmt">ไม่สามารถลบรายการได้ \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">ไม่สามารถเปลี่ยนชื่อรายการได้ \"%1$s\": %2$s</string>
+    <string name="error_create_list_fmt">ไม่สามารถสร้างรายการได้ \"%1$s\": %2$s</string>
     <string name="add_account_description">เพิ่มบัญชี Mastodon ใหม่</string>
     <string name="add_account_name">เพิ่มบัญชี</string>
     <string name="filter_add_description">วลีที่ต้องการกรอง</string>
@@ -388,7 +388,6 @@
     <string name="error_network">เกิดข้อผิดพลาดเครือข่าย! กรุณาตรวจสอบการเชื่อมต่อและลองอีกครั้ง!</string>
     <string name="error_generic">เกิดข้อผิดพลาด</string>
     <string name="title_lists">รายการ</string>
-    <string name="action_lists">รายการ</string>
     <string name="action_reset_schedule">ล้างค่า</string>
     <string name="action_search">ค้นหา</string>
     <string name="action_edit_profile">แก้ไขโปรไฟล์</string>

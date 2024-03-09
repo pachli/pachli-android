@@ -6,7 +6,6 @@
     <string name="action_view_account_preferences">Nastavenia účtu</string>
     <string name="action_edit_profile">Upraviť profil</string>
     <string name="action_search">Hľadať</string>
-    <string name="action_lists">Zoznamy</string>
     <string name="title_lists">Zoznamy</string>
     <string name="error_generic">Vyskytla sa chyba.</string>
     <string name="title_notifications">Oznámenia</string>

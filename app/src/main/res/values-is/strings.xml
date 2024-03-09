@@ -7,7 +7,6 @@
     <string name="action_view_account_preferences">Eiginleikar notandaaðgangs</string>
     <string name="action_edit_profile">Breyta notandasniði</string>
     <string name="action_search">Leita</string>
-    <string name="action_lists">Listar</string>
     <string name="title_lists">Listar</string>
     <string name="error_generic">Villa kom upp.</string>
     <string name="error_network">Villa kom upp í netkerfi. Athugaðu nettenginguna þína og prófaðu svo aftur.</string>
@@ -258,9 +257,9 @@
     <string name="filter_add_description">Frasi sem á að sía</string>
     <string name="add_account_name">Bæta við aðgang</string>
     <string name="add_account_description">Bæta við nýjum Mastodon-aðgangi</string>
-    <string name="error_create_list">Ekki tókst að búa til lista</string>
-    <string name="error_rename_list">Ekki tókst að endurnefna lista</string>
-    <string name="error_delete_list">Ekki tókst að eyða lista</string>
+    <string name="error_create_list_fmt">Ekki tókst að búa til lista \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Ekki tókst að endurnefna lista \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Ekki tókst að eyða lista \"%1$s\": %2$s</string>
     <string name="action_create_list">Búa til lista</string>
     <string name="action_rename_list">Endurnefna listann</string>
     <string name="action_delete_list">Eyða listanum</string>

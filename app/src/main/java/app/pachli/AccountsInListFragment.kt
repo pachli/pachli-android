@@ -25,7 +25,10 @@ import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -34,30 +37,51 @@ import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.repository.ListsError
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.databinding.FragmentAccountsInListBinding
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.util.BindingHolder
-import app.pachli.util.Either
 import app.pachli.util.unsafeLazy
+import app.pachli.viewmodel.Accounts
 import app.pachli.viewmodel.AccountsInListViewModel
-import app.pachli.viewmodel.State
+import app.pachli.viewmodel.SearchResults
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 import javax.inject.Inject
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 private typealias AccountInfo = Pair<TimelineAccount, Boolean>
 
+/**
+ * Display the members of a given list with UI to add/remove existing accounts
+ * and search for followers to add them to the list.
+ */
 @AndroidEntryPoint
 class AccountsInListFragment : DialogFragment() {
-
-    private val viewModel: AccountsInListViewModel by viewModels()
+    private val viewModel: AccountsInListViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<AccountsInListViewModel.Factory> { factory ->
+                factory.create(requireArguments().getString(ARG_LIST_ID)!!)
+            }
+        },
+    )
     private val binding by viewBinding(FragmentAccountsInListBinding::bind)
 
-    private lateinit var listId: String
     private lateinit var listName: String
     private val adapter = Adapter()
     private val searchAdapter = SearchAdapter()
@@ -74,10 +98,7 @@ class AccountsInListFragment : DialogFragment() {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, DR.style.AppDialogFragmentStyle)
         val args = requireArguments()
-        listId = args.getString(LIST_ID_ARG)!!
-        listName = args.getString(LIST_NAME_ARG)!!
-
-        viewModel.load(listId)
+        listName = args.getString(ARG_LIST_NAME)!!
     }
 
     override fun onStart() {
@@ -98,17 +119,34 @@ class AccountsInListFragment : DialogFragment() {
 
         binding.accountsSearchRecycler.layoutManager = LinearLayoutManager(view.context)
         binding.accountsSearchRecycler.adapter = searchAdapter
+        (binding.accountsSearchRecycler.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                adapter.submitList(state.accounts.asRightOrNull() ?: listOf())
-
-                when (state.accounts) {
-                    is Either.Right -> binding.messageView.hide()
-                    is Either.Left -> handleError(state.accounts.value)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch { viewModel.accountsInList.collect(::bindAccounts) }
+                launch {
+                    // Search results update whenever:
+                    // a. There is a set of accounts in this list
+                    // b. There is a new search result
+                    viewModel.accountsInList
+                        // Ignore updates where accounts are not loaded
+                        .filter { it.mapBoth({ it is Accounts.Loaded }, { false }) }
+                        .combine(viewModel.searchResults) { accountsInList, searchResults ->
+                            Pair(
+                                (accountsInList.get() as? Accounts.Loaded)?.accounts.orEmpty().toSet(),
+                                searchResults,
+                            )
+                        }
+                        .collectLatest { (accounts, searchResults) ->
+                            bindSearchResults(accounts, searchResults)
+                        }
                 }
 
-                setupSearchView(state)
+                launch {
+                    viewModel.errors.collect {
+                        handleError(it.throwable)
+                    }
+                }
             }
         }
 
@@ -131,19 +169,37 @@ class AccountsInListFragment : DialogFragment() {
         )
     }
 
-    private fun setupSearchView(state: State) {
-        if (state.searchResult == null) {
-            searchAdapter.submitList(listOf())
-            binding.accountsSearchRecycler.hide()
-            binding.accountsRecycler.show()
-        } else {
-            val listAccounts = state.accounts.asRightOrNull() ?: listOf()
-            val newList = state.searchResult.map { acc ->
-                acc to listAccounts.contains(acc)
+    private fun bindAccounts(accounts: Result<Accounts, ListsError>) {
+        accounts.onSuccess {
+            binding.messageView.hide()
+            if (it is Accounts.Loaded) adapter.submitList(it.accounts)
+        }.onFailure {
+            binding.messageView.show()
+            handleError(it.throwable)
+        }
+    }
+
+    private fun bindSearchResults(accountsInList: Set<TimelineAccount>, searchResults: Result<SearchResults, ApiError>) {
+        searchResults.onSuccess { searchState ->
+            when (searchState) {
+                SearchResults.Empty -> {
+                    searchAdapter.submitList(emptyList())
+                    binding.accountsSearchRecycler.hide()
+                    binding.accountsRecycler.show()
+                }
+                SearchResults.Loading -> { /* nothing */ }
+                is SearchResults.Loaded -> {
+                    val newList = searchState.accounts.map { account ->
+                        account to accountsInList.contains(account)
+                    }
+                    searchAdapter.submitList(newList)
+                    binding.accountsSearchRecycler.show()
+                    binding.accountsRecycler.hide()
+                }
             }
-            searchAdapter.submitList(newList)
-            binding.accountsSearchRecycler.show()
-            binding.accountsRecycler.hide()
+        }.onFailure {
+            Timber.w(it.throwable, "Error searching for accounts in list")
+            handleError(it.throwable)
         }
     }
 
@@ -151,17 +207,13 @@ class AccountsInListFragment : DialogFragment() {
         binding.messageView.show()
         binding.messageView.setup(error) { _: View ->
             binding.messageView.hide()
-            viewModel.load(listId)
+            viewModel.refresh()
         }
     }
 
-    private fun onRemoveFromList(accountId: String) {
-        viewModel.deleteAccountFromList(listId, accountId)
-    }
+    private fun onRemoveFromList(accountId: String) = viewModel.deleteAccountFromList(accountId)
 
-    private fun onAddToList(account: TimelineAccount) {
-        viewModel.addAccountToList(listId, account)
-    }
+    private fun onAddToList(account: TimelineAccount) = viewModel.addAccountToList(account)
 
     private object AccountDiffer : DiffUtil.ItemCallback<TimelineAccount>() {
         override fun areItemsTheSame(oldItem: TimelineAccount, newItem: TimelineAccount): Boolean {
@@ -176,7 +228,6 @@ class AccountsInListFragment : DialogFragment() {
     inner class Adapter : ListAdapter<TimelineAccount, BindingHolder<ItemFollowRequestBinding>>(
         AccountDiffer,
     ) {
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemFollowRequestBinding> {
             val binding = ItemFollowRequestBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             val holder = BindingHolder(binding)
@@ -196,6 +247,7 @@ class AccountsInListFragment : DialogFragment() {
             val account = getItem(position)
             holder.binding.displayNameTextView.text = account.name.emojify(account.emojis, holder.binding.displayNameTextView, animateEmojis)
             holder.binding.usernameTextView.text = account.username
+            holder.binding.avatarBadge.visible(account.bot)
             loadAvatar(account.avatar, holder.binding.avatar, radius, animateAvatar)
         }
     }
@@ -213,7 +265,6 @@ class AccountsInListFragment : DialogFragment() {
     inner class SearchAdapter : ListAdapter<AccountInfo, BindingHolder<ItemFollowRequestBinding>>(
         SearchDiffer,
     ) {
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemFollowRequestBinding> {
             val binding = ItemFollowRequestBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             val holder = BindingHolder(binding)
@@ -238,6 +289,7 @@ class AccountsInListFragment : DialogFragment() {
             holder.binding.displayNameTextView.text = account.name.emojify(account.emojis, holder.binding.displayNameTextView, animateEmojis)
             holder.binding.usernameTextView.text = account.username
             loadAvatar(account.avatar, holder.binding.avatar, radius, animateAvatar)
+            holder.binding.avatarBadge.visible(account.bot)
 
             holder.binding.rejectButton.apply {
                 contentDescription = if (inAList) {
@@ -252,14 +304,14 @@ class AccountsInListFragment : DialogFragment() {
     }
 
     companion object {
-        private const val LIST_ID_ARG = "listId"
-        private const val LIST_NAME_ARG = "listName"
+        private const val ARG_LIST_ID = "listId"
+        private const val ARG_LIST_NAME = "listName"
 
         @JvmStatic
         fun newInstance(listId: String, listName: String): AccountsInListFragment {
             val args = Bundle().apply {
-                putString(LIST_ID_ARG, listId)
-                putString(LIST_NAME_ARG, listName)
+                putString(ARG_LIST_ID, listId)
+                putString(ARG_LIST_NAME, listName)
             }
             return AccountsInListFragment().apply { arguments = args }
         }

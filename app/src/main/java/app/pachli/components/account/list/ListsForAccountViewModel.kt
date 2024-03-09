@@ -1,4 +1,5 @@
-/* Copyright 2022 kyori19
+/*
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -18,122 +19,166 @@ package app.pachli.components.account.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.core.data.repository.HasListId
+import app.pachli.core.data.repository.Lists
+import app.pachli.core.data.repository.ListsError
+import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.network.model.MastoList
-import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.getOrThrow
-import at.connyduck.calladapter.networkresult.onFailure
-import at.connyduck.calladapter.networkresult.onSuccess
-import at.connyduck.calladapter.networkresult.runCatching
+import app.pachli.core.network.retrofit.apiresult.ApiError
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.onFailure
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.first
+import kotlin.collections.set
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import okhttp3.internal.toImmutableMap
 
-data class AccountListState(
-    val list: MastoList,
-    val includesAccount: Boolean,
-)
-
-data class ActionError(
-    val error: Throwable,
-    val type: Type,
-    val listId: String,
-) : Throwable(error) {
-    enum class Type {
-        ADD,
-        REMOVE,
-    }
+sealed interface ListsWithMembership {
+    data object Loading : ListsWithMembership
+    data class Loaded(val listsWithMembership: Map<String, ListWithMembership>) : ListsWithMembership
 }
 
-@OptIn(ExperimentalCoroutinesApi::class)
-@HiltViewModel
-class ListsForAccountViewModel @Inject constructor(
-    private val mastodonApi: MastodonApi,
+/**
+ * A [MastoList] with a property for whether [ListsForAccountViewModel.accountId] is a
+ * member of the list.
+ *
+ * @property list The Mastodon list
+ * @property isMember True if this list contains [ListsForAccountViewModel.accountId]
+ */
+data class ListWithMembership(
+    val list: MastoList,
+    val isMember: Boolean,
+)
+
+@HiltViewModel(assistedFactory = ListsForAccountViewModel.Factory::class)
+class ListsForAccountViewModel @AssistedInject constructor(
+    private val listsRepository: ListsRepository,
+    @Assisted val accountId: String,
 ) : ViewModel() {
+    private val _listsWithMembership = MutableStateFlow<Result<ListsWithMembership, FlowError>>(Ok(ListsWithMembership.Loading))
+    val listsWithMembership = _listsWithMembership.asStateFlow()
 
-    private lateinit var accountId: String
+    private val _errors = Channel<Error>()
+    val errors = _errors.receiveAsFlow()
 
-    private val _states = MutableSharedFlow<List<AccountListState>>(1)
-    val states: SharedFlow<List<AccountListState>> = _states
+    private val listsWithMembershipMap = mutableMapOf<String, ListWithMembership>()
 
-    private val _loadError = MutableSharedFlow<Throwable>(1)
-    val loadError: SharedFlow<Throwable> = _loadError
-
-    private val _actionError = MutableSharedFlow<ActionError>(1)
-    val actionError: SharedFlow<ActionError> = _actionError
-
-    fun setup(accountId: String) {
-        this.accountId = accountId
+    init {
+        refresh()
     }
 
-    fun load() {
-        _loadError.resetReplayCache()
-        viewModelScope.launch {
-            runCatching {
-                val (all, includes) = listOf(
-                    async { mastodonApi.getLists() },
-                    async { mastodonApi.getListsIncludesAccount(accountId) },
-                ).awaitAll()
-
-                _states.emit(
-                    all.getOrThrow().map { list ->
-                        AccountListState(
-                            list = list,
-                            includesAccount = includes.getOrThrow().any { it.id == list.id },
-                        )
-                    },
-                )
+    /**
+     * Takes the user's lists, and the subset of those lists that [accountId] is a member of,
+     * and merges them to produce a map of [ListWithMembership].
+     */
+    fun refresh() = viewModelScope.launch {
+        _listsWithMembership.value = Ok(ListsWithMembership.Loading)
+        listsRepository.lists.collect { result ->
+            val lists = result.getOrElse {
+                _listsWithMembership.value = Err(Error.Retrieve(it))
+                return@collect
             }
-                .onFailure {
-                    _loadError.emit(it)
+
+            if (lists !is Lists.Loaded) return@collect
+
+            _listsWithMembership.value = with(listsWithMembershipMap) {
+                val memberLists = listsRepository.getListsWithAccount(accountId)
+                    .getOrElse { return@with Err(Error.GetListsWithAccount(it)) }
+
+                clear()
+
+                memberLists.forEach { list ->
+                    put(list.id, ListWithMembership(list, true))
                 }
+
+                lists.lists.forEach { list ->
+                    putIfAbsent(list.id, ListWithMembership(list, false))
+                }
+
+                Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
+            }
         }
     }
 
-    fun addAccountToList(listId: String) {
-        _actionError.resetReplayCache()
-        viewModelScope.launch {
-            mastodonApi.addAccountToList(listId, listOf(accountId))
-                .onSuccess {
-                    _states.emit(
-                        _states.first().map { state ->
-                            if (state.list.id == listId) {
-                                state.copy(includesAccount = true)
-                            } else {
-                                state
-                            }
-                        },
-                    )
-                }
-                .onFailure {
-                    _actionError.emit(ActionError(it, ActionError.Type.ADD, listId))
-                }
+    /**
+     * Fallibly adds [accountId] to [listId], sending [Error.AddAccounts] on failure.
+     */
+    fun addAccountToList(listId: String) = viewModelScope.launch {
+        // Optimistically update so the UI is snappy
+        listsWithMembershipMap[listId]?.let {
+            listsWithMembershipMap[listId] = it.copy(isMember = true)
+        }
+
+        _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
+
+        listsRepository.addAccountsToList(listId, listOf(accountId)).onFailure { error ->
+            // Undo the optimistic update
+            listsWithMembershipMap[listId]?.let {
+                listsWithMembershipMap[listId] = it.copy(isMember = false)
+            }
+
+            _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
+
+            _errors.send(Error.AddAccounts(error))
         }
     }
 
-    fun removeAccountFromList(listId: String) {
-        _actionError.resetReplayCache()
-        viewModelScope.launch {
-            mastodonApi.deleteAccountFromList(listId, listOf(accountId))
-                .onSuccess {
-                    _states.emit(
-                        _states.first().map { state ->
-                            if (state.list.id == listId) {
-                                state.copy(includesAccount = false)
-                            } else {
-                                state
-                            }
-                        },
-                    )
-                }
-                .onFailure {
-                    _actionError.emit(ActionError(it, ActionError.Type.REMOVE, listId))
-                }
+    /**
+     * Fallibly deletes [accountId] from [listId], sending [Error.DeleteAccounts] on failure.
+     */
+    fun deleteAccountFromList(listId: String) = viewModelScope.launch {
+        // Optimistically update so the UI is snappy
+        listsWithMembershipMap[listId]?.let {
+            listsWithMembershipMap[listId] = it.copy(isMember = false)
         }
+        _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
+
+        listsRepository.deleteAccountsFromList(listId, listOf(accountId)).onFailure { error ->
+            // Undo the optimistic update
+            listsWithMembershipMap[listId]?.let {
+                listsWithMembershipMap[listId] = it.copy(isMember = true)
+            }
+
+            _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
+
+            _errors.send(Error.DeleteAccounts(error))
+        }
+    }
+
+    /** Create [ListsForAccountViewModel] injecting [accountId] */
+    @AssistedFactory
+    interface Factory {
+        fun create(accountId: String): ListsForAccountViewModel
+    }
+
+    /**
+     *  Marker for errors that can be part of the [Result] in the
+     *  [ListsForAccountViewModel.listsWithMembership] flow
+     */
+    sealed interface FlowError : ApiError
+
+    /** Asynchronous errors from network operations */
+    sealed interface Error : ListsError {
+        /** Failed to fetch lists, or lists containing a particular account */
+        @JvmInline
+        value class GetListsWithAccount(val error: ListsError.GetListsWithAccount) : FlowError, ListsError by error
+
+        @JvmInline
+        value class Retrieve(val error: ListsError.Retrieve) : FlowError, ListsError by error
+
+        @JvmInline
+        value class AddAccounts(val error: ListsError.AddAccounts) : Error, HasListId by error, ListsError by error
+
+        @JvmInline
+        value class DeleteAccounts(val error: ListsError.DeleteAccounts) : Error, HasListId by error, ListsError by error
     }
 }

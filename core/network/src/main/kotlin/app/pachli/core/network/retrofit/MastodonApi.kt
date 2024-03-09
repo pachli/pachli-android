@@ -49,6 +49,7 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.model.TrendingTag
 import app.pachli.core.network.model.TrendsLink
+import app.pachli.core.network.retrofit.apiresult.ApiResult
 import at.connyduck.calladapter.networkresult.NetworkResult
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -361,7 +362,7 @@ interface MastodonApi {
         @Query("resolve") resolve: Boolean? = null,
         @Query("limit") limit: Int? = null,
         @Query("following") following: Boolean? = null,
-    ): NetworkResult<List<TimelineAccount>>
+    ): ApiResult<List<TimelineAccount>>
 
     @GET("api/v1/accounts/{id}")
     suspend fun account(
@@ -544,19 +545,19 @@ interface MastodonApi {
     ): NetworkResult<Unit>
 
     @GET("/api/v1/lists")
-    suspend fun getLists(): NetworkResult<List<MastoList>>
+    suspend fun getLists(): ApiResult<List<MastoList>>
 
     @GET("/api/v1/accounts/{id}/lists")
     suspend fun getListsIncludesAccount(
         @Path("id") accountId: String,
-    ): NetworkResult<List<MastoList>>
+    ): ApiResult<List<MastoList>>
 
     @FormUrlEncoded
     @POST("api/v1/lists")
     suspend fun createList(
         @Field("title") title: String,
         @Field("exclusive") exclusive: Boolean?,
-    ): NetworkResult<MastoList>
+    ): ApiResult<MastoList>
 
     @FormUrlEncoded
     @PUT("api/v1/lists/{listId}")
@@ -564,18 +565,18 @@ interface MastodonApi {
         @Path("listId") listId: String,
         @Field("title") title: String,
         @Field("exclusive") exclusive: Boolean?,
-    ): NetworkResult<MastoList>
+    ): ApiResult<MastoList>
 
     @DELETE("api/v1/lists/{listId}")
     suspend fun deleteList(
         @Path("listId") listId: String,
-    ): NetworkResult<Unit>
+    ): ApiResult<Unit>
 
     @GET("api/v1/lists/{listId}/accounts")
     suspend fun getAccountsInList(
         @Path("listId") listId: String,
         @Query("limit") limit: Int,
-    ): NetworkResult<List<TimelineAccount>>
+    ): ApiResult<List<TimelineAccount>>
 
     @FormUrlEncoded
     // @DELETE doesn't support fields
@@ -583,14 +584,14 @@ interface MastodonApi {
     suspend fun deleteAccountFromList(
         @Path("listId") listId: String,
         @Field("account_ids[]") accountIds: List<String>,
-    ): NetworkResult<Unit>
+    ): ApiResult<Unit>
 
     @FormUrlEncoded
     @POST("api/v1/lists/{listId}/accounts")
     suspend fun addAccountToList(
         @Path("listId") listId: String,
         @Field("account_ids[]") accountIds: List<String>,
-    ): NetworkResult<Unit>
+    ): ApiResult<Unit>
 
     @GET("/api/v1/conversations")
     suspend fun getConversations(

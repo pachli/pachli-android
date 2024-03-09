@@ -199,7 +199,6 @@
     <string name="replying_to">در حال پاسخ به @%s</string>
     <string name="add_account_name">افزودن حساب</string>
     <string name="add_account_description">افزودن حساب ماستودون جدید</string>
-    <string name="action_lists">سیاهه‌ها</string>
     <string name="title_lists">سیاهه‌ها</string>
     <string name="compose_active_account_description">فرستادن از طرف %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
@@ -294,9 +293,9 @@
     <string name="filter_dialog_remove_button">برداشتن</string>
     <string name="filter_dialog_update_button">به‌روز رسانی</string>
     <string name="filter_dialog_whole_word">تمام واژه</string>
-    <string name="error_create_list">نتوانست سیاهه را ایجاد کند</string>
-    <string name="error_rename_list">نتوانست سیاهه را به‌روز کند</string>
-    <string name="error_delete_list">نتوانست سیاهه را حذف کند</string>
+    <string name="error_create_list_fmt">%2$s: \"%1$s\" نتوانست سیاهه را ایجاد کند</string>
+    <string name="error_rename_list_fmt">%2$s: \"%1$s\" نتوانست سیاهه را به‌روز کند</string>
+    <string name="error_delete_list_fmt">%2$s: \"%1$s\" نتوانست سیاهه را حذف کند</string>
     <string name="action_create_list">ایجاد سیاهه</string>
     <string name="action_rename_list">به‌روز رسانی‌سیاهه</string>
     <string name="action_delete_list">حذف سیاهه</string>

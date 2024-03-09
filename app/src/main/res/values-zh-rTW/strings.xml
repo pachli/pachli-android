@@ -241,11 +241,10 @@
     <string name="filter_add_description">需要過濾的文字</string>
     <string name="add_account_name">加入帳號</string>
     <string name="add_account_description">加入新的 Mastodon 帳號</string>
-    <string name="action_lists">列表</string>
     <string name="title_lists">列表</string>
-    <string name="error_create_list">無法新建列表</string>
-    <string name="error_rename_list">無法重命名列表</string>
-    <string name="error_delete_list">無法刪除列表</string>
+    <string name="error_create_list_fmt">無法新建列表 \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">無法重命名列表 \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">無法刪除列表 \"%1$s\": %2$s</string>
     <string name="action_create_list">新建列表</string>
     <string name="action_rename_list">重命名列表</string>
     <string name="action_delete_list">刪除列表</string>

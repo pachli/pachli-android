@@ -188,7 +188,6 @@
     <string name="replying_to">\@%s -க்கு பதிலளி</string>
     <string name="add_account_name">கணக்கை சேர்க்க</string>
     <string name="add_account_description">புதிய Mastodon கணக்கைச் சேர்க்க</string>
-    <string name="action_lists">பட்டியல்கள்</string>
     <string name="title_lists">பட்டியல்கள்</string>
     <string name="compose_active_account_description">%1$s கணக்குடன் பதிவிட</string>
     <string name="action_set_caption">தலைப்பை அமை</string>

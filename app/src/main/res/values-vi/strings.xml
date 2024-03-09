@@ -19,9 +19,9 @@
     <string name="notification_reblog_format">%s đăng lại tút của bạn</string>
     <string name="error_no_custom_emojis">Máy chủ %s không có emoji tùy chỉnh</string>
     <string name="send_post_notification_error_title">Lỗi đăng tút</string>
-    <string name="error_delete_list">Không thể xóa danh sách</string>
-    <string name="error_rename_list">Không thể cập nhật danh sách</string>
-    <string name="error_create_list">Không thể tạo danh sách</string>
+    <string name="error_delete_list_fmt">Không thể xóa danh sách \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Không thể cập nhật danh sách \"%1$s\": %2$s</string>
+    <string name="error_create_list_fmt">Không thể tạo danh sách \"%1$s\": %2$s</string>
     <string name="error_sender_account_gone">Xảy ra lỗi khi đăng tút.</string>
     <string name="error_media_upload_sending">Tải lên không thành công.</string>
     <string name="error_media_upload_image_or_video">Không thể đính kèm ảnh và video cùng một lúc.</string>
@@ -35,7 +35,6 @@
     <string name="error_network">Rớt mạng! Xin kiểm tra kết nối và thử lại!</string>
     <string name="error_generic">Đã có lỗi xảy ra.</string>
     <string name="title_lists">Danh sách</string>
-    <string name="action_lists">Danh sách</string>
     <string name="action_reset_schedule">Làm tươi</string>
     <string name="action_search">Tìm kiếm</string>
     <string name="action_edit_profile">Hồ sơ</string>

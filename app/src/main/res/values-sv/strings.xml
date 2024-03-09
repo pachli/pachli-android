@@ -236,11 +236,10 @@
     <string name="filter_add_description">Filtrera fras</string>
     <string name="add_account_name">Lägg till konto</string>
     <string name="add_account_description">Lägg till ett nytt Mastodon-konto</string>
-    <string name="action_lists">Listor</string>
     <string name="title_lists">Listor</string>
-    <string name="error_create_list">Kunde inte skapa lista</string>
-    <string name="error_rename_list">Kunde inte byta namn på lista</string>
-    <string name="error_delete_list">Kunde inte radera lista</string>
+    <string name="error_create_list_fmt">Kunde inte skapa lista \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Kunde inte byta namn på lista \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Kunde inte radera lista \"%1$s\": %2$s</string>
     <string name="action_create_list">Skapa en lista</string>
     <string name="action_rename_list">Byt namn på listan</string>
     <string name="action_delete_list">Ta bort listan</string>
@@ -663,7 +662,7 @@
     <string name="announcement_date_updated">(Uppdaterad: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Toots</string>
     <string name="pref_update_notification_frequency_once_per_version">En gång per version</string>
-    <string name="error_404_not_found">Din server stöder inte denna funktion</string>
+    <string name="error_404_not_found_fmt">Din server stöder inte denna funktion: %1$s</string>
     <string name="pref_title_font_family">Fontfamilj</string>
     <string name="list_exclusive_label">Dölj från hemtidlinjen</string>
     <string name="action_translate">Översätta</string>

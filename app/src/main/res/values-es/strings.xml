@@ -216,7 +216,6 @@
     <string name="replying_to">Respondiendo a @%s</string>
     <string name="add_account_name">Añadir cuenta</string>
     <string name="add_account_description">Añadir cuenta de Mastodon</string>
-    <string name="action_lists">Listas</string>
     <string name="title_lists">Listas</string>
     <string name="compose_active_account_description">Publicar como %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
@@ -338,9 +337,9 @@
     <string name="filter_edit_title">Editar filtro</string>
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frase para filtrar</string>
-    <string name="error_create_list">No se pudo crear la lista</string>
-    <string name="error_rename_list">No se pudo renombrar la lista</string>
-    <string name="error_delete_list">No se pudo eliminar la lista</string>
+    <string name="error_create_list_fmt">No se pudo crear la lista \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">No se pudo renombrar la lista \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">No se pudo eliminar la lista \"%1$s\": %2$s</string>
     <string name="action_delete_list">Eliminar la lista</string>
     <string name="hint_search_people_list">Buscar personas que sigues</string>
     <string name="description_post_media">Contenido: %s</string>
@@ -671,7 +670,7 @@
     <string name="announcement_date_updated">(Actualizado: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Publicaciones</string>
     <string name="pref_update_notification_frequency_once_per_version">Una vez por versión</string>
-    <string name="error_404_not_found">Su servidor no soporta esta función</string>
+    <string name="error_404_not_found_fmt">Su servidor no soporta esta función: %1$s</string>
     <string name="pref_title_font_family">Familia de fuente</string>
     <string name="notification_listenable_worker_description">Notificaciones cuando Pachli está trabajando en el fondo</string>
     <string name="list_exclusive_label">Oculta de la cronología de inicio</string>

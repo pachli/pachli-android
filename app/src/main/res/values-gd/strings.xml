@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_lists">Liostaichean</string>
-    <string name="action_lists">Liostaichean</string>
     <string name="action_reset_schedule">Ath-shuidhich</string>
     <string name="action_search">Lorg</string>
     <string name="action_view_account_preferences">Roghainnean a’ chunntais</string>
@@ -241,9 +240,9 @@
     <string name="action_delete_list">Sguab às an liosta</string>
     <string name="action_rename_list">Ùraich an liosta</string>
     <string name="action_create_list">Cruthaich liosta</string>
-    <string name="error_delete_list">Cha b’ urrainn dhuinn an liosta a sguabadh às</string>
-    <string name="error_rename_list">Cha b’ urrainn dhuinn an liosta ùrachadh</string>
-    <string name="error_create_list">Cha b’ urrainn dhuinn an liosta a chruthachadh</string>
+    <string name="error_delete_list_fmt">Cha b’ urrainn dhuinn an liosta a sguabadh às \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Cha b’ urrainn dhuinn an liosta ùrachadh \"%1$s\": %2$s</string>
+    <string name="error_create_list_fmt">Cha b’ urrainn dhuinn an liosta a chruthachadh \"%1$s\": %2$s</string>
     <string name="add_account_description">Cuir cunntas Mastodon ùr ris</string>
     <string name="add_account_name">Cuir cunntas ris</string>
     <string name="filter_add_description">An abairt ri chriathradh</string>

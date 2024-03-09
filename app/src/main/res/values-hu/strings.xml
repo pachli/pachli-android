@@ -207,7 +207,6 @@
     <string name="title_media">Média</string>
     <string name="add_account_name">Fiók hozzáadása</string>
     <string name="add_account_description">Új Mastodon-fiók hozzáadása</string>
-    <string name="action_lists">Listák</string>
     <string name="title_lists">Listák</string>
     <string name="action_remove">Törlés</string>
     <string name="lock_account_label">Fiók zárolása</string>
@@ -275,9 +274,9 @@
     <string name="filter_dialog_remove_button">Eltávolítás</string>
     <string name="filter_dialog_update_button">Frissítés</string>
     <string name="filter_add_description">Szűrendő kifejezés</string>
-    <string name="error_create_list">Nem sikerült a lista létrehozása</string>
-    <string name="error_rename_list">Nem sikerült a lista átnevezése</string>
-    <string name="error_delete_list">Nem sikerült a lista törlése</string>
+    <string name="error_create_list_fmt">Nem sikerült a lista létrehozása \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Nem sikerült a lista átnevezése \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Nem sikerült a lista törlése \"%1$s\": %2$s</string>
     <string name="action_create_list">Lista létrehozása</string>
     <string name="action_rename_list">Lista átnevezése</string>
     <string name="action_delete_list">Lista törlése</string>

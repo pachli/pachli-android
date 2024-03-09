@@ -20,14 +20,18 @@ package app.pachli
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
@@ -38,18 +42,19 @@ import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.repository.Lists
 import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.network.model.MastoList
+import app.pachli.core.network.retrofit.apiresult.ApiError
+import app.pachli.core.network.retrofit.apiresult.NetworkError
+import app.pachli.core.ui.await
 import app.pachli.databinding.ActivityListsBinding
 import app.pachli.databinding.DialogListBinding
+import app.pachli.viewmodel.Error
 import app.pachli.viewmodel.ListsViewModel
-import app.pachli.viewmodel.ListsViewModel.Event
-import app.pachli.viewmodel.ListsViewModel.LoadingState.ERROR_NETWORK
-import app.pachli.viewmodel.ListsViewModel.LoadingState.ERROR_OTHER
-import app.pachli.viewmodel.ListsViewModel.LoadingState.INITIAL
-import app.pachli.viewmodel.ListsViewModel.LoadingState.LOADED
-import app.pachli.viewmodel.ListsViewModel.LoadingState.LOADING
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -58,10 +63,14 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * Shows all the user's lists, with UI to perform CRUD operations on the lists.
+ */
 @AndroidEntryPoint
-class ListsActivity : BaseActivity() {
+class ListsActivity : BaseActivity(), MenuProvider {
     private val viewModel: ListsViewModel by viewModels()
 
     private val binding by viewBinding(ActivityListsBinding::inflate)
@@ -86,106 +95,148 @@ class ListsActivity : BaseActivity() {
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
 
-        binding.swipeRefreshLayout.setOnRefreshListener { viewModel.retryLoading() }
+        binding.swipeRefreshLayout.setOnRefreshListener { viewModel.refresh() }
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
 
-        lifecycleScope.launch {
-            viewModel.state.collect(this@ListsActivity::update)
-        }
-
-        viewModel.retryLoading()
-
         binding.addListButton.setOnClickListener {
-            showlistNameDialog(null)
+            lifecycleScope.launch { showListNameDialog(null) }
+        }
+
+        addMenuProvider(this)
+
+        lifecycleScope.launch {
+            viewModel.lists.collectLatest(::bind)
         }
 
         lifecycleScope.launch {
-            viewModel.events.collect { event ->
-                when (event) {
-                    Event.CREATE_ERROR -> showMessage(R.string.error_create_list)
-                    Event.UPDATE_ERROR -> showMessage(R.string.error_rename_list)
-                    Event.DELETE_ERROR -> showMessage(R.string.error_delete_list)
+            viewModel.errors.collect { error ->
+                when (error) {
+                    is Error.Create -> showMessage(getString(R.string.error_create_list_fmt, error.title, error.throwable.message))
+                    is Error.Delete -> showMessage(getString(R.string.error_delete_list_fmt, error.title, error.throwable.message))
+                    is Error.Update -> showMessage(getString(R.string.error_rename_list_fmt, error.title, error.throwable.message))
                 }
             }
         }
     }
 
-    private fun showlistNameDialog(list: MastoList?) {
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
+        menuInflater.inflate(R.menu.activity_lists, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        super.onMenuItemSelected(menuItem)
+        return when (menuItem.itemId) {
+            R.id.action_refresh -> {
+                refreshContent()
+                true
+            }
+
+            else -> false
+        }
+    }
+
+    private fun refreshContent() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        viewModel.refresh()
+    }
+
+    private suspend fun showListNameDialog(list: MastoList?) {
         val binding = DialogListBinding.inflate(layoutInflater)
         val dialog = AlertDialog.Builder(this)
             .setView(binding.root)
-            .setPositiveButton(
-                if (list == null) {
-                    R.string.action_create_list
-                } else {
-                    R.string.action_rename_list
-                },
-            ) { _, _ ->
-                onPickedDialogName(binding.nameText.text.toString(), list?.id, binding.exclusiveCheckbox.isChecked)
-            }
-            .setNegativeButton(android.R.string.cancel, null)
-            .show()
+            .create()
 
-        binding.nameText.let { editText ->
-            editText.doOnTextChanged { s, _, _, _ ->
-                dialog.getButton(Dialog.BUTTON_POSITIVE).isEnabled = s?.isNotBlank() == true
+        // Ensure the soft keyboard opens when the name field has focus
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+
+        dialog.setOnShowListener {
+            binding.nameText.let { editText ->
+                editText.doOnTextChanged { s, _, _, _ ->
+                    dialog.getButton(Dialog.BUTTON_POSITIVE).isEnabled = s?.isNotBlank() == true
+                }
+                editText.setText(list?.title)
+                editText.text?.let { editText.setSelection(it.length) }
             }
-            editText.setText(list?.title)
-            editText.text?.let { editText.setSelection(it.length) }
+
+            list?.let { list ->
+                list.exclusive?.let {
+                    binding.exclusiveCheckbox.isChecked = it
+                } ?: binding.exclusiveCheckbox.hide()
+            }
+
+            binding.nameText.requestFocus()
         }
 
-        list?.exclusive?.let {
-            binding.exclusiveCheckbox.isChecked = isTaskRoot
-        } ?: binding.exclusiveCheckbox.hide()
+        val result = dialog.await(
+            list?.let { R.string.action_rename_list } ?: R.string.action_create_list,
+            android.R.string.cancel,
+        )
+
+        if (result == AlertDialog.BUTTON_POSITIVE) {
+            onPickedDialogName(
+                binding.nameText.text.toString(),
+                list?.id,
+                binding.exclusiveCheckbox.isChecked,
+            )
+        }
     }
 
-    private fun showListDeleteDialog(list: MastoList) {
-        AlertDialog.Builder(this)
+    private suspend fun showListDeleteDialog(list: MastoList) {
+        val result = AlertDialog.Builder(this)
             .setMessage(getString(R.string.dialog_delete_list_warning, list.title))
-            .setPositiveButton(R.string.action_delete) { _, _ ->
-                viewModel.deleteList(list.id)
-            }
-            .setNegativeButton(android.R.string.cancel, null)
-            .show()
+            .create()
+            .await(R.string.action_delete, android.R.string.cancel)
+
+        if (result == AlertDialog.BUTTON_POSITIVE) viewModel.deleteList(list.id, list.title)
     }
 
-    private fun update(state: ListsViewModel.State) {
-        adapter.submitList(state.lists)
-        binding.progressBar.visible(state.loadingState == LOADING)
-        binding.swipeRefreshLayout.isRefreshing = state.loadingState == LOADING
-        when (state.loadingState) {
-            INITIAL, LOADING -> binding.messageView.hide()
-            ERROR_NETWORK -> {
-                binding.messageView.show()
+    private fun bind(state: Result<Lists, ApiError>) {
+        state.onFailure {
+            binding.messageView.show()
+            binding.swipeRefreshLayout.isRefreshing = false
+
+            if (it is NetworkError) {
                 binding.messageView.setup(R.drawable.errorphant_offline, R.string.error_network) {
-                    viewModel.retryLoading()
+                    viewModel.refresh()
                 }
-            }
-            ERROR_OTHER -> {
-                binding.messageView.show()
+            } else {
                 binding.messageView.setup(R.drawable.errorphant_error, R.string.error_generic) {
-                    viewModel.retryLoading()
+                    viewModel.refresh()
                 }
             }
-            LOADED ->
-                if (state.lists.isEmpty()) {
-                    binding.messageView.show()
-                    binding.messageView.setup(
-                        R.drawable.elephant_friend_empty,
-                        R.string.message_empty,
-                        null,
-                    )
-                } else {
-                    binding.messageView.hide()
+        }
+
+        state.onSuccess { lists ->
+            when (lists) {
+                is Lists.Loaded -> {
+                    adapter.submitList(lists.lists.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.title }))
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    if (lists.lists.isEmpty()) {
+                        binding.messageView.show()
+                        binding.messageView.setup(
+                            R.drawable.elephant_friend_empty,
+                            R.string.message_empty,
+                            null,
+                        )
+                    } else {
+                        binding.messageView.hide()
+                    }
                 }
+
+                Lists.Loading -> {
+                    binding.messageView.hide()
+                    binding.swipeRefreshLayout.isRefreshing = true
+                }
+            }
         }
     }
 
-    private fun showMessage(@StringRes messageId: Int) {
+    private fun showMessage(message: String) {
         Snackbar.make(
-            binding.listsRecycler,
-            messageId,
-            Snackbar.LENGTH_SHORT,
+            binding.root,
+            message,
+            Snackbar.LENGTH_INDEFINITE,
         ).show()
     }
 
@@ -199,18 +250,14 @@ class ListsActivity : BaseActivity() {
         AccountsInListFragment.newInstance(list.id, list.title).show(supportFragmentManager, null)
     }
 
-    private fun renameListDialog(list: MastoList) {
-        showlistNameDialog(list)
-    }
-
     private fun onMore(list: MastoList, view: View) {
         PopupMenu(view.context, view).apply {
             inflate(R.menu.list_actions)
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.list_edit -> openListSettings(list)
-                    R.id.list_update -> renameListDialog(list)
-                    R.id.list_delete -> showListDeleteDialog(list)
+                    R.id.list_update -> lifecycleScope.launch { showListNameDialog(list) }
+                    R.id.list_delete -> lifecycleScope.launch { showListDeleteDialog(list) }
                     else -> return@setOnMenuItemClickListener false
                 }
                 true

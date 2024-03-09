@@ -7,7 +7,6 @@
     <string name="action_view_account_preferences">അക്കൗണ്ട് മുൻഗണനകൾ</string>
     <string name="action_edit_profile">പ്രൊഫൈൽ തിരുത്തുക</string>
     <string name="action_search">തിരയുക</string>
-    <string name="action_lists">പട്ടികകൾ</string>
     <string name="title_lists">പട്ടികകൾ</string>
     <string name="error_generic">ഒരു പിഴവ് സംഭവിച്ചിരിക്കുന്നു.</string>
     <string name="error_network">ഒരു നെറ്റ്‌വർക്ക് പിഴവ് സംഭവിച്ചിരിക്കുന്നു! ദയവായി താങ്കളുടെ കണക്ഷൻ പരിശോധിച്ചിട്ട് വീണ്ടും ശ്രമിക്കൂ!</string>

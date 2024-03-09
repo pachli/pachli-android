@@ -136,11 +136,10 @@
     <string name="action_delete_list">Изтриване на списъка</string>
     <string name="action_rename_list">Преименуване на списъка</string>
     <string name="action_create_list">Създаване на списък</string>
-    <string name="error_delete_list">Списъкът не можа да се изтрие</string>
-    <string name="error_create_list">Списъкът не можа да се създаде</string>
-    <string name="error_rename_list">Списъкът не можа да се преименува</string>
+    <string name="error_delete_list_fmt">Списъкът не можа да се изтрие \"%1$s\": %2$s</string>
+    <string name="error_create_list_fmt">Списъкът не можа да се създаде \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Списъкът не можа да се преименува \"%1$s\": %2$s</string>
     <string name="title_lists">Списъци</string>
-    <string name="action_lists">Списъци</string>
     <string name="add_account_description">Добавяне на нов Mastodon акаунт</string>
     <string name="add_account_name">Добавяне на акаунт</string>
     <string name="filter_add_description">Фраза за филтриране</string>

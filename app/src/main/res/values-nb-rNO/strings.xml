@@ -214,11 +214,10 @@
     <string name="filter_add_description">Filtrer frase</string>
     <string name="add_account_name">Legg til konto</string>
     <string name="add_account_description">Legg til ny Mastodon-konto</string>
-    <string name="action_lists">Lister</string>
     <string name="title_lists">Lister</string>
-    <string name="error_create_list">Kunne ikke opprette liste</string>
-    <string name="error_rename_list">Kunne ikke gi liste nytt navn</string>
-    <string name="error_delete_list">Kunne ikke slette liste</string>
+    <string name="error_create_list_fmt">Kunne ikke opprette liste \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Kunne ikke gi liste nytt navn \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Kunne ikke slette liste \"%1$s\": %2$s</string>
     <string name="action_create_list">Opprett en liste</string>
     <string name="action_rename_list">Gi listen nytt navn</string>
     <string name="action_delete_list">Fjern listen</string>

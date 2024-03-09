@@ -67,7 +67,7 @@
     <string name="title_migration_relogin">Re-login for push notifications</string>
     <string name="title_drafts">Drafts</string>
     <string name="title_tab_public_trending_statuses">Posts</string>
-    <string name="error_404_not_found">Your server does not support this feature</string>
+    <string name="error_404_not_found_fmt">Your server does not support this feature: %1$s</string>
     <string name="error_unfollowing_hashtag_format">Error unfollowing #%s</string>
     <string name="error_following_hashtag_format">Error following #%s</string>
     <string name="title_announcements">Announcements</string>

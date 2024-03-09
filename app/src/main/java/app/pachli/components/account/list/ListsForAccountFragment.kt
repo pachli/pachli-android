@@ -28,6 +28,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import app.pachli.R
+import app.pachli.components.account.list.ListsForAccountViewModel.Error
+import app.pachli.components.account.list.ListsForAccountViewModel.FlowError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -36,15 +38,29 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.databinding.FragmentListsForAccountBinding
 import app.pachli.databinding.ItemAddOrRemoveFromListBinding
 import app.pachli.util.BindingHolder
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * Shows all the user's lists with a button to allow them to add/remove the given
+ * account from each list.
+ */
 @AndroidEntryPoint
 class ListsForAccountFragment : DialogFragment() {
+    private val viewModel: ListsForAccountViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<ListsForAccountViewModel.Factory> { factory ->
+                factory.create(requireArguments().getString(ARG_ACCOUNT_ID)!!)
+            }
+        },
+    )
 
-    private val viewModel: ListsForAccountViewModel by viewModels()
     private val binding by viewBinding(FragmentListsForAccountBinding::bind)
 
     private val adapter = Adapter()
@@ -52,8 +68,6 @@ class ListsForAccountFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, DR.style.AppDialogFragmentStyle)
-
-        viewModel.setup(requireArguments().getString(ARG_ACCOUNT_ID)!!)
     }
 
     override fun onStart() {
@@ -79,45 +93,23 @@ class ListsForAccountFragment : DialogFragment() {
         binding.listsView.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.states.collectLatest { states ->
-                binding.progressBar.hide()
-                if (states.isEmpty()) {
-                    binding.messageView.show()
-                    binding.messageView.setup(R.drawable.elephant_friend_empty, R.string.no_lists) {
-                        load()
-                    }
-                } else {
-                    binding.listsView.show()
-                    adapter.submitList(states)
-                }
-            }
+            viewModel.listsWithMembership.collectLatest(::bind)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.loadError.collectLatest { error ->
-                binding.progressBar.hide()
-                binding.listsView.hide()
-                binding.messageView.apply {
-                    show()
-                    setup(error) { load() }
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.actionError.collectLatest { error ->
-                when (error.type) {
-                    ActionError.Type.ADD -> {
-                        Snackbar.make(binding.root, R.string.failed_to_add_to_list, Snackbar.LENGTH_LONG)
+            viewModel.errors.collectLatest { error ->
+                when (error) {
+                    is Error.AddAccounts -> {
+                        Snackbar.make(binding.root, R.string.failed_to_add_to_list, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.action_retry) {
                                 viewModel.addAccountToList(error.listId)
                             }
                             .show()
                     }
-                    ActionError.Type.REMOVE -> {
-                        Snackbar.make(binding.root, R.string.failed_to_remove_from_list, Snackbar.LENGTH_LONG)
+                    is Error.DeleteAccounts -> {
+                        Snackbar.make(binding.root, R.string.failed_to_remove_from_list, Snackbar.LENGTH_INDEFINITE)
                             .setAction(R.string.action_retry) {
-                                viewModel.removeAccountFromList(error.listId)
+                                viewModel.deleteAccountFromList(error.listId)
                             }
                             .show()
                     }
@@ -136,27 +128,60 @@ class ListsForAccountFragment : DialogFragment() {
         binding.progressBar.show()
         binding.listsView.hide()
         binding.messageView.hide()
-        viewModel.load()
     }
 
-    private object Differ : DiffUtil.ItemCallback<AccountListState>() {
+    private fun bind(result: Result<ListsWithMembership, FlowError>) {
+        result.onSuccess {
+            when (it) {
+                ListsWithMembership.Loading -> {
+                    binding.progressBar.show()
+                }
+                is ListsWithMembership.Loaded -> {
+                    binding.progressBar.hide()
+                    if (it.listsWithMembership.isEmpty()) {
+                        binding.messageView.show()
+                        binding.messageView.setup(R.drawable.elephant_friend_empty, R.string.no_lists) {
+                            load()
+                        }
+                    } else {
+                        binding.listsView.show()
+                        adapter.submitList(it.listsWithMembership.values.toList())
+                    }
+                }
+            }
+        }
+
+        result.onFailure {
+            binding.progressBar.hide()
+            binding.listsView.hide()
+            binding.messageView.apply {
+                show()
+                setup(it.throwable) {
+                    viewModel.refresh()
+                    load()
+                }
+            }
+        }
+    }
+
+    private object Differ : DiffUtil.ItemCallback<ListWithMembership>() {
         override fun areItemsTheSame(
-            oldItem: AccountListState,
-            newItem: AccountListState,
+            oldItem: ListWithMembership,
+            newItem: ListWithMembership,
         ): Boolean {
             return oldItem.list.id == newItem.list.id
         }
 
         override fun areContentsTheSame(
-            oldItem: AccountListState,
-            newItem: AccountListState,
+            oldItem: ListWithMembership,
+            newItem: ListWithMembership,
         ): Boolean {
             return oldItem == newItem
         }
     }
 
     inner class Adapter :
-        ListAdapter<AccountListState, BindingHolder<ItemAddOrRemoveFromListBinding>>(Differ) {
+        ListAdapter<ListWithMembership, BindingHolder<ItemAddOrRemoveFromListBinding>>(Differ) {
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int,
@@ -170,21 +195,22 @@ class ListsForAccountFragment : DialogFragment() {
             val item = getItem(position)
             holder.binding.listNameView.text = item.list.title
             holder.binding.addButton.apply {
-                visible(!item.includesAccount)
+                visible(!item.isMember)
                 setOnClickListener {
                     viewModel.addAccountToList(item.list.id)
                 }
             }
             holder.binding.removeButton.apply {
-                visible(item.includesAccount)
+                visible(item.isMember)
                 setOnClickListener {
-                    viewModel.removeAccountFromList(item.list.id)
+                    viewModel.deleteAccountFromList(item.list.id)
                 }
             }
         }
     }
 
     companion object {
+        /** The ID of the account to add/remove the lists */
         private const val ARG_ACCOUNT_ID = "accountId"
 
         fun newInstance(accountId: String): ListsForAccountFragment {

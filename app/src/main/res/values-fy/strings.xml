@@ -16,11 +16,10 @@
     <string name="action_delete_list">Smyt de list fuort</string>
     <string name="action_rename_list">Neam de list om</string>
     <string name="action_create_list">Meitsje in list oan</string>
-    <string name="error_delete_list">Koe list net fuortsmite</string>
-    <string name="error_rename_list">Koe list net omneame</string>
-    <string name="error_create_list">Koe list net oanmeitsje</string>
+    <string name="error_delete_list_fmt">Koe list net fuortsmite \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Koe list net omneame \"%1$s\": %2$s</string>
+    <string name="error_create_list_fmt">Koe list net oanmeitsje \"%1$s\": %2$s</string>
     <string name="title_lists">Listen</string>
-    <string name="action_lists">Listen</string>
     <string name="add_account_description">Nij Mastodon Account Tafoegje</string>
     <string name="add_account_name">Account Tafoegje</string>
     <string name="filter_dialog_update_button">Fernije</string>
