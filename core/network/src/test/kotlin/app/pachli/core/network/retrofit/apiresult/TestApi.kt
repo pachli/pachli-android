@@ -18,6 +18,8 @@
 package app.pachli.core.network.retrofit.apiresult
 
 import com.squareup.moshi.JsonClass
+import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 
 /**
@@ -39,4 +41,10 @@ interface TestApi {
 
     @GET("/sites")
     fun getSitesAsync(): ApiResult<List<Site>>
+
+    @GET("/response")
+    suspend fun getResponseAsync(): Response<Unit>
+
+    @GET("/response")
+    fun getResponseSync(): Call<Unit>
 }

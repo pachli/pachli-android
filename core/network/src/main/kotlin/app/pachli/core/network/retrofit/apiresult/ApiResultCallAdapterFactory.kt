@@ -53,19 +53,23 @@ class ApiResultCallAdapterFactory internal constructor() : CallAdapter.Factory()
          * be `Result<ApiResponse<T>, ApiError>`.
          */
         val responseType = getParameterUpperBound(0, returnType)
-        check(responseType is ParameterizedType) {
-            "Response must be parameterized as ApiResult<Foo> or ApiResult<out Foo>"
-        }
 
         // If rawReturnType is `Result` then this is a non-suspending call (synchronous)
         // so delegate to SyncApiResultCallAdapter
         if (rawReturnType == Result::class.java) {
+            check(responseType is ParameterizedType) {
+                "Response must be parameterized as ApiResult<Foo> or ApiResult<out Foo>"
+            }
             val successBodyType = getParameterUpperBound(0, responseType)
             return SyncApiResultCallAdapter<Any>(successBodyType)
         }
 
         // If the response type is not Result then we can't handle this type
         if (getRawType(responseType) != Result::class.java) return null
+
+        check(responseType is ParameterizedType) {
+            "Response must be parameterized as ApiResult<Foo> or ApiResult<out Foo>"
+        }
 
         // Ensure the V in Result<V, E> is ApiResponse<T>
         val successType = getParameterUpperBound(0, responseType)

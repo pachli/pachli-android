@@ -91,7 +91,7 @@ class ApiResultCallTest {
                     assertThat(error).isInstanceOf(ClientError.NotFound::class.java)
                     assertThat(error?.message).isEqualTo("not found")
 
-                    val throwable = error?.throwable as? HttpException
+                    val throwable = error?.throwable
                     assertThat(throwable).isInstanceOf(HttpException::class.java)
                     assertThat(throwable?.code()).isEqualTo(404)
                 }

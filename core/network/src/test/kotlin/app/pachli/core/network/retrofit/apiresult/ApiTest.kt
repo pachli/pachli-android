@@ -197,8 +197,8 @@ class ApiTest {
     @Test
     fun `suspending call - should return an IO(JsonEncodingException) error on invalid JSON`() {
         val response = mockResponse(200, "not even JSON")
-
         mockWebServer.enqueue(response)
+
         val responseObject = api.getSitesAsync().getError()
 
         val error = responseObject as? IO
@@ -206,5 +206,27 @@ class ApiTest {
         // Moshi reports invalid JSON as an IoException wrapping a JsonEncodingException
         assertThat(error).isInstanceOf(IO::class.java)
         assertThat(error?.throwable).isInstanceOf(JsonEncodingException::class.java)
+    }
+
+    @Test
+    fun `suspending call - should pass through non-Result types`() = runTest {
+        val response = mockResponse(200)
+        mockWebServer.enqueue(response)
+
+        val responseObject = api.getResponseAsync()
+
+        assertThat(responseObject.code()).isEqualTo(200)
+        assertThat(responseObject.body()).isInstanceOf(Unit::class.java)
+    }
+
+    @Test
+    fun `blocking call - should pass through non-Result types`() {
+        val response = mockResponse(200)
+        mockWebServer.enqueue(response)
+
+        val responseObject = api.getResponseSync().execute()
+
+        assertThat(responseObject.code()).isEqualTo(200)
+        assertThat(responseObject.body()).isInstanceOf(Unit::class.java)
     }
 }
