@@ -28,10 +28,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GestureDetectorCompat
 import androidx.lifecycle.lifecycleScope
 import app.pachli.R
-import app.pachli.ViewMediaActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
@@ -41,6 +41,8 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.ortiz.touchview.OnTouchCoordinatesListener
 import com.ortiz.touchview.TouchImageView
 import kotlin.math.abs
@@ -50,24 +52,29 @@ class ViewImageFragment : ViewMediaFragment() {
 
     private val binding by viewBinding(FragmentViewImageBinding::bind)
 
-    private lateinit var toolbar: View
-
     // Volatile: Image requests happen on background thread and we want to see updates to it
     // immediately on another thread. Atomic is an overkill for such thing.
     @Volatile
     private var startedTransition = false
 
-    override fun setupMediaView(showingDescription: Boolean) {
+    private var scheduleToolbarHide = false
+
+    override fun setupMediaView(
+        isToolbarVisible: Boolean,
+        showingDescription: Boolean,
+    ) {
         binding.photoView.transitionName = attachment.url
         binding.mediaDescription.text = attachment.description
         binding.captionSheet.visible(showingDescription)
 
         startedTransition = false
         loadImageFromNetwork(attachment.url, attachment.previewUrl, binding.photoView)
+
+        // Only schedule hiding the toolbar once
+        scheduleToolbarHide = isToolbarVisible
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        toolbar = (requireActivity() as ViewMediaActivity).toolbar
         return inflater.inflate(R.layout.fragment_view_image, container, false)
     }
 
@@ -183,9 +190,19 @@ class ViewImageFragment : ViewMediaFragment() {
                 }
             },
         )
+
+        val captionSheetParams = (binding.captionSheet.layoutParams as CoordinatorLayout.LayoutParams)
+        (captionSheetParams.behavior as BottomSheetBehavior).addBottomSheetCallback(
+            object : BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) = cancelToolbarHide()
+                override fun onSlide(bottomSheet: View, slideOffset: Float) = cancelToolbarHide()
+            },
+        )
     }
 
     override fun onToolbarVisibilityChange(visible: Boolean) {
+        super.onToolbarVisibilityChange(visible)
+
         if (!userVisibleHint) return
 
         isDescriptionVisible = showingDescription && visible
@@ -201,6 +218,15 @@ class ViewImageFragment : ViewMediaFragment() {
                 },
             )
             .start()
+    }
+
+    override fun shouldScheduleToolbarHide(): Boolean {
+        return if (scheduleToolbarHide) {
+            scheduleToolbarHide = false
+            true
+        } else {
+            false
+        }
     }
 
     override fun onStop() {
