@@ -130,10 +130,25 @@ class AccountManager @Inject constructor(
      * @param account the account to save
      */
     fun saveAccount(account: AccountEntity) {
-        if (account.id != 0L) {
-            Timber.d("saveAccount: saving account with id %d", account.id)
-            accountDao.insertOrReplace(account)
+        if (account.id == 0L) {
+            Timber.e("Trying to save account with ID = 0, ignoring")
+            return
         }
+
+        // Work around saveAccount() being called after account deletion
+        // For example:
+        // - Have two accounts, A and B, signed in with A, looking at home timeline for A
+        // - Log out of A. This triggers deletion of account A from the database
+        // - Shortly afterwards the timeline activity/fragment ends, and it tries to save
+        //   the visible ID back to the database, which creates the AccountEntity record
+        //   that was just deleted, but in a partial state.
+        if (accounts.find { it.id == account.id } == null) {
+            Timber.e("Trying to save account with ID = %d which does not exist, ignoring", account.id)
+            return
+        }
+
+        Timber.d("saveAccount: saving account with id %d", account.id)
+        accountDao.insertOrReplace(account)
     }
 
     /**
