@@ -25,6 +25,7 @@ import androidx.paging.cachedIn
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.util.StatusDisplayOptionsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -32,6 +33,7 @@ import javax.inject.Inject
 class AccountMediaViewModel @Inject constructor(
     accountManager: AccountManager,
     api: MastodonApi,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
 ) : ViewModel() {
 
     lateinit var accountId: String
@@ -41,6 +43,8 @@ class AccountMediaViewModel @Inject constructor(
     var currentSource: AccountMediaPagingSource? = null
 
     val activeAccount = accountManager.activeAccount!!
+
+    val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     @OptIn(ExperimentalPagingApi::class)
     val media = Pager(
