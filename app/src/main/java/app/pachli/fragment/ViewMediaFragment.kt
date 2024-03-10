@@ -95,7 +95,7 @@ abstract class ViewMediaFragment : Fragment() {
         hideToolbarJob?.cancel()
         hideToolbarJob = lifecycleScope.launch {
             delay(CONTROLS_TIMEOUT)
-            mediaActivity.onMediaTap()
+            mediaActionsListener.onMediaTap()
         }
     }
 
