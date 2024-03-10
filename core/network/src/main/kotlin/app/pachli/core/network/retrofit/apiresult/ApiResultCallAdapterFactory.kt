@@ -67,7 +67,7 @@ class ApiResultCallAdapterFactory internal constructor() : CallAdapter.Factory()
         // If the response type is not Result then we can't handle this type
         if (getRawType(responseType) != Result::class.java) return null
 
-        // Ensure the V in Result<V, E> is ApiResult<T>
+        // Ensure the V in Result<V, E> is ApiResponse<T>
         val successType = getParameterUpperBound(0, responseType)
         check(successType is ParameterizedType) { "Success type must be parameterized" }
         if (getRawType(successType) != ApiResponse::class.java) return null
