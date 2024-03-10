@@ -238,11 +238,10 @@
     <string name="filter_dialog_update_button">Actualització</string>
     <string name="filter_add_description">Frase per filtrar</string>
     <string name="add_account_description">Afegir un compte de Mastodont</string>
-    <string name="action_lists">Llistes</string>
     <string name="title_lists">Llistes</string>
-    <string name="error_create_list">És impossible crear la llista</string>
-    <string name="error_rename_list">Impossible reanomenar la llista</string>
-    <string name="error_delete_list">És impossible suprimir la llista</string>
+    <string name="error_create_list_fmt">És impossible crear la llista \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Impossible reanomenar la llista \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">És impossible suprimir la llista \"%1$s\": %2$s</string>
     <string name="action_create_list">Crear una llista</string>
     <string name="action_rename_list">Reanomenar la llista</string>
     <string name="action_delete_list">Suprimir la llista</string>

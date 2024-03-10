@@ -29,6 +29,7 @@ import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.HasDefault
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiResultCallAdapterFactory
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_ENABLED
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_PORT
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_SERVER
@@ -130,6 +131,7 @@ object NetworkModule {
             .client(httpClient)
             .addConverterFactory(EnumConstantConverterFactory)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(ApiResultCallAdapterFactory.create())
             .addCallAdapterFactory(NetworkResultCallAdapterFactory.create())
             .build()
     }

@@ -23,7 +23,7 @@
     <string name="error_no_web_browser_found">Couldn\'t find a web browser to use.</string>
     <string name="error_compose_character_limit">The post is too long!</string>
     <string name="error_multimedia_size_limit">Video and audio files cannot exceed %s MB in size.</string>
-    <string name="error_404_not_found">Your server does not support this feature</string>
+    <string name="error_404_not_found_fmt">Your server does not support this feature: %1$s</string>
     <string name="error_image_edit_failed">The image could not be edited.</string>
     <string name="error_media_upload_type">That type of file cannot be uploaded.</string>
     <string name="error_media_upload_opening">That file could not be opened.</string>
@@ -392,11 +392,13 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="add_account_name">Add Account</string>
     <string name="add_account_description">Add new Mastodon Account</string>
-    <string name="action_lists">Lists</string>
     <string name="title_lists">Lists</string>
-    <string name="error_create_list">Could not create list</string>
-    <string name="error_rename_list">Could not update list</string>
-    <string name="error_delete_list">Could not delete list</string>
+    <string name="title_lists_loading">Lists - loading…</string>
+    <string name="title_lists_failed">Lists - failed to load</string>
+    <string name="manage_lists">Manage lists</string>
+    <string name="error_create_list_fmt">Could not create list \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Could not update list \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Could not delete list \"%1$s\": %2$s</string>
     <string name="action_create_list">Create a list</string>
     <string name="action_rename_list">Update the list</string>
     <string name="action_delete_list">Delete the list</string>
@@ -707,7 +709,6 @@
     <string name="translation_provider_fmt">%1$s</string>
     <string name="janky_animation_title">You may need to restart your device</string>
     <string name="janky_animation_msg">This version of Pachli may trigger an Android bug on some devices, and show broken animations.\n\nFor example, when tapping a post to view a thread.\n\nIf you see this you will need to restart your device.\n\nYou only need to do this once.\n\nThis is Android bug, there is nothing Pachli can do.</string>
-
 
     <string name="server_repository_error">Could not fetch server info for %1$s: %2$s</string>
     <string name="server_repository_error_get_well_known_node_info">fetching /.well-known/nodeinfo failed: %1$s</string>

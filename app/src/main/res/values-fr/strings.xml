@@ -239,11 +239,10 @@
     <string name="filter_add_description">Phrase à filtrer</string>
     <string name="add_account_name">Ajouter un compte</string>
     <string name="add_account_description">Ajouter un nouveau compte Mastodon</string>
-    <string name="action_lists">Listes</string>
     <string name="title_lists">Listes</string>
-    <string name="error_create_list">Impossible de créer la liste</string>
-    <string name="error_rename_list">Impossible de renommer la liste</string>
-    <string name="error_delete_list">Impossible de supprimer la liste</string>
+    <string name="error_create_list_fmt">Impossible de créer la liste \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Impossible de renommer la liste \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Impossible de supprimer la liste \"%1$s\": %2$s</string>
     <string name="action_create_list">Créer une liste</string>
     <string name="action_rename_list">Renommer la liste</string>
     <string name="action_delete_list">Supprimer la liste</string>
@@ -634,7 +633,7 @@
     <string name="action_translate">Traduire</string>
     <string name="error_generic_fmt">Une erreur s\'est produite : %s</string>
     <string name="error_network_fmt">Une erreur réseau s\'est produite : %s</string>
-    <string name="error_404_not_found">Votre serveur ne prend pas en charge cette fonctionnalité</string>
+    <string name="error_404_not_found_fmt">Votre serveur ne prend pas en charge cette fonctionnalité: %1$s</string>
     <string name="title_public_trending">Tendances</string>
     <string name="title_public_trending_links">Liens en tendance</string>
     <string name="title_tab_public_trending_links">Liens</string>

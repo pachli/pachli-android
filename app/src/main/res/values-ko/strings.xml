@@ -252,11 +252,10 @@
     <string name="filter_add_description">필터링할 문구 입력</string>
     <string name="add_account_name">계정 추가</string>
     <string name="add_account_description">마스토돈 계정을 추가합니다</string>
-    <string name="action_lists">리스트</string>
     <string name="title_lists">리스트</string>
-    <string name="error_create_list">리스트를 만들 수 없습니다.</string>
-    <string name="error_rename_list">리스트의 이름을 변경할 수 없습니다.</string>
-    <string name="error_delete_list">리스트를 삭제할 수 없습니다.</string>
+    <string name="error_create_list_fmt">리스트를 만들 수 없습니다. \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">리스트의 이름을 변경할 수 없습니다. \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">리스트를 삭제할 수 없습니다. \"%1$s\": %2$s</string>
     <string name="action_create_list">리스트 생성</string>
     <string name="action_rename_list">리스트 이름 바꾸기</string>
     <string name="action_delete_list">리스트 삭제</string>

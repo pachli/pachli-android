@@ -246,11 +246,10 @@
     <string name="action_delete_list">Eliminar a listaxe</string>
     <string name="action_rename_list">Actualizar a listaxe</string>
     <string name="action_create_list">Crear unha listaxe</string>
-    <string name="error_delete_list">Non se puido eliminar a listaxe</string>
-    <string name="error_rename_list">Non se actualizou a listaxe</string>
-    <string name="error_create_list">Non se puido crear a listaxe</string>
+    <string name="error_delete_list_fmt">Non se puido eliminar a listaxe \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Non se actualizou a listaxe \"%1$s\": %2$s</string>
+    <string name="error_create_list_fmt">Non se puido crear a listaxe \"%1$s\": %2$s</string>
     <string name="title_lists">Listaxes</string>
-    <string name="action_lists">Listaxes</string>
     <string name="add_account_description">Engadir unha nova conta Mastodon</string>
     <string name="add_account_name">Engadir conta</string>
     <string name="filter_add_description">Frase a filtrar</string>

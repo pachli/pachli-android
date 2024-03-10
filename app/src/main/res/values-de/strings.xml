@@ -225,7 +225,6 @@
     <string name="filter_dialog_update_button">Aktualisieren</string>
     <string name="add_account_name">Konto hinzufügen</string>
     <string name="add_account_description">Neues Mastodon-Konto hinzufügen</string>
-    <string name="action_lists">Listen</string>
     <string name="title_lists">Listen</string>
     <string name="action_create_list">Liste erstellen</string>
     <string name="action_rename_list">Liste aktualisieren</string>
@@ -286,9 +285,9 @@
     <string name="download_media">Dateien herunterladen</string>
     <string name="downloading_media">Dateien werden heruntergeladen</string>
     <string name="filter_add_description">zu filternder Ausdruck</string>
-    <string name="error_create_list">Liste konnte nicht erstellt werden</string>
-    <string name="error_rename_list">Liste konnte nicht aktualisiert werden</string>
-    <string name="error_delete_list">Liste konnte nicht gelöscht werden</string>
+    <string name="error_create_list_fmt">Liste konnte nicht erstellt werden \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Liste konnte nicht aktualisiert werden \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Liste konnte nicht gelöscht werden \"%1$s\": %2$s</string>
     <string name="hint_search_people_list">Suche nach Leuten, denen du folgst</string>
     <string name="action_remove_from_list">Konto aus der Liste entfernen</string>
     <string name="edit_hashtag_hint">Hashtag ohne #</string>
@@ -653,7 +652,7 @@
     <string name="pref_title_show_self_boosts">Selbst geteilte Beiträge anzeigen</string>
     <string name="title_tab_public_trending_statuses">Beiträge</string>
     <string name="pref_update_notification_frequency_once_per_version">Einmal pro Version</string>
-    <string name="error_404_not_found">Dein Server unterstützt diese Funktion nicht</string>
+    <string name="error_404_not_found_fmt">Dein Server unterstützt diese Funktion nicht: %1$s</string>
     <string name="pref_title_font_family">Schriftfamilie</string>
     <string name="action_translate">Übersetzen</string>
     <string name="update_dialog_title">Eine Aktualisierung ist verfügbar</string>

@@ -244,11 +244,10 @@
     <string name="filter_add_description">বাক্য ফিল্টার কর</string>
     <string name="add_account_name">অ্যাকাউন্ট যোগ করুন</string>
     <string name="add_account_description">নতুন ম্যাস্টোডোন অ্যাকাউন্ট যোগ করুন</string>
-    <string name="action_lists">তালিকাসমূহ</string>
     <string name="title_lists">তালিকাসমূহ</string>
-    <string name="error_create_list">তালিকা তৈরি করা যায়নি</string>
-    <string name="error_rename_list">তালিকা নামকরণ করা যায়নি</string>
-    <string name="error_delete_list">তালিকা মুছে ফেলা যায়নি</string>
+    <string name="error_create_list_fmt">তালিকা তৈরি করা যায়নি \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">তালিকা নামকরণ করা যায়নি \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">তালিকা মুছে ফেলা যায়নি \"%1$s\": %2$s</string>
     <string name="action_create_list">একটি তালিকা তৈরি করুন</string>
     <string name="action_rename_list">তালিকা পুনঃ নামকরণ কর</string>
     <string name="action_delete_list">তালিকা মুছে দিন</string>

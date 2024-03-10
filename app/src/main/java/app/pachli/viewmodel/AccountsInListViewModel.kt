@@ -1,4 +1,5 @@
-/* Copyright 2017 Andrew Dawson
+/*
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -18,103 +19,137 @@ package app.pachli.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.core.data.repository.ListsError
+import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.util.Either
-import app.pachli.util.Either.Left
-import app.pachli.util.Either.Right
-import app.pachli.util.withoutFirstWhich
-import at.connyduck.calladapter.networkresult.fold
+import app.pachli.core.network.retrofit.apiresult.ApiError
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-data class State(val accounts: Either<Throwable, List<TimelineAccount>>, val searchResult: List<TimelineAccount>?)
+sealed interface SearchResults {
+    /** Search not started */
+    data object Empty : SearchResults
 
-@HiltViewModel
-class AccountsInListViewModel @Inject constructor(private val api: MastodonApi) : ViewModel() {
+    /** Search results are loading */
+    data object Loading : SearchResults
 
-    val state: Flow<State> get() = _state
-    private val _state = MutableStateFlow(State(Right(listOf()), null))
+    /** Search results are loaded, discovered [accounts] */
+    data class Loaded(val accounts: List<TimelineAccount>) : SearchResults
+}
 
-    fun load(listId: String) {
-        val state = _state.value
-        if (state.accounts.isLeft() || state.accounts.asRight().isEmpty()) {
-            viewModelScope.launch {
-                api.getAccountsInList(listId, 0).fold(
-                    { accounts ->
-                        updateState { copy(accounts = Right(accounts)) }
-                    },
-                    { e ->
-                        updateState { copy(accounts = Left(e)) }
-                    },
-                )
+sealed interface Accounts {
+    data object Loading : Accounts
+    data class Loaded(val accounts: List<TimelineAccount>) : Accounts
+}
+
+@HiltViewModel(assistedFactory = AccountsInListViewModel.Factory::class)
+class AccountsInListViewModel @AssistedInject constructor(
+    private val api: MastodonApi,
+    private val listsRepository: ListsRepository,
+    @Assisted val listId: String,
+) : ViewModel() {
+
+    private val _accountsInList = MutableStateFlow<Result<Accounts, FlowError.GetAccounts>>(Ok(Accounts.Loading))
+    val accountsInList = _accountsInList.asStateFlow()
+
+    private val _searchResults = MutableStateFlow<Result<SearchResults, ApiError>>(Ok(SearchResults.Empty))
+
+    /** Flow of results after calling [search] */
+    val searchResults = _searchResults.asStateFlow()
+
+    private val _errors = Channel<Error>()
+    val errors = _errors.receiveAsFlow()
+
+    init {
+        refresh()
+    }
+
+    fun refresh() = viewModelScope.launch {
+        _accountsInList.value = Ok(Accounts.Loading)
+        _accountsInList.value = listsRepository.getAccountsInList(listId)
+            .mapBoth({
+                Ok(Accounts.Loaded(it))
+            }, {
+                Err(FlowError.GetAccounts(it))
+            })
+    }
+
+    /**
+     * Add [account] to [listId], refreshing on success, sending [Error.AddAccounts] on failure
+     */
+    fun addAccountToList(account: TimelineAccount) = viewModelScope.launch {
+        listsRepository.addAccountsToList(listId, listOf(account.id))
+            .onSuccess { refresh() }
+            .onFailure {
+                Timber.e("Failed to add account to list: %s", account.username)
+                _errors.send(Error.AddAccounts(it))
             }
-        }
     }
 
-    fun addAccountToList(listId: String, account: TimelineAccount) {
-        viewModelScope.launch {
-            api.addAccountToList(listId, listOf(account.id))
-                .fold(
-                    {
-                        updateState {
-                            copy(accounts = accounts.map { it + account })
-                        }
-                    },
-                    {
-                        Timber.i(
-                            "Failed to add account to list: ${account.username}",
-                        )
-                    },
-                )
-        }
+    /**
+     * Remove [accountId] from [listId], refreshing on success, sending
+     * [Error.DeleteAccounts] on failure
+     */
+    fun deleteAccountFromList(accountId: String) = viewModelScope.launch {
+        listsRepository.deleteAccountsFromList(listId, listOf(accountId))
+            .onSuccess { refresh() }
+            .onFailure {
+                Timber.e("Failed to remove account from list: %s", accountId)
+                _errors.send(Error.DeleteAccounts(it))
+            }
     }
 
-    fun deleteAccountFromList(listId: String, accountId: String) {
-        viewModelScope.launch {
-            api.deleteAccountFromList(listId, listOf(accountId))
-                .fold(
-                    {
-                        updateState {
-                            copy(
-                                accounts = accounts.map { accounts ->
-                                    accounts.withoutFirstWhich { it.id == accountId }
-                                },
-                            )
-                        }
-                    },
-                    {
-                        Timber.i(
-                            "Failed to remove account from list: $accountId",
-                        )
-                    },
-                )
-        }
-    }
-
+    /** Search for [query] and send results to [searchResults] */
     fun search(query: String) {
         when {
-            query.isEmpty() -> updateState { copy(searchResult = null) }
-            query.isBlank() -> updateState { copy(searchResult = listOf()) }
+            query.isEmpty() -> _searchResults.value = Ok(SearchResults.Empty)
+            query.isBlank() -> _searchResults.value = Ok(SearchResults.Loaded(emptyList()))
             else -> viewModelScope.launch {
-                api.searchAccounts(query, null, 10, true)
-                    .fold(
-                        { result ->
-                            updateState { copy(searchResult = result) }
-                        },
-                        {
-                            updateState { copy(searchResult = listOf()) }
-                        },
-                    )
+                _searchResults.value = api.searchAccounts(query, null, 10, true).mapBoth({
+                    Ok(SearchResults.Loaded(it.body))
+                }, {
+                    Err(it)
+                })
             }
         }
     }
 
-    private inline fun updateState(crossinline fn: State.() -> State) {
-        _state.value = fn(_state.value)
+    /** Create [AccountsInListViewModel] injecting [listId] */
+    @AssistedFactory
+    interface Factory {
+        fun create(listId: String): AccountsInListViewModel
+    }
+
+    /**
+     * Errors that can be part of the [Result] in the
+     * [AccountsInListViewModel.accountsInList] flow
+     */
+    sealed interface FlowError : ListsError {
+        @JvmInline
+        value class GetAccounts(private val error: ListsError.GetAccounts) : FlowError, ListsError by error
+    }
+
+    /** Asynchronous errors from network operations */
+    sealed interface Error : ListsError {
+        @JvmInline
+        value class AddAccounts(private val error: ListsError.AddAccounts) : Error, ListsError by error
+
+        @JvmInline
+        value class DeleteAccounts(private val error: ListsError.DeleteAccounts) : Error, ListsError by error
     }
 }

@@ -238,11 +238,10 @@
     <string name="filter_add_description">العبارة التي يلزم تصفيتها</string>
     <string name="add_account_name">إضافة حساب</string>
     <string name="add_account_description">إضافة حساب ماستدون جديد</string>
-    <string name="action_lists">القوائم</string>
     <string name="title_lists">القوائم</string>
-    <string name="error_create_list">لا يمكن إنشاء قائمة</string>
-    <string name="error_rename_list">لا يمكن إعادة تسمية القائمة</string>
-    <string name="error_delete_list">لا يمكن حذف القائمة</string>
+    <string name="error_create_list_fmt">%2$s: \"%1$s\" لا يمكن إنشاء قائمة</string>
+    <string name="error_rename_list_fmt">%2$s: \"%1$s\" لا يمكن إعادة تسمية القائمة</string>
+    <string name="error_delete_list_fmt">%2$s: \"%1$s\" لا يمكن حذف القائمة</string>
     <string name="action_create_list">إنشاء قائمة</string>
     <string name="action_rename_list">إعادة تسمية القائمة</string>
     <string name="action_delete_list">حذف القائمة</string>
@@ -658,7 +657,7 @@
     <string name="filter_description_hide">إخفاء تماما</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="post_media_image">صورة</string>
-    <string name="error_404_not_found">خادمك لا يدعم هذه الميزة</string>
+    <string name="error_404_not_found_fmt">خادمك لا يدعم هذه الميزة: %1$s</string>
     <string name="filter_action_hide">إخفاء</string>
     <string name="label_filter_title">العنوان</string>
     <string name="pref_title_font_family">عائلة الخطوط</string>

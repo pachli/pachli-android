@@ -155,7 +155,6 @@
     <string name="error_network">Tharla earráid líonra! Seiceáil do nasc agus bain triail eile as!</string>
     <string name="error_generic">Tharla earráid.</string>
     <string name="title_lists">Liostaí</string>
-    <string name="action_lists">Liostaí</string>
     <string name="action_reset_schedule">Athshocraigh</string>
     <string name="action_search">Cuardaigh</string>
     <string name="action_edit_profile">Cuir próifíl in eagar</string>
@@ -273,9 +272,9 @@
     <string name="failed_fetch_posts">Theip ar postálacha a ghabháil</string>
     <string name="report_description_1">Seolfar an tuarascáil chuig do mhodhnóir freastalaí. Féadfaidh tú míniú a thabhairt ar an bhfáth go bhfuil tú ag tuairisciú an chuntais seo thíos:</string>
     <string name="add_account_description">Cuir Cuntas Mastodon nua leis</string>
-    <string name="error_create_list">Níorbh fhéidir liosta a chruthú</string>
-    <string name="error_rename_list">Níorbh fhéidir an liosta a athainmniú</string>
-    <string name="error_delete_list">Níorbh fhéidir an liosta a scriosadh</string>
+    <string name="error_create_list_fmt">Níorbh fhéidir liosta a chruthú \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Níorbh fhéidir an liosta a athainmniú \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Níorbh fhéidir an liosta a scriosadh \"%1$s\": %2$s</string>
     <string name="action_create_list">Cruthaigh liosta</string>
     <string name="action_rename_list">Athainmnigh an liosta</string>
     <string name="action_delete_list">Scrios an liosta</string>

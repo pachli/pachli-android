@@ -238,11 +238,10 @@
     <string name="filter_add_description">Frazo filtrota</string>
     <string name="add_account_name">Aldoni konton</string>
     <string name="add_account_description">Aldoni novan Mastodon-konton</string>
-    <string name="action_lists">Listoj</string>
     <string name="title_lists">Listoj</string>
-    <string name="error_create_list">Ne povis krei la liston</string>
-    <string name="error_rename_list">Ne povis ŝanĝi la nomon de la listo</string>
-    <string name="error_delete_list">Ne povis forigi la liston</string>
+    <string name="error_create_list_fmt">Ne povis krei la liston \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Ne povis ŝanĝi la nomon de la listo \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Ne povis forigi la liston \"%1$s\": %2$s</string>
     <string name="action_create_list">Krei liston</string>
     <string name="action_rename_list">Ŝanĝi la nomon de la listo</string>
     <string name="action_delete_list">Forigi la liston</string>

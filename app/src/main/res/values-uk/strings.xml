@@ -25,7 +25,6 @@
     <string name="error_empty">Не може бути порожнім.</string>
     <string name="error_network">Сталася помилка мережі. Перевірте інтернет-з\'єднання та спробуйте знову.</string>
     <string name="title_lists">Списки</string>
-    <string name="action_lists">Списки</string>
     <string name="action_reset_schedule">Скинути</string>
     <string name="action_search">Пошук</string>
     <string name="action_edit_profile">Редагувати профіль</string>
@@ -262,9 +261,9 @@
     <string name="action_delete_list">Видалити список</string>
     <string name="action_rename_list">Оновити список</string>
     <string name="action_create_list">Створити список</string>
-    <string name="error_delete_list">Не вдалося видалити список</string>
-    <string name="error_rename_list">Не вдалося оновити список</string>
-    <string name="error_create_list">Не вдалося створити список</string>
+    <string name="error_delete_list_fmt">Не вдалося видалити список \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Не вдалося оновити список \"%1$s\": %2$s</string>
+    <string name="error_create_list_fmt">Не вдалося створити список \"%1$s\": %2$s</string>
     <string name="add_account_description">Додати новий обліковий запис Mastodon</string>
     <string name="add_account_name">Додати обліковий запис</string>
     <string name="filter_add_description">Фільтрувати фразу</string>

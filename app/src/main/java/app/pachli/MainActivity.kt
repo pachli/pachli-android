@@ -74,6 +74,8 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.repository.Lists
+import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TabKind
 import app.pachli.core.designsystem.EmbeddedFontFamily
@@ -121,7 +123,11 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.FixedSizeDrawable
 import com.bumptech.glide.request.transition.Transition
+import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
@@ -139,6 +145,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
+import com.mikepenz.materialdrawer.model.SectionDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
 import com.mikepenz.materialdrawer.model.interfaces.descriptionRes
@@ -180,6 +187,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var updateCheck: UpdateCheck
+
+    @Inject lateinit var listsRepository: ListsRepository
 
     @Inject
     lateinit var developerToolsUseCase: DeveloperToolsUseCase
@@ -348,6 +357,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         unreadAnnouncementsCount--
                         updateAnnouncementsBadge()
                     }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            listsRepository.lists.collect {
+                it.onSuccess { refreshMainDrawerItems(addSearchButton = hideTopToolbar) }
+
+                it.onFailure {
+                    Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.action_retry) { listsRepository.refresh() }
+                        .show()
                 }
             }
         }
@@ -571,6 +592,28 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun refreshMainDrawerItems(addSearchButton: Boolean) {
+        val (listsDrawerItems, listsSectionTitle) = listsRepository.lists.value.getOrElse { null }?.let { result ->
+            when (result) {
+                Lists.Loading -> Pair(emptyList(), R.string.title_lists_loading)
+                is Lists.Loaded -> Pair(
+                    result.lists
+                        .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.title })
+                        .map { list ->
+                            primaryDrawerItem {
+                                nameText = list.title
+                                iconicsIcon = GoogleMaterial.Icon.gmd_list
+                                onClick = {
+                                    startActivityWithSlideInAnimation(
+                                        StatusListActivityIntent.list(this@MainActivity, list.id, list.title),
+                                    )
+                                }
+                            }
+                        },
+                    R.string.title_lists,
+                )
+            }
+        } ?: Pair(emptyList(), R.string.title_lists_failed)
+
         binding.mainDrawer.apply {
             itemAdapter.clear()
             tintStatusBar = true
@@ -609,13 +652,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         startActivityWithSlideInAnimation(intent)
                     }
                 },
+                SectionDrawerItem().apply {
+                    nameRes = listsSectionTitle
+                },
+                *listsDrawerItems.toTypedArray(),
                 primaryDrawerItem {
-                    nameRes = R.string.action_lists
-                    iconicsIcon = GoogleMaterial.Icon.gmd_list
+                    nameRes = R.string.manage_lists
+                    iconicsIcon = GoogleMaterial.Icon.gmd_settings
                     onClick = {
                         startActivityWithSlideInAnimation(ListActivityIntent(context))
                     }
                 },
+                DividerDrawerItem(),
                 primaryDrawerItem {
                     nameRes = R.string.action_access_drafts
                     iconRes = R.drawable.ic_notebook

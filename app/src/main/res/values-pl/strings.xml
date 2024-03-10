@@ -198,7 +198,6 @@
     <string name="replying_to">Odpowiadasz na wpis autorstwa @%s</string>
     <string name="add_account_name">Dodaj konto</string>
     <string name="add_account_description">Dodaj nowe Konto Mastodon</string>
-    <string name="action_lists">Listy</string>
     <string name="title_lists">Listy</string>
     <string name="compose_active_account_description">Publikowanie jako %1$s</string>
     <string name="action_set_caption">Ustaw podpis</string>
@@ -292,9 +291,9 @@
     <string name="filter_dialog_whole_word">Całe słowo</string>
     <string name="filter_dialog_whole_word_description">Kiedy słowo kluczowe lub fraza jest tylko alfanumeryczna, filtr będzie zastosowany jeśli pasuje do całego słowa</string>
     <string name="filter_add_description">Fraza, która ma być filtrowana</string>
-    <string name="error_create_list">Tworzenie listy nie powiodło się</string>
-    <string name="error_rename_list">Zmiana nazwy listy nie powiodła się</string>
-    <string name="error_delete_list">Usunięcie listy nie powiodło się</string>
+    <string name="error_create_list_fmt">Tworzenie listy nie powiodło się \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Zmiana nazwy listy nie powiodła się \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Usunięcie listy nie powiodło się \"%1$s\": %2$s</string>
     <string name="action_create_list">Stwórz listę</string>
     <string name="action_rename_list">Zmień nazwę listy</string>
     <string name="action_delete_list">Usuń listę</string>

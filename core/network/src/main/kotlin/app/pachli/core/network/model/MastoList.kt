@@ -22,5 +22,9 @@ import com.squareup.moshi.JsonClass
 data class MastoList(
     val id: String,
     val title: String,
-    val exclusive: Boolean?,
+    /**
+     * List's exclusivity (whether posts are hidden from the home timeline).
+     * Null implies the server does not support this feature.
+     */
+    val exclusive: Boolean? = null,
 )

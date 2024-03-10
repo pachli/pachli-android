@@ -5,7 +5,7 @@
     <string name="error_empty">Questo non può essere vuoto.</string>
     <string name="error_no_web_browser_found">Nessun browser web utilizzabile trovato.</string>
     <string name="error_compose_character_limit">Il messaggio è troppo lungo!</string>
-    <string name="error_404_not_found">Il tuo server non supporta questa feature</string>
+    <string name="error_404_not_found_fmt">Il tuo server non supporta questa feature: %1$s</string>
     <string name="error_media_upload_type">Quel tipo di file non può essere caricato.</string>
     <string name="error_media_upload_opening">Non è stato possibile aprire quel file.</string>
     <string name="error_media_upload_permission">È richiesto il permesso di leggere file.</string>
@@ -253,11 +253,10 @@
     <string name="filter_add_description">Frase da filtrare</string>
     <string name="add_account_name">Aggiungi account</string>
     <string name="add_account_description">Aggiungi un nuovo Account Mastodon</string>
-    <string name="action_lists">Liste</string>
     <string name="title_lists">Liste</string>
-    <string name="error_create_list">Non è stato possibile creare la lista</string>
-    <string name="error_rename_list">Non è stato possibile rinominare la lista</string>
-    <string name="error_delete_list">Non è stato possibile eliminare la lista</string>
+    <string name="error_create_list_fmt">Non è stato possibile creare la lista \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Non è stato possibile rinominare la lista \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Non è stato possibile eliminare la lista \"%1$s\": %2$s</string>
     <string name="action_create_list">Crea una lista</string>
     <string name="action_rename_list">Rinomina la lista</string>
     <string name="action_delete_list">Elimina la lista</string>

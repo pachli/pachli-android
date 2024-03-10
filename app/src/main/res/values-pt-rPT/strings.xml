@@ -292,11 +292,10 @@
     <string name="filter_add_description">Frase para filtrar</string>
     <string name="add_account_name">Adicionar Conta</string>
     <string name="add_account_description">Adicionar nova Conta Mastodon</string>
-    <string name="action_lists">Listas</string>
-    <string name="error_rename_list">Não foi possível renomear a lista</string>
+    <string name="error_rename_list_fmt">Não foi possível renomear a lista \"%1$s\": %2$s</string>
     <string name="title_lists">Listas</string>
-    <string name="error_create_list">Não foi possível criar a lista</string>
-    <string name="error_delete_list">Não foi possível apagar a lista</string>
+    <string name="error_create_list_fmt">Não foi possível criar a lista \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Não foi possível apagar a lista \"%1$s\": %2$s</string>
     <string name="action_create_list">Criar uma lista</string>
     <string name="action_rename_list">Renomear a lista</string>
     <string name="action_delete_list">Apagar a lista</string>

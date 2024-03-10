@@ -1,4 +1,5 @@
-/* Copyright 2017 Andrew Dawson
+/*
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -18,130 +19,57 @@ package app.pachli.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.core.network.model.MastoList
-import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.util.replacedFirstWhich
-import app.pachli.util.withoutFirstWhich
-import at.connyduck.calladapter.networkresult.fold
+import app.pachli.core.data.repository.ListsError
+import app.pachli.core.data.repository.ListsRepository
+import com.github.michaelbull.result.onFailure
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.io.IOException
-import java.net.ConnectException
 import javax.inject.Inject
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
+sealed interface Error : ListsError {
+    val title: String
+
+    data class Create(override val title: String, private val error: ListsError.Create) : Error, ListsError by error
+
+    data class Delete(override val title: String, private val error: ListsError.Delete) : Error, ListsError by error
+
+    data class Update(override val title: String, private val error: ListsError.Update) : Error, ListsError by error
+}
+
 @HiltViewModel
-internal class ListsViewModel @Inject constructor(private val api: MastodonApi) : ViewModel() {
-    enum class LoadingState {
-        INITIAL,
-        LOADING,
-        LOADED,
-        ERROR_NETWORK,
-        ERROR_OTHER,
+internal class ListsViewModel @Inject constructor(
+    private val listsRepository: ListsRepository,
+) : ViewModel() {
+    private val _errors = Channel<Error>()
+    val errors = _errors.receiveAsFlow()
+
+    val lists = listsRepository.lists
+
+    init {
+        listsRepository.refresh()
     }
 
-    enum class Event {
-        CREATE_ERROR,
-        DELETE_ERROR,
-        UPDATE_ERROR,
+    fun refresh() = viewModelScope.launch {
+        listsRepository.refresh()
     }
 
-    data class State(val lists: List<MastoList>, val loadingState: LoadingState)
-
-    val state: Flow<State> get() = _state
-    val events: Flow<Event> get() = _events
-    private val _state = MutableStateFlow(State(listOf(), LoadingState.INITIAL))
-    private val _events = MutableSharedFlow<Event>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-
-    fun retryLoading() {
-        loadIfNeeded()
-    }
-
-    private fun loadIfNeeded() {
-        val state = _state.value
-        if (state.loadingState == LoadingState.LOADING || state.lists.isNotEmpty()) return
-        updateState {
-            copy(loadingState = LoadingState.LOADING)
-        }
-
-        viewModelScope.launch {
-            api.getLists().fold(
-                { lists ->
-                    updateState {
-                        copy(
-                            lists = lists,
-                            loadingState = LoadingState.LOADED,
-                        )
-                    }
-                },
-                { err ->
-                    updateState {
-                        copy(
-                            loadingState = if (err is IOException || err is ConnectException) {
-                                LoadingState.ERROR_NETWORK
-                            } else {
-                                LoadingState.ERROR_OTHER
-                            },
-                        )
-                    }
-                },
-            )
+    fun createNewList(title: String, exclusive: Boolean) = viewModelScope.launch {
+        listsRepository.createList(title, exclusive).onFailure {
+            _errors.send(Error.Create(title, it))
         }
     }
 
-    fun createNewList(listName: String, exclusive: Boolean) {
-        viewModelScope.launch {
-            api.createList(listName, exclusive).fold(
-                { list ->
-                    updateState {
-                        copy(lists = lists + list)
-                    }
-                },
-                {
-                    sendEvent(Event.CREATE_ERROR)
-                },
-            )
+    fun updateList(listId: String, title: String, exclusive: Boolean) = viewModelScope.launch {
+        listsRepository.editList(listId, title, exclusive).onFailure {
+            _errors.send(Error.Update(title, it))
         }
     }
 
-    fun updateList(listId: String, listName: String, exclusive: Boolean) {
-        viewModelScope.launch {
-            api.updateList(listId, listName, exclusive).fold(
-                { list ->
-                    updateState {
-                        copy(lists = lists.replacedFirstWhich(list) { it.id == listId })
-                    }
-                },
-                {
-                    sendEvent(Event.UPDATE_ERROR)
-                },
-            )
+    fun deleteList(listId: String, title: String) = viewModelScope.launch {
+        listsRepository.deleteList(listId).onFailure {
+            _errors.send(Error.Delete(title, it))
         }
-    }
-
-    fun deleteList(listId: String) {
-        viewModelScope.launch {
-            api.deleteList(listId).fold(
-                {
-                    updateState {
-                        copy(lists = lists.withoutFirstWhich { it.id == listId })
-                    }
-                },
-                {
-                    sendEvent(Event.DELETE_ERROR)
-                },
-            )
-        }
-    }
-
-    private inline fun updateState(crossinline fn: State.() -> State) {
-        _state.value = fn(_state.value)
-    }
-
-    private suspend fun sendEvent(event: Event) {
-        _events.emit(event)
     }
 }

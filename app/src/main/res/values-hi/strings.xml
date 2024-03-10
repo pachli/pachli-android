@@ -36,7 +36,6 @@
     <string name="error_empty">यह खाली नहीं हो सकता।</string>
     <string name="error_network">नेटवर्क त्रुटि हुई! कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
     <string name="title_lists">सूचियाँ</string>
-    <string name="action_lists">सूचियाँ</string>
     <string name="description_poll">जनमत के विकल्प: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="action_view_bookmarks">बुकमार्क</string>
     <string name="edit_poll">संपादित करें</string>
@@ -290,9 +289,9 @@
     <string name="action_delete_list">सूची हटाएँ</string>
     <string name="action_rename_list">सूची का नाम बदलें</string>
     <string name="action_create_list">एक सूची बनाएं</string>
-    <string name="error_delete_list">सूची नहीं हटाई जा सकी</string>
-    <string name="error_rename_list">सूची का नाम नहीं बदल सके</string>
-    <string name="error_create_list">सूची नहीं बना सके</string>
+    <string name="error_delete_list_fmt">सूची नहीं हटाई जा सकी \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">सूची का नाम नहीं बदल सके \"%1$s\": %2$s</string>
+    <string name="error_create_list_fmt">सूची नहीं बना सके \"%1$s\": %2$s</string>
     <string name="add_account_description">नया मास्टोडन खाता जोड़ें</string>
     <string name="filter_add_description">फ़िल्टर करने के लिए वाक्यांश</string>
     <string name="filter_dialog_whole_word_description">जब संकेत शब्द या वाक्यांश केवल अल्फ़ान्यूमेरिक होता है, तो यह केवल तभी लागू होगा जब यह पूरे शब्द से मेल खाता होगा</string>

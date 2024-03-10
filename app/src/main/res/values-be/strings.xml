@@ -363,11 +363,10 @@
     <string name="profile_metadata_label">Метазвесткі профілю</string>
     <string name="title_favourited_by">Упадабалі</string>
     <string name="add_account_description">Дадаць уліковы запіс Mastodon</string>
-    <string name="action_lists">Спісы</string>
     <string name="title_lists">Спісы</string>
-    <string name="error_create_list">Не атрымалася стварыць спіс</string>
-    <string name="error_rename_list">Не атрымалася перайменаваць спіс</string>
-    <string name="error_delete_list">Не атрымалася выдаліць спіс</string>
+    <string name="error_create_list_fmt">Не атрымалася стварыць спіс \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Не атрымалася перайменаваць спіс \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Не атрымалася выдаліць спіс \"%1$s\": %2$s</string>
     <string name="action_create_list">Стварыць спіс</string>
     <string name="action_rename_list">Перайменаваць спіс</string>
     <string name="action_delete_list">Выдаліць спіс</string>

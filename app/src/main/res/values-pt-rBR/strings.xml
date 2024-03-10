@@ -216,7 +216,6 @@
     <string name="replying_to">Respondendo @%s</string>
     <string name="add_account_name">Adicionar conta</string>
     <string name="add_account_description">Adicionar nova conta Mastodon</string>
-    <string name="action_lists">Listas</string>
     <string name="title_lists">Listas</string>
     <string name="compose_active_account_description">Postando como %1$s</string>
     <string name="action_set_caption">Descrever</string>
@@ -284,9 +283,9 @@
     <string name="filter_dialog_remove_button">Excluir</string>
     <string name="filter_dialog_update_button">Atualizar</string>
     <string name="filter_add_description">Frase para filtrar</string>
-    <string name="error_create_list">Não foi possível criar a lista</string>
-    <string name="error_rename_list">Não foi possível renomear a lista</string>
-    <string name="error_delete_list">Não foi possível excluir a lista</string>
+    <string name="error_create_list_fmt">Não foi possível criar a lista \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Não foi possível renomear a lista \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Não foi possível excluir a lista \"%1$s\": %2$s</string>
     <string name="action_create_list">Criar uma lista</string>
     <string name="action_rename_list">Renomear lista</string>
     <string name="action_delete_list">Excluir lista</string>
@@ -650,7 +649,7 @@
     <string name="notification_summary_report_format">%s · %d Toots anexados</string>
     <string name="send_account_link_to">Compartilhar URL da conta para…</string>
     <string name="post_media_image">Imagem</string>
-    <string name="error_404_not_found">Tua instância não suporta este recurso</string>
+    <string name="error_404_not_found_fmt">Tua instância não suporta este recurso: %1$s</string>
     <string name="filter_action_hide">Ocultar</string>
     <string name="label_filter_title">Nome</string>
     <string name="pref_title_font_family">Família da fonte</string>

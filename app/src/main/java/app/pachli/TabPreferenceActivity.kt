@@ -46,6 +46,8 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.repository.Lists
+import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.database.model.TabData
 import app.pachli.core.database.model.TabKind
 import app.pachli.core.designsystem.R as DR
@@ -55,8 +57,9 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.util.getDimension
 import app.pachli.util.unsafeLazy
-import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.sparkbutton.helpers.Utils
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialArcMotion
@@ -79,6 +82,9 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
 
     @Inject
     lateinit var eventHub: EventHub
+
+    @Inject
+    lateinit var listsRepository: ListsRepository
 
     private val binding by viewBinding(ActivityTabPreferenceBinding::inflate)
 
@@ -302,12 +308,9 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         statusLayout.addView(progress)
         statusLayout.addView(noListsText)
 
-        val dialogBuilder = AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this)
             .setTitle(R.string.select_list_title)
-            .setNeutralButton(R.string.select_list_manage) { _, _ ->
-                val listIntent = ListActivityIntent(applicationContext)
-                startActivity(listIntent)
-            }
+            .setNeutralButton(R.string.select_list_manage, null)
             .setNegativeButton(android.R.string.cancel, null)
             .setView(statusLayout)
             .setAdapter(adapter) { _, position ->
@@ -318,28 +321,39 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                     updateAvailableTabs()
                     saveTabs()
                 }
-            }
+            }.create()
 
         val showProgressBarJob = getProgressBarJob(progress, 500)
         showProgressBarJob.start()
 
-        val dialog = dialogBuilder.show()
+        // Set the "Manage lists" button listener after creating the dialog. This ensures
+        // that clicking the button does not dismiss the dialog, so when the user returns
+        // from managing the lists the dialog is still displayed.
+        dialog.setOnShowListener {
+            val button = dialog.getButton(AlertDialog.BUTTON_NEUTRAL)
+            button.setOnClickListener {
+                startActivity(ListActivityIntent(applicationContext))
+            }
+        }
+        dialog.show()
 
         lifecycleScope.launch {
-            mastodonApi.getLists().fold(
-                { lists ->
-                    showProgressBarJob.cancel()
-                    adapter.addAll(lists)
-                    if (lists.isEmpty()) {
-                        noListsText.show()
+            listsRepository.lists.collect { result ->
+                result.onSuccess { lists ->
+                    if (lists is Lists.Loaded) {
+                        showProgressBarJob.cancel()
+                        adapter.clear()
+                        adapter.addAll(lists.lists)
+                        if (lists.lists.isEmpty()) noListsText.show()
                     }
-                },
-                { throwable ->
+                }
+
+                result.onFailure {
                     dialog.hide()
-                    Timber.w(throwable, "failed to load lists")
                     Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_LONG).show()
-                },
-            )
+                    Timber.w(it.throwable, "failed to load lists")
+                }
+            }
         }
     }
 

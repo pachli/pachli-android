@@ -205,7 +205,6 @@
     <string name="replying_to">Yn ymateb i @%s</string>
     <string name="add_account_name">Ychwanegu Cyfrif</string>
     <string name="add_account_description">Ychwanegu Cyfrif Mastodon newydd</string>
-    <string name="action_lists">Rhestrau</string>
     <string name="title_lists">Rhestrau</string>
     <string name="compose_active_account_description">Yn postio fel %1$s</string>
     <string name="action_set_caption">Gosod pennawd</string>
@@ -451,7 +450,7 @@
     <string name="failed_to_pin">Wedi methu pinio</string>
     <string name="failed_to_unpin">Wedi methu dadbinio</string>
     <string name="pref_title_http_proxy_port_message">Dylai\'r porth fod rhwng %d a %d</string>
-    <string name="error_rename_list">Methu diweddaru\'r rhestr</string>
+    <string name="error_rename_list_fmt">Methu diweddaru\'r rhestr \"%1$s\": %2$s</string>
     <string name="pref_default_post_language">Iaith bostio ragosodedig</string>
     <string name="description_post_bookmarked">Tudalnodiwyd</string>
     <string name="select_list_title">Dewiswch restr</string>
@@ -491,13 +490,13 @@
     <string name="notification_sign_up_description">Hysbysiadau am ddefnyddwyr newydd</string>
     <string name="notification_report_description">Hysbysiadau am adroddiadau cymedroli</string>
     <string name="filter_dialog_whole_word_description">Os yw\'r allweddair neu\'r ymadrodd yn alffaniwmerig yn unig, mi fydd ond yn cael ei osod os yw\'n cyfateb â\'r gair cyfan</string>
-    <string name="error_create_list">Methu creu rhestr</string>
+    <string name="error_create_list_fmt">Methu creu rhestr \"%1$s\": %2$s</string>
     <string name="set_focus_description">Tapiwch neu lusgo\'r cylch i ddewis y canolbwynt a fydd bob amser yn weladwy mewn lluniau bach.</string>
     <string name="description_poll">Pôl gyda dewisiadau: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="list">Rhestr</string>
     <string name="action_set_focus">Gosod pwynt ffocws</string>
     <string name="status_created_at_now">nawr</string>
-    <string name="error_delete_list">Methu dileu\'r rhestr</string>
+    <string name="error_delete_list_fmt">Methu dileu\'r rhestr \"%1$s\": %2$s</string>
     <string name="action_add_to_list">Ychwanegwch gyfrif at y rhestr</string>
     <string name="action_remove_from_list">Tynnu cyfrif o\'r rhestr</string>
     <string name="action_add_reaction">ychwanegu ymateb</string>
