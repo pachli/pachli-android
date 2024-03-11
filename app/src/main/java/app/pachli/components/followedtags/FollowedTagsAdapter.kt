@@ -2,11 +2,8 @@ package app.pachli.components.followedtags
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import app.pachli.R
 import app.pachli.databinding.ItemFollowedHashtagBinding
 import app.pachli.interfaces.HashtagActionListener
 import app.pachli.util.BindingHolder
@@ -20,9 +17,15 @@ class FollowedTagsAdapter(
 
     override fun onBindViewHolder(holder: BindingHolder<ItemFollowedHashtagBinding>, position: Int) {
         viewModel.tags[position].let { tag ->
-            holder.itemView.findViewById<TextView>(R.id.followed_tag).text = tag.name
-            holder.itemView.findViewById<ImageButton>(R.id.followed_tag_unfollow).setOnClickListener {
-                actionListener.unfollow(tag.name, holder.bindingAdapterPosition)
+            with(holder.binding) {
+                followedTag.text = tag.name
+                followedTag.setOnClickListener {
+                    actionListener.onViewTag(tag.name)
+                }
+
+                followedTagUnfollow.setOnClickListener {
+                    actionListener.unfollow(tag.name, holder.bindingAdapterPosition)
+                }
             }
         }
     }
