@@ -273,8 +273,13 @@ data class Server(
                     }
                 }
 
-                // GoToSocial can't filter, https://github.com/superseriousbusiness/gotosocial/issues/1472
-                GOTOSOCIAL -> { }
+                // GoToSocial has client-side filtering, not server-side
+                GOTOSOCIAL -> {
+                    when {
+                        // Implemented in https://github.com/superseriousbusiness/gotosocial/pull/2594
+                        v >= "0.15.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
+                    }
+                }
 
                 // FireFish can't filter (conversation in the Firefish dev. chat )
                 FIREFISH -> { }
