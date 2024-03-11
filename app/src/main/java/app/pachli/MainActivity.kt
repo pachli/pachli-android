@@ -87,6 +87,7 @@ import app.pachli.core.navigation.AnnouncementsActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.DraftsActivityIntent
 import app.pachli.core.navigation.EditProfileActivityIntent
+import app.pachli.core.navigation.FollowedTagsActivityIntent
 import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
@@ -645,6 +646,20 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     }
                 },
                 primaryDrawerItem {
+                    nameRes = R.string.title_public_trending
+                    iconicsIcon = GoogleMaterial.Icon.gmd_trending_up
+                    onClick = {
+                        startActivityWithSlideInAnimation(TrendingActivityIntent(context))
+                    }
+                },
+                primaryDrawerItem {
+                    nameRes = R.string.title_followed_hashtags
+                    iconRes = R.drawable.ic_hashtag
+                    onClick = {
+                        startActivityWithSlideInAnimation(FollowedTagsActivityIntent(context))
+                    }
+                },
+                primaryDrawerItem {
                     nameRes = R.string.action_view_follow_requests
                     iconicsIcon = GoogleMaterial.Icon.gmd_person_add
                     onClick = {
@@ -743,17 +758,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     },
                 )
             }
-
-            binding.mainDrawer.addItemsAtPosition(
-                5,
-                primaryDrawerItem {
-                    nameRes = R.string.title_public_trending
-                    iconicsIcon = GoogleMaterial.Icon.gmd_trending_up
-                    onClick = {
-                        startActivityWithSlideInAnimation(TrendingActivityIntent(context))
-                    }
-                },
-            )
         }
 
         if (BuildConfig.DEBUG) {
