@@ -20,6 +20,7 @@ package app.pachli
 import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
+import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -37,7 +38,6 @@ import app.pachli.util.LocaleManager
 import app.pachli.util.setAppNightMode
 import app.pachli.worker.PruneCacheWorker
 import app.pachli.worker.PruneLogEntryEntityWorker
-import app.pachli.worker.WorkerFactory
 import dagger.hilt.android.HiltAndroidApp
 import de.c1710.filemojicompat_defaults.DefaultEmojiPackList
 import de.c1710.filemojicompat_ui.helpers.EmojiPackHelper
@@ -51,7 +51,7 @@ import timber.log.Timber
 @HiltAndroidApp
 class PachliApplication : Application() {
     @Inject
-    lateinit var workerFactory: WorkerFactory
+    lateinit var workerFactory: HiltWorkerFactory
 
     @Inject
     lateinit var localeManager: LocaleManager
@@ -110,9 +110,7 @@ class PachliApplication : Application() {
 
         WorkManager.initialize(
             this,
-            androidx.work.Configuration.Builder()
-                .setWorkerFactory(workerFactory)
-                .build(),
+            androidx.work.Configuration.Builder().setWorkerFactory(workerFactory).build(),
         )
 
         val workManager = WorkManager.getInstance(this)

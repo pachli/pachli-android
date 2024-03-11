@@ -212,17 +212,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <!-- disable automatic WorkManager initialization -->
+        <!-- Disable automatic WorkManager initialization, use HiltWorkerFactory -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
-            android:exported="false"
-            tools:node="merge">
-            <meta-data
-                android:name="androidx.work.WorkManagerInitializer"
-                android:value="androidx.startup"
-                tools:node="remove" />
-        </provider>
+            tools:node="remove" />
 
     </application>
 

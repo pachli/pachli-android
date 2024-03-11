@@ -116,6 +116,11 @@ dependencies {
     compileOnly(libs.bundles.room)
     testCompileOnly(libs.bundles.room)
 
+    // @HiltWorker annotation
+    implementation(libs.androidx.hilt.common)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
+
     implementation(projects.core.accounts)
     implementation(projects.core.activity)
     implementation(projects.core.common)
