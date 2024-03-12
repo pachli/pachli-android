@@ -31,7 +31,7 @@ import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.makeNotification
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.TabKind
+import app.pachli.core.database.model.TabData
 import app.pachli.core.database.model.defaultTabs
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.network.model.Account
@@ -154,7 +154,7 @@ class MainActivityTest {
         rule.launch(intent)
         rule.getScenario().onActivity {
             val currentTab = it.findViewById<ViewPager2>(R.id.viewPager).currentItem
-            val notificationTab = defaultTabs().indexOfFirst { it.kind == TabKind.NOTIFICATIONS }
+            val notificationTab = defaultTabs().indexOfFirst { it is TabData.Notifications }
             assertEquals(currentTab, notificationTab)
         }
     }

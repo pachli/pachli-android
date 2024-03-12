@@ -17,48 +17,54 @@
 
 package app.pachli.core.database.model
 
-/**
- * A tab's kind.
- *
- * @param repr String representation of the tab in the database
- */
-enum class TabKind(val repr: String) {
-    HOME("Home"),
-    NOTIFICATIONS("Notifications"),
-    LOCAL("Local"),
-    FEDERATED("Federated"),
-    DIRECT("Direct"),
-    TRENDING_TAGS("Trending_Tags"),
-    TRENDING_LINKS("Trending_Links"),
-    TRENDING_STATUSES("Trending_Statuses"),
-    HASHTAG("Hashtag"),
-    LIST("List"),
-    BOOKMARKS("Bookmarks"),
-}
+import com.squareup.moshi.JsonClass
+import dev.zacsweers.moshix.sealed.annotations.TypeLabel
 
-/** this would be a good case for a sealed class, but that does not work nice with Room */
+@JsonClass(generateAdapter = true, generator = "sealed:kind")
+sealed interface TabData {
+    @TypeLabel("home")
+    data object Home : TabData
 
-data class TabData(val kind: TabKind, val arguments: List<String> = emptyList()) {
-    companion object {
-        fun from(kind: TabKind, arguments: List<String> = emptyList()) =
-            TabData(kind, arguments)
+    @TypeLabel("notifications")
+    data object Notifications : TabData
 
-        fun from(kind: String, arguments: List<String> = emptyList()): TabData {
-            // Work around for https://github.com/pachli/pachli-android/issues/329,
-            // as the Trending... kinds may have been serialised without the `_`
-            return when (kind) {
-                "TrendingTags" -> TabData(TabKind.TRENDING_TAGS, arguments)
-                "TrendingLinks" -> TabData(TabKind.TRENDING_LINKS, arguments)
-                "TrendingStatuses" -> TabData(TabKind.TRENDING_STATUSES, arguments)
-                else -> TabData(TabKind.valueOf(kind.uppercase()), arguments)
-            }
-        }
-    }
+    @TypeLabel("local")
+    data object Local : TabData
+
+    @TypeLabel("federated")
+    data object Federated : TabData
+
+    @TypeLabel("direct")
+    data object Direct : TabData
+
+    @TypeLabel("trending_tags")
+    data object TrendingTags : TabData
+
+    @TypeLabel("trending_links")
+    data object TrendingLinks : TabData
+
+    @TypeLabel("trending_statuses")
+    data object TrendingStatuses : TabData
+
+    /**
+     * @property tags List of one or more hashtags (without the leading '#')
+     *     to show in the tab.
+     */
+    @TypeLabel("hashtag")
+    @JsonClass(generateAdapter = true)
+    data class Hashtag(val tags: List<String>) : TabData
+
+    @TypeLabel("list")
+    @JsonClass(generateAdapter = true)
+    data class UserList(val listId: String, val title: String) : TabData
+
+    @TypeLabel("bookmarks")
+    data object Bookmarks : TabData
 }
 
 fun defaultTabs() = listOf(
-    TabData.from(TabKind.HOME),
-    TabData.from(TabKind.NOTIFICATIONS),
-    TabData.from(TabKind.LOCAL),
-    TabData.from(TabKind.DIRECT),
+    TabData.Home,
+    TabData.Notifications,
+    TabData.Local,
+    TabData.Direct,
 )

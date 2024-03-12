@@ -49,7 +49,6 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.database.model.TabData
-import app.pachli.core.database.model.TabKind
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.network.model.MastoList
@@ -126,7 +125,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
 
-        addTabAdapter = TabAdapter(listOf(TabViewData.from(TabData(TabKind.DIRECT))), true, this)
+        addTabAdapter = TabAdapter(listOf(TabViewData.from(TabData.Direct)), true, this)
         binding.addTabRecyclerView.adapter = addTabAdapter
         binding.addTabRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -189,12 +188,12 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     override fun onTabAdded(tab: TabViewData) {
         toggleFab(false)
 
-        if (tab.kind == TabKind.HASHTAG) {
+        if (tab.tabData is TabData.Hashtag) {
             showAddHashtagDialog()
             return
         }
 
-        if (tab.kind == TabKind.LIST) {
+        if (tab.tabData is TabData.UserList) {
             showSelectListDialog()
             return
         }
@@ -212,14 +211,16 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         saveTabs()
     }
 
-    override fun onActionChipClicked(tab: TabViewData, tabPosition: Int) {
-        showAddHashtagDialog(tab, tabPosition)
+    override fun onActionChipClicked(tabData: TabData.Hashtag, tabPosition: Int) {
+        showAddHashtagDialog(tabData, tabPosition)
     }
 
-    override fun onChipClicked(tab: TabViewData, tabPosition: Int, chipPosition: Int) {
-        val newArguments = tab.arguments.filterIndexed { i, _ -> i != chipPosition }
-        val newTab = tab.copy(tabData = tab.tabData.copy(arguments = newArguments))
-        currentTabs[tabPosition] = newTab
+    override fun onChipClicked(tabData: TabData.Hashtag, tabPosition: Int, chipPosition: Int) {
+        currentTabs[tabPosition] = currentTabs[tabPosition].copy(
+            tabData = tabData.copy(
+                tags = tabData.tags.filterIndexed { i, _ -> i != chipPosition },
+            ),
+        )
         saveTabs()
 
         currentTabsAdapter.notifyItemChanged(tabPosition)
@@ -243,7 +244,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         onFabDismissedCallback.isEnabled = expand
     }
 
-    private fun showAddHashtagDialog(tab: TabViewData? = null, tabPosition: Int = 0) {
+    private fun showAddHashtagDialog(tabData: TabData.Hashtag? = null, tabPosition: Int = 0) {
         val frameLayout = FrameLayout(this)
         val padding = Utils.dpToPx(this, 8)
         frameLayout.updatePadding(left = padding, right = padding)
@@ -259,13 +260,14 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->
                 val input = editText.text.toString().trim()
-                if (tab == null) {
-                    val newTab = TabViewData.from(TabData(TabKind.HASHTAG, listOf(input)))
+                if (tabData == null) {
+                    val newTab = TabViewData.from(TabData.Hashtag(listOf(input)))
                     currentTabs.add(newTab)
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
                 } else {
-                    val newTab = tab.copy(tabData = tab.tabData.copy(arguments = tab.arguments + input))
-                    currentTabs[tabPosition] = newTab
+                    currentTabs[tabPosition] = currentTabs[tabPosition].copy(
+                        tabData = tabData.copy(tags = tabData.tags + input),
+                    )
 
                     currentTabsAdapter.notifyItemChanged(tabPosition)
                 }
@@ -315,7 +317,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setView(statusLayout)
             .setAdapter(adapter) { _, position ->
                 adapter.getItem(position)?.let { item ->
-                    val newTab = TabViewData.from(TabData(TabKind.LIST, listOf(item.id, item.title)))
+                    val newTab = TabViewData.from(TabData.UserList(item.id, item.title))
                     currentTabs.add(newTab)
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
                     updateAvailableTabs()
@@ -377,45 +379,45 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private fun updateAvailableTabs() {
         val addableTabs: MutableList<TabViewData> = mutableListOf()
 
-        val homeTab = TabViewData.from(TabData(TabKind.HOME))
+        val homeTab = TabViewData.from(TabData.Home)
         if (!currentTabs.contains(homeTab)) {
             addableTabs.add(homeTab)
         }
-        val notificationTab = TabViewData.from(TabData(TabKind.NOTIFICATIONS))
+        val notificationTab = TabViewData.from(TabData.Notifications)
         if (!currentTabs.contains(notificationTab)) {
             addableTabs.add(notificationTab)
         }
-        val localTab = TabViewData.from(TabData(TabKind.LOCAL))
+        val localTab = TabViewData.from(TabData.Local)
         if (!currentTabs.contains(localTab)) {
             addableTabs.add(localTab)
         }
-        val federatedTab = TabViewData.from(TabData(TabKind.FEDERATED))
+        val federatedTab = TabViewData.from(TabData.Federated)
         if (!currentTabs.contains(federatedTab)) {
             addableTabs.add(federatedTab)
         }
-        val directMessagesTab = TabViewData.from(TabData(TabKind.DIRECT))
+        val directMessagesTab = TabViewData.from(TabData.Direct)
         if (!currentTabs.contains(directMessagesTab)) {
             addableTabs.add(directMessagesTab)
         }
-        val trendingTagsTab = TabViewData.from(TabData(TabKind.TRENDING_TAGS))
+        val trendingTagsTab = TabViewData.from(TabData.TrendingTags)
         if (!currentTabs.contains(trendingTagsTab)) {
             addableTabs.add(trendingTagsTab)
         }
-        val trendingLinksTab = TabViewData.from(TabData(TabKind.TRENDING_LINKS))
+        val trendingLinksTab = TabViewData.from(TabData.TrendingLinks)
         if (!currentTabs.contains(trendingLinksTab)) {
             addableTabs.add(trendingLinksTab)
         }
-        val trendingStatusesTab = TabViewData.from(TabData(TabKind.TRENDING_STATUSES))
+        val trendingStatusesTab = TabViewData.from(TabData.TrendingStatuses)
         if (!currentTabs.contains(trendingStatusesTab)) {
             addableTabs.add(trendingStatusesTab)
         }
-        val bookmarksTab = TabViewData.from(TabData(TabKind.BOOKMARKS))
+        val bookmarksTab = TabViewData.from(TabData.Bookmarks)
         if (!currentTabs.contains(trendingTagsTab)) {
             addableTabs.add(bookmarksTab)
         }
 
-        addableTabs.add(TabViewData.from(TabData(TabKind.HASHTAG)))
-        addableTabs.add(TabViewData.from(TabData(TabKind.LIST)))
+        addableTabs.add(TabViewData.from(TabData.Hashtag(emptyList())))
+        addableTabs.add(TabViewData.from(TabData.UserList("", "")))
 
         addTabAdapter.updateData(addableTabs)
 
