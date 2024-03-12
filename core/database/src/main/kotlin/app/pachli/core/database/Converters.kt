@@ -33,7 +33,6 @@ import app.pachli.core.network.model.TranslatedPoll
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
 import java.net.URLDecoder
-import java.net.URLEncoder
 import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
@@ -68,17 +67,47 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun stringToTabData(str: String?): List<TabData>? {
-        return str?.split(";")
-            ?.map {
-                val data = it.split(":")
-                TabData.from(data[0], data.drop(1).map { s -> URLDecoder.decode(s, "UTF-8") })
+        str ?: return null
+
+        // Two possible storage formats. Newer (from Pachli 2.4.0) is polymorphic
+        // JSON, and the first character will be a '['
+        if (str.startsWith('[')) {
+            return moshi.adapter<List<TabData>>().fromJson(str)
+        }
+
+        // Older is string of ';' delimited tuples, one per tab.
+        // The per-tab data is ':' delimited tuples where the first item is the tab's kind,
+        // any subsequent entries are tab-specific data.
+        //
+        // The "Trending_..." / "Trending..."  is to work around
+        // https://github.com/pachli/pachli-android/issues/329
+        return str.split(";").map {
+            val data = it.split(":")
+            val kind = data[0]
+            val arguments = data.drop(1).map { s -> URLDecoder.decode(s, "UTF-8") }
+
+            when (kind) {
+                "Home" -> TabData.Home
+                "Notifications" -> TabData.Notifications
+                "Local" -> TabData.Local
+                "Federated" -> TabData.Federated
+                "Direct" -> TabData.Direct
+                // Work around for https://github.com/pachli/pachli-android/issues/329
+                // when the Trending... kinds may have been serialised without the '_'
+                "TrendingTags", "Trending_Tags" -> TabData.TrendingTags
+                "TrendingLinks", "Trending_Links" -> TabData.TrendingLinks
+                "TrendingStatuses", "Trending_Statuses" -> TabData.TrendingStatuses
+                "Hashtag" -> TabData.Hashtag(arguments)
+                "List" -> TabData.UserList(arguments[0], arguments[1])
+                "Bookmarks" -> TabData.Bookmarks
+                else -> throw IllegalStateException("Unrecognised tab kind: $kind")
             }
+        }
     }
 
     @TypeConverter
     fun tabDataToString(tabData: List<TabData>?): String? {
-        // List name may include ":"
-        return tabData?.joinToString(";") { it.kind.repr + ":" + it.arguments.joinToString(":") { s -> URLEncoder.encode(s, "UTF-8") } }
+        return moshi.adapter<List<TabData>>().toJson(tabData)
     }
 
     @TypeConverter

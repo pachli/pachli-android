@@ -27,7 +27,6 @@ import app.pachli.components.timeline.TimelineFragment
 import app.pachli.components.trending.TrendingLinksFragment
 import app.pachli.components.trending.TrendingTagsFragment
 import app.pachli.core.database.model.TabData
-import app.pachli.core.database.model.TabKind
 import app.pachli.core.network.model.TimelineKind
 
 /**
@@ -43,13 +42,9 @@ data class TabViewData(
     val tabData: TabData,
     @StringRes val text: Int,
     @DrawableRes val icon: Int,
-    val fragment: (List<String>) -> Fragment,
+    val fragment: () -> Fragment,
     val title: (Context) -> String = { context -> context.getString(text) },
 ) {
-    val kind get() = this.tabData.kind
-
-    val arguments get() = this.tabData.arguments
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -64,64 +59,62 @@ data class TabViewData(
     override fun hashCode() = tabData.hashCode()
 
     companion object {
-        fun from(tabKind: TabKind) = from(TabData.from(tabKind))
-
-        fun from(tabData: TabData) = when (tabData.kind) {
-            TabKind.HOME -> TabViewData(
+        fun from(tabData: TabData) = when (tabData) {
+            TabData.Home -> TabViewData(
                 tabData = tabData,
                 text = R.string.title_home,
                 icon = R.drawable.ic_home_24dp,
                 fragment = { TimelineFragment.newInstance(TimelineKind.Home) },
             )
-            TabKind.NOTIFICATIONS -> TabViewData(
+            TabData.Notifications -> TabViewData(
                 tabData = tabData,
                 text = R.string.title_notifications,
                 icon = R.drawable.ic_notifications_24dp,
                 fragment = { NotificationsFragment.newInstance() },
             )
-            TabKind.LOCAL -> TabViewData(
+            TabData.Local -> TabViewData(
                 tabData = tabData,
                 text = R.string.title_public_local,
                 icon = R.drawable.ic_local_24dp,
                 fragment = { TimelineFragment.newInstance(TimelineKind.PublicLocal) },
             )
-            TabKind.FEDERATED -> TabViewData(
+            TabData.Federated -> TabViewData(
                 tabData = tabData,
                 text = R.string.title_public_federated,
                 icon = R.drawable.ic_public_24dp,
                 fragment = { TimelineFragment.newInstance(TimelineKind.PublicFederated) },
             )
-            TabKind.DIRECT -> TabViewData(
+            TabData.Direct -> TabViewData(
                 tabData = tabData,
                 text = R.string.title_direct_messages,
                 icon = R.drawable.ic_reblog_direct_24dp,
                 fragment = { ConversationsFragment.newInstance() },
             )
-            TabKind.TRENDING_TAGS -> TabViewData(
+            TabData.TrendingTags -> TabViewData(
                 tabData = tabData,
                 text = R.string.title_public_trending_hashtags,
                 icon = R.drawable.ic_trending_up_24px,
                 fragment = { TrendingTagsFragment.newInstance() },
             )
-            TabKind.TRENDING_LINKS -> TabViewData(
+            TabData.TrendingLinks -> TabViewData(
                 tabData = tabData,
                 text = R.string.title_public_trending_links,
                 icon = R.drawable.ic_trending_up_24px,
                 fragment = { TrendingLinksFragment.newInstance() },
             )
-            TabKind.TRENDING_STATUSES -> TabViewData(
+            TabData.TrendingStatuses -> TabViewData(
                 tabData = tabData,
                 text = R.string.title_public_trending_statuses,
                 icon = R.drawable.ic_trending_up_24px,
                 fragment = { TimelineFragment.newInstance(TimelineKind.TrendingStatuses) },
             )
-            TabKind.HASHTAG -> TabViewData(
+            is TabData.Hashtag -> TabViewData(
                 tabData = tabData,
                 text = R.string.hashtags,
                 icon = R.drawable.ic_hashtag,
-                fragment = { args -> TimelineFragment.newInstance(TimelineKind.Tag(args)) },
+                fragment = { TimelineFragment.newInstance(TimelineKind.Tag(tabData.tags)) },
                 title = { context ->
-                    tabData.arguments.joinToString(separator = " ") {
+                    tabData.tags.joinToString(separator = " ") {
                         context.getString(
                             R.string.title_tag,
                             it,
@@ -129,18 +122,18 @@ data class TabViewData(
                     }
                 },
             )
-            TabKind.LIST -> TabViewData(
+            is TabData.UserList -> TabViewData(
                 tabData = tabData,
                 text = R.string.list,
                 icon = R.drawable.ic_list,
-                fragment = { args ->
+                fragment = {
                     TimelineFragment.newInstance(
-                        TimelineKind.UserList(args.first(), args.last()),
+                        TimelineKind.UserList(tabData.listId, tabData.title),
                     )
                 },
-                title = { tabData.arguments.getOrNull(1).orEmpty() },
+                title = { tabData.title },
             )
-            TabKind.BOOKMARKS -> TabViewData(
+            TabData.Bookmarks -> TabViewData(
                 tabData = tabData,
                 text = R.string.title_bookmarks,
                 icon = R.drawable.ic_bookmark_active_24dp,

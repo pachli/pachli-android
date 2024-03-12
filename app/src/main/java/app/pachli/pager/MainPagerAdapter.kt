@@ -25,7 +25,7 @@ class MainPagerAdapter(var tabs: List<TabViewData>, activity: FragmentActivity) 
 
     override fun createFragment(position: Int): Fragment {
         val tab = tabs[position]
-        return tab.fragment(tab.arguments)
+        return tab.fragment()
     }
 
     override fun getItemCount() = tabs.size

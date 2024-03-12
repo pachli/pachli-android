@@ -77,7 +77,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.TabKind
+import app.pachli.core.database.model.TabData
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AboutActivityIntent
@@ -866,8 +866,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         tabLayoutMediator = TabLayoutMediator(activeTabLayout, binding.viewPager, true) {
                 tab: TabLayout.Tab, position: Int ->
             tab.icon = AppCompatResources.getDrawable(this@MainActivity, tabs[position].icon)
-            tab.contentDescription = when (tabs[position].kind) {
-                TabKind.LIST -> tabs[position].arguments[1]
+            tab.contentDescription = when (tabs[position].tabData) {
+                is TabData.UserList -> tabs[position].title(this@MainActivity)
                 else -> getString(tabs[position].text)
             }
         }.also { it.attach() }
@@ -877,7 +877,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // - The previously selected tab (if it hasn't been removed)
         // - Left-most tab
         val position = if (selectNotificationTab) {
-            tabs.indexOfFirst { it.kind == TabKind.NOTIFICATIONS }
+            tabs.indexOfFirst { it.tabData is TabData.Notifications }
         } else {
             previousTab?.let { tabs.indexOfFirst { it == previousTab } }
         }.takeIf { it != -1 } ?: 0
