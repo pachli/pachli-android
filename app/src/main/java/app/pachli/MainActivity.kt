@@ -363,10 +363,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         lifecycleScope.launch {
-            listsRepository.lists.collect {
-                it.onSuccess { refreshMainDrawerItems(addSearchButton = hideTopToolbar) }
+            listsRepository.lists.collect { result ->
+                result.onSuccess { lists ->
+                    // Update the list of lists in the main drawer
+                    refreshMainDrawerItems(addSearchButton = hideTopToolbar)
 
-                it.onFailure {
+                    // Any lists in tabs might have changed titles, update those
+                    if (lists is Lists.Loaded && tabAdapter.tabs.any { it.tabData is TabData.UserList }) {
+                        setupTabs(false)
+                    }
+                }
+
+                result.onFailure {
                     Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.action_retry) { listsRepository.refresh() }
                         .show()
@@ -875,11 +883,20 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // Selected tab is either
         // - Notification tab (if appropriate)
         // - The previously selected tab (if it hasn't been removed)
+        //   - Tabs containing lists are compared by list ID, in case the list was renamed
         // - Left-most tab
         val position = if (selectNotificationTab) {
             tabs.indexOfFirst { it.tabData is TabData.Notifications }
         } else {
-            previousTab?.let { tabs.indexOfFirst { it == previousTab } }
+            previousTab?.let {
+                tabs.indexOfFirst {
+                    if (it.tabData is TabData.UserList && previousTab.tabData is TabData.UserList) {
+                        it.tabData.listId == previousTab.tabData.listId
+                    } else {
+                        it == previousTab
+                    }
+                }
+            }
         }.takeIf { it != -1 } ?: 0
         binding.viewPager.setCurrentItem(position, false)
 
