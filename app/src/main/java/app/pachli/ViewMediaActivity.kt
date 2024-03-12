@@ -72,9 +72,6 @@ import okio.buffer
 import okio.sink
 import timber.log.Timber
 
-typealias ToolbarVisibilityListener = (isVisible: Boolean) -> Unit
-typealias MenuItemActionListener = () -> Unit
-
 /**
  * Show one or more media items (pictures, video, audio, etc).
  */
@@ -92,40 +89,25 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         private set
 
     private var attachmentViewData: List<AttachmentViewData>? = null
-    private val toolbarVisibilityListeners = mutableListOf<ToolbarVisibilityListener>()
-    private val menuItemActionListeners = mutableListOf<MenuItemActionListener>()
+    private val toolbarListeners = mutableListOf<ToolbarListener>()
     private var imageUrl: String? = null
 
     /** True if a download to share media is in progress */
     private var isDownloading: Boolean = false
 
-    /**
-     * Adds [listener] to the list of toolbar listeners and immediately calls
-     * it with the current toolbar visibility.
-     * The [listener] will be removed when the provided [lifecycle] reaches [Lifecycle.State.DESTROYED].
-     */
-    fun addToolbarVisibilityListener(lifecycle: Lifecycle, listener: ToolbarVisibilityListener) {
-        toolbarVisibilityListeners.add(listener)
-        listener(isToolbarVisible)
-        lifecycle.addObserver(
-            object : DefaultLifecycleObserver {
-                override fun onDestroy(owner: LifecycleOwner) {
-                    toolbarVisibilityListeners.remove(listener)
-                }
-            },
-        )
-    }
+    /** True if the Toolbar options menu is being created */
+    private var isOptionsMenuBeingCreated = false
 
     /**
-     * Adds [listener] to the list of menu item action listeners.
+     * Adds [listener] to the list of toolbar action listeners.
      * The [listener] will be removed when the provided [lifecycle] reaches [Lifecycle.State.DESTROYED].
      */
-    fun addMenuItemActionListener(lifecycle: Lifecycle, listener: MenuItemActionListener) {
-        menuItemActionListeners.add(listener)
+    fun addToolbarListener(lifecycle: Lifecycle, listener: ToolbarListener) {
+        toolbarListeners.add(listener)
         lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onDestroy(owner: LifecycleOwner) {
-                    menuItemActionListeners.remove(listener)
+                    toolbarListeners.remove(listener)
                 }
             },
         )
@@ -181,8 +163,8 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 R.id.action_share_media -> shareMedia()
                 R.id.action_copy_media_link -> copyLink()
             }
-            for (listener in menuItemActionListeners) {
-                listener()
+            for (listener in toolbarListeners) {
+                listener.onMenuItemAction()
             }
             true
         }
@@ -201,6 +183,8 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        isOptionsMenuBeingCreated = true
+
         menuInflater.inflate(R.menu.view_media_toolbar, menu)
         // We don't support 'open status' from single image views
         menu.findItem(R.id.action_open_status)?.isVisible = (attachmentViewData != null)
@@ -208,6 +192,14 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (isOptionsMenuBeingCreated) {
+            isOptionsMenuBeingCreated = false
+        } else {
+            for (listener in toolbarListeners) {
+                listener.onOverflowMenuOpen()
+            }
+        }
+
         menu?.findItem(R.id.action_share_media)?.isEnabled = !isDownloading
         return true
     }
@@ -222,8 +214,8 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
 
     override fun onMediaTap() {
         isToolbarVisible = !isToolbarVisible
-        for (listener in toolbarVisibilityListeners) {
-            listener(isToolbarVisible)
+        for (listener in toolbarListeners) {
+            listener.onVisibilityChange(isToolbarVisible)
         }
 
         val visibility = if (isToolbarVisible) View.VISIBLE else View.INVISIBLE
@@ -379,4 +371,10 @@ interface NoopTransitionListener : Transition.TransitionListener {
 
     override fun onTransitionStart(transition: Transition) {
     }
+}
+
+interface ToolbarListener {
+    fun onVisibilityChange(isVisible: Boolean) = Unit
+    fun onOverflowMenuOpen() = Unit
+    fun onMenuItemAction() = Unit
 }

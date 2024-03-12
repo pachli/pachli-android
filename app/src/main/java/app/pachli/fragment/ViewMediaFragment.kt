@@ -26,6 +26,7 @@ import androidx.annotation.OptIn
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.util.UnstableApi
+import app.pachli.ToolbarListener
 import app.pachli.ViewMediaActivity
 import app.pachli.core.network.model.Attachment
 import kotlin.time.Duration.Companion.seconds
@@ -159,9 +160,15 @@ abstract class ViewMediaFragment : Fragment() {
         isDescriptionVisible = showingDescription
         setupMediaView(mediaActivity.isToolbarVisible, showingDescription && mediaActivity.isToolbarVisible)
 
-        mediaActivity.addToolbarVisibilityListener(viewLifecycleOwner.lifecycle) { isVisible ->
-            onToolbarVisibilityChange(isVisible)
-        }
+        mediaActivity.addToolbarListener(
+            viewLifecycleOwner.lifecycle,
+            object : ToolbarListener {
+                override fun onVisibilityChange(isVisible: Boolean) {
+                    onToolbarVisibilityChange(isVisible)
+                }
+            },
+        )
+        onToolbarVisibilityChange(mediaActivity.isToolbarVisible)
     }
 
     override fun onPause() {
