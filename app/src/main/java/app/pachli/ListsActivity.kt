@@ -43,6 +43,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.Lists
+import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -210,7 +211,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
         state.onSuccess { lists ->
             when (lists) {
                 is Lists.Loaded -> {
-                    adapter.submitList(lists.lists.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.title }))
+                    adapter.submitList(lists.lists.sortedWith(compareByListTitle))
                     binding.swipeRefreshLayout.isRefreshing = false
                     if (lists.lists.isEmpty()) {
                         binding.messageView.show()
