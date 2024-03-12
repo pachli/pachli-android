@@ -76,6 +76,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
+import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TabData
 import app.pachli.core.designsystem.EmbeddedFontFamily
@@ -605,8 +606,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             when (result) {
                 Lists.Loading -> Pair(emptyList(), R.string.title_lists_loading)
                 is Lists.Loaded -> Pair(
-                    result.lists
-                        .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.title })
+                    result.lists.sortedWith(compareByListTitle)
                         .map { list ->
                             primaryDrawerItem {
                                 nameText = list.title

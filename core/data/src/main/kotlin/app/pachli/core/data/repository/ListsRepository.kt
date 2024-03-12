@@ -21,6 +21,7 @@ import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
+import java.text.Collator
 import kotlinx.coroutines.flow.StateFlow
 
 sealed interface Lists {
@@ -122,4 +123,14 @@ interface ListsRepository {
      * @return A successful result, or an error
      */
     suspend fun deleteAccountsFromList(listId: String, accountIds: List<String>): Result<Unit, ListsError.DeleteAccounts>
+
+    companion object {
+        /**
+         * Locale-aware comparator for lists. Case-insenstive comparison by
+         * the list's title.
+         */
+        val compareByListTitle: Comparator<MastoList> = compareBy(
+            Collator.getInstance().apply { strength = Collator.SECONDARY },
+        ) { it.title }
+    }
 }

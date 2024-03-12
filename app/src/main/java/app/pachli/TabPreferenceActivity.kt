@@ -48,6 +48,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
+import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.database.model.TabData
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ListActivityIntent
@@ -345,7 +346,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                     if (lists is Lists.Loaded) {
                         showProgressBarJob.cancel()
                         adapter.clear()
-                        adapter.addAll(lists.lists)
+                        adapter.addAll(lists.lists.sortedWith(compareByListTitle))
                         if (lists.lists.isEmpty()) noListsText.show()
                     }
                 }
