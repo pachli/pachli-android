@@ -23,7 +23,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.CheckResult
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -53,9 +52,6 @@ import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.awaitCancellation
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -130,9 +126,6 @@ class ViewThreadFragment :
 
         (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
-        var initialProgressBar = getProgressBarJob(binding.initialProgressBar, 500)
-        var threadProgressBar = getProgressBarJob(binding.threadProgressBar, 500)
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collect { uiState ->
                 when (uiState) {
@@ -142,8 +135,7 @@ class ViewThreadFragment :
                         binding.recyclerView.hide()
                         binding.statusView.hide()
 
-                        initialProgressBar = getProgressBarJob(binding.initialProgressBar, 500)
-                        initialProgressBar.start()
+                        binding.initialProgressBar.show()
                     }
                     is ThreadUiState.LoadingThread -> {
                         if (uiState.statusViewDatum == null) {
@@ -152,9 +144,8 @@ class ViewThreadFragment :
                             return@collect
                         }
 
-                        initialProgressBar.cancel()
-                        threadProgressBar = getProgressBarJob(binding.threadProgressBar, 500)
-                        threadProgressBar.start()
+                        binding.initialProgressBar.hide()
+                        binding.threadProgressBar.show()
 
                         if (viewModel.isInitialLoad) {
                             adapter.submitList(listOf(uiState.statusViewDatum))
@@ -170,8 +161,8 @@ class ViewThreadFragment :
                     }
                     is ThreadUiState.Error -> {
                         Timber.w(uiState.throwable, "failed to load status")
-                        initialProgressBar.cancel()
-                        threadProgressBar.cancel()
+                        binding.initialProgressBar.hide()
+                        binding.threadProgressBar.hide()
 
                         revealButtonState = RevealButtonState.NO_BUTTON
                         binding.swipeRefreshLayout.isRefreshing = false
@@ -188,7 +179,7 @@ class ViewThreadFragment :
                             return@collect
                         }
 
-                        threadProgressBar.cancel()
+                        binding.threadProgressBar.hide()
 
                         adapter.submitList(uiState.statusViewData) {
                             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) && viewModel.isInitialLoad) {
@@ -209,7 +200,7 @@ class ViewThreadFragment :
                         binding.statusView.hide()
                     }
                     is ThreadUiState.Refreshing -> {
-                        threadProgressBar.cancel()
+                        binding.threadProgressBar.hide()
                     }
                 }
             }
@@ -273,28 +264,6 @@ class ViewThreadFragment :
     override fun onResume() {
         super.onResume()
         requireActivity().title = getString(R.string.title_view_thread)
-    }
-
-    /**
-     * Create a job to implement a delayed-visible progress bar.
-     *
-     * Delaying the visibility of the progress bar can improve user perception of UI speed because
-     * fewer UI elements are appearing and disappearing.
-     *
-     * When started the job will wait `delayMs` then show `view`. If the job is cancelled at
-     * any time `view` is hidden.
-     */
-    @CheckResult
-    private fun getProgressBarJob(view: View, delayMs: Long) = viewLifecycleOwner.lifecycleScope.launch(
-        start = CoroutineStart.LAZY,
-    ) {
-        try {
-            delay(delayMs)
-            view.show()
-            awaitCancellation()
-        } finally {
-            view.hide()
-        }
     }
 
     override fun onRefresh() {
