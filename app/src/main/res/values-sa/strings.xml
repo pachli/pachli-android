@@ -302,10 +302,6 @@
     <string name="action_remove_from_list">सूच्याः लेखा नश्यताम्</string>
     <string name="action_add_to_list">सूच्यां लेखा स्थाप्यताम्</string>
     <string name="download_failed">अवारोपणे दोषः</string>
-    <string name="caption_notoemoji">गुगलस्य वर्तमानभावचिह्नसमूहः</string>
-    <string name="caption_twemoji">मास्टोडोनस्य पूर्वनिविष्टभावचिह्नसमूहः</string>
-    <string name="caption_blobmoji">ब्लाबभावचिह्नानि एन्ड्रोइड४.४तः ७.१पर्यन्तं प्रसिद्धानि</string>
-    <string name="caption_systememoji">तव यन्त्रस्य पूर्वस्थापितभावचिह्नसमूहः</string>
     <string name="restart">पुनः प्रारभ्यताम्</string>
     <string name="later">पश्चात्</string>
     <string name="restart_emoji">पुनश्च टस्कीप्रारम्भोऽपेक्षितो वर्तते परिवर्तनानुसरेण चलितुम्</string>

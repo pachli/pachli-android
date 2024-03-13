@@ -211,9 +211,6 @@
     <string name="restart_emoji">இந்த மாறுதல்கள் செயற்படுத்த செயலியை மறுதொடக்கம் செய்ய வேண்டும்</string>
     <string name="later">பிறகு</string>
     <string name="restart">மறுதொடக்க</string>
-    <string name="caption_systememoji">தங்களின் வழக்கமான emoji பொருத்தப்பட்டது</string>
-    <string name="caption_blobmoji">Android 4.4–7.1-லிருந்தே Blob emojis பயன்படுத்தபடுகிறது</string>
-    <string name="caption_twemoji">Mastodon-னின் வழக்கமான emoji set</string>
     <string name="download_failed">பதிவிறக்கம் தோல்வியுற்றது</string>
     <string name="account_moved_description">%1$s கணக்கு நகர்த்தபட்டது இதற்க்கு:</string>
     <string name="reblog_private">அசலான பார்வையாளர்களுக்கு மட்டும் மேலேற்று</string>

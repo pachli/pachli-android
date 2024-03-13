@@ -74,24 +74,13 @@
     </issue>
 
     <issue
-        id="UseAppTint"
-        message="Must use `app:tint` instead of `android:tint`"
-        errorLine1="        android:tint=&quot;?colorPrimary&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_emoji_pref.xml"
-            line="78"
-            column="9"/>
-    </issue>
-
-    <issue
         id="MissingQuantity"
         message="For locale &quot;bn&quot; (Bangla) the following quantity should also be defined: `one` (e.g. &quot;সসে 1টি আপেল খেল, সেটা ভাল&quot;)"
         errorLine1="    &lt;plurals name=&quot;hint_describe_for_visually_impaired&quot;>"
         errorLine2="    ^">
         <location
             file="src/main/res/values-bn-rBD/strings.xml"
-            line="52"
+            line="48"
             column="5"/>
     </issue>
 
@@ -102,7 +91,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-bg/strings.xml"
-            line="128"
+            line="124"
             column="5"/>
     </issue>
 
@@ -146,7 +135,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-bg/strings.xml"
-            line="178"
+            line="174"
             column="5"/>
     </issue>
 
@@ -245,7 +234,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-hi/strings.xml"
-            line="281"
+            line="278"
             column="5"/>
     </issue>
 
@@ -256,7 +245,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-ga/strings.xml"
-            line="285"
+            line="284"
             column="5"/>
     </issue>
 
@@ -267,7 +256,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="292"
+            line="289"
             column="5"/>
     </issue>
 
@@ -278,7 +267,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="296"
+            line="293"
             column="5"/>
     </issue>
 
@@ -289,7 +278,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-cs/strings.xml"
-            line="297"
+            line="294"
             column="5"/>
     </issue>
 
@@ -300,7 +289,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-cs/strings.xml"
-            line="302"
+            line="299"
             column="5"/>
     </issue>
 
@@ -311,7 +300,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="322"
+            line="319"
             column="5"/>
     </issue>
 
@@ -322,7 +311,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-cs/strings.xml"
-            line="333"
+            line="330"
             column="5"/>
     </issue>
 
@@ -333,7 +322,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-cs/strings.xml"
-            line="347"
+            line="344"
             column="5"/>
     </issue>
 
@@ -344,7 +333,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-cs/strings.xml"
-            line="352"
+            line="349"
             column="5"/>
     </issue>
 
@@ -355,7 +344,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-cs/strings.xml"
-            line="357"
+            line="354"
             column="5"/>
     </issue>
 
@@ -366,7 +355,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="391"
+            line="387"
             column="5"/>
     </issue>
 
@@ -377,7 +366,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-bg/strings.xml"
-            line="393"
+            line="389"
             column="5"/>
     </issue>
 
@@ -388,7 +377,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="419"
+            line="415"
             column="5"/>
     </issue>
 
@@ -399,7 +388,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="423"
+            line="419"
             column="5"/>
     </issue>
 
@@ -410,7 +399,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="427"
+            line="423"
             column="5"/>
     </issue>
 
@@ -421,7 +410,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="431"
+            line="427"
             column="5"/>
     </issue>
 
@@ -432,7 +421,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-cs/strings.xml"
-            line="439"
+            line="435"
             column="5"/>
     </issue>
 
@@ -443,7 +432,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-cs/strings.xml"
-            line="444"
+            line="440"
             column="5"/>
     </issue>
 
@@ -454,7 +443,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="448"
+            line="444"
             column="5"/>
     </issue>
 
@@ -465,7 +454,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-cs/strings.xml"
-            line="449"
+            line="445"
             column="5"/>
     </issue>
 
@@ -652,7 +641,7 @@
         errorLine2="                                          ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="287"
+            line="284"
             column="43"/>
     </issue>
 
@@ -663,7 +652,7 @@
         errorLine2="                                                                                     ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="418"
+            line="414"
             column="86"/>
     </issue>
 
@@ -674,7 +663,7 @@
         errorLine2="                                                                                                                                                                                                                                                                                                     ^">
         <location
             file="src/main/res/values-tr/strings.xml"
-            line="532"
+            line="528"
             column="294"/>
     </issue>
 
@@ -685,7 +674,7 @@
         errorLine2="                                                  ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="554"
+            line="550"
             column="51"/>
     </issue>
 
@@ -751,7 +740,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="473"
+            line="469"
             column="5"/>
     </issue>
 
@@ -762,7 +751,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="656"
+            line="652"
             column="5"/>
     </issue>
 
@@ -960,7 +949,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="55"
+            line="56"
             column="9"/>
     </issue>
 
@@ -971,7 +960,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="158"
+            line="159"
             column="13"/>
     </issue>
 
@@ -1311,17 +1300,6 @@
         errorLine1="    android:background=&quot;?attr/selectableItemBackground&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/layout/item_emoji_pref.xml"
-            line="7"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="Overdraw"
-        message="Possible overdraw: Root element paints background `?attr/selectableItemBackground` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
-        errorLine1="    android:background=&quot;?attr/selectableItemBackground&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
             file="src/main/res/layout/item_hashtag.xml"
             line="16"
             column="5"/>
@@ -1395,28 +1373,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_blobmoji` appears to be unused"
-        errorLine1="&lt;vector android:height=&quot;34dp&quot; android:viewportHeight=&quot;128&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_blobmoji.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_emoji_34dp` appears to be unused"
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_emoji_34dp.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_notifications_off_24dp` appears to be unused"
         errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^">
@@ -1432,30 +1388,8 @@
         errorLine1="&lt;vector android:height=&quot;34dp&quot;"
         errorLine2="^">
         <location
-            file="src/main/res/drawable/ic_notoemoji.xml"
+            file="src/main/res/drawable-v24/ic_notoemoji.xml"
             line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_twemoji` appears to be unused"
-        errorLine1="&lt;vector android:height=&quot;34dp&quot; android:viewportHeight=&quot;36&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_twemoji.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.layout.item_emoji_pref` appears to be unused"
-        errorLine1="&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/layout/item_emoji_pref.xml"
-            line="2"
             column="1"/>
     </issue>
 
@@ -1703,56 +1637,12 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.caption_systememoji` appears to be unused"
-        errorLine1="    &lt;string name=&quot;caption_systememoji&quot;>Your device\&apos;s default emoji set&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="443"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.caption_blobmoji` appears to be unused"
-        errorLine1="    &lt;string name=&quot;caption_blobmoji&quot;>The Blob emojis known from Android 4.4–7.1&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="444"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.caption_twemoji` appears to be unused"
-        errorLine1="    &lt;string name=&quot;caption_twemoji&quot;>Mastodon\&apos;s standard emoji set&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="445"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.caption_notoemoji` appears to be unused"
-        errorLine1="    &lt;string name=&quot;caption_notoemoji&quot;>Google\&apos;s current emoji set&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="446"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.string.download_failed` appears to be unused"
         errorLine1="    &lt;string name=&quot;download_failed&quot;>Download failed&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="447"
+            line="443"
             column="13"/>
     </issue>
 
@@ -1763,7 +1653,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="511"
+            line="507"
             column="13"/>
     </issue>
 
@@ -1774,7 +1664,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="512"
+            line="508"
             column="13"/>
     </issue>
 
@@ -1785,7 +1675,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="525"
+            line="521"
             column="13"/>
     </issue>
 
@@ -1796,7 +1686,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="526"
+            line="522"
             column="13"/>
     </issue>
 
@@ -1807,7 +1697,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="527"
+            line="523"
             column="13"/>
     </issue>
 
@@ -1818,7 +1708,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="529"
+            line="525"
             column="13"/>
     </issue>
 
@@ -1829,7 +1719,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="569"
+            line="565"
             column="13"/>
     </issue>
 
@@ -1840,7 +1730,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="611"
+            line="607"
             column="13"/>
     </issue>
 
@@ -1851,7 +1741,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="617"
+            line="613"
             column="13"/>
     </issue>
 
@@ -1862,7 +1752,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="647"
+            line="643"
             column="13"/>
     </issue>
 
@@ -1873,7 +1763,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="675"
+            line="671"
             column="13"/>
     </issue>
 
@@ -1885,50 +1775,6 @@
         <location
             file="src/main/res/values-bg/strings.xml"
             line="53"
-            column="37"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;caption_blobmoji&quot;>Os emojis Blob coñecidos de Android 4.4-7.1&lt;/string>"
-        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-gl/strings.xml"
-            line="215"
-            column="37"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;caption_blobmoji&quot;>Android 4.4-7.1で知られる、Blob絵文字です&lt;/string>"
-        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-ja/strings.xml"
-            line="253"
-            column="37"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;caption_blobmoji&quot;>Blob emotikoni so znani od Android 4.4-7.1&lt;/string>"
-        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-sl/strings.xml"
-            line="256"
-            column="37"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
-        errorLine1="    &lt;string name=&quot;caption_blobmoji&quot;>Na emojis Blob atá ar eolas ó Android 4.4-7.1&lt;/string>"
-        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-ga/strings.xml"
-            line="309"
             column="37"/>
     </issue>
 
@@ -1961,7 +1807,7 @@
         errorLine2="                                                     ~~~~~~~~~~">
         <location
             file="src/main/res/values-ko/strings.xml"
-            line="336"
+            line="332"
             column="54"/>
     </issue>
 
@@ -2277,28 +2123,6 @@
         <location
             file="src/main/res/layout/item_draft.xml"
             line="45"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_emoji_pref.xml"
-            line="26"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_emoji_pref.xml"
-            line="41"
             column="6"/>
     </issue>
 
@@ -3002,7 +2826,7 @@
         errorLine2="            ^">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="92"
+            line="93"
             column="13"/>
     </issue>
 
@@ -3013,7 +2837,7 @@
         errorLine2="                                                 ^">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="92"
+            line="93"
             column="50"/>
     </issue>
 

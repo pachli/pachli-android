@@ -256,10 +256,6 @@
     <string name="restart_emoji">Du musst Pachli neu starten, damit die Änderungen übernommen werden</string>
     <string name="later">Später</string>
     <string name="restart">Neu starten</string>
-    <string name="caption_systememoji">Die Standard-Emojis deines Geräts</string>
-    <string name="caption_blobmoji">Die Blob–Emojis aus Android 4.4–7.1</string>
-    <string name="caption_twemoji">Die Standard-Emojis von Mastodon</string>
-    <string name="caption_notoemoji">Die aktuellen Emojis von Google</string>
     <string name="download_failed">Download fehlgeschlagen</string>
     <string name="account_moved_description">%1$s ist umgezogen auf:</string>
     <string name="reblog_private">An ursprüngliches Publikum teilen</string>

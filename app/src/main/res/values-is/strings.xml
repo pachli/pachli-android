@@ -292,10 +292,6 @@
     <string name="restart_emoji">Það þarf að endurræsa Pachli til að breytingarnar taki gildi</string>
     <string name="later">Seinna</string>
     <string name="restart">Endurræsa</string>
-    <string name="caption_systememoji">Sjálfgefið táknmyndasett á tækinu þnu</string>
-    <string name="caption_blobmoji">Blob-táknmyndasettið sem þekkt var í Android 4.4–7.1</string>
-    <string name="caption_twemoji">Staðlaða Mastodon táknmyndasettið</string>
-    <string name="caption_notoemoji">Núverandi táknmyndasett Google</string>
     <string name="download_failed">Niðurhal mistókst</string>
     <string name="account_moved_description">%1$s hefur verið flutt á:</string>
     <string name="reblog_private">Endurbirta til upphaflegra lesenda</string>

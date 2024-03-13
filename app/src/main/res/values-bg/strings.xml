@@ -100,11 +100,7 @@
     <string name="reblog_private">Споделяне с оригиналната аудитория</string>
     <string name="account_moved_description">%1$s се премести в:</string>
     <string name="download_failed">Изтеглянето се провали</string>
-    <string name="caption_notoemoji">Текущият набор от емоджита на Google</string>
     <string name="download_fonts">Първо ще трябва да изтеглите тези емоджи комплекти</string>
-    <string name="caption_twemoji">Стандартният емоджи комплект на Mastodon</string>
-    <string name="caption_blobmoji">Blob емоджитата, известни от Android 4.4–7.1</string>
-    <string name="caption_systememoji">Емоджи комплектът по подразбиране в устройство ви</string>
     <string name="restart">Рестартиране</string>
     <string name="later">По-късно</string>
     <string name="restart_emoji">Ще трябва да рестартирате Pachli, за да приложите тези промени</string>

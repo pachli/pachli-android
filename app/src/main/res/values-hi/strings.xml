@@ -266,9 +266,6 @@
     <string name="profile_metadata_content_label">विषय वस्तु</string>
     <string name="profile_metadata_label_label">लेबल</string>
     <string name="account_moved_description">%1$s यहां चले गए हैं:</string>
-    <string name="caption_notoemoji">गूगल का इमोजी सेट</string>
-    <string name="caption_twemoji">मास्टोडन का मानक इमोजी सेट</string>
-    <string name="caption_systememoji">आपके डिवाइस का डिफ़ॉल्ट इमोजी सेट</string>
     <string name="restart">पुनः आरंभ करें</string>
     <string name="later">बाद में</string>
     <string name="restart_required">एप्लिकेशन को पुनः आरंभ की आवश्यकता है</string>

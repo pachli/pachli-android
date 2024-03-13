@@ -276,9 +276,6 @@
     <string name="restart_emoji">你需要重啟 Pachli 才能生效</string>
     <string name="later">稍後</string>
     <string name="restart">立即重啟</string>
-    <string name="caption_systememoji">系統預設的表情符號包</string>
-    <string name="caption_blobmoji">Android 4.4–7.1 的黃饅頭表情符號</string>
-    <string name="caption_twemoji">Mastodon 使用的表情符號</string>
     <!-- string name="emoji_shortcode_format" translatable="false">:%s:</string -->
     <string name="download_failed">下載失敗</string>
     <string name="account_moved_description">%1$s 已遷移到：</string>
@@ -446,7 +443,6 @@
     <string name="select_list_title">選擇列表</string>
     <string name="add_hashtag_title">加上話題標籤</string>
     <string name="description_poll">投票選項： %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="caption_notoemoji">Google 目前的表情符號包</string>
     <string name="pref_title_alway_open_spoiler">總是顯示被標注為內容警告的嘟文</string>
     <string name="post_media_attachments">附件</string>
     <string name="post_media_audio">錄音</string>

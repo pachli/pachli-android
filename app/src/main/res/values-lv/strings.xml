@@ -337,8 +337,6 @@
     <string name="error_no_custom_emojis">Instancē %s nav neviena pielāgota emocijzīmje</string>
     <string name="download_fonts">Vispirms jālejupielādē šie emocijzīmju komplekti</string>
     <string name="action_compose_shortcut">Rakstīt</string>
-    <string name="caption_blobmoji">Blob emocijzīmes no Android 4.4–7.1</string>
-    <string name="caption_systememoji">Tavas ierīces noklusējuma emocijzīmju komplekts</string>
     <string name="warning_scheduling_interval">Mastodon minimālais ieplānošanas intervāls ir 5 minūtes.</string>
     <string name="no_scheduled_posts">Tev nav ieplānotu ziņu.</string>
     <string name="account_note_hint">Tava privātā piezīme par šo kontu</string>
@@ -420,8 +418,6 @@
     <string name="post_share_content">Dalīties ar ieraksta saturu</string>
     <string name="set_focus_description">Pieskaries vai velc apli, lai izvēlētos fokusa punktu, kas vienmēr būs redzams sīktēlos.</string>
     <string name="expand_collapse_all_posts">Izplest/sakļaut visus ierakstus</string>
-    <string name="caption_twemoji">Mastodon standarta emocijzīmju komplekts</string>
-    <string name="caption_notoemoji">Google aktuālais emocijzīmju komplekts</string>
     <string name="notification_report_description">Paziņojumi par moderēšanas ziņojumiem</string>
     <string name="notification_mention_format">%s pieminēja tevi</string>
     <string name="notification_summary_small">%1$s un %2$s</string>

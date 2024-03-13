@@ -373,10 +373,6 @@
     <string name="reblog_private">Đăng lại công khai</string>
     <string name="account_moved_description">%1$s đã chuyển sang:</string>
     <string name="download_failed">Tải về thất bại</string>
-    <string name="caption_notoemoji">Emoji của Google</string>
-    <string name="caption_twemoji">Emoji chính thức của Mastodon</string>
-    <string name="caption_blobmoji">Emoji của Android phiên bản từ 4.4 đến 7.1</string>
-    <string name="caption_systememoji">Sử dụng emoji mặc định của thiết bị</string>
     <string name="restart">Khởi động lại</string>
     <string name="later">Để sau</string>
     <string name="restart_emoji">Bạn cần khởi động lại Pachli để áp dụng các thiết lập</string>

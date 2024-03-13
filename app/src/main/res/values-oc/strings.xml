@@ -217,9 +217,6 @@
     <string name="restart_emoji">Vos caldrà reaviar Pachli per aplicar aquestes cambiaments</string>
     <string name="later">Mai tard</string>
     <string name="restart">Reaviar</string>
-    <string name="caption_systememoji">Los emoji per defaut de vòstre aparelh</string>
-    <string name="caption_blobmoji">Emoji basats en Blob emojis coneguts d\'Android 4.4–7.1</string>
-    <string name="caption_twemoji">Emoji estandards de Mastodon</string>
     <string name="download_failed">Fracàs del telecargament</string>
     <string name="account_moved_description">%1$s mudèt los catons a :</string>
     <string name="reblog_private">Partejar al public d’origina</string>
@@ -353,7 +350,6 @@
     </plurals>
     <string name="compose_preview_image_description">Accions per l’imatge %s</string>
     <string name="pref_title_animate_gif_avatars">Activar l’animacion dels avatars</string>
-    <string name="caption_notoemoji">Jòc d’emoji actuals de Google</string>
     <string name="description_poll">Sondatge amb opcion : %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="button_continue">Contunhar</string>
     <string name="button_back">Tornar</string>

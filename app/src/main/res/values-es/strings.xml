@@ -244,9 +244,6 @@
     <string name="restart_emoji">Tendrás que reiniciar la aplicación para aplicar estos cambios</string>
     <string name="later">Más tarde</string>
     <string name="restart">Reiniciar</string>
-    <string name="caption_systememoji">Conjunto de emoji predeterminado de su dispositivo</string>
-    <string name="caption_blobmoji">Los emojis de Android 4.4 a 7.1</string>
-    <string name="caption_twemoji">Pack estándar de Emojis de Mastodon</string>
     <string name="download_failed">Descarga fallida</string>
     <string name="account_moved_description">%1$s se trasladó a:</string>
     <string name="reblog_private">Volver a compartir</string>
@@ -371,7 +368,6 @@
     <string name="pref_title_animate_gif_avatars">Animar avatares GIF</string>
     <string name="filter_dialog_whole_word">Toda palabra</string>
     <string name="filter_dialog_whole_word_description">Cuando la palabra o frase sea solo alfanumérica, solo se aplicará si coincide con toda la palabra</string>
-    <string name="caption_notoemoji">Set de emojis actual de Google</string>
     <string name="description_poll">Encuesta con opciones: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="button_continue">Continuar</string>
     <string name="button_back">Atrás</string>

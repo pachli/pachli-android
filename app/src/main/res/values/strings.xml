@@ -440,10 +440,6 @@
     <string name="restart_emoji">You\'ll need to restart Pachli in order to apply these changes</string>
     <string name="later">Later</string>
     <string name="restart">Restart</string>
-    <string name="caption_systememoji">Your device\'s default emoji set</string>
-    <string name="caption_blobmoji">The Blob emojis known from Android 4.4–7.1</string>
-    <string name="caption_twemoji">Mastodon\'s standard emoji set</string>
-    <string name="caption_notoemoji">Google\'s current emoji set</string>
     <string name="download_failed">Download failed</string>
     <string name="account_moved_description">%1$s has moved to:</string>
     <string name="reblog_private">Boost to original audience</string>

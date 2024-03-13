@@ -158,8 +158,6 @@
     <string name="notification_subscription_format">%s щойно опубліковано</string>
     <string name="title_announcements">Оголошення</string>
     <string name="action_open_drawer">Відкрити меню</string>
-    <string name="caption_blobmoji">Емодзі Blob з Android 4.4–7.1</string>
-    <string name="caption_systememoji">Типовий набір емодзі пристрою</string>
     <string name="download_fonts">Спочатку потрібно буде завантажити ці набори емодзі</string>
     <string name="system_default">Типовий системний</string>
     <string name="emoji_style">Стиль емодзі</string>
@@ -477,8 +475,6 @@
     <string name="reblog_private">Поширити початковій аудиторії</string>
     <string name="account_moved_description">%1$s переміщено до:</string>
     <string name="download_failed">Не вдалося завантажити</string>
-    <string name="caption_notoemoji">Поточний набір емодзі Google</string>
-    <string name="caption_twemoji">Стандартний набір емодзі Mastodon</string>
     <string name="follow_requests_info">Навіть попри те, що ваш обліковий запис загальнодоступний, співробітники %1$s вважають, що ви, можливо, захочете переглянути запити від цих облікових записів власноруч.</string>
     <string name="dialog_delete_conversation_warning">Видалити цю бесіду\?</string>
     <string name="action_delete_conversation">Видалити бесіду</string>

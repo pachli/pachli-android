@@ -255,7 +255,6 @@
     <string name="pref_title_public_filter_keywords">Amlínte poiblí</string>
     <string name="expand_collapse_all_posts">Leathnaigh/Fill na postálacha go léir</string>
     <string name="restart_emoji">Beidh ort Pachli a atosú chun na hathruithe seo a chur i bhfeidhm</string>
-    <string name="caption_notoemoji">Sraith emoji reatha Google</string>
     <string name="label_remote_account">Féadfaidh an fhaisnéis thíos próifíl an úsáideora a léiriú go neamhiomlán. Brúigh chun próifíl iomlán a oscailt sa bhrabhsálaí.</string>
     <string name="description_poll">Vótaíocht le roghanna: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="list">Liosta</string>
@@ -305,9 +304,6 @@
     <string name="restart_required">Atosú aip de dhíth</string>
     <string name="later">Níos déanaí</string>
     <string name="restart">Atosaigh</string>
-    <string name="caption_systememoji">Tacar emoji réamhshocraithe do ghléas</string>
-    <string name="caption_blobmoji">Na emojis Blob atá ar eolas ó Android 4.4-7.1</string>
-    <string name="caption_twemoji">Tacar emoji caighdeánach Mastodon</string>
     <string name="download_failed">Theip ar íoslódáil</string>
     <string name="account_moved_description">Tá %1$s tar éis bogadh go:</string>
     <string name="reblog_private">Athchraol don bhunlucht léite</string>

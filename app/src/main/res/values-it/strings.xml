@@ -293,9 +293,6 @@
     <string name="restart_emoji">Devi riavviare Pachli per applicare queste modifiche</string>
     <string name="later">Più tardi</string>
     <string name="restart">Riavvia</string>
-    <string name="caption_systememoji">Le emoji predefinite del tuo dispositivo</string>
-    <string name="caption_blobmoji">Le emoji Blob di Android 4.4–7.1</string>
-    <string name="caption_twemoji">Le emoji standard di Mastodon</string>
     <string name="download_failed">Scaricamento fallito</string>
     <string name="account_moved_description">%1$s si è spostato su:</string>
     <string name="reblog_private">Condividi con la visibilità del messaggio originale</string>
@@ -365,7 +362,6 @@
     <string name="notification_poll_description">Notifiche sui sondaggi che si sono conclusi</string>
     <string name="filter_dialog_whole_word">Parola intera</string>
     <string name="filter_dialog_whole_word_description">Quando la parola chiave o la frase sono composte da soli caratteri alfanumerici, sarà applicata solo se corrisponde alla parola completa</string>
-    <string name="caption_notoemoji">Set di emoji di Google</string>
     <string name="title_bookmarks">Segnalibri</string>
     <string name="action_bookmark">Segnalibro</string>
     <string name="action_edit">Modifica</string>

@@ -226,9 +226,6 @@
     <string name="restart_emoji">برای اعمال این تغییرات، نیاز به شروع دوبارهٔ تاسکی دارید</string>
     <string name="later">بعداً</string>
     <string name="restart">آغاز دوباره</string>
-    <string name="caption_systememoji">مجموعه اموجی پیش‌گزیدهٔ افزاره‌تان</string>
-    <string name="caption_blobmoji">اموجی‌های اندروید ۴.۴ تا ۷.۱</string>
-    <string name="caption_twemoji">مجموعه اموجی استاندارد ماستودون</string>
     <string name="download_failed">شکست در بارگیری</string>
     <string name="account_moved_description">%1$s منتقل شد به:</string>
     <string name="reblog_private">تقویت برای مخاطب اصلی</string>
@@ -302,7 +299,6 @@
     <string name="hint_search_people_list">جست‌وجوی افرادی که پی می‌گیرید</string>
     <string name="action_add_to_list">افزودن حساب به سیاهه</string>
     <string name="action_remove_from_list">برداشتن حساب از سیاهه</string>
-    <string name="caption_notoemoji">مجموعه اموجی کنونی گوگل</string>
     <plurals name="favs">
         <item quantity="one"><b>%1$s</b> برگزیدن</item>
         <item quantity="other"><b>%1$s</b> برگزیدن</item>

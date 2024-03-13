@@ -255,9 +255,6 @@
     <string name="restart_emoji">Je moet Pachli herstarten om deze veranderingen te kunnen doorvoeren</string>
     <string name="later">Later</string>
     <string name="restart">Herstarten</string>
-    <string name="caption_systememoji">Standaard emojiset van jouw apparaat</string>
-    <string name="caption_blobmoji">De Blob-emojis van Android 4.4–7.1</string>
-    <string name="caption_twemoji">Standaard emojiset van Mastodon</string>
     <string name="download_failed">Downloaden mislukt</string>
     <string name="account_moved_description">%1$s is verhuisd naar:</string>
     <string name="reblog_private">Boost naar oorspronkelijke ontvangers</string>
@@ -341,7 +338,6 @@
     <string name="confirmation_domain_unmuted">%s niet langer verborgen</string>
     <string name="mute_domain_warning_dialog_ok">Volledig domein verbergen</string>
     <string name="pref_title_animate_gif_avatars">GIF-avatars animeren</string>
-    <string name="caption_notoemoji">Google\'s huidige emojiset</string>
     <string name="mute_domain_warning">Weet je zeker dat je alles van %s wilt blokkeren\? Je zult op alle openbare tijdlijnen en in jouw meldingen geen inhoud van dat domein zien. Jouw volgers van dat domein worden verwijderd.</string>
     <string name="description_poll">Poll met keuzes: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="compose_preview_image_description">Acties voor afbeelding %s</string>

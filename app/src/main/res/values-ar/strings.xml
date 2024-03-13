@@ -284,9 +284,6 @@
     <string name="restart_emoji">إعادة تشغيل توسكي مطلوبة قصد تفعيل التعديلات</string>
     <string name="later">لاحقًا</string>
     <string name="restart">إعادة التشغيل</string>
-    <string name="caption_systememoji">مجموعة الإيموجي المُدمَجة في جهازك</string>
-    <string name="caption_blobmoji">إيموجيات الفقاقيع المعروفة على أندرويد 4.4–7.1</string>
-    <string name="caption_twemoji">مجموعة الإيموجي الخاصة بماستدون</string>
     <string name="download_failed">فشلت عملية التنزيل</string>
     <string name="account_moved_description">إنتقَلَ %1$s إلى :</string>
     <string name="reblog_private">المشاركة إلى الجمهور الأصلي</string>
@@ -393,7 +390,6 @@
         <item quantity="other">%d ثوان متبقية</item>
     </plurals>
     <string name="compose_preview_image_description">إجراءات على الصورة %s</string>
-    <string name="caption_notoemoji">حزمة الإيموجي الحالية لـ غوغل</string>
     <string name="title_domain_mutes">النطاقات المخفية</string>
     <string name="action_view_domain_mutes">النطاقات المخفية</string>
     <string name="action_mute_domain">اكتم %s</string>

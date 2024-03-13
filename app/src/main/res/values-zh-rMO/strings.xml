@@ -276,9 +276,6 @@
     <string name="restart_emoji">你需要重啟 Pachli 才能生效</string>
     <string name="later">稍後</string>
     <string name="restart">立即重啟</string>
-    <string name="caption_systememoji">系統預設的表情符號包</string>
-    <string name="caption_blobmoji">Android 4.4–7.1 的黃饅頭表情符號</string>
-    <string name="caption_twemoji">Mastodon 使用的表情符號</string>
     <!-- string name="emoji_shortcode_format" translatable="false">:%s:</string -->
     <string name="download_failed">下載失敗</string>
     <string name="account_moved_description">%1$s 已遷移到：</string>

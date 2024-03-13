@@ -327,10 +327,6 @@
     <string name="reblog_private">بەرزکردنەوە بۆ جەماوەری ڕەسەن</string>
     <string name="account_moved_description">%1$s گواسترایەوە بۆ:</string>
     <string name="download_failed">داگرتن سەرکەوتوو نەبوو</string>
-    <string name="caption_notoemoji">کۆمەڵە ئیمۆجیەکەی ئێستای گووگڵ</string>
-    <string name="caption_twemoji">سێتی ئیمۆجی پێوانەیی ماتۆدۆن</string>
-    <string name="caption_blobmoji">ئیمۆجی Blob لە ئەندرۆید ەوە ناسراوە 4.4–7.1</string>
-    <string name="caption_systememoji">سێتی ئیمۆجی بنەڕەتی ئامێرەکەت</string>
     <string name="restart">دەستپێکردنەوە</string>
     <string name="later">دواتر</string>
     <string name="restart_emoji">تۆ پێویستە توسکی دەستپێبکەیتەوە بۆ ئەوەی ئەم گۆڕانکاریانە جێبەجێ بکەیت</string>

@@ -50,7 +50,6 @@
     <string name="action_logout">නික්මෙන්න</string>
     <string name="filter_edit_title">පෙරහන සංස්කරණය</string>
     <string name="notification_summary_medium">%1$s, %2$s, සහ %3$s</string>
-    <string name="caption_twemoji">මාස්ටඩන් හි සම්මත ඉමෝජි කට්ටලය</string>
     <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
     <string name="action_retry">යළි උත්සාහය</string>
     <string name="lock_account_label">ගිණුම අගුළුලන්න</string>
@@ -74,7 +73,6 @@
     <string name="compose_save_draft">කටුපිටපත සුරකින්නද\?</string>
     <string name="post_sensitive_media_title">සංවේදී අන්තර්ගතයකි</string>
     <string name="action_bookmark">පොත්යොමුව</string>
-    <string name="caption_notoemoji">ගූගල් හි වත්මන් ඉමෝජි කට්ටලය</string>
     <string name="app_theme_auto">ස්වයංක්‍රීව ඉර බැසීමේදී</string>
     <string name="failed_report">වාර්තා කිරීමට අසමත් විය</string>
     <string name="abbreviated_years_ago">අවු. %d</string>
@@ -171,7 +169,6 @@
     <string name="pref_failed_to_sync">සැකසුම් සමමුහූර්ත වීමට අසමත් විය</string>
     <string name="pref_title_show_replies">පිළිතුරු පෙන්වන්න</string>
     <string name="action_view_profile">පැතිකඩ</string>
-    <string name="caption_systememoji">ඔබගේ උපාංගයේ පෙරනිමි ඉමෝජි කට්ටලය</string>
     <string name="notification_mention_descriptions">නව සැඳහුම් පිළිබඳව දැනුම්දීම්</string>
     <string name="action_search">සොයන්න</string>
     <string name="action_share_as">ලෙස බෙදාගන්න …</string>

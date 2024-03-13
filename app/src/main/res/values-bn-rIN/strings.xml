@@ -280,10 +280,6 @@
     <string name="restart_emoji">এই পরিবর্তনগুলি প্রয়োগ করার জন্য আপনাকে টাস্কি পুনরায় চালু করতে হবে</string>
     <string name="later">পরবর্তীতে</string>
     <string name="restart">পুনরারম্ভ</string>
-    <string name="caption_systememoji">আপনার ডিভাইসের ডিফল্ট ইমোজি সেট</string>
-    <string name="caption_blobmoji">অ্যান্ড্রয়েড ৪.৪-৭.১ থেকে পরিচিত ব্লোব ইমোজিস</string>
-    <string name="caption_twemoji">ম্যাস্টোডোন এর মান ইমোজি সেট</string>
-    <string name="caption_notoemoji">গুগল এর বর্তমান ইমোজি সেট</string>
     <string name="download_failed">ডাউনলোড ব্যর্থ হয়েছে</string>
     <string name="account_moved_description">%1$s স্থানান্তরিত করেছে এতে:</string>
     <string name="reblog_private">মূল শ্রোতাদেড় সমথন পাঠাও</string>

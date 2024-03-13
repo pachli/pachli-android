@@ -288,10 +288,6 @@
     <string name="restart_emoji">변경 사항을 적용하려면 Pachli를 재시작해야 합니다</string>
     <string name="later">다음에</string>
     <string name="restart">지금 재시작</string>
-    <string name="caption_systememoji">이 디바이스의 기본 이모지</string>
-    <string name="caption_blobmoji">Android 4.4~7.1에 내장된 기본 이모지</string>
-    <string name="caption_twemoji">Mastodon 표준 이모지</string>
-    <string name="caption_notoemoji">현재 Google이 배포 중인 이모지</string>
     <string name="download_failed">다운로드 실패</string>
     <string name="account_moved_description">%1$s는 계정을 이동했습니다:</string>
     <string name="reblog_private">원래의 수신자들에게 부스트</string>
