@@ -32,6 +32,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.transition.Transition
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.webkit.MimeTypeMap
@@ -91,12 +92,13 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     /** True if a download to share media is in progress */
     private var isDownloading: Boolean = false
 
-    /** True if the Toolbar options menu is being created */
-    private var isOptionsMenuBeingCreated = false
+    /** True if a call to [onPrepareMenu] represents a user-initiated action */
+    private var respondToPrepareMenu = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        addMenuProvider(this)
 
         supportPostponeEnterTransition()
 
@@ -161,25 +163,26 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         )
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        isOptionsMenuBeingCreated = true
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
 
         menuInflater.inflate(R.menu.view_media_toolbar, menu)
         // We don't support 'open status' from single image views
         menu.findItem(R.id.action_open_status)?.isVisible = (attachmentViewData != null)
-        return true
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        if (isOptionsMenuBeingCreated) {
-            isOptionsMenuBeingCreated = false
-        } else {
-            // The overflow menu is being opened
-            viewModel.onToolbarMenuInteraction()
-        }
+    override fun onPrepareMenu(menu: Menu) {
+        menu.findItem(R.id.action_share_media)?.isEnabled = !isDownloading
 
-        menu?.findItem(R.id.action_share_media)?.isEnabled = !isDownloading
-        return true
+        // onPrepareMenu is called immediately after onCreateMenu when the activity
+        // is created (https://issuetracker.google.com/issues/329322653), and this is
+        // not in response to user action. Ignore the first call, respond to
+        // subsequent calls.
+        if (respondToPrepareMenu) {
+            viewModel.onToolbarMenuInteraction()
+        } else {
+            respondToPrepareMenu = true
+        }
     }
 
     override fun onMediaReady() {
