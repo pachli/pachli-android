@@ -84,6 +84,8 @@
         <item name="graphViewStyle">@style/Pachli.Widget.GraphView</item>
 
         <item name="snackbarTextViewStyle">@style/snackbar_text</item>
+
+        <item name="linearProgressIndicatorStyle">@style/Pachli.Widget.Material3.LinearProgressIndicator</item>
     </style>
 
     <style name="AppTheme" parent="Theme.Pachli" />
@@ -167,6 +169,11 @@
         <item name="primaryLineColor">@color/pachli_blue</item>
         <item name="secondaryLineColor">@color/pachli_orange</item>
         <item name="lineWidth">2sp</item>
+    </style>
+
+    <style name="Pachli.Widget.Material3.LinearProgressIndicator" parent="Widget.Material3.LinearProgressIndicator">
+        <item name="minHideDelay">500</item>
+        <item name="showDelay">500</item>
     </style>
 
     <style name="Theme.Pachli.Black" parent="Base.Theme.Black" />

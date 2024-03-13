@@ -19,13 +19,10 @@ package app.pachli
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -42,7 +39,6 @@ import app.pachli.adapter.TabAdapter
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.activity.BaseActivity
-import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
@@ -55,7 +51,7 @@ import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityTabPreferenceBinding
-import app.pachli.util.getDimension
+import app.pachli.databinding.DialogSelectListBinding
 import app.pachli.util.unsafeLazy
 import at.connyduck.sparkbutton.helpers.Utils
 import com.github.michaelbull.result.onFailure
@@ -67,10 +63,7 @@ import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 import javax.inject.Inject
-import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.awaitCancellation
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -296,26 +289,13 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             }
         }
 
-        val statusLayout = LinearLayout(this)
-        statusLayout.gravity = Gravity.CENTER
-        val progress = ProgressBar(this)
-        val preferredPadding = getDimension(this, androidx.appcompat.R.attr.dialogPreferredPadding)
-        progress.setPadding(preferredPadding, 0, preferredPadding, 0)
-        progress.visible(false)
-
-        val noListsText = TextView(this)
-        noListsText.setPadding(preferredPadding, 0, preferredPadding, 0)
-        noListsText.text = getText(R.string.select_list_empty)
-        noListsText.visible(false)
-
-        statusLayout.addView(progress)
-        statusLayout.addView(noListsText)
+        val selectListBinding = DialogSelectListBinding.inflate(layoutInflater, null, false)
 
         val dialog = AlertDialog.Builder(this)
             .setTitle(R.string.select_list_title)
             .setNeutralButton(R.string.select_list_manage, null)
             .setNegativeButton(android.R.string.cancel, null)
-            .setView(statusLayout)
+            .setView(selectListBinding.root)
             .setAdapter(adapter) { _, position ->
                 adapter.getItem(position)?.let { item ->
                     val newTab = TabViewData.from(TabData.UserList(item.id, item.title))
@@ -326,8 +306,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 }
             }.create()
 
-        val showProgressBarJob = getProgressBarJob(progress, 500)
-        showProgressBarJob.start()
+        selectListBinding.progressBar.show()
 
         // Set the "Manage lists" button listener after creating the dialog. This ensures
         // that clicking the button does not dismiss the dialog, so when the user returns
@@ -338,37 +317,27 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 startActivity(ListActivityIntent(applicationContext))
             }
         }
+
         dialog.show()
 
         lifecycleScope.launch {
             listsRepository.lists.collect { result ->
                 result.onSuccess { lists ->
                     if (lists is Lists.Loaded) {
-                        showProgressBarJob.cancel()
+                        selectListBinding.progressBar.hide()
                         adapter.clear()
                         adapter.addAll(lists.lists.sortedWith(compareByListTitle))
-                        if (lists.lists.isEmpty()) noListsText.show()
+                        if (lists.lists.isEmpty()) selectListBinding.noLists.show()
                     }
                 }
 
                 result.onFailure {
-                    dialog.hide()
+                    selectListBinding.progressBar.hide()
+                    dialog.dismiss()
                     Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_LONG).show()
                     Timber.w(it.throwable, "failed to load lists")
                 }
             }
-        }
-    }
-
-    private fun getProgressBarJob(progressView: View, delayMs: Long) = this.lifecycleScope.launch(
-        start = CoroutineStart.LAZY,
-    ) {
-        try {
-            delay(delayMs)
-            progressView.show()
-            awaitCancellation()
-        } finally {
-            progressView.hide()
         }
     }
 
