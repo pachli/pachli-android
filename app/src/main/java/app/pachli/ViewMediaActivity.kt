@@ -36,12 +36,10 @@ import android.view.MenuItem
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -80,16 +78,14 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     @Inject
     lateinit var okHttpClient: OkHttpClient
 
+    private val viewModel: ViewMediaViewModel by viewModels()
+
     private val binding by viewBinding(ActivityViewMediaBinding::inflate)
 
     val toolbar: View
         get() = binding.toolbar
 
-    var isToolbarVisible = true
-        private set
-
     private var attachmentViewData: List<AttachmentViewData>? = null
-    private val toolbarListeners = mutableListOf<ToolbarListener>()
     private var imageUrl: String? = null
 
     /** True if a download to share media is in progress */
@@ -97,21 +93,6 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
 
     /** True if the Toolbar options menu is being created */
     private var isOptionsMenuBeingCreated = false
-
-    /**
-     * Adds [listener] to the list of toolbar action listeners.
-     * The [listener] will be removed when the provided [lifecycle] reaches [Lifecycle.State.DESTROYED].
-     */
-    fun addToolbarListener(lifecycle: Lifecycle, listener: ToolbarListener) {
-        toolbarListeners.add(listener)
-        lifecycle.addObserver(
-            object : DefaultLifecycleObserver {
-                override fun onDestroy(owner: LifecycleOwner) {
-                    toolbarListeners.remove(listener)
-                }
-            },
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -163,9 +144,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 R.id.action_share_media -> shareMedia()
                 R.id.action_copy_media_link -> copyLink()
             }
-            for (listener in toolbarListeners) {
-                listener.onMenuItemAction()
-            }
+            viewModel.onToolbarMenuInteraction()
             true
         }
 
@@ -195,9 +174,8 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         if (isOptionsMenuBeingCreated) {
             isOptionsMenuBeingCreated = false
         } else {
-            for (listener in toolbarListeners) {
-                listener.onOverflowMenuOpen()
-            }
+            // The overflow menu is being opened
+            viewModel.onToolbarMenuInteraction()
         }
 
         menu?.findItem(R.id.action_share_media)?.isEnabled = !isDownloading
@@ -213,10 +191,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     }
 
     override fun onMediaTap() {
-        isToolbarVisible = !isToolbarVisible
-        for (listener in toolbarListeners) {
-            listener.onVisibilityChange(isToolbarVisible)
-        }
+        val isToolbarVisible = viewModel.toggleToolbarVisibility()
 
         val visibility = if (isToolbarVisible) View.VISIBLE else View.INVISIBLE
         val alpha = if (isToolbarVisible) 1.0f else 0.0f
@@ -371,10 +346,4 @@ interface NoopTransitionListener : Transition.TransitionListener {
 
     override fun onTransitionStart(transition: Transition) {
     }
-}
-
-interface ToolbarListener {
-    fun onVisibilityChange(isVisible: Boolean) = Unit
-    fun onOverflowMenuOpen() = Unit
-    fun onMenuItemAction() = Unit
 }

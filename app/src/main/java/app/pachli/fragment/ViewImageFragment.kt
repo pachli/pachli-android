@@ -30,9 +30,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GestureDetectorCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
-import app.pachli.ToolbarListener
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
@@ -60,10 +61,7 @@ class ViewImageFragment : ViewMediaFragment() {
 
     private var scheduleToolbarHide = false
 
-    override fun setupMediaView(
-        isToolbarVisible: Boolean,
-        showingDescription: Boolean,
-    ) {
+    override fun setupMediaView(showingDescription: Boolean) {
         binding.photoView.transitionName = attachment.url
         binding.mediaDescription.text = attachment.description
         binding.captionSheet.visible(showingDescription)
@@ -72,7 +70,7 @@ class ViewImageFragment : ViewMediaFragment() {
         loadImageFromNetwork(attachment.url, attachment.previewUrl, binding.photoView)
 
         // Only schedule hiding the toolbar once
-        scheduleToolbarHide = isToolbarVisible
+        scheduleToolbarHide = viewModel.isToolbarVisible
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -202,13 +200,13 @@ class ViewImageFragment : ViewMediaFragment() {
         )
 
         // Cancel hiding the toolbar whenever interacting with the toolbar (items and overflow menu)
-        mediaActivity.addToolbarListener(
-            viewLifecycleOwner.lifecycle,
-            object : ToolbarListener {
-                override fun onOverflowMenuOpen() = cancelToolbarHide()
-                override fun onMenuItemAction() = cancelToolbarHide()
-            },
-        )
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.toolbarMenuInteraction.collect {
+                    cancelToolbarHide()
+                }
+            }
+        }
     }
 
     override fun onToolbarVisibilityChange(visible: Boolean) {

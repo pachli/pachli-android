@@ -24,10 +24,13 @@ import android.view.View
 import androidx.annotation.CallSuper
 import androidx.annotation.OptIn
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.media3.common.util.UnstableApi
-import app.pachli.ToolbarListener
 import app.pachli.ViewMediaActivity
+import app.pachli.ViewMediaViewModel
 import app.pachli.core.network.model.Attachment
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CompletableDeferred
@@ -53,17 +56,15 @@ interface MediaActionsListener {
 
 abstract class ViewMediaFragment : Fragment() {
 
+    protected val viewModel: ViewMediaViewModel by activityViewModels()
+
     /**
      * Called after [onResume], subclasses should override this and update
      * the contents of views (including loading any media).
      *
-     * @param isToolbarVisible True if the toolbar is visible
      * @param showingDescription True if the media's description should be shown
      */
-    abstract fun setupMediaView(
-        isToolbarVisible: Boolean,
-        showingDescription: Boolean,
-    )
+    abstract fun setupMediaView(showingDescription: Boolean)
 
     /**
      * Called when the visibility of the toolbar changes.
@@ -140,6 +141,12 @@ abstract class ViewMediaFragment : Fragment() {
 
         shouldCallMediaReady = arguments?.getBoolean(ARG_SHOULD_CALL_MEDIA_READY)
             ?: throw IllegalArgumentException("ARG_START_POSTPONED_TRANSITION has to be set")
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.toolbarVisibility.collect(::onToolbarVisibilityChange)
+            }
+        }
     }
 
     /**
@@ -158,17 +165,7 @@ abstract class ViewMediaFragment : Fragment() {
     private fun finalizeViewSetup() {
         showingDescription = !TextUtils.isEmpty(attachment.description)
         isDescriptionVisible = showingDescription
-        setupMediaView(mediaActivity.isToolbarVisible, showingDescription && mediaActivity.isToolbarVisible)
-
-        mediaActivity.addToolbarListener(
-            viewLifecycleOwner.lifecycle,
-            object : ToolbarListener {
-                override fun onVisibilityChange(isVisible: Boolean) {
-                    onToolbarVisibilityChange(isVisible)
-                }
-            },
-        )
-        onToolbarVisibilityChange(mediaActivity.isToolbarVisible)
+        setupMediaView(showingDescription && viewModel.isToolbarVisible)
     }
 
     override fun onPause() {
