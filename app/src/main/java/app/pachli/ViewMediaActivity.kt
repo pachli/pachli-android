@@ -32,10 +32,12 @@ import android.os.Bundle
 import android.os.Environment
 import android.transition.Transition
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
@@ -69,8 +71,6 @@ import okio.buffer
 import okio.sink
 import timber.log.Timber
 
-typealias ToolbarVisibilityListener = (isVisible: Boolean) -> Unit
-
 /**
  * Show one or more media items (pictures, video, audio, etc).
  */
@@ -79,36 +79,26 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     @Inject
     lateinit var okHttpClient: OkHttpClient
 
+    private val viewModel: ViewMediaViewModel by viewModels()
+
     private val binding by viewBinding(ActivityViewMediaBinding::inflate)
 
     val toolbar: View
         get() = binding.toolbar
 
-    var isToolbarVisible = true
-        private set
-
     private var attachmentViewData: List<AttachmentViewData>? = null
-    private val toolbarVisibilityListeners = mutableListOf<ToolbarVisibilityListener>()
     private var imageUrl: String? = null
 
     /** True if a download to share media is in progress */
     private var isDownloading: Boolean = false
 
-    /**
-     * Adds [listener] to the list of toolbar listeners and immediately calls
-     * it with the current toolbar visibility.
-     *
-     * @return A function that must be called to remove the listener.
-     */
-    fun addToolbarVisibilityListener(listener: ToolbarVisibilityListener): Function0<Boolean> {
-        toolbarVisibilityListeners.add(listener)
-        listener(isToolbarVisible)
-        return { toolbarVisibilityListeners.remove(listener) }
-    }
+    /** True if a call to [onPrepareMenu] represents a user-initiated action */
+    private var respondToPrepareMenu = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        addMenuProvider(this)
 
         supportPostponeEnterTransition()
 
@@ -156,6 +146,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 R.id.action_share_media -> shareMedia()
                 R.id.action_copy_media_link -> copyLink()
             }
+            viewModel.onToolbarMenuInteraction()
             true
         }
 
@@ -172,16 +163,26 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         )
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
+
         menuInflater.inflate(R.menu.view_media_toolbar, menu)
         // We don't support 'open status' from single image views
         menu.findItem(R.id.action_open_status)?.isVisible = (attachmentViewData != null)
-        return true
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        menu?.findItem(R.id.action_share_media)?.isEnabled = !isDownloading
-        return true
+    override fun onPrepareMenu(menu: Menu) {
+        menu.findItem(R.id.action_share_media)?.isEnabled = !isDownloading
+
+        // onPrepareMenu is called immediately after onCreateMenu when the activity
+        // is created (https://issuetracker.google.com/issues/329322653), and this is
+        // not in response to user action. Ignore the first call, respond to
+        // subsequent calls.
+        if (respondToPrepareMenu) {
+            viewModel.onToolbarMenuInteraction()
+        } else {
+            respondToPrepareMenu = true
+        }
     }
 
     override fun onMediaReady() {
@@ -193,10 +194,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     }
 
     override fun onMediaTap() {
-        isToolbarVisible = !isToolbarVisible
-        for (listener in toolbarVisibilityListeners) {
-            listener(isToolbarVisible)
-        }
+        val isToolbarVisible = viewModel.toggleToolbarVisibility()
 
         val visibility = if (isToolbarVisible) View.VISIBLE else View.INVISIBLE
         val alpha = if (isToolbarVisible) 1.0f else 0.0f

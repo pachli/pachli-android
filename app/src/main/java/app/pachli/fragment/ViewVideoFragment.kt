@@ -267,7 +267,7 @@ class ViewVideoFragment : ViewMediaFragment() {
 
         if (Build.VERSION.SDK_INT <= 23 || player == null) {
             initializePlayer()
-            if (mediaActivity.isToolbarVisible && !isAudio) {
+            if (viewModel.isToolbarVisible && !isAudio) {
                 hideToolbarAfterDelay()
             }
             binding.videoView.onResume()
@@ -353,10 +353,7 @@ class ViewVideoFragment : ViewMediaFragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun setupMediaView(
-        isToolbarVisible: Boolean,
-        showingDescription: Boolean,
-    ) {
+    override fun setupMediaView(showingDescription: Boolean) {
         startedTransition = false
 
         binding.mediaDescription.text = attachment.description
