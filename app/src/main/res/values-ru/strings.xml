@@ -296,9 +296,6 @@
     <string name="restart_emoji">Вам нужно перезапустить Pachli для применения изменений</string>
     <string name="later">Позже</string>
     <string name="restart">Перезапустить</string>
-    <string name="caption_systememoji">Набор эмодзи по умолчанию</string>
-    <string name="caption_blobmoji" tools:ignore="TypographyDashes">Набор эмодзи Blob из Android 4.4-7.1</string>
-    <string name="caption_twemoji">Стандартный набор эмодзи в Mastodon</string>
     <string name="download_failed">Загрузка не удалась</string>
     <string name="account_moved_description">%1$s переехал(а) на:</string>
     <string name="reblog_private">Продвинуть для исходной аудитории</string>
@@ -380,7 +377,6 @@
     <string name="pref_title_animate_gif_avatars">Анимировать GIF-аватары</string>
     <string name="filter_dialog_whole_word">Слово целиком</string>
     <string name="filter_dialog_whole_word_description">Если слово или фраза состоит только из букв и цифр, будет учитываться полное совпадение</string>
-    <string name="caption_notoemoji">Набор эмодзи от Google</string>
     <string name="description_poll">Опрос с выбором: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="compose_preview_image_description">Действия для изображения %s</string>
     <string name="report_sent_success">Жалоба на @%s отправлена</string>

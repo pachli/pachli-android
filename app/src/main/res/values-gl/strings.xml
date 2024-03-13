@@ -210,10 +210,6 @@
     <string name="reblog_private">Promover para a audiencia orixinal</string>
     <string name="account_moved_description">%1$s migrou a:</string>
     <string name="download_failed">Fallou a descarga</string>
-    <string name="caption_notoemoji">Conxunto actual de emojis de Google</string>
-    <string name="caption_twemoji">Conxunto de emojis estándar en Mastodon</string>
-    <string name="caption_blobmoji">Os emojis Blob coñecidos de Android 4.4-7.1</string>
-    <string name="caption_systememoji">O conxunto de emojis por defecto no sistema</string>
     <string name="restart">Reiniciar</string>
     <string name="later">Máis tarde</string>
     <string name="restart_emoji">Deberás reiniciar Pachli para aplicar os cambios</string>

@@ -204,10 +204,6 @@
     <string name="reblog_private">Brosnaich dhan èisteachd thùsail</string>
     <string name="account_moved_description">Chaidh %1$s a ghluasad gu:</string>
     <string name="download_failed">Dh’fhàillig an luchdadh a-nuas</string>
-    <string name="caption_notoemoji">Seata làithreach nan Emoji aig Google</string>
-    <string name="caption_twemoji">Seata stannardach nan Emoji aig Mastodon</string>
-    <string name="caption_blobmoji">Emojis Blob aig Android 4.4–7.1</string>
-    <string name="caption_systememoji">Seata bunaiteach nan Emojis air an uidheam agad</string>
     <string name="restart">Ath-thòisich</string>
     <string name="later">Uaireigin eile</string>
     <string name="restart_emoji">Feumaidh tu Pachli ath-thòiseachadh gus na roghainnean seo a chur an sàs</string>

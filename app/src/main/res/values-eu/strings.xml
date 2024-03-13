@@ -228,9 +228,6 @@
     <string name="restart_emoji">Aplikazioa berrabiarazi beharko duzu aldaketa ezartzeko</string>
     <string name="later">Beranduago</string>
     <string name="restart">Berrabiarazi</string>
-    <string name="caption_systememoji">Zure gailuko defektuzko emojiak</string>
-    <string name="caption_blobmoji">Android 4.4etik 7.1erako emoji-ak</string>
-    <string name="caption_twemoji">Mastodoneko emoji pakete estandarra</string>
     <string name="download_failed">Deskargatzerakoan akatsa</string>
     <string name="account_moved_description">%1$s hona mugitu da:</string>
     <string name="reblog_private">Berriz bultzatu</string>
@@ -308,7 +305,6 @@
     <string name="hint_search_people_list">Bilatu jarraitzen dituzun pertsonak</string>
     <string name="action_add_to_list">Gehitu kontua zerrendan</string>
     <string name="action_remove_from_list">Kendu kontua zerrendatik</string>
-    <string name="caption_notoemoji">Google-ren egungo emoji multzoa</string>
     <plurals name="favs">
         <item quantity="one">Gogoko <b>%1$s</b></item>
         <item quantity="other"><b>%1$s</b> Gogoko</item>

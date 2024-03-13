@@ -329,10 +329,6 @@
     <string name="restart_required">É necessário reiniciar a aplicação</string>
     <string name="restart_emoji">É necessário reiniciar o Pachli para aplicar as alterações</string>
     <string name="restart">Reiniciar</string>
-    <string name="caption_systememoji">Pacote de emojis padrão do seu dispositivo</string>
-    <string name="caption_blobmoji">Emojis padrão do Android 4.4 até ao 7.1</string>
-    <string name="caption_twemoji">Pacote de emojis padrão do Mastodon</string>
-    <string name="caption_notoemoji">Pacote de emojis atuais da Google</string>
     <string name="download_failed">Erro ao descarregar</string>
     <string name="account_moved_description">%1$s mudou-se para:</string>
     <string name="reblog_private">Dar boost para o público inicial</string>

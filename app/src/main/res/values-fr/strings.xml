@@ -276,9 +276,6 @@
     <string name="restart_emoji">Vous devrez redémarrer Pachli pour appliquer ces modifications</string>
     <string name="later">Plus tard</string>
     <string name="restart">Redémarrer</string>
-    <string name="caption_systememoji">Votre jeu d’émojis par défaut</string>
-    <string name="caption_blobmoji">Un jeu d’émojis basé sur les émojis « blob »</string>
-    <string name="caption_twemoji">Le jeu d’émojis standard de Mastodon</string>
     <string name="download_failed">Échec du téléchargement</string>
     <string name="account_moved_description">%1$s a déménagé vers :</string>
     <string name="reblog_private">Partager à l’audience originale</string>
@@ -365,7 +362,6 @@
     <string name="action_mute_domain">Masquer %s</string>
     <string name="confirmation_domain_unmuted">%s n’est plus masqué·e</string>
     <string name="mute_domain_warning_dialog_ok">Masquer le domaine entier</string>
-    <string name="caption_notoemoji">L’ensemble d’émojis actuel de Google</string>
     <string name="button_continue">Continuer</string>
     <string name="button_back">Retour</string>
     <string name="report_sent_success">\@%s signalé avec succès</string>

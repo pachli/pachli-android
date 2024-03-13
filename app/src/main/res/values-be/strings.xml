@@ -331,8 +331,6 @@
         <item quantity="other">Апісанне змесціва для людзей з дэфектам зроку (ліміт у %d сімвалаў)</item>
     </plurals>
     <string name="compose_save_draft_loses_media">Захаваць чарнавік\? (Далучэнні будуць запампаваныя зноў, калі Вы аднавіце чарнавік.)</string>
-    <string name="caption_notoemoji">Бягучы набор эмодзі ад Google</string>
-    <string name="caption_twemoji">Тыповы набор эмодзі Mastodon</string>
     <string name="download_failed">Не атрымалася спампаваць</string>
     <string name="unreblog_private">Скасаваць пашырэнне</string>
     <string name="pin_action">Замацаваць</string>
@@ -383,8 +381,6 @@
     <string name="error_no_custom_emojis">Ваш сервер %s не мае ўласных эмодзі</string>
     <string name="emoji_style">Стыль эмодзі</string>
     <string name="system_default">Сістэмнае значэнне па змаўчанні</string>
-    <string name="caption_systememoji">Тыповы набор эмодзі прылады</string>
-    <string name="caption_blobmoji">Эмодзі Blob з Android 4.4–7.1</string>
     <string name="download_fonts">Спачатку трэба спампаваць гэтыя наборы эмодзі</string>
     <string name="profile_metadata_add">дадаць звесткі</string>
     <string name="profile_metadata_label_label">Пазнака</string>

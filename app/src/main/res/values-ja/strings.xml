@@ -249,9 +249,6 @@
     <string name="restart_emoji">これらの変更を適用するには、Pachliの再起動が必要になります</string>
     <string name="later">後で</string>
     <string name="restart">再起動</string>
-    <string name="caption_systememoji">あなたのデバイスのデフォルト絵文字セットです</string>
-    <string name="caption_blobmoji">Android 4.4-7.1で知られる、Blob絵文字です</string>
-    <string name="caption_twemoji">Mastodonの標準絵文字セットです</string>
     <string name="download_failed">ダウンロード失敗</string>
     <string name="account_moved_description">%1$s は引っ越しました:</string>
     <string name="reblog_private">ブースト</string>
@@ -313,7 +310,6 @@
     <string name="notification_poll_name">投票</string>
     <string name="notification_poll_description">投票の集計が完了したときの通知</string>
     <string name="pref_title_thread_filter_keywords">スレッド</string>
-    <string name="caption_notoemoji">Googleの現在の絵文字セットです</string>
     <string name="action_add_poll">投票</string>
     <string name="action_mentions">返信</string>
     <string name="title_mentions_dialog">返信</string>

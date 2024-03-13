@@ -226,9 +226,6 @@
     <string name="restart_emoji">A beállítások érvényesítéséhez újra kell indítani a Pachlit</string>
     <string name="later">Később</string>
     <string name="restart">Újraindítás</string>
-    <string name="caption_systememoji">Az eszközöd alapértelmezett emodzsi készlete</string>
-    <string name="caption_blobmoji">Az Android 4.4–7.1 Blob emodzsijai</string>
-    <string name="caption_twemoji">A Mastodon alapértelmezett emodzsi készlete</string>
     <string name="download_failed">Letöltés sikertelen</string>
     <string name="account_moved_description">%1$s elköltözött:</string>
     <string name="profile_metadata_label">Profil metaadatok</string>
@@ -306,7 +303,6 @@
     <string name="action_set_caption">Cím beállítása</string>
     <string name="lock_account_label_description">Minden követődet külön engedélyezned kell</string>
     <string name="expand_collapse_all_posts">Összes bejegyzés kibontása/összecsukása</string>
-    <string name="caption_notoemoji">A Google jelenlegi emodzsi készlete</string>
     <string name="reblog_private">Megtolás az eredeti közönségnek</string>
     <string name="unreblog_private">Megtolás visszavonása</string>
     <string name="unpin_action">Kitűzés eltávolítása</string>

@@ -276,9 +276,6 @@
     <string name="restart_emoji">Has de reiniciar l\'aplicació per tal d\'aplicar aquests canvis</string>
     <string name="later">Més tard</string>
     <string name="restart">Reiniciar</string>
-    <string name="caption_systememoji">Conjunt d\'emojis predeterminats del teu dispositiu</string>
-    <string name="caption_blobmoji">Els emojis d\'Android 4.4 a 7.1</string>
-    <string name="caption_twemoji">Emojis estàndard de Mastodont</string>
     <string name="download_failed">Descàrrega fallida</string>
     <string name="account_moved_description">%1$s s\'ha trasllat a:</string>
     <string name="reblog_private">Tornar a impulsar</string>
@@ -341,7 +338,6 @@
     <string name="mute_domain_warning_dialog_ok">Amagar el domini sencer</string>
     <string name="pref_title_alway_open_spoiler">Mostra sempre obertes les publicacions marcades amb avisos de contingut</string>
     <string name="filter_dialog_whole_word">Paraula sencera</string>
-    <string name="caption_notoemoji">Ventall actual d\'emojis de Google</string>
     <string name="description_poll">Enquesta amb opcions: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="button_continue">Continuar</string>
     <string name="button_back">Enrere</string>

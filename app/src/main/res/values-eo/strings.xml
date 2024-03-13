@@ -275,9 +275,6 @@
     <string name="restart_emoji">Vi devos restartigi Pachli por apliki ĉi tiujn ŝanĝojn</string>
     <string name="later">Poste</string>
     <string name="restart">Restartigi</string>
-    <string name="caption_systememoji">Dekomenca emoĝiaro de via aparato</string>
-    <string name="caption_blobmoji">La emoĝioj «Blob» konataj de Android 4.4−7.1</string>
-    <string name="caption_twemoji">Norma emoĝiaro de Mastodon</string>
     <string name="download_failed">Elŝuto malsukcesis</string>
     <string name="account_moved_description">%1$s moviĝis al:</string>
     <string name="reblog_private">Diskonigi al la originala atentaro</string>
@@ -351,7 +348,6 @@
     <string name="confirmation_domain_unmuted">%s malsilentigita</string>
     <string name="mute_domain_warning">Ĉu vi certas ke vi volas tute bloki %s\? Vi ne vidos enhavon de tiu domajno en publika tempolinio aŭ en viaj sciigoj. Viaj sekvantoj el tiu domajno estos forigitaj.</string>
     <string name="mute_domain_warning_dialog_ok">Kaŝi la tutan domajnon</string>
-    <string name="caption_notoemoji">La aktuala emoĝiaro de Google</string>
     <string name="description_poll">Balotenketo kun elektoj: %1$s, %2$s, %3$s, %4$s, %5$s</string>
     <string name="button_continue">Daŭrigi</string>
     <string name="button_back">Reveni</string>

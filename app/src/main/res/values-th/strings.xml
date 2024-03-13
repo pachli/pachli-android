@@ -93,10 +93,6 @@
     <string name="reblog_private">บูสต์โพสต์ต้นฉบับ</string>
     <string name="account_moved_description">%1$s ได้ย้ายไปที่ :</string>
     <string name="download_failed">ดาวน์โหลดล้มเหลว</string>
-    <string name="caption_notoemoji">ชุดเอโมจิปัจจุบันจากกูเกิล</string>
-    <string name="caption_twemoji">ชุดเอโมจิจาก Mastodon</string>
-    <string name="caption_blobmoji">ที่รู้จักจาก Android 4.4 ถึง 7.1 ชุดเอโมจิ Blob</string>
-    <string name="caption_systememoji">ชุดเริ่มต้นในอุปกรณ์คุณ</string>
     <string name="restart">เริ่มใหม่</string>
     <string name="later">ภายหลัง</string>
     <string name="restart_emoji">จำเป็นต้องเริ่ม Pachli ใหม่ เพื่อใช้การเปลี่ยนแปลงเหล่านี้</string>

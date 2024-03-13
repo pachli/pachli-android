@@ -272,9 +272,6 @@
     <string name="restart_emoji">Du måste starta om Pachli för att tillämpa ändringarna</string>
     <string name="later">Senare</string>
     <string name="restart">Starta om</string>
-    <string name="caption_systememoji">Standard-emojis för din enhet</string>
-    <string name="caption_blobmoji">Emojis baserade på The Blob emojis från Android 4.4–7.1</string>
-    <string name="caption_twemoji">Mastodon\'s standard emojis</string>
     <string name="download_failed">Nedladdning misslyckad</string>
     <string name="account_moved_description">%1$s har flyttat till:</string>
     <string name="reblog_private">Knuffa till ursprunglig målgrupp</string>
@@ -366,7 +363,6 @@
     <string name="confirmation_domain_unmuted">%s inte tystad längre</string>
     <string name="mute_domain_warning">Är du säker på att du vill blockera allt från %s\? Du kommer inte kunna se något innehåll från denna domän i publika tidslinjer eller i dina notifieringar. Dina följare på domänen kommer inte att bli borttagna.</string>
     <string name="mute_domain_warning_dialog_ok">Dölj hela domänen</string>
-    <string name="caption_notoemoji">Google\'s nuvarande emojis</string>
     <string name="button_continue">Fortsätt</string>
     <string name="button_back">Tillbaka</string>
     <string name="button_done">Klar</string>

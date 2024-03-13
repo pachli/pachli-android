@@ -228,9 +228,6 @@
     <string name="restart_emoji">Bydd angen ailddechrau Pachli i roi\'r newidiadau ar waith</string>
     <string name="later">Hwyrach</string>
     <string name="restart">Ailddechrau</string>
-    <string name="caption_systememoji">Set emoji ragosodedig eich dyfais</string>
-    <string name="caption_blobmoji">Daw\'r emoji Blob o Android 4.4–7.1</string>
-    <string name="caption_twemoji">Set emoji safonol Mastodon</string>
     <string name="download_failed">Methodd y llwytho</string>
     <string name="account_moved_description">Mae %1$s wedi symud i:</string>
     <string name="reblog_private">Hybu i\'r gynulleidfa wreiddiol</string>
@@ -535,7 +532,6 @@
     <string name="compose_preview_image_description">Gweithredoedd ar gyfer delwedd %s</string>
     <string name="action_open_reblogger">Agor awdur hybu</string>
     <string name="notification_follow_request_description">Hysbysiadau am geisiadau i\'ch dilyn</string>
-    <string name="caption_notoemoji">Gosodwyd emoji cyfredol Google</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="zero">%d eiliadau ar ôl</item>
         <item quantity="one">%d eiliad ar ôl</item>

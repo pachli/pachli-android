@@ -239,9 +239,6 @@
     <string name="restart_emoji">É necessário reiniciar o aplicativo para aplicar as alterações</string>
     <string name="later">Depois</string>
     <string name="restart">Reiniciar</string>
-    <string name="caption_systememoji">Pacote de Emojis padrão do teu dispositivo</string>
-    <string name="caption_blobmoji">Os Emojis Blob conhecidos desde o Android 4.4 até o 7.1</string>
-    <string name="caption_twemoji">Pacote de Emojis padrão do Mastodon</string>
     <string name="download_failed">Erro ao baixar</string>
     <string name="account_moved_description">%1$s mudou-se para:</string>
     <string name="reblog_private">Dar Boost para o mesmo público</string>
@@ -363,7 +360,6 @@
     </plurals>
     <string name="pref_title_animate_gif_avatars">Animar avatares com GIF</string>
     <string name="description_poll">Enquete com as opções: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="caption_notoemoji">Pacote de Emojis atual do Google</string>
     <string name="button_continue">Continuar</string>
     <string name="button_back">Voltar</string>
     <string name="button_done">Pronto</string>

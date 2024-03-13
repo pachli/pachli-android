@@ -256,9 +256,6 @@
     <string name="restart_emoji">Du må starte Pachli på nytt for at endringene blir aktivert</string>
     <string name="later">Senere</string>
     <string name="restart">Start på nytt</string>
-    <string name="caption_systememoji">Standard-emojis for din enhet</string>
-    <string name="caption_blobmoji">Blob-emojis kjent fra Android 4.4–7.1</string>
-    <string name="caption_twemoji">Mastadons standard emoji-samling</string>
     <string name="download_failed">Nedlasting feilet</string>
     <string name="account_moved_description">%1$s har flyttet til:</string>
     <string name="reblog_private">Del til opprinnelig publikum</string>
@@ -349,7 +346,6 @@
     <string name="compose_preview_image_description">Handlinger for bilde %s</string>
     <string name="pref_title_animate_gif_avatars">Animer GIF-avatarer</string>
     <string name="description_poll">Avstemming med valg: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="caption_notoemoji">Googles nåværende emoji-samling</string>
     <string name="button_continue">Fortsett</string>
     <string name="button_back">Tilbake</string>
     <string name="button_done">Ferdig</string>

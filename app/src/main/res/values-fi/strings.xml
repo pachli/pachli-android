@@ -563,12 +563,10 @@
     <string name="duration_30_days">30 päivää</string>
     <string name="reblog_private">Tehosta alkuperäiselle yleisölle</string>
     <string name="compose_preview_image_description">Toiminnot kuvalle %s</string>
-    <string name="caption_twemoji">Mastodonin oletusemojit</string>
     <string name="poll_info_format"> \u0020<!-- 15 ääntä • 1 tunti jäljellä --> %1$s• %2$s</string>
     <string name="action_compose_shortcut">Kirjoita</string>
     <string name="unreblog_private">Peru tehostus</string>
     <string name="description_post_reblogged">Tehostettu</string>
-    <string name="caption_blobmoji">Blob-emojit Androidin versoioista 4.4–7.1</string>
     <string name="account_moved_description">%1$s on siirtynyt tänne:</string>
     <string name="description_visibility_direct">Vain mainitut</string>
     <string name="url_domain_notifier">" (🔗 %s)"</string>
@@ -594,7 +592,6 @@
         <item quantity="one"><b>%s</b> Tehostus</item>
         <item quantity="other"><b>%s</b> Tehostusta</item>
     </plurals>
-    <string name="caption_notoemoji">Googlen nykyiset emojit</string>
     <string name="failed_report">Raportointi epäonnistui</string>
     <string name="description_login">Toimii yleensä. Dataa ei vuoda muihin sovelluksiin.</string>
     <string name="label_remote_account">Alla olevat tiedot eivät välttämättä näytä kaikkea käyttäjän profiilista. Paina avataksesi täydellisen profiilin selaimessa.</string>
@@ -635,7 +632,6 @@
     <string name="expand_collapse_all_posts">Avaa/Sulje kaikki julkasut</string>
     <string name="select_list_title">Valitse lista</string>
     <string name="duration_indefinite">Loputon</string>
-    <string name="caption_systememoji">Laitteesi oletusemojit</string>
     <string name="list_exclusive_label">Piilota kotiaikajanalta</string>
     <string name="failed_search">Haku epäonnistui</string>
     <string name="error_list_load">Listojen lataaminen epäonnistui</string>
