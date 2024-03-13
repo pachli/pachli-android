@@ -945,11 +945,22 @@
     <issue
         id="NotifyDataSetChanged"
         message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/adapter/TabAdapter.kt"
+            line="56"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
         errorLine1="            notifyDataSetChanged()"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="160"
+            line="159"
             column="13"/>
     </issue>
 
@@ -1362,17 +1373,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_blobmoji` appears to be unused"
-        errorLine1="&lt;vector android:height=&quot;34dp&quot; android:viewportHeight=&quot;128&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_blobmoji.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_notifications_off_24dp` appears to be unused"
         errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^">
@@ -1388,18 +1388,7 @@
         errorLine1="&lt;vector android:height=&quot;34dp&quot;"
         errorLine2="^">
         <location
-            file="src/main/res/drawable/ic_notoemoji.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_twemoji` appears to be unused"
-        errorLine1="&lt;vector android:height=&quot;34dp&quot; android:viewportHeight=&quot;36&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_twemoji.xml"
+            file="src/main/res/drawable-v24/ic_notoemoji.xml"
             line="1"
             column="1"/>
     </issue>
@@ -2837,7 +2826,7 @@
         errorLine2="            ^">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="94"
+            line="93"
             column="13"/>
     </issue>
 
@@ -2848,7 +2837,7 @@
         errorLine2="                                                 ^">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="94"
+            line="93"
             column="50"/>
     </issue>
 
