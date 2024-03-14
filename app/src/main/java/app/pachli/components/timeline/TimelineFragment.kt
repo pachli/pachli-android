@@ -422,6 +422,10 @@ class TimelineFragment :
                                         ?: (loadState.source.refresh as? LoadState.Error)?.error
                                         ?: IllegalStateException("unknown error")
 
+                                    // TODO: This error message should be specific about the operation
+                                    // At the moment it's just e.g., "An error occurred: HTTP 503"
+                                    // and a "Retry" button, so the user has no idea what's going
+                                    // to be retried.
                                     val message = error.getErrorString(requireContext())
 
                                     // Show errors as a snackbar if there is existing content to show
