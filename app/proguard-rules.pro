@@ -47,6 +47,7 @@
 
 -keepclassmembers class app.pachli.core.database.model.ConversationAccountEntity { *; }
 -keepclassmembers class app.pachli.core.database.model.DraftAttachment { *; }
+-keep class app.pachli.core.database.model.TabDataJsonAdapter { *; }
 
 -keep enum app.pachli.core.database.model.DraftAttachment$Type {
     public *;
