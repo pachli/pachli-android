@@ -37,6 +37,7 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.util.LocaleManager
 import app.pachli.util.setAppNightMode
 import app.pachli.worker.PruneCacheWorker
+import app.pachli.worker.PruneCachedMediaWorker
 import app.pachli.worker.PruneLogEntryEntityWorker
 import dagger.hilt.android.HiltAndroidApp
 import de.c1710.filemojicompat_defaults.DefaultEmojiPackList
@@ -132,6 +133,16 @@ class PachliApplication : Application() {
             PruneLogEntryEntityWorker.PERIODIC_WORK_TAG,
             ExistingPeriodicWorkPolicy.KEEP,
             pruneLogEntryEntityWorker,
+        )
+
+        // Delete old cached media every ~ 12 hours when the device is idle
+        val pruneCachedMediaWorker = PeriodicWorkRequestBuilder<PruneCachedMediaWorker>(12, TimeUnit.HOURS)
+            .setConstraints(Constraints.Builder().setRequiresDeviceIdle(true).build())
+            .build()
+        workManager.enqueueUniquePeriodicWork(
+            PruneCachedMediaWorker.PERIODIC_WORK_TAG,
+            ExistingPeriodicWorkPolicy.KEEP,
+            pruneCachedMediaWorker,
         )
     }
 
