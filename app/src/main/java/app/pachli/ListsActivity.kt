@@ -46,6 +46,7 @@ import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.network.model.MastoList
+import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.network.retrofit.apiresult.NetworkError
 import app.pachli.core.ui.await
@@ -149,10 +150,9 @@ class ListsActivity : BaseActivity(), MenuProvider {
     }
 
     private suspend fun showListNameDialog(list: MastoList?) {
-        val binding = DialogListBinding.inflate(layoutInflater)
-        val dialog = AlertDialog.Builder(this)
-            .setView(binding.root)
-            .create()
+        val builder = AlertDialog.Builder(this)
+        val binding = DialogListBinding.inflate(LayoutInflater.from(builder.context))
+        val dialog = builder.setView(binding.root).create()
 
         // Ensure the soft keyboard opens when the name field has focus
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
@@ -172,6 +172,8 @@ class ListsActivity : BaseActivity(), MenuProvider {
                 } ?: binding.exclusiveCheckbox.hide()
             }
 
+            binding.repliesPolicyGroup.check(list?.repliesPolicy?.resourceId() ?: UserListRepliesPolicy.LIST.resourceId())
+
             binding.nameText.requestFocus()
         }
 
@@ -185,6 +187,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
                 binding.nameText.text.toString(),
                 list?.id,
                 binding.exclusiveCheckbox.isChecked,
+                UserListRepliesPolicy.Companion.from(binding.repliesPolicyGroup.checkedRadioButtonId),
             )
         }
     }
@@ -327,11 +330,32 @@ class ListsActivity : BaseActivity(), MenuProvider {
         }
     }
 
-    private fun onPickedDialogName(name: String, listId: String?, exclusive: Boolean) {
+    private fun onPickedDialogName(name: String, listId: String?, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) {
         if (listId == null) {
-            viewModel.createNewList(name, exclusive)
+            viewModel.createNewList(name, exclusive, repliesPolicy)
         } else {
-            viewModel.updateList(listId, name, exclusive)
+            viewModel.updateList(listId, name, exclusive, repliesPolicy)
+        }
+    }
+
+    /** @return The resource ID of the radio button for this replies policy */
+    private fun UserListRepliesPolicy.resourceId() = when (this) {
+        UserListRepliesPolicy.FOLLOWED -> R.id.repliesPolicyFollowed
+        UserListRepliesPolicy.LIST -> R.id.repliesPolicyList
+        UserListRepliesPolicy.NONE -> R.id.repliesPolicyNone
+    }
+
+    /**
+     * @return A [UserListRepliesPolicy] corresponding to [resourceId], which must
+     *     be one of the resource IDs for a replies policy radio button
+     * @throws IllegalStateException if an unrecognised [resourceId] is used
+     */
+    private fun UserListRepliesPolicy.Companion.from(resourceId: Int): UserListRepliesPolicy {
+        return when (resourceId) {
+            R.id.repliesPolicyFollowed -> UserListRepliesPolicy.FOLLOWED
+            R.id.repliesPolicyList -> UserListRepliesPolicy.LIST
+            R.id.repliesPolicyNone -> UserListRepliesPolicy.NONE
+            else -> throw IllegalStateException("unknown resource id")
         }
     }
 }
