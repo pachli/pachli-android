@@ -118,6 +118,12 @@ class ListsActivity : BaseActivity(), MenuProvider {
                 }
             }
         }
+
+        lifecycleScope.launch {
+            viewModel.operationCount.collectLatest {
+                if (it == 0) binding.progressIndicator.hide() else binding.progressIndicator.show()
+            }
+        }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
