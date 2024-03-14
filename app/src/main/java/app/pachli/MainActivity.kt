@@ -114,7 +114,6 @@ import app.pachli.pager.MainPagerAdapter
 import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
-import app.pachli.util.deleteStaleCachedMedia
 import app.pachli.util.getDimension
 import app.pachli.util.unsafeLazy
 import app.pachli.util.updateShortcut
@@ -381,11 +380,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         .show()
                 }
             }
-        }
-
-        externalScope.launch {
-            // Flush old media that was cached for sharing
-            deleteStaleCachedMedia(applicationContext.getExternalFilesDir("Pachli"))
         }
 
         selectedEmojiPack = sharedPreferencesRepository.getString(EMOJI_PREFERENCE, "")
