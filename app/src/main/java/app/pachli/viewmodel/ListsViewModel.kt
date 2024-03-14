@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
+import app.pachli.core.network.model.UserListRepliesPolicy
 import com.github.michaelbull.result.onFailure
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -61,18 +62,18 @@ internal class ListsViewModel @Inject constructor(
         listsRepository.refresh()
     }
 
-    fun createNewList(title: String, exclusive: Boolean) = viewModelScope.launch {
+    fun createNewList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
         _operationCount.getAndUpdate { it + 1 }
 
-        listsRepository.createList(title, exclusive).onFailure {
+        listsRepository.createList(title, exclusive, repliesPolicy).onFailure {
             _errors.send(Error.Create(title, it))
         }
     }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
 
-    fun updateList(listId: String, title: String, exclusive: Boolean) = viewModelScope.launch {
+    fun updateList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
         _operationCount.getAndUpdate { it + 1 }
 
-        listsRepository.editList(listId, title, exclusive).onFailure {
+        listsRepository.editList(listId, title, exclusive, repliesPolicy).onFailure {
             _errors.send(Error.Update(title, it))
         }
     }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }

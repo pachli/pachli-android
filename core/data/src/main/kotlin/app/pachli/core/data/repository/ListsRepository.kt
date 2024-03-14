@@ -19,6 +19,7 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 import java.text.Collator
@@ -70,7 +71,7 @@ interface ListsRepository {
      * @param exclusive True if the list is exclusive
      * @return Details of the new list if successfuly, or an error
      */
-    suspend fun createList(title: String, exclusive: Boolean): Result<MastoList, ListsError.Create>
+    suspend fun createList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, ListsError.Create>
 
     /**
      * Edit an existing list.
@@ -80,7 +81,7 @@ interface ListsRepository {
      * @param exclusive New exclusive vale for the list
      * @return Amended list, or an error
      */
-    suspend fun editList(listId: String, title: String, exclusive: Boolean): Result<MastoList, ListsError.Update>
+    suspend fun editList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, ListsError.Update>
 
     /**
      * Delete an existing list

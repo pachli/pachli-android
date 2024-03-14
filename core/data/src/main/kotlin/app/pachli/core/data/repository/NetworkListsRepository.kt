@@ -27,6 +27,7 @@ import app.pachli.core.data.repository.ListsError.Update
 import app.pachli.core.database.model.TabData
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -122,18 +123,18 @@ class NetworkListsRepository @Inject constructor(
         }
     }
 
-    override suspend fun createList(title: String, exclusive: Boolean): Result<MastoList, Create> = binding {
+    override suspend fun createList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, Create> = binding {
         externalScope.async {
-            api.createList(title, exclusive).mapError { Create(it) }.bind().run {
+            api.createList(title, exclusive, repliesPolicy).mapError { Create(it) }.bind().run {
                 refresh()
                 body
             }
         }.await()
     }
 
-    override suspend fun editList(listId: String, title: String, exclusive: Boolean): Result<MastoList, Update> = binding {
+    override suspend fun editList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, Update> = binding {
         externalScope.async {
-            api.updateList(listId, title, exclusive).mapError { Update(it) }.bind().run {
+            api.updateList(listId, title, exclusive, repliesPolicy).mapError { Update(it) }.bind().run {
                 refresh()
                 body
             }

@@ -717,4 +717,9 @@
     <string name="pref_update_check_no_updates">There are no updates available</string>
     <string name="pref_update_next_scheduled_check">Next scheduled check: %1$s</string>
     <string name="error_media_download">Could not download %1$s: %2$d %3$s</string>
+
+    <string name="replies_policy_title">Show replies to:</string>
+    <string name="replies_policy_name_followed">Any followed user</string>
+    <string name="replies_policy_name_list">Members of the list</string>
+    <string name="replies_policy_name_none">No one</string>
 </resources>

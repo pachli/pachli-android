@@ -49,6 +49,7 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.model.TrendingTag
 import app.pachli.core.network.model.TrendsLink
+import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import at.connyduck.calladapter.networkresult.NetworkResult
 import okhttp3.MultipartBody
@@ -557,6 +558,7 @@ interface MastodonApi {
     suspend fun createList(
         @Field("title") title: String,
         @Field("exclusive") exclusive: Boolean?,
+        @Field("replies_policy") repliesPolicy: UserListRepliesPolicy = UserListRepliesPolicy.LIST,
     ): ApiResult<MastoList>
 
     @FormUrlEncoded
@@ -565,6 +567,7 @@ interface MastodonApi {
         @Path("listId") listId: String,
         @Field("title") title: String,
         @Field("exclusive") exclusive: Boolean?,
+        @Field("replies_policy") repliesPolicy: UserListRepliesPolicy = UserListRepliesPolicy.LIST,
     ): ApiResult<MastoList>
 
     @DELETE("api/v1/lists/{listId}")
