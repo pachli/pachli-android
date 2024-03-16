@@ -49,6 +49,7 @@ import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
@@ -126,11 +127,7 @@ class ConversationsFragment :
                             binding.swipeRefreshLayout.isRefreshing = false
                             if (loadState.append is LoadState.NotLoading && loadState.source.refresh is LoadState.NotLoading) {
                                 binding.statusView.show()
-                                binding.statusView.setup(
-                                    app.pachli.core.ui.R.drawable.elephant_friend_empty,
-                                    app.pachli.core.ui.R.string.message_empty,
-                                    null,
-                                )
+                                binding.statusView.setup(BackgroundMessage.Empty())
                             }
                         }
 

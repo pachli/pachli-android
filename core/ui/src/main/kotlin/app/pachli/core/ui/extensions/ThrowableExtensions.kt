@@ -25,20 +25,20 @@ import retrofit2.HttpException
 
 /** @return A drawable resource to accompany the error message for this throwable */
 fun Throwable.getDrawableRes(): Int = when (this) {
-    is IOException -> app.pachli.core.ui.R.drawable.errorphant_offline
+    is IOException -> R.drawable.errorphant_offline
     is HttpException -> {
         if (this.code() == 404) {
-            app.pachli.core.ui.R.drawable.elephant_friend_empty
+            R.drawable.elephant_friend_empty
         } else {
-            app.pachli.core.ui.R.drawable.errorphant_offline
+            R.drawable.errorphant_offline
         }
     }
-    else -> app.pachli.core.ui.R.drawable.errorphant_error
+    else -> R.drawable.errorphant_error
 }
 
 /** @return A string error message for this throwable */
 fun Throwable.getErrorString(context: Context): String = getServerErrorMessage() ?: when (this) {
-    is IOException -> context.getString(app.pachli.core.ui.R.string.error_network_fmt, this.message)
+    is IOException -> context.getString(R.string.error_network_fmt, this.message)
     is HttpException -> if (this.code() == 404) context.getString(R.string.error_404_not_found_fmt, this.message) else context.getString(R.string.error_generic_fmt, this.message)
     else -> context.getString(R.string.error_generic_fmt, this.message)
 }

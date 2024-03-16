@@ -49,6 +49,7 @@ import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.network.retrofit.apiresult.NetworkError
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.await
 import app.pachli.feature.lists.databinding.ActivityListsBinding
 import app.pachli.feature.lists.databinding.DialogListBinding
@@ -205,13 +206,9 @@ class ListsActivity : BaseActivity(), MenuProvider {
             binding.swipeRefreshLayout.isRefreshing = false
 
             if (it is NetworkError) {
-                binding.messageView.setup(app.pachli.core.ui.R.drawable.errorphant_offline, app.pachli.core.ui.R.string.error_network) {
-                    viewModel.refresh()
-                }
+                binding.messageView.setup(BackgroundMessage.Network()) { viewModel.refresh() }
             } else {
-                binding.messageView.setup(app.pachli.core.ui.R.drawable.errorphant_error, app.pachli.core.ui.R.string.error_generic) {
-                    viewModel.refresh()
-                }
+                binding.messageView.setup(BackgroundMessage.GenericError()) { viewModel.refresh() }
             }
         }
 
@@ -222,11 +219,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
                     binding.swipeRefreshLayout.isRefreshing = false
                     if (lists.lists.isEmpty()) {
                         binding.messageView.show()
-                        binding.messageView.setup(
-                            app.pachli.core.ui.R.drawable.elephant_friend_empty,
-                            app.pachli.core.ui.R.string.message_empty,
-                            null,
-                        )
+                        binding.messageView.setup(BackgroundMessage.Empty())
                     } else {
                         binding.messageView.hide()
                     }

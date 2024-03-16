@@ -56,6 +56,7 @@ import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.AccountActionListener
@@ -420,10 +421,7 @@ class NotificationsFragment :
                         binding.statusView.hide()
                         if (loadState.refresh is LoadState.NotLoading) {
                             if (adapter.itemCount == 0) {
-                                binding.statusView.setup(
-                                    app.pachli.core.ui.R.drawable.elephant_friend_empty,
-                                    app.pachli.core.ui.R.string.message_empty,
-                                )
+                                binding.statusView.setup(BackgroundMessage.Empty())
                                 binding.recyclerView.hide()
                                 binding.statusView.show()
                             } else {

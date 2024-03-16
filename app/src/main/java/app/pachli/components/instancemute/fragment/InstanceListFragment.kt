@@ -14,6 +14,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentInstanceListBinding
 import app.pachli.view.EndlessOnScrollListener
 import at.connyduck.calladapter.networkresult.fold
@@ -123,11 +124,7 @@ class InstanceListFragment :
 
         if (adapter.itemCount == 0) {
             binding.messageView.show()
-            binding.messageView.setup(
-                app.pachli.core.ui.R.drawable.elephant_friend_empty,
-                app.pachli.core.ui.R.string.message_empty,
-                null,
-            )
+            binding.messageView.setup(BackgroundMessage.Empty())
         } else {
             binding.messageView.hide()
         }

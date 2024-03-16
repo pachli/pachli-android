@@ -35,6 +35,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityAnnouncementsBinding
 import app.pachli.util.Error
 import app.pachli.util.Loading
@@ -109,7 +110,7 @@ class AnnouncementsActivity :
                     binding.progressBar.hide()
                     binding.swipeRefreshLayout.isRefreshing = false
                     if (it.data.isNullOrEmpty()) {
-                        binding.errorMessageView.setup(app.pachli.core.ui.R.drawable.elephant_friend_empty, R.string.no_announcements)
+                        binding.errorMessageView.setup(BackgroundMessage.Empty(R.string.no_announcements))
                         binding.errorMessageView.show()
                     } else {
                         binding.errorMessageView.hide()
@@ -122,7 +123,7 @@ class AnnouncementsActivity :
                 is Error -> {
                     binding.progressBar.hide()
                     binding.swipeRefreshLayout.isRefreshing = false
-                    binding.errorMessageView.setup(app.pachli.core.ui.R.drawable.errorphant_error, app.pachli.core.ui.R.string.error_generic) {
+                    binding.errorMessageView.setup(BackgroundMessage.GenericError()) {
                         refreshAnnouncements()
                     }
                     binding.errorMessageView.show()

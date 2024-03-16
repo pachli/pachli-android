@@ -36,6 +36,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.network.model.ScheduledStatus
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityScheduledStatusBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -107,7 +108,7 @@ class ScheduledStatusActivity :
             if (loadState.refresh is LoadState.NotLoading) {
                 binding.progressBar.hide()
                 if (adapter.itemCount == 0) {
-                    binding.errorMessageView.setup(app.pachli.core.ui.R.drawable.elephant_friend_empty, R.string.no_scheduled_posts)
+                    binding.errorMessageView.setup(BackgroundMessage.Empty(R.string.no_scheduled_posts))
                     binding.errorMessageView.show()
                 } else {
                     binding.errorMessageView.hide()

@@ -54,6 +54,7 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.AppBarLayoutHost
@@ -376,11 +377,7 @@ class AccountListFragment :
 
         if (adapter.itemCount == 0) {
             binding.messageView.show()
-            binding.messageView.setup(
-                app.pachli.core.ui.R.drawable.elephant_friend_empty,
-                app.pachli.core.ui.R.string.message_empty,
-                null,
-            )
+            binding.messageView.setup(BackgroundMessage.Empty())
         } else {
             binding.messageView.hide()
         }

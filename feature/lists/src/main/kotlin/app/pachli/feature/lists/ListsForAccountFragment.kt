@@ -33,6 +33,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.BindingHolder
 import app.pachli.feature.lists.ListsForAccountViewModel.Error
 import app.pachli.feature.lists.ListsForAccountViewModel.FlowError
@@ -140,9 +141,7 @@ class ListsForAccountFragment : DialogFragment() {
                     binding.progressBar.hide()
                     if (it.listsWithMembership.isEmpty()) {
                         binding.messageView.show()
-                        binding.messageView.setup(app.pachli.core.ui.R.drawable.elephant_friend_empty, R.string.no_lists) {
-                            load()
-                        }
+                        binding.messageView.setup(BackgroundMessage.Empty(R.string.no_lists)) { load() }
                     } else {
                         binding.listsView.show()
                         adapter.submitList(it.listsWithMembership.values.toList())
