@@ -42,6 +42,7 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentViewEditsBinding
 import app.pachli.interfaces.LinkListener
 import com.google.android.material.color.MaterialColors
@@ -112,10 +113,7 @@ class ViewEditsFragment :
 
                         when (uiState.throwable) {
                             is ViewEditsViewModel.MissingEditsException -> {
-                                binding.statusView.setup(
-                                    app.pachli.core.ui.R.drawable.elephant_friend_empty,
-                                    R.string.error_missing_edits,
-                                )
+                                binding.statusView.setup(BackgroundMessage.Empty(R.string.error_missing_edits))
                             }
                             else -> {
                                 binding.statusView.setup(uiState.throwable) {

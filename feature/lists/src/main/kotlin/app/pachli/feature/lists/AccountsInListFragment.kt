@@ -202,7 +202,7 @@ class AccountsInListFragment : DialogFragment() {
 
     private fun handleError(error: Throwable) {
         binding.messageView.show()
-        binding.messageView.setup(error) { _: View ->
+        binding.messageView.setup(error) {
             binding.messageView.hide()
             viewModel.refresh()
         }

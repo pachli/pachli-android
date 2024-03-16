@@ -40,6 +40,41 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import java.util.regex.Pattern
 
+/** Kinds of message that can be shown */
+sealed interface BackgroundMessage {
+    @get:DrawableRes val drawableRes: Int
+
+    @get:StringRes val stringRes: Int
+
+    /**
+     * Generic "Nothing here" message and image, for use when a collection has
+     * no items.
+     *
+     * @param stringRes Alternative string resource to use as the message
+     */
+    data class Empty(override val stringRes: Int = R.string.message_empty) : BackgroundMessage {
+        override val drawableRes: Int = R.drawable.elephant_friend_empty
+    }
+
+    /**
+     * Generic "An error occurred" message and image
+     *
+     * @param stringRes Alternative string resource to use as the message
+     */
+    data class GenericError(override val stringRes: Int = R.string.error_generic) : BackgroundMessage {
+        override val drawableRes: Int = R.drawable.errorphant_error
+    }
+
+    /**
+     * Generic "A network error occurred" message and image
+     *
+     * @param stringRes Alternative string resource to use as the message
+     */
+    data class Network(override val stringRes: Int = R.string.error_network) : BackgroundMessage {
+        override val drawableRes: Int = R.drawable.errorphant_offline
+    }
+}
+
 /**
  * This view is used for screens with content which may be empty or might have failed to download.
  */
@@ -56,7 +91,7 @@ class BackgroundMessageView @JvmOverloads constructor(
         orientation = VERTICAL
 
         if (isInEditMode) {
-            setup(app.pachli.core.ui.R.drawable.errorphant_offline, app.pachli.core.ui.R.string.error_network) {}
+            setup(BackgroundMessage.Network())
         }
     }
 
@@ -64,7 +99,11 @@ class BackgroundMessageView @JvmOverloads constructor(
         setup(throwable.getDrawableRes(), throwable.getErrorString(context), listener)
     }
 
-    fun setup(
+    fun setup(message: BackgroundMessage, listener: ((v: View) -> Unit)? = null) {
+        setup(message.drawableRes, message.stringRes, listener)
+    }
+
+    private fun setup(
         @DrawableRes imageRes: Int,
         @StringRes messageRes: Int,
         clickListener: ((v: View) -> Unit)? = null,
@@ -74,7 +113,7 @@ class BackgroundMessageView @JvmOverloads constructor(
      * Setup image, message and button.
      * If [clickListener] is `null` then the button will be hidden.
      */
-    fun setup(
+    private fun setup(
         @DrawableRes imageRes: Int,
         message: String,
         clickListener: ((v: View) -> Unit)? = null,

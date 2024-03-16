@@ -42,6 +42,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineBinding
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.IconicsDrawable
@@ -113,7 +114,7 @@ class AccountMediaFragment :
                     is LoadState.NotLoading -> {
                         if (loadState.append is LoadState.NotLoading && loadState.source.refresh is LoadState.NotLoading) {
                             binding.statusView.show()
-                            binding.statusView.setup(app.pachli.core.ui.R.drawable.elephant_friend_empty, app.pachli.core.ui.R.string.message_empty, null)
+                            binding.statusView.setup(BackgroundMessage.Empty())
                         }
                     }
                     is LoadState.Error -> {

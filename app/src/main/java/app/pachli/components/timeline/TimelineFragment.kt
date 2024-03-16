@@ -60,7 +60,7 @@ import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineKind
-import app.pachli.core.ui.extensions.getDrawableRes
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
@@ -441,8 +441,7 @@ class TimelineFragment :
                                             .setAction(app.pachli.core.ui.R.string.action_retry) { adapter.retry() }
                                         snackbar!!.show()
                                     } else {
-                                        val drawableRes = error.getDrawableRes()
-                                        binding.statusView.setup(drawableRes, message) {
+                                        binding.statusView.setup(error) {
                                             snackbar?.dismiss()
                                             adapter.retry()
                                         }
@@ -453,10 +452,7 @@ class TimelineFragment :
 
                                 PresentationState.PRESENTED -> {
                                     if (adapter.itemCount == 0) {
-                                        binding.statusView.setup(
-                                            app.pachli.core.ui.R.drawable.elephant_friend_empty,
-                                            app.pachli.core.ui.R.string.message_empty,
-                                        )
+                                        binding.statusView.setup(BackgroundMessage.Empty())
                                         if (timelineKind == TimelineKind.Home) {
                                             binding.statusView.showHelp(R.string.help_empty_home)
                                         }

@@ -43,6 +43,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
@@ -110,11 +111,7 @@ class TrendingLinksFragment :
                         binding.progressBar.hide()
                         binding.swipeRefreshLayout.isRefreshing = false
                         if (it.data.isEmpty()) {
-                            binding.messageView.setup(
-                                app.pachli.core.ui.R.drawable.elephant_friend_empty,
-                                app.pachli.core.ui.R.string.message_empty,
-                                null,
-                            )
+                            binding.messageView.setup(BackgroundMessage.Empty())
                             binding.messageView.show()
                         } else {
                             binding.messageView.hide()
