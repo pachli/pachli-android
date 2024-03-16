@@ -127,9 +127,16 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                             it.msg(requireContext()),
                         )
                         Timber.e(msg)
-                        Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(R.string.action_retry) { serverRepository.retry() }
-                            .show()
+                        try {
+                            Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE)
+                                .setAction(R.string.action_retry) { serverRepository.retry() }
+                                .show()
+                        } catch (e: IllegalArgumentException) {
+                            // On rare occasions this code is running before the fragment's
+                            // view is connected to the parent. This causes Snackbar.make()
+                            // to crash.  See https://issuetracker.google.com/issues/228215869.
+                            // For now, swallow the exception.
+                        }
                         serverCanTranslate = false
                     }
                 }
