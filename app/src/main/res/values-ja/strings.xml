@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">エラーが発生しました。</string>
     <string name="error_empty">本文なしでは投稿できません。</string>
     <string name="error_no_web_browser_found">ウェブブラウザが見つかりませんでした。</string>
     <string name="error_compose_character_limit">投稿文が長すぎます！</string>
@@ -37,7 +36,6 @@
     <string name="post_content_warning_show_less">続きを隠す</string>
     <string name="post_content_show_more">続きを読む</string>
     <string name="post_content_show_less">閉じる</string>
-    <string name="message_empty">何もありません。</string>
     <string name="footer_empty">現在投稿はありません。更新するにはプルダウンしてください！</string>
     <string name="notification_reblog_format">%sさんが投稿をブーストしました</string>
     <string name="notification_favourite_format">%sさんが投稿をお気に入りに登録しました</string>
@@ -48,7 +46,6 @@
     <string name="action_reply">返信</string>
     <string name="action_reblog">ブースト</string>
     <string name="action_favourite">お気に入り</string>
-    <string name="action_more">その他</string>
     <string name="action_compose">投稿する</string>
     <string name="action_logout">ログアウト</string>
     <string name="action_logout_confirm">アカウント %1$s からログアウトしてもよろしいですか？ログアウトすると、下書きや詳細設定を含めて、ローカルに保存されているアカウントの全てのデータが削除されます。</string>
@@ -63,8 +60,6 @@
     <string name="action_delete_and_redraft">削除して編集</string>
     <string name="action_send">トゥート</string>
     <string name="action_send_public">トゥート！</string>
-    <string name="action_retry">再試行</string>
-    <string name="action_view_profile">プロフィール</string>
     <string name="action_view_preferences">設定</string>
     <string name="action_view_account_preferences">アカウント設定</string>
     <string name="action_view_favourites">お気に入り</string>
@@ -221,9 +216,6 @@
     <string name="filter_edit_title">フィルターを編集</string>
     <string name="add_account_name">アカウントを追加</string>
     <string name="add_account_description">新しいMastodonアカウントを追加</string>
-    <string name="title_lists">リスト</string>
-    <string name="error_rename_list_fmt">リスト名を変更できませんでした \"%1$s\": %2$s</string>
-    <string name="action_rename_list">リスト名の変更</string>
     <string name="compose_active_account_description">%1$sとして投稿</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="other">視覚障害者のための説明 (%d文字まで)</item>
@@ -275,8 +267,6 @@
     </string>
     <string name="description_visibility_direct">        ダイレクト
     </string>
-    <string name="hint_list_name">リスト名</string>
-    <string name="error_network">ネットワークエラーが発生しました。接続を確認してもう一度試してください。</string>
     <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">ブーストを解除</string>
     <string name="action_unfavourite">お気に入りを解除</string>
@@ -316,13 +306,6 @@
     <string name="dialog_redraft_post_warning">この投稿を削除し、下書きに戻しますか？</string>
     <string name="filter_dialog_remove_button">削除</string>
     <string name="filter_dialog_update_button">更新</string>
-    <string name="error_create_list_fmt">リストを作成できませんでした \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">リストを削除できませんでした \"%1$s\": %2$s</string>
-    <string name="action_create_list">リストの作成</string>
-    <string name="action_delete_list">リストの削除</string>
-    <string name="hint_search_people_list">フォロワーを検索</string>
-    <string name="action_add_to_list">リストにアカウントを追加</string>
-    <string name="action_remove_from_list">リストからアカウントを削除</string>
     <string name="poll_ended_voted">参加した投票の結果がでました</string>
     <string name="poll_ended_created">作成した投票の結果がでました</string>
     <string name="create_poll_title">投票</string>
@@ -364,7 +347,6 @@
     <string name="report_description_remote_instance">このアカウントは外部のサーバーにあります。匿名化された通報の複製をそちらにも送信しますか？</string>
     <string name="report_description_1">通報をサーバーのモデレーターに送信します。以下にこのアカウントを通報理由を入力できます:</string>
     <string name="failed_fetch_posts">投稿を取得できませんでした</string>
-    <string name="button_done">完了</string>
     <string name="button_back">戻る</string>
     <string name="button_continue">続ける</string>
     <string name="compose_shortcut_short_label">投稿</string>
@@ -418,7 +400,6 @@
     <string name="action_delete_conversation">会話を削除</string>
     <string name="action_details">詳細情報</string>
     <string name="notification_sign_up_format">%sさんがサインアップしました</string>
-    <string name="action_add_or_remove_from_list">リストへの追加または削除</string>
     <string name="description_post_language">投稿言語</string>
     <string name="description_post_favourited">お気に入りに追加しました</string>
     <string name="description_post_bookmarked">ブックマークに追加しました</string>
@@ -427,7 +408,6 @@
     <string name="duration_14_days">14日間</string>
     <string name="duration_30_days">30日間</string>
     <string name="duration_60_days">60日間</string>
-    <string name="no_lists">まだリストがありません。</string>
     <string name="pref_title_show_self_username">ツールバーにユーザー名を表示する</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="compose_save_draft_loses_media">下書きを保存しますか？ (添付ファイルは下書きの復元時に再アップロードされます。)</string>
@@ -477,8 +457,6 @@
     <string name="notification_report_description">モデレーション報告に関する通知</string>
     <string name="post_media_attachments">添付ファイル</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="failed_to_add_to_list">アカウントのリストへの追加に失敗しました</string>
-    <string name="failed_to_remove_from_list">アカウントのリストからの削除に失敗しました</string>
     <string name="no_announcements">アナウンスはありません。</string>
     <string name="description_post_edited">編集しました</string>
     <string name="pref_title_confirm_favourites">お気に入りに追加する前に確認を表示する</string>
@@ -490,7 +468,6 @@
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">%1$d 個以上のメディア添付ファイルはアップロードできません。</item>
     </plurals>
-    <string name="dialog_delete_list_warning">リスト %s を本当に削除しますか？</string>
     <string name="drafts_post_failed_to_send">この投稿の送信に失敗しました！</string>
     <string name="drafts_failed_loading_reply">返信情報の読み込みに失敗しました</string>
     <string name="draft_deleted">下書きを削除しました</string>
@@ -577,7 +554,6 @@
     <string name="filter_description_warn">警告付きで隠す</string>
     <string name="filter_description_hide">完全に隠す</string>
     <string name="label_filter_action">フィルターアクション</string>
-    <string name="action_refresh">再読み込み</string>
     <string name="ui_error_reblog">投稿のブーストに失敗しました: %s</string>
     <string name="ui_error_clear_notifications">通知の消去に失敗しました: %s</string>
     <string name="ui_error_favourite">投稿のお気に入りに失敗しました: %s</string>
@@ -609,9 +585,7 @@
     <string name="title_public_trending">トレンド</string>
     <string name="title_public_trending_statuses">トレンドの投稿</string>
     <string name="dialog_save_profile_changes_message">プロフィールの変更を保存しますか\?</string>
-    <string name="error_generic_fmt">エラーが発生しました: %s</string>
     <string name="title_tab_public_trending_statuses">投稿</string>
-    <string name="error_404_not_found_fmt">あなたのサーバーはこの機能をサポートしていません: %1$s</string>
     <string name="title_tab_public_trending_hashtags">ハッシュタグ</string>
     <string name="dialog_delete_filter_positive_action">削除する</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
@@ -621,7 +595,6 @@
     <string name="announcement_date">%1$s %2$s</string>
     <string name="socket_timeout_exception">サーバーへの接続に時間がかかりすぎました</string>
     <string name="load_newest_statuses">最新のポストを読み込む</string>
-    <string name="error_network_fmt">ネットワーク エラーが発生しました: %s</string>
     <string name="ui_error_filter_v1_load">フィルターの読み込みに失敗しました: %s</string>
     <string name="confirmation_hashtag_muted">#%s を非表示にしました</string>
     <string name="announcement_date_updated">(更新済み: %1$s)</string>
@@ -629,7 +602,6 @@
 \n
 \nあなたのインスタンスのローカルタイムラインや他のタイムラインから、他のアカウントを見つけることができます（[iconics gmd_group]）。また、名前で検索することもできます（[iconics gmd_search]）；例えば、Pachliを検索すると、当社のMastodonアカウントを見つけることができます。</string>
     <string name="pref_title_font_family">フォント</string>
-    <string name="list_exclusive_label">ホームタイムラインから隠す</string>
     <string name="description_poll">選択肢付きの投票: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="label_image">画像</string>
     <string name="status_filter_placeholder_label_format">フィルタ済み: %s</string>

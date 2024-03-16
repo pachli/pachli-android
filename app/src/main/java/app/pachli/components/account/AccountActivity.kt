@@ -53,7 +53,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.R
-import app.pachli.components.account.list.ListsForAccountFragment
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.emojify
@@ -77,9 +76,10 @@ import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
-import app.pachli.core.ui.reduceSwipeSensitivity
+import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityAccountBinding
 import app.pachli.db.DraftsAlert
+import app.pachli.feature.lists.ListsForAccountFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.LinkListener
 import app.pachli.interfaces.ReselectableFragment
@@ -419,8 +419,8 @@ class AccountActivity :
             when (it) {
                 is Success -> onAccountChanged(it.data)
                 is Error -> {
-                    Snackbar.make(binding.accountCoordinatorLayout, R.string.error_generic, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.action_retry) { viewModel.refresh() }
+                    Snackbar.make(binding.accountCoordinatorLayout, app.pachli.core.ui.R.string.error_generic, Snackbar.LENGTH_LONG)
+                        .setAction(app.pachli.core.ui.R.string.action_retry) { viewModel.refresh() }
                         .show()
                 }
                 is Loading -> { }
@@ -433,8 +433,8 @@ class AccountActivity :
             }
 
             if (it is Error) {
-                Snackbar.make(binding.accountCoordinatorLayout, R.string.error_generic, Snackbar.LENGTH_LONG)
-                    .setAction(R.string.action_retry) { viewModel.refresh() }
+                Snackbar.make(binding.accountCoordinatorLayout, app.pachli.core.ui.R.string.error_generic, Snackbar.LENGTH_LONG)
+                    .setAction(app.pachli.core.ui.R.string.action_retry) { viewModel.refresh() }
                     .show()
             }
         }

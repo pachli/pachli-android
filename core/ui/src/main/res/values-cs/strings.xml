@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Vyskytla se chyba sítě! Prosím zkontrolujte své připojení a zkuste to znovu!</string>
+    <string name="error_generic">Vyskytla se chyba.</string>
+    <string name="message_empty">Tady nic není.</string>
+    <string name="action_retry">Zkusit znovu</string>
+    <string name="button_done">Hotovo</string>
+    <string name="action_view_profile">Profil</string>
+    <string name="action_more">Více</string>
+</resources>

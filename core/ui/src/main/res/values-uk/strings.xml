@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Сталася помилка мережі. Перевірте інтернет-з\'єднання та спробуйте знову.</string>
+    <string name="error_generic">Сталася помилка.</string>
+    <string name="message_empty">Нічого немає.</string>
+    <string name="action_retry">Повторити</string>
+    <string name="button_done">Готово</string>
+    <string name="action_view_profile">Профіль</string>
+    <string name="action_more">Розгорнути</string>
+    <string name="action_refresh">Оновити</string>
+</resources>

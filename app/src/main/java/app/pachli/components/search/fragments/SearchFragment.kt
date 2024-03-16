@@ -131,7 +131,7 @@ abstract class SearchFragment<T : Any> :
     private fun showError() {
         if (snackbarErrorRetry?.isShown != true) {
             snackbarErrorRetry = Snackbar.make(binding.root, R.string.failed_search, Snackbar.LENGTH_INDEFINITE)
-            snackbarErrorRetry?.setAction(R.string.action_retry) {
+            snackbarErrorRetry?.setAction(app.pachli.core.ui.R.string.action_retry) {
                 snackbarErrorRetry = null
                 adapter.retry()
             }

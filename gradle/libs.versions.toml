@@ -50,6 +50,7 @@ leakcanary = "2.13"
 lint = "31.3.0" # = agp + 23.0.0 (= 8.3.0), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
 material = "1.11.0"
 material-drawer = "9.0.2"
+material-iconics = "5.4.0"
 material-typeface = "4.0.0.2-kotlin"
 mockito-inline = "5.2.0"
 mockito-kotlin = "5.2.1"
@@ -171,6 +172,7 @@ lint-cli = { module = "com.android.tools.lint:lint", version.ref = "lint" }
 lint-tests = { module = "com.android.tools.lint:lint-tests", version.ref = "lint" }
 material-drawer-core = { module = "com.mikepenz:materialdrawer", version.ref = "material-drawer" }
 material-drawer-iconics = { module = "com.mikepenz:materialdrawer-iconics", version.ref = "material-drawer" }
+material-iconics = { module = "com.mikepenz:iconics-core", version.ref="material-iconics" }
 material-typeface = { module = "com.mikepenz:google-material-typeface", version.ref = "material-typeface" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }

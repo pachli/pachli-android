@@ -27,6 +27,7 @@ import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.data.repository.InstanceInfoRepository
+import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.StringField
 import app.pachli.core.network.retrofit.MastodonApi
@@ -34,7 +35,6 @@ import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
-import app.pachli.util.getServerErrorMessage
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File

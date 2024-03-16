@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Bu gwall.</string>
     <string name="error_empty">Ni all hwn fod yn wag.</string>
     <string name="error_no_web_browser_found">Methu dod o hyd i borwr gwe i\'w ddefnyddio.</string>
     <string name="error_compose_character_limit">Mae\'ch neges yn rhy hir!</string>
@@ -44,7 +43,6 @@
     <string name="action_reply">Ymateb</string>
     <string name="action_reblog">Hybu</string>
     <string name="action_favourite">Hoffi</string>
-    <string name="action_more">Mwy</string>
     <string name="action_compose">Creu</string>
     <string name="action_logout">Allgofnodi</string>
     <string name="action_logout_confirm">Ydych chi\'n siŵr eich bod am allgofnodi o\'r cyfrif %1$s\? Bydd hyn yn dileu\'r holl ddata lleol, gan gynnwys drafftiau a chyfeiriadau.</string>
@@ -58,8 +56,6 @@
     <string name="action_delete">Dileu</string>
     <string name="action_send">TŴTIO</string>
     <string name="action_send_public">TŴTIO!</string>
-    <string name="action_retry">Ceisio eto</string>
-    <string name="action_view_profile">Proffil</string>
     <string name="action_view_preferences">Dewisiadau</string>
     <string name="action_view_favourites">Ffefrynnau</string>
     <string name="action_view_mutes">Defnyddwyr a dawyd</string>
@@ -205,7 +201,6 @@
     <string name="replying_to">Yn ymateb i @%s</string>
     <string name="add_account_name">Ychwanegu Cyfrif</string>
     <string name="add_account_description">Ychwanegu Cyfrif Mastodon newydd</string>
-    <string name="title_lists">Rhestrau</string>
     <string name="compose_active_account_description">Yn postio fel %1$s</string>
     <string name="action_set_caption">Gosod pennawd</string>
     <string name="action_remove">Dileu</string>
@@ -237,12 +232,10 @@
     <string name="profile_metadata_content_label">Cynnwys</string>
     <string name="pref_title_absolute_time">Defnyddio amser absoliwt</string>
     <string name="post_username_format">\@%s</string>
-    <string name="error_network">Digwyddodd gwall rhwydwaith. Gwiriwch eich cysylltiad a cheisiwch eto.</string>
     <string name="title_direct_messages">Negeseuon uniongyrchol</string>
     <string name="title_tab_preferences">Tabiau</string>
     <string name="title_posts_pinned">Piniwyd</string>
     <string name="title_domain_mutes">Parthau cudd</string>
-    <string name="message_empty">Dim byd yma.</string>
     <string name="action_unreblog">Dileu hwb</string>
     <string name="action_unfavourite">Dileu ffefryn</string>
     <string name="action_delete_and_redraft">Dileu ac ailddrafftio</string>
@@ -346,7 +339,6 @@
     <string name="follow_requests_info">Er nad ydych wedi cloi\'ch cyfrif, roedd staff %1$s yn meddwl efallai yr hoffech adolygu\'r ceisiadau i\'ch dilyn o\'r cyfrifon hyn â llaw.</string>
     <string name="delete_scheduled_post_warning">Hoffech chi ddileu\'r neges a amserlennwyd hon\?</string>
     <string name="description_post_media_no_description_placeholder">Dim disgrifiad</string>
-    <string name="hint_list_name">Enw rhestr</string>
     <string name="edit_hashtag_hint">Hashnod heb #</string>
     <string name="report_remote_instance">Anfon ymlaen at %s</string>
     <string name="report_description_remote_instance">Daw\'r cyfrif o weinydd arall. Hoffech chi anfon copi dienw o\'r adroddiad i\'r gweinydd hwnnw hefyd\?</string>
@@ -357,9 +349,6 @@
     <string name="pref_show_self_username_never">Byth</string>
     <string name="pref_show_self_username_always">Bob tro</string>
     <string name="post_media_attachments">Atodiadau</string>
-    <string name="action_create_list">Creu rhestr</string>
-    <string name="action_rename_list">Diweddaru\'r rhestr</string>
-    <string name="hint_search_people_list">Chwilio am bobl rydych chi\'n eu dilyn</string>
     <string name="action_edit_image">Golygu llun</string>
     <string name="title_reblogged_by">Hybwyd gan</string>
     <string name="label_duration">Hyd</string>
@@ -385,7 +374,6 @@
     <string name="account_note_saved">Cadwyd!</string>
     <string name="action_subscribe_account">Tanysgrifio</string>
     <string name="action_unsubscribe_account">Dad-danysgrifo</string>
-    <string name="dialog_delete_list_warning">Ydych chi wir eisiau dileu rhestr %s\?</string>
     <string name="no_drafts">Does gennych chi ddim drafftiau.</string>
     <string name="pref_title_show_cards_in_timelines">Dangos rhagolygon ffrydiau</string>
     <string name="pref_title_wellbeing_mode">Llesiant</string>
@@ -407,7 +395,6 @@
     <string name="pref_default_media_sensitivity">Nodi cyfryngau yn sensitif bob tro</string>
     <string name="title_accounts">Cyfrifon</string>
     <string name="create_poll_title">Pôl</string>
-    <string name="action_delete_list">Dileu\'r rhestr</string>
     <string name="add_hashtag_title">Ychwanegu hashnod</string>
     <string name="status_count_one_plus">1+</string>
     <string name="post_media_audio">Sain</string>
@@ -427,9 +414,6 @@
         <item quantity="other"><b>%1$s</b> Ffefryn</item>
     </plurals>
     <string name="description_visibility_direct">Uniongyrchol</string>
-    <string name="action_add_or_remove_from_list">Ychwanegu at neu dynnu oddi ar restr</string>
-    <string name="failed_to_add_to_list">Wedi methu ag ychwanegu\'r cyfrif at y rhestr</string>
-    <string name="failed_to_remove_from_list">Wedi methu tynnu\'r cyfrif o\'r rhestr</string>
     <string name="compose_save_draft_loses_media">Cadw drafft\? (Bydd atodiadau\'n cael eu lanlwytho eto pan fyddwch chi\'n adfer y drafft.)</string>
     <string name="description_post_reblogged">Ailflogiwyd</string>
     <string name="dialog_push_notification_migration_other_accounts">Rydych wedi ail-fewngofnodi i\'ch cyfrif cyfredol i roi caniatâd tanysgrifio gwthio i Pachli. Fodd bynnag, mae gennych gyfrifon eraill o hyd nad ydyn nhw wedi\'u mudo fel hyn. Newidiwch atyn nhw ac ail-fewngofnodi fesul un er mwyn galluogi cefnogaeth hysbysiadau UnifiedPush.</string>
@@ -447,11 +431,9 @@
     <string name="failed_to_pin">Wedi methu pinio</string>
     <string name="failed_to_unpin">Wedi methu dadbinio</string>
     <string name="pref_title_http_proxy_port_message">Dylai\'r porth fod rhwng %d a %d</string>
-    <string name="error_rename_list_fmt">Methu diweddaru\'r rhestr \"%1$s\": %2$s</string>
     <string name="pref_default_post_language">Iaith bostio ragosodedig</string>
     <string name="description_post_bookmarked">Tudalnodiwyd</string>
     <string name="select_list_title">Dewiswch restr</string>
-    <string name="button_done">Wedi gorffen</string>
     <string name="report_sent_success">Wedi adrodd ar @%s yn llwyddiannus</string>
     <string name="limit_notifications">Cyfyngu ar hysbysiadau ffrydiau</string>
     <string name="pref_title_show_self_username">Dangos enw defnyddiwr mewn bariau offer</string>
@@ -487,15 +469,11 @@
     <string name="notification_sign_up_description">Hysbysiadau am ddefnyddwyr newydd</string>
     <string name="notification_report_description">Hysbysiadau am adroddiadau cymedroli</string>
     <string name="filter_dialog_whole_word_description">Os yw\'r allweddair neu\'r ymadrodd yn alffaniwmerig yn unig, mi fydd ond yn cael ei osod os yw\'n cyfateb â\'r gair cyfan</string>
-    <string name="error_create_list_fmt">Methu creu rhestr \"%1$s\": %2$s</string>
     <string name="set_focus_description">Tapiwch neu lusgo\'r cylch i ddewis y canolbwynt a fydd bob amser yn weladwy mewn lluniau bach.</string>
     <string name="description_poll">Pôl gyda dewisiadau: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="list">Rhestr</string>
     <string name="action_set_focus">Gosod pwynt ffocws</string>
     <string name="status_created_at_now">nawr</string>
-    <string name="error_delete_list_fmt">Methu dileu\'r rhestr \"%1$s\": %2$s</string>
-    <string name="action_add_to_list">Ychwanegwch gyfrif at y rhestr</string>
-    <string name="action_remove_from_list">Tynnu cyfrif o\'r rhestr</string>
     <string name="action_add_reaction">ychwanegu ymateb</string>
     <string name="description_post_media">Cyfryngau: %s</string>
     <string name="error_status_source_load">Wedi methu llwytho\'r ffynhonnell statws o\'r gweinydd.</string>
@@ -516,7 +494,6 @@
         <item quantity="many">%s person</item>
         <item quantity="other">%s pherson</item>
     </plurals>
-    <string name="no_lists">Nid oes gennych unrhyw restrau.</string>
     <string name="wellbeing_mode_notice">Bydd rhywfaint o wybodaeth a all effeithio ar eich lles meddyliol yn cael ei chuddio. Mae hyn yn cynnwys:
 \n
 \n - Hysbysiadau hoffi/hybu/dilyn
@@ -614,7 +591,6 @@
     <string name="total_accounts">Cyfrifon cyfan</string>
     <string name="dialog_follow_hashtag_title">Dilyn hashnod</string>
     <string name="dialog_follow_hashtag_hint">#hashnod</string>
-    <string name="action_refresh">Adnewyddu</string>
     <string name="notification_unknown_name">Anhysbys</string>
     <string name="status_filtered_show_anyway">Dangos beth bynnag</string>
     <string name="status_filter_placeholder_label_format">Hidlwyd: %s</string>
@@ -664,7 +640,6 @@
     <string name="load_newest_notifications">Llwytho hysbysiadau diweddaraf</string>
     <string name="compose_delete_draft">Dileu\'r drafft\?</string>
     <string name="error_media_upload_sending_fmt">Methodd y lanlwytho: %s</string>
-    <string name="list_exclusive_label">Cuddio o\'r ffrwd cartref</string>
     <string name="error_media_playback">Methodd chwarae: %s</string>
     <string name="dialog_delete_filter_positive_action">Dileu</string>
     <string name="dialog_delete_filter_text">Dileu\'r hidlydd \'%1$s\'\?</string>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Lista neve</string>
+    <string name="title_lists">Listák</string>
+    <string name="error_create_list_fmt">Nem sikerült a lista létrehozása \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Nem sikerült a lista törlése \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Nem sikerült a lista átnevezése \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Lista átnevezése</string>
+    <string name="action_create_list">Lista létrehozása</string>
+    <string name="dialog_delete_list_warning">Tényleg le akarod törölni a %s listát\?</string>
+    <string name="action_remove_from_list">Fiók eltávolítása a listából</string>
+    <string name="action_add_to_list">Fiók hozzáadása a listához</string>
+    <string name="action_delete_list">Lista törlése</string>
+    <string name="failed_to_add_to_list">Nem sikerült a fiókot a listához adni</string>
+    <string name="failed_to_remove_from_list">Nem sikerült a fiókot levenni a listáról</string>
+    <string name="no_lists">Nincs egy listád se.</string>
+    <string name="hint_search_people_list">Általad követettek keresése</string>
+    <string name="action_add_or_remove_from_list">Hozzáadás vagy törlés a listáról</string>
+</resources>

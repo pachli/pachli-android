@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Произошла ошибка сети! Пожалуйста, проверьте интернет-соединение и попробуйте снова!</string>
+    <string name="error_generic">Произошла ошибка.</string>
+    <string name="message_empty">Ничего нет.</string>
+    <string name="action_retry">Повторить</string>
+    <string name="button_done">Готово</string>
+    <string name="action_view_profile">Профиль</string>
+    <string name="action_more">Больше</string>
+</resources>

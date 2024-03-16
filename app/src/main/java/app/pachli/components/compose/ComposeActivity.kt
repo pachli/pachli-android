@@ -585,7 +585,7 @@ class ComposeActivity :
             title = null
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_close_24dp)
+            setHomeAsUpIndicator(app.pachli.core.ui.R.drawable.ic_close_24dp)
         }
     }
 
@@ -997,7 +997,7 @@ class ComposeActivity :
                     R.string.error_media_upload_permission,
                     Snackbar.LENGTH_SHORT,
                 ).apply {
-                    setAction(R.string.action_retry) { onMediaPick() }
+                    setAction(app.pachli.core.ui.R.string.action_retry) { onMediaPick() }
                     // necessary so snackbar is shown over everything
                     view.elevation = resources.getDimension(DR.dimen.compose_activity_snackbar_elevation)
                     show()

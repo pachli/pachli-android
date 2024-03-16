@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Ein Fehler ist aufgetreten.</string>
-    <string name="error_network">Ein Netzwerkfehler ist aufgetreten. Bitte überprüfe deine Internetverbindung und versuche es erneut.</string>
     <string name="error_empty">Das darf nicht leer sein.</string>
     <string name="error_no_web_browser_found">Kein Webbrowser gefunden.</string>
     <string name="error_compose_character_limit">Der Beitrag ist zu lang!</string>
@@ -40,7 +38,6 @@
     <string name="post_content_warning_show_less">Weniger anzeigen</string>
     <string name="post_content_show_more">Ausklappen</string>
     <string name="post_content_show_less">Einklappen</string>
-    <string name="message_empty">Hier ist nichts.</string>
     <string name="footer_empty">Noch keine Beiträge. Ziehe zum Aktualisieren nach unten!</string>
     <string name="notification_reblog_format">%s teilte deinen Beitrag</string>
     <string name="notification_favourite_format">%s favorisierte deinen Beitrag</string>
@@ -53,7 +50,6 @@
     <string name="action_unreblog">Teilen rückgängig machen</string>
     <string name="action_favourite">Favorisieren</string>
     <string name="action_unfavourite">Aus Favoriten entfernen</string>
-    <string name="action_more">Mehr</string>
     <string name="action_compose">Beitrag erstellen</string>
     <string name="action_logout">Abmelden</string>
     <string name="action_logout_confirm">Möchtest du %1$s wirklich abmelden\? Dadurch werden alle lokalen Daten des Profils, wie Entwürfe und Einstellungen, gelöscht.</string>
@@ -67,8 +63,6 @@
     <string name="action_delete">Löschen</string>
     <string name="action_send">TRÖT</string>
     <string name="action_send_public">TRÖT!</string>
-    <string name="action_retry">Erneut versuchen</string>
-    <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Einstellungen</string>
     <string name="action_view_account_preferences">Profileinstellungen</string>
     <string name="action_view_favourites">Favoriten</string>
@@ -225,11 +219,6 @@
     <string name="filter_dialog_update_button">Aktualisieren</string>
     <string name="add_account_name">Konto hinzufügen</string>
     <string name="add_account_description">Neues Mastodon-Konto hinzufügen</string>
-    <string name="title_lists">Listen</string>
-    <string name="action_create_list">Liste erstellen</string>
-    <string name="action_rename_list">Liste aktualisieren</string>
-    <string name="action_delete_list">Liste löschen</string>
-    <string name="action_add_to_list">Konto zur Liste hinzufügen</string>
     <string name="compose_active_account_description">Veröffentlichen als %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Inhalt für Menschen mit Sehbehinderung beschreiben (%d Zeichen)</item>
@@ -277,15 +266,9 @@
     <string name="description_visibility_public">Öffentlich    </string>
     <string name="description_visibility_private">Follower</string>
     <string name="description_visibility_direct">Direkt    </string>
-    <string name="hint_list_name">Listenname</string>
     <string name="download_media">Dateien herunterladen</string>
     <string name="downloading_media">Dateien werden heruntergeladen</string>
     <string name="filter_add_description">zu filternder Ausdruck</string>
-    <string name="error_create_list_fmt">Liste konnte nicht erstellt werden \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Liste konnte nicht aktualisiert werden \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">Liste konnte nicht gelöscht werden \"%1$s\": %2$s</string>
-    <string name="hint_search_people_list">Suche nach Leuten, denen du folgst</string>
-    <string name="action_remove_from_list">Konto aus der Liste entfernen</string>
     <string name="edit_hashtag_hint">Hashtag ohne #</string>
     <string name="action_open_reblogger">Autor*in des geteilten Beitrags öffnen</string>
     <string name="pref_title_public_filter_keywords">Öffentliche Timelines</string>
@@ -347,7 +330,6 @@
     <string name="filter_dialog_whole_word_description">Wenn das Wort oder die Formulierung nur aus Buchstaben oder Zahlen besteht, tritt der Filter nur dann in Kraft, wenn er exakt dieser Zeichenfolge entspricht</string>
     <string name="button_continue">Weiter</string>
     <string name="button_back">Zurück</string>
-    <string name="button_done">Fertig</string>
     <string name="report_sent_success">\@%s wurde erfolgreich gemeldet</string>
     <string name="hint_additional_info">Zusätzliche Anmerkungen</string>
     <string name="report_remote_instance">An %s weiterleiten</string>
@@ -431,7 +413,6 @@
     <string name="drafts_post_reply_removed">Der Beitrag, auf den du antworten wolltest, wurde gelöscht</string>
     <string name="draft_deleted">Entwurf gelöscht</string>
     <string name="drafts_post_failed_to_send">Dieser Beitrag konnte nicht gesendet werden!</string>
-    <string name="dialog_delete_list_warning">Möchtest du die Liste %s wirklich löschen\?</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Du kannst nicht mehr als %1$d Anhang hochladen.</item>
         <item quantity="other">Du kannst nicht mehr als %1$d Anhänge hochladen.</item>
@@ -516,10 +497,6 @@
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">Fokuspunkt setzen</string>
     <string name="action_add_reaction">Reaktion hinzufügen</string>
-    <string name="failed_to_remove_from_list">Das Konto konnte nicht aus der Liste entfernt werden</string>
-    <string name="action_add_or_remove_from_list">Zur Liste hzfg. / aus Liste entf.</string>
-    <string name="failed_to_add_to_list">Das Konto konnte nicht zur Liste hinzugefügt werden</string>
-    <string name="no_lists">Du hast keine Listen.</string>
     <string name="notification_summary_report_format">%s · %d Beiträge angehängt</string>
     <string name="notification_header_report_format">%s hat %s gemeldet</string>
     <string name="confirmation_hashtag_unfollowed">#%s entfolgt</string>
@@ -574,7 +551,6 @@
     <string name="total_accounts">Konten insg.</string>
     <string name="dialog_follow_hashtag_title">Hashtag folgen</string>
     <string name="dialog_follow_hashtag_hint">#Hashtag</string>
-    <string name="action_refresh">Aktualisieren</string>
     <string name="socket_timeout_exception">Kontaktaufnahme mit dem Server dauerte zu lange</string>
     <string name="ui_error_bookmark">Beitrag konnte nicht als Lesezeichen gespeichert werden: %s</string>
     <string name="ui_error_reblog">Beitrag konnte nicht geteilt werden: %s</string>
@@ -619,7 +595,6 @@
     <string name="error_missing_edits">Deinem Server ist bekannt, dass dieser Beitrag bearbeitet wurde. Allerdings besitzt er keine Kopien der Änderungen, weshalb diese nicht angezeigt werden können.
 \n
 \nHierbei handelt es sich um <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon Issue #25398</a>.</string>
-    <string name="list_exclusive_label">Nicht in der Startseite anzeigen</string>
     <string name="error_media_upload_sending_fmt">Das Hochladen ist fehlgeschlagen: %s</string>
     <string name="ui_error_translate_status">Übersetzung fehlgeschlagen: %s</string>
     <string name="update_dialog_negative">Erinnere mich nie</string>
@@ -636,9 +611,7 @@
     <string name="pref_title_update_settings">Softwareaktualisierungen</string>
     <string name="title_public_trending_statuses">Angesagte Beiträge</string>
     <string name="load_newest_statuses">Neueste Beiträge laden</string>
-    <string name="error_network_fmt">Ein Netzwerkfehler ist aufgetreten: %s</string>
     <string name="dialog_save_profile_changes_message">Möchtest du deine Profiländerungen speichern?</string>
-    <string name="error_generic_fmt">Es ist ein Fehler aufgetreten: %s</string>
     <string name="pref_update_notification_frequency_always">Immer</string>
     <string name="pref_update_notification_frequency_never">Nie</string>
     <string name="pref_title_show_self_boosts_description">Jemand teilt einen eigenen Beitrag</string>
@@ -648,7 +621,6 @@
     <string name="pref_title_show_self_boosts">Selbst geteilte Beiträge anzeigen</string>
     <string name="title_tab_public_trending_statuses">Beiträge</string>
     <string name="pref_update_notification_frequency_once_per_version">Einmal pro Version</string>
-    <string name="error_404_not_found_fmt">Dein Server unterstützt diese Funktion nicht: %1$s</string>
     <string name="pref_title_font_family">Schriftfamilie</string>
     <string name="action_translate">Übersetzen</string>
     <string name="update_dialog_title">Eine Aktualisierung ist verfügbar</string>

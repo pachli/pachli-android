@@ -238,7 +238,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     downloadMedia()
                 } else {
-                    showErrorDialog(binding.toolbar, R.string.error_media_download_permission, R.string.action_retry) {
+                    showErrorDialog(binding.toolbar, R.string.error_media_download_permission, app.pachli.core.ui.R.string.action_retry) {
                         requestDownloadMedia()
                     }
                 }

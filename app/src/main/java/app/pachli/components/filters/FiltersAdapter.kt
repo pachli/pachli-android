@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.network.model.Filter
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemRemovableBinding
-import app.pachli.util.BindingHolder
 import app.pachli.util.getRelativeTimeSpanString
 
 class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">리스트 이름</string>
+    <string name="title_lists">리스트</string>
+    <string name="error_create_list_fmt">리스트를 만들 수 없습니다. \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">리스트를 삭제할 수 없습니다. \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">리스트의 이름을 변경할 수 없습니다. \"%1$s\": %2$s</string>
+    <string name="action_rename_list">리스트 이름 바꾸기</string>
+    <string name="action_create_list">리스트 생성</string>
+    <string name="action_remove_from_list">리스트에서 계정 삭제</string>
+    <string name="action_add_to_list">리스트에 계정 추가</string>
+    <string name="action_delete_list">리스트 삭제</string>
+    <string name="hint_search_people_list">당신을 팔로우하는 사람 검색</string>
+</resources>

@@ -28,6 +28,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
@@ -48,7 +49,6 @@ import app.pachli.util.LocaleManager
 import app.pachli.util.deserialize
 import app.pachli.util.makeIcon
 import app.pachli.util.serialize
-import app.pachli.util.unsafeLazy
 import app.pachli.view.FontFamilyDialogFragment
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Houbo un fallo na rede. Comproba a conexión e inténtao outra vez.</string>
+    <string name="error_generic">Algo fallou.</string>
+    <string name="message_empty">Nada por aquí.</string>
+    <string name="action_retry">Intenta outra vez</string>
+    <string name="button_done">Feito</string>
+    <string name="action_view_profile">Perfil</string>
+    <string name="action_more">Máis</string>
+    <string name="action_refresh">Actualizar</string>
+</resources>

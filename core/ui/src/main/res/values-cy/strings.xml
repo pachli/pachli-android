@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Digwyddodd gwall rhwydwaith. Gwiriwch eich cysylltiad a cheisiwch eto.</string>
+    <string name="error_generic">Bu gwall.</string>
+    <string name="message_empty">Dim byd yma.</string>
+    <string name="action_retry">Ceisio eto</string>
+    <string name="button_done">Wedi gorffen</string>
+    <string name="action_view_profile">Proffil</string>
+    <string name="action_more">Mwy</string>
+    <string name="action_refresh">Adnewyddu</string>
+</resources>

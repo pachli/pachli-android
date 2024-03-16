@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Nome da lista</string>
+    <string name="list_exclusive_label">Ocultar da linha do tempo inicial</string>
+    <string name="title_lists">Listas</string>
+    <string name="error_create_list_fmt">Não foi possível criar a lista \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Não foi possível excluir a lista \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Não foi possível renomear a lista \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Renomear lista</string>
+    <string name="action_create_list">Criar uma lista</string>
+    <string name="dialog_delete_list_warning">Deseja excluir a lista %s\?</string>
+    <string name="action_remove_from_list">Remover conta da lista</string>
+    <string name="action_add_to_list">Adicionar conta à lista</string>
+    <string name="action_delete_list">Excluir lista</string>
+    <string name="failed_to_add_to_list">Falha ao adicionar a conta à lista</string>
+    <string name="failed_to_remove_from_list">Falha ao remover a conta da lista</string>
+    <string name="no_lists">Não tem lista alguma.</string>
+    <string name="hint_search_people_list">Pesquisar pessoas que você segue</string>
+    <string name="action_add_or_remove_from_list">Adicionar ou remover da lista</string>
+</resources>

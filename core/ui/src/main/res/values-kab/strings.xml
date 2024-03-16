@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_generic">Tella-d tucḍa.</string>
+    <string name="message_empty">Ulac walu da.</string>
+    <string name="action_retry">Ɛreḍ tikkelt-nniḍen</string>
+    <string name="action_view_profile">Amaɣnu</string>
+    <string name="action_more">Ugar</string>
+</resources>

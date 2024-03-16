@@ -1,19 +1,12 @@
 package app.pachli.util
 
-import android.content.Context
-import android.os.Build
 import android.text.Spannable
-import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.CharacterStyle
-import android.text.style.DynamicDrawableSpan
 import android.text.style.ForegroundColorSpan
-import android.text.style.ImageSpan
 import android.text.style.URLSpan
 import app.pachli.core.ui.MentionSpan
 import app.pachli.core.ui.NoUnderlineURLSpan
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import java.util.regex.Pattern
 import kotlin.math.max
 
@@ -95,30 +88,6 @@ fun highlightSpans(text: Spannable, colour: Int) {
             start += finders[found.matchType]!!.searchPrefixWidth
         }
     }
-}
-
-/**
- * Replaces text of the form [iconics name] with their spanned counterparts (ImageSpan).
- */
-fun addDrawables(text: CharSequence, color: Int, size: Int, context: Context): Spannable {
-    val alignment = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) DynamicDrawableSpan.ALIGN_CENTER else DynamicDrawableSpan.ALIGN_BASELINE
-
-    val builder = SpannableStringBuilder(text)
-
-    val pattern = Pattern.compile("\\[iconics ([0-9a-z_]+)\\]")
-    val matcher = pattern.matcher(builder)
-    while (matcher.find()) {
-        val resourceName = matcher.group(1)
-            ?: continue
-
-        val drawable = IconicsDrawable(context, GoogleMaterial.getIcon(resourceName))
-        drawable.setBounds(0, 0, size, size)
-        drawable.setTint(color)
-
-        builder.setSpan(ImageSpan(drawable, alignment), matcher.start(), matcher.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-    }
-
-    return builder
 }
 
 private fun <T> clearSpans(text: Spannable, spanClass: Class<T>) {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">सूचिनाम</string>
+    <string name="title_lists">सूचयः</string>
+    <string name="error_create_list_fmt">सूचिनिर्माणं कर्तुमशक्यम् \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">सूचिर्नष्टुमशक्या \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">पुनः सूचिनामकरणं कर्तुमशक्यम् \"%1$s\": %2$s</string>
+    <string name="action_rename_list">पुनः सूचिनामकरणं क्रियताम्</string>
+    <string name="action_create_list">सूचिः निर्मीयताम्</string>
+    <string name="action_remove_from_list">सूच्याः लेखा नश्यताम्</string>
+    <string name="action_add_to_list">सूच्यां लेखा स्थाप्यताम्</string>
+    <string name="action_delete_list">सूचिर्नश्यताम्</string>
+    <string name="hint_search_people_list">येषामुसरणं करोषि तेष्वन्विष्यताम्</string>
+</resources>

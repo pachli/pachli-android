@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Si è verificato un errore.</string>
-    <string name="error_network">Si è verificato un errore di rete. Per favore controlla la tua connessione e riprova.</string>
     <string name="error_empty">Questo non può essere vuoto.</string>
     <string name="error_no_web_browser_found">Nessun browser web utilizzabile trovato.</string>
     <string name="error_compose_character_limit">Il messaggio è troppo lungo!</string>
-    <string name="error_404_not_found_fmt">Il tuo server non supporta questa feature: %1$s</string>
     <string name="error_media_upload_type">Quel tipo di file non può essere caricato.</string>
     <string name="error_media_upload_opening">Non è stato possibile aprire quel file.</string>
     <string name="error_media_upload_permission">È richiesto il permesso di leggere file.</string>
@@ -44,7 +41,6 @@
     <string name="post_content_warning_show_less">Mostra di meno</string>
     <string name="post_content_show_more">Espandi</string>
     <string name="post_content_show_less">Riduci</string>
-    <string name="message_empty">Qui non c\'è nulla.</string>
     <string name="footer_empty">Qui non c\'è nulla. Trascina verso il basso per aggiornare!</string>
     <string name="notification_reblog_format">%s ha condiviso il tuo post</string>
     <string name="notification_favourite_format">%s ha apprezzato il tuo post</string>
@@ -57,7 +53,6 @@
     <string name="action_unreblog">Rimuovi condivisione</string>
     <string name="action_favourite">Aggiungi ai post apprezzati</string>
     <string name="action_unfavourite">Rimuovi apprezzamento</string>
-    <string name="action_more">Di più</string>
     <string name="action_compose">Componi</string>
     <string name="action_logout">Disconnettiti</string>
     <string name="action_logout_confirm">Sei sicuro di volerti disconnettere dall\'account %1$s?</string>
@@ -73,8 +68,6 @@
     <string name="action_delete">Elimina</string>
     <string name="action_send">TOOT</string>
     <string name="action_send_public">TOOT!</string>
-    <string name="action_retry">Riprova</string>
-    <string name="action_view_profile">Profilo</string>
     <string name="action_view_preferences">Preferenze</string>
     <string name="action_view_account_preferences">Preferenze account</string>
     <string name="action_view_favourites">Apprezzati</string>
@@ -253,16 +246,6 @@
     <string name="filter_add_description">Frase da filtrare</string>
     <string name="add_account_name">Aggiungi account</string>
     <string name="add_account_description">Aggiungi un nuovo Account Mastodon</string>
-    <string name="title_lists">Liste</string>
-    <string name="error_create_list_fmt">Non è stato possibile creare la lista \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Non è stato possibile rinominare la lista \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">Non è stato possibile eliminare la lista \"%1$s\": %2$s</string>
-    <string name="action_create_list">Crea una lista</string>
-    <string name="action_rename_list">Rinomina la lista</string>
-    <string name="action_delete_list">Elimina la lista</string>
-    <string name="hint_search_people_list">Cerca tra le persone che segui</string>
-    <string name="action_add_to_list">Aggiungi un account alla lista</string>
-    <string name="action_remove_from_list">Rimuovi un account dalla lista</string>
     <string name="compose_active_account_description">Pubblicando come %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Descrivi il contenuto per gli ipovedenti
@@ -329,13 +312,11 @@
     <string name="description_visibility_unlisted">Non in elenco</string>
     <string name="description_visibility_private">Solo seguaci</string>
     <string name="description_visibility_direct">Diretti</string>
-    <string name="hint_list_name">Nome della lista</string>
     <string name="download_media">Scarica media</string>
     <string name="downloading_media">Scaricando media</string>
     <string name="compose_shortcut_long_label">Componi messaggio</string>
     <string name="compose_shortcut_short_label">Componi</string>
     <string name="edit_hashtag_hint">Hashtag senza #</string>
-    <string name="list_exclusive_label">Nascondi dalla timeline della home</string>
     <string name="notifications_clear">Svuota</string>
     <string name="notifications_apply_filter">Filtra</string>
     <string name="filter_apply">Applica</string>
@@ -398,7 +379,6 @@
     </plurals>
     <string name="button_continue">Continua</string>
     <string name="button_back">Indietro</string>
-    <string name="button_done">Fatto</string>
     <string name="report_sent_success">Segnalato @%s con successo</string>
     <string name="hint_additional_info">Altri commenti</string>
     <string name="report_remote_instance">Inoltra a %s</string>
@@ -476,7 +456,6 @@
     <string name="drafts_post_reply_removed">Il messaggio a cui hai scritto una bozza di risposta è stato rimosso</string>
     <string name="draft_deleted">Bozza eliminata</string>
     <string name="drafts_post_failed_to_send">L\'invio di questo messaggio è fallito!</string>
-    <string name="dialog_delete_list_warning">Sei sicuro di voler cancellare la lista %s?</string>
     <string name="duration_indefinite">Indefinita</string>
     <string name="label_duration">Durata</string>
     <string name="post_media_attachments">Allegati</string>
@@ -539,13 +518,9 @@
     <string name="duration_no_change">(nessuna modifica)</string>
     <string name="pref_title_show_self_username">Mostra nome utente nella barra strumenti</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
-    <string name="action_add_or_remove_from_list">Aggiunti o rimuovi dalla lista</string>
-    <string name="failed_to_add_to_list">Aggiunta dell\'account alla lista fallita</string>
-    <string name="failed_to_remove_from_list">Rimozione dell\'account dalla lista fallita</string>
     <string name="compose_save_draft_loses_media">Salvare bozza? (gli allegati verranno ricaricati quando ripristini la bozza.)</string>
     <string name="failed_to_pin">Fissaggio fallito</string>
     <string name="hint_media_description_missing">I media dovrebbero avere una descrizione.</string>
-    <string name="no_lists">Non hai alcuna lista.</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="pref_default_post_language">Lingua predefinita per i post creati</string>
     <string name="notification_report_description">Notifiche sulle segnalazioni da moderare</string>
@@ -601,7 +576,6 @@
     <string name="accessibility_talking_about_tag">%1$d persone parlano dell\'hashtag %2$s</string>
     <string name="total_usage">Utilizzo totale</string>
     <string name="total_accounts">Account totali</string>
-    <string name="action_refresh">Aggiorna</string>
     <string name="title_public_trending_hashtags">Hashtag di tendenza</string>
     <string name="help_empty_home">Questa è la tua <b>Timeline principale</b>. Mostra i post più recenti degli account che segui.
 \n
@@ -658,8 +632,6 @@
     <string name="title_tab_public_trending_links">Collegamenti</string>
     <string name="update_dialog_neutral">Non ricordarmelo per questa versione</string>
     <string name="pref_title_update_settings">Aggiornamenti Software</string>
-    <string name="error_network_fmt">Si è verificato un errore di rete: %s</string>
-    <string name="error_generic_fmt">Si è verificato un errore: %s</string>
     <string name="pref_update_notification_frequency_always">Sempre</string>
     <string name="error_media_upload_sending_fmt">Il caricamento è fallito: %s</string>
     <string name="pref_update_notification_frequency_never">Mai</string>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Sareko errore bat sortu da! Zure konexioa ziurta ezazu berriro, mesedez!</string>
+    <string name="error_generic">Errorea gertatu da.</string>
+    <string name="message_empty">Kilkerrak besterik ez hemen.</string>
+    <string name="action_retry">Berriz saiatu</string>
+    <string name="button_done">Eginda</string>
+    <string name="action_view_profile">Profila</string>
+    <string name="action_more">Gehiago</string>
+</resources>

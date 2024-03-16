@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Vyskytla sa chyba v sieti! Prosím skontrolujte svoje pripojenie a skúste to znova!</string>
+    <string name="error_generic">Vyskytla sa chyba.</string>
+</resources>

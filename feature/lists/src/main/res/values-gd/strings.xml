@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Ainm na liosta</string>
+    <string name="list_exclusive_label">Falaich o loidhne-ama na dachaigh</string>
+    <string name="title_lists">Liostaichean</string>
+    <string name="error_create_list_fmt">Cha b’ urrainn dhuinn an liosta a chruthachadh \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Cha b’ urrainn dhuinn an liosta a sguabadh às \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Cha b’ urrainn dhuinn an liosta ùrachadh \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Ùraich an liosta</string>
+    <string name="action_create_list">Cruthaich liosta</string>
+    <string name="dialog_delete_list_warning">A bheil thu cinnteach gu bheil thu airson an liosta %s a sguabadh às\?</string>
+    <string name="action_remove_from_list">Thoir an cunntas air falbh on liosta</string>
+    <string name="action_add_to_list">Cuir cunntas ris an liosta</string>
+    <string name="action_delete_list">Sguab às an liosta</string>
+    <string name="failed_to_add_to_list">Cha deach leinn an cunntas a chur ris an liosta</string>
+    <string name="failed_to_remove_from_list">Cha deach leinn an cunntas a thoirt air falbh on liosta</string>
+    <string name="no_lists">Chan eil liosta sam bith agad.</string>
+    <string name="hint_search_people_list">Lorg daoine air a leanas tu</string>
+    <string name="action_add_or_remove_from_list">Cuir ris no thoir air falbh on liosta</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Terjadi kesalahan pada jaringan! Harap periksa koneksi Anda dan coba lagi!</string>
+    <string name="error_network_fmt">Jaringan error: %s</string>
+    <string name="error_generic_fmt">Terjadi error: %s</string>
+    <string name="error_404_not_found_fmt">Server Anda tidak mendukung fitur ini: %1$s</string>
+    <string name="error_generic">Terjadi kesalahan.</string>
+    <string name="message_empty">Tidak ada apa pun disini.</string>
+    <string name="action_retry">Coba lagi</string>
+    <string name="action_view_profile">Profil</string>
+    <string name="action_more">Lebih</string>
+</resources>

@@ -129,7 +129,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         Timber.e(msg)
                         try {
                             Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE)
-                                .setAction(R.string.action_retry) { serverRepository.retry() }
+                                .setAction(app.pachli.core.ui.R.string.action_retry) { serverRepository.retry() }
                                 .show()
                         } catch (e: IllegalArgumentException) {
                             // On rare occasions this code is running before the fragment's
@@ -433,7 +433,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     val result = timelineCases.delete(viewData.status.id).exceptionOrNull()
                     if (result != null) {
                         Timber.w(result, "error deleting status")
-                        Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT).show()
                     }
                     // XXX: Removes the item even if there was an error. This is probably not
                     // correct (see similar code in showConfirmEditDialog() which only
@@ -479,7 +479,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         },
                         { error: Throwable? ->
                             Timber.w(error, "error deleting status")
-                            Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT)
+                            Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT)
                                 .show()
                         },
                     )

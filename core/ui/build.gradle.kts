@@ -31,8 +31,15 @@ android {
 dependencies {
     // Calls "openLink" from projects.core.activity
     implementation(projects.core.activity)
+    implementation(projects.core.common)
     implementation(projects.core.designsystem)
+
+    // Uses HttpException from Retrofit
+    implementation(projects.core.network)
 
     // Some views inherit from AndroidX views
     implementation(libs.bundles.androidx)
+
+    implementation(libs.material.iconics)
+    implementation(libs.material.typeface)
 }

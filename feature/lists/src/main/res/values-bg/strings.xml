@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Име на списък</string>
+    <string name="title_lists">Списъци</string>
+    <string name="error_create_list_fmt">Списъкът не можа да се създаде \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Списъкът не можа да се изтрие \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Списъкът не можа да се преименува \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Преименуване на списъка</string>
+    <string name="action_create_list">Създаване на списък</string>
+    <string name="dialog_delete_list_warning">Наистина ли искате да изтриете списъка %s\?</string>
+    <string name="action_remove_from_list">Премахване на акаунт от списъка</string>
+    <string name="action_add_to_list">Добавяне на акаунт към списъка</string>
+    <string name="action_delete_list">Изтриване на списъка</string>
+    <string name="hint_search_people_list">Търсене на хора, които следвате</string>
+</resources>

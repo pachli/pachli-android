@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">En feil har oppstått.</string>
-    <string name="error_network">En nettverksfeil har oppstått. Sjekk tilkoblingen, og prøv igjen.</string>
     <string name="error_empty">Denne kan ikke være tom.</string>
     <string name="error_no_web_browser_found">Fant ingen nettleser som kunne brukes.</string>
     <string name="error_compose_character_limit">Innlegget er for langt!</string>
@@ -39,7 +37,6 @@
     <string name="post_content_warning_show_less">Vis mindre</string>
     <string name="post_content_show_more">Utvid</string>
     <string name="post_content_show_less">Skjul</string>
-    <string name="message_empty">Ingenting her.</string>
     <string name="footer_empty">Ingenting her. Dra ned for å oppdatere!</string>
     <string name="notification_reblog_format">%s delte innlegget ditt</string>
     <string name="notification_favourite_format">%s favoriserte innlegget ditt</string>
@@ -52,7 +49,6 @@
     <string name="action_unreblog">Fjern deling</string>
     <string name="action_favourite">Legg til i favoritter</string>
     <string name="action_unfavourite">Fjern favoritt</string>
-    <string name="action_more">Mer</string>
     <string name="action_compose">Skriv</string>
     <string name="action_logout">Logg ut</string>
     <string name="action_logout_confirm">Er du sikker på at du vil logge ut fra kontoen %1$s\? Dette vil slette all lokal data for kontoen, som utkast og instillinger.</string>
@@ -66,8 +62,6 @@
     <string name="action_delete">Slett</string>
     <string name="action_send">TUT</string>
     <string name="action_send_public">TUT!</string>
-    <string name="action_retry">Prøv igjen</string>
-    <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Innstillinger</string>
     <string name="action_view_account_preferences">Kontoinnstillinger</string>
     <string name="action_view_favourites">Favoritter</string>
@@ -214,16 +208,6 @@
     <string name="filter_add_description">Filtrer frase</string>
     <string name="add_account_name">Legg til konto</string>
     <string name="add_account_description">Legg til ny Mastodon-konto</string>
-    <string name="title_lists">Lister</string>
-    <string name="error_create_list_fmt">Kunne ikke opprette liste \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Kunne ikke gi liste nytt navn \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">Kunne ikke slette liste \"%1$s\": %2$s</string>
-    <string name="action_create_list">Opprett en liste</string>
-    <string name="action_rename_list">Gi listen nytt navn</string>
-    <string name="action_delete_list">Fjern listen</string>
-    <string name="hint_search_people_list">Søk etter personer du følger</string>
-    <string name="action_add_to_list">Legg til konto i listen</string>
-    <string name="action_remove_from_list">Fjern konto fra listen</string>
     <string name="pref_default_post_privacy">Standardinnstilling for innlegg</string>
     <string name="notification_mention_name">Nye nevnelser</string>
     <string name="notification_mention_descriptions">Varsler om nye nevnelser</string>
@@ -290,7 +274,6 @@
     <string name="description_visibility_unlisted">Ikke listet</string>
     <string name="description_visibility_private">Følgere</string>
     <string name="description_visibility_direct">Direkte</string>
-    <string name="hint_list_name">Listenavn</string>
     <string name="edit_hashtag_hint">Emneord uten #</string>
     <string name="notifications_clear">Fjern</string>
     <string name="notifications_apply_filter">Filter</string>
@@ -348,7 +331,6 @@
     <string name="description_poll">Avstemming med valg: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="button_continue">Fortsett</string>
     <string name="button_back">Tilbake</string>
-    <string name="button_done">Ferdig</string>
     <string name="report_sent_success">\@%s er rapportert</string>
     <string name="hint_additional_info">Flere kommentarer</string>
     <string name="report_remote_instance">Videresend til %s</string>
@@ -445,7 +427,6 @@
     </plurals>
     <string name="duration_indefinite">Uendelig</string>
     <string name="label_duration">Varighet</string>
-    <string name="dialog_delete_list_warning">Er du sikker på at du vil slette listen %s\?</string>
     <string name="post_media_attachments">Vedlegg</string>
     <string name="post_media_audio">Lyd</string>
     <string name="drafts_post_reply_removed">Innlegget du hadde opprettet et utkast som svar på har blitt fjernet</string>
@@ -504,11 +485,7 @@
     <string name="failed_to_pin">Klarte ikke å feste</string>
     <string name="failed_to_unpin">Klarte ikke å løsne</string>
     <string name="action_add_reaction">Legg til reaksjon</string>
-    <string name="action_add_or_remove_from_list">Legg til eller fjern fra liste</string>
-    <string name="failed_to_add_to_list">Klarte ikke å legge til kontoen til listen</string>
-    <string name="failed_to_remove_from_list">Klarte ikke å fjerne kontoen fra listen</string>
     <string name="pref_default_post_language">Standardspråk på innlegg</string>
-    <string name="no_lists">Du har ingen lister.</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="status_created_at_now">nå</string>
     <string name="post_edited">Redigert %s</string>
@@ -548,7 +525,6 @@
     <string name="status_created_info">Skapt: %1$s</string>
     <string name="status_edit_info">Endret: %1$s</string>
     <string name="hint_media_description_missing">Media bør ha en beskrivelse.</string>
-    <string name="action_refresh">Oppdater</string>
     <string name="hint_description">Beskrivelse</string>
     <string name="post_media_image">Bilde</string>
     <string name="ui_error_bookmark">Å bokmerke innlegget misslyktes: %s</string>

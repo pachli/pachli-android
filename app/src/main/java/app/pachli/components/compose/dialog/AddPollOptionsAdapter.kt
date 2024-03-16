@@ -24,8 +24,8 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.Companion.MastodonLengthFilter
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemAddPollOptionBinding
-import app.pachli.util.BindingHolder
 
 class AddPollOptionsAdapter(
     private var options: MutableList<String>,

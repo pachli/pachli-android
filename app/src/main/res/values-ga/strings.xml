@@ -128,8 +128,6 @@
     <string name="action_view_mutes">Úsáideoirí fuaim</string>
     <string name="action_view_bookmarks">Leabharmharcanna</string>
     <string name="action_view_favourites">Toghanna</string>
-    <string name="action_view_profile">Próifíl</string>
-    <string name="action_retry">Atriail</string>
     <string name="action_send_public">SÉID!</string>
     <string name="action_send">SÉID</string>
     <string name="action_delete_and_redraft">Scrios agus athdhréachtú</string>
@@ -144,7 +142,6 @@
     <string name="action_follow">Lean</string>
     <string name="action_logout_confirm">An bhfuil tú cinnte gur mhaith leat logáil amach as an gcuntas %1$s\?</string>
     <string name="action_compose">Cum</string>
-    <string name="action_more">Níos mó</string>
     <string name="action_unfavourite">Bain togha</string>
     <string name="action_bookmark">Leabharmharc</string>
     <string name="action_favourite">Togh</string>
@@ -152,9 +149,6 @@
     <string name="error_compose_character_limit">Tá an stádas ró-fhada!</string>
     <string name="error_no_web_browser_found">Níorbh fhéidir brabhsálaí gréasáin a aimsiú le húsáid.</string>
     <string name="error_empty">Ní féidir leis seo a bheith folamh.</string>
-    <string name="error_network">Tharla earráid líonra! Seiceáil do nasc agus bain triail eile as!</string>
-    <string name="error_generic">Tharla earráid.</string>
-    <string name="title_lists">Liostaí</string>
     <string name="action_reset_schedule">Athshocraigh</string>
     <string name="action_search">Cuardaigh</string>
     <string name="action_edit_profile">Cuir próifíl in eagar</string>
@@ -228,7 +222,6 @@
     <string name="notification_follow_format">lean %s thú</string>
     <string name="notification_reblog_format">D\'athchraol %s do phostáil</string>
     <string name="footer_empty">Níl aon rud anseo. Tarraingt anuas chun athnuachan a dhéanamh!</string>
-    <string name="message_empty">Níl aon rud anseo.</string>
     <string name="post_content_show_less">Fill</string>
     <string name="filter_dialog_whole_word_description">Nuair atá an eochairfhocal nó an frása alfa-uimhriúil amháin, ní chuirfear i bhfeidhm é ach má oireann sé don fhocal iomlán</string>
     <string name="title_posts">Postálacha</string>
@@ -271,15 +264,6 @@
     <string name="failed_fetch_posts">Theip ar postálacha a ghabháil</string>
     <string name="report_description_1">Seolfar an tuarascáil chuig do mhodhnóir freastalaí. Féadfaidh tú míniú a thabhairt ar an bhfáth go bhfuil tú ag tuairisciú an chuntais seo thíos:</string>
     <string name="add_account_description">Cuir Cuntas Mastodon nua leis</string>
-    <string name="error_create_list_fmt">Níorbh fhéidir liosta a chruthú \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Níorbh fhéidir an liosta a athainmniú \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">Níorbh fhéidir an liosta a scriosadh \"%1$s\": %2$s</string>
-    <string name="action_create_list">Cruthaigh liosta</string>
-    <string name="action_rename_list">Athainmnigh an liosta</string>
-    <string name="action_delete_list">Scrios an liosta</string>
-    <string name="hint_search_people_list">Cuardaigh daoine a leanann tú</string>
-    <string name="action_add_to_list">Cuir cuntas leis an liosta</string>
-    <string name="action_remove_from_list">Bain cuntas ón liosta</string>
     <string name="compose_active_account_description">Postáil le cuntas %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="other">Déan cur síos ar dhaoine lagamhairc
@@ -340,7 +324,6 @@
     <string name="description_visibility_unlisted">Neamhliostaithe</string>
     <string name="description_visibility_private">Leantóirí</string>
     <string name="description_visibility_direct">Díreach</string>
-    <string name="hint_list_name">Ainm liosta</string>
     <string name="add_hashtag_title">Cuir hashtag leis</string>
     <string name="edit_hashtag_hint">Hashtag gan #</string>
     <string name="select_list_title">Roghnaigh liosta</string>
@@ -391,7 +374,6 @@
     </plurals>
     <string name="button_continue">Lean ar aghaidh</string>
     <string name="button_back">Ar ais</string>
-    <string name="button_done">Déanta</string>
     <string name="report_sent_success">Tuairiscíodh go rathúil @%s</string>
     <string name="hint_additional_info">Tuairimí Breise</string>
     <string name="report_remote_instance">Seol ar aghaidh chuig %s</string>

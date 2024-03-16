@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Enw rhestr</string>
+    <string name="list_exclusive_label">Cuddio o\'r ffrwd cartref</string>
+    <string name="title_lists">Rhestrau</string>
+    <string name="error_create_list_fmt">Methu creu rhestr \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Methu dileu\'r rhestr \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Methu diweddaru\'r rhestr \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Diweddaru\'r rhestr</string>
+    <string name="action_create_list">Creu rhestr</string>
+    <string name="dialog_delete_list_warning">Ydych chi wir eisiau dileu rhestr %s\?</string>
+    <string name="action_remove_from_list">Tynnu cyfrif o\'r rhestr</string>
+    <string name="action_add_to_list">Ychwanegwch gyfrif at y rhestr</string>
+    <string name="action_delete_list">Dileu\'r rhestr</string>
+    <string name="failed_to_add_to_list">Wedi methu ag ychwanegu\'r cyfrif at y rhestr</string>
+    <string name="failed_to_remove_from_list">Wedi methu tynnu\'r cyfrif o\'r rhestr</string>
+    <string name="no_lists">Nid oes gennych unrhyw restrau.</string>
+    <string name="hint_search_people_list">Chwilio am bobl rydych chi\'n eu dilyn</string>
+    <string name="action_add_or_remove_from_list">Ychwanegu at neu dynnu oddi ar restr</string>
+</resources>

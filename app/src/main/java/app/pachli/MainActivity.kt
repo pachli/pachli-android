@@ -74,6 +74,7 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
@@ -103,8 +104,8 @@ import app.pachli.core.navigation.TrendingActivityIntent
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
-import app.pachli.core.ui.await
-import app.pachli.core.ui.reduceSwipeSensitivity
+import app.pachli.core.ui.extensions.await
+import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityMainBinding
 import app.pachli.db.DraftsAlert
 import app.pachli.interfaces.ActionButtonActivity
@@ -115,7 +116,6 @@ import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
 import app.pachli.util.getDimension
-import app.pachli.util.unsafeLazy
 import app.pachli.util.updateShortcut
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
@@ -376,7 +376,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
                 result.onFailure {
                     Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.action_retry) { listsRepository.refresh() }
+                        .setAction(app.pachli.core.ui.R.string.action_retry) { listsRepository.refresh() }
                         .show()
                 }
             }
@@ -612,7 +612,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                                 }
                             }
                         },
-                    R.string.title_lists,
+                    app.pachli.feature.lists.R.string.title_lists,
                 )
             }
         } ?: Pair(emptyList(), R.string.title_lists_failed)

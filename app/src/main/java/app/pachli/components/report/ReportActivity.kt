@@ -53,7 +53,7 @@ class ReportActivity : BottomSheetActivity() {
             title = getString(R.string.report_username_format, viewModel.accountUserName)
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_close_24dp)
+            setHomeAsUpIndicator(app.pachli.core.ui.R.drawable.ic_close_24dp)
         }
 
         initViewPager()

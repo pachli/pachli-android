@@ -107,7 +107,7 @@ class ScheduledStatusActivity :
             if (loadState.refresh is LoadState.NotLoading) {
                 binding.progressBar.hide()
                 if (adapter.itemCount == 0) {
-                    binding.errorMessageView.setup(R.drawable.elephant_friend_empty, R.string.no_scheduled_posts)
+                    binding.errorMessageView.setup(app.pachli.core.ui.R.drawable.elephant_friend_empty, R.string.no_scheduled_posts)
                     binding.errorMessageView.show()
                 } else {
                     binding.errorMessageView.hide()

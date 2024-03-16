@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Bir hata oluştu.</string>
-    <string name="error_network">Bir ağ hatası oluştu. Lütfen bağlantını kontrol et ve tekrar dene.</string>
     <string name="error_empty">Bu alan boş bırakılmaz.</string>
     <string name="error_no_web_browser_found">Kullanılabilir web tarayıcısı bulunamadı.</string>
     <string name="error_compose_character_limit">Gönderi çok uzun!</string>
@@ -39,7 +37,6 @@
     <string name="post_content_warning_show_less">Daha az göster</string>
     <string name="post_content_show_more">Genişlet</string>
     <string name="post_content_show_less">Daralt</string>
-    <string name="message_empty">Burada hiçbir şey yok.</string>
     <string name="footer_empty">Burada henüz hiç birşey yok. Yenilemek için aşağıya çekin!</string>
     <string name="notification_reblog_format">%s gönderinizi paylaştı</string>
     <string name="notification_favourite_format">%s gönderinizi gözdelerilerine ekledi</string>
@@ -50,7 +47,6 @@
     <string name="action_reply">Yanıtla</string>
     <string name="action_reblog">Yeniden Paylaş</string>
     <string name="action_favourite">Gözdele</string>
-    <string name="action_more">Devamı</string>
     <string name="action_compose">Oluştur</string>
     <string name="action_logout">Oturumu kapat</string>
     <string name="action_logout_confirm">Bu oturumu sonlandırmak istediğinizden emin misiniz%1$s\? Bu, taslaklar ve tercihler dahil olmak üzere hesabın tüm yerel verilerini silecektir.</string>
@@ -64,8 +60,6 @@
     <string name="action_delete">Sil</string>
     <string name="action_send">GÖNDER</string>
     <string name="action_send_public">GÖNDER!</string>
-    <string name="action_retry">Tekrar dene</string>
-    <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Tercihler</string>
     <string name="action_view_account_preferences">Hesap tercihleri</string>
     <string name="action_view_favourites">Gözdeler</string>
@@ -213,7 +207,6 @@
     <string name="title_media">Medya</string>
     <string name="add_account_name">Hesap Ekle</string>
     <string name="add_account_description">Yeni Mastodon hesabı ekle</string>
-    <string name="title_lists">Listeler</string>
     <string name="compose_active_account_description">%1$s hesabıyla gönderiliyor</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">İçeriği görme engelliler için açıkla (%d karakter limiti)</item>
@@ -293,15 +286,6 @@
     <string name="filter_dialog_whole_word">Tüm dünya</string>
     <string name="filter_dialog_whole_word_description">Bir anahtar kelime veya kelime öbeği sadece alfanümerik olduğunda, yalnızca tüm kelimeyle eşleşirse uygulanır</string>
     <string name="filter_add_description">Süzgeçlenecek ifade</string>
-    <string name="error_create_list_fmt">Liste oluşturulamadı \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Liste oluşturulamadı \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">Liste silinemedi \"%1$s\": %2$s</string>
-    <string name="action_create_list">Liste oluştur</string>
-    <string name="action_rename_list">Listeyi güncelle</string>
-    <string name="action_delete_list">Listeyi sil</string>
-    <string name="hint_search_people_list">Takip ettiğim kişilerde ara</string>
-    <string name="action_add_to_list">Listeye hesap ekle</string>
-    <string name="action_remove_from_list">Hesabı listeden kaldır</string>
     <string name="description_post_media">Ortam: %s</string>
     <string name="description_post_cw">İçerik uyarısı: %s</string>
     <string name="description_post_media_no_description_placeholder">Açıklama yok</string>
@@ -312,7 +296,6 @@
     <string name="description_visibility_private">Takipçiler</string>
     <string name="description_visibility_direct">Doğrudan</string>
     <string name="description_poll">Seçenekli anket: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="hint_list_name">Liste adı</string>
     <string name="edit_hashtag_hint"># Etiket olmadan</string>
     <string name="notifications_clear">Temizle</string>
     <string name="notifications_apply_filter">Süzgeçle</string>
@@ -348,7 +331,6 @@
     </plurals>
     <string name="button_continue">Devam</string>
     <string name="button_back">Geri</string>
-    <string name="button_done">Tamam</string>
     <string name="report_sent_success">\@%s başarıyla bildirildi</string>
     <string name="hint_additional_info">Ek Yorumlar</string>
     <string name="report_remote_instance">%s adresine ilet</string>
@@ -458,11 +440,7 @@
     <string name="delete_scheduled_post_warning">Bu zamanlanmış yayını sil\?</string>
     <string name="pref_title_notification_filter_updates">etkileşimde bulunduğun bir gönderi düzenlendi</string>
     <string name="set_focus_description">Küçük görsellerde her zaman görülebilecek odak noktasını seçmek için daireye dokunun veya sürükleyin.</string>
-    <string name="action_add_or_remove_from_list">Listeden ekle veya kaldır</string>
-    <string name="failed_to_add_to_list">Hesap listeye eklenemedi</string>
-    <string name="failed_to_remove_from_list">Hesap listeden kaldırılamadı</string>
     <string name="no_announcements">Hiç duyuru yok.</string>
-    <string name="no_lists">Listen yok.</string>
     <string name="duration_30_days">30 gün</string>
     <string name="compose_save_draft_loses_media">Taslağı kurtarmak mı\? (Taslağı geri yüklediğinizde ekler yeniden yüklenir.)</string>
     <string name="pref_title_show_self_username">Kullanıcı adını araç çubuklarında göster</string>
@@ -484,7 +462,6 @@
 \n - Takipçi/Gönderi istatistikleri
 \n
 \nBesleme bildirimleri etkilenmeyecek , ama manuel olarak tercihlerinizi gözden geçirebilirsiniz.</string>
-    <string name="dialog_delete_list_warning">%s listesini gerçekten silmek istiyor musunuz\?</string>
     <string name="wellbeing_hide_stats_profile">Profillerdeki niceliksel istatistikleri gizle</string>
     <string name="pachli_compose_post_quicksetting_label">Gönderi Oluştur</string>
     <string name="saving_draft">Taslağı kaydediyor…</string>
@@ -549,7 +526,6 @@
     <string name="dialog_follow_hashtag_hint">#etiket</string>
     <string name="compose_unsaved_changes">Kaydedilmemiş değişikliklerin var.</string>
     <string name="status_edit_info">%1$s düzenledi</string>
-    <string name="action_refresh">Yenile</string>
     <string name="title_edits">Düzenlemeler</string>
     <string name="hint_description">Açıklama</string>
     <string name="post_media_image">Görsel</string>
@@ -620,6 +596,5 @@
 \n
 \nBu <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon sorununu #25398</a>.</string>
     <string name="error_media_upload_sending_fmt">Yükleme başarısız oldu: %s</string>
-    <string name="list_exclusive_label">Anasayfa ağ akışından gizle</string>
     <string name="error_media_playback">Oynatma başarısız oldu: %s</string>
 </resources>

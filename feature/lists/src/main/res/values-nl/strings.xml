@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Naam van lijst</string>
+    <string name="list_exclusive_label">Verberg op de Thuis tijdlijn</string>
+    <string name="title_lists">Lijsten</string>
+    <string name="error_create_list_fmt">Kon geen lijst aanmaken \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Kon de lijst niet verwijderen \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Kan lijst niet updaten \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Lijst updaten</string>
+    <string name="action_create_list">Lijst aanmaken</string>
+    <string name="dialog_delete_list_warning">Weet je zeker dat je de lijst %s wilt verwijderen\?</string>
+    <string name="action_remove_from_list">Account uit de lijst verwijderen</string>
+    <string name="action_add_to_list">Account aan de lijst toevoegen</string>
+    <string name="action_delete_list">Lijst verwijderen</string>
+    <string name="failed_to_add_to_list">Account toevoegen aan de lijst is mislukt</string>
+    <string name="failed_to_remove_from_list">Account verwijderen van de lijst is mislukt</string>
+    <string name="no_lists">Je hebt geen lijsten.</string>
+    <string name="hint_search_people_list">Naar mensen zoeken die je volgt</string>
+    <string name="action_add_or_remove_from_list">Toevoegen of verwijderen van lijst</string>
+</resources>

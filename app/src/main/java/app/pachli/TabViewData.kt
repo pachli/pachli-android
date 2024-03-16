@@ -125,7 +125,7 @@ data class TabViewData(
             is TabData.UserList -> TabViewData(
                 tabData = tabData,
                 text = R.string.list,
-                icon = R.drawable.ic_list,
+                icon = app.pachli.core.ui.R.drawable.ic_list,
                 fragment = {
                     TimelineFragment.newInstance(
                         TimelineKind.UserList(tabData.listId, tabData.title),

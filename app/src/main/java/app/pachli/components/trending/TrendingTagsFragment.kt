@@ -200,8 +200,8 @@ class TrendingTagsFragment :
             binding.recyclerView.hide()
             binding.messageView.show()
             binding.messageView.setup(
-                R.drawable.elephant_friend_empty,
-                R.string.message_empty,
+                app.pachli.core.ui.R.drawable.elephant_friend_empty,
+                app.pachli.core.ui.R.string.message_empty,
                 null,
             )
         } else {
@@ -234,8 +234,8 @@ class TrendingTagsFragment :
 
         binding.swipeRefreshLayout.isRefreshing = false
         binding.messageView.setup(
-            R.drawable.errorphant_offline,
-            R.string.error_network,
+            app.pachli.core.ui.R.drawable.errorphant_offline,
+            app.pachli.core.ui.R.string.error_network,
         ) { refreshContent() }
     }
 
@@ -246,8 +246,8 @@ class TrendingTagsFragment :
 
         binding.swipeRefreshLayout.isRefreshing = false
         binding.messageView.setup(
-            R.drawable.errorphant_error,
-            R.string.error_generic,
+            app.pachli.core.ui.R.drawable.errorphant_error,
+            app.pachli.core.ui.R.string.error_generic,
         ) { refreshContent() }
     }
 

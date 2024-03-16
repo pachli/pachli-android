@@ -32,11 +32,11 @@ import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.mastodon.model.MediaUploadApi
+import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.network.ProgressRequestBody
 import app.pachli.util.MEDIA_SIZE_UNKNOWN
 import app.pachli.util.getImageSquarePixels
 import app.pachli.util.getMediaSize
-import app.pachli.util.getServerErrorMessage
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileInputStream

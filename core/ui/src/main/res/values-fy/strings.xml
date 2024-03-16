@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">In netwurk flater die harren foar! Kontrolearje jo ferbining en probearje it noch ris!</string>
+    <string name="error_generic">Der die harren in flater foar.</string>
+    <string name="message_empty">Hjir is neat.</string>
+    <string name="action_retry">Opnij probearje</string>
+    <string name="action_view_profile">Profyl</string>
+    <string name="action_more">Mear</string>
+</resources>
