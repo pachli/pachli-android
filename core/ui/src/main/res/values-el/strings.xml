@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Προέκυψε σφάλμα δικτύου! Παρακαλώ ελέγξτε τη σύνδεσή σας και προσπαθήστε ξανά.</string>
+    <string name="error_generic">Προέκυψε ένα σφάλμα.</string>
+    <string name="action_retry">Προσπαθήστε ξανά</string>
+    <string name="action_view_profile">Προφίλ</string>
+    <string name="action_more">Περισσότερα</string>
+</resources>

@@ -133,6 +133,7 @@ dependencies {
     implementation(projects.core.ui)
 
     implementation(projects.feature.about)
+    implementation(projects.feature.lists)
     implementation(projects.feature.login)
 
     implementation(libs.kotlinx.coroutines.android)

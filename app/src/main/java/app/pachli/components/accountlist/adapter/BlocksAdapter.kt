@@ -23,9 +23,9 @@ import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemBlockedUserBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.util.BindingHolder
 
 /** Displays a list of blocked accounts. */
 class BlocksAdapter(

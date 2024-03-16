@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Ett fel har uppstått.</string>
-    <string name="error_network">Ett nätverksfel uppstod. Kontrollera din anslutning och försök igen.</string>
     <string name="error_empty">Detta kan inte vara tomt.</string>
     <string name="error_no_web_browser_found">Det gick inte att hitta en webbläsare.</string>
     <string name="error_compose_character_limit">Inlägget är för långt!</string>
@@ -39,7 +37,6 @@
     <string name="post_content_warning_show_less">Visa mindre</string>
     <string name="post_content_show_more">Expandera</string>
     <string name="post_content_show_less">Dölj</string>
-    <string name="message_empty">Ingenting här.</string>
     <string name="footer_empty">Inget här. Dra ner för att uppdatera!</string>
     <string name="notification_reblog_format">%s puffade ditt inlägg</string>
     <string name="notification_favourite_format">%s favoritmarkerade ditt inlägg</string>
@@ -52,7 +49,6 @@
     <string name="action_unreblog">Ta bort knuff</string>
     <string name="action_favourite">Favorit</string>
     <string name="action_unfavourite">Ta bort favorit</string>
-    <string name="action_more">Mer</string>
     <string name="action_compose">Skriv</string>
     <string name="action_logout">Logga ut</string>
     <string name="action_logout_confirm">Är du säker på att du vill logga ut från kontot %1$s?</string>
@@ -66,8 +62,6 @@
     <string name="action_delete">Radera</string>
     <string name="action_send">TOOT</string>
     <string name="action_send_public">TOOT!</string>
-    <string name="action_retry">Försök igen</string>
-    <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Inställningar</string>
     <string name="action_view_account_preferences">Kontospecifika inställningar</string>
     <string name="action_view_favourites">Favoriter</string>
@@ -236,16 +230,6 @@
     <string name="filter_add_description">Filtrera fras</string>
     <string name="add_account_name">Lägg till konto</string>
     <string name="add_account_description">Lägg till ett nytt Mastodon-konto</string>
-    <string name="title_lists">Listor</string>
-    <string name="error_create_list_fmt">Kunde inte skapa lista \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Kunde inte byta namn på lista \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">Kunde inte radera lista \"%1$s\": %2$s</string>
-    <string name="action_create_list">Skapa en lista</string>
-    <string name="action_rename_list">Byt namn på listan</string>
-    <string name="action_delete_list">Ta bort listan</string>
-    <string name="hint_search_people_list">Sök efter personer du följer</string>
-    <string name="action_add_to_list">Lägg till konto i listan</string>
-    <string name="action_remove_from_list">Ta bort kontot från listan</string>
     <string name="compose_active_account_description">Publicerar som %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Beskriv innehåll för synskadade (max %d tecken)</item>
@@ -312,7 +296,6 @@
     </string>
     <string name="description_visibility_direct">        Direkt
     </string>
-    <string name="hint_list_name">Listnamn</string>
     <string name="download_media">Ladda ned media</string>
     <string name="downloading_media">Laddar ned media</string>
     <string name="edit_hashtag_hint">Hashtag utan #</string>
@@ -365,7 +348,6 @@
     <string name="mute_domain_warning_dialog_ok">Dölj hela domänen</string>
     <string name="button_continue">Fortsätt</string>
     <string name="button_back">Tillbaka</string>
-    <string name="button_done">Klar</string>
     <string name="report_sent_success">Anmälan av @%s har lyckats</string>
     <string name="hint_additional_info">Ytterligare kommentarer</string>
     <string name="report_remote_instance">Vidarebefordra till %s</string>
@@ -481,7 +463,6 @@
     <string name="duration_no_change">(Ingen ändring)</string>
     <string name="pref_title_show_self_username">Visa användarnamn i verktygsrader</string>
     <string name="pref_title_confirm_favourites">Visa bekräftelse före favoritmarkering</string>
-    <string name="dialog_delete_list_warning">Vill du verkligen radera listan %s\?</string>
     <string name="drafts_post_failed_to_send">Det här inlägget kunde inte skickas!</string>
     <string name="drafts_failed_loading_reply">Kunde inte ladda information om svar</string>
     <string name="draft_deleted">Utkast raderat</string>
@@ -516,10 +497,6 @@
     <string name="failed_to_unpin">Kunde inte lossa</string>
     <string name="action_add_reaction">lägg till reaktion</string>
     <string name="report_category_violation">Regelbrott</string>
-    <string name="action_add_or_remove_from_list">Lägg till eller ta bort från lista</string>
-    <string name="failed_to_add_to_list">Kunde inte lägga till kontot till listan</string>
-    <string name="failed_to_remove_from_list">Kunde inte ta bort kontot från listan</string>
-    <string name="no_lists">Du har inga listor.</string>
     <string name="action_unfollow_hashtag_format">Sluta följa #%s\?</string>
     <string name="status_created_at_now">nu</string>
     <string name="notification_report_format">Ny rapport för %s</string>
@@ -609,7 +586,6 @@
     <string name="notification_listenable_worker_description">Aviseringar när Pachli arbetar i bakgrunden</string>
     <string name="notification_notification_worker">Hämtar aviseringar…</string>
     <string name="notification_prune_cache">Cacheunderhåll…</string>
-    <string name="action_refresh">Uppdatera</string>
     <string name="ui_error_reblog">Att knuffa inlägg misslyckades: %s</string>
     <string name="ui_error_vote">Rösta i omröstning misslyckades: %s</string>
     <string name="ui_error_accept_follow_request">Acceptera följarförfrågan misslyckades: %s</string>
@@ -643,9 +619,7 @@
     <string name="title_public_trending_statuses">Trendande toots</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="load_newest_statuses">Ladda de nyaste inläggen</string>
-    <string name="error_network_fmt">Ett nätverksfel har uppstått: %s</string>
     <string name="dialog_save_profile_changes_message">Vill du spara dina profiländringar?</string>
-    <string name="error_generic_fmt">Ett fel har uppstått: %s</string>
     <string name="pref_update_notification_frequency_always">Alltid</string>
     <string name="error_media_upload_sending_fmt">Uppladdning misslyckades: %s</string>
     <string name="pref_update_notification_frequency_never">Aldrig</string>
@@ -658,9 +632,7 @@
     <string name="announcement_date_updated">(Uppdaterad: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Toots</string>
     <string name="pref_update_notification_frequency_once_per_version">En gång per version</string>
-    <string name="error_404_not_found_fmt">Din server stöder inte denna funktion: %1$s</string>
     <string name="pref_title_font_family">Fontfamilj</string>
-    <string name="list_exclusive_label">Dölj från hemtidlinjen</string>
     <string name="action_translate">Översätta</string>
     <string name="update_dialog_title">En uppdatering är tillgänglig</string>
     <string name="title_tab_public_trending_hashtags">Hashtaggar</string>

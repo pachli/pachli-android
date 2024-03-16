@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Название списка</string>
+    <string name="title_lists">Списки</string>
+    <string name="error_create_list_fmt">Не удалось создать список \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Не удалось удалить список \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Не удалось переименовать список \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Переименовать список</string>
+    <string name="action_create_list">Создать список</string>
+    <string name="dialog_delete_list_warning">Вы действительно хотите удалить список %s\?</string>
+    <string name="action_remove_from_list">Удалить аккаунт из списка</string>
+    <string name="action_add_to_list">Добавить аккаунт в список</string>
+    <string name="action_delete_list">Удалить список</string>
+    <string name="hint_search_people_list">Поиск по вашим подпискам</string>
+</resources>

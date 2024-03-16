@@ -21,7 +21,6 @@
     <string name="title_edit_profile">Edit your profile</string>
     <string name="error_media_upload_permission">Permission to read media is required.</string>
     <string name="error_media_upload_image_or_video">Images and videos cannot both be attached to the same post.</string>
-    <string name="error_network">A network error occurred! Please check your connection and try again!</string>
     <string name="error_no_web_browser_found">Couldn\'t find a web browser to use.</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_posts">Posts</string>
@@ -35,7 +34,6 @@
     <string name="title_direct_messages">Direct messages</string>
     <string name="title_followers">Followers</string>
     <string name="error_compose_character_limit">The post is too long!</string>
-    <string name="error_generic">An error occurred.</string>
     <string name="title_public_local">Local</string>
     <string name="title_blocks">Blocked users</string>
     <string name="title_tab_preferences">Tabs</string>
@@ -60,14 +58,12 @@
     <string name="dialog_follow_hashtag_title">Follow hashtag</string>
     <string name="title_public_trending_statuses">Trending posts</string>
     <string name="error_following_hashtags_unsupported">This instance does not support following hashtags.</string>
-    <string name="error_generic_fmt">An error occurred: %s</string>
     <string name="title_edits">Edits</string>
     <string name="title_followed_hashtags">Followed hashtags</string>
     <string name="error_media_upload_sending_fmt">The upload failed: %s</string>
     <string name="title_migration_relogin">Re-login for push notifications</string>
     <string name="title_drafts">Drafts</string>
     <string name="title_tab_public_trending_statuses">Posts</string>
-    <string name="error_404_not_found_fmt">Your server does not support this feature: %1$s</string>
     <string name="error_unfollowing_hashtag_format">Error unfollowing #%s</string>
     <string name="error_following_hashtag_format">Error following #%s</string>
     <string name="title_announcements">Announcements</string>

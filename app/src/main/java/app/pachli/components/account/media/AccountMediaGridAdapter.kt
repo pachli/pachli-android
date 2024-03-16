@@ -17,8 +17,8 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.model.Attachment
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemAccountMediaBinding
-import app.pachli.util.BindingHolder
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.getFormattedDescription
 import app.pachli.util.iconResource

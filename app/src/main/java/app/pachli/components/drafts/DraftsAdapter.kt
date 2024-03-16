@@ -26,8 +26,8 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.database.model.DraftEntity
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemDraftBinding
-import app.pachli.util.BindingHolder
 
 interface DraftActionListener {
     fun onOpenDraft(draft: DraftEntity)

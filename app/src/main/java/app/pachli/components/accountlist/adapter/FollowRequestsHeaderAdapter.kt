@@ -20,8 +20,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemFollowRequestsHeaderBinding
-import app.pachli.util.BindingHolder
 
 class FollowRequestsHeaderAdapter(
     private val instanceName: String,

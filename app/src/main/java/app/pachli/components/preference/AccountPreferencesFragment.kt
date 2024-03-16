@@ -27,6 +27,7 @@ import app.pachli.appstore.EventHub
 import app.pachli.components.notifications.currentAccountNeedsMigration
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.FiltersActivityIntent
@@ -54,7 +55,6 @@ import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getPachliDisplayName
 import app.pachli.util.makeIcon
-import app.pachli.util.unsafeLazy
 import com.github.michaelbull.result.getOrElse
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
@@ -339,7 +339,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
     private fun showErrorSnackbar(visibility: String?, sensitive: Boolean?) {
         view?.let { view ->
             Snackbar.make(view, R.string.pref_failed_to_sync, Snackbar.LENGTH_LONG)
-                .setAction(R.string.action_retry) { syncWithServer(visibility, sensitive) }
+                .setAction(app.pachli.core.ui.R.string.action_retry) { syncWithServer(visibility, sensitive) }
                 .show()
         }
     }

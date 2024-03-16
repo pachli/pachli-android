@@ -92,15 +92,6 @@
     <color name="transparent_black">#8f000000</color>
     <color name="transparent_statusbar_background">#44000000</color>
 
-    <!-- colors used in the elephant friend drawables -->
-    <color name="elephant_friend_border_color">#121419</color>
-    <color name="elephant_friend_accent_color">@color/tusky_blue</color>
-    <color name="elephant_friend_body_color">#9BAEC8</color>
-    <color name="elephant_friend_dark_body_color_1">#8192A6</color>
-    <color name="elephant_friend_dark_body_color_2">#7F90A4</color>
-    <color name="elephant_friend_light_color_1">#CAD4E0</color>
-    <color name="elephant_friend_light_color_2">#d9e1e8</color>
-
     <!-- colors used in the app icon -->
     <color name="icon_background">#09497b</color>
     <color name="icon_highlight">#39acff</color>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Název seznamu</string>
+    <string name="title_lists">Seznamy</string>
+    <string name="error_create_list_fmt">Nelze vytvořit seznam \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Nelze smazat seznam \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Nelze přejmenovat seznam \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Přejmenovat seznam</string>
+    <string name="action_create_list">Vytvořit seznam</string>
+    <string name="dialog_delete_list_warning">Opravdu chcete smazat seznam %s\?</string>
+    <string name="action_remove_from_list">Odstranit účet ze seznamu</string>
+    <string name="action_add_to_list">Přidat účet na seznam</string>
+    <string name="action_delete_list">Smazat seznam</string>
+    <string name="hint_search_people_list">Hledejte mezi lidmi, které sledujete</string>
+</resources>

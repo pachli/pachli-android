@@ -28,6 +28,7 @@ import app.pachli.components.compose.UploadEvent
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.pendingIntentFlags
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.model.Attachment
@@ -36,7 +37,6 @@ import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.NewStatus
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.util.unsafeLazy
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException

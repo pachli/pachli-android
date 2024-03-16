@@ -377,8 +377,8 @@ class AccountListFragment :
         if (adapter.itemCount == 0) {
             binding.messageView.show()
             binding.messageView.setup(
-                R.drawable.elephant_friend_empty,
-                R.string.message_empty,
+                app.pachli.core.ui.R.drawable.elephant_friend_empty,
+                app.pachli.core.ui.R.string.message_empty,
                 null,
             )
         } else {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">A network error occurred. Please check your connection and try again.</string>
+    <string name="error_network_fmt">A network error occurred: %s</string>
+    <string name="error_generic_fmt">An error occurred: %s</string>
+    <string name="error_404_not_found_fmt">Your server does not support this feature: %1$s</string>
+    <string name="error_generic">An error occurred.</string>
+    <string name="message_empty">Nothing here.</string>
+    <string name="action_retry">Retry</string>
+    <string name="button_done">Done</string>
+    <string name="action_view_profile">Profile</string>
+    <string name="action_more">More</string>
+    <string name="action_refresh">Refresh</string>
+</resources>

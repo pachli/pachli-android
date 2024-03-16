@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.components.instancemute.interfaces.InstanceActionListener
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemMutedDomainBinding
-import app.pachli.util.BindingHolder
 
 class DomainMutesAdapter(
     private val actionListener: InstanceActionListener,

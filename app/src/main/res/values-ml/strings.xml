@@ -7,9 +7,6 @@
     <string name="action_view_account_preferences">അക്കൗണ്ട് മുൻഗണനകൾ</string>
     <string name="action_edit_profile">പ്രൊഫൈൽ തിരുത്തുക</string>
     <string name="action_search">തിരയുക</string>
-    <string name="title_lists">പട്ടികകൾ</string>
-    <string name="error_generic">ഒരു പിഴവ് സംഭവിച്ചിരിക്കുന്നു.</string>
-    <string name="error_network">ഒരു നെറ്റ്‌വർക്ക് പിഴവ് സംഭവിച്ചിരിക്കുന്നു! ദയവായി താങ്കളുടെ കണക്ഷൻ പരിശോധിച്ചിട്ട് വീണ്ടും ശ്രമിക്കൂ!</string>
     <string name="error_empty">ഇത് ശൂന്യമാവാൻ പാടില്ല.</string>
     <string name="error_no_web_browser_found">ഉപയോഗിക്കാനായി ഒരു വെബ് ബ്രൗസർ കണ്ടെത്താനായില്ല.</string>
     <string name="error_compose_character_limit">ഈ സ്റ്റാറ്റസ് വളരെ നീളമേറിയതാണ്!</string>
@@ -41,15 +38,12 @@
     <string name="action_unreblog">ബൂസ്റ്റ് പിൻവലിക്കുക</string>
     <string name="action_favourite">ഇഷ്ടപ്പെട്ടവ</string>
     <string name="action_unfavourite">ഇഷ്ടപ്പെട്ടവയിൽ നിന്നും കളയുക</string>
-    <string name="action_more">കൂടുതൽ</string>
     <string name="action_follow">പിന്തുടരുക</string>
     <string name="action_unfollow">പിന്‍തുടരുന്നത് അവസാനിപ്പിക്കുക</string>
-    <string name="action_retry">വീണ്ടും ശ്രമിക്കുക</string>
     <string name="action_view_follow_requests">പിന്‍തുടരുവാനുള്ള അഭ്യര്‍ത്ഥനകള്‍</string>
     <string name="title_domain_mutes">മറച്ചുവെച്ച ഡൊമൈനുകൾ</string>
     <string name="description_visibility_private">പിന്തുടരുന്നവർ</string>
     <string name="footer_empty">പുതിയത് ലഭിക്കാൻ താഴേക്ക് വലിക്കുക</string>
-    <string name="message_empty">ലഭ്യമല്ല</string>
     <string name="post_content_show_less">ചുരുക്കുക</string>
     <string name="post_content_show_more">വിപുലപ്പെടുത്തുക</string>
     <string name="post_content_warning_show_less">അൽപ്പം കാണിക്കൂ</string>
@@ -67,7 +61,6 @@
     <string name="action_view_mutes">നിശ്ശബ്ദമാക്കിയ ഉപയോഗതാക്കൾ</string>
     <string name="action_view_bookmarks">ബൂക്കമാർക്ക്</string>
     <string name="action_view_favourites">ഇഷ്ടപ്പെട്ടത്</string>
-    <string name="action_view_profile">പ്രൊഫൈൽ</string>
     <string name="action_send_public">ടൂട്ട്!</string>
     <string name="action_send">ടൂട്ട്</string>
     <string name="action_delete_and_redraft">നീക്കം ചെയ്യത് പുതിയത് എഴുതുക</string>

@@ -26,11 +26,11 @@ import androidx.fragment.app.commit
 import app.pachli.R
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.databinding.ActivityNotificationsBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
-import app.pachli.util.unsafeLazy
 import com.google.android.material.appbar.AppBarLayout
 
 class NotificationsActivity : BottomSheetActivity(), ActionButtonActivity, AppBarLayoutHost, MenuProvider {

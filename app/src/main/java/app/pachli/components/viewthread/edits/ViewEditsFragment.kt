@@ -113,7 +113,7 @@ class ViewEditsFragment :
                         when (uiState.throwable) {
                             is ViewEditsViewModel.MissingEditsException -> {
                                 binding.statusView.setup(
-                                    R.drawable.elephant_friend_empty,
+                                    app.pachli.core.ui.R.drawable.elephant_friend_empty,
                                     R.string.error_missing_edits,
                                 )
                             }

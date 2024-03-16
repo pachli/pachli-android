@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Villa kom upp í netkerfi. Athugaðu nettenginguna þína og prófaðu svo aftur.</string>
+    <string name="error_generic">Villa kom upp.</string>
+    <string name="message_empty">Ekkert hér.</string>
+    <string name="action_retry">Reyna aftur</string>
+    <string name="button_done">Lokið</string>
+    <string name="action_view_profile">Notandasnið</string>
+    <string name="action_more">Meira</string>
+    <string name="action_refresh">Endurlesa</string>
+</resources>

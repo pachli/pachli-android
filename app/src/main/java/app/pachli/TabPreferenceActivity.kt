@@ -42,6 +42,7 @@ import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
@@ -52,7 +53,6 @@ import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.databinding.DialogSelectListBinding
-import app.pachli.util.unsafeLazy
 import at.connyduck.sparkbutton.helpers.Utils
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess

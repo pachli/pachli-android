@@ -20,7 +20,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
 
-    <app.pachli.view.BackgroundMessageView
+    <app.pachli.core.ui.BackgroundMessageView
         android:id="@+id/followedTagsMessageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

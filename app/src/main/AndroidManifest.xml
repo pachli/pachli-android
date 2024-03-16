@@ -144,7 +144,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".ListsActivity" />
+        <activity android:name=".feature.lists.ListsActivity" />
         <activity android:name=".components.filters.FiltersActivity" />
         <activity android:name=".components.trending.TrendingActivity" />
         <activity android:name=".components.followedtags.FollowedTagsActivity" />

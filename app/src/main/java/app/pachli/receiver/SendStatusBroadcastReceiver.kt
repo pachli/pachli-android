@@ -83,7 +83,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                     .setGroup(senderFullName)
                     .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
 
-                builder.setContentTitle(context.getString(R.string.error_generic))
+                builder.setContentTitle(context.getString(app.pachli.core.ui.R.string.error_generic))
                 builder.setContentText(context.getString(R.string.error_sender_account_gone))
 
                 builder.setSubText(senderFullName)

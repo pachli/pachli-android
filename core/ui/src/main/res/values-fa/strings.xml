@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">خطای شبکه‌ای رخ داد. لطفاً اتصالتان را بررسی و دوباره تلاش کنید.</string>
+    <string name="error_generic">خطایی رخ داد.</string>
+    <string name="message_empty">این‌جا هیچ‌چیزی نیست.</string>
+    <string name="action_retry">تلاش دوباره</string>
+    <string name="button_done">تمام</string>
+    <string name="action_view_profile">نمایه</string>
+    <string name="action_more">بیش‌تر</string>
+    <string name="action_refresh">نوسازی</string>
+</resources>

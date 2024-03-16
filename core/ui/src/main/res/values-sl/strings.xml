@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Prišlo je do omrežne napake! Preverite povezavo in poskusite znova!</string>
+    <string name="error_generic">Pojavila se je napaka.</string>
+    <string name="message_empty">Tukaj ni ničesar.</string>
+    <string name="action_retry">Poskusi znova</string>
+    <string name="button_done">Končano</string>
+    <string name="action_view_profile">Profil</string>
+    <string name="action_more">Več</string>
+</resources>

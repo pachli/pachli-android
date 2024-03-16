@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">ഒരു നെറ്റ്‌വർക്ക് പിഴവ് സംഭവിച്ചിരിക്കുന്നു! ദയവായി താങ്കളുടെ കണക്ഷൻ പരിശോധിച്ചിട്ട് വീണ്ടും ശ്രമിക്കൂ!</string>
+    <string name="error_generic">ഒരു പിഴവ് സംഭവിച്ചിരിക്കുന്നു.</string>
+    <string name="message_empty">ലഭ്യമല്ല</string>
+    <string name="action_retry">വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="action_view_profile">പ്രൊഫൈൽ</string>
+    <string name="action_more">കൂടുതൽ</string>
+</resources>

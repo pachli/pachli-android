@@ -26,7 +26,6 @@
     <string name="post_content_show_less">Sakļaut</string>
     <string name="post_content_warning_show_more">Rādīt vairāk</string>
     <string name="post_content_warning_show_less">Rādīt mazāk</string>
-    <string name="message_empty">Šeit nekā nav.</string>
     <string name="notification_follow_format">%s sāka tev sekot</string>
     <string name="notification_sign_up_format">%s reģistrējās</string>
     <string name="footer_empty">Šeit nekā nav. Pavelciet uz leju, lai atjauninātu!</string>
@@ -41,7 +40,6 @@
     <string name="action_unfollow">Pārtraukt sekošanu</string>
     <string name="action_edit">Labot</string>
     <string name="action_delete">Dzēst</string>
-    <string name="action_view_profile">Profils</string>
     <string name="action_delete_conversation">Dzēst sarunu</string>
     <string name="action_view_preferences">Iestatījumi</string>
     <string name="action_view_domain_mutes">Paslēptie domēni</string>
@@ -110,15 +108,8 @@
     <string name="pref_title_thread_filter_keywords">Sarunas</string>
     <string name="filter_dialog_remove_button">Noņemt</string>
     <string name="filter_dialog_update_button">Atjaunināt</string>
-    <string name="title_lists">Saraksti</string>
     <string name="filter_edit_title">Labot filtru</string>
     <string name="add_account_name">Pievienot kontu</string>
-    <string name="error_delete_list_fmt">Nevarēja dzēst sarakstu \"%1$s\": %2$s</string>
-    <string name="action_create_list">Izveidot sarakstu</string>
-    <string name="action_rename_list">Pārsaukt sarakstu</string>
-    <string name="action_delete_list">Dzēst sarakstu</string>
-    <string name="action_add_to_list">Pievienot kontu sarakstam</string>
-    <string name="action_remove_from_list">Noņemt kontu no saraksta</string>
     <string name="action_edit_image">Labot attēlu</string>
     <string name="send_post_notification_title">Sūta ierakstu…</string>
     <string name="send_post_notification_cancel_title">Sūtīšana atcelta</string>
@@ -133,7 +124,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s un %3$d citi</string>
     <string name="description_post_media_no_description_placeholder">Nav apraksta</string>
     <string name="description_post_language">Ieraksta valoda</string>
-    <string name="hint_list_name">Saraksta nosaukums</string>
     <string name="select_list_title">Izvēlies sarakstu</string>
     <string name="description_post_edited">Labots</string>
     <string name="description_post_bookmarked">Atzīmēts ar grāmatzīmi</string>
@@ -144,7 +134,6 @@
     <string name="filter_apply">Pielietot</string>
     <string name="button_continue">Turpināt</string>
     <string name="button_back">Atpakaļ</string>
-    <string name="button_done">Gatavs</string>
     <string name="hint_additional_info">Papildu komentāri</string>
     <string name="poll_info_closed">slēgta</string>
     <string name="poll_vote">Balsot</string>
@@ -171,10 +160,7 @@
     <string name="report_category_violation">Noteikumu pārkāpums</string>
     <string name="report_category_other">Cits</string>
     <string name="delete_scheduled_post_warning">Vai dzēst šo ieplānoto ierakstu\?</string>
-    <string name="error_generic">Notika kļūda.</string>
     <string name="error_media_upload_sending">Augšupielāde neizdevās.</string>
-    <string name="error_rename_list_fmt">Nevarēja pārsaukt sarakstu \"%1$s\": %2$s</string>
-    <string name="action_add_or_remove_from_list">Pievienot vai noņemt no saraksta</string>
     <string name="edit_poll">Labot</string>
     <string name="action_access_drafts">Melnraksti</string>
     <string name="action_block">Bloķēt</string>
@@ -187,8 +173,6 @@
     <string name="title_public_federated">Apvienotā</string>
     <string name="title_followers">Sekotāji</string>
     <string name="post_content_show_more">Izplest</string>
-    <string name="action_more">Vairāk</string>
-    <string name="action_retry">Mēģināt vēlreiz</string>
     <string name="action_view_bookmarks">Grāmatzīmes</string>
     <string name="action_save">Saglabāt</string>
     <string name="action_links">Saites</string>
@@ -219,7 +203,6 @@
     <string name="draft_deleted">Melnraksts dzēsts</string>
     <string name="saving_draft">Saglabā melnrakstu…</string>
     <string name="post_sensitive_media_directions">Klikšķini, lai apskatītu</string>
-    <string name="error_network">Radās tīkla kļūda! Lūdzu, pārbaudiet savienojumu un mēģiniet vēlreiz!</string>
     <string name="report_description_1">Ziņojums tiks nosūtīts jūsu servera moderatoram. Zemāk var sniegt skaidrojumu, kāpēc ziņojat par šo kontu:</string>
     <string name="filter_dialog_whole_word_description">Ja atslēgvārds vai frāze ir tikai burtciparu, to pielietos tikai tad, ja tas atbildīs visam vārdam</string>
     <string name="label_remote_account">Tālāk norādītā informācija var nepilnīgi atspoguļot lietotāja profilu. Nospiediet, lai pārlūkprogrammā atvērtu pilnu profilu.</string>
@@ -340,11 +323,8 @@
     <string name="warning_scheduling_interval">Mastodon minimālais ieplānošanas intervāls ir 5 minūtes.</string>
     <string name="no_scheduled_posts">Tev nav ieplānotu ziņu.</string>
     <string name="account_note_hint">Tava privātā piezīme par šo kontu</string>
-    <string name="dialog_delete_list_warning">Vai tiešām vēlies dzēst sarakstu %s\?</string>
     <string name="follow_requests_info">Lai arī tavs konts nav privāts, %1$s amatpersonas uzskatīja, ka, iespējams, vēlēsies manuāli pārskatīt sekošanas pieprasījumus no šiem kontiem.</string>
     <string name="compose_active_account_description">Publicē kā %1$s</string>
-    <string name="failed_to_add_to_list">Neizdevās pievienot kontu sarakstam</string>
-    <string name="failed_to_remove_from_list">Neizdevās noņemt kontu no saraksta</string>
     <string name="compose_shortcut_long_label">Rakstīt ziņu</string>
     <string name="compose_shortcut_short_label">Rakstīt</string>
     <string name="poll_ended_voted">Aptauja, kurā tu balsoji, ir noslēgusies</string>
@@ -389,7 +369,6 @@
     <string name="notification_boost_description">Paziņojumi par tavu ierakstu pastiprināšanu</string>
     <string name="no_drafts">Tev nav neviena melnraksta.</string>
     <string name="no_announcements">Nav paziņojumu.</string>
-    <string name="no_lists">Tev nav neviena saraksta.</string>
     <string name="pref_title_show_self_username">Rādīt lietotājvārdu rīkjoslās</string>
     <string name="pref_title_confirm_reblogs">Pirms pastiprināšanas rādīt apstiprināšanas dialogu</string>
     <string name="failed_search">Meklēšana neizdevās</string>
@@ -410,7 +389,6 @@
     <string name="action_dismiss">Aizvākt</string>
     <string name="dialog_message_cancel_follow_request">Vai atcelt sekošanas pieprasījumu\?</string>
     <string name="dialog_redraft_post_warning">Vai dzēst šo ierakstu un sākt no jauna\?</string>
-    <string name="hint_search_people_list">Meklēt personas, kurām seko</string>
     <string name="send_post_notification_error_title">Sūtot ziņu, radās kļūda</string>
     <string name="account_moved_description">%1$s ir pārcēlies uz:</string>
     <string name="failed_to_pin">Piespraušana neizdevās</string>
@@ -430,7 +408,6 @@
     <string name="a11y_label_loading_thread">Ielādē pavedienu</string>
     <string name="confirmation_hashtag_unfollowed">pārtraukta sekošana #%s</string>
     <string name="confirmation_domain_unmuted">%s atcelta slēpšana</string>
-    <string name="error_create_list_fmt">Nevarēja izveidot sarakstu \"%1$s\": %2$s</string>
     <string name="filter_add_description">Filtrējamā frāze</string>
     <string name="pref_summary_http_proxy_disabled">Atspējots</string>
     <string name="pref_summary_http_proxy_missing">&lt;nav iestatīts&gt;</string>
@@ -531,7 +508,6 @@
     <string name="total_accounts">Konti kopā</string>
     <string name="dialog_follow_hashtag_title">Sekot tēmturim</string>
     <string name="dialog_follow_hashtag_hint">#tēmturis</string>
-    <string name="action_refresh">Atsvaizdināt</string>
     <string name="ui_error_unknown">nezināms iemesls</string>
     <string name="title_public_trending_hashtags">Tendenču tēmturi</string>
     <string name="action_add">Pievienot</string>

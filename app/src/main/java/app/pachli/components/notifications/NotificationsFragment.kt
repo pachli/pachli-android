@@ -229,7 +229,7 @@ class NotificationsFragment :
                             Snackbar.LENGTH_INDEFINITE,
                         )
                         error.action?.let { action ->
-                            snackbar.setAction(R.string.action_retry) {
+                            snackbar.setAction(app.pachli.core.ui.R.string.action_retry) {
                                 viewModel.accept(action)
                             }
                         }
@@ -421,8 +421,8 @@ class NotificationsFragment :
                         if (loadState.refresh is LoadState.NotLoading) {
                             if (adapter.itemCount == 0) {
                                 binding.statusView.setup(
-                                    R.drawable.elephant_friend_empty,
-                                    R.string.message_empty,
+                                    app.pachli.core.ui.R.drawable.elephant_friend_empty,
+                                    app.pachli.core.ui.R.string.message_empty,
                                 )
                                 binding.recyclerView.hide()
                                 binding.statusView.show()

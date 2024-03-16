@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Назва списку</string>
+    <string name="list_exclusive_label">Сховати з домашньої стрічки</string>
+    <string name="title_lists">Списки</string>
+    <string name="error_create_list_fmt">Не вдалося створити список \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Не вдалося видалити список \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Не вдалося оновити список \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Оновити список</string>
+    <string name="action_create_list">Створити список</string>
+    <string name="dialog_delete_list_warning">Ви дійсно хочете видалити список %s\?</string>
+    <string name="action_remove_from_list">Вилучити обліковий запис зі списку</string>
+    <string name="action_add_to_list">Додати обліковий запис до списку</string>
+    <string name="action_delete_list">Видалити список</string>
+    <string name="failed_to_add_to_list">Не вдалося додати обліковий запис до списку</string>
+    <string name="failed_to_remove_from_list">Не вдалося вилучити обліковий запис зі списку</string>
+    <string name="no_lists">У вас немає списків.</string>
+    <string name="hint_search_people_list">Пошук серед тих, на кого ви підписані</string>
+    <string name="action_add_or_remove_from_list">Додати або вилучити зі списку</string>
+</resources>

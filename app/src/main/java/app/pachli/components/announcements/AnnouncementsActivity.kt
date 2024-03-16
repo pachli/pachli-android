@@ -32,13 +32,13 @@ import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.navigation.StatusListActivityIntent
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.databinding.ActivityAnnouncementsBinding
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
-import app.pachli.util.unsafeLazy
 import app.pachli.view.EmojiPicker
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -109,7 +109,7 @@ class AnnouncementsActivity :
                     binding.progressBar.hide()
                     binding.swipeRefreshLayout.isRefreshing = false
                     if (it.data.isNullOrEmpty()) {
-                        binding.errorMessageView.setup(R.drawable.elephant_friend_empty, R.string.no_announcements)
+                        binding.errorMessageView.setup(app.pachli.core.ui.R.drawable.elephant_friend_empty, R.string.no_announcements)
                         binding.errorMessageView.show()
                     } else {
                         binding.errorMessageView.hide()
@@ -122,7 +122,7 @@ class AnnouncementsActivity :
                 is Error -> {
                     binding.progressBar.hide()
                     binding.swipeRefreshLayout.isRefreshing = false
-                    binding.errorMessageView.setup(R.drawable.errorphant_error, R.string.error_generic) {
+                    binding.errorMessageView.setup(app.pachli.core.ui.R.drawable.errorphant_error, app.pachli.core.ui.R.string.error_generic) {
                         refreshAnnouncements()
                     }
                     binding.errorMessageView.show()

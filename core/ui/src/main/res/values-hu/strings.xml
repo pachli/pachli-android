@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Hálózati hiba történt. Kérjük, ellenőrizd a kapcsolatot, és próbáld meg újra.</string>
+    <string name="error_generic">Hiba történt.</string>
+    <string name="message_empty">Nincs itt semmi.</string>
+    <string name="action_retry">Próbáld újra</string>
+    <string name="button_done">Kész</string>
+    <string name="action_view_profile">Profil</string>
+    <string name="action_more">Több</string>
+    <string name="action_refresh">Frissítés</string>
+</resources>

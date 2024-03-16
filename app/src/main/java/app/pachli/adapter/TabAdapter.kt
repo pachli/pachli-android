@@ -28,9 +28,9 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.database.model.TabData
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemTabPreferenceBinding
 import app.pachli.databinding.ItemTabPreferenceSmallBinding
-import app.pachli.util.BindingHolder
 import app.pachli.util.setDrawableTint
 import com.google.android.material.chip.Chip
 

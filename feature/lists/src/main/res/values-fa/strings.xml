@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">نام سیاهه</string>
+    <string name="list_exclusive_label">نهفتن از خط زمانی خانگی</string>
+    <string name="title_lists">سیاهه‌ها</string>
+    <string name="error_create_list_fmt">%2$s: \"%1$s\" نتوانست سیاهه را ایجاد کند</string>
+    <string name="error_delete_list_fmt">%2$s: \"%1$s\" نتوانست سیاهه را حذف کند</string>
+    <string name="error_rename_list_fmt">%2$s: \"%1$s\" نتوانست سیاهه را به‌روز کند</string>
+    <string name="action_rename_list">به‌روز رسانی‌سیاهه</string>
+    <string name="action_create_list">ایجاد سیاهه</string>
+    <string name="dialog_delete_list_warning">واقعاً می‌خواهید سیاههٔ %s را حذف کنید؟</string>
+    <string name="action_remove_from_list">برداشتن حساب از سیاهه</string>
+    <string name="action_add_to_list">افزودن حساب به سیاهه</string>
+    <string name="action_delete_list">حذف سیاهه</string>
+    <string name="failed_to_add_to_list">شکست در افزودن حساب به سیاهه</string>
+    <string name="failed_to_remove_from_list">شکست در برداشتن حساب از سیاهه</string>
+    <string name="no_lists">هیچ سیاهه‌ای ندارید.</string>
+    <string name="hint_search_people_list">جست‌وجوی افرادی که پی می‌گیرید</string>
+    <string name="action_add_or_remove_from_list">افزودن یا برداشتن از سیاهه</string>
+</resources>

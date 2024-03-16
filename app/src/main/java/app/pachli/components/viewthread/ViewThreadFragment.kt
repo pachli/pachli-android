@@ -209,9 +209,9 @@ class ViewThreadFragment :
         lifecycleScope.launch {
             viewModel.errors.collect { throwable ->
                 Timber.w(throwable, "failed to load status context")
-                val msg = view.context.getString(R.string.error_generic_fmt, throwable)
+                val msg = view.context.getString(app.pachli.core.ui.R.string.error_generic_fmt, throwable)
                 Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.action_retry) {
+                    .setAction(app.pachli.core.ui.R.string.action_retry) {
                         viewModel.retry(thisThreadsStatusId)
                     }
                     .show()

@@ -13,10 +13,7 @@
     <string name="error_media_upload_type">नैतादृशा सञ्चिका उपारोपणीया ।</string>
     <string name="error_no_web_browser_found">प्रयोजनार्थं जालसञ्चारकं न लब्धम् ।</string>
     <string name="error_empty">नैतद्रिक्तं भवितुमर्हति ।</string>
-    <string name="error_network">दोषो जातः । कृपया भवतोऽन्तर्जालीयसम्पर्कं परीक्ष्य पुनश्च यत्यताम् !</string>
-    <string name="error_generic">दोषो जातः ।</string>
     <string name="footer_empty">न किमप्यत्र । नवीकरणार्थमाकृष्यतामधः !</string>
-    <string name="message_empty">न किमप्यत्र ।</string>
     <string name="post_content_show_less">संनिपत्यताम्</string>
     <string name="post_content_show_more">विस्तार्यताम्</string>
     <string name="post_content_warning_show_less">स्वल्पं दृश्यताम्</string>
@@ -62,7 +59,6 @@
     <string name="action_logout_confirm">नूनमेव बहिर्गन्तुमीहते %1$s इति व्यक्तित्वलेखात् \?</string>
     <string name="action_logout">बहिर्गम्यताम्</string>
     <string name="action_compose">रच्यताम्</string>
-    <string name="action_more">अधिकम्</string>
     <string name="action_unfavourite">प्रियता निष्क्रियताम्</string>
     <string name="action_bookmark">पुटचिह्नं क्रियताम्</string>
     <string name="action_favourite">प्रियम्</string>
@@ -84,8 +80,6 @@
     <string name="action_view_favourites">प्रियाः</string>
     <string name="action_view_account_preferences">लेखाविन्यासाः</string>
     <string name="action_view_preferences">विन्यासाः</string>
-    <string name="action_view_profile">व्यक्तिविवरणम्</string>
-    <string name="action_retry">पुनः यत्यताम्</string>
     <string name="action_unmute_desc">%s सशब्दं क्रियताम्</string>
     <string name="action_unmute">सशब्दम्</string>
     <string name="action_mute">निःशब्दम्</string>
@@ -169,15 +163,7 @@
     <string name="dialog_download_image">अवारोप्यताम्</string>
     <string name="dialog_message_uploading_media">उपारोप्यमाणम्…</string>
     <string name="dialog_title_finishing_media_upload">सामग्रीणामुपारोपणसिद्धिः वर्तमाना</string>
-    <string name="hint_search_people_list">येषामुसरणं करोषि तेष्वन्विष्यताम्</string>
-    <string name="action_delete_list">सूचिर्नश्यताम्</string>
-    <string name="action_rename_list">पुनः सूचिनामकरणं क्रियताम्</string>
-    <string name="action_create_list">सूचिः निर्मीयताम्</string>
-    <string name="error_delete_list_fmt">सूचिर्नष्टुमशक्या \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">पुनः सूचिनामकरणं कर्तुमशक्यम् \"%1$s\": %2$s</string>
-    <string name="error_create_list_fmt">सूचिनिर्माणं कर्तुमशक्यम् \"%1$s\": %2$s</string>
     <string name="dialog_message_cancel_follow_request">अनुसरणानुरोधो नश्यताम् \?</string>
-    <string name="title_lists">सूचयः</string>
     <string name="add_account_description">नवमास्टोडोनलेखा युज्यताम्</string>
     <string name="add_account_name">नवलेखा युज्यताम्</string>
     <string name="filter_add_description">शोधनार्थं वाक्यांशः</string>
@@ -299,8 +285,6 @@
 \n(%d परिमिता न्यूनाक्षरसङ्ख्या)</item>
     </plurals>
     <string name="compose_active_account_description">%1$s लेखया प्रकटनं क्रियते</string>
-    <string name="action_remove_from_list">सूच्याः लेखा नश्यताम्</string>
-    <string name="action_add_to_list">सूच्यां लेखा स्थाप्यताम्</string>
     <string name="download_failed">अवारोपणे दोषः</string>
     <string name="restart">पुनः प्रारभ्यताम्</string>
     <string name="later">पश्चात्</string>
@@ -348,7 +332,6 @@
     <string name="report_remote_instance">अस्मै पुरस्क्रियताम् %s</string>
     <string name="hint_additional_info">अन्याः टिप्पण्यः</string>
     <string name="report_sent_success">साफल्येनाऽऽवेदनं दत्तमस्य @%s</string>
-    <string name="button_done">कृतम्</string>
     <string name="button_back">पूर्वम्</string>
     <string name="button_continue">निरन्तरम्</string>
     <plurals name="poll_timespan_seconds">
@@ -393,7 +376,6 @@
     <string name="hashtags">निश्रेणिचिह्नशीर्षकाः</string>
     <string name="edit_hashtag_hint"># चिह्नं विना प्रचलितम्</string>
     <string name="add_hashtag_title">प्रचलितं युज्यताम्</string>
-    <string name="hint_list_name">सूचिनाम</string>
     <string name="description_poll">मतदाने मतानि- %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_visibility_direct">प्रत्यक्षम्</string>
     <string name="description_visibility_private">अनुसर्तारः</string>

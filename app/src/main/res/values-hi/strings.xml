@@ -22,20 +22,15 @@
     <string name="action_delete_and_redraft">डिलीट एवं रिड्राफ्ट करें</string>
     <string name="action_send">टूट करें</string>
     <string name="action_send_public">टूट!</string>
-    <string name="action_retry">पुनः प्रयास करें</string>
-    <string name="action_view_profile">प्रोफाइल</string>
     <string name="description_visibility_private">अनुगामी</string>
     <string name="error_media_upload_sending">अपलोड विफल रहा।</string>
     <string name="error_media_download_permission">मीडिया को स्टोर करने की अनुमति आवश्यक है।</string>
     <string name="error_media_upload_permission">मीडिया पढ़ने की अनुमति आवश्यक है।</string>
     <string name="error_media_upload_opening">वह फ़ाइल नहीं खोली जा सकी।</string>
     <string name="error_media_upload_type">उस प्रकार की फ़ाइल अपलोड नहीं की जा सकती।</string>
-    <string name="error_generic">एक त्रुटि हुई।</string>
     <string name="action_reset_schedule">रीसेट</string>
     <string name="error_no_web_browser_found">उपयोग करने के लिए वेब ब्राउज़र नहीं मिला।</string>
     <string name="error_empty">यह खाली नहीं हो सकता।</string>
-    <string name="error_network">नेटवर्क त्रुटि हुई! कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
-    <string name="title_lists">सूचियाँ</string>
     <string name="description_poll">जनमत के विकल्प: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="action_view_bookmarks">बुकमार्क</string>
     <string name="edit_poll">संपादित करें</string>
@@ -43,7 +38,6 @@
     <string name="action_add_poll">जनमत शुरू करें</string>
     <string name="create_poll_title">पोल</string>
     <string name="title_accounts">खाता</string>
-    <string name="button_done">पूर्ण</string>
     <string name="button_back">पीछे</string>
     <string name="button_continue">जारी रखें</string>
     <string name="poll_vote">वोट</string>
@@ -159,7 +153,6 @@
     <string name="notification_favourite_format">%s ने आपके टूट को पसंद किया</string>
     <string name="notification_reblog_format">%s ने आपके टूट को बढावा दिया</string>
     <string name="footer_empty">यहाँ कुछ नहीं। ताज़ा करने के लिए नीचे खींचो!</string>
-    <string name="message_empty">यहाँ कुछ नहीं।</string>
     <string name="post_content_warning_show_less">कम दिखाएं</string>
     <string name="post_content_warning_show_more">और दिखाओ</string>
     <string name="post_sensitive_media_directions">देखने के लिए क्लिक करें</string>
@@ -209,7 +202,6 @@
     <string name="poll_info_format"> <!-- 15 वोट • 1 घंटा बाकी --> %1$s • %2$s</string>
     <string name="list">सूची</string>
     <string name="description_post_bookmarked">बुकमार्क किया हुआ</string>
-    <string name="hint_list_name">सूची का नाम</string>
     <string name="description_post_media_no_description_placeholder">कोई विवरण नहीं</string>
     <string name="description_post_media">मीडिया: %s</string>
     <string name="profile_metadata_add">जानकारी जोड़ें</string>
@@ -280,15 +272,6 @@
 \n(%d वर्ण सीमा)</item>
     </plurals>
     <string name="compose_active_account_description">%1$s खाते के साथ पोस्ट कर रहे</string>
-    <string name="action_remove_from_list">सूची से खाता निकालें</string>
-    <string name="action_add_to_list">सूची में खाता जोड़ें</string>
-    <string name="hint_search_people_list">उन लोगों की खोज करें जिन्हें आप फ़ॉलो करते हैं</string>
-    <string name="action_delete_list">सूची हटाएँ</string>
-    <string name="action_rename_list">सूची का नाम बदलें</string>
-    <string name="action_create_list">एक सूची बनाएं</string>
-    <string name="error_delete_list_fmt">सूची नहीं हटाई जा सकी \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">सूची का नाम नहीं बदल सके \"%1$s\": %2$s</string>
-    <string name="error_create_list_fmt">सूची नहीं बना सके \"%1$s\": %2$s</string>
     <string name="add_account_description">नया मास्टोडन खाता जोड़ें</string>
     <string name="filter_add_description">फ़िल्टर करने के लिए वाक्यांश</string>
     <string name="filter_dialog_whole_word_description">जब संकेत शब्द या वाक्यांश केवल अल्फ़ान्यूमेरिक होता है, तो यह केवल तभी लागू होगा जब यह पूरे शब्द से मेल खाता होगा</string>

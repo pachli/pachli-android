@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">هەڵەیەک لە پەیوەندییەکەدا ڕوویدا. تکایە دڵنیا ببەوە لە بەردەستبوونی هێڵی ئینتەرنێت.</string>
+    <string name="error_generic">هەڵەیەک ڕوویدا.</string>
+    <string name="message_empty">هیچ شتێک لێرە نیە.</string>
+    <string name="action_retry">دووبارە هەوڵ بدە</string>
+    <string name="button_done">تەواوبوو</string>
+    <string name="action_view_profile">پرۆفایل</string>
+    <string name="action_more">زیاتر</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="message_empty">කිසිවක් නැත.</string>
+    <string name="action_retry">යළි උත්සාහය</string>
+    <string name="action_view_profile">පැතිකඩ</string>
+    <string name="action_more">තව</string>
+</resources>

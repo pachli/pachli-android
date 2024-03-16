@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Ha ocurrido un error.</string>
-    <string name="error_network">Ha ocurrido un error de red. Por favor, comprueba tu conexión e inténtalo de nuevo.</string>
     <string name="error_empty">Este campo no puede estar vacío.</string>
     <string name="error_no_web_browser_found">No se ha encontrado ningún navegador web.</string>
     <string name="error_compose_character_limit">¡La publicación es demasiado larga!</string>
@@ -39,7 +37,6 @@
     <string name="post_content_warning_show_less">Mostrar menos</string>
     <string name="post_content_show_more">Expandir</string>
     <string name="post_content_show_less">Ocultar</string>
-    <string name="message_empty">Nada aquí.</string>
     <string name="footer_empty">Nada por aquí. ¡Arrastra hacia abajo para recargar!</string>
     <string name="notification_reblog_format">%s impulsó tu publicación</string>
     <string name="notification_favourite_format">%s marcó como favorita tu publicación</string>
@@ -50,7 +47,6 @@
     <string name="action_reply">Responder</string>
     <string name="action_reblog">Compartir</string>
     <string name="action_favourite">Favorito</string>
-    <string name="action_more">Más</string>
     <string name="action_compose">Redactar</string>
     <string name="action_logout">Cerrar sesión</string>
     <string name="action_logout_confirm">¿Seguro que quiere cerrar la sesión de %1$s? Esto eliminará todos los datos locales de la cuenta, incluyendo borradores y preferencias.</string>
@@ -64,8 +60,6 @@
     <string name="action_delete">Borrar</string>
     <string name="action_send">TOOT</string>
     <string name="action_send_public">¡Publicar!</string>
-    <string name="action_retry">Reintentar</string>
-    <string name="action_view_profile">Perfil</string>
     <string name="action_view_preferences">Ajustes</string>
     <string name="action_view_account_preferences">Preferencias de cuenta</string>
     <string name="action_view_favourites">Favoritos</string>
@@ -87,7 +81,6 @@
     <string name="action_edit_own_profile">Editar</string>
     <string name="action_undo">Deshacer</string>
     <string name="action_accept">Aceptar</string>
-    <string name="action_reject">Rechazar</string>
     <string name="action_search">Buscar</string>
     <string name="action_access_drafts">Borradores</string>
     <string name="action_toggle_visibility">Visibilidad de la publicación</string>
@@ -216,7 +209,6 @@
     <string name="replying_to">Respondiendo a @%s</string>
     <string name="add_account_name">Añadir cuenta</string>
     <string name="add_account_description">Añadir cuenta de Mastodon</string>
-    <string name="title_lists">Listas</string>
     <string name="compose_active_account_description">Publicar como %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Descripción para persona con problema de visión (Límite de %d caracteres)</item>
@@ -282,10 +274,6 @@
     <string name="pref_title_timeline_filters">Filtros</string>
     <string name="notification_poll_name">Encuestas</string>
     <string name="filter_dialog_remove_button">Eliminar</string>
-    <string name="action_create_list">Crear una lista</string>
-    <string name="action_rename_list">Renombrar la lista</string>
-    <string name="action_add_to_list">Añadir cuenta a la lista</string>
-    <string name="action_remove_from_list">Eliminar cuenta de la lista</string>
     <string name="description_post_favourited">1Favoritos</string>
     <string name="description_visibility_private">Seguidores</string>
     <string name="filter_apply">Aplicar</string>
@@ -334,11 +322,6 @@
     <string name="filter_edit_title">Editar filtro</string>
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frase para filtrar</string>
-    <string name="error_create_list_fmt">No se pudo crear la lista \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">No se pudo renombrar la lista \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">No se pudo eliminar la lista \"%1$s\": %2$s</string>
-    <string name="action_delete_list">Eliminar la lista</string>
-    <string name="hint_search_people_list">Buscar personas que sigues</string>
     <string name="description_post_media">Contenido: %s</string>
     <string name="description_post_cw">Aviso de contenido: %s</string>
     <string name="description_post_media_no_description_placeholder">Sin descripción</string>
@@ -346,7 +329,6 @@
     <string name="description_visibility_public">Público</string>
     <string name="description_visibility_unlisted">Sin listar</string>
     <string name="description_visibility_direct">Directo</string>
-    <string name="hint_list_name">Nombre de la lista</string>
     <string name="edit_hashtag_hint">Etiqueta sin #</string>
     <string name="notifications_clear">Limpiar</string>
     <string name="notifications_apply_filter">Filtro</string>
@@ -371,7 +353,6 @@
     <string name="description_poll">Encuesta con opciones: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="button_continue">Continuar</string>
     <string name="button_back">Atrás</string>
-    <string name="button_done">Hecho</string>
     <string name="report_sent_success">\@%s reportado satisfactoriamente</string>
     <string name="hint_additional_info">Comentarios adicionales</string>
     <string name="report_remote_instance">Reenviar a %s</string>
@@ -463,7 +444,6 @@
     <string name="draft_deleted">Borrador eliminado</string>
     <string name="drafts_failed_loading_reply">Error al cargar la información de respuesta</string>
     <string name="drafts_post_failed_to_send">¡Este toot no se pudo enviar!</string>
-    <string name="dialog_delete_list_warning">¿Realmente quieres eliminar la lista %s\?</string>
     <string name="duration_indefinite">Indefinido</string>
     <string name="label_duration">Duración</string>
     <string name="post_media_attachments">Adjuntos</string>
@@ -521,9 +501,6 @@
     <string name="dialog_push_notification_migration_other_accounts">Has vuelto a iniciar sesión en esta cuenta para dar permiso de notificaciones push a Pachli. Sin embargo, aún hay otras cuentas que no tienen este permiso. Cambia a estas cuentas y vuelve a iniciar sesión, una a una, para activar el soporte de notificaciones de UnifiedPush.</string>
     <string name="notification_sign_up_name">Creación de cuentas</string>
     <string name="action_edit_image">Editar imagen</string>
-    <string name="failed_to_add_to_list">Falló añadir la cuenta a la lista</string>
-    <string name="failed_to_remove_from_list">Falló al eliminar la cuenta de la lista</string>
-    <string name="action_add_or_remove_from_list">Añadir o quitar de la lista</string>
     <string name="hint_media_description_missing">El contenido debería tener una descripción.</string>
     <string name="report_category_violation">Violación de una regla</string>
     <string name="report_category_spam">Spam</string>
@@ -537,7 +514,6 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="error_muting_hashtag_format">Error al silenciar #%s</string>
     <string name="error_unmuting_hashtag_format">Error al reactivar #%s</string>
-    <string name="no_lists">No tienes ninguna lista.</string>
     <string name="notification_report_description">Notificaciones sobre informes de moderación</string>
     <string name="error_following_hashtags_unsupported">Esta instancia no soporta el seguimiento de etiquetas.</string>
     <string name="title_followed_hashtags">Etiquetas seguidas</string>
@@ -584,7 +560,6 @@
     <string name="hint_description">Descripción</string>
     <string name="post_media_image">Imagen</string>
     <string name="pref_title_account_filter_keywords">Perfiles</string>
-    <string name="action_refresh">Recargar</string>
     <string name="notification_unknown_name">Desconocido</string>
     <string name="status_filtered_show_anyway">Mostrar de todas formas</string>
     <string name="status_filter_placeholder_label_format">Filtrado: %s</string>
@@ -651,9 +626,7 @@
     <string name="title_public_trending_statuses">Publicaciones en tendencia</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="load_newest_statuses">Carga publicaciones más nuevas</string>
-    <string name="error_network_fmt">Ha ocurrido un error de red: %s</string>
     <string name="dialog_save_profile_changes_message">¿Quieres guardar tus cambios de perfil?</string>
-    <string name="error_generic_fmt">Ha ocurrido un error: %s</string>
     <string name="pref_update_notification_frequency_always">Siempre</string>
     <string name="error_media_upload_sending_fmt">La carga falló: %s</string>
     <string name="pref_update_notification_frequency_never">Nunca</string>
@@ -666,10 +639,8 @@
     <string name="announcement_date_updated">(Actualizado: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Publicaciones</string>
     <string name="pref_update_notification_frequency_once_per_version">Una vez por versión</string>
-    <string name="error_404_not_found_fmt">Su servidor no soporta esta función: %1$s</string>
     <string name="pref_title_font_family">Familia de fuente</string>
     <string name="notification_listenable_worker_description">Notificaciones cuando Pachli está trabajando en el fondo</string>
-    <string name="list_exclusive_label">Oculta de la cronología de inicio</string>
     <string name="action_translate">Traducir</string>
     <string name="error_missing_edits">Tu servidor sabe que esta publicación fue editada, pero no tiene una copia de las ediciones, así que no pueden ser asomados a ti.
 \n
@@ -691,4 +662,5 @@
     <string name="pref_title_update_check_now">Buscar actualizaciones ahora</string>
     <string name="pref_update_check_no_updates">No hay actualizaciones disponibles</string>
     <string name="pref_update_next_scheduled_check">Próxima comprobación: %1$s</string>
+    <string name="action_reject">Rechazar</string>
 </resources>

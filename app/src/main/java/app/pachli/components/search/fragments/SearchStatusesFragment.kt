@@ -446,7 +446,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                             },
                             { error ->
                                 Timber.w(error, "error deleting status")
-                                Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT).show()
                             },
                         )
                     }

@@ -244,7 +244,7 @@ class ViewVideoFragment : ViewMediaFragment() {
                     error.cause?.message ?: error.message,
                 )
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.action_retry) { player?.prepare() }
+                    .setAction(app.pachli.core.ui.R.string.action_retry) { player?.prepare() }
                     .show()
             }
         }

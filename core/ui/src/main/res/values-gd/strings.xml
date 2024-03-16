@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Thachair mearachd leis an lìonra. Thoir sùil air a’ cheangal agad is feuch ris a-rithist.</string>
+    <string name="error_generic">Thachair mearachd.</string>
+    <string name="message_empty">Chan eil dad an-seo.</string>
+    <string name="action_retry">Feuch ris a-rithist</string>
+    <string name="button_done">Deiseil</string>
+    <string name="action_view_profile">Pròifil</string>
+    <string name="action_more">Barrachd</string>
+    <string name="action_refresh">Ath-nuadhaich</string>
+</resources>

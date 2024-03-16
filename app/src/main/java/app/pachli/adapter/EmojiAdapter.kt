@@ -21,8 +21,8 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.TooltipCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.network.model.Emoji
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemEmojiButtonBinding
-import app.pachli.util.BindingHolder
 import com.bumptech.glide.Glide
 import java.util.Locale
 

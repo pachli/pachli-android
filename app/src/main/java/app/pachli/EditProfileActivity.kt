@@ -39,7 +39,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.ui.await
+import app.pachli.core.ui.extensions.await
 import app.pachli.databinding.ActivityEditProfileBinding
 import app.pachli.util.Error
 import app.pachli.util.Loading
@@ -178,8 +178,8 @@ class EditProfileActivity : BaseActivity() {
                     }
                 }
                 is Error -> {
-                    Snackbar.make(binding.avatarButton, R.string.error_generic, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.action_retry) {
+                    Snackbar.make(binding.avatarButton, app.pachli.core.ui.R.string.error_generic, Snackbar.LENGTH_LONG)
+                        .setAction(app.pachli.core.ui.R.string.action_retry) {
                             viewModel.obtainProfile()
                         }
                         .show()

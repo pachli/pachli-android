@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Nome da lista</string>
+    <string name="list_exclusive_label">Agochar na cronoloxía de inicio</string>
+    <string name="title_lists">Listaxes</string>
+    <string name="error_create_list_fmt">Non se puido crear a listaxe \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Non se puido eliminar a listaxe \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Non se actualizou a listaxe \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Actualizar a listaxe</string>
+    <string name="action_create_list">Crear unha listaxe</string>
+    <string name="dialog_delete_list_warning">Tes a certeza de querer eliminar a listaxe %s\?</string>
+    <string name="action_remove_from_list">Eliminar conta da listaxe</string>
+    <string name="action_add_to_list">Engadir conta á listaxe</string>
+    <string name="action_delete_list">Eliminar a listaxe</string>
+    <string name="failed_to_add_to_list">Fallou a adición da conta á lista</string>
+    <string name="failed_to_remove_from_list">Fallou a eliminación da conta da lista</string>
+    <string name="no_lists">Non tes listas.</string>
+    <string name="hint_search_people_list">Atopar persoas ás que segues</string>
+    <string name="action_add_or_remove_from_list">Engadir ou quitar da lista</string>
+</resources>

@@ -33,7 +33,7 @@
                 android:indeterminate="true"
                 android:contentDescription="@string/a11y_label_loading_thread" />
 
-            <app.pachli.view.BackgroundMessageView
+            <app.pachli.core.ui.BackgroundMessageView
                 android:id="@+id/statusView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

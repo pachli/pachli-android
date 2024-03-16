@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">S\'ha produït un error de connexió! Comproveu la connexió i torneu-ho a provar!</string>
+    <string name="error_generic">S\'ha produït un error.</string>
+    <string name="message_empty">No hi ha res aquí.</string>
+    <string name="action_retry">Torna a intentar-ho</string>
+    <string name="button_done">Fet</string>
+    <string name="action_view_profile">Perfil</string>
+    <string name="action_more">Més</string>
+    <string name="action_refresh">Actualitzar</string>
+</resources>

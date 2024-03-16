@@ -19,9 +19,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemFooterBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.util.BindingHolder
 import app.pachli.util.removeDuplicates
 
 /** Generic adapter with bottom loading indicator. */

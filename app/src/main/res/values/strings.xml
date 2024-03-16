@@ -15,15 +15,10 @@
   ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
   ~ see <http://www.gnu.org/licenses>.
   --><resources>
-    <string name="error_generic">An error occurred.</string>
-    <string name="error_generic_fmt">An error occurred: %s</string>
-    <string name="error_network">A network error occurred. Please check your connection and try again.</string>
-    <string name="error_network_fmt">A network error occurred: %s</string>
     <string name="error_empty">This cannot be empty.</string>
     <string name="error_no_web_browser_found">Couldn\'t find a web browser to use.</string>
     <string name="error_compose_character_limit">The post is too long!</string>
     <string name="error_multimedia_size_limit">Video and audio files cannot exceed %s MB in size.</string>
-    <string name="error_404_not_found_fmt">Your server does not support this feature: %1$s</string>
     <string name="error_image_edit_failed">The image could not be edited.</string>
     <string name="error_media_upload_type">That type of file cannot be uploaded.</string>
     <string name="error_media_upload_opening">That file could not be opened.</string>
@@ -84,7 +79,6 @@
     <string name="post_content_show_more">Expand</string>
     <string name="post_content_show_less">Collapse</string>
     <string name="post_edited">Edited %s</string>
-    <string name="message_empty">Nothing here.</string>
     <string name="footer_empty">Nothing here. Pull down to refresh!</string>
     <string name="notification_reblog_format">%s boosted your post</string>
     <string name="notification_favourite_format">%s favorited your post</string>
@@ -106,7 +100,6 @@
     <string name="action_unfavourite">Remove favorite</string>
     <string name="action_bookmark">Bookmark</string>
     <string name="action_unbookmark">Remove bookmark</string>
-    <string name="action_more">More</string>
     <string name="action_compose">Compose</string>
     <string name="action_logout">Log out</string>
     <string name="action_logout_confirm">Are you sure you want to log out of %1$s? This will delete all local data of the account, including drafts and preferences.</string>
@@ -134,8 +127,6 @@
     <string name="action_continue_edit">Continue editing</string>
     <string name="action_send">TOOT</string>
     <string name="action_send_public">TOOT!</string>
-    <string name="action_retry">Retry</string>
-    <string name="action_view_profile">Profile</string>
     <string name="action_view_preferences">Preferences</string>
     <string name="action_view_account_preferences">Account preferences</string>
     <string name="action_view_favourites">Favorites</string>
@@ -392,22 +383,9 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="add_account_name">Add Account</string>
     <string name="add_account_description">Add new Mastodon Account</string>
-    <string name="title_lists">Lists</string>
     <string name="title_lists_loading">Lists - loading…</string>
     <string name="title_lists_failed">Lists - failed to load</string>
     <string name="manage_lists">Manage lists</string>
-    <string name="error_create_list_fmt">Could not create list \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Could not update list \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">Could not delete list \"%1$s\": %2$s</string>
-    <string name="action_create_list">Create a list</string>
-    <string name="action_rename_list">Update the list</string>
-    <string name="action_delete_list">Delete the list</string>
-    <string name="hint_search_people_list">Search for people you follow</string>
-    <string name="action_add_to_list">Add account to the list</string>
-    <string name="action_remove_from_list">Remove account from the list</string>
-    <string name="action_add_or_remove_from_list">Add or remove from list</string>
-    <string name="failed_to_add_to_list">Failed to add the account to the list</string>
-    <string name="failed_to_remove_from_list">Failed to remove the account from the list</string>
     <string name="compose_active_account_description">Posting as %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Describe content for the visually impaired (%d character limit)</item>
@@ -506,7 +484,6 @@
     <string name="description_post_language">Post language</string>
     <string name="description_login">Works in most cases. No data is leaked to other apps.</string>
     <string name="description_browser_login">May support additional authentication methods, but requires a supported browser.</string>
-    <string name="hint_list_name">List name</string>
     <string name="add_hashtag_title">Add hashtag</string>
     <string name="edit_hashtag_hint">Hashtag without #</string>
     <string name="hashtags">Hashtags</string>
@@ -514,7 +491,6 @@
     <string name="select_list_empty">You have no lists, yet</string>
     <string name="select_list_manage">Manage lists</string>
     <string name="error_list_load">Error loading lists</string>
-    <string name="list_exclusive_label">Hide from the home timeline</string>
     <string name="list">List</string>
     <string name="notifications_clear">Delete notifications</string>
     <string name="notifications_apply_filter">Filter notifications</string>
@@ -558,7 +534,6 @@
     </plurals>
     <string name="button_continue">Continue</string>
     <string name="button_back">Back</string>
-    <string name="button_done">Done</string>
     <string name="report_sent_success">Successfully reported @%s</string>
     <string name="hint_additional_info">Additional comments</string>
     <string name="report_remote_instance">Forward to %s</string>
@@ -594,7 +569,6 @@
     <string name="no_drafts">You don\'t have any drafts.</string>
     <string name="no_scheduled_posts">You don\'t have any scheduled posts.</string>
     <string name="no_announcements">There are no announcements.</string>
-    <string name="no_lists">You don\'t have any lists.</string>
     <string name="warning_scheduling_interval">Mastodon has a minimum scheduling interval of 5 minutes.</string>
     <string name="pref_title_show_self_username">Show username in toolbars</string>
     <string name="pref_title_show_cards_in_timelines">Show link previews in timelines</string>
@@ -618,7 +592,6 @@
         <item quantity="one">You cannot upload more than %1$d media attachment.</item>
         <item quantity="other">You cannot upload more than %1$d media attachments.</item>
     </plurals>
-    <string name="dialog_delete_list_warning">Do you really want to delete the list %s?</string>
     <string name="drafts_post_failed_to_send">This post failed to send!</string>
     <string name="drafts_failed_loading_reply">Failed loading Reply information</string>
     <string name="draft_deleted">Draft deleted</string>
@@ -641,7 +614,6 @@
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Other</string>
     <string name="action_unfollow_hashtag_format">Unfollow #%s?</string>
-    <string name="action_refresh">Refresh</string>
     <string name="mute_notifications_switch">Mute notifications</string>
     <!-- Reading order preference -->
     <string name="status_edit_info">Edited: %1$s</string>
@@ -718,8 +690,4 @@
     <string name="pref_update_next_scheduled_check">Next scheduled check: %1$s</string>
     <string name="error_media_download">Could not download %1$s: %2$d %3$s</string>
 
-    <string name="replies_policy_title">Show replies to:</string>
-    <string name="replies_policy_name_followed">Any followed user</string>
-    <string name="replies_policy_name_list">Members of the list</string>
-    <string name="replies_policy_name_none">No one</string>
 </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Saraksta nosaukums</string>
+    <string name="title_lists">Saraksti</string>
+    <string name="error_create_list_fmt">Nevarēja izveidot sarakstu \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Nevarēja dzēst sarakstu \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Nevarēja pārsaukt sarakstu \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Pārsaukt sarakstu</string>
+    <string name="action_create_list">Izveidot sarakstu</string>
+    <string name="dialog_delete_list_warning">Vai tiešām vēlies dzēst sarakstu %s\?</string>
+    <string name="action_remove_from_list">Noņemt kontu no saraksta</string>
+    <string name="action_add_to_list">Pievienot kontu sarakstam</string>
+    <string name="action_delete_list">Dzēst sarakstu</string>
+    <string name="failed_to_add_to_list">Neizdevās pievienot kontu sarakstam</string>
+    <string name="failed_to_remove_from_list">Neizdevās noņemt kontu no saraksta</string>
+    <string name="no_lists">Tev nav neviena saraksta.</string>
+    <string name="hint_search_people_list">Meklēt personas, kurām seko</string>
+    <string name="action_add_or_remove_from_list">Pievienot vai noņemt no saraksta</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">ناوی لیست</string>
+    <string name="title_lists">لیستەکان</string>
+    <string name="error_create_list_fmt">%2$s: \"%1$s\" نەیتوانی لیست دروست بکات</string>
+    <string name="error_delete_list_fmt">%2$s: \"%1$s\" نەیتوانی لیستەکە بسڕێتەوە</string>
+    <string name="error_rename_list_fmt">%2$s: \"%1$s\" نەیتوانی ناوی لیست بنووسرێ</string>
+    <string name="action_rename_list">ناونانەوەی لیستەکە</string>
+    <string name="action_create_list">دروستکردنی لیستێک</string>
+    <string name="action_remove_from_list">لابردنی ئەژمێر لە لیستەکە</string>
+    <string name="action_add_to_list">زیادکردنی ئەژمێر بۆ لیستەکە</string>
+    <string name="action_delete_list">سڕینەوەی لیستەکە</string>
+    <string name="hint_search_people_list">گەڕان بەدوای ئەو کەسانەی کە پەیڕەوی ان دەکەیت</string>
+</resources>

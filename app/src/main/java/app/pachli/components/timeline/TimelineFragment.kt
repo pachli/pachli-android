@@ -60,6 +60,8 @@ import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineKind
+import app.pachli.core.ui.extensions.getDrawableRes
+import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
@@ -70,8 +72,6 @@ import app.pachli.util.ListStatusAccessibilityDelegate
 import app.pachli.util.PresentationState
 import app.pachli.util.UserRefreshState
 import app.pachli.util.asRefreshState
-import app.pachli.util.getDrawableRes
-import app.pachli.util.getErrorString
 import app.pachli.util.withPresentationState
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.sparkbutton.helpers.Utils
@@ -249,7 +249,7 @@ class TimelineFragment :
                             Snackbar.LENGTH_INDEFINITE,
                         )
                         error.action?.let { action ->
-                            snackbar!!.setAction(R.string.action_retry) {
+                            snackbar!!.setAction(app.pachli.core.ui.R.string.action_retry) {
                                 viewModel.accept(action)
                             }
                         }
@@ -438,7 +438,7 @@ class TimelineFragment :
                                             message,
                                             Snackbar.LENGTH_INDEFINITE,
                                         )
-                                            .setAction(R.string.action_retry) { adapter.retry() }
+                                            .setAction(app.pachli.core.ui.R.string.action_retry) { adapter.retry() }
                                         snackbar!!.show()
                                     } else {
                                         val drawableRes = error.getDrawableRes()
@@ -454,8 +454,8 @@ class TimelineFragment :
                                 PresentationState.PRESENTED -> {
                                     if (adapter.itemCount == 0) {
                                         binding.statusView.setup(
-                                            R.drawable.elephant_friend_empty,
-                                            R.string.message_empty,
+                                            app.pachli.core.ui.R.drawable.elephant_friend_empty,
+                                            app.pachli.core.ui.R.string.message_empty,
                                         )
                                         if (timelineKind == TimelineKind.Home) {
                                             binding.statusView.showHelp(R.string.help_empty_home)

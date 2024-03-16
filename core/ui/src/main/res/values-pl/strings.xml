@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Wystąpił problem z łącznością! Sprawdź swoje połączenie internetowe i spróbuj ponownie!</string>
+    <string name="error_generic">Wystąpił błąd.</string>
+    <string name="message_empty">Nic tu nie ma.</string>
+    <string name="action_retry">Spróbuj ponownie</string>
+    <string name="button_done">Zakończ</string>
+    <string name="action_view_profile">Profil</string>
+    <string name="action_more">Więcej</string>
+    <string name="action_refresh">Odśwież</string>
+</resources>

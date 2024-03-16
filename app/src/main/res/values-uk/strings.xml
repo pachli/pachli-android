@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Сталася помилка.</string>
     <string name="post_username_format">\@%s</string>
     <string name="title_edit_profile">Редагувати профіль</string>
     <string name="title_follow_requests">Запити на стеження</string>
@@ -23,8 +22,6 @@
     <string name="error_compose_character_limit">Допис задовгий!</string>
     <string name="error_no_web_browser_found">Не вдалося знайти браузер, який можна використати.</string>
     <string name="error_empty">Не може бути порожнім.</string>
-    <string name="error_network">Сталася помилка мережі. Перевірте інтернет-з\'єднання та спробуйте знову.</string>
-    <string name="title_lists">Списки</string>
     <string name="action_reset_schedule">Скинути</string>
     <string name="action_search">Пошук</string>
     <string name="action_edit_profile">Редагувати профіль</string>
@@ -68,8 +65,6 @@
     <string name="action_view_blocks">Заблоковані користувачі</string>
     <string name="action_view_bookmarks">Закладки</string>
     <string name="action_view_favourites">Вподобане</string>
-    <string name="action_view_profile">Профіль</string>
-    <string name="action_retry">Повторити</string>
     <string name="action_delete_and_redraft">Видалити та перестворити</string>
     <string name="action_delete">Видалити</string>
     <string name="action_edit">Змінити</string>
@@ -90,7 +85,6 @@
     <string name="notification_follow_request_format">%s надсилає запит на підписку</string>
     <string name="notification_follow_format">%s підписується на вас</string>
     <string name="footer_empty">Тут нічого немає. Потягніть вниз, щоб оновити!</string>
-    <string name="message_empty">Нічого немає.</string>
     <string name="post_content_warning_show_less">Згорнути</string>
     <string name="post_content_warning_show_more">Розгорнути</string>
     <string name="post_sensitive_media_directions">Натисніть для перегляду</string>
@@ -117,7 +111,6 @@
     <string name="action_send">ПОШИРИТИ</string>
     <string name="action_show_reblogs">Показати поширення</string>
     <string name="action_hide_reblogs">Сховати поширення</string>
-    <string name="action_more">Розгорнути</string>
     <string name="action_unreblog">Скасувати поширення</string>
     <string name="action_reblog">Поширити</string>
     <string name="notification_favourite_format">%s вподобує ваш допис</string>
@@ -191,7 +184,6 @@
     <string name="failed_report">Не вдалося звітувати</string>
     <string name="hint_additional_info">Додаткові коментарі</string>
     <string name="report_sent_success">Звіт @%s надіслано</string>
-    <string name="button_done">Готово</string>
     <string name="button_back">Назад</string>
     <string name="button_continue">Продовжити</string>
     <plurals name="poll_timespan_seconds">
@@ -253,15 +245,6 @@
     <string name="send_post_notification_error_title">Помилка надсилання допису</string>
     <string name="send_post_notification_title">Надсилання допису…</string>
     <string name="compose_active_account_description">Публікування як %1$s</string>
-    <string name="action_remove_from_list">Вилучити обліковий запис зі списку</string>
-    <string name="action_add_to_list">Додати обліковий запис до списку</string>
-    <string name="hint_search_people_list">Пошук серед тих, на кого ви підписані</string>
-    <string name="action_delete_list">Видалити список</string>
-    <string name="action_rename_list">Оновити список</string>
-    <string name="action_create_list">Створити список</string>
-    <string name="error_delete_list_fmt">Не вдалося видалити список \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Не вдалося оновити список \"%1$s\": %2$s</string>
-    <string name="error_create_list_fmt">Не вдалося створити список \"%1$s\": %2$s</string>
     <string name="add_account_description">Додати новий обліковий запис Mastodon</string>
     <string name="add_account_name">Додати обліковий запис</string>
     <string name="filter_add_description">Фільтрувати фразу</string>
@@ -417,7 +400,6 @@
     <string name="draft_deleted">Чернетку видалено</string>
     <string name="drafts_failed_loading_reply">Не вдалося завантажити дані відповіді</string>
     <string name="drafts_post_failed_to_send">Не вдалося надіслати цей допис!</string>
-    <string name="dialog_delete_list_warning">Ви дійсно хочете видалити список %s\?</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Ви не можете завантажити більше ніж %1$d медіавкладення.</item>
         <item quantity="few">Ви не можете завантажити більше ніж %1$d медіавкладення.</item>
@@ -453,7 +435,6 @@
     <string name="select_list_title">Вибрати список</string>
     <string name="edit_hashtag_hint">Хештег без #</string>
     <string name="add_hashtag_title">Додати хештег</string>
-    <string name="hint_list_name">Назва списку</string>
     <string name="description_poll">Опитування з варіантами: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_visibility_direct">Безпосередньо</string>
     <string name="description_post_bookmarked">Додано до закладок</string>
@@ -526,9 +507,6 @@
     <string name="action_add_reaction">додати реакцію</string>
     <string name="notification_report_format">Нова скарга %s</string>
     <string name="report_category_violation">Порушення правил</string>
-    <string name="action_add_or_remove_from_list">Додати або вилучити зі списку</string>
-    <string name="failed_to_add_to_list">Не вдалося додати обліковий запис до списку</string>
-    <string name="failed_to_remove_from_list">Не вдалося вилучити обліковий запис зі списку</string>
     <string name="action_unfollow_hashtag_format">Не слідкувати за #%s\?</string>
     <string name="status_created_at_now">зараз</string>
     <string name="notification_header_report_format">%s скаржиться %s</string>
@@ -537,7 +515,6 @@
     <string name="pref_title_notification_filter_reports">з\'явилася нова скарга</string>
     <string name="notification_report_name">Скарги</string>
     <string name="notification_report_description">Сповіщення про звіти про модерацію</string>
-    <string name="no_lists">У вас немає списків.</string>
     <string name="report_category_spam">Спам</string>
     <string name="report_category_other">Інше</string>
     <string name="error_following_hashtags_unsupported">Цей сервер не підтримує слідкування за хештегами.</string>
@@ -585,7 +562,6 @@
     <string name="total_accounts">Усього облікових записів</string>
     <string name="dialog_follow_hashtag_title">Стежити за хештегом</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
-    <string name="action_refresh">Оновити</string>
     <string name="notification_unknown_name">Невідомо</string>
     <string name="socket_timeout_exception">Надто тривала спроба з\'єднання з вашим сервером</string>
     <string name="ui_error_unknown">невідома причина</string>
@@ -635,5 +611,4 @@
 \n
 \nЦе <a href="https://github.com/mastodon/mastodon/issues/25398">помилка #25398 у Mastodon</a>.</string>
     <string name="error_media_upload_sending_fmt">Не вдалося вивантажити: %s</string>
-    <string name="list_exclusive_label">Сховати з домашньої стрічки</string>
 </resources>

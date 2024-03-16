@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">S\'es produch una error.</string>
     <string name="error_empty">Aquò pot pas èsser void.</string>
     <string name="error_no_web_browser_found">Cap de navegador web pas trobat d’utilizar.</string>
     <string name="error_compose_character_limit">La publicacion es tròp longa !</string>
@@ -43,7 +42,6 @@
     <string name="action_reply">Respondre</string>
     <string name="action_reblog">Partejar</string>
     <string name="action_favourite">Aimar</string>
-    <string name="action_more">Mai</string>
     <string name="action_compose">Redactar</string>
     <string name="action_logout">Tampar la session</string>
     <string name="action_logout_confirm">Volètz vertadièrament vos desconnectar del compte %1$s ?</string>
@@ -57,8 +55,6 @@
     <string name="action_delete">Escafar</string>
     <string name="action_send">TUT</string>
     <string name="action_send_public">TUT !</string>
-    <string name="action_retry">Tornar ensajar</string>
-    <string name="action_view_profile">Perfil</string>
     <string name="action_view_preferences">Preferéncias</string>
     <string name="action_view_favourites">Preferits</string>
     <string name="action_view_mutes">Utilizaires silenciats</string>
@@ -194,7 +190,6 @@
     <string name="replying_to">En responsa a @%s</string>
     <string name="add_account_name">Apondre un compte</string>
     <string name="add_account_description">Apondre un nòu compte Mastodon</string>
-    <string name="title_lists">Listas</string>
     <string name="compose_active_account_description">Publicar coma %1$s</string>
     <string name="action_set_caption">Apondre una legenda</string>
     <string name="action_remove">Levar</string>
@@ -229,13 +224,11 @@
     <string name="label_remote_account">Las informacions çai-jos son pas lo rebat del perfil complèt de l’utilizaire. Tocatz per dobrir lo perfil complèt dins lo navigador.</string>
     <string name="unpin_action">Tirar del perfil</string>
     <string name="pin_action">Penjar</string>
-    <string name="error_network">Una error ret s’es producha ! Mercés de verificar la connexion e tornar ensajar !</string>
     <string name="title_public_local">Local</string>
     <string name="title_direct_messages">Messatges dirèctes</string>
     <string name="title_tab_preferences">Onglets</string>
     <string name="title_posts_pinned">Penjats</string>
     <string name="post_username_format">\@%s</string>
-    <string name="message_empty">Pas res aicí.</string>
     <string name="action_unreblog">Suprimir lo partatge</string>
     <string name="action_unfavourite">Suprimir lo favorit</string>
     <string name="action_view_account_preferences">Preferéncias del compte</string>
@@ -272,15 +265,6 @@
     <string name="filter_dialog_remove_button">Suprimir</string>
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frasa de filtrar</string>
-    <string name="error_create_list_fmt">Creacion impossibla de la lsita \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Impossible de renomenar la lista \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">Supression impossibla de la lista \"%1$s\": %2$s</string>
-    <string name="action_create_list">Crear una lista</string>
-    <string name="action_rename_list">Renomenar la lista</string>
-    <string name="action_delete_list">Suprimir la lista</string>
-    <string name="hint_search_people_list">Cercar lo monde que seguètz</string>
-    <string name="action_add_to_list">Ajustar un compte a la lista</string>
-    <string name="action_remove_from_list">Suprimir aqueste compte de la lista</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Descriure lo contengut pels mal vesents (%d caractèr maximum)</item>
         <item quantity="other">Descriure los contenguts pels mal vesents (%d caractèrs maximum)</item>
@@ -307,7 +291,6 @@
     <string name="description_visibility_unlisted">Pas listada</string>
     <string name="description_visibility_private">Seguidors</string>
     <string name="description_visibility_direct">Dirècte</string>
-    <string name="hint_list_name">Nom de la lista</string>
     <string name="edit_hashtag_hint">Etiquetas sens #</string>
     <string name="compose_shortcut_long_label">Escriure una publicacion</string>
     <string name="compose_shortcut_short_label">Redactar</string>
@@ -353,7 +336,6 @@
     <string name="description_poll">Sondatge amb opcion : %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="button_continue">Contunhar</string>
     <string name="button_back">Tornar</string>
-    <string name="button_done">Acabat</string>
     <string name="report_sent_success">\@%s corrèctament senhalat</string>
     <string name="hint_additional_info">Comentaris suplementaris</string>
     <string name="report_remote_instance">Transferir a %s</string>
@@ -412,7 +394,6 @@
     <string name="draft_deleted">Borrolhon suprimit</string>
     <string name="drafts_failed_loading_reply">Fracàs del cargament de las info de responsa</string>
     <string name="drafts_post_failed_to_send">Fracàs de l’enviament !</string>
-    <string name="dialog_delete_list_warning">Volètz vertadièrament suprimir la lista %s \?</string>
     <string name="review_notifications">Repassar las notificacions</string>
     <string name="account_note_saved">Enregistrat !</string>
     <string name="account_note_hint">Vòstra nòta privada tocant aqueste compte</string>
@@ -484,9 +465,7 @@
     <string name="duration_180_days">180 jorns</string>
     <string name="duration_365_days">365 jorns</string>
     <string name="error_multimedia_size_limit">Los fichièrs video e àudio pòdon pas despassar %s.</string>
-    <string name="action_add_or_remove_from_list">Apondre o suprimir de la lista</string>
     <string name="set_focus_description">Tocatz o lisatz lo cercle per causir lo punt focal que deu aparéisser sus las miniaturas.</string>
-    <string name="no_lists">Avètz pas cap de lista.</string>
     <string name="pref_title_show_self_username">Mostrar lo nom d’utilizaire dins la barra d’aisinas</string>
     <string name="pref_show_self_username_disambiguate">Quand mai d’un compte es connectat</string>
     <string name="action_set_focus">Posicionar lo punt focal</string>
@@ -507,8 +486,6 @@
     <string name="notification_report_name">Senhalaments</string>
     <string name="report_category_violation">Violacion de las règlas</string>
     <string name="report_category_other">Autre</string>
-    <string name="failed_to_add_to_list">Fracàs de l’apondon del compte a la lista</string>
-    <string name="failed_to_remove_from_list">Fracàs de la supression del compte de la lista</string>
     <string name="notification_sign_up_description">Notificacions quand qualqu’un crèa un compte novèl</string>
     <string name="notification_report_description">Notificacions a prepaus dels senhalament a la moderacion</string>
     <string name="notification_update_description">Notificacions quand una publicacion ont avètz reagit es modificada</string>
@@ -570,7 +547,6 @@
     <string name="total_usage">Utilizacion totala</string>
     <string name="total_accounts">Total de comptes</string>
     <string name="title_public_trending_hashtags">Hashtags populars</string>
-    <string name="action_refresh">Actualizar</string>
     <string name="notification_unknown_name">Desconegut</string>
     <string name="socket_timeout_exception">La connexion al vòstre servidor a pres tròp de temps</string>
     <string name="ui_error_bookmark">Marcatge impossibla de la publicacion : %s</string>

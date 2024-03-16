@@ -67,7 +67,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
             setDisplayShowHomeEnabled(true)
         }
 
-        binding.draftsErrorMessageView.setup(R.drawable.elephant_friend_empty, R.string.no_drafts)
+        binding.draftsErrorMessageView.setup(app.pachli.core.ui.R.drawable.elephant_friend_empty, R.string.no_drafts)
 
         val adapter = DraftsAdapter(this)
 

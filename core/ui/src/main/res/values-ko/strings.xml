@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">네트워크 오류가 발생했습니다! 인터넷 연결을 확인하고 다시 시도하십시오!</string>
+    <string name="error_generic">오류가 발생했습니다.</string>
+    <string name="message_empty">메시지가 없습니다.</string>
+    <string name="action_retry">다시 시도</string>
+    <string name="button_done">완료</string>
+    <string name="action_view_profile">프로필</string>
+    <string name="action_more">더 보기</string>
+</resources>

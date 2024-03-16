@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">नेटवर्क त्रुटि हुई! कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
+    <string name="error_generic">एक त्रुटि हुई।</string>
+    <string name="message_empty">यहाँ कुछ नहीं।</string>
+    <string name="action_retry">पुनः प्रयास करें</string>
+    <string name="button_done">पूर्ण</string>
+    <string name="action_view_profile">प्रोफाइल</string>
+</resources>

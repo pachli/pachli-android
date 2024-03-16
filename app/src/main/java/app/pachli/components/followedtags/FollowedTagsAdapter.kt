@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemFollowedHashtagBinding
 import app.pachli.interfaces.HashtagActionListener
-import app.pachli.util.BindingHolder
 
 class FollowedTagsAdapter(
     private val actionListener: HashtagActionListener,

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Una error ret s’es producha ! Mercés de verificar la connexion e tornar ensajar !</string>
+    <string name="error_generic">S\'es produch una error.</string>
+    <string name="message_empty">Pas res aicí.</string>
+    <string name="action_retry">Tornar ensajar</string>
+    <string name="button_done">Acabat</string>
+    <string name="action_view_profile">Perfil</string>
+    <string name="action_more">Mai</string>
+    <string name="action_refresh">Actualizar</string>
+</resources>
