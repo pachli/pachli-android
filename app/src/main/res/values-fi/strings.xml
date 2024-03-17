@@ -644,4 +644,8 @@
     <string name="pref_title_update_check_now">Etsi päivitystä nyt</string>
     <string name="pref_update_next_scheduled_check">Seuraava ajoitettu tarkistus: %1$s</string>
     <string name="pref_update_check_no_updates">Ei päivityksiä tarjolla</string>
+    <string name="error_media_download">Lataaminen epäonnistui %1$s: %2$d%3$s</string>
+    <string name="title_lists_loading">Listat - ladataan…</string>
+    <string name="title_lists_failed">Listat - lataaminen epäonnistui</string>
+    <string name="manage_lists">Hallinnoi listoja</string>
 </resources>
