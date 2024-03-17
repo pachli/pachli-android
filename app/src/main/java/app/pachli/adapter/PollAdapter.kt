@@ -17,7 +17,6 @@
 package app.pachli.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.activity.emojify
@@ -28,7 +27,15 @@ import app.pachli.databinding.ItemPollBinding
 import app.pachli.viewdata.PollOptionViewData
 import app.pachli.viewdata.buildDescription
 import app.pachli.viewdata.calculatePercent
+import com.google.android.material.R
 import com.google.android.material.color.MaterialColors
+import kotlin.properties.Delegates
+
+/** Listener for user clicks on poll items */
+typealias PollOptionClickListener = (List<PollOptionViewData>) -> Unit
+
+/** Listener for user clicks on results */
+typealias ResultClickListener = () -> Unit
 
 // This can't take [app.pachli.viewdata.PollViewData] as a parameter as it also needs to show
 // data from polls that have been edited, and the "shape" of that data is quite different (no
@@ -43,9 +50,9 @@ class PollAdapter(
     /** True if the user can vote in this poll, false otherwise (e.g., it's from an edit) */
     val enabled: Boolean = true,
     /** Listener to call when the user clicks on the poll results */
-    private val resultClickListener: View.OnClickListener? = null,
+    private val resultClickListener: ResultClickListener? = null,
     /** Listener to call when the user clicks on a poll option */
-    private val pollOptionClickListener: View.OnClickListener? = null,
+    private val pollOptionClickListener: PollOptionClickListener? = null,
 ) : RecyclerView.Adapter<BindingHolder<ItemPollBinding>>() {
 
     /** How to display a poll */
@@ -58,6 +65,14 @@ class PollAdapter(
 
         /** Multiple choice (display as check boxes) */
         MULTIPLE_CHOICE,
+    }
+
+    /**
+     * True if the poll's current vote details should be shown with the controls to
+     * vote, false otherwise. Ignored if the display maode is [DisplayMode.RESULT]
+     */
+    var showVotes: Boolean by Delegates.observable(false) { _, _, _ ->
+        notifyItemRangeChanged(0, itemCount)
     }
 
     /** @return the indices of the selected options */
@@ -92,47 +107,66 @@ class PollAdapter(
             checkBox.setTextColor(defaultTextColor)
         }
 
-        when (displayMode) {
-            DisplayMode.RESULT -> {
-                val percent = calculatePercent(option.votesCount, votersCount, votesCount)
-                resultTextView.text = buildDescription(option.title, percent, option.voted, resultTextView.context)
+        val percent = calculatePercent(option.votesCount, votersCount, votesCount)
+        val level: Int
+        val tintColor: Int
+        val textColor: Int
+        val itemText: CharSequence
+
+        when {
+            displayMode == DisplayMode.RESULT && option.voted -> {
+                level = percent * 100
+                tintColor = MaterialColors.getColor(resultTextView, R.attr.colorPrimaryContainer)
+                textColor = MaterialColors.getColor(resultTextView, R.attr.colorOnPrimaryContainer)
+                itemText = buildDescription(option.title, percent, option.voted, resultTextView.context)
                     .emojify(emojis, resultTextView, animateEmojis)
-
-                val level = percent * 100
-                val optionColor: Int
-                val textColor: Int
-                // Use the "container" colours to ensure the text is visible on the container
-                // and on the background, per https://github.com/pachli/pachli-android/issues/85
-                if (option.voted) {
-                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorPrimaryContainer)
-                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnPrimaryContainer)
-                } else {
-                    optionColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorSecondaryContainer)
-                    textColor = MaterialColors.getColor(resultTextView, com.google.android.material.R.attr.colorOnSecondaryContainer)
-                }
-
-                resultTextView.background.level = level
-                resultTextView.background.setTint(optionColor)
-                resultTextView.setTextColor(textColor)
-                resultTextView.setOnClickListener(resultClickListener)
             }
-            DisplayMode.SINGLE_CHOICE -> {
-                radioButton.text = option.title.emojify(emojis, radioButton, animateEmojis)
-                radioButton.isChecked = option.selected
-                radioButton.setOnClickListener {
+            displayMode == DisplayMode.RESULT || showVotes -> {
+                level = percent * 100
+                tintColor = MaterialColors.getColor(resultTextView, R.attr.colorSecondaryContainer)
+                textColor = MaterialColors.getColor(resultTextView, R.attr.colorOnSecondaryContainer)
+                itemText = buildDescription(option.title, percent, option.voted, resultTextView.context)
+                    .emojify(emojis, resultTextView, animateEmojis)
+            }
+            else -> {
+                level = 0
+                tintColor = MaterialColors.getColor(resultTextView, R.attr.colorSecondaryContainer)
+                textColor = MaterialColors.getColor(resultTextView, android.R.attr.textColorPrimary)
+                itemText = option.title.emojify(emojis, radioButton, animateEmojis)
+            }
+        }
+
+        when (displayMode) {
+            DisplayMode.RESULT -> with(resultTextView) {
+                text = itemText
+                background.level = level
+                background.setTint(tintColor)
+                setTextColor(textColor)
+                setOnClickListener { resultClickListener?.invoke() }
+            }
+            DisplayMode.SINGLE_CHOICE -> with(radioButton) {
+                isChecked = option.selected
+                text = itemText
+                background.level = level
+                background.setTint(tintColor)
+                setTextColor(textColor)
+                setOnClickListener {
                     options.forEachIndexed { index, pollOption ->
                         pollOption.selected = index == holder.bindingAdapterPosition
                         notifyItemChanged(index)
                     }
-                    pollOptionClickListener?.onClick(radioButton)
+                    pollOptionClickListener?.invoke(options)
                 }
             }
-            DisplayMode.MULTIPLE_CHOICE -> {
-                checkBox.text = option.title.emojify(emojis, checkBox, animateEmojis)
-                checkBox.isChecked = option.selected
+            DisplayMode.MULTIPLE_CHOICE -> with(checkBox) {
+                isChecked = option.selected
+                text = itemText
+                background.level = level
+                background.setTint(tintColor)
+                setTextColor(textColor)
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
                     options[holder.bindingAdapterPosition].selected = isChecked
-                    pollOptionClickListener?.onClick(checkBox)
+                    pollOptionClickListener?.invoke(options)
                 }
             }
         }

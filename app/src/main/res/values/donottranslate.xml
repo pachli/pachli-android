@@ -229,7 +229,7 @@
         <item>31536000</item>
     </integer-array>
 
-    <string name="poll_percent_format"><!-- 15% --> &lt;b>%1$d%%&lt;/b></string>
+    <string name="poll_percent_format"><!-- 15% -->%1$d%%</string>
 
     <string-array name="mute_duration_names">
         <item>@string/duration_indefinite</item>
