@@ -9,7 +9,8 @@
         android:id="@+id/status_poll_option_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/poll_option_background"
         android:maxLines="3"
         android:ellipsize="end"
@@ -20,24 +21,30 @@
         android:textAlignment="viewStart"
         android:textColor="?colorOnSecondary"
         android:textSize="?attr/status_text_medium"
+        tools:visibility="gone"
         tools:text="40%" />
 
     <RadioButton
         android:id="@+id/status_poll_radio_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="?attr/status_text_medium"
         app:buttonTint="@color/compound_button_color"
+        android:background="@drawable/poll_option_background_inset"
+        android:paddingTop="2dp"
+        android:paddingEnd="6dp"
         tools:text="Option 1" />
 
     <CheckBox
         android:id="@+id/status_poll_checkbox"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="?attr/status_text_medium"
         app:buttonTint="@color/compound_button_color"
+        android:background="@drawable/poll_option_background_inset"
+        tools:visibility="gone"
         tools:text="Option 1" />
 
 </FrameLayout>

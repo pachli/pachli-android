@@ -15,38 +15,55 @@
   ~ see <http://www.gnu.org/licenses>.
   -->
 
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/status_poll_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:nestedScrollingEnabled="false" />
+        android:nestedScrollingEnabled="false"
+        tools:listitem="@layout/item_poll"
+        tools:itemCount="4" />
 
     <Button
-        android:id="@+id/status_poll_button"
+        android:id="@+id/status_poll_vote_button"
         style="@style/AppButton.Outlined"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:minWidth="150dp"
-        android:minHeight="0dp"
         android:paddingLeft="16dp"
         android:paddingTop="4dp"
         android:paddingRight="16dp"
         android:paddingBottom="4dp"
         android:text="@string/poll_vote"
-        android:textSize="?attr/status_text_medium" />
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintEnd_toStartOf="@+id/status_poll_show_results"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status_poll_options"
+        app:layout_constraintWidth_max="150dp" />
+
+    <CheckBox
+        android:id="@+id/status_poll_show_results"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/poll_show_votes"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/status_poll_vote_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/status_poll_vote_button"
+        app:layout_constraintTop_toTopOf="@+id/status_poll_vote_button"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/status_poll_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:textSize="?attr/status_text_medium"
+        android:layout_marginTop="8dp"
         android:textIsSelectable="true"
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintTop_toBottomOf="@id/status_poll_vote_button"
         tools:text="7 votes • 7 hours remaining" />
 </merge>

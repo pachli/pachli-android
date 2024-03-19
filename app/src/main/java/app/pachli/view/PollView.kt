@@ -19,14 +19,20 @@ package app.pachli.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.Typeface
+import android.text.style.ReplacementSpan
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.adapter.PollAdapter
+import app.pachli.adapter.PollOptionClickListener
+import app.pachli.adapter.ResultClickListener
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
@@ -38,6 +44,13 @@ import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.buildDescription
 import app.pachli.viewdata.calculatePercent
 import java.text.NumberFormat
+
+/**
+ * @param choices If null the user has clicked on the poll without voting and this
+ *      should be treated as a navigation click. If non-null the user has voted,
+ *      and [choices] contains the option(s) they voted for.
+ */
+typealias PollClickListener = (choices: List<Int>?) -> Unit
 
 /**
  * Compound view that displays [PollViewData].
@@ -56,22 +69,12 @@ class PollView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
-    fun interface OnClickListener {
-        /**
-         * @param choices If null the user has clicked on the poll without voting and this
-         *      should be treated as a navigation click. If non-null the user has voted,
-         *      and [choices] contains the option(s) they voted for.
-         */
-        fun onClick(choices: List<Int>?)
-    }
-
+) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
     val binding: StatusPollBinding
 
     init {
         val inflater = context.getSystemService(LayoutInflater::class.java)
         binding = StatusPollBinding.inflate(inflater, this)
-        orientation = VERTICAL
     }
 
     fun bind(
@@ -80,12 +83,12 @@ class PollView @JvmOverloads constructor(
         statusDisplayOptions: StatusDisplayOptions,
         numberFormat: NumberFormat,
         absoluteTimeFormatter: AbsoluteTimeFormatter,
-        listener: OnClickListener,
+        listener: PollClickListener,
     ) {
         val now = System.currentTimeMillis()
         var displayMode: PollAdapter.DisplayMode = PollAdapter.DisplayMode.RESULT
-        var resultClickListener: View.OnClickListener? = null
-        var pollOptionClickListener: View.OnClickListener? = null
+        var resultClickListener: ResultClickListener? = null
+        var pollOptionClickListener: PollOptionClickListener? = null
 
         // Translated? Create new options from old, using the translated title
         val options = pollViewData.translatedPoll?.let {
@@ -96,13 +99,14 @@ class PollView @JvmOverloads constructor(
 
         val canVote = !(pollViewData.expired(now) || pollViewData.voted)
         if (canVote) {
-            pollOptionClickListener = View.OnClickListener {
-                binding.statusPollButton.isEnabled = options.firstOrNull { it.selected } != null
+            pollOptionClickListener = {
+                binding.statusPollVoteButton.isEnabled = it.any { it.selected }
             }
             displayMode = if (pollViewData.multiple) PollAdapter.DisplayMode.MULTIPLE_CHOICE else PollAdapter.DisplayMode.SINGLE_CHOICE
         } else {
-            resultClickListener = View.OnClickListener { listener.onClick(null) }
-            binding.statusPollButton.hide()
+            resultClickListener = { listener(null) }
+            binding.statusPollVoteButton.hide()
+            binding.statusPollShowResults.hide()
         }
 
         val adapter = PollAdapter(
@@ -136,17 +140,31 @@ class PollView @JvmOverloads constructor(
         if (!canVote) return
 
         // Set up voting
-        binding.statusPollButton.show()
-        binding.statusPollButton.isEnabled = false
-        binding.statusPollButton.setOnClickListener {
-            val selected = adapter.getSelected()
-            if (selected.isNotEmpty()) listener.onClick(selected)
+        with(binding.statusPollVoteButton) {
+            show()
+            isEnabled = false
+            setOnClickListener {
+                val selected = adapter.getSelected()
+                if (selected.isNotEmpty()) listener(selected)
+            }
+        }
+
+        // Set up showing/hiding votes
+        if (pollViewData.votesCount > 0) {
+            with(binding.statusPollShowResults) {
+                show()
+                isChecked = adapter.showVotes
+                setOnCheckedChangeListener { _, isChecked ->
+                    adapter.showVotes = isChecked
+                }
+            }
         }
     }
 
     fun hide() {
         binding.statusPollOptions.hide()
-        binding.statusPollButton.hide()
+        binding.statusPollVoteButton.hide()
+        binding.statusPollShowResults.hide()
         binding.statusPollDescription.hide()
     }
 
@@ -220,5 +238,44 @@ class PollView @JvmOverloads constructor(
             absoluteTimeFormatter,
         )
         return context.getString(R.string.description_poll, *args)
+    }
+}
+
+/**
+ * Span to show vote percentages inline in a poll.
+ *
+ * Shows the text at 80% of normal size and bold. Text is right-justified in a space guaranteed
+ * to be large enough to accomodate "100%".
+ */
+class VotePercentSpan : ReplacementSpan() {
+    override fun getSize(paint: Paint, text: CharSequence?, start: Int, end: Int, fm: Paint.FontMetricsInt?): Int {
+        paint.textSize *= 0.8f
+        return paint.measureText(TEMPLATE).toInt()
+    }
+
+    override fun draw(canvas: Canvas, text: CharSequence?, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int, paint: Paint) {
+        text ?: return
+        val actualText = text.subSequence(start, end).toString()
+
+        paint.textSize *= 0.8f
+        paint.typeface = Typeface.create(paint.typeface, Typeface.BOLD)
+
+        // Compute an x-offset for the text so it will be right aligned
+        val actualTextWidth = paint.measureText(actualText)
+        val spanWidth = paint.measureText(TEMPLATE)
+        val xOffset = spanWidth - actualTextWidth
+
+        // Compute a new y value so the text will be centre-aligned within the span
+        val textBounds = Rect()
+        paint.getTextBounds(actualText, 0, actualText.length, textBounds)
+        val spanHeight = (bottom - top)
+        val newY = (spanHeight / 2) + (textBounds.height() / 2)
+
+        canvas.drawText(actualText, start, end, x + xOffset, newY.toFloat(), paint)
+    }
+
+    companion object {
+        /** Span will be sized to be large enough for this text */
+        private const val TEMPLATE = "100%"
     }
 }
