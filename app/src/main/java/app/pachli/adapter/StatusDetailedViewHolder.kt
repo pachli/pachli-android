@@ -46,7 +46,7 @@ class StatusDetailedViewHolder(
 
         viewData.status.language?.also {
             sb.append(metadataJoiner)
-            sb.append(it.uppercase(Locale.ROOT))
+            sb.append(it.uppercase(Locale.getDefault()))
         }
 
         editedAt?.also {
