@@ -43,7 +43,7 @@
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status_poll_options"
-        app:layout_constraintWidth_max="150dp" />
+        app:layout_constraintWidth_min="150dp" />
 
     <CheckBox
         android:id="@+id/status_poll_show_results"
