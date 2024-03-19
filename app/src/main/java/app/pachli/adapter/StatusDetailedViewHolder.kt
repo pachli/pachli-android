@@ -20,6 +20,7 @@ import app.pachli.util.description
 import app.pachli.util.icon
 import app.pachli.viewdata.StatusViewData
 import java.text.DateFormat
+import java.util.Locale
 
 class StatusDetailedViewHolder(
     private val binding: ItemStatusDetailedBinding,
@@ -42,6 +43,11 @@ class StatusDetailedViewHolder(
         val metadataJoiner = context.getString(R.string.metadata_joiner)
         sb.append(" ")
         sb.append(dateFormat.format(createdAt))
+
+        viewData.status.language?.also {
+            sb.append(metadataJoiner)
+            sb.append(it.uppercase(Locale.ROOT))
+        }
 
         editedAt?.also {
             val editedAtString = context.getString(R.string.post_edited, dateFormat.format(it))
