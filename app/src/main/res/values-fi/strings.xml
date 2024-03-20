@@ -648,4 +648,5 @@
     <string name="title_lists_loading">Listat - ladataan…</string>
     <string name="title_lists_failed">Listat - lataaminen epäonnistui</string>
     <string name="manage_lists">Hallinnoi listoja</string>
+    <string name="poll_show_votes">Näytä äänet</string>
 </resources>
