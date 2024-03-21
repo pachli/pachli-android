@@ -61,6 +61,8 @@ data class AccountEntity(
     var notificationsSignUps: Boolean = true,
     var notificationsUpdates: Boolean = true,
     var notificationsReports: Boolean = true,
+    @ColumnInfo(defaultValue = "true")
+    var notificationsSeveredRelationships: Boolean = true,
     var notificationSound: Boolean = true,
     var notificationVibration: Boolean = true,
     var notificationLight: Boolean = true,

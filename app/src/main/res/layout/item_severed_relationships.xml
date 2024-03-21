@@ -30,17 +30,18 @@
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_flag_24dp" />
+        app:srcCompat="@drawable/ic_flag_24dp"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/notification_top_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:gravity="top"
         android:textColor="?android:textColorSecondary"
@@ -49,7 +50,8 @@
         app:layout_constraintEnd_toStartOf="@id/datetime"
         app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Relationship with example.com severed" />
+        tools:text="Relationship with example.com severed"
+        tools:ignore="SelectableText" />
 
     <TextView
         android:id="@+id/datetime"
@@ -57,7 +59,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/notification_top_text"
-        tools:text="14h" />
+        tools:text="14h"
+        tools:ignore="SelectableText" />
 
     <TextView
         android:id="@+id/notification_summary"
@@ -71,7 +74,8 @@
         android:textSize="?attr/status_text_medium"
         app:layout_constraintStart_toStartOf="@+id/notification_top_text"
         app:layout_constraintTop_toBottomOf="@+id/notification_top_text"
-        tools:text="2 relationships" />
+        tools:text="2 relationships"
+        tools:ignore="SelectableText" />
 
     <TextView
         android:id="@+id/notification_category"
@@ -86,5 +90,6 @@
         android:textSize="?attr/status_text_medium"
         app:layout_constraintStart_toStartOf="@+id/notification_summary"
         app:layout_constraintTop_toBottomOf="@id/notification_summary"
-        tools:text="@string/notification_severed_relationships_domain_block_body" />
+        tools:text="@string/notification_severed_relationships_domain_block_body"
+        tools:ignore="SelectableText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

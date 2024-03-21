@@ -94,6 +94,7 @@ private const val CHANNEL_SUBSCRIPTIONS = "CHANNEL_SUBSCRIPTIONS"
 private const val CHANNEL_SIGN_UP = "CHANNEL_SIGN_UP"
 private const val CHANNEL_UPDATES = "CHANNEL_UPDATES"
 private const val CHANNEL_REPORT = "CHANNEL_REPORT"
+private const val CHANNEL_SEVERED_RELATIONSHIPS = "CHANNEL_SEVERED_RELATIONSHIPS"
 private const val CHANNEL_BACKGROUND_TASKS = "CHANNEL_BACKGROUND_TASKS"
 
 /** WorkManager Tag */
@@ -504,6 +505,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             CHANNEL_SIGN_UP + account.identifier,
             CHANNEL_UPDATES + account.identifier,
             CHANNEL_REPORT + account.identifier,
+            CHANNEL_SEVERED_RELATIONSHIPS + account.identifier,
         )
         val channelNames = intArrayOf(
             R.string.notification_mention_name,
@@ -516,6 +518,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             R.string.notification_sign_up_name,
             R.string.notification_update_name,
             R.string.notification_report_name,
+            R.string.notification_severed_relationships_name,
         )
         val channelDescriptions = intArrayOf(
             R.string.notification_mention_descriptions,
@@ -528,6 +531,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             R.string.notification_sign_up_description,
             R.string.notification_update_description,
             R.string.notification_report_description,
+            R.string.notification_severed_relationships_description,
         )
         val channels: MutableList<NotificationChannel> = ArrayList(6)
         val channelGroup = NotificationChannelGroup(account.identifier, account.fullName)
@@ -685,7 +689,8 @@ fun filterNotification(
         Notification.Type.SIGN_UP -> account.notificationsSignUps
         Notification.Type.UPDATE -> account.notificationsUpdates
         Notification.Type.REPORT -> account.notificationsReports
-        else -> false
+        Notification.Type.SEVERED_RELATIONSHIPS -> account.notificationsSeveredRelationships
+        Notification.Type.UNKNOWN -> false
     }
 }
 
@@ -705,7 +710,8 @@ private fun getChannelId(account: AccountEntity, type: Notification.Type): Strin
         Notification.Type.SIGN_UP -> CHANNEL_SIGN_UP + account.identifier
         Notification.Type.UPDATE -> CHANNEL_UPDATES + account.identifier
         Notification.Type.REPORT -> CHANNEL_REPORT + account.identifier
-        else -> null
+        Notification.Type.SEVERED_RELATIONSHIPS -> CHANNEL_SEVERED_RELATIONSHIPS + account.identifier
+        Notification.Type.UNKNOWN -> null
     }
 }
 
