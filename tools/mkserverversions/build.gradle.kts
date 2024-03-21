@@ -26,7 +26,7 @@ application {
 
 dependencies {
     // GraphQL client
-    implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
+    implementation("com.apollographql.apollo3:apollo-runtime:3.8.3")
 
     // Logging
     implementation("io.github.oshai:kotlin-logging-jvm:6.0.3")
