@@ -1748,7 +1748,7 @@
         errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_compose.xml"
-            line="364"
+            line="368"
             column="10"/>
     </issue>
 

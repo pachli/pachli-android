@@ -21,13 +21,22 @@ import android.graphics.Color
 import androidx.annotation.Px
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.IconicsDrawable
+import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
+import com.mikepenz.iconics.utils.size
 import com.mikepenz.iconics.utils.sizePx
 
 fun makeIcon(context: Context, icon: GoogleMaterial.Icon, @Px iconSize: Int): IconicsDrawable {
     return IconicsDrawable(context, icon).apply {
         sizePx = iconSize
+        colorInt = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlNormal, Color.BLACK)
+    }
+}
+
+fun makeIcon(context: Context, icon: GoogleMaterial.Icon, iconSize: IconicsSize): IconicsDrawable {
+    return IconicsDrawable(context, icon).apply {
+        size = iconSize
         colorInt = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorControlNormal, Color.BLACK)
     }
 }
