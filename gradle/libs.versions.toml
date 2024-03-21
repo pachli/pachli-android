@@ -51,7 +51,7 @@ leakcanary = "2.13"
 lint = "31.3.0" # = agp + 23.0.0 (= 8.3.0), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
 material = "1.11.0"
 material-drawer = "9.0.2"
-material-iconics = "5.4.0"
+material-iconics = "5.5.0-compose01"
 material-typeface = "4.0.0.2-kotlin"
 mockito-inline = "5.2.0"
 mockito-kotlin = "5.2.1"
