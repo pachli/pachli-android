@@ -727,4 +727,5 @@ fun Notification.Type.uiString(): Int = when (this) {
     Notification.Type.SIGN_UP -> R.string.notification_sign_up_name
     Notification.Type.UPDATE -> R.string.notification_update_name
     Notification.Type.REPORT -> R.string.notification_report_name
+    Notification.Type.SEVERED_RELATIONSHIPS -> R.string.notification_severed_relationships_name
 }

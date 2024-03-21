@@ -51,6 +51,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.receiver.SendStatusBroadcastReceiver
 import app.pachli.viewdata.buildDescription
@@ -834,6 +835,13 @@ private fun titleForType(
             return context.getString(R.string.notification_report_format, account.domain)
         }
 
+        Notification.Type.SEVERED_RELATIONSHIPS -> {
+            return context.getString(
+                R.string.notification_severed_relationships_format,
+                notification.relationshipSeveranceEvent?.targetName,
+            )
+        }
+
         Notification.Type.UNKNOWN -> return null
     }
 }
@@ -889,6 +897,15 @@ private fun bodyForType(
                 notification.account.name.unicodeWrap(),
                 report.targetAccount.name.unicodeWrap(),
             )
+        }
+        Notification.Type.SEVERED_RELATIONSHIPS -> {
+            val resourceId = when (notification.relationshipSeveranceEvent!!.type) {
+                RelationshipSeveranceEvent.Type.DOMAIN_BLOCK -> R.string.notification_severed_relationships_domain_block_body
+                RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK -> R.string.notification_severed_relationships_user_domain_block_body
+                RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION -> R.string.notification_severed_relationships_account_suspension_body
+                RelationshipSeveranceEvent.Type.UNKNOWN -> R.string.notification_severed_relationships_unknown_body
+            }
+            return context.getString(resourceId)
         }
 
         Notification.Type.UNKNOWN -> return null
