@@ -31,6 +31,7 @@ data class Notification(
     val account: TimelineAccount,
     val status: Status?,
     val report: Report?,
+    val relationshipSeveranceEvent: RelationshipSeveranceEvent? = null,
 ) {
 
     /** From https://docs.joinmastodon.org/entities/Notification/#type */
@@ -80,6 +81,10 @@ data class Notification(
         /** A new report has been filed */
         @Json(name = "admin.report")
         REPORT("admin.report"),
+
+        /** Some of your follow relationships have been severed as a result of a moderation or block event */
+        @Json(name = "severed_relationships")
+        SEVERED_RELATIONSHIPS("severed_relationships"),
         ;
 
         companion object {
@@ -87,7 +92,19 @@ data class Notification(
             fun byString(s: String) = entries.firstOrNull { s == it.presentation } ?: UNKNOWN
 
             /** Notification types for UI display (omits UNKNOWN) */
-            val visibleTypes = listOf(MENTION, REBLOG, FAVOURITE, FOLLOW, FOLLOW_REQUEST, POLL, STATUS, SIGN_UP, UPDATE, REPORT)
+            val visibleTypes = listOf(
+                MENTION,
+                REBLOG,
+                FAVOURITE,
+                FOLLOW,
+                FOLLOW_REQUEST,
+                POLL,
+                STATUS,
+                SIGN_UP,
+                UPDATE,
+                REPORT,
+                SEVERED_RELATIONSHIPS,
+            )
         }
 
         override fun toString(): String {

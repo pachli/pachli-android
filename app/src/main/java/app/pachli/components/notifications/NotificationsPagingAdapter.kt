@@ -31,6 +31,7 @@ import app.pachli.core.network.model.Status
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.databinding.ItemReportNotificationBinding
+import app.pachli.databinding.ItemSeveredRelationshipsBinding
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
@@ -51,6 +52,9 @@ enum class NotificationViewKind {
     FOLLOW,
     FOLLOW_REQUEST,
     REPORT,
+
+    /** View details of the affected target, number of relationships affected, and the actor */
+    SEVERED_RELATIONSHIPS,
     UNKNOWN,
     ;
 
@@ -71,6 +75,7 @@ enum class NotificationViewKind {
                 -> FOLLOW
                 Notification.Type.FOLLOW_REQUEST -> FOLLOW_REQUEST
                 Notification.Type.REPORT -> REPORT
+                Notification.Type.SEVERED_RELATIONSHIPS -> SEVERED_RELATIONSHIPS
                 null -> UNKNOWN
             }
         }
@@ -179,6 +184,11 @@ class NotificationsPagingAdapter(
                 ReportNotificationViewHolder(
                     ItemReportNotificationBinding.inflate(inflater, parent, false),
                     notificationActionListener,
+                )
+            }
+            NotificationViewKind.SEVERED_RELATIONSHIPS -> {
+                SeveredRelationshipsViewHolder(
+                    ItemSeveredRelationshipsBinding.inflate(inflater, parent, false),
                 )
             }
             else -> {
