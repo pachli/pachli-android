@@ -54,6 +54,7 @@ import app.pachli.settings.switchPreference
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getPachliDisplayName
+import app.pachli.util.iconRes
 import app.pachli.util.makeIcon
 import com.github.michaelbull.result.getOrElse
 import com.google.android.material.snackbar.Snackbar
@@ -207,9 +208,9 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setSummaryProvider { entry }
                     val visibility = accountManager.activeAccount?.defaultPostPrivacy ?: Status.Visibility.PUBLIC
                     value = visibility.serverString()
-                    setIcon(getIconForVisibility(visibility))
+                    visibility.iconRes()?.let { setIcon(it) }
                     setOnPreferenceChangeListener { _, newValue ->
-                        setIcon(getIconForVisibility(Status.Visibility.byString(newValue as String)))
+                        Status.Visibility.byString(newValue as String).iconRes()?.let { setIcon(it) }
                         syncWithServer(visibility = newValue)
                         true
                     }
@@ -341,17 +342,6 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
             Snackbar.make(view, R.string.pref_failed_to_sync, Snackbar.LENGTH_LONG)
                 .setAction(app.pachli.core.ui.R.string.action_retry) { syncWithServer(visibility, sensitive) }
                 .show()
-        }
-    }
-
-    @DrawableRes
-    private fun getIconForVisibility(visibility: Status.Visibility): Int {
-        return when (visibility) {
-            Status.Visibility.PRIVATE -> R.drawable.ic_lock_outline_24dp
-
-            Status.Visibility.UNLISTED -> R.drawable.ic_lock_open_24dp
-
-            else -> R.drawable.ic_public_24dp
         }
     }
 

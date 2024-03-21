@@ -17,16 +17,13 @@
 package app.pachli.components.compose.view
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
+import android.view.View
 import app.pachli.R
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Status
+import app.pachli.util.iconDrawable
 import com.google.android.material.button.MaterialButton
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
-import com.mikepenz.iconics.utils.colorInt
-import com.mikepenz.iconics.utils.sizeDp
 
 class TootButton
 @JvmOverloads constructor(
@@ -48,29 +45,16 @@ class TootButton
         setPadding(padding, 0, padding, 0)
     }
 
-    fun setStatusVisibility(visibility: Status.Visibility) {
+    fun setStatusVisibility(view: View, visibility: Status.Visibility) {
         if (!smallStyle) {
-            icon = when (visibility) {
-                Status.Visibility.PUBLIC -> {
-                    setText(R.string.action_send_public)
-                    null
-                }
-                Status.Visibility.UNLISTED -> {
-                    setText(R.string.action_send)
-                    null
-                }
-                Status.Visibility.PRIVATE,
-                Status.Visibility.DIRECT,
-                -> {
-                    setText(R.string.action_send)
-                    IconicsDrawable(context, GoogleMaterial.Icon.gmd_lock).apply {
-                        sizeDp = 18
-                        colorInt = Color.WHITE
-                    }
-                }
-                else -> {
-                    null
-                }
+            icon = visibility.iconDrawable(view)
+
+            when (visibility) {
+                Status.Visibility.UNKNOWN -> { /* do nothing */ }
+                Status.Visibility.PUBLIC -> setText(R.string.action_send_public)
+                Status.Visibility.UNLISTED -> setText(R.string.action_send)
+                Status.Visibility.PRIVATE -> setText(R.string.action_send)
+                Status.Visibility.DIRECT -> setText(R.string.action_send)
             }
         }
     }
