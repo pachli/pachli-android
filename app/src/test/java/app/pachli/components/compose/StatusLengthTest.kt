@@ -40,9 +40,12 @@ class StatusLengthTest(
                 // "@user@server" should be treated as "@user"
                 arrayOf("123 @example@example.org", 12),
                 // URLs under 23 chars are treated as 23 chars
-                arrayOf("123 http://example.url", 27),
+                arrayOf("123 http://example.org", 27),
                 // URLs over 23 chars are treated as 23 chars
                 arrayOf("123 http://urlthatislongerthan23characters.example.org", 27),
+                // URLs end when they should (the ")." should be part of the status
+                // length, not considered to be part of the URL)
+                arrayOf("test (https://example.com). test", 36),
                 // Short hashtags are treated as is
                 arrayOf("123 #basictag", 13),
                 // Long hashtags are *also* treated as is (not treated as 23, like URLs)

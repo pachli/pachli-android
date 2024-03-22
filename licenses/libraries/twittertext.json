@@ -1,0 +1,17 @@
+{
+    "uniqueId": "com.twitter:twittertext",
+    "developers": [
+        {
+            "name": "Twitter",
+            "organisationUrl": "https://www.twitter.com"
+        }
+    ],
+    "artifactVersion": "1.14.3",
+    "description": "Libraries and conformance tests to standardize parsing of Tweet text.",
+    "name": "Twitter text parsing",
+    "tag": "text",
+    "licenses": [
+        "Apache_2_0"
+    ],
+    "website": "https://github.com/twitter/twitter-text"
+}
