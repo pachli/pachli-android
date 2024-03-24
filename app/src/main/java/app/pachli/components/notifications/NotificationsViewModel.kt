@@ -32,7 +32,6 @@ import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
-import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
@@ -409,7 +408,7 @@ class NotificationsViewModel @Inject constructor(
                             }
                         }
                     } catch (e: Exception) {
-                        ifExpected(e) { _uiErrorChannel.send(UiError.make(e, it)) }
+                        _uiErrorChannel.send(UiError.make(e, it))
                     }
                 }
         }
@@ -428,7 +427,7 @@ class NotificationsViewModel @Inject constructor(
                         }
                         uiSuccess.emit(NotificationActionSuccess.from(action))
                     } catch (e: Exception) {
-                        ifExpected(e) { _uiErrorChannel.send(UiError.make(e, action)) }
+                        _uiErrorChannel.send(UiError.make(e, action))
                     }
                 }
         }

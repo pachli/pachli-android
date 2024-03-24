@@ -126,9 +126,8 @@ class NetworkTimelineRemoteMediator(
             }
 
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
-        } catch (e: IOException) {
-            MediatorResult.Error(e)
-        } catch (e: HttpException) {
+        } catch (e: Exception) {
+            Timber.e(e, "Error loading, LoadType = %s", loadType)
             MediatorResult.Error(e)
         }
     }

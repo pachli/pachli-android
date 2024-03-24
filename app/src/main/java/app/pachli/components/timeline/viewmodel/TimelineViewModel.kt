@@ -43,7 +43,6 @@ import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
-import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
@@ -361,7 +360,7 @@ abstract class TimelineViewModel(
                         }.getOrThrow()
                         uiSuccess.emit(StatusActionSuccess.from(action))
                     } catch (e: Exception) {
-                        ifExpected(e) { _uiErrorChannel.send(UiError.make(e, action)) }
+                        _uiErrorChannel.send(UiError.make(e, action))
                     }
                 }
         }

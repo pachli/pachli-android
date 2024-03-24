@@ -4,6 +4,7 @@
     <string name="error_network_fmt">A network error occurred: %s</string>
     <string name="error_generic_fmt">An error occurred: %s</string>
     <string name="error_404_not_found_fmt">Your server does not support this feature: %1$s</string>
+    <string name="error_json_data_fmt">Your server returned an invalid response: %1$s</string>
     <string name="error_generic">An error occurred.</string>
     <string name="message_empty">Nothing here.</string>
     <string name="action_retry">Retry</string>
