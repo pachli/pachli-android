@@ -29,6 +29,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.MainActivityIntent
 import com.bumptech.glide.Glide
+import java.util.concurrent.ExecutionException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -36,17 +37,28 @@ suspend fun updateShortcut(context: Context, account: AccountEntity) = withConte
     val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
     val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
 
-    val bmp = if (TextUtils.isEmpty(account.profilePictureUrl)) {
+    val bmp = try {
+        if (TextUtils.isEmpty(account.profilePictureUrl)) {
+            Glide.with(context)
+                .asBitmap()
+                .load(DR.drawable.avatar_default)
+                .submit(innerSize, innerSize)
+                .get()
+        } else {
+            Glide.with(context)
+                .asBitmap()
+                .load(account.profilePictureUrl)
+                .error(DR.drawable.avatar_default)
+                .submit(innerSize, innerSize)
+                .get()
+        }
+    } catch (e: ExecutionException) {
+        // The `.error` handler isn't always used. For example, Glide throws
+        // ExecutionException if the URL does not point at an image. Fallback to
+        // the default avatar (https://github.com/bumptech/glide/issues/4672).
         Glide.with(context)
             .asBitmap()
             .load(DR.drawable.avatar_default)
-            .submit(innerSize, innerSize)
-            .get()
-    } else {
-        Glide.with(context)
-            .asBitmap()
-            .load(account.profilePictureUrl)
-            .error(DR.drawable.avatar_default)
             .submit(innerSize, innerSize)
             .get()
     }
