@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.components.timeline.util.isExpected
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
@@ -431,20 +432,32 @@ class TimelineFragment :
                                     // Show errors as a snackbar if there is existing content to show
                                     // (either cached, or in the adapter), or as a full screen error
                                     // otherwise.
+                                    //
+                                    // Expected errors can be retried, unexpected ones cannot
                                     if (adapter.itemCount > 0) {
                                         snackbar = Snackbar.make(
                                             (activity as ActionButtonActivity).actionButton
                                                 ?: binding.root,
                                             message,
                                             Snackbar.LENGTH_INDEFINITE,
-                                        )
-                                            .setAction(app.pachli.core.ui.R.string.action_retry) { adapter.retry() }
+                                        ).apply {
+                                            if (error.isExpected()) {
+                                                setAction(app.pachli.core.ui.R.string.action_retry) { adapter.retry() }
+                                            }
+                                        }
+
                                         snackbar!!.show()
                                     } else {
-                                        binding.statusView.setup(error) {
-                                            snackbar?.dismiss()
-                                            adapter.retry()
+                                        val callback: ((v: View) -> Unit)? = if (error.isExpected()) {
+                                            {
+                                                snackbar?.dismiss()
+                                                adapter.retry()
+                                            }
+                                        } else {
+                                            null
                                         }
+
+                                        binding.statusView.setup(error, callback)
                                         binding.statusView.show()
                                         binding.recyclerView.hide()
                                     }

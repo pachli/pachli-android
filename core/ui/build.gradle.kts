@@ -38,6 +38,9 @@ dependencies {
     // Uses HttpException from Retrofit
     implementation(projects.core.network)
 
+    // Uses JsonDataException from Moshi
+    implementation(libs.moshi)
+
     // Some views inherit from AndroidX views
     implementation(libs.bundles.androidx)
 

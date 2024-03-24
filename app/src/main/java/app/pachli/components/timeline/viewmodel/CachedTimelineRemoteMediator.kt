@@ -37,7 +37,6 @@ import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import com.squareup.moshi.Moshi
-import java.io.IOException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.Headers
@@ -78,6 +77,7 @@ class CachedTimelineRemoteMediator(
                     Timber.d("Loading from item: %s", statusId)
                     getInitialPage(statusId, state.config.pageSize)
                 }
+
                 LoadType.APPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
                         activeAccount.id,
@@ -87,6 +87,7 @@ class CachedTimelineRemoteMediator(
                     Timber.d("Loading from remoteKey: %s", rke)
                     api.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
                 }
+
                 LoadType.PREPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
                         activeAccount.id,
@@ -168,9 +169,8 @@ class CachedTimelineRemoteMediator(
             }
 
             return MediatorResult.Success(endOfPaginationReached = false)
-        } catch (e: IOException) {
-            MediatorResult.Error(e)
-        } catch (e: HttpException) {
+        } catch (e: Exception) {
+            Timber.e(e, "Error loading, LoadType = %s", loadType)
             MediatorResult.Error(e)
         }
     }
