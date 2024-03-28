@@ -1,0 +1,21 @@
+Pachli 2.4.0
+
+New features:
+
+- Notify user about severed relationships 
+- Show post's language tag in the detailed view  
+- Allow user to see poll results before voting 
+- Allow user to set a list's replies policy 
+- Show "Notifications", "Followed hashtags" and lists item in left-nav 
+- Tapping followed hashtag names in lists opens relevant timeline 
+- Auto-hide Image Viewer toolbar 
+
+Fixes:
+
+- Improve URL / tag / mention extraction when composing 
+- Improve accessibility of ComposeActivity bottomsheets and buttons 
+- Update tabs when lists are renamed or deleted 
+- Show sized placeholder for hidden account media 
+- Ensure logging out accounts completes 
+- Ensure files are fully downloaded before sharing 
+- Update Finnish, Kabyle, and Spanish translations 
