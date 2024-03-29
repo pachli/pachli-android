@@ -68,7 +68,7 @@ class NotificationsActivity : BottomSheetActivity(), ActionButtonActivity, AppBa
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         super.onCreateMenu(menu, menuInflater)
-        menuInflater.inflate(R.menu.activity_trending, menu)
+        menuInflater.inflate(R.menu.activity_notifications, menu)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
