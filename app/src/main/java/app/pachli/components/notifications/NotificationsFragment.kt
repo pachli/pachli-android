@@ -50,12 +50,12 @@ import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.extensions.visible
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
+import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
 import app.pachli.fragment.SFragment
@@ -79,6 +79,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
@@ -154,29 +155,35 @@ class NotificationsFragment :
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
 
-        binding.recyclerView.addOnScrollListener(
-            object : RecyclerView.OnScrollListener() {
-                val actionButton = (activity as? ActionButtonActivity)?.actionButton
+        val saveIdListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState != SCROLL_STATE_IDLE) return
 
-                override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
-                    actionButton?.visible(viewModel.uiState.value.showFabWhileScrolling || dy == 0)
-                }
-
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    newState != SCROLL_STATE_IDLE && return
-
-                    actionButton?.show()
-
-                    // Save the ID of the first notification visible in the list, so the user's
-                    // reading position is always restorable.
-                    layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
-                        adapter.snapshot().getOrNull(position)?.id?.let { id ->
-                            viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = id))
-                        }
+                // Save the ID of the first notification visible in the list, so the user's
+                // reading position is always restorable.
+                layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
+                    adapter.snapshot().getOrNull(position)?.id?.let { id ->
+                        viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = id))
                     }
                 }
-            },
-        )
+            }
+        }
+        binding.recyclerView.addOnScrollListener(saveIdListener)
+
+        (activity as? ActionButtonActivity)?.actionButton?.let { actionButton ->
+            actionButton.show()
+
+            val actionButtonScrollListener = ActionButtonScrollListener(actionButton)
+            binding.recyclerView.addOnScrollListener(actionButtonScrollListener)
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                    viewModel.uiState.distinctUntilChangedBy { it.showFabWhileScrolling }.collect {
+                        actionButtonScrollListener.showActionButtonWhileScrolling = it.showFabWhileScrolling
+                    }
+                }
+            }
+        }
 
         binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
             header = TimelineLoadStateAdapter { adapter.retry() },

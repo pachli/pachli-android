@@ -109,7 +109,6 @@ import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityMainBinding
 import app.pachli.db.DraftsAlert
 import app.pachli.interfaces.ActionButtonActivity
-import app.pachli.interfaces.FabFragment
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.updatecheck.UpdateCheck
@@ -294,11 +293,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         setContentView(binding.root)
 
         glide = Glide.with(this)
-
-        binding.composeButton.setOnClickListener {
-            val composeIntent = ComposeActivityIntent(applicationContext)
-            startActivity(composeIntent)
-        }
 
         // Determine which of the three toolbars should be the supportActionBar (which hosts
         // the options menu).
@@ -868,10 +862,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         tabLayoutMediator = TabLayoutMediator(activeTabLayout, binding.viewPager, true) {
                 tab: TabLayout.Tab, position: Int ->
             tab.icon = AppCompatResources.getDrawable(this@MainActivity, tabs[position].icon)
-            tab.contentDescription = when (tabs[position].timeline) {
-                is Timeline.UserList -> tabs[position].title(this@MainActivity)
-                else -> getString(tabs[position].text)
-            }
+            tab.contentDescription = tabs[position].title(this@MainActivity)
         }.also { it.attach() }
 
         // Selected tab is either
@@ -908,7 +899,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.mainToolbar.title = tab.contentDescription
 
-                refreshComposeButtonState(tabAdapter, tab.position)
+                refreshComposeButtonState(tabs[tab.position])
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
@@ -919,7 +910,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     (fragment as ReselectableFragment).onReselect()
                 }
 
-                refreshComposeButtonState(tabAdapter, tab.position)
+                refreshComposeButtonState(tabs[tab.position])
             }
         }.also {
             activeTabLayout.addOnTabSelectedListener(it)
@@ -933,18 +924,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         updateProfiles()
     }
 
-    private fun refreshComposeButtonState(adapter: MainPagerAdapter, tabPosition: Int) {
-        adapter.getFragment(tabPosition)?.also { fragment ->
-            if (fragment is FabFragment) {
-                if (fragment.isFabVisible()) {
-                    binding.composeButton.show()
-                } else {
-                    binding.composeButton.hide()
-                }
-            } else {
-                binding.composeButton.show()
+    private fun refreshComposeButtonState(tabViewData: TabViewData) {
+        tabViewData.composeIntent?.let { intent ->
+            binding.composeButton.setOnClickListener {
+                startActivity(intent(applicationContext))
             }
-        }
+            binding.composeButton.show()
+        } ?: binding.composeButton.hide()
     }
 
     private fun handleProfileClick(profile: IProfile, current: Boolean) {

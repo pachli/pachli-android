@@ -24,13 +24,10 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FilterChangedEvent
-import app.pachli.components.timeline.TimelineFragment
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.model.Timeline
-import app.pachli.core.navigation.ComposeActivityIntent
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
@@ -95,16 +92,9 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
 
         timeline = TimelineActivityIntent.getTimeline(intent)
 
-        val title = when (timeline) {
-            is Timeline.Favourites -> getString(R.string.title_favourites)
-            is Timeline.Bookmarks -> getString(R.string.title_bookmarks)
-            is Timeline.Hashtags -> {
-                hashtag = (timeline as Timeline.Hashtags).tags.first()
-                getString(R.string.title_tag).format(hashtag)
-            }
-            is Timeline.UserList -> (timeline as Timeline.UserList).title
-            else -> "Missing title!!!"
-        }
+        val viewData = TabViewData.from(timeline)
+
+        val title = viewData.title(this)
 
         supportActionBar?.run {
             setTitle(title)
@@ -114,37 +104,16 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
 
         if (supportFragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
             supportFragmentManager.commit {
-                val fragment = TimelineFragment.newInstance(timeline)
+                val fragment = viewData.fragment()
                 replace(R.id.fragmentContainer, fragment)
+                binding.composeButton.show()
             }
         }
 
-        val composeIntent = when (timeline) {
-            is Timeline.Hashtags -> {
-                val tag = (timeline as Timeline.Hashtags).tags.first()
-                ComposeActivityIntent(
-                    this,
-                    ComposeOptions(
-                        content = getString(R.string.title_tag_with_initial_position).format(tag),
-                        initialCursorPosition = ComposeOptions.InitialCursorPosition.START,
-                    ),
-                )
-            }
-            is Timeline.Bookmarks,
-            is Timeline.Favourites,
-            is Timeline.UserList,
-            -> {
-                ComposeActivityIntent(this, ComposeOptions())
-            }
-            else -> null
-        }
-
-        if (composeIntent == null) {
-            binding.composeButton.hide()
-        } else {
-            binding.composeButton.setOnClickListener { startActivity(composeIntent) }
+        viewData.composeIntent?.let { intent ->
+            binding.composeButton.setOnClickListener { startActivity(intent(this@TimelineActivity)) }
             binding.composeButton.show()
-        }
+        } ?: binding.composeButton.hide()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
