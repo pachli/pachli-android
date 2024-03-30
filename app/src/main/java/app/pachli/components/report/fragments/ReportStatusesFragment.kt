@@ -42,7 +42,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
@@ -211,7 +211,7 @@ class ReportStatusesFragment :
 
     override fun onViewAccount(id: String) = startActivity(AccountActivityIntent(requireContext(), id))
 
-    override fun onViewTag(tag: String) = startActivity(StatusListActivityIntent.hashtag(requireContext(), tag))
+    override fun onViewTag(tag: String) = startActivity(TimelineActivityIntent.hashtag(requireContext(), tag))
 
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
 

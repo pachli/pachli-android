@@ -47,7 +47,7 @@ import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOWS
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOW_REQUESTS
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.MUTES
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.REBLOGGED
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.TimelineAccount
@@ -159,7 +159,7 @@ class AccountListFragment :
 
     override fun onViewTag(tag: String) {
         (activity as BaseActivity?)
-            ?.startActivityWithSlideInAnimation(StatusListActivityIntent.hashtag(requireContext(), tag))
+            ?.startActivityWithSlideInAnimation(TimelineActivityIntent.hashtag(requireContext(), tag))
     }
 
     override fun onViewAccount(id: String) {

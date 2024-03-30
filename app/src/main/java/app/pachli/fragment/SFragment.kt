@@ -52,7 +52,7 @@ import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ReportActivityIntent
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.network.model.Attachment
@@ -418,7 +418,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     protected fun viewTag(tag: String) {
-        startActivity(StatusListActivityIntent.hashtag(requireContext(), tag))
+        startActivity(TimelineActivityIntent.hashtag(requireContext(), tag))
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {

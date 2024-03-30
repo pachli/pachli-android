@@ -31,13 +31,13 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterV1
-import app.pachli.databinding.ActivityStatuslistBinding
+import app.pachli.databinding.ActivityTimelineBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.network.ServerRepository
@@ -54,18 +54,17 @@ import retrofit2.HttpException
 import timber.log.Timber
 
 /**
- * Show a list of statuses of a particular type; containing a particular hashtag,
- * the user's favourites, bookmarks, etc.
+ * Show a single timeline.
  */
 @AndroidEntryPoint
-class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonActivity {
+class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonActivity {
     @Inject
     lateinit var eventHub: EventHub
 
     @Inject
     lateinit var serverRepository: ServerRepository
 
-    private val binding: ActivityStatuslistBinding by viewBinding(ActivityStatuslistBinding::inflate)
+    private val binding: ActivityTimelineBinding by viewBinding(ActivityTimelineBinding::inflate)
     private lateinit var timeline: Timeline
 
     override val appBarLayout: AppBarLayout
@@ -94,7 +93,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
 
         setSupportActionBar(binding.includedToolbar.toolbar)
 
-        timeline = StatusListActivityIntent.getKind(intent)
+        timeline = TimelineActivityIntent.getTimeline(intent)
 
         val title = when (timeline) {
             is Timeline.Favourites -> getString(R.string.title_favourites)

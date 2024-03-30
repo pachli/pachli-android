@@ -33,7 +33,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityAnnouncementsBinding
@@ -186,7 +186,7 @@ class AnnouncementsActivity :
     }
 
     override fun onViewTag(tag: String) {
-        val intent = StatusListActivityIntent.hashtag(this, tag)
+        val intent = TimelineActivityIntent.hashtag(this, tag)
         startActivityWithSlideInAnimation(intent)
     }
 
