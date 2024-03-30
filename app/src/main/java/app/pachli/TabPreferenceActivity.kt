@@ -369,6 +369,14 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         if (!currentTabs.contains(directMessagesTab)) {
             addableTabs.add(directMessagesTab)
         }
+        val bookmarksTab = TabViewData.from(Timeline.Bookmarks)
+        if (!currentTabs.contains(bookmarksTab)) {
+            addableTabs.add(bookmarksTab)
+        }
+        val favouritesTab = TabViewData.from(Timeline.Favourites)
+        if (!currentTabs.contains(favouritesTab)) {
+            addableTabs.add(favouritesTab)
+        }
         val trendingTagsTab = TabViewData.from(Timeline.TrendingHashtags)
         if (!currentTabs.contains(trendingTagsTab)) {
             addableTabs.add(trendingTagsTab)
@@ -380,10 +388,6 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         val trendingStatusesTab = TabViewData.from(Timeline.TrendingStatuses)
         if (!currentTabs.contains(trendingStatusesTab)) {
             addableTabs.add(trendingStatusesTab)
-        }
-        val bookmarksTab = TabViewData.from(Timeline.Bookmarks)
-        if (!currentTabs.contains(trendingTagsTab)) {
-            addableTabs.add(bookmarksTab)
         }
 
         addableTabs.add(TabViewData.from(Timeline.Hashtags(emptyList())))
