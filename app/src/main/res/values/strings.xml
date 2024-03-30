@@ -701,5 +701,9 @@
     <string name="pref_update_check_no_updates">There are no updates available</string>
     <string name="pref_update_next_scheduled_check">Next scheduled check: %1$s</string>
     <string name="error_media_download">Could not download %1$s: %2$d %3$s</string>
+    <string name="action_add_to_tab">Add to tab</string>
+    <string name="action_add_to_tab_success">Added \'%1$s\' to tabs</string>
+    <string name="action_remove_tab">Remove tab</string>
+    <string name="action_manage_tabs">Manage tabs</string>
 
 </resources>

@@ -26,12 +26,10 @@ import app.pachli.R
 import app.pachli.TabViewData
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Timeline
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemTabPreferenceBinding
 import app.pachli.databinding.ItemTabPreferenceSmallBinding
-import app.pachli.util.setDrawableTint
 import com.google.android.material.chip.Chip
 
 interface ItemInteractionListener {
@@ -47,7 +45,6 @@ class TabAdapter(
     private var data: List<TabViewData>,
     private val small: Boolean,
     private val listener: ItemInteractionListener,
-    private var removeButtonEnabled: Boolean = false,
 ) : RecyclerView.Adapter<BindingHolder<ViewBinding>>() {
 
     fun updateData(newData: List<TabViewData>) {
@@ -66,28 +63,23 @@ class TabAdapter(
 
     override fun onBindViewHolder(holder: BindingHolder<ViewBinding>, position: Int) {
         val context = holder.itemView.context
-        val tab = data[position]
+        val tabViewData = data[position]
 
         if (small) {
             val binding = holder.binding as ItemTabPreferenceSmallBinding
 
-            binding.textView.setText(tab.text)
+            binding.textView.setText(tabViewData.text)
 
-            binding.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(tab.icon, 0, 0, 0)
+            binding.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(tabViewData.icon, 0, 0, 0)
 
             binding.textView.setOnClickListener {
-                listener.onTabAdded(tab)
+                listener.onTabAdded(tabViewData)
             }
         } else {
             val binding = holder.binding as ItemTabPreferenceBinding
 
-            if (tab.timeline is Timeline.UserList) {
-                binding.textView.text = tab.timeline.title
-            } else {
-                binding.textView.setText(tab.text)
-            }
-
-            binding.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(tab.icon, 0, 0, 0)
+            binding.textView.text = tabViewData.title(context)
+            binding.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(tabViewData.icon, 0, 0, 0)
 
             binding.imageView.setOnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_DOWN) {
@@ -97,17 +89,27 @@ class TabAdapter(
                     false
                 }
             }
-            binding.removeButton.setOnClickListener {
-                listener.onTabRemoved(holder.bindingAdapterPosition)
-            }
-            binding.removeButton.isEnabled = removeButtonEnabled
-            setDrawableTint(
-                holder.itemView.context,
-                binding.removeButton.drawable,
-                (if (removeButtonEnabled) android.R.attr.textColorTertiary else DR.attr.textColorDisabled),
-            )
+            if (tabViewData.timeline !is Timeline.Home) {
+                binding.removeButton.setOnClickListener {
+                    listener.onTabRemoved(holder.bindingAdapterPosition)
+                }
 
-            if (tab.timeline is Timeline.Hashtags) {
+                binding.removeButton.show()
+                binding.textView.setOnTouchListener { _, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        listener.onStartDelete(holder)
+                        true
+                    } else {
+                        false
+                    }
+                }
+            } else {
+                binding.removeButton.hide()
+            }
+
+            if (tabViewData.timeline is Timeline.Hashtags) {
+                // Hashtags are shown as chips, set the text back to generic "Hashtags"
+                binding.textView.setText(tabViewData.text)
                 binding.chipGroup.show()
 
                 /*
@@ -115,7 +117,7 @@ class TabAdapter(
                  * The other dynamic chips are inserted in front of the actionChip.
                  * This code tries to reuse already added chips to reduce the number of Views created.
                  */
-                tab.timeline.tags.forEachIndexed { i, arg ->
+                tabViewData.timeline.tags.forEachIndexed { i, arg ->
 
                     val chip = binding.chipGroup.getChildAt(i).takeUnless { it.id == R.id.actionChip } as Chip?
                         ?: Chip(context).apply {
@@ -126,23 +128,23 @@ class TabAdapter(
 
                     chip.text = arg
 
-                    if (tab.timeline.tags.size <= 1) {
+                    if (tabViewData.timeline.tags.size <= 1) {
                         chip.isCloseIconVisible = false
                         chip.setOnClickListener(null)
                     } else {
                         chip.isCloseIconVisible = true
                         chip.setOnClickListener {
-                            listener.onChipClicked(tab.timeline, holder.bindingAdapterPosition, i)
+                            listener.onChipClicked(tabViewData.timeline, holder.bindingAdapterPosition, i)
                         }
                     }
                 }
 
-                while (binding.chipGroup.size - 1 > tab.timeline.tags.size) {
-                    binding.chipGroup.removeViewAt(tab.timeline.tags.size)
+                while (binding.chipGroup.size - 1 > tabViewData.timeline.tags.size) {
+                    binding.chipGroup.removeViewAt(tabViewData.timeline.tags.size)
                 }
 
                 binding.actionChip.setOnClickListener {
-                    listener.onActionChipClicked(tab.timeline, holder.bindingAdapterPosition)
+                    listener.onActionChipClicked(tabViewData.timeline, holder.bindingAdapterPosition)
                 }
             } else {
                 binding.chipGroup.hide()
@@ -151,11 +153,4 @@ class TabAdapter(
     }
 
     override fun getItemCount() = data.size
-
-    fun setRemoveButtonVisible(enabled: Boolean) {
-        if (removeButtonEnabled != enabled) {
-            removeButtonEnabled = enabled
-            notifyDataSetChanged()
-        }
-    }
 }

@@ -102,7 +102,6 @@ data class TabViewData(
                     ComposeActivityIntent.ComposeOptions(visibility = Status.Visibility.PRIVATE),
                 )
             }
-
             Timeline.TrendingHashtags -> TabViewData(
                 timeline = timeline,
                 text = R.string.title_public_trending_hashtags,
@@ -113,13 +112,13 @@ data class TabViewData(
             Timeline.TrendingLinks -> TabViewData(
                 timeline = timeline,
                 text = R.string.title_public_trending_links,
-                icon = R.drawable.ic_trending_up_24px,
+                icon = R.drawable.ic_newspaper_24,
                 fragment = { TrendingLinksFragment.newInstance() },
             )
             Timeline.TrendingStatuses -> TabViewData(
                 timeline = timeline,
                 text = R.string.title_public_trending_statuses,
-                icon = R.drawable.ic_trending_up_24px,
+                icon = R.drawable.ic_whatshot_24,
                 fragment = { TimelineFragment.newInstance(timeline) },
             )
             is Timeline.Hashtags -> TabViewData(

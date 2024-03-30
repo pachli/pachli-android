@@ -17,6 +17,7 @@
 
 package app.pachli
 
+import app.pachli.core.designsystem.R as DR
 import android.Manifest.permission.POST_NOTIFICATIONS
 import android.annotation.SuppressLint
 import android.app.NotificationManager
@@ -80,7 +81,6 @@ import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AboutActivityIntent
 import app.pachli.core.navigation.AccountActivityIntent
@@ -94,11 +94,11 @@ import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.MainActivityIntent
-import app.pachli.core.navigation.NotificationsActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.ScheduledStatusActivityIntent
 import app.pachli.core.navigation.SearchActivityIntent
+import app.pachli.core.navigation.TabPreferenceActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.TrendingActivityIntent
 import app.pachli.core.network.model.Account
@@ -115,6 +115,7 @@ import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
 import app.pachli.util.getDimension
+import app.pachli.util.makeIcon
 import app.pachli.util.updateShortcut
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
@@ -131,10 +132,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
-import com.mikepenz.iconics.IconicsDrawable
+import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
-import com.mikepenz.iconics.utils.colorInt
-import com.mikepenz.iconics.utils.sizeDp
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
@@ -163,7 +162,9 @@ import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import javax.inject.Inject
+import kotlin.math.max
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -407,17 +408,17 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         super.onCreateMenu(menu, menuInflater)
+
         menuInflater.inflate(R.menu.activity_main, menu)
         menu.findItem(R.id.action_search)?.apply {
-            icon = IconicsDrawable(this@MainActivity, GoogleMaterial.Icon.gmd_search).apply {
-                sizeDp = 20
-                colorInt = MaterialColors.getColor(binding.mainToolbar, android.R.attr.textColorPrimary)
-            }
+            icon = makeIcon(this@MainActivity, GoogleMaterial.Icon.gmd_search, IconicsSize.dp(20))
         }
     }
 
     override fun onPrepareMenu(menu: Menu) {
         super<BottomSheetActivity>.onPrepareMenu(menu)
+
+        menu.findItem(R.id.action_remove_tab).isVisible = tabAdapter.tabs[binding.viewPager.currentItem].timeline != Timeline.Home
 
         // If the main toolbar is hidden then there's no space in the top/bottomNav to show
         // the menu items as icons, so forceably disable them
@@ -429,6 +430,21 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         return when (menuItem.itemId) {
             R.id.action_search -> {
                 startActivity(SearchActivityIntent(this@MainActivity))
+                true
+            }
+            R.id.action_remove_tab -> {
+                val timeline = tabAdapter.tabs[binding.viewPager.currentItem].timeline
+                accountManager.activeAccount?.let {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        it.tabPreferences = it.tabPreferences.filterNot { it == timeline }
+                        accountManager.saveAccount(it)
+                        eventHub.dispatch(MainTabsChangedEvent(it.tabPreferences))
+                    }
+                }
+                true
+            }
+            R.id.action_tab_preferences -> {
+                startActivity(TabPreferenceActivityIntent(this))
                 true
             }
             else -> super.onOptionsItemSelected(menuItem)
@@ -620,7 +636,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     iconicsIcon = GoogleMaterial.Icon.gmd_notifications
                     onClick = {
                         startActivityWithSlideInAnimation(
-                            NotificationsActivityIntent(context),
+                            TimelineActivityIntent.notifications(context),
                         )
                     }
                 },
@@ -876,7 +892,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         // Save the previous tab so it can be restored later
-        val previousTab = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)
+        val previousTabIndex = binding.viewPager.currentItem
+        val previousTab = tabAdapter.tabs.getOrNull(previousTabIndex)
 
         val tabs = accountManager.activeAccount!!.tabPreferences.map { TabViewData.from(it) }
 
@@ -896,6 +913,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // - Notification tab (if appropriate)
         // - The previously selected tab (if it hasn't been removed)
         //   - Tabs containing lists are compared by list ID, in case the list was renamed
+        // - The tab to the left of the previous selected tab (if the previously selected tab
+        //   was removed)
         // - Left-most tab
         val position = if (selectNotificationTab) {
             tabs.indexOfFirst { it.timeline is Timeline.Notifications }
@@ -909,7 +928,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     }
                 }
             }
-        }.takeIf { it != -1 } ?: 0
+        }.takeIf { it != -1 } ?: max(previousTabIndex - 1, 0)
         binding.viewPager.setCurrentItem(position, false)
 
         val pageMargin = resources.getDimensionPixelSize(DR.dimen.tab_page_margin)

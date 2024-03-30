@@ -19,6 +19,7 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:src="@drawable/ic_drag_indicator_24dp"
+        app:tint="?attr/colorControlNormal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/textView"/>
@@ -33,7 +34,7 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        app:drawableTint="?android:attr/textColorSecondary"
+        app:drawableTint="?android:attr/colorControlNormal"
         app:layout_constraintBottom_toTopOf="@id/chipGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imageView"
@@ -53,7 +54,8 @@
         android:contentDescription="@string/action_delete"
         android:src="@drawable/ic_clear_24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorControlNormal" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"

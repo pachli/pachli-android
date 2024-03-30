@@ -22,4 +22,14 @@
         android:id="@+id/action_search"
         android:title="@string/action_search"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_remove_tab"
+        android:title="@string/action_remove_tab"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_tab_preferences"
+        android:title="@string/action_manage_tabs"
+        app:showAsAction="never" />
 </menu>
