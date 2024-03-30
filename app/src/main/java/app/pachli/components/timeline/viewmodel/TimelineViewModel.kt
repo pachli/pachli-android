@@ -44,11 +44,11 @@ import app.pachli.appstore.UnfollowEvent
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineKind
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.network.FilterModel
@@ -303,7 +303,7 @@ abstract class TimelineViewModel(
         viewModelScope.launch { uiAction.emit(action) }
     }
 
-    val timelineKind: TimelineKind = savedStateHandle.get<TimelineKind>(TIMELINE_KIND_TAG)!!
+    val timeline: Timeline = savedStateHandle.get<Timeline>(TIMELINE_TAG)!!
 
     private var filterRemoveReplies = false
     private var filterRemoveReblogs = false
@@ -396,7 +396,7 @@ abstract class TimelineViewModel(
                 initialValue = UiState(showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)),
             )
 
-        if (timelineKind is TimelineKind.Home) {
+        if (timeline is Timeline.Home) {
             // Note the variable is "true if filter" but the underlying preference/settings text is "true if show"
             filterRemoveReplies =
                 !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_REPLIES, true)
@@ -407,7 +407,7 @@ abstract class TimelineViewModel(
         }
 
         // Save the visible status ID (if it's the home timeline)
-        if (timelineKind == TimelineKind.Home) {
+        if (timeline == Timeline.Home) {
             viewModelScope.launch {
                 uiAction
                     .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
@@ -426,7 +426,7 @@ abstract class TimelineViewModel(
             uiAction
                 .filterIsInstance<InfallibleUiAction.LoadNewest>()
                 .collectLatest {
-                    if (timelineKind == TimelineKind.Home) {
+                    if (timeline == Timeline.Home) {
                         activeAccount.lastVisibleHomeTimelineStatusId = null
                         accountManager.saveAccount(activeAccount)
                     }
@@ -449,7 +449,7 @@ abstract class TimelineViewModel(
     }
 
     fun getInitialKey(): String? {
-        if (timelineKind != TimelineKind.Home) {
+        if (timeline != Timeline.Home) {
             return null
         }
 
@@ -521,7 +521,7 @@ abstract class TimelineViewModel(
     /** Updates the current set of filters if filter-related preferences change */
     private fun updateFiltersFromPreferences() = eventHub.events
         .filterIsInstance<FilterChangedEvent>()
-        .filter { filterContextMatchesKind(timelineKind, listOf(it.filterContext)) }
+        .filter { filterContextMatchesKind(timeline, listOf(it.filterContext)) }
         .map {
             getFilters()
             Timber.d("Reload because FilterChangedEvent")
@@ -534,10 +534,11 @@ abstract class TimelineViewModel(
         viewModelScope.launch {
             Timber.d("getFilters()")
             try {
-                val filterContext = FilterContext.from(timelineKind)
-                filterModel = when (val filters = filtersRepository.getFilters()) {
-                    is FilterKind.V1 -> FilterModel(filterContext, filters.filters)
-                    is FilterKind.V2 -> FilterModel(filterContext)
+                FilterContext.from(timeline)?.let { filterContext ->
+                    filterModel = when (val filters = filtersRepository.getFilters()) {
+                        is FilterKind.V1 -> FilterModel(filterContext, filters.filters)
+                        is FilterKind.V2 -> FilterModel(filterContext)
+                    }
                 }
             } catch (throwable: Throwable) {
                 Timber.d(throwable, "updateFilter(): Error fetching filters")
@@ -552,7 +553,7 @@ abstract class TimelineViewModel(
             PrefKeys.TAB_FILTER_HOME_REPLIES -> {
                 val filter = sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_REPLIES, true)
                 val oldRemoveReplies = filterRemoveReplies
-                filterRemoveReplies = timelineKind is TimelineKind.Home && !filter
+                filterRemoveReplies = timeline is Timeline.Home && !filter
                 if (oldRemoveReplies != filterRemoveReplies) {
                     Timber.d("Reload because TAB_FILTER_HOME_REPLIES changed")
                     reloadKeepingReadingPosition()
@@ -561,7 +562,7 @@ abstract class TimelineViewModel(
             PrefKeys.TAB_FILTER_HOME_BOOSTS -> {
                 val filter = sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_BOOSTS, true)
                 val oldRemoveReblogs = filterRemoveReblogs
-                filterRemoveReblogs = timelineKind is TimelineKind.Home && !filter
+                filterRemoveReblogs = timeline is Timeline.Home && !filter
                 if (oldRemoveReblogs != filterRemoveReblogs) {
                     Timber.d("Reload because TAB_FILTER_HOME_BOOSTS changed")
                     reloadKeepingReadingPosition()
@@ -570,7 +571,7 @@ abstract class TimelineViewModel(
             PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS -> {
                 val filter = sharedPreferencesRepository.getBoolean(PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS, true)
                 val oldRemoveSelfReblogs = filterRemoveSelfReblogs
-                filterRemoveSelfReblogs = timelineKind is TimelineKind.Home && !filter
+                filterRemoveSelfReblogs = timeline is Timeline.Home && !filter
                 if (oldRemoveSelfReblogs != filterRemoveSelfReblogs) {
                     Timber.d("Reload because TAB_SHOW_SOME_SELF_BOOSTS changed")
                     reloadKeepingReadingPosition()
@@ -590,31 +591,31 @@ abstract class TimelineViewModel(
                 reloadKeepingReadingPosition()
             }
             is UnfollowEvent -> {
-                if (timelineKind is TimelineKind.Home) {
+                if (timeline is Timeline.Home) {
                     val id = event.accountId
                     removeAllByAccountId(id)
                 }
             }
             is BlockEvent -> {
-                if (timelineKind !is TimelineKind.User) {
+                if (timeline !is Timeline.User) {
                     val id = event.accountId
                     removeAllByAccountId(id)
                 }
             }
             is MuteEvent -> {
-                if (timelineKind !is TimelineKind.User) {
+                if (timeline !is Timeline.User) {
                     val id = event.accountId
                     removeAllByAccountId(id)
                 }
             }
             is DomainMuteEvent -> {
-                if (timelineKind !is TimelineKind.User) {
+                if (timeline !is Timeline.User) {
                     val instance = event.instance
                     removeAllByInstance(instance)
                 }
             }
             is StatusDeletedEvent -> {
-                if (timelineKind !is TimelineKind.User) {
+                if (timeline !is Timeline.User) {
                     removeStatusWithId(event.statusId)
                 }
             }
@@ -626,18 +627,18 @@ abstract class TimelineViewModel(
 
         /** Tag for the timelineKind in `savedStateHandle` */
         @VisibleForTesting(VisibleForTesting.PRIVATE)
-        const val TIMELINE_KIND_TAG = "timelineKind"
+        const val TIMELINE_TAG = "timeline"
 
         /** Create extras for this view model */
-        fun creationExtras(timelineKind: TimelineKind) = bundleOf(
-            TIMELINE_KIND_TAG to timelineKind,
+        fun creationExtras(timeline: Timeline) = bundleOf(
+            TIMELINE_TAG to timeline,
         )
 
         fun filterContextMatchesKind(
-            timelineKind: TimelineKind,
+            timeline: Timeline,
             filterContext: List<FilterContext>,
         ): Boolean {
-            return filterContext.contains(FilterContext.from(timelineKind))
+            return filterContext.contains(FilterContext.from(timeline))
         }
     }
 }

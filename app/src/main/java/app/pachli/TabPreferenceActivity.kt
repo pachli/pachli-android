@@ -46,8 +46,8 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
-import app.pachli.core.database.model.TabData
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.retrofit.MastodonApi
@@ -119,7 +119,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
 
-        addTabAdapter = TabAdapter(listOf(TabViewData.from(TabData.Direct)), true, this)
+        addTabAdapter = TabAdapter(listOf(TabViewData.from(Timeline.Conversations)), true, this)
         binding.addTabRecyclerView.adapter = addTabAdapter
         binding.addTabRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -182,12 +182,12 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     override fun onTabAdded(tab: TabViewData) {
         toggleFab(false)
 
-        if (tab.tabData is TabData.Hashtag) {
+        if (tab.timeline is Timeline.Hashtags) {
             showAddHashtagDialog()
             return
         }
 
-        if (tab.tabData is TabData.UserList) {
+        if (tab.timeline is Timeline.UserList) {
             showSelectListDialog()
             return
         }
@@ -205,14 +205,14 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         saveTabs()
     }
 
-    override fun onActionChipClicked(tabData: TabData.Hashtag, tabPosition: Int) {
-        showAddHashtagDialog(tabData, tabPosition)
+    override fun onActionChipClicked(timelineHashtags: Timeline.Hashtags, tabPosition: Int) {
+        showAddHashtagDialog(timelineHashtags, tabPosition)
     }
 
-    override fun onChipClicked(tabData: TabData.Hashtag, tabPosition: Int, chipPosition: Int) {
+    override fun onChipClicked(timeline: Timeline.Hashtags, tabPosition: Int, chipPosition: Int) {
         currentTabs[tabPosition] = currentTabs[tabPosition].copy(
-            tabData = tabData.copy(
-                tags = tabData.tags.filterIndexed { i, _ -> i != chipPosition },
+            timeline = timeline.copy(
+                tags = timeline.tags.filterIndexed { i, _ -> i != chipPosition },
             ),
         )
         saveTabs()
@@ -238,7 +238,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         onFabDismissedCallback.isEnabled = expand
     }
 
-    private fun showAddHashtagDialog(tabData: TabData.Hashtag? = null, tabPosition: Int = 0) {
+    private fun showAddHashtagDialog(timeline: Timeline.Hashtags? = null, tabPosition: Int = 0) {
         val frameLayout = FrameLayout(this)
         val padding = Utils.dpToPx(this, 8)
         frameLayout.updatePadding(left = padding, right = padding)
@@ -254,13 +254,13 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->
                 val input = editText.text.toString().trim()
-                if (tabData == null) {
-                    val newTab = TabViewData.from(TabData.Hashtag(listOf(input)))
+                if (timeline == null) {
+                    val newTab = TabViewData.from(Timeline.Hashtags(listOf(input)))
                     currentTabs.add(newTab)
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
                 } else {
                     currentTabs[tabPosition] = currentTabs[tabPosition].copy(
-                        tabData = tabData.copy(tags = tabData.tags + input),
+                        timeline = timeline.copy(tags = timeline.tags + input),
                     )
 
                     currentTabsAdapter.notifyItemChanged(tabPosition)
@@ -298,7 +298,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setView(selectListBinding.root)
             .setAdapter(adapter) { _, position ->
                 adapter.getItem(position)?.let { item ->
-                    val newTab = TabViewData.from(TabData.UserList(item.id, item.title))
+                    val newTab = TabViewData.from(Timeline.UserList(item.id, item.title))
                     currentTabs.add(newTab)
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
                     updateAvailableTabs()
@@ -349,45 +349,45 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private fun updateAvailableTabs() {
         val addableTabs: MutableList<TabViewData> = mutableListOf()
 
-        val homeTab = TabViewData.from(TabData.Home)
+        val homeTab = TabViewData.from(Timeline.Home)
         if (!currentTabs.contains(homeTab)) {
             addableTabs.add(homeTab)
         }
-        val notificationTab = TabViewData.from(TabData.Notifications)
+        val notificationTab = TabViewData.from(Timeline.Notifications)
         if (!currentTabs.contains(notificationTab)) {
             addableTabs.add(notificationTab)
         }
-        val localTab = TabViewData.from(TabData.Local)
+        val localTab = TabViewData.from(Timeline.PublicLocal)
         if (!currentTabs.contains(localTab)) {
             addableTabs.add(localTab)
         }
-        val federatedTab = TabViewData.from(TabData.Federated)
+        val federatedTab = TabViewData.from(Timeline.PublicFederated)
         if (!currentTabs.contains(federatedTab)) {
             addableTabs.add(federatedTab)
         }
-        val directMessagesTab = TabViewData.from(TabData.Direct)
+        val directMessagesTab = TabViewData.from(Timeline.Conversations)
         if (!currentTabs.contains(directMessagesTab)) {
             addableTabs.add(directMessagesTab)
         }
-        val trendingTagsTab = TabViewData.from(TabData.TrendingTags)
+        val trendingTagsTab = TabViewData.from(Timeline.TrendingHashtags)
         if (!currentTabs.contains(trendingTagsTab)) {
             addableTabs.add(trendingTagsTab)
         }
-        val trendingLinksTab = TabViewData.from(TabData.TrendingLinks)
+        val trendingLinksTab = TabViewData.from(Timeline.TrendingLinks)
         if (!currentTabs.contains(trendingLinksTab)) {
             addableTabs.add(trendingLinksTab)
         }
-        val trendingStatusesTab = TabViewData.from(TabData.TrendingStatuses)
+        val trendingStatusesTab = TabViewData.from(Timeline.TrendingStatuses)
         if (!currentTabs.contains(trendingStatusesTab)) {
             addableTabs.add(trendingStatusesTab)
         }
-        val bookmarksTab = TabViewData.from(TabData.Bookmarks)
+        val bookmarksTab = TabViewData.from(Timeline.Bookmarks)
         if (!currentTabs.contains(trendingTagsTab)) {
             addableTabs.add(bookmarksTab)
         }
 
-        addableTabs.add(TabViewData.from(TabData.Hashtag(emptyList())))
-        addableTabs.add(TabViewData.from(TabData.UserList("", "")))
+        addableTabs.add(TabViewData.from(Timeline.Hashtags(emptyList())))
+        addableTabs.add(TabViewData.from(Timeline.UserList("", "")))
 
         addTabAdapter.updateData(addableTabs)
 
@@ -405,7 +405,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private fun saveTabs() {
         accountManager.activeAccount?.let {
             lifecycleScope.launch(Dispatchers.IO) {
-                it.tabPreferences = currentTabs.map { it.tabData }
+                it.tabPreferences = currentTabs.map { it.timeline }
                 accountManager.saveAccount(it)
             }
         }
@@ -416,7 +416,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         super.onPause()
         if (tabsChanged) {
             lifecycleScope.launch {
-                eventHub.dispatch(MainTabsChangedEvent(currentTabs.map { it.tabData }))
+                eventHub.dispatch(MainTabsChangedEvent(currentTabs.map { it.timeline }))
             }
         }
     }

@@ -22,6 +22,7 @@ import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
 import app.pachli.core.database.model.DraftAttachment
+import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.StatusListActivityIntent.Companion.bookmarks
 import app.pachli.core.navigation.StatusListActivityIntent.Companion.favourites
@@ -32,7 +33,6 @@ import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineKind
 import com.gaelmarhic.quadrant.QuadrantConstants
 import kotlinx.parcelize.Parcelize
 
@@ -402,7 +402,7 @@ class StatusListActivityIntent private constructor(context: Context) : Intent() 
          * @param context
          */
         fun bookmarks(context: Context) = StatusListActivityIntent(context).apply {
-            putExtra(EXTRA_KIND, TimelineKind.Bookmarks)
+            putExtra(EXTRA_KIND, Timeline.Bookmarks)
         }
 
         /**
@@ -411,7 +411,7 @@ class StatusListActivityIntent private constructor(context: Context) : Intent() 
          * @param context
          */
         fun favourites(context: Context) = StatusListActivityIntent(context).apply {
-            putExtra(EXTRA_KIND, TimelineKind.Favourites)
+            putExtra(EXTRA_KIND, Timeline.Favourites)
         }
 
         /**
@@ -421,7 +421,7 @@ class StatusListActivityIntent private constructor(context: Context) : Intent() 
          * @param hashtag The hashtag to show, without the leading "`#`"
          */
         fun hashtag(context: Context, hashtag: String) = StatusListActivityIntent(context).apply {
-            putExtra(EXTRA_KIND, TimelineKind.Tag(listOf(hashtag)))
+            putExtra(EXTRA_KIND, Timeline.Hashtags(listOf(hashtag)))
         }
 
         /**
@@ -432,11 +432,11 @@ class StatusListActivityIntent private constructor(context: Context) : Intent() 
          * @param title The title to display
          */
         fun list(context: Context, listId: String, title: String) = StatusListActivityIntent(context).apply {
-            putExtra(EXTRA_KIND, TimelineKind.UserList(listId, title))
+            putExtra(EXTRA_KIND, Timeline.UserList(listId, title))
         }
 
         /** @return The [TimelineKind] to show */
-        fun getKind(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_KIND, TimelineKind::class.java)!!
+        fun getKind(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_KIND, Timeline::class.java)!!
     }
 }
 

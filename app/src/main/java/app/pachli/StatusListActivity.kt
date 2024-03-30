@@ -28,6 +28,7 @@ import app.pachli.components.timeline.TimelineFragment
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.StatusListActivityIntent
@@ -36,7 +37,6 @@ import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterV1
-import app.pachli.core.network.model.TimelineKind
 import app.pachli.databinding.ActivityStatuslistBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
@@ -66,7 +66,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
     lateinit var serverRepository: ServerRepository
 
     private val binding: ActivityStatuslistBinding by viewBinding(ActivityStatuslistBinding::inflate)
-    private lateinit var timelineKind: TimelineKind
+    private lateinit var timeline: Timeline
 
     override val appBarLayout: AppBarLayout
         get() = binding.includedToolbar.appbar
@@ -94,16 +94,16 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
 
         setSupportActionBar(binding.includedToolbar.toolbar)
 
-        timelineKind = StatusListActivityIntent.getKind(intent)
+        timeline = StatusListActivityIntent.getKind(intent)
 
-        val title = when (timelineKind) {
-            is TimelineKind.Favourites -> getString(R.string.title_favourites)
-            is TimelineKind.Bookmarks -> getString(R.string.title_bookmarks)
-            is TimelineKind.Tag -> {
-                hashtag = (timelineKind as TimelineKind.Tag).tags.first()
+        val title = when (timeline) {
+            is Timeline.Favourites -> getString(R.string.title_favourites)
+            is Timeline.Bookmarks -> getString(R.string.title_bookmarks)
+            is Timeline.Hashtags -> {
+                hashtag = (timeline as Timeline.Hashtags).tags.first()
                 getString(R.string.title_tag).format(hashtag)
             }
-            is TimelineKind.UserList -> (timelineKind as TimelineKind.UserList).title
+            is Timeline.UserList -> (timeline as Timeline.UserList).title
             else -> "Missing title!!!"
         }
 
@@ -115,14 +115,14 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
 
         if (supportFragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
             supportFragmentManager.commit {
-                val fragment = TimelineFragment.newInstance(timelineKind)
+                val fragment = TimelineFragment.newInstance(timeline)
                 replace(R.id.fragmentContainer, fragment)
             }
         }
 
-        val composeIntent = when (timelineKind) {
-            is TimelineKind.Tag -> {
-                val tag = (timelineKind as TimelineKind.Tag).tags.first()
+        val composeIntent = when (timeline) {
+            is Timeline.Hashtags -> {
+                val tag = (timeline as Timeline.Hashtags).tags.first()
                 ComposeActivityIntent(
                     this,
                     ComposeOptions(
@@ -131,9 +131,9 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
                     ),
                 )
             }
-            is TimelineKind.Bookmarks,
-            is TimelineKind.Favourites,
-            is TimelineKind.UserList,
+            is Timeline.Bookmarks,
+            is Timeline.Favourites,
+            is Timeline.UserList,
             -> {
                 ComposeActivityIntent(this, ComposeOptions())
             }
@@ -150,7 +150,7 @@ class StatusListActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButton
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val tag = hashtag
-        if (timelineKind is TimelineKind.Tag && tag != null) {
+        if (timeline is Timeline.Hashtags && tag != null) {
             lifecycleScope.launch {
                 mastodonApi.tag(tag).fold(
                     { tagEntity ->

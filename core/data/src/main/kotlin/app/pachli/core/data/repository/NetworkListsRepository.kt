@@ -24,7 +24,7 @@ import app.pachli.core.data.repository.ListsError.Delete
 import app.pachli.core.data.repository.ListsError.GetListsWithAccount
 import app.pachli.core.data.repository.ListsError.Retrieve
 import app.pachli.core.data.repository.ListsError.Update
-import app.pachli.core.database.model.TabData
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.UserListRepliesPolicy
@@ -89,7 +89,7 @@ class NetworkListsRepository @Inject constructor(
         var changed = false
         val newTabPreferences = buildList {
             for (oldPref in oldTabPreferences) {
-                if (oldPref !is TabData.UserList) {
+                if (oldPref !is Timeline.UserList) {
                     add(oldPref)
                     continue
                 }

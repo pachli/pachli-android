@@ -30,7 +30,7 @@ import app.pachli.R
 import app.pachli.components.timeline.TimelineFragment
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.network.model.TimelineKind
+import app.pachli.core.model.Timeline
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityTrendingBinding
 import app.pachli.interfaces.AppBarLayoutHost
@@ -93,7 +93,7 @@ class TrendingFragmentAdapter(val activity: FragmentActivity) : FragmentStateAda
         return when (position) {
             0 -> TrendingTagsFragment.newInstance()
             1 -> TrendingLinksFragment.newInstance()
-            2 -> TimelineFragment.newInstance(TimelineKind.TrendingStatuses)
+            2 -> TimelineFragment.newInstance(Timeline.TrendingStatuses)
             else -> throw IllegalStateException()
         }
     }

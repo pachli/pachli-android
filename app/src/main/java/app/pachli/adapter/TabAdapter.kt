@@ -26,8 +26,8 @@ import app.pachli.R
 import app.pachli.TabViewData
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.database.model.TabData
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Timeline
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemTabPreferenceBinding
 import app.pachli.databinding.ItemTabPreferenceSmallBinding
@@ -39,8 +39,8 @@ interface ItemInteractionListener {
     fun onTabRemoved(position: Int)
     fun onStartDelete(viewHolder: RecyclerView.ViewHolder)
     fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
-    fun onActionChipClicked(tabData: TabData.Hashtag, tabPosition: Int)
-    fun onChipClicked(tabData: TabData.Hashtag, tabPosition: Int, chipPosition: Int)
+    fun onActionChipClicked(timelineHashtags: Timeline.Hashtags, tabPosition: Int)
+    fun onChipClicked(timelineHashtags: Timeline.Hashtags, tabPosition: Int, chipPosition: Int)
 }
 
 class TabAdapter(
@@ -81,8 +81,8 @@ class TabAdapter(
         } else {
             val binding = holder.binding as ItemTabPreferenceBinding
 
-            if (tab.tabData is TabData.UserList) {
-                binding.textView.text = tab.tabData.title
+            if (tab.timeline is Timeline.UserList) {
+                binding.textView.text = tab.timeline.title
             } else {
                 binding.textView.setText(tab.text)
             }
@@ -107,7 +107,7 @@ class TabAdapter(
                 (if (removeButtonEnabled) android.R.attr.textColorTertiary else DR.attr.textColorDisabled),
             )
 
-            if (tab.tabData is TabData.Hashtag) {
+            if (tab.timeline is Timeline.Hashtags) {
                 binding.chipGroup.show()
 
                 /*
@@ -115,7 +115,7 @@ class TabAdapter(
                  * The other dynamic chips are inserted in front of the actionChip.
                  * This code tries to reuse already added chips to reduce the number of Views created.
                  */
-                tab.tabData.tags.forEachIndexed { i, arg ->
+                tab.timeline.tags.forEachIndexed { i, arg ->
 
                     val chip = binding.chipGroup.getChildAt(i).takeUnless { it.id == R.id.actionChip } as Chip?
                         ?: Chip(context).apply {
@@ -126,23 +126,23 @@ class TabAdapter(
 
                     chip.text = arg
 
-                    if (tab.tabData.tags.size <= 1) {
+                    if (tab.timeline.tags.size <= 1) {
                         chip.isCloseIconVisible = false
                         chip.setOnClickListener(null)
                     } else {
                         chip.isCloseIconVisible = true
                         chip.setOnClickListener {
-                            listener.onChipClicked(tab.tabData, holder.bindingAdapterPosition, i)
+                            listener.onChipClicked(tab.timeline, holder.bindingAdapterPosition, i)
                         }
                     }
                 }
 
-                while (binding.chipGroup.size - 1 > tab.tabData.tags.size) {
-                    binding.chipGroup.removeViewAt(tab.tabData.tags.size)
+                while (binding.chipGroup.size - 1 > tab.timeline.tags.size) {
+                    binding.chipGroup.removeViewAt(tab.timeline.tags.size)
                 }
 
                 binding.actionChip.setOnClickListener {
-                    listener.onActionChipClicked(tab.tabData, holder.bindingAdapterPosition)
+                    listener.onActionChipClicked(tab.timeline, holder.bindingAdapterPosition)
                 }
             } else {
                 binding.chipGroup.hide()

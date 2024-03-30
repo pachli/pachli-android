@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.3.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.3.0)" variant="all" version="8.3.0">
+<issues format="6" by="lint 8.3.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.3.1)" variant="all" version="8.3.1">
 
     <issue
         id="InvalidPackage"
@@ -2617,7 +2617,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/util/ShareShortcutHelper.kt"
-            line="84"
+            line="96"
             column="5"/>
     </issue>
 

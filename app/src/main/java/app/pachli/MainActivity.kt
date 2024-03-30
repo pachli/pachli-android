@@ -79,9 +79,9 @@ import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.TabData
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AboutActivityIntent
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
@@ -369,7 +369,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     refreshMainDrawerItems(addSearchButton = hideTopToolbar)
 
                     // Any lists in tabs might have changed titles, update those
-                    if (lists is Lists.Loaded && tabAdapter.tabs.any { it.tabData is TabData.UserList }) {
+                    if (lists is Lists.Loaded && tabAdapter.tabs.any { it.timeline is Timeline.UserList }) {
                         setupTabs(false)
                     }
                 }
@@ -868,8 +868,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         tabLayoutMediator = TabLayoutMediator(activeTabLayout, binding.viewPager, true) {
                 tab: TabLayout.Tab, position: Int ->
             tab.icon = AppCompatResources.getDrawable(this@MainActivity, tabs[position].icon)
-            tab.contentDescription = when (tabs[position].tabData) {
-                is TabData.UserList -> tabs[position].title(this@MainActivity)
+            tab.contentDescription = when (tabs[position].timeline) {
+                is Timeline.UserList -> tabs[position].title(this@MainActivity)
                 else -> getString(tabs[position].text)
             }
         }.also { it.attach() }
@@ -880,12 +880,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         //   - Tabs containing lists are compared by list ID, in case the list was renamed
         // - Left-most tab
         val position = if (selectNotificationTab) {
-            tabs.indexOfFirst { it.tabData is TabData.Notifications }
+            tabs.indexOfFirst { it.timeline is Timeline.Notifications }
         } else {
             previousTab?.let {
                 tabs.indexOfFirst {
-                    if (it.tabData is TabData.UserList && previousTab.tabData is TabData.UserList) {
-                        it.tabData.listId == previousTab.tabData.listId
+                    if (it.timeline is Timeline.UserList && previousTab.timeline is Timeline.UserList) {
+                        it.timeline.listId == previousTab.timeline.listId
                     } else {
                         it == previousTab
                     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -22,7 +22,7 @@ plugins {
 }
 
 android {
-    namespace = "app.pachli.core.network"
+    namespace = "app.pachli.core.model"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -30,18 +30,10 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.common)
-    implementation(projects.core.model)
-    implementation(projects.core.preferences)
-
     implementation(libs.moshi)
     implementation(libs.moshi.adapters)
     ksp(libs.moshi.codegen)
 
-    implementation(libs.bundles.retrofit)
-    implementation(libs.bundles.okhttp)
-    api(libs.networkresult.calladapter)
-    implementation(libs.semver)
-
-    testImplementation(libs.mockwebserver)
+    implementation(libs.moshix.sealed.runtime)
+    ksp(libs.moshix.sealed.codegen)
 }

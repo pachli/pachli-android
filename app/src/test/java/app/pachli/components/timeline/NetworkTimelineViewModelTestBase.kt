@@ -23,8 +23,8 @@ import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Account
-import app.pachli.core.network.model.TimelineKind
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
@@ -145,7 +145,7 @@ abstract class NetworkTimelineViewModelTestBase {
         timelineCases = mock()
 
         viewModel = NetworkTimelineViewModel(
-            SavedStateHandle(mapOf(TimelineViewModel.TIMELINE_KIND_TAG to TimelineKind.Bookmarks)),
+            SavedStateHandle(mapOf(TimelineViewModel.TIMELINE_TAG to Timeline.Bookmarks)),
             networkTimelineRepository,
             timelineCases,
             eventHub,

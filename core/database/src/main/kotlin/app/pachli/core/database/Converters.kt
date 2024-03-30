@@ -20,7 +20,7 @@ import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.DraftAttachment
-import app.pachli.core.database.model.TabData
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.FilterResult
@@ -66,13 +66,13 @@ class Converters @Inject constructor(
     }
 
     @TypeConverter
-    fun stringToTabData(str: String?): List<TabData>? {
+    fun stringToTimeline(str: String?): List<Timeline>? {
         str ?: return null
 
         // Two possible storage formats. Newer (from Pachli 2.4.0) is polymorphic
         // JSON, and the first character will be a '['
         if (str.startsWith('[')) {
-            return moshi.adapter<List<TabData>>().fromJson(str)
+            return moshi.adapter<List<Timeline>>().fromJson(str)
         }
 
         // Older is string of ';' delimited tuples, one per tab.
@@ -87,27 +87,27 @@ class Converters @Inject constructor(
             val arguments = data.drop(1).map { s -> URLDecoder.decode(s, "UTF-8") }
 
             when (kind) {
-                "Home" -> TabData.Home
-                "Notifications" -> TabData.Notifications
-                "Local" -> TabData.Local
-                "Federated" -> TabData.Federated
-                "Direct" -> TabData.Direct
+                "Home" -> Timeline.Home
+                "Notifications" -> Timeline.Notifications
+                "Local" -> Timeline.PublicLocal
+                "Federated" -> Timeline.PublicFederated
+                "Direct" -> Timeline.Conversations
                 // Work around for https://github.com/pachli/pachli-android/issues/329
                 // when the Trending... kinds may have been serialised without the '_'
-                "TrendingTags", "Trending_Tags" -> TabData.TrendingTags
-                "TrendingLinks", "Trending_Links" -> TabData.TrendingLinks
-                "TrendingStatuses", "Trending_Statuses" -> TabData.TrendingStatuses
-                "Hashtag" -> TabData.Hashtag(arguments)
-                "List" -> TabData.UserList(arguments[0], arguments[1])
-                "Bookmarks" -> TabData.Bookmarks
+                "TrendingTags", "Trending_Tags" -> Timeline.TrendingHashtags
+                "TrendingLinks", "Trending_Links" -> Timeline.TrendingLinks
+                "TrendingStatuses", "Trending_Statuses" -> Timeline.TrendingStatuses
+                "Hashtag" -> Timeline.Hashtags(arguments)
+                "List" -> Timeline.UserList(arguments[0], arguments[1])
+                "Bookmarks" -> Timeline.Bookmarks
                 else -> throw IllegalStateException("Unrecognised tab kind: $kind")
             }
         }
     }
 
     @TypeConverter
-    fun tabDataToString(tabData: List<TabData>?): String? {
-        return moshi.adapter<List<TabData>>().toJson(tabData)
+    fun timelineToString(timelines: List<Timeline>?): String? {
+        return moshi.adapter<List<Timeline>>().toJson(timelines)
     }
 
     @TypeConverter
