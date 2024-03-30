@@ -23,6 +23,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 
@@ -92,7 +93,7 @@ data class AccountEntity(
     @ColumnInfo(defaultValue = "0")
     var notificationMarkerId: String = "0",
     var emojis: List<Emoji> = emptyList(),
-    var tabPreferences: List<TabData> = defaultTabs(),
+    var tabPreferences: List<Timeline> = defaultTabs(),
     var notificationsFilter: String = "[\"follow_request\"]",
     // Scope cannot be changed without re-login, so store it in case
     // the scope needs to be changed in the future
@@ -147,3 +148,10 @@ data class AccountEntity(
         return result
     }
 }
+
+fun defaultTabs() = listOf(
+    Timeline.Home,
+    Timeline.Notifications,
+    Timeline.PublicLocal,
+    Timeline.Conversations,
+)

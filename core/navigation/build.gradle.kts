@@ -31,6 +31,7 @@ android {
 
 dependencies {
     implementation(projects.core.database) // For DraftAttachment, used in ComposeOptions
+    implementation(projects.core.model)
     implementation(projects.core.network) // For Attachment, used in AttachmentViewData
 
     implementation(libs.androidx.core.ktx) // IntentCompat

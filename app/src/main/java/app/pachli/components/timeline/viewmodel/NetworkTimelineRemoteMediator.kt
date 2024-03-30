@@ -24,8 +24,8 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import app.pachli.BuildConfig
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineKind
 import app.pachli.core.network.retrofit.MastodonApi
 import java.io.IOException
 import kotlinx.coroutines.CoroutineScope
@@ -41,7 +41,7 @@ class NetworkTimelineRemoteMediator(
     accountManager: AccountManager,
     private val factory: InvalidatingPagingSourceFactory<String, Status>,
     private val pageCache: PageCache,
-    private val timelineKind: TimelineKind,
+    private val timeline: Timeline,
 ) : RemoteMediator<String, Status>() {
 
     private val activeAccount = accountManager.activeAccount!!
@@ -116,7 +116,7 @@ class NetworkTimelineRemoteMediator(
                     Timber.d(
                         "  Page %s complete for %s, now got %d pages",
                         loadType,
-                        timelineKind,
+                        timeline,
                         pageCache.size,
                     )
                     pageCache.debug()
@@ -132,7 +132,7 @@ class NetworkTimelineRemoteMediator(
         }
     }
 
-    @Throws(IOException::class, HttpException::class)
+    @Throws(IOException::class, HttpException::class, IllegalStateException::class)
     private suspend fun fetchStatusPageByKind(loadType: LoadType, key: String?, loadSize: Int): Response<List<Status>> {
         val (maxId, minId) = when (loadType) {
             // When refreshing fetch a page of statuses that are immediately *newer* than the key
@@ -144,20 +144,20 @@ class NetworkTimelineRemoteMediator(
             LoadType.PREPEND -> Pair(null, key)
         }
 
-        return when (timelineKind) {
-            TimelineKind.Bookmarks -> api.bookmarks(maxId = maxId, minId = minId, limit = loadSize)
-            TimelineKind.Favourites -> api.favourites(maxId = maxId, minId = minId, limit = loadSize)
-            TimelineKind.Home -> api.homeTimeline(maxId = maxId, minId = minId, limit = loadSize)
-            TimelineKind.PublicFederated -> api.publicTimeline(local = false, maxId = maxId, minId = minId, limit = loadSize)
-            TimelineKind.PublicLocal -> api.publicTimeline(local = true, maxId = maxId, minId = minId, limit = loadSize)
-            TimelineKind.TrendingStatuses -> api.trendingStatuses()
-            is TimelineKind.Tag -> {
-                val firstHashtag = timelineKind.tags.first()
-                val additionalHashtags = timelineKind.tags.subList(1, timelineKind.tags.size)
+        return when (timeline) {
+            Timeline.Bookmarks -> api.bookmarks(maxId = maxId, minId = minId, limit = loadSize)
+            Timeline.Favourites -> api.favourites(maxId = maxId, minId = minId, limit = loadSize)
+            Timeline.Home -> api.homeTimeline(maxId = maxId, minId = minId, limit = loadSize)
+            Timeline.PublicFederated -> api.publicTimeline(local = false, maxId = maxId, minId = minId, limit = loadSize)
+            Timeline.PublicLocal -> api.publicTimeline(local = true, maxId = maxId, minId = minId, limit = loadSize)
+            Timeline.TrendingStatuses -> api.trendingStatuses()
+            is Timeline.Hashtags -> {
+                val firstHashtag = timeline.tags.first()
+                val additionalHashtags = timeline.tags.subList(1, timeline.tags.size)
                 api.hashtagTimeline(firstHashtag, additionalHashtags, null, maxId = maxId, minId = minId, limit = loadSize)
             }
-            is TimelineKind.User.Pinned -> api.accountStatuses(
-                timelineKind.id,
+            is Timeline.User.Pinned -> api.accountStatuses(
+                timeline.id,
                 maxId = maxId,
                 minId = minId,
                 limit = loadSize,
@@ -165,8 +165,8 @@ class NetworkTimelineRemoteMediator(
                 onlyMedia = null,
                 pinned = true,
             )
-            is TimelineKind.User.Posts -> api.accountStatuses(
-                timelineKind.id,
+            is Timeline.User.Posts -> api.accountStatuses(
+                timeline.id,
                 maxId = maxId,
                 minId = minId,
                 limit = loadSize,
@@ -174,8 +174,8 @@ class NetworkTimelineRemoteMediator(
                 onlyMedia = null,
                 pinned = null,
             )
-            is TimelineKind.User.Replies -> api.accountStatuses(
-                timelineKind.id,
+            is Timeline.User.Replies -> api.accountStatuses(
+                timeline.id,
                 maxId = maxId,
                 minId = minId,
                 limit = loadSize,
@@ -183,12 +183,13 @@ class NetworkTimelineRemoteMediator(
                 onlyMedia = null,
                 pinned = null,
             )
-            is TimelineKind.UserList -> api.listTimeline(
-                timelineKind.id,
+            is Timeline.UserList -> api.listTimeline(
+                timeline.listId,
                 maxId = maxId,
                 minId = minId,
                 limit = loadSize,
             )
+            else -> throw IllegalStateException("NetworkTimelineRemoteMediator does not support $timeline")
         }
     }
 }

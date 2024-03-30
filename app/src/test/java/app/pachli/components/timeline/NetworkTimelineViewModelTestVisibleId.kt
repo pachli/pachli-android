@@ -18,7 +18,7 @@
 package app.pachli.components.timeline
 
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
-import app.pachli.core.network.model.TimelineKind
+import app.pachli.core.model.Timeline
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
@@ -32,8 +32,8 @@ class NetworkTimelineViewModelTestVisibleId : NetworkTimelineViewModelTestBase()
         // Given
         assertThat(accountManager.activeAccount?.lastVisibleHomeTimelineStatusId)
             .isNull()
-        assertThat(viewModel.timelineKind)
-            .isNotEqualTo(TimelineKind.Home)
+        assertThat(viewModel.timeline)
+            .isNotEqualTo(Timeline.Home)
 
         // When
         viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))

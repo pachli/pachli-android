@@ -27,8 +27,8 @@ import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineKind
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.getDomain
 import javax.inject.Inject
@@ -81,7 +81,7 @@ class NetworkTimelineRepository @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     fun getStatusStream(
         viewModelScope: CoroutineScope,
-        kind: TimelineKind,
+        kind: Timeline,
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
     ): Flow<PagingData<Status>> {

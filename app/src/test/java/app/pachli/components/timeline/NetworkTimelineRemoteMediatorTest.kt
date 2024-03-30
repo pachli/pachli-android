@@ -30,8 +30,8 @@ import app.pachli.components.timeline.viewmodel.Page
 import app.pachli.components.timeline.viewmodel.PageCache
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineKind
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import okhttp3.Headers
@@ -79,7 +79,7 @@ class NetworkTimelineRemoteMediatorTest {
             accountManager = accountManager,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
-            timelineKind = TimelineKind.Home,
+            timeline = Timeline.Home,
         )
 
         // When
@@ -101,7 +101,7 @@ class NetworkTimelineRemoteMediatorTest {
             accountManager,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
-            timelineKind = TimelineKind.Home,
+            timeline = Timeline.Home,
         )
 
         // When
@@ -131,7 +131,7 @@ class NetworkTimelineRemoteMediatorTest {
             accountManager = accountManager,
             factory = pagingSourceFactory,
             pageCache = pages,
-            timelineKind = TimelineKind.Home,
+            timeline = Timeline.Home,
         )
 
         val state = state(
@@ -194,7 +194,7 @@ class NetworkTimelineRemoteMediatorTest {
             accountManager = accountManager,
             factory = pagingSourceFactory,
             pageCache = pages,
-            timelineKind = TimelineKind.Home,
+            timeline = Timeline.Home,
         )
 
         val state = state(
@@ -264,7 +264,7 @@ class NetworkTimelineRemoteMediatorTest {
             accountManager = accountManager,
             factory = pagingSourceFactory,
             pageCache = pages,
-            timelineKind = TimelineKind.Home,
+            timeline = Timeline.Home,
         )
 
         val state = state(

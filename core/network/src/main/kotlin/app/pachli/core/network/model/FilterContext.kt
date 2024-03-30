@@ -17,6 +17,7 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
@@ -51,18 +52,28 @@ enum class FilterContext {
     /** Filter applies when viewing a profile */
     @Json(name = "account")
     ACCOUNT,
+
     ;
 
     companion object {
-        fun from(kind: TimelineKind): FilterContext = when (kind) {
-            is TimelineKind.Home, is TimelineKind.UserList -> HOME
-            is TimelineKind.PublicFederated,
-            is TimelineKind.PublicLocal,
-            is TimelineKind.Tag,
-            is TimelineKind.Favourites,
+        /**
+         * @return The filter context for [timeline], or null if filters are not applied
+         *     to this timeline.
+         */
+        fun from(timeline: Timeline): FilterContext? = when (timeline) {
+            is Timeline.Home, is Timeline.UserList -> HOME
+            is Timeline.User -> ACCOUNT
+            Timeline.Notifications -> NOTIFICATIONS
+            Timeline.Bookmarks,
+            Timeline.Favourites,
+            Timeline.PublicFederated,
+            Timeline.PublicLocal,
+            is Timeline.Hashtags,
+            Timeline.TrendingStatuses,
+            Timeline.TrendingHashtags,
+            Timeline.TrendingLinks,
             -> PUBLIC
-            is TimelineKind.User -> ACCOUNT
-            else -> PUBLIC
+            Timeline.Conversations -> null
         }
     }
 }

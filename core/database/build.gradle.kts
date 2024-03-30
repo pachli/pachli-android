@@ -32,6 +32,7 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.model)
     implementation(projects.core.network)
     implementation(projects.core.preferences)
 
