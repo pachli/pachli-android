@@ -135,7 +135,12 @@ data class TabViewData(
                 icon = R.drawable.ic_bookmark_active_24dp,
                 fragment = { TimelineFragment.newInstance(timeline) },
             )
-            Timeline.Favourites -> throw IllegalArgumentException("can't add to tab: $timeline")
+            Timeline.Favourites -> TabViewData(
+                timeline = timeline,
+                text = R.string.title_favourites,
+                icon = R.drawable.ic_favourite_filled_24dp,
+                fragment = { TimelineFragment.newInstance(timeline) },
+            )
             is Timeline.User.Pinned -> throw IllegalArgumentException("can't add to tab: $timeline")
             is Timeline.User.Posts -> throw IllegalArgumentException("can't add to tab: $timeline")
             is Timeline.User.Replies -> throw IllegalArgumentException("can't add to tab: $timeline")
