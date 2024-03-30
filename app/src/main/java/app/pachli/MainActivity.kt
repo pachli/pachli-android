@@ -99,7 +99,7 @@ import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.ScheduledStatusActivityIntent
 import app.pachli.core.navigation.SearchActivityIntent
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.TrendingActivityIntent
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Notification
@@ -607,7 +607,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                                 iconicsIcon = GoogleMaterial.Icon.gmd_list
                                 onClick = {
                                     startActivityWithSlideInAnimation(
-                                        StatusListActivityIntent.list(this@MainActivity, list.id, list.title),
+                                        TimelineActivityIntent.list(this@MainActivity, list.id, list.title),
                                     )
                                 }
                             }
@@ -634,7 +634,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.action_view_bookmarks
                     iconicsIcon = GoogleMaterial.Icon.gmd_bookmark
                     onClick = {
-                        val intent = StatusListActivityIntent.bookmarks(context)
+                        val intent = TimelineActivityIntent.bookmarks(context)
                         startActivityWithSlideInAnimation(intent)
                     }
                 },
@@ -643,7 +643,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     isSelectable = false
                     iconicsIcon = GoogleMaterial.Icon.gmd_star
                     onClick = {
-                        val intent = StatusListActivityIntent.favourites(context)
+                        val intent = TimelineActivityIntent.favourites(context)
                         startActivityWithSlideInAnimation(intent)
                     }
                 },

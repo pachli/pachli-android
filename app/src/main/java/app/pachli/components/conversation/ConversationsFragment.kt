@@ -44,7 +44,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.PrefKeys
@@ -316,7 +316,7 @@ class ConversationsFragment :
     }
 
     override fun onViewTag(tag: String) {
-        val intent = StatusListActivityIntent.hashtag(requireContext(), tag)
+        val intent = TimelineActivityIntent.hashtag(requireContext(), tag)
         startActivity(intent)
     }
 

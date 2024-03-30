@@ -69,7 +69,7 @@ import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.EditProfileActivityIntent
 import app.pachli.core.navigation.ReportActivityIntent
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Relationship
@@ -951,7 +951,7 @@ class AccountActivity :
     }
 
     override fun onViewTag(tag: String) {
-        val intent = StatusListActivityIntent.hashtag(this, tag)
+        val intent = TimelineActivityIntent.hashtag(this, tag)
         startActivityWithSlideInAnimation(intent)
     }
 

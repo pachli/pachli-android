@@ -44,7 +44,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -243,7 +243,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
 
     private fun onListSelected(listId: String, listTitle: String) {
         startActivityWithSlideInAnimation(
-            StatusListActivityIntent.list(this, listId, listTitle),
+            TimelineActivityIntent.list(this, listId, listTitle),
         )
     }
 

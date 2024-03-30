@@ -12,7 +12,7 @@ This introduces a dependency between A and B.
 
 This is worse if B also wants to start A.
 
-For example, if A is `StatusListActivity` and B is`ViewThreadActivity`. The user might click a status in `StatusListActivity` to view the thread, starting `ViewThreadActivity`. But from the thread they might click a hashtag to view the list of statuses with that hashtag. Now `StatusListActivity` and `ViewThreadActivity` have a circular dependency.
+For example, if A is `TimelineActivity` and B is`ViewThreadActivity`. The user might click a status in `TimelineActivity` to view the thread, starting `ViewThreadActivity`. But from the thread they might click a hashtag to view the list of statuses with that hashtag. Now `TimelineActivity` and `ViewThreadActivity` have a circular dependency.
 
 Even if that doesn't happen the dependency means that any changes to B will trigger a rebuild of A, even if the changes to B are not relevant.
 

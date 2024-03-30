@@ -125,7 +125,7 @@
         <activity android:name=".components.notifications.NotificationsActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".components.preference.PreferencesActivity" />
-        <activity android:name=".StatusListActivity" />
+        <activity android:name=".TimelineActivity" />
         <activity android:name=".components.accountlist.AccountListActivity" />
         <activity android:name=".feature.about.AboutActivity" />
         <activity android:name=".TabPreferenceActivity" />
