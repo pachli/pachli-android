@@ -18,8 +18,10 @@
 package app.pachli
 
 import android.content.Context
+import android.content.Intent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat.getString
 import androidx.fragment.app.Fragment
 import app.pachli.components.conversation.ConversationsFragment
 import app.pachli.components.notifications.NotificationsFragment
@@ -27,6 +29,8 @@ import app.pachli.components.timeline.TimelineFragment
 import app.pachli.components.trending.TrendingLinksFragment
 import app.pachli.components.trending.TrendingTagsFragment
 import app.pachli.core.model.Timeline
+import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.network.model.Status
 
 /**
  * Wrap a [Timeline] with additional information to display a tab with that
@@ -37,6 +41,8 @@ import app.pachli.core.model.Timeline
  * @param icon icon to use when displaying the tab
  * @param fragment [Fragment] to display the tab's contents
  * @param title title to display in the action bar if this tab is active
+ * @param composeIntent intent to launch [ComposeActivity] for this timeline, or null
+ *     if composing from this timeline is not supported
  */
 data class TabViewData(
     val timeline: Timeline,
@@ -44,6 +50,7 @@ data class TabViewData(
     @DrawableRes val icon: Int,
     val fragment: () -> Fragment,
     val title: (Context) -> String = { context -> context.getString(text) },
+    val composeIntent: ((Context) -> Intent)? = { context -> ComposeActivityIntent(context) },
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -89,12 +96,19 @@ data class TabViewData(
                 text = R.string.title_direct_messages,
                 icon = R.drawable.ic_reblog_direct_24dp,
                 fragment = { ConversationsFragment.newInstance() },
-            )
+            ) {
+                ComposeActivityIntent(
+                    it,
+                    ComposeActivityIntent.ComposeOptions(visibility = Status.Visibility.PRIVATE),
+                )
+            }
+
             Timeline.TrendingHashtags -> TabViewData(
                 timeline = timeline,
                 text = R.string.title_public_trending_hashtags,
                 icon = R.drawable.ic_trending_up_24px,
                 fragment = { TrendingTagsFragment.newInstance() },
+                composeIntent = null,
             )
             Timeline.TrendingLinks -> TabViewData(
                 timeline = timeline,
@@ -115,13 +129,20 @@ data class TabViewData(
                 fragment = { TimelineFragment.newInstance(timeline) },
                 title = { context ->
                     timeline.tags.joinToString(separator = " ") {
-                        context.getString(
-                            R.string.title_tag,
-                            it,
-                        )
+                        context.getString(R.string.title_tag, it)
                     }
                 },
-            )
+            ) { context ->
+                val tag = (timeline as Timeline.Hashtags).tags.first()
+                ComposeActivityIntent(
+                    context,
+                    ComposeActivityIntent.ComposeOptions(
+                        content = getString(context, R.string.title_tag_with_initial_position).format(tag),
+                        initialCursorPosition = ComposeActivityIntent.ComposeOptions.InitialCursorPosition.START,
+                    ),
+                )
+            }
+
             is Timeline.UserList -> TabViewData(
                 timeline = timeline,
                 text = R.string.list,

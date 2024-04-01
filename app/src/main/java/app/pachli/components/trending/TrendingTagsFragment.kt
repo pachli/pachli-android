@@ -111,6 +111,7 @@ class TrendingTagsFragment :
             }
         }
 
+        // Hide the action button so it doesn't obscure chart information
         (activity as? ActionButtonActivity)?.actionButton?.hide()
     }
 

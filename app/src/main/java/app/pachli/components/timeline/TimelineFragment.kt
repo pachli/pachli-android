@@ -54,13 +54,13 @@ import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.extensions.visible
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
+import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.databinding.FragmentTimelineBinding
@@ -88,6 +88,7 @@ import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
@@ -188,24 +189,19 @@ class TimelineFragment :
         setupSwipeRefreshLayout()
         setupRecyclerView()
 
-        if (actionButtonPresent()) {
-            binding.recyclerView.addOnScrollListener(
-                object : RecyclerView.OnScrollListener() {
-                    val actionButton = (activity as? ActionButtonActivity)?.actionButton
+        (activity as? ActionButtonActivity)?.actionButton?.let { actionButton ->
+            actionButton.show()
 
-                    override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
-                        actionButton?.visible(viewModel.uiState.value.showFabWhileScrolling || dy == 0)
+            val actionButtonScrollListener = ActionButtonScrollListener(actionButton)
+            binding.recyclerView.addOnScrollListener(actionButtonScrollListener)
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                    viewModel.uiState.distinctUntilChangedBy { it.showFabWhileScrolling }.collect {
+                        actionButtonScrollListener.showActionButtonWhileScrolling = it.showFabWhileScrolling
                     }
-
-                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                        newState != SCROLL_STATE_IDLE && return
-
-                        actionButton?.show()
-
-                        saveVisibleId()
-                    }
-                },
-            )
+                }
+            }
         }
 
         /**
@@ -567,6 +563,14 @@ class TimelineFragment :
             header = TimelineLoadStateAdapter { adapter.retry() },
             footer = TimelineLoadStateAdapter { adapter.retry() },
         )
+
+        binding.recyclerView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    if (newState == SCROLL_STATE_IDLE) saveVisibleId()
+                }
+            },
+        )
     }
 
     /** Refresh the displayed content, as if the user had swiped on the SwipeRefreshLayout */
@@ -728,14 +732,6 @@ class TimelineFragment :
 
     public override fun removeItem(viewData: StatusViewData) {
         viewModel.removeStatusWithId(viewData.id)
-    }
-
-    private fun actionButtonPresent(): Boolean {
-        return viewModel.timeline !is Timeline.Hashtags &&
-            viewModel.timeline !is Timeline.Favourites &&
-            viewModel.timeline !is Timeline.Bookmarks &&
-            viewModel.timeline !is Timeline.TrendingStatuses &&
-            activity is ActionButtonActivity
     }
 
     private var talkBackWasEnabled = false

@@ -28,12 +28,18 @@ import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.EmptyPagingSource
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -45,6 +51,7 @@ class ConversationsViewModel @Inject constructor(
     private val converters: Converters,
     private val accountManager: AccountManager,
     private val api: MastodonApi,
+    sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
 
     @OptIn(ExperimentalPagingApi::class)
@@ -70,6 +77,12 @@ class ConversationsViewModel @Inject constructor(
             pagingData.map { conversation -> ConversationViewData.from(conversation) }
         }
         .cachedIn(viewModelScope)
+
+    val showFabWhileScrolling = sharedPreferencesRepository.changes
+        .filter { it == null || it == PrefKeys.FAB_HIDE }
+        .map { !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false) }
+        .onStart { emit(!sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)) }
+        .shareIn(viewModelScope, replay = 1, started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000))
 
     /**
      * @param lastStatusId ID of the last status in the conversation
