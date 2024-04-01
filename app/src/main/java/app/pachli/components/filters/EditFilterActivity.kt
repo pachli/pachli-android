@@ -301,15 +301,11 @@ class EditFilterActivity : BaseActivity() {
     companion object {
         // Mastodon *stores* the absolute date in the filter,
         // but create/edit take a number of seconds (relative to the time the operation is posted)
-        fun getSecondsForDurationIndex(index: Int, context: Context?, default: Date? = null): Int? {
+        fun getSecondsForDurationIndex(index: Int, context: Context?, default: Date? = null): String? {
             return when (index) {
-                -1 -> if (default == null) {
-                    default
-                } else {
-                    ((default.time - System.currentTimeMillis()) / 1000).toInt()
-                }
-                0 -> null
-                else -> context?.resources?.getIntArray(R.array.filter_duration_values)?.get(index)
+                -1 -> default?.let { ((default.time - System.currentTimeMillis()) / 1000).toString() }
+                0 -> ""
+                else -> context?.resources?.getStringArray(R.array.filter_duration_values)?.get(index)
             }
         }
     }

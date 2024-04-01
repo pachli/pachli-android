@@ -168,13 +168,13 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
         )
     }
 
-    private suspend fun createFilterV1(contexts: List<FilterContext>, expiresInSeconds: Int?): Boolean {
+    private suspend fun createFilterV1(contexts: List<FilterContext>, expiresInSeconds: String?): Boolean {
         return keywords.value.map { keyword ->
             api.createFilterV1(keyword.keyword, contexts, false, keyword.wholeWord, expiresInSeconds)
         }.none { it.isFailure }
     }
 
-    private suspend fun updateFilterV1(contexts: List<FilterContext>, expiresInSeconds: Int?): Boolean {
+    private suspend fun updateFilterV1(contexts: List<FilterContext>, expiresInSeconds: String?): Boolean {
         val results = keywords.value.map { keyword ->
             if (originalFilter == null) {
                 api.createFilterV1(
