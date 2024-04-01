@@ -260,7 +260,7 @@ class FilterV1Test {
         val expiredBySeconds = 3600
         val expiredDate = Date.from(Instant.now().minusSeconds(expiredBySeconds.toLong()))
         val updatedDuration = EditFilterActivity.getSecondsForDurationIndex(-1, null, expiredDate)
-        assert(updatedDuration != null && updatedDuration <= -expiredBySeconds)
+        assert(updatedDuration != null && updatedDuration.toInt() <= -expiredBySeconds)
     }
 
     @Test
@@ -268,7 +268,7 @@ class FilterV1Test {
         val expiresInSeconds = 3600
         val expiredDate = Date.from(Instant.now().plusSeconds(expiresInSeconds.toLong()))
         val updatedDuration = EditFilterActivity.getSecondsForDurationIndex(-1, null, expiredDate)
-        assert(updatedDuration != null && updatedDuration > (expiresInSeconds - 60))
+        assert(updatedDuration != null && updatedDuration.toInt() > (expiresInSeconds - 60))
     }
 
     companion object {
