@@ -65,8 +65,7 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
+import kotlin.time.Duration.Companion.minutes
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
@@ -190,7 +189,7 @@ class ConversationsFragment :
                         adapter.itemCount,
                         listOf(StatusBaseViewHolder.Key.KEY_CREATED),
                     )
-                    delay(1.toDuration(DurationUnit.MINUTES))
+                    delay(1.minutes)
                 }
             }
         }
