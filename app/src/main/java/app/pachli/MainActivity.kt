@@ -625,6 +625,33 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     }
                 },
                 primaryDrawerItem {
+                    nameRes = R.string.title_public_local
+                    iconRes = R.drawable.ic_local_24dp
+                    onClick = {
+                        startActivityWithSlideInAnimation(
+                            TimelineActivityIntent.publicLocal(context),
+                        )
+                    }
+                },
+                primaryDrawerItem {
+                    nameRes = R.string.title_public_federated
+                    iconRes = R.drawable.ic_public_24dp
+                    onClick = {
+                        startActivityWithSlideInAnimation(
+                            TimelineActivityIntent.publicFederated(context),
+                        )
+                    }
+                },
+                primaryDrawerItem {
+                    nameRes = R.string.title_direct_messages
+                    iconRes = R.drawable.ic_reblog_direct_24dp
+                    onClick = {
+                        startActivityWithSlideInAnimation(
+                            TimelineActivityIntent.conversations(context),
+                        )
+                    }
+                },
+                primaryDrawerItem {
                     nameRes = R.string.action_view_bookmarks
                     iconicsIcon = GoogleMaterial.Icon.gmd_bookmark
                     onClick = {
