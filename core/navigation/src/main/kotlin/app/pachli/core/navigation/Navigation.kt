@@ -25,9 +25,12 @@ import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.bookmarks
+import app.pachli.core.navigation.TimelineActivityIntent.Companion.conversations
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.favourites
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.hashtag
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.list
+import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicFederated
+import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicLocal
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.NewPoll
@@ -386,7 +389,8 @@ class ReportActivityIntent(context: Context, accountId: String, userName: String
 }
 
 /**
- * Use one of [bookmarks], [favourites], [hashtag], or [list] to construct.
+ * Use one of [bookmarks], [conversations], [favourites], [hashtag], [list], [publicFederated],
+ * or [publicLocal] to construct.
  */
 class TimelineActivityIntent private constructor(context: Context) : Intent() {
     init {
@@ -403,6 +407,15 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
          */
         fun bookmarks(context: Context) = TimelineActivityIntent(context).apply {
             putExtra(EXTRA_TIMELINE, Timeline.Bookmarks)
+        }
+
+        /**
+         * Show the user's conversations (direct messages).
+         *
+         * @param context
+         */
+        fun conversations(context: Context) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.Conversations)
         }
 
         /**
@@ -433,6 +446,24 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
          */
         fun list(context: Context, listId: String, title: String) = TimelineActivityIntent(context).apply {
             putExtra(EXTRA_TIMELINE, Timeline.UserList(listId, title))
+        }
+
+        /**
+         * Show statuses from the Public Federated feed
+         *
+         * @param context
+         */
+        fun publicFederated(context: Context) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.PublicFederated)
+        }
+
+        /**
+         * Show statuses from the Public Local feed
+         *
+         * @param context
+         */
+        fun publicLocal(context: Context) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.PublicLocal)
         }
 
         /** @return The [Timeline] to show */
