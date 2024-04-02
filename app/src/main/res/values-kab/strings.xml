@@ -143,7 +143,7 @@
     <string name="conversation_2_recipients">%1$s akked %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s akked %3$d nniḍen</string>
     <string name="compose_shortcut_long_label">Aru izen</string>
-    <string name="poll_info_format"> <!-- 15 n wadɣaren • 1 n wesrag id yeqqimen --> %1$s • %2$s</string>
+    <string name="poll_info_format"> \u0020<!-- 15 n wadɣaren • 1 n wesrag i d-yeqqimen --> \u0020 %1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s n wedɣar</item>
         <item quantity="other">%s n yedɣaren</item>
