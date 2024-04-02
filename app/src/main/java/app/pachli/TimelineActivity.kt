@@ -19,11 +19,15 @@ package app.pachli
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FilterChangedEvent
+import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
@@ -46,6 +50,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import timber.log.Timber
@@ -54,7 +59,7 @@ import timber.log.Timber
  * Show a single timeline.
  */
 @AndroidEntryPoint
-class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonActivity {
+class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonActivity, MenuProvider {
     @Inject
     lateinit var eventHub: EventHub
 
@@ -89,15 +94,15 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         setContentView(binding.root)
 
         setSupportActionBar(binding.includedToolbar.toolbar)
+        addMenuProvider(this)
 
         timeline = TimelineActivityIntent.getTimeline(intent)
+        hashtag = (timeline as? Timeline.Hashtags)?.tags?.firstOrNull()
 
         val viewData = TabViewData.from(timeline)
 
-        val title = viewData.title(this)
-
         supportActionBar?.run {
-            setTitle(title)
+            title = viewData.title(this@TimelineActivity)
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
@@ -116,9 +121,10 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         } ?: binding.composeButton.hide()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val tag = hashtag
-        if (timeline is Timeline.Hashtags && tag != null) {
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.activity_timeline, menu)
+
+        hashtag?.let { tag ->
             lifecycleScope.launch {
                 mastodonApi.tag(tag).fold(
                     { tagEntity ->
@@ -129,10 +135,6 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
                         unmuteTagItem = menu.findItem(R.id.action_unmute_hashtag)
                         followTagItem?.isVisible = tagEntity.following == false
                         unfollowTagItem?.isVisible = tagEntity.following == true
-                        followTagItem?.setOnMenuItemClickListener { followTag() }
-                        unfollowTagItem?.setOnMenuItemClickListener { unfollowTag() }
-                        muteTagItem?.setOnMenuItemClickListener { muteTag() }
-                        unmuteTagItem?.setOnMenuItemClickListener { unmuteTag() }
                         updateMuteTagMenuItems()
                     },
                     {
@@ -142,7 +144,52 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
             }
         }
 
-        return super.onCreateOptionsMenu(menu)
+        return super.onCreateMenu(menu, menuInflater)
+    }
+
+    override fun onPrepareMenu(menu: Menu) {
+        // Check if this timeline is in a tab; if not, enable the add_to_tab menu item
+        val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
+        val hideMenu = currentTabs.contains(timeline)
+        menu.findItem(R.id.action_add_to_tab)?.setVisible(!hideMenu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.action_add_to_tab -> {
+                addToTab()
+                Toast.makeText(this, getString(R.string.action_add_to_tab_success, supportActionBar?.title), Toast.LENGTH_LONG).show()
+                menuItem.setVisible(false)
+                true
+            }
+            R.id.action_follow_hashtag -> {
+                followTag()
+                true
+            }
+            R.id.action_unfollow_hashtag -> {
+                unfollowTag()
+                true
+            }
+            R.id.action_mute_hashtag -> {
+                muteTag()
+                true
+            }
+            R.id.action_unmute_hashtag -> {
+                unmuteTag()
+                true
+            }
+            else -> super.onMenuItemSelected(menuItem)
+        }
+    }
+
+    private fun addToTab() {
+        accountManager.activeAccount?.let {
+            lifecycleScope.launch(Dispatchers.IO) {
+                it.tabPreferences += timeline
+                accountManager.saveAccount(it)
+                eventHub.dispatch(MainTabsChangedEvent(it.tabPreferences))
+            }
+        }
     }
 
     private fun followTag(): Boolean {

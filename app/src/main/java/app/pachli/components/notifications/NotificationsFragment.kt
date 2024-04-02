@@ -66,15 +66,14 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
 import app.pachli.util.UserRefreshState
 import app.pachli.util.asRefreshState
+import app.pachli.util.makeIcon
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
-import com.mikepenz.iconics.IconicsDrawable
+import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
-import com.mikepenz.iconics.utils.colorInt
-import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -448,18 +447,11 @@ class NotificationsFragment :
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.fragment_notifications, menu)
-        val iconColor = MaterialColors.getColor(binding.root, android.R.attr.textColorPrimary)
         menu.findItem(R.id.action_refresh)?.apply {
-            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {
-                sizeDp = 20
-                colorInt = iconColor
-            }
+            icon = makeIcon(requireContext(), GoogleMaterial.Icon.gmd_refresh, IconicsSize.dp(20))
         }
         menu.findItem(R.id.action_edit_notification_filter)?.apply {
-            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_tune).apply {
-                sizeDp = 20
-                colorInt = iconColor
-            }
+            icon = makeIcon(requireContext(), GoogleMaterial.Icon.gmd_tune, IconicsSize.dp(20))
         }
     }
 

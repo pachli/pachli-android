@@ -112,7 +112,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         }
 
         currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty().map { TabViewData.from(it) }.toMutableList()
-        currentTabsAdapter = TabAdapter(currentTabs, false, this, currentTabs.size <= MIN_TAB_COUNT)
+        currentTabsAdapter = TabAdapter(currentTabs, false, this)
         binding.currentTabsRecyclerView.adapter = currentTabsAdapter
         binding.currentTabsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.currentTabsRecyclerView.addItemDecoration(
@@ -129,12 +129,9 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                     return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.END)
                 }
 
-                override fun isLongPressDragEnabled(): Boolean {
-                    return true
-                }
-
                 override fun isItemViewSwipeEnabled(): Boolean {
-                    return MIN_TAB_COUNT < currentTabs.size
+                    // Swiping enabled in TabAdapter.onBindViewHolder if the timeline is not Timeline.Home
+                    return false
                 }
 
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -394,8 +391,6 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         addableTabs.add(TabViewData.from(Timeline.UserList("", "")))
 
         addTabAdapter.updateData(addableTabs)
-
-        currentTabsAdapter.setRemoveButtonVisible(currentTabs.size > MIN_TAB_COUNT)
     }
 
     override fun onStartDelete(viewHolder: RecyclerView.ViewHolder) {
@@ -423,9 +418,5 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 eventHub.dispatch(MainTabsChangedEvent(currentTabs.map { it.timeline }))
             }
         }
-    }
-
-    companion object {
-        private const val MIN_TAB_COUNT = 2
     }
 }

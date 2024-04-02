@@ -466,6 +466,15 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
             putExtra(EXTRA_TIMELINE, Timeline.PublicLocal)
         }
 
+        /**
+         * Show notifications timeline
+         *
+         * @param context
+         */
+        fun notifications(context: Context) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.Notifications)
+        }
+
         /** @return The [Timeline] to show */
         fun getTimeline(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_TIMELINE, Timeline::class.java)!!
     }
@@ -590,12 +599,6 @@ class ListActivityIntent(context: Context) : Intent() {
 class LoginWebViewActivityIntent(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.LOGIN_WEB_VIEW_ACTIVITY)
-    }
-}
-
-class NotificationsActivityIntent(context: Context) : Intent() {
-    init {
-        setClassName(context, QuadrantConstants.NOTIFICATIONS_ACTIVITY)
     }
 }
 

@@ -949,19 +949,8 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="55"
+            line="53"
             column="9"/>
-    </issue>
-
-    <issue
-        id="NotifyDataSetChanged"
-        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
-        errorLine1="            notifyDataSetChanged()"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="158"
-            column="13"/>
     </issue>
 
     <issue
@@ -2430,7 +2419,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_tab_preference.xml"
-            line="26"
+            line="27"
             column="6"/>
     </issue>
 
@@ -2619,28 +2608,6 @@
             file="src/main/java/app/pachli/util/ShareShortcutHelper.kt"
             line="96"
             column="5"/>
-    </issue>
-
-    <issue
-        id="ClickableViewAccessibility"
-        message="Custom view ``ImageView`` has `setOnTouchListener` called on it but does not override `performClick`"
-        errorLine1="            binding.imageView.setOnTouchListener { _, event ->"
-        errorLine2="            ^">
-        <location
-            file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="92"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ClickableViewAccessibility"
-        message="`onTouch` lambda should call `View#performClick` when a click is detected"
-        errorLine1="            binding.imageView.setOnTouchListener { _, event ->"
-        errorLine2="                                                 ^">
-        <location
-            file="src/main/java/app/pachli/adapter/TabAdapter.kt"
-            line="92"
-            column="50"/>
     </issue>
 
     <issue

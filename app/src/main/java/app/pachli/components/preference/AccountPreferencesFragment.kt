@@ -101,7 +101,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
 
             preference {
                 setTitle(R.string.title_tab_preferences)
-                setIcon(R.drawable.ic_tabs)
+                setIcon(R.drawable.ic_add_to_tab_24)
                 setOnPreferenceClickListener {
                     val intent = TabPreferenceActivityIntent(context)
                     activity?.startActivity(intent)
@@ -191,9 +191,11 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 val server = serverRepository.flow.value.getOrElse { null }
                 isEnabled = server?.let {
                     it.can(
-                        ORG_JOINMASTODON_FILTERS_CLIENT, ">1.0.0".toConstraint(),
+                        ORG_JOINMASTODON_FILTERS_CLIENT,
+                        ">1.0.0".toConstraint(),
                     ) || it.can(
-                        ORG_JOINMASTODON_FILTERS_SERVER, ">1.0.0".toConstraint(),
+                        ORG_JOINMASTODON_FILTERS_SERVER,
+                        ">1.0.0".toConstraint(),
                     )
                 } ?: false
                 if (!isEnabled) summary = context.getString(R.string.pref_summary_timeline_filters)
