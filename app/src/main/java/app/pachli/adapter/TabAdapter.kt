@@ -16,6 +16,7 @@
 
 package app.pachli.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
@@ -61,6 +62,7 @@ class TabAdapter(
         return BindingHolder(binding)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: BindingHolder<ViewBinding>, position: Int) {
         val context = holder.itemView.context
         val tabViewData = data[position]
