@@ -45,8 +45,6 @@ class FollowedTagsActivity :
     private val binding by viewBinding(ActivityFollowedTagsBinding::inflate)
     private val viewModel: FollowedTagsViewModel by viewModels()
 
-    private val actionButtonScrollListener = ActionButtonScrollListener(binding.fab)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -76,6 +74,7 @@ class FollowedTagsActivity :
 
         binding.includedToolbar.appbar.setLiftOnScrollTargetView(binding.followedTagsView)
 
+        val actionButtonScrollListener = ActionButtonScrollListener(binding.fab)
         binding.followedTagsView.addOnScrollListener(actionButtonScrollListener)
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
