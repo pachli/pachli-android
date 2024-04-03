@@ -649,4 +649,19 @@
     <string name="title_lists_failed">Listat - lataaminen epäonnistui</string>
     <string name="manage_lists">Hallinnoi listoja</string>
     <string name="poll_show_votes">Näytä äänet</string>
+    <string name="notification_severed_relationships_name">Katkaistut yhteydet</string>
+    <string name="notification_severed_relationships_description">Ilmoitukset katkaistuista yhteyksistä</string>
+    <string name="action_add_to_tab">Lisää välilehteen</string>
+    <string name="action_add_to_tab_success">\'%1$s\' lisätty välilehtiin</string>
+    <string name="action_manage_tabs">Hallinnoi välilehtiä</string>
+    <string name="action_remove_tab">Poista välilehti</string>
+    <string name="notification_severed_relationships_domain_block_body">Moderaattori esti verkkotunnuksen</string>
+    <string name="notification_severed_relationships_format">Yhteys katkaistu: <b>%1$s </b></string>
+    <string name="notification_severed_relationships_user_domain_block_body">Estit verkkotunnuksen</string>
+    <string name="notification_severed_relationships_account_suspension_body">Moderaattori esti tilin</string>
+    <string name="notification_severed_relationships_unknown_body">Tuntematon syy</string>
+    <plurals name="notification_severed_relationships_summary_report_fmt">
+        <item quantity="one">%1$d yhteys katkaistu</item>
+        <item quantity="other">%1$d yhteyttä katkaistu</item>
+    </plurals>
 </resources>
