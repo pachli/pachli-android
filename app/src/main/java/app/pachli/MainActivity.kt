@@ -962,10 +962,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             activeTabLayout.addOnTabSelectedListener(it)
         }
 
-        supportActionBar?.title = tabs[position].title(this@MainActivity)
+        binding.mainToolbar.title = tabs[position].title(this@MainActivity)
         binding.mainToolbar.setOnClickListener {
             (tabAdapter.getFragment(activeTabLayout.selectedTabPosition) as? ReselectableFragment)?.onReselect()
         }
+
+        refreshComposeButtonState(tabs[position])
 
         updateProfiles()
     }
