@@ -9,7 +9,7 @@
 \n자세한 사항은 <a href="https://joinmastodon.org">joinmastodon.org</a>을 참조하세요. </string>
     <string name="action_close">닫기</string>
     <string name="error_invalid_domain">도메인이 올바르지 않습니다</string>
-    <string name="error_failed_app_registration">해당 인스턴스에 대한 인증에 실패했습니다.</string>
+    <string name="error_failed_app_registration_fmt">해당 인스턴스에 대한 인증에 실패했습니다: %1$s</string>
     <string name="error_authorization_unknown">알 수 없는 인증 오류가 발생했습니다.</string>
     <string name="error_authorization_denied">인증이 거부되었습니다.</string>
     <string name="error_retrieving_oauth_token">로그인 토큰을 받아올 수 없습니다.</string>

@@ -10,7 +10,7 @@
     <string name="action_close">Fechar</string>
     <string name="action_browser_login">Entrar com navegador</string>
     <string name="error_invalid_domain">Domínio inválido</string>
-    <string name="error_failed_app_registration">Falha na autenticação com essa instância. Se isso persistir, tente Entrar pelo Navegador no menu.</string>
+    <string name="error_failed_app_registration_fmt">Falha na autenticação com essa instância. Se isso persistir, tente Entrar pelo Navegador no menu: %1$s</string>
     <string name="error_authorization_unknown">Ocorreu um erro de autorização não identificado. Se isso persistir, tente Entrar pelo Navegador no menu.</string>
     <string name="error_authorization_denied">A autorização foi negada. Se você tiver certeza de que forneceu as credenciais corretas, tente Entrar pelo Navegador no menu.</string>
     <string name="error_retrieving_oauth_token">Falha ao obter um Token de login. Se isso persistir, tente Entrar pelo Navegador no menu.</string>

@@ -19,7 +19,7 @@
 \nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_close">বদ্ধ</string>
     <string name="error_invalid_domain">অবৈধ ডোমেইন প্রবেশ করানো হয়েছে</string>
-    <string name="error_failed_app_registration">এই ইনস্ট্যান্স এর সঙ্গে প্রমাণীকরণ ব্যর্থ।</string>
+    <string name="error_failed_app_registration_fmt">এই ইনস্ট্যান্স এর সঙ্গে প্রমাণীকরণ ব্যর্থ।: %1$s</string>
     <string name="error_authorization_unknown">একটি অজ্ঞাত প্রমাণীকরণ ত্রুটি ঘটেছে।</string>
     <string name="error_authorization_denied">অনুমোদন অস্বীকার করা হয়েছে।</string>
     <string name="error_retrieving_oauth_token">একটি লগইন টোকেন পেতে ব্যর্থ।</string>

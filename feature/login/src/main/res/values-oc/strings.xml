@@ -10,7 +10,7 @@
     <string name="action_close">Tampar</string>
     <string name="action_browser_login">Connexion via Navigador</string>
     <string name="error_invalid_domain">Lo domeni picat es pas valid</string>
-    <string name="error_failed_app_registration">L\'autenticacion en aquesta instància a fracassat. Se ten de se produire, ensajatz la connexion via Navigador via lo menú.</string>
+    <string name="error_failed_app_registration_fmt">L\'autenticacion en aquesta instància a fracassat. Se ten de se produire, ensajatz la connexion via Navigador via lo menú: %1$s</string>
     <string name="error_authorization_unknown">S\'es produch una error d\'autorizacion pas identificada. Se ten de se produire, ensajatz la connexion via Navigador via lo menú.</string>
     <string name="error_authorization_denied">L\'autorizacion es estada regetada.</string>
     <string name="error_retrieving_oauth_token">Fracàs de l’obtencion del geton d\'iniciacion de session.</string>

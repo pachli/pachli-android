@@ -10,7 +10,7 @@
     <string name="action_close">Закрити</string>
     <string name="action_browser_login">Увійти через браузер</string>
     <string name="error_invalid_domain">Введено недійсний домен</string>
-    <string name="error_failed_app_registration">Помилка автентифікації цього сервера. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>
+    <string name="error_failed_app_registration_fmt">Помилка автентифікації цього сервера. Якщо проблема не зникає, спробуйте увійти через браузер з меню: %1$s</string>
     <string name="error_authorization_unknown">Сталася помилка невпізнання авторизації. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>
     <string name="error_authorization_denied">Авторизацію відхилено. Якщо ви впевнені, що вказали правильні облікові дані, спробуйте увійти через браузер з меню.</string>
     <string name="error_retrieving_oauth_token">Не вдалося отримати токен входу. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>

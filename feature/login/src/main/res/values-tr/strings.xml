@@ -10,7 +10,7 @@
     <string name="action_close">Kapat</string>
     <string name="action_browser_login">Tarayıcı ile Giriş Yap</string>
     <string name="error_invalid_domain">Girilen alan adı geçersiz</string>
-    <string name="error_failed_app_registration">Bu sunucuda kimlik doğrulama başarısız oldu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
+    <string name="error_failed_app_registration_fmt">Bu sunucuda kimlik doğrulama başarısız oldu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene: %1$s</string>
     <string name="error_authorization_unknown">Tanımlanamayan bir yetkilendirme hatası oluştu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
     <string name="error_authorization_denied">Yetkilendirme reddedildi. Doğru hesap bilgilerini girdiğinden eminsen menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
     <string name="error_retrieving_oauth_token">Giriş belirteci alınırken hata oluştu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>

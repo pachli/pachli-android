@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="error_invalid_domain">Neplatná doména</string>
-    <string name="error_failed_app_registration">Autentizácia servru zlyhala.</string>
+    <string name="error_failed_app_registration_fmt">Autentizácia servru zlyhala: %1$s</string>
     <string name="error_authorization_unknown">Vyskytla sa neidentifikovaná chyba autorizácie.</string>
     <string name="error_authorization_denied">Autorizácia bola zamietnutá.</string>
     <string name="error_retrieving_oauth_token">Nepodarilo sa získať prihlasovací token.</string>

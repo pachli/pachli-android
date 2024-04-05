@@ -10,7 +10,7 @@
     <string name="action_close">Chiudi</string>
     <string name="action_browser_login">Accedi dal browser</string>
     <string name="error_invalid_domain">Inserito un dominio non valido</string>
-    <string name="error_failed_app_registration">Autenticazione con quell\'istanza fallita. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
+    <string name="error_failed_app_registration_fmt">Autenticazione con quell\'istanza fallita. Se il problema persiste, prova a collegarti dal browser nel menu: %1$s</string>
     <string name="error_authorization_unknown">Si è verificato un errore di autenticazione non identificato. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
     <string name="error_authorization_denied">Autorizzazione negata. Se sei sicuro di aver usato le credenziali corrette, prova a collegarti con il browser nel menu.</string>
     <string name="error_retrieving_oauth_token">Acquisizione token di accesso fallita. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
