@@ -11,7 +11,7 @@
     </string>
     <string name="action_close">Zavřít</string>
     <string name="error_invalid_domain">Byla zadána neplatná doména</string>
-    <string name="error_failed_app_registration">Autentizace s tímto serverem nebyla úspěšná.</string>
+    <string name="error_failed_app_registration_fmt">Autentizace s tímto serverem nebyla úspěšná: %1$s</string>
     <string name="error_authorization_unknown">Vyskytla se neidentifikovaná chyba autorizace.</string>
     <string name="error_authorization_denied">Autorizace byla zamítnuta.</string>
     <string name="error_retrieving_oauth_token">Nepodařilo se získat přihlašovací token.</string>

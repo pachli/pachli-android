@@ -10,7 +10,7 @@
     <string name="action_close">Fechar</string>
     <string name="action_browser_login">Iniciar sessão com navegador</string>
     <string name="error_invalid_domain">A instância inserida é inválida</string>
-    <string name="error_failed_app_registration">Erro ao autenticar com esta instância.</string>
+    <string name="error_failed_app_registration_fmt">Erro ao autenticar com esta instância: %1$s</string>
     <string name="error_authorization_unknown">Ocorreu um erro de autorização não identificado.</string>
     <string name="error_authorization_denied">Autorização negada.</string>
     <string name="error_retrieving_oauth_token">Erro ao adquirir token de login.</string>

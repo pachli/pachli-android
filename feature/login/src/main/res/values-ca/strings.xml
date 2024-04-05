@@ -11,7 +11,7 @@
     <string name="action_close">Tanca</string>
     <string name="action_browser_login">Inicieu sessió amb el navegador</string>
     <string name="error_invalid_domain">El domini que s\'ha introduït no és vàlid</string>
-    <string name="error_failed_app_registration">No s\'ha pogut autenticar amb aquesta instància. Si això continua, proveu d\'iniciar sessió al navegador des del menú.</string>
+    <string name="error_failed_app_registration_fmt">No s\'ha pogut autenticar amb aquesta instància. Si això continua, proveu d\'iniciar sessió al navegador des del menú: %1$s</string>
     <string name="error_authorization_unknown">S\'ha produït un error d\'autorització no identificat. Si això continua, proveu d\'iniciar sessió al navegador des del menú.</string>
     <string name="error_authorization_denied">S\'ha denegat l\'autorització. Si esteu segur que heu proporcionat les credencials correctes, proveu d\'iniciar sessió al navegador des del menú.</string>
     <string name="error_retrieving_oauth_token">No s\'ha pogut obtenir el token d\'inici de sessió. Si això continua, proveu d\'iniciar sessió al navegador des del menú.</string>

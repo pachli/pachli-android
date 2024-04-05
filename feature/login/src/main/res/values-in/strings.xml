@@ -2,7 +2,7 @@
 <resources>
     <string name="action_close">Tutup</string>
     <string name="error_invalid_domain">Domain yang dimasukkan tidak valid</string>
-    <string name="error_failed_app_registration">Gagal mengautentikasi dengan instance tersebut. Jika ini berlanjut, coba Masuk di Browser dari menu.</string>
+    <string name="error_failed_app_registration_fmt">Gagal mengautentikasi dengan instance tersebut. Jika ini berlanjut, coba Masuk di Browser dari menu: %1$s</string>
     <string name="error_authorization_unknown">"Terjadi kesalahan otorisasi yang tidak diketahui. Jika ini  berlanjut, coba Masuk di Browser dari menu."</string>
     <string name="error_authorization_denied">Otorisasi ditolak. Jika Anda yakin telah memberikan kredensial yang benar, coba Masuk di Browser dari menu.</string>
     <string name="error_retrieving_oauth_token">Gagal mendapatkan token masuk. Jika ini terus berlanjut, coba Masuk di Browser dari menu.</string>

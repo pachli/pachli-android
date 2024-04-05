@@ -9,7 +9,7 @@
 \nพบข้อมูลเพิ่มเติมได้ที่ <a href="https://joinmastodon.org">joinmastodon.org</a> </string>
     <string name="action_close">ปิด</string>
     <string name="error_invalid_domain">โดเมนที่ป้อนไม่ถูกต้อง</string>
-    <string name="error_failed_app_registration">การยืนยันตัวตนกับเซิร์ฟเวอร์นั้นล้มเหลว</string>
+    <string name="error_failed_app_registration_fmt">การยืนยันตัวตนกับเซิร์ฟเวอร์นั้นล้มเหลว: %1$s</string>
     <string name="error_authorization_unknown">เกิดข้อผิดพลาดในการขออนุญาตสิทธิโดยไม่ทราบสาเหตุ</string>
     <string name="error_authorization_denied">การขออนุญาตสิทธิถูกปฏิเสธ</string>
     <string name="error_retrieving_oauth_token">ไม่สามารถรับโทเค็นการเข้าสู่ระบบ</string>

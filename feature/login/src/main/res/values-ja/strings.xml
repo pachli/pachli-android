@@ -10,7 +10,7 @@
     <string name="action_close">閉じる</string>
     <string name="action_browser_login">ブラウザでログイン</string>
     <string name="error_invalid_domain">無効なドメインです</string>
-    <string name="error_failed_app_registration">そのインスタンスでの認証に失敗しました。失敗が続く場合、メニューからブラウザでのログインを試してください。</string>
+    <string name="error_failed_app_registration_fmt">そのインスタンスでの認証に失敗しました。失敗が続く場合、メニューからブラウザでのログインを試してください。: %1$s</string>
     <string name="error_authorization_unknown">不明な承認エラーが発生しました。失敗が続く場合、メニューからブラウザでのログインを試してください。</string>
     <string name="error_authorization_denied">認証が拒否されました。正しい認証情報を入力したことが確かな場合、メニューからブラウザでのログインを試してください。</string>
     <string name="error_retrieving_oauth_token">ログイントークンの取得に失敗しました。もし失敗が続く場合、メニューからブラウザでのログインを試してください。</string>

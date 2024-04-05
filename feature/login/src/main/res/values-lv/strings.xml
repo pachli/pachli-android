@@ -10,7 +10,7 @@
     <string name="action_close">Aizvērt</string>
     <string name="action_browser_login">Pieslēgties ar pārlūku</string>
     <string name="error_invalid_domain">Ievadīts nederīgs domēns</string>
-    <string name="error_failed_app_registration">Autentificēšana ar šo instanci neizdevās. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
+    <string name="error_failed_app_registration_fmt">Autentificēšana ar šo instanci neizdevās. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā: %1$s</string>
     <string name="error_authorization_unknown">Radās neidentificēta autorizācijas kļūda. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
     <string name="error_authorization_denied">Autorizācija tika liegta. Ja ir pārliecība, ka ievadīti pareizi pieslēgšanās dati, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
     <string name="error_retrieving_oauth_token">Neizdevās iegūt pieteikšanās pilnvaru. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>

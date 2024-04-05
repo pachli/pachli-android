@@ -10,7 +10,7 @@
     <string name="action_close">Закрыть</string>
     <string name="action_browser_login">Вход через Браузер</string>
     <string name="error_invalid_domain">Некорректный домен</string>
-    <string name="error_failed_app_registration">Ошибка аутентификации на этом узле. Если это повторится, попробуйте Вход через Браузер в меню.</string>
+    <string name="error_failed_app_registration_fmt">Ошибка аутентификации на этом узле. Если это повторится, попробуйте Вход через Браузер в меню: %1$s</string>
     <string name="error_authorization_unknown">Произошла ошибка неопознанной авторизации. Если это повторится, попробуйте Вход через Браузер в меню.</string>
     <string name="error_authorization_denied">Авторизация была отклонена.</string>
     <string name="error_retrieving_oauth_token">Не удалось получить токен авторизации.</string>

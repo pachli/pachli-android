@@ -9,7 +9,7 @@
 \nIs féidir tuilleadh faisnéise a fháil ag <a href="https://joinmastodon.org"> joinmastodon.org </a>. </string>
     <string name="action_close">Dún</string>
     <string name="error_invalid_domain">Fearann neamhbhailí iontráilte</string>
-    <string name="error_failed_app_registration">Theip ar fhíordheimhniú leis an ásc sin.</string>
+    <string name="error_failed_app_registration_fmt">Theip ar fhíordheimhniú leis an ásc sin: %1$s</string>
     <string name="error_authorization_unknown">Tharla earráid údaraithe neamhaitheanta.</string>
     <string name="error_authorization_denied">Diúltaíodh údarú.</string>
     <string name="error_retrieving_oauth_token">Theip ar chomhartha logála isteach a fháil.</string>

@@ -10,7 +10,7 @@
     <string name="action_close">Zamknij</string>
     <string name="action_browser_login">Zaloguj się przez przeglądarkę</string>
     <string name="error_invalid_domain">Wprowadzono nieprawidłową domenę</string>
-    <string name="error_failed_app_registration">Nie udało się uwierzytelnić z tą instancją. Jeśli problem będzie się powtarzał, spróbuj zalogować się za pomocą przeglądarki z menu aplikacji.</string>
+    <string name="error_failed_app_registration_fmt">Nie udało się uwierzytelnić z tą instancją. Jeśli problem będzie się powtarzał, spróbuj zalogować się za pomocą przeglądarki z menu aplikacji: %1$s</string>
     <string name="error_authorization_unknown">Wystąpił nieokreślony błąd podczas próby autoryzacji. Jeśli problem będzie się powtarzał, spróbuj zalogować się za pomocą przeglądarki z menu aplikacji.</string>
     <string name="error_authorization_denied">Odmówiono autoryzacji. Jeśli jesteś pewien poprawności wprowadzonych danych, spróbuj zalogowania się za pomocą przeglądarki dostępnej w menu.</string>
     <string name="error_retrieving_oauth_token">Nie udało się uzyskać tokenu logowania. Jeśli problem będzie się powtarzał, spróbuj zalogować się za pomocą przeglądarki z menu aplikacji.</string>

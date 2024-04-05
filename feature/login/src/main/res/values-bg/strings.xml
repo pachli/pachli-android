@@ -15,7 +15,7 @@
 \nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_close">Затваряне</string>
     <string name="error_invalid_domain">Въведен е невалиден домейн</string>
-    <string name="error_failed_app_registration">Неуспешно удостоверяване с тази инстанция.</string>
+    <string name="error_failed_app_registration_fmt">Неуспешно удостоверяване с тази инстанция: %1$s</string>
     <string name="error_authorization_unknown">Възникна неидентифицирана грешка при упълномощаване.</string>
     <string name="error_authorization_denied">Упълномощаването е отказано.</string>
     <string name="error_retrieving_oauth_token">Получаването на токен за вход бе неуспешно.</string>

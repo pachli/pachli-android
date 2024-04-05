@@ -12,7 +12,6 @@
     <string name="action_close">Close</string>
     <string name="action_browser_login">Login with Browser</string>
     <string name="error_invalid_domain">Invalid domain entered</string>
-    <string name="error_failed_app_registration">Failed authenticating with that instance. If this persists, try "Login in Browser" from the menu.</string>
     <string name="error_failed_app_registration_fmt">Failed authenticating with that instance: %1$s</string>
     <string name="error_authorization_unknown">An unidentified authorization error occurred. If this persists, try "Login in Browser" from the menu.</string>
     <string name="error_authorization_denied">Authorization was denied. If you\'re sure that you supplied the correct credentials, try "Login in Browser" from the menu.</string>

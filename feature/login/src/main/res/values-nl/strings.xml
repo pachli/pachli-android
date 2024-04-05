@@ -10,7 +10,7 @@
     <string name="action_close">Sluiten</string>
     <string name="action_browser_login">Inloggen met een browser</string>
     <string name="error_invalid_domain">Ongeldige domeinnaam ingevoerd</string>
-    <string name="error_failed_app_registration">Authenticatie met die server is mislukt. Als het probleem blijft, probeer dan de browser login via het menu.</string>
+    <string name="error_failed_app_registration_fmt">Authenticatie met die server is mislukt. Als het probleem blijft, probeer dan de browser login via het menu: %1$s</string>
     <string name="error_authorization_unknown">Er deed zich een onbekende autorisatiefout voor. Als dit blijft, probeer dan “ Via de browser inloggen” in het menu.</string>
     <string name="error_authorization_denied">Autorisatie werd geweigerd. Als u zeker weet dat u de correcte gegevens heeft ingevoerd, probeer dan in te loggen in de browser via het menu.</string>
     <string name="error_retrieving_oauth_token">Kon geen inlogsleutel verkrijgen. Als het probleem zich blijft herhalen; probeer dan de browser login via menu.</string>

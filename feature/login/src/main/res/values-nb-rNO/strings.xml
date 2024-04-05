@@ -10,7 +10,7 @@
     <string name="action_close">Steng</string>
     <string name="action_browser_login">Logg inn med nettleseren</string>
     <string name="error_invalid_domain">Ugyldig domene</string>
-    <string name="error_failed_app_registration">Kunne ikke autentisere med den instansen. Hvis dette fortsetter å skje, prøv å logge inn i nettleseren fra menyen.</string>
+    <string name="error_failed_app_registration_fmt">Kunne ikke autentisere med den instansen. Hvis dette fortsetter å skje, prøv å logge inn i nettleseren fra menyen: %1$s</string>
     <string name="error_authorization_unknown">En ukjent autoriseringsfeil oppsto. Hvis dette fortsetter, prøv å logge inn i nettleseren fra menyen.</string>
     <string name="error_authorization_denied">Autorisasjon ble nektet. Hvis du er sikker på at du ga riktige data, prøv å logge inn i nettleseren fra menyen.</string>
     <string name="error_retrieving_oauth_token">Henting av logintoken feilet. Hvis dette fortsetter prøv å logge in i nettleseren fra menyen.</string>

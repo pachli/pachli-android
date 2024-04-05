@@ -10,7 +10,7 @@
     <string name="action_close">Pechar</string>
     <string name="action_browser_login">Acceder no Navegador</string>
     <string name="error_invalid_domain">O dominio escrito non é válido</string>
-    <string name="error_failed_app_registration">Fallou a autenticación nesta instancia. Se persiste, inténtao desde Acceder no Navegador no menú.</string>
+    <string name="error_failed_app_registration_fmt">Fallou a autenticación nesta instancia. Se persiste, inténtao desde Acceder no Navegador no menú: %1$s</string>
     <string name="error_authorization_unknown">Aconteceu un erro non identificado na autorización. Se persiste, inténtao desde Acceder no Navedor.</string>
     <string name="error_authorization_denied">A autorización foi rexeitada. Se tes a certeza de que as credenciais son correctas, inténtao desde Acceder no Navegador no menú.</string>
     <string name="error_retrieving_oauth_token">Non se obtivo o token de acceso. Se non o consigues, inténtao desde Acceder no Navegador.</string>
