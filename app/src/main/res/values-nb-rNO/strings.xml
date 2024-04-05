@@ -284,7 +284,7 @@
     <string name="notification_clear_text">Er du sikker på at du vil slette alle varsler\?</string>
     <string name="action_delete_and_redraft">Slett og skriv på nytt</string>
     <string name="dialog_redraft_post_warning">Vil du slette denne tuten og skrive den på nytt\?</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s stemme</item>
         <item quantity="other">%s stemmer</item>

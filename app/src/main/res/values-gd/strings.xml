@@ -151,7 +151,7 @@
         <item quantity="few">%s bhòtaichean</item>
         <item quantity="other">%s bhòt</item>
     </plurals>
-    <string name="poll_info_format"> <!-- 15 bhòtaichean • 1 uair a thìde air fhàgail --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 bhòtaichean • 1 uair a thìde air fhàgail -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">Gnìomhan dhan dealbh %s</string>
     <string name="notification_clear_text">A bheil thu cinnteach gu bheil thu airson na brathan uile agad fhalamhachadh gu buan\?</string>
     <string name="compose_shortcut_long_label">Sgrìobh post</string>

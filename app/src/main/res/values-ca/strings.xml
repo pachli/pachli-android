@@ -298,7 +298,7 @@
     <string name="compose_shortcut_short_label">Escriure</string>
     <string name="pref_title_bot_overlay">Mostra l\'indicador dels bots</string>
     <string name="notification_clear_text">Vols netejar totes les notificacions permanentment\?</string>
-    <string name="poll_info_format"> <!-- 15 vots • queda 1 hora --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 vots • queda 1 hora -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s vot</item>
         <item quantity="other">%s vots</item>

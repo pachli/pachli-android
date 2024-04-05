@@ -417,7 +417,7 @@
     <string name="compose_save_draft_loses_media">Cadw drafft\? (Bydd atodiadau\'n cael eu lanlwytho eto pan fyddwch chi\'n adfer y drafft.)</string>
     <string name="description_post_reblogged">Ailflogiwyd</string>
     <string name="dialog_push_notification_migration_other_accounts">Rydych wedi ail-fewngofnodi i\'ch cyfrif cyfredol i roi caniatâd tanysgrifio gwthio i Pachli. Fodd bynnag, mae gennych gyfrifon eraill o hyd nad ydyn nhw wedi\'u mudo fel hyn. Newidiwch atyn nhw ac ail-fewngofnodi fesul un er mwyn galluogi cefnogaeth hysbysiadau UnifiedPush.</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="hint_media_description_missing">Dylai fod gan y cyfryngau ddisgrifiad.</string>
     <string name="description_post_cw">Rhybudd cynnwys: %s</string>
     <string name="pref_title_confirm_reblogs">Dangos cadarnhâd cyn hybu</string>

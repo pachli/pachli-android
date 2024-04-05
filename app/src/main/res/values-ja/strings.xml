@@ -381,7 +381,7 @@
     <string name="pref_title_confirm_reblogs">ブーストする前に確認を表示</string>
     <string name="edit_hashtag_hint">ハッシュタグ (#をつけない)</string>
     <string name="select_list_title">リストを選択</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="poll_info_time_absolute">%sに終了</string>
     <string name="hint_additional_info">追加コメント</string>
     <string name="report_remote_instance">%sに転送</string>

@@ -313,7 +313,7 @@
     <string name="compose_shortcut_short_label">작성</string>
     <string name="notification_clear_text">모든 알림을 영구적으로 지우시겠습니까\?</string>
     <string name="compose_preview_image_description">이미지 %s를...</string>
-    <string name="poll_info_format"> <!-- 15 명 참여 • 1 시간 남음 --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 명 참여 • 1 시간 남음 -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="other">%s 명 참여</item>
     </plurals>

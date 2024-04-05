@@ -537,7 +537,7 @@
     <string name="duration_30_days">30 päivää</string>
     <string name="reblog_private">Tehosta alkuperäiselle yleisölle</string>
     <string name="compose_preview_image_description">Toiminnot kuvalle %s</string>
-    <string name="poll_info_format"> \u0020<!-- 15 ääntä • 1 tunti jäljellä --> %1$s• %2$s</string>
+    <string name="poll_info_format"><!-- 15 ääntä • 1 tunti jäljellä -->%1$s• %2$s</string>
     <string name="action_compose_shortcut">Kirjoita</string>
     <string name="unreblog_private">Peru tehostus</string>
     <string name="description_post_reblogged">Tehostettu</string>

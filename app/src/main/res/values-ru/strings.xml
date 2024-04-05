@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="error_empty">Не может быть пустым.</string>
     <string name="error_no_web_browser_found">Не удается найти веб-браузер.</string>
     <string name="error_compose_character_limit">Статус слишком длинный!</string>
@@ -332,9 +332,7 @@
     <string name="compose_shortcut_short_label">Сочинить</string>
     <string name="pref_title_bot_overlay">Показывать индикатор ботов</string>
     <string name="notification_clear_text">Вы действительно хотите безвозвратно удалить все уведомления?</string>
-    <string name="poll_info_format">
-        <!-- 15 votes • 1 hour left -->
-        %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s голос</item>
         <item quantity="few">%s голоса</item>

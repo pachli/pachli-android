@@ -278,7 +278,7 @@
     <string name="notification_clear_text">Ali ste prepričani, da želite trajno izbrisati vsa obvestila\?</string>
     <string name="action_delete_and_redraft">Izbriši in preoblikuj</string>
     <string name="dialog_redraft_post_warning">Izbriši in preoblikuj tut\?</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s glas</item>
         <item quantity="two">%s glasova</item>
