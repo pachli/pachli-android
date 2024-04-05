@@ -312,7 +312,7 @@
     <string name="pref_title_notification_filter_poll">Los sondatges son tampats</string>
     <string name="notification_poll_name">Sondatges</string>
     <string name="notification_poll_description">Notificacion de sondatges tampats</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="poll_ended_voted">Un sondatge ont avètz votat es acabat</string>
     <string name="poll_ended_created">Un sondatge qu’avètz creat es acabat</string>
     <plurals name="poll_timespan_days">

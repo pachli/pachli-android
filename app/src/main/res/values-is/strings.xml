@@ -314,7 +314,7 @@
     <string name="compose_shortcut_short_label">Semja skilaboð</string>
     <string name="notification_clear_text">Ertu viss um að þú viljir endanlega eyða öllum tilkynningunum þínum\?</string>
     <string name="compose_preview_image_description">Aðgerðir fyrir mynd %s</string>
-    <string name="poll_info_format"> <!-- 15 atkvæði • 1 klukkustund eftir --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 atkvæði • 1 klukkustund eftir -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s atkvæði</item>
         <item quantity="other">%s atkvæði</item>

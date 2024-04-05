@@ -50,7 +50,7 @@
     <string name="action_logout">නික්මෙන්න</string>
     <string name="filter_edit_title">පෙරහන සංස්කරණය</string>
     <string name="notification_summary_medium">%1$s, %2$s, සහ %3$s</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="lock_account_label">ගිණුම අගුළුලන්න</string>
     <string name="post_media_hidden_title">මාධ්‍ය සැඟවී ඇත</string>
     <string name="post_sent_long">පිළිතුර සාර්ථකව යැවිණි.</string>

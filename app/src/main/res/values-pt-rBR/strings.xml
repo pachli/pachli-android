@@ -310,7 +310,7 @@
     <string name="pref_title_bot_overlay">Mostrar indicador de robôs</string>
     <string name="notification_clear_text">Tem certeza de que deseja limpar permanentemente todas as tuas notificações?</string>
     <string name="compose_preview_image_description">Opções para imagem %s</string>
-    <string name="poll_info_format"> <!-- 15 votos • 1 hora restante --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votos • 1 hora restante -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s voto</item>
         <item quantity="many">%s votos</item>

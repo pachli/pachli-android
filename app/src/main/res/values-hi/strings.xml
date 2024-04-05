@@ -199,7 +199,7 @@
         <item quantity="other">%s वोट</item>
     </plurals>
     <string name="hashtags">हैशटैग</string>
-    <string name="poll_info_format"> <!-- 15 वोट • 1 घंटा बाकी --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 वोट • 1 घंटा बाकी -->%1$s • %2$s</string>
     <string name="list">सूची</string>
     <string name="description_post_bookmarked">बुकमार्क किया हुआ</string>
     <string name="description_post_media_no_description_placeholder">कोई विवरण नहीं</string>

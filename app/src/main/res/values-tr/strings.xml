@@ -304,7 +304,7 @@
     <string name="compose_shortcut_short_label">Oluştur</string>
     <string name="notification_clear_text">Tüm bildirimleri kalıcı olarak silmek istediğinizden emin misiniz\?</string>
     <string name="compose_preview_image_description">%s görüntüsü için eylemler</string>
-    <string name="poll_info_format"> <!-- 15 oy • 1 saat kaldı --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 oy • 1 saat kaldı -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s oy</item>
         <item quantity="other">%s oylar</item>

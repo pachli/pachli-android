@@ -299,7 +299,7 @@
         <item quantity="many">%d segundos restantes</item>
         <item quantity="other">%d segundos restantes</item>
     </plurals>
-    <string name="poll_info_format"> <!-- 15 votos • queda 1 hora --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votos • queda 1 hora -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s voto</item>
         <item quantity="many">%s votos</item>
