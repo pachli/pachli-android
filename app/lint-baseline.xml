@@ -91,7 +91,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-bg/strings.xml"
-            line="122"
+            line="121"
             column="5"/>
     </issue>
 
@@ -124,7 +124,7 @@
         errorLine2="    ^">
         <location
             file="src/main/res/values-bg/strings.xml"
-            line="162"
+            line="161"
             column="5"/>
     </issue>
 
@@ -350,23 +350,23 @@
 
     <issue
         id="MissingQuantity"
-        message="For locale &quot;ca&quot; (Catalan) the following quantity should also be defined: `many`"
-        errorLine1="    &lt;plurals name=&quot;poll_info_people&quot;>"
+        message="For locale &quot;bg&quot; (Bulgarian) the following quantity should also be defined: `one` (e.g. &quot;1 ден&quot;)"
+        errorLine1="    &lt;plurals name=&quot;error_upload_max_media_reached&quot;>"
         errorLine2="    ^">
         <location
-            file="src/main/res/values-ca/strings.xml"
+            file="src/main/res/values-bg/strings.xml"
             line="369"
             column="5"/>
     </issue>
 
     <issue
         id="MissingQuantity"
-        message="For locale &quot;bg&quot; (Bulgarian) the following quantity should also be defined: `one` (e.g. &quot;1 ден&quot;)"
-        errorLine1="    &lt;plurals name=&quot;error_upload_max_media_reached&quot;>"
+        message="For locale &quot;ca&quot; (Catalan) the following quantity should also be defined: `many`"
+        errorLine1="    &lt;plurals name=&quot;poll_info_people&quot;>"
         errorLine2="    ^">
         <location
-            file="src/main/res/values-bg/strings.xml"
-            line="370"
+            file="src/main/res/values-ca/strings.xml"
+            line="369"
             column="5"/>
     </issue>
 
@@ -751,7 +751,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="636"
+            line="634"
             column="5"/>
     </issue>
 
@@ -1532,7 +1532,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="552"
+            line="550"
             column="13"/>
     </issue>
 
@@ -1543,7 +1543,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="593"
+            line="591"
             column="13"/>
     </issue>
 
@@ -1554,7 +1554,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="599"
+            line="597"
             column="13"/>
     </issue>
 
@@ -1565,7 +1565,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="628"
+            line="626"
             column="13"/>
     </issue>
 
@@ -1576,19 +1576,8 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="655"
+            line="653"
             column="13"/>
-    </issue>
-
-    <issue
-        id="TypographyDashes"
-        message="Replace &quot;--&quot; with an &quot;em dash&quot; character (—, &amp;#8212;) ?"
-        errorLine1="    &lt;string name=&quot;poll_info_format&quot;>&quot; &amp;lt;!-- 15 votes • 1 hour left --&amp;gt; %1$s • %2$s&quot;&lt;!-- 15 votes • 1 hour left -->"
-        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-bg/strings.xml"
-            line="52"
-            column="37"/>
     </issue>
 
     <issue
