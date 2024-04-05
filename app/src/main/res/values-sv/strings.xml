@@ -308,7 +308,7 @@
     <string name="notification_clear_text">Är du säker på att du vill rensa dina aviseringar permanent\?</string>
     <string name="action_delete_and_redraft">Radera och skriv på nytt</string>
     <string name="dialog_redraft_post_warning">Radera och skriv ny toot\?</string>
-    <string name="poll_info_format"> \u0020<!-- 15 röster • 1 timme kvar --> \u0020%1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 röster • 1 timme kvar -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s röst</item>
         <item quantity="other">%s röster</item>

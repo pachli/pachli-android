@@ -49,8 +49,7 @@
         <item quantity="one">%s глас</item>
         <item quantity="other">%s гласа</item>
     </plurals>
-    <string name="poll_info_format">" &lt;!-- 15 votes • 1 hour left --&gt; %1$s • %2$s"<!-- 15 votes • 1 hour left -->
-        %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">Действия за изображение %s</string>
     <string name="notification_clear_text">Сигурни ли сте, че искате да изчистите окончателно всичките си известия\?</string>
     <string name="compose_shortcut_short_label">Композиране</string>

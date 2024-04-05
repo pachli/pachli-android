@@ -227,7 +227,7 @@
         <item quantity="many">%s голосів</item>
         <item quantity="other">%s голосів</item>
     </plurals>
-    <string name="poll_info_format"> <!-- 15 голосів • 1 година залишилась --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 голосів • 1 година залишилась -->%1$s • %2$s</string>
     <string name="description_post_media_no_description_placeholder">Без опису</string>
     <string name="description_post_cw">Попередження про вміст: %s</string>
     <string name="description_post_media">Медіа: %s</string>

@@ -363,7 +363,7 @@
         <item quantity="one">%s मतम्</item>
         <item quantity="other">%s मते</item>
     </plurals>
-    <string name="poll_info_format"> <!-- 15 मतानि • 1 शेषघटिकाः --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 मतानि • 1 शेषघटिकाः -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">चित्राणां कृते प्रवृत्तिः %s</string>
     <string name="notification_clear_text">किं नूनमेव सर्वाः सूचनाः स्थायित्वेन मार्जनीयाः \?</string>
     <string name="compose_shortcut_short_label">लिख्यताम्</string>

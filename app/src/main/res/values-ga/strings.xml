@@ -332,7 +332,7 @@
     <string name="filter_apply">Cuir iarratas isteach</string>
     <string name="compose_shortcut_short_label">Cum</string>
     <string name="compose_preview_image_description">Gníomhartha maidir le híomhá %s</string>
-    <string name="poll_info_format"> <!-- 15 vóta • 1 uair fágtha --> %1$s •%2$s</string>
+    <string name="poll_info_format"><!-- 15 vóta • 1 uair fágtha -->%1$s •%2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s vóta</item>
         <item quantity="two">%s vóta</item>

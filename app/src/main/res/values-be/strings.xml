@@ -459,7 +459,7 @@
     <string name="send_account_username_to">Падзяліцца імем карыстальніка ўліковага запісу праз…</string>
     <string name="account_username_copied">Імя карыстальніка скапіявана</string>
     <string name="filter_apply">Прымяніць</string>
-    <string name="poll_info_format"> <!-- 15 галасоў • 1 гадзіна засталася --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 галасоў • 1 гадзіна засталася -->%1$s • %2$s</string>
     <string name="poll_info_time_absolute">завяршыцца ў %s</string>
     <plurals name="poll_timespan_hours">
         <item quantity="one">Засталася %d гадзіна</item>

@@ -334,7 +334,7 @@
     <string name="compose_unsaved_changes">Tev ir nesaglabātas izmaiņas.</string>
     <string name="description_post_media">Multivide: %s</string>
     <string name="description_poll">Aptauja ar izvēlēm: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="poll_info_format"> <!-- 15 balsis • atlikusi 1 stunda --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 balsis • atlikusi 1 stunda -->%1$s • %2$s</string>
     <string name="notification_clear_text">Vai tiešām vēlies neatgriezeniski notīrīt visus paziņojumus\?</string>
     <string name="poll_ended_created">Tevis izveidotā aptauja ir noslēgusies</string>
     <string name="compose_preview_image_description">Darības ar attēlu %s</string>

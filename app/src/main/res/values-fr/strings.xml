@@ -337,7 +337,7 @@
     </plurals>
     <string name="pref_title_animate_gif_avatars">Activer l’animation des avatars</string>
     <string name="compose_preview_image_description">Actions pour l’image %s</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 heure restante --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 heure restante -->%1$s • %2$s</string>
     <string name="poll_ended_voted">Un sondage auquel vous avez participé vient de se terminer</string>
     <string name="description_poll">Sondage avec des choix : %1$s, %2$s, %3$s, %4$s ; %5$s</string>
     <string name="title_domain_mutes">Domaines cachés</string>
