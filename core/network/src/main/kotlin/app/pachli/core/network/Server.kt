@@ -284,9 +284,12 @@ data class Server(
                 // FireFish can't filter (conversation in the Firefish dev. chat )
                 FIREFISH -> { }
 
+                // Sharkey can't filter, https://activitypub.software/TransFem-org/Sharkey/-/issues/492
+                SHARKEY -> { }
+
                 // Everything else. Assume server side filtering and no translation. This may be an
                 // incorrect assumption.
-                AKKOMA, FEDIBIRD, FRIENDICA, GLITCH, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, SHARKEY, UNKNOWN -> {
+                AKKOMA, FEDIBIRD, FRIENDICA, GLITCH, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, UNKNOWN -> {
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                 }
             }
