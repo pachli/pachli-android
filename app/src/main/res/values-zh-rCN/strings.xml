@@ -548,10 +548,10 @@
     <string name="socket_timeout_exception">联系你的服务器花了太长时间</string>
     <string name="ui_error_unknown">未知原因</string>
     <string name="ui_error_clear_notifications">未能清除通知：%s</string>
-    <string name="ui_error_bookmark">未能将嘟文将入书签：%s</string>
-    <string name="ui_error_favourite">收藏嘟文失败：%s</string>
-    <string name="ui_error_reblog">转发嘟文失败：%s</string>
-    <string name="ui_error_vote">投票失败：%s</string>
+    <string name="ui_error_bookmark_fmt">未能将嘟文将入书签：%1$s</string>
+    <string name="ui_error_favourite_fmt">收藏嘟文失败：%1$s</string>
+    <string name="ui_error_reblog_fmt">转发嘟文失败：%1$s</string>
+    <string name="ui_error_vote_fmt">投票失败：%1$s</string>
     <string name="ui_error_accept_follow_request">未能接受关注请求：%s</string>
     <string name="ui_error_reject_follow_request">未能拒绝关注请求：%s</string>
     <string name="ui_success_accepted_follow_request">关注请求被接受</string>

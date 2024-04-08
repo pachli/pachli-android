@@ -80,12 +80,14 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.mastodonLength
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
+import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
@@ -481,9 +483,11 @@ class ComposeActivity :
                     displayTransientMessage(throwable.errorMessage)
                 } else {
                     displayTransientMessage(
-                        getString(
-                            R.string.error_media_upload_sending_fmt,
-                            throwable.message,
+                        String.format(
+                            getString(
+                                R.string.error_media_upload_sending_fmt,
+                            ),
+                            throwable.getServerErrorMessage().unicodeWrap(),
                         ),
                     )
                 }

@@ -597,11 +597,11 @@
     <string name="pref_title_account_filter_keywords">Proffiliau</string>
     <string name="socket_timeout_exception">Cymrodd hi\'n rhy hir i gysylltu â\'ch gweinydd</string>
     <string name="ui_error_unknown">rheswm anhysbys</string>
-    <string name="ui_error_bookmark">Methodd tudalnodi\'r neges: %s</string>
+    <string name="ui_error_bookmark_fmt">Methodd tudalnodi\'r neges: %1$s</string>
     <string name="ui_error_clear_notifications">Methodd clirio hysbysiadau: %s</string>
-    <string name="ui_error_favourite">Methodd hoffi\'r neges: %s</string>
-    <string name="ui_error_reblog">Methodd hybu\'r neges: %s</string>
-    <string name="ui_error_vote">Methodd y pleidleisio: %s</string>
+    <string name="ui_error_favourite_fmt">Methodd hoffi\'r neges: %1$s</string>
+    <string name="ui_error_reblog_fmt">Methodd hybu\'r neges: %1$s</string>
+    <string name="ui_error_vote_fmt">Methodd y pleidleisio: %1$s</string>
     <string name="ui_error_accept_follow_request">Methodd derbyn cais i ddilyn: %s</string>
     <string name="ui_error_reject_follow_request">Methodd gwrthod cais i ddilyn: %s</string>
     <string name="ui_success_accepted_follow_request">Cais i ddilyn wedi\'i dderbyn</string>

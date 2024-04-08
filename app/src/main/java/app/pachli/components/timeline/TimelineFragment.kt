@@ -54,10 +54,12 @@ import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.ui.ActionButtonScrollListener
@@ -233,10 +235,14 @@ class TimelineFragment :
                 // TODO: Very similar to same code in NotificationsFragment
                 launch {
                     viewModel.uiError.collect { error ->
-                        val message = getString(
-                            error.message,
-                            error.throwable.localizedMessage
-                                ?: getString(R.string.ui_error_unknown),
+                        val message = String.format(
+                            getString(
+                                error.message,
+                            ),
+                            (
+                                error.throwable.getServerErrorMessage() ?: error.throwable.localizedMessage
+                                    ?: getString(R.string.ui_error_unknown)
+                                ).unicodeWrap(),
                         )
                         Timber.d(error.throwable, message)
                         snackbar = Snackbar.make(

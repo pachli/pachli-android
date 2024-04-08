@@ -570,10 +570,10 @@
     <string name="help_empty_home">Esta es tu <b> cronología de inicio</b>. Muestra las publicaciones recientes de las cuentas que sigues.
 \n
 \nPara encontrar cuentas, puedes mirar en alguna de las otras cronologías. Por ejemplo, la cronología local de tu instancia [iconics gmd_group]. O puedes buscarlas por nombre [iconics gmd_search]; por ejemplo, busca Pachli para encontrar nuestra cuenta de Mastodon.</string>
-    <string name="ui_error_bookmark">Fallo al añadir a marcadores: %s</string>
+    <string name="ui_error_bookmark_fmt">Fallo al añadir a marcadores: %1$s</string>
     <string name="select_list_manage">Gestionar listas</string>
     <string name="error_list_load">Error al cargar listas</string>
-    <string name="ui_error_favourite">Fallo al favoritear publicación: %s</string>
+    <string name="ui_error_favourite_fmt">Fallo al favoritear publicación: %1$s</string>
     <string name="ui_error_clear_notifications">Fallo al limpiar notificaciones: %s</string>
     <string name="ui_error_accept_follow_request">Fallo al aceptar solicitud de seguimiento: %s</string>
     <string name="ui_error_reject_follow_request">Fallo al rechazar la solicitud de seguimiento: %s</string>
@@ -582,8 +582,8 @@
     <string name="hint_filter_title">Mi filtro</string>
     <string name="filter_edit_keyword_title">Editar palabra</string>
     <string name="filter_description_format">%s: %s</string>
-    <string name="ui_error_reblog">Falló al impulsar publicación: %s</string>
-    <string name="ui_error_vote">Fallo al votar en la encuesta: %s</string>
+    <string name="ui_error_reblog_fmt">Falló al impulsar publicación: %1$s</string>
+    <string name="ui_error_vote_fmt">Fallo al votar en la encuesta: %1$s</string>
     <string name="label_filter_title">Título</string>
     <string name="filter_action_warn">Aviso</string>
     <string name="filter_description_hide">Ocultar completamente</string>
@@ -599,7 +599,7 @@
     <string name="notification_notification_worker">Obteniendo notificaciones…</string>
     <string name="load_newest_notifications">Cargar nuevas notificaciones</string>
     <string name="compose_delete_draft">¿Eliminar borrador\?</string>
-    <string name="ui_error_translate_status">La traducción falló: %s</string>
+    <string name="ui_error_translate_status_fmt">La traducción falló: %1$s</string>
     <string name="update_dialog_negative">Nunca me recuerdas</string>
     <string name="translating">Traduciendo…</string>
     <string name="dialog_delete_filter_positive_action">Borrar</string>
@@ -631,7 +631,7 @@
     <string name="error_media_upload_sending_fmt">La carga falló: %s</string>
     <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="pref_title_show_self_boosts_description">Alguien impulsa su propia publicación</string>
-    <string name="ui_error_filter_v1_load">La carga de filtros falló: %s</string>
+    <string name="ui_error_filter_v1_load_fmt">La carga de filtros falló: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s oculto(s)</string>
     <string name="janky_animation_title">Es posible que necesite reiniciar su dispositivo</string>
     <string name="confirmation_hashtag_unmuted">#%s visible</string>

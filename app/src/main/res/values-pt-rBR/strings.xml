@@ -526,12 +526,12 @@
     <string name="action_edit_image">Editar imagem</string>
     <string name="pref_title_notification_filter_sign_ups">alguém se inscreveu</string>
     <string name="saving_draft">Salvando rascunho…</string>
-    <string name="ui_error_translate_status">A tradução falhou: %s</string>
+    <string name="ui_error_translate_status_fmt">A tradução falhou: %1$s</string>
     <string name="update_dialog_negative">Nunca me lembre</string>
     <string name="translating">Traduzindo…</string>
     <string name="action_post_failed_do_nothing">Dispensar</string>
     <string name="dialog_delete_filter_positive_action">Excluir</string>
-    <string name="ui_error_reblog">Falhou dar Boost: %s</string>
+    <string name="ui_error_reblog_fmt">Falhou dar Boost: %1$s</string>
     <string name="notification_listenable_worker_name">Atividade em segundo plano</string>
     <string name="error_status_source_load">Falha ao carregar a fonte do estado da instância.</string>
     <string name="pref_title_update_notification_frequency">Avise-me sobre as novas versões do Pachli</string>
@@ -541,7 +541,7 @@
     <string name="title_public_trending_hashtags">Hashtags em alta</string>
     <string name="status_filter_placeholder_label_format">Filtrado(s): %s</string>
     <string name="confirmation_hashtag_unfollowed">#%s deixado de seguir</string>
-    <string name="ui_error_vote">Votar na enquete falhou: %s</string>
+    <string name="ui_error_vote_fmt">Votar na enquete falhou: %1$s</string>
     <string name="update_dialog_neutral">Não me lembre desta versão</string>
     <string name="ui_error_reject_follow_request">Falha ao rejeitar solicitação de seguir: %s</string>
     <string name="ui_error_clear_notifications">Limpar notificações falhou: %s</string>
@@ -585,8 +585,8 @@
     <string name="notification_report_description">Notificações sobre denúncias da moderação</string>
     <string name="dialog_save_profile_changes_message">Quer salvar as alterações do teu perfil?</string>
     <string name="action_add_reaction">reagir</string>
-    <string name="ui_error_favourite">Favoritar o Toot falhou: %s</string>
-    <string name="ui_error_bookmark">Salvar Toot falhou: %s</string>
+    <string name="ui_error_favourite_fmt">Favoritar o Toot falhou: %1$s</string>
+    <string name="ui_error_bookmark_fmt">Salvar Toot falhou: %1$s</string>
     <string name="notification_unknown_name">Desconhecido</string>
     <string name="total_usage">Uso total</string>
     <string name="pref_update_notification_frequency_always">Sempre</string>
@@ -601,7 +601,7 @@
     <string name="notification_report_format">Nova denúncia sobre %s</string>
     <string name="pref_title_show_stat_inline">Mostrar estatísticas do Toot na linha do tempo</string>
     <string name="ui_error_unknown">causa desconhecida</string>
-    <string name="ui_error_filter_v1_load">Falha ao carregar os filtros: %s</string>
+    <string name="ui_error_filter_v1_load_fmt">Falha ao carregar os filtros: %1$s</string>
     <string name="notification_sign_up_name">Inscrições</string>
     <string name="confirmation_hashtag_muted">#%s oculto</string>
     <string name="janky_animation_title">Pode ser necessário reiniciar o teu dispositivo</string>

@@ -549,7 +549,7 @@
     <string name="title_public_trending_hashtags">Hashtags populars</string>
     <string name="notification_unknown_name">Desconegut</string>
     <string name="socket_timeout_exception">La connexion al vòstre servidor a pres tròp de temps</string>
-    <string name="ui_error_bookmark">Marcatge impossibla de la publicacion : %s</string>
+    <string name="ui_error_bookmark_fmt">Marcatge impossibla de la publicacion : %1$s</string>
     <string name="ui_error_clear_notifications">Netejatge de las notificacions fracassat : %s</string>
     <string name="ui_success_accepted_follow_request">Demanda d’abonament acceptada</string>
     <string name="ui_success_rejected_follow_request">Demanda d’abonament blocada</string>
@@ -576,9 +576,9 @@
     <string name="select_list_empty">Avètz pas encara de lista</string>
     <string name="select_list_manage">Gerir las listas</string>
     <string name="error_list_load">Error en cargant las litas</string>
-    <string name="ui_error_favourite">Fracàs de la mes en favorit : %s</string>
-    <string name="ui_error_reblog">Fracàs en partejant : %s</string>
-    <string name="ui_error_vote">Fracàs del vòt : %s</string>
+    <string name="ui_error_favourite_fmt">Fracàs de la mes en favorit : %1$s</string>
+    <string name="ui_error_reblog_fmt">Fracàs en partejant : %1$s</string>
+    <string name="ui_error_vote_fmt">Fracàs del vòt : %1$s</string>
     <string name="ui_error_accept_follow_request">Fracàs de l’acceptacion de la demanda : %s</string>
     <string name="ui_error_reject_follow_request">Fracàs del refús de la demanda : %s</string>
     <string name="pref_title_show_stat_inline">Mostrar las estatisticas dins la cronologia</string>

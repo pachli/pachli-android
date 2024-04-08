@@ -533,11 +533,11 @@
     <string name="notification_unknown_name">Chưa biết</string>
     <string name="socket_timeout_exception">Mất thời gian kết nối quá lâu</string>
     <string name="ui_error_unknown">chưa rõ lý do</string>
-    <string name="ui_error_bookmark">Lưu tút không thành công: %s</string>
+    <string name="ui_error_bookmark_fmt">Lưu tút không thành công: %1$s</string>
     <string name="ui_error_clear_notifications">Xóa thông báo không thành công: %s</string>
-    <string name="ui_error_favourite">Thích tút không thành công: %s</string>
-    <string name="ui_error_reblog">Đăng lại tút không thành công: %s</string>
-    <string name="ui_error_vote">Bình chọn không thành công: %s</string>
+    <string name="ui_error_favourite_fmt">Thích tút không thành công: %1$s</string>
+    <string name="ui_error_reblog_fmt">Đăng lại tút không thành công: %1$s</string>
+    <string name="ui_error_vote_fmt">Bình chọn không thành công: %1$s</string>
     <string name="ui_error_accept_follow_request">Chấp nhận theo dõi không thành công: %s</string>
     <string name="ui_error_reject_follow_request">Từ chối theo dõi không thành công: %s</string>
     <string name="ui_success_accepted_follow_request">Đã chấp nhận yêu cầu theo dõi</string>

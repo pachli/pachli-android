@@ -552,10 +552,10 @@
     <string name="dialog_follow_hashtag_title">Hashtag folgen</string>
     <string name="dialog_follow_hashtag_hint">#Hashtag</string>
     <string name="socket_timeout_exception">Kontaktaufnahme mit dem Server dauerte zu lange</string>
-    <string name="ui_error_bookmark">Beitrag konnte nicht als Lesezeichen gespeichert werden: %s</string>
-    <string name="ui_error_reblog">Beitrag konnte nicht geteilt werden: %s</string>
-    <string name="ui_error_favourite">Beitrag konnte nicht favorisiert werden: %s</string>
-    <string name="ui_error_vote">Abstimmen bei der Umfrage schlug fehl: %s</string>
+    <string name="ui_error_bookmark_fmt">Beitrag konnte nicht als Lesezeichen gespeichert werden: %1$s</string>
+    <string name="ui_error_reblog_fmt">Beitrag konnte nicht geteilt werden: %1$s</string>
+    <string name="ui_error_favourite_fmt">Beitrag konnte nicht favorisiert werden: %1$s</string>
+    <string name="ui_error_vote_fmt">Abstimmen bei der Umfrage schlug fehl: %1$s</string>
     <string name="ui_error_accept_follow_request">Akzeptieren der Folgeanfrage schlug fehl: %s</string>
     <string name="ui_success_accepted_follow_request">Folgeanfrage akzeptiert</string>
     <string name="ui_success_rejected_follow_request">Folgeanfrage blockiert</string>
@@ -596,7 +596,7 @@
 \n
 \nHierbei handelt es sich um <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon Issue #25398</a>.</string>
     <string name="error_media_upload_sending_fmt">Das Hochladen ist fehlgeschlagen: %s</string>
-    <string name="ui_error_translate_status">Übersetzung fehlgeschlagen: %s</string>
+    <string name="ui_error_translate_status_fmt">Übersetzung fehlgeschlagen: %1$s</string>
     <string name="update_dialog_negative">Erinnere mich nie</string>
     <string name="translating">Übersetze…</string>
     <string name="dialog_delete_filter_positive_action">Löschen</string>
@@ -615,7 +615,7 @@
     <string name="pref_update_notification_frequency_always">Immer</string>
     <string name="pref_update_notification_frequency_never">Nie</string>
     <string name="pref_title_show_self_boosts_description">Jemand teilt einen eigenen Beitrag</string>
-    <string name="ui_error_filter_v1_load">Filter laden fehlgeschlagen: %s</string>
+    <string name="ui_error_filter_v1_load_fmt">Filter laden fehlgeschlagen: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s ausgeblendet</string>
     <string name="confirmation_hashtag_unmuted">#%s nicht mehr ausgeblendet</string>
     <string name="pref_title_show_self_boosts">Selbst geteilte Beiträge anzeigen</string>

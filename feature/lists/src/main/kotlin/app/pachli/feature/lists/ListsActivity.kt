@@ -42,6 +42,7 @@ import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.navigation.TimelineActivityIntent
@@ -112,9 +113,27 @@ class ListsActivity : BaseActivity(), MenuProvider {
         lifecycleScope.launch {
             viewModel.errors.collect { error ->
                 when (error) {
-                    is Error.Create -> showMessage(getString(R.string.error_create_list_fmt, error.title, error.throwable.message))
-                    is Error.Delete -> showMessage(getString(R.string.error_delete_list_fmt, error.title, error.throwable.message))
-                    is Error.Update -> showMessage(getString(R.string.error_rename_list_fmt, error.title, error.throwable.message))
+                    is Error.Create -> showMessage(
+                        String.format(
+                            getString(R.string.error_create_list_fmt),
+                            error.title.unicodeWrap(),
+                            error.throwable.message.unicodeWrap(),
+                        ),
+                    )
+                    is Error.Delete -> showMessage(
+                        String.format(
+                            getString(R.string.error_delete_list_fmt),
+                            error.title.unicodeWrap(),
+                            error.throwable.message.unicodeWrap(),
+                        ),
+                    )
+                    is Error.Update -> showMessage(
+                        String.format(
+                            getString(R.string.error_rename_list_fmt),
+                            error.title.unicodeWrap(),
+                            error.throwable.message.unicodeWrap(),
+                        ),
+                    )
                 }
             }
         }

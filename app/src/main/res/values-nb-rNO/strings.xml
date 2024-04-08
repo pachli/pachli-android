@@ -527,7 +527,7 @@
     <string name="hint_media_description_missing">Media bør ha en beskrivelse.</string>
     <string name="hint_description">Beskrivelse</string>
     <string name="post_media_image">Bilde</string>
-    <string name="ui_error_bookmark">Å bokmerke innlegget misslyktes: %s</string>
+    <string name="ui_error_bookmark_fmt">Å bokmerke innlegget misslyktes: %1$s</string>
     <string name="hint_filter_title">Mitt filter</string>
     <string name="filter_edit_keyword_title">Endre nøkkelord</string>
     <string name="filter_description_format">%s: %s</string>
@@ -558,10 +558,10 @@
     <string name="select_list_empty">Du har ingen lister, enda</string>
     <string name="error_list_load">Feil under lading av lister</string>
     <string name="select_list_manage">Forvalte lister</string>
-    <string name="ui_error_reblog">Deling av innlegget feilet: %s</string>
+    <string name="ui_error_reblog_fmt">Deling av innlegget feilet: %1$s</string>
     <string name="ui_error_unknown">ukjent grunn</string>
-    <string name="ui_error_favourite">Favorisering av innlegg feilet: %s</string>
-    <string name="ui_error_vote">Stemming mislykkes: %s</string>
+    <string name="ui_error_favourite_fmt">Favorisering av innlegg feilet: %1$s</string>
+    <string name="ui_error_vote_fmt">Stemming mislykkes: %1$s</string>
     <string name="filter_description_hide">Gjem helt</string>
     <string name="label_filter_action">Filterhandling</string>
     <string name="filter_action_hide">Gjem</string>

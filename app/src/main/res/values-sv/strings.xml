@@ -586,12 +586,12 @@
     <string name="notification_listenable_worker_description">Aviseringar när Pachli arbetar i bakgrunden</string>
     <string name="notification_notification_worker">Hämtar aviseringar…</string>
     <string name="notification_prune_cache">Cacheunderhåll…</string>
-    <string name="ui_error_reblog">Att knuffa inlägg misslyckades: %s</string>
-    <string name="ui_error_vote">Rösta i omröstning misslyckades: %s</string>
+    <string name="ui_error_reblog_fmt">Att knuffa inlägg misslyckades: %1$s</string>
+    <string name="ui_error_vote_fmt">Rösta i omröstning misslyckades: %1$s</string>
     <string name="ui_error_accept_follow_request">Acceptera följarförfrågan misslyckades: %s</string>
-    <string name="ui_error_bookmark">Att bokmärka inlägg misslyckades: %s</string>
+    <string name="ui_error_bookmark_fmt">Att bokmärka inlägg misslyckades: %1$s</string>
     <string name="ui_error_clear_notifications">Rensing av aviseringar misslyckades: %s</string>
-    <string name="ui_error_favourite">Att favoritmarkera inlägg misslyckades: %s</string>
+    <string name="ui_error_favourite_fmt">Att favoritmarkera inlägg misslyckades: %1$s</string>
     <string name="error_list_load">Fel vid laddning av listor</string>
     <string name="ui_error_reject_follow_request">Avacceptera följarförgrågan misslyckades: %s</string>
     <string name="label_filter_context">Filtrera sammanhang</string>
@@ -601,7 +601,7 @@
     <string name="error_missing_edits">Din server vet att det här inlägget har redigerats, men har ingen kopia av ändringarna, så de kan inte visas för dig.
 \n
 \nDet är <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon problem #25398</a>.</string>
-    <string name="ui_error_translate_status">Översättning misslyckades: %s</string>
+    <string name="ui_error_translate_status_fmt">Översättning misslyckades: %1$s</string>
     <string name="update_dialog_negative">Påminna mig aldrig</string>
     <string name="translating">Översätter…</string>
     <string name="dialog_delete_filter_positive_action">Radera</string>
@@ -624,7 +624,7 @@
     <string name="error_media_upload_sending_fmt">Uppladdning misslyckades: %s</string>
     <string name="pref_update_notification_frequency_never">Aldrig</string>
     <string name="pref_title_show_self_boosts_description">Någon som knuffar sin toot</string>
-    <string name="ui_error_filter_v1_load">Laddning av filter misslyckades: %s</string>
+    <string name="ui_error_filter_v1_load_fmt">Laddning av filter misslyckades: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s dold</string>
     <string name="janky_animation_title">Du behöver kanske starta om din enhet</string>
     <string name="confirmation_hashtag_unmuted">#%s avdold</string>

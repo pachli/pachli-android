@@ -558,9 +558,9 @@
     <string name="failed_to_unpin">Échec du détachement</string>
     <string name="pref_title_show_self_username">Montrer le nom d\'utilisateur dans la barre d\'outils</string>
     <string name="socket_timeout_exception">La connexion à votre serveur a pris trop longtemps</string>
-    <string name="ui_error_bookmark">Échec de l\'ajout aux signets : %s</string>
-    <string name="ui_error_vote">Échec du vote : %s</string>
-    <string name="ui_error_reblog">Échec de la mise en signet : %s</string>
+    <string name="ui_error_bookmark_fmt">Échec de l\'ajout aux signets : %1$s</string>
+    <string name="ui_error_vote_fmt">Échec du vote : %1$s</string>
+    <string name="ui_error_reblog_fmt">Échec de la mise en signet : %1$s</string>
     <string name="ui_error_accept_follow_request">N\'a pas pu accepter la demande d\'abonnement : %s</string>
     <string name="ui_error_reject_follow_request">N\'a pas pu rejeter la demande d\'abonnement : %s</string>
     <string name="ui_success_accepted_follow_request">Demande d\'abonnement acceptée</string>
@@ -577,7 +577,7 @@
     <string name="error_status_source_load">Le texte d\'origine du statut n\'a pas pu être chargé.</string>
     <string name="ui_error_unknown">raison inconnue</string>
     <string name="ui_error_clear_notifications">Échec du nettoyage des notifications : %s</string>
-    <string name="ui_error_favourite">Échec de la mise en favori : %s</string>
+    <string name="ui_error_favourite_fmt">Échec de la mise en favori : %1$s</string>
     <string name="label_filter_title">Nom</string>
     <string name="hint_filter_title">Mon filtre</string>
     <string name="pref_title_show_stat_inline">Montrer les statistiques des statuts dans les fils</string>
@@ -625,7 +625,7 @@
     <string name="compose_delete_draft">Supprimer le brouillon ?</string>
     <string name="announcement_date_updated">(Mis à jour : %1$s)</string>
     <string name="load_newest_notifications">Charger les nouvelles notifications</string>
-    <string name="ui_error_translate_status">Traduction échouée : %s</string>
+    <string name="ui_error_translate_status_fmt">Traduction échouée : %1$s</string>
     <string name="load_newest_statuses">Charger les publications les plus récentes</string>
     <string name="error_media_playback">La lecture a échoué : %s</string>
     <string name="dialog_save_profile_changes_message">Voulez-vous sauvegarder les changements apportés à votre profil ?</string>
