@@ -565,11 +565,11 @@
     <string name="notification_unknown_name">Невідомо</string>
     <string name="socket_timeout_exception">Надто тривала спроба з\'єднання з вашим сервером</string>
     <string name="ui_error_unknown">невідома причина</string>
-    <string name="ui_error_bookmark">Не вдалося додати допис до закладок: %s</string>
+    <string name="ui_error_bookmark_fmt">Не вдалося додати допис до закладок: %1$s</string>
     <string name="ui_error_clear_notifications">Не вдалося очистити сповіщення: %s</string>
-    <string name="ui_error_favourite">Не вдалося вподобати допис: %s</string>
-    <string name="ui_error_reblog">Не вдалося поширити допис: %s</string>
-    <string name="ui_error_vote">Не вдалося проголосувати: %s</string>
+    <string name="ui_error_favourite_fmt">Не вдалося вподобати допис: %1$s</string>
+    <string name="ui_error_reblog_fmt">Не вдалося поширити допис: %1$s</string>
+    <string name="ui_error_vote_fmt">Не вдалося проголосувати: %1$s</string>
     <string name="ui_error_accept_follow_request">Не вдалося погодити запит на стеження: %s</string>
     <string name="ui_error_reject_follow_request">Не вдалося відхилити запит на стеження: %s</string>
     <string name="ui_success_accepted_follow_request">Запит на стеження погоджено</string>

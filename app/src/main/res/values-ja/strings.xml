@@ -554,13 +554,13 @@
     <string name="filter_description_warn">警告付きで隠す</string>
     <string name="filter_description_hide">完全に隠す</string>
     <string name="label_filter_action">フィルターアクション</string>
-    <string name="ui_error_reblog">投稿のブーストに失敗しました: %s</string>
+    <string name="ui_error_reblog_fmt">投稿のブーストに失敗しました: %1$s</string>
     <string name="ui_error_clear_notifications">通知の消去に失敗しました: %s</string>
-    <string name="ui_error_favourite">投稿のお気に入りに失敗しました: %s</string>
-    <string name="ui_error_bookmark">投稿のブックマークに失敗しました: %s</string>
+    <string name="ui_error_favourite_fmt">投稿のお気に入りに失敗しました: %1$s</string>
+    <string name="ui_error_bookmark_fmt">投稿のブックマークに失敗しました: %1$s</string>
     <string name="ui_success_rejected_follow_request">フォローリクエストがブロックされました</string>
     <string name="ui_success_accepted_follow_request">フォローリクエストが許可されました</string>
-    <string name="ui_error_vote">投票に失敗しました: %s</string>
+    <string name="ui_error_vote_fmt">投票に失敗しました: %1$s</string>
     <string name="action_add">追加</string>
     <string name="filter_keyword_display_format">%s (単語全体)</string>
     <string name="filter_keyword_addition_title">キーワードを追加</string>
@@ -595,7 +595,7 @@
     <string name="announcement_date">%1$s %2$s</string>
     <string name="socket_timeout_exception">サーバーへの接続に時間がかかりすぎました</string>
     <string name="load_newest_statuses">最新のポストを読み込む</string>
-    <string name="ui_error_filter_v1_load">フィルターの読み込みに失敗しました: %s</string>
+    <string name="ui_error_filter_v1_load_fmt">フィルターの読み込みに失敗しました: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s を非表示にしました</string>
     <string name="announcement_date_updated">(更新済み: %1$s)</string>
     <string name="help_empty_home">これはあなたの<b>ホームタイムライン</b>です。あなたがフォローしているアカウントの最新のポストが表示されます。
@@ -609,7 +609,7 @@
     <string name="confirmation_hashtag_unmuted">%s を非表示にしました</string>
     <string name="pref_title_show_self_boosts">セルフブーストを表示</string>
     <string name="notification_summary_report_format">%sさん・%d件のポストが添付されています</string>
-    <string name="ui_error_translate_status">翻訳に失敗しました: %s</string>
+    <string name="ui_error_translate_status_fmt">翻訳に失敗しました: %1$s</string>
     <string name="update_dialog_negative">通知しない</string>
     <string name="translating">翻訳中です…</string>
     <string name="pref_title_update_notification_frequency">Pachli最新バージョンへの更新頻度</string>

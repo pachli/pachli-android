@@ -545,9 +545,9 @@
     <string name="status_filter_placeholder_label_format">Síað: %s</string>
     <string name="pref_title_account_filter_keywords">Notendasnið</string>
     <string name="pref_title_show_stat_inline">Sýna tölfræði færslu í tímalínu</string>
-    <string name="ui_error_favourite">Mistókst að setja færslu í eftirlæti: %s</string>
-    <string name="ui_error_reblog">Mistókst að endurbirta færslu: %s</string>
-    <string name="ui_error_vote">Mistókst að greiða atkvæði í könnun: %s</string>
+    <string name="ui_error_favourite_fmt">Mistókst að setja færslu í eftirlæti: %1$s</string>
+    <string name="ui_error_reblog_fmt">Mistókst að endurbirta færslu: %1$s</string>
+    <string name="ui_error_vote_fmt">Mistókst að greiða atkvæði í könnun: %1$s</string>
     <string name="ui_error_accept_follow_request">Mistókst að samþykkja fylgjendabeiðni: %s</string>
     <string name="hint_filter_title">Sían mín</string>
     <string name="label_filter_title">Titill</string>
@@ -555,7 +555,7 @@
     <string name="filter_action_hide">Fela</string>
     <string name="filter_description_warn">Fela með aðvörun</string>
     <string name="filter_description_hide">Fela alveg</string>
-    <string name="ui_error_bookmark">Mistókst að bókamerkja færslu: %s</string>
+    <string name="ui_error_bookmark_fmt">Mistókst að bókamerkja færslu: %1$s</string>
     <string name="socket_timeout_exception">Rann út á tíma við að tengjast netþjóninum þínum</string>
     <string name="ui_error_unknown">óþekkt ástæða</string>
     <string name="ui_error_clear_notifications">Vandamál með hreinsun á tilkynningum: %s</string>

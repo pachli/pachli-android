@@ -31,6 +31,7 @@ import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.openLinkInCustomTab
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.MainActivityIntent
@@ -198,7 +199,10 @@ class LoginActivity : BaseActivity() {
                 { e ->
                     binding.loginButton.isEnabled = true
                     binding.domainTextInputLayout.error =
-                        getString(R.string.error_failed_app_registration_fmt, e.getServerErrorMessage() ?: e.localizedMessage)
+                        String.format(
+                            getString(R.string.error_failed_app_registration_fmt),
+                            (e.getServerErrorMessage() ?: e.localizedMessage).unicodeWrap(),
+                        )
                     setLoading(false)
                     Timber.e(e, "Error when creating/registing app")
                     return@launch

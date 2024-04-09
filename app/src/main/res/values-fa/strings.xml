@@ -82,7 +82,7 @@
     <string name="action_toggle_visibility">نمایانی فرسته</string>
     <string name="action_content_warning">هشدار محتوا</string>
     <string name="action_emoji_keyboard">صفحه‌کلید اموجی</string>
-    <string name="download_image">درحال بارگیری %1$s</string>
+    <string name="download_image">%1$s درحال بارگیری</string>
     <string name="action_copy_link">رونوشت از پیوند</string>
     <string name="send_post_link_to">هم‌رسانی نشانی فرسته با…</string>
     <string name="send_post_content_to">هم‌رسانی فرسته با…</string>
@@ -195,7 +195,7 @@
     <string name="replying_to">در حال پاسخ به @%s</string>
     <string name="add_account_name">افزودن حساب</string>
     <string name="add_account_description">افزودن حساب ماستودون جدید</string>
-    <string name="compose_active_account_description">فرستادن از طرف %1$s</string>
+    <string name="compose_active_account_description">%1$s فرستادن از طرف</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">توصیف محتوا برای کم‌بینایان (کران ۱ نویسه)</item>
         <item quantity="other">توصیف محتوا برای کم‌بینایان (کران %d نویسه)</item>
@@ -305,7 +305,7 @@
     <string name="description_visibility_unlisted">فهرست نشده</string>
     <string name="description_visibility_private">پی‌گیران</string>
     <string name="description_visibility_direct">مستقیم</string>
-    <string name="description_poll">نظرسنجی با گزینه‌ها: %1$s، %2$s، %3$s، %4$s؛ %5$s</string>
+    <string name="description_poll">%1$s, %2$s, %3$s, %4$s, %5$s :نظرسنجی با گزینه‌ها</string>
     <string name="edit_hashtag_hint">برچسب بدون #</string>
     <string name="notifications_clear">پاک‌سازی</string>
     <string name="notifications_apply_filter">پالایش</string>
@@ -436,22 +436,22 @@
 \n
 \n فرستادن آگاهی‌ها تأثیر نمی‌پذیرد، ولی می‌توانید ترجیحات آگاهیتان را به صورت دستی بازبینی کنید.</string>
     <plurals name="error_upload_max_media_reached">
-        <item quantity="one">نمی‌توانید بیش از %1$d رسانه بارگذارید.</item>
-        <item quantity="other">نمی‌توانید بیش از %1$d رسانه بارگذارید.</item>
+        <item quantity="one">%1$d نمی‌توانید بیش از رسانه بارگذارید.</item>
+        <item quantity="other">%1$d نمی‌توانید بیش از رسانه بارگذارید.</item>
     </plurals>
     <string name="duration_indefinite">نامعیّن</string>
     <string name="follow_requests_info">با این که حسابتان قفل نیست، کارکنان %1$s فکر کردند ممکن است بخواهید درخواست‌های پی‌گیری از این حساب‌ها را دستی بازبینی کنید.</string>
     <string name="dialog_delete_conversation_warning">حذف این گفت‌وگو؟</string>
     <string name="action_delete_conversation">حذف گفت‌وگو</string>
-    <string name="account_date_joined">در %1$s پیوست</string>
-    <string name="notification_sign_up_format">%s ثبت‌نام کرد</string>
+    <string name="account_date_joined">%1$s در پیوست</string>
+    <string name="notification_sign_up_format">%1$s ثبت‌نام کرد</string>
     <string name="pref_title_confirm_favourites">نمایش تأیید پیش از برگزیدن</string>
     <string name="pachli_compose_post_quicksetting_label">ایجاد فرسته</string>
     <string name="tips_push_notification_migration">ورود دوباره به تمامی حساب‌ها برای به کار انداختن پشتیبانی آگاهی‌های ارسالی.</string>
     <string name="notification_update_description">آگاهی‌ها هنگام ویرایش فرسته‌هایی که با آن‌ها تعامل داشته‌اید</string>
     <string name="action_unbookmark">برداشن نشانک</string>
     <string name="dialog_push_notification_migration_other_accounts">برای اعطای اجازهٔ اشتراک آگاهی‌های ارسالی به تاسکی، دوباره به حسابتان وارد شدید. با این حال هنوز حساب‌هایی دیگر دارید که این‌گونه مهاجرت داده نشده‌اند. به آن‌ها رفته و برای به کار انداختن پشتیبانی آگاهی‌های UnifiedPush یکی‌یکی دوباره وارد شوید.</string>
-    <string name="action_logout_confirm">مطمئنید که می‌خواهید از %1$s خارج شوید؟ این کار تمامی داده‌های محلی از جمله پیش‌نویس‌ها و ترجیحات را حذف خواهد کرد.</string>
+    <string name="action_logout_confirm">%1$s مطمئنید که می‌خواهید از  خارج شوید؟ این کار تمامی داده‌های محلی از جمله پیش‌نویس‌ها و ترجیحات را حذف خواهد کرد.</string>
     <string name="duration_14_days">۱۴ روز</string>
     <string name="duration_30_days">۳۰ روز</string>
     <string name="duration_60_days">۶۰ روز</string>
@@ -519,8 +519,8 @@
     <string name="pref_summary_http_proxy_missing">&lt;تنظیم نشده&gt;</string>
     <string name="pref_summary_http_proxy_disabled">از کار افتاده</string>
     <string name="pref_summary_http_proxy_invalid">&lt;نامعتبر&gt;</string>
-    <string name="status_edit_info">ویراسته: %1$s</string>
-    <string name="status_created_info">ایجاد شده: %1$s</string>
+    <string name="status_edit_info">%1$s :ویراسته</string>
+    <string name="status_created_info">%1$s :ایجاد شده</string>
     <string name="action_post_failed">بارگذاری شکست خورد</string>
     <string name="action_post_failed_show_drafts">نمایش پیش‌نویس‌ها</string>
     <string name="action_post_failed_do_nothing">رد کردن</string>
@@ -550,14 +550,14 @@
     <string name="notification_unknown_name">ناشناخته</string>
     <string name="socket_timeout_exception">تماس با کارسازتان بیش از حد طول کشید</string>
     <string name="ui_error_unknown">دلیل نامعلوم</string>
-    <string name="ui_error_bookmark">نشانک گذاری فرسته شکست خورد: %s</string>
+    <string name="ui_error_bookmark_fmt">%1$s: نشانک گذاری فرسته شکست خورد</string>
     <string name="ui_error_clear_notifications">پاک سازی آگاهی‌ها شکست خورد: %s</string>
-    <string name="ui_error_favourite">برگزیدن فرسته شکست خورد: %s</string>
-    <string name="ui_error_vote">رأی دادن در نظرسنجی شکست خورد: %s</string>
+    <string name="ui_error_favourite_fmt">%1$s: برگزیدن فرسته شکست خورد</string>
+    <string name="ui_error_vote_fmt">%1$s: رأی دادن در نظرسنجی شکست خورد</string>
     <string name="ui_error_accept_follow_request">پذیرش درخواست پی‌گیری شکست خورد: %s</string>
     <string name="ui_success_accepted_follow_request">درخواست پی‌گیری پذیرفته شد</string>
     <string name="ui_success_rejected_follow_request">درخواست پی‌گیری مسدود شد</string>
-    <string name="ui_error_reblog">تقویت فرسته شکست خورد: %s</string>
+    <string name="ui_error_reblog_fmt">%1$s: تقویت فرسته شکست خورد</string>
     <string name="ui_error_reject_follow_request">رد کردن درخواست پی‌گیری شکست خورد: %s</string>
     <string name="status_filtered_show_anyway">نمایش به هر روی</string>
     <string name="status_filter_placeholder_label_format">پالوده: %s</string>
@@ -598,5 +598,5 @@
     <string name="error_media_upload_sending_fmt">بارگذاری شکست خورد: %s</string>
     <string name="error_media_playback">پخش شکست خورد: %s</string>
     <string name="dialog_delete_filter_positive_action">حذف</string>
-    <string name="dialog_delete_filter_text">حذف پالایهٔ «%1$s»؟</string>
+    <string name="dialog_delete_filter_text">«%1$s» حذف پالایهٔ ؟</string>
 </resources>

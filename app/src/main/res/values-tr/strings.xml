@@ -547,13 +547,13 @@
     <string name="notification_unknown_name">Bilinmeyen</string>
     <string name="socket_timeout_exception">Sunucuyla bağlantı kurmak çok uzun sürdü</string>
     <string name="ui_error_unknown">bilinmeyen sebep</string>
-    <string name="ui_error_bookmark">Yer imi gönderisi başarısız oldu: %s</string>
-    <string name="ui_error_vote">Ankete oy gönderilemedi: %s</string>
+    <string name="ui_error_bookmark_fmt">Yer imi gönderisi başarısız oldu: %1$s</string>
+    <string name="ui_error_vote_fmt">Ankete oy gönderilemedi: %1$s</string>
     <string name="ui_error_clear_notifications">Bildirimler temizlenemedi: %s</string>
-    <string name="ui_error_favourite">Gönderi gözdelere eklenemedi: %s</string>
+    <string name="ui_error_favourite_fmt">Gönderi gözdelere eklenemedi: %1$s</string>
     <string name="ui_error_accept_follow_request">Takip isteği kabul edilemedi: %s</string>
     <string name="ui_error_reject_follow_request">Takip isteği reddedilemedi: %s</string>
-    <string name="ui_error_reblog">Gönderi yeniden paylaşılamadı: %s</string>
+    <string name="ui_error_reblog_fmt">Gönderi yeniden paylaşılamadı: %1$s</string>
     <string name="ui_success_accepted_follow_request">Takip isteği kabul edildi</string>
     <string name="ui_success_rejected_follow_request">Takip isteği engellendi</string>
     <string name="description_login">Çoğu durumda çalışır. Diğer uygulamalara veri sızmaz.</string>

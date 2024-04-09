@@ -18,6 +18,7 @@
 package app.pachli.core.ui.extensions
 
 import android.content.Context
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.ui.R
 import com.squareup.moshi.JsonDataException
@@ -39,8 +40,8 @@ fun Throwable.getDrawableRes(): Int = when (this) {
 
 /** @return A string error message for this throwable */
 fun Throwable.getErrorString(context: Context): String = getServerErrorMessage() ?: when (this) {
-    is IOException -> context.getString(R.string.error_network_fmt, this.message)
-    is HttpException -> if (this.code() == 404) context.getString(R.string.error_404_not_found_fmt, this.message) else context.getString(R.string.error_generic_fmt, this.message)
-    is JsonDataException -> context.getString(R.string.error_json_data_fmt, this.message)
-    else -> context.getString(R.string.error_generic_fmt, this.message)
+    is IOException -> String.format(context.getString(R.string.error_network_fmt), this.localizedMessage.unicodeWrap())
+    is HttpException -> if (this.code() == 404) String.format(context.getString(R.string.error_404_not_found_fmt), this.message.unicodeWrap()) else String.format(context.getString(R.string.error_generic_fmt), this.message.unicodeWrap())
+    is JsonDataException -> String.format(context.getString(R.string.error_json_data_fmt), this.message.unicodeWrap())
+    else -> String.format(context.getString(R.string.error_generic_fmt), this.message.unicodeWrap())
 }

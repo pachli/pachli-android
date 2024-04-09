@@ -247,25 +247,25 @@ sealed interface UiError {
     data class Bookmark(
         override val throwable: Throwable,
         override val action: StatusAction.Bookmark,
-        override val message: Int = R.string.ui_error_bookmark,
+        override val message: Int = R.string.ui_error_bookmark_fmt,
     ) : UiError
 
     data class Favourite(
         override val throwable: Throwable,
         override val action: StatusAction.Favourite,
-        override val message: Int = R.string.ui_error_favourite,
+        override val message: Int = R.string.ui_error_favourite_fmt,
     ) : UiError
 
     data class Reblog(
         override val throwable: Throwable,
         override val action: StatusAction.Reblog,
-        override val message: Int = R.string.ui_error_reblog,
+        override val message: Int = R.string.ui_error_reblog_fmt,
     ) : UiError
 
     data class VoteInPoll(
         override val throwable: Throwable,
         override val action: StatusAction.VoteInPoll,
-        override val message: Int = R.string.ui_error_vote,
+        override val message: Int = R.string.ui_error_vote_fmt,
     ) : UiError
 
     data class AcceptFollowRequest(
@@ -283,7 +283,7 @@ sealed interface UiError {
     data class GetFilters(
         override val throwable: Throwable,
         override val action: UiAction? = null,
-        override val message: Int = R.string.ui_error_filter_v1_load,
+        override val message: Int = R.string.ui_error_filter_v1_load_fmt,
     ) : UiError
 
     companion object {

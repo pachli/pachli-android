@@ -25,6 +25,7 @@ import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.database.model.TranslationState
@@ -262,7 +263,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
             TranslationState.SHOW_TRANSLATION -> {
                 translationProvider?.apply {
                     viewData.translation?.provider?.let {
-                        text = context.getString(R.string.translation_provider_fmt, it)
+                        text = context.getString(R.string.translation_provider_fmt, it.unicodeWrap())
                         show()
                     }
                 }

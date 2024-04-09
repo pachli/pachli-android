@@ -549,11 +549,11 @@
     <string name="notification_unknown_name">Descoñecido</string>
     <string name="socket_timeout_exception">Estamos tardando demasiado en conectar co servidor</string>
     <string name="ui_error_unknown">razón descoñecida</string>
-    <string name="ui_error_bookmark">Fallou engadir a marcadores: %s</string>
+    <string name="ui_error_bookmark_fmt">Fallou engadir a marcadores: %1$s</string>
     <string name="ui_error_clear_notifications">Fallou a limpeza das notificacións: %s</string>
-    <string name="ui_error_vote">Fallou a votación na enquisa: %s</string>
-    <string name="ui_error_favourite">Fallou favorecer a publicación: %s</string>
-    <string name="ui_error_reblog">Fallou promover a publicación: %s</string>
+    <string name="ui_error_vote_fmt">Fallou a votación na enquisa: %1$s</string>
+    <string name="ui_error_favourite_fmt">Fallou favorecer a publicación: %1$s</string>
+    <string name="ui_error_reblog_fmt">Fallou promover a publicación: %1$s</string>
     <string name="ui_error_accept_follow_request">Fallou a aceptación da solicitude de seguimento: %s</string>
     <string name="ui_error_reject_follow_request">Fallou o rexeitamento da solicitude de seguimento: %s</string>
     <string name="ui_success_accepted_follow_request">Aceptado o seguimento</string>
