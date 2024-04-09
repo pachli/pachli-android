@@ -263,7 +263,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
             TranslationState.SHOW_TRANSLATION -> {
                 translationProvider?.apply {
                     viewData.translation?.provider?.let {
-                        text = String.format(context.getString(R.string.translation_provider_fmt), it.unicodeWrap())
+                        text = context.getString(R.string.translation_provider_fmt), it.unicodeWrap()
                         show()
                     }
                 }

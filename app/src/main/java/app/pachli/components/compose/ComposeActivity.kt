@@ -483,10 +483,8 @@ class ComposeActivity :
                     displayTransientMessage(throwable.errorMessage)
                 } else {
                     displayTransientMessage(
-                        String.format(
-                            getString(
-                                R.string.error_media_upload_sending_fmt,
-                            ),
+                        getString(
+                            R.string.error_media_upload_sending_fmt,
                             throwable.getServerErrorMessage().unicodeWrap(),
                         ),
                     )

@@ -59,6 +59,7 @@ import app.pachli.viewdata.calculatePercent
 import app.pachli.worker.NotificationWorker
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import java.util.Locale
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
 import timber.log.Timber
@@ -570,9 +571,12 @@ fun androidNotificationsAreEnabled(context: Context, accountManager: AccountMana
 
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         Timber.d(
-            "%d >= %d, checking notification manager",
-            Build.VERSION.SDK_INT,
-            Build.VERSION_CODES.O,
+            String.format(
+                Locale.US,
+                "%d >= %d, checking notification manager",
+                Build.VERSION.SDK_INT,
+                Build.VERSION_CODES.O,
+            ),
         )
         // on Android >= O notifications are enabled if at least one channel is enabled
         val notificationManager =

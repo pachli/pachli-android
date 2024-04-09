@@ -235,10 +235,8 @@ class TimelineFragment :
                 // TODO: Very similar to same code in NotificationsFragment
                 launch {
                     viewModel.uiError.collect { error ->
-                        val message = String.format(
-                            getString(
-                                error.message,
-                            ),
+                        val message = getString(
+                            error.message,
                             (
                                 error.throwable.getServerErrorMessage() ?: error.throwable.localizedMessage
                                     ?: getString(R.string.ui_error_unknown)
