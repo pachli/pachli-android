@@ -552,7 +552,7 @@
     <string name="ui_error_unknown">دلیل نامعلوم</string>
     <string name="ui_error_bookmark_fmt">%1$s: نشانک گذاری فرسته شکست خورد</string>
     <string name="ui_error_clear_notifications">پاک سازی آگاهی‌ها شکست خورد: %s</string>
-    <string name="ui_error_favourite_fmt">%1%s: برگزیدن فرسته شکست خورد</string>
+    <string name="ui_error_favourite_fmt">%1$s: برگزیدن فرسته شکست خورد</string>
     <string name="ui_error_vote_fmt">%1$s: رأی دادن در نظرسنجی شکست خورد</string>
     <string name="ui_error_accept_follow_request">پذیرش درخواست پی‌گیری شکست خورد: %s</string>
     <string name="ui_success_accepted_follow_request">درخواست پی‌گیری پذیرفته شد</string>
