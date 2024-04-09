@@ -612,7 +612,7 @@
     <string name="announcement_date">%1$s %2$s</string>
     <string name="select_list_manage">إدارة القوائم</string>
     <string name="dialog_save_profile_changes_message">أتريد حفظ التغييرات التي طرأت على ملفك الشخصي؟</string>
-    <string name="ui_error_bookmark_fmt">%1$s: فشل إجراء إضافة المنشور إلى الفواصل المرجعية</string>
+    <string name="ui_error_bookmark_fmt">%1$s :فشل إجراء إضافة المنشور إلى الفواصل المرجعية</string>
     <string name="notification_unknown_name">غير معروف</string>
     <string name="pref_update_notification_frequency_always">دائما</string>
     <string name="error_media_upload_sending_fmt">اخفق التحميل: %s</string>
