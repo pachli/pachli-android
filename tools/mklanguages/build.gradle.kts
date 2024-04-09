@@ -27,7 +27,7 @@ dependencies {
     implementation("com.github.h0tk3y.betterParse:better-parse:0.4.4")
 
     // Logging
-    implementation("io.github.oshai:kotlin-logging-jvm:6.0.3")
+    implementation("io.github.oshai:kotlin-logging-jvm:6.0.4")
     implementation("ch.qos.logback:logback-classic:1.5.3")
 
     // Testing
