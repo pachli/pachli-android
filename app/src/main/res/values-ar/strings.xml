@@ -651,5 +651,5 @@
     <string name="confirmation_hashtag_muted">#%s مخفي</string>
     <string name="pref_summary_timeline_filters">خادمك الخاص لا يدعم عوامل التصفية</string>
     <string name="load_newest_statuses">تحميل أحدث المنشورات</string>
-    <string name="announcement_date_updated">(%1$s: تم تحديثه)</string>
+    <string name="announcement_date_updated">(%1$s :تم تحديثه)</string>
 </resources>
