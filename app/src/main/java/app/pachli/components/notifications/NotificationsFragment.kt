@@ -225,14 +225,13 @@ class NotificationsFragment :
                 // - With a "Retry" option if the error included a UiAction to retry.
                 launch {
                     viewModel.uiError.collect { error ->
-                        val message =
-                            getString(
-                                error.message,
-                                (
-                                    error.throwable.getServerErrorMessage() ?: error.throwable.localizedMessage
-                                        ?: getString(R.string.ui_error_unknown)
-                                    ).unicodeWrap(),
-                            )
+                        val message = getString(
+                            error.message,
+                            (
+                                error.throwable.getServerErrorMessage() ?: error.throwable.localizedMessage
+                                    ?: getString(R.string.ui_error_unknown)
+                                ).unicodeWrap(),
+                        )
                         Timber.d(error.throwable, message)
                         val snackbar = Snackbar.make(
                             // Without this the FAB will not move out of the way
