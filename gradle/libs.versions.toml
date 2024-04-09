@@ -45,7 +45,7 @@ hilt = "2.51.1"
 junit = "4.13.2"
 kotlin = "1.9.23"
 kotlin-result = "1.1.20"
-ksp = "1.9.23-1.0.19"
+ksp = "1.9.23-1.0.20"
 image-cropper = "4.3.2"
 leakcanary = "2.13"
 lint = "31.3.1" # = agp + 23.0.0 (= 8.3.1), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
