@@ -506,8 +506,8 @@
     <string name="compose_unsaved_changes">لديك تعديلات لم تحفظ.</string>
     <string name="post_edited">عدَّلَ %s</string>
     <string name="notification_report_format">شكوى جديدة عن %s</string>
-    <string name="status_edit_info">%1$s: عدّله</string>
-    <string name="status_created_info">%1$s: أنشأه</string>
+    <string name="status_edit_info">%1$s :عدّله</string>
+    <string name="status_created_info">%1$s :أنشأه</string>
     <string name="wellbeing_mode_notice">سيتم إخفاء بعض المعلومات التي قد تؤثر على صحتك العقلية. هذا يتضمن:
 \n
 \n- المفضلة/المشاركات/متابعة الاشعارات
