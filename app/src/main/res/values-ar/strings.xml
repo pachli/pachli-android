@@ -587,7 +587,7 @@
     <string name="ui_error_unknown">سبب مجهول</string>
     <string name="socket_timeout_exception">طال الاتصال بخادمك كثيرًا</string>
     <string name="action_add">إضافة</string>
-    <string name="ui_error_translate_status_fmt">%1$s: فشلت الترجمة</string>
+    <string name="ui_error_translate_status_fmt">%1$s :فشلت الترجمة</string>
     <string name="update_dialog_negative">لا تذكرني أبداً</string>
     <string name="translating">الترجمة جارية…</string>
     <string name="dialog_delete_filter_positive_action">حذف</string>
