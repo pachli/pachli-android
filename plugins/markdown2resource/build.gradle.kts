@@ -36,7 +36,7 @@ gradlePlugin {
 
 dependencies {
     implementation(libs.android.gradlePlugin)
-    implementation("org.jetbrains:markdown:0.6.1")
+    implementation("org.jetbrains:markdown:0.7.0")
     implementation("com.squareup:javapoet:1.13.0")
 }
 
