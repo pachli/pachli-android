@@ -30,18 +30,17 @@ dependencyResolutionManagement {
 }
 
 plugins {
-    id("com.gradle.enterprise") version "3.16.2"
+    id("com.gradle.develocity") version "3.17"
 }
 
-val isCiBuild = !System.getenv("CI").isNullOrBlank()
-
-gradleEnterprise {
+develocity {
     buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = "yes"
-        isUploadInBackground = !isCiBuild
+        termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
+        termsOfUseAgree = "yes"
+        val isCiBuild = providers.environmentVariable("CI").isPresent
+        uploadInBackground = !isCiBuild
         tag(if (isCiBuild) "CI" else "Local")
-        publishAlwaysIf(isCiBuild)
+        publishing.onlyIf { isCiBuild }
     }
 }
 
