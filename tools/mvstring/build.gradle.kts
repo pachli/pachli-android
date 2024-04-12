@@ -22,7 +22,7 @@ application {
 dependencies {
     // Logging
     implementation("io.github.oshai:kotlin-logging-jvm:6.0.4")
-    implementation("ch.qos.logback:logback-classic:1.5.3")
+    implementation("ch.qos.logback:logback-classic:1.5.5")
 
     // Testing
     testImplementation(kotlin("test"))
