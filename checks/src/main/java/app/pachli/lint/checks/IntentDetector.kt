@@ -67,7 +67,7 @@ class IntentDetector : Detector(), Detector.UastScanner {
                 Creating an `Intent` with a class from another module can create unnecessary or circular
                 dependencies. Use the `...Intent` classes in `core.navigation` to create an intent for
                 the appropriate `Activity`.
-            """.trimIndent(),
+            """,
             category = Category.CORRECTNESS,
             priority = 6,
             severity = Severity.WARNING,
