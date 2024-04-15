@@ -943,7 +943,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         onTabSelectedListener = object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                binding.mainToolbar.title = tab.contentDescription
+                supportActionBar?.title = tabs[tab.position].title(this@MainActivity)
 
                 refreshComposeButtonState(tabs[tab.position])
             }
@@ -962,7 +962,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             activeTabLayout.addOnTabSelectedListener(it)
         }
 
-        binding.mainToolbar.title = tabs[position].title(this@MainActivity)
+        supportActionBar?.title = tabs[position].title(this@MainActivity)
         binding.mainToolbar.setOnClickListener {
             (tabAdapter.getFragment(activeTabLayout.selectedTabPosition) as? ReselectableFragment)?.onReselect()
         }
