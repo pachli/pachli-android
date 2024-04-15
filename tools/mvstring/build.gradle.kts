@@ -15,20 +15,10 @@
  * see <http://www.gnu.org/licenses>.
  */
 
+plugins {
+    alias(libs.plugins.pachli.tool)
+}
+
 application {
     mainClass = "app.pachli.mvstring.MainKt"
-}
-
-dependencies {
-    // Logging
-    implementation("io.github.oshai:kotlin-logging-jvm:6.0.3")
-    implementation("ch.qos.logback:logback-classic:1.5.3")
-
-    // Testing
-    testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2") // for parameterized tests
-}
-
-tasks.test {
-    useJUnitPlatform()
 }
