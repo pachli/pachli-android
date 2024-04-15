@@ -73,6 +73,14 @@ turbine = "1.1.0"
 unified-push = "2.1.1"
 xmlwriter = "1.0.4"
 
+# Tool dependencies
+betterparse = "0.4.4"
+clikt = "4.3.0"
+icu4j = "74.2"
+junit-jupiter = "5.10.2"
+kotlin-logging-jvm = "6.0.4"
+logback = "1.5.3"
+
 [plugins]
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -94,6 +102,7 @@ pachli-android-application-flavors = { id = "pachli.android.application.flavors"
 pachli-android-hilt = { id = "pachli.android.hilt", version = "unspecified" }
 pachli-android-library = { id = "pachli.android.library", version = "unspecified" }
 pachli-android-room = { id = "pachli.android.room", version = "unspecified" }
+pachli-tool = { id = "pachli.tool", version = "unspecified" }
 
 [libraries]
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }
@@ -162,6 +171,8 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 junit = { module = "junit:junit", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter" }
 kotlin-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "kotlin-result" }
 kotlin-result-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "kotlin-result" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
@@ -199,6 +210,13 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 unified-push = { module = "com.github.UnifiedPush:android-connector", version.ref = "unified-push" }
 xmlwriter = { module = "org.pageseeder.xmlwriter:pso-xmlwriter", version.ref = "xmlwriter" }
+
+# Tool libraries
+betterparse = { module = "com.github.h0tk3y.betterParse:better-parse", version.ref = "betterparse" }
+clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
+icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j"}
+kotlin-logging-jvm = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlin-logging-jvm" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 # build-logic dependencies
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }

@@ -63,5 +63,9 @@ gradlePlugin {
             id = "pachli.android.lint"
             implementationClass = "AndroidLintConventionPlugin"
         }
+        register("tool") {
+            id = "pachli.tool"
+            implementationClass = "ToolConventionPlugin"
+        }
     }
 }

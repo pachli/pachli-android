@@ -17,17 +17,21 @@
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+plugins {
+    alias(libs.plugins.kotlin.jvm)
+}
+
 subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "application")
-
-    dependencies {
-        add("implementation", "com.github.ajalt.clikt:clikt:4.3.0")
-    }
 
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
             freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
         }
+    }
+
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
     }
 }

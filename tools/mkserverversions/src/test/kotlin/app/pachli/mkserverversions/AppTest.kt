@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,16 +15,17 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    versionCatalogs {
-        create("libs") {
-            from(files("../gradle/libs.versions.toml"))
-        }
+package app.pachli.mkserverversions
+
+import com.github.ajalt.clikt.testing.test
+import com.google.common.truth.Truth
+import org.junit.jupiter.api.Test
+
+class AppTest {
+    @Test
+    fun testHelp() {
+        val app = App()
+        val result = app.test("--help")
+        Truth.assertThat(result.statusCode).isEqualTo(0)
     }
 }
-
-rootProject.name = "checks"
