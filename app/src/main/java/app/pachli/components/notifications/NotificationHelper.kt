@@ -51,6 +51,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.receiver.SendStatusBroadcastReceiver
 import app.pachli.viewdata.buildDescription
@@ -58,6 +59,7 @@ import app.pachli.viewdata.calculatePercent
 import app.pachli.worker.NotificationWorker
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import java.util.Locale
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
 import timber.log.Timber
@@ -93,6 +95,7 @@ private const val CHANNEL_SUBSCRIPTIONS = "CHANNEL_SUBSCRIPTIONS"
 private const val CHANNEL_SIGN_UP = "CHANNEL_SIGN_UP"
 private const val CHANNEL_UPDATES = "CHANNEL_UPDATES"
 private const val CHANNEL_REPORT = "CHANNEL_REPORT"
+private const val CHANNEL_SEVERED_RELATIONSHIPS = "CHANNEL_SEVERED_RELATIONSHIPS"
 private const val CHANNEL_BACKGROUND_TASKS = "CHANNEL_BACKGROUND_TASKS"
 
 /** WorkManager Tag */
@@ -503,6 +506,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             CHANNEL_SIGN_UP + account.identifier,
             CHANNEL_UPDATES + account.identifier,
             CHANNEL_REPORT + account.identifier,
+            CHANNEL_SEVERED_RELATIONSHIPS + account.identifier,
         )
         val channelNames = intArrayOf(
             R.string.notification_mention_name,
@@ -515,6 +519,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             R.string.notification_sign_up_name,
             R.string.notification_update_name,
             R.string.notification_report_name,
+            R.string.notification_severed_relationships_name,
         )
         val channelDescriptions = intArrayOf(
             R.string.notification_mention_descriptions,
@@ -527,6 +532,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             R.string.notification_sign_up_description,
             R.string.notification_update_description,
             R.string.notification_report_description,
+            R.string.notification_severed_relationships_description,
         )
         val channels: MutableList<NotificationChannel> = ArrayList(6)
         val channelGroup = NotificationChannelGroup(account.identifier, account.fullName)
@@ -565,9 +571,12 @@ fun androidNotificationsAreEnabled(context: Context, accountManager: AccountMana
 
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         Timber.d(
-            "%d >= %d, checking notification manager",
-            Build.VERSION.SDK_INT,
-            Build.VERSION_CODES.O,
+            String.format(
+                Locale.US,
+                "%d >= %d, checking notification manager",
+                Build.VERSION.SDK_INT,
+                Build.VERSION_CODES.O,
+            ),
         )
         // on Android >= O notifications are enabled if at least one channel is enabled
         val notificationManager =
@@ -684,7 +693,8 @@ fun filterNotification(
         Notification.Type.SIGN_UP -> account.notificationsSignUps
         Notification.Type.UPDATE -> account.notificationsUpdates
         Notification.Type.REPORT -> account.notificationsReports
-        else -> false
+        Notification.Type.SEVERED_RELATIONSHIPS -> account.notificationsSeveredRelationships
+        Notification.Type.UNKNOWN -> false
     }
 }
 
@@ -704,7 +714,8 @@ private fun getChannelId(account: AccountEntity, type: Notification.Type): Strin
         Notification.Type.SIGN_UP -> CHANNEL_SIGN_UP + account.identifier
         Notification.Type.UPDATE -> CHANNEL_UPDATES + account.identifier
         Notification.Type.REPORT -> CHANNEL_REPORT + account.identifier
-        else -> null
+        Notification.Type.SEVERED_RELATIONSHIPS -> CHANNEL_SEVERED_RELATIONSHIPS + account.identifier
+        Notification.Type.UNKNOWN -> null
     }
 }
 
@@ -834,6 +845,13 @@ private fun titleForType(
             return context.getString(R.string.notification_report_format, account.domain)
         }
 
+        Notification.Type.SEVERED_RELATIONSHIPS -> {
+            return context.getString(
+                R.string.notification_severed_relationships_format,
+                notification.relationshipSeveranceEvent?.targetName,
+            )
+        }
+
         Notification.Type.UNKNOWN -> return null
     }
 }
@@ -889,6 +907,15 @@ private fun bodyForType(
                 notification.account.name.unicodeWrap(),
                 report.targetAccount.name.unicodeWrap(),
             )
+        }
+        Notification.Type.SEVERED_RELATIONSHIPS -> {
+            val resourceId = when (notification.relationshipSeveranceEvent!!.type) {
+                RelationshipSeveranceEvent.Type.DOMAIN_BLOCK -> R.string.notification_severed_relationships_domain_block_body
+                RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK -> R.string.notification_severed_relationships_user_domain_block_body
+                RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION -> R.string.notification_severed_relationships_account_suspension_body
+                RelationshipSeveranceEvent.Type.UNKNOWN -> R.string.notification_severed_relationships_unknown_body
+            }
+            return context.getString(resourceId)
         }
 
         Notification.Type.UNKNOWN -> return null

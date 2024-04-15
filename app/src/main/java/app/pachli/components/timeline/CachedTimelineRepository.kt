@@ -33,7 +33,7 @@ import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.network.model.TimelineKind
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.EmptyPagingSource
@@ -76,7 +76,7 @@ class CachedTimelineRepository @Inject constructor(
     /** @return flow of Mastodon [TimelineStatusWithAccount], loaded in [pageSize] increments */
     @OptIn(ExperimentalPagingApi::class, ExperimentalCoroutinesApi::class)
     fun getStatusStream(
-        kind: TimelineKind,
+        kind: Timeline,
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
     ): Flow<PagingData<TimelineStatusWithAccount>> {

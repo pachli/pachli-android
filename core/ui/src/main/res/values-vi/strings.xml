@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Rớt mạng! Xin kiểm tra kết nối và thử lại!</string>
+    <string name="error_generic">Đã có lỗi xảy ra.</string>
+    <string name="message_empty">Trống.</string>
+    <string name="action_retry">Thử lại</string>
+    <string name="button_done">Xong</string>
+    <string name="action_view_profile">Trang hồ sơ</string>
+    <string name="action_more">Thêm</string>
+    <string name="action_refresh">Làm mới</string>
+</resources>

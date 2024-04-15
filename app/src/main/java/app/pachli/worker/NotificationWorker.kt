@@ -19,6 +19,7 @@ package app.pachli.worker
 
 import android.app.Notification
 import android.content.Context
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
@@ -26,13 +27,15 @@ import app.pachli.R
 import app.pachli.components.notifications.NOTIFICATION_ID_FETCH_NOTIFICATION
 import app.pachli.components.notifications.NotificationFetcher
 import app.pachli.components.notifications.createWorkerNotification
-import javax.inject.Inject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import timber.log.Timber
 
 /** Fetch and show new notifications. */
-class NotificationWorker(
-    appContext: Context,
-    params: WorkerParameters,
+@HiltWorker
+class NotificationWorker @AssistedInject constructor(
+    @Assisted appContext: Context,
+    @Assisted params: WorkerParameters,
     private val notificationsFetcher: NotificationFetcher,
 ) : CoroutineWorker(appContext, params) {
     val notification: Notification = createWorkerNotification(applicationContext, R.string.notification_notification_worker)
@@ -44,12 +47,4 @@ class NotificationWorker(
     }
 
     override suspend fun getForegroundInfo() = ForegroundInfo(NOTIFICATION_ID_FETCH_NOTIFICATION, notification)
-
-    class Factory @Inject constructor(
-        private val notificationsFetcher: NotificationFetcher,
-    ) : ChildWorkerFactory {
-        override fun createWorker(appContext: Context, params: WorkerParameters): CoroutineWorker {
-            return NotificationWorker(appContext, params, notificationsFetcher)
-        }
-    }
 }

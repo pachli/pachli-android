@@ -41,14 +41,15 @@ import app.pachli.appstore.EventHub
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.extensions.visible
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.ActionButtonScrollListener
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
@@ -64,8 +65,7 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
+import kotlin.time.Duration.Companion.minutes
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
@@ -93,8 +93,6 @@ class ConversationsFragment :
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
     private lateinit var adapter: ConversationAdapter
-
-    private var showFabWhileScrolling = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_timeline, container, false)
@@ -126,11 +124,7 @@ class ConversationsFragment :
                             binding.swipeRefreshLayout.isRefreshing = false
                             if (loadState.append is LoadState.NotLoading && loadState.source.refresh is LoadState.NotLoading) {
                                 binding.statusView.show()
-                                binding.statusView.setup(
-                                    R.drawable.elephant_friend_empty,
-                                    R.string.message_empty,
-                                    null,
-                                )
+                                binding.statusView.setup(BackgroundMessage.Empty())
                             }
                         }
 
@@ -164,16 +158,20 @@ class ConversationsFragment :
                 },
             )
 
-            showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
-            binding.recyclerView.addOnScrollListener(
-                object : RecyclerView.OnScrollListener() {
-                    val actionButton = (activity as? ActionButtonActivity)?.actionButton
+            (activity as? ActionButtonActivity)?.actionButton?.let { actionButton ->
+                actionButton.show()
 
-                    override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
-                        actionButton?.visible(showFabWhileScrolling || dy == 0)
+                val actionButtonScrollListener = ActionButtonScrollListener(actionButton)
+                binding.recyclerView.addOnScrollListener(actionButtonScrollListener)
+
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                        viewModel.showFabWhileScrolling.collect {
+                            actionButtonScrollListener.showActionButtonWhileScrolling = it
+                        }
                     }
-                },
-            )
+                }
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -191,7 +189,7 @@ class ConversationsFragment :
                         adapter.itemCount,
                         listOf(StatusBaseViewHolder.Key.KEY_CREATED),
                     )
-                    delay(1.toDuration(DurationUnit.MINUTES))
+                    delay(1.minutes)
                 }
             }
         }
@@ -319,7 +317,7 @@ class ConversationsFragment :
     }
 
     override fun onViewTag(tag: String) {
-        val intent = StatusListActivityIntent.hashtag(requireContext(), tag)
+        val intent = TimelineActivityIntent.hashtag(requireContext(), tag)
         startActivity(intent)
     }
 
@@ -357,9 +355,6 @@ class ConversationsFragment :
 
     private fun onPreferenceChanged(key: String) {
         when (key) {
-            PrefKeys.FAB_HIDE -> {
-                showFabWhileScrolling = sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
-            }
             PrefKeys.MEDIA_PREVIEW_ENABLED -> {
                 val enabled = accountManager.activeAccount!!.mediaPreviewEnabled
                 val oldMediaPreviewEnabled = adapter.mediaPreviewEnabled

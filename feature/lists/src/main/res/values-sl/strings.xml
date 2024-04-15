@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Ime seznama</string>
+    <string name="title_lists">Seznami</string>
+    <string name="error_create_list_fmt">Seznama ni bilo mogoče ustvariti \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Seznama ni bilo mogoče izbrisati \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Seznama ni bilo mogoče preimenovati \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Preimenuj seznam</string>
+    <string name="action_create_list">Ustvari seznam</string>
+    <string name="action_remove_from_list">Odstrani račun iz seznama</string>
+    <string name="action_add_to_list">Dodaj račun na seznam</string>
+    <string name="action_delete_list">Izbriši seznam</string>
+    <string name="hint_search_people_list">Poiščite osebe, katerim sledite</string>
+</resources>

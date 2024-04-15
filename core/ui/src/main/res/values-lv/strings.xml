@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Radās tīkla kļūda! Lūdzu, pārbaudiet savienojumu un mēģiniet vēlreiz!</string>
+    <string name="error_generic">Notika kļūda.</string>
+    <string name="message_empty">Šeit nekā nav.</string>
+    <string name="action_retry">Mēģināt vēlreiz</string>
+    <string name="button_done">Gatavs</string>
+    <string name="action_view_profile">Profils</string>
+    <string name="action_more">Vairāk</string>
+    <string name="action_refresh">Atsvaizdināt</string>
+</resources>

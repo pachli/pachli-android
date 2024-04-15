@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Bir ağ hatası oluştu. Lütfen bağlantını kontrol et ve tekrar dene.</string>
+    <string name="error_generic">Bir hata oluştu.</string>
+    <string name="message_empty">Burada hiçbir şey yok.</string>
+    <string name="action_retry">Tekrar dene</string>
+    <string name="button_done">Tamam</string>
+    <string name="action_view_profile">Profil</string>
+    <string name="action_more">Devamı</string>
+    <string name="action_refresh">Yenile</string>
+</resources>

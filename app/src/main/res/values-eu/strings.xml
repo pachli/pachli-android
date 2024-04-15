@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Errorea gertatu da.</string>
     <string name="error_empty">Eremu hau ezin da hutsik egon.</string>
     <string name="error_no_web_browser_found">Ez da web nabigatzailerik aurkitu.</string>
     <string name="error_compose_character_limit">Tut luzeegia!</string>
@@ -44,7 +43,6 @@
     <string name="action_reply">Erantzun</string>
     <string name="action_reblog">Bultzatu</string>
     <string name="action_favourite">Gogokoa</string>
-    <string name="action_more">Gehiago</string>
     <string name="action_compose">Idatzi</string>
     <string name="action_logout">Saioa itxi</string>
     <string name="action_logout_confirm">Ziur zaude %1$s saioa itxi nahi duzula?</string>
@@ -58,8 +56,6 @@
     <string name="action_delete">Ezabatu</string>
     <string name="action_send">Tut</string>
     <string name="action_send_public">TUT!</string>
-    <string name="action_retry">Berriz saiatu</string>
-    <string name="action_view_profile">Profila</string>
     <string name="action_view_preferences">Ezarpenak</string>
     <string name="action_view_account_preferences">Kontuaren ezarpenak</string>
     <string name="action_view_favourites">Gogokoak</string>
@@ -202,8 +198,6 @@
     <string name="replying_to">\@%s-(r)i erantzuten</string>
     <string name="add_account_name">Gehitu kontua</string>
     <string name="add_account_description">Mastodon kontua gehitu</string>
-    <string name="action_lists">Zerrendak</string>
-    <string name="title_lists">Zerrendak</string>
     <string name="compose_active_account_description">%1$s kontuarekin tut egiten</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="other">Ikusmen urritasuna dutenentzat deskribapena\n(%d karaktereko muga)</item>
@@ -229,9 +223,6 @@
     <string name="restart_emoji">Aplikazioa berrabiarazi beharko duzu aldaketa ezartzeko</string>
     <string name="later">Beranduago</string>
     <string name="restart">Berrabiarazi</string>
-    <string name="caption_systememoji">Zure gailuko defektuzko emojiak</string>
-    <string name="caption_blobmoji">Android 4.4etik 7.1erako emoji-ak</string>
-    <string name="caption_twemoji">Mastodoneko emoji pakete estandarra</string>
     <string name="download_failed">Deskargatzerakoan akatsa</string>
     <string name="account_moved_description">%1$s hona mugitu da:</string>
     <string name="reblog_private">Berriz bultzatu</string>
@@ -244,14 +235,12 @@
     <string name="label_remote_account">Ondorengo edukiak erabiltzailearen informazioa erdizka erakutsi dezake. Profil osoa ikusteko nabigatzailean sakatu.</string>
     <string name="unpin_action">Desainguratu</string>
     <string name="pin_action">Ainguratu</string>
-    <string name="error_network">Sareko errore bat sortu da! Zure konexioa ziurta ezazu berriro, mesedez!</string>
     <string name="title_direct_messages">Mezu zuzenak</string>
     <string name="title_tab_preferences">Fitxak</string>
     <string name="title_posts_pinned">Finkatua</string>
     <string name="title_domain_mutes">Ezkutuko domeinuak</string>
     <string name="title_scheduled_posts">Programatutako tutak</string>
     <string name="post_username_format">\@%s</string>
-    <string name="message_empty">Kilkerrak besterik ez hemen.</string>
     <string name="action_unreblog">Bultzada kendu</string>
     <string name="action_unfavourite">Gogokoa kendu</string>
     <string name="action_edit">Editatu</string>
@@ -300,16 +289,6 @@
     <string name="filter_dialog_whole_word">Hitz osoa</string>
     <string name="filter_dialog_whole_word_description">Gako-hitza edo esaldia alfanumerikoa denean bakarrik, hitz osoarekin bat datorrenean bakarrik aplikatuko da</string>
     <string name="filter_add_description">Iragazteko esaldia</string>
-    <string name="error_create_list">Ezin izan da zerrenda sortu</string>
-    <string name="error_rename_list">Ezin izan da zerrendaren izena aldatu</string>
-    <string name="error_delete_list">Ezin izan da zerrenda ezabatu</string>
-    <string name="action_create_list">Zerrenda sortu</string>
-    <string name="action_rename_list">Zerrenda berrizendatu</string>
-    <string name="action_delete_list">Ezabatu zerrenda</string>
-    <string name="hint_search_people_list">Bilatu jarraitzen dituzun pertsonak</string>
-    <string name="action_add_to_list">Gehitu kontua zerrendan</string>
-    <string name="action_remove_from_list">Kendu kontua zerrendatik</string>
-    <string name="caption_notoemoji">Google-ren egungo emoji multzoa</string>
     <plurals name="favs">
         <item quantity="one">Gogoko <b>%1$s</b></item>
         <item quantity="other"><b>%1$s</b> Gogoko</item>
@@ -333,7 +312,6 @@
     <string name="description_visibility_private">Jarraitzaileak</string>
     <string name="description_visibility_direct">Zuzena</string>
     <string name="description_poll">Inkestatu aukerekin: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="hint_list_name">Zerrendaren izena</string>
     <string name="edit_hashtag_hint">Traola # gabe</string>
     <string name="notifications_clear">Garbitu</string>
     <string name="notifications_apply_filter">Iragazi</string>
@@ -342,7 +320,7 @@
     <string name="compose_shortcut_short_label">Idatzi</string>
     <string name="notification_clear_text">Ziur zaude jakinarazpen guztiak betirako garbitu nahi dituzula\?</string>
     <string name="compose_preview_image_description">%s irudiarentzako ekintzak</string>
-    <string name="poll_info_format"> <!-- 15 boto • Ordu 1 geratzen da --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 boto • Ordu 1 geratzen da -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">Boto %s</item>
         <item quantity="other">%s boto</item>
@@ -366,7 +344,6 @@
     </plurals>
     <string name="button_continue">Jarraitu</string>
     <string name="button_back">Itzuli</string>
-    <string name="button_done">Eginda</string>
     <string name="report_sent_success">\@%s jakinarazi duzu arrakastaz</string>
     <string name="hint_additional_info">Iruzkin gehigarriak</string>
     <string name="report_remote_instance">%s(r)i birbidali</string>
@@ -429,7 +406,6 @@
     <string name="follow_requests_info">Zure kontua blokeatuta ez badago ere, %1$s-ko langileek kontu hauetako eskaerak eskuz berrikusi nahi dituzula pentsatu dute.</string>
     <string name="pref_title_notification_filter_subscriptions">harpidedun naizen norbaitek tut berria argitaratu du</string>
     <string name="post_media_attachments">Eranskinak</string>
-    <string name="dialog_delete_list_warning">Ziur %s zerrenda ezabatu nahi duzula\?</string>
     <string name="post_media_audio">Audioa</string>
     <string name="action_subscribe_account">Harpidetu</string>
     <string name="dialog_delete_conversation_warning">Elkarrizketa ezabatu nahi duzu\?</string>

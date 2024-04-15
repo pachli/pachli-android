@@ -47,6 +47,7 @@
 
 -keepclassmembers class app.pachli.core.database.model.ConversationAccountEntity { *; }
 -keepclassmembers class app.pachli.core.database.model.DraftAttachment { *; }
+-keep class app.pachli.core.model.TimelineJsonAdapter { *; }
 
 -keep enum app.pachli.core.database.model.DraftAttachment$Type {
     public *;
@@ -58,7 +59,6 @@
 -keepnames class *
 
 # Retain generic signatures of classes used in MastodonApi so Retrofit works
--keep,allowobfuscation,allowshrinking class io.reactivex.rxjava3.core.Single
 -keep,allowobfuscation,allowshrinking class retrofit2.Response
 -keep,allowobfuscation,allowshrinking class kotlin.collections.List
 -keep,allowobfuscation,allowshrinking class kotlin.collections.Map

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Si è verificato un errore di rete. Per favore controlla la tua connessione e riprova.</string>
+    <string name="error_network_fmt">Si è verificato un errore di rete: %s</string>
+    <string name="error_generic_fmt">Si è verificato un errore: %s</string>
+    <string name="error_404_not_found_fmt">Il tuo server non supporta questa feature: %1$s</string>
+    <string name="error_generic">Si è verificato un errore.</string>
+    <string name="message_empty">Qui non c\'è nulla.</string>
+    <string name="action_retry">Riprova</string>
+    <string name="button_done">Fatto</string>
+    <string name="action_view_profile">Profilo</string>
+    <string name="action_more">Di più</string>
+    <string name="action_refresh">Aggiorna</string>
+</resources>

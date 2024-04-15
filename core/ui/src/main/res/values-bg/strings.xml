@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Възникна грешка в мрежата! Моля, проверете връзката си и опитайте отново!</string>
+    <string name="error_generic">Възникна грешка.</string>
+    <string name="message_empty">Нищо тук.</string>
+    <string name="action_retry">Повторен опит</string>
+    <string name="button_done">Готово</string>
+    <string name="action_view_profile">Профил</string>
+    <string name="action_more">Още</string>
+</resources>

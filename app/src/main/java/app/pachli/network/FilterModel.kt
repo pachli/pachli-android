@@ -1,6 +1,7 @@
 package app.pachli.network
 
 import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
@@ -10,16 +11,16 @@ import java.util.regex.Pattern
 /**
  * Filter statuses using V1 or V2 filters.
  *
- * Construct with [filterKind] that corresponds to the kind of timeline, and optionally the set
+ * Construct with [filterContext] that corresponds to the kind of timeline, and optionally the set
  * of v1 filters that should be applied.
  */
-class FilterModel constructor(private val filterKind: Filter.Kind, v1filters: List<FilterV1>? = null) {
+class FilterModel(private val filterContext: FilterContext, v1filters: List<FilterV1>? = null) {
     /** Pattern to use when matching v1 filters against a status. Null if these are v2 filters */
     private var pattern: Pattern? = null
 
     init {
         pattern = v1filters?.let { list ->
-            makeFilter(list.filter { it.context.contains(filterKind.kind) })
+            makeFilter(list.filter { it.contexts.contains(filterContext) })
         }
     }
 
@@ -48,7 +49,7 @@ class FilterModel constructor(private val filterKind: Filter.Kind, v1filters: Li
         }
 
         val matchingKind = status.filtered?.filter { result ->
-            result.filter.kinds.contains(filterKind)
+            result.filter.contexts.contains(filterContext)
         }
 
         return if (matchingKind.isNullOrEmpty()) {

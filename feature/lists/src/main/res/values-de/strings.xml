@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Listenname</string>
+    <string name="list_exclusive_label">Nicht in der Startseite anzeigen</string>
+    <string name="title_lists">Listen</string>
+    <string name="error_create_list_fmt">Liste konnte nicht erstellt werden \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Liste konnte nicht gelöscht werden \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Liste konnte nicht aktualisiert werden \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Liste aktualisieren</string>
+    <string name="action_create_list">Liste erstellen</string>
+    <string name="dialog_delete_list_warning">Möchtest du die Liste %s wirklich löschen\?</string>
+    <string name="action_remove_from_list">Konto aus der Liste entfernen</string>
+    <string name="action_add_to_list">Konto zur Liste hinzufügen</string>
+    <string name="action_delete_list">Liste löschen</string>
+    <string name="failed_to_add_to_list">Das Konto konnte nicht zur Liste hinzugefügt werden</string>
+    <string name="failed_to_remove_from_list">Das Konto konnte nicht aus der Liste entfernt werden</string>
+    <string name="no_lists">Du hast keine Listen.</string>
+    <string name="hint_search_people_list">Suche nach Leuten, denen du folgst</string>
+    <string name="action_add_or_remove_from_list">Zur Liste hzfg. / aus Liste entf.</string>
+</resources>

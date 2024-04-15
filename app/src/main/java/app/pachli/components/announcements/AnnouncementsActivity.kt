@@ -32,13 +32,14 @@ import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityAnnouncementsBinding
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
-import app.pachli.util.unsafeLazy
 import app.pachli.view.EmojiPicker
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -109,7 +110,7 @@ class AnnouncementsActivity :
                     binding.progressBar.hide()
                     binding.swipeRefreshLayout.isRefreshing = false
                     if (it.data.isNullOrEmpty()) {
-                        binding.errorMessageView.setup(R.drawable.elephant_friend_empty, R.string.no_announcements)
+                        binding.errorMessageView.setup(BackgroundMessage.Empty(R.string.no_announcements))
                         binding.errorMessageView.show()
                     } else {
                         binding.errorMessageView.hide()
@@ -122,7 +123,7 @@ class AnnouncementsActivity :
                 is Error -> {
                     binding.progressBar.hide()
                     binding.swipeRefreshLayout.isRefreshing = false
-                    binding.errorMessageView.setup(R.drawable.errorphant_error, R.string.error_generic) {
+                    binding.errorMessageView.setup(BackgroundMessage.GenericError()) {
                         refreshAnnouncements()
                     }
                     binding.errorMessageView.show()
@@ -185,7 +186,7 @@ class AnnouncementsActivity :
     }
 
     override fun onViewTag(tag: String) {
-        val intent = StatusListActivityIntent.hashtag(this, tag)
+        val intent = TimelineActivityIntent.hashtag(this, tag)
         startActivityWithSlideInAnimation(intent)
     }
 

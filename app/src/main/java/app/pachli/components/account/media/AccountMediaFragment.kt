@@ -33,7 +33,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
@@ -43,8 +42,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
-import app.pachli.core.preferences.PrefKeys
-import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineBinding
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.IconicsDrawable
@@ -52,7 +50,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -65,12 +62,6 @@ class AccountMediaFragment :
     OnRefreshListener,
     RefreshableFragment,
     MenuProvider {
-
-    @Inject
-    lateinit var accountManager: AccountManager
-
-    @Inject
-    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
@@ -86,11 +77,9 @@ class AccountMediaFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        val useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, true)
-
         adapter = AccountMediaGridAdapter(
-            useBlurhash = useBlurhash,
             context = view.context,
+            statusDisplayOptions = viewModel.statusDisplayOptions.value,
             onAttachmentClickListener = ::onAttachmentClick,
         )
 
@@ -125,7 +114,7 @@ class AccountMediaFragment :
                     is LoadState.NotLoading -> {
                         if (loadState.append is LoadState.NotLoading && loadState.source.refresh is LoadState.NotLoading) {
                             binding.statusView.show()
-                            binding.statusView.setup(R.drawable.elephant_friend_empty, R.string.message_empty, null)
+                            binding.statusView.setup(BackgroundMessage.Empty())
                         }
                     }
                     is LoadState.Error -> {

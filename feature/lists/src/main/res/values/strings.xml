@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">List name</string>
+    <string name="list_exclusive_label">Hide from the home timeline</string>
+    <string name="replies_policy_title">Show replies to:</string>
+    <string name="replies_policy_name_followed">Any followed user</string>
+    <string name="replies_policy_name_list">Members of the list</string>
+    <string name="replies_policy_name_none">No one</string>
+    <string name="title_lists">Lists</string>
+    <string name="error_create_list_fmt">Could not create list \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Could not delete list \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Could not update list \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Update the list</string>
+    <string name="action_create_list">Create a list</string>
+    <string name="dialog_delete_list_warning">Do you really want to delete the list %s?</string>
+    <string name="action_remove_from_list">Remove account from the list</string>
+    <string name="action_add_to_list">Add account to the list</string>
+    <string name="action_delete_list">Delete the list</string>
+    <string name="failed_to_add_to_list">Failed to add the account to the list</string>
+    <string name="failed_to_remove_from_list">Failed to remove the account from the list</string>
+    <string name="no_lists">You don\'t have any lists.</string>
+    <string name="hint_search_people_list">Search for people you follow</string>
+    <string name="action_add_or_remove_from_list">Add or remove from list</string>
+</resources>

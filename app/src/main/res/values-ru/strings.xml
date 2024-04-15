@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="error_generic">Произошла ошибка.</string>
-    <string name="error_network">Произошла ошибка сети! Пожалуйста, проверьте интернет-соединение и попробуйте снова!</string>
+<resources>
     <string name="error_empty">Не может быть пустым.</string>
     <string name="error_no_web_browser_found">Не удается найти веб-браузер.</string>
     <string name="error_compose_character_limit">Статус слишком длинный!</string>
@@ -39,7 +37,6 @@
     <string name="post_content_warning_show_less">Показать меньше</string>
     <string name="post_content_show_more">Развернуть</string>
     <string name="post_content_show_less">Свернуть</string>
-    <string name="message_empty">Ничего нет.</string>
     <string name="footer_empty">Ничего нет. Потяните вниз, чтобы обновить!</string>
     <string name="notification_reblog_format">%s продвинул(а) вашу запись</string>
     <string name="notification_favourite_format">%s понравился ваша запись</string>
@@ -52,7 +49,6 @@
     <string name="action_unreblog">Убрать продвижение</string>
     <string name="action_favourite">Нравится</string>
     <string name="action_unfavourite">Убрать из избранного</string>
-    <string name="action_more">Больше</string>
     <string name="action_compose">Сочинить</string>
     <string name="action_logout">Выйти</string>
     <string name="action_logout_confirm">Вы действительно хотите выйти из учётной записи %1$s?</string>
@@ -67,8 +63,6 @@
     <string name="action_delete_and_redraft">Удалить и исправить</string>
     <string name="action_send">ТРУБИТЬ</string>
     <string name="action_send_public">ТРУБИТЬ!</string>
-    <string name="action_retry">Повторить</string>
-    <string name="action_view_profile">Профиль</string>
     <string name="action_view_preferences">Предпочтения</string>
     <string name="action_view_account_preferences">Предпочтения учетной записи</string>
     <string name="action_view_favourites">Избранное</string>
@@ -264,17 +258,6 @@
     <string name="filter_add_description">Слова на фильтр</string>
     <string name="add_account_name">Добавить аккаунт</string>
     <string name="add_account_description">Добавить новый акканут Mastodon</string>
-    <string name="action_lists">Списки</string>
-    <string name="title_lists">Списки</string>
-    <string name="error_create_list">Не удалось создать список</string>
-    <string name="error_rename_list">Не удалось переименовать список</string>
-    <string name="error_delete_list">Не удалось удалить список</string>
-    <string name="action_create_list">Создать список</string>
-    <string name="action_rename_list">Переименовать список</string>
-    <string name="action_delete_list">Удалить список</string>
-    <string name="hint_search_people_list">Поиск по вашим подпискам</string>
-    <string name="action_add_to_list">Добавить аккаунт в список</string>
-    <string name="action_remove_from_list">Удалить аккаунт из списка</string>
     <string name="compose_active_account_description">Отправка от имени %1$s</string>
     <string name="action_set_caption">Добавить примечание</string>
     <string name="action_remove">Удалить</string>
@@ -297,9 +280,6 @@
     <string name="restart_emoji">Вам нужно перезапустить Pachli для применения изменений</string>
     <string name="later">Позже</string>
     <string name="restart">Перезапустить</string>
-    <string name="caption_systememoji">Набор эмодзи по умолчанию</string>
-    <string name="caption_blobmoji" tools:ignore="TypographyDashes">Набор эмодзи Blob из Android 4.4-7.1</string>
-    <string name="caption_twemoji">Стандартный набор эмодзи в Mastodon</string>
     <string name="download_failed">Загрузка не удалась</string>
     <string name="account_moved_description">%1$s переехал(а) на:</string>
     <string name="reblog_private">Продвинуть для исходной аудитории</string>
@@ -344,7 +324,6 @@
     <string name="description_visibility_unlisted">Неизвестно</string>
     <string name="description_visibility_private">Подписчики</string>
     <string name="description_visibility_direct">Непосредственно</string>
-    <string name="hint_list_name">Название списка</string>
     <string name="edit_hashtag_hint">Хэштег без #</string>
     <string name="notifications_clear">Очистить</string>
     <string name="notifications_apply_filter">Фильтр</string>
@@ -353,9 +332,7 @@
     <string name="compose_shortcut_short_label">Сочинить</string>
     <string name="pref_title_bot_overlay">Показывать индикатор ботов</string>
     <string name="notification_clear_text">Вы действительно хотите безвозвратно удалить все уведомления?</string>
-    <string name="poll_info_format">
-        <!-- 15 votes • 1 hour left -->
-        %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s голос</item>
         <item quantity="few">%s голоса</item>
@@ -369,7 +346,6 @@
     <string name="poll_ended_created">Созданный вами опрос завершился</string>
     <string name="button_continue">Продолжить</string>
     <string name="button_back">Назад</string>
-    <string name="button_done">Готово</string>
     <string name="hint_additional_info">Дополнительные комментарии</string>
     <string name="title_domain_mutes">Скрытые домены</string>
     <string name="action_view_domain_mutes">Скрытые области</string>
@@ -381,7 +357,6 @@
     <string name="pref_title_animate_gif_avatars">Анимировать GIF-аватары</string>
     <string name="filter_dialog_whole_word">Слово целиком</string>
     <string name="filter_dialog_whole_word_description">Если слово или фраза состоит только из букв и цифр, будет учитываться полное совпадение</string>
-    <string name="caption_notoemoji">Набор эмодзи от Google</string>
     <string name="description_poll">Опрос с выбором: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="compose_preview_image_description">Действия для изображения %s</string>
     <string name="report_sent_success">Жалоба на @%s отправлена</string>
@@ -478,7 +453,6 @@
     <string name="drafts_failed_loading_reply">Не удалось загрузить информацию об ответе</string>
     <string name="draft_deleted">Черновик удалён</string>
     <string name="drafts_post_failed_to_send">Этот гудок не удалось отправить!</string>
-    <string name="dialog_delete_list_warning">Вы действительно хотите удалить список %s\?</string>
     <string name="wellbeing_hide_stats_profile">Скрыть количественную статистику по профилям пользователей</string>
     <string name="limit_notifications">Ограничение уведомлений в ленте</string>
     <string name="review_notifications">Просмотр уведомлений</string>

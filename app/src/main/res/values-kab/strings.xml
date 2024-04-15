@@ -7,8 +7,6 @@
     <string name="action_view_account_preferences">Iɣewwaṛen n umiḍan</string>
     <string name="action_edit_profile">Ẓreg amaɣnu</string>
     <string name="action_search">Nadi</string>
-    <string name="action_lists">Tabdart</string>
-    <string name="title_lists">Tabdarin</string>
     <string name="error_compose_character_limit">Izen-ik·im aṭas i ɣezzif!</string>
     <string name="title_home">Agejdan</string>
     <string name="title_tab_preferences">Iccaren</string>
@@ -19,10 +17,8 @@
     <string name="post_username_format">\@%s</string>
     <string name="post_content_warning_show_more">Zeṛ ugar</string>
     <string name="post_content_warning_show_less">Zeṛ kra kan</string>
-    <string name="message_empty">Ulac walu da.</string>
     <string name="notification_follow_format">%s yeṭṭafar-ik·ikem-id</string>
     <string name="action_reply">Err</string>
-    <string name="action_more">Ugar</string>
     <string name="action_compose">Azen</string>
     <string name="action_follow">Ḍfeṛ</string>
     <string name="action_unfollow">Ur ṭṭafar ara</string>
@@ -31,8 +27,6 @@
     <string name="action_delete_and_redraft">Kkes tɛiwdeḍ tira</string>
     <string name="action_send">Jewweq</string>
     <string name="action_send_public">JEWWEQ!</string>
-    <string name="action_retry">Ɛreḍ tikkelt-nniḍen</string>
-    <string name="action_view_profile">Amaɣnu</string>
     <string name="action_view_favourites">Ismenyifen</string>
     <string name="action_open_in_web">Ldi deg uminig</string>
     <string name="action_share">Bḍu</string>
@@ -45,7 +39,6 @@
         <item quantity="other"><b>%1$s</b> n ismenyifen</item>
     </plurals>
     <string name="no_drafts">Ur tesɛiḍ ara irewwayen.</string>
-    <string name="error_generic">Tella-d tucḍa.</string>
     <string name="title_notifications">Tilɣa</string>
     <string name="title_bookmarks">Ticraḍ</string>
     <string name="action_bookmark">Rnu ɣer ticraḍ</string>
@@ -114,13 +107,7 @@
     <string name="post_share_link">Bḍu aseɣwen ɣer tijewwiqt</string>
     <string name="filter_addition_title">Rnu amsizdeg</string>
     <string name="filter_edit_title">Ẓreg amsizdeg</string>
-    <string name="action_create_list">Snulfu-d tabdart</string>
-    <string name="action_rename_list">Snifel isem n tabdart</string>
-    <string name="action_delete_list">Kkes tabdart-a</string>
-    <string name="action_add_to_list">Rnu yiwen umiḍan ɣer tabdart</string>
-    <string name="action_remove_from_list">Kkes amiḍan seg tabdart</string>
     <string name="profile_metadata_add">Rnu isefka</string>
-    <string name="hint_list_name">Isem n tebdart</string>
     <string name="select_list_title">Fren tabdart</string>
     <string name="list">Tabdart</string>
     <string name="notifications_apply_filter">Sizdeg</string>
@@ -156,7 +143,7 @@
     <string name="conversation_2_recipients">%1$s akked %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s akked %3$d nniḍen</string>
     <string name="compose_shortcut_long_label">Aru izen</string>
-    <string name="poll_info_format"> <!-- 15 n wadɣaren • 1 n wesrag id yeqqimen --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 n wadɣaren • 1 n wesrag id yeqqimen -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s n wedɣar</item>
         <item quantity="other">%s n yedɣaren</item>
@@ -193,7 +180,6 @@
     <string name="poll_new_choice_hint">Tafrant %d</string>
     <string name="title_follows">Ig ṭṭafar</string>
     <string name="title_followers">Imeḍfaṛen</string>
-    <string name="hint_search_people_list">Nadi ɣef medden ar at ḍfereḍ</string>
     <string name="description_visibility_private">Imeḍfaṛen</string>
     <string name="action_links">Iseɣwan</string>
     <string name="action_mentions">Tibdarin</string>

@@ -318,7 +318,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
     private val openProfileAction = AccessibilityActionCompat(
         R.id.action_open_profile,
-        context.getString(R.string.action_view_profile),
+        context.getString(app.pachli.core.ui.R.string.action_view_profile),
     )
 
     private val linksAction = AccessibilityActionCompat(
@@ -353,7 +353,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
     private val moreAction = AccessibilityActionCompat(
         R.id.action_more,
-        context.getString(R.string.action_more),
+        context.getString(app.pachli.core.ui.R.string.action_more),
     )
 
     private data class LinkSpanInfo(val text: String, val link: String)

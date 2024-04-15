@@ -1,0 +1,20 @@
+Nieuwe features bevat:
+
+- "Laad meer" bestaat niet meer, posts laden op scroll
+- Trending links and posts
+- Meer dan 5 tabs
+- Kies uit toegankelijke fonts
+- Nieuwe media speler
+- Filters in notificaties
+- Markeer lijst als "exclusief"
+- Voeg "bookmarks" toe aan tabs
+
+Bug fixes bevat:
+
+- Afbeeldingen plakken niet op zoom of swipe
+
+UX changes bevat:
+
+- Een nieuw likje verf, een nieuw kleuren schema
+- Bepaal het thema op basis van je Android instellingen
+- "Notificaties opruimen" is een menu item

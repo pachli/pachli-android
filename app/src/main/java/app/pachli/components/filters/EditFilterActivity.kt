@@ -18,6 +18,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.navigation.EditFilterActivityIntent
 import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityEditFilterBinding
@@ -48,20 +49,20 @@ class EditFilterActivity : BaseActivity() {
 
     private lateinit var filter: Filter
     private var originalFilter: Filter? = null
-    private lateinit var contextSwitches: Map<SwitchMaterial, Filter.Kind>
+    private lateinit var filterContextSwitches: Map<SwitchMaterial, FilterContext>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         originalFilter = EditFilterActivityIntent.getFilter(intent)
-        filter = originalFilter ?: Filter("", "", listOf(), null, Filter.Action.WARN.action, listOf())
+        filter = originalFilter ?: Filter("", "", listOf(), null, Filter.Action.WARN, listOf())
         binding.apply {
-            contextSwitches = mapOf(
-                filterContextHome to Filter.Kind.HOME,
-                filterContextNotifications to Filter.Kind.NOTIFICATIONS,
-                filterContextPublic to Filter.Kind.PUBLIC,
-                filterContextThread to Filter.Kind.THREAD,
-                filterContextAccount to Filter.Kind.ACCOUNT,
+            filterContextSwitches = mapOf(
+                filterContextHome to FilterContext.HOME,
+                filterContextNotifications to FilterContext.NOTIFICATIONS,
+                filterContextPublic to FilterContext.PUBLIC,
+                filterContextThread to FilterContext.THREAD,
+                filterContextAccount to FilterContext.ACCOUNT,
             )
         }
 
@@ -90,9 +91,9 @@ class EditFilterActivity : BaseActivity() {
         }
         binding.filterDeleteButton.visible(originalFilter != null)
 
-        for (switch in contextSwitches.keys) {
+        for (switch in filterContextSwitches.keys) {
             switch.setOnCheckedChangeListener { _, isChecked ->
-                val context = contextSwitches[switch]!!
+                val context = filterContextSwitches[switch]!!
                 if (isChecked) {
                     viewModel.addContext(context)
                 } else {
@@ -156,7 +157,7 @@ class EditFilterActivity : BaseActivity() {
         }
         lifecycleScope.launch {
             viewModel.contexts.collect { contexts ->
-                for ((key, value) in contextSwitches) {
+                for ((key, value) in filterContextSwitches) {
                     key.isChecked = contexts.contains(value)
                 }
             }
@@ -300,15 +301,11 @@ class EditFilterActivity : BaseActivity() {
     companion object {
         // Mastodon *stores* the absolute date in the filter,
         // but create/edit take a number of seconds (relative to the time the operation is posted)
-        fun getSecondsForDurationIndex(index: Int, context: Context?, default: Date? = null): Int? {
+        fun getSecondsForDurationIndex(index: Int, context: Context?, default: Date? = null): String? {
             return when (index) {
-                -1 -> if (default == null) {
-                    default
-                } else {
-                    ((default.time - System.currentTimeMillis()) / 1000).toInt()
-                }
-                0 -> null
-                else -> context?.resources?.getIntArray(R.array.filter_duration_values)?.get(index)
+                -1 -> default?.let { ((default.time - System.currentTimeMillis()) / 1000).toString() }
+                0 -> ""
+                else -> context?.resources?.getStringArray(R.array.filter_duration_values)?.get(index)
             }
         }
     }

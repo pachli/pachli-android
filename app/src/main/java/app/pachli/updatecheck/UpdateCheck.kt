@@ -28,7 +28,7 @@ import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.ui.await
+import app.pachli.core.ui.extensions.await
 import app.pachli.updatecheck.UpdateCheckResult.AT_LATEST
 import app.pachli.updatecheck.UpdateCheckResult.DIALOG_SHOWN
 import app.pachli.updatecheck.UpdateCheckResult.IGNORED

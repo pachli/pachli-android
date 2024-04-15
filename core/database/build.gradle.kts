@@ -28,14 +28,11 @@ android {
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
 }
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.model)
     implementation(projects.core.network)
     implementation(projects.core.preferences)
 
@@ -43,6 +40,7 @@ dependencies {
     implementation(libs.moshi)
     implementation(libs.moshi.adapters)
     ksp(libs.moshi.codegen)
-    // Instant in LogEntryEntity
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    implementation(libs.moshix.sealed.runtime)
+    ksp(libs.moshix.sealed.codegen)
 }

@@ -50,9 +50,7 @@
     <string name="action_logout">නික්මෙන්න</string>
     <string name="filter_edit_title">පෙරහන සංස්කරණය</string>
     <string name="notification_summary_medium">%1$s, %2$s, සහ %3$s</string>
-    <string name="caption_twemoji">මාස්ටඩන් හි සම්මත ඉමෝජි කට්ටලය</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
-    <string name="action_retry">යළි උත්සාහය</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="lock_account_label">ගිණුම අගුළුලන්න</string>
     <string name="post_media_hidden_title">මාධ්‍ය සැඟවී ඇත</string>
     <string name="post_sent_long">පිළිතුර සාර්ථකව යැවිණි.</string>
@@ -74,7 +72,6 @@
     <string name="compose_save_draft">කටුපිටපත සුරකින්නද\?</string>
     <string name="post_sensitive_media_title">සංවේදී අන්තර්ගතයකි</string>
     <string name="action_bookmark">පොත්යොමුව</string>
-    <string name="caption_notoemoji">ගූගල් හි වත්මන් ඉමෝජි කට්ටලය</string>
     <string name="app_theme_auto">ස්වයංක්‍රීව ඉර බැසීමේදී</string>
     <string name="failed_report">වාර්තා කිරීමට අසමත් විය</string>
     <string name="abbreviated_years_ago">අවු. %d</string>
@@ -84,7 +81,6 @@
         <item quantity="one">ජන්ද %s</item>
         <item quantity="other">ජන්ද %s</item>
     </plurals>
-    <string name="action_more">තව</string>
     <string name="action_view_bookmarks">පොත්යොමු</string>
     <string name="notification_mention_format">%s ඔබව සඳහන් කළා</string>
     <string name="compose_active_account_description">%1$s ගිණුම සමඟ පළකරන්න</string>
@@ -170,8 +166,6 @@
     <string name="abbreviated_hours_ago">පැය %d</string>
     <string name="pref_failed_to_sync">සැකසුම් සමමුහූර්ත වීමට අසමත් විය</string>
     <string name="pref_title_show_replies">පිළිතුරු පෙන්වන්න</string>
-    <string name="action_view_profile">පැතිකඩ</string>
-    <string name="caption_systememoji">ඔබගේ උපාංගයේ පෙරනිමි ඉමෝජි කට්ටලය</string>
     <string name="notification_mention_descriptions">නව සැඳහුම් පිළිබඳව දැනුම්දීම්</string>
     <string name="action_search">සොයන්න</string>
     <string name="action_share_as">ලෙස බෙදාගන්න …</string>
@@ -240,7 +234,6 @@
     <string name="later">පසුව</string>
     <string name="action_edit_own_profile">සංස්කරණය</string>
     <string name="app_them_dark">අඳුරු</string>
-    <string name="message_empty">කිසිවක් නැත.</string>
     <string name="send_post_notification_title">ටූට් යැවෙමින්…</string>
     <string name="system_default">පද්ධති පෙරනිමිය</string>
     <string name="action_mention">සඳැහුම</string>

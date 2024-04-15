@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Назва спіса</string>
+    <string name="title_lists">Спісы</string>
+    <string name="error_create_list_fmt">Не атрымалася стварыць спіс \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Не атрымалася выдаліць спіс \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Не атрымалася перайменаваць спіс \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Перайменаваць спіс</string>
+    <string name="action_create_list">Стварыць спіс</string>
+    <string name="dialog_delete_list_warning">Вы ўпэўнены, што жадаеце выдаліць спіс %s\?</string>
+    <string name="action_remove_from_list">Выдаліць уліковы запіс са спіса</string>
+    <string name="action_add_to_list">Дадаць уліковы запіс у спіс</string>
+    <string name="action_delete_list">Выдаліць спіс</string>
+    <string name="failed_to_add_to_list">Не атрымалася дадаць уліковы запіс у спіс</string>
+    <string name="failed_to_remove_from_list">Не атрымалася выдаліць уліковы запіс са спіса</string>
+    <string name="no_lists">У Вас няма спісаў.</string>
+    <string name="hint_search_people_list">Пошук сярод вашых падпісак</string>
+    <string name="action_add_or_remove_from_list">Дадаць ці выдаліць са спіса</string>
+</resources>

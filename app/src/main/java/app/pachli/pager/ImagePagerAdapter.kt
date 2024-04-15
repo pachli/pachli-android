@@ -13,7 +13,8 @@ class ImagePagerAdapter(
     private val initialPosition: Int,
 ) : ViewMediaAdapter(activity) {
 
-    private var didTransition = false
+    /** True if the animated transition to the fragment has completed */
+    private var transitionComplete = false
     private val fragments = MutableList<WeakReference<ViewMediaFragment>?>(attachments.size) { null }
 
     override fun getItemCount() = attachments.size
@@ -26,7 +27,7 @@ class ImagePagerAdapter(
             // transition and wait until it's over and it will never take place.
             val fragment = ViewMediaFragment.newInstance(
                 attachment = attachments[position],
-                shouldStartPostponedTransition = !didTransition && position == initialPosition,
+                shouldCallMediaReady = !transitionComplete && position == initialPosition,
             )
             fragments[position] = WeakReference(fragment)
             return fragment
@@ -35,8 +36,14 @@ class ImagePagerAdapter(
         }
     }
 
+    /**
+     * Called by the hosting activity to notify the adapter that the shared element
+     * transition to the first displayed item in the adapter has completed.
+     *
+     * Forward the notification to the fragment.
+     */
     override fun onTransitionEnd(position: Int) {
-        this.didTransition = true
+        this.transitionComplete = true
         fragments[position]?.get()?.onTransitionEnd()
     }
 }

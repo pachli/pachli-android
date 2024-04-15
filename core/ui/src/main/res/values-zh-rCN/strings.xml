@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">网络请求出错，请检查互联网连接并重试。</string>
+    <string name="error_generic">出错了。</string>
+    <string name="message_empty">还没有内容。</string>
+    <string name="action_retry">重试</string>
+    <string name="button_done">完成</string>
+    <string name="action_view_profile">个人资料</string>
+    <string name="action_more">更多</string>
+    <string name="action_refresh">刷新</string>
+</resources>

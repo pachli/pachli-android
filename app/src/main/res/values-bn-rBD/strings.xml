@@ -25,10 +25,6 @@
     <string name="unreblog_private">সমর্থন ফেরত</string>
     <string name="reblog_private">মূল শ্রোতাদেড় সমথন পাঠাও</string>
     <string name="download_failed">ডাউনলোড ব্যর্থ হয়েছে</string>
-    <string name="caption_notoemoji">গুগল এর বর্তমান ইমোজি সেট</string>
-    <string name="caption_twemoji">ম্যাস্টোডোন এর মান ইমোজি সেট</string>
-    <string name="caption_blobmoji">অ্যান্ড্রয়েড ৪.৪-৭.১ থেকে পরিচিত ব্লোব ইমোজিস</string>
-    <string name="caption_systememoji">আপনার ডিভাইসের ডিফল্ট ইমোজি সেট</string>
     <string name="restart">পুনরারম্ভ</string>
     <string name="later">পরবর্তীতে</string>
     <string name="restart_emoji">এই পরিবর্তনগুলি প্রয়োগ করার জন্য আপনাকে টাস্কি পুনরায় চালু করতে হবে</string>
@@ -54,17 +50,6 @@
 \n(%d অক্ষর সীমা)</item>
     </plurals>
     <string name="compose_active_account_description">অ্যাকাউন্ট %1$s থেকে পোস্ট করা হচ্ছে</string>
-    <string name="action_remove_from_list">তালিকা থেকে অ্যাকাউন্ট সরান</string>
-    <string name="action_add_to_list">তালিকায় অ্যাকাউন্ট যোগ করুন</string>
-    <string name="hint_search_people_list">আপনি অনুসরণ মানুষের জন্য অনুসন্ধান করুন</string>
-    <string name="action_delete_list">তালিকা মুছে দিন</string>
-    <string name="action_rename_list">তালিকা পুনঃ নামকরণ কর</string>
-    <string name="action_create_list">একটি তালিকা তৈরি করুন</string>
-    <string name="error_delete_list">তালিকা মুছে ফেলা যায়নি</string>
-    <string name="error_rename_list">তালিকা নামকরণ করা যায়নি</string>
-    <string name="error_create_list">তালিকা তৈরি করা যায়নি</string>
-    <string name="title_lists">তালিকাসমূহ</string>
-    <string name="action_lists">তালিকাসমূহ</string>
     <string name="add_account_description">নতুন ম্যাস্টোডোন অ্যাকাউন্ট যোগ করুন</string>
     <string name="add_account_name">অ্যাকাউন্ট যোগ করুন</string>
     <string name="filter_add_description">বাক্য ফিল্টার কর</string>
@@ -221,8 +206,6 @@
     <string name="action_view_favourites">প্রিয়গুলি</string>
     <string name="action_view_account_preferences">অ্যাকাউন্টের পছন্দসমূহ</string>
     <string name="action_view_preferences">পছন্দসমূহ</string>
-    <string name="action_view_profile">প্রোফাইল</string>
-    <string name="action_retry">পুনরায় চেষ্টা কর</string>
     <string name="action_send_public">টুট!</string>
     <string name="action_send">টুট</string>
     <string name="action_delete_and_redraft">মুছুন এবং পুনরায় ড্রাফট কর</string>
@@ -237,7 +220,6 @@
     <string name="action_logout_confirm">আপনি কি অ্যাকাউন্ট %1$s থেকে লগ আউট করতে চান\?</string>
     <string name="action_logout">লগ আউট</string>
     <string name="action_compose">রচনা</string>
-    <string name="action_more">অধিক</string>
     <string name="action_unfavourite">পছন্দ সরান</string>
     <string name="action_favourite">পছন্দ</string>
     <string name="action_unreblog">সমর্থন সরান</string>
@@ -247,7 +229,6 @@
     <string name="report_comment_hint">অতিরিক্ত মন্তব্যগুলি\?</string>
     <string name="report_username_format">রিপোর্ট @%s</string>
     <string name="footer_empty">এখানে কিছু নেই. রিফ্রেশ করতে নিচে টানুন!</string>
-    <string name="message_empty">এখানে কিছুই নেই।</string>
     <string name="post_content_show_less">বন্ধ</string>
     <string name="post_content_show_more">বিস্তৃত</string>
     <string name="post_content_warning_show_less">প্রদর্শন কম</string>
@@ -330,7 +311,6 @@
     <string name="report_remote_instance">\'%s এ ফরওয়ার্ড করুন\'</string>
     <string name="hint_additional_info">অতিরিক্ত মন্তব্যগুলি</string>
     <string name="report_sent_success">\'%s এ সফলভাবে রিপোর্ট করা হয়েছে\'</string>
-    <string name="button_done">সম্পন্ন</string>
     <string name="button_back">পিছাও</string>
     <string name="button_continue">চালিয়ে যাও</string>
     <string name="poll_ended_created">আপনি তৈরি একটি নির্বাচন শেষ হয়েছে</string>
@@ -338,7 +318,7 @@
     <string name="poll_vote">ভোট</string>
     <string name="poll_info_closed">বন্ধ</string>
     <string name="poll_info_time_absolute">\'%s এ শেষ হবে\'</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">ছবি %s এর জন্য ক্রিয়া</string>
     <string name="notification_clear_text">আপনি কি আপনার সমস্ত বিজ্ঞপ্তি স্থায়ীভাবে মুছে ফেলতে চান\?</string>
     <string name="compose_shortcut_short_label">রচনা</string>
@@ -347,7 +327,6 @@
     <string name="notifications_apply_filter">ফিল্টার</string>
     <string name="notifications_clear">পরিষ্কার</string>
     <string name="edit_hashtag_hint"># ছাড়া হ্যাশট্যাগ</string>
-    <string name="hint_list_name">নামের তালিকা</string>
     <string name="title_favourites">প্রিয়গুলো</string>
     <string name="title_followers">অনুগামিবৃন্দ</string>
     <string name="title_follows">অনুসরণ</string>
@@ -371,8 +350,6 @@
     <string name="error_compose_character_limit">এই স্টেটাস টি খুব দীর্ঘ!</string>
     <string name="error_no_web_browser_found">ব্যবহার করার জন্য একটি ওয়েব ব্রাউজার খুঁজে পাওয়া যায়নি।</string>
     <string name="error_empty">এই জায়গা খালি হতে পারে না।</string>
-    <string name="error_network">একটি নেটওয়ার্ক ত্রুটি ঘটেছে! আপনার সংযোগ পরীক্ষা করে আবার চেষ্টা করুন!</string>
-    <string name="error_generic">একটি ত্রুটি ঘটেছে।</string>
     <plurals name="favs">
         <item quantity="one"><b>%1$s</b>টি পছন্দ</item>
         <item quantity="other"><b>%1$s</b>টি পছন্দ</item>

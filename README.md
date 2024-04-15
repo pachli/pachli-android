@@ -1,12 +1,12 @@
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md) [![Contributor License Agreement](https://cla-assistant.io/readme/badge/pachli/pachli-android)](https://cla-assistant.io/pachli/pachli-android) [![Translate - with Weblate](https://img.shields.io/badge/translate%20with-Weblate-green.svg?style=flat)](https://hosted.weblate.org/projects/pachli/)
-
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80" />](https://play.google.com/store/apps/details?id=app.pachli) [<img src="/assets/fdroid_badge.png" alt="Get it on F-Droid" height="80" />](https://f-droid.org/repository/browse/?fdid=app.pachli)
-
 # Pachli
 
-<img src="/fastlane/metadata/android/en-US/images/icon.png" width="120" height="120"/>
-
 Pachli is a full-featured Android client for Mastodon, with a cooperative development model.
+
+<img alt="" src="https://pachli.app/assets/posts/2023-12-xx-2.1-release/01.png"><img alt="" src="https://pachli.app/assets/posts/2023-12-xx-2.1-release/02.png"><img alt="" src="https://pachli.app/assets/posts/2023-12-xx-2.1-release/06.png">
+
+<img alt="" src="https://pachli.app/assets/posts/2023-12-xx-2.1-release/04.png"><img alt="" src="https://pachli.app/assets/posts/2023-12-xx-2.1-release/05.png"><img alt="" src="https://pachli.app/assets/posts/2023-12-xx-2.1-release/03.png">
+
+<img alt="" src="https://pachli.app/assets/posts/2023-12-xx-2.1-release/08.png"><img alt="" src="https://pachli.app/assets/posts/2023-12-xx-2.1-release/07.png">
 
 Features include:
 
@@ -22,9 +22,11 @@ Features include:
 - Full control over how and when you receive notifications
 - Explore trending posts, links, and hashtags
 
-Pachli is open source.
+Pachli is [Open Source](https://opensource.org/).
 
-Install the newest release from the [list of releases](https://github.com/pachli/pachli-android/releases), or from Google Play and F-Droid.
+Install the newest release from the [list of releases](https://github.com/pachli/pachli-android/releases), or from [Google Play](https://play.google.com/store/apps/details?id=app.pachli) and [F-Droid](https://f-droid.org/packages/app.pachli).
+
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80" />](https://play.google.com/store/apps/details?id=app.pachli) [<img src="https://raw.githubusercontent.com/pachli/pachli-android/main/assets/fdroid_badge.png" alt="Get it on F-Droid" height="80" />](https://f-droid.org/repository/browse/?fdid=app.pachli)
 
 ## Support
 
@@ -38,6 +40,10 @@ Install the newest release from the [list of releases](https://github.com/pachli
 
 We actively welcome new contributors. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md) [![Contributor License Agreement](https://cla-assistant.io/readme/badge/pachli/pachli-android)](https://cla-assistant.io/pachli/pachli-android) [![Translate - with Weblate](https://img.shields.io/badge/translate%20with-Weblate-green.svg?style=flat)](https://hosted.weblate.org/projects/pachli/)
+
 ## More information
 
 More information about the application and the principals underpinning its development are at https://pachli.app.
+
+<img alt="" src="https://raw.githubusercontent.com/pachli/pachli-android/main/fastlane/metadata/android/en-US/images/icon.png" width="120" height="120"/>

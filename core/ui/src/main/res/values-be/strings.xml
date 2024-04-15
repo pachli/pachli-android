@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Здарылася сеткавая памылка! Калі ласка, праверце злучэнне і паспрабуйце зноў!</string>
+    <string name="error_generic">Здарылася памылка.</string>
+    <string name="message_empty">Тут нічога няма.</string>
+    <string name="action_retry">Паўтарыць</string>
+    <string name="button_done">Гатова</string>
+    <string name="action_view_profile">Профіль</string>
+    <string name="action_more">Разгарнуць</string>
+    <string name="action_refresh">Абнавіць</string>
+</resources>

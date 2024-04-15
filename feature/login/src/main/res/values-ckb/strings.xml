@@ -9,7 +9,7 @@
 \nزانیاری زیاتر دەتوانرێت بدۆزرێتەوە لە <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_close">دابخە</string>
     <string name="error_invalid_domain">دۆمەینێکی نادروستت نووسیوە</string>
-    <string name="error_failed_app_registration">سەرکەوتوو نەبوو، ڕاستکردنەوە لەگەڵ ئەم نمونەیە.</string>
+    <string name="error_failed_app_registration_fmt">%1$s :سەرکەوتوو نەبوو، ڕاستکردنەوە لەگەڵ ئەم نمونەیە</string>
     <string name="error_authorization_unknown">هەڵەیەک بۆ مۆڵەتدانی نەناسراو ڕووی دا.</string>
     <string name="error_authorization_denied">ڕێپێدان ڕەتکرایەوە.</string>
     <string name="error_retrieving_oauth_token">سەرکەوتوو نەبوو لە بەدەستهێنانی نیشانەی چوونەژوورەوە.</string>

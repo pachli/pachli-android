@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Listan nimi</string>
+    <string name="list_exclusive_label">Piilota kotiaikajanalta</string>
+    <string name="title_lists">Listat</string>
+    <string name="error_create_list_fmt">Listaa ei voitu luoda \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Listaa ei voitu poistaa \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Listaa ei voitu päivittää \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Muuta listan nimeä</string>
+    <string name="action_create_list">Luo lista</string>
+    <string name="dialog_delete_list_warning">Haluatko todella poistaa listan %s?</string>
+    <string name="action_remove_from_list">Poista tili listalta</string>
+    <string name="action_add_to_list">Lisää tili listalle</string>
+    <string name="action_delete_list">Poista lista</string>
+    <string name="failed_to_add_to_list">Tilin lisääminen listalle epäonnistui</string>
+    <string name="failed_to_remove_from_list">Tilin poisto listalta epäonnistui</string>
+    <string name="no_lists">Sinulla ei ole listoja.</string>
+    <string name="hint_search_people_list">Hae seuraamiasi henkilöitä</string>
+    <string name="action_add_or_remove_from_list">Lisää tai poista listalta</string>
+</resources>

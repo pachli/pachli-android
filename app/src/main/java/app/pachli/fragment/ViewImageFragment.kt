@@ -19,7 +19,6 @@ package app.pachli.fragment
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.PointF
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -29,9 +28,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GestureDetectorCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
-import app.pachli.ViewMediaActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
@@ -41,48 +43,37 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.ortiz.touchview.OnTouchCoordinatesListener
 import com.ortiz.touchview.TouchImageView
-import io.reactivex.rxjava3.subjects.BehaviorSubject
 import kotlin.math.abs
+import kotlinx.coroutines.launch
 
 class ViewImageFragment : ViewMediaFragment() {
-    interface PhotoActionsListener {
-        fun onBringUp()
-        fun onDismiss()
-        fun onPhotoTap()
-    }
 
     private val binding by viewBinding(FragmentViewImageBinding::bind)
-
-    private lateinit var photoActionsListener: PhotoActionsListener
-    private lateinit var toolbar: View
-    private var transition = BehaviorSubject.create<Unit>()
 
     // Volatile: Image requests happen on background thread and we want to see updates to it
     // immediately on another thread. Atomic is an overkill for such thing.
     @Volatile
     private var startedTransition = false
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        photoActionsListener = context as PhotoActionsListener
-    }
+    private var scheduleToolbarHide = false
 
-    override fun setupMediaView(
-        showingDescription: Boolean,
-    ) {
+    override fun setupMediaView(showingDescription: Boolean) {
         binding.photoView.transitionName = attachment.url
         binding.mediaDescription.text = attachment.description
         binding.captionSheet.visible(showingDescription)
 
         startedTransition = false
         loadImageFromNetwork(attachment.url, attachment.previewUrl, binding.photoView)
+
+        // Only schedule hiding the toolbar once
+        scheduleToolbarHide = viewModel.isToolbarVisible
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        toolbar = (requireActivity() as ViewMediaActivity).toolbar
-        this.transition = BehaviorSubject.create()
         return inflater.inflate(R.layout.fragment_view_image, container, false)
     }
 
@@ -95,7 +86,7 @@ class ViewImageFragment : ViewMediaFragment() {
             object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDown(e: MotionEvent) = true
                 override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                    photoActionsListener.onPhotoTap()
+                    mediaActionsListener.onMediaTap()
                     return false
                 }
             },
@@ -191,21 +182,36 @@ class ViewImageFragment : ViewMediaFragment() {
                  */
                 private fun onGestureEnd(view: View) {
                     if (abs(view.translationY) > 180) {
-                        photoActionsListener.onDismiss()
+                        mediaActionsListener.onMediaDismiss()
                     } else {
                         view.animate().translationY(0f).scaleX(1f).scaleY(1f).start()
                     }
                 }
             },
         )
-    }
 
-    override fun onResume() {
-        super.onResume()
-        finalizeViewSetup()
+        // Cancel hiding the toolbar whenever interacting with the captionSheet
+        val captionSheetParams = (binding.captionSheet.layoutParams as CoordinatorLayout.LayoutParams)
+        (captionSheetParams.behavior as BottomSheetBehavior).addBottomSheetCallback(
+            object : BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) = cancelToolbarHide()
+                override fun onSlide(bottomSheet: View, slideOffset: Float) = cancelToolbarHide()
+            },
+        )
+
+        // Cancel hiding the toolbar whenever interacting with the toolbar (items and overflow menu)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.toolbarMenuInteraction.collect {
+                    cancelToolbarHide()
+                }
+            }
+        }
     }
 
     override fun onToolbarVisibilityChange(visible: Boolean) {
+        super.onToolbarVisibilityChange(visible)
+
         if (!userVisibleHint) return
 
         isDescriptionVisible = showingDescription && visible
@@ -223,16 +229,21 @@ class ViewImageFragment : ViewMediaFragment() {
             .start()
     }
 
+    override fun shouldScheduleToolbarHide(): Boolean {
+        return if (scheduleToolbarHide) {
+            scheduleToolbarHide = false
+            true
+        } else {
+            false
+        }
+    }
+
     override fun onStop() {
         super.onStop()
         Glide.with(this).clear(binding.photoView)
     }
 
-    override fun onDestroyView() {
-        transition.onComplete()
-        super.onDestroyView()
-    }
-
+    @SuppressLint("CheckResult")
     private fun loadImageFromNetwork(url: String, previewUrl: String?, photoView: ImageView) {
         val glide = Glide.with(this)
         // Request image from the any cache
@@ -240,18 +251,16 @@ class ViewImageFragment : ViewMediaFragment() {
             .load(url)
             .dontAnimate()
             .onlyRetrieveFromCache(true)
-            .let {
-                if (previewUrl != null) {
-                    it.thumbnail(
+            .apply {
+                previewUrl?.let {
+                    thumbnail(
                         glide
-                            .load(previewUrl)
+                            .load(it)
                             .dontAnimate()
                             .onlyRetrieveFromCache(true)
                             .centerInside()
                             .addListener(ImageRequestListener(true, isThumbnailRequest = true)),
                     )
-                } else {
-                    it
                 }
             }
             // Request image from the network on fail load image from cache
@@ -297,10 +306,10 @@ class ViewImageFragment : ViewMediaFragment() {
             isFirstResource: Boolean,
         ): Boolean {
             // If cache for full image failed complete transition
-            if (isCacheRequest && !isThumbnailRequest && shouldStartTransition &&
+            if (isCacheRequest && !isThumbnailRequest && shouldCallMediaReady &&
                 !startedTransition
             ) {
-                photoActionsListener.onBringUp()
+                mediaActionsListener.onMediaReady()
             }
             // Hide progress bar only on fail request from internet
             if (!isCacheRequest) binding.progressBar.hide()
@@ -318,29 +327,26 @@ class ViewImageFragment : ViewMediaFragment() {
         ): Boolean {
             binding.progressBar.hide() // Always hide the progress bar on success
 
-            if (!startedTransition || !shouldStartTransition) {
+            if (!startedTransition || !shouldCallMediaReady) {
                 // Set this right away so that we don't have to concurrent post() requests
                 startedTransition = true
                 // post() because load() replaces image with null. Sometimes after we set
                 // the thumbnail.
                 binding.photoView.post {
                     target.onResourceReady(resource, null)
-                    if (shouldStartTransition) photoActionsListener.onBringUp()
+                    if (shouldCallMediaReady) mediaActionsListener.onMediaReady()
                 }
             } else {
-                // This wait for transition. If there's no transition then we should hit
-                // another branch. take() will unsubscribe after we have it to not leak memory
-                transition
-                    .take(1)
-                    .subscribe {
+                // Wait for the fragment transition to complete before signalling to
+                // Glide that the resource is ready.
+                transitionComplete?.let {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        it.await()
                         target.onResourceReady(resource, null)
                     }
+                }
             }
             return true
         }
-    }
-
-    override fun onTransitionEnd() {
-        this.transition.onNext(Unit)
     }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">S\'ha produït un error.</string>
     <string name="error_empty">Això no pot estar buit.</string>
     <string name="error_no_web_browser_found">No s\'ha trobat cap navegador web per a utilitzar.</string>
     <string name="error_compose_character_limit">La publicació és massa llarga!</string>
@@ -39,7 +38,6 @@
     <string name="action_reply">Respon</string>
     <string name="action_reblog">Impulsa</string>
     <string name="action_favourite">Preferit</string>
-    <string name="action_more">Més</string>
     <string name="action_compose">Escriure</string>
     <string name="action_logout">Tanca sessió</string>
     <string name="action_follow">Segueix</string>
@@ -50,8 +48,6 @@
     <string name="action_delete">Elimina</string>
     <string name="action_send">PUBLICA</string>
     <string name="action_send_public">PUBLICA!</string>
-    <string name="action_retry">Torna a intentar-ho</string>
-    <string name="action_view_profile">Perfil</string>
     <string name="action_view_preferences">Preferències</string>
     <string name="action_view_favourites">Preferits</string>
     <string name="action_view_mutes">Usuaris silenciats</string>
@@ -169,9 +165,7 @@
     <string name="action_view_account_preferences">Preferències del compte</string>
     <string name="action_edit_own_profile">Edita</string>
     <string name="title_direct_messages">Missatges directes</string>
-    <string name="message_empty">No hi ha res aquí.</string>
     <string name="action_unreblog">Elimina l\'impuls</string>
-    <string name="error_network">S\'ha produït un error de connexió! Comproveu la connexió i torneu-ho a provar!</string>
     <string name="post_media_hidden_title">Multimèdia amagada</string>
     <string name="post_content_show_less">Amaga</string>
     <string name="action_logout_confirm">Estàs segur de tancar la sessió de %1$s\?</string>
@@ -238,17 +232,6 @@
     <string name="filter_dialog_update_button">Actualització</string>
     <string name="filter_add_description">Frase per filtrar</string>
     <string name="add_account_description">Afegir un compte de Mastodont</string>
-    <string name="action_lists">Llistes</string>
-    <string name="title_lists">Llistes</string>
-    <string name="error_create_list">És impossible crear la llista</string>
-    <string name="error_rename_list">Impossible reanomenar la llista</string>
-    <string name="error_delete_list">És impossible suprimir la llista</string>
-    <string name="action_create_list">Crear una llista</string>
-    <string name="action_rename_list">Reanomenar la llista</string>
-    <string name="action_delete_list">Suprimir la llista</string>
-    <string name="hint_search_people_list">Cercar persones que segueixes</string>
-    <string name="action_add_to_list">Afegir un compte a la llista</string>
-    <string name="action_remove_from_list">Suprimir un compte de la llista</string>
     <string name="compose_active_account_description">"Publicar com a  %1$s"</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Descriu per a persones amb discapacitat visual
@@ -277,9 +260,6 @@
     <string name="restart_emoji">Has de reiniciar l\'aplicació per tal d\'aplicar aquests canvis</string>
     <string name="later">Més tard</string>
     <string name="restart">Reiniciar</string>
-    <string name="caption_systememoji">Conjunt d\'emojis predeterminats del teu dispositiu</string>
-    <string name="caption_blobmoji">Els emojis d\'Android 4.4 a 7.1</string>
-    <string name="caption_twemoji">Emojis estàndard de Mastodont</string>
     <string name="download_failed">Descàrrega fallida</string>
     <string name="account_moved_description">%1$s s\'ha trasllat a:</string>
     <string name="reblog_private">Tornar a impulsar</string>
@@ -310,7 +290,6 @@
     <string name="description_visibility_unlisted">Sense llistar</string>
     <string name="description_visibility_private">Seguidors</string>
     <string name="description_visibility_direct">Directe</string>
-    <string name="hint_list_name">Nom de la llista</string>
     <string name="edit_hashtag_hint">Hashtag sense #</string>
     <string name="notifications_clear">Netejar</string>
     <string name="notifications_apply_filter">Filtrar</string>
@@ -319,7 +298,7 @@
     <string name="compose_shortcut_short_label">Escriure</string>
     <string name="pref_title_bot_overlay">Mostra l\'indicador dels bots</string>
     <string name="notification_clear_text">Vols netejar totes les notificacions permanentment\?</string>
-    <string name="poll_info_format"> <!-- 15 vots • queda 1 hora --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 vots • queda 1 hora -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s vot</item>
         <item quantity="other">%s vots</item>
@@ -342,11 +321,9 @@
     <string name="mute_domain_warning_dialog_ok">Amagar el domini sencer</string>
     <string name="pref_title_alway_open_spoiler">Mostra sempre obertes les publicacions marcades amb avisos de contingut</string>
     <string name="filter_dialog_whole_word">Paraula sencera</string>
-    <string name="caption_notoemoji">Ventall actual d\'emojis de Google</string>
     <string name="description_poll">Enquesta amb opcions: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="button_continue">Continuar</string>
     <string name="button_back">Enrere</string>
-    <string name="button_done">Fet</string>
     <string name="hint_additional_info">Comentaris addicionals</string>
     <string name="report_remote_instance">Reenviar a %s</string>
     <string name="failed_report">Report erroni</string>
@@ -445,7 +422,6 @@
     <string name="draft_deleted">S\'ha eliminat l\'esborrany</string>
     <string name="drafts_failed_loading_reply">No s\'ha pogut carregar la informació de la resposta</string>
     <string name="drafts_post_failed_to_send">No s\'ha pogut publicar!</string>
-    <string name="dialog_delete_list_warning">Segur que voleu esborrar la llista %s\?</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">No podeu penjar més de %1$d fitxers adjunts multimèdia.</item>
         <item quantity="other">No podeu penjar més de %1$d fitxers adjunts multimèdia.</item>
@@ -453,10 +429,8 @@
     <string name="wellbeing_hide_stats_profile">Amaga les estadístiques quantitatives dels perfils</string>
     <string name="wellbeing_hide_stats_posts">Amaga les estadístiques quantitatives de les publicacions</string>
     <string name="limit_notifications">Limita les notificacions de la cronologia</string>
-    <string name="action_add_or_remove_from_list">Afegeix o elimina de la llista</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="dialog_delete_conversation_warning">Vols suprimir aquesta conversa\?</string>
-    <string name="failed_to_add_to_list">No s\'ha pogut afegir el compte a la llista</string>
     <string name="error_multimedia_size_limit">Els fitxers de vídeo i àudio no poden superar la mida de %s MB.</string>
     <string name="error_image_edit_failed">La imatge no s\'ha pogut editar.</string>
     <string name="action_dismiss">Descartar</string>
@@ -528,7 +502,6 @@
     <string name="follow_requests_info">Tot i que el vostre compte no està bloquejat, el personal de %1$s va pensar que potser voldreu revisar les sol·licituds de seguiment d\'aquests comptes manualment.</string>
     <string name="report_category_other">Altres</string>
     <string name="duration_30_days">30 dies</string>
-    <string name="failed_to_remove_from_list">No s\'ha pogut eliminar el compte de la llista</string>
     <string name="duration_60_days">60 dies</string>
     <string name="duration_90_days">90 dies</string>
     <string name="duration_no_change">(Sense canvis)</string>
@@ -542,7 +515,6 @@
     <string name="action_set_focus">Estableix el punt d\'enfocament</string>
     <string name="description_login">Funciona en la majoria dels casos. No es filtra cap dada a altres aplicacions.</string>
     <string name="description_browser_login">Pot ser compatible amb mètodes d\'autenticació addicionals, però requereix un navegador compatible.</string>
-    <string name="no_lists">No tens cap llista.</string>
     <string name="delete_scheduled_post_warning">Vols suprimir aquesta publicació programada\?</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_violation">Incompliment de la regla</string>
@@ -572,7 +544,6 @@
     <string name="total_accounts">Total de comptes</string>
     <string name="dialog_follow_hashtag_title">Segueix hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
-    <string name="action_refresh">Actualitzar</string>
     <string name="notification_unknown_name">Desconegut</string>
     <string name="status_filter_placeholder_label_format">Filtrat: %s</string>
     <string name="pref_title_account_filter_keywords">Perfils</string>

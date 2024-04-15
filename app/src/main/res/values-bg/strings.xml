@@ -18,7 +18,6 @@
     <string name="report_remote_instance">Препращане към %s</string>
     <string name="hint_additional_info">Допълнителни коментари</string>
     <string name="report_sent_success">Успешно докладване на @%s</string>
-    <string name="button_done">Готово</string>
     <string name="button_back">Назад</string>
     <string name="button_continue">Продължаване</string>
     <plurals name="poll_timespan_seconds">
@@ -50,8 +49,7 @@
         <item quantity="one">%s глас</item>
         <item quantity="other">%s гласа</item>
     </plurals>
-    <string name="poll_info_format">" &lt;!-- 15 votes • 1 hour left --&gt; %1$s • %2$s"<!-- 15 votes • 1 hour left -->
-        %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">Действия за изображение %s</string>
     <string name="notification_clear_text">Сигурни ли сте, че искате да изчистите окончателно всичките си известия\?</string>
     <string name="compose_shortcut_short_label">Композиране</string>
@@ -64,7 +62,6 @@
     <string name="hashtags">Хаштагове</string>
     <string name="edit_hashtag_hint">Хаштаг без #</string>
     <string name="add_hashtag_title">Добавяне на хаштаг</string>
-    <string name="hint_list_name">Име на списък</string>
     <string name="description_poll">Анкета с избори: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_visibility_direct">Директно</string>
     <string name="description_visibility_private">Последователи</string>
@@ -100,11 +97,7 @@
     <string name="reblog_private">Споделяне с оригиналната аудитория</string>
     <string name="account_moved_description">%1$s се премести в:</string>
     <string name="download_failed">Изтеглянето се провали</string>
-    <string name="caption_notoemoji">Текущият набор от емоджита на Google</string>
     <string name="download_fonts">Първо ще трябва да изтеглите тези емоджи комплекти</string>
-    <string name="caption_twemoji">Стандартният емоджи комплект на Mastodon</string>
-    <string name="caption_blobmoji">Blob емоджитата, известни от Android 4.4–7.1</string>
-    <string name="caption_systememoji">Емоджи комплектът по подразбиране в устройство ви</string>
     <string name="restart">Рестартиране</string>
     <string name="later">По-късно</string>
     <string name="restart_emoji">Ще трябва да рестартирате Pachli, за да приложите тези промени</string>
@@ -130,17 +123,6 @@
 \n(%d ограничение на знаците)</item>
     </plurals>
     <string name="compose_active_account_description">Публикуване с акаунт %1$s</string>
-    <string name="action_remove_from_list">Премахване на акаунт от списъка</string>
-    <string name="action_add_to_list">Добавяне на акаунт към списъка</string>
-    <string name="hint_search_people_list">Търсене на хора, които следвате</string>
-    <string name="action_delete_list">Изтриване на списъка</string>
-    <string name="action_rename_list">Преименуване на списъка</string>
-    <string name="action_create_list">Създаване на списък</string>
-    <string name="error_delete_list">Списъкът не можа да се изтрие</string>
-    <string name="error_create_list">Списъкът не можа да се създаде</string>
-    <string name="error_rename_list">Списъкът не можа да се преименува</string>
-    <string name="title_lists">Списъци</string>
-    <string name="action_lists">Списъци</string>
     <string name="add_account_description">Добавяне на нов Mastodon акаунт</string>
     <string name="add_account_name">Добавяне на акаунт</string>
     <string name="filter_add_description">Фраза за филтриране</string>
@@ -312,8 +294,6 @@
     <string name="action_view_favourites">Любими</string>
     <string name="action_view_account_preferences">Предпочитания за акаунт</string>
     <string name="action_view_preferences">Предпочитания</string>
-    <string name="action_view_profile">Профил</string>
-    <string name="action_retry">Повторен опит</string>
     <string name="action_send_public">ПУБЛИКУВАНЕ!</string>
     <string name="action_send">ИЗПРАЩАНЕ</string>
     <string name="action_delete_and_redraft">Изтриване и преработване</string>
@@ -329,7 +309,6 @@
     <string name="action_logout_confirm">Сигурни ли сте, че искате да излезете от акаунта %1$s\?</string>
     <string name="action_logout">Излизане</string>
     <string name="action_compose">Композиране</string>
-    <string name="action_more">Още</string>
     <string name="action_unfavourite">Премахване от любими</string>
     <string name="action_bookmark">Отмятане</string>
     <string name="action_favourite">Поставяне в любими</string>
@@ -345,7 +324,6 @@
     <string name="notification_favourite_format">%s постави вашата публикация в любими</string>
     <string name="notification_reblog_format">%s сподели вашата публикация</string>
     <string name="footer_empty">Нищо тук. Дръпнете надолу, за да опресните!</string>
-    <string name="message_empty">Нищо тук.</string>
     <string name="post_content_show_less">Свиване</string>
     <string name="post_content_show_more">Разгъване</string>
     <string name="post_content_warning_show_less">Покажи по-малко</string>
@@ -385,12 +363,9 @@
     <string name="error_compose_character_limit">Състоянието е твърде дълго!</string>
     <string name="error_no_web_browser_found">Неуспешно намиране на уеб браузър, който да се използва.</string>
     <string name="error_empty">Това не може да бъде празно.</string>
-    <string name="error_network">Възникна грешка в мрежата! Моля, проверете връзката си и опитайте отново!</string>
-    <string name="error_generic">Възникна грешка.</string>
     <string name="draft_deleted">Черновата е изтрита</string>
     <string name="drafts_failed_loading_reply">Неуспешно зареждане на информация за отговор</string>
     <string name="drafts_post_failed_to_send">Тази публикация не успя да се изпрати!</string>
-    <string name="dialog_delete_list_warning">Наистина ли искате да изтриете списъка %s\?</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">Не можете да качите повече от %1$d мултимедийни прикачени файлове.</item>
     </plurals>

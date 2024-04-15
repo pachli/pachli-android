@@ -10,7 +10,7 @@
     <string name="action_close">关闭</string>
     <string name="action_browser_login">用浏览器登录</string>
     <string name="error_invalid_domain">该域名无效</string>
-    <string name="error_failed_app_registration">未能通过该实例的身份验证。如果这个问题持续，请从菜单处尝试“在浏览器中登录”。</string>
+    <string name="error_failed_app_registration_fmt">未能通过该实例的身份验证。如果这个问题持续，请从菜单处尝试“在浏览器中登录”。: %1$s</string>
     <string name="error_authorization_unknown">发生不明授权错误。如果这个问题持续，请从菜单处尝试 “在浏览器中登录”。</string>
     <string name="error_authorization_denied">授权被拒绝。如果你确定提供了正确的凭据，请从菜单处尝试“在浏览器中登录”。</string>
     <string name="error_retrieving_oauth_token">未能获取登录令牌。如果这个问题持续，请从菜单处尝试 “在浏览器中登录”。</string>

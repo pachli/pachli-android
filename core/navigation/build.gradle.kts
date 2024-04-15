@@ -31,7 +31,12 @@ android {
 
 dependencies {
     implementation(projects.core.database) // For DraftAttachment, used in ComposeOptions
+    implementation(projects.core.model)
     implementation(projects.core.network) // For Attachment, used in AttachmentViewData
 
     implementation(libs.androidx.core.ktx) // IntentCompat
 }
+
+// ktlint checks generated files (https://github.com/JLLeitschuh/ktlint-gradle/issues/580) so
+// ensure it's run after the navigation files have been created.
+tasks.named("runKtlintCheckOverMainSourceSet").configure { dependsOn(":core:navigation:generateActivityClassNameConstants") }

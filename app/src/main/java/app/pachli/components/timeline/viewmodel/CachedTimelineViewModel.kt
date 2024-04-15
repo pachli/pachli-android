@@ -82,12 +82,12 @@ class CachedTimelineViewModel @Inject constructor(
         }.cachedIn(viewModelScope)
     }
 
-    /** @return Flow of statuses that make up the timeline of [timelineKind] */
+    /** @return Flow of statuses that make up the timeline of [timeline] */
     private fun getStatuses(
         initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
-        Timber.d("getStatuses: kind: %s, initialKey: %s", timelineKind, initialKey)
-        return repository.getStatusStream(kind = timelineKind, initialKey = initialKey)
+        Timber.d("getStatuses: kind: %s, initialKey: %s", timeline, initialKey)
+        return repository.getStatusStream(kind = timeline, initialKey = initialKey)
             .map { pagingData ->
                 pagingData
                     .map {

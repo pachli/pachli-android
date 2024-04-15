@@ -15,26 +15,15 @@
  * see <http://www.gnu.org/licenses>.
  */
 
+plugins {
+    alias(libs.plugins.pachli.tool)
+}
+
 application {
     mainClass = "app.pachli.mklanguages.MainKt"
 }
 
 dependencies {
-    // ICU
-    implementation("com.ibm.icu:icu4j:74.2")
-
-    // Parsing
-    implementation("com.github.h0tk3y.betterParse:better-parse:0.4.4")
-
-    // Logging
-    implementation("io.github.oshai:kotlin-logging-jvm:6.0.1")
-    implementation("ch.qos.logback:logback-classic:1.4.11")
-
-    // Testing
-    testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2") // for parameterized tests
-}
-
-tasks.test {
-    useJUnitPlatform()
+    implementation(libs.betterparse)
+    implementation(libs.icu4j)
 }

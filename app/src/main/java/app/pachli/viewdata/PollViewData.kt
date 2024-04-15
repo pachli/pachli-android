@@ -19,11 +19,12 @@ package app.pachli.viewdata
 import android.content.Context
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import androidx.core.text.parseAsHtml
+import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 import app.pachli.R
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.PollOption
 import app.pachli.core.network.model.TranslatedPoll
+import app.pachli.view.VotePercentSpan
 import java.util.Date
 import kotlin.math.roundToInt
 
@@ -86,11 +87,11 @@ fun calculatePercent(fraction: Int, totalVoters: Int?, totalVotes: Int): Int {
 }
 
 fun buildDescription(title: String, percent: Int, voted: Boolean, context: Context): Spanned {
-    val builder = SpannableStringBuilder(context.getString(R.string.poll_percent_format, percent).parseAsHtml())
+    val percentStr = context.getString(R.string.poll_percent_format, percent)
+    val builder = SpannableStringBuilder(percentStr)
+    builder.setSpan(VotePercentSpan(), 0, percentStr.length, SPAN_EXCLUSIVE_EXCLUSIVE)
     if (voted) {
         builder.append(" ✓ ")
-    } else {
-        builder.append(" ")
     }
     return builder.append(title)
 }

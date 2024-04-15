@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="title_lists">Daftar</string>
+    <string name="error_create_list_fmt">Tidak dapat membuat daftar \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Tidak dapat menghapus daftar \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Tidak dapat mengubah nama daftar \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Ubah nama daftar</string>
+    <string name="action_create_list">Buat daftar</string>
+    <string name="action_delete_list">Hapus daftar</string>
+</resources>

@@ -35,8 +35,6 @@
     <string name="action_view_favourites">Favoritos</string>
     <string name="action_view_account_preferences">Preferencias da conta</string>
     <string name="action_view_preferences">Preferencias</string>
-    <string name="action_view_profile">Perfil</string>
-    <string name="action_retry">Intenta outra vez</string>
     <string name="action_send_public">TOOT!</string>
     <string name="action_send">TOOT</string>
     <string name="action_delete_and_redraft">Eliminar e reescribir</string>
@@ -52,7 +50,6 @@
     <string name="action_logout_confirm">Tes a certeza de querer pechar a sesión %1$s\? Isto eliminará todos os datos locais da conta, incluíndo borradores e preferencias.</string>
     <string name="action_logout">Pechar sesión</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_more">Máis</string>
     <string name="action_unfavourite">Eliminar favorito</string>
     <string name="action_bookmark">Marcar</string>
     <string name="action_favourite">Favorito</string>
@@ -68,7 +65,6 @@
     <string name="notification_favourite_format">%s fixo favorita a publicación</string>
     <string name="notification_reblog_format">%s promoveu a túa publicación</string>
     <string name="footer_empty">Nada por aquí. Arrastra hacia abaixo para actualizar!</string>
-    <string name="message_empty">Nada por aquí.</string>
     <string name="post_content_show_less">Pregar</string>
     <string name="post_content_show_more">Expandir</string>
     <string name="post_content_warning_show_less">Ver menos</string>
@@ -110,8 +106,6 @@
     <string name="error_compose_character_limit">A publicación é demasiado longa!</string>
     <string name="error_no_web_browser_found">Non se atopou un navegador para utilizar.</string>
     <string name="error_empty">Esto non pode estar baleiro.</string>
-    <string name="error_network">Houbo un fallo na rede. Comproba a conexión e inténtao outra vez.</string>
-    <string name="error_generic">Algo fallou.</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="action_unsubscribe_account">Desubscribir</string>
     <string name="action_subscribe_account">Subscribir</string>
@@ -129,7 +123,6 @@
     <string name="report_remote_instance">Reenviar a %s</string>
     <string name="hint_additional_info">Comentarios adicionais</string>
     <string name="report_sent_success">Denuncia feita sobre @%s</string>
-    <string name="button_done">Feito</string>
     <string name="button_back">Atrás</string>
     <string name="button_continue">Continuar</string>
     <plurals name="poll_timespan_seconds">
@@ -161,7 +154,7 @@
         <item quantity="one">%s voto</item>
         <item quantity="other">%s votos</item>
     </plurals>
-    <string name="poll_info_format"> <!-- 15 votos • queda 1 hora --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votos • queda 1 hora -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">Accións para a imaxe %s</string>
     <string name="notification_clear_text">Tes a certeza de que queres borrar permanentemente todas as notificacións\?</string>
     <string name="compose_shortcut_short_label">Redactar</string>
@@ -174,7 +167,6 @@
     <string name="hashtags">Cancelos</string>
     <string name="edit_hashtag_hint">Cancelo sen #</string>
     <string name="add_hashtag_title">Engadir cancelo</string>
-    <string name="hint_list_name">Nome da lista</string>
     <string name="description_poll">Enquisa con opcións: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_visibility_direct">Directo</string>
     <string name="description_visibility_private">Seguidoras</string>
@@ -210,10 +202,6 @@
     <string name="reblog_private">Promover para a audiencia orixinal</string>
     <string name="account_moved_description">%1$s migrou a:</string>
     <string name="download_failed">Fallou a descarga</string>
-    <string name="caption_notoemoji">Conxunto actual de emojis de Google</string>
-    <string name="caption_twemoji">Conxunto de emojis estándar en Mastodon</string>
-    <string name="caption_blobmoji">Os emojis Blob coñecidos de Android 4.4-7.1</string>
-    <string name="caption_systememoji">O conxunto de emojis por defecto no sistema</string>
     <string name="restart">Reiniciar</string>
     <string name="later">Máis tarde</string>
     <string name="restart_emoji">Deberás reiniciar Pachli para aplicar os cambios</string>
@@ -240,17 +228,6 @@
         <item quantity="other">Describe para persoas con deficiencias visuais (%d caracteres como máximo)</item>
     </plurals>
     <string name="compose_active_account_description">Publicar como %1$s</string>
-    <string name="action_remove_from_list">Eliminar conta da listaxe</string>
-    <string name="action_add_to_list">Engadir conta á listaxe</string>
-    <string name="hint_search_people_list">Atopar persoas ás que segues</string>
-    <string name="action_delete_list">Eliminar a listaxe</string>
-    <string name="action_rename_list">Actualizar a listaxe</string>
-    <string name="action_create_list">Crear unha listaxe</string>
-    <string name="error_delete_list">Non se puido eliminar a listaxe</string>
-    <string name="error_rename_list">Non se actualizou a listaxe</string>
-    <string name="error_create_list">Non se puido crear a listaxe</string>
-    <string name="title_lists">Listaxes</string>
-    <string name="action_lists">Listaxes</string>
     <string name="add_account_description">Engadir unha nova conta Mastodon</string>
     <string name="add_account_name">Engadir conta</string>
     <string name="filter_add_description">Frase a filtrar</string>
@@ -393,7 +370,6 @@
     <string name="draft_deleted">Borrador eliminado</string>
     <string name="drafts_failed_loading_reply">Fallou a carga da información da Resposta</string>
     <string name="drafts_post_failed_to_send">Fallou o envío do toot!</string>
-    <string name="dialog_delete_list_warning">Tes a certeza de querer eliminar a listaxe %s\?</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Non podes subir máis de %1$d anexo multimedia.</item>
         <item quantity="other">Non podes subir máis de %1$d anexos multimedia.</item>
@@ -509,13 +485,9 @@
     <string name="pref_show_self_username_never">Nunca</string>
     <string name="notification_report_description">Notificacións sobre temas de moderación</string>
     <string name="report_category_spam">Spam</string>
-    <string name="action_add_or_remove_from_list">Engadir ou quitar da lista</string>
-    <string name="failed_to_add_to_list">Fallou a adición da conta á lista</string>
-    <string name="failed_to_remove_from_list">Fallou a eliminación da conta da lista</string>
     <string name="action_unfollow_hashtag_format">Non seguir #%s\?</string>
     <string name="pref_default_post_language">Idioma de publicación por defecto</string>
     <string name="notification_report_name">Denuncias</string>
-    <string name="no_lists">Non tes listas.</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_violation">Faltar a unha norma</string>
     <string name="report_category_other">Outra</string>
@@ -574,15 +546,14 @@
 \nPara atopar contas podes mirar nalgunha das outras cronoloxías. Por exemplo, na cronoloxía local da túa instancia [iconics gmd_group]. Ou buscalas polo seu nome [iconics gmd_search]; por exemplo busca Pachli para atopar a nosa conta en Mastodon.</string>
     <string name="post_media_image">Imaxe</string>
     <string name="hint_filter_title">O meu filtro</string>
-    <string name="action_refresh">Actualizar</string>
     <string name="notification_unknown_name">Descoñecido</string>
     <string name="socket_timeout_exception">Estamos tardando demasiado en conectar co servidor</string>
     <string name="ui_error_unknown">razón descoñecida</string>
-    <string name="ui_error_bookmark">Fallou engadir a marcadores: %s</string>
+    <string name="ui_error_bookmark_fmt">Fallou engadir a marcadores: %1$s</string>
     <string name="ui_error_clear_notifications">Fallou a limpeza das notificacións: %s</string>
-    <string name="ui_error_vote">Fallou a votación na enquisa: %s</string>
-    <string name="ui_error_favourite">Fallou favorecer a publicación: %s</string>
-    <string name="ui_error_reblog">Fallou promover a publicación: %s</string>
+    <string name="ui_error_vote_fmt">Fallou a votación na enquisa: %1$s</string>
+    <string name="ui_error_favourite_fmt">Fallou favorecer a publicación: %1$s</string>
+    <string name="ui_error_reblog_fmt">Fallou promover a publicación: %1$s</string>
     <string name="ui_error_accept_follow_request">Fallou a aceptación da solicitude de seguimento: %s</string>
     <string name="ui_error_reject_follow_request">Fallou o rexeitamento da solicitude de seguimento: %s</string>
     <string name="ui_success_accepted_follow_request">Aceptado o seguimento</string>
@@ -619,6 +590,5 @@
     <string name="notification_prune_cache">Mantemento da caché…</string>
     <string name="error_media_upload_sending_fmt">Fallou a subida: %s</string>
     <string name="dialog_delete_filter_positive_action">Eliminar</string>
-    <string name="list_exclusive_label">Agochar na cronoloxía de inicio</string>
     <string name="dialog_delete_filter_text">Eliminar o filtro \'%1$s\'\?</string>
 </resources>

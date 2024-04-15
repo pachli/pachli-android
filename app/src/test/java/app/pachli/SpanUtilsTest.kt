@@ -4,9 +4,11 @@ import app.pachli.core.testing.fakes.FakeSpannable
 import app.pachli.util.highlightSpans
 import org.junit.Assert
 import org.junit.Test
+import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
+@RunWith(Enclosed::class)
 class SpanUtilsTest {
     @Test
     fun matchesMixedSpans() {
@@ -19,8 +21,8 @@ class SpanUtilsTest {
 
     @Test
     fun doesntMergeAdjacentURLs() {
-        val firstURL = "http://first.thing"
-        val secondURL = "https://second.thing"
+        val firstURL = "http://first.bar"
+        val secondURL = "https://second.bar"
         val inputSpannable = FakeSpannable("$firstURL $secondURL")
         highlightSpans(inputSpannable, 0xffffff)
         val spans = inputSpannable.spans
@@ -69,14 +71,6 @@ class SpanUtilsTest {
             highlightSpans(inputSpannable, 0xffffff)
             val spans = inputSpannable.spans
             Assert.assertTrue(spans.isEmpty())
-        }
-
-        @Test
-        fun doesNotMatchSpanEmbeddedInAnotherSpan() {
-            val inputSpannable = FakeSpannable("@aa${thingToHighlight}aa")
-            highlightSpans(inputSpannable, 0xffffff)
-            val spans = inputSpannable.spans
-            Assert.assertEquals(1, spans.size)
         }
 
         @Test

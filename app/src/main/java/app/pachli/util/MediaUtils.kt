@@ -24,11 +24,9 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.provider.OpenableColumns
 import androidx.exifinterface.media.ExifInterface
-import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import timber.log.Timber
@@ -37,7 +35,7 @@ import timber.log.Timber
  * Helper methods for obtaining and resizing media files
  */
 
-private const val MEDIA_TEMP_PREFIX = "Pachli_Share_Media"
+const val MEDIA_TEMP_PREFIX = "Pachli_Share_Media"
 const val MEDIA_SIZE_UNKNOWN = -1L
 
 /**
@@ -162,35 +160,6 @@ fun getImageOrientation(uri: Uri, contentResolver: ContentResolver): Int {
         }
 
         exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-    }
-}
-
-fun deleteStaleCachedMedia(mediaDirectory: File?) {
-    if (mediaDirectory == null || !mediaDirectory.exists()) {
-        // Nothing to do
-        return
-    }
-
-    val twentyfourHoursAgo = Calendar.getInstance()
-    twentyfourHoursAgo.add(Calendar.HOUR, -24)
-    val unixTime = twentyfourHoursAgo.timeInMillis
-
-    val files = mediaDirectory.listFiles { file ->
-        unixTime > file.lastModified() && file.name.contains(
-            MEDIA_TEMP_PREFIX,
-        )
-    }
-    if (files == null || files.isEmpty()) {
-        // Nothing to do
-        return
-    }
-
-    for (file in files) {
-        try {
-            file.delete()
-        } catch (se: SecurityException) {
-            Timber.e("Error removing stale cached media")
-        }
     }
 }
 

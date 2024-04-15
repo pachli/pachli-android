@@ -19,22 +19,24 @@ package app.pachli.worker
 
 import android.app.Notification
 import android.content.Context
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
-import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
 import app.pachli.R
 import app.pachli.components.notifications.NOTIFICATION_ID_PRUNE_CACHE
 import app.pachli.components.notifications.createWorkerNotification
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.TimelineDao
-import javax.inject.Inject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import timber.log.Timber
 
 /** Prune the database cache of old statuses. */
-class PruneCacheWorker(
-    appContext: Context,
-    workerParams: WorkerParameters,
+@HiltWorker
+class PruneCacheWorker @AssistedInject constructor(
+    @Assisted appContext: Context,
+    @Assisted workerParams: WorkerParameters,
     private val timelineDao: TimelineDao,
     private val accountManager: AccountManager,
 ) : CoroutineWorker(appContext, workerParams) {
@@ -53,14 +55,5 @@ class PruneCacheWorker(
     companion object {
         private const val MAX_STATUSES_IN_CACHE = 1000
         const val PERIODIC_WORK_TAG = "PruneCacheWorker_periodic"
-    }
-
-    class Factory @Inject constructor(
-        private val timelineDao: TimelineDao,
-        private val accountManager: AccountManager,
-    ) : ChildWorkerFactory {
-        override fun createWorker(appContext: Context, params: WorkerParameters): ListenableWorker {
-            return PruneCacheWorker(appContext, params, timelineDao, accountManager)
-        }
     }
 }

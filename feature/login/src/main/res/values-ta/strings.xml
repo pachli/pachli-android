@@ -7,7 +7,7 @@
     </string>
     <string name="action_close">மூடு</string>
     <string name="error_invalid_domain">தவறான டொமைன் உள்ளிடப்பட்டுள்ளது</string>
-    <string name="error_failed_app_registration">அந்த instance(களத்தினை)-யை அங்கீகரிப்பதில் தோல்வி.</string>
+    <string name="error_failed_app_registration_fmt">அந்த instance(களத்தினை)-யை அங்கீகரிப்பதில் தோல்வி: %1$s</string>
     <string name="error_authorization_unknown">அடையாளம் தெரியாத அங்கீகார பிழை ஏற்பட்டுள்ளது.</string>
     <string name="error_authorization_denied">அங்கீகாரம் மறுக்கப்பட்டுள்ளது</string>
     <string name="error_retrieving_oauth_token">உள்நுழைவு டோக்கனைப் பெறுவதில் தோல்வி.</string>

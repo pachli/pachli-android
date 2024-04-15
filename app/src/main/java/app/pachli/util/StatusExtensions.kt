@@ -19,7 +19,9 @@ package app.pachli.util
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import app.pachli.R
 import app.pachli.core.network.model.Status
@@ -43,6 +45,24 @@ fun Status.Visibility?.description(context: Context): CharSequence {
     return context.getString(resource)
 }
 
+@DrawableRes
+fun Status.Visibility?.iconRes(): Int? {
+    this ?: return null
+
+    return when (this) {
+        Status.Visibility.PUBLIC -> R.drawable.ic_public_24dp
+        Status.Visibility.UNLISTED -> R.drawable.ic_lock_open_24dp
+        Status.Visibility.PRIVATE -> R.drawable.ic_lock_24dp
+        Status.Visibility.DIRECT -> R.drawable.ic_email_24dp
+        Status.Visibility.UNKNOWN -> return null
+    }
+}
+
+fun Status.Visibility?.iconDrawable(view: View): Drawable? {
+    val resource = iconRes() ?: return null
+    return AppCompatResources.getDrawable(view.context, resource)
+}
+
 /**
  * @return An icon for this visibility scaled and coloured to match the text on [textView].
  *     Returns null if visibility is [Status.Visibility.UNKNOWN].
@@ -50,19 +70,9 @@ fun Status.Visibility?.description(context: Context): CharSequence {
 fun Status.Visibility?.icon(textView: TextView): Drawable? {
     this ?: return null
 
-    val resource: Int = when (this) {
-        Status.Visibility.PUBLIC -> R.drawable.ic_public_24dp
-        Status.Visibility.UNLISTED -> R.drawable.ic_lock_open_24dp
-        Status.Visibility.PRIVATE -> R.drawable.ic_lock_outline_24dp
-        Status.Visibility.DIRECT -> R.drawable.ic_email_24dp
-        Status.Visibility.UNKNOWN -> return null
-    }
-    val visibilityDrawable = AppCompatResources.getDrawable(
-        textView.context,
-        resource,
-    ) ?: return null
+    val drawable = iconDrawable(textView) ?: return null
     val size = textView.textSize.toInt()
-    visibilityDrawable.setBounds(0, 0, size, size)
-    visibilityDrawable.setTint(textView.currentTextColor)
-    return visibilityDrawable
+    drawable.setBounds(0, 0, size, size)
+    drawable.setTint(textView.currentTextColor)
+    return drawable
 }

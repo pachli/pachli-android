@@ -9,7 +9,7 @@
 \nVeč informacij najdete na naslovu <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_close">Zapri</string>
     <string name="error_invalid_domain">Vnesena je neveljavna domena</string>
-    <string name="error_failed_app_registration">Overitev s to instanco ni uspela.</string>
+    <string name="error_failed_app_registration_fmt">Overitev s to instanco ni uspela: %1$s</string>
     <string name="error_authorization_unknown">Prišlo je do neznane napake pri pooblastitvi.</string>
     <string name="error_authorization_denied">Pooblastitev je bila zavrnjena.</string>
     <string name="error_retrieving_oauth_token">Ni bilo mogoče pridobiti žetona za prijavo.</string>

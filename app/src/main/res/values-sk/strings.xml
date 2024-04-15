@@ -6,9 +6,6 @@
     <string name="action_view_account_preferences">Nastavenia účtu</string>
     <string name="action_edit_profile">Upraviť profil</string>
     <string name="action_search">Hľadať</string>
-    <string name="action_lists">Zoznamy</string>
-    <string name="title_lists">Zoznamy</string>
-    <string name="error_generic">Vyskytla sa chyba.</string>
     <string name="title_notifications">Oznámenia</string>
     <string name="title_direct_messages">Priame správy</string>
     <string name="title_posts_with_replies">S odpoveďmi</string>
@@ -26,7 +23,6 @@
     <string name="action_quick_reply">Rýchla odpoveď</string>
     <string name="action_reply">Odpovedať</string>
     <string name="title_favourites">Obľúbené</string>
-    <string name="error_network">Vyskytla sa chyba v sieti! Prosím skontrolujte svoje pripojenie a skúste to znova!</string>
     <string name="error_empty">Toto nemôže byť prázdne.</string>
     <string name="error_media_upload_opening">Súbor sa nepodarilo otvoriť.</string>
     <string name="title_home">Domov</string>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">وقع هناك خطأ.</string>
-    <string name="error_network">حدث خطأ في الشبكة! يرجى التحقق من اتصالك ثم أعد المحاولة!</string>
     <string name="error_empty">لا يجب أن يترك هذا الحقل فارغا.</string>
     <string name="error_no_web_browser_found">تعذر العثور على متصفح ويب صالح للإستعمال.</string>
     <string name="error_compose_character_limit">إنّ المنشور طويل جدا!</string>
@@ -39,7 +37,6 @@
     <string name="post_content_warning_show_less">اعرض أقل</string>
     <string name="post_content_show_more">توسيع</string>
     <string name="post_content_show_less">تصغير</string>
-    <string name="message_empty">لا شيء هنا.</string>
     <string name="footer_empty">لا يوجد شيء هنا. إسحب إلى أسفل للإنعاش!</string>
     <string name="notification_reblog_format">شارك %s منشورك</string>
     <string name="notification_favourite_format">أعجِب %s بمنشورك</string>
@@ -52,7 +49,6 @@
     <string name="action_unreblog">إزالة المشاركة</string>
     <string name="action_favourite">تفضيل</string>
     <string name="action_unfavourite">إزالة المفضلة</string>
-    <string name="action_more">المزيد</string>
     <string name="action_compose">حرر</string>
     <string name="action_logout">خروج</string>
     <string name="action_logout_confirm">متأكد مِن أنك تود الخروج من الحساب %1$s؟</string>
@@ -66,8 +62,6 @@
     <string name="action_delete">إحذف</string>
     <string name="action_send">بَوّق</string>
     <string name="action_send_public">بوّق!</string>
-    <string name="action_retry">أعد المحاولة</string>
-    <string name="action_view_profile">الملف التعريفي</string>
     <string name="action_view_preferences">التفضيلات</string>
     <string name="action_view_account_preferences">اعدادات الحساب</string>
     <string name="action_view_favourites">المفضلة</string>
@@ -238,17 +232,6 @@
     <string name="filter_add_description">العبارة التي يلزم تصفيتها</string>
     <string name="add_account_name">إضافة حساب</string>
     <string name="add_account_description">إضافة حساب ماستدون جديد</string>
-    <string name="action_lists">القوائم</string>
-    <string name="title_lists">القوائم</string>
-    <string name="error_create_list">لا يمكن إنشاء قائمة</string>
-    <string name="error_rename_list">لا يمكن إعادة تسمية القائمة</string>
-    <string name="error_delete_list">لا يمكن حذف القائمة</string>
-    <string name="action_create_list">إنشاء قائمة</string>
-    <string name="action_rename_list">إعادة تسمية القائمة</string>
-    <string name="action_delete_list">حذف القائمة</string>
-    <string name="hint_search_people_list">البحث عن أشخاص قصد متابعتهم</string>
-    <string name="action_add_to_list">إضافة الحساب إلى القائمة</string>
-    <string name="action_remove_from_list">إزالة الحساب مِن القائمة</string>
     <string name="compose_active_account_description">النشر بإسم %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="zero">وصف لضعاف البصر
@@ -285,9 +268,6 @@
     <string name="restart_emoji">إعادة تشغيل توسكي مطلوبة قصد تفعيل التعديلات</string>
     <string name="later">لاحقًا</string>
     <string name="restart">إعادة التشغيل</string>
-    <string name="caption_systememoji">مجموعة الإيموجي المُدمَجة في جهازك</string>
-    <string name="caption_blobmoji">إيموجيات الفقاقيع المعروفة على أندرويد 4.4–7.1</string>
-    <string name="caption_twemoji">مجموعة الإيموجي الخاصة بماستدون</string>
     <string name="download_failed">فشلت عملية التنزيل</string>
     <string name="account_moved_description">إنتقَلَ %1$s إلى :</string>
     <string name="reblog_private">المشاركة إلى الجمهور الأصلي</string>
@@ -313,7 +293,6 @@
     <string name="description_visibility_unlisted">غير مُدرَج    </string>
     <string name="description_visibility_private">المتابِعون    </string>
     <string name="description_visibility_direct">مباشر    </string>
-    <string name="hint_list_name">اسم القائمة</string>
     <string name="action_delete_and_redraft">حذف وإعادة الصياغة</string>
     <string name="action_open_reblogger">إظهار صاحب المشاركة</string>
     <string name="action_open_media_n">افتح الوسيط #%d</string>
@@ -394,7 +373,6 @@
         <item quantity="other">%d ثوان متبقية</item>
     </plurals>
     <string name="compose_preview_image_description">إجراءات على الصورة %s</string>
-    <string name="caption_notoemoji">حزمة الإيموجي الحالية لـ غوغل</string>
     <string name="title_domain_mutes">النطاقات المخفية</string>
     <string name="action_view_domain_mutes">النطاقات المخفية</string>
     <string name="action_mute_domain">اكتم %s</string>
@@ -403,7 +381,6 @@
     <string name="pref_title_animate_gif_avatars">تنشيط الصور المتحركة GIF للحسابات</string>
     <string name="button_continue">واصل</string>
     <string name="button_back">العودة</string>
-    <string name="button_done">تم</string>
     <string name="report_sent_success">تم الابلاغ عن @%s بنجاح</string>
     <string name="hint_additional_info">تعليقات إضافية</string>
     <string name="report_remote_instance">أعد تحويله إلى %s</string>
@@ -431,7 +408,7 @@
     <string name="poll_new_choice_hint">الخيار %d</string>
     <string name="edit_poll">تعديل</string>
     <string name="filter_dialog_whole_word_description">عندما تكون الكلمة أو العبارة أبجدية رقمية فقط ، فلن يتم تطبيقها إلا إذا كانت مطابقة للكلمة بأكملها</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 hour left --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="title_scheduled_posts">المنشورات المُبَرمَجة</string>
     <string name="action_edit">تعديل</string>
     <string name="action_access_scheduled_posts">المنشورات المُبَرمَجة</string>
@@ -476,7 +453,6 @@
     <string name="action_unmute_desc">إلغاء كتم %s</string>
     <string name="pref_title_hide_top_toolbar">إخفاء عنوان شريط الأدوات العلوي</string>
     <string name="title_announcements">الاعلانات</string>
-    <string name="dialog_delete_list_warning">أتريد حقا حذف القائمة %s؟</string>
     <string name="drafts_post_failed_to_send">فشلت عملية إرسال التبويق!</string>
     <string name="draft_deleted">حُذفَت المسودة</string>
     <string name="action_subscribe_account">اشترك</string>
@@ -528,11 +504,10 @@
     <string name="set_focus_description">اضغط على الدائرة أو اسحبها لاختيار النقطة المحورية التي ستكون مرئية دائمًا في الصور المصغرة.</string>
     <string name="compose_save_draft_loses_media">حفظ المسودة؟ (سيتم رفع المرفقات مرة أخرى عند استعادة المسودة.)</string>
     <string name="compose_unsaved_changes">لديك تعديلات لم تحفظ.</string>
-    <string name="no_lists">ليس لديك أي قوائم.</string>
     <string name="post_edited">عدَّلَ %s</string>
     <string name="notification_report_format">شكوى جديدة عن %s</string>
-    <string name="status_edit_info">عدّله %1$s</string>
-    <string name="status_created_info">أنشأه %1$s</string>
+    <string name="status_edit_info">%1$s :عدّله</string>
+    <string name="status_created_info">%1$s :أنشأه</string>
     <string name="wellbeing_mode_notice">سيتم إخفاء بعض المعلومات التي قد تؤثر على صحتك العقلية. هذا يتضمن:
 \n
 \n- المفضلة/المشاركات/متابعة الاشعارات
@@ -542,8 +517,6 @@
 \nلن تتأثر الاشعارات، ولكن يمكنك مراجعة اعدادات الاشعارات يدويا.</string>
     <string name="confirmation_hashtag_unfollowed">#%s الغاء متابعة</string>
     <string name="pref_title_http_proxy_port_message">المنفذ (port) يجب ان يكون بين %d و %d</string>
-    <string name="action_add_or_remove_from_list">إضافة أو إزالة من القائمة</string>
-    <string name="failed_to_add_to_list">فشل إضافة الحساب إلى القائمة</string>
     <string name="description_post_edited">تم تعديله</string>
     <string name="duration_no_change">(لا تعديل)</string>
     <string name="pref_title_show_self_username">إظهار اسم المستخدم في أشرطة الأدوات</string>
@@ -590,7 +563,6 @@
     <string name="account_username_copied">تم نسخ اسم المستخدم</string>
     <string name="pref_show_self_username_disambiguate">عند تسجيل الدخول إلى حسابات متعددة</string>
     <string name="status_created_at_now">الآن</string>
-    <string name="failed_to_remove_from_list">فشل إزالة الحساب من القائمة</string>
     <string name="action_unfollow_hashtag_format">الغاء متابعة #%s ؟</string>
     <string name="mute_notifications_switch">كتم الاشعارات</string>
     <string name="error_following_hashtag_format">خطأ في متابعة %s#</string>
@@ -600,7 +572,7 @@
     <string name="report_category_violation">انتهاك الشروط</string>
     <string name="dialog_push_notification_migration">من أجل استخدام الإشعارات عبر UnifiedPush ، يحتاج Pachli إلى إذن للإشتراك في الإشعارات على خادم Mastodon الخاص بك. يتطلب هذا إعادة تسجيل الدخول لتغيير نطاقات OAuth الممنوحة لـ Pachli. سيؤدي استخدام خيار إعادة تسجيل الدخول هنا أو في اعدادات الحساب إلى الاحتفاظ بجميع المسودات المحلية وذاكرة التخزين المؤقت.</string>
     <string name="pref_title_wellbeing_mode">الرفاهية</string>
-    <string name="account_date_joined">انضم في %1$s</string>
+    <string name="account_date_joined">%1$s انضم في</string>
     <string name="title_migration_relogin">أعد تسجيل الدخول لاستلام الاشعارات</string>
     <string name="action_dismiss">تجاهل</string>
     <string name="action_details">تفاصيل</string>
@@ -615,7 +587,7 @@
     <string name="ui_error_unknown">سبب مجهول</string>
     <string name="socket_timeout_exception">طال الاتصال بخادمك كثيرًا</string>
     <string name="action_add">إضافة</string>
-    <string name="ui_error_translate_status">فشلت الترجمة: %s</string>
+    <string name="ui_error_translate_status_fmt">%1$s :فشلت الترجمة</string>
     <string name="update_dialog_negative">لا تذكرني أبداً</string>
     <string name="translating">الترجمة جارية…</string>
     <string name="dialog_delete_filter_positive_action">حذف</string>
@@ -639,16 +611,13 @@
     <string name="title_public_trending_statuses">المنشورات الشائعة</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="select_list_manage">إدارة القوائم</string>
-    <string name="error_network_fmt">وقع خطأ في الشبكة: %s</string>
     <string name="dialog_save_profile_changes_message">أتريد حفظ التغييرات التي طرأت على ملفك الشخصي؟</string>
-    <string name="error_generic_fmt">وقع خطأ: %s</string>
-    <string name="ui_error_bookmark">فشل إجراء إضافة المنشور إلى الفواصل المرجعية: %s</string>
+    <string name="ui_error_bookmark_fmt">%1$s :فشل إجراء إضافة المنشور إلى الفواصل المرجعية</string>
     <string name="notification_unknown_name">غير معروف</string>
     <string name="pref_update_notification_frequency_always">دائما</string>
     <string name="error_media_upload_sending_fmt">اخفق التحميل: %s</string>
     <string name="pref_update_notification_frequency_never">أبدًا</string>
     <string name="filter_keyword_display_format">%s (الكلمةكاملة)</string>
-    <string name="action_refresh">إنعاش</string>
     <string name="filter_keyword_addition_title">إضافة كلمة مفتاحية</string>
     <string name="label_filter_keywords">كلمات مفتاحية أو عبارات للتصفية</string>
     <string name="hint_description">الوصف</string>
@@ -658,12 +627,10 @@
     <string name="filter_description_hide">إخفاء تماما</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="post_media_image">صورة</string>
-    <string name="error_404_not_found">خادمك لا يدعم هذه الميزة</string>
     <string name="filter_action_hide">إخفاء</string>
     <string name="label_filter_title">العنوان</string>
     <string name="pref_title_font_family">عائلة الخطوط</string>
     <string name="notification_listenable_worker_description">إشعارات عندما يعمل Pachli (باكلي) في الخلفية</string>
-    <string name="list_exclusive_label">إخفاء مِن الخيط الرئيس</string>
     <string name="status_filtered_show_anyway">إظهار على أي حال</string>
     <string name="error_list_load">خطأ في تحميل القوائم</string>
     <string name="action_translate">ترجمة</string>
@@ -684,5 +651,5 @@
     <string name="confirmation_hashtag_muted">#%s مخفي</string>
     <string name="pref_summary_timeline_filters">خادمك الخاص لا يدعم عوامل التصفية</string>
     <string name="load_newest_statuses">تحميل أحدث المنشورات</string>
-    <string name="announcement_date_updated">(تم تحديثه: %1$s)</string>
+    <string name="announcement_date_updated">(%1$s :تم تحديثه)</string>
 </resources>

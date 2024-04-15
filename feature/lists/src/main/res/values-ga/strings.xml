@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">Ainm liosta</string>
+    <string name="title_lists">Liostaí</string>
+    <string name="error_create_list_fmt">Níorbh fhéidir liosta a chruthú \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Níorbh fhéidir an liosta a scriosadh \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Níorbh fhéidir an liosta a athainmniú \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Athainmnigh an liosta</string>
+    <string name="action_create_list">Cruthaigh liosta</string>
+    <string name="action_remove_from_list">Bain cuntas ón liosta</string>
+    <string name="action_add_to_list">Cuir cuntas leis an liosta</string>
+    <string name="action_delete_list">Scrios an liosta</string>
+    <string name="hint_search_people_list">Cuardaigh daoine a leanann tú</string>
+</resources>

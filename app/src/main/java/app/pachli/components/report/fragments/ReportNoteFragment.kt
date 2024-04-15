@@ -92,8 +92,8 @@ class ReportNoteFragment : Fragment(R.layout.fragment_report_note) {
         binding.buttonBack.isEnabled = true
         binding.progressBar.hide()
 
-        Snackbar.make(binding.buttonBack, if (error is IOException) R.string.error_network else R.string.error_generic, Snackbar.LENGTH_LONG)
-            .setAction(R.string.action_retry) {
+        Snackbar.make(binding.buttonBack, if (error is IOException) app.pachli.core.ui.R.string.error_network else app.pachli.core.ui.R.string.error_generic, Snackbar.LENGTH_LONG)
+            .setAction(app.pachli.core.ui.R.string.action_retry) {
                 sendReport()
             }
             .show()

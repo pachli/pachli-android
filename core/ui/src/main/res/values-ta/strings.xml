@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">பிணைய பிழை ஏற்பட்டது! உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்!</string>
+    <string name="error_generic">பிழை ஏற்பட்டது.</string>
+    <string name="action_retry">மீண்டும் முயற்சி</string>
+    <string name="action_view_profile">சுயவிவரம்</string>
+    <string name="action_more">மேலும்</string>
+</resources>

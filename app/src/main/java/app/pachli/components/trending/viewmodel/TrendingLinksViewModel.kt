@@ -22,6 +22,8 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.components.trending.TrendingLinksRepository
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.TrendsLink
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.throttleFirst
 import at.connyduck.calladapter.networkresult.fold
@@ -30,10 +32,15 @@ import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -53,6 +60,7 @@ sealed interface LoadState {
 @HiltViewModel
 class TrendingLinksViewModel @Inject constructor(
     private val repository: TrendingLinksRepository,
+    sharedPreferencesRepository: SharedPreferencesRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     accountManager: AccountManager,
 ) : ViewModel() {
@@ -60,6 +68,12 @@ class TrendingLinksViewModel @Inject constructor(
 
     private val _loadState = MutableStateFlow<LoadState>(LoadState.Initial)
     val loadState = _loadState.asStateFlow()
+
+    val showFabWhileScrolling = sharedPreferencesRepository.changes
+        .filter { it == null || it == PrefKeys.FAB_HIDE }
+        .map { !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false) }
+        .onStart { emit(!sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)) }
+        .shareIn(viewModelScope, replay = 1, started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000))
 
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 

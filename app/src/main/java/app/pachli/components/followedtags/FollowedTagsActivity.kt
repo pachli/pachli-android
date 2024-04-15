@@ -7,10 +7,11 @@ import android.widget.AutoCompleteTextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import app.pachli.R
 import app.pachli.components.compose.ComposeAutoCompleteAdapter
@@ -19,8 +20,9 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.databinding.ActivityFollowedTagsBinding
 import app.pachli.interfaces.HashtagActionListener
 import at.connyduck.calladapter.networkresult.fold
@@ -71,6 +73,16 @@ class FollowedTagsActivity :
         }
 
         binding.includedToolbar.appbar.setLiftOnScrollTargetView(binding.followedTagsView)
+
+        val actionButtonScrollListener = ActionButtonScrollListener(binding.fab)
+        binding.followedTagsView.addOnScrollListener(actionButtonScrollListener)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.showFabWhileScrolling.collect { showFabWhileScrolling ->
+                    actionButtonScrollListener.showActionButtonWhileScrolling = showFabWhileScrolling
+                }
+            }
+        }
     }
 
     private fun setupRecyclerView(adapter: FollowedTagsAdapter) {
@@ -81,17 +93,6 @@ class FollowedTagsActivity :
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
         (binding.followedTagsView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-
-        val hideFab = sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
-        if (hideFab) {
-            binding.followedTagsView.addOnScrollListener(
-                object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        binding.fab.visible(dy == 0)
-                    }
-                },
-            )
-        }
     }
 
     private fun setupAdapter(): FollowedTagsAdapter {
@@ -170,7 +171,11 @@ class FollowedTagsActivity :
         }
     }
 
-    override fun search(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {
+    override fun onViewTag(tag: String) {
+        startActivityWithSlideInAnimation(TimelineActivityIntent.hashtag(this, tag))
+    }
+
+    override suspend fun search(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {
         return viewModel.searchAutocompleteSuggestions(token)
     }
 

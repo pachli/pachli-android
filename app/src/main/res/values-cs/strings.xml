@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Vyskytla se chyba.</string>
-    <string name="error_network">Vyskytla se chyba sítě! Prosím zkontrolujte své připojení a zkuste to znovu!</string>
     <string name="error_empty">Toto nemůže být prázdné.</string>
     <string name="error_no_web_browser_found">Nepodařilo se najít webový prohlížeč, který lze použít.</string>
     <string name="error_compose_character_limit">Příspěvek je příliš dlouhý!</string>
@@ -39,7 +37,6 @@
     <string name="post_content_warning_show_less">Zobrazit méně</string>
     <string name="post_content_show_more">Rozbalit</string>
     <string name="post_content_show_less">Sbalit</string>
-    <string name="message_empty">Tady nic není.</string>
     <string name="footer_empty">Tady nic není. Obnovte přetažením dolů!</string>
     <string name="notification_reblog_format">%s boostnul/a váš příspěvek</string>
     <string name="notification_favourite_format">%s si oblíbil/a váš příspěvek</string>
@@ -52,7 +49,6 @@
     <string name="action_unreblog">Odstranit boost</string>
     <string name="action_favourite">Oblíbit</string>
     <string name="action_unfavourite">Odstranit oblíbení</string>
-    <string name="action_more">Více</string>
     <string name="action_compose">Napsat</string>
     <string name="action_logout">Odhlásit se</string>
     <string name="action_logout_confirm">Jste si jistý/á, že se chcete odhlásit z účtu %1$s?</string>
@@ -66,8 +62,6 @@
     <string name="action_delete">Smazat</string>
     <string name="action_send">TOOTNOUT</string>
     <string name="action_send_public">TOOTNOUT!</string>
-    <string name="action_retry">Zkusit znovu</string>
-    <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Předvolby</string>
     <string name="action_view_account_preferences">Předvolby účtu</string>
     <string name="action_view_favourites">Oblíbené</string>
@@ -239,17 +233,6 @@
     <string name="filter_add_description">Fráze k filtrování</string>
     <string name="add_account_name">Přidat účet</string>
     <string name="add_account_description">Přidat nový účet Mastodon</string>
-    <string name="action_lists">Seznamy</string>
-    <string name="title_lists">Seznamy</string>
-    <string name="error_create_list">Nelze vytvořit seznam</string>
-    <string name="error_rename_list">Nelze přejmenovat seznam</string>
-    <string name="error_delete_list">Nelze smazat seznam</string>
-    <string name="action_create_list">Vytvořit seznam</string>
-    <string name="action_rename_list">Přejmenovat seznam</string>
-    <string name="action_delete_list">Smazat seznam</string>
-    <string name="hint_search_people_list">Hledejte mezi lidmi, které sledujete</string>
-    <string name="action_add_to_list">Přidat účet na seznam</string>
-    <string name="action_remove_from_list">Odstranit účet ze seznamu</string>
     <string name="compose_active_account_description">Píšete jako %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Popis pro zrakově postižené
@@ -280,9 +263,6 @@
     <string name="restart_emoji">Pro použití těchto změn musíte restartovat aplikaci Pachli</string>
     <string name="later">Později</string>
     <string name="restart">Restartovat</string>
-    <string name="caption_systememoji">Výchozí sada emoji vašeho zařízení</string>
-    <string name="caption_blobmoji">Blob Emoji známá z Androidu 4.4–7.1</string>
-    <string name="caption_twemoji">Standardní sada emoji na Mastodonu</string>
     <string name="download_failed">Stahování selhalo</string>
     <string name="account_moved_description">%1$s se přesunul/a na:</string>
     <string name="reblog_private">Boostnout původnímu publiku</string>
@@ -319,7 +299,6 @@
     <string name="description_visibility_unlisted">Neuvedený</string>
     <string name="description_visibility_private">Pro sledující</string>
     <string name="description_visibility_direct">Přímý</string>
-    <string name="hint_list_name">Název seznamu</string>
     <string name="edit_hashtag_hint">Hashtag bez #</string>
     <string name="compose_shortcut_long_label">Napsat příspěvek</string>
     <string name="compose_shortcut_short_label">Napsat</string>
@@ -330,7 +309,7 @@
     <string name="notification_clear_text">Jste si jistý/á, že chcete trvale vymazat všechna vaše oznámení\?</string>
     <string name="action_delete_and_redraft">Smazat a přepsat</string>
     <string name="dialog_redraft_post_warning">Smazat a přepsat tento příspěvek\?</string>
-    <string name="poll_info_format"> <!-- 15 hlasů • 1 hodina do konce --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 hlasů • 1 hodina do konce -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s hlas</item>
         <item quantity="few">%s hlasy</item>
@@ -368,10 +347,8 @@
     <string name="confirmation_domain_unmuted">Skrytí domény %s bylo zrušeno</string>
     <string name="mute_domain_warning">Jste si jistý/á, že chcete zablokovat vše z domény %s\? Z této domény neuvidíte obsah v žádné veřejné časové ose ani v oznámeních. Vaši sledující z této domény budou odstraněni.</string>
     <string name="mute_domain_warning_dialog_ok">Skrýt celou doménu</string>
-    <string name="caption_notoemoji">Aktuální sada emoji od Googlu</string>
     <string name="button_continue">Pokračovat</string>
     <string name="button_back">Zpět</string>
-    <string name="button_done">Hotovo</string>
     <string name="report_sent_success">\@%s byla/a úspěšně nahlášen/a</string>
     <string name="hint_additional_info">Další komentáře</string>
     <string name="report_remote_instance">Přeposlat na %s</string>
@@ -467,7 +444,6 @@
     <string name="pref_title_confirm_favourites">Před oblíbením zobrazit dialog pro potvrzení</string>
     <string name="pref_title_hide_top_toolbar">Skrýt nadpis horního panelu nástrojů</string>
     <string name="wellbeing_hide_stats_profile">Skrýt kvantitativní statistiky profilů</string>
-    <string name="dialog_delete_list_warning">Opravdu chcete smazat seznam %s\?</string>
     <string name="follow_requests_info">I když váš účet není uzamčen, zaměstnanci %1$s si myslí, že byste mohli chtít zkontrolovat žádosti o sledování z těchto účtů ručně.</string>
     <string name="action_subscribe_account">Odebírat</string>
     <string name="action_unsubscribe_account">Přestat odebírat</string>

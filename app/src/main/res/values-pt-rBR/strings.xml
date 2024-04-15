@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Um erro ocorreu.</string>
     <string name="error_empty">Não pode estar vazio.</string>
     <string name="error_no_web_browser_found">Nenhum navegador foi encontrado.</string>
     <string name="error_compose_character_limit">O Toot é muito longo!</string>
@@ -46,7 +45,6 @@
     <string name="action_unreblog">Desfazer Boost</string>
     <string name="action_favourite">Favoritar</string>
     <string name="action_unfavourite">Desfavoritar</string>
-    <string name="action_more">Mais</string>
     <string name="action_compose">Compor</string>
     <string name="action_logout">Sair</string>
     <string name="action_logout_confirm">Tem certeza que deseja sair da conta %1$s? Isso excluirá todos os dados locais da conta, incluindo rascunhos e preferências.</string>
@@ -60,8 +58,6 @@
     <string name="action_delete">Excluir</string>
     <string name="action_send">TOOT!</string>
     <string name="action_send_public">TOOT!</string>
-    <string name="action_retry">Tentar novamente</string>
-    <string name="action_view_profile">Perfil</string>
     <string name="action_view_preferences">Preferências</string>
     <string name="action_view_favourites">Favoritos</string>
     <string name="action_view_mutes">Usuários silenciados</string>
@@ -216,8 +212,6 @@
     <string name="replying_to">Respondendo @%s</string>
     <string name="add_account_name">Adicionar conta</string>
     <string name="add_account_description">Adicionar nova conta Mastodon</string>
-    <string name="action_lists">Listas</string>
-    <string name="title_lists">Listas</string>
     <string name="compose_active_account_description">Postando como %1$s</string>
     <string name="action_set_caption">Descrever</string>
     <string name="action_remove">Remover</string>
@@ -240,9 +234,6 @@
     <string name="restart_emoji">É necessário reiniciar o aplicativo para aplicar as alterações</string>
     <string name="later">Depois</string>
     <string name="restart">Reiniciar</string>
-    <string name="caption_systememoji">Pacote de Emojis padrão do teu dispositivo</string>
-    <string name="caption_blobmoji">Os Emojis Blob conhecidos desde o Android 4.4 até o 7.1</string>
-    <string name="caption_twemoji">Pacote de Emojis padrão do Mastodon</string>
     <string name="download_failed">Erro ao baixar</string>
     <string name="account_moved_description">%1$s mudou-se para:</string>
     <string name="reblog_private">Dar Boost para o mesmo público</string>
@@ -256,12 +247,10 @@
     <string name="title_favourited_by">Favoritado por</string>
     <string name="description_visibility_public">Público</string>
     <string name="description_visibility_private">Seguidores</string>
-    <string name="error_network">Ocorreu um erro de rede. Por favor, verifique tua Internet e tente novamente.</string>
     <string name="title_posts_pinned">Fixado</string>
     <string name="post_username_format">\@%s</string>
     <string name="post_content_show_more">Mostrar mais</string>
     <string name="post_content_show_less">Mostrar menos</string>
-    <string name="message_empty">Nada aqui.</string>
     <string name="action_delete_and_redraft">Excluir e rascunhar</string>
     <string name="action_view_account_preferences">Preferências da conta</string>
     <string name="action_hashtags">Hashtags</string>
@@ -284,15 +273,6 @@
     <string name="filter_dialog_remove_button">Excluir</string>
     <string name="filter_dialog_update_button">Atualizar</string>
     <string name="filter_add_description">Frase para filtrar</string>
-    <string name="error_create_list">Não foi possível criar a lista</string>
-    <string name="error_rename_list">Não foi possível renomear a lista</string>
-    <string name="error_delete_list">Não foi possível excluir a lista</string>
-    <string name="action_create_list">Criar uma lista</string>
-    <string name="action_rename_list">Renomear lista</string>
-    <string name="action_delete_list">Excluir lista</string>
-    <string name="hint_search_people_list">Pesquisar pessoas que você segue</string>
-    <string name="action_add_to_list">Adicionar conta à lista</string>
-    <string name="action_remove_from_list">Remover conta da lista</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Descreva para pessoa com deficiência visual (até %d caracteres)</item>
         <item quantity="many">Descreva para pessoas com deficiência visual (até %d caracteres)</item>
@@ -321,7 +301,6 @@
     <string name="description_post_favourited">Favoritado</string>
     <string name="description_visibility_unlisted">Não-listado</string>
     <string name="description_visibility_direct">Direto</string>
-    <string name="hint_list_name">Nome da lista</string>
     <string name="edit_hashtag_hint">Hashtag sem #</string>
     <string name="notifications_clear">Limpar notificações</string>
     <string name="notifications_apply_filter">Filtra notificações</string>
@@ -331,7 +310,7 @@
     <string name="pref_title_bot_overlay">Mostrar indicador de robôs</string>
     <string name="notification_clear_text">Tem certeza de que deseja limpar permanentemente todas as tuas notificações?</string>
     <string name="compose_preview_image_description">Opções para imagem %s</string>
-    <string name="poll_info_format"> <!-- 15 votos • 1 hora restante --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votos • 1 hora restante -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="one">%s voto</item>
         <item quantity="many">%s votos</item>
@@ -364,10 +343,8 @@
     </plurals>
     <string name="pref_title_animate_gif_avatars">Animar avatares com GIF</string>
     <string name="description_poll">Enquete com as opções: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="caption_notoemoji">Pacote de Emojis atual do Google</string>
     <string name="button_continue">Continuar</string>
     <string name="button_back">Voltar</string>
-    <string name="button_done">Pronto</string>
     <string name="report_sent_success">\@%s denunciado com sucesso</string>
     <string name="hint_additional_info">Comentários adicionais</string>
     <string name="report_remote_instance">Encaminhar para %s</string>
@@ -478,7 +455,6 @@
     <string name="pref_title_animate_custom_emojis">Animar Emojis personalizados</string>
     <string name="dialog_delete_conversation_warning">Excluir esta conversa\?</string>
     <string name="action_delete_conversation">Excluir conversa</string>
-    <string name="dialog_delete_list_warning">Deseja excluir a lista %s\?</string>
     <string name="action_unbookmark">Remover do Salvos</string>
     <string name="pref_title_confirm_favourites">Solicitar confirmação antes de favoritar</string>
     <string name="duration_30_days">30 dias</string>
@@ -505,7 +481,6 @@
     <string name="a11y_label_loading_thread">Carregando fio</string>
     <string name="set_focus_description">Toque ou arraste o círculo para escolher o ponto focal que estará sempre visível nas miniaturas.</string>
     <string name="filter_expiration_format">%s (%s)</string>
-    <string name="action_add_or_remove_from_list">Adicionar ou remover da lista</string>
     <string name="dialog_push_notification_migration_other_accounts">Você se conectou novamente à tua conta atual para conceder permissão de assinatura Push à Pachli. No entanto, ainda tem outras contas que não foram migradas dessa forma. Alterne para elas e autentique novamente uma por uma para habilitar o suporte às notificações UnifiedPush.</string>
     <string name="dialog_push_notification_migration">Para usar notificações Push via UnifiedPush, Pachli precisa de permissão para assinar notificações em teu servidor Mastodon. Isso requer uma nova autenticação para alterar os escopos OAuth concedidos à Pachli. Usar a opção de reautenticar aqui ou nas preferências da conta preservará todos os teus rascunhos e cache locais.</string>
     <string name="failed_to_pin">Falha ao fixar</string>
@@ -531,10 +506,8 @@
     <string name="action_post_failed_show_drafts">Mostrar rascunhos</string>
     <string name="account_date_joined">Entrou em %1$s</string>
     <string name="mute_notifications_switch">Silenciar notificações</string>
-    <string name="failed_to_add_to_list">Falha ao adicionar a conta à lista</string>
     <string name="description_login">Funciona na maioria dos casos. Nenhum dado é vazado para outros aplicativos.</string>
     <string name="description_browser_login">Pode oferecer suporte a métodos de autenticação adicionais, mas requer um navegador compatível.</string>
-    <string name="failed_to_remove_from_list">Falha ao remover a conta da lista</string>
     <string name="status_edit_info">%1$s editou</string>
     <string name="action_continue_edit">Continuar editando</string>
     <string name="compose_unsaved_changes">Você tem alterações não salvas.</string>
@@ -545,7 +518,6 @@
     <string name="action_share_account_username">Compartilhar nome de usuário da conta</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="post_edited">Editado %s</string>
-    <string name="no_lists">Não tem lista alguma.</string>
     <string name="notification_update_format">%s editou teu Toot</string>
     <string name="error_following_hashtags_unsupported">Esta instância não oferece o recurso de seguir Hashtags.</string>
     <string name="pref_title_notification_filter_updates">um Toot que eu interagi foi editado</string>
@@ -554,12 +526,12 @@
     <string name="action_edit_image">Editar imagem</string>
     <string name="pref_title_notification_filter_sign_ups">alguém se inscreveu</string>
     <string name="saving_draft">Salvando rascunho…</string>
-    <string name="ui_error_translate_status">A tradução falhou: %s</string>
+    <string name="ui_error_translate_status_fmt">A tradução falhou: %1$s</string>
     <string name="update_dialog_negative">Nunca me lembre</string>
     <string name="translating">Traduzindo…</string>
     <string name="action_post_failed_do_nothing">Dispensar</string>
     <string name="dialog_delete_filter_positive_action">Excluir</string>
-    <string name="ui_error_reblog">Falhou dar Boost: %s</string>
+    <string name="ui_error_reblog_fmt">Falhou dar Boost: %1$s</string>
     <string name="notification_listenable_worker_name">Atividade em segundo plano</string>
     <string name="error_status_source_load">Falha ao carregar a fonte do estado da instância.</string>
     <string name="pref_title_update_notification_frequency">Avise-me sobre as novas versões do Pachli</string>
@@ -569,7 +541,7 @@
     <string name="title_public_trending_hashtags">Hashtags em alta</string>
     <string name="status_filter_placeholder_label_format">Filtrado(s): %s</string>
     <string name="confirmation_hashtag_unfollowed">#%s deixado de seguir</string>
-    <string name="ui_error_vote">Votar na enquete falhou: %s</string>
+    <string name="ui_error_vote_fmt">Votar na enquete falhou: %1$s</string>
     <string name="update_dialog_neutral">Não me lembre desta versão</string>
     <string name="ui_error_reject_follow_request">Falha ao rejeitar solicitação de seguir: %s</string>
     <string name="ui_error_clear_notifications">Limpar notificações falhou: %s</string>
@@ -611,19 +583,16 @@
     <string name="select_list_manage">Gerenciar listas</string>
     <string name="load_newest_statuses">Carregar Toots mais recentes</string>
     <string name="notification_report_description">Notificações sobre denúncias da moderação</string>
-    <string name="error_network_fmt">Ocorreu um erro de rede: %s</string>
     <string name="dialog_save_profile_changes_message">Quer salvar as alterações do teu perfil?</string>
-    <string name="error_generic_fmt">Ocorreu um erro: %s</string>
     <string name="action_add_reaction">reagir</string>
-    <string name="ui_error_favourite">Favoritar o Toot falhou: %s</string>
-    <string name="ui_error_bookmark">Salvar Toot falhou: %s</string>
+    <string name="ui_error_favourite_fmt">Favoritar o Toot falhou: %1$s</string>
+    <string name="ui_error_bookmark_fmt">Salvar Toot falhou: %1$s</string>
     <string name="notification_unknown_name">Desconhecido</string>
     <string name="total_usage">Uso total</string>
     <string name="pref_update_notification_frequency_always">Sempre</string>
     <string name="error_media_upload_sending_fmt">O carregamento falhou: %s</string>
     <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="filter_keyword_display_format">%s (palavra inteira)</string>
-    <string name="action_refresh">Atualizar</string>
     <string name="filter_keyword_addition_title">Adicionar palavra-chave</string>
     <string name="label_filter_keywords">Palavras-chave ou frases para filtrar</string>
     <string name="pref_title_show_self_boosts_description">Alguém dando Boost no próprio Toot</string>
@@ -632,7 +601,7 @@
     <string name="notification_report_format">Nova denúncia sobre %s</string>
     <string name="pref_title_show_stat_inline">Mostrar estatísticas do Toot na linha do tempo</string>
     <string name="ui_error_unknown">causa desconhecida</string>
-    <string name="ui_error_filter_v1_load">Falha ao carregar os filtros: %s</string>
+    <string name="ui_error_filter_v1_load_fmt">Falha ao carregar os filtros: %1$s</string>
     <string name="notification_sign_up_name">Inscrições</string>
     <string name="confirmation_hashtag_muted">#%s oculto</string>
     <string name="janky_animation_title">Pode ser necessário reiniciar o teu dispositivo</string>
@@ -650,13 +619,11 @@
     <string name="notification_summary_report_format">%s · %d Toots anexados</string>
     <string name="send_account_link_to">Compartilhar URL da conta para…</string>
     <string name="post_media_image">Imagem</string>
-    <string name="error_404_not_found">Tua instância não suporta este recurso</string>
     <string name="filter_action_hide">Ocultar</string>
     <string name="label_filter_title">Nome</string>
     <string name="pref_title_font_family">Família da fonte</string>
     <string name="notification_update_description">Notificações quando Toots com os quais interagiu são editados</string>
     <string name="notification_listenable_worker_description">Notificações quando Pachli está trabalhando em segundo plano</string>
-    <string name="list_exclusive_label">Ocultar da linha do tempo inicial</string>
     <string name="status_filtered_show_anyway">Mostrar mesmo assim</string>
     <string name="error_list_load">Erro ao carregar as listas</string>
     <string name="ui_error_accept_follow_request">Falha ao aceitar a solicitação de seguir: %s</string>

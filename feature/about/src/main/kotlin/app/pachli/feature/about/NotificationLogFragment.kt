@@ -50,7 +50,7 @@ import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.database.dao.LogEntryDao
 import app.pachli.core.database.model.LogEntryEntity
-import app.pachli.core.ui.await
+import app.pachli.core.ui.extensions.await
 import app.pachli.feature.about.databinding.FragmentNotificationLogBinding
 import app.pachli.feature.about.databinding.ItemLogEntryBinding
 import com.google.android.material.snackbar.Snackbar

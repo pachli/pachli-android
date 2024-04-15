@@ -1,5 +1,72 @@
 # Pachli changelog
 
+## v2.4.0
+
+### New features and other improvements
+
+- Notify the user about severed relationships (#[557](https://github.com/pachli/pachli-android/pull/557), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show the post's language tag in the detailed view  (#[546](https://github.com/pachli/pachli-android/pull/546), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow user to see poll results before voting (#[543](https://github.com/pachli/pachli-android/pull/543), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow the user to set a list's replies policy (#[534](https://github.com/pachli/pachli-android/pull/534), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show network activity in ListsActivity (#[533](https://github.com/pachli/pachli-android/pull/533), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve Image Viewer toolbar auto-hide (#[521](https://github.com/pachli/pachli-android/pull/521), [Angelo Suzuki](https://github.com/pachli/pachli-android/commits?author=1063155+tinsukE@users.noreply.github.com))
+- Support client filters in GoToSocial 0.15.0 (#[523](https://github.com/pachli/pachli-android/pull/523), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show "Followed hashtags" menu item in left-nav ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Tapping followed hashtag names in lists opens relevant timeline ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show user's lists in the left-side navigation menu (#[514](https://github.com/pachli/pachli-android/pull/514), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Auto-hide Image Viewer toolbar (#[507](https://github.com/pachli/pachli-android/pull/507), [Angelo Suzuki](https://github.com/pachli/pachli-android/commits?author=1063155+tinsukE@users.noreply.github.com))
+- Include "Notifications" in the left-side navigation menu (#[504](https://github.com/pachli/pachli-android/pull/504), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Don't crash on invalid avatars (#[566](https://github.com/pachli/pachli-android/pull/566), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Surface all exceptions to the user instead of crashing (#[565](https://github.com/pachli/pachli-android/pull/565), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve URL / tag / mention extraction when composing (#[564](https://github.com/pachli/pachli-android/pull/564), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve accessibility of ComposeActivity bottomsheets and buttons (#[548](https://github.com/pachli/pachli-android/pull/548), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Catch and swallow snackbar exception (#[536](https://github.com/pachli/pachli-android/pull/536), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Keep TabDataJsonAdapter so Moshi can deserialize in release builds (#[535](https://github.com/pachli/pachli-android/pull/535), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Sort lists by title wherever they occur ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Update tabs when lists are renamed or deleted ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show sized placeholder for hidden account media (#[516](https://github.com/pachli/pachli-android/pull/516), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure logging out accounts completes (#[515](https://github.com/pachli/pachli-android/pull/515), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure files are fully downloaded before sharing (#[482](https://github.com/pachli/pachli-android/pull/482), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Kabyle translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
+## v2.3.0
+
+### New features and other improvements
+
+- Display uncropped media on account media pages (#[464](https://github.com/pachli/pachli-android/pull/464), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow the user to trigger update checks (#[458](https://github.com/pachli/pachli-android/pull/458), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show a preview for playable audio attachments (#[426](https://github.com/pachli/pachli-android/pull/426), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show information about notification fetches on "About" screen (#[454](https://github.com/pachli/pachli-android/pull/454), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Keep the screen on while media is playing (#[422](https://github.com/pachli/pachli-android/pull/422), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Remove filters from Firefish capabilities (#[459](https://github.com/pachli/pachli-android/pull/459), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve legibility of stats labels for large font sizes (#[457](https://github.com/pachli/pachli-android/pull/457), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use the correct font when showing inserted text (#[453](https://github.com/pachli/pachli-android/pull/453), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show diffs for content that doesn't start with a block element (#[446](https://github.com/pachli/pachli-android/pull/446), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show correct account/timeline when composing from notifications (#[445](https://github.com/pachli/pachli-android/pull/445), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Expedite notification fetches via UnifiedPush (#[440](https://github.com/pachli/pachli-android/pull/440), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow HIDE_TOP_TOOLBAR preference text to wrap (#[439](https://github.com/pachli/pachli-android/pull/439), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Arabic translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Dutch translations ([Martijn de Boer](https://github.com/pachli/pachli-android/commits?author=github@sexybiggetje.nl))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update French translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Indonesian translations ([Reza Almanda](https://github.com/pachli/pachli-android/commits?author=rezaalmanda27@gmail.com))
+- Update Spanish translations ([JuanM](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Swedish translations ([bittin1ddc447d824349b2](https://github.com/pachli/pachli-android/commits?author=bittin@reimu.nl))
+
 ## v2.2.0
 
 ### New features and other improvements

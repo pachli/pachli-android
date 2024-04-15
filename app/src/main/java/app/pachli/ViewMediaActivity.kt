@@ -25,7 +25,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -33,86 +32,87 @@ import android.os.Bundle
 import android.os.Environment
 import android.transition.Transition
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import app.pachli.BuildConfig.APPLICATION_ID
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
-import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.ActivityViewMediaBinding
-import app.pachli.fragment.ViewImageFragment
-import app.pachli.fragment.ViewVideoFragment
+import app.pachli.fragment.MediaActionsListener
 import app.pachli.pager.ImagePagerAdapter
 import app.pachli.pager.SingleImagePagerAdapter
 import app.pachli.util.getTemporaryMediaFilename
-import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider
-import autodispose2.autoDispose
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.FutureTarget
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
 import java.util.Locale
+import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okio.buffer
+import okio.sink
 import timber.log.Timber
-
-typealias ToolbarVisibilityListener = (isVisible: Boolean) -> Unit
 
 /**
  * Show one or more media items (pictures, video, audio, etc).
  */
 @AndroidEntryPoint
-class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener, ViewVideoFragment.VideoActionsListener {
+class ViewMediaActivity : BaseActivity(), MediaActionsListener {
+    @Inject
+    lateinit var okHttpClient: OkHttpClient
+
+    private val viewModel: ViewMediaViewModel by viewModels()
+
     private val binding by viewBinding(ActivityViewMediaBinding::inflate)
 
     val toolbar: View
         get() = binding.toolbar
 
-    var isToolbarVisible = true
-        private set
-
-    private var attachments: List<AttachmentViewData>? = null
-    private val toolbarVisibilityListeners = mutableListOf<ToolbarVisibilityListener>()
+    private var attachmentViewData: List<AttachmentViewData>? = null
     private var imageUrl: String? = null
 
-    fun addToolbarVisibilityListener(listener: ToolbarVisibilityListener): Function0<Boolean> {
-        this.toolbarVisibilityListeners.add(listener)
-        listener(isToolbarVisible)
-        return { toolbarVisibilityListeners.remove(listener) }
-    }
+    /** True if a download to share media is in progress */
+    private var isDownloading: Boolean = false
+
+    /** True if a call to [onPrepareMenu] represents a user-initiated action */
+    private var respondToPrepareMenu = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        addMenuProvider(this)
 
         supportPostponeEnterTransition()
 
         // Gather the parameters.
-        attachments = ViewMediaActivityIntent.getAttachments(intent)
+        attachmentViewData = ViewMediaActivityIntent.getAttachments(intent)
         val initialPosition = ViewMediaActivityIntent.getAttachmentIndex(intent)
 
         // Adapter is actually of existential type PageAdapter & SharedElementsTransitionListener
         // but it cannot be expressed and if I don't specify type explicitly compilation fails
         // (probably a bug in compiler)
-        val adapter: ViewMediaAdapter = if (attachments != null) {
-            val realAttachs = attachments!!.map(AttachmentViewData::attachment)
+        val adapter: ViewMediaAdapter = if (attachmentViewData != null) {
+            val attachments = attachmentViewData!!.map(AttachmentViewData::attachment)
             // Setup the view pager.
-            ImagePagerAdapter(this, realAttachs, initialPosition)
+            ImagePagerAdapter(this, attachments, initialPosition)
         } else {
             imageUrl = ViewMediaActivityIntent.getImageUrl(intent)
                 ?: throw IllegalArgumentException("attachment list or image url has to be set")
@@ -132,12 +132,12 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
 
         // Setup the toolbar.
         setSupportActionBar(binding.toolbar)
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setDisplayShowHomeEnabled(true)
-            actionBar.title = getPageTitle(initialPosition)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            title = getPageTitle(initialPosition)
         }
+
         binding.toolbar.setNavigationOnClickListener { supportFinishAfterTransition() }
         binding.toolbar.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
@@ -146,6 +146,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
                 R.id.action_share_media -> shareMedia()
                 R.id.action_copy_media_link -> copyLink()
             }
+            viewModel.onToolbarMenuInteraction()
             true
         }
 
@@ -162,31 +163,38 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
         )
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
+
         menuInflater.inflate(R.menu.view_media_toolbar, menu)
         // We don't support 'open status' from single image views
-        menu.findItem(R.id.action_open_status)?.isVisible = (attachments != null)
-        return true
+        menu.findItem(R.id.action_open_status)?.isVisible = (attachmentViewData != null)
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        menu?.findItem(R.id.action_share_media)?.isEnabled = !isCreating
-        return true
+    override fun onPrepareMenu(menu: Menu) {
+        menu.findItem(R.id.action_share_media)?.isEnabled = !isDownloading
+
+        // onPrepareMenu is called immediately after onCreateMenu when the activity
+        // is created (https://issuetracker.google.com/issues/329322653), and this is
+        // not in response to user action. Ignore the first call, respond to
+        // subsequent calls.
+        if (respondToPrepareMenu) {
+            viewModel.onToolbarMenuInteraction()
+        } else {
+            respondToPrepareMenu = true
+        }
     }
 
-    override fun onBringUp() {
+    override fun onMediaReady() {
         supportStartPostponedEnterTransition()
     }
 
-    override fun onDismiss() {
+    override fun onMediaDismiss() {
         supportFinishAfterTransition()
     }
 
-    override fun onPhotoTap() {
-        isToolbarVisible = !isToolbarVisible
-        for (listener in toolbarVisibilityListeners) {
-            listener(isToolbarVisible)
-        }
+    override fun onMediaTap() {
+        val isToolbarVisible = viewModel.toggleToolbarVisibility()
 
         val visibility = if (isToolbarVisible) View.VISIBLE else View.INVISIBLE
         val alpha = if (isToolbarVisible) 1.0f else 0.0f
@@ -209,14 +217,12 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
     }
 
     private fun getPageTitle(position: Int): CharSequence {
-        if (attachments == null) {
-            return ""
-        }
-        return String.format(Locale.getDefault(), "%d/%d", position + 1, attachments?.size)
+        attachmentViewData ?: return ""
+        return String.format(Locale.getDefault(), "%d/%d", position + 1, attachmentViewData?.size)
     }
 
     private fun downloadMedia() {
-        val url = imageUrl ?: attachments!![binding.viewPager.currentItem].attachment.url
+        val url = imageUrl ?: attachmentViewData!![binding.viewPager.currentItem].attachment.url
         val filename = Uri.parse(url).lastPathSegment
         Toast.makeText(applicationContext, resources.getString(R.string.download_image, filename), Toast.LENGTH_SHORT).show()
 
@@ -232,7 +238,7 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     downloadMedia()
                 } else {
-                    showErrorDialog(binding.toolbar, R.string.error_media_download_permission, R.string.action_retry) {
+                    showErrorDialog(binding.toolbar, R.string.error_media_download_permission, app.pachli.core.ui.R.string.action_retry) {
                         requestDownloadMedia()
                     }
                 }
@@ -243,109 +249,84 @@ class ViewMediaActivity : BaseActivity(), ViewImageFragment.PhotoActionsListener
     }
 
     private fun onOpenStatus() {
-        val attach = attachments!![binding.viewPager.currentItem]
+        val attach = attachmentViewData!![binding.viewPager.currentItem]
         startActivityWithSlideInAnimation(ViewThreadActivityIntent(this, attach.statusId, attach.statusUrl))
     }
 
     private fun copyLink() {
-        val url = imageUrl ?: attachments!![binding.viewPager.currentItem].attachment.url
+        val url = imageUrl ?: attachmentViewData!![binding.viewPager.currentItem].attachment.url
         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         clipboard.setPrimaryClip(ClipData.newPlainText(null, url))
     }
 
     private fun shareMedia() {
-        val directory = applicationContext.getExternalFilesDir("Pachli")
+        val directory = applicationContext.getExternalFilesDir(null)
         if (directory == null || !(directory.exists())) {
             Timber.e("Error obtaining directory to save temporary media.")
             return
         }
 
         if (imageUrl != null) {
-            shareImage(directory, imageUrl!!)
+            shareMediaFile(directory, imageUrl!!)
         } else {
-            val attachment = attachments!![binding.viewPager.currentItem].attachment
-            when (attachment.type) {
-                Attachment.Type.IMAGE -> shareImage(directory, attachment.url)
-                Attachment.Type.AUDIO,
-                Attachment.Type.VIDEO,
-                Attachment.Type.GIFV,
-                -> shareMediaFile(directory, attachment.url)
-                else -> Timber.e("Unknown media format for sharing.")
-            }
+            val attachment = attachmentViewData!![binding.viewPager.currentItem].attachment
+            shareMediaFile(directory, attachment.url)
         }
     }
 
-    private fun shareFile(file: File, mimeType: String?) {
-        ShareCompat.IntentBuilder(this)
-            .setType(mimeType)
-            .addStream(FileProvider.getUriForFile(applicationContext, "$APPLICATION_ID.fileprovider", file))
-            .setChooserTitle(R.string.send_media_to)
-            .startChooser()
-    }
-
-    private var isCreating: Boolean = false
-
-    private fun shareImage(directory: File, url: String) {
-        isCreating = true
-        binding.progressBarShare.visibility = View.VISIBLE
-        invalidateOptionsMenu()
-        val file = File(directory, getTemporaryMediaFilename("png"))
-        val futureTask: FutureTarget<Bitmap> =
-            Glide.with(applicationContext).asBitmap().load(Uri.parse(url)).submit()
-        Single.fromCallable {
-            val bitmap = futureTask.get()
-            try {
-                val stream = FileOutputStream(file)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                stream.close()
-                return@fromCallable true
-            } catch (fnfe: FileNotFoundException) {
-                Timber.e("Error writing temporary media.")
-            } catch (ioe: IOException) {
-                Timber.e("Error writing temporary media.")
-            }
-            return@fromCallable false
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnDispose {
-                futureTask.cancel(true)
-            }
-            .autoDispose(AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY))
-            .subscribe(
-                { result ->
-                    Timber.d("Download image result: %s", result)
-                    isCreating = false
-                    invalidateOptionsMenu()
-                    binding.progressBarShare.visibility = View.GONE
-                    if (result) {
-                        shareFile(file, "image/png")
-                    }
-                },
-                { error ->
-                    isCreating = false
-                    invalidateOptionsMenu()
-                    binding.progressBarShare.visibility = View.GONE
-                    Timber.e(error, "Failed to download image")
-                },
-            )
-    }
-
+    /**
+     * Share media by downloading it to a temporary file and then sharing that
+     * file.
+     *
+     * [DownloadManager] is not used for this as it is not guaranteed to start
+     * downloading the file expediently, and the user may wait a long time.
+     */
     private fun shareMediaFile(directory: File, url: String) {
-        val uri = Uri.parse(url)
+        isDownloading = true
+        binding.progressBarShare.show()
+        invalidateOptionsMenu()
+
         val mimeTypeMap = MimeTypeMap.getSingleton()
         val extension = MimeTypeMap.getFileExtensionFromUrl(url)
         val mimeType = mimeTypeMap.getMimeTypeFromExtension(extension)
         val filename = getTemporaryMediaFilename(extension)
         val file = File(directory, filename)
 
-        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val request = DownloadManager.Request(uri)
-        request.setDestinationUri(Uri.fromFile(file))
-        request.setVisibleInDownloadsUi(false)
-        downloadManager.enqueue(request)
+        lifecycleScope.launch {
+            val request = Request.Builder().url(url).build()
+            val response = async(Dispatchers.IO) {
+                val response = okHttpClient.newCall(request).execute()
+                response.body?.let { body ->
+                    file.sink().buffer().use { it.writeAll(body.source()) }
+                }
+                return@async response
+            }.await()
 
-        shareFile(file, mimeType)
+            isDownloading = false
+            binding.progressBarShare.hide()
+            invalidateOptionsMenu()
+
+            if (!response.isSuccessful) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.error_media_download, url, response.code, response.message),
+                    Snackbar.LENGTH_INDEFINITE,
+                ).show()
+                return@launch
+            }
+
+            ShareCompat.IntentBuilder(this@ViewMediaActivity)
+                .setType(mimeType)
+                .addStream(
+                    FileProvider.getUriForFile(
+                        applicationContext,
+                        "$APPLICATION_ID.fileprovider",
+                        file,
+                    ),
+                )
+                .setChooserTitle(R.string.send_media_to)
+                .startChooser()
+        }
     }
 }
 

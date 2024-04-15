@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Fixes:
+
+- Voorkom crash als trending tabblad aanwezig is

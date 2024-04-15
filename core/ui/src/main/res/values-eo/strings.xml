@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Reta eraro okazis! Bonvolu kontroli vian konekton kaj klopodi denove!</string>
+    <string name="error_generic">Eraro okazis.</string>
+    <string name="message_empty">Nenio tie ĉi.</string>
+    <string name="action_retry">Reprovi</string>
+    <string name="button_done">Farita</string>
+    <string name="action_view_profile">Profilo</string>
+    <string name="action_more">Pli</string>
+</resources>

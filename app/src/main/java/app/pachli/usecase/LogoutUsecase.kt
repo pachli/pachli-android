@@ -14,6 +14,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.removeShortcut
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import timber.log.Timber
 
 class LogoutUsecase @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -37,11 +38,15 @@ class LogoutUsecase @Inject constructor(
             val clientId = activeAccount.clientId
             val clientSecret = activeAccount.clientSecret
             if (clientId != null && clientSecret != null) {
-                api.revokeOAuthToken(
-                    clientId = clientId,
-                    clientSecret = clientSecret,
-                    token = activeAccount.accessToken,
-                )
+                try {
+                    api.revokeOAuthToken(
+                        clientId = clientId,
+                        clientSecret = clientSecret,
+                        token = activeAccount.accessToken,
+                    )
+                } catch (e: Exception) {
+                    Timber.e(e, "Could not revoke OAuth token, continuing")
+                }
             }
 
             // disable push notifications

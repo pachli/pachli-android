@@ -25,14 +25,25 @@ android {
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 }
 
 dependencies {
     // Calls "openLink" from projects.core.activity
     implementation(projects.core.activity)
+    implementation(projects.core.common)
     implementation(projects.core.designsystem)
+
+    // Uses HttpException from Retrofit
+    implementation(projects.core.network)
+
+    // Uses JsonDataException from Moshi
+    implementation(libs.moshi)
 
     // Some views inherit from AndroidX views
     implementation(libs.bundles.androidx)
+
+    implementation(libs.material.iconics)
+    implementation(libs.material.typeface)
 }

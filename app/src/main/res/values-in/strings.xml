@@ -35,7 +35,6 @@
     <string name="post_sensitive_media_directions">Klik untuk melihat</string>
     <string name="post_content_warning_show_more">Tampilkan Lebih Banyak</string>
     <string name="post_content_warning_show_less">Tampilkan Lebih Sedikit</string>
-    <string name="message_empty">Tidak ada apa pun disini.</string>
     <string name="notification_follow_format">%s mengikuti Anda</string>
     <string name="report_username_format">Laporkan @%s</string>
     <string name="action_follow">Ikuti</string>
@@ -44,8 +43,6 @@
     <string name="action_unblock">Buka blokir</string>
     <string name="action_report">Laporkan</string>
     <string name="action_delete">Hapus</string>
-    <string name="action_retry">Coba lagi</string>
-    <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Preferensi</string>
     <string name="action_view_account_preferences">Preferensi Akun</string>
     <string name="action_view_favourites">Favorit</string>
@@ -115,20 +112,11 @@
     <string name="status_count_one_plus">1+</string>
     <string name="follows_you">Mengikuti Anda</string>
     <string name="add_account_description">Tambahkan Akun Mastodon baru</string>
-    <string name="action_lists">Daftar</string>
-    <string name="title_lists">Daftar</string>
-    <string name="error_rename_list">Tidak dapat mengubah nama daftar</string>
-    <string name="error_delete_list">Tidak dapat menghapus daftar</string>
-    <string name="action_create_list">Buat daftar</string>
-    <string name="action_rename_list">Ubah nama daftar</string>
-    <string name="action_delete_list">Hapus daftar</string>
     <string name="lock_account_label">Kunci akun</string>
     <string name="system_default">Bawaan sistem</string>
     <string name="action_compose_shortcut">Tulis</string>
     <string name="restart">Mulai ulang</string>
     <string name="account_note_saved">Disimpan!</string>
-    <string name="error_generic">Terjadi kesalahan.</string>
-    <string name="error_network">Terjadi kesalahan pada jaringan! Harap periksa koneksi Anda dan coba lagi!</string>
     <string name="error_sender_account_gone">Gagal mengirim postingan.</string>
     <string name="title_mutes">Pengguna dibisukan</string>
     <string name="title_announcements">Pengumuman</string>
@@ -149,7 +137,6 @@
     <string name="notification_favourite_name">Favorit</string>
     <string name="post_media_images">Gambar</string>
     <string name="add_account_name">Tambah Akun</string>
-    <string name="error_create_list">Tidak dapat membuat daftar</string>
     <string name="later">Nanti</string>
     <string name="pachli_compose_post_quicksetting_label">Tulis Postingan</string>
     <string name="error_media_upload_image_or_video">Gambar dan video tidak dapat disematkan ke dalam post yang sama.</string>
@@ -172,7 +159,6 @@
     <string name="action_favourite">Favorit</string>
     <string name="action_unfavourite">Hapus favorit</string>
     <string name="action_unbookmark">Hapus bookmark</string>
-    <string name="action_more">Lebih</string>
     <string name="action_compose">Menyusun</string>
     <string name="action_logout">Keluar</string>
     <string name="action_logout_confirm">Apakah kamu yakin ingin keluar dari akun %1$s\?</string>
@@ -237,13 +223,10 @@
     <string name="title_tab_public_trending_links">Tautan</string>
     <string name="title_public_trending">Sedang tren</string>
     <string name="title_public_trending_statuses">Postingan trending</string>
-    <string name="error_network_fmt">Jaringan error: %s</string>
-    <string name="error_generic_fmt">Terjadi error: %s</string>
     <string name="title_edits">Sunting</string>
     <string name="title_followed_hashtags">Tagar yang diikuti</string>
     <string name="error_media_upload_sending_fmt">Upload gagal: %s</string>
     <string name="title_tab_public_trending_statuses">Postingan</string>
-    <string name="error_404_not_found">Server Anda tidak mendukung fitur ini</string>
     <string name="title_tab_public_trending_hashtags">Tagar</string>
     <string name="notification_header_report_format">%s dilaporkan %s</string>
     <string name="dialog_follow_hashtag_title">Ikuti tagar</string>

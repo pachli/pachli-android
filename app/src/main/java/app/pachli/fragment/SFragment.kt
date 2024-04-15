@@ -52,7 +52,7 @@ import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ReportActivityIntent
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.network.model.Attachment
@@ -127,9 +127,16 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                             it.msg(requireContext()),
                         )
                         Timber.e(msg)
-                        Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(R.string.action_retry) { serverRepository.retry() }
-                            .show()
+                        try {
+                            Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE)
+                                .setAction(app.pachli.core.ui.R.string.action_retry) { serverRepository.retry() }
+                                .show()
+                        } catch (e: IllegalArgumentException) {
+                            // On rare occasions this code is running before the fragment's
+                            // view is connected to the parent. This causes Snackbar.make()
+                            // to crash.  See https://issuetracker.google.com/issues/228215869.
+                            // For now, swallow the exception.
+                        }
                         serverCanTranslate = false
                     }
                 }
@@ -411,7 +418,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     protected fun viewTag(tag: String) {
-        startActivity(StatusListActivityIntent.hashtag(requireContext(), tag))
+        startActivity(TimelineActivityIntent.hashtag(requireContext(), tag))
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
@@ -426,7 +433,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     val result = timelineCases.delete(viewData.status.id).exceptionOrNull()
                     if (result != null) {
                         Timber.w(result, "error deleting status")
-                        Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT).show()
                     }
                     // XXX: Removes the item even if there was an error. This is probably not
                     // correct (see similar code in showConfirmEditDialog() which only
@@ -472,7 +479,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         },
                         { error: Throwable? ->
                             Timber.w(error, "error deleting status")
-                            Toast.makeText(context, R.string.error_generic, Toast.LENGTH_SHORT)
+                            Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT)
                                 .show()
                         },
                     )

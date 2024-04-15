@@ -9,5 +9,5 @@ build
 gradle-user-home
 profile-out
 profile-out-*
-app/release
+app/*/release
 app-release.apk

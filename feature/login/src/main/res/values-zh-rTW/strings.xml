@@ -9,7 +9,7 @@
 \n更多資訊可以在 <a href="https://joinmastodon.org">joinmastodon.org</a> 查看。 </string>
     <string name="action_close">關閉</string>
     <string name="error_invalid_domain">該域名無效</string>
-    <string name="error_failed_app_registration">無法通過該伺服器的身份驗證。如果此問題持續發生，請嘗試選單中的“在瀏覽器中登錄”。</string>
+    <string name="error_failed_app_registration_fmt">無法通過該伺服器的身份驗證。如果此問題持續發生，請嘗試選單中的“在瀏覽器中登錄”。: %1$s</string>
     <string name="error_authorization_unknown">認證過程出現未知錯誤。如果此問題持續發生，請嘗試選單中的“在瀏覽器中登錄”。</string>
     <string name="error_authorization_denied">授權被拒絕。</string>
     <string name="error_retrieving_oauth_token">無法獲取登入資訊。</string>

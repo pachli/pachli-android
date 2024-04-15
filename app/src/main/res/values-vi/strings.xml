@@ -19,9 +19,6 @@
     <string name="notification_reblog_format">%s đăng lại tút của bạn</string>
     <string name="error_no_custom_emojis">Máy chủ %s không có emoji tùy chỉnh</string>
     <string name="send_post_notification_error_title">Lỗi đăng tút</string>
-    <string name="error_delete_list">Không thể xóa danh sách</string>
-    <string name="error_rename_list">Không thể cập nhật danh sách</string>
-    <string name="error_create_list">Không thể tạo danh sách</string>
     <string name="error_sender_account_gone">Xảy ra lỗi khi đăng tút.</string>
     <string name="error_media_upload_sending">Tải lên không thành công.</string>
     <string name="error_media_upload_image_or_video">Không thể đính kèm ảnh và video cùng một lúc.</string>
@@ -32,17 +29,12 @@
     <string name="error_compose_character_limit">Vượt quá số ký tự cho phép!</string>
     <string name="error_no_web_browser_found">Không tìm thấy trình duyệt web.</string>
     <string name="error_empty">Không được để trống.</string>
-    <string name="error_network">Rớt mạng! Xin kiểm tra kết nối và thử lại!</string>
-    <string name="error_generic">Đã có lỗi xảy ra.</string>
-    <string name="title_lists">Danh sách</string>
-    <string name="action_lists">Danh sách</string>
     <string name="action_reset_schedule">Làm tươi</string>
     <string name="action_search">Tìm kiếm</string>
     <string name="action_edit_profile">Hồ sơ</string>
     <string name="action_view_account_preferences">Cá nhân</string>
     <string name="action_view_preferences">Cài đặt</string>
     <string name="action_logout">Đăng xuất</string>
-    <string name="button_done">Xong</string>
     <string name="action_send_public">ĐĂNG</string>
     <string name="button_back">Quay lại</string>
     <string name="button_continue">Tiếp tục</string>
@@ -121,8 +113,6 @@
     <string name="action_view_mutes">Những người đã ẩn</string>
     <string name="action_view_bookmarks">Lưu</string>
     <string name="action_view_favourites">Thích</string>
-    <string name="action_view_profile">Trang hồ sơ</string>
-    <string name="action_retry">Thử lại</string>
     <string name="action_delete_and_redraft">Xóa &amp; viết lại</string>
     <string name="action_delete">Xóa</string>
     <string name="action_edit">Sửa</string>
@@ -135,7 +125,6 @@
     <string name="action_follow">Theo dõi</string>
     <string name="action_logout_confirm">Bạn có muốn đăng xuất tài khoản %1$s\? Dữ liệu của tài khoản sẽ bị xóa, bao gồm những bản nháp và thiết lập.</string>
     <string name="action_compose">Soạn tút</string>
-    <string name="action_more">Thêm</string>
     <string name="action_unfavourite">Bỏ lưu</string>
     <string name="action_bookmark">Lưu</string>
     <string name="action_favourite">Thích</string>
@@ -146,7 +135,6 @@
     <string name="report_comment_hint">Ghi chú\?</string>
     <string name="report_username_format">Báo cáo @%s</string>
     <string name="footer_empty">Trượt xuống để tải nội dung!</string>
-    <string name="message_empty">Trống.</string>
     <string name="post_content_show_less">Thu gọn</string>
     <string name="post_content_show_more">Tiếp tục đọc</string>
     <string name="post_content_warning_show_less">Thu gọn</string>
@@ -328,7 +316,7 @@
     <plurals name="poll_info_votes">
         <item quantity="other">%s người bình chọn</item>
     </plurals>
-    <string name="poll_info_format"> <!-- 15 người bình chọn • còn 1 giờ --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 người bình chọn • còn 1 giờ -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">Mô tả cho hình %s</string>
     <string name="compose_shortcut_short_label">Soạn</string>
     <string name="compose_shortcut_long_label">Soạn tút</string>
@@ -340,7 +328,6 @@
     <string name="hashtags">Hashtag</string>
     <string name="edit_hashtag_hint">Không cần dấu #</string>
     <string name="add_hashtag_title">Thêm hashtag</string>
-    <string name="hint_list_name">Tên danh sách</string>
     <string name="description_poll">Lượt bình chọn: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_visibility_direct">Nhắn riêng</string>
     <string name="description_visibility_private">Người theo dõi</string>
@@ -374,10 +361,6 @@
     <string name="reblog_private">Đăng lại công khai</string>
     <string name="account_moved_description">%1$s đã chuyển sang:</string>
     <string name="download_failed">Tải về thất bại</string>
-    <string name="caption_notoemoji">Emoji của Google</string>
-    <string name="caption_twemoji">Emoji chính thức của Mastodon</string>
-    <string name="caption_blobmoji">Emoji của Android phiên bản từ 4.4 đến 7.1</string>
-    <string name="caption_systememoji">Sử dụng emoji mặc định của thiết bị</string>
     <string name="restart">Khởi động lại</string>
     <string name="later">Để sau</string>
     <string name="restart_emoji">Bạn cần khởi động lại Pachli để áp dụng các thiết lập</string>
@@ -398,12 +381,6 @@
 \n(Tối đa %d ký tự)</item>
     </plurals>
     <string name="compose_active_account_description">Đăng với tư cách %1$s</string>
-    <string name="action_add_to_list">Thêm người này vào danh sách</string>
-    <string name="action_remove_from_list">Xóa người này khỏi danh sách</string>
-    <string name="hint_search_people_list">Tìm người để theo dõi</string>
-    <string name="action_delete_list">Xóa danh sách</string>
-    <string name="action_rename_list">Cập nhật danh sách</string>
-    <string name="action_create_list">Tạo danh sách</string>
     <string name="add_account_description">Thêm tài khoản Mastodon</string>
     <string name="add_account_name">Thêm tài khoản</string>
     <string name="filter_add_description">Cụm từ muốn lọc</string>
@@ -438,7 +415,6 @@
     </plurals>
     <string name="duration_indefinite">Vĩnh viễn</string>
     <string name="label_duration">Thời hạn</string>
-    <string name="dialog_delete_list_warning">Bạn thật sự muốn xóa danh sách %s\?</string>
     <string name="post_media_attachments">Đính kèm</string>
     <string name="post_media_audio">Âm thanh</string>
     <string name="drafts_post_reply_removed">Đã xóa tút trả lời nháp</string>
@@ -498,9 +474,6 @@
     <string name="failed_to_pin">Không thể ghim</string>
     <string name="action_add_reaction">biểu cảm</string>
     <string name="notification_report_description">Thông báo báo cáo kiểm duyệt</string>
-    <string name="action_add_or_remove_from_list">Thêm hoặc xoá khỏi danh sách</string>
-    <string name="failed_to_add_to_list">Không thể thêm người vào danh sách</string>
-    <string name="failed_to_remove_from_list">Không thể xoá người khỏi danh sách</string>
     <string name="action_unfollow_hashtag_format">Bỏ theo dõi #%s\?</string>
     <string name="status_created_at_now">vừa xong</string>
     <string name="notification_report_format">Báo cáo mới trên %s</string>
@@ -509,7 +482,6 @@
     <string name="confirmation_hashtag_unfollowed">Đã bỏ theo dõi #%s</string>
     <string name="pref_title_notification_filter_reports">có một báo cáo mới</string>
     <string name="notification_report_name">Báo cáo</string>
-    <string name="no_lists">Chưa có danh sách nào.</string>
     <string name="report_category_violation">Vi phạm nội quy máy chủ</string>
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Khác</string>
@@ -558,15 +530,14 @@
     <string name="total_accounts">người dùng</string>
     <string name="dialog_follow_hashtag_title">Theo dõi hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
-    <string name="action_refresh">Làm mới</string>
     <string name="notification_unknown_name">Chưa biết</string>
     <string name="socket_timeout_exception">Mất thời gian kết nối quá lâu</string>
     <string name="ui_error_unknown">chưa rõ lý do</string>
-    <string name="ui_error_bookmark">Lưu tút không thành công: %s</string>
+    <string name="ui_error_bookmark_fmt">Lưu tút không thành công: %1$s</string>
     <string name="ui_error_clear_notifications">Xóa thông báo không thành công: %s</string>
-    <string name="ui_error_favourite">Thích tút không thành công: %s</string>
-    <string name="ui_error_reblog">Đăng lại tút không thành công: %s</string>
-    <string name="ui_error_vote">Bình chọn không thành công: %s</string>
+    <string name="ui_error_favourite_fmt">Thích tút không thành công: %1$s</string>
+    <string name="ui_error_reblog_fmt">Đăng lại tút không thành công: %1$s</string>
+    <string name="ui_error_vote_fmt">Bình chọn không thành công: %1$s</string>
     <string name="ui_error_accept_follow_request">Chấp nhận theo dõi không thành công: %s</string>
     <string name="ui_error_reject_follow_request">Từ chối theo dõi không thành công: %s</string>
     <string name="ui_success_accepted_follow_request">Đã chấp nhận yêu cầu theo dõi</string>
@@ -608,7 +579,6 @@
     <string name="notification_notification_worker">Đang nạp thông báo…</string>
     <string name="notification_prune_cache">Bảo trì bộ nhớ đệm…</string>
     <string name="error_media_upload_sending_fmt">Không thể tải lên: %s</string>
-    <string name="list_exclusive_label">Ẩn khỏi bảng tin</string>
     <string name="error_media_playback">Không thể phát: %s</string>
     <string name="dialog_delete_filter_text">Xóa bộ lọc \'%1$s\'\?</string>
     <string name="dialog_delete_filter_positive_action">Xóa</string>

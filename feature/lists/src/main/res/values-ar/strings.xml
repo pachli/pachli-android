@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hint_list_name">اسم القائمة</string>
+    <string name="list_exclusive_label">إخفاء مِن الخيط الرئيس</string>
+    <string name="title_lists">القوائم</string>
+    <string name="error_create_list_fmt">%2$s: \"%1$s\" لا يمكن إنشاء قائمة</string>
+    <string name="error_delete_list_fmt">%2$s: \"%1$s\" لا يمكن حذف القائمة</string>
+    <string name="error_rename_list_fmt">%2$s: \"%1$s\" لا يمكن إعادة تسمية القائمة</string>
+    <string name="action_rename_list">إعادة تسمية القائمة</string>
+    <string name="action_create_list">إنشاء قائمة</string>
+    <string name="dialog_delete_list_warning">أتريد حقا حذف القائمة %s؟</string>
+    <string name="action_remove_from_list">إزالة الحساب مِن القائمة</string>
+    <string name="action_add_to_list">إضافة الحساب إلى القائمة</string>
+    <string name="action_delete_list">حذف القائمة</string>
+    <string name="failed_to_add_to_list">فشل إضافة الحساب إلى القائمة</string>
+    <string name="failed_to_remove_from_list">فشل إزالة الحساب من القائمة</string>
+    <string name="no_lists">ليس لديك أي قوائم.</string>
+    <string name="hint_search_people_list">البحث عن أشخاص قصد متابعتهم</string>
+    <string name="action_add_or_remove_from_list">إضافة أو إزالة من القائمة</string>
+</resources>

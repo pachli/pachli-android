@@ -44,7 +44,6 @@ import app.pachli.core.network.model.Users
 import app.pachli.core.network.model.nodeinfo.NodeInfo
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
-import com.google.common.reflect.TypeToken
 import com.google.common.truth.Truth.assertWithMessage
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
@@ -292,9 +291,6 @@ class ServerVersionTest {
     @OptIn(ExperimentalStdlibApi::class)
     @Test
     fun parseVersionString() {
-        val mapType: TypeToken<Map<String, Set<String>>> =
-            object : TypeToken<Map<String, Set<String>>>() {}
-
         val serverVersions = moshi.adapter<Map<String, Set<String>>>()
             .lenient()
             .fromJson(loadJsonAsString("server-versions.json5"))!!

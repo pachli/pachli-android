@@ -10,7 +10,7 @@
     <string name="action_close">Đóng</string>
     <string name="action_browser_login">Đăng nhập bằng trình duyệt</string>
     <string name="error_invalid_domain">Tên miền không hợp lệ</string>
-    <string name="error_failed_app_registration">Máy chủ này không cấp quyền truy cập.</string>
+    <string name="error_failed_app_registration_fmt">Máy chủ này không cấp quyền truy cập: %1$s</string>
     <string name="error_authorization_unknown">Xảy ra lỗi khi cố gắng truy cập.</string>
     <string name="error_authorization_denied">Truy cập bị từ chối.</string>
     <string name="error_retrieving_oauth_token">Lấy token đăng nhập thất bại.</string>

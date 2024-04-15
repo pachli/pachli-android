@@ -20,7 +20,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.retrofit.MastodonApi
@@ -72,9 +71,7 @@ class AccountMediaRemoteMediator(
             viewModel.currentSource?.invalidate()
             return MediatorResult.Success(endOfPaginationReached = statuses.isEmpty())
         } catch (e: Exception) {
-            return ifExpected(e) {
-                MediatorResult.Error(e)
-            }
+            return MediatorResult.Error(e)
         }
     }
 }

@@ -69,6 +69,6 @@ fun loadAvatar(
     }
 }
 
-fun decodeBlurHash(context: Context, blurhash: String): BitmapDrawable {
-    return BitmapDrawable(context.resources, BlurHashDecoder.decode(blurhash, 32, 32, 1f))
+fun decodeBlurHash(context: Context, blurhash: String, width: Int = 32, height: Int = 32): BitmapDrawable {
+    return BitmapDrawable(context.resources, BlurHashDecoder.decode(blurhash, width, height, 1f))
 }

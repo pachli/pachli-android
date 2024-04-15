@@ -16,31 +16,122 @@
 
 package app.pachli.fragment
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import androidx.annotation.CallSuper
 import androidx.annotation.OptIn
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.media3.common.util.UnstableApi
 import app.pachli.ViewMediaActivity
+import app.pachli.ViewMediaViewModel
 import app.pachli.core.network.model.Attachment
+import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+/** Interface for actions that may happen while media is being displayed */
+interface MediaActionsListener {
+    /**
+     * The media fragment is ready for the hosting activity to complete the
+     * fragment transition; typically because any media to be displayed has
+     * been loaded.
+     */
+    fun onMediaReady()
+
+    /** The user is dismissing the media (e.g., by flinging up) */
+    fun onMediaDismiss()
+
+    /** The user has tapped on the media (typically to show/hide UI controls) */
+    fun onMediaTap()
+}
 
 abstract class ViewMediaFragment : Fragment() {
-    private var toolbarVisibilityDisposable: Function0<Boolean>? = null
 
-    abstract fun setupMediaView(
-        showingDescription: Boolean,
-    )
+    protected val viewModel: ViewMediaViewModel by activityViewModels()
 
-    abstract fun onToolbarVisibilityChange(visible: Boolean)
+    /**
+     * Called after [onResume], subclasses should override this and update
+     * the contents of views (including loading any media).
+     *
+     * @param showingDescription True if the media's description should be shown
+     */
+    abstract fun setupMediaView(showingDescription: Boolean)
+
+    /**
+     * Called when the visibility of the toolbar changes.
+     *
+     * @param visible True if the toolbar is visible
+     */
+    @CallSuper
+    protected open fun onToolbarVisibilityChange(visible: Boolean) {
+        if (visible && shouldScheduleToolbarHide()) {
+            hideToolbarAfterDelay()
+        } else {
+            hideToolbarJob?.cancel()
+        }
+    }
+
+    /**
+     * Called when the toolbar becomes visible, returns whether or not to schedule hiding the toolbar
+     */
+    protected abstract fun shouldScheduleToolbarHide(): Boolean
+
+    /** Hoist toolbar hiding to activity so it can track state across different fragments */
+    private var hideToolbarJob: Job? = null
+
+    /**
+     * Schedule hiding the toolbar after a delay
+     */
+    protected fun hideToolbarAfterDelay() {
+        hideToolbarJob?.cancel()
+        hideToolbarJob = lifecycleScope.launch {
+            delay(CONTROLS_TIMEOUT)
+            mediaActionsListener.onMediaTap()
+        }
+    }
+
+    /**
+     * Cancel previously scheduled hiding of the toolbar
+     */
+    protected fun cancelToolbarHide() {
+        hideToolbarJob?.cancel()
+    }
+
+    protected lateinit var mediaActivity: ViewMediaActivity
+        private set
 
     protected var showingDescription = false
     protected var isDescriptionVisible = false
 
-    /** The attachment to show. Set in [onViewCreated] */
+    /** The attachment to show */
     protected lateinit var attachment: Attachment
 
-    protected var shouldStartTransition = false
+    /** Listener to call as media is loaded or on user interaction */
+    protected lateinit var mediaActionsListener: MediaActionsListener
+
+    /**
+     * True if the fragment should call [MediaActionsListener.onMediaReady]
+     * when the media is loaded.
+     */
+    protected var shouldCallMediaReady = false
+
+    /** Awaitable signal that the transition has completed */
+    var transitionComplete: CompletableDeferred<Unit>? = CompletableDeferred()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mediaActivity = activity as ViewMediaActivity
+        mediaActionsListener = context as MediaActionsListener
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,23 +139,81 @@ abstract class ViewMediaFragment : Fragment() {
         attachment = arguments?.getParcelable<Attachment>(ARG_ATTACHMENT)
             ?: throw IllegalArgumentException("ARG_ATTACHMENT has to be set")
 
-        shouldStartTransition = arguments?.getBoolean(ARG_START_POSTPONED_TRANSITION)
+        shouldCallMediaReady = arguments?.getBoolean(ARG_SHOULD_CALL_MEDIA_READY)
             ?: throw IllegalArgumentException("ARG_START_POSTPONED_TRANSITION has to be set")
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.toolbarVisibility.collect(::onToolbarVisibilityChange)
+            }
+        }
+    }
+
+    /**
+     * Called by the fragment adapter to notify the fragment that the shared
+     * element transition has been completed.
+     */
+    open fun onTransitionEnd() {
+        this.transitionComplete?.complete(Unit)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        finalizeViewSetup()
+    }
+
+    private fun finalizeViewSetup() {
+        showingDescription = !TextUtils.isEmpty(attachment.description)
+        isDescriptionVisible = showingDescription
+        setupMediaView(showingDescription && viewModel.isToolbarVisible)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // If <= API 23 then multi-window mode is not available, so this is a good time to
+        // pause everything
+        if (Build.VERSION.SDK_INT <= 23) {
+            hideToolbarJob?.cancel()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        // If > API 23 then this might be multi-window, and definitely wasn't paused in onPause,
+        // so pause everything now.
+        if (Build.VERSION.SDK_INT > 23) {
+            hideToolbarJob?.cancel()
+        }
+    }
+
+    override fun onDestroyView() {
+        transitionComplete = null
+        super.onDestroyView()
     }
 
     companion object {
-        @JvmStatic
-        protected val ARG_START_POSTPONED_TRANSITION = "startPostponedTransition"
+        protected const val ARG_SHOULD_CALL_MEDIA_READY = "shouldCallMediaReady"
+
+        protected const val ARG_ATTACHMENT = "attach"
 
         @JvmStatic
-        protected val ARG_ATTACHMENT = "attach"
+        protected val CONTROLS_TIMEOUT = 2.seconds // Consistent with YouTube player
 
+        /**
+         * @param attachment The media attachment to display in the fragment
+         * @param shouldCallMediaReady If true this fragment should call
+         *  [MediaActionsListener.onMediaReady] when it has finished loading
+         *  media, so the calling activity can perform any final actions.
+         * @return A fragment that shows [attachment]
+         */
         @JvmStatic
         @OptIn(UnstableApi::class)
-        fun newInstance(attachment: Attachment, shouldStartPostponedTransition: Boolean): ViewMediaFragment {
+        fun newInstance(attachment: Attachment, shouldCallMediaReady: Boolean): ViewMediaFragment {
             val arguments = Bundle(2)
             arguments.putParcelable(ARG_ATTACHMENT, attachment)
-            arguments.putBoolean(ARG_START_POSTPONED_TRANSITION, shouldStartPostponedTransition)
+            arguments.putBoolean(ARG_SHOULD_CALL_MEDIA_READY, shouldCallMediaReady)
 
             val fragment = when (attachment.type) {
                 Attachment.Type.IMAGE -> ViewImageFragment()
@@ -94,30 +243,10 @@ abstract class ViewMediaFragment : Fragment() {
                     blurhash = null,
                 ),
             )
-            arguments.putBoolean(ARG_START_POSTPONED_TRANSITION, true)
+            arguments.putBoolean(ARG_SHOULD_CALL_MEDIA_READY, true)
 
             fragment.arguments = arguments
             return fragment
         }
-    }
-
-    abstract fun onTransitionEnd()
-
-    protected fun finalizeViewSetup() {
-        val mediaActivity = activity as ViewMediaActivity
-
-        showingDescription = !TextUtils.isEmpty(attachment.description)
-        isDescriptionVisible = showingDescription
-        setupMediaView(showingDescription && mediaActivity.isToolbarVisible)
-
-        toolbarVisibilityDisposable = (activity as ViewMediaActivity)
-            .addToolbarVisibilityListener { isVisible ->
-                onToolbarVisibilityChange(isVisible)
-            }
-    }
-
-    override fun onDestroyView() {
-        toolbarVisibilityDisposable?.invoke()
-        super.onDestroyView()
     }
 }

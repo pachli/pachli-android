@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">오류가 발생했습니다.</string>
-    <string name="error_network">네트워크 오류가 발생했습니다! 인터넷 연결을 확인하고 다시 시도하십시오!</string>
     <string name="error_empty">내용을 입력하십시오.</string>
     <string name="error_no_web_browser_found">사용 가능한 웹 브라우저를 찾을 수 없습니다.</string>
     <string name="error_compose_character_limit">게시물 길이가 너무 깁니다!</string>
@@ -40,7 +38,6 @@
     <string name="post_content_warning_show_less">숨기기</string>
     <string name="post_content_show_more">더 보기</string>
     <string name="post_content_show_less">줄이기</string>
-    <string name="message_empty">메시지가 없습니다.</string>
     <string name="footer_empty">게시물이 없습니다. 아래로 당겨서 새로고침하세요!</string>
     <string name="notification_reblog_format">%s님이 부스트 했습니다</string>
     <string name="notification_favourite_format">%s님이 당신의 게시물을 좋아합니다</string>
@@ -53,7 +50,6 @@
     <string name="action_unreblog">부스트 해제</string>
     <string name="action_favourite">좋아요</string>
     <string name="action_unfavourite">좋아요 취소</string>
-    <string name="action_more">더 보기</string>
     <string name="action_compose">작성</string>
     <string name="action_logout">로그아웃</string>
     <string name="action_logout_confirm">정말로 %1$s에서 로그아웃하시겠습니까\?</string>
@@ -68,8 +64,6 @@
     <string name="action_delete_and_redraft">지우고 다시 쓰기</string>
     <string name="action_send">툿</string>
     <string name="action_send_public">툿!</string>
-    <string name="action_retry">다시 시도</string>
-    <string name="action_view_profile">프로필</string>
     <string name="action_view_preferences">설정</string>
     <string name="action_view_account_preferences">계정 설정</string>
     <string name="action_view_favourites">좋아요</string>
@@ -252,17 +246,6 @@
     <string name="filter_add_description">필터링할 문구 입력</string>
     <string name="add_account_name">계정 추가</string>
     <string name="add_account_description">마스토돈 계정을 추가합니다</string>
-    <string name="action_lists">리스트</string>
-    <string name="title_lists">리스트</string>
-    <string name="error_create_list">리스트를 만들 수 없습니다.</string>
-    <string name="error_rename_list">리스트의 이름을 변경할 수 없습니다.</string>
-    <string name="error_delete_list">리스트를 삭제할 수 없습니다.</string>
-    <string name="action_create_list">리스트 생성</string>
-    <string name="action_rename_list">리스트 이름 바꾸기</string>
-    <string name="action_delete_list">리스트 삭제</string>
-    <string name="hint_search_people_list">당신을 팔로우하는 사람 검색</string>
-    <string name="action_add_to_list">리스트에 계정 추가</string>
-    <string name="action_remove_from_list">리스트에서 계정 삭제</string>
     <string name="compose_active_account_description">%1$s로서 포스팅</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="other">시각 장애인을 위한 설명
@@ -289,10 +272,6 @@
     <string name="restart_emoji">변경 사항을 적용하려면 Pachli를 재시작해야 합니다</string>
     <string name="later">다음에</string>
     <string name="restart">지금 재시작</string>
-    <string name="caption_systememoji">이 디바이스의 기본 이모지</string>
-    <string name="caption_blobmoji">Android 4.4~7.1에 내장된 기본 이모지</string>
-    <string name="caption_twemoji">Mastodon 표준 이모지</string>
-    <string name="caption_notoemoji">현재 Google이 배포 중인 이모지</string>
     <string name="download_failed">다운로드 실패</string>
     <string name="account_moved_description">%1$s는 계정을 이동했습니다:</string>
     <string name="reblog_private">원래의 수신자들에게 부스트</string>
@@ -326,7 +305,6 @@
     <string name="description_visibility_private">비공개</string>
     <string name="description_visibility_direct">다이렉트</string>
     <string name="description_poll">투표 선택지: %1$s, %2$s, %3$s, %4$s, %5$s</string>
-    <string name="hint_list_name">리스트 이름</string>
     <string name="edit_hashtag_hint">#를 제외한 해시태그</string>
     <string name="notifications_clear">알림 지우기</string>
     <string name="notifications_apply_filter">필터</string>
@@ -335,7 +313,7 @@
     <string name="compose_shortcut_short_label">작성</string>
     <string name="notification_clear_text">모든 알림을 영구적으로 지우시겠습니까\?</string>
     <string name="compose_preview_image_description">이미지 %s를...</string>
-    <string name="poll_info_format"> <!-- 15 명 참여 • 1 시간 남음 --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 명 참여 • 1 시간 남음 -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="other">%s 명 참여</item>
     </plurals>
@@ -359,7 +337,6 @@
     </plurals>
     <string name="button_continue">다음</string>
     <string name="button_back">이전</string>
-    <string name="button_done">완료</string>
     <string name="report_sent_success">\@%s를 신고하였습니다</string>
     <string name="hint_additional_info">부가 설명</string>
     <string name="report_remote_instance">%s에 포워딩</string>

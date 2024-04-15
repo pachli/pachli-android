@@ -21,9 +21,9 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.core.network.model.HashTag
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemHashtagBinding
 import app.pachli.interfaces.LinkListener
-import app.pachli.util.BindingHolder
 
 class SearchHashtagsAdapter(private val linkListener: LinkListener) :
     PagingDataAdapter<HashTag, BindingHolder<ItemHashtagBinding>>(HASHTAG_COMPARATOR) {

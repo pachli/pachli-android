@@ -63,8 +63,6 @@
     <string name="action_view_favourites">بەدڵبوونەکان</string>
     <string name="action_view_account_preferences">پەسەندکراوەکانی ئەژمێر</string>
     <string name="action_view_preferences">پەسەندەکان</string>
-    <string name="action_view_profile">پرۆفایل</string>
-    <string name="action_retry">دووبارە هەوڵ بدە</string>
     <string name="action_send_public">توت!</string>
     <string name="action_send">توت</string>
     <string name="action_delete_and_redraft">سڕینەوە و دووبارە-ڕەشنووس</string>
@@ -80,7 +78,6 @@
     <string name="action_logout_confirm">ئایا دڵنیایت لەوەی دەتەوێت بچیتەدەرەوە لە هەژماری %1$s؟</string>
     <string name="action_logout">چوونەدەرەوە</string>
     <string name="action_compose">دروستکردن</string>
-    <string name="action_more">زیاتر</string>
     <string name="action_unfavourite">لابردنی دڵخوازەکان</string>
     <string name="action_bookmark">نیشانه</string>
     <string name="action_favourite">دڵخواز</string>
@@ -96,7 +93,6 @@
     <string name="notification_favourite_format">%s خۆشترین توتەکەت</string>
     <string name="notification_reblog_format">%s توتەکەتی بەرزکردەوە</string>
     <string name="footer_empty">هیچ شتێک لێرە نیە ڕاکە خوارەوە بۆ نوێکردنەوە!</string>
-    <string name="message_empty">هیچ شتێک لێرە نیە.</string>
     <string name="post_content_show_less">نوشتانەوە</string>
     <string name="post_content_show_more">فراوانکردن</string>
     <string name="post_content_warning_show_less">کەمتر نیشان بدە</string>
@@ -137,8 +133,6 @@
     <string name="error_compose_character_limit">ئەم نووسینە زۆر درێژە!</string>
     <string name="error_no_web_browser_found">نەیتوانی وێبگەڕبدۆزێتەوە بۆ بەکارهێنان.</string>
     <string name="error_empty">ناکرێت ئەمە بەتاڵ بێت.</string>
-    <string name="error_network">هەڵەیەک لە پەیوەندییەکەدا ڕوویدا. تکایە دڵنیا ببەوە لە بەردەستبوونی هێڵی ئینتەرنێت.</string>
-    <string name="error_generic">هەڵەیەک ڕوویدا.</string>
     <string name="pref_default_post_privacy">تایبەتمەندی بابەت گریمانەیی</string>
     <string name="pref_title_http_proxy_port">دەرگای پرۆکسی HTTP</string>
     <string name="pref_title_http_proxy_server">ڕاژەکاری پرۆکسی HTTP</string>
@@ -249,7 +243,6 @@
     <string name="report_remote_instance">ناردنەوە بۆ %s</string>
     <string name="hint_additional_info">سەرنجەکانی زیاتر</string>
     <string name="report_sent_success">سەرکەوتووانە ڕاپۆرتکرا @%s</string>
-    <string name="button_done">تەواوبوو</string>
     <string name="button_back">دواوە</string>
     <string name="button_continue">بەردەوام بە</string>
     <plurals name="poll_timespan_seconds">
@@ -277,7 +270,7 @@
         <item quantity="one">%s دەنگ</item>
         <item quantity="other">%s دەنگ</item>
     </plurals>
-    <string name="poll_info_format"> <!-- 15 دەنگ • 1 کاتژمێر ماوە --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 دەنگ • 1 کاتژمێر ماوە -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">کارەکان بۆ وێنە %s</string>
     <string name="notification_clear_text">ئایا دڵنیایت لەوەی دەتەوێت بە هەمیشەیی هەموو ئاگانامەکانت بسڕیتەوە؟</string>
     <string name="compose_shortcut_short_label">دروستکردن</string>
@@ -290,7 +283,6 @@
     <string name="hashtags">هاشتاگی</string>
     <string name="edit_hashtag_hint">هاشتاگی بێ #</string>
     <string name="add_hashtag_title">هاشتاگی زیاد بکە</string>
-    <string name="hint_list_name">ناوی لیست</string>
     <string name="description_poll">ڕاپرسی لەگەڵ هەڵبژاردنەکان: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_visibility_direct">ڕاستەوخۆ</string>
     <string name="description_visibility_private">شوێنکەوتوانی</string>
@@ -327,10 +319,6 @@
     <string name="reblog_private">بەرزکردنەوە بۆ جەماوەری ڕەسەن</string>
     <string name="account_moved_description">%1$s گواسترایەوە بۆ:</string>
     <string name="download_failed">داگرتن سەرکەوتوو نەبوو</string>
-    <string name="caption_notoemoji">کۆمەڵە ئیمۆجیەکەی ئێستای گووگڵ</string>
-    <string name="caption_twemoji">سێتی ئیمۆجی پێوانەیی ماتۆدۆن</string>
-    <string name="caption_blobmoji">ئیمۆجی Blob لە ئەندرۆید ەوە ناسراوە 4.4–7.1</string>
-    <string name="caption_systememoji">سێتی ئیمۆجی بنەڕەتی ئامێرەکەت</string>
     <string name="restart">دەستپێکردنەوە</string>
     <string name="later">دواتر</string>
     <string name="restart_emoji">تۆ پێویستە توسکی دەستپێبکەیتەوە بۆ ئەوەی ئەم گۆڕانکاریانە جێبەجێ بکەیت</string>
@@ -356,18 +344,7 @@
         <item quantity="other">وەسف بکە بۆ بینایی داڕماو
 \n(%d سنوری کاراکتەر)</item>
     </plurals>
-    <string name="compose_active_account_description">بڵاوکردنەوە بە هەژماری %1$s</string>
-    <string name="action_remove_from_list">لابردنی ئەژمێر لە لیستەکە</string>
-    <string name="action_add_to_list">زیادکردنی ئەژمێر بۆ لیستەکە</string>
-    <string name="hint_search_people_list">گەڕان بەدوای ئەو کەسانەی کە پەیڕەوی ان دەکەیت</string>
-    <string name="action_delete_list">سڕینەوەی لیستەکە</string>
-    <string name="action_rename_list">ناونانەوەی لیستەکە</string>
-    <string name="action_create_list">دروستکردنی لیستێک</string>
-    <string name="error_delete_list">نەیتوانی لیستەکە بسڕێتەوە</string>
-    <string name="error_rename_list">نەیتوانی ناوی لیست بنووسرێ</string>
-    <string name="error_create_list">نەیتوانی لیست دروست بکات</string>
-    <string name="title_lists">لیستەکان</string>
-    <string name="action_lists">لیستەکان</string>
+    <string name="compose_active_account_description">%1$s بڵاوکردنەوە بە هەژماری</string>
     <string name="add_account_description">زیادکردنی ئەژمێری ماتۆدۆنی نوێ</string>
     <string name="add_account_name">زیادکردنی ئەژمێر</string>
     <string name="filter_add_description">دەستەواژە بۆ فلتەر</string>

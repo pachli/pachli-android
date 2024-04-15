@@ -1,18 +1,19 @@
 [versions]
-aboutlibraries = "10.10.0"
+aboutlibraries = "11.1.3"
 acra = "5.11.3"
-agp = "8.2.2"
+agp = "8.3.1"
 androidx-activity = "1.8.2"
 androidx-appcompat = "1.6.1"
-androidx-browser = "1.7.0"
+androidx-browser = "1.8.0"
 androidx-cardview = "1.0.0"
 androidx-constraintlayout = "2.1.4"
 androidx-core = "1.12.0"
 androidx-exifinterface = "1.3.7"
 androidx-fragment = "1.6.2"
+androidx-hilt = "1.2.0"
 androidx-junit = "1.1.5"
-androidx-lifecycle = "2.6.2"
-androidx-media3 = "1.2.1"
+androidx-lifecycle = "2.7.0"
+androidx-media3 = "1.3.0"
 androidx-paging = "3.2.1"
 androidx-preference = "1.2.1"
 androidx-recyclerview = "1.3.0"
@@ -25,12 +26,13 @@ androidx-viewpager2 = "1.0.0"
 androidx-work = "2.9.0"
 androidx-room = "2.6.1"
 app-update = "2.1.0"
+apollographql = "3.8.3"
 autodispose = "2.2.1"
 auto-service = "1.1.1"
 auto-service-ksp = "1.1.0"
 bouncycastle = "1.70"
 conscrypt = "2.5.2"
-coroutines = "1.7.3"
+coroutines = "1.8.0"
 desugar_jdk_libs = "2.0.4"
 diffx = "1.1.1"
 emoji2 = "1.3.0"
@@ -39,36 +41,45 @@ filemoji-compat = "3.2.7"
 glide = "4.16.0"
 # Deliberate downgrade, https://github.com/tuskyapp/Tusky/issues/3631
 glide-animation-plugin = "2.23.0"
-hilt = "2.50"
+hilt = "2.51.1"
 junit = "4.13.2"
-kotlin = "1.9.22"
-kotlin-result = "1.1.18"
-ksp = "1.9.22-1.0.17"
+kotlin = "1.9.23"
+kotlin-result = "1.1.20"
+ksp = "1.9.23-1.0.20"
 image-cropper = "4.3.2"
 leakcanary = "2.13"
-lint = "31.2.2" # = agp + 23.0.0 (= 8.2.2), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
+lint = "31.3.1" # = agp + 23.0.0 (= 8.3.1), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
 material = "1.11.0"
 material-drawer = "9.0.2"
+material-iconics = "5.4.0"
 material-typeface = "4.0.0.2-kotlin"
 mockito-inline = "5.2.0"
 mockito-kotlin = "5.2.1"
 moshi = "1.15.1"
+moshix = "0.25.1"
 networkresult-calladapter = "1.0.0"
 okhttp = "4.12.0"
 quadrant = "1.9.1"
-retrofit = "2.9.0"
-robolectric = "4.11.1"
+retrofit = "2.11.0"
+robolectric = "4.12.1"
 rxandroid3 = "3.0.2"
-rxjava3 = "3.1.8"
 rxkotlin3 = "3.0.1"
-semver = "1.4.2"
+semver = "2.0.0"
 sparkbutton = "4.1.0"
 timber = "5.0.1"
 touchimageview = "3.6"
-truth = "1.4.1"
-turbine = "1.0.0"
+truth = "1.4.2"
+turbine = "1.1.0"
 unified-push = "2.1.1"
 xmlwriter = "1.0.4"
+
+# Tool dependencies
+betterparse = "0.4.4"
+clikt = "4.3.0"
+icu4j = "74.2"
+junit-jupiter = "5.10.2"
+kotlin-logging-jvm = "6.0.4"
+logback = "1.5.3"
 
 [plugins]
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
@@ -83,6 +94,7 @@ kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref =
 ktlint = "org.jlleitschuh.gradle.ktlint:12.1.0"
 room = { id = "androidx.room", version.ref = "androidx-room" }
 quadrant = { id = "com.gaelmarhic.quadrant", version.ref = "quadrant" }
+apollographql = { id = "com.apollographql.apollo3", version.ref = "apollographql"}
 
 # Plugins defined by this project
 pachli-android-application = { id = "pachli.android.application", version = "unspecified" }
@@ -90,6 +102,7 @@ pachli-android-application-flavors = { id = "pachli.android.application.flavors"
 pachli-android-hilt = { id = "pachli.android.hilt", version = "unspecified" }
 pachli-android-library = { id = "pachli.android.library", version = "unspecified" }
 pachli-android-room = { id = "pachli.android.room", version = "unspecified" }
+pachli-tool = { id = "pachli.tool", version = "unspecified" }
 
 [libraries]
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }
@@ -110,6 +123,9 @@ androidx-emoji2-views-core = { module = "androidx.emoji2:emoji2-views", version.
 androidx-emoji2-view-helper = { module = "androidx.emoji2:emoji2-views-helper", version.ref = "emoji2" }
 androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "androidx-exifinterface" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
+androidx-hilt-common = { module = "androidx.hilt:hilt-common", version.ref = "androidx-hilt" }
+androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
+androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-reactivestreams-ktx = { module = "androidx.lifecycle:lifecycle-reactivestreams-ktx", version.ref = "androidx-lifecycle" }
@@ -136,8 +152,7 @@ androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version
 androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "androidx-work" }
 app-update = { module = "com.google.android.play:app-update", version.ref = "app-update" }
 app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "app-update" }
-autodispose-android-lifecycle = { module = "com.uber.autodispose2:autodispose-androidx-lifecycle", version.ref = "autodispose" }
-autodispose-core = { module = "com.uber.autodispose2:autodispose", version.ref = "autodispose" }
+apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollographql" }
 auto-service-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "auto-service"}
 auto-service-ksp = { module = "dev.zacsweers.autoservice:auto-service-ksp", version.ref = "auto-service-ksp"}
 bouncycastle = { module = "org.bouncycastle:bcprov-jdk15on", version.ref = "bouncycastle" }
@@ -156,10 +171,11 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 junit = { module = "junit:junit", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter" }
 kotlin-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "kotlin-result" }
 kotlin-result-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "kotlin-result" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
-kotlinx-coroutines-rx3 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-rx3", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 image-cropper = { module = "com.github.CanHub:Android-Image-Cropper", version.ref = "image-cropper" }
@@ -170,6 +186,7 @@ lint-cli = { module = "com.android.tools.lint:lint", version.ref = "lint" }
 lint-tests = { module = "com.android.tools.lint:lint-tests", version.ref = "lint" }
 material-drawer-core = { module = "com.mikepenz:materialdrawer", version.ref = "material-drawer" }
 material-drawer-iconics = { module = "com.mikepenz:materialdrawer-iconics", version.ref = "material-drawer" }
+material-iconics = { module = "com.mikepenz:iconics-core", version.ref="material-iconics" }
 material-typeface = { module = "com.mikepenz:google-material-typeface", version.ref = "material-typeface" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
@@ -177,15 +194,14 @@ mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+moshix-sealed-runtime = { module = "dev.zacsweers.moshix:moshi-sealed-runtime", version.ref = "moshix" }
+moshix-sealed-codegen = { module = "dev.zacsweers.moshix:moshi-sealed-codegen", version.ref = "moshix" }
 networkresult-calladapter = { module = "at.connyduck:networkresult-calladapter", version.ref = "networkresult-calladapter" }
 okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
-rxjava3-android = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid3" }
-rxjava3-core = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava3" }
-rxjava3-kotlin = { module = "io.reactivex.rxjava3:rxkotlin", version.ref = "rxkotlin3" }
 semver = { module = "io.github.z4kn4fein:semver", version.ref = "semver" }
 sparkbutton = { module = "com.github.connyduck:sparkbutton", version.ref = "sparkbutton" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
@@ -194,6 +210,13 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 unified-push = { module = "com.github.UnifiedPush:android-connector", version.ref = "unified-push" }
 xmlwriter = { module = "org.pageseeder.xmlwriter:pso-xmlwriter", version.ref = "xmlwriter" }
+
+# Tool libraries
+betterparse = { module = "com.github.h0tk3y.betterParse:better-parse", version.ref = "betterparse" }
+clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
+icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j"}
+kotlin-logging-jvm = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlin-logging-jvm" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 # build-logic dependencies
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -211,7 +234,6 @@ androidx = ["androidx-core-ktx", "androidx-appcompat", "androidx-fragment-ktx", 
     "androidx-core-splashscreen", "androidx-activity", "androidx-media3-exoplayer", "androidx-media3-exoplayer-dash",
     "androidx-media3-exoplayer-hls", "androidx-media3-exoplayer-rtsp", "androidx-media3-datasource-okhttp", "androidx-media3-ui",
     "android-material"]
-autodispose = ["autodispose-core", "autodispose-android-lifecycle"]
 filemojicompat = ["filemojicompat-core", "filemojicompat-ui", "filemojicompat-defaults"]
 glide = ["glide-core", "glide-okhttp3-integration", "glide-animation-plugin"]
 lint-api = ["kotlin-stdlib", "lint-api", "lint-checks"]
@@ -221,5 +243,4 @@ mockito = ["mockito-kotlin", "mockito-inline"]
 okhttp = ["okhttp-core", "okhttp-logging-interceptor"]
 retrofit = ["retrofit-core", "retrofit-converter-moshi"]
 room = ["androidx-room-ktx", "androidx-room-paging"]
-rxjava3 = ["rxjava3-core", "rxjava3-android", "rxjava3-kotlin"]
 xmldiff = ["diffx", "xmlwriter"]

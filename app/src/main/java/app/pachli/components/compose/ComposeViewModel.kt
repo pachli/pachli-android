@@ -39,6 +39,7 @@ import app.pachli.service.MediaToSend
 import app.pachli.service.ServiceClient
 import app.pachli.service.StatusToSend
 import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.mapBoth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -378,19 +379,19 @@ class ComposeViewModel @Inject constructor(
         }
     }
 
-    fun searchAutocompleteSuggestions(token: String): List<AutocompleteResult> {
+    suspend fun searchAutocompleteSuggestions(token: String): List<AutocompleteResult> {
         when (token[0]) {
             '@' -> {
-                return api.searchAccountsSync(query = token.substring(1), limit = 10)
-                    .fold({ accounts ->
-                        accounts.map { AutocompleteResult.AccountResult(it) }
-                    }, { e ->
-                        Timber.e(e, "Autocomplete search for %s failed.", token)
+                return api.searchAccounts(query = token.substring(1), limit = 10).mapBoth(
+                    { it.body.map { AutocompleteResult.AccountResult(it) } },
+                    {
+                        Timber.e(it.throwable, "Autocomplete search for %s failed.", token)
                         emptyList()
-                    })
+                    },
+                )
             }
             '#' -> {
-                return api.searchSync(query = token, type = SearchType.Hashtag.apiParameter, limit = 10)
+                return api.search(query = token, type = SearchType.Hashtag.apiParameter, limit = 10)
                     .fold({ searchResult ->
                         searchResult.hashtags.map { AutocompleteResult.HashtagResult(it.name) }
                     }, { e ->

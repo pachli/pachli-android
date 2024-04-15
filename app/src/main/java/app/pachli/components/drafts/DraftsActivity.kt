@@ -30,6 +30,7 @@ import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityDraftsBinding
 import app.pachli.db.DraftsAlert
 import at.connyduck.calladapter.networkresult.fold
@@ -67,7 +68,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
             setDisplayShowHomeEnabled(true)
         }
 
-        binding.draftsErrorMessageView.setup(R.drawable.elephant_friend_empty, R.string.no_drafts)
+        binding.draftsErrorMessageView.setup(BackgroundMessage.Empty(R.string.no_drafts))
 
         val adapter = DraftsAdapter(this)
 

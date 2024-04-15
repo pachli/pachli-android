@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">เกิดข้อผิดพลาดเครือข่าย! กรุณาตรวจสอบการเชื่อมต่อและลองอีกครั้ง!</string>
+    <string name="error_generic">เกิดข้อผิดพลาด</string>
+    <string name="message_empty">ไม่มีอะไรที่นี่</string>
+    <string name="action_retry">ลองอีกครั้ง</string>
+    <string name="button_done">ทำ</string>
+    <string name="action_view_profile">โปรไฟล์</string>
+    <string name="action_more">อื่น ๆ</string>
+</resources>

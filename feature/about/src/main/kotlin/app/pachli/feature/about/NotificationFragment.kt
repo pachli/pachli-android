@@ -29,7 +29,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.core.activity.CustomFragmentStateAdapter
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.ui.reduceSwipeSensitivity
+import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.feature.about.databinding.FragmentNotificationBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayoutMediator

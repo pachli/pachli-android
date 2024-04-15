@@ -21,8 +21,8 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.network.model.StringField
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemEditFieldBinding
-import app.pachli.util.BindingHolder
 import app.pachli.util.fixTextSelection
 
 class AccountFieldEditAdapter : RecyclerView.Adapter<BindingHolder<ItemEditFieldBinding>>() {

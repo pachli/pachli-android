@@ -18,6 +18,7 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.extensions.MiB
 import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.model.EmojisEntity
@@ -64,17 +65,17 @@ class InstanceInfoRepository @Inject constructor(
                 { instance ->
                     val instanceEntity = InstanceInfoEntity(
                         instance = instanceName,
-                        maximumTootCharacters = instance.configuration?.statuses?.maxCharacters ?: instance.maxTootChars,
-                        maxPollOptions = instance.configuration?.polls?.maxOptions ?: instance.pollConfiguration?.maxOptions,
-                        maxPollOptionLength = instance.configuration?.polls?.maxCharactersPerOption ?: instance.pollConfiguration?.maxOptionChars,
-                        minPollDuration = instance.configuration?.polls?.minExpiration ?: instance.pollConfiguration?.minExpiration,
-                        maxPollDuration = instance.configuration?.polls?.maxExpiration ?: instance.pollConfiguration?.maxExpiration,
-                        charactersReservedPerUrl = instance.configuration?.statuses?.charactersReservedPerUrl,
+                        maximumTootCharacters = instance.configuration.statuses.maxCharacters ?: instance.maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
+                        maxPollOptions = instance.configuration.polls.maxOptions,
+                        maxPollOptionLength = instance.configuration.polls.maxCharactersPerOption,
+                        minPollDuration = instance.configuration.polls.minExpiration,
+                        maxPollDuration = instance.configuration.polls.maxExpiration,
+                        charactersReservedPerUrl = instance.configuration.statuses.charactersReservedPerUrl,
                         version = instance.version,
-                        videoSizeLimit = instance.configuration?.mediaAttachments?.videoSizeLimit ?: instance.uploadLimit,
-                        imageSizeLimit = instance.configuration?.mediaAttachments?.imageSizeLimit ?: instance.uploadLimit,
-                        imageMatrixLimit = instance.configuration?.mediaAttachments?.imageMatrixLimit,
-                        maxMediaAttachments = instance.configuration?.statuses?.maxMediaAttachments ?: instance.maxMediaAttachments,
+                        videoSizeLimit = instance.configuration.mediaAttachments.videoSizeLimit,
+                        imageSizeLimit = instance.configuration.mediaAttachments.imageSizeLimit,
+                        imageMatrixLimit = instance.configuration.mediaAttachments.imageMatrixLimit,
+                        maxMediaAttachments = instance.configuration.statuses.maxMediaAttachments,
                         maxFields = instance.pleroma?.metadata?.fieldLimits?.maxFields,
                         maxFieldNameLength = instance.pleroma?.metadata?.fieldLimits?.nameLength,
                         maxFieldValueLength = instance.pleroma?.metadata?.fieldLimits?.valueLength,
@@ -119,9 +120,9 @@ class InstanceInfoRepository @Inject constructor(
         private const val DEFAULT_MIN_POLL_DURATION = 300
         private const val DEFAULT_MAX_POLL_DURATION = 604800
 
-        private const val DEFAULT_VIDEO_SIZE_LIMIT = 41943040 // 40MiB
-        private const val DEFAULT_IMAGE_SIZE_LIMIT = 10485760 // 10MiB
-        private const val DEFAULT_IMAGE_MATRIX_LIMIT = 16777216 // 4096^2 Pixels
+        private val DEFAULT_VIDEO_SIZE_LIMIT = 40L.MiB
+        private val DEFAULT_IMAGE_SIZE_LIMIT = 10L.MiB
+        private const val DEFAULT_IMAGE_MATRIX_LIMIT = 4096 * 4096
 
         // Mastodon only counts URLs as this long in terms of status character limits
         const val DEFAULT_CHARACTERS_RESERVED_PER_URL = 23

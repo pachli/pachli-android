@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_close">Mdel</string>
     <string name="hint_domain">Anta tummant\?</string>
     <string name="action_login">Qqen ɣer Maṣṭudun</string>
     <string name="link_whats_an_instance">D acu i ttummant\?</string>
     <string name="login_connection">itteqqen…</string>
+    <string name="title_login">Qqen</string>
+    <string name="action_browser_login">Tuqqna s yiminig</string>
 </resources>

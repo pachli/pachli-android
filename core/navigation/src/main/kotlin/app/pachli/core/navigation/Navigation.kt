@@ -22,17 +22,20 @@ import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
 import app.pachli.core.database.model.DraftAttachment
+import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
-import app.pachli.core.navigation.StatusListActivityIntent.Companion.bookmarks
-import app.pachli.core.navigation.StatusListActivityIntent.Companion.favourites
-import app.pachli.core.navigation.StatusListActivityIntent.Companion.hashtag
-import app.pachli.core.navigation.StatusListActivityIntent.Companion.list
+import app.pachli.core.navigation.TimelineActivityIntent.Companion.bookmarks
+import app.pachli.core.navigation.TimelineActivityIntent.Companion.conversations
+import app.pachli.core.navigation.TimelineActivityIntent.Companion.favourites
+import app.pachli.core.navigation.TimelineActivityIntent.Companion.hashtag
+import app.pachli.core.navigation.TimelineActivityIntent.Companion.list
+import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicFederated
+import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicLocal
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineKind
 import com.gaelmarhic.quadrant.QuadrantConstants
 import kotlinx.parcelize.Parcelize
 
@@ -386,23 +389,33 @@ class ReportActivityIntent(context: Context, accountId: String, userName: String
 }
 
 /**
- * Use one of [bookmarks], [favourites], [hashtag], or [list] to construct.
+ * Use one of [bookmarks], [conversations], [favourites], [hashtag], [list], [publicFederated],
+ * or [publicLocal] to construct.
  */
-class StatusListActivityIntent private constructor(context: Context) : Intent() {
+class TimelineActivityIntent private constructor(context: Context) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.STATUS_LIST_ACTIVITY)
+        setClassName(context, QuadrantConstants.TIMELINE_ACTIVITY)
     }
 
     companion object {
-        private const val EXTRA_KIND = "kind"
+        private const val EXTRA_TIMELINE = "timeline"
 
         /**
          * Show the user's bookmarks.
          *
          * @param context
          */
-        fun bookmarks(context: Context) = StatusListActivityIntent(context).apply {
-            putExtra(EXTRA_KIND, TimelineKind.Bookmarks)
+        fun bookmarks(context: Context) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.Bookmarks)
+        }
+
+        /**
+         * Show the user's conversations (direct messages).
+         *
+         * @param context
+         */
+        fun conversations(context: Context) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.Conversations)
         }
 
         /**
@@ -410,8 +423,8 @@ class StatusListActivityIntent private constructor(context: Context) : Intent() 
          *
          * @param context
          */
-        fun favourites(context: Context) = StatusListActivityIntent(context).apply {
-            putExtra(EXTRA_KIND, TimelineKind.Favourites)
+        fun favourites(context: Context) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.Favourites)
         }
 
         /**
@@ -420,8 +433,8 @@ class StatusListActivityIntent private constructor(context: Context) : Intent() 
          * @param context
          * @param hashtag The hashtag to show, without the leading "`#`"
          */
-        fun hashtag(context: Context, hashtag: String) = StatusListActivityIntent(context).apply {
-            putExtra(EXTRA_KIND, TimelineKind.Tag(listOf(hashtag)))
+        fun hashtag(context: Context, hashtag: String) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.Hashtags(listOf(hashtag)))
         }
 
         /**
@@ -431,12 +444,39 @@ class StatusListActivityIntent private constructor(context: Context) : Intent() 
          * @param listId ID of the list to show
          * @param title The title to display
          */
-        fun list(context: Context, listId: String, title: String) = StatusListActivityIntent(context).apply {
-            putExtra(EXTRA_KIND, TimelineKind.UserList(listId, title))
+        fun list(context: Context, listId: String, title: String) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.UserList(listId, title))
         }
 
-        /** @return The [TimelineKind] to show */
-        fun getKind(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_KIND, TimelineKind::class.java)!!
+        /**
+         * Show statuses from the Public Federated feed
+         *
+         * @param context
+         */
+        fun publicFederated(context: Context) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.PublicFederated)
+        }
+
+        /**
+         * Show statuses from the Public Local feed
+         *
+         * @param context
+         */
+        fun publicLocal(context: Context) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.PublicLocal)
+        }
+
+        /**
+         * Show notifications timeline
+         *
+         * @param context
+         */
+        fun notifications(context: Context) = TimelineActivityIntent(context).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.Notifications)
+        }
+
+        /** @return The [Timeline] to show */
+        fun getTimeline(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_TIMELINE, Timeline::class.java)!!
     }
 }
 

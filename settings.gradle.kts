@@ -1,6 +1,12 @@
 pluginManagement {
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         gradlePluginPortal()
     }
 
@@ -11,25 +17,30 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
         maven("https://jitpack.io")
     }
 }
 
 plugins {
-    id("com.gradle.enterprise") version "3.16.2"
+    id("com.gradle.develocity") version "3.17"
 }
 
-val isCiBuild = !System.getenv("CI").isNullOrBlank()
-
-gradleEnterprise {
+develocity {
     buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = "yes"
-        isUploadInBackground = !isCiBuild
+        termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
+        termsOfUseAgree = "yes"
+        val isCiBuild = providers.environmentVariable("CI").isPresent
+        uploadInBackground = !isCiBuild
         tag(if (isCiBuild) "CI" else "Local")
-        publishAlwaysIf(isCiBuild)
+        publishing.onlyIf { isCiBuild }
     }
 }
 
@@ -45,13 +56,16 @@ include(":core:common")
 include(":core:data")
 include(":core:database")
 include(":core:designsystem")
+include(":core:model")
 include(":core:preferences")
 include(":core:navigation")
 include(":core:network")
 include(":core:testing")
 include(":core:ui")
 include(":feature:about")
+include(":feature:lists")
 include(":feature:login")
+include(":tools")
 include(":tools:mklanguages")
 include(":tools:mkserverversions")
 include(":tools:mvstring")

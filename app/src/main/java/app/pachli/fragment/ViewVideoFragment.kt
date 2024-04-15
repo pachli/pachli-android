@@ -23,8 +23,6 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.method.ScrollingMovementMethod
 import android.view.GestureDetector
 import android.view.Gravity
@@ -36,6 +34,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.annotation.OptIn
 import androidx.core.view.GestureDetectorCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
@@ -48,8 +47,8 @@ import androidx.media3.exoplayer.util.EventLogger
 import androidx.media3.ui.AspectRatioFrameLayout
 import app.pachli.BuildConfig
 import app.pachli.R
-import app.pachli.ViewMediaActivity
 import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.network.model.Attachment
@@ -61,6 +60,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlin.math.abs
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 
 /**
@@ -69,32 +69,21 @@ import okhttp3.OkHttpClient
  * UI behaviour:
  *
  * - Fragment starts, media description is visible at top of screen, video starts playing
- * - Media description + toolbar disappears after CONTROLS_TIMEOUT_MS
- * - Tapping shows controls + media description + toolbar, which fade after CONTROLS_TIMEOUT_MS
+ * - Media description + toolbar disappears after [CONTROLS_TIMEOUT]
+ * - Tapping shows controls + media description + toolbar, which fade after [CONTROLS_TIMEOUT]
  * - Tapping pause, or the media description, pauses the video and the controls + media description
  *   remain visible
  */
 @UnstableApi
 @AndroidEntryPoint
 class ViewVideoFragment : ViewMediaFragment() {
-    interface VideoActionsListener {
-        fun onDismiss()
-    }
-
     @Inject
     lateinit var okHttpClient: OkHttpClient
 
     private val binding by viewBinding(FragmentViewVideoBinding::bind)
 
-    private lateinit var videoActionsListener: VideoActionsListener
     private lateinit var toolbar: View
-    private val handler = Handler(Looper.getMainLooper())
-    private val hideToolbar = Runnable {
-        // Hoist toolbar hiding to activity so it can track state across different fragments
-        // This is explicitly stored as runnable so that we pass it to the handler later for cancellation
-        mediaActivity.onPhotoTap()
-    }
-    private lateinit var mediaActivity: ViewMediaActivity
+
     private lateinit var mediaPlayerListener: Player.Listener
     private var isAudio = false
 
@@ -107,18 +96,17 @@ class ViewVideoFragment : ViewMediaFragment() {
 
     private lateinit var mediaSourceFactory: DefaultMediaSourceFactory
 
+    private var startedTransition = false
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         mediaSourceFactory = DefaultMediaSourceFactory(context)
             .setDataSourceFactory(DefaultDataSource.Factory(context, OkHttpDataSource.Factory(okHttpClient)))
-
-        videoActionsListener = context as VideoActionsListener
     }
 
     @SuppressLint("PrivateResource", "MissingInflatedId")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        mediaActivity = activity as ViewMediaActivity
         toolbar = mediaActivity.toolbar
         val rootView = inflater.inflate(R.layout.fragment_view_video, container, false)
 
@@ -137,13 +125,12 @@ class ViewVideoFragment : ViewMediaFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.videoView.controllerShowTimeoutMs = CONTROLS_TIMEOUT_MS
+        binding.videoView.controllerShowTimeoutMs = CONTROLS_TIMEOUT.inWholeMilliseconds.toInt()
 
         isAudio = attachment.type == Attachment.Type.AUDIO
+        binding.progressBar.show()
 
-        /**
-         * Handle single taps, flings, and dragging
-         */
+        /** Handle single taps, flings, and dragging */
         val touchListener = object : View.OnTouchListener {
             var lastY = 0f
 
@@ -160,7 +147,7 @@ class ViewVideoFragment : ViewMediaFragment() {
 
                     /** A single tap should show/hide the media description */
                     override fun onSingleTapUp(e: MotionEvent): Boolean {
-                        mediaActivity.onPhotoTap()
+                        mediaActivity.onMediaTap()
                         return false
                     }
 
@@ -172,7 +159,7 @@ class ViewVideoFragment : ViewMediaFragment() {
                         velocityY: Float,
                     ): Boolean {
                         if (abs(velocityY) > abs(velocityX)) {
-                            videoActionsListener.onDismiss()
+                            mediaActionsListener.onMediaDismiss()
                             return true
                         }
                         return false
@@ -196,7 +183,7 @@ class ViewVideoFragment : ViewMediaFragment() {
                     }
                 } else if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
                     if (abs(contentFrame.translationY) > 180) {
-                        videoActionsListener.onDismiss()
+                        mediaActionsListener.onMediaDismiss()
                     } else {
                         contentFrame.animate().translationY(0f).scaleX(1f).scaleY(1f).start()
                     }
@@ -222,6 +209,18 @@ class ViewVideoFragment : ViewMediaFragment() {
 
                         binding.progressBar.hide()
                         binding.videoView.useController = true
+
+                        if (shouldCallMediaReady && !startedTransition) {
+                            startedTransition = true
+                            mediaActivity.onMediaReady()
+                        }
+
+                        transitionComplete?.let {
+                            viewLifecycleOwner.lifecycleScope.launch {
+                                it.await()
+                                player?.play()
+                            }
+                        }
                     }
                     else -> { /* do nothing */ }
                 }
@@ -234,7 +233,7 @@ class ViewVideoFragment : ViewMediaFragment() {
                 if (isPlaying) {
                     hideToolbarAfterDelay()
                 } else {
-                    handler.removeCallbacks(hideToolbar)
+                    cancelToolbarHide()
                 }
             }
 
@@ -245,7 +244,7 @@ class ViewVideoFragment : ViewMediaFragment() {
                     error.cause?.message ?: error.message,
                 )
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.action_retry) { player?.prepare() }
+                    .setAction(app.pachli.core.ui.R.string.action_retry) { player?.prepare() }
                     .show()
             }
         }
@@ -266,11 +265,9 @@ class ViewVideoFragment : ViewMediaFragment() {
     override fun onResume() {
         super.onResume()
 
-        finalizeViewSetup()
-
         if (Build.VERSION.SDK_INT <= 23 || player == null) {
             initializePlayer()
-            if (mediaActivity.isToolbarVisible && !isAudio) {
+            if (viewModel.isToolbarVisible && !isAudio) {
                 hideToolbarAfterDelay()
             }
             binding.videoView.onResume()
@@ -294,7 +291,6 @@ class ViewVideoFragment : ViewMediaFragment() {
         if (Build.VERSION.SDK_INT <= 23) {
             binding.videoView.onPause()
             releasePlayer()
-            handler.removeCallbacks(hideToolbar)
         }
     }
 
@@ -306,7 +302,6 @@ class ViewVideoFragment : ViewMediaFragment() {
         if (Build.VERSION.SDK_INT > 23) {
             binding.videoView.onPause()
             releasePlayer()
-            handler.removeCallbacks(hideToolbar)
         }
     }
 
@@ -323,7 +318,10 @@ class ViewVideoFragment : ViewMediaFragment() {
                 setMediaItem(MediaItem.fromUri(mediaAttachment.url))
                 addListener(mediaPlayerListener)
                 repeatMode = Player.REPEAT_MODE_ONE
-                playWhenReady = true
+
+                // Playback is automatically started in onPlaybackStateChanged when
+                // any transitions have completed.
+                playWhenReady = false
                 seekTo(savedSeekPosition)
                 prepare()
                 player = this
@@ -355,9 +353,9 @@ class ViewVideoFragment : ViewMediaFragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun setupMediaView(
-        showingDescription: Boolean,
-    ) {
+    override fun setupMediaView(showingDescription: Boolean) {
+        startedTransition = false
+
         binding.mediaDescription.text = attachment.description
         binding.mediaDescription.visible(showingDescription)
         binding.mediaDescription.movementMethod = ScrollingMovementMethod()
@@ -377,21 +375,12 @@ class ViewVideoFragment : ViewMediaFragment() {
         }
 
         binding.videoView.requestFocus()
-
-        if (requireArguments().getBoolean(ARG_START_POSTPONED_TRANSITION)) {
-            mediaActivity.onBringUp()
-        }
-    }
-
-    private fun hideToolbarAfterDelay() {
-        handler.postDelayed(hideToolbar, CONTROLS_TIMEOUT_MS.toLong())
     }
 
     override fun onToolbarVisibilityChange(visible: Boolean) {
-        if (!userVisibleHint) {
-            return
-        }
+        super.onToolbarVisibilityChange(visible)
 
+        if (!userVisibleHint) return
         view ?: return
 
         isDescriptionVisible = showingDescription && visible
@@ -413,18 +402,13 @@ class ViewVideoFragment : ViewMediaFragment() {
                 },
             )
             .start()
-
-        if (visible && (binding.videoView.player?.isPlaying == true) && !isAudio) {
-            hideToolbarAfterDelay()
-        } else {
-            handler.removeCallbacks(hideToolbar)
-        }
     }
 
-    override fun onTransitionEnd() { }
+    override fun shouldScheduleToolbarHide(): Boolean {
+        return (binding.videoView.player?.isPlaying == true) && !isAudio
+    }
 
     companion object {
-        private const val CONTROLS_TIMEOUT_MS = 2000 // Consistent with YouTube player
         private const val SEEK_POSITION = "seekPosition"
     }
 }

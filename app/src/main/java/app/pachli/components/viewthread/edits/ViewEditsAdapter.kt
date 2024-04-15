@@ -30,9 +30,9 @@ import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.StatusEdit
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemStatusEditBinding
 import app.pachli.interfaces.LinkListener
-import app.pachli.util.BindingHolder
 import app.pachli.util.aspectRatios
 import app.pachli.util.setClickableText
 import app.pachli.viewdata.PollOptionViewData

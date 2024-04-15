@@ -13,6 +13,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.EditFilterActivityIntent
 import app.pachli.core.network.model.Filter
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityFiltersBinding
 import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,13 +63,13 @@ class FiltersActivity : BaseActivity(), FiltersListener {
                 when (state.loadingState) {
                     FiltersViewModel.LoadingState.INITIAL, FiltersViewModel.LoadingState.LOADING -> binding.messageView.hide()
                     FiltersViewModel.LoadingState.ERROR_NETWORK -> {
-                        binding.messageView.setup(R.drawable.errorphant_offline, R.string.error_network) {
+                        binding.messageView.setup(BackgroundMessage.Network()) {
                             loadFilters()
                         }
                         binding.messageView.show()
                     }
                     FiltersViewModel.LoadingState.ERROR_OTHER -> {
-                        binding.messageView.setup(R.drawable.errorphant_error, R.string.error_generic) {
+                        binding.messageView.setup(BackgroundMessage.GenericError()) {
                             loadFilters()
                         }
                         binding.messageView.show()
@@ -76,11 +77,7 @@ class FiltersActivity : BaseActivity(), FiltersListener {
                     FiltersViewModel.LoadingState.LOADED -> {
                         binding.filtersList.adapter = FiltersAdapter(this@FiltersActivity, state.filters)
                         if (state.filters.isEmpty()) {
-                            binding.messageView.setup(
-                                R.drawable.elephant_friend_empty,
-                                R.string.message_empty,
-                                null,
-                            )
+                            binding.messageView.setup(BackgroundMessage.Empty())
                             binding.messageView.show()
                         } else {
                             binding.messageView.hide()

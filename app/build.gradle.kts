@@ -32,8 +32,8 @@ android {
 
     defaultConfig {
         applicationId = "app.pachli"
-        versionCode = 11
-        versionName = "2.2.0"
+        versionCode = 13
+        versionName = "2.4.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["disableAnalytics"] = "true"
@@ -51,10 +51,6 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
-    }
-
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
     }
 
     packaging {
@@ -116,11 +112,14 @@ configurations {
 }
 
 dependencies {
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
-
     // CachedTimelineRemoteMediator needs the @Transaction annotation from Room
     compileOnly(libs.bundles.room)
     testCompileOnly(libs.bundles.room)
+
+    // @HiltWorker annotation
+    implementation(libs.androidx.hilt.common)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
 
     implementation(projects.core.accounts)
     implementation(projects.core.activity)
@@ -128,16 +127,17 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.database)
     implementation(projects.core.designsystem)
+    implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(projects.core.network)
     implementation(projects.core.preferences)
     implementation(projects.core.ui)
 
     implementation(projects.feature.about)
+    implementation(projects.feature.lists)
     implementation(projects.feature.login)
 
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.coroutines.rx3)
 
     implementation(libs.bundles.androidx)
 
@@ -155,10 +155,6 @@ dependencies {
 
     implementation(libs.bundles.glide)
     ksp(libs.glide.compiler)
-
-    implementation(libs.bundles.rxjava3)
-
-    implementation(libs.bundles.autodispose)
 
     implementation(libs.sparkbutton)
 

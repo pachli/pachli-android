@@ -16,6 +16,7 @@
 
 package app.pachli.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
@@ -26,12 +27,10 @@ import app.pachli.R
 import app.pachli.TabViewData
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.database.model.TabKind
-import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Timeline
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemTabPreferenceBinding
 import app.pachli.databinding.ItemTabPreferenceSmallBinding
-import app.pachli.util.BindingHolder
-import app.pachli.util.setDrawableTint
 import com.google.android.material.chip.Chip
 
 interface ItemInteractionListener {
@@ -39,15 +38,14 @@ interface ItemInteractionListener {
     fun onTabRemoved(position: Int)
     fun onStartDelete(viewHolder: RecyclerView.ViewHolder)
     fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
-    fun onActionChipClicked(tab: TabViewData, tabPosition: Int)
-    fun onChipClicked(tab: TabViewData, tabPosition: Int, chipPosition: Int)
+    fun onActionChipClicked(timelineHashtags: Timeline.Hashtags, tabPosition: Int)
+    fun onChipClicked(timelineHashtags: Timeline.Hashtags, tabPosition: Int, chipPosition: Int)
 }
 
 class TabAdapter(
     private var data: List<TabViewData>,
     private val small: Boolean,
     private val listener: ItemInteractionListener,
-    private var removeButtonEnabled: Boolean = false,
 ) : RecyclerView.Adapter<BindingHolder<ViewBinding>>() {
 
     fun updateData(newData: List<TabViewData>) {
@@ -64,30 +62,26 @@ class TabAdapter(
         return BindingHolder(binding)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: BindingHolder<ViewBinding>, position: Int) {
         val context = holder.itemView.context
-        val tab = data[position]
+        val tabViewData = data[position]
 
         if (small) {
             val binding = holder.binding as ItemTabPreferenceSmallBinding
 
-            binding.textView.setText(tab.text)
+            binding.textView.setText(tabViewData.text)
 
-            binding.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(tab.icon, 0, 0, 0)
+            binding.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(tabViewData.icon, 0, 0, 0)
 
             binding.textView.setOnClickListener {
-                listener.onTabAdded(tab)
+                listener.onTabAdded(tabViewData)
             }
         } else {
             val binding = holder.binding as ItemTabPreferenceBinding
 
-            if (tab.kind == TabKind.LIST) {
-                binding.textView.text = tab.arguments.getOrNull(1).orEmpty()
-            } else {
-                binding.textView.setText(tab.text)
-            }
-
-            binding.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(tab.icon, 0, 0, 0)
+            binding.textView.text = tabViewData.title(context)
+            binding.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(tabViewData.icon, 0, 0, 0)
 
             binding.imageView.setOnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_DOWN) {
@@ -97,17 +91,27 @@ class TabAdapter(
                     false
                 }
             }
-            binding.removeButton.setOnClickListener {
-                listener.onTabRemoved(holder.bindingAdapterPosition)
-            }
-            binding.removeButton.isEnabled = removeButtonEnabled
-            setDrawableTint(
-                holder.itemView.context,
-                binding.removeButton.drawable,
-                (if (removeButtonEnabled) android.R.attr.textColorTertiary else DR.attr.textColorDisabled),
-            )
+            if (tabViewData.timeline !is Timeline.Home) {
+                binding.removeButton.setOnClickListener {
+                    listener.onTabRemoved(holder.bindingAdapterPosition)
+                }
 
-            if (tab.kind == TabKind.HASHTAG) {
+                binding.removeButton.show()
+                binding.textView.setOnTouchListener { _, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        listener.onStartDelete(holder)
+                        true
+                    } else {
+                        false
+                    }
+                }
+            } else {
+                binding.removeButton.hide()
+            }
+
+            if (tabViewData.timeline is Timeline.Hashtags) {
+                // Hashtags are shown as chips, set the text back to generic "Hashtags"
+                binding.textView.setText(tabViewData.text)
                 binding.chipGroup.show()
 
                 /*
@@ -115,7 +119,7 @@ class TabAdapter(
                  * The other dynamic chips are inserted in front of the actionChip.
                  * This code tries to reuse already added chips to reduce the number of Views created.
                  */
-                tab.arguments.forEachIndexed { i, arg ->
+                tabViewData.timeline.tags.forEachIndexed { i, arg ->
 
                     val chip = binding.chipGroup.getChildAt(i).takeUnless { it.id == R.id.actionChip } as Chip?
                         ?: Chip(context).apply {
@@ -126,23 +130,23 @@ class TabAdapter(
 
                     chip.text = arg
 
-                    if (tab.arguments.size <= 1) {
+                    if (tabViewData.timeline.tags.size <= 1) {
                         chip.isCloseIconVisible = false
                         chip.setOnClickListener(null)
                     } else {
                         chip.isCloseIconVisible = true
                         chip.setOnClickListener {
-                            listener.onChipClicked(tab, holder.bindingAdapterPosition, i)
+                            listener.onChipClicked(tabViewData.timeline, holder.bindingAdapterPosition, i)
                         }
                     }
                 }
 
-                while (binding.chipGroup.size - 1 > tab.arguments.size) {
-                    binding.chipGroup.removeViewAt(tab.arguments.size)
+                while (binding.chipGroup.size - 1 > tabViewData.timeline.tags.size) {
+                    binding.chipGroup.removeViewAt(tabViewData.timeline.tags.size)
                 }
 
                 binding.actionChip.setOnClickListener {
-                    listener.onActionChipClicked(tab, holder.bindingAdapterPosition)
+                    listener.onActionChipClicked(tabViewData.timeline, holder.bindingAdapterPosition)
                 }
             } else {
                 binding.chipGroup.hide()
@@ -151,11 +155,4 @@ class TabAdapter(
     }
 
     override fun getItemCount() = data.size
-
-    fun setRemoveButtonVisible(enabled: Boolean) {
-        if (removeButtonEnabled != enabled) {
-            removeButtonEnabled = enabled
-            notifyDataSetChanged()
-        }
-    }
 }

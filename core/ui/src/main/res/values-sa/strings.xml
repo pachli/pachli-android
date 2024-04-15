@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">दोषो जातः । कृपया भवतोऽन्तर्जालीयसम्पर्कं परीक्ष्य पुनश्च यत्यताम् !</string>
+    <string name="error_generic">दोषो जातः ।</string>
+    <string name="message_empty">न किमप्यत्र ।</string>
+    <string name="action_retry">पुनः यत्यताम्</string>
+    <string name="button_done">कृतम्</string>
+    <string name="action_view_profile">व्यक्तिविवरणम्</string>
+    <string name="action_more">अधिकम्</string>
+</resources>

@@ -16,11 +16,44 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.network.json.Default
+import app.pachli.core.network.json.HasDefault
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+
+/** https://docs.joinmastodon.org/entities/List/#replies_policy */
+@HasDefault
+enum class UserListRepliesPolicy {
+    /** Show replies to any followed user */
+    @Json(name = "followed")
+    FOLLOWED,
+
+    /** Show replies to members of the list */
+    @Default
+    @Json(name = "list")
+    LIST,
+
+    /** Show replies to no one */
+    @Json(name = "none")
+    NONE,
+
+    ;
+
+    // Empty companion object so that other code can add extension functions
+    // to this enum. See e.g., ListsActivity.
+    companion object
+}
 
 @JsonClass(generateAdapter = true)
 data class MastoList(
     val id: String,
     val title: String,
-    val exclusive: Boolean?,
+    /**
+     * List's exclusivity (whether posts are hidden from the home timeline).
+     * Null implies the server does not support this feature.
+     */
+    val exclusive: Boolean? = null,
+
+    @Json(name = "replies_policy")
+    val repliesPolicy: UserListRepliesPolicy = UserListRepliesPolicy.LIST,
 )

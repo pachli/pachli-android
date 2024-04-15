@@ -39,9 +39,10 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountActivityIntent
-import app.pachli.core.navigation.StatusListActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentViewEditsBinding
 import app.pachli.interfaces.LinkListener
 import com.google.android.material.color.MaterialColors
@@ -112,10 +113,7 @@ class ViewEditsFragment :
 
                         when (uiState.throwable) {
                             is ViewEditsViewModel.MissingEditsException -> {
-                                binding.statusView.setup(
-                                    R.drawable.elephant_friend_empty,
-                                    R.string.error_missing_edits,
-                                )
+                                binding.statusView.setup(BackgroundMessage.Empty(R.string.error_missing_edits))
                             }
                             else -> {
                                 binding.statusView.setup(uiState.throwable) {
@@ -189,7 +187,7 @@ class ViewEditsFragment :
     }
 
     override fun onViewTag(tag: String) {
-        bottomSheetActivity?.startActivityWithSlideInAnimation(StatusListActivityIntent.hashtag(requireContext(), tag))
+        bottomSheetActivity?.startActivityWithSlideInAnimation(TimelineActivityIntent.hashtag(requireContext(), tag))
     }
 
     override fun onViewUrl(url: String) {

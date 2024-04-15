@@ -18,8 +18,8 @@
 package app.pachli.mklanguages
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
+import com.google.common.truth.Truth.assertThat
 import java.util.stream.Stream
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode
@@ -49,7 +49,7 @@ internal class ValuesParserTest {
         @ParameterizedTest
         @MethodSource("getParams")
         fun `returns the expected locale`(params: Params) {
-            assertEquals(params.expected, parser.parseToEnd(params.filename).locale)
+            assertThat(parser.parseToEnd(params.filename).locale).isEqualTo(params.expected)
         }
     }
 }

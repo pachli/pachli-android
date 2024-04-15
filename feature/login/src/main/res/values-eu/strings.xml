@@ -10,7 +10,7 @@
     <string name="action_close">Itxi</string>
     <string name="action_browser_login">Nabigatzailearekin saioa hasi</string>
     <string name="error_invalid_domain">Domeinu baliogabea sartu da</string>
-    <string name="error_failed_app_registration">Akatsa instantzia horrekin autentikatzerakoan. Akatsak badarrai, menutik, nabigatzailean saioa hasteko aukerarekin saiatu.</string>
+    <string name="error_failed_app_registration_fmt">Akatsa instantzia horrekin autentikatzerakoan. Akatsak badarrai, menutik, nabigatzailean saioa hasteko aukerarekin saiatu: %1$s</string>
     <string name="error_authorization_unknown">Identifikatu gabeko baimen-akatsa gertatu da. Akatsak badarrai, menutik, nabigatzailean saioa hasteko aukerarekin saiatu.</string>
     <string name="error_authorization_denied">Baimena ukatu da. Ziur bazaude zuk sartutako egiaztagiriak zuzenak direla, menutik, nabigatzailean saioa hasteko aukerarekin saiatu.</string>
     <string name="error_retrieving_oauth_token">Akatsa saio-hasieraren identifikatzailea eskuratzerakoan. Akatsak badarrai, menutik, nabigatzailean saioa hasteko aukerarekin saiatu.</string>

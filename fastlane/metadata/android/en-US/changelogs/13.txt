@@ -1,0 +1,16 @@
+Pachli 2.4.0
+
+New features:
+
+- Notify user about severed relationships 
+- Allow user to see poll results before voting, set list's reply policy
+- Show "Notifications", "Followed hashtags" and lists item in left-nav 
+- Auto-hide Image Viewer toolbar 
+
+Fixes:
+
+- Improve URL extraction when composing 
+- Update tabs when lists are renamed or deleted 
+- Ensure logging out accounts completes 
+- Ensure files are fully downloaded before sharing 
+- Update Finnish, Kabyle, and Spanish translations 

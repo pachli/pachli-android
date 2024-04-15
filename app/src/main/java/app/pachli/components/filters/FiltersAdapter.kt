@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.network.model.Filter
+import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemRemovableBinding
-import app.pachli.util.BindingHolder
 import app.pachli.util.getRelativeTimeSpanString
 
 class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
@@ -22,7 +22,7 @@ class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
         val binding = holder.binding
         val resources = binding.root.resources
         val actions = resources.getStringArray(R.array.filter_actions)
-        val contexts = resources.getStringArray(R.array.filter_contexts)
+        val filterContextNames = resources.getStringArray(R.array.filter_contexts)
 
         val filter = filters[position]
         val context = binding.root.context
@@ -37,7 +37,7 @@ class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
         binding.textSecondary.text = context.getString(
             R.string.filter_description_format,
             actions.getOrNull(filter.action.ordinal - 1),
-            filter.context.map { contexts.getOrNull(Filter.Kind.from(it).ordinal) }.joinToString("/"),
+            filter.contexts.map { filterContextNames.getOrNull(it.ordinal) }.joinToString("/"),
         )
 
         binding.delete.setOnClickListener {

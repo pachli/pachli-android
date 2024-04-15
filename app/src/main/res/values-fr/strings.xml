@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic">Une erreur s’est produite.</string>
-    <string name="error_network">Une erreur réseau s’est produite ! Veuillez vérifier votre connexion puis réessayez !</string>
     <string name="error_empty">Ce champ ne peut pas être vide.</string>
     <string name="error_no_web_browser_found">Impossible de trouver un navigateur web à utiliser.</string>
     <string name="error_compose_character_limit">Votre message est trop long !</string>
@@ -39,7 +37,6 @@
     <string name="post_content_warning_show_less">Voir moins</string>
     <string name="post_content_show_more">Déplier</string>
     <string name="post_content_show_less">Replier</string>
-    <string name="message_empty">Rien ici.</string>
     <string name="footer_empty">Il n’y a aucun pouet ici pour l’instant. Glissez vers le bas pour actualiser !</string>
     <string name="notification_reblog_format">%s a partagé votre message</string>
     <string name="notification_favourite_format">%s a ajouté votre message à ses favoris</string>
@@ -52,7 +49,6 @@
     <string name="action_unreblog">Annuler le partage</string>
     <string name="action_favourite">Favori</string>
     <string name="action_unfavourite">Supprimer le favori</string>
-    <string name="action_more">Plus</string>
     <string name="action_compose">Écrire</string>
     <string name="action_logout">Déconnexion</string>
     <string name="action_logout_confirm">Êtes-vous certain·e· de vouloir déconnecter le compte %1$s ?</string>
@@ -66,8 +62,6 @@
     <string name="action_delete">Supprimer</string>
     <string name="action_send">POUET</string>
     <string name="action_send_public">POUET !</string>
-    <string name="action_retry">Réessayer</string>
-    <string name="action_view_profile">Profil</string>
     <string name="action_view_preferences">Préférences</string>
     <string name="action_view_account_preferences">Préférences de compte</string>
     <string name="action_view_favourites">Favoris</string>
@@ -239,17 +233,6 @@
     <string name="filter_add_description">Phrase à filtrer</string>
     <string name="add_account_name">Ajouter un compte</string>
     <string name="add_account_description">Ajouter un nouveau compte Mastodon</string>
-    <string name="action_lists">Listes</string>
-    <string name="title_lists">Listes</string>
-    <string name="error_create_list">Impossible de créer la liste</string>
-    <string name="error_rename_list">Impossible de renommer la liste</string>
-    <string name="error_delete_list">Impossible de supprimer la liste</string>
-    <string name="action_create_list">Créer une liste</string>
-    <string name="action_rename_list">Renommer la liste</string>
-    <string name="action_delete_list">Supprimer la liste</string>
-    <string name="hint_search_people_list">Chercher des personnes que vous suivez</string>
-    <string name="action_add_to_list">Ajouter un compte à la liste</string>
-    <string name="action_remove_from_list">Supprimer un compte de la liste</string>
     <string name="compose_active_account_description">Publier en tant que %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Décrire pour les malvoyants (%d caractère maximum)</item>
@@ -277,9 +260,6 @@
     <string name="restart_emoji">Vous devrez redémarrer Pachli pour appliquer ces modifications</string>
     <string name="later">Plus tard</string>
     <string name="restart">Redémarrer</string>
-    <string name="caption_systememoji">Votre jeu d’émojis par défaut</string>
-    <string name="caption_blobmoji">Un jeu d’émojis basé sur les émojis « blob »</string>
-    <string name="caption_twemoji">Le jeu d’émojis standard de Mastodon</string>
     <string name="download_failed">Échec du téléchargement</string>
     <string name="account_moved_description">%1$s a déménagé vers :</string>
     <string name="reblog_private">Partager à l’audience originale</string>
@@ -318,7 +298,6 @@
     <string name="description_visibility_private">        Abonné·e·s
     </string>
     <string name="description_visibility_direct">Direct</string>
-    <string name="hint_list_name">Nom de la liste</string>
     <string name="edit_hashtag_hint">Hashtag sans #</string>
     <string name="notifications_clear">Nettoyer</string>
     <string name="notifications_apply_filter">Filtrer</string>
@@ -358,7 +337,7 @@
     </plurals>
     <string name="pref_title_animate_gif_avatars">Activer l’animation des avatars</string>
     <string name="compose_preview_image_description">Actions pour l’image %s</string>
-    <string name="poll_info_format"> <!-- 15 votes • 1 heure restante --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 heure restante -->%1$s • %2$s</string>
     <string name="poll_ended_voted">Un sondage auquel vous avez participé vient de se terminer</string>
     <string name="description_poll">Sondage avec des choix : %1$s, %2$s, %3$s, %4$s ; %5$s</string>
     <string name="title_domain_mutes">Domaines cachés</string>
@@ -366,7 +345,6 @@
     <string name="action_mute_domain">Masquer %s</string>
     <string name="confirmation_domain_unmuted">%s n’est plus masqué·e</string>
     <string name="mute_domain_warning_dialog_ok">Masquer le domaine entier</string>
-    <string name="caption_notoemoji">L’ensemble d’émojis actuel de Google</string>
     <string name="button_continue">Continuer</string>
     <string name="button_back">Retour</string>
     <string name="report_sent_success">\@%s signalé avec succès</string>
@@ -376,7 +354,6 @@
     <string name="failed_fetch_posts">Échec de récupération des messages</string>
     <string name="report_description_1">Le rapport sera envoyé aux modérateur·rice·s de votre instance. Vous pouvez expliquer pourquoi vous signalez le compte ci-dessous :</string>
     <string name="mute_domain_warning">Êtes-vous sûr⋅e de vouloir bloquer %s en entier \? Vous ne verrez plus de contenu provenant de ce domaine, ni dans les fils publics, ni dans vos notifications. Vos abonné·e·s utilisant ce domaine seront retiré·e·s.</string>
-    <string name="button_done">Terminé</string>
     <string name="report_description_remote_instance">Le compte provient d’un autre serveur. Envoyez également une copie anonyme du rapport \?</string>
     <string name="filter_dialog_whole_word">Mot entier</string>
     <string name="filter_dialog_whole_word_description">Un mot-clé ou une phrase alphanumérique sera appliqué·e seulement s’il ou elle correspond au mot entier</string>
@@ -468,7 +445,6 @@
     <string name="wellbeing_hide_stats_posts">Cacher les statistiques quantitatives sur les messages</string>
     <string name="action_unbookmark">Supprimer le signet</string>
     <string name="post_media_attachments">Pièces jointes</string>
-    <string name="dialog_delete_list_warning">Voulez-vous vraiment supprimer la liste %s \?</string>
     <string name="action_subscribe_account">S’abonner</string>
     <string name="dialog_delete_conversation_warning">Supprimer cette conversation \?</string>
     <string name="pref_title_animate_custom_emojis">Animer les émojis personnalisés</string>
@@ -523,9 +499,6 @@
     <string name="error_unmuting_hashtag_format">Une erreur est survenue en arrêtant de masquer #%s</string>
     <string name="error_following_hashtag_format">Une erreur est survenue en suivant #%s</string>
     <string name="error_unfollowing_hashtag_format">Une erreur est survenue en arrêtant de suivre #%s</string>
-    <string name="action_add_or_remove_from_list">Ajouter à ou retirer de la liste</string>
-    <string name="failed_to_remove_from_list">Le compte n\'a pas pu être retiré de la liste</string>
-    <string name="failed_to_add_to_list">Le compte n\'a pas pu être ajouté à la liste</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="dialog_follow_hashtag_title">Suivre un hashtag</string>
     <string name="hint_media_description_missing">Le contenu média devrait être décrit.</string>
@@ -572,7 +545,6 @@
     <string name="status_edit_info">Modification de %1$s</string>
     <string name="status_created_info">Création par %1$s</string>
     <string name="compose_save_draft_loses_media">Enregistrer comme brouillon \? (Les pièces jointes seront à nouveau téléchargées lorsque le brouillon sera réouvert.)</string>
-    <string name="no_lists">Vous n\'avez aucune liste.</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Autre</string>
@@ -583,13 +555,12 @@
     <string name="action_post_failed_detail_plural">Les status n\'ont pas pu être publiés, ils ont été sauvegardés dans les brouillons.
 \n
 \nLe serveur n\'est pas joignable, ou celui-ci a refusé la publication.</string>
-    <string name="action_refresh">Actualiser</string>
     <string name="failed_to_unpin">Échec du détachement</string>
     <string name="pref_title_show_self_username">Montrer le nom d\'utilisateur dans la barre d\'outils</string>
     <string name="socket_timeout_exception">La connexion à votre serveur a pris trop longtemps</string>
-    <string name="ui_error_bookmark">Échec de l\'ajout aux signets : %s</string>
-    <string name="ui_error_vote">Échec du vote : %s</string>
-    <string name="ui_error_reblog">Échec de la mise en signet : %s</string>
+    <string name="ui_error_bookmark_fmt">Échec de l\'ajout aux signets : %1$s</string>
+    <string name="ui_error_vote_fmt">Échec du vote : %1$s</string>
+    <string name="ui_error_reblog_fmt">Échec de la mise en signet : %1$s</string>
     <string name="ui_error_accept_follow_request">N\'a pas pu accepter la demande d\'abonnement : %s</string>
     <string name="ui_error_reject_follow_request">N\'a pas pu rejeter la demande d\'abonnement : %s</string>
     <string name="ui_success_accepted_follow_request">Demande d\'abonnement acceptée</string>
@@ -606,7 +577,7 @@
     <string name="error_status_source_load">Le texte d\'origine du statut n\'a pas pu être chargé.</string>
     <string name="ui_error_unknown">raison inconnue</string>
     <string name="ui_error_clear_notifications">Échec du nettoyage des notifications : %s</string>
-    <string name="ui_error_favourite">Échec de la mise en favori : %s</string>
+    <string name="ui_error_favourite_fmt">Échec de la mise en favori : %1$s</string>
     <string name="label_filter_title">Nom</string>
     <string name="hint_filter_title">Mon filtre</string>
     <string name="pref_title_show_stat_inline">Montrer les statistiques des statuts dans les fils</string>
@@ -632,9 +603,6 @@
     <string name="title_public_trending_statuses">Publications en tendance</string>
     <string name="title_tab_public_trending_hashtags">Hashtags</string>
     <string name="action_translate">Traduire</string>
-    <string name="error_generic_fmt">Une erreur s\'est produite : %s</string>
-    <string name="error_network_fmt">Une erreur réseau s\'est produite : %s</string>
-    <string name="error_404_not_found">Votre serveur ne prend pas en charge cette fonctionnalité</string>
     <string name="title_public_trending">Tendances</string>
     <string name="title_public_trending_links">Liens en tendance</string>
     <string name="title_tab_public_trending_links">Liens</string>
@@ -655,10 +623,9 @@
     <string name="label_image">Image</string>
     <string name="pref_summary_timeline_filters">Votre serveur ne supporte pas les filtres</string>
     <string name="compose_delete_draft">Supprimer le brouillon ?</string>
-    <string name="list_exclusive_label">Masquer du fil d\'actualité principal</string>
     <string name="announcement_date_updated">(Mis à jour : %1$s)</string>
     <string name="load_newest_notifications">Charger les nouvelles notifications</string>
-    <string name="ui_error_translate_status">Traduction échouée : %s</string>
+    <string name="ui_error_translate_status_fmt">Traduction échouée : %1$s</string>
     <string name="load_newest_statuses">Charger les publications les plus récentes</string>
     <string name="error_media_playback">La lecture a échoué : %s</string>
     <string name="dialog_save_profile_changes_message">Voulez-vous sauvegarder les changements apportés à votre profil ?</string>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Tharla earráid líonra! Seiceáil do nasc agus bain triail eile as!</string>
+    <string name="error_generic">Tharla earráid.</string>
+    <string name="message_empty">Níl aon rud anseo.</string>
+    <string name="action_retry">Atriail</string>
+    <string name="button_done">Déanta</string>
+    <string name="action_view_profile">Próifíl</string>
+    <string name="action_more">Níos mó</string>
+</resources>

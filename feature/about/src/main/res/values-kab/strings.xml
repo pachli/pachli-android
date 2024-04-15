@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Ɣef</string>
     <string name="about_powered_by_pachli">Yettwamdemmar s Pachli</string>
@@ -6,4 +6,5 @@
 \n https://pachli.app</string>
     <string name="about_pachli_account">Amaɣnu n Pachli</string>
     <string name="title_licenses">Turagin</string>
+    <string name="action_refresh">Smiren</string>
 </resources>

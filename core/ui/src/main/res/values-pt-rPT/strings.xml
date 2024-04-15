@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_network">Ocorreu um erro de conetividade! Por favor, verifique a sua ligação e tente novamente!</string>
+    <string name="error_generic">Ocorreu um erro.</string>
+    <string name="message_empty">Nada aqui.</string>
+    <string name="action_retry">Tentar novamente</string>
+    <string name="button_done">Feito</string>
+    <string name="action_view_profile">Perfil</string>
+    <string name="action_more">Mais</string>
+</resources>

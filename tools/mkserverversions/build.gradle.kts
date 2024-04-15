@@ -16,8 +16,9 @@
  */
 
 plugins {
-    id("com.google.devtools.ksp")
-    id("com.apollographql.apollo3") version "3.8.2"
+    alias(libs.plugins.google.ksp)
+    alias(libs.plugins.apollographql)
+    alias(libs.plugins.pachli.tool)
 }
 
 application {
@@ -25,24 +26,10 @@ application {
 }
 
 dependencies {
-    // GraphQL client
-    implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
+    implementation(libs.apollo.runtime)
 
-    // Logging
-    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
-    implementation("ch.qos.logback:logback-classic:1.4.11")
-
-    // Moshi
     implementation(libs.moshi)
     ksp(libs.moshi.codegen)
-
-    // Testing
-    testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2") // for parameterized tests
-}
-
-tasks.test {
-    useJUnitPlatform()
 }
 
 apollo {

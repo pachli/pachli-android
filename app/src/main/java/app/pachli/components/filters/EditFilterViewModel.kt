@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FilterChangedEvent
 import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
@@ -22,7 +23,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
     val keywords = MutableStateFlow(listOf<FilterKeyword>())
     val action = MutableStateFlow(Filter.Action.WARN)
     val duration = MutableStateFlow(0)
-    val contexts = MutableStateFlow(listOf<Filter.Kind>())
+    val contexts = MutableStateFlow(listOf<FilterContext>())
 
     fun load(filter: Filter) {
         originalFilter = filter
@@ -34,7 +35,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
         } else {
             -1
         }
-        contexts.value = filter.kinds
+        contexts.value = filter.contexts
     }
 
     fun addKeyword(keyword: FilterKeyword) {
@@ -66,14 +67,14 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
         this.action.value = action
     }
 
-    fun addContext(context: Filter.Kind) {
-        if (!contexts.value.contains(context)) {
-            contexts.value += context
+    fun addContext(filterContext: FilterContext) {
+        if (!contexts.value.contains(filterContext)) {
+            contexts.value += filterContext
         }
     }
 
-    fun removeContext(context: Filter.Kind) {
-        contexts.value = contexts.value.filter { it != context }
+    fun removeContext(filterContext: FilterContext) {
+        contexts.value = contexts.value.filter { it != filterContext }
     }
 
     fun validate(): Boolean {
@@ -83,10 +84,10 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
     }
 
     suspend fun saveChanges(context: Context): Boolean {
-        val contexts = contexts.value.map { it.kind }
+        val contexts = contexts.value
         val title = title.value
         val durationIndex = duration.value
-        val action = action.value.action
+        val action = action.value
 
         return withContext(viewModelScope.coroutineContext) {
             val success = originalFilter?.let { filter ->
@@ -97,9 +98,9 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
             // e.g., removing a filter from "home" still notifies anything showing
             // the home timeline, so the timeline can be refreshed.
             if (success) {
-                val originalKinds = originalFilter?.context?.map { Filter.Kind.from(it) } ?: emptyList()
-                val newKinds = contexts.map { Filter.Kind.from(it) }
-                (originalKinds + newKinds).distinct().forEach {
+                val originalContexts = originalFilter?.contexts ?: emptyList()
+                val newFilterContexts = contexts
+                (originalContexts + newFilterContexts).distinct().forEach {
                     eventHub.dispatch(FilterChangedEvent(it))
                 }
             }
@@ -107,7 +108,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
         }
     }
 
-    private suspend fun createFilter(title: String, contexts: List<String>, action: String, durationIndex: Int, context: Context): Boolean {
+    private suspend fun createFilter(title: String, contexts: List<FilterContext>, action: Filter.Action, durationIndex: Int, context: Context): Boolean {
         val expiresInSeconds = EditFilterActivity.getSecondsForDurationIndex(durationIndex, context)
         api.createFilter(
             title = title,
@@ -131,7 +132,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
         )
     }
 
-    private suspend fun updateFilter(originalFilter: Filter, title: String, contexts: List<String>, action: String, durationIndex: Int, context: Context): Boolean {
+    private suspend fun updateFilter(originalFilter: Filter, title: String, contexts: List<FilterContext>, action: Filter.Action, durationIndex: Int, context: Context): Boolean {
         val expiresInSeconds = EditFilterActivity.getSecondsForDurationIndex(durationIndex, context)
         api.updateFilter(
             id = originalFilter.id,
@@ -167,18 +168,18 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
         )
     }
 
-    private suspend fun createFilterV1(context: List<String>, expiresInSeconds: Int?): Boolean {
+    private suspend fun createFilterV1(contexts: List<FilterContext>, expiresInSeconds: String?): Boolean {
         return keywords.value.map { keyword ->
-            api.createFilterV1(keyword.keyword, context, false, keyword.wholeWord, expiresInSeconds)
+            api.createFilterV1(keyword.keyword, contexts, false, keyword.wholeWord, expiresInSeconds)
         }.none { it.isFailure }
     }
 
-    private suspend fun updateFilterV1(context: List<String>, expiresInSeconds: Int?): Boolean {
+    private suspend fun updateFilterV1(contexts: List<FilterContext>, expiresInSeconds: String?): Boolean {
         val results = keywords.value.map { keyword ->
             if (originalFilter == null) {
                 api.createFilterV1(
                     phrase = keyword.keyword,
-                    context = context,
+                    context = contexts,
                     irreversible = false,
                     wholeWord = keyword.wholeWord,
                     expiresInSeconds = expiresInSeconds,
@@ -187,7 +188,7 @@ class EditFilterViewModel @Inject constructor(val api: MastodonApi, val eventHub
                 api.updateFilterV1(
                     id = originalFilter!!.id,
                     phrase = keyword.keyword,
-                    context = context,
+                    context = contexts,
                     irreversible = false,
                     wholeWord = keyword.wholeWord,
                     expiresInSeconds = expiresInSeconds,

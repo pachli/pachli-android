@@ -22,7 +22,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
@@ -32,9 +31,11 @@ import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.openLinkInCustomTab
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.MainActivityIntent
+import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.AccessToken
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.getNonNullString
@@ -198,9 +199,12 @@ class LoginActivity : BaseActivity() {
                 { e ->
                     binding.loginButton.isEnabled = true
                     binding.domainTextInputLayout.error =
-                        getString(R.string.error_failed_app_registration)
+                        String.format(
+                            getString(R.string.error_failed_app_registration_fmt),
+                            (e.getServerErrorMessage() ?: e.localizedMessage).unicodeWrap(),
+                        )
                     setLoading(false)
-                    Timber.e(Log.getStackTraceString(e))
+                    Timber.e(e, "Error when creating/registing app")
                     return@launch
                 },
             )

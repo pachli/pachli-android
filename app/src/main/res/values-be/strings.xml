@@ -2,8 +2,6 @@
 <resources>
     <string name="error_empty">Не можа быць пустым.</string>
     <string name="error_no_web_browser_found">Браўзер не знойдзены.</string>
-    <string name="error_generic">Здарылася памылка.</string>
-    <string name="error_network">Здарылася сеткавая памылка! Калі ласка, праверце злучэнне і паспрабуйце зноў!</string>
     <string name="error_compose_character_limit">Допіс занадта доўгі!</string>
     <string name="error_multimedia_size_limit">Памер відэа- ды аўдыяфайлаў не можа перавышаць %s Мб.</string>
     <string name="error_media_upload_type">Немагчыма запампаваць файл гэтага тыпу.</string>
@@ -55,7 +53,6 @@
     <string name="post_content_warning_show_less">Паказаць менш</string>
     <string name="post_content_show_less">Згарнуць</string>
     <string name="post_edited">Рэдагаваны %s</string>
-    <string name="message_empty">Тут нічога няма.</string>
     <string name="footer_empty">Тут нічога няма. Пацягніце ўніз, каб абнавіць!</string>
     <string name="notification_reblog_format">%s пашырыў(-ла) ваш допіс</string>
     <string name="notification_favourite_format">%s падабаўся ваш допіс</string>
@@ -173,7 +170,6 @@
     </plurals>
     <string name="description_account_locked">Заблакаваны ўліковы запіс</string>
     <string name="action_unbookmark">Выдаліць з закладак</string>
-    <string name="action_more">Разгарнуць</string>
     <string name="action_compose">Напісаць</string>
     <string name="action_logout">Выхад</string>
     <string name="action_logout_confirm">Вы ўпэўнены, што жадаеце выйсці з уліковага запісу %1$s\?</string>
@@ -189,8 +185,6 @@
     <string name="action_delete_and_redraft">Выдаліць і перастварыць</string>
     <string name="action_send">ПАШЫРЫЦЬ</string>
     <string name="action_send_public">ПАШЫРЫЦЬ!</string>
-    <string name="action_retry">Паўтарыць</string>
-    <string name="action_view_profile">Профіль</string>
     <string name="action_view_preferences">Налады</string>
     <string name="action_view_account_preferences">Налады ўліковага запісу</string>
     <string name="action_view_favourites">Абраныя</string>
@@ -320,10 +314,7 @@
     <string name="filter_dialog_whole_word">Цэлае слова</string>
     <string name="filter_dialog_whole_word_description">Калі ключавое слова ці фраза складаецца толькі з літар і лічбаў, то будзе ўлічвацца толькі ўсё слова</string>
     <string name="title_edits">Рэдагаванні</string>
-    <string name="failed_to_add_to_list">Не атрымалася дадаць уліковы запіс у спіс</string>
-    <string name="action_add_or_remove_from_list">Дадаць ці выдаліць са спіса</string>
     <string name="filter_expiration_format">%s (%s)</string>
-    <string name="action_add_to_list">Дадаць уліковы запіс у спіс</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Апісанне змесціва для людзей з дэфектам зроку (ліміт у %d сімвал)</item>
         <item quantity="few">Апісанне змесціва для людзей з дэфектам зроку (ліміт у %d сімвалы)</item>
@@ -331,8 +322,6 @@
         <item quantity="other">Апісанне змесціва для людзей з дэфектам зроку (ліміт у %d сімвалаў)</item>
     </plurals>
     <string name="compose_save_draft_loses_media">Захаваць чарнавік\? (Далучэнні будуць запампаваныя зноў, калі Вы аднавіце чарнавік.)</string>
-    <string name="caption_notoemoji">Бягучы набор эмодзі ад Google</string>
-    <string name="caption_twemoji">Тыповы набор эмодзі Mastodon</string>
     <string name="download_failed">Не атрымалася спампаваць</string>
     <string name="unreblog_private">Скасаваць пашырэнне</string>
     <string name="pin_action">Замацаваць</string>
@@ -342,15 +331,12 @@
     <string name="conversation_more_recipients">%1$s, %2$s і яшчэ %3$d</string>
     <string name="action_discard">Скасаваць змены</string>
     <string name="action_continue_edit">Працягнуць рэдагаванне</string>
-    <string name="hint_search_people_list">Пошук сярод вашых падпісак</string>
     <string name="add_account_name">Дадаць уліковы запіс</string>
-    <string name="action_remove_from_list">Выдаліць уліковы запіс са спіса</string>
     <string name="compose_active_account_description">Публікаваць як %1$s</string>
     <string name="set_focus_description">Націсніце або перацягніце кола каб абраць пункт фокусу, які будзе заўсёды бачны на паменшаных выявах.</string>
     <string name="action_set_caption">Задаць подпіс</string>
     <string name="action_set_focus">Задаць пункт фокуса</string>
     <string name="action_edit_image">Рэдагаваць выяву</string>
-    <string name="failed_to_remove_from_list">Не атрымалася выдаліць уліковы запіс са спіса</string>
     <string name="send_post_notification_channel_name">Дасыланне допісаў</string>
     <string name="later">Пазней</string>
     <plurals name="favs">
@@ -363,14 +349,6 @@
     <string name="profile_metadata_label">Метазвесткі профілю</string>
     <string name="title_favourited_by">Упадабалі</string>
     <string name="add_account_description">Дадаць уліковы запіс Mastodon</string>
-    <string name="action_lists">Спісы</string>
-    <string name="title_lists">Спісы</string>
-    <string name="error_create_list">Не атрымалася стварыць спіс</string>
-    <string name="error_rename_list">Не атрымалася перайменаваць спіс</string>
-    <string name="error_delete_list">Не атрымалася выдаліць спіс</string>
-    <string name="action_create_list">Стварыць спіс</string>
-    <string name="action_rename_list">Перайменаваць спіс</string>
-    <string name="action_delete_list">Выдаліць спіс</string>
     <string name="filter_add_description">Фільтраваць фразу</string>
     <string name="action_remove">Выдаліць</string>
     <string name="lock_account_label">Заблакаваць уліковы запіс</string>
@@ -384,8 +362,6 @@
     <string name="error_no_custom_emojis">Ваш сервер %s не мае ўласных эмодзі</string>
     <string name="emoji_style">Стыль эмодзі</string>
     <string name="system_default">Сістэмнае значэнне па змаўчанні</string>
-    <string name="caption_systememoji">Тыповы набор эмодзі прылады</string>
-    <string name="caption_blobmoji">Эмодзі Blob з Android 4.4–7.1</string>
     <string name="download_fonts">Спачатку трэба спампаваць гэтыя наборы эмодзі</string>
     <string name="profile_metadata_add">дадаць звесткі</string>
     <string name="profile_metadata_label_label">Пазнака</string>
@@ -415,7 +391,6 @@
     <string name="description_visibility_direct">Асабіста</string>
     <string name="description_visibility_unlisted">Не ў стужках</string>
     <string name="hashtags">Хэштэгі</string>
-    <string name="hint_list_name">Назва спіса</string>
     <string name="add_hashtag_title">Дадаць хэштэг</string>
     <string name="description_post_reblogged">Пашырана</string>
     <string name="description_poll">Апытанне з варыянтамі: %1$s, %2$s, %3$s, %4$s; %5$s</string>
@@ -435,7 +410,6 @@
     <string name="compose_shortcut_short_label">Стварыць</string>
     <string name="notification_clear_text">Вы ўпэўнены, што жадаеце выдаліць усе апавяшчэнні\?</string>
     <string name="compose_preview_image_description">Дзеянні для выявы %s</string>
-    <string name="button_done">Гатова</string>
     <string name="report_sent_success">Скарга на @%s адпраўлена</string>
     <string name="hint_additional_info">Дадатковыя каментары</string>
     <string name="title_accounts">Уліковыя запісы</string>
@@ -485,7 +459,7 @@
     <string name="send_account_username_to">Падзяліцца імем карыстальніка ўліковага запісу праз…</string>
     <string name="account_username_copied">Імя карыстальніка скапіявана</string>
     <string name="filter_apply">Прымяніць</string>
-    <string name="poll_info_format"> <!-- 15 галасоў • 1 гадзіна засталася --> %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 галасоў • 1 гадзіна засталася -->%1$s • %2$s</string>
     <string name="poll_info_time_absolute">завяршыцца ў %s</string>
     <plurals name="poll_timespan_hours">
         <item quantity="one">Засталася %d гадзіна</item>
@@ -544,7 +518,6 @@
     <string name="saving_draft">Захоўваю чарнавік…</string>
     <string name="drafts_post_reply_removed">Допіс, для якога Вы стварылі чарнавік адказу, выдалены</string>
     <string name="follow_requests_info">Нягледзячы на тое што Ваш уліковы запіс не закрыты, кіраўнікі %1$s вырашылі, што Вы, магчыма, пажадаеце праглядзець запыты на падпіску ад гэтых уліковых запісаў уручную.</string>
-    <string name="no_lists">У Вас няма спісаў.</string>
     <string name="no_drafts">У Вас няма чарнавікоў.</string>
     <string name="no_scheduled_posts">У Вас няма запланаваных допісаў.</string>
     <string name="no_announcements">Няма аб\'яў.</string>
@@ -557,7 +530,6 @@
         <item quantity="many">Вы не можаце запампаваць больш за %1$d медыя далучэнняў.</item>
         <item quantity="other">Вы не можаце запампаваць больш за %1$d медыя далучэнняў.</item>
     </plurals>
-    <string name="dialog_delete_list_warning">Вы ўпэўнены, што жадаеце выдаліць спіс %s\?</string>
     <string name="limit_notifications">Абмежаванне апавяшчэнняў у стужцы</string>
     <string name="wellbeing_hide_stats_posts">Схаваць колькасную статыстыку допісаў</string>
     <string name="wellbeing_hide_stats_profile">Схаваць колькасную статыстыку профіляў</string>
@@ -593,7 +565,6 @@
     <string name="description_browser_login">Можа падтрымліваць дадатковыя метады праверкі сапраўднасці, але для гэтага патрэбны адпаведны браузер.</string>
     <string name="hint_description">Апісанне</string>
     <string name="post_media_image">Відарыс</string>
-    <string name="action_refresh">Абнавіць</string>
     <string name="select_list_empty">Яшчэ няма спісаў</string>
     <string name="select_list_manage">Кіраванне спісамі</string>
     <string name="error_list_load">Памылка загрузкі спісаў</string>
@@ -601,10 +572,10 @@
     <string name="total_accounts">Усяго ўліковых запісаў</string>
     <string name="accessibility_talking_about_tag">%1$d людзей кажуць пра хэштэг %2$s</string>
     <string name="pref_title_show_stat_inline">Паказваць статыстыку допісаў у стужцы</string>
-    <string name="ui_error_reblog">Не атрымалася пашырыць допіс: %s</string>
+    <string name="ui_error_reblog_fmt">Не атрымалася пашырыць допіс: %1$s</string>
     <string name="hint_filter_title">Мой фільтр</string>
     <string name="filter_description_format">%s: %s</string>
-    <string name="ui_error_bookmark">Не атрымалася дадаць допіс да закладак: %s</string>
+    <string name="ui_error_bookmark_fmt">Не атрымалася дадаць допіс да закладак: %1$s</string>
     <string name="ui_error_accept_follow_request">Не атрымалася пацвердзіць запыт на падпіску: %s</string>
     <string name="ui_success_accepted_follow_request">Запыт на падпіску пацверджаны</string>
     <string name="ui_success_rejected_follow_request">Запыт на падпіску заблакіраваны</string>

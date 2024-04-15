@@ -22,6 +22,7 @@ import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
@@ -40,6 +41,7 @@ data class NotificationViewData(
     val account: TimelineAccount,
     var statusViewData: StatusViewData?,
     val report: Report?,
+    val relationshipSeveranceEvent: RelationshipSeveranceEvent?,
 ) : IStatusViewData {
     companion object {
         fun from(
@@ -62,6 +64,7 @@ data class NotificationViewData(
                 )
             },
             notification.report,
+            notification.relationshipSeveranceEvent,
         )
     }
 

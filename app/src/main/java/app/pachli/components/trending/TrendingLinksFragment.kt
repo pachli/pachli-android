@@ -30,6 +30,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -43,6 +44,8 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.ui.ActionButtonScrollListener
+import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
@@ -90,6 +93,21 @@ class TrendingLinksFragment :
         setupSwipeRefreshLayout()
         setupRecyclerView()
 
+        (activity as? ActionButtonActivity)?.actionButton?.let { actionButton ->
+            actionButton.show()
+
+            val actionButtonScrollListener = ActionButtonScrollListener(actionButton)
+            binding.recyclerView.addOnScrollListener(actionButtonScrollListener)
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                    viewModel.showFabWhileScrolling.collect { showFabWhileScrolling ->
+                        actionButtonScrollListener.showActionButtonWhileScrolling = showFabWhileScrolling
+                    }
+                }
+            }
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.loadState.collectLatest {
                 when (it) {
@@ -110,11 +128,7 @@ class TrendingLinksFragment :
                         binding.progressBar.hide()
                         binding.swipeRefreshLayout.isRefreshing = false
                         if (it.data.isEmpty()) {
-                            binding.messageView.setup(
-                                R.drawable.elephant_friend_empty,
-                                R.string.message_empty,
-                                null,
-                            )
+                            binding.messageView.setup(BackgroundMessage.Empty())
                             binding.messageView.show()
                         } else {
                             binding.messageView.hide()
@@ -157,8 +171,6 @@ class TrendingLinksFragment :
                 adapter.statusDisplayOptions = it
             }
         }
-
-        (activity as? ActionButtonActivity)?.actionButton?.hide()
     }
 
     private fun setupSwipeRefreshLayout() {

@@ -20,6 +20,7 @@ package app.pachli
 import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
+import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -36,14 +37,12 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.util.LocaleManager
 import app.pachli.util.setAppNightMode
 import app.pachli.worker.PruneCacheWorker
+import app.pachli.worker.PruneCachedMediaWorker
 import app.pachli.worker.PruneLogEntryEntityWorker
-import app.pachli.worker.WorkerFactory
-import autodispose2.AutoDisposePlugins
 import dagger.hilt.android.HiltAndroidApp
 import de.c1710.filemojicompat_defaults.DefaultEmojiPackList
 import de.c1710.filemojicompat_ui.helpers.EmojiPackHelper
 import de.c1710.filemojicompat_ui.helpers.EmojiPreference
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import java.security.Security
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -53,7 +52,7 @@ import timber.log.Timber
 @HiltAndroidApp
 class PachliApplication : Application() {
     @Inject
-    lateinit var workerFactory: WorkerFactory
+    lateinit var workerFactory: HiltWorkerFactory
 
     @Inject
     lateinit var localeManager: LocaleManager
@@ -85,8 +84,6 @@ class PachliApplication : Application() {
 
         Security.insertProviderAt(Conscrypt.newProvider(), 1)
 
-        AutoDisposePlugins.setHideProxies(false) // a small performance optimization
-
         when {
             BuildConfig.DEBUG -> Timber.plant(Timber.DebugTree())
             BuildConfig.FLAVOR_color == "orange" -> Timber.plant(TreeRing)
@@ -110,17 +107,11 @@ class PachliApplication : Application() {
 
         localeManager.setLocale()
 
-        RxJavaPlugins.setErrorHandler {
-            Timber.tag("RxJava").w(it, "undeliverable exception")
-        }
-
         createWorkerNotificationChannel(this)
 
         WorkManager.initialize(
             this,
-            androidx.work.Configuration.Builder()
-                .setWorkerFactory(workerFactory)
-                .build(),
+            androidx.work.Configuration.Builder().setWorkerFactory(workerFactory).build(),
         )
 
         val workManager = WorkManager.getInstance(this)
@@ -142,6 +133,16 @@ class PachliApplication : Application() {
             PruneLogEntryEntityWorker.PERIODIC_WORK_TAG,
             ExistingPeriodicWorkPolicy.KEEP,
             pruneLogEntryEntityWorker,
+        )
+
+        // Delete old cached media every ~ 12 hours when the device is idle
+        val pruneCachedMediaWorker = PeriodicWorkRequestBuilder<PruneCachedMediaWorker>(12, TimeUnit.HOURS)
+            .setConstraints(Constraints.Builder().setRequiresDeviceIdle(true).build())
+            .build()
+        workManager.enqueueUniquePeriodicWork(
+            PruneCachedMediaWorker.PERIODIC_WORK_TAG,
+            ExistingPeriodicWorkPolicy.KEEP,
+            pruneCachedMediaWorker,
         )
     }
 

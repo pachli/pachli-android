@@ -20,7 +20,7 @@ package app.pachli.components.filters
 import android.app.Activity
 import androidx.appcompat.app.AlertDialog
 import app.pachli.R
-import app.pachli.core.ui.await
+import app.pachli.core.ui.extensions.await
 
 internal suspend fun Activity.showDeleteFilterDialog(filterTitle: String) = AlertDialog.Builder(this)
     .setMessage(getString(R.string.dialog_delete_filter_text, filterTitle))
