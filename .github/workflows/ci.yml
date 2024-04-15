@@ -10,41 +10,112 @@ on:
 permissions: read-all
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        color: ["orange"]
-        store: ["fdroid", "github", "google"]
-    name: Build
+  # ktlintCheck does not have per-variant tasks, so runs once over everything
+  ktlint:
+    name: ktlintCheck
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-      - uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9 # v4
+      - uses: ./.github/actions/setup-build-env
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-      - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@b231772637bb498f11fdbc86052b6e8a8dc9fc92 # v2
+      - name: ktlintCheck
+        run: ./gradlew ktlintCheck
 
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+  # Tools are not per-variant
+  tools:
+    name: Test tools
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@1168cd3d07c1876a65e1724114de42ccbdfa7b78 # v3
+      - uses: ./.github/actions/setup-build-env
         with:
-          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-      - name: ktlint
-        run: ./gradlew clean ktlintCheck
+      - name: Test tools
+        working-directory: tools
+        run: ../gradlew test
 
-      - name: Regular lint ${{ matrix.color }}${{ matrix.store }}Debug
-        run: ./gradlew app:lint${{ matrix.color }}${{ matrix.store }}Debug
+  # Custom lint rules are not per-variant
+  custom-lint:
+    name: Custom lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-      - name: Test ${{ matrix.color }}${{ matrix.store }}DebugUnitTest checks:test
-        run: ./gradlew app:test${{ matrix.color }}${{ matrix.store }}DebugUnitTest checks:test
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-      - name: Build ${{ matrix.color }}${{ matrix.store }}Debug
-        run: ./gradlew app:build${{ matrix.color }}${{ matrix.store }}Debug
+      - name: Test custom lint rules
+        working-directory: checks
+        run: ../gradlew test
+
+  # Android lint is per-variant
+  lint:
+    strategy:
+      matrix:
+        color: ["orange"]
+        store: ["fdroid", "github", "google"]
+        type: ["debug"]
+    name: Android Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Regular lint ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+        run: ./gradlew lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+
+  # Android tests are per variant
+  test:
+    strategy:
+      matrix:
+        color: ["orange"]
+        store: ["fdroid", "github", "google"]
+        type: ["debug"]
+    name: Android Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: test ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+        run: ./gradlew test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+
+  # Android assemble is per variant
+  assemble:
+    strategy:
+      matrix:
+        color: ["orange"]
+        store: ["fdroid", "github", "google"]
+        type: ["debug"]
+    name: Android Assemble
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: assemble ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+        run: ./gradlew assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
