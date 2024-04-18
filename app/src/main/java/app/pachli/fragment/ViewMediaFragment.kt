@@ -131,16 +131,16 @@ abstract class ViewMediaFragment : Fragment() {
         super.onAttach(context)
         mediaActivity = activity as ViewMediaActivity
         mediaActionsListener = context as MediaActionsListener
+
+        attachment = arguments?.getParcelable(ARG_ATTACHMENT)
+            ?: throw IllegalArgumentException("ARG_ATTACHMENT has to be set")
+
+        shouldCallMediaReady = arguments?.getBoolean(ARG_SHOULD_CALL_MEDIA_READY)
+            ?: throw IllegalArgumentException("ARG_SHOULD_CALL_MEDIA_READY has to be set")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        attachment = arguments?.getParcelable<Attachment>(ARG_ATTACHMENT)
-            ?: throw IllegalArgumentException("ARG_ATTACHMENT has to be set")
-
-        shouldCallMediaReady = arguments?.getBoolean(ARG_SHOULD_CALL_MEDIA_READY)
-            ?: throw IllegalArgumentException("ARG_START_POSTPONED_TRANSITION has to be set")
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {

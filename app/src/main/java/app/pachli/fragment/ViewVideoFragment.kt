@@ -54,7 +54,11 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.FragmentViewVideoBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -208,12 +212,8 @@ class ViewVideoFragment : ViewMediaFragment() {
                         binding.videoView.setOnTouchListener(touchListener)
 
                         binding.progressBar.hide()
+                        binding.previewImage.hide()
                         binding.videoView.useController = true
-
-                        if (shouldCallMediaReady && !startedTransition) {
-                            startedTransition = true
-                            mediaActivity.onMediaReady()
-                        }
 
                         transitionComplete?.let {
                             viewLifecycleOwner.lifecycleScope.launch {
@@ -244,7 +244,10 @@ class ViewVideoFragment : ViewMediaFragment() {
                     error.cause?.message ?: error.message,
                 )
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(app.pachli.core.ui.R.string.action_retry) { player?.prepare() }
+                    .setAction(app.pachli.core.ui.R.string.action_retry) {
+                        binding.progressBar.show()
+                        player?.prepare()
+                    }
                     .show()
             }
         }
@@ -364,6 +367,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         binding.mediaDescription.elevation = binding.videoView.elevation + 1
 
         binding.videoView.transitionName = attachment.url
+        binding.previewImage.transitionName = attachment.url
 
         // Clicking the description should play/pause the video
         binding.mediaDescription.setOnClickListener {
@@ -371,6 +375,40 @@ class ViewVideoFragment : ViewMediaFragment() {
                 binding.videoView.player?.pause()
             } else {
                 binding.videoView.player?.play()
+            }
+        }
+
+        // Show the preview image while the video is loading. Only fetch
+        // the preview image from the cache (it should be present). When the
+        // preview image is complete (irrespective of success or failure),
+        // or when there's no preview image, complete the transition.
+        if (attachment.previewUrl != null) {
+            binding.previewImage.show()
+            val glide = Glide.with(this)
+            val listener = object : RequestListener<Drawable> {
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>, isFirstResource: Boolean): Boolean {
+                    if (shouldCallMediaReady && !startedTransition) {
+                        mediaActionsListener.onMediaReady()
+                    }
+                    return false
+                }
+
+                override fun onResourceReady(resource: Drawable, model: Any, target: Target<Drawable>?, dataSource: DataSource, isFirstResource: Boolean): Boolean {
+                    if (shouldCallMediaReady && !startedTransition) {
+                        mediaActionsListener.onMediaReady()
+                    }
+                    return false
+                }
+            }
+            glide.load(attachment.previewUrl)
+                .dontAnimate()
+                .onlyRetrieveFromCache(true)
+                .centerInside()
+                .addListener(listener)
+                .into(binding.previewImage)
+        } else {
+            if (shouldCallMediaReady && !startedTransition) {
+                mediaActionsListener.onMediaReady()
             }
         }
 
