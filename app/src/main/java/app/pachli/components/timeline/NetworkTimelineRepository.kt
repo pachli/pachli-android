@@ -132,7 +132,7 @@ class NetworkTimelineRepository @Inject constructor(
 
     fun removeStatusWithId(statusId: String) {
         synchronized(pageCache) {
-            pageCache.floorEntry(statusId)?.value?.data?.removeAll { status ->
+            pageCache.getPageById(statusId)?.data?.removeAll { status ->
                 status.id == statusId || status.reblog?.id == statusId
             }
         }
@@ -141,7 +141,7 @@ class NetworkTimelineRepository @Inject constructor(
 
     fun updateStatusById(statusId: String, updater: (Status) -> Status) {
         synchronized(pageCache) {
-            pageCache.floorEntry(statusId)?.value?.let { page ->
+            pageCache.getPageById(statusId)?.let { page ->
                 val index = page.data.indexOfFirst { it.id == statusId }
                 if (index != -1) {
                     page.data[index] = updater(page.data[index])
@@ -153,7 +153,7 @@ class NetworkTimelineRepository @Inject constructor(
 
     fun updateActionableStatusById(statusId: String, updater: (Status) -> Status) {
         synchronized(pageCache) {
-            pageCache.floorEntry(statusId)?.value?.let { page ->
+            pageCache.getPageById(statusId)?.let { page ->
                 val index = page.data.indexOfFirst { it.id == statusId }
                 if (index != -1) {
                     val status = page.data[index]

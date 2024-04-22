@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline
 
+import androidx.paging.LoadType
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -58,9 +59,9 @@ class NetworkTimelinePagingSourceTest {
     fun `load() for an item in a page returns the page containing that item and next, prev keys`() = runTest {
         // Given
         val pages = PageCache().apply {
-            upsert(Page(data = mutableListOf(mockStatus(id = "2")), nextKey = "1"))
-            upsert(Page(data = mutableListOf(mockStatus(id = "1")), nextKey = "0", prevKey = "2"))
-            upsert(Page(data = mutableListOf(mockStatus(id = "0")), prevKey = "1"))
+            add(Page(data = mutableListOf(mockStatus(id = "3")), nextKey = "1", prevKey = "4"), LoadType.REFRESH)
+            add(Page(data = mutableListOf(mockStatus(id = "1"), mockStatus(id = "2")), nextKey = "0", prevKey = "3"), LoadType.APPEND)
+            add(Page(data = mutableListOf(mockStatus(id = "0")), prevKey = "1"), LoadType.APPEND)
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -72,8 +73,8 @@ class NetworkTimelinePagingSourceTest {
         assertThat((loadResult as? LoadResult.Page))
             .isEqualTo(
                 LoadResult.Page(
-                    data = listOf(mockStatus(id = "1")),
-                    prevKey = "2",
+                    data = listOf(mockStatus(id = "1"), mockStatus(id = "2")),
+                    prevKey = "3",
                     nextKey = "0",
                     itemsBefore = 1,
                     itemsAfter = 1,
@@ -85,9 +86,9 @@ class NetworkTimelinePagingSourceTest {
     fun `append returns the page after`() = runTest {
         // Given
         val pages = PageCache().apply {
-            upsert(Page(data = mutableListOf(mockStatus(id = "2")), nextKey = "1"))
-            upsert(Page(data = mutableListOf(mockStatus(id = "1")), nextKey = "0", prevKey = "2"))
-            upsert(Page(data = mutableListOf(mockStatus(id = "0")), prevKey = "1"))
+            add(Page(data = mutableListOf(mockStatus(id = "2")), nextKey = "1"), LoadType.REFRESH)
+            add(Page(data = mutableListOf(mockStatus(id = "1")), nextKey = "0", prevKey = "2"), LoadType.APPEND)
+            add(Page(data = mutableListOf(mockStatus(id = "0")), prevKey = "1"), LoadType.APPEND)
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -112,9 +113,9 @@ class NetworkTimelinePagingSourceTest {
     fun `prepend returns the page before`() = runTest {
         // Given
         val pages = PageCache().apply {
-            upsert(Page(data = mutableListOf(mockStatus(id = "2")), nextKey = "1"))
-            upsert(Page(data = mutableListOf(mockStatus(id = "1")), nextKey = "0", prevKey = "2"))
-            upsert(Page(data = mutableListOf(mockStatus(id = "0")), prevKey = "1"))
+            add(Page(data = mutableListOf(mockStatus(id = "2")), nextKey = "1"), LoadType.REFRESH)
+            add(Page(data = mutableListOf(mockStatus(id = "1")), nextKey = "0", prevKey = "2"), LoadType.APPEND)
+            add(Page(data = mutableListOf(mockStatus(id = "0")), prevKey = "1"), LoadType.APPEND)
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -139,9 +140,9 @@ class NetworkTimelinePagingSourceTest {
     fun `Refresh with null key returns the latest page`() = runTest {
         // Given
         val pages = PageCache().apply {
-            upsert(Page(data = mutableListOf(mockStatus(id = "2")), nextKey = "1"))
-            upsert(Page(data = mutableListOf(mockStatus(id = "1")), nextKey = "0", prevKey = "2"))
-            upsert(Page(data = mutableListOf(mockStatus(id = "0")), prevKey = "1"))
+            add(Page(data = mutableListOf(mockStatus(id = "2")), nextKey = "1"), LoadType.REFRESH)
+            add(Page(data = mutableListOf(mockStatus(id = "1")), nextKey = "0", prevKey = "2"), LoadType.APPEND)
+            add(Page(data = mutableListOf(mockStatus(id = "0")), prevKey = "1"), LoadType.APPEND)
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -166,8 +167,8 @@ class NetworkTimelinePagingSourceTest {
     fun `Append with a too-old key returns empty list`() = runTest {
         // Given
         val pages = PageCache().apply {
-            upsert(Page(data = mutableListOf(mockStatus(id = "20")), nextKey = "10"))
-            upsert(Page(data = mutableListOf(mockStatus(id = "10")), prevKey = "20"))
+            add(Page(data = mutableListOf(mockStatus(id = "20")), nextKey = "10"), LoadType.REFRESH)
+            add(Page(data = mutableListOf(mockStatus(id = "10")), prevKey = "20"), LoadType.APPEND)
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -193,8 +194,8 @@ class NetworkTimelinePagingSourceTest {
     fun `Prepend with a too-new key returns empty list`() = runTest {
         // Given
         val pages = PageCache().apply {
-            upsert(Page(data = mutableListOf(mockStatus(id = "20")), nextKey = "10"))
-            upsert(Page(data = mutableListOf(mockStatus(id = "10")), prevKey = "20"))
+            add(Page(data = mutableListOf(mockStatus(id = "20")), nextKey = "10"), LoadType.REFRESH)
+            add(Page(data = mutableListOf(mockStatus(id = "10")), prevKey = "20"), LoadType.APPEND)
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 

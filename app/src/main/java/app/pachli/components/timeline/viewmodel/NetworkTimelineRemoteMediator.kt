@@ -58,45 +58,24 @@ class NetworkTimelineRemoteMediator(
                     val itemKey = state.anchorPosition?.let { state.closestItemToPosition(it) }?.id
                     itemKey?.let { ik ->
                         // Find the page that contains the item, so the remote key can be determined
-
-                        // Most Mastodon timelines are ordered by ID, greatest ID first. But not all
-                        // (https://github.com/mastodon/documentation/issues/1292 explains that
-                        // trends/statuses) isn't. This makes finding the relevant page a little
-                        // more complicated.
-
-                        // First, assume that they are ordered by ID, and find the page that should
-                        // contain this item.
-                        var pageContainingItem = pageCache.floorEntry(ik)?.value
-
-                        // Second, if no page was found it means the statuses are not sorted, and
-                        // the entire cache must be searched.
-                        if (pageContainingItem == null) {
-                            for (page in pageCache.values) {
-                                val s = page.data.find { it.id == ik }
-                                if (s != null) {
-                                    pageContainingItem = page
-                                    break
-                                }
-                            }
-
-                            pageContainingItem ?: throw java.lang.IllegalStateException("$itemKey not found in the pageCache page")
-                        }
+                        val pageContainingItem = pageCache.getPageById(ik)
 
                         // Double check the item appears in the page
                         if (BuildConfig.DEBUG) {
+                            pageContainingItem ?: throw java.lang.IllegalStateException("page with $itemKey not found")
                             pageContainingItem.data.find { it.id == itemKey }
                                 ?: throw java.lang.IllegalStateException("$itemKey not found in returned page")
                         }
 
                         // The desired key is the prevKey of the page immediately before this one
-                        pageCache.lowerEntry(pageContainingItem.data.last().id)?.value?.prevKey
+                        pageCache.getPrevPage(pageContainingItem?.prevKey)?.prevKey
                     }
                 }
                 LoadType.APPEND -> {
-                    pageCache.firstEntry()?.value?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    pageCache.lastPage?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
                 }
                 LoadType.PREPEND -> {
-                    pageCache.lastEntry()?.value?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    pageCache.firstPage?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
                 }
             }
 
@@ -108,11 +87,7 @@ class NetworkTimelineRemoteMediator(
             val endOfPaginationReached = page.data.isEmpty()
             if (!endOfPaginationReached) {
                 synchronized(pageCache) {
-                    if (loadType == LoadType.REFRESH) {
-                        pageCache.clear()
-                    }
-
-                    pageCache.upsert(page)
+                    pageCache.add(page, loadType)
                     Timber.d(
                         "  Page %s complete for %s, now got %d pages",
                         loadType,

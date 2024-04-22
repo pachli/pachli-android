@@ -17,11 +17,12 @@
 
 package app.pachli.components.timeline.viewmodel
 
+import androidx.annotation.VisibleForTesting
+import androidx.paging.LoadType
 import app.pachli.BuildConfig
-import app.pachli.core.common.string.isLessThan
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
-import java.util.TreeMap
+import java.util.LinkedList
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 import retrofit2.HttpException
@@ -43,53 +44,7 @@ data class Page(
      */
     val nextKey: String? = null,
 ) {
-    override fun toString() = "k: ${data.lastOrNull()?.id}, prev: $prevKey, next: $nextKey, size: ${"%2d".format(data.size)}, range: ${data.firstOrNull()?.id}..${data.lastOrNull()?.id}"
-
-    /**
-     * Return a new page consisting of this page, plus the data from [pages].
-     */
-    fun merge(vararg pages: Page?): Page {
-        val d = data
-        var next = nextKey
-        var prev = prevKey
-
-        pages.filterNotNull().forEach {
-            d.addAll(it.data)
-            if (next != null) {
-                if (it.nextKey == null || it.nextKey.isLessThan(next!!)) next = it.nextKey
-            }
-            if (prev != null) {
-                if (prev!!.isLessThan(it.prevKey ?: "")) prev = it.prevKey
-            }
-        }
-
-        d.sortWith(compareBy({ it.id.length }, { it.id }))
-        d.reverse()
-
-        if (nextKey?.isLessThan(next ?: "") == true) throw java.lang.IllegalStateException("New next $next is greater than old nextKey $nextKey")
-        if (prev?.isLessThan(prevKey ?: "") == true) throw java.lang.IllegalStateException("New prev $prev is less than old $prevKey")
-
-        // Debug assertions
-        if (BuildConfig.DEBUG) {
-            // There should never be duplicate items across all the pages.
-            val ids = d.map { it.id }
-            val groups = ids.groupingBy { it }.eachCount().filter { it.value > 1 }
-            if (groups.isNotEmpty()) {
-                throw IllegalStateException("Duplicate item IDs in results!: $groups")
-            }
-
-            // Data should always be sorted newest first
-            if (d.first().id.isLessThan(d.last().id)) {
-                throw IllegalStateException("Items in data are *not* sorted newest first")
-            }
-        }
-
-        return Page(
-            data = d,
-            nextKey = next,
-            prevKey = prev,
-        )
-    }
+    override fun toString() = "size: ${"%2d".format(data.size)}, range: ${data.firstOrNull()?.id}..${data.lastOrNull()?.id}, prevKey: $prevKey, nextKey: $nextKey"
 
     companion object {
         fun tryFrom(response: Response<List<Status>>): Result<Page> {
@@ -114,56 +69,185 @@ data class Page(
 }
 
 /**
- * Cache of pages from Mastodon API calls.
+ * Cache of pages from the Mastodon API.
  *
- * Cache pages are identified by the ID of the **last** (smallest, oldest) key in the page.
+ * Add pages to the cache with [add].
  *
- * It's the last item, and not the first because a page may be incomplete. E.g,.
- * a prepend operation completes, and instead of loading pageSize items it loads
- * (pageSize - 10) items, because only (pageSize - 10) items were available at the
- * time of the API call.
+ * To get a page from the cache you can either:
  *
- * If the page was subsequently refreshed, *and* the ID of the first (newest) item
- * was used as the key then you might have two pages that contain overlapping
- * items.
+ * - Get the first page (contains newest items) with [firstPage]
+ * - Get the last page (contains oldest items) with [lastPage]
+ * - Get the page that contains an item with a given ID with [getPageById]
+ *
+ * If you have a page and want to get the immediately previous (newer) page use
+ * [getPrevPage] passing the `prevKey` of the original page.
+ *
+ * ```kotlin
+ * val page = pageCache.getPageById("some_id")
+ * val previousPage = pageCache.getPageBefore(page.prevKey)
+ * ```
+ *
+ * If you have a page and want to get the immediately next (older) page use
+ * [getNextPage] passing the `nextKey` of the original page.
+ *
+ * ```kotlin
+ * val page = pageCache.getPageById("some_id")
+ * val nextPage = pageCache.getPageAfter(page.nextKey)
+ * ```
+ *
  */
-class PageCache : TreeMap<String, Page>(compareBy({ it.length }, { it })) {
+// This is more complicated than I'd like.
+//
+// A naive approach would model a cache of pages as an ordered map, where the map key is an
+// ID of the oldest status in the cache.
+//
+// This does not work because not all timelines of statuses are ordered by status ID. E.g.,
+//
+// - Trending statuses is ordered by server-determined popularity
+// - Bookmarks and favourites are ordered by the time the user performed the bookmark or
+//   favourite operation
+//
+// So a page of data returned from the Mastodon API does not have an intrinsic ID that can
+// be used as a cache key.
+//
+// In addition, we generally want to find a page using one of three identifiers:
+//
+// - The item ID of an item that is in the page (e.g., status ID)
+// - The `prevKey` value of another page
+// - The `nextKey` value of another page
+//
+// So a single map with a single key doesn't work either.
+//
+// The three identifiers (status ID, `prevKey`, and `nextKey`) can be in different
+// namespaces. For some timelines (e.g., the local timeline) they are status IDs. But in
+// other timelines, like bookmarks or favourites, they are opaque tokens.
+//
+// For example, bookmarks might have item keys that look like 110542553707722778
+// but prevKey / nextKey values that look like 1480606 / 1229303.
+//
+// `prevKey` and `nextKey` values are not guaranteed to match on either side. So if you
+// have three pages like this
+//
+//       <-- newer             older -->
+//           Page1    Page2    Page3
+//
+// Page1 might point back to Page2 with `nextKey = xxx`. But Page3 **does not** have to
+// point back to Page2 with `prevKey = xxx`, if can use a different value. And if all
+// you have is Page2 you can't ask "What prevKey value does Page3 use to point back?"
+class PageCache {
+    /** Map from item identifier (e.g,. status ID) to the page that contains this item */
+    @VisibleForTesting
+    val idToPage = mutableMapOf<String, Page>()
+
     /**
-     * Adds a new page to the cache or updates the existing page with the given key
+     * List of all pages, in display order. Pages at the front of the list are
+     * newer results from the API and are displayed first.
      */
-    fun upsert(page: Page) {
-        val key = page.data.last().id
+    private val pages = LinkedList<Page>()
 
-        Timber.d("Inserting new page:")
-        Timber.d("  %s", page)
+    /** The first page in the cache (i.e., the top / newest entry in the timeline) */
+    val firstPage: Page?
+        get() = pages.firstOrNull()
 
-        this[key] = page
+    /** The last page in the cache (i.e., the bottom / oldest entry in the timeline) */
+    val lastPage: Page?
+        get() = pages.lastOrNull()
 
-        // There should never be duplicate items across all the pages. Enforce this in debug mode.
-        if (BuildConfig.DEBUG) {
-            val ids = buildList {
-                this.addAll(this@PageCache.map { entry -> entry.value.data.map { it.id } }.flatten())
+    /** The size of the cache, in pages */
+    val size
+        get() = pages.size
+
+    /** The values in the cache */
+    val values
+        get() = idToPage.values
+
+    /** Adds [page] to the cache with the given [loadType] */
+    fun add(page: Page, loadType: LoadType) {
+        // Refreshing clears the cache then adds the page. Prepend and Append
+        // only have to add the page at the appropriate position
+        when (loadType) {
+            LoadType.REFRESH -> {
+                clear()
+                pages.add(page)
             }
-            val groups = ids.groupingBy { it }.eachCount().filter { it.value > 1 }
-            if (groups.isNotEmpty()) {
-                throw IllegalStateException("Duplicate item IDs in results!: $groups")
+            LoadType.PREPEND -> pages.addFirst(page)
+            LoadType.APPEND -> pages.addLast(page)
+        }
+
+        // Insert the items from the page in to the cache
+        page.data.forEach { status ->
+            // There should never be duplicate items across all pages. Enforce this in debug mode
+            if (BuildConfig.DEBUG) {
+                if (idToPage.containsKey(status.id)) {
+                    debug()
+                    throw IllegalStateException("Duplicate item ID ${status.id} in pagesById")
+                }
             }
+            idToPage[status.id] = page
         }
     }
 
+    /** @return page that contains [statusId], null if that [statusId] is not in the cache */
+    fun getPageById(statusId: String?) = idToPage[statusId]
+
+    /** @return page after the page that has the given [nextKey] value */
+    fun getNextPage(nextKey: String?): Page? {
+        return synchronized(pages) {
+            val index = pages.indexOfFirst { it.nextKey == nextKey }.takeIf { it != -1 } ?: return null
+            pages.getOrNull(index + 1)
+        }
+    }
+
+    /** @return page before the page that has the given [prevKey] value */
+    fun getPrevPage(prevKey: String?): Page? {
+        return synchronized(pages) {
+            val index = pages.indexOfFirst { it.prevKey == prevKey }.takeIf { it != -1 } ?: return null
+            pages.getOrNull(index - 1)
+        }
+    }
+
+    /** @return true if the page cache is empty */
+    fun isEmpty() = idToPage.isEmpty()
+
+    /** Clear the cache */
+    fun clear() {
+        idToPage.clear()
+        pages.clear()
+    }
+
+    /** @return the number of **items** in the pages **before** the page identified by [prevKey] */
+    fun itemsBefore(prevKey: String?): Int {
+        prevKey ?: return 0
+
+        val index = pages.indexOfFirst { it.prevKey == prevKey }
+        if (index <= 0) return 0
+
+        return pages.subList(0, index).fold(0) { sum, page -> sum + page.data.size }
+    }
+
     /**
-     * Logs the current state of the cache
+     * @return the number of **items** in the pages **after** the page identified by [nextKey]
      */
+    fun itemsAfter(nextKey: String?): Int {
+        nextKey ?: return 0
+        val index = pages.indexOfFirst { it.nextKey == nextKey }
+        if (index == -1 || index == pages.size) return 0
+
+        return pages.subList(index + 1, pages.size).fold(0) { sum, page -> sum + page.data.size }
+    }
+
+    /** Logs debug information when [BuildConfig.DEBUG] is true */
     fun debug() {
-        if (BuildConfig.DEBUG) { // Makes it easier for Proguard to optimise this out
-            Timber.d("Page cache state:")
-            if (this.isEmpty()) {
-                Timber.d("  ** empty **")
-            } else {
-                this.onEachIndexed { index, entry ->
-                    Timber.d("  %d: %s", index, entry.value)
-                }
-            }
+        if (!BuildConfig.DEBUG) return
+
+        Timber.d("Page cache state:")
+        if (idToPage.isEmpty()) {
+            Timber.d("  ** empty **")
+            return
+        }
+
+        idToPage.values.groupBy { it.prevKey }.values.forEachIndexed { index, pages ->
+            Timber.d("  %d: %s", index, pages.first())
         }
     }
 }
