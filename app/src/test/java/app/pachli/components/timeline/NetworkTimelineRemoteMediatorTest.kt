@@ -149,18 +149,19 @@ class NetworkTimelineRemoteMediatorTest {
 
         // Then
         val expectedPages = PageCache().apply {
-            upsert(
+            add(
                 Page(
                     data = mutableListOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
                     nextKey = "5",
                 ),
+                LoadType.REFRESH,
             )
         }
 
         assertThat(result).isInstanceOf(RemoteMediator.MediatorResult.Success::class.java)
         assertThat((result as RemoteMediator.MediatorResult.Success).endOfPaginationReached).isFalse()
-        assertThat(pages).containsExactlyEntriesIn(expectedPages)
+        assertThat(pages.idToPage).containsExactlyEntriesIn(expectedPages.idToPage)
 
         // Page cache was modified, so the pager should have been invalidated
         verify(pagingSourceFactory).invalidate()
@@ -171,12 +172,13 @@ class NetworkTimelineRemoteMediatorTest {
     fun `should prepend statuses`() = runTest {
         // Given
         val pages = PageCache().apply {
-            upsert(
+            add(
                 Page(
                     data = mutableListOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
                     nextKey = "5",
                 ),
+                LoadType.REFRESH,
             )
         }
 
@@ -212,25 +214,27 @@ class NetworkTimelineRemoteMediatorTest {
 
         // Then
         val expectedPages = PageCache().apply {
-            upsert(
+            add(
                 Page(
                     data = mutableListOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
                     nextKey = "5",
                 ),
+                LoadType.REFRESH,
             )
-            upsert(
+            add(
                 Page(
                     data = mutableListOf(mockStatus("10"), mockStatus("9"), mockStatus("8")),
                     prevKey = "10",
                     nextKey = "8",
                 ),
+                LoadType.PREPEND,
             )
         }
 
         assertThat(result).isInstanceOf(RemoteMediator.MediatorResult.Success::class.java)
         assertThat((result as RemoteMediator.MediatorResult.Success).endOfPaginationReached).isFalse()
-        assertThat(pages).containsExactlyEntriesIn(expectedPages)
+        assertThat(pages.idToPage).containsExactlyEntriesIn(expectedPages.idToPage)
 
         // Page cache was modified, so the pager should have been invalidated
         verify(pagingSourceFactory).invalidate()
@@ -241,12 +245,13 @@ class NetworkTimelineRemoteMediatorTest {
     fun `should append statuses`() = runTest {
         // Given
         val pages = PageCache().apply {
-            upsert(
+            add(
                 Page(
                     data = mutableListOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
                     nextKey = "5",
                 ),
+                LoadType.REFRESH,
             )
         }
 
@@ -282,25 +287,27 @@ class NetworkTimelineRemoteMediatorTest {
 
         // Then
         val expectedPages = PageCache().apply {
-            upsert(
+            add(
                 Page(
                     data = mutableListOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
                     prevKey = "7",
                     nextKey = "5",
                 ),
+                LoadType.REFRESH,
             )
-            upsert(
+            add(
                 Page(
                     data = mutableListOf(mockStatus("4"), mockStatus("3"), mockStatus("2")),
                     prevKey = "4",
                     nextKey = "2",
                 ),
+                LoadType.APPEND,
             )
         }
 
         assertThat(result).isInstanceOf(RemoteMediator.MediatorResult.Success::class.java)
         assertThat((result as RemoteMediator.MediatorResult.Success).endOfPaginationReached).isFalse()
-        assertThat(pages).containsExactlyEntriesIn(expectedPages)
+        assertThat(pages.idToPage).containsExactlyEntriesIn(expectedPages.idToPage)
 
         // Page cache was modified, so the pager should have been invalidated
         verify(pagingSourceFactory).invalidate()
