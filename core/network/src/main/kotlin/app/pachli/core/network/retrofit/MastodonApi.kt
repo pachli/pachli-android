@@ -787,11 +787,17 @@ interface MastodonApi {
     suspend fun unfollowTag(@Path("name") name: String): NetworkResult<HashTag>
 
     @GET("api/v1/trends/tags")
-    suspend fun trendingTags(): NetworkResult<List<TrendingTag>>
+    suspend fun trendingTags(
+        @Query("limit") limit: Int? = null,
+    ): NetworkResult<List<TrendingTag>>
 
     @GET("api/v1/trends/links")
-    suspend fun trendingLinks(): NetworkResult<List<TrendsLink>>
+    suspend fun trendingLinks(
+        @Query("limit") limit: Int? = null,
+    ): NetworkResult<List<TrendsLink>>
 
     @GET("api/v1/trends/statuses")
-    suspend fun trendingStatuses(): Response<List<Status>>
+    suspend fun trendingStatuses(
+        @Query("limit") limit: Int? = null,
+    ): Response<List<Status>>
 }

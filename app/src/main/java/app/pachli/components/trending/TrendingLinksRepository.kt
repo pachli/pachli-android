@@ -23,5 +23,14 @@ import javax.inject.Inject
 class TrendingLinksRepository @Inject constructor(
     private val api: MastodonApi,
 ) {
-    suspend fun getTrendingLinks() = api.trendingLinks()
+    suspend fun getTrendingLinks() = api.trendingLinks(limit = LIMIT_TRENDING_LINKS)
+
+    companion object {
+        /**
+         * How many trending links to fetch. These are not paged, so fetch the
+         * documented (https://docs.joinmastodon.org/methods/trends/#query-parameters-2)
+         * maximum.
+         */
+        const val LIMIT_TRENDING_LINKS = 20
+    }
 }
