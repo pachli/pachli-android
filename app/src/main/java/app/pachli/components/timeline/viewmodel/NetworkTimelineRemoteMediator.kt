@@ -125,7 +125,7 @@ class NetworkTimelineRemoteMediator(
             Timeline.Home -> api.homeTimeline(maxId = maxId, minId = minId, limit = loadSize)
             Timeline.PublicFederated -> api.publicTimeline(local = false, maxId = maxId, minId = minId, limit = loadSize)
             Timeline.PublicLocal -> api.publicTimeline(local = true, maxId = maxId, minId = minId, limit = loadSize)
-            Timeline.TrendingStatuses -> api.trendingStatuses()
+            Timeline.TrendingStatuses -> api.trendingStatuses(limit = LIMIT_TRENDING_STATUSES)
             is Timeline.Hashtags -> {
                 val firstHashtag = timeline.tags.first()
                 val additionalHashtags = timeline.tags.subList(1, timeline.tags.size)
@@ -166,5 +166,14 @@ class NetworkTimelineRemoteMediator(
             )
             else -> throw IllegalStateException("NetworkTimelineRemoteMediator does not support $timeline")
         }
+    }
+
+    companion object {
+        /**
+         * How many trending statuses to fetch. These are not paged, so fetch the
+         * documented (https://docs.joinmastodon.org/methods/trends/#query-parameters-1)
+         * maximum.
+         */
+        const val LIMIT_TRENDING_STATUSES = 40
     }
 }

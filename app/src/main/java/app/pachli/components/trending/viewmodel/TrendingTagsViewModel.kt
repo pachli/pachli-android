@@ -88,7 +88,7 @@ class TrendingTagsViewModel @Inject constructor(
 
         val deferredFilters = async { mastodonApi.getFilters() }
 
-        mastodonApi.trendingTags().fold(
+        mastodonApi.trendingTags(limit = LIMIT_TRENDING_HASHTAGS).fold(
             { tagResponse ->
 
                 val firstTag = tagResponse.firstOrNull()
@@ -128,5 +128,14 @@ class TrendingTagsViewModel @Inject constructor(
             .maxOrNull() ?: 1
 
         return map { TrendingViewData.Tag.from(it, maxTrendingValue) }
+    }
+
+    companion object {
+        /**
+         * How many trending hashtags to fetch. These are not paged, so fetch the
+         * documented (https://docs.joinmastodon.org/methods/trends/#query-parameters)
+         * maximum.
+         */
+        const val LIMIT_TRENDING_HASHTAGS = 20
     }
 }
