@@ -44,11 +44,8 @@ import androidx.media3.datasource.okhttp.OkHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.util.EventLogger
-import androidx.media3.ui.AspectRatioFrameLayout
 import app.pachli.BuildConfig
 import app.pachli.R
-import app.pachli.core.common.extensions.hide
-import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.network.model.Attachment
@@ -87,8 +84,6 @@ class ViewVideoFragment : ViewMediaFragment() {
     private lateinit var mediaPlayerListener: Player.Listener
     private var isAudio = false
 
-    private lateinit var mediaAttachment: Attachment
-
     private var player: ExoPlayer? = null
 
     /** The saved seek position, if the fragment is being resumed */
@@ -96,6 +91,7 @@ class ViewVideoFragment : ViewMediaFragment() {
 
     private lateinit var mediaSourceFactory: DefaultMediaSourceFactory
 
+    @Volatile
     private var startedTransition = false
 
     override fun onAttach(context: Context) {
@@ -128,16 +124,13 @@ class ViewVideoFragment : ViewMediaFragment() {
         binding.videoView.controllerShowTimeoutMs = CONTROLS_TIMEOUT.inWholeMilliseconds.toInt()
 
         isAudio = attachment.type == Attachment.Type.AUDIO
-        binding.progressBar.show()
 
         /** Handle single taps, flings, and dragging */
         val touchListener = object : View.OnTouchListener {
             var lastY = 0f
 
-            /** The view that contains the playing content */
-            // binding.videoView is fullscreen, and includes the controls, so don't use that
-            // when scaling in response to the user dragging on the screen
-            val contentFrame = binding.videoView.findViewById<AspectRatioFrameLayout>(androidx.media3.ui.R.id.exo_content_frame)
+            /** True if the player was playing when the user started touch interactions */
+            var wasPlaying: Boolean? = null
 
             /** Handle taps and flings */
             val simpleGestureDetector = GestureDetectorCompat(
@@ -174,18 +167,27 @@ class ViewVideoFragment : ViewMediaFragment() {
                     lastY = event.rawY
                 } else if (event.pointerCount == 1 && event.action == MotionEvent.ACTION_MOVE) {
                     val diff = event.rawY - lastY
-                    if (contentFrame.translationY != 0f || abs(diff) > 40) {
-                        contentFrame.translationY += diff
-                        val scale = (-abs(contentFrame.translationY) / 720 + 1).coerceAtLeast(0.5f)
-                        contentFrame.scaleY = scale
-                        contentFrame.scaleX = scale
+                    if (binding.videoView.translationY != 0f || abs(diff) > 40) {
+                        // Save the playing state, if not already saved
+                        if (wasPlaying == null) {
+                            wasPlaying = player?.isPlaying
+                            player?.pause()
+                        }
+
+                        binding.videoView.translationY += diff
+                        val scale = (-abs(binding.videoView.translationY) / 720 + 1).coerceAtLeast(0.5f)
+                        binding.videoView.scaleY = scale
+                        binding.videoView.scaleX = scale
                         lastY = event.rawY
                     }
                 } else if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
-                    if (abs(contentFrame.translationY) > 180) {
+                    if (abs(binding.videoView.translationY) > 180) {
+                        wasPlaying = null
                         mediaActionsListener.onMediaDismiss()
                     } else {
-                        contentFrame.animate().translationY(0f).scaleX(1f).scaleY(1f).start()
+                        binding.videoView.animate().translationY(0f).scaleX(1f).scaleY(1f).start()
+                        if (wasPlaying == true) player?.play()
+                        wasPlaying = null
                     }
                 }
 
@@ -206,9 +208,6 @@ class ViewVideoFragment : ViewMediaFragment() {
                         // Wait until the media is loaded before accepting taps as we don't want toolbar to
                         // be hidden until then.
                         binding.videoView.setOnTouchListener(touchListener)
-
-                        binding.progressBar.hide()
-                        binding.videoView.useController = true
 
                         if (shouldCallMediaReady && !startedTransition) {
                             startedTransition = true
@@ -238,7 +237,6 @@ class ViewVideoFragment : ViewMediaFragment() {
             }
 
             override fun onPlayerError(error: PlaybackException) {
-                binding.progressBar.hide()
                 val message = getString(
                     R.string.error_media_playback,
                     error.cause?.message ?: error.message,
@@ -250,8 +248,6 @@ class ViewVideoFragment : ViewMediaFragment() {
         }
 
         savedSeekPosition = savedInstanceState?.getLong(SEEK_POSITION) ?: 0
-
-        mediaAttachment = attachment
     }
 
     override fun onStart() {
@@ -315,7 +311,7 @@ class ViewVideoFragment : ViewMediaFragment() {
             .setMediaSourceFactory(mediaSourceFactory)
             .build().apply {
                 if (BuildConfig.DEBUG) addAnalyticsListener(EventLogger("${javaClass.simpleName}:ExoPlayer"))
-                setMediaItem(MediaItem.fromUri(mediaAttachment.url))
+                setMediaItem(MediaItem.fromUri(attachment.url))
                 addListener(mediaPlayerListener)
                 repeatMode = Player.REPEAT_MODE_ONE
 
@@ -331,7 +327,7 @@ class ViewVideoFragment : ViewMediaFragment() {
 
         // Audio-only files might have a preview image. If they do, set it as the artwork
         if (isAudio) {
-            mediaAttachment.previewUrl?.let { url ->
+            attachment.previewUrl?.let { url ->
                 Glide.with(this).load(url).into(
                     object : CustomTarget<Drawable>() {
                         override fun onResourceReady(
@@ -365,12 +361,17 @@ class ViewVideoFragment : ViewMediaFragment() {
 
         binding.videoView.transitionName = attachment.url
 
+        if (!startedTransition && shouldCallMediaReady) {
+            startedTransition = true
+            mediaActionsListener.onMediaReady()
+        }
+
         // Clicking the description should play/pause the video
         binding.mediaDescription.setOnClickListener {
-            if (binding.videoView.player?.isPlaying == true) {
-                binding.videoView.player?.pause()
+            if (player?.isPlaying == true) {
+                player?.pause()
             } else {
-                binding.videoView.player?.play()
+                player?.play()
             }
         }
 
@@ -405,7 +406,7 @@ class ViewVideoFragment : ViewMediaFragment() {
     }
 
     override fun shouldScheduleToolbarHide(): Boolean {
-        return (binding.videoView.player?.isPlaying == true) && !isAudio
+        return (player?.isPlaying == true) && !isAudio
     }
 
     companion object {
