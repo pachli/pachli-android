@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Ha ocurrido un error de red. Por favor, comprueba tu conexión e inténtalo de nuevo.</string>
     <string name="error_network_fmt">Ha ocurrido un error de red: %s</string>
@@ -11,4 +11,5 @@
     <string name="action_view_profile">Perfil</string>
     <string name="action_more">Más</string>
     <string name="action_refresh">Recargar</string>
+    <string name="error_json_data_fmt">Tu servidor devolvió una respuesta inválida: %1$s</string>
 </resources>
