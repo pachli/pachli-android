@@ -35,6 +35,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.viewModels
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -48,6 +49,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type.systemBars
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -312,6 +314,11 @@ class AccountActivity :
             val bottom = insets.getInsets(systemBars()).bottom
             val left = insets.getInsets(systemBars()).left
             binding.accountCoordinatorLayout.updatePadding(right = right, bottom = bottom, left = left)
+
+            // Scale the swipe spinner instead of appearing to come from nowhere, and adjust the
+            // top margin to avoid the system bar
+            binding.swipeRefreshLayout.setProgressViewEndTarget(true, binding.swipeRefreshLayout.progressViewEndOffset)
+            binding.swipeRefreshLayout.updateLayoutParams<MarginLayoutParams> { topMargin = top }
 
             WindowInsetsCompat.CONSUMED
         }
