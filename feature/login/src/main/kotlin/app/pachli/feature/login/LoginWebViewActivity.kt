@@ -23,9 +23,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.net.http.SslError
 import android.os.Bundle
 import android.os.Parcelable
 import android.webkit.CookieManager
+import android.webkit.SslErrorHandler
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebStorage
@@ -45,8 +47,11 @@ import app.pachli.core.common.util.versionName
 import app.pachli.core.navigation.LoginWebViewActivityIntent
 import app.pachli.feature.login.databinding.ActivityLoginWebviewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.security.cert.X509Certificate
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
+import okhttp3.tls.HandshakeCertificates
 import timber.log.Timber
 
 /** Contract for starting [LoginWebViewActivity]. */
@@ -109,6 +114,9 @@ class LoginWebViewActivity : BaseActivity() {
 
     private val viewModel: LoginWebViewViewModel by viewModels()
 
+    @Inject
+    lateinit var handshakeCertificates: HandshakeCertificates
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -149,7 +157,7 @@ class LoginWebViewActivity : BaseActivity() {
                 request: WebResourceRequest,
                 error: WebResourceError,
             ) {
-                Timber.d("Failed to load %s: %s", data.url, error)
+                Timber.d("Failed to load %s: %d %s", data.url, error.errorCode, error.description)
                 sendResult(LoginResult.Err(getString(R.string.error_could_not_load_login_page)))
             }
 
@@ -179,6 +187,22 @@ class LoginWebViewActivity : BaseActivity() {
                     true
                 } else {
                     false
+                }
+            }
+
+            @SuppressLint("DiscouragedPrivateApi", "WebViewClientOnReceivedSslError")
+            override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
+                if (error?.primaryError != SslError.SSL_UNTRUSTED) return super.onReceivedSslError(view, handler, error)
+
+                try {
+                    val certField = error.certificate.javaClass.getDeclaredField("mX509Certificate")
+                    certField.isAccessible = true
+                    val cert = certField.get(error.certificate) as X509Certificate
+                    handshakeCertificates.trustManager.checkServerTrusted(arrayOf(cert), "generic")
+                    handler?.proceed()
+                } catch (_: Exception) {
+                    super.onReceivedSslError(view, handler, error)
+                    return
                 }
             }
         }

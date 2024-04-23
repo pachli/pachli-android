@@ -22,6 +22,7 @@ import android.os.Build
 import app.pachli.core.common.util.versionName
 import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.BuildConfig
+import app.pachli.core.network.R
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.EnumConstantConverterFactory
@@ -47,6 +48,8 @@ import dagger.hilt.components.SingletonComponent
 import java.net.IDN
 import java.net.InetSocketAddress
 import java.net.Proxy
+import java.security.cert.CertificateFactory
+import java.security.cert.X509Certificate
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -54,6 +57,7 @@ import okhttp3.Cache
 import okhttp3.OkHttp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.tls.HandshakeCertificates
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
@@ -79,6 +83,7 @@ object NetworkModule {
         @ApplicationContext context: Context,
         preferences: SharedPreferencesRepository,
         instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
+        handshakeCertificates: HandshakeCertificates,
     ): OkHttpClient {
         val versionName = versionName(context)
         val httpProxyEnabled = preferences.getBoolean(HTTP_PROXY_ENABLED, false)
@@ -111,6 +116,10 @@ object NetworkModule {
             } ?: Timber.w("Invalid proxy configuration: (%s, %d)", httpServer, httpPort)
         }
 
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            builder.sslSocketFactory(handshakeCertificates.sslSocketFactory(), handshakeCertificates.trustManager)
+        }
+
         return builder
             .apply {
                 addInterceptor(instanceSwitchAuthInterceptor)
@@ -118,6 +127,21 @@ object NetworkModule {
                     addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC })
                 }
             }
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesHandshakeCertificates(
+        @ApplicationContext context: Context,
+    ): HandshakeCertificates {
+        val certFactory = CertificateFactory.getInstance("X.509")
+        return HandshakeCertificates.Builder()
+            .addPlatformTrustedCertificates()
+            .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrg_root_x1_cross_signed)) as X509Certificate)
+            .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrg_root_x2)) as X509Certificate)
+            .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrg_root_x2_cross_signed)) as X509Certificate)
+            .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrgrootx1)) as X509Certificate)
             .build()
     }
 
