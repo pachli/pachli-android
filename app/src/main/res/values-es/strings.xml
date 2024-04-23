@@ -17,9 +17,9 @@
     <string name="title_direct_messages">Mensajes directos</string>
     <string name="title_tab_preferences">Pestañas</string>
     <string name="title_view_thread">Hilo</string>
-    <string name="title_posts">Estados</string>
+    <string name="title_posts">Publicaciones</string>
     <string name="title_posts_with_replies">Con respuestas</string>
-    <string name="title_posts_pinned">Fijado</string>
+    <string name="title_posts_pinned">Fijadas</string>
     <string name="title_follows">Siguiendo</string>
     <string name="title_followers">Seguidores</string>
     <string name="title_favourites">Favoritos</string>
@@ -378,7 +378,7 @@
     <string name="edit_poll">Editar</string>
     <string name="title_scheduled_posts">Publicaciones programadas</string>
     <string name="action_edit">Editar</string>
-    <string name="action_access_scheduled_posts">Estados programados</string>
+    <string name="action_access_scheduled_posts">Publicaciones programadas</string>
     <string name="action_schedule_post">Programar estado</string>
     <string name="action_reset_schedule">Reiniciar</string>
     <string name="title_bookmarks">Marcadores</string>
@@ -388,7 +388,7 @@
     <string name="select_list_title">Seleccionar lista</string>
     <string name="list">Lista</string>
     <string name="no_drafts">No tienes ningún borrador.</string>
-    <string name="no_scheduled_posts">No tienes ningún estado programado.</string>
+    <string name="no_scheduled_posts">No tienes ninguna publicación programada.</string>
     <string name="warning_scheduling_interval">Mastodon tiene un intervalo de programación mínimo de 5 minutos.</string>
     <string name="notification_follow_request_name">Solicitudes</string>
     <string name="dialog_block_warning">Bloquear @%s\?</string>
@@ -450,7 +450,7 @@
     <string name="post_media_audio">Audio</string>
     <string name="limit_notifications">Limitar cronología de notificaciones</string>
     <string name="action_unbookmark">Quitar marcador</string>
-    <string name="follow_requests_info">Aunque su cuenta no está bloqueada, el personal de %1$s pensó que podría querer revisar las solicitudes de seguimiento de estas cuentas manualmente.</string>
+    <string name="follow_requests_info">Aunque tu cuenta no está bloqueada, el personal de %1$s pensó que podría querer revisar las solicitudes de seguimiento de estas cuentas manualmente.</string>
     <string name="action_subscribe_account">Suscribir</string>
     <string name="dialog_delete_conversation_warning">¿Eliminar esta conversación\?</string>
     <string name="pref_title_animate_custom_emojis">Animar emojis personalizados</string>
@@ -633,7 +633,7 @@
     <string name="pref_title_show_self_boosts_description">Alguien impulsa su propia publicación</string>
     <string name="ui_error_filter_v1_load_fmt">La carga de filtros falló: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s oculto(s)</string>
-    <string name="janky_animation_title">Es posible que necesite reiniciar su dispositivo</string>
+    <string name="janky_animation_title">Es posible que tendrás que reiniciar tu dispositivo</string>
     <string name="confirmation_hashtag_unmuted">#%s visible</string>
     <string name="pref_title_show_self_boosts">Mostrar auto-impulsos</string>
     <string name="announcement_date_updated">(Actualizado: %1$s)</string>
@@ -663,4 +663,24 @@
     <string name="pref_update_check_no_updates">No hay actualizaciones disponibles</string>
     <string name="pref_update_next_scheduled_check">Próxima comprobación: %1$s</string>
     <string name="action_reject">Rechazar</string>
+    <string name="action_add_to_tab">Añadir a pestaña</string>
+    <string name="action_add_to_tab_success">Se ha añadido \'%1$s\' a pestañas</string>
+    <string name="action_remove_tab">Quitar pestaña</string>
+    <string name="action_manage_tabs">Gestionar pestañas</string>
+    <string name="notification_severed_relationships_domain_block_body">Un moderador suspendió el dominio</string>
+    <string name="notification_severed_relationships_user_domain_block_body">Bloqueaste el dominio</string>
+    <string name="notification_severed_relationships_account_suspension_body">Un moderador suspendió la cuenta</string>
+    <string name="notification_severed_relationships_unknown_body">Motivo desconocido</string>
+    <string name="notification_severed_relationships_format">Se rompió la relación con <b>%1$s</b></string>
+    <plurals name="notification_severed_relationships_summary_report_fmt">
+        <item quantity="one">Se rompió %1$d relación</item>
+        <item quantity="many">Se rompieron %1$d relaciones</item>
+        <item quantity="other">Se rompieron %1$d relaciones</item>
+    </plurals>
+    <string name="notification_severed_relationships_name">Relaciones rotas</string>
+    <string name="notification_severed_relationships_description">Notificaciones de relaciones rotas</string>
+    <string name="poll_show_votes">Mostrar votos</string>
+    <string name="manage_lists">Gestionar listas</string>
+    <string name="title_lists_loading">Listas - cargando…</string>
+    <string name="title_lists_failed">Listas - falló en cargar</string>
 </resources>
