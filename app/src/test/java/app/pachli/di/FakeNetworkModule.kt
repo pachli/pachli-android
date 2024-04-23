@@ -29,6 +29,7 @@ import dagger.hilt.testing.TestInstallIn
 import java.util.Date
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
+import okhttp3.tls.HandshakeCertificates
 import org.mockito.kotlin.mock
 
 @TestInstallIn(
@@ -47,6 +48,10 @@ object FakeNetworkModule {
     @Provides
     @Singleton
     fun providesHttpClient(): OkHttpClient = mock()
+
+    @Provides
+    @Singleton
+    fun providesHandshakeCertificats(): HandshakeCertificates = mock()
 
     @Provides
     @Singleton
