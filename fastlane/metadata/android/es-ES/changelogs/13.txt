@@ -1,0 +1,16 @@
+Pachli 2.4.0
+
+Nuevas características:
+
+- Informar el usuario de las relaciones rotas
+- Permitir que el usuario vea los resultados de encuesta antes de votar y configure la política de respuestas de las listas
+- Mostrar "Notificaciones", "Etiquetas seguidas" y opción de listas en el panel de navegación izquierdo
+- Ocultar automáticamente la barra de herramientas del Visor de Imágenes
+
+Correcciones:
+
+- Mejorar extracción de URLs al componer
+- Actualizar pestañas cuando se renombren o se borren listas
+- Asegurar que funciona cerrar sesión
+- Asegurar que los archivos se descargan por completo antes de compartirlos
+- Actualizar traducciones al finlandés, cabilio y español

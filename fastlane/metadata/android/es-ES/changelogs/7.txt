@@ -1,0 +1,15 @@
+Pachli 1.4.0
+
+Nuevas características:
+
+- Periódicamente buscar actualizaciones y avisar al usuario
+
+Correcciones:
+
+- Mostrar cambios de preferencia de inmediato
+- Respetar la preferencia de FAB_HIDE en las cronologías
+- Asegurar que los mandos del sistema sean visibles en dispositivos viejos
+- Quitar la barra de progreso de las cronologías
+- Recuperar relación de aspecto cuando termine la arrastre
+- Evitar fallo cuando los filtros se cargan despacio
+- Actualizar las traducciones al italiano

@@ -1,0 +1,12 @@
+Pachli 1.2
+
+Nuevas características:
+
+- Mostrar barras de desplazamiento verticales sobre listas desplazables
+
+Correcciones:
+
+- Siempre recuperar la posición de lectura del usuario
+- Habilitar/deshabilitar el botón de votación según si el usuario puede votar
+- Usar el color apropiado para la barra de estado
+- Asegurar que el texto de las opciones de encuestas sea visible contra el fondo
