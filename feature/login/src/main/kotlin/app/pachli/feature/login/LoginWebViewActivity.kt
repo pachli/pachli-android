@@ -24,6 +24,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.net.http.SslError
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.webkit.CookieManager
@@ -45,13 +46,12 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.versionName
 import app.pachli.core.navigation.LoginWebViewActivityIntent
+import app.pachli.core.network.util.localTrustManager
 import app.pachli.feature.login.databinding.ActivityLoginWebviewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.security.cert.X509Certificate
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
-import okhttp3.tls.HandshakeCertificates
 import timber.log.Timber
 
 /** Contract for starting [LoginWebViewActivity]. */
@@ -113,9 +113,6 @@ class LoginWebViewActivity : BaseActivity() {
     private val binding by viewBinding(ActivityLoginWebviewBinding::inflate)
 
     private val viewModel: LoginWebViewViewModel by viewModels()
-
-    @Inject
-    lateinit var handshakeCertificates: HandshakeCertificates
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -192,17 +189,24 @@ class LoginWebViewActivity : BaseActivity() {
 
             @SuppressLint("DiscouragedPrivateApi", "WebViewClientOnReceivedSslError")
             override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
+                // An SSL error might be because the user is connecting to a server using
+                // Let's Encrypt certificates on an Android 7 device. If that's the case
+                // check if the server is trusted using the local trust manager, which
+                // includes the Let's Encrypt certificates.
                 if (error?.primaryError != SslError.SSL_UNTRUSTED) return super.onReceivedSslError(view, handler, error)
 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) return super.onReceivedSslError(view, handler, error)
+
+                // Based on https://www.guardsquare.com/blog/how-to-securely-implement-tls-certificate-checking-in-android-apps
+                // but uses the OkHttp HandshakeCertificates type.
                 try {
                     val certField = error.certificate.javaClass.getDeclaredField("mX509Certificate")
                     certField.isAccessible = true
                     val cert = certField.get(error.certificate) as X509Certificate
-                    handshakeCertificates.trustManager.checkServerTrusted(arrayOf(cert), "generic")
+                    localTrustManager(this@LoginWebViewActivity).checkServerTrusted(arrayOf(cert), "generic")
                     handler?.proceed()
                 } catch (_: Exception) {
                     super.onReceivedSslError(view, handler, error)
-                    return
                 }
             }
         }

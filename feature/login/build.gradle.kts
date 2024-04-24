@@ -41,9 +41,6 @@ dependencies {
     implementation(libs.bundles.androidx)
     implementation(libs.androidx.webkit)
 
-    // For certifcate handling in webview
-    implementation(libs.bundles.okhttp)
-
     // Loading the logo
     implementation(libs.bundles.glide)
 }

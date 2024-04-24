@@ -22,7 +22,6 @@ import android.os.Build
 import app.pachli.core.common.util.versionName
 import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.BuildConfig
-import app.pachli.core.network.R
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.EnumConstantConverterFactory
@@ -31,6 +30,7 @@ import app.pachli.core.network.json.HasDefault
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResultCallAdapterFactory
+import app.pachli.core.network.util.localHandshakeCertificates
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_ENABLED
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_PORT
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_SERVER
@@ -48,8 +48,6 @@ import dagger.hilt.components.SingletonComponent
 import java.net.IDN
 import java.net.InetSocketAddress
 import java.net.Proxy
-import java.security.cert.CertificateFactory
-import java.security.cert.X509Certificate
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -57,7 +55,6 @@ import okhttp3.Cache
 import okhttp3.OkHttp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.tls.HandshakeCertificates
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
@@ -83,7 +80,6 @@ object NetworkModule {
         @ApplicationContext context: Context,
         preferences: SharedPreferencesRepository,
         instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
-        handshakeCertificates: HandshakeCertificates,
     ): OkHttpClient {
         val versionName = versionName(context)
         val httpProxyEnabled = preferences.getBoolean(HTTP_PROXY_ENABLED, false)
@@ -117,6 +113,9 @@ object NetworkModule {
         }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // API 23 (Android 7) requires the Let's Encrypt certificates, and does not use
+            // network_security_config.xml.
+            val handshakeCertificates = localHandshakeCertificates(context)
             builder.sslSocketFactory(handshakeCertificates.sslSocketFactory(), handshakeCertificates.trustManager)
         }
 
@@ -127,21 +126,6 @@ object NetworkModule {
                     addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC })
                 }
             }
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun providesHandshakeCertificates(
-        @ApplicationContext context: Context,
-    ): HandshakeCertificates {
-        val certFactory = CertificateFactory.getInstance("X.509")
-        return HandshakeCertificates.Builder()
-            .addPlatformTrustedCertificates()
-            .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrg_root_x1_cross_signed)) as X509Certificate)
-            .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrg_root_x2)) as X509Certificate)
-            .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrg_root_x2_cross_signed)) as X509Certificate)
-            .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrgrootx1)) as X509Certificate)
             .build()
     }
 
