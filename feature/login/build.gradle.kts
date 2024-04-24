@@ -39,6 +39,7 @@ dependencies {
     implementation(projects.core.preferences)
 
     implementation(libs.bundles.androidx)
+    implementation(libs.androidx.webkit)
 
     // Loading the logo
     implementation(libs.bundles.glide)

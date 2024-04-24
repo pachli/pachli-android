@@ -30,6 +30,7 @@ import app.pachli.core.network.json.HasDefault
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResultCallAdapterFactory
+import app.pachli.core.network.util.localHandshakeCertificates
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_ENABLED
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_PORT
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_SERVER
@@ -109,6 +110,13 @@ object NetworkModule {
                 val address = InetSocketAddress.createUnresolved(IDN.toASCII(conf.hostname), conf.port)
                 builder.proxy(Proxy(Proxy.Type.HTTP, address))
             } ?: Timber.w("Invalid proxy configuration: (%s, %d)", httpServer, httpPort)
+        }
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // API 23 (Android 7) requires the Let's Encrypt certificates, and does not use
+            // network_security_config.xml.
+            val handshakeCertificates = localHandshakeCertificates(context)
+            builder.sslSocketFactory(handshakeCertificates.sslSocketFactory(), handshakeCertificates.trustManager)
         }
 
         return builder
