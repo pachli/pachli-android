@@ -1,0 +1,20 @@
+Nuevas características:
+
+- "Cargar más" no más, las publicaciones se cargan mientras desplaces
+- Enlaces y publicaciones de tendencias
+- Más de 5 pestañas
+- Elegir entre varios fuentes accesibles
+- Nuevo reproductor de medios
+- Filtros en notificaciones
+- Marcar listas como "exclusivas"
+- Añadir "marcadores" a pestañas
+
+Correcciones:
+
+- Las imágenes ya no se "pegan" cuando amplíes o deslices entre ellas
+
+Cambios en la interfaz de usuario:
+
+- Una actualización visual y nueva combinación de colores
+- Elige el tema predeterminado en función de las ajustes de Android
+- "Borrar notificaciones" es una opción del menú

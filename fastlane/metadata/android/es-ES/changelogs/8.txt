@@ -1,0 +1,15 @@
+Pachli 2.0.0
+
+Nuevas características:
+
+- Traducir los estados de cronologías en caché
+- Mostrar el botón de componer al ver etiquetas y favoritos
+- Aumentar la cantidad de información en la vista previa de enlace
+- Advertir al usuario sobre un error de animación de Android
+
+Correcciones:
+
+- Evitar un ClassCastException al manejar errores de cronología
+- Actualizar los colores del tema
+- Asegurar que se almacenan las clases de data relacionadas con las actualizaciones
+- Actualizar las traducciones al alemán, italiano, y japonés

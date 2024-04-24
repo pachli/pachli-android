@@ -1,0 +1,19 @@
+Pachli 1.3.0
+
+Nuevas características:
+
+- Añadir preferencia para ocultar los "auto-impulsos"
+- Mostrar nombre de visualización y nombre de usuario completo en la vista de perfil
+- Mejorar visualización de enlaces "escondidos"
+- Ajustar reproducción de videos
+
+Correcciones:
+
+- Asegurar que sea visible el mensaje sobre cronología vacío
+- Usar colores de Pachli (azul y anaranjado) para los íconos de notificación
+- Mostrar medios al resumir ViewMediaFragment
+- Mostrar indicadores de hilo y otros divisores con colores de Material
+
+Traducciones:
+
+- Actualizar las traducciones al polaco y japonés

@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Correcciones:
+
+- No fallar si haya una pestaña de tendencia

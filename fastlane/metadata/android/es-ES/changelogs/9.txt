@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Nuevas características:
+
+- Mostrar papeles en perfiles
+- Mostrar el botón de componer al ver listas
+- Mostrar el botón de componer al ver la lista de marcadores
+
+Correcciones:
+
+- Mostrar contenido traducido en hilos
+- Calcular largo de publicaciones y encuestas con emojis correctamente
+- Prevenir fallo
+  - Si una tarjeta de vista previa no tenga autor
+  - Si un error ocurra en una cronología sin FAB
+  - En el perfil si la cuenta tenga null para el valor del campo `createdAt`
+- Actualizar las traducciones
