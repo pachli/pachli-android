@@ -173,7 +173,7 @@ internal class StatusNotificationViewHolder(
             val readoutAloud: CharSequence
             if (createdAt != null) {
                 val then = createdAt.time
-                val now = Date().time
+                val now = System.currentTimeMillis()
                 readout = getRelativeTimeSpanString(binding.statusMetaInfo.context, then, now)
                 readoutAloud = DateUtils.getRelativeTimeSpanString(
                     then,

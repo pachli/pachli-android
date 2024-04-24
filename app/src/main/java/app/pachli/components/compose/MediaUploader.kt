@@ -42,7 +42,6 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -271,7 +270,7 @@ class MediaUploader @Inject constructor(
             val fileExtension = map.getExtensionFromMimeType(mimeType)
             val filename = "%s_%s_%s.%s".format(
                 context.getString(R.string.app_name),
-                Date().time.toString(),
+                System.currentTimeMillis().toString(),
                 randomAlphanumericString(10),
                 fileExtension,
             )

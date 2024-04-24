@@ -34,7 +34,6 @@ import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
-import java.util.Date
 
 class ReportNotificationViewHolder(
     private val binding: ItemReportNotificationBinding,
@@ -90,7 +89,7 @@ class ReportNotificationViewHolder(
         )
         binding.notificationSummary.text = itemView.context.getString(
             R.string.notification_summary_report_format,
-            getRelativeTimeSpanString(itemView.context, report.createdAt.time, Date().time),
+            getRelativeTimeSpanString(itemView.context, report.createdAt.time, System.currentTimeMillis()),
             report.statusIds?.size ?: 0,
         )
         binding.notificationCategory.text = getTranslatedCategory(itemView.context, report.category)
