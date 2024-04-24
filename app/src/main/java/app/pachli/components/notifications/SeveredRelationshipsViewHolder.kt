@@ -26,7 +26,6 @@ import app.pachli.databinding.ItemSeveredRelationshipsBinding
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.NotificationViewData
-import java.util.Date
 
 class SeveredRelationshipsViewHolder(
     private val binding: ItemSeveredRelationshipsBinding,
@@ -42,7 +41,7 @@ class SeveredRelationshipsViewHolder(
                 HtmlCompat.FROM_HTML_MODE_LEGACY,
             )
 
-            binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.time, Date().time)
+            binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.time, System.currentTimeMillis())
 
             binding.notificationSummary.text = itemView.context.resources.getQuantityString(
                 R.plurals.notification_severed_relationships_summary_report_fmt,
@@ -59,7 +58,7 @@ class SeveredRelationshipsViewHolder(
             binding.notificationCategory.text = itemView.context.getString(resourceId)
         } else {
             if (payloads.any { it == StatusBaseViewHolder.Key.KEY_CREATED }) {
-                binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.time, Date().time)
+                binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.time, System.currentTimeMillis())
             }
         }
     }
