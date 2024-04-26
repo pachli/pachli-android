@@ -37,6 +37,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.activity.extensions.canOverrideActivityTransitions
+import app.pachli.core.activity.extensions.getTransitionKind
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
@@ -81,6 +84,13 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (canOverrideActivityTransitions()) {
+            intent.getTransitionKind()?.let {
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, it.openEnter, it.openExit)
+                overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, it.closeEnter, it.closeExit)
+            }
+        }
 
         // Set the theme from preferences
         val theme = AppTheme.from(sharedPreferencesRepository)
@@ -156,11 +166,6 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         return true
     }
 
-    fun startActivityWithSlideInAnimation(intent: Intent) {
-        super.startActivity(intent)
-        overridePendingTransition(DR.anim.slide_from_right, DR.anim.slide_to_left)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             onBackPressedDispatcher.onBackPressed()
@@ -171,11 +176,13 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(DR.anim.slide_from_left, DR.anim.slide_to_right)
-    }
 
-    fun finishWithoutSlideOutAnimation() {
-        super.finish()
+        if (!canOverrideActivityTransitions()) {
+            intent.getTransitionKind()?.let {
+                @Suppress("DEPRECATION")
+                overridePendingTransition(it.closeEnter, it.closeExit)
+            }
+        }
     }
 
     private fun redirectIfNotLoggedIn() {
@@ -183,7 +190,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         if (account == null) {
             val intent = LoginActivityIntent(this)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivityWithSlideInAnimation(intent)
+            startActivityWithDefaultTransition(intent)
             finish()
         }
     }
@@ -259,7 +266,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         accountManager.setActiveAccount(account.id)
         val intent = MainActivityIntent.redirect(this, account.id, url)
         startActivity(intent)
-        finishWithoutSlideOutAnimation()
+        finish()
     }
 
     override fun onRequestPermissionsResult(

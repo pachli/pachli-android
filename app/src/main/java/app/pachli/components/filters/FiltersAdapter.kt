@@ -8,6 +8,7 @@ import app.pachli.core.network.model.Filter
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemRemovableBinding
 import app.pachli.util.getRelativeTimeSpanString
+import com.google.android.material.color.MaterialColors
 
 class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
     RecyclerView.Adapter<BindingHolder<ItemRemovableBinding>>() {
@@ -34,11 +35,25 @@ class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
             )
         } ?: filter.title
 
-        binding.textSecondary.text = context.getString(
-            R.string.filter_description_format,
-            actions.getOrNull(filter.action.ordinal - 1),
-            filter.contexts.map { filterContextNames.getOrNull(it.ordinal) }.joinToString("/"),
-        )
+        // Secondary row shows filter actions and contexts, or errors if the filter is invalid
+        val errors = filter.validate()
+        val secondaryText: String
+        val secondaryTextColor: Int
+
+        if (errors.isEmpty()) {
+            secondaryText = context.getString(
+                R.string.filter_description_format,
+                actions.getOrNull(filter.action.ordinal - 1),
+                filter.contexts.map { filterContextNames.getOrNull(it.ordinal) }.joinToString("/"),
+            )
+            secondaryTextColor = android.R.attr.textColorTertiary
+        } else {
+            secondaryText = context.getString(errors.first().stringResource())
+            secondaryTextColor = androidx.appcompat.R.attr.colorError
+        }
+
+        binding.textSecondary.text = secondaryText
+        binding.textSecondary.setTextColor(MaterialColors.getColor(binding.textSecondary, secondaryTextColor))
 
         binding.delete.setOnClickListener {
             listener.deleteFilter(filter)

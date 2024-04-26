@@ -35,8 +35,11 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityTrendingBinding
 import app.pachli.interfaces.AppBarLayoutHost
+import app.pachli.interfaces.ReselectableFragment
 import app.pachli.pager.MainPagerAdapter
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -54,6 +57,12 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
         get() = binding.appBar
 
     private lateinit var adapter: MainPagerAdapter
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            binding.pager.currentItem = 0
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,14 +99,19 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
             }
         }.attach()
 
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (binding.pager.currentItem != 0) binding.pager.currentItem = 0 else finish()
-                }
-            },
-        )
+        binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                onBackPressedCallback.isEnabled = tab.position > 0
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+                (adapter.getFragment(tab.position) as? ReselectableFragment)?.onReselect()
+            }
+        })
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

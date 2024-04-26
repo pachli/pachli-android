@@ -548,7 +548,7 @@
     <string name="notification_summary_report_format">%s · Tha postaichean ris, %d dhiubh</string>
     <string name="action_share_account_link">Co-roinn ceangal dhan chunntas</string>
     <string name="account_username_copied">Chaidh lethbhreac a dhèanamh dhen ainm-chleachdaiche</string>
-    <string name="compose_unsaved_changes">Tha atharraichean gun sàbhaladh agad.</string>
+    <string name="unsaved_changes">Tha atharraichean gun sàbhaladh agad.</string>
     <string name="error_status_source_load">Dh’fhàillig luchdadh bun-tùs a’ phuist on fhrithealaiche.</string>
     <string name="action_post_failed_detail">Dh’fhàillig luchdadh suas a’ phuist agad is chaidh a shàbhaladh ’na dhreachd.
 \n

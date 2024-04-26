@@ -488,7 +488,7 @@
     <string name="delete_scheduled_post_warning">Dit ingeplande bericht verwijderen\?</string>
     <string name="failed_to_pin">Kan niet vastmaken</string>
     <string name="pref_summary_http_proxy_disabled">Uitgeschakeld</string>
-    <string name="compose_unsaved_changes">Er zijn niet opgeslagen wijzigingen.</string>
+    <string name="unsaved_changes">Er zijn niet opgeslagen wijzigingen.</string>
     <string name="mute_notifications_switch">Meldingen negeren</string>
     <string name="title_edits">Bewerkingen</string>
     <string name="pref_default_post_language">Standaardtaal van berichten</string>

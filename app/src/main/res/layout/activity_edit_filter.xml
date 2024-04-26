@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                app:errorEnabled="true"
                 android:hint="@string/label_filter_title">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/filterTitle"
@@ -42,6 +43,15 @@
                 android:text="@string/label_filter_keywords"
                 style="@style/TextAppearance.Material3.TitleSmall"
                 android:textColor="?attr/colorAccent" />
+
+            <TextView
+                android:id="@+id/keywordChipsError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/error_filter_missing_keyword"
+                style="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="?attr/colorError" />
 
             <com.google.android.material.chip.ChipGroup
                     android:id="@+id/keywordChips"
@@ -100,8 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
-                android:entries="@array/filter_duration_names"
-                />
+                android:entries="@array/filter_duration_names" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -145,6 +154,15 @@
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
                 android:text="@string/pref_title_account_filter_keywords" />
+
+            <TextView
+                android:id="@+id/filterContextError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/error_filter_missing_context"
+                style="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="?attr/colorError" />
 
             <LinearLayout
                 android:layout_width="match_parent"

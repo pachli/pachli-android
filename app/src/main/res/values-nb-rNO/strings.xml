@@ -554,7 +554,7 @@
     <string name="ui_success_accepted_follow_request">Følgeforespørsel akseptert</string>
     <string name="action_discard">Forkast endringer</string>
     <string name="action_continue_edit">Fortsett endring</string>
-    <string name="compose_unsaved_changes">Du har ulagrede endringer.</string>
+    <string name="unsaved_changes">Du har ulagrede endringer.</string>
     <string name="select_list_empty">Du har ingen lister, enda</string>
     <string name="error_list_load">Feil under lading av lister</string>
     <string name="select_list_manage">Forvalte lister</string>

@@ -1,13 +1,15 @@
 package app.pachli.components.filters
 
-import android.content.Context
+import android.content.DialogInterface.BUTTON_NEGATIVE
 import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.core.view.size
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +23,7 @@ import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.ui.extensions.await
 import app.pachli.databinding.ActivityEditFilterBinding
 import app.pachli.databinding.DialogFilterBinding
 import at.connyduck.calladapter.networkresult.fold
@@ -28,8 +31,8 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Date
 import javax.inject.Inject
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -51,11 +54,20 @@ class EditFilterActivity : BaseActivity() {
     private var originalFilter: Filter? = null
     private lateinit var filterContextSwitches: Map<SwitchMaterial, FilterContext>
 
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            lifecycleScope.launch {
+                if (showUnsavedChangesFilterDialog() == BUTTON_NEGATIVE) finish()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         originalFilter = EditFilterActivityIntent.getFilter(intent)
-        filter = originalFilter ?: Filter("", "", listOf(), null, Filter.Action.WARN, listOf())
+        filter = originalFilter ?: Filter()
         binding.apply {
             filterContextSwitches = mapOf(
                 filterContextHome to FilterContext.HOME,
@@ -69,7 +81,6 @@ class EditFilterActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.includedToolbar.toolbar)
         supportActionBar?.run {
-            // Back button
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
@@ -99,12 +110,10 @@ class EditFilterActivity : BaseActivity() {
                 } else {
                     viewModel.removeContext(context)
                 }
-                validateSaveButton()
             }
         }
         binding.filterTitle.doAfterTextChanged { editable ->
             viewModel.setTitle(editable.toString())
-            validateSaveButton()
         }
         binding.filterActionWarn.setOnCheckedChangeListener { _, checked ->
             viewModel.setAction(
@@ -130,13 +139,8 @@ class EditFilterActivity : BaseActivity() {
                 viewModel.setDuration(0)
             }
         }
-        validateSaveButton()
 
-        if (originalFilter == null) {
-            binding.filterActionWarn.isChecked = true
-        } else {
-            loadFilter()
-        }
+        loadFilter()
         observeModel()
     }
 
@@ -168,6 +172,25 @@ class EditFilterActivity : BaseActivity() {
                     Filter.Action.HIDE -> binding.filterActionHide.isChecked = true
                     else -> binding.filterActionWarn.isChecked = true
                 }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.isDirty.collectLatest { onBackPressedCallback.isEnabled = it }
+        }
+
+        lifecycleScope.launch {
+            viewModel.validationErrors.collectLatest { errors ->
+                binding.filterSaveButton.isEnabled = errors.isEmpty()
+
+                binding.filterTitleWrapper.error = if (errors.contains(FilterValidationError.NO_TITLE)) {
+                    getString(R.string.error_filter_missing_title)
+                } else {
+                    null
+                }
+
+                binding.keywordChipsError.isVisible = errors.contains(FilterValidationError.NO_KEYWORDS)
+                binding.filterContextError.isVisible = errors.contains(FilterValidationError.NO_CONTEXT)
             }
         }
     }
@@ -213,7 +236,6 @@ class EditFilterActivity : BaseActivity() {
         }
 
         filter = filter.copy(keywords = newKeywords)
-        validateSaveButton()
     }
 
     private fun showAddKeywordDialog() {
@@ -256,9 +278,18 @@ class EditFilterActivity : BaseActivity() {
             .show()
     }
 
-    private fun validateSaveButton() {
-        binding.filterSaveButton.isEnabled = viewModel.validate()
-    }
+    /**
+     * Dialog that warns the user they have unsaved changes, and prompts
+     * to continue editing or discard the changes.
+     *
+     * @return [BUTTON_NEGATIVE] if the user chose to discard the changes,
+     *   [BUTTON_POSITIVE] if the user chose to continue editing.
+     */
+    suspend fun showUnsavedChangesFilterDialog() = AlertDialog.Builder(this)
+        .setMessage(R.string.unsaved_changes)
+        .setCancelable(true)
+        .create()
+        .await(R.string.action_continue_edit, R.string.action_discard)
 
     private fun saveChanges() {
         // TODO use a progress bar here (see EditProfileActivity/activity_edit_profile.xml for example)?
@@ -294,18 +325,6 @@ class EditFilterActivity : BaseActivity() {
                         }
                     },
                 )
-            }
-        }
-    }
-
-    companion object {
-        // Mastodon *stores* the absolute date in the filter,
-        // but create/edit take a number of seconds (relative to the time the operation is posted)
-        fun getSecondsForDurationIndex(index: Int, context: Context?, default: Date? = null): String? {
-            return when (index) {
-                -1 -> default?.let { ((default.time - System.currentTimeMillis()) / 1000).toString() }
-                0 -> ""
-                else -> context?.resources?.getStringArray(R.array.filter_duration_values)?.get(index)
             }
         }
     }

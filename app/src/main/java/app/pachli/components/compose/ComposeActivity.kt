@@ -17,6 +17,7 @@
 package app.pachli.components.compose
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.ClipData
 import android.content.Intent
@@ -30,7 +31,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.InputFilter
 import android.text.Spanned
-import android.text.style.URLSpan
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
@@ -94,7 +94,6 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.ui.MentionSpan
 import app.pachli.databinding.ActivityComposeBinding
 import app.pachli.util.PickMediaFiles
 import app.pachli.util.getInitialLanguages
@@ -155,9 +154,9 @@ class ComposeActivity :
 
     @VisibleForTesting
     var maximumTootCharacters = InstanceInfoRepository.DEFAULT_CHARACTER_LIMIT
-    var charactersReservedPerUrl = InstanceInfoRepository.DEFAULT_CHARACTERS_RESERVED_PER_URL
 
-    private val viewModel: ComposeViewModel by viewModels()
+    @VisibleForTesting
+    val viewModel: ComposeViewModel by viewModels()
 
     private val binding by viewBinding(ActivityComposeBinding::inflate)
 
@@ -204,6 +203,28 @@ class ComposeActivity :
             displayTransientMessage(R.string.error_image_edit_failed)
         }
         viewModel.cropImageItemOld = null
+    }
+
+    /**
+     * Pressing back either (a) closes an open bottom sheet, or (b) goes
+     * back, if no bottom sheets are open.
+     */
+    private val onBackPressedCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            if (composeOptionsBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
+                addMediaBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
+                emojiBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
+                scheduleBehavior.state == BottomSheetBehavior.STATE_EXPANDED
+            ) {
+                composeOptionsBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                addMediaBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                emojiBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                scheduleBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                return
+            }
+
+            handleCloseButton()
+        }
     }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -268,7 +289,7 @@ class ComposeActivity :
         }
 
         setupLanguageSpinner(getInitialLanguages(composeOptions?.language, activeAccount))
-        setupComposeField(sharedPreferencesRepository, viewModel.startingText, composeOptions)
+        setupComposeField(sharedPreferencesRepository, viewModel.initialContent, composeOptions)
         setupContentWarningField(composeOptions?.contentWarning)
         setupPollView()
         applyShareIntent(intent, savedInstanceState)
@@ -282,7 +303,7 @@ class ComposeActivity :
             }
 
             it.getBoolean(CONTENT_WARNING_VISIBLE_KEY).apply {
-                viewModel.contentWarningChanged(this)
+                viewModel.showContentWarningChanged(this)
             }
 
             it.getString(SCHEDULED_TIME_KEY)?.let { time ->
@@ -369,7 +390,9 @@ class ComposeActivity :
         if (startingContentWarning != null) {
             binding.composeContentWarningField.setText(startingContentWarning)
         }
-        binding.composeContentWarningField.doOnTextChanged { _, _, _, _ -> updateVisibleCharactersLeft() }
+        binding.composeContentWarningField.doOnTextChanged { newContentWarning, _, _, _ ->
+            viewModel.onContentWarningChanged(newContentWarning?.toString() ?: "")
+        }
     }
 
     private fun setupComposeField(
@@ -404,7 +427,7 @@ class ComposeActivity :
         highlightSpans(binding.composeEditField.text, mentionColour)
         binding.composeEditField.doAfterTextChanged { editable ->
             highlightSpans(editable!!, mentionColour)
-            updateVisibleCharactersLeft()
+            viewModel.onContentChanged(editable)
         }
 
         // work around Android platform bug -> https://issuetracker.google.com/issues/67102093
@@ -419,10 +442,17 @@ class ComposeActivity :
         lifecycleScope.launch {
             viewModel.instanceInfo.collect { instanceData ->
                 maximumTootCharacters = instanceData.maxChars
-                charactersReservedPerUrl = instanceData.charactersReservedPerUrl
                 maxUploadMediaNumber = instanceData.maxMediaAttachments
-                updateVisibleCharactersLeft()
+                updateVisibleCharactersLeft(viewModel.statusLength.value)
             }
+        }
+
+        lifecycleScope.launch {
+            viewModel.statusLength.collect { updateVisibleCharactersLeft(it) }
+        }
+
+        lifecycleScope.launch {
+            viewModel.closeConfirmation.collect { updateOnBackPressedCallbackState(it, bottomSheetStates()) }
         }
 
         lifecycleScope.launch {
@@ -493,6 +523,23 @@ class ComposeActivity :
         }
     }
 
+    /** @return List of states of the different bottomsheets */
+    private fun bottomSheetStates() = listOf(
+        composeOptionsBehavior.state,
+        addMediaBehavior.state,
+        emojiBehavior.state,
+        scheduleBehavior.state,
+    )
+
+    /**
+     * Enables [onBackPressedCallback] if a confirmation is required, or any botttom sheet is
+     * open. Otherwise disables.
+     */
+    private fun updateOnBackPressedCallbackState(confirmationKind: ConfirmationKind, bottomSheetStates: List<Int>) {
+        onBackPressedCallback.isEnabled = confirmationKind != ConfirmationKind.NONE ||
+            bottomSheetStates.any { it != BottomSheetBehavior.STATE_HIDDEN }
+    }
+
     private fun setupButtons() {
         binding.composeOptionsBottomSheet.listener = this
 
@@ -500,6 +547,17 @@ class ComposeActivity :
         addMediaBehavior = BottomSheetBehavior.from(binding.addMediaBottomSheet)
         scheduleBehavior = BottomSheetBehavior.from(binding.composeScheduleView)
         emojiBehavior = BottomSheetBehavior.from(binding.emojiView)
+
+        val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                updateOnBackPressedCallbackState(viewModel.closeConfirmation.value, bottomSheetStates())
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) { }
+        }
+        composeOptionsBehavior.addBottomSheetCallback(bottomSheetCallback)
+        addMediaBehavior.addBottomSheetCallback(bottomSheetCallback)
+        scheduleBehavior.addBottomSheetCallback(bottomSheetCallback)
+        emojiBehavior.addBottomSheetCallback(bottomSheetCallback)
 
         enableButton(binding.composeEmojiButton, clickable = false, colorActive = false)
 
@@ -534,26 +592,7 @@ class ComposeActivity :
         binding.actionPhotoPick.setOnClickListener { onMediaPick() }
         binding.addPollTextActionTextView.setOnClickListener { openPollDialog() }
 
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (composeOptionsBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
-                        addMediaBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
-                        emojiBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
-                        scheduleBehavior.state == BottomSheetBehavior.STATE_EXPANDED
-                    ) {
-                        composeOptionsBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                        addMediaBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                        emojiBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                        scheduleBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                        return
-                    }
-
-                    handleCloseButton()
-                }
-            },
-        )
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
     private fun setupLanguageSpinner(initialLanguages: List<String>) {
@@ -851,7 +890,7 @@ class ComposeActivity :
             maxOptionLength = instanceParams.pollMaxLength,
             minDuration = instanceParams.pollMinDuration,
             maxDuration = instanceParams.pollMaxDuration,
-            onUpdatePoll = viewModel::updatePoll,
+            onUpdatePoll = viewModel::onPollChanged,
         )
     }
 
@@ -881,30 +920,21 @@ class ComposeActivity :
     }
 
     private fun removePoll() {
-        viewModel.poll.value = null
+        viewModel.onPollChanged(null)
         binding.pollPreview.hide()
     }
 
     override fun onVisibilityChanged(visibility: Status.Visibility) {
+        viewModel.onStatusVisibilityChanged(visibility)
         composeOptionsBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        viewModel.statusVisibility.value = visibility
-    }
-
-    @VisibleForTesting
-    fun calculateTextLength(): Int {
-        return statusLength(
-            binding.composeEditField.text,
-            binding.composeContentWarningField.text,
-            charactersReservedPerUrl,
-        )
     }
 
     @VisibleForTesting
     val selectedLanguage: String?
         get() = viewModel.postLanguage
 
-    private fun updateVisibleCharactersLeft() {
-        val remainingLength = maximumTootCharacters - calculateTextLength()
+    private fun updateVisibleCharactersLeft(textLength: Int) {
+        val remainingLength = maximumTootCharacters - textLength
         binding.composeCharactersLeftView.text = String.format(Locale.getDefault(), "%d", remainingLength)
 
         val textColor = if (remainingLength < 0) {
@@ -917,8 +947,7 @@ class ComposeActivity :
 
     private fun onContentWarningChanged() {
         val showWarning = binding.composeContentWarningBar.isGone
-        viewModel.contentWarningChanged(showWarning)
-        updateVisibleCharactersLeft()
+        viewModel.showContentWarningChanged(showWarning)
     }
 
     private fun verifyScheduledTime(): Boolean {
@@ -957,11 +986,11 @@ class ComposeActivity :
         if (viewModel.showContentWarning.value) {
             spoilerText = binding.composeContentWarningField.text.toString()
         }
-        val characterCount = calculateTextLength()
-        if ((characterCount <= 0 || contentText.isBlank()) && viewModel.media.value.isEmpty()) {
+        val statusLength = viewModel.statusLength.value
+        if ((statusLength <= 0 || contentText.isBlank()) && viewModel.media.value.isEmpty()) {
             binding.composeEditField.error = getString(R.string.error_empty)
             enableButtons(true, viewModel.editing)
-        } else if (characterCount <= maximumTootCharacters) {
+        } else if (statusLength <= maximumTootCharacters) {
             lifecycleScope.launch {
                 viewModel.sendStatus(contentText, spoilerText, activeAccount.id)
                 deleteDraftAndFinish()
@@ -1008,8 +1037,9 @@ class ComposeActivity :
             this,
             BuildConfig.APPLICATION_ID + ".fileprovider",
             photoFile,
-        )
-        takePicture.launch(photoUploadUri)
+        )?.also {
+            takePicture.launch(it)
+        }
     }
 
     private fun enableButton(button: ImageButton, clickable: Boolean, colorActive: Boolean) {
@@ -1105,6 +1135,7 @@ class ComposeActivity :
         return super.onOptionsItemSelected(item)
     }
 
+    @SuppressLint("GestureBackNavigation")
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (event.action == KeyEvent.ACTION_DOWN) {
             if (event.isCtrlPressed) {
@@ -1126,10 +1157,10 @@ class ComposeActivity :
     private fun handleCloseButton() {
         val contentText = binding.composeEditField.text.toString()
         val contentWarning = binding.composeContentWarningField.text.toString()
-        when (viewModel.handleCloseButton(contentText, contentWarning)) {
+        when (viewModel.closeConfirmation.value) {
             ConfirmationKind.NONE -> {
                 viewModel.stopUploads()
-                finishWithoutSlideOutAnimation()
+                finish()
             }
             ConfirmationKind.SAVE_OR_DISCARD ->
                 getSaveAsDraftOrDiscardDialog(contentText, contentWarning).show()
@@ -1183,7 +1214,7 @@ class ComposeActivity :
             }
             .setNegativeButton(R.string.action_discard) { _, _ ->
                 viewModel.stopUploads()
-                finishWithoutSlideOutAnimation()
+                finish()
             }
     }
 
@@ -1193,13 +1224,13 @@ class ComposeActivity :
      */
     private fun getContinueEditingOrDiscardDialog(): AlertDialog.Builder {
         return AlertDialog.Builder(this)
-            .setMessage(R.string.compose_unsaved_changes)
+            .setMessage(R.string.unsaved_changes)
             .setPositiveButton(R.string.action_continue_edit) { _, _ ->
                 // Do nothing, dialog will dismiss, user can continue editing
             }
             .setNegativeButton(R.string.action_discard) { _, _ ->
                 viewModel.stopUploads()
-                finishWithoutSlideOutAnimation()
+                finish()
             }
     }
 
@@ -1213,7 +1244,7 @@ class ComposeActivity :
             .setPositiveButton(R.string.action_delete) { _, _ ->
                 viewModel.deleteDraft()
                 viewModel.stopUploads()
-                finishWithoutSlideOutAnimation()
+                finish()
             }
             .setNegativeButton(R.string.action_continue_edit) { _, _ ->
                 // Do nothing, dialog will dismiss, user can continue editing
@@ -1222,7 +1253,7 @@ class ComposeActivity :
 
     private fun deleteDraftAndFinish() {
         viewModel.deleteDraft()
-        finishWithoutSlideOutAnimation()
+        finish()
     }
 
     private fun saveDraftAndFinish(contentText: String, contentWarning: String) {
@@ -1240,7 +1271,7 @@ class ComposeActivity :
             }
             viewModel.saveDraft(contentText, contentWarning)
             dialog?.cancel()
-            finishWithoutSlideOutAnimation()
+            finish()
         }
     }
 
@@ -1313,54 +1344,6 @@ class ComposeActivity :
 
         fun canHandleMimeType(mimeType: String?): Boolean {
             return mimeType != null && (mimeType.startsWith("image/") || mimeType.startsWith("video/") || mimeType.startsWith("audio/") || mimeType == "text/plain")
-        }
-
-        /**
-         * Calculate the effective status length.
-         *
-         * Some text is counted differently:
-         *
-         * In the status body:
-         *
-         * - URLs always count for [urlLength] characters irrespective of their actual length
-         *   (https://docs.joinmastodon.org/user/posting/#links)
-         * - Mentions ("@user@some.instance") only count the "@user" part
-         *   (https://docs.joinmastodon.org/user/posting/#mentions)
-         * - Hashtags are always treated as their actual length, including the "#"
-         *   (https://docs.joinmastodon.org/user/posting/#hashtags)
-         * - Emojis are treated as a single character
-         *
-         * Content warning text is always treated as its full length, URLs and other entities
-         * are not treated differently.
-         *
-         * @param body status body text
-         * @param contentWarning optional content warning text
-         * @param urlLength the number of characters attributed to URLs
-         * @return the effective status length
-         */
-        fun statusLength(body: Spanned, contentWarning: Spanned?, urlLength: Int): Int {
-            var length = body.toString().mastodonLength() - body.getSpans(0, body.length, URLSpan::class.java)
-                .fold(0) { acc, span ->
-                    // Accumulate a count of characters to be *ignored* in the final length
-                    acc + when (span) {
-                        is MentionSpan -> {
-                            // Ignore everything from the second "@" (if present)
-                            span.url.length - (
-                                span.url.indexOf("@", 1).takeIf { it >= 0 }
-                                    ?: span.url.length
-                                )
-                        }
-                        else -> {
-                            // Expected to be negative if the URL length < maxUrlLength
-                            span.url.mastodonLength() - urlLength
-                        }
-                    }
-                }
-
-            // Content warning text is treated as is, URLs or mentions there are not special
-            contentWarning?.let { length += it.toString().mastodonLength() }
-
-            return length
         }
 
         /**

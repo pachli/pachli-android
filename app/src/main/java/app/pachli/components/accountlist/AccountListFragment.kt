@@ -32,9 +32,9 @@ import app.pachli.components.accountlist.adapter.FollowRequestsAdapter
 import app.pachli.components.accountlist.adapter.FollowRequestsHeaderAdapter
 import app.pachli.components.accountlist.adapter.MutesAdapter
 import app.pachli.core.accounts.AccountManager
-import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -158,19 +158,15 @@ class AccountListFragment :
     }
 
     override fun onViewTag(tag: String) {
-        (activity as BaseActivity?)
-            ?.startActivityWithSlideInAnimation(TimelineActivityIntent.hashtag(requireContext(), tag))
+        activity?.startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(requireContext(), tag))
     }
 
     override fun onViewAccount(id: String) {
-        (activity as BaseActivity?)?.let {
-            val intent = AccountActivityIntent(it, id)
-            it.startActivityWithSlideInAnimation(intent)
-        }
+        activity?.startActivityWithDefaultTransition(AccountActivityIntent(requireContext(), id))
     }
 
     override fun onViewUrl(url: String) {
-        (activity as BottomSheetActivity?)?.viewUrl(url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
+        (activity as? BottomSheetActivity)?.viewUrl(url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {

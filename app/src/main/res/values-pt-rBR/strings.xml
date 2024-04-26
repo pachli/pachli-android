@@ -510,7 +510,7 @@
     <string name="description_browser_login">Pode oferecer suporte a métodos de autenticação adicionais, mas requer um navegador compatível.</string>
     <string name="status_edit_info">%1$s editou</string>
     <string name="action_continue_edit">Continuar editando</string>
-    <string name="compose_unsaved_changes">Você tem alterações não salvas.</string>
+    <string name="unsaved_changes">Você tem alterações não salvas.</string>
     <string name="description_post_edited">Editado</string>
     <string name="delete_scheduled_post_warning">Excluir este Toot agendado?</string>
     <string name="action_unfollow_hashtag_format">Deixar de seguir #%s\?</string>

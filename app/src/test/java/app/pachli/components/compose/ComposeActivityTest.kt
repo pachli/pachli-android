@@ -239,7 +239,7 @@ class ComposeActivityTest {
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, content)
-            assertEquals(content.length, it.calculateTextLength())
+            assertEquals(content.length, it.viewModel.statusLength.value)
         }
     }
 
@@ -249,7 +249,7 @@ class ComposeActivityTest {
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, content)
-            assertEquals(6, it.calculateTextLength())
+            assertEquals(6, it.viewModel.statusLength.value)
         }
     }
 
@@ -259,7 +259,7 @@ class ComposeActivityTest {
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, content)
-            assertEquals(7, it.calculateTextLength())
+            assertEquals(7, it.viewModel.statusLength.value)
         }
     }
 
@@ -271,7 +271,7 @@ class ComposeActivityTest {
             insertSomeTextInContent(it, content)
             assertEquals(
                 InstanceInfoRepository.DEFAULT_CHARACTERS_RESERVED_PER_URL,
-                it.calculateTextLength(),
+                it.viewModel.statusLength.value,
             )
         }
     }
@@ -282,7 +282,7 @@ class ComposeActivityTest {
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, content)
-            assertEquals(21, it.calculateTextLength())
+            assertEquals(21, it.viewModel.statusLength.value)
         }
     }
 
@@ -295,7 +295,7 @@ class ComposeActivityTest {
             insertSomeTextInContent(it, additionalContent + url)
             assertEquals(
                 additionalContent.length + InstanceInfoRepository.DEFAULT_CHARACTERS_RESERVED_PER_URL,
-                it.calculateTextLength(),
+                it.viewModel.statusLength.value,
             )
         }
     }
@@ -310,7 +310,7 @@ class ComposeActivityTest {
             insertSomeTextInContent(it, shortUrl + additionalContent + url)
             assertEquals(
                 additionalContent.length + (InstanceInfoRepository.DEFAULT_CHARACTERS_RESERVED_PER_URL * 2),
-                it.calculateTextLength(),
+                it.viewModel.statusLength.value,
             )
         }
     }
@@ -324,7 +324,7 @@ class ComposeActivityTest {
             insertSomeTextInContent(it, url + additionalContent + url)
             assertEquals(
                 additionalContent.length + (InstanceInfoRepository.DEFAULT_CHARACTERS_RESERVED_PER_URL * 2),
-                it.calculateTextLength(),
+                it.viewModel.statusLength.value,
             )
         }
     }
@@ -340,7 +340,7 @@ class ComposeActivityTest {
             insertSomeTextInContent(it, additionalContent + url)
             assertEquals(
                 additionalContent.length + customUrlLength,
-                it.calculateTextLength(),
+                it.viewModel.statusLength.value,
             )
         }
     }
@@ -357,7 +357,7 @@ class ComposeActivityTest {
             insertSomeTextInContent(it, shortUrl + additionalContent + url)
             assertEquals(
                 additionalContent.length + (customUrlLength * 2),
-                it.calculateTextLength(),
+                it.viewModel.statusLength.value,
             )
         }
     }
@@ -373,7 +373,7 @@ class ComposeActivityTest {
             insertSomeTextInContent(it, url + additionalContent + url)
             assertEquals(
                 additionalContent.length + (customUrlLength * 2),
-                it.calculateTextLength(),
+                it.viewModel.statusLength.value,
             )
         }
     }

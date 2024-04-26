@@ -40,6 +40,7 @@ import app.pachli.R
 import app.pachli.components.search.adapter.SearchStatusesAdapter
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.openLink
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AttachmentViewData
@@ -187,7 +188,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 kind = ComposeOptions.ComposeKind.NEW,
             ),
         )
-        bottomSheetActivity?.startActivityWithSlideInAnimation(intent)
+        bottomSheetActivity?.startActivityWithDefaultTransition(intent)
     }
 
     private fun more(statusViewData: StatusViewData, view: View) {

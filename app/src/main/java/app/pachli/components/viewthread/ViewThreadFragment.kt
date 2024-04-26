@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.components.viewthread.edits.ViewEditsFragment
-import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -337,12 +337,12 @@ class ViewThreadFragment :
 
     override fun onShowReblogs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.REBLOGGED, statusId)
-        (requireActivity() as BaseActivity).startActivityWithSlideInAnimation(intent)
+        activity?.startActivityWithDefaultTransition(intent)
     }
 
     override fun onShowFavs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.FAVOURITED, statusId)
-        (requireActivity() as BaseActivity).startActivityWithSlideInAnimation(intent)
+        activity?.startActivityWithDefaultTransition(intent)
     }
 
     override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
@@ -374,7 +374,12 @@ class ViewThreadFragment :
         val viewEditsFragment = ViewEditsFragment.newInstance(statusId)
 
         parentFragmentManager.commit {
-            setCustomAnimations(DR.anim.slide_from_right, DR.anim.slide_to_left, DR.anim.slide_from_left, DR.anim.slide_to_right)
+            setCustomAnimations(
+                DR.anim.activity_open_enter,
+                DR.anim.activity_open_exit,
+                DR.anim.activity_close_enter,
+                DR.anim.activity_close_exit,
+            )
             replace(R.id.fragment_container, viewEditsFragment, "ViewEditsFragment_$id")
             addToBackStack(null)
         }

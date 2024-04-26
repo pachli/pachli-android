@@ -88,10 +88,6 @@ class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTe
         return false
     }
 
-    override fun finish() {
-        super.finishWithoutSlideOutAnimation()
-    }
-
     private fun getPageTitle(position: Int): CharSequence {
         return when (position) {
             0 -> getString(R.string.title_posts)

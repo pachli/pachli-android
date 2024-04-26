@@ -46,6 +46,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import app.pachli.BuildConfig.APPLICATION_ID
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -250,7 +251,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
 
     private fun onOpenStatus() {
         val attach = attachmentViewData!![binding.viewPager.currentItem]
-        startActivityWithSlideInAnimation(ViewThreadActivityIntent(this, attach.statusId, attach.statusUrl))
+        startActivityWithDefaultTransition(ViewThreadActivityIntent(this, attach.statusId, attach.statusUrl))
     }
 
     private fun copyLink() {

@@ -524,7 +524,7 @@
     <string name="post_media_alt">ALT</string>
     <string name="action_discard">Változtatások elvetése</string>
     <string name="action_continue_edit">Szerkesztés folytatása</string>
-    <string name="compose_unsaved_changes">Elmentetlen változtatásaid vannak.</string>
+    <string name="unsaved_changes">Elmentetlen változtatásaid vannak.</string>
     <string name="action_share_account_link">Fiókra történő hivatkozás megosztása</string>
     <string name="action_share_account_username">Fiók felhasználói nevének megosztása</string>
     <string name="send_account_link_to">Fiók URL megosztása vele…</string>

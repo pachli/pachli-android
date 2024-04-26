@@ -503,7 +503,7 @@
     <string name="notification_report_description">ارسال إشعار عن شكاوى المدراء</string>
     <string name="set_focus_description">اضغط على الدائرة أو اسحبها لاختيار النقطة المحورية التي ستكون مرئية دائمًا في الصور المصغرة.</string>
     <string name="compose_save_draft_loses_media">حفظ المسودة؟ (سيتم رفع المرفقات مرة أخرى عند استعادة المسودة.)</string>
-    <string name="compose_unsaved_changes">لديك تعديلات لم تحفظ.</string>
+    <string name="unsaved_changes">لديك تعديلات لم تحفظ.</string>
     <string name="post_edited">عدَّلَ %s</string>
     <string name="notification_report_format">شكوى جديدة عن %s</string>
     <string name="status_edit_info">%1$s :عدّله</string>

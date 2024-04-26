@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shareInterpolator="false">
+
+    <alpha
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:fillEnabled="true"
+        android:fillBefore="true"
+        android:fillAfter="true"
+        android:interpolator="@anim/linear_interpolator"
+        android:startOffset="35"
+        android:duration="83" />
+
+    <translate
+        android:fromXDelta="0"
+        android:toXDelta="-96dp"
+        android:fillEnabled="true"
+        android:fillBefore="true"
+        android:fillAfter="true"
+        android:interpolator="@anim/fast_out_extra_slow_in"
+        android:startOffset="0"
+        android:duration="@integer/activity_transition_duration_ms" />
+
+    <extend
+        android:fromExtendLeft="0"
+        android:fromExtendTop="0"
+        android:fromExtendRight="96dp"
+        android:fromExtendBottom="0"
+        android:toExtendLeft="0"
+        android:toExtendTop="0"
+        android:toExtendRight="96dp"
+        android:toExtendBottom="0"
+        android:interpolator="@anim/fast_out_extra_slow_in"
+        android:startOffset="0"
+        android:duration="@integer/activity_transition_duration_ms" />
+</set>

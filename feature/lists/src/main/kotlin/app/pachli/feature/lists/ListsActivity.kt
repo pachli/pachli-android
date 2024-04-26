@@ -39,6 +39,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -261,7 +262,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
     }
 
     private fun onListSelected(listId: String, listTitle: String) {
-        startActivityWithSlideInAnimation(
+        startActivityWithDefaultTransition(
             TimelineActivityIntent.list(this, listId, listTitle),
         )
     }

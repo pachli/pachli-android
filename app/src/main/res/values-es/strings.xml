@@ -526,7 +526,7 @@
     <string name="pref_title_notification_filter_reports">Hay una nueva denuncia</string>
     <string name="action_discard">Descartar cambios</string>
     <string name="action_continue_edit">Continuar editando</string>
-    <string name="compose_unsaved_changes">Tienes cambios sin guardar.</string>
+    <string name="unsaved_changes">Tienes cambios sin guardar.</string>
     <string name="title_edits">Ediciones</string>
     <string name="action_post_failed">La subida falló</string>
     <string name="action_post_failed_do_nothing">Descartar</string>

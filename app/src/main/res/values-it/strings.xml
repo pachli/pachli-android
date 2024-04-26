@@ -542,7 +542,7 @@
     <string name="notification_header_report_format">%s ha segnalato %s</string>
     <string name="notification_summary_report_format">%s · %d post allegati</string>
     <string name="action_add_reaction">aggiungi reazione</string>
-    <string name="compose_unsaved_changes">Hai delle modifiche non salvate.</string>
+    <string name="unsaved_changes">Hai delle modifiche non salvate.</string>
     <string name="confirmation_hashtag_unfollowed">Non segui più #%s</string>
     <string name="error_status_source_load">Caricamento dello status della sorgente dal server fallito.</string>
     <string name="post_edited">Modificato %s</string>

@@ -515,7 +515,7 @@
     <string name="pref_summary_http_proxy_disabled">Deaktiviert</string>
     <string name="pref_summary_http_proxy_missing">&lt;nicht gesetzt&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;ungültig&gt;</string>
-    <string name="compose_unsaved_changes">Du hast nicht gespeicherte Änderungen.</string>
+    <string name="unsaved_changes">Du hast nicht gespeicherte Änderungen.</string>
     <string name="pref_title_http_proxy_port_message">Port sollte zwischen %d und %d liegen</string>
     <string name="error_muting_hashtag_format">Fehler beim Stummschalten von #%s</string>
     <string name="action_post_failed">Hochladen fehlgeschlagen</string>

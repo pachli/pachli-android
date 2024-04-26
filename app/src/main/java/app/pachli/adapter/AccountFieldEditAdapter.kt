@@ -25,7 +25,12 @@ import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemEditFieldBinding
 import app.pachli.util.fixTextSelection
 
-class AccountFieldEditAdapter : RecyclerView.Adapter<BindingHolder<ItemEditFieldBinding>>() {
+/**
+ * @property onChange Call this whenever data in the UI fields changes
+ */
+class AccountFieldEditAdapter(
+    val onChange: () -> Unit,
+) : RecyclerView.Adapter<BindingHolder<ItemEditFieldBinding>>() {
 
     private val fieldData = mutableListOf<MutableStringPair>()
     private var maxNameLength: Int? = null
@@ -84,10 +89,12 @@ class AccountFieldEditAdapter : RecyclerView.Adapter<BindingHolder<ItemEditField
 
         holder.binding.accountFieldNameText.doAfterTextChanged { newText ->
             fieldData.getOrNull(holder.bindingAdapterPosition)?.first = newText.toString()
+            onChange()
         }
 
         holder.binding.accountFieldValueText.doAfterTextChanged { newText ->
             fieldData.getOrNull(holder.bindingAdapterPosition)?.second = newText.toString()
+            onChange()
         }
 
         // Ensure the textview contents are selectable

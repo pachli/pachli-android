@@ -18,7 +18,7 @@
 package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.components.filters.EditFilterActivity
+import app.pachli.components.filters.EditFilterViewModel.Companion.getSecondsForDurationIndex
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
@@ -259,7 +259,7 @@ class FilterV1Test {
     fun unchangedExpiration_shouldBeNegative_whenFilterIsExpired() {
         val expiredBySeconds = 3600
         val expiredDate = Date.from(Instant.now().minusSeconds(expiredBySeconds.toLong()))
-        val updatedDuration = EditFilterActivity.getSecondsForDurationIndex(-1, null, expiredDate)
+        val updatedDuration = getSecondsForDurationIndex(-1, null, expiredDate)
         assert(updatedDuration != null && updatedDuration.toInt() <= -expiredBySeconds)
     }
 
@@ -267,7 +267,7 @@ class FilterV1Test {
     fun unchangedExpiration_shouldBePositive_whenFilterIsUnexpired() {
         val expiresInSeconds = 3600
         val expiredDate = Date.from(Instant.now().plusSeconds(expiresInSeconds.toLong()))
-        val updatedDuration = EditFilterActivity.getSecondsForDurationIndex(-1, null, expiredDate)
+        val updatedDuration = getSecondsForDurationIndex(-1, null, expiredDate)
         assert(updatedDuration != null && updatedDuration.toInt() > (expiresInSeconds - 60))
     }
 

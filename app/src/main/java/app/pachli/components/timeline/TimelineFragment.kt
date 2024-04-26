@@ -49,8 +49,8 @@ import app.pachli.components.timeline.viewmodel.StatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiSuccess
-import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.RefreshableFragment
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -637,12 +637,12 @@ class TimelineFragment :
 
     override fun onShowReblogs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.REBLOGGED, statusId)
-        (activity as BaseActivity).startActivityWithSlideInAnimation(intent)
+        activity?.startActivityWithDefaultTransition(intent)
     }
 
     override fun onShowFavs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.FAVOURITED, statusId)
-        (activity as BaseActivity).startActivityWithSlideInAnimation(intent)
+        activity?.startActivityWithDefaultTransition(intent)
     }
 
     override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {

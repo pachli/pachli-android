@@ -26,7 +26,8 @@ import app.pachli.R
 import app.pachli.appstore.EventHub
 import app.pachli.components.notifications.currentAccountNeedsMigration
 import app.pachli.core.accounts.AccountManager
-import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
@@ -104,11 +105,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_add_to_tab_24)
                 setOnPreferenceClickListener {
                     val intent = TabPreferenceActivityIntent(context)
-                    activity?.startActivity(intent)
-                    activity?.overridePendingTransition(
-                        DR.anim.slide_from_right,
-                        DR.anim.slide_to_left,
-                    )
+                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -118,11 +115,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_hashtag)
                 setOnPreferenceClickListener {
                     val intent = FollowedTagsActivityIntent(context)
-                    activity?.startActivity(intent)
-                    activity?.overridePendingTransition(
-                        DR.anim.slide_from_right,
-                        DR.anim.slide_to_left,
-                    )
+                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -132,11 +125,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_mute_24dp)
                 setOnPreferenceClickListener {
                     val intent = AccountListActivityIntent(context, AccountListActivityIntent.Kind.MUTES)
-                    activity?.startActivity(intent)
-                    activity?.overridePendingTransition(
-                        DR.anim.slide_from_right,
-                        DR.anim.slide_to_left,
-                    )
+                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -146,11 +135,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 icon = makeIcon(GoogleMaterial.Icon.gmd_block)
                 setOnPreferenceClickListener {
                     val intent = AccountListActivityIntent(context, AccountListActivityIntent.Kind.BLOCKS)
-                    activity?.startActivity(intent)
-                    activity?.overridePendingTransition(
-                        DR.anim.slide_from_right,
-                        DR.anim.slide_to_left,
-                    )
+                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -160,11 +145,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_mute_24dp)
                 setOnPreferenceClickListener {
                     val intent = InstanceListActivityIntent(context)
-                    activity?.startActivity(intent)
-                    activity?.overridePendingTransition(
-                        DR.anim.slide_from_right,
-                        DR.anim.slide_to_left,
-                    )
+                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -175,7 +156,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setIcon(R.drawable.ic_logout)
                     setOnPreferenceClickListener {
                         val intent = LoginActivityIntent(context, LoginMode.MIGRATION)
-                        (activity as BaseActivity).startActivityWithSlideInAnimation(intent)
+                        activity?.startActivityWithTransition(intent, TransitionKind.EXPLODE)
                         true
                     }
                 }
@@ -185,7 +166,8 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setTitle(R.string.pref_title_timeline_filters)
                 setIcon(R.drawable.ic_filter_24dp)
                 setOnPreferenceClickListener {
-                    launchFilterActivity()
+                    val intent = FiltersActivityIntent(requireContext())
+                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
                 val server = serverRepository.flow.value.getOrElse { null }
@@ -298,14 +280,10 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
             val intent = Intent()
             intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
             intent.putExtra("android.provider.extra.APP_PACKAGE", BuildConfig.APPLICATION_ID)
-            startActivity(intent)
+            requireActivity().startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
         } else {
-            activity?.let {
-                val intent =
-                    PreferencesActivityIntent(it, PreferenceScreen.NOTIFICATION)
-                it.startActivity(intent)
-                it.overridePendingTransition(DR.anim.slide_from_right, DR.anim.slide_to_left)
-            }
+            val intent = PreferencesActivityIntent(requireContext(), PreferenceScreen.NOTIFICATION)
+            requireActivity().startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
         }
     }
 
@@ -354,12 +332,6 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
         } else {
             R.drawable.ic_eye_24dp
         }
-    }
-
-    private fun launchFilterActivity() {
-        val intent = FiltersActivityIntent(requireContext())
-        activity?.startActivity(intent)
-        activity?.overridePendingTransition(DR.anim.slide_from_right, DR.anim.slide_to_left)
     }
 
     companion object {
