@@ -17,6 +17,7 @@
 
 package app.pachli.feature.about
 
+import app.pachli.core.designsystem.R as DR
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
@@ -25,20 +26,29 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import app.pachli.core.activity.BottomSheetActivity
-import app.pachli.core.designsystem.R as DR
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.feature.about.databinding.ActivityAboutBinding
 import com.bumptech.glide.request.target.FixedSizeDrawable
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mikepenz.aboutlibraries.LibsBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AboutActivity : BottomSheetActivity(), MenuProvider {
+
+    private val binding: ActivityAboutBinding by viewBinding(ActivityAboutBinding::inflate)
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            binding.pager.currentItem = 0
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
@@ -65,14 +75,17 @@ class AboutActivity : BottomSheetActivity(), MenuProvider {
             tab.text = adapter.title(position)
         }.attach()
 
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (binding.pager.currentItem != 0) binding.pager.currentItem = 0 else finish()
-                }
-            },
-        )
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                onBackPressedCallback.isEnabled = tab.position > 0
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 }
 

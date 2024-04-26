@@ -376,7 +376,7 @@
     <string name="pref_title_notification_filter_poll">päättyneet äänestykset</string>
     <string name="abbreviated_in_seconds">%ds</string>
     <string name="failed_to_unpin">Irrottaminen epäonnistui</string>
-    <string name="compose_unsaved_changes">Sinulla on tallentamattomia muutoksia.</string>
+    <string name="unsaved_changes">Sinulla on tallentamattomia muutoksia.</string>
     <string name="state_follow_requested">Seuraamista pyydetty</string>
     <string name="compose_delete_draft">Poista luonnos?</string>
     <string name="notification_notification_worker">Ilmoituksia haetaan…</string>

@@ -54,11 +54,22 @@
     <issue
         id="UnusedAttribute"
         message="Attribute `networkSecurityConfig` is only used in API level 24 and higher (current min is 23)"
-        errorLine1="        android:networkSecurityConfig=&quot;@xml/network_security_config&quot;>"
+        errorLine1="        android:networkSecurityConfig=&quot;@xml/network_security_config&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
             line="25"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `enableOnBackInvokedCallback` is only used in API level 33 and higher (current min is 23)"
+        errorLine1="        android:enableOnBackInvokedCallback=&quot;true&quot;>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="26"
             column="9"/>
     </issue>
 
@@ -883,7 +894,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="493"
+            line="515"
             column="9"/>
     </issue>
 
@@ -905,7 +916,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/AccountFieldEditAdapter.kt"
-            line="44"
+            line="49"
             column="9"/>
     </issue>
 
@@ -916,7 +927,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/AccountFieldEditAdapter.kt"
-            line="50"
+            line="55"
             column="9"/>
     </issue>
 

@@ -29,6 +29,7 @@ import app.pachli.R
 import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.OnEmojiSelectedListener
 import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -187,7 +188,7 @@ class AnnouncementsActivity :
 
     override fun onViewTag(tag: String) {
         val intent = TimelineActivityIntent.hashtag(this, tag)
-        startActivityWithSlideInAnimation(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onViewAccount(id: String) {

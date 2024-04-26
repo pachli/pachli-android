@@ -29,10 +29,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.setCloseTransition
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.activity.openLinkInCustomTab
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.string.unicodeWrap
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.extensions.getServerErrorMessage
@@ -128,13 +130,6 @@ class LoginActivity : BaseActivity() {
 
     override fun requiresLogin(): Boolean {
         return false
-    }
-
-    override fun finish() {
-        super.finish()
-        if (isAdditionalLogin() || isAccountMigration()) {
-            overridePendingTransition(DR.anim.slide_from_left, DR.anim.slide_to_right)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -327,9 +322,9 @@ class LoginActivity : BaseActivity() {
 
             val intent = MainActivityIntent(this)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
-            overridePendingTransition(DR.anim.explode, DR.anim.explode)
+            startActivityWithTransition(intent, TransitionKind.EXPLODE)
+            finishAffinity()
+            setCloseTransition(TransitionKind.EXPLODE)
         }, { e ->
             setLoading(false)
             binding.domainTextInputLayout.error =

@@ -3,4 +3,10 @@
     <integer name="profile_media_column_count">3</integer>
 
     <integer name="trending_column_count">1</integer>
+
+    <!-- Duration for default activity transition, in ms -->
+    <integer name="activity_transition_duration_ms">450</integer>
+
+    <!-- Duration for slide transition, in ms -->
+    <integer name="activity_slide_transition_duration_ms">200</integer>
 </resources>

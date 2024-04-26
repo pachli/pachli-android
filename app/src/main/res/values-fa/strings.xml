@@ -534,7 +534,7 @@
     <string name="description_browser_login">ممکن است از روش‌های تأیید خویت اضافی پشتیبانی کند؛ ولی نیازمند مرورگری پشتیبانی شده است.</string>
     <string name="action_discard">دور انداختن تغییرات</string>
     <string name="action_continue_edit">ادامهٔ ویرایش</string>
-    <string name="compose_unsaved_changes">تغییراتی ذخیره نشده دارید.</string>
+    <string name="unsaved_changes">تغییراتی ذخیره نشده دارید.</string>
     <string name="action_share_account_link">هم‌رسانی پیوند به حساب</string>
     <string name="action_share_account_username">هم‌رسانی نام کاربری حساب</string>
     <string name="send_account_link_to">هم‌رسانی نشانی حساب به…</string>

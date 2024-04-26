@@ -24,6 +24,9 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
@@ -105,13 +108,13 @@ abstract class BottomSheetActivity : BaseActivity() {
     open fun viewThread(statusId: String, url: String?) {
         if (!isSearching()) {
             val intent = ViewThreadActivityIntent(this, statusId, url)
-            startActivityWithSlideInAnimation(intent)
+            startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
         }
     }
 
     open fun viewAccount(id: String) {
         val intent = AccountActivityIntent(this, id)
-        startActivityWithSlideInAnimation(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     protected open fun performUrlFallbackAction(url: String, fallbackBehavior: PostLookupFallbackBehavior) {

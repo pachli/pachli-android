@@ -412,7 +412,7 @@
     <string name="compose_delete_draft">Delete draft?</string>
     <string name="compose_save_draft">Save draft?</string>
     <string name="compose_save_draft_loses_media">Save draft? (Attachments will be uploaded again when you restore the draft.)</string>
-    <string name="compose_unsaved_changes">You have unsaved changes.</string>
+    <string name="unsaved_changes">You have unsaved changes.</string>
     <string name="send_post_notification_title">Sending post…</string>
     <string name="send_post_notification_error_title">Error sending post</string>
     <string name="send_post_notification_channel_name">Sending Posts</string>
@@ -703,5 +703,8 @@
     <string name="action_add_to_tab_success">Added \'%1$s\' to tabs</string>
     <string name="action_remove_tab">Remove tab</string>
     <string name="action_manage_tabs">Manage tabs</string>
+    <string name="error_filter_missing_keyword">At least one keyword or phrase is required</string>
+    <string name="error_filter_missing_context">At least one filter context is required</string>
+    <string name="error_filter_missing_title">Title is required</string>
 
 </resources>

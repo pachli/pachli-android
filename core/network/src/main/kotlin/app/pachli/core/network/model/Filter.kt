@@ -11,11 +11,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Filter(
-    val id: String,
-    val title: String,
-    @Json(name = "context") val contexts: List<FilterContext>,
-    @Json(name = "expires_at") val expiresAt: Date?,
-    @Json(name = "filter_action") val action: Action,
+    val id: String = "",
+    val title: String = "",
+    @Json(name = "context") val contexts: List<FilterContext> = emptyList(),
+    @Json(name = "expires_at") val expiresAt: Date? = null,
+    @Json(name = "filter_action") val action: Action = Action.WARN,
     // This should not normally be empty. However, Mastodon does not include
     // this in a status' `filtered.filter` property (it's not null or empty,
     // it's missing) which breaks deserialisation. Patch this by ensuring it's

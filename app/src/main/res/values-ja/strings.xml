@@ -512,7 +512,7 @@
     <string name="status_created_info">%1$s の投稿</string>
     <string name="follow_requests_info">アカウントがロックされていなかったとしても、%1$s のスタッフは以下のアカウントのフォローリクエストを確認した方がいいと判断しました。</string>
     <string name="action_set_focus">中心点の設定</string>
-    <string name="compose_unsaved_changes">保存していない変更があります。</string>
+    <string name="unsaved_changes">保存していない変更があります。</string>
     <string name="error_status_source_load">サーバーからステータスの元情報を取得できませんでした。</string>
     <string name="pref_summary_http_proxy_disabled">無効</string>
     <string name="pref_summary_http_proxy_missing">&lt;設定なし&gt;</string>

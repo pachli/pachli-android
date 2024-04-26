@@ -530,7 +530,7 @@
     <string name="error_status_source_load">Не вдалося завантажити джерело стану з сервера.</string>
     <string name="post_media_alt">ALT</string>
     <string name="action_discard">Відкинути зміни</string>
-    <string name="compose_unsaved_changes">У вас є незбережені зміни.</string>
+    <string name="unsaved_changes">У вас є незбережені зміни.</string>
     <string name="action_continue_edit">Продовжити редагування</string>
     <string name="mute_notifications_switch">Беззвучні сповіщення</string>
     <string name="title_edits">Редагування</string>

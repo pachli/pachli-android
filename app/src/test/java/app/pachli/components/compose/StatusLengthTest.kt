@@ -22,15 +22,15 @@ import app.pachli.util.highlightSpans
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
+import org.robolectric.ParameterizedRobolectricTestRunner
 
-@RunWith(Parameterized::class)
+@RunWith(ParameterizedRobolectricTestRunner::class)
 class StatusLengthTest(
     private val text: String,
     private val expectedLength: Int,
 ) {
     companion object {
-        @Parameterized.Parameters(name = "{0}")
+        @ParameterizedRobolectricTestRunner.Parameters(name = "{0}")
         @JvmStatic
         fun data(): Iterable<Any> {
             return listOf(
@@ -61,7 +61,7 @@ class StatusLengthTest(
 
         assertEquals(
             expectedLength,
-            ComposeActivity.statusLength(spannedText, null, 23),
+            ComposeViewModel.statusLength(spannedText, "", 23),
         )
     }
 
@@ -75,7 +75,7 @@ class StatusLengthTest(
         )
         assertEquals(
             expectedLength + cwText.length,
-            ComposeActivity.statusLength(spannedText, cwText, 23),
+            ComposeViewModel.statusLength(spannedText, cwText.toString(), 23),
         )
     }
 }

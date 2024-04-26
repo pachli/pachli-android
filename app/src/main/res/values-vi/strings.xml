@@ -499,7 +499,7 @@
     <string name="post_media_alt">✦</string>
     <string name="action_discard">Hủy bỏ thay đổi</string>
     <string name="action_continue_edit">Tiếp tục sửa</string>
-    <string name="compose_unsaved_changes">Thay đổi chưa được lưu.</string>
+    <string name="unsaved_changes">Thay đổi chưa được lưu.</string>
     <string name="mute_notifications_switch">Ẩn thông báo</string>
     <string name="status_edit_info">Sửa %1$s</string>
     <string name="status_created_info">Đăng %1$s</string>

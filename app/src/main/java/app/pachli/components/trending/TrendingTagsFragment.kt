@@ -37,8 +37,8 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.components.trending.viewmodel.TrendingTagsViewModel
-import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.RefreshableFragment
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -173,7 +173,7 @@ class TrendingTagsFragment :
     }
 
     fun onViewTag(tag: String) {
-        (requireActivity() as BaseActivity).startActivityWithSlideInAnimation(
+        activity?.startActivityWithDefaultTransition(
             TimelineActivityIntent.hashtag(
                 requireContext(),
                 tag,

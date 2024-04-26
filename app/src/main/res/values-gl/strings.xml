@@ -514,7 +514,7 @@
     <string name="status_created_info">Creado por %1$s</string>
     <string name="action_discard">Desbotar cambios</string>
     <string name="action_continue_edit">Continuar a edición</string>
-    <string name="compose_unsaved_changes">Hai cambios non gardados.</string>
+    <string name="unsaved_changes">Hai cambios non gardados.</string>
     <string name="action_share_account_link">Comparte ligazón da conta</string>
     <string name="action_share_account_username">Comparte identificador da conta</string>
     <string name="send_account_link_to">Compartir URL da conta en…</string>

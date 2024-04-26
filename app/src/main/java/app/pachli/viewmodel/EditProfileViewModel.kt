@@ -40,8 +40,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -76,6 +78,11 @@ class EditProfileViewModel @Inject constructor(
         .shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
 
     private var apiProfileAccount: Account? = null
+
+    private val _isDirty = MutableStateFlow(false)
+
+    /** True if the user has made unsaved changes to the profile */
+    val isDirty = _isDirty.asStateFlow()
 
     fun obtainProfile() = viewModelScope.launch {
         if (profileData.value == null || profileData.value is Error) {
@@ -170,10 +177,8 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-    internal fun hasUnsavedChanges(newProfileData: ProfileDataInUi): Boolean {
-        val diff = getProfileDiff(apiProfileAccount, newProfileData)
-
-        return diff.hasChanges()
+    internal fun onChange(newProfileData: ProfileDataInUi) {
+        _isDirty.value = getProfileDiff(apiProfileAccount, newProfileData).hasChanges()
     }
 
     private fun getProfileDiff(oldProfileAccount: Account?, newProfileData: ProfileDataInUi): DiffProfileData {

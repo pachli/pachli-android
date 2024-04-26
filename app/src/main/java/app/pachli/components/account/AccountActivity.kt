@@ -36,6 +36,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -58,6 +59,9 @@ import app.pachli.R
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.emojify
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -180,6 +184,12 @@ class AccountActivity :
 
     private var noteWatcher: TextWatcher? = null
 
+    private val onBackPressedCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            binding.accountFragmentViewPager.currentItem = 0
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loadResources()
@@ -207,6 +217,8 @@ class AccountActivity :
         } else {
             binding.saveNoteInfo.visibility = View.INVISIBLE
         }
+
+        onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     /**
@@ -243,7 +255,7 @@ class AccountActivity :
                 else -> throw AssertionError()
             }
             val accountListIntent = AccountListActivityIntent(this, kind, viewModel.accountId)
-            startActivityWithSlideInAnimation(accountListIntent)
+            startActivityWithDefaultTransition(accountListIntent)
         }
         binding.accountFollowers.setOnClickListener(accountListClickListener)
         binding.accountFollowing.setOnClickListener(accountListClickListener)
@@ -299,7 +311,10 @@ class AccountActivity :
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
-                override fun onTabSelected(tab: TabLayout.Tab?) {}
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    tab?.position ?: return
+                    onBackPressedCallback.isEnabled = tab.position > 0
+                }
             },
         )
     }
@@ -561,7 +576,7 @@ class AccountActivity :
     }
 
     private fun viewImage(view: View, uri: String) {
-        view.transitionName = uri
+        ViewCompat.setTransitionName(view, uri)
         startActivity(
             ViewMediaActivityIntent(view.context, uri),
             ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, uri).toBundle(),
@@ -630,7 +645,7 @@ class AccountActivity :
             binding.accountFollowButton.setOnClickListener {
                 if (viewModel.isSelf) {
                     val intent = EditProfileActivityIntent(this@AccountActivity)
-                    startActivity(intent)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     return@setOnClickListener
                 }
 
@@ -959,12 +974,12 @@ class AccountActivity :
 
     override fun onViewTag(tag: String) {
         val intent = TimelineActivityIntent.hashtag(this, tag)
-        startActivityWithSlideInAnimation(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onViewAccount(id: String) {
         val intent = AccountActivityIntent(this, id)
-        startActivityWithSlideInAnimation(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onViewUrl(url: String) {

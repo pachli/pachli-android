@@ -32,6 +32,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.emojify
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -183,11 +184,11 @@ class ViewEditsFragment :
     }
 
     override fun onViewAccount(id: String) {
-        bottomSheetActivity?.startActivityWithSlideInAnimation(AccountActivityIntent(requireContext(), id))
+        bottomSheetActivity?.startActivityWithDefaultTransition(AccountActivityIntent(requireContext(), id))
     }
 
     override fun onViewTag(tag: String) {
-        bottomSheetActivity?.startActivityWithSlideInAnimation(TimelineActivityIntent.hashtag(requireContext(), tag))
+        bottomSheetActivity?.startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(requireContext(), tag))
     }
 
     override fun onViewUrl(url: String) {

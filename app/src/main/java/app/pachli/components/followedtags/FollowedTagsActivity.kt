@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import app.pachli.R
 import app.pachli.components.compose.ComposeAutoCompleteAdapter
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -172,7 +173,7 @@ class FollowedTagsActivity :
     }
 
     override fun onViewTag(tag: String) {
-        startActivityWithSlideInAnimation(TimelineActivityIntent.hashtag(this, tag))
+        startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(this, tag))
     }
 
     override suspend fun search(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {

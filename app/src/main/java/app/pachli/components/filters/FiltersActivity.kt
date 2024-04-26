@@ -6,11 +6,12 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import app.pachli.R
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.EditFilterActivityIntent
 import app.pachli.core.network.model.Filter
 import app.pachli.core.ui.BackgroundMessage
@@ -94,8 +95,7 @@ class FiltersActivity : BaseActivity(), FiltersListener {
 
     private fun launchEditFilterActivity(filter: Filter? = null) {
         val intent = EditFilterActivityIntent(this, filter)
-        startActivity(intent)
-        overridePendingTransition(DR.anim.slide_from_right, DR.anim.slide_to_left)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     override fun deleteFilter(filter: Filter) {

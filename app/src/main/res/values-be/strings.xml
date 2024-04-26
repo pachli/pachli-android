@@ -374,7 +374,7 @@
         <item quantity="many"><b>%s</b> пашыраных</item>
         <item quantity="other"><b>%s</b> пашыраных</item>
     </plurals>
-    <string name="compose_unsaved_changes">У Вас засталіся незахаваныя змены.</string>
+    <string name="unsaved_changes">У Вас засталіся незахаваныя змены.</string>
     <string name="expand_collapse_all_posts">Разгарнуць/згарнуць допісы</string>
     <string name="action_open_post">Адкрыць допіс</string>
     <string name="restart_required">Патрэбна перазапусціць праграму</string>

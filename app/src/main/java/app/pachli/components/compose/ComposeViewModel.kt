@@ -17,6 +17,10 @@
 package app.pachli.components.compose
 
 import android.net.Uri
+import android.text.Editable
+import android.text.Spanned
+import android.text.style.URLSpan
+import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,6 +29,7 @@ import app.pachli.components.compose.ComposeAutoCompleteAdapter.AutocompleteResu
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.search.SearchType
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.data.repository.InstanceInfoRepository
@@ -35,6 +40,7 @@ import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.ui.MentionSpan
 import app.pachli.service.MediaToSend
 import app.pachli.service.ServiceClient
 import app.pachli.service.StatusToSend
@@ -49,6 +55,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.update
@@ -66,20 +74,40 @@ class ComposeViewModel @Inject constructor(
     instanceInfoRepo: InstanceInfoRepository,
 ) : ViewModel() {
 
+    /** The current content */
+    private var content: Editable = Editable.Factory.getInstance().newEditable("")
+
+    /** The current content warning */
+    private var contentWarning: String = ""
+
+    /**
+     * The effective content warning. Either the real content warning, or the empty string
+     * if the content warning has been hidden
+     */
+    private val effectiveContentWarning
+        get() = if (showContentWarning.value) contentWarning else ""
+
     private var replyingStatusAuthor: String? = null
     private var replyingStatusContent: String? = null
-    internal var startingText: String? = null
+
+    /** The initial content for this status, before any edits */
+    internal var initialContent: String = ""
+
+    /** The initial content warning for this status, before any edits */
+    private var initialContentWarning: String = ""
+
     internal var postLanguage: String? = null
+
+    /** If editing a draft then the ID of the draft, otherwise 0 */
     private var draftId: Int = 0
     private var scheduledTootId: String? = null
-    private var startingContentWarning: String = ""
     private var inReplyToId: String? = null
     private var originalStatusId: String? = null
     private var startingVisibility: Status.Visibility = Status.Visibility.UNKNOWN
 
     private var contentWarningStateChanged: Boolean = false
     private var modifiedInitialState: Boolean = false
-    private var hasScheduledTimeChanged: Boolean = false
+    private var scheduledTimeChanged: Boolean = false
 
     val instanceInfo: SharedFlow<InstanceInfo> = instanceInfoRepo::getInstanceInfo.asFlow()
         .shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
@@ -87,16 +115,27 @@ class ComposeViewModel @Inject constructor(
     val emoji: SharedFlow<List<Emoji>> = instanceInfoRepo::getEmojis.asFlow()
         .shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
 
-    val markMediaAsSensitive: MutableStateFlow<Boolean> =
+    private val _markMediaAsSensitive: MutableStateFlow<Boolean> =
         MutableStateFlow(accountManager.activeAccount?.defaultMediaSensitivity ?: false)
+    val markMediaAsSensitive = _markMediaAsSensitive.asStateFlow()
 
-    val statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
-    val showContentWarning: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val poll: MutableStateFlow<NewPoll?> = MutableStateFlow(null)
-    val scheduledAt: MutableStateFlow<String?> = MutableStateFlow(null)
+    private val _statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
+    val statusVisibility = _statusVisibility.asStateFlow()
+    private val _showContentWarning: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val showContentWarning = _showContentWarning.asStateFlow()
+    private val _poll: MutableStateFlow<NewPoll?> = MutableStateFlow(null)
+    val poll = _poll.asStateFlow()
+    private val _scheduledAt: MutableStateFlow<String?> = MutableStateFlow(null)
+    val scheduledAt = _scheduledAt.asStateFlow()
 
-    val media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
-    val uploadError = MutableSharedFlow<Throwable>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
+    val media = _media.asStateFlow()
+    private val _uploadError = MutableSharedFlow<Throwable>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val uploadError = _uploadError.asSharedFlow()
+    private val _closeConfirmation = MutableStateFlow(ConfirmationKind.NONE)
+    val closeConfirmation = _closeConfirmation.asStateFlow()
+    private val _statusLength = MutableStateFlow(0)
+    val statusLength = _statusLength.asStateFlow()
 
     private lateinit var composeKind: ComposeKind
 
@@ -133,7 +172,7 @@ class ComposeViewModel @Inject constructor(
     ): QueuedMedia {
         var stashMediaItem: QueuedMedia? = null
 
-        media.update { mediaList ->
+        _media.update { mediaList ->
             val mediaItem = QueuedMedia(
                 localId = mediaUploader.getNewLocalMediaId(),
                 uri = uri,
@@ -176,12 +215,12 @@ class ComposeViewModel @Inject constructor(
                                 },
                             )
                         is UploadEvent.ErrorEvent -> {
-                            media.update { mediaList -> mediaList.filter { it.localId != mediaItem.localId } }
-                            uploadError.emit(event.error)
+                            _media.update { mediaList -> mediaList.filter { it.localId != mediaItem.localId } }
+                            _uploadError.emit(event.error)
                             return@collect
                         }
                     }
-                    media.update { mediaList ->
+                    _media.update { mediaList ->
                         mediaList.map { mediaItem ->
                             if (mediaItem.localId == newMediaItem.localId) {
                                 newMediaItem
@@ -192,11 +231,13 @@ class ComposeViewModel @Inject constructor(
                     }
                 }
         }
+
+        updateCloseConfirmation()
         return mediaItem
     }
 
     private fun addUploadedMedia(id: String, type: QueuedMedia.Type, uri: Uri, description: String?, focus: Attachment.Focus?) {
-        media.update { mediaList ->
+        _media.update { mediaList ->
             val mediaItem = QueuedMedia(
                 localId = mediaUploader.getNewLocalMediaId(),
                 uri = uri,
@@ -214,22 +255,53 @@ class ComposeViewModel @Inject constructor(
 
     fun removeMediaFromQueue(item: QueuedMedia) {
         mediaUploader.cancelUploadScope(item.localId)
-        media.update { mediaList -> mediaList.filter { it.localId != item.localId } }
+        _media.update { mediaList -> mediaList.filter { it.localId != item.localId } }
+        updateCloseConfirmation()
     }
 
     fun toggleMarkSensitive() {
-        this.markMediaAsSensitive.value = this.markMediaAsSensitive.value != true
+        this._markMediaAsSensitive.value = this._markMediaAsSensitive.value != true
     }
 
-    fun handleCloseButton(contentText: String?, contentWarning: String?): ConfirmationKind {
-        return if (didChange(contentText, contentWarning)) {
+    /** Call this when the status' primary content changes */
+    fun onContentChanged(newContent: Editable) {
+        content = newContent
+        updateStatusLength()
+        updateCloseConfirmation()
+    }
+
+    /** Call this when the status' content warning changes */
+    fun onContentWarningChanged(newContentWarning: String) {
+        contentWarning = newContentWarning
+        updateStatusLength()
+        updateCloseConfirmation()
+    }
+
+    /** Call this to attach or clear the status' poll */
+    fun onPollChanged(newPoll: NewPoll?) {
+        _poll.value = newPoll
+        updateCloseConfirmation()
+    }
+
+    /** Call this to change the status' visibility */
+    fun onStatusVisibilityChanged(newVisibility: Status.Visibility) {
+        _statusVisibility.value = newVisibility
+    }
+
+    @VisibleForTesting
+    fun updateStatusLength() {
+        _statusLength.value = statusLength(content, effectiveContentWarning, instanceInfo.replayCache.last().charactersReservedPerUrl)
+    }
+
+    private fun updateCloseConfirmation() {
+        _closeConfirmation.value = if (isDirty()) {
             when (composeKind) {
-                ComposeKind.NEW -> if (isEmpty(contentText, contentWarning)) {
+                ComposeKind.NEW -> if (isEmpty(content, effectiveContentWarning)) {
                     ConfirmationKind.NONE
                 } else {
                     ConfirmationKind.SAVE_OR_DISCARD
                 }
-                ComposeKind.EDIT_DRAFT -> if (isEmpty(contentText, contentWarning)) {
+                ComposeKind.EDIT_DRAFT -> if (isEmpty(content, effectiveContentWarning)) {
                     ConfirmationKind.CONTINUE_EDITING_OR_DISCARD_DRAFT
                 } else {
                     ConfirmationKind.UPDATE_OR_DISCARD
@@ -242,23 +314,30 @@ class ComposeViewModel @Inject constructor(
         }
     }
 
-    private fun didChange(content: String?, contentWarning: String?): Boolean {
-        val textChanged = content.orEmpty() != startingText.orEmpty()
-        val contentWarningChanged = contentWarning.orEmpty() != startingContentWarning
+    /**
+     * @return True if content of this status is "dirty", meaning one or more of the
+     *   following have changed since the compose session started: content,
+     *   content warning and content warning visibility, media, polls, or the
+     *   scheduled time to send.
+     */
+    private fun isDirty(): Boolean {
+        val contentChanged = !content.contentEquals(initialContent)
+
+        val contentWarningChanged = effectiveContentWarning != initialContentWarning
         val mediaChanged = media.value.isNotEmpty()
         val pollChanged = poll.value != null
-        val didScheduledTimeChange = hasScheduledTimeChanged
 
-        return modifiedInitialState || textChanged || contentWarningChanged || mediaChanged || pollChanged || didScheduledTimeChange
+        return modifiedInitialState || contentChanged || contentWarningChanged || mediaChanged || pollChanged || scheduledTimeChanged
     }
 
-    private fun isEmpty(content: String?, contentWarning: String?): Boolean {
-        return !modifiedInitialState && (content.isNullOrBlank() && contentWarning.isNullOrBlank() && media.value.isEmpty() && poll.value == null)
+    private fun isEmpty(content: CharSequence, contentWarning: CharSequence): Boolean {
+        return !modifiedInitialState && (content.isBlank() && contentWarning.isBlank() && media.value.isEmpty() && poll.value == null)
     }
 
-    fun contentWarningChanged(value: Boolean) {
-        showContentWarning.value = value
+    fun showContentWarningChanged(value: Boolean) {
+        _showContentWarning.value = value
         contentWarningStateChanged = true
+        updateStatusLength()
     }
 
     fun deleteDraft() {
@@ -296,7 +375,7 @@ class ComposeViewModel @Inject constructor(
             inReplyToId = inReplyToId,
             content = content,
             contentWarning = contentWarning,
-            sensitive = markMediaAsSensitive.value,
+            sensitive = _markMediaAsSensitive.value,
             visibility = statusVisibility.value,
             mediaUris = mediaUris,
             mediaDescriptions = mediaDescriptions,
@@ -337,7 +416,7 @@ class ComposeViewModel @Inject constructor(
             text = content,
             warningText = spoilerText,
             visibility = statusVisibility.value.serverString(),
-            sensitive = attachedMedia.isNotEmpty() && (markMediaAsSensitive.value || showContentWarning.value),
+            sensitive = attachedMedia.isNotEmpty() && (_markMediaAsSensitive.value || showContentWarning.value),
             media = attachedMedia,
             scheduledAt = scheduledAt.value,
             inReplyToId = inReplyToId,
@@ -356,7 +435,7 @@ class ComposeViewModel @Inject constructor(
     }
 
     private fun updateMediaItem(localId: Int, mutator: (QueuedMedia) -> QueuedMedia) {
-        media.update { mediaList ->
+        _media.update { mediaList ->
             mediaList.map { mediaItem ->
                 if (mediaItem.localId == localId) {
                     mutator(mediaItem)
@@ -438,10 +517,10 @@ class ComposeViewModel @Inject constructor(
 
         val contentWarning = composeOptions?.contentWarning
         if (contentWarning != null) {
-            startingContentWarning = contentWarning
+            initialContentWarning = contentWarning
         }
         if (!contentWarningStateChanged) {
-            showContentWarning.value = !contentWarning.isNullOrBlank()
+            _showContentWarning.value = !contentWarning.isNullOrBlank()
         }
 
         // recreate media list
@@ -468,14 +547,14 @@ class ComposeViewModel @Inject constructor(
         draftId = composeOptions?.draftId ?: 0
         scheduledTootId = composeOptions?.scheduledTootId
         originalStatusId = composeOptions?.statusId
-        startingText = composeOptions?.content
+        initialContent = composeOptions?.content ?: ""
         postLanguage = composeOptions?.language
 
         val tootVisibility = composeOptions?.visibility ?: Status.Visibility.UNKNOWN
         if (tootVisibility != Status.Visibility.UNKNOWN) {
             startingVisibility = tootVisibility
         }
-        statusVisibility.value = startingVisibility
+        _statusVisibility.value = startingVisibility
         val mentionedUsernames = composeOptions?.mentionedUsernames
         if (mentionedUsernames != null) {
             val builder = StringBuilder()
@@ -484,44 +563,101 @@ class ComposeViewModel @Inject constructor(
                 builder.append(name)
                 builder.append(' ')
             }
-            startingText = builder.toString()
+            initialContent = builder.toString()
         }
 
-        scheduledAt.value = composeOptions?.scheduledAt
+        _scheduledAt.value = composeOptions?.scheduledAt
 
-        composeOptions?.sensitive?.let { markMediaAsSensitive.value = it }
+        composeOptions?.sensitive?.let { _markMediaAsSensitive.value = it }
 
         val poll = composeOptions?.poll
         if (poll != null && composeOptions.mediaAttachments.isNullOrEmpty()) {
-            this.poll.value = poll
+            _poll.value = poll
         }
         replyingStatusContent = composeOptions?.replyingStatusContent
         replyingStatusAuthor = composeOptions?.replyingStatusAuthor
 
+        updateCloseConfirmation()
         setupComplete = true
-    }
-
-    fun updatePoll(newPoll: NewPoll) {
-        poll.value = newPoll
     }
 
     fun updateScheduledAt(newScheduledAt: String?) {
         if (newScheduledAt != scheduledAt.value) {
-            hasScheduledTimeChanged = true
+            scheduledTimeChanged = true
         }
 
-        scheduledAt.value = newScheduledAt
+        _scheduledAt.value = newScheduledAt
+        updateCloseConfirmation()
     }
 
     val editing: Boolean
         get() = !originalStatusId.isNullOrEmpty()
 
     enum class ConfirmationKind {
-        NONE, // just close
+        /** No confirmation, finish */
+        NONE,
+
+        /** Content has changed and it's an un-posted status, show "save or discard" */
         SAVE_OR_DISCARD,
+
+        /** Content has changed when editing a draft, show "update draft or discard changes" */
         UPDATE_OR_DISCARD,
-        CONTINUE_EDITING_OR_DISCARD_CHANGES, // editing post
-        CONTINUE_EDITING_OR_DISCARD_DRAFT, // edit draft
+
+        /** Content has changed when editing a posted status or scheduled status */
+        CONTINUE_EDITING_OR_DISCARD_CHANGES,
+
+        /** Content has been cleared when editing a draft */
+        CONTINUE_EDITING_OR_DISCARD_DRAFT,
+    }
+
+    companion object {
+        /**
+         * Calculate the effective status length.
+         *
+         * Some text is counted differently:
+         *
+         * In the status body:
+         *
+         * - URLs always count for [urlLength] characters irrespective of their actual length
+         *   (https://docs.joinmastodon.org/user/posting/#links)
+         * - Mentions ("@user@some.instance") only count the "@user" part
+         *   (https://docs.joinmastodon.org/user/posting/#mentions)
+         * - Hashtags are always treated as their actual length, including the "#"
+         *   (https://docs.joinmastodon.org/user/posting/#hashtags)
+         * - Emojis are treated as a single character
+         *
+         * Content warning text is always treated as its full length, URLs and other entities
+         * are not treated differently.
+         *
+         * @param body status body text
+         * @param contentWarning optional content warning text
+         * @param urlLength the number of characters attributed to URLs
+         * @return the effective status length
+         */
+        fun statusLength(body: Spanned, contentWarning: String, urlLength: Int): Int {
+            var length = body.toString().mastodonLength() - body.getSpans(0, body.length, URLSpan::class.java)
+                .fold(0) { acc, span ->
+                    // Accumulate a count of characters to be *ignored* in the final length
+                    acc + when (span) {
+                        is MentionSpan -> {
+                            // Ignore everything from the second "@" (if present)
+                            span.url.length - (
+                                span.url.indexOf("@", 1).takeIf { it >= 0 }
+                                    ?: span.url.length
+                                )
+                        }
+                        else -> {
+                            // Expected to be negative if the URL length < maxUrlLength
+                            span.url.mastodonLength() - urlLength
+                        }
+                    }
+                }
+
+            // Content warning text is treated as is, URLs or mentions there are not special
+            length += contentWarning.mastodonLength()
+
+            return length
+        }
     }
 }
 

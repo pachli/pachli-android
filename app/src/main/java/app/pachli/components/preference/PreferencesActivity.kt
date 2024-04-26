@@ -27,7 +27,8 @@ import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
 import app.pachli.appstore.EventHub
 import app.pachli.core.activity.BaseActivity
-import app.pachli.core.designsystem.R as DR
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
@@ -61,7 +62,7 @@ class PreferencesActivity :
              * back stack. */
             val intent = MainActivityIntent(this@PreferencesActivity)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivityWithSlideInAnimation(intent)
+            startActivityWithDefaultTransition(intent)
         }
     }
 
@@ -107,11 +108,11 @@ class PreferencesActivity :
                         setAppNightMode(theme)
 
                         restartActivitiesOnBackPressedCallback.isEnabled = true
-                        this@PreferencesActivity.restartCurrentActivity()
+                        this@PreferencesActivity.recreate()
                     }
                     PrefKeys.FONT_FAMILY, PrefKeys.UI_TEXT_SCALE_RATIO -> {
                         restartActivitiesOnBackPressedCallback.isEnabled = true
-                        this@PreferencesActivity.restartCurrentActivity()
+                        this@PreferencesActivity.recreate()
                     }
                     PrefKeys.STATUS_TEXT_SIZE, PrefKeys.ABSOLUTE_TIME_VIEW, PrefKeys.SHOW_BOT_OVERLAY, PrefKeys.ANIMATE_GIF_AVATARS, PrefKeys.USE_BLURHASH,
                     PrefKeys.SHOW_SELF_USERNAME, PrefKeys.SHOW_CARDS_IN_TIMELINES, PrefKeys.CONFIRM_REBLOGS, PrefKeys.CONFIRM_FAVOURITES,
@@ -136,11 +137,13 @@ class PreferencesActivity :
         fragment.arguments = args
         fragment.setTargetFragment(caller, 0)
         supportFragmentManager.commit {
+            // Slide transition, as sub preference screens are "attached" to the
+            // parent screen.
             setCustomAnimations(
-                DR.anim.slide_from_right,
-                DR.anim.slide_to_left,
-                DR.anim.slide_from_left,
-                DR.anim.slide_to_right,
+                TransitionKind.SLIDE_FROM_END.openEnter,
+                TransitionKind.SLIDE_FROM_END.openExit,
+                TransitionKind.SLIDE_FROM_END.closeEnter,
+                TransitionKind.SLIDE_FROM_END.closeExit,
             )
             replace(R.id.fragment_container, fragment)
             addToBackStack(null)
@@ -148,23 +151,9 @@ class PreferencesActivity :
         return true
     }
 
-    private fun saveInstanceState(outState: Bundle) {
-        outState.putBoolean(EXTRA_RESTART_ON_BACK, restartActivitiesOnBackPressedCallback.isEnabled)
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean(EXTRA_RESTART_ON_BACK, restartActivitiesOnBackPressedCallback.isEnabled)
         super.onSaveInstanceState(outState)
-    }
-
-    private fun restartCurrentActivity() {
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        val savedInstanceState = Bundle()
-        saveInstanceState(savedInstanceState)
-        intent.putExtras(savedInstanceState)
-        startActivityWithSlideInAnimation(intent)
-        finish()
-        overridePendingTransition(DR.anim.fade_in, DR.anim.fade_out)
     }
 
     companion object {

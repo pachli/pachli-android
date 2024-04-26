@@ -526,7 +526,7 @@
     <string name="status_edit_info">%1$s edytował</string>
     <string name="status_created_info">%1$s stworzył</string>
     <string name="title_edits">Edycje</string>
-    <string name="compose_unsaved_changes">Masz niezapisane zmiany.</string>
+    <string name="unsaved_changes">Masz niezapisane zmiany.</string>
     <string name="action_post_failed">Błąd wysyłania</string>
     <string name="action_post_failed_show_drafts">Pokaż szkice</string>
     <string name="action_post_failed_do_nothing">Odrzuć</string>

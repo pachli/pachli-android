@@ -34,6 +34,7 @@ import androidx.annotation.CallSuper
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -44,10 +45,10 @@ import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.openLink
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -94,8 +95,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     private var serverCanTranslate = false
 
     override fun startActivity(intent: Intent) {
-        super.startActivity(intent)
-        requireActivity().overridePendingTransition(DR.anim.slide_from_right, DR.anim.slide_to_left)
+        requireActivity().startActivityWithDefaultTransition(intent)
     }
 
     override fun onAttach(context: Context) {
@@ -400,7 +400,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 val intent = ViewMediaActivityIntent(requireContext(), attachments, urlIndex)
                 if (view != null) {
                     val url = attachment.url
-                    view.transitionName = url
+                    ViewCompat.setTransitionName(view, url)
                     val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         requireActivity(),
                         view,

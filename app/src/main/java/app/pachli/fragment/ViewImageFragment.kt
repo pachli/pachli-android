@@ -30,6 +30,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GestureDetectorCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -62,7 +63,7 @@ class ViewImageFragment : ViewMediaFragment() {
     private var scheduleToolbarHide = false
 
     override fun setupMediaView(showingDescription: Boolean) {
-        binding.photoView.transitionName = attachment.url
+        ViewCompat.setTransitionName(binding.photoView, attachment.url)
         binding.mediaDescription.text = attachment.description
         binding.captionSheet.visible(showingDescription)
 

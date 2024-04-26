@@ -34,6 +34,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.annotation.OptIn
 import androidx.core.view.GestureDetectorCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -359,7 +360,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         // Ensure the description is visible over the video
         binding.mediaDescription.elevation = binding.videoView.elevation + 1
 
-        binding.videoView.transitionName = attachment.url
+        ViewCompat.setTransitionName(binding.videoView, attachment.url)
 
         if (!startedTransition && shouldCallMediaReady) {
             startedTransition = true

@@ -563,7 +563,7 @@
     <string name="title_edits">Golygiadau</string>
     <string name="post_media_alt">AMGEN</string>
     <string name="action_discard">Hepgor newidiadau</string>
-    <string name="compose_unsaved_changes">Mae gennych newidiadau heb eu cadw.</string>
+    <string name="unsaved_changes">Mae gennych newidiadau heb eu cadw.</string>
     <string name="mute_notifications_switch">Tewi hysbysiadau</string>
     <string name="a11y_label_loading_thread">Llwytho trywydd</string>
     <string name="action_share_account_link">Rhannu ddolen i gyfrif</string>
