@@ -17,7 +17,6 @@
 
 package app.pachli.feature.about
 
-import app.pachli.core.designsystem.R as DR
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
@@ -27,6 +26,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.feature.about.databinding.ActivityAboutBinding
 import com.bumptech.glide.request.target.FixedSizeDrawable
