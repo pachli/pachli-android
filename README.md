@@ -40,7 +40,7 @@ Install the newest release from the [list of releases](https://github.com/pachli
 
 We actively welcome new contributors. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md) [![Contributor License Agreement](https://cla-assistant.io/readme/badge/pachli/pachli-android)](https://cla-assistant.io/pachli/pachli-android) [![Translate - with Weblate](https://img.shields.io/badge/translate%20with-Weblate-green.svg?style=flat)](https://hosted.weblate.org/projects/pachli/)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md) [![Contributor License Agreement](https://cla-assistant.io/readme/badge/pachli/pachli-android)](https://cla-assistant.io/pachli/pachli-android) [![Translate - with Weblate](https://img.shields.io/badge/translate%20with-Weblate-green.svg?style=flat)](https://hosted.weblate.org/projects/pachli/)
 
 ## More information
 
