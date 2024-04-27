@@ -618,7 +618,6 @@
     <string name="update_dialog_neutral">Ne plus me rappeller pour cette version</string>
     <string name="translating">Traduction …</string>
     <string name="translation_provider_fmt">%1$s</string>
-    <string name="janky_animation_title">Vous aurez besoin de redémarrer votre appareil</string>
     <string name="confirmation_hashtag_muted">#%s caché</string>
     <string name="label_image">Image</string>
     <string name="pref_summary_timeline_filters">Votre serveur ne supporte pas les filtres</string>

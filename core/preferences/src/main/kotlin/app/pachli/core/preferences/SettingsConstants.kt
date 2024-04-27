@@ -127,9 +127,6 @@ object PrefKeys {
     const val UPDATE_NOTIFICATION_VERSIONCODE = "updateNotificationVersioncode"
     const val UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS = "updateNotificationLastNotificationMs"
 
-    /* Flag to show the "janky animation" warning dialog */
-    const val SHOW_JANKY_ANIMATION_WARNING = "showJankyAnimationWarning"
-
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         // Empty at this time
