@@ -26,8 +26,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityManager
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
@@ -106,6 +108,8 @@ class NotificationsFragment :
 
     private lateinit var layoutManager: LinearLayoutManager
 
+    private var talkBackWasEnabled = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -149,7 +153,11 @@ class NotificationsFragment :
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.setAccessibilityDelegateCompat(
             ListStatusAccessibilityDelegate(binding.recyclerView, this) { pos: Int ->
-                adapter.snapshot().getOrNull(pos)
+                if (pos in 0 until adapter.itemCount) {
+                    adapter.peek(pos)
+                } else {
+                    null
+                }
             },
         )
         binding.recyclerView.addItemDecoration(
@@ -502,6 +510,14 @@ class NotificationsFragment :
 
     override fun onResume() {
         super.onResume()
+
+        val a11yManager = ContextCompat.getSystemService(requireContext(), AccessibilityManager::class.java)
+        val wasEnabled = talkBackWasEnabled
+        talkBackWasEnabled = a11yManager?.isEnabled == true
+        if (talkBackWasEnabled && !wasEnabled) {
+            adapter.notifyItemRangeChanged(0, adapter.itemCount)
+        }
+
         clearNotificationsForAccount(requireContext(), viewModel.account)
     }
 
