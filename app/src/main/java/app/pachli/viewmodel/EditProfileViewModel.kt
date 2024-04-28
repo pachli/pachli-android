@@ -25,7 +25,6 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.core.common.string.randomAlphanumericString
-import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Account
@@ -39,12 +38,8 @@ import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -74,8 +69,7 @@ class EditProfileViewModel @Inject constructor(
     val headerData = MutableLiveData<Uri>()
     val saveData = MutableLiveData<Resource<Nothing>>()
 
-    val instanceData: Flow<InstanceInfo> = instanceInfoRepo::getInstanceInfo.asFlow()
-        .shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
+    val instanceData = instanceInfoRepo.instanceInfo
 
     private var apiProfileAccount: Account? = null
 

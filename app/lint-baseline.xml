@@ -894,7 +894,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="515"
+            line="516"
             column="9"/>
     </issue>
 
@@ -2762,17 +2762,6 @@
             file="src/main/res/layout/view_compose_schedule.xml"
             line="38"
             column="9"/>
-    </issue>
-
-    <issue
-        id="NullSafeMutableLiveData"
-        message="Expected non-nullable value"
-        errorLine1="            emojisMutable.postValue(instanceInfoRepo.getEmojis())"
-        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/announcements/AnnouncementsViewModel.kt"
-            line="54"
-            column="37"/>
     </issue>
 
 </issues>

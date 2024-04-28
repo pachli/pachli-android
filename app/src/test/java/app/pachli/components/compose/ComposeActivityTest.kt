@@ -23,6 +23,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.PachliApplication
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -40,6 +42,7 @@ import java.time.Instant
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -80,6 +83,9 @@ class ComposeActivityTest {
 
     @Inject
     lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var instanceInfoRepository: InstanceInfoRepository
 
     @Before
     fun setup() {
@@ -182,21 +188,20 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenMaximumTootCharsIsNull_defaultLimitIsUsed() {
+    fun whenMaximumTootCharsIsNull_defaultLimitIsUsed() = runTest {
         getInstanceCallback = { getInstanceWithCustomConfiguration(null) }
         rule.launch()
         rule.getScenario().onActivity {
-            assertEquals(
-                InstanceInfoRepository.DEFAULT_CHARACTER_LIMIT,
-                it.maximumTootCharacters,
-            )
+            assertEquals(DEFAULT_CHARACTER_LIMIT, it.maximumTootCharacters)
         }
     }
 
     @Test
-    fun whenMaximumTootCharsIsPopulated_customLimitIsUsed() {
+    fun whenMaximumTootCharsIsPopulated_customLimitIsUsed() = runTest {
         val customMaximum = 1000
         getInstanceCallback = { getInstanceWithCustomConfiguration(customMaximum, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum)) }
+        instanceInfoRepository.reload(accountManager.activeAccount)
+
         rule.launch()
         rule.getScenario().onActivity {
             assertEquals(customMaximum, it.maximumTootCharacters)
@@ -204,9 +209,11 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenOnlyLegacyMaximumTootCharsIsPopulated_customLimitIsUsed() {
+    fun whenOnlyLegacyMaximumTootCharsIsPopulated_customLimitIsUsed() = runTest {
         val customMaximum = 1000
         getInstanceCallback = { getInstanceWithCustomConfiguration(customMaximum) }
+        instanceInfoRepository.reload(accountManager.activeAccount)
+
         rule.launch()
         rule.getScenario().onActivity {
             assertEquals(customMaximum, it.maximumTootCharacters)
@@ -214,9 +221,11 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenOnlyConfigurationMaximumTootCharsIsPopulated_customLimitIsUsed() {
+    fun whenOnlyConfigurationMaximumTootCharsIsPopulated_customLimitIsUsed() = runTest {
         val customMaximum = 1000
         getInstanceCallback = { getInstanceWithCustomConfiguration(null, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum)) }
+        instanceInfoRepository.reload(accountManager.activeAccount)
+
         rule.launch()
         rule.getScenario().onActivity {
             assertEquals(customMaximum, it.maximumTootCharacters)
@@ -224,9 +233,11 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenDifferentCharLimitsArePopulated_statusConfigurationLimitIsUsed() {
+    fun whenDifferentCharLimitsArePopulated_statusConfigurationLimitIsUsed() = runTest {
         val customMaximum = 1000
         getInstanceCallback = { getInstanceWithCustomConfiguration(customMaximum, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum * 2)) }
+        instanceInfoRepository.reload(accountManager.activeAccount)
+
         rule.launch()
         rule.getScenario().onActivity {
             assertEquals(customMaximum * 2, it.maximumTootCharacters)
@@ -269,10 +280,7 @@ class ComposeActivityTest {
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, content)
-            assertEquals(
-                InstanceInfoRepository.DEFAULT_CHARACTERS_RESERVED_PER_URL,
-                it.viewModel.statusLength.value,
-            )
+            assertEquals(DEFAULT_CHARACTERS_RESERVED_PER_URL, it.viewModel.statusLength.value)
         }
     }
 
@@ -294,7 +302,7 @@ class ComposeActivityTest {
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, additionalContent + url)
             assertEquals(
-                additionalContent.length + InstanceInfoRepository.DEFAULT_CHARACTERS_RESERVED_PER_URL,
+                additionalContent.length + DEFAULT_CHARACTERS_RESERVED_PER_URL,
                 it.viewModel.statusLength.value,
             )
         }
@@ -309,7 +317,7 @@ class ComposeActivityTest {
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, shortUrl + additionalContent + url)
             assertEquals(
-                additionalContent.length + (InstanceInfoRepository.DEFAULT_CHARACTERS_RESERVED_PER_URL * 2),
+                additionalContent.length + (DEFAULT_CHARACTERS_RESERVED_PER_URL * 2),
                 it.viewModel.statusLength.value,
             )
         }
@@ -323,18 +331,20 @@ class ComposeActivityTest {
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, url + additionalContent + url)
             assertEquals(
-                additionalContent.length + (InstanceInfoRepository.DEFAULT_CHARACTERS_RESERVED_PER_URL * 2),
+                additionalContent.length + (DEFAULT_CHARACTERS_RESERVED_PER_URL * 2),
                 it.viewModel.statusLength.value,
             )
         }
     }
 
     @Test
-    fun whenTextContainsUrl_onlyEllipsizedURLIsCounted_withCustomConfiguration() {
+    fun whenTextContainsUrl_onlyEllipsizedURLIsCounted_withCustomConfiguration() = runTest {
         val url = "https://www.google.dk/search?biw=1920&bih=990&tbm=isch&sa=1&ei=bmDrWuOoKMv6kwWOkIaoDQ&q=indiana+jones+i+hate+snakes+animated&oq=indiana+jones+i+hate+snakes+animated&gs_l=psy-ab.3...54174.55443.0.55553.9.7.0.0.0.0.255.333.1j0j1.2.0....0...1c.1.64.psy-ab..7.0.0....0.40G-kcDkC6A#imgdii=PSp15hQjN1JqvM:&imgrc=H0hyE2JW5wrpBM%3A"
         val additionalContent = "Check out this @image #search result: "
         val customUrlLength = 16
         getInstanceCallback = { getInstanceWithCustomConfiguration(configuration = getCustomInstanceConfiguration(charactersReservedPerUrl = customUrlLength)) }
+        instanceInfoRepository.reload(accountManager.activeAccount)
+
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, additionalContent + url)
@@ -346,12 +356,14 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenTextContainsShortUrls_allUrlsGetEllipsized_withCustomConfiguration() {
+    fun whenTextContainsShortUrls_allUrlsGetEllipsized_withCustomConfiguration() = runTest {
         val shortUrl = "https://pachli.app"
         val url = "https://www.google.dk/search?biw=1920&bih=990&tbm=isch&sa=1&ei=bmDrWuOoKMv6kwWOkIaoDQ&q=indiana+jones+i+hate+snakes+animated&oq=indiana+jones+i+hate+snakes+animated&gs_l=psy-ab.3...54174.55443.0.55553.9.7.0.0.0.0.255.333.1j0j1.2.0....0...1c.1.64.psy-ab..7.0.0....0.40G-kcDkC6A#imgdii=PSp15hQjN1JqvM:&imgrc=H0hyE2JW5wrpBM%3A"
         val additionalContent = " Check out this @image #search result: "
         val customUrlLength = 18 // The intention is that this is longer than shortUrl.length
         getInstanceCallback = { getInstanceWithCustomConfiguration(configuration = getCustomInstanceConfiguration(charactersReservedPerUrl = customUrlLength)) }
+        instanceInfoRepository.reload(accountManager.activeAccount)
+
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, shortUrl + additionalContent + url)
@@ -363,11 +375,13 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenTextContainsMultipleURLs_allURLsGetEllipsized_withCustomConfiguration() {
+    fun whenTextContainsMultipleURLs_allURLsGetEllipsized_withCustomConfiguration() = runTest {
         val url = "https://www.google.dk/search?biw=1920&bih=990&tbm=isch&sa=1&ei=bmDrWuOoKMv6kwWOkIaoDQ&q=indiana+jones+i+hate+snakes+animated&oq=indiana+jones+i+hate+snakes+animated&gs_l=psy-ab.3...54174.55443.0.55553.9.7.0.0.0.0.255.333.1j0j1.2.0....0...1c.1.64.psy-ab..7.0.0....0.40G-kcDkC6A#imgdii=PSp15hQjN1JqvM:&imgrc=H0hyE2JW5wrpBM%3A"
         val additionalContent = " Check out this @image #search result: "
         val customUrlLength = 16
         getInstanceCallback = { getInstanceWithCustomConfiguration(configuration = getCustomInstanceConfiguration(charactersReservedPerUrl = customUrlLength)) }
+        instanceInfoRepository.reload(accountManager.activeAccount)
+
         rule.launch()
         rule.getScenario().onActivity {
             insertSomeTextInContent(it, url + additionalContent + url)

@@ -17,107 +17,165 @@
 
 package app.pachli.core.data.repository
 
+import android.app.Application
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import app.cash.turbine.test
 import app.pachli.core.accounts.AccountManager
-import app.pachli.core.database.dao.InstanceDao
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.testing.rules.MainCoroutineRule
 import at.connyduck.calladapter.networkresult.NetworkResult
+import dagger.hilt.android.testing.CustomTestApplication
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import java.time.Instant
+import java.util.Date
+import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
+import org.mockito.kotlin.reset
+import org.mockito.kotlin.stub
+import org.robolectric.annotation.Config
 
+open class PachliHiltApplication : Application()
+
+@CustomTestApplication(PachliHiltApplication::class)
+interface HiltTestApplication
+
+@OptIn(ExperimentalCoroutinesApi::class)
+@HiltAndroidTest
+@Config(application = HiltTestApplication_Application::class)
+@RunWith(AndroidJUnit4::class)
 class InstanceInfoRepositoryTest {
+    @get:Rule(order = 0)
+    var hilt = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val mainCoroutineRule = MainCoroutineRule()
+
+    @Inject
+    lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var mastodonApi: MastodonApi
+
+    @Inject
+    lateinit var instanceInfoRepository: InstanceInfoRepository
+
+    /**
+     * Tests set this to return a customised fake [InstanceV1].
+     *
+     * After setting this tests must call [InstanceInfoRepository.reload] so
+     * the repository re-fetches the data.
+     */
     private var instanceResponseCallback: (() -> InstanceV1)? = null
 
-    private var accountManager: AccountManager = mock {
-        on { activeAccount } doReturn AccountEntity(
-            id = 1,
-            domain = "mastodon.test",
-            accessToken = "fakeToken",
-            clientId = "fakeId",
-            clientSecret = "fakeSecret",
-            isActive = true,
-            lastVisibleHomeTimelineStatusId = null,
-            notificationsFilter = "['follow']",
-            mediaPreviewEnabled = true,
-            alwaysShowSensitiveMedia = true,
-            alwaysOpenSpoiler = true,
-        )
-    }
+    @Before
+    fun setup() {
+        hilt.inject()
 
-    private val instanceDao: InstanceDao = mock()
-
-    private lateinit var mastodonApi: MastodonApi
-
-    private lateinit var instanceInfoRepository: InstanceInfoRepository
-
-    // Sets up the test. Needs to be called by hand as the mastodonApi mock needs to
-    // be created *after* each test has set [instanceResponseCallback]
-    private fun setup() {
-        mastodonApi = mock {
+        reset(mastodonApi)
+        mastodonApi.stub {
             onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
-            onBlocking { getInstanceV1() } doReturn instanceResponseCallback?.invoke().let { instance ->
-                if (instance == null) {
-                    NetworkResult.failure(Throwable())
-                } else {
-                    NetworkResult.success(instance)
+            onBlocking { getInstanceV1() } doAnswer {
+                instanceResponseCallback?.invoke().let { instance ->
+                    if (instance == null) {
+                        NetworkResult.failure(Throwable())
+                    } else {
+                        NetworkResult.success(instance)
+                    }
                 }
             }
         }
 
-        instanceInfoRepository = InstanceInfoRepository(
-            mastodonApi,
-            instanceDao,
-            accountManager,
+        accountManager.addAccount(
+            accessToken = "token",
+            domain = "domain.example",
+            clientId = "id",
+            clientSecret = "secret",
+            oauthScopes = "scopes",
+            newAccount = Account(
+                id = "1",
+                localUsername = "username",
+                username = "username@domain.example",
+                displayName = "Display Name",
+                createdAt = Date.from(Instant.now()),
+                note = "",
+                url = "",
+                avatar = "",
+                header = "",
+            ),
         )
     }
 
     @Test
     fun whenMaximumTootCharsIsNull_defaultLimitIsUsed() = runTest {
         instanceResponseCallback = { getInstanceWithCustomConfiguration(null) }
-        setup()
-        val instanceInfo = instanceInfoRepository.getInstanceInfo()
-        assertEquals(InstanceInfoRepository.DEFAULT_CHARACTER_LIMIT, instanceInfo.maxChars)
+
+        instanceInfoRepository.instanceInfo.test {
+            instanceInfoRepository.reload(accountManager.activeAccount)
+            advanceUntilIdle()
+            assertEquals(DEFAULT_CHARACTER_LIMIT, expectMostRecentItem().maxChars)
+        }
     }
 
     @Test
     fun whenMaximumTootCharsIsPopulated_customLimitIsUsed() = runTest {
         val customMaximum = 1000
         instanceResponseCallback = { getInstanceWithCustomConfiguration(customMaximum, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum)) }
-        setup()
-        val instanceInfo = instanceInfoRepository.getInstanceInfo()
-        assertEquals(customMaximum, instanceInfo.maxChars)
+
+        instanceInfoRepository.instanceInfo.test {
+            instanceInfoRepository.reload(accountManager.activeAccount)
+            advanceUntilIdle()
+            assertEquals(customMaximum, expectMostRecentItem().maxChars)
+        }
     }
 
     @Test
     fun whenOnlyLegacyMaximumTootCharsIsPopulated_customLimitIsUsed() = runTest {
         val customMaximum = 1000
         instanceResponseCallback = { getInstanceWithCustomConfiguration(customMaximum) }
-        setup()
-        val instanceInfo = instanceInfoRepository.getInstanceInfo()
-        assertEquals(customMaximum, instanceInfo.maxChars)
+
+        instanceInfoRepository.instanceInfo.test {
+            instanceInfoRepository.reload(accountManager.activeAccount)
+            advanceUntilIdle()
+            assertEquals(customMaximum, expectMostRecentItem().maxChars)
+        }
     }
 
     @Test
     fun whenOnlyConfigurationMaximumTootCharsIsPopulated_customLimitIsUsed() = runTest {
         val customMaximum = 1000
         instanceResponseCallback = { getInstanceWithCustomConfiguration(null, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum)) }
-        setup()
-        val instanceInfo = instanceInfoRepository.getInstanceInfo()
-        assertEquals(customMaximum, instanceInfo.maxChars)
+
+        instanceInfoRepository.instanceInfo.test {
+            instanceInfoRepository.reload(accountManager.activeAccount)
+            advanceUntilIdle()
+            assertEquals(customMaximum, expectMostRecentItem().maxChars)
+        }
     }
 
     @Test
     fun whenDifferentCharLimitsArePopulated_statusConfigurationLimitIsUsed() = runTest {
         val customMaximum = 1000
         instanceResponseCallback = { getInstanceWithCustomConfiguration(customMaximum, getCustomInstanceConfiguration(maximumStatusCharacters = customMaximum * 2)) }
-        setup()
-        val instanceInfo = instanceInfoRepository.getInstanceInfo()
-        assertEquals(customMaximum * 2, instanceInfo.maxChars)
+
+        instanceInfoRepository.instanceInfo.test {
+            instanceInfoRepository.reload(accountManager.activeAccount)
+            advanceUntilIdle()
+            assertEquals(customMaximum * 2, expectMostRecentItem().maxChars)
+        }
     }
 
     private fun getInstanceWithCustomConfiguration(maximumLegacyTootCharacters: Int? = null, configuration: InstanceConfiguration = InstanceConfiguration()): InstanceV1 {

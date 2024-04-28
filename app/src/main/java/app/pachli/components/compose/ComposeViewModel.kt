@@ -31,12 +31,10 @@ import app.pachli.components.search.SearchType
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.randomAlphanumericString
-import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
 import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
@@ -52,13 +50,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -109,11 +102,9 @@ class ComposeViewModel @Inject constructor(
     private var modifiedInitialState: Boolean = false
     private var scheduledTimeChanged: Boolean = false
 
-    val instanceInfo: SharedFlow<InstanceInfo> = instanceInfoRepo::getInstanceInfo.asFlow()
-        .shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
+    val instanceInfo = instanceInfoRepo.instanceInfo
 
-    val emoji: SharedFlow<List<Emoji>> = instanceInfoRepo::getEmojis.asFlow()
-        .shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
+    val emojis = instanceInfoRepo.emojis
 
     private val _markMediaAsSensitive: MutableStateFlow<Boolean> =
         MutableStateFlow(accountManager.activeAccount?.defaultMediaSensitivity ?: false)
@@ -146,7 +137,7 @@ class ComposeViewModel @Inject constructor(
 
     suspend fun pickMedia(mediaUri: Uri, description: String? = null, focus: Attachment.Focus? = null): Result<QueuedMedia> = withContext(Dispatchers.IO) {
         try {
-            val (type, uri, size) = mediaUploader.prepareMedia(mediaUri, instanceInfo.first())
+            val (type, uri, size) = mediaUploader.prepareMedia(mediaUri, instanceInfo.value)
             val mediaItems = media.value
             if (type != QueuedMedia.Type.IMAGE &&
                 mediaItems.isNotEmpty() &&
@@ -197,7 +188,7 @@ class ComposeViewModel @Inject constructor(
 
         viewModelScope.launch {
             mediaUploader
-                .uploadMedia(mediaItem, instanceInfo.first())
+                .uploadMedia(mediaItem, instanceInfo.value)
                 .collect { event ->
                     val item = media.value.find { it.localId == mediaItem.localId }
                         ?: return@collect
@@ -290,7 +281,7 @@ class ComposeViewModel @Inject constructor(
 
     @VisibleForTesting
     fun updateStatusLength() {
-        _statusLength.value = statusLength(content, effectiveContentWarning, instanceInfo.replayCache.last().charactersReservedPerUrl)
+        _statusLength.value = statusLength(content, effectiveContentWarning, instanceInfo.value.charactersReservedPerUrl)
     }
 
     private fun updateCloseConfirmation() {
@@ -479,10 +470,9 @@ class ComposeViewModel @Inject constructor(
                     })
             }
             ':' -> {
-                val emojiList = emoji.replayCache.firstOrNull() ?: return emptyList()
                 val incomplete = token.substring(1)
 
-                return emojiList.filter { emoji ->
+                return emojis.value.filter { emoji ->
                     emoji.shortcode.contains(incomplete, ignoreCase = true)
                 }.sortedBy { emoji ->
                     emoji.shortcode.indexOf(incomplete, ignoreCase = true)

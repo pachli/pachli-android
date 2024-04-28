@@ -71,8 +71,15 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         binding.deviceInfo.text = deviceInfo
 
         lifecycleScope.launch {
-            viewModel.accountInfo.collect {
-                binding.accountInfo.text = it
+            viewModel.accountInfo.collect { accountInfo ->
+                if (accountInfo == null) {
+                    binding.accountInfoTitle.hide()
+                    binding.accountInfo.hide()
+                    binding.copyDeviceInfo.hide()
+                    return@collect
+                }
+
+                binding.accountInfo.text = accountInfo
                 binding.accountInfoTitle.show()
                 binding.accountInfo.show()
                 binding.copyDeviceInfo.show()

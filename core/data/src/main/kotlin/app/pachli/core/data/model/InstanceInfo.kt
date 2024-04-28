@@ -17,19 +17,39 @@
 
 package app.pachli.core.data.model
 
+import app.pachli.core.common.extensions.MiB
+
 data class InstanceInfo(
-    val maxChars: Int,
-    val pollMaxOptions: Int,
-    val pollMaxLength: Int,
-    val pollMinDuration: Int,
-    val pollMaxDuration: Int,
-    val charactersReservedPerUrl: Int,
-    val videoSizeLimit: Long,
-    val imageSizeLimit: Long,
-    val imageMatrixLimit: Int,
-    val maxMediaAttachments: Int,
-    val maxFields: Int,
-    val maxFieldNameLength: Int?,
-    val maxFieldValueLength: Int?,
-    val version: String?,
-)
+    val maxChars: Int = DEFAULT_CHARACTER_LIMIT,
+    val pollMaxOptions: Int = DEFAULT_MAX_OPTION_COUNT,
+    val pollMaxLength: Int = DEFAULT_MAX_OPTION_LENGTH,
+    val pollMinDuration: Int = DEFAULT_MIN_POLL_DURATION,
+    val pollMaxDuration: Int = DEFAULT_MAX_POLL_DURATION,
+    val charactersReservedPerUrl: Int = DEFAULT_CHARACTERS_RESERVED_PER_URL,
+    val videoSizeLimit: Long = DEFAULT_VIDEO_SIZE_LIMIT,
+    val imageSizeLimit: Long = DEFAULT_IMAGE_SIZE_LIMIT,
+    val imageMatrixLimit: Int = DEFAULT_IMAGE_MATRIX_LIMIT,
+    val maxMediaAttachments: Int = DEFAULT_MAX_MEDIA_ATTACHMENTS,
+    val maxFields: Int = DEFAULT_MAX_ACCOUNT_FIELDS,
+    val maxFieldNameLength: Int? = null,
+    val maxFieldValueLength: Int? = null,
+    val version: String? = "(Pachli defaults)",
+) {
+    companion object {
+        const val DEFAULT_CHARACTER_LIMIT = 500
+        const val DEFAULT_MAX_OPTION_COUNT = 4
+        const val DEFAULT_MAX_OPTION_LENGTH = 50
+        const val DEFAULT_MIN_POLL_DURATION = 300
+        const val DEFAULT_MAX_POLL_DURATION = 604800
+
+        val DEFAULT_VIDEO_SIZE_LIMIT = 40L.MiB
+        val DEFAULT_IMAGE_SIZE_LIMIT = 10L.MiB
+        const val DEFAULT_IMAGE_MATRIX_LIMIT = 4096 * 4096
+
+        // Mastodon only counts URLs as this long in terms of status character limits
+        const val DEFAULT_CHARACTERS_RESERVED_PER_URL = 23
+
+        const val DEFAULT_MAX_MEDIA_ATTACHMENTS = 4
+        const val DEFAULT_MAX_ACCOUNT_FIELDS = 4
+    }
+}

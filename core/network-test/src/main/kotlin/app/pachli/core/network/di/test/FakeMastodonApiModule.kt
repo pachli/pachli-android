@@ -15,10 +15,10 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.di
+package app.pachli.core.network.di.test
 
-import app.pachli.core.network.di.NodeInfoApiModule
-import app.pachli.core.network.retrofit.NodeInfoApi
+import app.pachli.core.network.di.MastodonApiModule
+import app.pachli.core.network.retrofit.MastodonApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -31,7 +31,7 @@ import org.mockito.kotlin.mock
  *
  * ```kotlin
  * @Inject
- * lateinit var nodeInfoApi: NodeInfoApi
+ * lateinit var mastodonApi: MastodonApi
  *
  * // ...
  *
@@ -39,8 +39,8 @@ import org.mockito.kotlin.mock
  * fun setup() {
  *     hilt.inject()
  *
- *     reset(nodeInfoApi)
- *     nodeInfoApi.stub {
+ *     reset(mastodonApi)
+ *     mastodonApi.stub {
  *         onBlocking { someFunction() } doReturn SomeValue
  *         // ...
  *     }
@@ -51,11 +51,11 @@ import org.mockito.kotlin.mock
  */
 @TestInstallIn(
     components = [SingletonComponent::class],
-    replaces = [NodeInfoApiModule::class],
+    replaces = [MastodonApiModule::class],
 )
 @Module
-object FakeNodeInfoApiModule {
+object FakeMastodonApiModule {
     @Provides
     @Singleton
-    fun providesApi(): NodeInfoApi = mock()
+    fun providesApi(): MastodonApi = mock()
 }

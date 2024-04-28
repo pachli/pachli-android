@@ -38,7 +38,7 @@ import app.pachli.adapter.AccountFieldEditAdapter
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.data.repository.InstanceInfoRepository
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.extensions.await
 import app.pachli.databinding.ActivityEditProfileBinding
@@ -81,7 +81,7 @@ class EditProfileActivity : BaseActivity() {
         viewModel.onChange(currentProfileData)
     }
 
-    private var maxAccountFields = InstanceInfoRepository.DEFAULT_MAX_ACCOUNT_FIELDS
+    private var maxAccountFields = DEFAULT_MAX_ACCOUNT_FIELDS
 
     private enum class PickType {
         AVATAR,

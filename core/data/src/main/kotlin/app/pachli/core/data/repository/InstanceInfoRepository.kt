@@ -17,10 +17,23 @@
 
 package app.pachli.core.data.repository
 
+import androidx.annotation.VisibleForTesting
 import app.pachli.core.accounts.AccountManager
-import app.pachli.core.common.extensions.MiB
+import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.InstanceInfo
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_IMAGE_MATRIX_LIMIT
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_IMAGE_SIZE_LIMIT
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_OPTION_COUNT
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_OPTION_LENGTH
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_POLL_DURATION
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MIN_POLL_DURATION
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_VIDEO_SIZE_LIMIT
 import app.pachli.core.database.dao.InstanceDao
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.network.model.Emoji
@@ -29,28 +42,84 @@ import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.onSuccess
 import javax.inject.Inject
+import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
+// TODO: Not a great bit of design here
+//
+// A few problems:
+//
+// - There's overlap with the responsibilties of ServerRepository, which makes
+//   things unnecessarily confusing
+// - This probably shouldn't be broadly exposed; the instance info (and the
+//   Server information that ServerRepository provides) should be properties
+//   of the user's account.
+//
+// A better design would be to fetch the server info when the account changes,
+// and provide it as properties on the account. Better encapsulation and the
+// data flow is less confusing.
+//
+// That would ensure you can't have a situation where the activeaccount is
+// non-null but the instanceinfo flow here is the default (race condition),
+// reduces the number of null checks or "!!" code smells, reduces the number
+// of distinct objects that need to be passed around as parameters, etc.
+
+@Singleton
 class InstanceInfoRepository @Inject constructor(
     private val api: MastodonApi,
     private val instanceDao: InstanceDao,
     accountManager: AccountManager,
+    @ApplicationScope private val externalScope: CoroutineScope,
 ) {
-    private val instanceName = accountManager.activeAccount!!.domain
+    private val _instanceInfo = MutableStateFlow(InstanceInfo())
+    val instanceInfo = _instanceInfo.asStateFlow()
+
+    private val _emojis = MutableStateFlow<List<Emoji>>(emptyList())
+    val emojis = _emojis.asStateFlow()
+
+    init {
+        externalScope.launch {
+            accountManager.activeAccountFlow.collect { account ->
+                reload(account)
+            }
+        }
+    }
+
+    /** Reload instance info because the active account has changed */
+    // This is a hack so that unit tests have a mechanism for triggering a refetch
+    // of the data.
+    @VisibleForTesting
+    suspend fun reload(account: AccountEntity?) {
+        if (account == null) {
+            Timber.d("active account is null, using instance defaults")
+            _instanceInfo.value = InstanceInfo()
+            _emojis.value = emptyList()
+            return
+        }
+
+        Timber.d("Fetching instance info for %s", account.domain)
+
+        _instanceInfo.value = getInstanceInfo(account.domain)
+        _emojis.value = getEmojis(account.domain)
+    }
 
     /**
      * Returns the custom emojis of the instance.
      * Will always try to fetch them from the api, falls back to cached Emojis in case it is not available.
      * Never throws, returns empty list in case of error.
      */
-    suspend fun getEmojis(): List<Emoji> = withContext(Dispatchers.IO) {
+    private suspend fun getEmojis(domain: String): List<Emoji> = withContext(Dispatchers.IO) {
         api.getCustomEmojis()
-            .onSuccess { emojiList -> instanceDao.upsert(EmojisEntity(instanceName, emojiList)) }
+            .onSuccess { emojiList -> instanceDao.upsert(EmojisEntity(domain, emojiList)) }
             .getOrElse { throwable ->
                 Timber.w(throwable, "failed to load custom emojis, falling back to cache")
-                instanceDao.getEmojiInfo(instanceName)?.emojiList.orEmpty()
+                instanceDao.getEmojiInfo(domain)?.emojiList.orEmpty()
             }
     }
 
@@ -59,12 +128,12 @@ class InstanceInfoRepository @Inject constructor(
      * Will always try to fetch the most up-to-date data from the api, falls back to cache in case it is not available.
      * Never throws, returns defaults of vanilla Mastodon in case of error.
      */
-    suspend fun getInstanceInfo(): InstanceInfo = withContext(Dispatchers.IO) {
-        api.getInstanceV1()
+    private suspend fun getInstanceInfo(domain: String): InstanceInfo {
+        return api.getInstanceV1()
             .fold(
                 { instance ->
                     val instanceEntity = InstanceInfoEntity(
-                        instance = instanceName,
+                        instance = domain,
                         maximumTootCharacters = instance.configuration.statuses.maxCharacters ?: instance.maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
                         maxPollOptions = instance.configuration.polls.maxOptions,
                         maxPollOptionLength = instance.configuration.polls.maxCharactersPerOption,
@@ -88,7 +157,7 @@ class InstanceInfoRepository @Inject constructor(
                 { throwable ->
                     Timber.w(throwable, "failed to instance, falling back to cache and default values")
                     try {
-                        instanceDao.getInstanceInfo(instanceName)
+                        instanceDao.getInstanceInfo(domain)
                     } catch (_: Exception) {
                         null
                     }
@@ -111,23 +180,5 @@ class InstanceInfoRepository @Inject constructor(
                     version = instanceInfo?.version,
                 )
             }
-    }
-
-    companion object {
-        const val DEFAULT_CHARACTER_LIMIT = 500
-        private const val DEFAULT_MAX_OPTION_COUNT = 4
-        private const val DEFAULT_MAX_OPTION_LENGTH = 50
-        private const val DEFAULT_MIN_POLL_DURATION = 300
-        private const val DEFAULT_MAX_POLL_DURATION = 604800
-
-        private val DEFAULT_VIDEO_SIZE_LIMIT = 40L.MiB
-        private val DEFAULT_IMAGE_SIZE_LIMIT = 10L.MiB
-        private const val DEFAULT_IMAGE_MATRIX_LIMIT = 4096 * 4096
-
-        // Mastodon only counts URLs as this long in terms of status character limits
-        const val DEFAULT_CHARACTERS_RESERVED_PER_URL = 23
-
-        const val DEFAULT_MAX_MEDIA_ATTACHMENTS = 4
-        const val DEFAULT_MAX_ACCOUNT_FIELDS = 4
     }
 }

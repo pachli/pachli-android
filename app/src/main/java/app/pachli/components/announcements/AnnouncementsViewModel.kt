@@ -51,7 +51,7 @@ class AnnouncementsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            emojisMutable.postValue(instanceInfoRepo.getEmojis())
+            emojisMutable.postValue(instanceInfoRepo.emojis.value)
         }
     }
 
