@@ -49,51 +49,50 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
             val pos = recyclerView.getChildAdapterPosition(host)
             val status = statusProvider.getStatus(pos) ?: return
-            if (status is StatusViewData) {
-                if (status.spoilerText.isNotEmpty()) {
-                    info.addAction(if (status.isExpanded) collapseCwAction else expandCwAction)
-                }
 
-                info.addAction(replyAction)
-
-                val actionable = status.actionable
-                if (actionable.rebloggingAllowed()) {
-                    info.addAction(if (actionable.reblogged) unreblogAction else reblogAction)
-                }
-                info.addAction(if (actionable.favourited) unfavouriteAction else favouriteAction)
-                info.addAction(if (actionable.bookmarked) unbookmarkAction else bookmarkAction)
-
-                val mediaActions = intArrayOf(
-                    R.id.action_open_media_1,
-                    R.id.action_open_media_2,
-                    R.id.action_open_media_3,
-                    R.id.action_open_media_4,
-                )
-                val attachmentCount = min(actionable.attachments.size, MAX_MEDIA_ATTACHMENTS)
-                for (i in 0 until attachmentCount) {
-                    info.addAction(
-                        AccessibilityActionCompat(
-                            mediaActions[i],
-                            context.getString(R.string.action_open_media_n, i + 1),
-                        ),
-                    )
-                }
-
-                info.addAction(openProfileAction)
-                if (getLinks(status).any()) info.addAction(linksAction)
-
-                val mentions = actionable.mentions
-                if (mentions.isNotEmpty()) info.addAction(mentionsAction)
-
-                if (getHashtags(status).any()) info.addAction(hashtagsAction)
-                if (!status.status.reblog?.account?.username.isNullOrEmpty()) {
-                    info.addAction(openRebloggerAction)
-                }
-                if (actionable.reblogsCount > 0) info.addAction(openRebloggedByAction)
-                if (actionable.favouritesCount > 0) info.addAction(openFavsAction)
-
-                info.addAction(moreAction)
+            if (status.spoilerText.isNotEmpty()) {
+                info.addAction(if (status.isExpanded) collapseCwAction else expandCwAction)
             }
+
+            info.addAction(replyAction)
+
+            val actionable = status.actionable
+            if (actionable.rebloggingAllowed()) {
+                info.addAction(if (actionable.reblogged) unreblogAction else reblogAction)
+            }
+            info.addAction(if (actionable.favourited) unfavouriteAction else favouriteAction)
+            info.addAction(if (actionable.bookmarked) unbookmarkAction else bookmarkAction)
+
+            val mediaActions = intArrayOf(
+                R.id.action_open_media_1,
+                R.id.action_open_media_2,
+                R.id.action_open_media_3,
+                R.id.action_open_media_4,
+            )
+            val attachmentCount = min(actionable.attachments.size, MAX_MEDIA_ATTACHMENTS)
+            for (i in 0 until attachmentCount) {
+                info.addAction(
+                    AccessibilityActionCompat(
+                        mediaActions[i],
+                        context.getString(R.string.action_open_media_n, i + 1),
+                    ),
+                )
+            }
+
+            info.addAction(openProfileAction)
+            if (getLinks(status).any()) info.addAction(linksAction)
+
+            val mentions = actionable.mentions
+            if (mentions.isNotEmpty()) info.addAction(mentionsAction)
+
+            if (getHashtags(status).any()) info.addAction(hashtagsAction)
+            if (!status.status.reblog?.account?.username.isNullOrEmpty()) {
+                info.addAction(openRebloggerAction)
+            }
+            if (actionable.reblogsCount > 0) info.addAction(openRebloggedByAction)
+            if (actionable.favouritesCount > 0) info.addAction(openFavsAction)
+
+            info.addAction(moreAction)
         }
 
         override fun performAccessibilityAction(
@@ -230,7 +229,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
         }
     }
 
-    private fun getLinks(status: StatusViewData): Sequence<LinkSpanInfo> {
+    private fun getLinks(status: IStatusViewData): Sequence<LinkSpanInfo> {
         val content = status.content
         return if (content is Spannable) {
             content.getSpans(0, content.length, URLSpan::class.java)
@@ -248,7 +247,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
         }
     }
 
-    private fun getHashtags(status: StatusViewData): Sequence<CharSequence> {
+    private fun getHashtags(status: IStatusViewData): Sequence<CharSequence> {
         val content = status.content
         return content.getSpans(0, content.length, Object::class.java)
             .asSequence()

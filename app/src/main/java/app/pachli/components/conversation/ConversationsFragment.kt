@@ -55,6 +55,7 @@ import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.interfaces.StatusActionListener
+import app.pachli.util.ListStatusAccessibilityDelegate
 import app.pachli.util.StatusDisplayOptionsRepository
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
@@ -220,6 +221,15 @@ class ConversationsFragment :
     }
 
     private fun setupRecyclerView() {
+        binding.recyclerView.setAccessibilityDelegateCompat(
+            ListStatusAccessibilityDelegate(binding.recyclerView, this) { pos ->
+                if (pos in 0 until adapter.itemCount) {
+                    adapter.peek(pos)
+                } else {
+                    null
+                }
+            },
+        )
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
