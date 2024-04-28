@@ -683,4 +683,7 @@
     <string name="manage_lists">Gestionar listas</string>
     <string name="title_lists_loading">Listas - cargando…</string>
     <string name="title_lists_failed">Listas - falló en cargar</string>
+    <string name="error_filter_missing_keyword">Por lo menos se necesita una palabra clave o frase</string>
+    <string name="error_filter_missing_context">Por lo menos se necesita un contexto para el filtro</string>
+    <string name="error_filter_missing_title">Se necesita el título</string>
 </resources>
