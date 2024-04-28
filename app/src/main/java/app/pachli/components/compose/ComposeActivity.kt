@@ -81,7 +81,8 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.unicodeWrap
-import app.pachli.core.data.repository.InstanceInfoRepository
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -123,7 +124,6 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -153,14 +153,14 @@ class ComposeActivity :
     private var photoUploadUri: Uri? = null
 
     @VisibleForTesting
-    var maximumTootCharacters = InstanceInfoRepository.DEFAULT_CHARACTER_LIMIT
+    var maximumTootCharacters = DEFAULT_CHARACTER_LIMIT
 
     @VisibleForTesting
     val viewModel: ComposeViewModel by viewModels()
 
     private val binding by viewBinding(ActivityComposeBinding::inflate)
 
-    private var maxUploadMediaNumber = InstanceInfoRepository.DEFAULT_MAX_MEDIA_ATTACHMENTS
+    private var maxUploadMediaNumber = DEFAULT_MAX_MEDIA_ATTACHMENTS
 
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         if (success) {
@@ -456,7 +456,7 @@ class ComposeActivity :
         }
 
         lifecycleScope.launch {
-            viewModel.emoji.collect(::setEmojiList)
+            viewModel.emojis.collect(::setEmojiList)
         }
 
         lifecycleScope.launch {
@@ -882,7 +882,7 @@ class ComposeActivity :
 
     private fun openPollDialog() = lifecycleScope.launch {
         addMediaBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        val instanceParams = viewModel.instanceInfo.first()
+        val instanceParams = viewModel.instanceInfo.value
         showAddPollDialog(
             context = this@ComposeActivity,
             poll = viewModel.poll.value,

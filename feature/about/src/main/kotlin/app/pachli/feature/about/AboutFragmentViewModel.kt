@@ -24,7 +24,6 @@ import app.pachli.core.accounts.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -35,13 +34,18 @@ class AboutFragmentViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val instanceInfoRepository: InstanceInfoRepository,
 ) : AndroidViewModel(application) {
-    private val _accountInfo = MutableSharedFlow<String>()
-    val accountInfo: Flow<String> = _accountInfo.asSharedFlow()
+    private val _accountInfo = MutableSharedFlow<String?>()
+    val accountInfo = _accountInfo.asSharedFlow()
 
     init {
         viewModelScope.launch {
-            accountManager.activeAccount?.let { account ->
-                val instanceInfo = instanceInfoRepository.getInstanceInfo()
+            instanceInfoRepository.instanceInfo.collect { instanceInfo ->
+                val account = accountManager.activeAccount
+                if (account == null) {
+                    _accountInfo.emit("")
+                    return@collect
+                }
+
                 _accountInfo.emit(
                     application.getString(
                         R.string.about_account_info,

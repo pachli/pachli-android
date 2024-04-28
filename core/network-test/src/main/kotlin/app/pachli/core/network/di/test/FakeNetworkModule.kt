@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,9 +15,9 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.di
+package app.pachli.core.network.di.test
 
-import app.pachli.components.compose.MediaUploader
+import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.di.NetworkModule
 import app.pachli.core.network.json.Guarded
 import com.squareup.moshi.Moshi
@@ -50,5 +50,5 @@ object FakeNetworkModule {
 
     @Provides
     @Singleton
-    fun providesMediaUploadApi(): MediaUploader = mock()
+    fun providesMediaUploadApi(): MediaUploadApi = mock()
 }

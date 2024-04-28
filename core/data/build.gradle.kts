@@ -35,5 +35,6 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.network)
 
+    testImplementation(projects.core.networkTest)
     testImplementation(libs.bundles.mockito)
 }

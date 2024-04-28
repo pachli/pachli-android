@@ -182,6 +182,7 @@ dependencies {
     debugImplementation(libs.leakcanary)
 
     testImplementation(projects.core.testing)
+    testImplementation(projects.core.networkTest)
     testImplementation(libs.androidx.test.junit)
     testImplementation(libs.robolectric)
     testImplementation(libs.bundles.mockito)
