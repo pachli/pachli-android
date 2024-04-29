@@ -1,5 +1,11 @@
 # Pachli changelog
 
+## v2.5.1
+
+### Significant bug fixes
+
+- Only enable accessible actions on notifications attached to a status ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
 ## v2.5.0
 
 ### New features and other improvements
