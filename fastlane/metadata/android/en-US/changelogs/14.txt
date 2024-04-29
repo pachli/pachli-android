@@ -1,0 +1,16 @@
+Pachli 2.5.0
+
+New features:
+
+- Smoother UX transitions
+- Bundle Let's Encrypt certificates
+- Fetch more trending posts, links, and hashtags 
+- Simplify adding/removing timelines from tabs
+- Update Finnish, Kabyle, and Spanish translations 
+
+Fixes:
+
+- Enable talkback actions in notifications and conversations 
+- Improve transitions in/out of video 
+- Update PageCache to handle non-chronological ordering 
+- Allow filter expiration to be set to "indefinite" 

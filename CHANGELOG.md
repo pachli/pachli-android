@@ -1,5 +1,33 @@
 # Pachli changelog
 
+## v2.5.0
+
+### New features and other improvements
+
+- Update activity transitions, prepare for predictive-back (#[650](https://github.com/pachli/pachli-android/pull/650), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use Let's Encrypt certificates on API 23 devices (#[640](https://github.com/pachli/pachli-android/pull/640), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Fetch more trending posts, links, and hashtags (#[634](https://github.com/pachli/pachli-android/pull/634), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Disable filters for accounts on servers running Sharkey (#[610](https://github.com/pachli/pachli-android/pull/610), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show any errors when registering the app during login (#[594](https://github.com/pachli/pachli-android/pull/594), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Simplify adding/removing timelines from tabs (#[587](https://github.com/pachli/pachli-android/pull/587), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Add left-nav entries for Local, Federated, and Direct Messages (#[583](https://github.com/pachli/pachli-android/pull/583), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support adding "Favourites" to a tab (#[578](https://github.com/pachli/pachli-android/pull/578), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Enable talkback actions in notifications and conversations (#[661](https://github.com/pachli/pachli-android/pull/661), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve transitions in/out of playing video (#[636](https://github.com/pachli/pachli-android/pull/636), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Update PageCache to handle non-chronological ordering (#[633](https://github.com/pachli/pachli-android/pull/633), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Set correct text direction for localised error messages  (#[601](https://github.com/pachli/pachli-android/pull/601), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow filter expiration to be set to "indefinite" (#[582](https://github.com/pachli/pachli-android/pull/582), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Create a dedicated menu for NotificationsActivity (#[571](https://github.com/pachli/pachli-android/pull/571), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Kabyle translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Miles Krell](https://github.com/pachli/pachli-android/commits?author=noreply@mileskrell.com))
+
 ## v2.4.0
 
 ### New features and other improvements
