@@ -14,9 +14,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
@@ -519,7 +519,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
             )
             val type = attachment.type
             if (showingContent && type.isPlayable()) {
-                imageView.foreground = ContextCompat.getDrawable(context, R.drawable.play_indicator_overlay)
+                imageView.foreground = AppCompatResources.getDrawable(context, R.drawable.play_indicator_overlay)
             } else {
                 imageView.foreground = null
             }

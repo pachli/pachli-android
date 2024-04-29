@@ -20,8 +20,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import app.pachli.R
 import app.pachli.databinding.ViewComposeScheduleBinding
 import com.google.android.material.datepicker.CalendarConstraints
@@ -91,7 +91,7 @@ class ComposeScheduleView
     }
 
     private fun setEditIcons() {
-        val icon = ContextCompat.getDrawable(context, R.drawable.ic_create_24dp) ?: return
+        val icon = AppCompatResources.getDrawable(context, R.drawable.ic_create_24dp) ?: return
         val size = binding.scheduledDateTime.lineHeight
         icon.setBounds(0, 0, size, size)
         binding.scheduledDateTime.setCompoundDrawables(null, null, icon, null)

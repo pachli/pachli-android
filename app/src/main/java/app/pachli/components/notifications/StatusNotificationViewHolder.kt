@@ -30,7 +30,7 @@ import android.text.style.StyleSpan
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
@@ -196,7 +196,7 @@ internal class StatusNotificationViewHolder(
         @DrawableRes drawable: Int,
         @ColorRes color: Int,
     ): Drawable? {
-        val icon = ContextCompat.getDrawable(context, drawable)
+        val icon = AppCompatResources.getDrawable(context, drawable)
         icon?.setColorFilter(context.getColor(color), PorterDuff.Mode.SRC_ATOP)
         return icon
     }

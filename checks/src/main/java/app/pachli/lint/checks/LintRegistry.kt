@@ -10,6 +10,7 @@ class LintRegistry : IssueRegistry() {
     override val issues: List<Issue>
         get() = listOf(
             AndroidxToolbarDetector.ISSUE,
+            ContextCompatGetDrawableDetector.ISSUE,
             DateDotTimeDetector.ISSUE,
             IntentDetector.ISSUE,
         )
