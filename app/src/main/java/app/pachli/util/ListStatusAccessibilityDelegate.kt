@@ -20,6 +20,7 @@ import app.pachli.core.activity.openLink
 import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.IStatusViewData
+import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import kotlin.math.min
 
@@ -49,6 +50,11 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
             val pos = recyclerView.getChildAdapterPosition(host)
             val status = statusProvider.getStatus(pos) ?: return
+
+            // Ignore notifications that don't have an associated statusViewData,
+            // otherwise the accessors throw IllegalStateException.
+            // See https://github.com/pachli/pachli-android/issues/669
+            if ((status as? NotificationViewData)?.statusViewData == null) return
 
             if (status.spoilerText.isNotEmpty()) {
                 info.addAction(if (status.isExpanded) collapseCwAction else expandCwAction)

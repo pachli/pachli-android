@@ -72,6 +72,8 @@ data class NotificationViewData(
     // as that might be null. It's up to the calling code to only check these properties if
     // `statusViewData` is not null; not doing that is an illegal state, hence the exception.
 
+    // TODO: Don't do this, it's a significant footgun, see
+    // https://github.com/pachli/pachli-android/issues/669
     override val username: String
         get() = statusViewData?.username ?: throw IllegalStateException()
     override val rebloggedAvatar: String?
