@@ -18,7 +18,7 @@
 package app.pachli.adapter
 
 import android.content.Context
-import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.notifications.NotificationActionListener
@@ -79,7 +79,7 @@ class ReportNotificationViewHolder(
             itemView,
             animateEmojis,
         )
-        val icon = ContextCompat.getDrawable(binding.root.context, R.drawable.ic_flag_24dp)
+        val icon = AppCompatResources.getDrawable(binding.root.context, R.drawable.ic_flag_24dp)
 
         binding.notificationTopText.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
         binding.notificationTopText.text = itemView.context.getString(

@@ -2430,7 +2430,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_tab_preference.xml"
-            line="27"
+            line="28"
             column="6"/>
     </issue>
 
@@ -2619,17 +2619,6 @@
             file="src/main/java/app/pachli/util/ShareShortcutHelper.kt"
             line="96"
             column="5"/>
-    </issue>
-
-    <issue
-        id="ContentDescription"
-        message="Missing `contentDescription` attribute on image"
-        errorLine1="    &lt;ImageView"
-        errorLine2="     ~~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_tab_preference.xml"
-            line="14"
-            column="6"/>
     </issue>
 
     <issue
