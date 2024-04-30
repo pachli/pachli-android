@@ -67,8 +67,8 @@ import okhttp3.OkHttpClient
  * UI behaviour:
  *
  * - Fragment starts, media description is visible at top of screen, video starts playing
- * - Media description + toolbar disappears after [CONTROLS_TIMEOUT]
- * - Tapping shows controls + media description + toolbar, which fade after [CONTROLS_TIMEOUT]
+ * - Media description + toolbar disappears after [ViewMediaFragment.CONTROLS_TIMEOUT]
+ * - Tapping shows controls + media description + toolbar, which fade after [ViewMediaFragment.CONTROLS_TIMEOUT]
  * - Tapping pause, or the media description, pauses the video and the controls + media description
  *   remain visible
  */
