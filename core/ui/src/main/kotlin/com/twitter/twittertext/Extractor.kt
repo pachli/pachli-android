@@ -42,7 +42,7 @@ open class Extractor {
         // Two entities overlap only when one is URL and the other is hashtag/mention
         // which is a part of the URL. When it happens, we choose URL over hashtag/mention
         // by selecting the one with smaller start index.
-        if (!entities.isEmpty()) {
+        if (entities.isNotEmpty()) {
             val it = entities.iterator()
             var prev = it.next()
             while (it.hasNext()) {
