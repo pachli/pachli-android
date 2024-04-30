@@ -23,6 +23,7 @@ import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 import app.pachli.R
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.PollOption
+import app.pachli.core.network.model.PollOptionEdit
 import app.pachli.core.network.model.TranslatedPoll
 import app.pachli.view.VotePercentSpan
 import java.util.Date
@@ -73,6 +74,13 @@ data class PollOptionViewData(
             votesCount = pollOption.votesCount,
             selected = false,
             voted = voted,
+        )
+
+        fun from(pollOptionEdit: PollOptionEdit) = PollOptionViewData(
+            title = pollOptionEdit.title,
+            votesCount = 0,
+            selected = false,
+            voted = false,
         )
     }
 }

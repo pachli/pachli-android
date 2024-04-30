@@ -135,12 +135,12 @@ class ViewEditsAdapter(
             // binding.statusEditPollDescription.show()
 
             val pollAdapter = PollAdapter(
-                options = poll.options.map { PollOptionViewData.from(it, false) },
+                options = poll.options.map { PollOptionViewData.from(it) },
                 votesCount = 0,
                 votersCount = null,
                 edit.emojis,
                 animateEmojis = animateEmojis,
-                displayMode = if (poll.multiple) DisplayMode.MULTIPLE_CHOICE else DisplayMode.SINGLE_CHOICE,
+                displayMode = DisplayMode.EDIT_HISTORY,
                 enabled = false,
                 resultClickListener = null,
                 pollOptionClickListener = null,
