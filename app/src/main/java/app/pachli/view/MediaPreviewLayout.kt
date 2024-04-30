@@ -190,8 +190,8 @@ class MediaPreviewLayout(context: Context, attrs: AttributeSet? = null) :
             val wrapper = getChildAt(index)
             action(
                 index,
-                wrapper.findViewById(R.id.preview_image_view) as MediaPreviewImageView,
-                wrapper.findViewById(R.id.preview_media_description_indicator) as TextView,
+                wrapper.findViewById(R.id.preview_image_view)!!,
+                wrapper.findViewById(R.id.preview_media_description_indicator)!!,
             )
         }
     }
