@@ -489,7 +489,6 @@
     <string name="account_date_joined">Liittyi %1$s</string>
     <string name="ui_error_unknown">tuntematon syy</string>
     <string name="ui_error_filter_v1_load_fmt">Suodattimien lataaminen epäonnistui: %1$s</string>
-    <string name="janky_animation_title">Saatat joutua käynnistämään laitteesi uudelleen</string>
     <string name="announcement_date_updated">(Päivitetty: %1$s)</string>
     <string name="tips_push_notification_migration">Kirjaudu uudelleen kaikille tileille push-ilmoitusten ottamiseksi käyttöön.</string>
     <string name="pref_update_notification_frequency_once_per_version">Kerran jokaisesta versiosta</string>
@@ -551,15 +550,6 @@
     </plurals>
     <string name="title_favourited_by">Tykännyt</string>
     <string name="send_post_notification_saved_content">Kopio julkaisusta on tallennettu luonnoksiisi</string>
-    <string name="janky_animation_msg">Tämä Pachlin versio voi laukaista Android-virheen joissakin laitteissa ja näyttää rikkinäisiä animaatioita.
-\n
-\nEsimerkiksi, kun napautat viestiä katsoaksesi ketjun.
-\n
-\nJos näin tapahtuu, sinun täytyy käynnistää laite uudelleen.
-\n
-\nNäin tarvitsee tehdä vain kerran.
-\n
-\nTämä on Androidin bugi, jolle Pachli ei voi mitään.</string>
     <string name="description_browser_login">Saattaa tukea muita tunnistautumistapoja, mutta vaatii tuetun verkkoselaimen.</string>
     <string name="report_description_1">Raportti lähetetään palvelimesi moderaattorille. Alla voit selittää miksi raportoit tämän tilin:</string>
     <plurals name="reblogs">

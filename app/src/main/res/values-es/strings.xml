@@ -612,15 +612,6 @@
     <string name="dialog_delete_filter_text">Elimina filtro \'%1$s\'?</string>
     <string name="error_media_playback">La reproducción falló: %s</string>
     <string name="title_public_trending">En tendencia</string>
-    <string name="janky_animation_msg">Esta versión de Pachli puede desencadenar un error de Android en algunos dispositivos, y mostrar animaciones rotas.
-\n
-\nPor ejemplo, al tocar una publicación para ver una conversación.
-\n
-\nSi ves esto, necesitarás reiniciar tu dispositivo.
-\n
-\nSólo tienes que hacer esto una vez.
-\n
-\nEsto es un error de Android, no hay nada que Pachli pueda hacer.</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_title_update_settings">Actualizaciones de programa</string>
     <string name="title_public_trending_statuses">Publicaciones en tendencia</string>
@@ -633,7 +624,6 @@
     <string name="pref_title_show_self_boosts_description">Alguien impulsa su propia publicación</string>
     <string name="ui_error_filter_v1_load_fmt">La carga de filtros falló: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s oculto(s)</string>
-    <string name="janky_animation_title">Puede que tengas que reiniciar tu dispositivo</string>
     <string name="confirmation_hashtag_unmuted">#%s visible</string>
     <string name="pref_title_show_self_boosts">Mostrar auto-impulsos</string>
     <string name="announcement_date_updated">(Actualizado: %1$s)</string>

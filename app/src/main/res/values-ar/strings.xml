@@ -621,7 +621,6 @@
     <string name="filter_keyword_addition_title">إضافة كلمة مفتاحية</string>
     <string name="label_filter_keywords">كلمات مفتاحية أو عبارات للتصفية</string>
     <string name="hint_description">الوصف</string>
-    <string name="janky_animation_title">قد تحتاج إلى إعادة تشغيل جهازك</string>
     <string name="title_tab_public_trending_statuses">المنشورات</string>
     <string name="pref_update_notification_frequency_once_per_version">مرة واحدة كل نسخة</string>
     <string name="filter_description_hide">إخفاء تماما</string>

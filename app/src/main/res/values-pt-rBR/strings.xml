@@ -558,15 +558,6 @@
     <string name="ui_success_accepted_follow_request">Pedido para seguir aceito</string>
     <string name="error_media_playback">Reprodução falhou: %s</string>
     <string name="title_public_trending">Em alta</string>
-    <string name="janky_animation_msg">Esta versão do Pachli pode acionar uma falha do Android em alguns dispositivos e exibir animações falhas.
-\n
-\nPor exemplo, ao tocar em uma postagem para visualizar um tópico.
-\n
-\nSe ver isso, precisará reiniciar o dispositivo.
-\n
-\nSó precisa fazer isso uma vez.
-\n
-\nEsta é uma falha do Android, não há nada que Pachli possa fazer.</string>
     <string name="notification_header_report_format">%s denunciou %s</string>
     <string name="accessibility_talking_about_tag">%1$d pessoas estão comentando sobre a Hashtag %2$s</string>
     <string name="compose_delete_draft">Apagar o rascunho?</string>
@@ -604,7 +595,6 @@
     <string name="ui_error_filter_v1_load_fmt">Falha ao carregar os filtros: %1$s</string>
     <string name="notification_sign_up_name">Inscrições</string>
     <string name="confirmation_hashtag_muted">#%s oculto</string>
-    <string name="janky_animation_title">Pode ser necessário reiniciar o teu dispositivo</string>
     <string name="confirmation_hashtag_unmuted">#%s reexibido</string>
     <string name="pref_title_show_self_boosts">Mostrar auto-Boosts</string>
     <string name="announcement_date_updated">(Atualizado: %1$s)</string>

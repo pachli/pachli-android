@@ -46,7 +46,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
-import androidx.core.content.edit
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
@@ -108,7 +107,6 @@ import app.pachli.core.navigation.TrendingActivityIntent
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
-import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityMainBinding
 import app.pachli.db.DraftsAlert
@@ -459,22 +457,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             recreate()
         }
 
-        // TODO: This can be removed after 2024-03-01, assume everyone has upgraded by then
-        if (sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_JANKY_ANIMATION_WARNING, true)) {
-            showJankyAnimationWarning()
-        }
-
         lifecycleScope.launch { updateCheck.checkForUpdate(this@MainActivity) }
-    }
-
-    /** Warn the user about possibly-broken animations. */
-    private fun showJankyAnimationWarning() = lifecycleScope.launch {
-        AlertDialog.Builder(this@MainActivity)
-            .setTitle(R.string.janky_animation_title)
-            .setMessage(R.string.janky_animation_msg)
-            .create()
-            .await(android.R.string.ok)
-        sharedPreferencesRepository.edit { putBoolean(PrefKeys.SHOW_JANKY_ANIMATION_WARNING, false) }
     }
 
     override fun onStart() {
@@ -838,7 +821,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 arrayOf(
                     "Clear home timeline cache",
                     "Remove first 40 statuses",
-                    "Reset janky animation warning flag",
                 ),
             ) { _, which ->
                 Timber.d("Developer tools: %d", which)
@@ -858,9 +840,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                                 developerToolsUseCase.deleteFirstKStatuses(it.id, 40)
                             }
                         }
-                    }
-                    2 -> {
-                        developerToolsUseCase.resetJankyAnimationWarningFlag()
                     }
                 }
             }

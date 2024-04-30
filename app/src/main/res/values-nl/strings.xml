@@ -588,15 +588,6 @@
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="error_media_playback">Afspelen mislukt: %s</string>
     <string name="title_public_trending">Opkomend</string>
-    <string name="janky_animation_msg">Deze versie van Pachli kan mogelijk een Android bug veroorzaken op sommige apparaten, en toont kapotte animaties.
-\n
-\nBijvoorbeeld als je een post aanklikt om een gesprek te bekijken.
-\n
-\nAls je dit ziet, dan moet je je apparaat herstarten.
-\n
-\nJe hoeft dit enkel eenmalig te doen.
-\n
-\nDit is een bug in Android, Pachli kan hier niet iets aan doen.</string>
     <string name="description_browser_login">Mogelijk ondersteunt dit extra authenticatie opties, maar dit vereist een ondersteunde browser.</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="description_login">Werkt in de meeste gevallen. Geen data wordt gelekt naar andere apps.</string>
@@ -616,7 +607,6 @@
     <string name="pref_title_show_self_boosts_description">Iemand die hun eigen post boost</string>
     <string name="ui_error_filter_v1_load_fmt">Laden van filters faalde: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s verborgen</string>
-    <string name="janky_animation_title">Mogelijk is het noodzakelijk om je apparaat opnieuw op te starten</string>
     <string name="confirmation_hashtag_unmuted">#%s niet meer verborgen</string>
     <string name="pref_title_show_self_boosts">Toon zelf-boosts</string>
     <string name="announcement_date_updated">(Bijgewerkt: %1$s)</string>

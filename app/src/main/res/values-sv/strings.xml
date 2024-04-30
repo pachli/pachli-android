@@ -613,7 +613,6 @@
     <string name="dialog_delete_filter_text">Radera filter \'%1$s\'?</string>
     <string name="error_media_playback">Uppspelning misslyckades: %s</string>
     <string name="title_public_trending">Trendande</string>
-    <string name="janky_animation_msg">Denna version av Pachli kan visa ett Android-fel på några enheter som visar trasiga animationer, t.ex. vid tappning av en toot för att visa en tråd. Om du ser denna bör du starta om din enhet.</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_title_update_settings">Mjukvaruuppdateringar</string>
     <string name="title_public_trending_statuses">Trendande toots</string>
@@ -626,7 +625,6 @@
     <string name="pref_title_show_self_boosts_description">Någon som knuffar sin toot</string>
     <string name="ui_error_filter_v1_load_fmt">Laddning av filter misslyckades: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s dold</string>
-    <string name="janky_animation_title">Du behöver kanske starta om din enhet</string>
     <string name="confirmation_hashtag_unmuted">#%s avdold</string>
     <string name="pref_title_show_self_boosts">Visa självknuffar</string>
     <string name="announcement_date_updated">(Uppdaterad: %1$s)</string>
