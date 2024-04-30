@@ -15,9 +15,8 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.mastodon.model
+package app.pachli.core.network.model
 
-import app.pachli.core.network.model.MediaUploadResult
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Multipart
