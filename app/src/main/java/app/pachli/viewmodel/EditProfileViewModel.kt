@@ -61,7 +61,7 @@ class EditProfileViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
     private val application: Application,
-    private val instanceInfoRepo: InstanceInfoRepository,
+    instanceInfoRepo: InstanceInfoRepository,
 ) : ViewModel() {
 
     val profileData = MutableLiveData<Resource<Account>>()

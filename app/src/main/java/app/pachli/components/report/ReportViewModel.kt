@@ -50,7 +50,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class ReportViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val eventHub: EventHub,
 ) : ViewModel() {
 
