@@ -87,7 +87,7 @@ class PreviewCardView @JvmOverloads constructor(
 
         when {
             card.description.isNotBlank() -> card.description
-            card.authorName.orEmpty().isNotBlank() -> card.authorName
+            card.authorName.isNotBlank() -> card.authorName
             else -> null
         }?.let { cardDescription.text = it } ?: cardDescription.hide()
 
