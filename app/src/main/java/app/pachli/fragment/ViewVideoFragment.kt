@@ -33,7 +33,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.annotation.OptIn
-import androidx.core.view.GestureDetectorCompat
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
@@ -134,7 +133,7 @@ class ViewVideoFragment : ViewMediaFragment() {
             var wasPlaying: Boolean? = null
 
             /** Handle taps and flings */
-            val simpleGestureDetector = GestureDetectorCompat(
+            val simpleGestureDetector = GestureDetector(
                 requireContext(),
                 object : GestureDetector.SimpleOnGestureListener() {
                     override fun onDown(e: MotionEvent) = true
