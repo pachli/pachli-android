@@ -35,7 +35,7 @@ import org.jetbrains.uast.UCallExpression
 class ContextCompatGetDrawableDetector : Detector(), SourceCodeScanner {
     override fun getApplicableMethodNames() = listOf(METHOD_GET_DRAWABLE)
 
-    val fix = LintFix.create()
+    private val fix = LintFix.create()
         .name("Replace with `AppCompatResources.getDrawable`")
         .replace()
         .text("ContextCompat.")

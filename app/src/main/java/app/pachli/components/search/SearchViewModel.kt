@@ -54,8 +54,8 @@ class SearchViewModel @Inject constructor(
         get() = accountManager.activeAccount
 
     val mediaPreviewEnabled = activeAccount?.mediaPreviewEnabled ?: false
-    val alwaysShowSensitiveMedia = activeAccount?.alwaysShowSensitiveMedia ?: false
-    val alwaysOpenSpoiler = activeAccount?.alwaysOpenSpoiler ?: false
+    private val alwaysShowSensitiveMedia = activeAccount?.alwaysShowSensitiveMedia ?: false
+    private val alwaysOpenSpoiler = activeAccount?.alwaysOpenSpoiler ?: false
 
     private val loadedStatuses: MutableList<StatusViewData> = mutableListOf()
 

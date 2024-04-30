@@ -269,7 +269,7 @@ open class Extractor {
         /**
          * The maximum url length that the Twitter backend supports.
          */
-        const val MAX_URL_LENGTH = 4096
+        private const val MAX_URL_LENGTH = 4096
 
         /**
          * The backend adds http:// for normal links and https to *.twitter.com URLs
