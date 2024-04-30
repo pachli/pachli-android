@@ -5,7 +5,6 @@ import com.android.tools.lint.client.api.Vendor
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
 
-@Suppress("UnstableApiUsage")
 class LintRegistry : IssueRegistry() {
     override val issues: List<Issue>
         get() = listOf(
