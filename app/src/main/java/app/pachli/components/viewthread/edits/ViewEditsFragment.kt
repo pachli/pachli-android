@@ -131,7 +131,6 @@ class ViewEditsFragment :
 
                         binding.recyclerView.adapter = ViewEditsAdapter(
                             edits = uiState.edits,
-                            animateAvatars = animateAvatars,
                             animateEmojis = animateEmojis,
                             useBlurhash = useBlurhash,
                             listener = this@ViewEditsFragment,
