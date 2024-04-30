@@ -41,7 +41,7 @@ import app.pachli.core.network.model.Status
  * @param icon icon to use when displaying the tab
  * @param fragment [Fragment] to display the tab's contents
  * @param title title to display in the action bar if this tab is active
- * @param composeIntent intent to launch [ComposeActivity] for this timeline, or null
+ * @param composeIntent intent to launch [app.pachli.components.compose.ComposeActivity] for this timeline, or null
  *     if composing from this timeline is not supported
  */
 data class TabViewData(

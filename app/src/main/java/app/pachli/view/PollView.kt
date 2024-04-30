@@ -61,7 +61,7 @@ typealias PollClickListener = (choices: List<Int>?) -> Unit
  *
  * Otherwise the results of the poll are shown.
  *
- * Classes hosting this should provide a [PollView.OnClickListener] to be notified when the
+ * Classes hosting this should provide a [PollClickListener] to be notified when the
  * user clicks on the poll (either to vote, or to navigate).
  */
 class PollView @JvmOverloads constructor(
