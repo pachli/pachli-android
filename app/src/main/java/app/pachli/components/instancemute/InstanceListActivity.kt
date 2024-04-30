@@ -1,6 +1,7 @@
 package app.pachli.components.instancemute
 
 import android.os.Bundle
+import androidx.fragment.app.commit
 import app.pachli.R
 import app.pachli.components.instancemute.fragment.InstanceListFragment
 import app.pachli.core.activity.BaseActivity
@@ -21,9 +22,8 @@ class InstanceListActivity : BaseActivity() {
             setDisplayShowHomeEnabled(true)
         }
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container, InstanceListFragment())
-            .commit()
+        supportFragmentManager.commit {
+            replace(R.id.fragment_container, InstanceListFragment())
+        }
     }
 }
