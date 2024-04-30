@@ -252,7 +252,7 @@ class LinkHelperTest {
             "Another Place | https://another.place/",
             "Another Place https://another.place/path",
         )
-        asserts.forEach {
+        asserts.forEach { _ ->
             Assert.assertTrue(markedUpContent.contains(context.getString(R.string.url_domain_notifier, "some.place")))
         }
     }
