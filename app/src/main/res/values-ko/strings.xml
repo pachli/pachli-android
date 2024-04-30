@@ -122,13 +122,13 @@
     <string name="hint_content_warning">열람 주의</string>
     <string name="hint_display_name">표시되는 이름</string>
     <string name="hint_note">자기소개</string>
-    <string name="hint_search">검색...</string>
+    <string name="hint_search">검색…</string>
     <string name="search_no_results">검색 결과가 없습니다</string>
     <string name="label_quick_reply">답장</string>
     <string name="label_avatar">아바타</string>
     <string name="label_header">헤더</string>
     <string name="dialog_title_finishing_media_upload">미디어 업로드 완료</string>
-    <string name="dialog_message_uploading_media">업로드 중...</string>
+    <string name="dialog_message_uploading_media">업로드 중…</string>
     <string name="dialog_download_image">다운로드</string>
     <string name="dialog_message_cancel_follow_request">팔로우 요청을 취소하시겠습니까\?</string>
     <string name="dialog_unfollow_warning">이 계정을 팔로우 해제하시겠습니까\?</string>
@@ -312,7 +312,7 @@
     <string name="compose_shortcut_long_label">툿 작성하기</string>
     <string name="compose_shortcut_short_label">작성</string>
     <string name="notification_clear_text">모든 알림을 영구적으로 지우시겠습니까\?</string>
-    <string name="compose_preview_image_description">이미지 %s를...</string>
+    <string name="compose_preview_image_description">이미지 %s를…</string>
     <string name="poll_info_format"><!-- 15 명 참여 • 1 시간 남음 -->%1$s • %2$s</string>
     <plurals name="poll_info_votes">
         <item quantity="other">%s 명 참여</item>
