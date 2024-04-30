@@ -140,7 +140,7 @@ class SliderPreference @JvmOverloads constructor(
     }
 
     override fun onSetInitialValue(defaultValue: Any?) {
-        value = getPersistedFloat((defaultValue ?: Companion.DEFAULT_VALUE) as Float)
+        value = getPersistedFloat((defaultValue ?: DEFAULT_VALUE) as Float)
     }
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
