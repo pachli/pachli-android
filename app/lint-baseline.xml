@@ -1603,39 +1603,6 @@
     </issue>
 
     <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="    &lt;string name=&quot;hint_search&quot;>검색...&lt;/string>"
-        errorLine2="                               ~~~~~">
-        <location
-            file="src/main/res/values-ko/strings.xml"
-            line="125"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="    &lt;string name=&quot;dialog_message_uploading_media&quot;>업로드 중...&lt;/string>"
-        errorLine2="                                                  ~~~~~~~~">
-        <location
-            file="src/main/res/values-ko/strings.xml"
-            line="131"
-            column="51"/>
-    </issue>
-
-    <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="    &lt;string name=&quot;compose_preview_image_description&quot;>이미지 %s를...&lt;/string>"
-        errorLine2="                                                     ~~~~~~~~~~">
-        <location
-            file="src/main/res/values-ko/strings.xml"
-            line="315"
-            column="54"/>
-    </issue>
-
-    <issue
         id="ConvertToWebp"
         message="One or more images in this project can be converted to the WebP format which typically results in smaller file sizes, even for lossless conversion">
         <location
@@ -2633,17 +2600,6 @@
     </issue>
 
     <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;Filter: MyFilter&quot;, should use `@string` resource"
-        errorLine1="        android:text=&quot;Filter: MyFilter&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_filtered.xml"
-            line="18"
-            column="9"/>
-    </issue>
-
-    <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
         errorLine1="                    android:paddingStart=&quot;8dp&quot;"
@@ -2694,7 +2650,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/item_poll.xml"
-            line="36"
+            line="37"
             column="9"/>
     </issue>
 

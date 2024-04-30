@@ -15,6 +15,7 @@
         android:textColor="?android:textColorTertiary"
         android:textSize="?attr/status_text_medium"
         android:textAlignment="center"
+        android:textIsSelectable="false"
         tools:text="Filter: MyFilter"
         />
 
