@@ -42,7 +42,6 @@ import org.xml.sax.XMLReader
 
 class ViewEditsAdapter(
     private val edits: List<StatusEdit>,
-    private val animateAvatars: Boolean,
     private val animateEmojis: Boolean,
     private val useBlurhash: Boolean,
     private val listener: LinkListener,
@@ -210,11 +209,6 @@ class ViewEditsAdapter(
     }
 
     override fun getItemCount() = edits.size
-
-    companion object {
-        private const val VIEW_TYPE_EDITS_NEWEST = 0
-        private const val VIEW_TYPE_EDITS = 1
-    }
 }
 
 /**
