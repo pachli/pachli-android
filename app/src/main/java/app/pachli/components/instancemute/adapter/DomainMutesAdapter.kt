@@ -11,7 +11,7 @@ class DomainMutesAdapter(
     private val actionListener: InstanceActionListener,
 ) : RecyclerView.Adapter<BindingHolder<ItemMutedDomainBinding>>() {
 
-    var instances: MutableList<String> = mutableListOf()
+    private var instances: MutableList<String> = mutableListOf()
     var bottomLoading: Boolean = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemMutedDomainBinding> {

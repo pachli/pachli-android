@@ -49,7 +49,7 @@ class AccountMediaGridAdapter(
     private val playableIcon = AppCompatResources.getDrawable(context, R.drawable.ic_play_indicator)
     private val mediaHiddenDrawable = AppCompatResources.getDrawable(context, R.drawable.ic_hide_media_24dp)
 
-    val defaultSize = context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.account_media_grid_default)
+    private val defaultSize = context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.account_media_grid_default)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemAccountMediaBinding> {
         val binding = ItemAccountMediaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
