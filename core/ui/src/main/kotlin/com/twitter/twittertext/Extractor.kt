@@ -36,7 +36,7 @@ open class Extractor {
 
     private fun removeOverlappingEntities(entities: MutableList<Entity>) {
         // sort by index
-        entities.sortWith(Comparator { e1, e2 -> e1.start - e2.start })
+        entities.sortWith { e1, e2 -> e1.start - e2.start }
 
         // Remove overlapping entities.
         // Two entities overlap only when one is URL and the other is hashtag/mention
