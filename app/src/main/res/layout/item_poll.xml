@@ -18,6 +18,7 @@
         android:paddingTop="2dp"
         android:paddingEnd="6dp"
         android:paddingBottom="2dp"
+        android:drawablePadding="8dp"
         android:textAlignment="viewStart"
         android:textColor="?colorOnSecondary"
         android:textSize="?attr/status_text_medium"

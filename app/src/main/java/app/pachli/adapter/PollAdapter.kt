@@ -24,11 +24,13 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemPollBinding
+import app.pachli.util.makeIcon
 import app.pachli.viewdata.PollOptionViewData
 import app.pachli.viewdata.buildDescription
 import app.pachli.viewdata.calculatePercent
 import com.google.android.material.R
 import com.google.android.material.color.MaterialColors
+import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import kotlin.properties.Delegates
 
 /** Listener for user clicks on poll items */
@@ -65,6 +67,9 @@ class PollAdapter(
 
         /** Multiple choice (display as check boxes) */
         MULTIPLE_CHOICE,
+
+        /** Snapshot of a poll from a status' edit history */
+        EDIT_HISTORY,
     }
 
     /**
@@ -92,9 +97,16 @@ class PollAdapter(
         val radioButton = holder.binding.statusPollRadioButton
         val checkBox = holder.binding.statusPollCheckbox
 
-        resultTextView.visible(displayMode == DisplayMode.RESULT)
+        resultTextView.visible(displayMode == DisplayMode.RESULT || displayMode == DisplayMode.EDIT_HISTORY)
         radioButton.visible(displayMode == DisplayMode.SINGLE_CHOICE)
         checkBox.visible(displayMode == DisplayMode.MULTIPLE_CHOICE)
+
+        // Poll edit history doesn't indicate if it was single or multiple choice at this point, so use
+        // a general "vote" icon instead of a radio button or checkbox.
+        if (displayMode == DisplayMode.EDIT_HISTORY) {
+            val icon = makeIcon(resultTextView.context, GoogleMaterial.Icon.gmd_how_to_vote, resultTextView.textSize.toInt())
+            resultTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+        }
 
         // Enable/disable the option widgets as appropriate. Disabling them will also change
         // the text colour, which is undesirable (this happens when showing status edits) so
@@ -137,7 +149,7 @@ class PollAdapter(
         }
 
         when (displayMode) {
-            DisplayMode.RESULT -> with(resultTextView) {
+            DisplayMode.RESULT, DisplayMode.EDIT_HISTORY -> with(resultTextView) {
                 text = itemText
                 background.level = level
                 background.setTint(tintColor)
