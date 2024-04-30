@@ -51,7 +51,6 @@ class RingBuffer<T>(private val capacity: Int) : Iterable<T> {
     } as T
 
     /** Buffer as a list. */
-    @Suppress("UNCHECKED_CAST")
     fun toList(): List<T> = iterator().asSequence().toList()
 
     override fun iterator(): Iterator<T> = object : Iterator<T> {
