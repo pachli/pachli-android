@@ -132,7 +132,7 @@ data class TabViewData(
                     }
                 },
             ) { context ->
-                val tag = (timeline as Timeline.Hashtags).tags.first()
+                val tag = timeline.tags.first()
                 ComposeActivityIntent(
                     context,
                     ComposeActivityIntent.ComposeOptions(

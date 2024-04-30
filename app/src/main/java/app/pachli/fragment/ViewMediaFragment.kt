@@ -136,7 +136,7 @@ abstract class ViewMediaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        attachment = arguments?.getParcelable<Attachment>(ARG_ATTACHMENT)
+        attachment = arguments?.getParcelable(ARG_ATTACHMENT)
             ?: throw IllegalArgumentException("ARG_ATTACHMENT has to be set")
 
         shouldCallMediaReady = arguments?.getBoolean(ARG_SHOULD_CALL_MEDIA_READY)
