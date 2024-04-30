@@ -17,9 +17,9 @@
 
 package app.pachli.core.network.di.test
 
-import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.di.NetworkModule
 import app.pachli.core.network.json.Guarded
+import app.pachli.core.network.model.MediaUploadApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module

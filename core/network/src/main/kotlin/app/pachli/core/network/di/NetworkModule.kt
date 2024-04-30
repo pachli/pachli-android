@@ -20,13 +20,13 @@ package app.pachli.core.network.di
 import android.content.Context
 import android.os.Build
 import app.pachli.core.common.util.versionName
-import app.pachli.core.mastodon.model.MediaUploadApi
 import app.pachli.core.network.BuildConfig
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.EnumConstantConverterFactory
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.HasDefault
+import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResultCallAdapterFactory
