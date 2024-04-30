@@ -202,7 +202,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         if (isToolbarVisible) {
             // If to be visible, need to make visible immediately and animate alpha
             binding.toolbar.alpha = 0.0f
-            binding.toolbar.visibility = visibility
+            binding.toolbar.visibility = View.VISIBLE
         }
 
         binding.toolbar.animate().alpha(alpha)
