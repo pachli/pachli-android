@@ -234,6 +234,10 @@ class EditProfileActivity : BaseActivity() {
             viewModel.onChange(currentProfileData)
         }
 
+        binding.noteEditText.doAfterTextChanged {
+            viewModel.onChange(currentProfileData)
+        }
+
         binding.lockedCheckBox.setOnCheckedChangeListener { _, _ ->
             viewModel.onChange(currentProfileData)
         }
