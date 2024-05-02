@@ -443,7 +443,7 @@
     <string name="update_dialog_neutral">Älä muistuta enää tästä versiosta</string>
     <string name="ui_error_reject_follow_request">Seuraajapyynnön hylkääminen epäonnistui: %s</string>
     <string name="ui_error_clear_notifications">Ilmoitusten nollaaminen epäonnistui: %s</string>
-    <string name="pref_title_show_self_username">Näytä kättäjänimi työkalurivissä</string>
+    <string name="pref_title_show_self_username">Näytä käyttäjänimi työkalurivissä</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="dialog_delete_filter_text">Poistetaanko suodatin \'%1$s\'?</string>
     <string name="follow_requests_info">Vaikka tiliäsi ei ole lukittu, palvelimen %1$s ylläpito arvelee, että saatat haluta hyväksyä näiden tilien seuraajapyynnöt käsin.</string>
@@ -654,4 +654,7 @@
         <item quantity="one">%1$d yhteys katkaistu</item>
         <item quantity="other">%1$d yhteyttä katkaistu</item>
     </plurals>
+    <string name="error_filter_missing_keyword">Tarvitaan vähintään yksi avainsana tai lauseke</string>
+    <string name="error_filter_missing_context">Tarvitaan vähintään yksi suodatettava asia</string>
+    <string name="error_filter_missing_title">Otsikko vaaditaan</string>
 </resources>
