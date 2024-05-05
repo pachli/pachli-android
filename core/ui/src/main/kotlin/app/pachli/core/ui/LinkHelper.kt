@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.ui
 
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -28,13 +28,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
-import app.pachli.R
 import app.pachli.core.activity.EmojiSpan
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status.Mention
-import app.pachli.core.ui.MentionSpan
-import app.pachli.core.ui.NoUnderlineURLSpan
-import app.pachli.interfaces.LinkListener
 import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize
@@ -42,6 +38,12 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.color
 import com.mikepenz.iconics.utils.size
 import java.lang.ref.WeakReference
+
+interface LinkListener {
+    fun onViewTag(tag: String)
+    fun onViewAccount(id: String)
+    fun onViewUrl(url: String)
+}
 
 fun getDomain(urlString: String?): String {
     val host = urlString?.toUri()?.host ?: return ""

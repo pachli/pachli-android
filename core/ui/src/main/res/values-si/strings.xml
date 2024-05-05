@@ -4,4 +4,5 @@
     <string name="action_retry">යළි උත්සාහය</string>
     <string name="action_view_profile">පැතිකඩ</string>
     <string name="action_more">තව</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
 </resources>

@@ -22,14 +22,14 @@ import app.pachli.R
 import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowBinding
-import app.pachli.interfaces.LinkListener
-import app.pachli.util.StatusDisplayOptions
-import app.pachli.util.setClickableText
 import app.pachli.viewdata.NotificationViewData
 
 class FollowViewHolder(
@@ -83,7 +83,7 @@ class FollowViewHolder(
                 animateEmojis,
             )
         binding.notificationText.text = emojifiedMessage
-        val username = context.getString(R.string.post_username_format, account.username)
+        val username = context.getString(DR.string.post_username_format, account.username)
         binding.notificationUsername.text = username
         val emojifiedDisplayName = wrappedDisplayName.emojify(
             account.emojis,

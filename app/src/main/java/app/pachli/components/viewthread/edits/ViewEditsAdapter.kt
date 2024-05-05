@@ -31,10 +31,10 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.StatusEdit
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemStatusEditBinding
-import app.pachli.interfaces.LinkListener
 import app.pachli.util.aspectRatios
-import app.pachli.util.setClickableText
 import app.pachli.viewdata.PollOptionViewData
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors

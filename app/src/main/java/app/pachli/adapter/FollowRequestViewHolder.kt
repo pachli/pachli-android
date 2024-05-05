@@ -17,6 +17,7 @@
 
 package app.pachli.adapter
 
+import app.pachli.core.designsystem.R as DR
 import android.graphics.Typeface
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -30,14 +31,13 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
-import app.pachli.core.designsystem.R as DR
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.interfaces.LinkListener
-import app.pachli.util.StatusDisplayOptions
-import app.pachli.util.setClickableText
 import app.pachli.viewdata.NotificationViewData
 
 class FollowRequestViewHolder(
@@ -94,7 +94,7 @@ class FollowRequestViewHolder(
             }.emojify(account.emojis, itemView, animateEmojis)
         }
         binding.notificationTextView.visible(showHeader)
-        val formattedUsername = itemView.context.getString(R.string.post_username_format, account.username)
+        val formattedUsername = itemView.context.getString(DR.string.post_username_format, account.username)
         binding.usernameTextView.text = formattedUsername
         if (account.note.isEmpty()) {
             binding.accountNote.hide()

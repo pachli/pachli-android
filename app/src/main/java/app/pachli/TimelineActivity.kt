@@ -31,6 +31,7 @@ import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
@@ -41,7 +42,6 @@ import app.pachli.core.network.model.FilterV1
 import app.pachli.databinding.ActivityTimelineBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
-import app.pachli.network.ServerRepository
 import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.getOrElse
 import com.google.android.material.appbar.AppBarLayout

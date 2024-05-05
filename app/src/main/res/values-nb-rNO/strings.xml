@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Følgeforespørsler</string>
     <string name="title_edit_profile">Endre profilen din</string>
     <string name="title_drafts">Utkast</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s delte</string>
     <string name="post_sensitive_media_title">Sensitivt innhold</string>
     <string name="post_media_hidden_title">Media skjult</string>
@@ -77,7 +76,6 @@
     <string name="action_unmute">Fjern demping</string>
     <string name="action_mention">Nevn</string>
     <string name="action_hide_media">Skjul media</string>
-    <string name="action_open_drawer">Åpne skuff</string>
     <string name="action_save">Lagre</string>
     <string name="action_edit_profile">Endre profil</string>
     <string name="action_edit_own_profile">Endre</string>
@@ -473,7 +471,6 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="duration_no_change">(Ingen endring)</string>
     <string name="description_post_language">Innleggspråk</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">Sett fokuspunkt</string>
     <string name="set_focus_description">Trykk eller dra sirkelen for å velge fokuspunktet som alltid skal være synlig i miniatyrbilder.</string>
     <string name="pref_show_self_username_always">Alltid</string>
@@ -559,7 +556,6 @@
     <string name="error_list_load">Feil under lading av lister</string>
     <string name="select_list_manage">Forvalte lister</string>
     <string name="ui_error_reblog_fmt">Deling av innlegget feilet: %1$s</string>
-    <string name="ui_error_unknown">ukjent grunn</string>
     <string name="ui_error_favourite_fmt">Favorisering av innlegg feilet: %1$s</string>
     <string name="ui_error_vote_fmt">Stemming mislykkes: %1$s</string>
     <string name="filter_description_hide">Gjem helt</string>

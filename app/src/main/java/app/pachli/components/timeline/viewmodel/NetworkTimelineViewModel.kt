@@ -31,11 +31,11 @@ import app.pachli.appstore.ReblogEvent
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.viewdata.StatusViewData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

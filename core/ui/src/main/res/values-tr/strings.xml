@@ -8,4 +8,7 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Devamı</string>
     <string name="action_refresh">Yenile</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_open_drawer">Çekmece aç</string>
+    <string name="ui_error_unknown">bilinmeyen sebep</string>
 </resources>

@@ -280,7 +280,6 @@
     <string name="action_undo">ยกเลิก</string>
     <string name="action_edit_own_profile">แก้ไข</string>
     <string name="action_save">บันทึก</string>
-    <string name="action_open_drawer">เปิดเมนู</string>
     <string name="action_hide_media">ซ่อนสื่อ</string>
     <string name="action_mention">กล่าวถึง</string>
     <string name="action_unmute_conversation">เลิกปิดเสียงการสนทนา</string>
@@ -336,7 +335,6 @@
     <string name="post_media_hidden_title">ซ่อนสื่ออยู่</string>
     <string name="post_sensitive_media_title">เนื้อหาอ่อนไหว</string>
     <string name="post_boosted_format">%s ได้ดัน</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_scheduled_posts">โพสต์แบบกำหนดเวลา</string>
     <string name="title_edit_profile">แก้ไขโปรไฟล์</string>
     <string name="title_follow_requests">คำขอติดตาม</string>

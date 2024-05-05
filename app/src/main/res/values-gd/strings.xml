@@ -390,7 +390,6 @@
     <string name="action_accept">Gabh ris</string>
     <string name="action_undo">Neo-dhèan</string>
     <string name="action_save">Sàbhail</string>
-    <string name="action_open_drawer">Fosgail an drathair</string>
     <string name="action_hide_media">Falaich na meadhanan</string>
     <string name="action_mention">Iomradh</string>
     <string name="action_unmute_conversation">Dì-mhùch an còmhradh</string>
@@ -431,7 +430,6 @@
     <string name="post_media_hidden_title">Meadhanan falaichte</string>
     <string name="post_sensitive_media_title">Susbaint fhrionasach</string>
     <string name="post_boosted_format">’Ga bhrosnachadh le %s</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_follow_requests">Iarrtasan leantainn</string>
     <string name="title_domain_mutes">Àrainnean falaichte</string>
     <string name="title_blocks">Cleachdaichean bacte</string>
@@ -498,7 +496,6 @@
     <string name="pref_show_self_username_disambiguate">Nuair a bhios iomadh cunntas air an clàradh a-steach</string>
     <string name="pref_show_self_username_never">Chan ann idir</string>
     <string name="filter_expiration_format">%s (%s)</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">Suidhich puing an fhòcais</string>
     <string name="delete_scheduled_post_warning">A bheil thu airson am post sgeidealaichte seo a sguabadh às\?</string>
     <string name="action_add_reaction">cuir freagairt ris</string>
@@ -564,7 +561,6 @@
     <string name="filter_action_hide">Falaich</string>
     <string name="notification_unknown_name">Neo-aithnichte</string>
     <string name="socket_timeout_exception">Thug conaltradh ris an fhrithealaiche ro fhada</string>
-    <string name="ui_error_unknown">chan eil fhios dè an t-adhbhar</string>
     <string name="ui_error_bookmark_fmt">Cha deach leinn comharra-lìn a chur ris a’ phost: %1$s</string>
     <string name="ui_error_clear_notifications">Dh’fhàillig falamhachadh nam brathan: %s</string>
     <string name="ui_error_favourite_fmt">Cha deach leinn am post a chur ris na h-annsachdan: %1$s</string>

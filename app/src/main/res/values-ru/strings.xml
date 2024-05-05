@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Запросы на подписку</string>
     <string name="title_edit_profile">Редактировать профиль</string>
     <string name="title_drafts">Черновики</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s продвинул(а)</string>
     <string name="post_sensitive_media_title">Чувствительный контент</string>
     <string name="post_media_hidden_title">Медиа скрыто</string>
@@ -78,7 +77,6 @@
     <string name="action_unmute">Отменить глушение</string>
     <string name="action_mention">Упомянуть</string>
     <string name="action_hide_media">Скрыть медиаконтент</string>
-    <string name="action_open_drawer">Открыть черновик</string>
     <string name="action_save">Сохранить</string>
     <string name="action_edit_profile">Редактировать профиль</string>
     <string name="action_edit_own_profile">Изменить</string>

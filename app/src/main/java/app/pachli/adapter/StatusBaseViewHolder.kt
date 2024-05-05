@@ -28,6 +28,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.formatNumber
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ViewMediaActivityIntent
@@ -35,10 +36,11 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.PreviewCardKind
 import app.pachli.core.network.model.Status
+import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.ui.setClickableMentions
+import app.pachli.core.ui.setClickableText
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.CardViewMode
 import app.pachli.util.CompositeWithOpaqueBackground
-import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.aspectRatios
 import app.pachli.util.description
 import app.pachli.util.expandTouchSizeToFillRow
@@ -46,8 +48,6 @@ import app.pachli.util.getFormattedDescription
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.iconResource
 import app.pachli.util.makeIcon
-import app.pachli.util.setClickableMentions
-import app.pachli.util.setClickableText
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.view.MediaPreviewLayout
 import app.pachli.view.PollView
@@ -167,7 +167,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
     }
 
     protected fun setUsername(name: String) {
-        username.text = context.getString(R.string.post_username_format, name)
+        username.text = context.getString(DR.string.post_username_format, name)
     }
 
     fun toggleContentWarning() {

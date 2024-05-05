@@ -239,10 +239,11 @@ class TimelineFragment :
                             error.message,
                             (
                                 error.throwable.getServerErrorMessage() ?: error.throwable.localizedMessage
-                                    ?: getString(R.string.ui_error_unknown)
+                                    ?: getString(app.pachli.core.ui.R.string.ui_error_unknown)
                                 ).unicodeWrap(),
                         )
                         Timber.d(error.throwable, message)
+                        snackbar?.dismiss()
                         snackbar = Snackbar.make(
                             // Without this the FAB will not move out of the way
                             (activity as? ActionButtonActivity)?.actionButton ?: binding.root,

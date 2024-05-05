@@ -22,6 +22,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.PachliApplication
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo

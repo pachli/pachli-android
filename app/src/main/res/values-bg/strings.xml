@@ -270,7 +270,6 @@
     <string name="action_edit_own_profile">Редакция</string>
     <string name="action_edit_profile">Редакция на профил</string>
     <string name="action_save">Запазване</string>
-    <string name="action_open_drawer">Отваряне на чекмедже</string>
     <string name="action_hide_media">Скриване на мултимедия</string>
     <string name="action_mention">Споменаване</string>
     <string name="action_unmute_conversation">Раззаглушаване на разговор</string>
@@ -332,7 +331,6 @@
     <string name="post_media_hidden_title">Мултимедията е скрита</string>
     <string name="post_sensitive_media_title">Деликатно съдържание</string>
     <string name="post_boosted_format">%s сподели</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_announcements">Оповестявания</string>
     <string name="title_scheduled_posts">Планирани публикации</string>
     <string name="title_drafts">Чернови</string>

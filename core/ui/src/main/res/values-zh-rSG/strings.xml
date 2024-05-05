@@ -6,4 +6,5 @@
     <string name="action_retry">重试</string>
     <string name="action_view_profile">个人资料</string>
     <string name="action_more">更多</string>
+    <string name="action_open_drawer">打开应用抽屉</string>
 </resources>

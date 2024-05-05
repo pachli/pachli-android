@@ -225,7 +225,6 @@
     <string name="pref_title_notification_alert_light">ආලෝකය සමඟ දන්වන්න</string>
     <string name="account_note_hint">මෙම ගිණුම පිළිබඳව ඔබගේ පෞද්ගලික සටහන</string>
     <string name="title_notifications">දැනුම්දීම්</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_sent">යැවිණි!</string>
     <string name="poll_vote">ජන්දය</string>
     <string name="filter_dialog_whole_word">මුළු වචනය</string>
@@ -244,5 +243,4 @@
     <string name="action_links">සබැඳි</string>
     <string name="pref_title_browser_settings">අතිරික්සුව</string>
     <string name="abbreviated_seconds_ago">තත්. %d</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
 </resources>

@@ -8,4 +8,7 @@
     <string name="action_view_profile">Trang hồ sơ</string>
     <string name="action_more">Thêm</string>
     <string name="action_refresh">Làm mới</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_open_drawer">Mở ngăn kéo</string>
+    <string name="ui_error_unknown">chưa rõ lý do</string>
 </resources>

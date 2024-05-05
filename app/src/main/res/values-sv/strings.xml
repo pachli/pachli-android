@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Följarförfrågningar</string>
     <string name="title_edit_profile">Redigera din profil</string>
     <string name="title_drafts">Utkast</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s knuffade</string>
     <string name="post_sensitive_media_title">Känsligt innehåll</string>
     <string name="post_media_hidden_title">Dold media</string>
@@ -77,7 +76,6 @@
     <string name="action_unmute">Ta bort tystade användare</string>
     <string name="action_mention">Omnämn</string>
     <string name="action_hide_media">Dölj media</string>
-    <string name="action_open_drawer">Öppna låda</string>
     <string name="action_save">Spara</string>
     <string name="action_edit_profile">Redigera profil</string>
     <string name="action_edit_own_profile">Redigera</string>
@@ -447,7 +445,6 @@
     <string name="dialog_push_notification_migration_other_accounts">Du har loggat in igen på ditt konto för att ge Pachli tillgång till push-prenumeration. Dock har du andra konton som inte har migrerats såhär ännu. Växla till dem och logga in igen för att aktivera stöd för UnifiedPush-notiser.</string>
     <string name="action_unsubscribe_account">Sluta prenumerera</string>
     <string name="description_post_language">Inläggsspråk</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="pref_show_self_username_disambiguate">När flera konton är inloggade</string>
     <string name="pref_show_self_username_never">Aldrig</string>
     <string name="notification_sign_up_name">Registreringar</string>
@@ -559,7 +556,6 @@
     <string name="filter_edit_keyword_title">Redigera nyckelord</string>
     <string name="notification_unknown_name">Okänd</string>
     <string name="socket_timeout_exception">Att kontakta din server tog för lång tid</string>
-    <string name="ui_error_unknown">okänd anledning</string>
     <string name="ui_success_accepted_follow_request">Följ begäran accepterad</string>
     <string name="ui_success_rejected_follow_request">Följ begäran blockerad</string>
     <string name="select_list_manage">Hantera listor</string>
@@ -637,11 +633,5 @@
     <string name="label_image">Bild</string>
     <string name="action_translate_undo">Ångra översättning</string>
     <string name="server_repository_error">Kunde inte hämta serverinformation för %1$s: %2$s</string>
-    <string name="server_repository_error_get_well_known_node_info">misslyckades med att hämta /.well-known/nodeinfo: %1$s</string>
-    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo innehöll inte begripliga scheman</string>
-    <string name="server_repository_error_get_node_info">hämtning av nodeinfo %1$s misslyckades: %2$s</string>
-    <string name="server_repository_error_validate_node_info">validering av nodeinfo %1$s misslyckades: %2$s</string>
-    <string name="server_repository_error_get_instance_info">hämtning av /api/v1/instance misslyckades: %1$s</string>
-    <string name="server_repository_error_capabilities">tolkning av serverfunktioner misslyckades: %1$s</string>
     <string name="pref_summary_timeline_filters">Din server stöder inte filter</string>
 </resources>

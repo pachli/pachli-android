@@ -30,7 +30,6 @@
     <string name="error_compose_character_limit">Postingan terlalu panjang!</string>
     <string name="error_media_upload_permission">Izin untuk membaca media diperlukan.</string>
     <string name="error_media_download_permission">Izin untuk menyimpan media diperlukan.</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_media_hidden_title">Media disembunyikan</string>
     <string name="post_sensitive_media_directions">Klik untuk melihat</string>
     <string name="post_content_warning_show_more">Tampilkan Lebih Banyak</string>
@@ -169,7 +168,6 @@
     <string name="action_add_poll">Tambah pemilihan</string>
     <string name="action_mention">Sebut</string>
     <string name="action_hide_media">Sembunyikan media</string>
-    <string name="action_open_drawer">Buka laci</string>
     <string name="action_delete_and_redraft">Hapus dan draf ulang</string>
     <string name="action_share_as">Bagikan sebagai…</string>
     <string name="send_post_link_to">Bagikan URL post kepada…</string>

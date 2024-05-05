@@ -64,7 +64,6 @@
     <string name="action_unmute">ஒலிக்க செய்</string>
     <string name="action_mention">குறிப்பிடு</string>
     <string name="action_hide_media">மீடியாவை மறை</string>
-    <string name="action_open_drawer">டிராயரைத் திற</string>
     <string name="action_save">சேமி</string>
     <string name="action_edit_profile">சுயவிவரத்தை திருத்த</string>
     <string name="action_edit_own_profile">திருத்த</string>

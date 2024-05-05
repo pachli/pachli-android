@@ -18,15 +18,14 @@
 package app.pachli.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.R
 import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemAccountBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.interfaces.LinkListener
 
 class AccountViewHolder(
     private val binding: ItemAccountBinding,
@@ -42,7 +41,7 @@ class AccountViewHolder(
         accountId = account.id
 
         binding.accountUsername.text = binding.accountUsername.context.getString(
-            R.string.post_username_format,
+            DR.string.post_username_format,
             account.username,
         )
 

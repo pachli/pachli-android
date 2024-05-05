@@ -237,7 +237,7 @@ class NotificationsFragment :
                             error.message,
                             (
                                 error.throwable.getServerErrorMessage() ?: error.throwable.localizedMessage
-                                    ?: getString(R.string.ui_error_unknown)
+                                    ?: getString(app.pachli.core.ui.R.string.ui_error_unknown)
                                 ).unicodeWrap(),
                         )
                         Timber.d(error.throwable, message)

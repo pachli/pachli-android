@@ -8,4 +8,7 @@
     <string name="action_view_profile">Notandasnið</string>
     <string name="action_more">Meira</string>
     <string name="action_refresh">Endurlesa</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_open_drawer">Opna sleða</string>
+    <string name="ui_error_unknown">óþekkt ástæða</string>
 </resources>

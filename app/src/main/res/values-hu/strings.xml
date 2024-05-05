@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Követési kérelmek</string>
     <string name="title_edit_profile">Profilod szerkesztése</string>
     <string name="title_drafts">Piszkozatok</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s megtolta</string>
     <string name="post_sensitive_media_title">Érzékeny tartalom</string>
     <string name="post_media_hidden_title">Rejtett média</string>
@@ -75,7 +74,6 @@
     <string name="action_unmute">Némítás feloldása</string>
     <string name="action_mention">Megemlítés</string>
     <string name="action_hide_media">Média elrejtése</string>
-    <string name="action_open_drawer">Menü megnyitása</string>
     <string name="action_save">Mentés</string>
     <string name="action_edit_profile">Profil szerkesztése</string>
     <string name="action_edit_own_profile">Szerkesztés</string>
@@ -482,7 +480,6 @@
     <string name="pref_show_self_username_disambiguate">Ha több fiók is be van jelentkezve</string>
     <string name="pref_show_self_username_never">Soha</string>
     <string name="duration_no_change">(Nincs változás)</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">Fókuszpont beállítása</string>
     <string name="error_following_hashtag_format">Hiba a #%s követésekor</string>
     <string name="error_unfollowing_hashtag_format">Hiba a #%s követésének befejezésekor</string>
@@ -556,7 +553,6 @@
     <string name="status_filter_placeholder_label_format">Szűrve: %s</string>
     <string name="pref_title_account_filter_keywords">Profil</string>
     <string name="socket_timeout_exception">A kapcsolatfelvétel a kiszolgálóddal túl sokáig tartott</string>
-    <string name="ui_error_unknown">ismeretlen ok</string>
     <string name="ui_error_bookmark_fmt">Bejegyzés könyvjelzőzése sikertelen: %1$s</string>
     <string name="ui_error_clear_notifications">Értesítések törlése sikertelen: %s</string>
     <string name="filter_action_warn">Figyelmeztetés</string>

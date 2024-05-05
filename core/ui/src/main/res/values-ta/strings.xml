@@ -5,4 +5,5 @@
     <string name="action_retry">மீண்டும் முயற்சி</string>
     <string name="action_view_profile">சுயவிவரம்</string>
     <string name="action_more">மேலும்</string>
+    <string name="action_open_drawer">டிராயரைத் திற</string>
 </resources>

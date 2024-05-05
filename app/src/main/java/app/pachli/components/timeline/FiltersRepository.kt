@@ -17,12 +17,12 @@
 
 package app.pachli.components.timeline
 
+import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.network.ServerRepository
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrThrow
 import com.github.michaelbull.result.getOrElse

@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Solicitudes</string>
     <string name="title_edit_profile">Editar tu perfil</string>
     <string name="title_drafts">Borradores</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s compartió</string>
     <string name="post_sensitive_media_title">Contenido sensible</string>
     <string name="post_media_hidden_title">Material oculto</string>
@@ -75,7 +74,6 @@
     <string name="action_unmute">Dejar de silenciar</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_hide_media">Ocultar multimedia</string>
-    <string name="action_open_drawer">Abrir menu</string>
     <string name="action_save">Guardar</string>
     <string name="action_edit_profile">Editar perfil</string>
     <string name="action_edit_own_profile">Editar</string>
@@ -483,7 +481,6 @@
     <string name="failed_to_pin">Fallo al fijar</string>
     <string name="failed_to_unpin">Fallo al quitarlo</string>
     <string name="pref_show_self_username_disambiguate">Cuando hay varias cuentas ingresadas</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="notification_sign_up_description">Notificaciones de nuevos usuarios</string>
     <string name="notification_update_name">Ediciones de una publicación</string>
     <string name="notification_update_description">Notificaciones cuando se editan publicaciones con las que has interactuado</string>
@@ -564,7 +561,6 @@
     <string name="status_filtered_show_anyway">Mostrar de todas formas</string>
     <string name="status_filter_placeholder_label_format">Filtrado: %s</string>
     <string name="pref_title_show_stat_inline">Mostrar estadísticas de la entrada en la línea de tiempo</string>
-    <string name="ui_error_unknown">razón desconocida</string>
     <string name="socket_timeout_exception">Contactar con tu servidor ha tardado demasiado tiempo</string>
     <string name="select_list_empty">Todavía no tienes listas</string>
     <string name="help_empty_home">Esta es tu <b> cronología de inicio</b>. Muestra las publicaciones recientes de las cuentas que sigues.
@@ -641,13 +637,7 @@
     <string name="action_translate_undo">Deshace traducción</string>
     <string name="notification_prune_cache">Mantenimiento de caché…</string>
     <string name="pref_summary_timeline_filters">Tu servidor no soporta los filtros</string>
-    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo no contiene esquemas comprensibles</string>
-    <string name="server_repository_error_get_node_info">fallo al obtener nodeinfo %1$s: %2$s</string>
-    <string name="server_repository_error_validate_node_info">fallo al validar nodeinfo %1$s: %2$s</string>
-    <string name="server_repository_error_get_instance_info">fallo al obtener /api/v1/instance: %1$s</string>
     <string name="server_repository_error">No se pudo obtener la info del servidor %1$s: %2$s</string>
-    <string name="server_repository_error_get_well_known_node_info">fallo al obtener /.well-known/nodeinfo: %1$s</string>
-    <string name="server_repository_error_capabilities">fallo al analizar las capacidades del servidor: %1$s</string>
     <string name="error_media_download">No se pudo descargar %1$s: %2$d %3$s</string>
     <string name="pref_title_update_check_now">Buscar actualizaciones ahora</string>
     <string name="pref_update_check_no_updates">No hay actualizaciones disponibles</string>

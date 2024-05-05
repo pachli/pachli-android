@@ -132,7 +132,6 @@
     <string name="action_edit_own_profile">Oanpasse</string>
     <string name="action_edit_profile">Profyl oanpasse</string>
     <string name="action_save">Bewarje</string>
-    <string name="action_open_drawer">Laad iepenje</string>
     <string name="action_hide_media">Media ferbergje</string>
     <string name="action_mention">Beneame</string>
     <string name="action_unmute_conversation">Petear net mear negearre</string>
@@ -187,7 +186,6 @@
     <string name="post_sensitive_media_directions">Klik om te besjen</string>
     <string name="post_media_hidden_title">Media ferburgen</string>
     <string name="post_sensitive_media_title">Gefoelige ynhâld</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_scheduled_posts">Ynplanne toots</string>
     <string name="title_drafts">Sketsen</string>
     <string name="title_edit_profile">Jo profyl oanpasse</string>

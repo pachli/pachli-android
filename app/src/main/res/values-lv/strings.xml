@@ -20,7 +20,6 @@
     <string name="title_domain_mutes">Paslēptie domēni</string>
     <string name="title_follow_requests">Sekošanas pieprasījumi</string>
     <string name="title_scheduled_posts">Ieplānotie ieraksti</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_announcements">Paziņojumi</string>
     <string name="post_sensitive_media_title">Sensitīvs saturs</string>
     <string name="post_content_show_less">Sakļaut</string>
@@ -222,7 +221,6 @@
     <string name="pref_title_http_proxy_server">HTTP starpniekserveris</string>
     <string name="pref_title_http_proxy_port_message">Portam būtu jābūt starp %d un %d</string>
     <string name="action_view_account_preferences">Konta iestatījumi</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="mute_domain_warning">Vai tiešām vēlaties bloķēt visu %s\? Šī domēna saturs netiks rādīts ne publiskajās laika līnijās, ne paziņojumos. Jūsu sekotāji no šī domēna tiks noņemti.</string>
     <string name="send_post_notification_saved_content">Ieraksta kopija tika saglabāta tavos melnrakstos</string>
     <string name="restart_emoji">Lai pielietotu šīs izmaiņas, ir jāpārstartē Pachli</string>
@@ -309,7 +307,6 @@
     <string name="action_compose">Rakstīt</string>
     <string name="action_logout_confirm">Vai tiešām vēlies iziet no konta %1$s\?</string>
     <string name="action_add_media">Pievienot multividi</string>
-    <string name="action_open_drawer">Atvērt izvēlni</string>
     <string name="action_open_media_n">Atvērt multividi #%d</string>
     <string name="download_media">Lejupielādēt multividi</string>
     <string name="downloading_media">Lejupielādē multividi</string>
@@ -508,7 +505,6 @@
     <string name="total_accounts">Konti kopā</string>
     <string name="dialog_follow_hashtag_title">Sekot tēmturim</string>
     <string name="dialog_follow_hashtag_hint">#tēmturis</string>
-    <string name="ui_error_unknown">nezināms iemesls</string>
     <string name="title_public_trending_hashtags">Tendenču tēmturi</string>
     <string name="action_add">Pievienot</string>
     <string name="filter_description_format">%s: %s</string>

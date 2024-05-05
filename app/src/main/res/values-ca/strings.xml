@@ -23,7 +23,6 @@
     <string name="title_follow_requests">Peticions de seguiment</string>
     <string name="title_edit_profile">Edita el perfil</string>
     <string name="title_drafts">Esborranys</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s ha impulsat</string>
     <string name="post_sensitive_media_title">Contingut sensible</string>
     <string name="post_sensitive_media_directions">Fes clic per a visualitzar-lo</string>
@@ -172,7 +171,6 @@
     <string name="action_hide_reblogs">Amaga els impulsos</string>
     <string name="action_show_reblogs">Mostra els impulsos</string>
     <string name="action_delete_and_redraft">Elimina i reescriu</string>
-    <string name="action_open_drawer">Obre el menú</string>
     <string name="action_toggle_visibility">Visibilitat de la publicació</string>
     <string name="action_content_warning">Contingut sensible</string>
     <string name="action_add_tab">Afegir una pestanya</string>
@@ -510,7 +508,6 @@
     <string name="action_unfollow_hashtag_format">Deixar de seguir #%s\?</string>
     <string name="unsaved_changes">Tens canvis no desats.</string>
     <string name="set_focus_description">Toqueu o arrossegueu el cercle per triar el punt focal que sempre serà visible a les miniatures.</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="pref_title_show_self_username">Mostra el nom d\'usuari a les barres d\'eines</string>
     <string name="action_set_focus">Estableix el punt d\'enfocament</string>
     <string name="description_login">Funciona en la majoria dels casos. No es filtra cap dada a altres aplicacions.</string>
@@ -549,5 +546,4 @@
     <string name="pref_title_account_filter_keywords">Perfils</string>
     <string name="status_filtered_show_anyway">Mostra de totes maneres</string>
     <string name="socket_timeout_exception">El contacte amb el teu servidor ha trigat massa</string>
-    <string name="ui_error_unknown">motiu desconegut</string>
 </resources>

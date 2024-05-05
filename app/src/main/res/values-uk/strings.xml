@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="post_username_format">\@%s</string>
     <string name="title_edit_profile">Редагувати профіль</string>
     <string name="title_follow_requests">Запити на стеження</string>
     <string name="title_bookmarks">Закладки</string>
@@ -150,7 +149,6 @@
     <string name="action_hide_media">Сховати медіа</string>
     <string name="notification_subscription_format">%s щойно опубліковано</string>
     <string name="title_announcements">Оголошення</string>
-    <string name="action_open_drawer">Відкрити меню</string>
     <string name="download_fonts">Спочатку потрібно буде завантажити ці набори емодзі</string>
     <string name="system_default">Типовий системний</string>
     <string name="emoji_style">Стиль емодзі</string>
@@ -493,7 +491,6 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="description_post_language">Мова допису</string>
     <string name="duration_no_change">(Не змінено)</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">Налаштувати точку фокусування</string>
     <string name="pref_show_self_username_always">Завжди</string>
     <string name="set_focus_description">Торкніться або перетягніть коло, щоб вибрати точку фокусування, яку завжди буде видно на мініатюрах.</string>
@@ -564,7 +561,6 @@
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="notification_unknown_name">Невідомо</string>
     <string name="socket_timeout_exception">Надто тривала спроба з\'єднання з вашим сервером</string>
-    <string name="ui_error_unknown">невідома причина</string>
     <string name="ui_error_bookmark_fmt">Не вдалося додати допис до закладок: %1$s</string>
     <string name="ui_error_clear_notifications">Не вдалося очистити сповіщення: %s</string>
     <string name="ui_error_favourite_fmt">Не вдалося вподобати допис: %1$s</string>

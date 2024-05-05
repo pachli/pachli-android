@@ -69,7 +69,6 @@
     <string name="action_unmute">Quitar de silenciar</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_hide_media">Amagar los mèdias</string>
-    <string name="action_open_drawer">Dobrir lo repertòri</string>
     <string name="action_save">Enregistrar</string>
     <string name="action_edit_profile">Modificar lo perfil</string>
     <string name="action_edit_own_profile">Modificar</string>
@@ -228,7 +227,6 @@
     <string name="title_direct_messages">Messatges dirèctes</string>
     <string name="title_tab_preferences">Onglets</string>
     <string name="title_posts_pinned">Penjats</string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">Suprimir lo partatge</string>
     <string name="action_unfavourite">Suprimir lo favorit</string>
     <string name="action_view_account_preferences">Preferéncias del compte</string>
@@ -456,7 +454,6 @@
     <string name="pachli_compose_post_quicksetting_label">Compausar una publicacion</string>
     <string name="account_date_joined">Arribada del %1$s</string>
     <string name="saving_draft">Enregistrament del borrolhon…</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="error_image_edit_failed">Se podiá pas modificar l’imatge.</string>
     <string name="pref_title_wellbeing_mode">Benestar</string>
     <string name="duration_no_change">(Cap de modificacion)</string>
@@ -556,7 +553,6 @@
     <string name="status_filtered_show_anyway">Afichar ça que la</string>
     <string name="status_filter_placeholder_label_format">Filtrat : %s</string>
     <string name="pref_title_account_filter_keywords">Perfils</string>
-    <string name="ui_error_unknown">rason desconeguda</string>
     <string name="hint_filter_title">Mon filtre</string>
     <string name="label_filter_title">Títol</string>
     <string name="filter_action_warn">Avís</string>

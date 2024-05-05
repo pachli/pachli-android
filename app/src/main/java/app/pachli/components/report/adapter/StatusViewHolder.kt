@@ -26,19 +26,19 @@ import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status
+import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.setClickableMentions
+import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemReportStatusBinding
-import app.pachli.interfaces.LinkListener
-import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.StatusViewHelper
 import app.pachli.util.StatusViewHelper.Companion.COLLAPSE_INPUT_FILTER
 import app.pachli.util.StatusViewHelper.Companion.NO_INPUT_FILTER
 import app.pachli.util.getRelativeTimeSpanString
-import app.pachli.util.setClickableMentions
-import app.pachli.util.setClickableText
 import app.pachli.util.shouldTrimStatus
 import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.StatusViewData

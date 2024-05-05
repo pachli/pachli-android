@@ -22,8 +22,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.components.report.model.StatusViewState
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.databinding.ItemReportStatusBinding
-import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.StatusViewData
 
 class StatusesAdapter(

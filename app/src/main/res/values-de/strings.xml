@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Folgeanfragen</string>
     <string name="title_edit_profile">Dein Profil bearbeiten</string>
     <string name="title_drafts">Entwürfe</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s teilte</string>
     <string name="post_sensitive_media_title">Inhaltswarnung</string>
     <string name="post_media_hidden_title">Mediendateien ausgeblendet</string>
@@ -78,7 +77,6 @@
     <string name="action_unmute">Stummschaltung aufheben</string>
     <string name="action_mention">Erwähnen</string>
     <string name="action_hide_media">Mediendateien ausblenden</string>
-    <string name="action_open_drawer">Menü öffnen</string>
     <string name="action_save">Speichern</string>
     <string name="action_edit_profile">Profil bearbeiten</string>
     <string name="action_edit_own_profile">Bearbeiten</string>
@@ -494,7 +492,6 @@
     <string name="pref_show_self_username_never">Niemals</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="description_post_language">Sprache des Beitrags</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">Fokuspunkt setzen</string>
     <string name="action_add_reaction">Reaktion hinzufügen</string>
     <string name="notification_summary_report_format">%s · %d Beiträge angehängt</string>
@@ -560,7 +557,6 @@
     <string name="ui_success_accepted_follow_request">Folgeanfrage akzeptiert</string>
     <string name="ui_success_rejected_follow_request">Folgeanfrage blockiert</string>
     <string name="notification_unknown_name">Unbekannt</string>
-    <string name="ui_error_unknown">Unbekannter Grund</string>
     <string name="ui_error_clear_notifications">Löschen der Benachrichtigungen schlug fehl: %s</string>
     <string name="ui_error_reject_follow_request">Ablehnen der Folgeanfrage schlug fehl: %s</string>
     <string name="status_filter_placeholder_label_format">Gefiltert: %s</string>

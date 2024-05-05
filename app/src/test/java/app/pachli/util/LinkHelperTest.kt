@@ -10,7 +10,9 @@ import app.pachli.R
 import app.pachli.core.activity.BottomSheetActivity.Companion.looksLikeMastodonUrl
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status
-import app.pachli.interfaces.LinkListener
+import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.getDomain
+import app.pachli.core.ui.markupHiddenUrls
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

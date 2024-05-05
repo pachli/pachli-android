@@ -14,7 +14,6 @@
     <string name="title_posts">Iznan</string>
     <string name="title_posts_with_replies">S tririyin</string>
     <string name="title_edit_profile">Ẓreg amaɣnu-ik</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_content_warning_show_more">Zeṛ ugar</string>
     <string name="post_content_warning_show_less">Zeṛ kra kan</string>
     <string name="notification_follow_format">%s yeṭṭafar-ik·ikem-id</string>

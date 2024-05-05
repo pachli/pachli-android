@@ -40,7 +40,6 @@
     <string name="action_edit_own_profile">بژارکردن</string>
     <string name="action_edit_profile">دەستکاری پرۆفایل بکە</string>
     <string name="action_save">بپارێزە</string>
-    <string name="action_open_drawer">کردنەوەی وێنەکێش</string>
     <string name="action_hide_media">شاردنەوەی میدیا</string>
     <string name="action_mention">ئاماژە</string>
     <string name="action_unmute_conversation">گفتوگۆی لاببە</string>
@@ -101,7 +100,6 @@
     <string name="post_media_hidden_title">میدیا شاراوە</string>
     <string name="post_sensitive_media_title">ناوەڕۆکی هەستیار</string>
     <string name="post_boosted_format">%s پۆستی کردەوە</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_announcements">ڕاگه یه نراوەکان</string>
     <string name="title_scheduled_posts">توتی خشتەکراو</string>
     <string name="title_edit_profile">دەستکاری پرۆفایلەکەت بکە</string>

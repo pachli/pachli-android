@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,18 +15,17 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.data.repository
 
 import androidx.annotation.VisibleForTesting
-import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
+import app.pachli.core.network.ServerOperation
+import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.network.ServerRepository
-import app.pachli.settings.AccountPreferenceDataStore
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import io.github.z4kn4fein.semver.constraints.toConstraint
@@ -164,7 +163,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
                 result.onSuccess { server ->
                     _flow.update {
                         it.copy(
-                            canTranslate = server?.can(ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()) ?: false,
+                            canTranslate = server?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()) ?: false,
                         )
                     }
                 }
@@ -173,24 +172,55 @@ class StatusDisplayOptionsRepository @Inject constructor(
         }
     }
 
-    @VisibleForTesting(otherwise = PRIVATE)
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun initialStatusDisplayOptions(account: AccountEntity? = null): StatusDisplayOptions {
         return StatusDisplayOptions(
-            animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, default.animateAvatars),
-            animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, default.animateEmojis),
+            animateAvatars = sharedPreferencesRepository.getBoolean(
+                PrefKeys.ANIMATE_GIF_AVATARS,
+                default.animateAvatars,
+            ),
+            animateEmojis = sharedPreferencesRepository.getBoolean(
+                PrefKeys.ANIMATE_CUSTOM_EMOJIS,
+                default.animateEmojis,
+            ),
             mediaPreviewEnabled = account?.mediaPreviewEnabled ?: default.mediaPreviewEnabled,
-            useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, default.useAbsoluteTime),
-            showBotOverlay = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, default.showBotOverlay),
-            useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, default.useBlurhash),
-            cardViewMode = if (sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_CARDS_IN_TIMELINES, false)) {
+            useAbsoluteTime = sharedPreferencesRepository.getBoolean(
+                PrefKeys.ABSOLUTE_TIME_VIEW,
+                default.useAbsoluteTime,
+            ),
+            showBotOverlay = sharedPreferencesRepository.getBoolean(
+                PrefKeys.SHOW_BOT_OVERLAY,
+                default.showBotOverlay,
+            ),
+            useBlurhash = sharedPreferencesRepository.getBoolean(
+                PrefKeys.USE_BLURHASH,
+                default.useBlurhash,
+            ),
+            cardViewMode = if (sharedPreferencesRepository.getBoolean(
+                    PrefKeys.SHOW_CARDS_IN_TIMELINES,
+                    false,
+                )
+            ) {
                 CardViewMode.INDENTED
             } else {
                 default.cardViewMode
             },
-            confirmReblogs = sharedPreferencesRepository.getBoolean(PrefKeys.CONFIRM_REBLOGS, default.confirmReblogs),
-            confirmFavourites = sharedPreferencesRepository.getBoolean(PrefKeys.CONFIRM_FAVOURITES, default.confirmFavourites),
-            hideStats = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, default.hideStats),
-            showStatsInline = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_STATS_INLINE, default.showStatsInline),
+            confirmReblogs = sharedPreferencesRepository.getBoolean(
+                PrefKeys.CONFIRM_REBLOGS,
+                default.confirmReblogs,
+            ),
+            confirmFavourites = sharedPreferencesRepository.getBoolean(
+                PrefKeys.CONFIRM_FAVOURITES,
+                default.confirmFavourites,
+            ),
+            hideStats = sharedPreferencesRepository.getBoolean(
+                PrefKeys.WELLBEING_HIDE_STATS_POSTS,
+                default.hideStats,
+            ),
+            showStatsInline = sharedPreferencesRepository.getBoolean(
+                PrefKeys.SHOW_STATS_INLINE,
+                default.showStatsInline,
+            ),
             showSensitiveMedia = account?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
             openSpoiler = account?.alwaysOpenSpoiler ?: default.openSpoiler,
             canTranslate = default.canTranslate,

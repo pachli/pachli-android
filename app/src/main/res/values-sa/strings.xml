@@ -22,7 +22,6 @@
     <string name="post_media_hidden_title">प्रच्छन्नसामग्र्यः</string>
     <string name="post_sensitive_media_title">संवेदनशीलो विषयः</string>
     <string name="post_boosted_format">%s अप्रकाशयत्</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_scheduled_posts">कालबद्धदौत्यानि</string>
     <string name="title_drafts">लेखविकर्षाः</string>
     <string name="title_edit_profile">स्वीयव्यक्तिविवरणं सम्पाद्यताम्</string>
@@ -119,7 +118,6 @@
     <string name="action_edit_own_profile">सम्पाद्यताम्</string>
     <string name="action_edit_profile">व्यक्तिविवरणं सम्पाद्यताम्</string>
     <string name="action_save">रक्ष्यताम्</string>
-    <string name="action_open_drawer">पेटिकोद्घट्यताम्</string>
     <string name="action_hide_media">सामग्र्यः वार्यन्ताम्</string>
     <string name="action_mention">उल्लिख्यताम्</string>
     <string name="action_unmute_conversation">सशब्द आलापः क्रियताम्</string>
@@ -415,7 +413,6 @@
     <string name="duration_365_days">३६५ दिनानि</string>
     <string name="duration_no_change">(परिवर्तनं नास्ति)</string>
     <string name="review_notifications">सूचनाः सम्दृश्यन्ताम्</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="pref_show_self_username_never">न कदापि</string>
     <string name="pref_default_post_language">पूर्वनिविष्टा प्रकाशका भाषा</string>
     <string name="notification_report_name">आवेदनानि</string>

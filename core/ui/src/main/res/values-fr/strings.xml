@@ -11,4 +11,7 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Plus</string>
     <string name="action_refresh">Actualiser</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_open_drawer">Ouvrir le menu</string>
+    <string name="ui_error_unknown">raison inconnue</string>
 </resources>

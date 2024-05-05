@@ -11,7 +11,6 @@
     <string name="action_edit_own_profile">Editar</string>
     <string name="action_edit_profile">Editar perfil</string>
     <string name="action_save">Gardar</string>
-    <string name="action_open_drawer">Abrir editor</string>
     <string name="action_hide_media">Agochar multimedia</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_unmute_conversation">Reactivar conversa</string>
@@ -73,7 +72,6 @@
     <string name="post_media_hidden_title">Multimedia agochado</string>
     <string name="post_sensitive_media_title">Contido sensible</string>
     <string name="post_boosted_format">%s promoveu</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_announcements">Anuncios</string>
     <string name="title_scheduled_posts">Toots programados</string>
     <string name="title_drafts">Borradores</string>
@@ -470,7 +468,6 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="error_multimedia_size_limit">Os ficheiros de vídeo e audio non poden superar os %s MB.</string>
     <string name="description_post_language">Idioma de publicación</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">Establece foco</string>
     <string name="error_following_hashtag_format">Erro ao seguir #%s</string>
     <string name="error_unfollowing_hashtag_format">Error ao retirar seguimento de #%s</string>
@@ -548,7 +545,6 @@
     <string name="hint_filter_title">O meu filtro</string>
     <string name="notification_unknown_name">Descoñecido</string>
     <string name="socket_timeout_exception">Estamos tardando demasiado en conectar co servidor</string>
-    <string name="ui_error_unknown">razón descoñecida</string>
     <string name="ui_error_bookmark_fmt">Fallou engadir a marcadores: %1$s</string>
     <string name="ui_error_clear_notifications">Fallou a limpeza das notificacións: %s</string>
     <string name="ui_error_vote_fmt">Fallou a votación na enquisa: %1$s</string>

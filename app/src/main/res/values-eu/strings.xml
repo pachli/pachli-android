@@ -71,7 +71,6 @@
     <string name="action_unmute">Desmututu</string>
     <string name="action_mention">Aipatu</string>
     <string name="action_hide_media">Multimedia ezkutatu</string>
-    <string name="action_open_drawer">Tiradera ireki</string>
     <string name="action_save">Gorde</string>
     <string name="action_edit_profile">Profila editatu</string>
     <string name="action_edit_own_profile">Editatu</string>
@@ -240,7 +239,6 @@
     <string name="title_posts_pinned">Finkatua</string>
     <string name="title_domain_mutes">Ezkutuko domeinuak</string>
     <string name="title_scheduled_posts">Programatutako tutak</string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">Bultzada kendu</string>
     <string name="action_unfavourite">Gogokoa kendu</string>
     <string name="action_edit">Editatu</string>

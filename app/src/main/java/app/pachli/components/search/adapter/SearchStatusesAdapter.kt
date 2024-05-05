@@ -21,9 +21,9 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.adapter.StatusViewHolder
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.StatusViewData
 
 class SearchStatusesAdapter(

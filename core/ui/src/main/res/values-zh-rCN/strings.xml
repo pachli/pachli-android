@@ -8,4 +8,7 @@
     <string name="action_view_profile">个人资料</string>
     <string name="action_more">更多</string>
     <string name="action_refresh">刷新</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_open_drawer">打开菜单</string>
+    <string name="ui_error_unknown">未知原因</string>
 </resources>

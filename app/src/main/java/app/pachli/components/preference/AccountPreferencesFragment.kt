@@ -29,6 +29,8 @@ import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.repository.AccountPreferenceDataStore
+import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.FiltersActivityIntent
@@ -45,8 +47,6 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
-import app.pachli.network.ServerRepository
-import app.pachli.settings.AccountPreferenceDataStore
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preference

@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Zahteve za Sledenje</string>
     <string name="title_edit_profile">Uredi svoj profil</string>
     <string name="title_drafts">Osnutki</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_sensitive_media_title">Občutljiva vsebina</string>
     <string name="post_media_hidden_title">Medij je skrit</string>
     <string name="post_sensitive_media_directions">Kliknite za ogled</string>
@@ -74,7 +73,6 @@
     <string name="action_mute">Utišaj</string>
     <string name="action_mention">Omeni</string>
     <string name="action_hide_media">Skrij medij</string>
-    <string name="action_open_drawer">Odpri predal</string>
     <string name="action_save">Shrani</string>
     <string name="action_edit_profile">Uredi profil</string>
     <string name="action_edit_own_profile">Uredi</string>

@@ -11,4 +11,7 @@
     <string name="action_view_profile">الملف التعريفي</string>
     <string name="action_more">المزيد</string>
     <string name="action_refresh">إنعاش</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_open_drawer">إفتح الدرج</string>
+    <string name="ui_error_unknown">سبب مجهول</string>
 </resources>

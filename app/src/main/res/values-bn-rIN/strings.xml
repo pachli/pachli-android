@@ -28,7 +28,6 @@
     <string name="title_follow_requests">অনুরোধ অনুসরণ করুন</string>
     <string name="title_edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
     <string name="title_drafts">খসড়াগুলো</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s সমর্থন দিয়েছে</string>
     <string name="post_sensitive_media_title">সংবেদনশীল কন্টেন্ট</string>
     <string name="post_media_hidden_title">মিডিয়া লুকানো</string>
@@ -78,7 +77,6 @@
     <string name="action_unmute">সশব্দ</string>
     <string name="action_mention">উল্লেখ</string>
     <string name="action_hide_media">মিডিয়া লুকান</string>
-    <string name="action_open_drawer">ড্রয়ার খুলুন</string>
     <string name="action_save">সংরক্ষণ</string>
     <string name="action_edit_profile">প্রোফাইল সম্পাদনা করো</string>
     <string name="action_edit_own_profile">সম্পাদন</string>

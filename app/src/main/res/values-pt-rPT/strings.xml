@@ -57,7 +57,6 @@
     <string name="post_content_show_less">Contrair</string>
     <string name="title_scheduled_posts">Toots agendados</string>
     <string name="title_announcements">Anúncios</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s deu boost</string>
     <string name="footer_empty">Nada para ver aqui. Arraste para baixo para atualizar!</string>
     <string name="notification_reblog_format">%s deu boost ao seu toot</string>
@@ -116,7 +115,6 @@
     <string name="action_unmute_conversation">Remover conversa do silêncio</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_hide_media">Esconder conteúdo multimédia</string>
-    <string name="action_open_drawer">Abrir menu</string>
     <string name="action_search">Pesquisar</string>
     <string name="action_access_drafts">Rascunhos</string>
     <string name="action_access_scheduled_posts">Toots Agendados</string>
@@ -483,7 +481,6 @@
     <string name="set_focus_description">Toca ou arrasta o círculo para escolher o ponto de focagem que estará sempre visível nas pré-visualizações.</string>
     <string name="filter_expiration_format">%s(%s)</string>
     <string name="duration_no_change">(Sem alteração)</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="pref_show_self_username_always">Sempre</string>
     <string name="pref_show_self_username_disambiguate">Quando autenticado em várias contas</string>
     <string name="pref_show_self_username_never">Nunca</string>

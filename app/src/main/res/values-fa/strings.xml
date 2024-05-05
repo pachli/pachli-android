@@ -70,7 +70,6 @@
     <string name="action_unmute">ناخموشی</string>
     <string name="action_mention">اشاره</string>
     <string name="action_hide_media">نهفتن رسانه</string>
-    <string name="action_open_drawer">گشودن کشو</string>
     <string name="action_save">ذخیره</string>
     <string name="action_edit_profile">ویرایش نمایه</string>
     <string name="action_edit_own_profile">ویرایش</string>
@@ -237,7 +236,6 @@
     <string name="title_tab_preferences">زبانه‌ها</string>
     <string name="title_posts_pinned">سنجاق شده</string>
     <string name="title_domain_mutes">دامنه‌های نهفته</string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">برداشتن تقویت</string>
     <string name="action_unfavourite">برداشتن برگزیدگی</string>
     <string name="action_delete_and_redraft">حذف و بازنویسی</string>
@@ -484,7 +482,6 @@
     <string name="pref_show_self_username_disambiguate">هنگام ورود چندین حساب</string>
     <string name="pref_show_self_username_never">هرگز</string>
     <string name="pref_title_show_self_username">نمایش نام کاربری در نوارابزارها</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_add_reaction">افزودن واکنش</string>
     <string name="action_set_focus">تنظیم نقطهٔ تمرکز</string>
     <string name="duration_no_change">(بدون تغییر)</string>
@@ -549,7 +546,6 @@
     <string name="dialog_follow_hashtag_hint">#برچسب</string>
     <string name="notification_unknown_name">ناشناخته</string>
     <string name="socket_timeout_exception">تماس با کارسازتان بیش از حد طول کشید</string>
-    <string name="ui_error_unknown">دلیل نامعلوم</string>
     <string name="ui_error_bookmark_fmt">%1$s: نشانک گذاری فرسته شکست خورد</string>
     <string name="ui_error_clear_notifications">پاک سازی آگاهی‌ها شکست خورد: %s</string>
     <string name="ui_error_favourite_fmt">%1$s: برگزیدن فرسته شکست خورد</string>

@@ -44,8 +44,8 @@ import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.FragmentViewEditsBinding
-import app.pachli.interfaces.LinkListener
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.mikepenz.iconics.IconicsDrawable

@@ -68,7 +68,6 @@
     <string name="title_edits">Edits</string>
     <string name="dialog_follow_hashtag_title">Follow hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s boosted</string>
     <string name="post_sensitive_media_title">Sensitive content</string>
     <string name="post_media_hidden_title">Media hidden</string>
@@ -159,7 +158,6 @@
     <string name="action_unmute_conversation">Unmute conversation</string>
     <string name="action_mention">Mention</string>
     <string name="action_hide_media">Hide media</string>
-    <string name="action_open_drawer">Open drawer</string>
     <string name="action_save">Save</string>
     <string name="action_edit_profile">Edit profile</string>
     <string name="action_edit_own_profile">Edit</string>
@@ -617,7 +615,6 @@
     <string name="tips_push_notification_migration">Re-login all accounts to enable push notification support.</string>
     <string name="dialog_push_notification_migration">In order to use push notifications via UnifiedPush, Pachli needs permission to subscribe to notifications on your Mastodon server. This requires a re-login to change the OAuth scopes granted to Pachli. Using the re-login option here or in "Account preferences" will preserve all of your local drafts and cache.</string>
     <string name="dialog_push_notification_migration_other_accounts">You have re-logged into your current account to grant push subscription permission to Pachli. However, you still have other accounts that have not been migrated this way. Switch to them and re-login one by one in order to enable UnifiedPush notifications support.</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="delete_scheduled_post_warning">Delete this scheduled post?</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_violation">Rule violation</string>
@@ -637,7 +634,6 @@
     <!-- User friendly error messages for different network errors -->
     <string name="socket_timeout_exception">Contacting your server took too long</string>
     <!-- Error messages, displayed in snackbars, when something failed -->
-    <string name="ui_error_unknown">unknown reason</string>
     <string name="ui_error_bookmark_fmt">Bookmarking post failed: %1$s</string>
     <string name="ui_error_clear_notifications">Clearing notifications failed: %s</string>
     <string name="ui_error_favourite_fmt">Favoriting post failed: %1$s</string>
@@ -687,12 +683,6 @@
     <string name="translation_provider_fmt">%1$s</string>
 
     <string name="server_repository_error">Could not fetch server info for %1$s: %2$s</string>
-    <string name="server_repository_error_get_well_known_node_info">fetching /.well-known/nodeinfo failed: %1$s</string>
-    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo did not contain understandable schemas</string>
-    <string name="server_repository_error_get_node_info">fetching nodeinfo %1$s failed: %2$s</string>
-    <string name="server_repository_error_validate_node_info">validating nodeinfo %1$s failed: %2$s</string>
-    <string name="server_repository_error_get_instance_info">fetching /api/v1/instance failed: %1$s</string>
-    <string name="server_repository_error_capabilities">parsing server capabilities failed: %1$s</string>
     <string name="pref_title_update_check_now">Check for update now</string>
     <string name="pref_update_check_no_updates">There are no updates available</string>
     <string name="pref_update_next_scheduled_check">Next scheduled check: %1$s</string>

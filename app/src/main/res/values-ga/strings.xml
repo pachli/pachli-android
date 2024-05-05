@@ -111,7 +111,6 @@
     <string name="action_undo">Cealaigh</string>
     <string name="action_edit_own_profile">Cuir in Eagar</string>
     <string name="action_save">Sábháil</string>
-    <string name="action_open_drawer">Tarraiceán a oscailt</string>
     <string name="action_hide_media">Folaigh na meáin</string>
     <string name="action_mention">Luaigh</string>
     <string name="action_unmute">Unmute</string>
@@ -400,7 +399,6 @@
     <string name="pref_title_show_cards_in_timelines">Taispeáin réamhamhairc nasc in amlínte</string>
     <string name="pref_title_confirm_reblogs">Taispeáin dialóg dearbhaithe sula n-athchraolfar</string>
     <string name="title_tab_preferences">Cluaisíní</string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_mute_domain">Balbhaigh %s</string>
     <string name="action_unmute_domain">Unmute %s</string>
     <string name="action_unmute_conversation">Comhrá unmute</string>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="profile_badge_bot_text">Bots</string>
+    <string name="post_username_format">\@%s</string>
 </resources>

@@ -80,18 +80,18 @@ import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
+import app.pachli.core.ui.getDomain
+import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ActivityAccountBinding
 import app.pachli.db.DraftsAlert
 import app.pachli.feature.lists.ListsForAccountFragment
 import app.pachli.interfaces.ActionButtonActivity
-import app.pachli.interfaces.LinkListener
 import app.pachli.interfaces.ReselectableFragment
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
-import app.pachli.util.getDomain
-import app.pachli.util.setClickableText
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
@@ -490,7 +490,7 @@ class AccountActivity :
     private fun onAccountChanged(account: Account?) {
         loadedAccount = account ?: return
 
-        val usernameFormatted = getString(R.string.post_username_format, account.username)
+        val usernameFormatted = getString(DR.string.post_username_format, account.username)
         binding.accountUsernameTextView.text = usernameFormatted
         binding.accountDisplayNameTextView.text = account.name.emojify(account.emojis, binding.accountDisplayNameTextView, animateEmojis)
 
@@ -590,7 +590,7 @@ class AccountActivity :
     private fun updateToolbar() {
         loadedAccount?.let { account ->
             supportActionBar?.title = account.name.emojify(account.emojis, binding.accountToolbar, animateEmojis)
-            supportActionBar?.subtitle = String.format(getString(R.string.post_username_format), account.username)
+            supportActionBar?.subtitle = String.format(getString(DR.string.post_username_format), account.username)
         }
     }
 
@@ -607,7 +607,7 @@ class AccountActivity :
             }
 
             binding.accountMovedDisplayName.text = movedAccount.name
-            binding.accountMovedUsername.text = getString(R.string.post_username_format, movedAccount.username)
+            binding.accountMovedUsername.text = getString(DR.string.post_username_format, movedAccount.username)
 
             val avatarRadius = resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 

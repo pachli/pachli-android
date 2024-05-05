@@ -45,6 +45,7 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.StatusContext
 import app.pachli.core.network.model.StatusEdit
 import app.pachli.core.network.model.StatusSource
+import app.pachli.core.network.model.Suggestion
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.model.TrendingTag
@@ -800,4 +801,12 @@ interface MastodonApi {
     suspend fun trendingStatuses(
         @Query("limit") limit: Int? = null,
     ): Response<List<Status>>
+
+    @GET("api/v2/suggestions")
+    suspend fun getSuggestions(
+        @Query("limit") limit: Int? = null,
+    ): ApiResult<List<Suggestion>>
+
+    @DELETE("api/v1/suggestions/{accountId}")
+    suspend fun deleteSuggestion(@Path("accountId") accountId: String): ApiResult<Unit>
 }

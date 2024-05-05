@@ -42,7 +42,6 @@
     <string name="title_migration_relogin">Увайдзіце зноў, каб атрымліваць push-апавяшчэнні</string>
     <string name="title_announcements">Аб\'явы</string>
     <string name="title_followed_hashtags">Падпіскі на хэштэгі</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s пашырыў(-ла)</string>
     <string name="post_sensitive_media_title">Далікатнае змесціва</string>
     <string name="post_media_hidden_title">Медыя схаванае</string>
@@ -208,7 +207,6 @@
     <string name="action_unmute_conversation">Паказаць размову</string>
     <string name="action_mention">Згадаць</string>
     <string name="action_hide_media">Схаваць медыя</string>
-    <string name="action_open_drawer">Адкрыць меню</string>
     <string name="action_save">Захаваць</string>
     <string name="action_edit_profile">Рэдагаваць профіль</string>
     <string name="action_edit_own_profile">Рэдагаваць</string>
@@ -534,7 +532,6 @@
     <string name="wellbeing_hide_stats_posts">Схаваць колькасную статыстыку допісаў</string>
     <string name="wellbeing_hide_stats_profile">Схаваць колькасную статыстыку профіляў</string>
     <string name="report_category_violation">Парушэнне правіла</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="delete_scheduled_post_warning">Выдаліць гэты запланаваны допіс\?</string>
     <string name="poll_new_choice_hint">Варыянт %d</string>
@@ -580,7 +577,6 @@
     <string name="ui_success_accepted_follow_request">Запыт на падпіску пацверджаны</string>
     <string name="ui_success_rejected_follow_request">Запыт на падпіску заблакіраваны</string>
     <string name="ui_error_clear_notifications">Не атрымалася ачысціць апавяшчэнні: %s</string>
-    <string name="ui_error_unknown">невядомая прычына</string>
     <string name="label_filter_title">Загаловак</string>
     <string name="filter_action_hide">Схаваць</string>
     <string name="filter_description_hide">Схаваць поўнасцю</string>

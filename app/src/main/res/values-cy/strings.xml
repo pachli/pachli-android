@@ -70,7 +70,6 @@
     <string name="action_unmute">Dad-dewi</string>
     <string name="action_mention">Crybwyll</string>
     <string name="action_hide_media">Cuddio cyfrwng</string>
-    <string name="action_open_drawer">Agor drôr</string>
     <string name="action_save">Cadw</string>
     <string name="action_edit_profile">Golygu\'ch proffil</string>
     <string name="action_edit_own_profile">Golygu</string>
@@ -231,7 +230,6 @@
     <string name="profile_metadata_add">ychwanegu data</string>
     <string name="profile_metadata_content_label">Cynnwys</string>
     <string name="pref_title_absolute_time">Defnyddio amser absoliwt</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_direct_messages">Negeseuon uniongyrchol</string>
     <string name="title_tab_preferences">Tabiau</string>
     <string name="title_posts_pinned">Piniwyd</string>
@@ -267,7 +265,6 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="notification_clear_text">Ydych chi\'n siŵr eich bod chi am glirio\'ch holl hysbysiadau\'n barhaol\?</string>
     <string name="error_multimedia_size_limit">Ni all ffeiliau fideo a sain fod yn fwy na %s MB.</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="error_following_hashtag_format">Gwall wrth ddilyn #%s</string>
     <string name="error_unfollowing_hashtag_format">Gwall wrth ddad-ddilyn #%s</string>
     <string name="action_unmute_domain">Dad-dewi %s</string>
@@ -596,7 +593,6 @@
     <string name="status_filter_placeholder_label_format">Hidlwyd: %s</string>
     <string name="pref_title_account_filter_keywords">Proffiliau</string>
     <string name="socket_timeout_exception">Cymrodd hi\'n rhy hir i gysylltu â\'ch gweinydd</string>
-    <string name="ui_error_unknown">rheswm anhysbys</string>
     <string name="ui_error_bookmark_fmt">Methodd tudalnodi\'r neges: %1$s</string>
     <string name="ui_error_clear_notifications">Methodd clirio hysbysiadau: %s</string>
     <string name="ui_error_favourite_fmt">Methodd hoffi\'r neges: %1$s</string>

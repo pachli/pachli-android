@@ -140,7 +140,6 @@
     <string name="title_view_thread">Ketju</string>
     <string name="title_scheduled_posts">Ajastetut tuuttaukset</string>
     <string name="action_reply">Vastaa</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_drafts">Luonnokset</string>
     <string name="title_favourites">Suosikit</string>
     <string name="title_bookmarks">Kirjanmerkit</string>
@@ -297,7 +296,6 @@
     <string name="dialog_message_uploading_media">Ladataan…</string>
     <string name="label_header">Otsikko</string>
     <string name="title_public_trending">Nousussa</string>
-    <string name="action_open_drawer">Avaa laatikko</string>
     <string name="notification_header_report_format">%s raportoi %s</string>
     <string name="send_account_username_to">Jaa tilin käyttäjänimi…</string>
     <string name="filter_add_description">Suodatettava lauseke</string>
@@ -487,7 +485,6 @@
     <string name="drafts_post_reply_removed">Julkaisu, johon olit kirjoittanut vastausluonnoksen, on poistettu</string>
     <string name="limit_notifications">Rajoita aikajanan ilmoituksia</string>
     <string name="account_date_joined">Liittyi %1$s</string>
-    <string name="ui_error_unknown">tuntematon syy</string>
     <string name="ui_error_filter_v1_load_fmt">Suodattimien lataaminen epäonnistui: %1$s</string>
     <string name="announcement_date_updated">(Päivitetty: %1$s)</string>
     <string name="tips_push_notification_migration">Kirjaudu uudelleen kaikille tileille push-ilmoitusten ottamiseksi käyttöön.</string>
@@ -542,7 +539,6 @@
     <string name="description_post_reblogged">Tehostettu</string>
     <string name="account_moved_description">%1$s on siirtynyt tänne:</string>
     <string name="description_visibility_direct">Vain mainitut</string>
-    <string name="url_domain_notifier">" (🔗 %s)"</string>
     <string name="description_post_favourited">Tykätty</string>
     <plurals name="poll_timespan_hours">
         <item quantity="one">%d tunti jäljellä</item>
@@ -624,13 +620,7 @@
     <string name="duration_no_change">(Ei muutosta)</string>
     <string name="description_post_media">Media: %s</string>
     <string name="pref_summary_timeline_filters">Palvelimesi ei tue suodattimia</string>
-    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo ei sisältänyt ymmärrettäviä kaavoja</string>
-    <string name="server_repository_error_get_node_info">solmun tietojen haku osoitteesta %1$s epäonnistui: %2$s</string>
-    <string name="server_repository_error_get_instance_info">haku /api/v1/instance epäonnistui: %1$s</string>
-    <string name="server_repository_error_capabilities">palvelimen tietojen jäsentely epäonnistui: %1$s</string>
     <string name="server_repository_error">Palvelintietoja ei voitu hakea osoitteelle %1$s:%2$s</string>
-    <string name="server_repository_error_get_well_known_node_info">haku /.well-known/nodeinfo epäonnistui: %1$s</string>
-    <string name="server_repository_error_validate_node_info">solmun %1$s tietojen validointi epäonnistui: %2$s</string>
     <string name="pref_title_update_check_now">Etsi päivitystä nyt</string>
     <string name="pref_update_next_scheduled_check">Seuraava ajoitettu tarkistus: %1$s</string>
     <string name="pref_update_check_no_updates">Ei päivityksiä tarjolla</string>

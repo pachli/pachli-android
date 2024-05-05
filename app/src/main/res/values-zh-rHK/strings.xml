@@ -28,7 +28,6 @@
     <string name="title_follow_requests">關注請求</string>
     <string name="title_edit_profile">編輯個人資料</string>
     <string name="title_drafts">草稿</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s 轉嘟了</string>
     <string name="post_sensitive_media_title">敏感內容</string>
     <string name="post_media_hidden_title">已隱藏的照片或影片</string>
@@ -78,7 +77,6 @@
     <string name="action_unmute">取消靜音</string>
     <string name="action_mention">提及</string>
     <string name="action_hide_media">隱藏媒體檔案</string>
-    <string name="action_open_drawer">打開應用抽屜</string>
     <string name="action_save">儲存</string>
     <string name="action_edit_profile">編輯個人資料</string>
     <string name="action_edit_own_profile">編輯</string>

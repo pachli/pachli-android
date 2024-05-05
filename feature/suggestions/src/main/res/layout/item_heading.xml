@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Copied from android.R.layout.simple_list_item_1, because view binding does not work with
+     android.R.layout.* -->
+
+<!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@android:id/text1"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textColor="?attr/colorOnSurfaceVariant"-->
+<!--    android:background="?attr/colorSurfaceVariant"-->
+<!--    android:gravity="center_vertical"-->
+<!--    android:minHeight="?android:attr/listPreferredItemHeightSmall"-->
+<!--    android:paddingStart="?android:attr/listPreferredItemPaddingStart"-->
+<!--    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"-->
+<!--    android:textAppearance="@style/TextAppearance.AppCompat.Medium"    tools:ignore="SelectableText"-->
+<!--    tools:text="@string/sources_featured" />-->
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorSurfaceVariant"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/icExpand"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:rotation="180"
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_expand_more_24" />
+
+    <TextView
+        android:id="@+id/headerText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/icExpand"
+        app:layout_constraintTop_toTopOf="@id/icExpand"
+        tools:ignore="SelectableText"
+        tools:text="@string/sources_featured" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->

@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Volgverzoeken</string>
     <string name="title_edit_profile">Profiel bewerken</string>
     <string name="title_drafts">Concepten</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s boostte</string>
     <string name="post_sensitive_media_title">Gevoelige inhoud</string>
     <string name="post_media_hidden_title">Verborgen media</string>
@@ -77,7 +76,6 @@
     <string name="action_unmute">Niet langer negeren</string>
     <string name="action_mention">Vermelden</string>
     <string name="action_hide_media">Media verbergen</string>
-    <string name="action_open_drawer">Menu openen</string>
     <string name="action_save">Opslaan</string>
     <string name="action_edit_profile">Profiel bewerken</string>
     <string name="action_edit_own_profile">Bewerken</string>
@@ -477,7 +475,6 @@
     <string name="set_focus_description">Tik of sleep de cirkel naar een centraal focuspunt dat op elke thumbnail zichtbaar moet blijven.</string>
     <string name="dialog_push_notification_migration">Om pushmeldingen via UnifiedPush te kunnen gebruiken, moet Pachli zich op meldingen van jouw Mastodon-server abonneren. Dit betekent dat je opnieuw moet inloggen om de OAuth-toestemmingen voor Pachli te wijzigen. Het hier of onder accountvoorkeuren opnieuw inloggen behoudt jouw lokale concepten en buffer.</string>
     <string name="dialog_push_notification_migration_other_accounts">Je hebt opnieuw op jouw huidige account ingelogd om toestemming voor pushmeldingen aan Pachli te verlenen. Je hebt echter nog andere accounts die nog niet op deze manier zijn overgezet. Ga naar deze accounts en log één voor één opnieuw in om UnifiedPush-meldingen ook daar in te schakelen.</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="pref_show_self_username_always">Altijd</string>
     <string name="pref_show_self_username_disambiguate">Wanneer meerdere accounts zijn ingelogd</string>
     <string name="pref_show_self_username_never">Nooit</string>
@@ -566,7 +563,6 @@
     <string name="total_accounts">Totaal accounts</string>
     <string name="ui_error_reject_follow_request">Afwijzen volgverzoek mislukt: %s</string>
     <string name="pref_title_show_stat_inline">Toon bericht statistieken in tijdlijn</string>
-    <string name="ui_error_unknown">onbekende reden</string>
     <string name="ui_error_accept_follow_request">Accepteren volgverzoek mislukt: %s</string>
     <string name="label_filter_title">Titel</string>
     <string name="load_newest_notifications">Laad nieuwste meldingen</string>
@@ -631,12 +627,6 @@
     <string name="notification_prune_cache">Cache onderhoud…</string>
     <string name="pref_ui_text_size">UI tekst grootte</string>
     <string name="server_repository_error">Kon geen server info ophalen voor %1$s: %2$s</string>
-    <string name="server_repository_error_get_well_known_node_info">ophalen /.well-known/nodeinfo mislukt: %1$s</string>
-    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo bevatte geen begrijpbare schemas</string>
-    <string name="server_repository_error_get_node_info">ophalen nodeinfo %1$s mislukt: %2$s</string>
-    <string name="server_repository_error_validate_node_info">valideren van nodeinfo %1$s mislukt: %2$s</string>
-    <string name="server_repository_error_get_instance_info">ophalen van /api/v1/instance mislukt: %1$s</string>
-    <string name="server_repository_error_capabilities">verwerken van server mogelijkheden mislukt: %1$s</string>
     <string name="pref_title_update_check_now">Controleer nu op update</string>
     <string name="pref_update_check_no_updates">Er zijn geen updates beschikbaar</string>
     <string name="pref_update_next_scheduled_check">Volgende geplande controle: %1$s</string>

@@ -36,7 +36,6 @@
     <string name="title_follow_requests">Fylgjendabeiðnir</string>
     <string name="title_edit_profile">Breyta notandasniðinu þínu</string>
     <string name="title_scheduled_posts">Áætlaðar færslur</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s endurbirti</string>
     <string name="post_sensitive_media_title">Viðkvæmt efni</string>
     <string name="post_media_hidden_title">Myndefni er falið</string>
@@ -89,7 +88,6 @@
     <string name="action_mute_domain">Þagga niður í %s</string>
     <string name="action_mention">Tilvísun</string>
     <string name="action_hide_media">Fela myndefni</string>
-    <string name="action_open_drawer">Opna sleða</string>
     <string name="action_save">Vista</string>
     <string name="action_edit_own_profile">Breyta</string>
     <string name="action_undo">Afturkalla</string>
@@ -479,7 +477,6 @@
     <string name="failed_to_unpin">Mistókst að losa</string>
     <string name="pref_show_self_username_always">Alltaf</string>
     <string name="pref_show_self_username_disambiguate">Þegar er skráð inn á mörgum aðgöngum</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">Setja virknistað</string>
     <string name="pref_show_self_username_never">Aldrei</string>
     <string name="pref_title_show_self_username">Birta notandanafn á verkfærastikum</string>
@@ -557,7 +554,6 @@
     <string name="filter_description_hide">Fela alveg</string>
     <string name="ui_error_bookmark_fmt">Mistókst að bókamerkja færslu: %1$s</string>
     <string name="socket_timeout_exception">Rann út á tíma við að tengjast netþjóninum þínum</string>
-    <string name="ui_error_unknown">óþekkt ástæða</string>
     <string name="ui_error_clear_notifications">Vandamál með hreinsun á tilkynningum: %s</string>
     <string name="ui_error_reject_follow_request">Mistókst að hafna fylgjendabeiðni: %s</string>
     <string name="ui_success_accepted_follow_request">Samþykkt beiðni um að fylgjast með</string>

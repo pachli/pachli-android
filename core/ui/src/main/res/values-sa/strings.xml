@@ -7,4 +7,6 @@
     <string name="button_done">कृतम्</string>
     <string name="action_view_profile">व्यक्तिविवरणम्</string>
     <string name="action_more">अधिकम्</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_open_drawer">पेटिकोद्घट्यताम्</string>
 </resources>

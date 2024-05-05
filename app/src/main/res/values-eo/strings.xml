@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Petoj de sekvado</string>
     <string name="title_edit_profile">Redakti vian profilon</string>
     <string name="title_drafts">Malnetoj</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s diskonigis</string>
     <string name="post_sensitive_media_title">Tikla enhavo</string>
     <string name="post_media_hidden_title">Kaŝitaj aŭdovidaĵoj</string>
@@ -77,7 +76,6 @@
     <string name="action_unmute">Malsilentigi</string>
     <string name="action_mention">Mencii</string>
     <string name="action_hide_media">Kaŝi aŭdovidaĵojn</string>
-    <string name="action_open_drawer">Montri tirmenuon</string>
     <string name="action_save">Konservi</string>
     <string name="action_edit_profile">Redakti profilon</string>
     <string name="action_edit_own_profile">Redakti</string>
@@ -491,5 +489,4 @@
     <string name="description_post_language">Mesaĝolingvo</string>
     <string name="dialog_push_notification_migration">Por ricevi sciigoj per UnifiedPush, Pachli bezonas taŭgan permeson el Mastodon-servilo. Tio postulas re-ensaluton por ŝanĝi OAuth-rajtoj donitaj al Pachli. Se vi uzas la opcion re-ensaluti ĉi tie aŭ en la agordoj de la konto, viaj malnetoj kaj kaŝmemoroj estos konservitaj.</string>
     <string name="dialog_push_notification_migration_other_accounts">Vi re-ensalutis en tiu konto por doni sciigo-permeson al Pachli. Vi havas tamen aliajn kontojn, ĉe kiuj vi devas re-sensaluti. Iru al ili, kaj re-ensalutu por ebligi ricevon de sciigoj per UnifiedPush.</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
 </resources>

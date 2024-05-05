@@ -19,9 +19,9 @@ package app.pachli.components.accountlist.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import app.pachli.adapter.FollowRequestViewHolder
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.interfaces.LinkListener
 
 /** Displays a list of follow requests with accept/reject buttons. */
 class FollowRequestsAdapter(

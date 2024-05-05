@@ -8,4 +8,7 @@
     <string name="action_view_profile">Pròifil</string>
     <string name="action_more">Barrachd</string>
     <string name="action_refresh">Ath-nuadhaich</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_open_drawer">Fosgail an drathair</string>
+    <string name="ui_error_unknown">chan eil fhios dè an t-adhbhar</string>
 </resources>

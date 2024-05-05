@@ -28,7 +28,6 @@
     <string name="title_follow_requests">关注请求</string>
     <string name="title_edit_profile">编辑个人资料</string>
     <string name="title_drafts">草稿</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s 转嘟了</string>
     <string name="post_sensitive_media_title">敏感内容</string>
     <string name="post_media_hidden_title">已隐藏的照片或视频</string>
@@ -78,7 +77,6 @@
     <string name="action_unmute">取消隐藏</string>
     <string name="action_mention">提及</string>
     <string name="action_hide_media">隐藏媒体文件</string>
-    <string name="action_open_drawer">打开菜单</string>
     <string name="action_save">保存</string>
     <string name="action_edit_profile">编辑个人资料</string>
     <string name="action_edit_own_profile">编辑</string>
@@ -475,7 +473,6 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="duration_no_change">(无更改)</string>
     <string name="description_post_language">嘟文语言</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">设置焦点</string>
     <string name="set_focus_description">轻按或拖动圆圈选择始终在缩略图中可见的焦点。</string>
     <string name="pref_show_self_username_disambiguate">登录多个账户时</string>
@@ -546,7 +543,6 @@
     <string name="dialog_follow_hashtag_title">关注话题标签</string>
     <string name="notification_unknown_name">未知</string>
     <string name="socket_timeout_exception">联系你的服务器花了太长时间</string>
-    <string name="ui_error_unknown">未知原因</string>
     <string name="ui_error_clear_notifications">未能清除通知：%s</string>
     <string name="ui_error_bookmark_fmt">未能将嘟文将入书签：%1$s</string>
     <string name="ui_error_favourite_fmt">收藏嘟文失败：%1$s</string>

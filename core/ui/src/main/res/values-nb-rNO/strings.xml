@@ -8,4 +8,7 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Mer</string>
     <string name="action_refresh">Oppdater</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_open_drawer">Åpne skuff</string>
+    <string name="ui_error_unknown">ukjent grunn</string>
 </resources>

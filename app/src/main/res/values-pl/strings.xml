@@ -68,7 +68,6 @@
     <string name="action_unmute">Cofnij wyciszenie</string>
     <string name="action_mention">Wspomnij</string>
     <string name="action_hide_media">Ukryj multimedia</string>
-    <string name="action_open_drawer">Otwórz szufladkę</string>
     <string name="action_save">Zapisz</string>
     <string name="action_edit_profile">Edytuj profil</string>
     <string name="action_edit_own_profile">Edytuj</string>
@@ -241,7 +240,6 @@
     <string name="action_share_as">Udostępnij jako …</string>
     <string name="title_tab_preferences">Zakładki</string>
     <string name="title_domain_mutes">Ukryte domeny</string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">Cofnij podbicie</string>
     <string name="action_view_domain_mutes">Ukryte domeny</string>
     <string name="action_add_poll">Dodaj głosowanie</string>
@@ -500,7 +498,6 @@
     <string name="error_multimedia_size_limit">Pliki wideo i audio nie mogą przekraczać rozmiarem %s MB.</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="description_post_language">Język wpisu</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="duration_no_change">(bez zmian)</string>
     <string name="error_following_hashtag_format">Wystąpił błąd podczas obserwowania #%s</string>
     <string name="error_unfollowing_hashtag_format">Wystąpił błąd podczas odobserwowywania #%s</string>
@@ -584,7 +581,6 @@
     <string name="total_usage">Całkowite użycie</string>
     <string name="filter_keyword_addition_title">Dodaj słowo kluczowe</string>
     <string name="hint_description">Opis</string>
-    <string name="ui_error_unknown">nieznany powód</string>
     <string name="confirmation_hashtag_muted">Ukryto #%s</string>
     <string name="title_tab_public_trending_statuses">Wpisy</string>
     <string name="filter_description_hide">Ukryj całkowicie</string>

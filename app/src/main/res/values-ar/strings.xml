@@ -28,7 +28,6 @@
     <string name="title_follow_requests">طلبات المتابعة</string>
     <string name="title_edit_profile">عدل ملفك التعريفي</string>
     <string name="title_drafts">المسودات</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">شاركه %s</string>
     <string name="post_sensitive_media_title">محتوى حساس</string>
     <string name="post_media_hidden_title">وسائط مخفية</string>
@@ -77,7 +76,6 @@
     <string name="action_unmute">إلغاء الكتم</string>
     <string name="action_mention">أذكر</string>
     <string name="action_hide_media">إخفاء الوسائط</string>
-    <string name="action_open_drawer">إفتح الدرج</string>
     <string name="action_save">إحفظ</string>
     <string name="action_edit_profile">تعديل الملف التعريفي</string>
     <string name="action_edit_own_profile">تعديل</string>
@@ -552,7 +550,6 @@
     <string name="description_post_language">لغة المنشور</string>
     <string name="delete_scheduled_post_warning">هل تريد حذف هذا المنشور المُبَرمَج؟</string>
     <string name="tips_push_notification_migration">أعد تسجيل الدخول إلى جميع الحسابات لتمكين دعم الإشعارات.</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">ضبط نقطة التركيز</string>
     <string name="action_edit_image">تعديل الصورة</string>
     <string name="action_add_reaction">إضافة رد فعل</string>
@@ -584,7 +581,6 @@
     <string name="title_public_trending_hashtags">الوسوم المتداولة</string>
     <string name="accessibility_talking_about_tag">هناك %1$d أشخاص يتحدثون عن الوسم %2$s</string>
     <string name="total_usage">الاستخدام الإجمالي</string>
-    <string name="ui_error_unknown">سبب مجهول</string>
     <string name="socket_timeout_exception">طال الاتصال بخادمك كثيرًا</string>
     <string name="action_add">إضافة</string>
     <string name="ui_error_translate_status_fmt">%1$s :فشلت الترجمة</string>

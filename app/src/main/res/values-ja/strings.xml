@@ -75,7 +75,6 @@
     <string name="action_unmute">ミュート解除</string>
     <string name="action_mention">返信</string>
     <string name="action_hide_media">メディアを隠す</string>
-    <string name="action_open_drawer">メニューを開く</string>
     <string name="action_save">保存</string>
     <string name="action_edit_profile">プロフィールを編集</string>
     <string name="action_edit_own_profile">編集</string>
@@ -267,7 +266,6 @@
     </string>
     <string name="description_visibility_direct">        ダイレクト
     </string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">ブーストを解除</string>
     <string name="action_unfavourite">お気に入りを解除</string>
     <string name="action_open_reblogged_by">ブーストを表示</string>
@@ -432,7 +430,6 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="error_multimedia_size_limit">ビデオと音声ファイルのサイズは %s MB を超えることはできません。</string>
     <string name="error_image_edit_failed">画像が編集できませんでした。</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_edit_image">画像の編集</string>
     <string name="error_following_hashtags_unsupported">このインスタンスはハッシュタグのフォローに対応していません。</string>
     <string name="title_followed_hashtags">フォローしたハッシュタグ</string>
@@ -566,7 +563,6 @@
     <string name="filter_keyword_addition_title">キーワードを追加</string>
     <string name="total_usage">合計使用量</string>
     <string name="total_accounts">総アカウント</string>
-    <string name="ui_error_unknown">不明な理由</string>
     <string name="ui_error_accept_follow_request">フォローリクエストの承認に失敗しました: %s</string>
     <string name="ui_error_reject_follow_request">フォローリクエストの拒否に失敗しました: %s</string>
     <string name="hint_filter_title">フィルター</string>
