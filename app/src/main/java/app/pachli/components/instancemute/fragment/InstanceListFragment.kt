@@ -100,13 +100,16 @@ class InstanceListFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            val response = api.domainBlocks(id, bottomId)
-            val instances = response.body()
-
-            if (response.isSuccessful && instances != null) {
-                onFetchInstancesSuccess(instances, response.headers()["Link"])
-            } else {
-                onFetchInstancesFailure(Exception(response.message()))
+            try {
+                val response = api.domainBlocks(id, bottomId)
+                val instances = response.body()
+                if (response.isSuccessful && instances != null) {
+                    onFetchInstancesSuccess(instances, response.headers()["Link"])
+                } else {
+                    onFetchInstancesFailure(Exception(response.message()))
+                }
+            } catch (e: Exception) {
+                onFetchInstancesFailure(e)
             }
         }
     }
