@@ -37,7 +37,7 @@ fun Activity.startActivityWithTransition(intent: Intent, transitionKind: Transit
         }
     }
 
-    intent.putExtra(EXTRA_TRANSITION_KIND, transitionKind)
+    intent.putExtra(EXTRA_TRANSITION_KIND_NAME, transitionKind.name)
     startActivity(intent)
 
     if (canOverrideActivityTransitions()) {
