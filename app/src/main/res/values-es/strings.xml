@@ -57,7 +57,7 @@
     <string name="action_hide_reblogs">Ocultar impulsos</string>
     <string name="action_show_reblogs">Mostrar impulsos</string>
     <string name="action_report">Reportar</string>
-    <string name="action_delete">Borrar</string>
+    <string name="action_delete">Eliminar</string>
     <string name="action_send">TOOT</string>
     <string name="action_send_public">¡Publicar!</string>
     <string name="action_view_preferences">Ajustes</string>
