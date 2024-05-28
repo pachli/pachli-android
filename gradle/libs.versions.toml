@@ -90,7 +90,7 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
-ktlint = "org.jlleitschuh.gradle.ktlint:12.1.0"
+ktlint = "org.jlleitschuh.gradle.ktlint:12.1.1"
 room = { id = "androidx.room", version.ref = "androidx-room" }
 quadrant = { id = "com.gaelmarhic.quadrant", version.ref = "quadrant" }
 apollographql = { id = "com.apollographql.apollo3", version.ref = "apollographql"}
