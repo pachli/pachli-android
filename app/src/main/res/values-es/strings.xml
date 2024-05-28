@@ -29,7 +29,7 @@
     <string name="title_edit_profile">Editar tu perfil</string>
     <string name="title_drafts">Borradores</string>
     <string name="post_username_format">\@%s</string>
-    <string name="post_boosted_format">%s compartió</string>
+    <string name="post_boosted_format">%s impulsó</string>
     <string name="post_sensitive_media_title">Contenido sensible</string>
     <string name="post_media_hidden_title">Material oculto</string>
     <string name="post_sensitive_media_directions">Pulsa para ver</string>
@@ -45,7 +45,7 @@
     <string name="report_comment_hint">¿Información adicional?</string>
     <string name="action_quick_reply">Respuesta rápida</string>
     <string name="action_reply">Responder</string>
-    <string name="action_reblog">Compartir</string>
+    <string name="action_reblog">Impulsar</string>
     <string name="action_favourite">Favorito</string>
     <string name="action_compose">Redactar</string>
     <string name="action_logout">Cerrar sesión</string>
@@ -238,8 +238,8 @@
     <string name="restart">Reiniciar</string>
     <string name="download_failed">Descarga fallida</string>
     <string name="account_moved_description">%1$s se trasladó a:</string>
-    <string name="reblog_private">Volver a compartir</string>
-    <string name="unreblog_private">Dejar de compartir</string>
+    <string name="reblog_private">Impulsar al público original</string>
+    <string name="unreblog_private">Dejar de impulsar</string>
     <string name="profile_metadata_label">Información adicional</string>
     <string name="profile_metadata_add">añadir campo</string>
     <string name="profile_metadata_label_label">Etiqueta</string>
@@ -340,7 +340,7 @@
     <string name="poll_ended_voted">Una encuesta en la que has votado ha terminado</string>
     <string name="poll_ended_created">Una encuesta que has creado ha terminado</string>
     <string name="action_open_reblogger">Abrir autor del impulso</string>
-    <string name="action_open_reblogged_by">Mostrar compartidos</string>
+    <string name="action_open_reblogged_by">Mostrar impulsos</string>
     <string name="title_domain_mutes">Dominios ocultos</string>
     <string name="action_view_domain_mutes">Dominios ocultos</string>
     <string name="action_mute_domain">Silenciar %s</string>
@@ -638,7 +638,7 @@
     <string name="update_dialog_title">Una actualización está disponible</string>
     <string name="title_tab_public_trending_hashtags">Etiquetas</string>
     <string name="label_image">Imagen</string>
-    <string name="action_translate_undo">Deshace traducción</string>
+    <string name="action_translate_undo">Deshacer traducción</string>
     <string name="notification_prune_cache">Mantenimiento de caché…</string>
     <string name="pref_summary_timeline_filters">Tu servidor no soporta los filtros</string>
     <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo no contiene esquemas comprensibles</string>
