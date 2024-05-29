@@ -54,7 +54,9 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             // Ignore notifications that don't have an associated statusViewData,
             // otherwise the accessors throw IllegalStateException.
             // See https://github.com/pachli/pachli-android/issues/669
-            if ((status as? NotificationViewData)?.statusViewData == null) return
+            if (status as? NotificationViewData != null) {
+                if (status.statusViewData == null) return
+            }
 
             if (status.spoilerText.isNotEmpty()) {
                 info.addAction(if (status.isExpanded) collapseCwAction else expandCwAction)
