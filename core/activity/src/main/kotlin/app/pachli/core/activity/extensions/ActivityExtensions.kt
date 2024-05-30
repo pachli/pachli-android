@@ -40,8 +40,8 @@ fun Activity.startActivityWithTransition(intent: Intent, transitionKind: Transit
             throw IllegalStateException("startActivityWithTransition must be used with BaseActivity subclass")
         }
     }
-    intent.putExtra(EXTRA_TRANSITION_KIND, transitionKind)
 
+    intent.putExtra(EXTRA_TRANSITION_KIND, transitionKind)
     startActivity(intent)
 
     if (canOverrideActivityTransitions()) {
