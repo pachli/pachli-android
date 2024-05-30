@@ -116,7 +116,7 @@ data class Server(
             val capabilities = capabilitiesFromServerVersion(serverKind, version)
 
             when (serverKind) {
-                GLITCH, MASTODON -> {
+                GLITCH, HOMETOWN, MASTODON -> {
                     if (instanceV2.configuration.translation.enabled) {
                         capabilities[ORG_JOINMASTODON_STATUSES_TRANSLATE] = when {
                             version >= "4.2.0".toVersion() -> "1.1.0".toVersion()
