@@ -27,8 +27,12 @@ import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.BuildConfig
 
 /**
- * Starts the activity in [intent] (which must be a subclass of [BaseActivity])
- * using [transitionKind] as the open/close transition.
+ * Starts the activity in [intent]. Should only be called on subclasses of [BaseActivity].
+ *
+ * If the activity is a Pachli activity then [transitionKind] is included in the intent and
+ * used as the open/close transition.
+ *
+ * See [BaseActivity.onCreate] for the other half of this code.
  */
 fun Activity.startActivityWithTransition(intent: Intent, transitionKind: TransitionKind) {
     if (BuildConfig.DEBUG) {
@@ -60,7 +64,7 @@ fun Activity.startActivityWithDefaultTransition(intent: Intent) = startActivityW
 fun Activity.setCloseTransition(transitionKind: TransitionKind) {
     if (BuildConfig.DEBUG) {
         if (this !is BaseActivity) {
-            throw IllegalStateException("startActivityWithTransition must be used with BaseActivity subclass")
+            throw IllegalStateException("setCloseTransition must be used with BaseActivity subclass")
         }
     }
 
