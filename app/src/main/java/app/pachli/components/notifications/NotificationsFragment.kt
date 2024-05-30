@@ -52,15 +52,14 @@ import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
-import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.AccountActionListener
@@ -235,10 +234,7 @@ class NotificationsFragment :
                     viewModel.uiError.collect { error ->
                         val message = getString(
                             error.message,
-                            (
-                                error.throwable.getServerErrorMessage() ?: error.throwable.localizedMessage
-                                    ?: getString(R.string.ui_error_unknown)
-                                ).unicodeWrap(),
+                            error.throwable.getErrorString(requireContext()),
                         )
                         Timber.d(error.throwable, message)
                         val snackbar = Snackbar.make(

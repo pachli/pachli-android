@@ -29,7 +29,7 @@ import retrofit2.HttpException
 fun Throwable.getDrawableRes(): Int = when (this) {
     is IOException -> R.drawable.errorphant_offline
     is HttpException -> {
-        if (this.code() == 404) {
+        if (code() == 404) {
             R.drawable.elephant_friend_empty
         } else {
             R.drawable.errorphant_offline
@@ -38,10 +38,18 @@ fun Throwable.getDrawableRes(): Int = when (this) {
     else -> R.drawable.errorphant_error
 }
 
-/** @return A string error message for this throwable */
-fun Throwable.getErrorString(context: Context): String = getServerErrorMessage() ?: when (this) {
-    is IOException -> String.format(context.getString(R.string.error_network_fmt), this.localizedMessage.unicodeWrap())
-    is HttpException -> if (this.code() == 404) String.format(context.getString(R.string.error_404_not_found_fmt), this.message.unicodeWrap()) else String.format(context.getString(R.string.error_generic_fmt), this.message.unicodeWrap())
-    is JsonDataException -> String.format(context.getString(R.string.error_json_data_fmt), this.message.unicodeWrap())
-    else -> String.format(context.getString(R.string.error_generic_fmt), this.message.unicodeWrap())
-}
+/** @return A unicode-wrapped string error message for this throwable */
+fun Throwable.getErrorString(context: Context): String = (
+    getServerErrorMessage() ?: when (this) {
+        is IOException -> String.format(context.getString(R.string.error_network_fmt), localizedMessage)
+        is HttpException -> {
+            if (code() == 404) {
+                String.format(context.getString(R.string.error_404_not_found_fmt), localizedMessage)
+            } else {
+                String.format(context.getString(R.string.error_generic_fmt), localizedMessage)
+            }
+        }
+        is JsonDataException -> String.format(context.getString(R.string.error_json_data_fmt), localizedMessage)
+        else -> String.format(context.getString(R.string.error_generic_fmt), localizedMessage)
+    }
+    ).unicodeWrap()

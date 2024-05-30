@@ -34,13 +34,12 @@ import app.pachli.core.activity.extensions.setCloseTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.activity.openLinkInCustomTab
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.MainActivityIntent
-import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.AccessToken
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.getNonNullString
+import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.feature.login.databinding.ActivityLoginBinding
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
@@ -196,7 +195,7 @@ class LoginActivity : BaseActivity() {
                     binding.domainTextInputLayout.error =
                         String.format(
                             getString(R.string.error_failed_app_registration_fmt),
-                            (e.getServerErrorMessage() ?: e.localizedMessage).unicodeWrap(),
+                            e.getErrorString(this@LoginActivity),
                         )
                     setLoading(false)
                     Timber.e(e, "Error when creating/registing app")

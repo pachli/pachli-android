@@ -5,6 +5,7 @@ import app.cash.turbine.test
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.PinEvent
 import app.pachli.components.timeline.CachedTimelineRepository
+import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
@@ -54,7 +55,7 @@ class TimelineCasesTest {
     }
 
     @Test
-    fun `pin failure with server error throws TimelineError with server message`() {
+    fun `pin failure with server error returns failure with server message`() {
         api.stub {
             onBlocking { pinStatus(statusId) } doReturn NetworkResult.failure(
                 HttpException(
@@ -68,7 +69,7 @@ class TimelineCasesTest {
         runBlocking {
             assertEquals(
                 "Validation Failed: You have already pinned the maximum number of toots",
-                timelineCases.pin(statusId, true).exceptionOrNull()?.message,
+                timelineCases.pin(statusId, true).exceptionOrNull()?.getServerErrorMessage(),
             )
         }
     }
