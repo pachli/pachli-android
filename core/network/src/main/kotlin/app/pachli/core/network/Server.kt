@@ -116,7 +116,7 @@ data class Server(
             val capabilities = capabilitiesFromServerVersion(serverKind, version)
 
             when (serverKind) {
-                MASTODON -> {
+                GLITCH, MASTODON -> {
                     if (instanceV2.configuration.translation.enabled) {
                         capabilities[ORG_JOINMASTODON_STATUSES_TRANSLATE] = when {
                             version >= "4.2.0".toVersion() -> "1.1.0".toVersion()
@@ -256,8 +256,6 @@ data class Server(
         /**
          * Capabilities that can be determined directly from the server's version, without checking
          * the instanceInfo response.
-         *
-         * Modifies `capabilities` by potentially adding new capabilities to the map.
          */
         private fun capabilitiesFromServerVersion(kind: ServerKind, v: Version): MutableMap<ServerOperation, Version> {
             val c = mutableMapOf<ServerOperation, Version>()
