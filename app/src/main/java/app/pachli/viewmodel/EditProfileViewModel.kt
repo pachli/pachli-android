@@ -26,7 +26,6 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.InstanceInfoRepository
-import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.StringField
 import app.pachli.core.network.retrofit.MastodonApi
@@ -151,7 +150,7 @@ class EditProfileViewModel @Inject constructor(
                     eventHub.dispatch(ProfileEditedEvent(newAccountData))
                 },
                 { throwable ->
-                    saveData.postValue(Error(errorMessage = throwable.getServerErrorMessage()))
+                    saveData.postValue(Error(cause = throwable))
                 },
             )
         }

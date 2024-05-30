@@ -38,13 +38,12 @@ import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
-import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
+import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
@@ -211,10 +210,7 @@ class ViewThreadFragment :
         lifecycleScope.launch {
             viewModel.errors.collect { throwable ->
                 Timber.w(throwable, "failed to load status context")
-                val msg = view.context.getString(
-                    app.pachli.core.ui.R.string.error_generic_fmt,
-                    throwable.getServerErrorMessage().unicodeWrap(),
-                )
+                val msg = throwable.getErrorString(view.context)
                 Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
                     .setAction(app.pachli.core.ui.R.string.action_retry) {
                         viewModel.retry(thisThreadsStatusId)
