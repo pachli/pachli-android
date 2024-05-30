@@ -34,6 +34,19 @@ class UpdateCheck @Inject constructor(
     }
 
     override suspend fun remoteFetchLatestVersionCode(): Int? {
-        return fdroidService.getPackage(BuildConfig.APPLICATION_ID).getOrNull()?.suggestedVersionCode
+        val fdroidPackage = fdroidService.getPackage(BuildConfig.APPLICATION_ID).getOrNull() ?: return null
+
+        // `packages` is a list of all packages that have been built and are available.
+        //
+        // The package with `suggestedVersionCode` might not have been built yet (see
+        // https://github.com/pachli/pachli-android/issues/684).
+        //
+        // Check that `suggestedVersionCode` appears in the list of packages. If it
+        // does, use that.
+        val suggestedVersionCode = fdroidPackage.suggestedVersionCode
+        if (fdroidPackage.packages.any { it.versionCode == suggestedVersionCode }) return suggestedVersionCode
+
+        // Otherwise, use the highest version code in `packages`.
+        return fdroidPackage.packages.maxByOrNull { it.versionCode }?.versionCode
     }
 }
