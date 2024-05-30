@@ -27,7 +27,6 @@ import app.pachli.appstore.PollVoteEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
-import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Relationship
@@ -122,7 +121,7 @@ class TimelineCases @Inject constructor(
             NetworkResult.success(status)
         }, { e ->
             Timber.w(e, "Failed to change pin state")
-            NetworkResult.failure(TimelineError(e.getServerErrorMessage()))
+            NetworkResult.failure(e)
         })
     }
 
@@ -152,5 +151,3 @@ class TimelineCases @Inject constructor(
         cachedTimelineRepository.translateUndo(statusViewData)
     }
 }
-
-class TimelineError(message: String?) : RuntimeException(message)

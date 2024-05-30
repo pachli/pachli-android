@@ -31,8 +31,8 @@ import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.model.InstanceInfo
-import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.MediaUploadApi
+import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.network.ProgressRequestBody
 import app.pachli.util.MEDIA_SIZE_UNKNOWN
 import app.pachli.util.getImageSquarePixels
@@ -313,12 +313,7 @@ class MediaUploader @Inject constructor(
                 send(UploadEvent.FinishedEvent(responseBody.id, uploadResponse.code() == 200))
             } else {
                 val error = HttpException(uploadResponse)
-                val errorMessage = error.getServerErrorMessage()
-                if (errorMessage == null) {
-                    throw error
-                } else {
-                    throw UploadServerError(errorMessage)
-                }
+                throw UploadServerError(error.getErrorString(context))
             }
 
             awaitClose()

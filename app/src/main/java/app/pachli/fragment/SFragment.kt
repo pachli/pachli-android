@@ -60,6 +60,7 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.network.ServerRepository
 import app.pachli.usecase.TimelineCases
@@ -339,8 +340,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 R.id.pin -> {
                     lifecycleScope.launch {
                         timelineCases.pin(status.id, !status.isPinned()).onFailure { e: Throwable ->
-                            val message = e.message
-                                ?: getString(if (status.isPinned()) R.string.failed_to_unpin else R.string.failed_to_pin)
+                            val message = e.getErrorString(requireContext())
                             Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
                         }
                     }

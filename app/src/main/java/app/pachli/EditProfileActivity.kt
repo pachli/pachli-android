@@ -41,6 +41,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.extensions.await
+import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.databinding.ActivityEditProfileBinding
 import app.pachli.util.Error
 import app.pachli.util.Loading
@@ -221,7 +222,7 @@ class EditProfileActivity : BaseActivity() {
                     binding.saveProgressBar.visibility = View.VISIBLE
                 }
                 is Error -> {
-                    onSaveFailure(it.errorMessage)
+                    onSaveFailure(it.cause?.getErrorString(this))
                 }
             }
         }
