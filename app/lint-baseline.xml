@@ -1483,6 +1483,28 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.string.failed_to_pin` appears to be unused"
+        errorLine1="    &lt;string name=&quot;failed_to_pin&quot;>Failed to Pin&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="444"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.failed_to_unpin` appears to be unused"
+        errorLine1="    &lt;string name=&quot;failed_to_unpin&quot;>Failed to Unpin&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="445"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.string.description_login` appears to be unused"
         errorLine1="    &lt;string name=&quot;description_login&quot;>Works in most cases. No data is leaked to other apps.&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -1588,6 +1610,17 @@
         <location
             file="src/main/res/values/strings.xml"
             line="626"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.ui_error_unknown` appears to be unused"
+        errorLine1="    &lt;string name=&quot;ui_error_unknown&quot;>unknown reason&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="640"
             column="13"/>
     </issue>
 
