@@ -95,7 +95,11 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     private var serverCanTranslate = false
 
     override fun startActivity(intent: Intent) {
-        requireActivity().startActivityWithDefaultTransition(intent)
+        if (intent.component?.className?.startsWith("app.pachli.") == true) {
+            requireActivity().startActivityWithDefaultTransition(intent)
+        } else {
+            super.startActivity(intent)
+        }
     }
 
     override fun onAttach(context: Context) {

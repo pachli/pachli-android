@@ -40,10 +40,8 @@ fun Activity.startActivityWithTransition(intent: Intent, transitionKind: Transit
             throw IllegalStateException("startActivityWithTransition must be used with BaseActivity subclass")
         }
     }
+    intent.putExtra(EXTRA_TRANSITION_KIND, transitionKind)
 
-    if (intent.component?.className?.startsWith("app.pachli.") == true) {
-        intent.putExtra(EXTRA_TRANSITION_KIND, transitionKind)
-    }
     startActivity(intent)
 
     if (canOverrideActivityTransitions()) {
