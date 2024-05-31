@@ -1,5 +1,27 @@
 # Pachli changelog
 
+## v2.5.2
+
+### New features and other improvements
+
+- Check Hometown/Glitch server instanceinfo for translation support (#[718](https://github.com/pachli/pachli-android/pull/718), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Prevent crash on "hidden domains" page (#[703](https://github.com/pachli/pachli-android/pull/703), [Miles Krell](https://github.com/pachli/pachli-android/commits?author=16272279+mileskrell@users.noreply.github.com))
+- Generate useful error messages for all errors (#[719](https://github.com/pachli/pachli-android/pull/719), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Only include transitionKind in intents for Pachli activities (#[716](https://github.com/pachli/pachli-android/pull/716), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Only suggest upgrading to a version F-Droid has built (#[717](https://github.com/pachli/pachli-android/pull/717), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Re-enable accessiblity actions in all timelines (#[715](https://github.com/pachli/pachli-android/pull/715), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prompt user to save/discard changes after editing bio (#[678](https://github.com/pachli/pachli-android/pull/678), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show edit history for status' with polls (#[672](https://github.com/pachli/pachli-android/pull/672), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Spanish translations ([Miles Krell](https://github.com/pachli/pachli-android/commits?author=noreply@mileskrell.com))
+- Update French translations ([Black_Eyes](https://github.com/pachli/pachli-android/commits?author=valentin@girod.fr))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+
 ## v2.5.1
 
 ### Significant bug fixes
