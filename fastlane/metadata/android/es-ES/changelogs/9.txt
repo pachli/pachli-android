@@ -10,7 +10,7 @@ Correcciones:
 
 - Mostrar contenido traducido en hilos
 - Calcular largo de publicaciones y encuestas con emojis correctamente
-- Prevenir fallo
+- Prevenir fallas:
   - Si una tarjeta de vista previa no tenga autor
   - Si un error ocurra en una cronología sin FAB
   - En el perfil si la cuenta tenga null para el valor del campo `createdAt`

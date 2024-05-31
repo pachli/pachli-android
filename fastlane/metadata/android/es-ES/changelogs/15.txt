@@ -2,4 +2,4 @@ Pachli 2.5.1
 
 Correcciones:
 
-- Habilita las acciones accesibles solamente si están en una notificación de un estatus
+- Habilitar las acciones accesibles solamente si están en una notificación de un estatus
