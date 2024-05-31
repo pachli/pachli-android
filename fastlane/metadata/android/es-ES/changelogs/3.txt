@@ -2,7 +2,7 @@ Pachli 1.2
 
 Nuevas características:
 
-- Mostrar barras de desplazamiento verticales sobre listas desplazables
+- Mostrar las barras de desplazamiento verticales sobre las listas desplazables
 
 Correcciones:
 

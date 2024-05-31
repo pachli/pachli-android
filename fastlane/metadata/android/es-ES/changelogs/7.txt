@@ -11,5 +11,5 @@ Correcciones:
 - Asegurar que los mandos del sistema sean visibles en dispositivos viejos
 - Quitar la barra de progreso de las cronologías
 - Recuperar relación de aspecto cuando termine la arrastre
-- Evitar fallo cuando los filtros se cargan despacio
+- Evitar falla potencial cuando los filtros se cargan despacio
 - Actualizar las traducciones al italiano

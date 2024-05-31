@@ -1,0 +1,16 @@
+Pachli 2.5.2
+
+Nuevas características:
+
+- Habilitar la traducción de publicaciones en servidores de Hometown y Glitch
+
+Correcciones:
+
+- No fallar en la página "Dominios ocultos"
+- Mostrar mensajes útiles para todos los errores
+- Solo incluir transitionKind en los intentos para las actividades de Pachli
+- Solo sugerir actualizar a las versiones de Pachli que F-Droid ya haya compilado
+- Rehabilitar las acciones de accesibilidad en todas las cronologías
+- Pedir al usuario que guarde o descarte los cambios después de editar su biografía
+- Mostrar el historial de cambios de las encuestas
+- Actualizar las traducciones al finlandés, francés y español
