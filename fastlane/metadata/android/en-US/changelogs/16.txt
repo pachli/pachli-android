@@ -1,0 +1,16 @@
+Pachli 2.5.2
+
+New features:
+
+- Support translation on Hometown/Glitch servers
+
+Fixes:
+
+- Prevent crash on "hidden domains" page 
+- Show useful error messages for all errors 
+- Only include transitionKind in intents for Pachli activities 
+- Only suggest upgrading to versions F-Droid has built 
+- Re-enable accessiblity actions in all timelines 
+- Prompt user to save/discard changes after editing bio 
+- Show edit history for polls 
+- Update Finnish, French, and Spanish translations
