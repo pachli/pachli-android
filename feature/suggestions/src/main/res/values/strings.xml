@@ -18,9 +18,9 @@
 <resources>
     <string name="source_unknown">(server returned unrecognized source)</string>
     <string name="sources_featured">Hand-picked by your server team</string>
-    <string name="sources_most_followed">The most followed profiles on your server</string>
-    <string name="sources_most_interactions">Profiles with recent attention on your server</string>
-    <string name="sources_similar_to_recently_followed">Similar to profiles you have recently followed</string>
+    <string name="sources_most_followed">One of the most followed on your server</string>
+    <string name="sources_most_interactions">Getting a lot of attention on your server</string>
+    <string name="sources_similar_to_recently_followed">Similar to accounts you have recently followed</string>
     <string name="sources_friends_of_friends">Popular among people you follow</string>
     <string name="sources_unknown">(server returned unrecognized sources)</string>
 
