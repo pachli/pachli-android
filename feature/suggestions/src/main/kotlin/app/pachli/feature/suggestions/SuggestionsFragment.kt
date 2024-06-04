@@ -183,13 +183,13 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
             }
         }
 
+        // Remove suggestions that have been acted on from the list. Do not reload
+        // the list as there's no guarantee the new list will be in the same order,
+        // and the user might lose their place.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.uiSuccess.collect {
-                    when (it) {
-                        is UiSuccess.DeleteSuggestion -> viewModel.accept(GetSuggestions)
-                        is UiSuccess.FollowAccount -> viewModel.accept(GetSuggestions)
-                    }
+                    suggestionsAdapter.removeSuggestion(it.action.suggestion)
                 }
             }
         }
@@ -207,9 +207,9 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
                             error.error.throwable.getServerErrorMessage() ?: error.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
                         )
 
-                        is UiError.FollowAccount -> getString(
+                        is UiError.AcceptSuggestion -> getString(
                             error.stringResource(),
-                            error.action.account.displayName,
+                            error.action.suggestion.account.displayName,
                             error.error.throwable.getServerErrorMessage() ?: error.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
                         )
                     }
@@ -332,6 +332,11 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
             notifyItemRangeChanged(1, currentList.size)
         }
 
+        /** Removes [suggestion] from the current list */
+        fun removeSuggestion(suggestion: Suggestion) {
+            submitList(currentList.filterNot { it == suggestion })
+        }
+
         override fun getItemViewType(position: Int) = if (position == 0) R.layout.item_heading else R.layout.item_suggestion
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionsViewHolder {
@@ -368,8 +373,8 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
 
             init {
                 with(binding) {
-                    followAccount.setOnClickListener { accept(SuggestionAction.FollowAccount(suggestion.account)) }
-                    dismissSuggestion.setOnClickListener { accept(SuggestionAction.DeleteSuggestion(suggestion)) }
+                    followAccount.setOnClickListener { accept(SuggestionAction.AcceptSuggestion(suggestion)) }
+                    deleteSuggestion.setOnClickListener { accept(SuggestionAction.DeleteSuggestion(suggestion)) }
                     accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
                     root.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
 
@@ -430,5 +435,5 @@ fun SuggestionSources.stringResource() = when (this) {
 @StringRes
 fun UiError.stringResource() = when (this) {
     is UiError.DeleteSuggestion -> R.string.ui_error_delete_suggestion_fmt
-    is UiError.FollowAccount -> R.string.ui_error_follow_account_fmt
+    is UiError.AcceptSuggestion -> R.string.ui_error_follow_account_fmt
 }

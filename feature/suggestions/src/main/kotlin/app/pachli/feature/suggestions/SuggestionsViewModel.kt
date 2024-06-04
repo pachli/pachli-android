@@ -24,7 +24,6 @@ import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.SuggestionsError
 import app.pachli.core.data.repository.SuggestionsRepository
-import app.pachli.core.network.model.Account
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -113,22 +112,24 @@ sealed interface NavigationAction : UiAction {
 
 // TODO: Maybe these are "SuggestionAction" (like "StatusAction" in TimelineViewModel)
 sealed interface SuggestionAction : UiAction {
-    data class DeleteSuggestion(val suggestion: Suggestion) : SuggestionAction
-    data class FollowAccount(val account: Account) : SuggestionAction
+    val suggestion: Suggestion
+
+    data class DeleteSuggestion(override val suggestion: Suggestion) : SuggestionAction
+    data class AcceptSuggestion(override val suggestion: Suggestion) : SuggestionAction
 }
 
 data object GetSuggestions : UiAction
 
 sealed interface UiSuccess {
-    val action: UiAction
+    val action: SuggestionAction
 
-    data class DeleteSuggestion(override val action: UiAction) : UiSuccess
-    data class FollowAccount(override val action: UiAction) : UiSuccess
+    data class DeleteSuggestion(override val action: SuggestionAction.DeleteSuggestion) : UiSuccess
+    data class AcceptSuggestion(override val action: SuggestionAction.AcceptSuggestion) : UiSuccess
 
     companion object {
         fun from(action: SuggestionAction) = when (action) {
             is SuggestionAction.DeleteSuggestion -> DeleteSuggestion(action)
-            is SuggestionAction.FollowAccount -> FollowAccount(action)
+            is SuggestionAction.AcceptSuggestion -> AcceptSuggestion(action)
         }
     }
 }
@@ -143,7 +144,7 @@ value class DeleteSuggestionError(private val e: SuggestionsError.DeleteSuggesti
 value class GetSuggestionsError(private val e: SuggestionsError.GetSuggestionsError) : SuggestionsError by e
 
 @JvmInline
-value class FollowAccountError(private val e: SuggestionsError.FollowAccountError) : SuggestionsError by e
+value class AcceptSuggestionError(private val e: SuggestionsError.FollowAccountError) : SuggestionsError by e
 
 sealed interface UiError {
     val error: SuggestionsError
@@ -154,15 +155,15 @@ sealed interface UiError {
         override val action: SuggestionAction.DeleteSuggestion,
     ) : UiError
 
-    data class FollowAccount(
-        override val error: FollowAccountError,
-        override val action: SuggestionAction.FollowAccount,
+    data class AcceptSuggestion(
+        override val error: AcceptSuggestionError,
+        override val action: SuggestionAction.AcceptSuggestion,
     ) : UiError
 
     companion object {
         fun make(error: SuggestionsError, action: SuggestionAction) = when (action) {
             is SuggestionAction.DeleteSuggestion -> DeleteSuggestion(DeleteSuggestionError(error as SuggestionsError.DeleteSuggestionError), action)
-            is SuggestionAction.FollowAccount -> FollowAccount(FollowAccountError(error as SuggestionsError.FollowAccountError), action)
+            is SuggestionAction.AcceptSuggestion -> AcceptSuggestion(AcceptSuggestionError(error as SuggestionsError.FollowAccountError), action)
         }
     }
 }
@@ -220,7 +221,7 @@ internal class SuggestionsViewModel @Inject constructor(
             uiAction.filterIsInstance<SuggestionAction>().collect { action ->
                 val result = when (action) {
                     is SuggestionAction.DeleteSuggestion -> deleteSuggestion(action.suggestion)
-                    is SuggestionAction.FollowAccount -> followAccount(action.account)
+                    is SuggestionAction.AcceptSuggestion -> acceptSuggestion(action.suggestion)
                 }
                 result.onFailure { _uiErrors.send(UiError.make(it, action)) }
                 result.onSuccess { _uiSuccess.send(UiSuccess.from(action)) }
@@ -246,8 +247,8 @@ internal class SuggestionsViewModel @Inject constructor(
         Ok(Unit)
     }
 
-    private suspend fun followAccount(account: Account): Result<Unit, SuggestionsError> = operation {
-        Timber.d("Request to follow account with id: ${account.id}")
+    private suspend fun acceptSuggestion(suggestion: Suggestion): Result<Unit, SuggestionsError> = operation {
+        Timber.d("Request to follow account with id: ${suggestion.account.id}")
         Ok(Unit)
 //        return Err(SuggestionsError.FollowAccountError(ApiError.from(RuntimeException())))
     }

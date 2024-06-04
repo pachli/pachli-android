@@ -110,7 +110,7 @@ Note: Almost identical to item_follow_request.xml
         tools:text="Account note" />
 
     <Button
-        android:id="@+id/dismissSuggestion"
+        android:id="@+id/delete_suggestion"
         style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -142,8 +142,8 @@ Note: Almost identical to item_follow_request.xml
         android:layout_marginEnd="8dp"
         android:textAllCaps="true"
         android:textSize="?attr/status_text_medium"
-        app:layout_constraintStart_toEndOf="@id/dismissSuggestion"
-        app:layout_constraintTop_toTopOf="@+id/dismissSuggestion"
+        app:layout_constraintStart_toEndOf="@id/delete_suggestion"
+        app:layout_constraintTop_toTopOf="@+id/delete_suggestion"
         android:text="@string/action_follow_account" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
