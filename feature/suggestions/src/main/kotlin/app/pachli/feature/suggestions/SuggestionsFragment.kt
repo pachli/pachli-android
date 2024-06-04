@@ -114,13 +114,6 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
 
     private lateinit var bottomSheetActivity: BottomSheetActivity
 
-    // Best practice:
-    // Adapter takes a function that receives events, rather than something implementing an
-    // interface that has those functions. This makes testing the adapter easier, as test
-    // functions can be sent.
-    //
-    // Action contains the data it needs to operate, not the adapter position. Sidesteps any
-    // possible race conditions, or confusion over which adapter method should be used.
     private lateinit var suggestionsAdapter: SuggestionsAdapter
 
     // TODO: Should this emit in to a flow (the same structure as the viewmodel
@@ -178,6 +171,7 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
         bind()
     }
 
+    /** Binds data to the UI */
     private fun bind() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -234,11 +228,7 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.operationCount.collectLatest {
-                    if (it == 0) {
-                        binding.progressIndicator.hide()
-                    } else {
-                        binding.progressIndicator.show()
-                    }
+                    binding.progressIndicator.visible(it != 0)
                 }
             }
         }
@@ -307,12 +297,14 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
 
     private object SuggestionDiffer : DiffUtil.ItemCallback<Suggestion>() {
         override fun areItemsTheSame(oldItem: Suggestion, newItem: Suggestion) = oldItem.account == newItem.account
-
         override fun areContentsTheSame(oldItem: Suggestion, newItem: Suggestion) = oldItem == newItem
     }
 
     // TODO: This is quite similar to AccountAdapter, so if some functionality can be
     // made common. See things like FollowRequestViewHolder.setupWithAccount as well.
+    /**
+     * Adapter for [Suggestion].
+     */
     class SuggestionsAdapter(
         private var animateEmojis: Boolean,
         private var animateAvatars: Boolean,
@@ -358,6 +350,8 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
         ) : RecyclerView.ViewHolder(binding.root) {
             private lateinit var suggestion: Suggestion
 
+            private val avatarRadius: Int
+
             /**
              * Link listener for [setClickableText] that generates the appropriate
              * navigation actions.
@@ -366,6 +360,17 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
                 override fun onViewTag(tag: String) = accept(NavigationAction.ViewHashtag(tag))
                 override fun onViewAccount(id: String) = accept(NavigationAction.ViewAccount(id))
                 override fun onViewUrl(url: String) = accept(NavigationAction.ViewUrl(url))
+            }
+
+            init {
+                with(binding) {
+                    acceptButton.setOnClickListener { accept(SuggestionAction.FollowAccount(suggestion.account)) }
+                    rejectButton.setOnClickListener { accept(SuggestionAction.DeleteSuggestion(suggestion)) }
+                    accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
+                    root.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
+
+                    avatarRadius = avatar.context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.avatar_radius_48dp)
+                }
             }
 
             // TODO: Similar to FollowRequestViewHolder.setupWithAccount
@@ -400,33 +405,8 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
                         setClickableText(accountNote, emojifiedNote, emptyList(), null, linkListener)
                     }
 
-                    val avatarRadius = avatar.context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.avatar_radius_48dp)
                     loadAvatar(account.avatar, avatar, avatarRadius, animateAvatars)
                     avatarBadge.visible(showBotOverlay && account.bot)
-
-                    // TODO: These should call methods in the adapter, and pass the position
-                    // not the suggestion. The adapter should convert the position to the suggestion
-                    // and call the fragment callback with the suggestion.
-                    // This allows these calls to move to an init{} block in the ViewHolder instead
-                    // of re-setting the click listeners each time.
-                    // See https://proandroiddev.com/recyclerview-antipatterns-8af3feeeccc7
-                    //
-                    // What if... the adapter exposed a flow of UiAction the fragment routed
-                    // straight to the ViewModel? Then no callbacks.
-                    //
-                    // Not all actions need to go to the viewmodel though. Anything that's navigational:
-                    // - View account
-                    // - View link
-                    // - View tag
-                    // should be handled by the fragment to fire off the correct intent.
-                    //
-                    // So... pipeline of flows? VH emits actions to a flow provided by the fragment.
-                    // Fragment collects those, and either acts on them (navigational) or forwards
-                    // to the ViewModel accept flow?
-                    acceptButton.setOnClickListener { accept(SuggestionAction.FollowAccount(suggestion.account)) }
-                    rejectButton.setOnClickListener { accept(SuggestionAction.DeleteSuggestion(suggestion)) }
-                    accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
-                    root.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
                 }
             }
         }
