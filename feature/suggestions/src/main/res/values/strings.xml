@@ -16,6 +16,7 @@
   -->
 
 <resources>
+    <string name="title_suggestions">Suggested accounts</string>
     <string name="source_unknown">(server returned unrecognized source)</string>
     <string name="sources_featured">Hand-picked by your server team</string>
     <string name="sources_most_followed">One of the most followed on your server</string>

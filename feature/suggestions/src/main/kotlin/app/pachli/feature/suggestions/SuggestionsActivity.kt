@@ -32,6 +32,7 @@ class SuggestionsActivity : BottomSheetActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.run {
+            setTitle(R.string.title_suggestions)
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
             setDisplayShowTitleEnabled(true)

@@ -701,8 +701,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     }
                 },
                 primaryDrawerItem {
-                    nameText = "Suggestions"
-//                    name = "Suggestions"
+                    nameRes = R.string.action_suggestions
+                    iconicsIcon = GoogleMaterial.Icon.gmd_explore
                     onClick = {
                         startActivityWithDefaultTransition(SuggestionsActivityIntent(context))
                     }
