@@ -219,12 +219,12 @@ internal class SuggestionsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             uiAction.filterIsInstance<SuggestionAction>().collect { action ->
-                val result = when (action) {
+                when (action) {
                     is SuggestionAction.DeleteSuggestion -> deleteSuggestion(action.suggestion)
                     is SuggestionAction.AcceptSuggestion -> acceptSuggestion(action.suggestion)
                 }
-                result.onFailure { _uiErrors.send(UiError.make(it, action)) }
-                result.onSuccess { _uiSuccess.send(UiSuccess.from(action)) }
+                    .onSuccess { _uiSuccess.send(UiSuccess.from(action)) }
+                    .onFailure { _uiErrors.send(UiError.make(it, action)) }
             }
         }
 
