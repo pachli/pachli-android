@@ -25,6 +25,9 @@
     <string name="sources_friends_of_friends">Popular among people you follow</string>
     <string name="sources_unknown">(server returned unrecognized sources)</string>
 
+    <string name="action_follow_account">Follow</string>
+    <string name="action_dismiss_suggestion">Dismiss</string>
+
     <string name="ui_error_delete_suggestion_fmt">Dismissing suggestion for %1$s failed: %2$s</string>
     <string name="ui_error_follow_account_fmt">Following %1$s failed: %2$s</string>
 </resources>

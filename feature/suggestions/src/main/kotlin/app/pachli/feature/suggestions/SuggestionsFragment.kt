@@ -379,8 +379,8 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
 
             init {
                 with(binding) {
-                    acceptButton.setOnClickListener { accept(SuggestionAction.FollowAccount(suggestion.account)) }
-                    rejectButton.setOnClickListener { accept(SuggestionAction.DeleteSuggestion(suggestion)) }
+                    followAccount.setOnClickListener { accept(SuggestionAction.FollowAccount(suggestion.account)) }
+                    dismissSuggestion.setOnClickListener { accept(SuggestionAction.DeleteSuggestion(suggestion)) }
                     accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
                     root.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
 
