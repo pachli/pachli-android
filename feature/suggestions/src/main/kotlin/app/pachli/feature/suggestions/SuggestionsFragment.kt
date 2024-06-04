@@ -175,6 +175,12 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
     private fun bind() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.uiState.collectLatest(::bindUiState)
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.suggestions.collectLatest(::bindSuggestions)
             }
         }
@@ -248,6 +254,12 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
 //        viewModel.accept(GetSuggestions)
     }
 
+    private fun bindUiState(uiState: UiState) {
+        suggestionsAdapter.setAnimateEmojis(uiState.animateEmojis)
+        suggestionsAdapter.setAnimateAvatars(uiState.animateAvatars)
+        suggestionsAdapter.setShowBotOverlay(uiState.showBotOverlay)
+    }
+
     // TODO: Copied from ListsActivity, should maybe be in core.ui as a Snackbar extension
     private fun showMessage(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).show()
@@ -314,16 +326,19 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
         SuggestionDiffer,
     ) {
         fun setAnimateEmojis(animateEmojis: Boolean) {
+            if (this.animateEmojis == animateEmojis) return
             this.animateEmojis = animateEmojis
             notifyItemRangeChanged(1, currentList.size)
         }
 
         fun setAnimateAvatars(animateAvatars: Boolean) {
+            if (this.animateAvatars == animateAvatars) return
             this.animateAvatars = animateAvatars
             notifyItemRangeChanged(1, currentList.size)
         }
 
         fun setShowBotOverlay(showBotOverlay: Boolean) {
+            if (this.showBotOverlay == showBotOverlay) return
             this.showBotOverlay = showBotOverlay
             notifyItemRangeChanged(1, currentList.size)
         }

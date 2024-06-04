@@ -37,6 +37,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flow
@@ -64,7 +65,7 @@ import timber.log.Timber
  *
  * - uiState
  *
- * UiSuccess and uiError carry the action that succeeded failed so the
+ * UiSuccess and uiError carry the action that succeeded or failed so the
  * UI can easily either retry the action (if it failed), or trigger a UI
  * update if it succeeded (e.g., by emitting a new action).
  *
@@ -76,6 +77,11 @@ import timber.log.Timber
  * UI thing, and out of the purview of the ViewModel. Instead, the fragment
  * has an extension method that converts the UiError to a string resource.
  *
+ * -- Still not convinced the above is a good idea. Maybe these errors should
+ * have a "format(context: Context)" that formats the error in to a string?
+ * Each error-specific class knows what data it needs to interpolate in to
+ * the message.
+ *
  * TODO:
  * - uiErrors and uiSuccess -- could this be a single uiResult?
  * - What's the argument for not including them in the state? Transient
@@ -86,14 +92,12 @@ data class UiState(
     val animateEmojis: Boolean = false,
     val animateAvatars: Boolean = false,
     val showBotOverlay: Boolean = false,
-    val accept: (UiAction) -> Unit,
 ) {
     companion object {
-        fun make(statusDisplayOptions: StatusDisplayOptions, accept: (UiAction) -> Unit) = UiState(
+        fun from(statusDisplayOptions: StatusDisplayOptions) = UiState(
             animateEmojis = statusDisplayOptions.animateEmojis,
             animateAvatars = statusDisplayOptions.animateAvatars,
             showBotOverlay = statusDisplayOptions.showBotOverlay,
-            accept = accept,
         )
     }
 }
@@ -210,14 +214,14 @@ internal class SuggestionsViewModel @Inject constructor(
 
     val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
 
-    val uiState = flow {
+    val uiState = channelFlow {
         statusDisplayOptionsRepository.flow.collectLatest {
-            emit(UiState.make(it, accept))
+            send(UiState.from(it))
         }
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
-        UiState.make(statusDisplayOptionsRepository.flow.value, accept),
+        UiState.from(statusDisplayOptionsRepository.flow.value),
     )
 
     init {
