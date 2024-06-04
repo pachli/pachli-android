@@ -20,9 +20,13 @@ package app.pachli.feature.suggestions
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -69,6 +73,10 @@ import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
+import com.mikepenz.iconics.IconicsDrawable
+import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import com.mikepenz.iconics.utils.colorInt
+import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -87,10 +95,10 @@ import timber.log.Timber
 // - debounce actions
 // - TODOs in the adapter
 // - How much of AccountViewHolder can be reused?
-// - swipe/refresh layout
+// x swipe/refresh layout
 //   x layout
-//   - menu items
-//
+//   x menu items
+// - talkbackWasEnabled machinery
 
 /**
  * Notes on standard ways to do things.
@@ -107,7 +115,11 @@ import timber.log.Timber
  */
 
 @AndroidEntryPoint
-class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshListener, RefreshableFragment {
+class SuggestionsFragment :
+    Fragment(R.layout.fragment_suggestions),
+    MenuProvider,
+    OnRefreshListener,
+    RefreshableFragment {
     private val viewModel: SuggestionsViewModel by viewModels()
 
     private val binding by viewBinding(FragmentSuggestionsBinding::bind)
@@ -142,7 +154,7 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         suggestionsAdapter = SuggestionsAdapter(
             animateEmojis = viewModel.uiState.value.animateEmojis,
@@ -151,18 +163,16 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
             accept = accept,
         )
 
-        binding.swipeRefreshLayout.isEnabled = true
-        binding.swipeRefreshLayout.setOnRefreshListener(this)
-        binding.swipeRefreshLayout.setColorSchemeColors(
-            MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary),
-        )
+        with(binding.swipeRefreshLayout) {
+            isEnabled = true
+            setOnRefreshListener(this@SuggestionsFragment)
+            setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
+        }
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(view.context)
             adapter = suggestionsAdapter
-            addItemDecoration(
-                MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
-            )
+            addItemDecoration(MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
         }
 
@@ -282,6 +292,27 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
         }
     }
 
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.fragment_suggestions, menu)
+        menu.findItem(R.id.action_refresh)?.apply {
+            // TODO: This should use makeIcon, which should be moved somewhere common
+            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {
+                sizeDp = 20
+                colorInt = MaterialColors.getColor(binding.root, android.R.attr.textColorPrimary)
+            }
+        }
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.action_refresh -> {
+                refreshContent()
+                true
+            }
+            else -> false
+        }
+    }
+
     override fun refreshContent() {
         binding.swipeRefreshLayout.isRefreshing = true
         onRefresh()
@@ -317,19 +348,19 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
         fun setAnimateEmojis(animateEmojis: Boolean) {
             if (this.animateEmojis == animateEmojis) return
             this.animateEmojis = animateEmojis
-            notifyItemRangeChanged(1, currentList.size)
+            notifyItemRangeChanged(0, currentList.size)
         }
 
         fun setAnimateAvatars(animateAvatars: Boolean) {
             if (this.animateAvatars == animateAvatars) return
             this.animateAvatars = animateAvatars
-            notifyItemRangeChanged(1, currentList.size)
+            notifyItemRangeChanged(0, currentList.size)
         }
 
         fun setShowBotOverlay(showBotOverlay: Boolean) {
             if (this.showBotOverlay == showBotOverlay) return
             this.showBotOverlay = showBotOverlay
-            notifyItemRangeChanged(1, currentList.size)
+            notifyItemRangeChanged(0, currentList.size)
         }
 
         /** Removes [suggestion] from the current list */

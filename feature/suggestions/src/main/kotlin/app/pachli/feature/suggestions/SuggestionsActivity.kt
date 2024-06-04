@@ -30,12 +30,12 @@ class SuggestionsActivity : BottomSheetActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.run {
+        supportActionBar?.apply {
             setTitle(R.string.title_suggestions)
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
-            setDisplayShowTitleEnabled(true)
         }
     }
 }
