@@ -25,8 +25,6 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.SuggestionsError
 import app.pachli.core.data.repository.SuggestionsRepository
 import app.pachli.core.network.model.Account
-import app.pachli.core.network.retrofit.apiresult.ApiError
-import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapError
@@ -270,9 +268,11 @@ internal class SuggestionsViewModel @Inject constructor(
     }
 
     private suspend fun followAccount(account: Account): Result<Unit, SuggestionsError> {
+        _operationCount.getAndUpdate { it + 1 }
         Timber.d("Request to follow account with id: ${account.id}")
-//        return Ok(Unit)
-        return Err(SuggestionsError.FollowAccountError(ApiError.from(RuntimeException())))
+        _operationCount.getAndUpdate { it - 1 }
+        return Ok(Unit)
+//        return Err(SuggestionsError.FollowAccountError(ApiError.from(RuntimeException())))
     }
 
     /**
