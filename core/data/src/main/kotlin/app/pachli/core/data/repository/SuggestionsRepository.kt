@@ -22,11 +22,6 @@ import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 
-sealed interface Suggestions {
-    data object Loading : Suggestions
-    data class Loaded(val suggestions: List<Suggestion>) : Suggestions
-}
-
 /** Errors that can be returned from this repository */
 interface SuggestionsError : ApiError {
     @JvmInline

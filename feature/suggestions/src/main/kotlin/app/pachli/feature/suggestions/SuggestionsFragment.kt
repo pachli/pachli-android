@@ -144,20 +144,18 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val animateEmojis = false
-        val animateAvatars = false
-        val showBotOverlay = true
-
         suggestionsAdapter = SuggestionsAdapter(
-            animateEmojis = animateEmojis,
-            animateAvatars = animateAvatars,
-            showBotOverlay = showBotOverlay,
+            animateEmojis = viewModel.uiState.value.animateEmojis,
+            animateAvatars = viewModel.uiState.value.animateAvatars,
+            showBotOverlay = viewModel.uiState.value.showBotOverlay,
             accept = accept,
         )
 
         binding.swipeRefreshLayout.isEnabled = true
         binding.swipeRefreshLayout.setOnRefreshListener(this)
-        binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
+        binding.swipeRefreshLayout.setColorSchemeColors(
+            MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary),
+        )
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(view.context)
@@ -238,20 +236,6 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
                 }
             }
         }
-
-        // TODO: Think about this some more. Specifically, should the viewmodel
-        // start the fetch as soon as `suggestions` is collected, or should it
-        // wait until this line (commented out) explicitly triggers a fetch?
-        //
-        // Fetch on collection:
-        // - slightly less work for the fragment to do (no need to make
-        //   explicit request)
-        // - maybe fractionally faster to start the network request?
-        //
-        // Explicit fetch:
-        // - code in fragment might be clearer
-        // - code in viewmodel might be clearer
-//        viewModel.accept(GetSuggestions)
     }
 
     private fun bindUiState(uiState: UiState) {
@@ -265,7 +249,7 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
         Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).show()
     }
 
-    private fun bindSuggestions(result: Result<List<Suggestion>, GetSuggestionsError>) {
+    private fun bindSuggestions(result: Result<Suggestions, GetSuggestionsError>) {
         binding.swipeRefreshLayout.isRefreshing = false
 
         result.onFailure {
@@ -282,13 +266,18 @@ class SuggestionsFragment : Fragment(R.layout.fragment_suggestions), OnRefreshLi
         }
 
         result.onSuccess { suggestions ->
-            if (suggestions.isEmpty()) {
-                binding.messageView.show()
-                binding.messageView.setup(BackgroundMessage.Empty())
-            } else {
-                suggestionsAdapter.submitList(suggestions)
-                binding.messageView.hide()
-                binding.recyclerView.show()
+            when (suggestions) {
+                Suggestions.Loading -> { /* nothing to do */ }
+                is Suggestions.Loaded -> {
+                    if (suggestions.suggestions.isEmpty()) {
+                        binding.messageView.show()
+                        binding.messageView.setup(BackgroundMessage.Empty())
+                    } else {
+                        suggestionsAdapter.submitList(suggestions.suggestions)
+                        binding.messageView.hide()
+                        binding.recyclerView.show()
+                    }
+                }
             }
         }
     }
