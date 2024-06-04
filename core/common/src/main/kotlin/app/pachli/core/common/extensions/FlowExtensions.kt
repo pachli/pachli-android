@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.common.extensions
 
 import kotlin.time.Duration
 import kotlin.time.TimeMark

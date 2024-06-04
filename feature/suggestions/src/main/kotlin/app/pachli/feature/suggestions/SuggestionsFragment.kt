@@ -47,6 +47,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
@@ -78,6 +79,8 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -128,22 +131,11 @@ class SuggestionsFragment :
 
     private lateinit var suggestionsAdapter: SuggestionsAdapter
 
-    // TODO: Should this emit in to a flow (the same structure as the viewmodel
-    // equivalent)? This would allow e.g., debouncing here rather than in the
-    // viewmodel, which might be a good idea.
-    val accept: (UiAction) -> Unit = { action ->
-        Timber.d("action: %s", action)
-        when (action) {
-            is NavigationAction -> {
-                when (action) {
-                    is NavigationAction.ViewAccount -> requireActivity().startActivityWithTransition(AccountActivityIntent(requireContext(), action.accountId), TransitionKind.SLIDE_FROM_END)
-                    is NavigationAction.ViewHashtag -> requireActivity().startActivityWithTransition(TimelineActivityIntent.hashtag(requireContext(), action.hashtag), TransitionKind.SLIDE_FROM_END)
-                    is NavigationAction.ViewUrl -> bottomSheetActivity.viewUrl(action.url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
-                }
-            }
-            else -> viewModel.accept(action)
-        }
-    }
+    /** Flow of actions the user has taken in the UI */
+    private val uiAction = MutableSharedFlow<UiAction>()
+
+    /** Accepts user actions from UI components and emits them in to [uiAction]. */
+    val accept: (UiAction) -> Unit = { action -> lifecycleScope.launch { uiAction.emit(action) } }
 
     /** The active snackbar */
     private var snackbar: Snackbar? = null
@@ -246,6 +238,24 @@ class SuggestionsFragment :
                 }
             }
         }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                uiAction.throttleFirst(THROTTLE_TIMEOUT).collect { action ->
+                    Timber.d("Action: %s", action)
+                    when (action) {
+                        is NavigationAction -> {
+                            when (action) {
+                                is NavigationAction.ViewAccount -> requireActivity().startActivityWithTransition(AccountActivityIntent(requireContext(), action.accountId), TransitionKind.SLIDE_FROM_END)
+                                is NavigationAction.ViewHashtag -> requireActivity().startActivityWithTransition(TimelineActivityIntent.hashtag(requireContext(), action.hashtag), TransitionKind.SLIDE_FROM_END)
+                                is NavigationAction.ViewUrl -> bottomSheetActivity.viewUrl(action.url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
+                            }
+                        }
+                        else -> viewModel.accept(action)
+                    }
+                }
+            }
+        }
     }
 
     private fun bindUiState(uiState: UiState) {
@@ -324,6 +334,9 @@ class SuggestionsFragment :
     }
 
     companion object {
+        // TODO: Move to core.ui
+        private val THROTTLE_TIMEOUT = 500.milliseconds
+
         fun newInstance() = SuggestionsFragment()
     }
 
