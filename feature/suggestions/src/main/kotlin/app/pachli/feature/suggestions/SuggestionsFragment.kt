@@ -175,84 +175,19 @@ class SuggestionsFragment :
     private fun bind() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.uiState.collectLatest(::bindUiState)
-            }
-        }
+                launch { viewModel.uiState.collectLatest(::bindUiState) }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.suggestions.collectLatest(::bindSuggestions)
-            }
-        }
+                launch { uiAction.throttleFirst(THROTTLE_TIMEOUT).collect(::bindUiAction) }
 
-        // Remove suggestions that have been acted on from the list. Do not reload
-        // the list as there's no guarantee the new list will be in the same order,
-        // and the user might lose their place.
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.uiSuccess.collect {
-                    suggestionsAdapter.removeSuggestion(it.action.suggestion)
-                }
-            }
-        }
+                launch { viewModel.suggestions.collectLatest(::bindSuggestions) }
 
-        // TODO: Very similar to code in ListsActivity, TimelineFragment,
-        // NotificationsFragment. Time to look at how to make this more general.
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.uiErrors.collect { error ->
-                    // TODO: The repeated "error.error" here is a problem, fix that.
-                    val message = when (error) {
-                        is UiError.DeleteSuggestion -> getString(
-                            error.stringResource(),
-                            error.action.suggestion.account.displayName,
-                            error.error.throwable.getServerErrorMessage() ?: error.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
-                        )
+                launch { viewModel.uiSuccess.collect(::bindUiSuccess) }
 
-                        is UiError.AcceptSuggestion -> getString(
-                            error.stringResource(),
-                            error.action.suggestion.account.displayName,
-                            error.error.throwable.getServerErrorMessage() ?: error.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
-                        )
-                    }
-                    Timber.d(error.error.throwable, message)
-                    snackbar?.dismiss()
-                    // TODO: Handle the case where the view might might be null, see similar
-                    // code in SFragment.
-                    snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
-                    error.action?.let { action ->
-                        snackbar!!.setAction(app.pachli.core.ui.R.string.action_retry) {
-                            viewModel.accept(action)
-                        }
-                    }
-                    snackbar!!.show()
-                }
-            }
-        }
+                launch { viewModel.uiErrors.collect(::bindUiErrors) }
 
-        // TODO: Very similar to code in ListsActivity
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.operationCount.collectLatest {
-                    binding.progressIndicator.visible(it != 0)
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                uiAction.throttleFirst(THROTTLE_TIMEOUT).collect { action ->
-                    Timber.d("Action: %s", action)
-                    when (action) {
-                        is NavigationAction -> {
-                            when (action) {
-                                is NavigationAction.ViewAccount -> requireActivity().startActivityWithTransition(AccountActivityIntent(requireContext(), action.accountId), TransitionKind.SLIDE_FROM_END)
-                                is NavigationAction.ViewHashtag -> requireActivity().startActivityWithTransition(TimelineActivityIntent.hashtag(requireContext(), action.hashtag), TransitionKind.SLIDE_FROM_END)
-                                is NavigationAction.ViewUrl -> bottomSheetActivity.viewUrl(action.url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
-                            }
-                        }
-                        else -> viewModel.accept(action)
-                    }
+                // TODO: Very similar to code in ListsActivity
+                launch {
+                    viewModel.operationCount.collectLatest { binding.progressIndicator.visible(it != 0) }
                 }
             }
         }
@@ -262,6 +197,23 @@ class SuggestionsFragment :
         suggestionsAdapter.setAnimateEmojis(uiState.animateEmojis)
         suggestionsAdapter.setAnimateAvatars(uiState.animateAvatars)
         suggestionsAdapter.setShowBotOverlay(uiState.showBotOverlay)
+    }
+
+    /**
+     * Process actions from the UI.
+     */
+    private fun bindUiAction(uiAction: UiAction) {
+        when (uiAction) {
+            is NavigationAction -> {
+                when (uiAction) {
+                    is NavigationAction.ViewAccount -> requireActivity().startActivityWithTransition(AccountActivityIntent(requireContext(), uiAction.accountId), TransitionKind.SLIDE_FROM_END)
+                    is NavigationAction.ViewHashtag -> requireActivity().startActivityWithTransition(TimelineActivityIntent.hashtag(requireContext(), uiAction.hashtag), TransitionKind.SLIDE_FROM_END)
+                    is NavigationAction.ViewUrl -> bottomSheetActivity.viewUrl(uiAction.url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
+                }
+            }
+
+            else -> viewModel.accept(uiAction)
+        }
     }
 
     // TODO: Copied from ListsActivity, should maybe be in core.ui as a Snackbar extension
@@ -300,6 +252,47 @@ class SuggestionsFragment :
                 }
             }
         }
+    }
+
+    /**
+     * Act on successful UI actions.
+     *
+     * - Remove suggestions that have been acted on from the list of suggestions. Do not
+     *   reload the list as there's no guarantee the new list will be in the same order
+     *   or have the same contents, and the user will lose their place.
+     */
+    private fun bindUiSuccess(uiSuccess: UiSuccess) {
+        suggestionsAdapter.removeSuggestion(uiSuccess.action.suggestion)
+    }
+
+    /**
+     * Act on failed UI actions.
+     */
+    private fun bindUiErrors(uiError: UiError) {
+        val message = when (uiError) {
+            is UiError.DeleteSuggestion -> getString(
+                uiError.stringResource(),
+                uiError.action.suggestion.account.displayName,
+                uiError.error.throwable.getServerErrorMessage() ?: uiError.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
+            )
+
+            is UiError.AcceptSuggestion -> getString(
+                uiError.stringResource(),
+                uiError.action.suggestion.account.displayName,
+                uiError.error.throwable.getServerErrorMessage() ?: uiError.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
+            )
+        }
+        Timber.d(uiError.error.throwable, message)
+        snackbar?.dismiss()
+        // TODO: Handle the case where the view might might be null, see similar
+        // code in SFragment.
+        snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
+        uiError.action?.let { action ->
+            snackbar!!.setAction(app.pachli.core.ui.R.string.action_retry) {
+                viewModel.accept(action)
+            }
+        }
+        snackbar!!.show()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -345,11 +338,12 @@ class SuggestionsFragment :
         override fun areContentsTheSame(oldItem: Suggestion, newItem: Suggestion) = oldItem == newItem
     }
 
-    // TODO: This is quite similar to AccountAdapter, so if some functionality can be
-    // made common. See things like FollowRequestViewHolder.setupWithAccount as well.
     /**
      * Adapter for [Suggestion].
      */
+    // TODO: This is quite similar to AccountAdapter, so if some functionality can be
+    // made common. See things like FollowRequestViewHolder.setupWithAccount as well.
+    // TODO: Rename to SuggestionAdapter
     class SuggestionsAdapter(
         private var animateEmojis: Boolean,
         private var animateAvatars: Boolean,
@@ -466,6 +460,10 @@ class SuggestionsFragment :
     }
 }
 
+/**
+ * @return A string resource for the given [SuggestionSources], suitable for use
+ * as the reason this suggestion is present.
+ */
 @StringRes
 fun SuggestionSources.stringResource() = when (this) {
     FEATURED -> R.string.sources_featured
