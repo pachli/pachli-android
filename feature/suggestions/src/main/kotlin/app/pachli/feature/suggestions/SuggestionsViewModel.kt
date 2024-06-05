@@ -17,10 +17,9 @@
 
 package app.pachli.feature.suggestions
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -40,6 +39,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.getAndUpdate
@@ -196,7 +196,7 @@ internal interface ISuggestionsViewModel {
     val operationCount: Flow<Int>
 
     /** Suggestions to display */
-    val suggestions: LiveData<Result<Suggestions, GetSuggestionsError>>
+    val suggestions: StateFlow<Result<Suggestions, GetSuggestionsError>>
 
     /** Additional UI state metadata */
     val uiState: Flow<UiState>
@@ -218,19 +218,12 @@ internal class SuggestionsViewModel @Inject constructor(
 
     private val reload = MutableSharedFlow<Unit>(replay = 1)
 
-//    override val suggestions = reload.transformLatest {
-//        emit(Ok(Suggestions.Loading))
-//        emit(getSuggestions())
-//    }.stateIn(
-//        scope = viewModelScope,
-// //        started = SharingStarted.WhileSubscribed(5000),
-//        started = SharingStarted.Lazily,
-//        initialValue = Ok(Suggestions.Loading),
-//    )
+    private var currentList = emptyList<Suggestion>()
 
-    private val _suggestions: MutableLiveData<Result<Suggestions, GetSuggestionsError>> by lazy { MutableLiveData<Result<Suggestions, GetSuggestionsError>>() }
-    val suggestions: LiveData<Result<Suggestions, GetSuggestionsError>>
-        get() = _suggestions
+    private var _suggestions = MutableStateFlow<Result<Suggestions, GetSuggestionsError>>(Ok(Suggestions.Loading))
+    override val suggestions: StateFlow<Result<Suggestions, GetSuggestionsError>> = stateFlow(viewModelScope, Ok(Suggestions.Loading)) {
+        _suggestions.flowWhileShared(SharingStarted.WhileSubscribed(5000))
+    }
 
     override val uiState = statusDisplayOptionsRepository.flow.map { UiState.from(it) }
         .stateIn(
@@ -238,10 +231,6 @@ internal class SuggestionsViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5000),
             UiState.from(statusDisplayOptionsRepository.flow.value),
         )
-
-//    private var _suggestions = listOf<Suggestion>()
-
-    private var currentList = emptyList<Suggestion>()
 
     init {
         viewModelScope.launch {
@@ -251,7 +240,8 @@ internal class SuggestionsViewModel @Inject constructor(
                     is AcceptSuggestion -> acceptSuggestion(action.suggestion)
                 }.mapBoth({
                     currentList = currentList.filterNot { it == action.suggestion }
-                    _suggestions.postValue(Ok(Suggestions.Loaded(currentList)))
+                    _suggestions.emit(Ok(Suggestions.Loaded(currentList)))
+
                     Ok(UiSuccess.from(action))
                 }, { Err(UiError.make(it, action)) })
                 _uiResult.send(result)
@@ -260,9 +250,9 @@ internal class SuggestionsViewModel @Inject constructor(
 
         viewModelScope.launch {
             reload.collect {
-                _suggestions.postValue(Ok(Suggestions.Loading))
+                _suggestions.emit(Ok(Suggestions.Loading))
                 val result = getSuggestions().onSuccess { currentList = it.suggestions }
-                _suggestions.postValue(result)
+                _suggestions.emit(result)
             }
         }
 

@@ -28,7 +28,6 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -158,15 +157,13 @@ class SuggestionsFragment :
 
     /** Binds data to the UI */
     private fun bind() {
-        viewModel.suggestions.observe(viewLifecycleOwner, observeSuggestions)
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch { viewModel.uiState.collectLatest(::bindUiState) }
 
                 launch { uiAction.throttleFirst().collect(::bindUiAction) }
 
-//                launch { viewModel.suggestions.collectLatest(::bindSuggestions) }
+                launch { viewModel.suggestions.collectLatest(::bindSuggestions) }
 
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
@@ -202,41 +199,9 @@ class SuggestionsFragment :
     }
 
     // TODO: Copied from ListsActivity, should maybe be in core.ui as a Snackbar extension
+    // See also ComposeActivity.displayTransientMessage
     private fun showMessage(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).show()
-    }
-
-    private val observeSuggestions = Observer<Result<Suggestions, GetSuggestionsError>> { result ->
-        binding.swipeRefreshLayout.isRefreshing = false
-
-        result.onFailure {
-            binding.messageView.show()
-            binding.recyclerView.hide()
-
-            // TODO: binding.swipeRefreshLayout.isRefreshing = false
-
-//            if (it is NetworkError) {
-//                binding.messageView.setup(BackgroundMessage.Network()) { viewModel.refresh() }
-//            } else {
-//                binding.messageView.setup(BackgroundMessage.GenericError()) { viewModel.refresh() }
-//            }
-        }
-
-        result.onSuccess { suggestions ->
-            when (suggestions) {
-                Suggestions.Loading -> { /* nothing to do */ }
-                is Suggestions.Loaded -> {
-                    if (suggestions.suggestions.isEmpty()) {
-                        binding.messageView.show()
-                        binding.messageView.setup(BackgroundMessage.Empty())
-                    } else {
-                        suggestionsAdapter.submitList(suggestions.suggestions)
-                        binding.messageView.hide()
-                        binding.recyclerView.show()
-                    }
-                }
-            }
-        }
     }
 
     private fun bindSuggestions(result: Result<Suggestions, GetSuggestionsError>) {
