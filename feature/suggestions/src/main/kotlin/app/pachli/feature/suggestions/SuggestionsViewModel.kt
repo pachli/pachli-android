@@ -25,8 +25,11 @@ import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.SuggestionsError
 import app.pachli.core.data.repository.SuggestionsRepository
-import app.pachli.feature.suggestions.SuggestionAction.AcceptSuggestion
-import app.pachli.feature.suggestions.SuggestionAction.DeleteSuggestion
+import app.pachli.core.network.retrofit.apiresult.ApiError
+import app.pachli.feature.suggestions.UiAction.GetSuggestions
+import app.pachli.feature.suggestions.UiAction.SuggestionAction
+import app.pachli.feature.suggestions.UiAction.SuggestionAction.AcceptSuggestion
+import app.pachli.feature.suggestions.UiAction.SuggestionAction.DeleteSuggestion
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -45,47 +48,8 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
-
-/**
- * Sketch of the thinking:
- *
- * UiState covers the UI **apart** from the list. Errors fetching the list
- * are handled differently, and it could (in theory here, but not in practice)
- * be fetched by other signals in the app.
- *
- * So flows out of the viewmodel are:
- *
- * - suggestions: Flow of [Result] to populate the list or show an error,
- *   as appropriate
- *
- * - uiResult
- *
- * - uiState
- *
- * UiSuccess and uiError carry the action that succeeded or failed so the
- * UI can easily either retry the action (if it failed), or trigger a UI
- * update if it succeeded (e.g., by emitting a new action).
- *
- * This does mean you have three very similar data classes/objects, one
- * for the action, one for if it succeeded, and one for if it failed.
- *
- * Note / refactor: Unlike UiError in TimelineViewModel etc these errors
- * don't carry the string resource for the failure with them. That's a
- * UI thing, and out of the purview of the ViewModel. Instead, the fragment
- * has an extension method that converts the UiError to a string resource.
- *
- * -- Still not convinced the above is a good idea. Maybe these errors should
- * have a "format(context: Context)" that formats the error in to a string?
- * Each error-specific class knows what data it needs to interpolate in to
- * the message.
- *
- * TODO:
- * - What's the argument for not including them in the state? Transient
- *   data does not need to survive?
- */
 
 /**
  * High-level UI state, derived from [StatusDisplayOptions].
@@ -108,80 +72,13 @@ internal data class UiState(
     }
 }
 
-internal sealed interface UiAction
-
-internal sealed interface NavigationAction : UiAction {
-    data class ViewAccount(val accountId: String) : NavigationAction
-    data class ViewHashtag(val hashtag: String) : NavigationAction
-    data class ViewUrl(val url: String) : NavigationAction
-}
-
-internal sealed interface SuggestionAction : UiAction {
-    val suggestion: Suggestion
-
-    data class DeleteSuggestion(override val suggestion: Suggestion) : SuggestionAction
-    data class AcceptSuggestion(override val suggestion: Suggestion) : SuggestionAction
-}
-
-data object GetSuggestions : UiAction
-
-internal sealed interface UiSuccess {
-    val action: SuggestionAction
-
-    data class DeleteSuggestion(
-        override val action: SuggestionAction.DeleteSuggestion,
-    ) : UiSuccess
-    data class AcceptSuggestion(
-        override val action: SuggestionAction.AcceptSuggestion,
-    ) : UiSuccess
-
-    companion object {
-        fun from(action: SuggestionAction) = when (action) {
-            is SuggestionAction.DeleteSuggestion -> DeleteSuggestion(action)
-            is SuggestionAction.AcceptSuggestion -> AcceptSuggestion(action)
-        }
-    }
-}
-
-// These three wrap the error types from the repository so the Fragment
-// doesn't import anything from the repository.
-
-@JvmInline
-value class DeleteSuggestionError(private val e: SuggestionsError.DeleteSuggestionError) : SuggestionsError by e
-
-@JvmInline
-value class GetSuggestionsError(private val e: SuggestionsError.GetSuggestionsError) : SuggestionsError by e
-
-@JvmInline
-value class AcceptSuggestionError(private val e: SuggestionsError.FollowAccountError) : SuggestionsError by e
-
-internal sealed interface UiError {
-    val error: SuggestionsError
-    val action: UiAction
-
-    data class DeleteSuggestion(
-        override val error: DeleteSuggestionError,
-        override val action: SuggestionAction.DeleteSuggestion,
-    ) : UiError
-
-    data class AcceptSuggestion(
-        override val error: AcceptSuggestionError,
-        override val action: SuggestionAction.AcceptSuggestion,
-    ) : UiError
-
-    companion object {
-        fun make(error: SuggestionsError, action: SuggestionAction) = when (action) {
-            is SuggestionAction.DeleteSuggestion -> DeleteSuggestion(DeleteSuggestionError(error as SuggestionsError.DeleteSuggestionError), action)
-            is SuggestionAction.AcceptSuggestion -> AcceptSuggestion(AcceptSuggestionError(error as SuggestionsError.FollowAccountError), action)
-        }
-    }
-}
-
+/** States for the list of suggestions. */
 internal sealed interface Suggestions {
     data object Loading : Suggestions
     data class Loaded(val suggestions: List<Suggestion>) : Suggestions
 }
 
+/** Public interface for [SuggestionsViewModel]. */
 internal interface ISuggestionsViewModel {
     /** Asynchronous receiver for [UiAction]. */
     val accept: (UiAction) -> Unit
@@ -192,13 +89,19 @@ internal interface ISuggestionsViewModel {
      */
     val uiResult: Flow<Result<UiSuccess, UiError>>
 
-    /** Count of active network operations */
+    /**
+     * Count of active network operations. Every API call increments this on
+     * start and decrements on finish.
+     *
+     * If this is non-zero the UI should show a "loading" indicator of some
+     * sort.
+     */
     val operationCount: Flow<Int>
 
-    /** Suggestions to display */
+    /** Suggestions to display, with associated error. */
     val suggestions: StateFlow<Result<Suggestions, GetSuggestionsError>>
 
-    /** Additional UI state metadata */
+    /** Additional UI state metadata. */
     val uiState: Flow<UiState>
 }
 
@@ -218,35 +121,21 @@ internal class SuggestionsViewModel @Inject constructor(
 
     private val reload = MutableSharedFlow<Unit>(replay = 1)
 
+    /** The list of suggestions that should be visible. */
     private var currentList = emptyList<Suggestion>()
 
     private var _suggestions = MutableStateFlow<Result<Suggestions, GetSuggestionsError>>(Ok(Suggestions.Loading))
-    override val suggestions: StateFlow<Result<Suggestions, GetSuggestionsError>> = stateFlow(viewModelScope, Ok(Suggestions.Loading)) {
+    override val suggestions = stateFlow(viewModelScope, Ok(Suggestions.Loading)) {
         _suggestions.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
-    override val uiState = statusDisplayOptionsRepository.flow.map { UiState.from(it) }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
-            UiState.from(statusDisplayOptionsRepository.flow.value),
-        )
+    override val uiState = stateFlow(viewModelScope, UiState.from(statusDisplayOptionsRepository.flow.value)) {
+        statusDisplayOptionsRepository.flow.map { UiState.from(it) }
+            .flowWhileShared(SharingStarted.WhileSubscribed(5000))
+    }
 
     init {
-        viewModelScope.launch {
-            uiAction.filterIsInstance<SuggestionAction>().collect { action ->
-                val result = when (action) {
-                    is DeleteSuggestion -> deleteSuggestion(action.suggestion)
-                    is AcceptSuggestion -> acceptSuggestion(action.suggestion)
-                }.mapBoth({
-                    currentList = currentList.filterNot { it == action.suggestion }
-                    _suggestions.emit(Ok(Suggestions.Loaded(currentList)))
-
-                    Ok(UiSuccess.from(action))
-                }, { Err(UiError.make(it, action)) })
-                _uiResult.send(result)
-            }
-        }
+        viewModelScope.launch { uiAction.filterIsInstance<SuggestionAction>().collect(::onSuggestionAction) }
 
         viewModelScope.launch {
             reload.collect {
@@ -260,6 +149,26 @@ internal class SuggestionsViewModel @Inject constructor(
             reload.emit(Unit)
             uiAction.filterIsInstance<GetSuggestions>().collect { reload.emit(Unit) }
         }
+    }
+
+    /**
+     * Process each [SuggestionAction].
+     *
+     * Successful actions update [currentList] and emit in to [_suggestions] instead
+     * of reloading the from the server. There is no guarantee the reloaded list would
+     * contain the same accounts in the same order, so reloading risks the user losing
+     * their place.
+     */
+    private suspend fun onSuggestionAction(suggestionAction: SuggestionAction) {
+        val result = when (suggestionAction) {
+            is DeleteSuggestion -> deleteSuggestion(suggestionAction.suggestion)
+            is AcceptSuggestion -> acceptSuggestion(suggestionAction.suggestion)
+        }.mapBoth({
+            currentList = currentList.filterNot { it == suggestionAction.suggestion }
+            _suggestions.emit(Ok(Suggestions.Loaded(currentList)))
+            Ok(UiSuccess.from(suggestionAction))
+        }, { Err(UiError.make(it, suggestionAction)) })
+        _uiResult.send(result)
     }
 
     private suspend fun getSuggestions(): Result<Suggestions.Loaded, GetSuggestionsError> = operation {
@@ -280,8 +189,8 @@ internal class SuggestionsViewModel @Inject constructor(
 
     private suspend fun acceptSuggestion(suggestion: Suggestion): Result<Unit, SuggestionsError> = operation {
         Timber.d("Request to follow account with id: ${suggestion.account.id}")
-        Ok(Unit)
-//        return Err(SuggestionsError.FollowAccountError(ApiError.from(RuntimeException())))
+//        Ok(Unit)
+        Err(SuggestionsError.FollowAccountError(ApiError.from(RuntimeException())))
     }
 
     /**

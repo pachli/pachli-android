@@ -32,6 +32,8 @@ import app.pachli.core.data.model.Suggestion
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.setClickableText
+import app.pachli.feature.suggestions.UiAction.NavigationAction
+import app.pachli.feature.suggestions.UiAction.SuggestionAction
 import app.pachli.feature.suggestions.databinding.ItemSuggestionBinding
 
 /**

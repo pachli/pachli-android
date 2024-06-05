@@ -53,6 +53,8 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.getErrorString
+import app.pachli.feature.suggestions.UiAction.GetSuggestions
+import app.pachli.feature.suggestions.UiAction.NavigationAction
 import app.pachli.feature.suggestions.databinding.FragmentSuggestionsBinding
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
@@ -71,21 +73,12 @@ import kotlinx.coroutines.launch
 
 // TODO:
 //
-// x Loading progress bar initially set
-// x Best way to pass click from item in the adapter to the fragment to the viewmodel
-// x Click through account entry to view profile
-// x Follow button
-// x Delete suggestion button
 // - Swipe left to delete suggestion
 // - Swipe right to follow
-// x UiAction to viewmodel, with retry
-// x debounce actions
 // - TODOs in the adapter
 // - How much of AccountViewHolder can be reused?
-// x swipe/refresh layout
-//   x layout
-//   x menu items
 // - talkbackWasEnabled machinery
+// - Write a document that talks about this
 
 /**
  * Notes on standard ways to do things.
@@ -119,7 +112,7 @@ class SuggestionsFragment :
     private val uiAction = MutableSharedFlow<UiAction>()
 
     /** Accepts user actions from UI components and emits them in to [uiAction]. */
-    internal val accept: (UiAction) -> Unit = { action -> lifecycleScope.launch { uiAction.emit(action) } }
+    private val accept: (UiAction) -> Unit = { action -> lifecycleScope.launch { uiAction.emit(action) } }
 
     /** The active snackbar */
     private var snackbar: Snackbar? = null
@@ -239,15 +232,6 @@ class SuggestionsFragment :
 
     /** Act on the result of UI actions */
     private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
-        uiResult.onSuccess {
-            // Remove suggestions that have been acted on from the list of suggestions.
-            // Do not reload the list, as there's no guarantee the new list will be in
-            // the same order or have the same contents, and the user will lose their
-            // place.
-//            suggestionsAdapter.removeSuggestion(it.action.suggestion)
-//            suggestionsAdapter.submitList(it.suggestions)
-        }
-
         uiResult.onFailure { uiError ->
             val message = uiError.fmt(requireContext())
             snackbar?.dismiss()
@@ -257,7 +241,7 @@ class SuggestionsFragment :
                     show()
                     snackbar = this
                 }
-            } catch (e: IllegalArgumentException) {
+            } catch (_: IllegalArgumentException) {
                 // On rare occasions this code is running before the fragment's
                 // view is connected to the parent. This causes Snackbar.make()
                 // to crash.  See https://issuetracker.google.com/issues/228215869.
