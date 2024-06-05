@@ -79,7 +79,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -177,7 +176,7 @@ class SuggestionsFragment :
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch { viewModel.uiState.collectLatest(::bindUiState) }
 
-                launch { uiAction.throttleFirst(THROTTLE_TIMEOUT).collect(::bindUiAction) }
+                launch { uiAction.throttleFirst().collect(::bindUiAction) }
 
                 launch { viewModel.suggestions.collectLatest(::bindSuggestions) }
 
@@ -327,9 +326,6 @@ class SuggestionsFragment :
     }
 
     companion object {
-        // TODO: Move to core.ui
-        private val THROTTLE_TIMEOUT = 500.milliseconds
-
         fun newInstance() = SuggestionsFragment()
     }
 
