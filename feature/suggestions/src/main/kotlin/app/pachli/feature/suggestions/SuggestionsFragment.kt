@@ -19,12 +19,10 @@ package app.pachli.feature.suggestions
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -32,26 +30,20 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.RefreshableFragment
-import app.pachli.core.activity.emojify
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
-import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.model.SuggestionSources
 import app.pachli.core.data.model.SuggestionSources.FEATURED
 import app.pachli.core.data.model.SuggestionSources.FRIENDS_OF_FRIENDS
@@ -62,12 +54,8 @@ import app.pachli.core.data.model.SuggestionSources.UNKNOWN
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.extensions.getServerErrorMessage
-import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BackgroundMessage
-import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.setClickableText
 import app.pachli.feature.suggestions.databinding.FragmentSuggestionsBinding
-import app.pachli.feature.suggestions.databinding.ItemSuggestionBinding
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -86,15 +74,15 @@ import timber.log.Timber
 
 // TODO:
 //
-// - Loading progress bar initially set
+// x Loading progress bar initially set
 // x Best way to pass click from item in the adapter to the fragment to the viewmodel
 // x Click through account entry to view profile
 // x Follow button
 // x Delete suggestion button
 // - Swipe left to delete suggestion
 // - Swipe right to follow
-// - UiAction to viewmodel, with retry
-// - debounce actions
+// x UiAction to viewmodel, with retry
+// x debounce actions
 // - TODOs in the adapter
 // - How much of AccountViewHolder can be reused?
 // x swipe/refresh layout
@@ -128,7 +116,7 @@ class SuggestionsFragment :
 
     private lateinit var bottomSheetActivity: BottomSheetActivity
 
-    private lateinit var suggestionAdapter: SuggestionAdapter
+    private lateinit var suggestionsAdapter: SuggestionsAdapter
 
     /** Flow of actions the user has taken in the UI */
     private val uiAction = MutableSharedFlow<UiAction>()
@@ -147,7 +135,7 @@ class SuggestionsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        suggestionAdapter = SuggestionAdapter(
+        suggestionsAdapter = SuggestionsAdapter(
             animateEmojis = viewModel.uiState.value.animateEmojis,
             animateAvatars = viewModel.uiState.value.animateAvatars,
             showBotOverlay = viewModel.uiState.value.showBotOverlay,
@@ -162,7 +150,7 @@ class SuggestionsFragment :
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(view.context)
-            adapter = suggestionAdapter
+            adapter = suggestionsAdapter
             addItemDecoration(MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
         }
@@ -193,9 +181,9 @@ class SuggestionsFragment :
     }
 
     private fun bindUiState(uiState: UiState) {
-        suggestionAdapter.setAnimateEmojis(uiState.animateEmojis)
-        suggestionAdapter.setAnimateAvatars(uiState.animateAvatars)
-        suggestionAdapter.setShowBotOverlay(uiState.showBotOverlay)
+        suggestionsAdapter.setAnimateEmojis(uiState.animateEmojis)
+        suggestionsAdapter.setAnimateAvatars(uiState.animateAvatars)
+        suggestionsAdapter.setShowBotOverlay(uiState.showBotOverlay)
     }
 
     /**
@@ -244,7 +232,7 @@ class SuggestionsFragment :
                         binding.messageView.show()
                         binding.messageView.setup(BackgroundMessage.Empty())
                     } else {
-                        suggestionAdapter.submitList(suggestions.suggestions)
+                        suggestionsAdapter.submitList(suggestions.suggestions)
                         binding.messageView.hide()
                         binding.recyclerView.show()
                     }
@@ -261,7 +249,7 @@ class SuggestionsFragment :
      *   or have the same contents, and the user will lose their place.
      */
     private fun bindUiSuccess(uiSuccess: UiSuccess) {
-        suggestionAdapter.removeSuggestion(uiSuccess.action.suggestion)
+        suggestionsAdapter.removeSuggestion(uiSuccess.action.suggestion)
     }
 
     /**
@@ -327,131 +315,6 @@ class SuggestionsFragment :
 
     companion object {
         fun newInstance() = SuggestionsFragment()
-    }
-
-    private object SuggestionDiffer : DiffUtil.ItemCallback<Suggestion>() {
-        override fun areItemsTheSame(oldItem: Suggestion, newItem: Suggestion) = oldItem.account == newItem.account
-        override fun areContentsTheSame(oldItem: Suggestion, newItem: Suggestion) = oldItem == newItem
-    }
-
-    /**
-     * Adapter for [Suggestion].
-     */
-    // TODO: This is quite similar to AccountAdapter, so if some functionality can be
-    // made common. See things like FollowRequestViewHolder.setupWithAccount as well.
-    class SuggestionAdapter(
-        private var animateEmojis: Boolean,
-        private var animateAvatars: Boolean,
-        private var showBotOverlay: Boolean,
-        private val accept: (UiAction) -> Unit,
-    ) : ListAdapter<Suggestion, SuggestionAdapter.SuggestionViewHolder>(
-        SuggestionDiffer,
-    ) {
-        fun setAnimateEmojis(animateEmojis: Boolean) {
-            if (this.animateEmojis == animateEmojis) return
-            this.animateEmojis = animateEmojis
-            notifyItemRangeChanged(0, currentList.size)
-        }
-
-        fun setAnimateAvatars(animateAvatars: Boolean) {
-            if (this.animateAvatars == animateAvatars) return
-            this.animateAvatars = animateAvatars
-            notifyItemRangeChanged(0, currentList.size)
-        }
-
-        fun setShowBotOverlay(showBotOverlay: Boolean) {
-            if (this.showBotOverlay == showBotOverlay) return
-            this.showBotOverlay = showBotOverlay
-            notifyItemRangeChanged(0, currentList.size)
-        }
-
-        /** Removes [suggestion] from the current list */
-        fun removeSuggestion(suggestion: Suggestion) {
-            submitList(currentList.filterNot { it == suggestion })
-        }
-
-        override fun getItemViewType(position: Int) = R.layout.item_suggestion
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
-            val binding = ItemSuggestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return SuggestionViewHolder(binding, accept)
-        }
-
-        override fun onBindViewHolder(holder: SuggestionViewHolder, position: Int) {
-            holder.bind(
-                currentList[position],
-                animateEmojis,
-                animateAvatars,
-                showBotOverlay,
-            )
-        }
-
-        class SuggestionViewHolder(
-            private val binding: ItemSuggestionBinding,
-            private val accept: (UiAction) -> Unit,
-        ) : RecyclerView.ViewHolder(binding.root) {
-            private lateinit var suggestion: Suggestion
-
-            private val avatarRadius: Int
-
-            /**
-             * Link listener for [setClickableText] that generates the appropriate
-             * navigation actions.
-             */
-            private val linkListener = object : LinkListener {
-                override fun onViewTag(tag: String) = accept(NavigationAction.ViewHashtag(tag))
-                override fun onViewAccount(id: String) = accept(NavigationAction.ViewAccount(id))
-                override fun onViewUrl(url: String) = accept(NavigationAction.ViewUrl(url))
-            }
-
-            init {
-                with(binding) {
-                    followAccount.setOnClickListener { accept(SuggestionAction.AcceptSuggestion(suggestion)) }
-                    deleteSuggestion.setOnClickListener { accept(SuggestionAction.DeleteSuggestion(suggestion)) }
-                    accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
-                    root.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
-
-                    avatarRadius = avatar.context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.avatar_radius_48dp)
-                }
-            }
-
-            // TODO: Similar to FollowRequestViewHolder.setupWithAccount
-            fun bind(
-                suggestion: Suggestion,
-                animateEmojis: Boolean,
-                animateAvatars: Boolean,
-                showBotOverlay: Boolean,
-            ) {
-                this.suggestion = suggestion
-                val account = suggestion.account
-
-                with(binding) {
-                    suggestion.sources.firstOrNull()?.let {
-                        suggestionReason.text = suggestionReason.context.getString(it.stringResource())
-                        suggestionReason.show()
-                    } ?: suggestionReason.hide()
-
-                    displayName.text = account.name.unicodeWrap()
-                    // TODO: Emojis and animated emojis here
-
-                    val formattedUsername = username.context.getString(app.pachli.core.designsystem.R.string.post_username_format, account.username)
-                    username.text = formattedUsername
-
-                    if (account.note.isBlank()) {
-                        accountNote.hide()
-                    } else {
-                        accountNote.show()
-                        val emojifiedNote = account.note.parseAsMastodonHtml()
-                            .emojify(account.emojis, accountNote, animateEmojis)
-
-                        setClickableText(accountNote, emojifiedNote, emptyList(), null, linkListener)
-                    }
-
-                    loadAvatar(account.avatar, avatar, avatarRadius, animateAvatars)
-                    avatarBadge.visible(showBotOverlay && account.bot)
-                }
-            }
-        }
     }
 }
 
