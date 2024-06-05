@@ -129,7 +129,7 @@ class SuggestionsFragment :
 
     private lateinit var bottomSheetActivity: BottomSheetActivity
 
-    private lateinit var suggestionsAdapter: SuggestionsAdapter
+    private lateinit var suggestionAdapter: SuggestionAdapter
 
     /** Flow of actions the user has taken in the UI */
     private val uiAction = MutableSharedFlow<UiAction>()
@@ -148,7 +148,7 @@ class SuggestionsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        suggestionsAdapter = SuggestionsAdapter(
+        suggestionAdapter = SuggestionAdapter(
             animateEmojis = viewModel.uiState.value.animateEmojis,
             animateAvatars = viewModel.uiState.value.animateAvatars,
             showBotOverlay = viewModel.uiState.value.showBotOverlay,
@@ -163,7 +163,7 @@ class SuggestionsFragment :
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(view.context)
-            adapter = suggestionsAdapter
+            adapter = suggestionAdapter
             addItemDecoration(MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
         }
@@ -194,9 +194,9 @@ class SuggestionsFragment :
     }
 
     private fun bindUiState(uiState: UiState) {
-        suggestionsAdapter.setAnimateEmojis(uiState.animateEmojis)
-        suggestionsAdapter.setAnimateAvatars(uiState.animateAvatars)
-        suggestionsAdapter.setShowBotOverlay(uiState.showBotOverlay)
+        suggestionAdapter.setAnimateEmojis(uiState.animateEmojis)
+        suggestionAdapter.setAnimateAvatars(uiState.animateAvatars)
+        suggestionAdapter.setShowBotOverlay(uiState.showBotOverlay)
     }
 
     /**
@@ -245,7 +245,7 @@ class SuggestionsFragment :
                         binding.messageView.show()
                         binding.messageView.setup(BackgroundMessage.Empty())
                     } else {
-                        suggestionsAdapter.submitList(suggestions.suggestions)
+                        suggestionAdapter.submitList(suggestions.suggestions)
                         binding.messageView.hide()
                         binding.recyclerView.show()
                     }
@@ -262,7 +262,7 @@ class SuggestionsFragment :
      *   or have the same contents, and the user will lose their place.
      */
     private fun bindUiSuccess(uiSuccess: UiSuccess) {
-        suggestionsAdapter.removeSuggestion(uiSuccess.action.suggestion)
+        suggestionAdapter.removeSuggestion(uiSuccess.action.suggestion)
     }
 
     /**
@@ -343,13 +343,12 @@ class SuggestionsFragment :
      */
     // TODO: This is quite similar to AccountAdapter, so if some functionality can be
     // made common. See things like FollowRequestViewHolder.setupWithAccount as well.
-    // TODO: Rename to SuggestionAdapter
-    class SuggestionsAdapter(
+    class SuggestionAdapter(
         private var animateEmojis: Boolean,
         private var animateAvatars: Boolean,
         private var showBotOverlay: Boolean,
         private val accept: (UiAction) -> Unit,
-    ) : ListAdapter<Suggestion, SuggestionsAdapter.SuggestionsViewHolder>(
+    ) : ListAdapter<Suggestion, SuggestionAdapter.SuggestionViewHolder>(
         SuggestionDiffer,
     ) {
         fun setAnimateEmojis(animateEmojis: Boolean) {
@@ -377,12 +376,12 @@ class SuggestionsFragment :
 
         override fun getItemViewType(position: Int) = if (position == 0) R.layout.item_heading else R.layout.item_suggestion
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionsViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
             val binding = ItemSuggestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return SuggestionsViewHolder(binding, accept)
+            return SuggestionViewHolder(binding, accept)
         }
 
-        override fun onBindViewHolder(holder: SuggestionsViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: SuggestionViewHolder, position: Int) {
             holder.bind(
                 currentList[position],
                 animateEmojis,
@@ -391,7 +390,7 @@ class SuggestionsFragment :
             )
         }
 
-        class SuggestionsViewHolder(
+        class SuggestionViewHolder(
             private val binding: ItemSuggestionBinding,
             private val accept: (UiAction) -> Unit,
         ) : RecyclerView.ViewHolder(binding.root) {
