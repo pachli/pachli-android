@@ -28,10 +28,10 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
@@ -43,7 +43,6 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
-import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.SuggestionSources
 import app.pachli.core.data.model.SuggestionSources.FEATURED
 import app.pachli.core.data.model.SuggestionSources.FRIENDS_OF_FRIENDS
@@ -53,8 +52,8 @@ import app.pachli.core.data.model.SuggestionSources.SIMILAR_TO_RECENTLY_FOLLOWED
 import app.pachli.core.data.model.SuggestionSources.UNKNOWN
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
-import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.feature.suggestions.databinding.FragmentSuggestionsBinding
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
@@ -70,7 +69,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 // TODO:
 //
@@ -122,7 +120,7 @@ class SuggestionsFragment :
     private val uiAction = MutableSharedFlow<UiAction>()
 
     /** Accepts user actions from UI components and emits them in to [uiAction]. */
-    val accept: (UiAction) -> Unit = { action -> lifecycleScope.launch { uiAction.emit(action) } }
+    internal val accept: (UiAction) -> Unit = { action -> lifecycleScope.launch { uiAction.emit(action) } }
 
     /** The active snackbar */
     private var snackbar: Snackbar? = null
@@ -160,13 +158,15 @@ class SuggestionsFragment :
 
     /** Binds data to the UI */
     private fun bind() {
+        viewModel.suggestions.observe(viewLifecycleOwner, observeSuggestions)
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch { viewModel.uiState.collectLatest(::bindUiState) }
 
                 launch { uiAction.throttleFirst().collect(::bindUiAction) }
 
-                launch { viewModel.suggestions.collectLatest(::bindSuggestions) }
+//                launch { viewModel.suggestions.collectLatest(::bindSuggestions) }
 
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
@@ -206,6 +206,39 @@ class SuggestionsFragment :
         Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).show()
     }
 
+    private val observeSuggestions = Observer<Result<Suggestions, GetSuggestionsError>> { result ->
+        binding.swipeRefreshLayout.isRefreshing = false
+
+        result.onFailure {
+            binding.messageView.show()
+            binding.recyclerView.hide()
+
+            // TODO: binding.swipeRefreshLayout.isRefreshing = false
+
+//            if (it is NetworkError) {
+//                binding.messageView.setup(BackgroundMessage.Network()) { viewModel.refresh() }
+//            } else {
+//                binding.messageView.setup(BackgroundMessage.GenericError()) { viewModel.refresh() }
+//            }
+        }
+
+        result.onSuccess { suggestions ->
+            when (suggestions) {
+                Suggestions.Loading -> { /* nothing to do */ }
+                is Suggestions.Loaded -> {
+                    if (suggestions.suggestions.isEmpty()) {
+                        binding.messageView.show()
+                        binding.messageView.setup(BackgroundMessage.Empty())
+                    } else {
+                        suggestionsAdapter.submitList(suggestions.suggestions)
+                        binding.messageView.hide()
+                        binding.recyclerView.show()
+                    }
+                }
+            }
+        }
+    }
+
     private fun bindSuggestions(result: Result<Suggestions, GetSuggestionsError>) {
         binding.swipeRefreshLayout.isRefreshing = false
 
@@ -242,37 +275,23 @@ class SuggestionsFragment :
     /** Act on the result of UI actions */
     private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
         uiResult.onSuccess {
-            // Remove suggestions that have been acted om from the list of suggestions.
+            // Remove suggestions that have been acted on from the list of suggestions.
             // Do not reload the list, as there's no guarantee the new list will be in
             // the same order or have the same contents, and the user will lose their
             // place.
-            suggestionsAdapter.removeSuggestion(it.action.suggestion)
+//            suggestionsAdapter.removeSuggestion(it.action.suggestion)
+//            suggestionsAdapter.submitList(it.suggestions)
         }
 
         uiResult.onFailure { uiError ->
-            val message = when (uiError) {
-                is UiError.DeleteSuggestion -> getString(
-                    uiError.stringResource(),
-                    uiError.action.suggestion.account.displayName,
-                    uiError.error.throwable.getServerErrorMessage() ?: uiError.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
-                )
-
-                is UiError.AcceptSuggestion -> getString(
-                    uiError.stringResource(),
-                    uiError.action.suggestion.account.displayName,
-                    uiError.error.throwable.getServerErrorMessage() ?: uiError.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
-                )
-            }
-            Timber.d(uiError.error.throwable, message)
+            val message = uiError.fmt(requireContext())
             snackbar?.dismiss()
             try {
-                snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
-                uiError.action.let { action ->
-                    snackbar!!.setAction(app.pachli.core.ui.R.string.action_retry) {
-                        viewModel.accept(action)
-                    }
+                Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).apply {
+                    uiError.action.let { uiAction -> setAction(app.pachli.core.ui.R.string.action_retry) { viewModel.accept(uiAction) } }
+                    show()
+                    snackbar = this
                 }
-                snackbar!!.show()
             } catch (e: IllegalArgumentException) {
                 // On rare occasions this code is running before the fragment's
                 // view is connected to the parent. This causes Snackbar.make()
@@ -332,8 +351,15 @@ fun SuggestionSources.stringResource() = when (this) {
     UNKNOWN -> R.string.sources_unknown
 }
 
-@StringRes
-fun UiError.stringResource() = when (this) {
-    is UiError.DeleteSuggestion -> R.string.ui_error_delete_suggestion_fmt
-    is UiError.AcceptSuggestion -> R.string.ui_error_follow_account_fmt
+internal fun UiError.fmt(context: Context) = when (this) {
+    is UiError.AcceptSuggestion -> context.getString(
+        R.string.ui_error_delete_suggestion_fmt,
+        action.suggestion.account.displayName,
+        error.throwable.getErrorString(context),
+    )
+    is UiError.DeleteSuggestion -> context.getString(
+        R.string.ui_error_follow_account_fmt,
+        action.suggestion.account.displayName,
+        error.throwable.getErrorString(context),
+    )
 }

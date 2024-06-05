@@ -17,6 +17,8 @@
 
 package app.pachli.feature.suggestions
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.model.StatusDisplayOptions
@@ -30,9 +32,11 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -42,8 +46,6 @@ import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.transformLatest
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -92,7 +94,7 @@ import timber.log.Timber
  * @property animateAvatars True if avatars should be animated
  * @property showBotOverlay True if avatars for bot accounts should show an overlay
  */
-data class UiState(
+internal data class UiState(
     val animateEmojis: Boolean = false,
     val animateAvatars: Boolean = false,
     val showBotOverlay: Boolean = false,
@@ -106,15 +108,15 @@ data class UiState(
     }
 }
 
-sealed interface UiAction
+internal sealed interface UiAction
 
-sealed interface NavigationAction : UiAction {
+internal sealed interface NavigationAction : UiAction {
     data class ViewAccount(val accountId: String) : NavigationAction
     data class ViewHashtag(val hashtag: String) : NavigationAction
     data class ViewUrl(val url: String) : NavigationAction
 }
 
-sealed interface SuggestionAction : UiAction {
+internal sealed interface SuggestionAction : UiAction {
     val suggestion: Suggestion
 
     data class DeleteSuggestion(override val suggestion: Suggestion) : SuggestionAction
@@ -123,11 +125,15 @@ sealed interface SuggestionAction : UiAction {
 
 data object GetSuggestions : UiAction
 
-sealed interface UiSuccess {
+internal sealed interface UiSuccess {
     val action: SuggestionAction
 
-    data class DeleteSuggestion(override val action: SuggestionAction.DeleteSuggestion) : UiSuccess
-    data class AcceptSuggestion(override val action: SuggestionAction.AcceptSuggestion) : UiSuccess
+    data class DeleteSuggestion(
+        override val action: SuggestionAction.DeleteSuggestion,
+    ) : UiSuccess
+    data class AcceptSuggestion(
+        override val action: SuggestionAction.AcceptSuggestion,
+    ) : UiSuccess
 
     companion object {
         fun from(action: SuggestionAction) = when (action) {
@@ -149,7 +155,7 @@ value class GetSuggestionsError(private val e: SuggestionsError.GetSuggestionsEr
 @JvmInline
 value class AcceptSuggestionError(private val e: SuggestionsError.FollowAccountError) : SuggestionsError by e
 
-sealed interface UiError {
+internal sealed interface UiError {
     val error: SuggestionsError
     val action: UiAction
 
@@ -171,51 +177,71 @@ sealed interface UiError {
     }
 }
 
-sealed interface Suggestions {
+internal sealed interface Suggestions {
     data object Loading : Suggestions
     data class Loaded(val suggestions: List<Suggestion>) : Suggestions
+}
+
+internal interface ISuggestionsViewModel {
+    /** Asynchronous receiver for [UiAction]. */
+    val accept: (UiAction) -> Unit
+
+    /**
+     * Results from each action sent to [accept]. Results may not be returned
+     * in the same order as the actions.
+     */
+    val uiResult: Flow<Result<UiSuccess, UiError>>
+
+    /** Count of active network operations */
+    val operationCount: Flow<Int>
+
+    /** Suggestions to display */
+    val suggestions: LiveData<Result<Suggestions, GetSuggestionsError>>
+
+    /** Additional UI state metadata */
+    val uiState: Flow<UiState>
 }
 
 @HiltViewModel
 internal class SuggestionsViewModel @Inject constructor(
     private val suggestionsRepository: SuggestionsRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
-) : ViewModel() {
-    /** Flow of user actions received from the UI */
+) : ViewModel(), ISuggestionsViewModel {
     private val uiAction = MutableSharedFlow<UiAction>()
+    override val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
 
-    val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
-
-    /** Mutable channel of results from UI actions. */
     private val _uiResult = Channel<Result<UiSuccess, UiError>>()
+    override val uiResult = _uiResult.receiveAsFlow()
 
-    /** Exposed flow of results from UI actions. */
-    val uiResult = _uiResult.receiveAsFlow()
-
-    /** Mutable count of active network operations. */
     private val _operationCount = MutableStateFlow(0)
+    override val operationCount = _operationCount.asStateFlow()
 
-    /** Exposed count of active network operations. */
-    val operationCount = _operationCount.asStateFlow()
+    private val reload = MutableSharedFlow<Unit>(replay = 1)
 
-    private val reload = MutableStateFlow(0)
+//    override val suggestions = reload.transformLatest {
+//        emit(Ok(Suggestions.Loading))
+//        emit(getSuggestions())
+//    }.stateIn(
+//        scope = viewModelScope,
+// //        started = SharingStarted.WhileSubscribed(5000),
+//        started = SharingStarted.Lazily,
+//        initialValue = Ok(Suggestions.Loading),
+//    )
 
-    /** Flow of [Suggestions] from the API */
-    val suggestions = reload.transformLatest {
-        emit(Ok(Suggestions.Loading))
-        emit(getSuggestions())
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = Ok(Suggestions.Loading),
-    )
+    private val _suggestions: MutableLiveData<Result<Suggestions, GetSuggestionsError>> by lazy { MutableLiveData<Result<Suggestions, GetSuggestionsError>>() }
+    val suggestions: LiveData<Result<Suggestions, GetSuggestionsError>>
+        get() = _suggestions
 
-    val uiState = statusDisplayOptionsRepository.flow.map { UiState.from(it) }
+    override val uiState = statusDisplayOptionsRepository.flow.map { UiState.from(it) }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
             UiState.from(statusDisplayOptionsRepository.flow.value),
         )
+
+//    private var _suggestions = listOf<Suggestion>()
+
+    private var currentList = emptyList<Suggestion>()
 
     init {
         viewModelScope.launch {
@@ -223,17 +249,30 @@ internal class SuggestionsViewModel @Inject constructor(
                 val result = when (action) {
                     is DeleteSuggestion -> deleteSuggestion(action.suggestion)
                     is AcceptSuggestion -> acceptSuggestion(action.suggestion)
-                }.mapBoth({ Ok(UiSuccess.from(action)) }, { Err(UiError.make(it, action)) })
+                }.mapBoth({
+                    currentList = currentList.filterNot { it == action.suggestion }
+                    _suggestions.postValue(Ok(Suggestions.Loaded(currentList)))
+                    Ok(UiSuccess.from(action))
+                }, { Err(UiError.make(it, action)) })
                 _uiResult.send(result)
             }
         }
 
         viewModelScope.launch {
-            uiAction.filterIsInstance<GetSuggestions>().collect { reload.update { it + 1 } }
+            reload.collect {
+                _suggestions.postValue(Ok(Suggestions.Loading))
+                val result = getSuggestions().onSuccess { currentList = it.suggestions }
+                _suggestions.postValue(result)
+            }
+        }
+
+        viewModelScope.launch {
+            reload.emit(Unit)
+            uiAction.filterIsInstance<GetSuggestions>().collect { reload.emit(Unit) }
         }
     }
 
-    private suspend fun getSuggestions(): Result<Suggestions, GetSuggestionsError> = operation {
+    private suspend fun getSuggestions(): Result<Suggestions.Loaded, GetSuggestionsError> = operation {
         suggestionsRepository
             .getSuggestions()
             .mapBoth(
