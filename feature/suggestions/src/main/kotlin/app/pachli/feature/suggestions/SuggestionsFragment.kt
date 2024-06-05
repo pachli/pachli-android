@@ -374,7 +374,7 @@ class SuggestionsFragment :
             submitList(currentList.filterNot { it == suggestion })
         }
 
-        override fun getItemViewType(position: Int) = if (position == 0) R.layout.item_heading else R.layout.item_suggestion
+        override fun getItemViewType(position: Int) = R.layout.item_suggestion
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
             val binding = ItemSuggestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
