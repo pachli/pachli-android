@@ -11,3 +11,4 @@ profile-out
 profile-out-*
 app/*/release
 app-release.apk
+.kotlin
