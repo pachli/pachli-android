@@ -265,15 +265,20 @@ class SuggestionsFragment :
             }
             Timber.d(uiError.error.throwable, message)
             snackbar?.dismiss()
-            // TODO: Handle the case where the view might might be null, see similar
-            // code in SFragment.
-            snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
-            uiError.action.let { action ->
-                snackbar!!.setAction(app.pachli.core.ui.R.string.action_retry) {
-                    viewModel.accept(action)
+            try {
+                snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
+                uiError.action.let { action ->
+                    snackbar!!.setAction(app.pachli.core.ui.R.string.action_retry) {
+                        viewModel.accept(action)
+                    }
                 }
+                snackbar!!.show()
+            } catch (e: IllegalArgumentException) {
+                // On rare occasions this code is running before the fragment's
+                // view is connected to the parent. This causes Snackbar.make()
+                // to crash.  See https://issuetracker.google.com/issues/228215869.
+                // For now, swallow the exception.
             }
-            snackbar!!.show()
         }
     }
 
