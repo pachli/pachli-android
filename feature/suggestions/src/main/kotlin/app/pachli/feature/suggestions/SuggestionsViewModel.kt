@@ -24,12 +24,12 @@ import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.SuggestionsError
 import app.pachli.core.data.repository.SuggestionsRepository
+import app.pachli.feature.suggestions.SuggestionAction.AcceptSuggestion
+import app.pachli.feature.suggestions.SuggestionAction.DeleteSuggestion
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapBoth
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
@@ -59,9 +59,7 @@ import timber.log.Timber
  * - suggestions: Flow of [Result] to populate the list or show an error,
  *   as appropriate
  *
- * - uiSuccess
- *
- * - uiErrors
+ * - uiResult
  *
  * - uiState
  *
@@ -83,11 +81,17 @@ import timber.log.Timber
  * the message.
  *
  * TODO:
- * - uiErrors and uiSuccess -- could this be a single uiResult?
  * - What's the argument for not including them in the state? Transient
  *   data does not need to survive?
  */
 
+/**
+ * High-level UI state, derived from [StatusDisplayOptions].
+ *
+ * @property animateEmojis True if emojis should be animated
+ * @property animateAvatars True if avatars should be animated
+ * @property showBotOverlay True if avatars for bot accounts should show an overlay
+ */
 data class UiState(
     val animateEmojis: Boolean = false,
     val animateAvatars: Boolean = false,
@@ -110,7 +114,6 @@ sealed interface NavigationAction : UiAction {
     data class ViewUrl(val url: String) : NavigationAction
 }
 
-// TODO: Maybe these are "SuggestionAction" (like "StatusAction" in TimelineViewModel)
 sealed interface SuggestionAction : UiAction {
     val suggestion: Suggestion
 
@@ -148,7 +151,7 @@ value class AcceptSuggestionError(private val e: SuggestionsError.FollowAccountE
 
 sealed interface UiError {
     val error: SuggestionsError
-    val action: UiAction?
+    val action: UiAction
 
     data class DeleteSuggestion(
         override val error: DeleteSuggestionError,
@@ -178,36 +181,34 @@ internal class SuggestionsViewModel @Inject constructor(
     private val suggestionsRepository: SuggestionsRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
 ) : ViewModel() {
-    private val _uiSuccess = Channel<UiSuccess>()
-    val uiSuccess = _uiSuccess.receiveAsFlow()
+    /** Flow of user actions received from the UI */
+    private val uiAction = MutableSharedFlow<UiAction>()
 
-    private val _uiErrors = Channel<UiError>()
-    val uiErrors = _uiErrors.receiveAsFlow()
+    val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
 
+    /** Mutable channel of results from UI actions. */
+    private val _uiResult = Channel<Result<UiSuccess, UiError>>()
+
+    /** Exposed flow of results from UI actions. */
+    val uiResult = _uiResult.receiveAsFlow()
+
+    /** Mutable count of active network operations. */
     private val _operationCount = MutableStateFlow(0)
+
+    /** Exposed count of active network operations. */
     val operationCount = _operationCount.asStateFlow()
 
     private val reload = MutableStateFlow(0)
 
-    /** Flow of user actions received from the UI */
-    private val uiAction = MutableSharedFlow<UiAction>()
-
+    /** Flow of [Suggestions] from the API */
     val suggestions = reload.transformLatest {
         emit(Ok(Suggestions.Loading))
         emit(getSuggestions())
     }.stateIn(
         scope = viewModelScope,
-        // Lazily, as we expect the user to leave the suggestions for more than
-        // the typical 5 seconds (e.g., to review someone's profile before deciding
-        // whether to follow them). When the user finally backs out of suggestions
-        // UI this will stop.
-        //
-        // TODO: Is the above true if the fragment is hosted as a tab?
-        started = SharingStarted.Lazily,
+        started = SharingStarted.WhileSubscribed(5000),
         initialValue = Ok(Suggestions.Loading),
     )
-
-    val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
 
     val uiState = statusDisplayOptionsRepository.flow.map { UiState.from(it) }
         .stateIn(
@@ -219,25 +220,26 @@ internal class SuggestionsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             uiAction.filterIsInstance<SuggestionAction>().collect { action ->
-                when (action) {
-                    is SuggestionAction.DeleteSuggestion -> deleteSuggestion(action.suggestion)
-                    is SuggestionAction.AcceptSuggestion -> acceptSuggestion(action.suggestion)
-                }
-                    .onSuccess { _uiSuccess.send(UiSuccess.from(action)) }
-                    .onFailure { _uiErrors.send(UiError.make(it, action)) }
+                val result = when (action) {
+                    is DeleteSuggestion -> deleteSuggestion(action.suggestion)
+                    is AcceptSuggestion -> acceptSuggestion(action.suggestion)
+                }.mapBoth({ Ok(UiSuccess.from(action)) }, { Err(UiError.make(it, action)) })
+                _uiResult.send(result)
             }
         }
 
         viewModelScope.launch {
-            uiAction.filterIsInstance<GetSuggestions>().collect {
-                reload.update { it + 1 }
-            }
+            uiAction.filterIsInstance<GetSuggestions>().collect { reload.update { it + 1 } }
         }
     }
 
     private suspend fun getSuggestions(): Result<Suggestions, GetSuggestionsError> = operation {
-        suggestionsRepository.getSuggestions()
-            .mapBoth({ Ok(Suggestions.Loaded(it)) }, { Err(GetSuggestionsError(it)) })
+        suggestionsRepository
+            .getSuggestions()
+            .mapBoth(
+                { Ok(Suggestions.Loaded(it)) },
+                { Err(GetSuggestionsError(it)) },
+            )
     }
 
     private suspend fun deleteSuggestion(suggestion: Suggestion): Result<Unit, SuggestionsError> = operation {

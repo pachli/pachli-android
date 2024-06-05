@@ -168,9 +168,7 @@ class SuggestionsFragment :
 
                 launch { viewModel.suggestions.collectLatest(::bindSuggestions) }
 
-                launch { viewModel.uiSuccess.collect(::bindUiSuccess) }
-
-                launch { viewModel.uiErrors.collect(::bindUiErrors) }
+                launch { viewModel.uiResult.collect(::bindUiResult) }
 
                 // TODO: Very similar to code in ListsActivity
                 launch {
@@ -241,45 +239,42 @@ class SuggestionsFragment :
         }
     }
 
-    /**
-     * Act on successful UI actions.
-     *
-     * - Remove suggestions that have been acted on from the list of suggestions. Do not
-     *   reload the list as there's no guarantee the new list will be in the same order
-     *   or have the same contents, and the user will lose their place.
-     */
-    private fun bindUiSuccess(uiSuccess: UiSuccess) {
-        suggestionsAdapter.removeSuggestion(uiSuccess.action.suggestion)
-    }
-
-    /**
-     * Act on failed UI actions.
-     */
-    private fun bindUiErrors(uiError: UiError) {
-        val message = when (uiError) {
-            is UiError.DeleteSuggestion -> getString(
-                uiError.stringResource(),
-                uiError.action.suggestion.account.displayName,
-                uiError.error.throwable.getServerErrorMessage() ?: uiError.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
-            )
-
-            is UiError.AcceptSuggestion -> getString(
-                uiError.stringResource(),
-                uiError.action.suggestion.account.displayName,
-                uiError.error.throwable.getServerErrorMessage() ?: uiError.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
-            )
+    /** Act on the result of UI actions */
+    private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+        uiResult.onSuccess {
+            // Remove suggestions that have been acted om from the list of suggestions.
+            // Do not reload the list, as there's no guarantee the new list will be in
+            // the same order or have the same contents, and the user will lose their
+            // place.
+            suggestionsAdapter.removeSuggestion(it.action.suggestion)
         }
-        Timber.d(uiError.error.throwable, message)
-        snackbar?.dismiss()
-        // TODO: Handle the case where the view might might be null, see similar
-        // code in SFragment.
-        snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
-        uiError.action?.let { action ->
-            snackbar!!.setAction(app.pachli.core.ui.R.string.action_retry) {
-                viewModel.accept(action)
+
+        uiResult.onFailure { uiError ->
+            val message = when (uiError) {
+                is UiError.DeleteSuggestion -> getString(
+                    uiError.stringResource(),
+                    uiError.action.suggestion.account.displayName,
+                    uiError.error.throwable.getServerErrorMessage() ?: uiError.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
+                )
+
+                is UiError.AcceptSuggestion -> getString(
+                    uiError.stringResource(),
+                    uiError.action.suggestion.account.displayName,
+                    uiError.error.throwable.getServerErrorMessage() ?: uiError.error.throwable.localizedMessage ?: getString(app.pachli.core.ui.R.string.ui_error_unknown).unicodeWrap(),
+                )
             }
+            Timber.d(uiError.error.throwable, message)
+            snackbar?.dismiss()
+            // TODO: Handle the case where the view might might be null, see similar
+            // code in SFragment.
+            snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
+            uiError.action.let { action ->
+                snackbar!!.setAction(app.pachli.core.ui.R.string.action_retry) {
+                    viewModel.accept(action)
+                }
+            }
+            snackbar!!.show()
         }
-        snackbar!!.show()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
