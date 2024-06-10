@@ -18,11 +18,12 @@
 package app.pachli.core.data.repository
 
 import androidx.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.network.ServerOperation
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -163,7 +164,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
                 result.onSuccess { server ->
                     _flow.update {
                         it.copy(
-                            canTranslate = server?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()) ?: false,
+                            canTranslate = server?.can(ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()) ?: false,
                         )
                     }
                 }
@@ -172,7 +173,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
         }
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    @VisibleForTesting(otherwise = PRIVATE)
     fun initialStatusDisplayOptions(account: AccountEntity? = null): StatusDisplayOptions {
         return StatusDisplayOptions(
             animateAvatars = sharedPreferencesRepository.getBoolean(
