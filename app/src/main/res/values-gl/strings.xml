@@ -73,7 +73,6 @@
     <string name="post_media_hidden_title">Multimedia agochado</string>
     <string name="post_sensitive_media_title">Contido sensible</string>
     <string name="post_boosted_format">%s promoveu</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_announcements">Anuncios</string>
     <string name="title_scheduled_posts">Toots programados</string>
     <string name="title_drafts">Borradores</string>

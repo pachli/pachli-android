@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Petoj de sekvado</string>
     <string name="title_edit_profile">Redakti vian profilon</string>
     <string name="title_drafts">Malnetoj</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s diskonigis</string>
     <string name="post_sensitive_media_title">Tikla enhavo</string>
     <string name="post_media_hidden_title">Kaŝitaj aŭdovidaĵoj</string>

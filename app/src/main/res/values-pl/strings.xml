@@ -241,7 +241,6 @@
     <string name="action_share_as">Udostępnij jako …</string>
     <string name="title_tab_preferences">Zakładki</string>
     <string name="title_domain_mutes">Ukryte domeny</string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">Cofnij podbicie</string>
     <string name="action_view_domain_mutes">Ukryte domeny</string>
     <string name="action_add_poll">Dodaj głosowanie</string>

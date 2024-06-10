@@ -18,7 +18,6 @@
 package app.pachli.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.R
 import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.visible
@@ -42,7 +41,7 @@ class AccountViewHolder(
         accountId = account.id
 
         binding.accountUsername.text = binding.accountUsername.context.getString(
-            R.string.post_username_format,
+            DR.string.post_username_format,
             account.username,
         )
 

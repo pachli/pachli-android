@@ -28,7 +28,6 @@
     <string name="title_follow_requests">關注請求</string>
     <string name="title_edit_profile">編輯個人資料</string>
     <string name="title_drafts">草稿</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s 轉嘟了</string>
     <string name="post_sensitive_media_title">敏感內容</string>
     <string name="post_media_hidden_title">已隱藏的照片或影片</string>

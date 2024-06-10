@@ -431,7 +431,6 @@
     <string name="post_media_hidden_title">Meadhanan falaichte</string>
     <string name="post_sensitive_media_title">Susbaint fhrionasach</string>
     <string name="post_boosted_format">’Ga bhrosnachadh le %s</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_follow_requests">Iarrtasan leantainn</string>
     <string name="title_domain_mutes">Àrainnean falaichte</string>
     <string name="title_blocks">Cleachdaichean bacte</string>

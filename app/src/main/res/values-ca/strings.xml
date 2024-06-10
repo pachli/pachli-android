@@ -23,7 +23,6 @@
     <string name="title_follow_requests">Peticions de seguiment</string>
     <string name="title_edit_profile">Edita el perfil</string>
     <string name="title_drafts">Esborranys</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s ha impulsat</string>
     <string name="post_sensitive_media_title">Contingut sensible</string>
     <string name="post_sensitive_media_directions">Fes clic per a visualitzar-lo</string>

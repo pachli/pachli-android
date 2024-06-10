@@ -246,7 +246,6 @@
     <string name="abbreviated_hours_ago">%dঘ</string>
     <string name="abbreviated_years_ago">%dব</string>
     <string name="post_boosted_format">%s বুস্টকৃত</string>
-    <string name="post_username_format">\@%s</string>
     <string name="dialog_mute_hide_notifications">বিজ্ঞপ্তি লুকাও</string>
     <string name="action_unmute_desc">আনমিউট %s</string>
     <string name="action_unmute_domain">আনমিউট %s</string>

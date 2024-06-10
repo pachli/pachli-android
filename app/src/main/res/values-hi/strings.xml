@@ -158,7 +158,6 @@
     <string name="post_sensitive_media_directions">देखने के लिए क्लिक करें</string>
     <string name="post_media_hidden_title">मीडिया छिपा हुआ</string>
     <string name="post_sensitive_media_title">संवेदनशील विषय वस्तु</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_view_thread">टूट</string>
     <string name="title_scheduled_posts">अनुसूचित टूट</string>
     <string name="title_domain_mutes">छिपे हुए डोमेन</string>

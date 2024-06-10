@@ -143,7 +143,6 @@
     <string name="post_media_hidden_title">Media bị ẩn</string>
     <string name="post_sensitive_media_title">Nhạy cảm</string>
     <string name="post_boosted_format">%s đăng lại</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_scheduled_posts">Những tút đã lên lịch</string>
     <string name="title_edit_profile">Chỉnh sửa hồ sơ</string>
     <string name="title_follow_requests">Yêu cầu theo dõi</string>

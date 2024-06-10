@@ -42,7 +42,6 @@
     <string name="title_migration_relogin">Увайдзіце зноў, каб атрымліваць push-апавяшчэнні</string>
     <string name="title_announcements">Аб\'явы</string>
     <string name="title_followed_hashtags">Падпіскі на хэштэгі</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s пашырыў(-ла)</string>
     <string name="post_sensitive_media_title">Далікатнае змесціва</string>
     <string name="post_media_hidden_title">Медыя схаванае</string>

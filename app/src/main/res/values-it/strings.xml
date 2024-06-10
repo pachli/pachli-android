@@ -32,7 +32,6 @@
     <string name="title_follow_requests">Richieste di seguirti</string>
     <string name="title_edit_profile">Modifica il tuo profilo</string>
     <string name="title_drafts">Bozze</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s ha condiviso</string>
     <string name="post_sensitive_media_title">Contenuto sensibile</string>
     <string name="post_media_hidden_title">Media nascosto</string>

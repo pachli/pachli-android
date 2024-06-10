@@ -135,7 +135,6 @@
     <string name="filter_dialog_update_button">പുതുക്കുക</string>
     <string name="label_avatar">അവതാർ</string>
     <string name="title_links_dialog">ലിങ്കുകൾ</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_media_video">വിഡിയോ</string>
     <string name="action_mention">സൂചിപ്പിക്കുക</string>
     <string name="filter_dialog_remove_button">നീക്കം ചെയ്യുക</string>

@@ -28,7 +28,6 @@
     <string name="title_follow_requests">অনুরোধ অনুসরণ করুন</string>
     <string name="title_edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
     <string name="title_drafts">খসড়াগুলো</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s সমর্থন দিয়েছে</string>
     <string name="post_sensitive_media_title">সংবেদনশীল কন্টেন্ট</string>
     <string name="post_media_hidden_title">মিডিয়া লুকানো</string>

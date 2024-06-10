@@ -83,7 +83,7 @@ class FollowViewHolder(
                 animateEmojis,
             )
         binding.notificationText.text = emojifiedMessage
-        val username = context.getString(R.string.post_username_format, account.username)
+        val username = context.getString(DR.string.post_username_format, account.username)
         binding.notificationUsername.text = username
         val emojifiedDisplayName = wrappedDisplayName.emojify(
             account.emojis,

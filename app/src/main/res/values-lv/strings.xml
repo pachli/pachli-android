@@ -20,7 +20,6 @@
     <string name="title_domain_mutes">Paslēptie domēni</string>
     <string name="title_follow_requests">Sekošanas pieprasījumi</string>
     <string name="title_scheduled_posts">Ieplānotie ieraksti</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_announcements">Paziņojumi</string>
     <string name="post_sensitive_media_title">Sensitīvs saturs</string>
     <string name="post_content_show_less">Sakļaut</string>

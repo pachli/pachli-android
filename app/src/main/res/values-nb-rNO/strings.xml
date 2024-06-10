@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Følgeforespørsler</string>
     <string name="title_edit_profile">Endre profilen din</string>
     <string name="title_drafts">Utkast</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s delte</string>
     <string name="post_sensitive_media_title">Sensitivt innhold</string>
     <string name="post_media_hidden_title">Media skjult</string>

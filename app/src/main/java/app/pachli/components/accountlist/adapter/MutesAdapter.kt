@@ -58,7 +58,7 @@ class MutesAdapter(
         val emojifiedName = account.name.emojify(account.emojis, binding.mutedUserDisplayName, animateEmojis)
         binding.mutedUserDisplayName.text = emojifiedName
 
-        val formattedUsername = context.getString(R.string.post_username_format, account.username)
+        val formattedUsername = context.getString(DR.string.post_username_format, account.username)
         binding.mutedUserUsername.text = formattedUsername
 
         val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)

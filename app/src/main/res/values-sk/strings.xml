@@ -12,7 +12,6 @@
     <string name="title_posts_pinned">Pripnuté</string>
     <string name="title_followers">Sledujúci</string>
     <string name="title_bookmarks">Záložky</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_sensitive_media_title">Citlivý obsah</string>
     <string name="post_sensitive_media_directions">Kliknite pre zobrazenie</string>
     <string name="post_content_warning_show_more">Zobraziť viac</string>

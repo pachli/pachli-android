@@ -29,7 +29,6 @@
     <string name="title_follow_requests">팔로우 요청</string>
     <string name="title_edit_profile">프로필 편집</string>
     <string name="title_drafts">임시 저장</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s님이 부스트 했습니다</string>
     <string name="post_sensitive_media_title">민감한 미디어</string>
     <string name="post_media_hidden_title">미디어 숨겨짐</string>
