@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.common.extensions
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat

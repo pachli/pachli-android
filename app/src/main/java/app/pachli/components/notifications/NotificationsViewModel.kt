@@ -33,6 +33,7 @@ import app.pachli.appstore.MuteEvent
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
@@ -44,13 +45,11 @@ import app.pachli.network.FilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
-import app.pachli.util.throttleFirst
 import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -416,7 +415,7 @@ class NotificationsViewModel @Inject constructor(
         // Handle NotificationAction.*
         viewModelScope.launch {
             uiAction.filterIsInstance<NotificationAction>()
-                .throttleFirst(THROTTLE_TIMEOUT)
+                .throttleFirst()
                 .collect { action ->
                     try {
                         when (action) {
@@ -435,7 +434,7 @@ class NotificationsViewModel @Inject constructor(
         // Handle StatusAction.*
         viewModelScope.launch {
             uiAction.filterIsInstance<StatusAction>()
-                .throttleFirst(THROTTLE_TIMEOUT) // avoid double-taps
+                .throttleFirst() // avoid double-taps
                 .collect { action ->
                     try {
                         when (action) {
@@ -568,8 +567,4 @@ class NotificationsViewModel @Inject constructor(
     private fun toPrefs() = UiPrefs(
         showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
     )
-
-    companion object {
-        private val THROTTLE_TIMEOUT = 500.milliseconds
-    }
 }
