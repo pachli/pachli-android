@@ -1,4 +1,4 @@
-package app.pachli.util
+package app.pachli.core.preferences
 
 enum class CardViewMode {
     NONE,

@@ -10,10 +10,10 @@ import android.view.View
 import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.ui.NoUnderlineURLSpan
 import app.pachli.databinding.ItemStatusDetailedBinding
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.CardViewMode
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.createClickableText
 import app.pachli.util.description

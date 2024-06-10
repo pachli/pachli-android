@@ -17,6 +17,8 @@
 
 package app.pachli.util
 
+import app.pachli.core.preferences.CardViewMode
+
 data class StatusDisplayOptions(
     @get:JvmName("animateAvatars")
     val animateAvatars: Boolean = false,
