@@ -107,11 +107,11 @@ class ServerRepository @Inject constructor(
         ).bind()
 
         mastodonApi.getInstanceV2().fold(
-            { Server.Companion.from(nodeInfo.software, it).mapError(::Capabilities) },
+            { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
             { throwable ->
-                Timber.Forest.e(throwable, "Couldn't process /api/v2/instance result")
+                Timber.e(throwable, "Couldn't process /api/v2/instance result")
                 mastodonApi.getInstanceV1().fold(
-                    { Server.Companion.from(nodeInfo.software, it).mapError(::Capabilities) },
+                    { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
                     { Err(GetInstanceInfoV1(it)) },
                 )
             },
