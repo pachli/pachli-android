@@ -517,7 +517,6 @@
     <string name="pref_show_self_username_disambiguate">Quando connesso con più account</string>
     <string name="duration_no_change">(nessuna modifica)</string>
     <string name="pref_title_show_self_username">Mostra nome utente nella barra strumenti</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="compose_save_draft_loses_media">Salvare bozza? (gli allegati verranno ricaricati quando ripristini la bozza.)</string>
     <string name="failed_to_pin">Fissaggio fallito</string>
     <string name="hint_media_description_missing">I media dovrebbero avere una descrizione.</string>

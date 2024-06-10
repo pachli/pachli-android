@@ -432,7 +432,6 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="error_multimedia_size_limit">ビデオと音声ファイルのサイズは %s MB を超えることはできません。</string>
     <string name="error_image_edit_failed">画像が編集できませんでした。</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_edit_image">画像の編集</string>
     <string name="error_following_hashtags_unsupported">このインスタンスはハッシュタグのフォローに対応していません。</string>
     <string name="title_followed_hashtags">フォローしたハッシュタグ</string>

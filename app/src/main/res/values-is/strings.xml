@@ -479,7 +479,6 @@
     <string name="failed_to_unpin">Mistókst að losa</string>
     <string name="pref_show_self_username_always">Alltaf</string>
     <string name="pref_show_self_username_disambiguate">Þegar er skráð inn á mörgum aðgöngum</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_set_focus">Setja virknistað</string>
     <string name="pref_show_self_username_never">Aldrei</string>
     <string name="pref_title_show_self_username">Birta notandanafn á verkfærastikum</string>
