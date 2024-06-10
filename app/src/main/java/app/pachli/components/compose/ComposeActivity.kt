@@ -509,7 +509,7 @@ class ComposeActivity :
         lifecycleScope.launch {
             viewModel.uploadError.collect { throwable ->
                 if (throwable is UploadServerError) {
-                    displayTransientMessage(throwable.errorMessage)
+                    displayTransientMessage(throwable.getErrorString(this@ComposeActivity))
                 } else {
                     displayTransientMessage(
                         getString(R.string.error_media_upload_sending_fmt, throwable.getErrorString(this@ComposeActivity)),
