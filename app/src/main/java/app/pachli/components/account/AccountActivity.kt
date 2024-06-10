@@ -82,6 +82,8 @@ import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
+import app.pachli.core.ui.getDomain
+import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ActivityAccountBinding
 import app.pachli.db.DraftsAlert
 import app.pachli.feature.lists.ListsForAccountFragment
@@ -90,8 +92,6 @@ import app.pachli.interfaces.ReselectableFragment
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
-import app.pachli.util.getDomain
-import app.pachli.util.setClickableText
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout

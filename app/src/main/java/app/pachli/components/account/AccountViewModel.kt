@@ -13,11 +13,11 @@ import app.pachli.core.accounts.AccountManager
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.ui.getDomain
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
-import app.pachli.util.getDomain
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -12,4 +12,5 @@
     <string name="action_view_profile">Profile</string>
     <string name="action_more">More</string>
     <string name="action_refresh">Refresh</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
 </resources>

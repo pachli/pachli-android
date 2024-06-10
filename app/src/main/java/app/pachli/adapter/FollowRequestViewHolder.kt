@@ -35,9 +35,9 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.util.setClickableText
 import app.pachli.viewdata.NotificationViewData
 
 class FollowRequestViewHolder(

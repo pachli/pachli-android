@@ -28,8 +28,8 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowBinding
-import app.pachli.util.setClickableText
 import app.pachli.viewdata.NotificationViewData
 
 class FollowViewHolder(

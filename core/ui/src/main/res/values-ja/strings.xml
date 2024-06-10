@@ -11,4 +11,5 @@
     <string name="action_view_profile">プロフィール</string>
     <string name="action_more">その他</string>
     <string name="action_refresh">再読み込み</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
 </resources>

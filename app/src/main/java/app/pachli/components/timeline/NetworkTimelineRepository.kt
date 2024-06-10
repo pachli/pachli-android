@@ -30,7 +30,7 @@ import app.pachli.core.accounts.AccountManager
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.util.getDomain
+import app.pachli.core.ui.getDomain
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow

@@ -12,4 +12,5 @@
     <string name="action_more">Más</string>
     <string name="action_refresh">Recargar</string>
     <string name="error_json_data_fmt">Tu servidor devolvió una respuesta inválida: %1$s</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
 </resources>

@@ -1,4 +1,5 @@
-/* Copyright 2022 Tusky contributors
+/*
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -14,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.ui
 
 // Inspired by https://github.com/mastodon/mastodon/blob/main/app/lib/ascii_folding.rb
 

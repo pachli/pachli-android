@@ -1,4 +1,21 @@
-package app.pachli.util
+/*
+ * Copyright 2024 Pachli Association
+ *
+ * This file is a part of Pachli.
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
+
+package app.pachli
 
 import android.content.Context
 import android.text.SpannableStringBuilder
@@ -6,11 +23,15 @@ import android.text.style.URLSpan
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import app.pachli.R
 import app.pachli.core.activity.BottomSheetActivity.Companion.looksLikeMastodonUrl
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.R
+import app.pachli.core.ui.getDomain
+import app.pachli.core.ui.getTagName
+import app.pachli.core.ui.markupHiddenUrls
+import app.pachli.core.ui.setClickableText
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

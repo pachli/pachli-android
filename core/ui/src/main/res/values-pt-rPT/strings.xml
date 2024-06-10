@@ -7,4 +7,5 @@
     <string name="button_done">Feito</string>
     <string name="action_view_profile">Perfil</string>
     <string name="action_more">Mais</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
 </resources>

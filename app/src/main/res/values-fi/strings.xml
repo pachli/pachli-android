@@ -542,7 +542,6 @@
     <string name="description_post_reblogged">Tehostettu</string>
     <string name="account_moved_description">%1$s on siirtynyt tänne:</string>
     <string name="description_visibility_direct">Vain mainitut</string>
-    <string name="url_domain_notifier">" (🔗 %s)"</string>
     <string name="description_post_favourited">Tykätty</string>
     <plurals name="poll_timespan_hours">
         <item quantity="one">%d tunti jäljellä</item>

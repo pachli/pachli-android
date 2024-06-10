@@ -8,4 +8,5 @@
     <string name="action_view_profile">Trang hồ sơ</string>
     <string name="action_more">Thêm</string>
     <string name="action_refresh">Làm mới</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
 </resources>
