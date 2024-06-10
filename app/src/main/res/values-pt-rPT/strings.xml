@@ -57,7 +57,6 @@
     <string name="post_content_show_less">Contrair</string>
     <string name="title_scheduled_posts">Toots agendados</string>
     <string name="title_announcements">Anúncios</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s deu boost</string>
     <string name="footer_empty">Nada para ver aqui. Arraste para baixo para atualizar!</string>
     <string name="notification_reblog_format">%s deu boost ao seu toot</string>

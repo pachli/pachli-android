@@ -30,7 +30,6 @@
     <string name="error_compose_character_limit">Postingan terlalu panjang!</string>
     <string name="error_media_upload_permission">Izin untuk membaca media diperlukan.</string>
     <string name="error_media_download_permission">Izin untuk menyimpan media diperlukan.</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_media_hidden_title">Media disembunyikan</string>
     <string name="post_sensitive_media_directions">Klik untuk melihat</string>
     <string name="post_content_warning_show_more">Tampilkan Lebih Banyak</string>

@@ -248,7 +248,6 @@
     <string name="description_visibility_public">Público</string>
     <string name="description_visibility_private">Seguidores</string>
     <string name="title_posts_pinned">Fixado</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_content_show_more">Mostrar mais</string>
     <string name="post_content_show_less">Mostrar menos</string>
     <string name="action_delete_and_redraft">Excluir e rascunhar</string>

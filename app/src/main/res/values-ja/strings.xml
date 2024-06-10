@@ -267,7 +267,6 @@
     </string>
     <string name="description_visibility_direct">        ダイレクト
     </string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">ブーストを解除</string>
     <string name="action_unfavourite">お気に入りを解除</string>
     <string name="action_open_reblogged_by">ブーストを表示</string>

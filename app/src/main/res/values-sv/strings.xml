@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Följarförfrågningar</string>
     <string name="title_edit_profile">Redigera din profil</string>
     <string name="title_drafts">Utkast</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s knuffade</string>
     <string name="post_sensitive_media_title">Känsligt innehåll</string>
     <string name="post_media_hidden_title">Dold media</string>

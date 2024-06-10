@@ -228,7 +228,6 @@
     <string name="title_direct_messages">Messatges dirèctes</string>
     <string name="title_tab_preferences">Onglets</string>
     <string name="title_posts_pinned">Penjats</string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">Suprimir lo partatge</string>
     <string name="action_unfavourite">Suprimir lo favorit</string>
     <string name="action_view_account_preferences">Preferéncias del compte</string>

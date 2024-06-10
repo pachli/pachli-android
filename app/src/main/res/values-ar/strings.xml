@@ -28,7 +28,6 @@
     <string name="title_follow_requests">طلبات المتابعة</string>
     <string name="title_edit_profile">عدل ملفك التعريفي</string>
     <string name="title_drafts">المسودات</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">شاركه %s</string>
     <string name="post_sensitive_media_title">محتوى حساس</string>
     <string name="post_media_hidden_title">وسائط مخفية</string>

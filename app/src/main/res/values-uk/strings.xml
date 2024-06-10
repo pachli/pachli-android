@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="post_username_format">\@%s</string>
     <string name="title_edit_profile">Редагувати профіль</string>
     <string name="title_follow_requests">Запити на стеження</string>
     <string name="title_bookmarks">Закладки</string>

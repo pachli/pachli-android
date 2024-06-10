@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Takip istekleri</string>
     <string name="title_edit_profile">Profili düzenle</string>
     <string name="title_drafts">Taslaklar</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s yeniden paylaştı</string>
     <string name="post_sensitive_media_title">Hassas medya</string>
     <string name="post_media_hidden_title">Gizlenmiş medya</string>

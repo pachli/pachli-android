@@ -167,7 +167,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
     }
 
     protected fun setUsername(name: String) {
-        username.text = context.getString(R.string.post_username_format, name)
+        username.text = context.getString(DR.string.post_username_format, name)
     }
 
     fun toggleContentWarning() {

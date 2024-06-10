@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Zahteve za Sledenje</string>
     <string name="title_edit_profile">Uredi svoj profil</string>
     <string name="title_drafts">Osnutki</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_sensitive_media_title">Občutljiva vsebina</string>
     <string name="post_media_hidden_title">Medij je skrit</string>
     <string name="post_sensitive_media_directions">Kliknite za ogled</string>

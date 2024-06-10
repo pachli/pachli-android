@@ -140,7 +140,6 @@
     <string name="title_view_thread">Ketju</string>
     <string name="title_scheduled_posts">Ajastetut tuuttaukset</string>
     <string name="action_reply">Vastaa</string>
-    <string name="post_username_format">\@%s</string>
     <string name="title_drafts">Luonnokset</string>
     <string name="title_favourites">Suosikit</string>
     <string name="title_bookmarks">Kirjanmerkit</string>

@@ -240,7 +240,6 @@
     <string name="title_posts_pinned">Finkatua</string>
     <string name="title_domain_mutes">Ezkutuko domeinuak</string>
     <string name="title_scheduled_posts">Programatutako tutak</string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">Bultzada kendu</string>
     <string name="action_unfavourite">Gogokoa kendu</string>
     <string name="action_edit">Editatu</string>

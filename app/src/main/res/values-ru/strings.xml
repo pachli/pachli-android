@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Запросы на подписку</string>
     <string name="title_edit_profile">Редактировать профиль</string>
     <string name="title_drafts">Черновики</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s продвинул(а)</string>
     <string name="post_sensitive_media_title">Чувствительный контент</string>
     <string name="post_media_hidden_title">Медиа скрыто</string>

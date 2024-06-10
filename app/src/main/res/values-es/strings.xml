@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Solicitudes</string>
     <string name="title_edit_profile">Editar tu perfil</string>
     <string name="title_drafts">Borradores</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s impulsó</string>
     <string name="post_sensitive_media_title">Contenido sensible</string>
     <string name="post_media_hidden_title">Material oculto</string>

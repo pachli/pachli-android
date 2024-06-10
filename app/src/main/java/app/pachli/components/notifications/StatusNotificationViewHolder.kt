@@ -157,7 +157,7 @@ internal class StatusNotificationViewHolder(
 
     private fun setUsername(name: String) {
         val context = binding.statusUsername.context
-        val format = context.getString(R.string.post_username_format)
+        val format = context.getString(DR.string.post_username_format)
         val usernameText = String.format(format, name)
         binding.statusUsername.text = usernameText
     }

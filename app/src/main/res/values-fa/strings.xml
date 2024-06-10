@@ -237,7 +237,6 @@
     <string name="title_tab_preferences">زبانه‌ها</string>
     <string name="title_posts_pinned">سنجاق شده</string>
     <string name="title_domain_mutes">دامنه‌های نهفته</string>
-    <string name="post_username_format">\@%s</string>
     <string name="action_unreblog">برداشتن تقویت</string>
     <string name="action_unfavourite">برداشتن برگزیدگی</string>
     <string name="action_delete_and_redraft">حذف و بازنویسی</string>

@@ -28,7 +28,6 @@
     <string name="title_follow_requests">Volgverzoeken</string>
     <string name="title_edit_profile">Profiel bewerken</string>
     <string name="title_drafts">Concepten</string>
-    <string name="post_username_format">\@%s</string>
     <string name="post_boosted_format">%s boostte</string>
     <string name="post_sensitive_media_title">Gevoelige inhoud</string>
     <string name="post_media_hidden_title">Verborgen media</string>

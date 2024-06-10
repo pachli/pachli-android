@@ -112,7 +112,7 @@ class ComposeAutoCompleteAdapter(
             is ItemAutocompleteAccountBinding -> {
                 val accountResult = getItem(position) as AutocompleteResult.AccountResult
                 val account = accountResult.account
-                binding.username.text = context.getString(R.string.post_username_format, account.username)
+                binding.username.text = context.getString(DR.string.post_username_format, account.username)
                 binding.displayName.text = account.name.emojify(account.emojis, binding.displayName, animateEmojis)
                 val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_42dp)
                 loadAvatar(

@@ -18,7 +18,6 @@ package app.pachli.components.accountlist.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import app.pachli.R
 import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.visible
@@ -52,7 +51,7 @@ class BlocksAdapter(
 
         val emojifiedName = account.name.emojify(account.emojis, binding.blockedUserDisplayName, animateEmojis)
         binding.blockedUserDisplayName.text = emojifiedName
-        val formattedUsername = context.getString(R.string.post_username_format, account.username)
+        val formattedUsername = context.getString(DR.string.post_username_format, account.username)
         binding.blockedUserUsername.text = formattedUsername
 
         val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
