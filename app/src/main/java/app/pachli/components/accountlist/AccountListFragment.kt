@@ -55,10 +55,10 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.AppBarLayoutHost
-import app.pachli.interfaces.LinkListener
 import app.pachli.view.EndlessOnScrollListener
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.color.MaterialColors

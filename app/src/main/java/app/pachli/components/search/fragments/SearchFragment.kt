@@ -25,8 +25,8 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.FragmentSearchBinding
-import app.pachli.interfaces.LinkListener
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable

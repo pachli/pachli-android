@@ -18,7 +18,7 @@ package app.pachli.components.report.adapter
 
 import android.view.View
 import app.pachli.core.network.model.Status
-import app.pachli.interfaces.LinkListener
+import app.pachli.core.ui.LinkListener
 
 interface AdapterHandler : LinkListener {
     fun showMedia(v: View?, status: Status?, idx: Int)

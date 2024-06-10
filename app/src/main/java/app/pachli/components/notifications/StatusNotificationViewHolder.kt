@@ -42,8 +42,8 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Notification
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemStatusNotificationBinding
-import app.pachli.interfaces.LinkListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.SmartLengthInputFilter
 import app.pachli.util.getRelativeTimeSpanString
