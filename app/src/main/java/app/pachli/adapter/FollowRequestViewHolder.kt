@@ -17,7 +17,6 @@
 
 package app.pachli.adapter
 
-import app.pachli.core.designsystem.R as DR
 import android.graphics.Typeface
 import android.text.SpannableStringBuilder
 import android.text.Spanned
