@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="server_repository_error_get_well_known_node_info">fallo al obtener /.well-known/nodeinfo: %1$s</string>
+    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo no contiene esquemas comprensibles</string>
+    <string name="server_repository_error_get_node_info">fallo al obtener nodeinfo %1$s: %2$s</string>
+    <string name="server_repository_error_validate_node_info">fallo al validar nodeinfo %1$s: %2$s</string>
+    <string name="server_repository_error_get_instance_info">fallo al obtener /api/v1/instance: %1$s</string>
+    <string name="server_repository_error_capabilities">fallo al analizar las capacidades del servidor: %1$s</string>
+</resources>

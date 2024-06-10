@@ -21,11 +21,11 @@ import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.network.ServerRepository
 import app.pachli.settings.AccountPreferenceDataStore
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess

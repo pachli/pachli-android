@@ -631,12 +631,6 @@
     <string name="notification_prune_cache">Cache onderhoud…</string>
     <string name="pref_ui_text_size">UI tekst grootte</string>
     <string name="server_repository_error">Kon geen server info ophalen voor %1$s: %2$s</string>
-    <string name="server_repository_error_get_well_known_node_info">ophalen /.well-known/nodeinfo mislukt: %1$s</string>
-    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo bevatte geen begrijpbare schemas</string>
-    <string name="server_repository_error_get_node_info">ophalen nodeinfo %1$s mislukt: %2$s</string>
-    <string name="server_repository_error_validate_node_info">valideren van nodeinfo %1$s mislukt: %2$s</string>
-    <string name="server_repository_error_get_instance_info">ophalen van /api/v1/instance mislukt: %1$s</string>
-    <string name="server_repository_error_capabilities">verwerken van server mogelijkheden mislukt: %1$s</string>
     <string name="pref_title_update_check_now">Controleer nu op update</string>
     <string name="pref_update_check_no_updates">Er zijn geen updates beschikbaar</string>
     <string name="pref_update_next_scheduled_check">Volgende geplande controle: %1$s</string>
