@@ -8,4 +8,5 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Devamı</string>
     <string name="action_refresh">Yenile</string>
+    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
 </resources>

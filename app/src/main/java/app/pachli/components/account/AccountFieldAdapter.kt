@@ -26,8 +26,8 @@ import app.pachli.core.network.model.Field
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemAccountFieldBinding
-import app.pachli.util.setClickableText
 
 class AccountFieldAdapter(
     private val linkListener: LinkListener,
