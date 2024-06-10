@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.data.model
 
 import app.pachli.core.preferences.CardViewMode
 

@@ -21,9 +21,9 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.databinding.ItemSeveredRelationshipsBinding
-import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.NotificationViewData
 

@@ -42,6 +42,7 @@ import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.openLink
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -53,7 +54,6 @@ import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.Status.Mention
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.view.showMuteAccountDialog
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold

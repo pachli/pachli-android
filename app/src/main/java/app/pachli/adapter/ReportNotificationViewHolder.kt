@@ -26,11 +26,11 @@ import app.pachli.components.notifications.NotificationsPagingAdapter
 import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Report
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.databinding.ItemReportNotificationBinding
-import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
