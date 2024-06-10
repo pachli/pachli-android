@@ -145,5 +145,4 @@ Note: Almost identical to item_follow_request.xml
         app:layout_constraintStart_toEndOf="@id/delete_suggestion"
         app:layout_constraintTop_toTopOf="@+id/delete_suggestion"
         android:text="@string/action_follow_account" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

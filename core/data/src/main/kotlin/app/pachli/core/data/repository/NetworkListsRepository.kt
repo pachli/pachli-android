@@ -29,11 +29,10 @@ import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.MastodonApi
-import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
-import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -60,14 +59,13 @@ class NetworkListsRepository @Inject constructor(
     override fun refresh() {
         externalScope.launch {
             _lists.value = Ok(Lists.Loading)
-            _lists.value = api.getLists()
-                .mapBoth(
-                    {
-                        updateTabPreferences(it.body.associateBy { it.id })
-                        Ok(Lists.Loaded(it.body))
-                    },
-                    { Err(Retrieve(it)) },
-                )
+            _lists.value = api.getLists().mapEither(
+                {
+                    updateTabPreferences(it.body.associateBy { it.id })
+                    Lists.Loaded(it.body)
+                },
+                { Retrieve(it) },
+            )
         }
     }
 

@@ -36,26 +36,28 @@ interface HasListId {
 }
 
 /** Errors that can be returned from this repository */
-interface ListsError : ApiError {
-    @JvmInline
-    value class Create(private val error: ApiError) : ListsError, ApiError by error
+interface ListsError {
+    val cause: ApiError
 
     @JvmInline
-    value class Retrieve(private val error: ApiError) : ListsError, ApiError by error
+    value class Create(override val cause: ApiError) : ListsError
 
     @JvmInline
-    value class Update(private val error: ApiError) : ListsError, ApiError by error
+    value class Retrieve(override val cause: ApiError) : ListsError
 
     @JvmInline
-    value class Delete(private val error: ApiError) : ListsError, ApiError by error
+    value class Update(override val cause: ApiError) : ListsError
 
-    data class GetListsWithAccount(val accountId: String, private val error: ApiError) : ListsError, ApiError by error
+    @JvmInline
+    value class Delete(override val cause: ApiError) : ListsError
 
-    data class GetAccounts(override val listId: String, private val error: ApiError) : ListsError, HasListId, ApiError by error
+    data class GetListsWithAccount(val accountId: String, override val cause: ApiError) : ListsError
 
-    data class AddAccounts(override val listId: String, private val error: ApiError) : ListsError, HasListId, ApiError by error
+    data class GetAccounts(override val listId: String, override val cause: ApiError) : ListsError, HasListId
 
-    data class DeleteAccounts(override val listId: String, private val error: ApiError) : ListsError, HasListId, ApiError by error
+    data class AddAccounts(override val listId: String, override val cause: ApiError) : ListsError, HasListId
+
+    data class DeleteAccounts(override val listId: String, override val cause: ApiError) : ListsError, HasListId
 }
 
 interface ListsRepository {

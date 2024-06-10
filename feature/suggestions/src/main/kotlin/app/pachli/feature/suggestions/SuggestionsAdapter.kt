@@ -19,6 +19,7 @@ package app.pachli.feature.suggestions
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.children
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,7 @@ import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.setClickableText
 import app.pachli.feature.suggestions.UiAction.NavigationAction
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
+import app.pachli.feature.suggestions.ViewHolder.ChangePayload
 import app.pachli.feature.suggestions.databinding.ItemSuggestionBinding
 
 /**
@@ -49,12 +51,11 @@ internal class SuggestionsAdapter(
     private var animateAvatars: Boolean,
     private var showBotOverlay: Boolean,
     private val accept: (UiAction) -> Unit,
-) : ListAdapter<Suggestion, ViewHolder>(SuggestionDiffer) {
+) : ListAdapter<SuggestionViewData, ViewHolder>(SuggestionDiffer) {
     override fun getItemViewType(position: Int) = R.layout.item_suggestion
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            ItemSuggestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemSuggestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding, accept)
     }
 
@@ -76,9 +77,11 @@ internal class SuggestionsAdapter(
         notifyItemRangeChanged(0, currentList.size)
     }
 
-    /** Removes [suggestion] from the current list */
-    fun removeSuggestion(suggestion: Suggestion) {
-        submitList(currentList.filterNot { it == suggestion })
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any?>) {
+        when (val payload = payloads.lastOrNull()) {
+            is ChangePayload.IsEnabled -> holder.bindIsEnabled(payload.isEnabled)
+            else -> onBindViewHolder(holder, position)
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -98,6 +101,13 @@ internal class ViewHolder(
     private lateinit var suggestion: Suggestion
 
     private val avatarRadius: Int
+
+    internal sealed interface ChangePayload {
+        data class IsEnabled(val isEnabled: Boolean) : ChangePayload
+        data class AnimateAvatars(val animateAvatars: Boolean) : ChangePayload
+        data class AnimateEmojis(val animateEmojis: Boolean) : ChangePayload
+        data class ShowBotOverlay(val showBotOverlay: Boolean) : ChangePayload
+    }
 
     /**
      * Link listener for [setClickableText] that generates the appropriate
@@ -122,12 +132,12 @@ internal class ViewHolder(
 
     // TODO: Similar to FollowRequestViewHolder.setupWithAccount
     fun bind(
-        suggestion: Suggestion,
+        viewData: SuggestionViewData,
         animateEmojis: Boolean,
         animateAvatars: Boolean,
         showBotOverlay: Boolean,
     ) {
-        this.suggestion = suggestion
+        this.suggestion = viewData.suggestion
         val account = suggestion.account
 
         with(binding) {
@@ -152,11 +162,26 @@ internal class ViewHolder(
 
             loadAvatar(account.avatar, avatar, avatarRadius, animateAvatars)
             avatarBadge.visible(showBotOverlay && account.bot)
+
+            bindIsEnabled(viewData.isEnabled)
         }
+    }
+
+    fun bindIsEnabled(isEnabled: Boolean) = with(binding) {
+        (root as? ViewGroup)?.children?.forEach { it.isEnabled = isEnabled }
+        root.isEnabled = isEnabled
     }
 }
 
-private object SuggestionDiffer : DiffUtil.ItemCallback<Suggestion>() {
-    override fun areItemsTheSame(oldItem: Suggestion, newItem: Suggestion) = oldItem.account == newItem.account
-    override fun areContentsTheSame(oldItem: Suggestion, newItem: Suggestion) = oldItem == newItem
+private object SuggestionDiffer : DiffUtil.ItemCallback<SuggestionViewData>() {
+    override fun areItemsTheSame(oldItem: SuggestionViewData, newItem: SuggestionViewData) = oldItem.suggestion.account.id == newItem.suggestion.account.id
+    override fun areContentsTheSame(oldItem: SuggestionViewData, newItem: SuggestionViewData) = oldItem == newItem
+
+    // TODO: Diffing on enabled or not
+    override fun getChangePayload(oldItem: SuggestionViewData, newItem: SuggestionViewData): Any? {
+        return when {
+            oldItem.isEnabled != newItem.isEnabled -> ChangePayload.IsEnabled(newItem.isEnabled)
+            else -> super.getChangePayload(oldItem, newItem)
+        }
+    }
 }

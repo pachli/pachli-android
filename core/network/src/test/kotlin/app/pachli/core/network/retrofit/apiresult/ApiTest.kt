@@ -140,8 +140,8 @@ class ApiTest {
 
         val error = responseObject as? ServerError.Internal
         assertThat(error).isInstanceOf(ServerError.Internal::class.java)
-        assertThat(error?.throwable?.code()).isEqualTo(500)
-        assertThat(error?.throwable?.message()).isEqualTo("Server Error")
+        assertThat(error?.cause?.code()).isEqualTo(500)
+        assertThat(error?.cause?.message()).isEqualTo("Server Error")
     }
 
     @Test
@@ -155,8 +155,8 @@ class ApiTest {
 
         val error = responseObject as? ServerError.Internal
         assertThat(error).isInstanceOf(ServerError.Internal::class.java)
-        assertThat(error?.throwable?.code()).isEqualTo(500)
-        assertThat(error?.throwable?.message()).isEqualTo("Server Error")
+        assertThat(error?.cause?.code()).isEqualTo(500)
+        assertThat(error?.cause?.message()).isEqualTo("Server Error")
     }
 
     @Test
@@ -205,7 +205,7 @@ class ApiTest {
 
         // Moshi reports invalid JSON as an IoException wrapping a JsonEncodingException
         assertThat(error).isInstanceOf(IO::class.java)
-        assertThat(error?.throwable).isInstanceOf(JsonEncodingException::class.java)
+        assertThat(error?.cause).isInstanceOf(JsonEncodingException::class.java)
     }
 
     @Test

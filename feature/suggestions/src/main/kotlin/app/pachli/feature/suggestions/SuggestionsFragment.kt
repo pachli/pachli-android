@@ -52,7 +52,7 @@ import app.pachli.core.data.model.SuggestionSources.UNKNOWN
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.ui.BackgroundMessage
-import app.pachli.core.ui.extensions.getErrorString
+import app.pachli.core.ui.extensions.fmt
 import app.pachli.feature.suggestions.UiAction.GetSuggestions
 import app.pachli.feature.suggestions.UiAction.NavigationAction
 import app.pachli.feature.suggestions.databinding.FragmentSuggestionsBinding
@@ -70,6 +70,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 // TODO:
 //
@@ -186,8 +187,9 @@ class SuggestionsFragment :
                     is NavigationAction.ViewUrl -> bottomSheetActivity.viewUrl(uiAction.url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
                 }
             }
-
-            else -> viewModel.accept(uiAction)
+            else -> {
+                viewModel.accept(uiAction)
+            }
         }
     }
 
@@ -200,6 +202,7 @@ class SuggestionsFragment :
     private fun bindSuggestions(result: Result<Suggestions, GetSuggestionsError>) {
         binding.swipeRefreshLayout.isRefreshing = false
 
+        Timber.d("bindSuggestions: %s", result)
         result.onFailure {
             binding.messageView.show()
             binding.recyclerView.hide()
@@ -302,13 +305,13 @@ fun SuggestionSources.stringResource() = when (this) {
 
 internal fun UiError.fmt(context: Context) = when (this) {
     is UiError.AcceptSuggestion -> context.getString(
-        R.string.ui_error_delete_suggestion_fmt,
-        action.suggestion.account.displayName,
-        error.throwable.getErrorString(context),
-    )
-    is UiError.DeleteSuggestion -> context.getString(
         R.string.ui_error_follow_account_fmt,
         action.suggestion.account.displayName,
-        error.throwable.getErrorString(context),
+        cause.cause.fmt(context),
+    )
+    is UiError.DeleteSuggestion -> context.getString(
+        R.string.ui_error_delete_suggestion_fmt,
+        action.suggestion.account.displayName,
+        cause.cause.fmt(context),
     )
 }

@@ -809,4 +809,9 @@ interface MastodonApi {
 
     @DELETE("api/v1/suggestions/{accountId}")
     suspend fun deleteSuggestion(@Path("accountId") accountId: String): ApiResult<Unit>
+
+    // Copy of followAccount, except it returns an ApiResult. Temporary, until followAccount
+    // is converted to also return ApiResult.
+    @POST("api/v1/accounts/{id}/follow")
+    suspend fun followSuggestedAccount(@Path("id") accountId: String): ApiResult<Relationship>
 }

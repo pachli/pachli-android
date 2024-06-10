@@ -20,6 +20,7 @@ package app.pachli.core.data.repository
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
+import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
 import app.pachli.core.data.repository.SuggestionsError.GetSuggestionsError
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Result
@@ -46,6 +47,12 @@ class NetworkSuggestionsRepository @Inject constructor(
     override suspend fun deleteSuggestion(accountId: String): Result<Unit, DeleteSuggestionError> = binding {
         externalScope.async {
             api.deleteSuggestion(accountId).mapError { DeleteSuggestionError(it) }.bind()
+        }.await()
+    }
+
+    override suspend fun followAccount(accountId: String): Result<Unit, FollowAccountError> = binding {
+        externalScope.async {
+            api.followSuggestedAccount(accountId).mapError { FollowAccountError(it) }.bind()
         }.await()
     }
 }

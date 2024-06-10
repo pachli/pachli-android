@@ -24,10 +24,9 @@ import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
-import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
@@ -82,10 +81,10 @@ class AccountsInListViewModel @AssistedInject constructor(
     fun refresh() = viewModelScope.launch {
         _accountsInList.value = Ok(Accounts.Loading)
         _accountsInList.value = listsRepository.getAccountsInList(listId)
-            .mapBoth({
-                Ok(Accounts.Loaded(it))
+            .mapEither({
+                Accounts.Loaded(it)
             }, {
-                Err(FlowError.GetAccounts(it))
+                FlowError.GetAccounts(it)
             })
     }
 
@@ -120,11 +119,10 @@ class AccountsInListViewModel @AssistedInject constructor(
             query.isEmpty() -> _searchResults.value = Ok(SearchResults.Empty)
             query.isBlank() -> _searchResults.value = Ok(SearchResults.Loaded(emptyList()))
             else -> viewModelScope.launch {
-                _searchResults.value = api.searchAccounts(query, null, 10, true).mapBoth({
-                    Ok(SearchResults.Loaded(it.body))
-                }, {
-                    Err(it)
-                })
+                _searchResults.value = api.searchAccounts(query, null, 10, true).mapEither(
+                    { SearchResults.Loaded(it.body) },
+                    { it },
+                )
             }
         }
     }

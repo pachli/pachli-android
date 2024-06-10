@@ -332,7 +332,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                     selectListBinding.progressBar.hide()
                     dialog.dismiss()
                     Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_LONG).show()
-                    Timber.w(it.throwable, "failed to load lists")
+                    Timber.w(it.cause.cause, "failed to load lists")
                 }
             }
         }

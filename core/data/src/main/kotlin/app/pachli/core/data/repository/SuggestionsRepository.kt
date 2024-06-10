@@ -19,25 +19,30 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
+import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
+import app.pachli.core.data.repository.SuggestionsError.GetSuggestionsError
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 
-/** Errors that can be returned from this repository */
-interface SuggestionsError : ApiError {
-    @JvmInline
-    value class GetSuggestionsError(private val error: ApiError) : SuggestionsError, ApiError by error
+/** Errors that can be returned from this repository. */
+sealed interface SuggestionsError {
+    val cause: ApiError
 
     @JvmInline
-    value class DeleteSuggestionError(private val error: ApiError) : SuggestionsError, ApiError by error
+    value class GetSuggestionsError(override val cause: ApiError) : SuggestionsError
 
-    // TODO: Doesn't belong here (maybe)
     @JvmInline
-    value class FollowAccountError(private val error: ApiError) : SuggestionsError, ApiError by error
+    value class DeleteSuggestionError(override val cause: ApiError) : SuggestionsError
+
+    // TODO: Doesn't belong here. When there's a repository for the user's account
+    // this should move there.
+    @JvmInline
+    value class FollowAccountError(override val cause: ApiError) : SuggestionsError
 }
 
 interface SuggestionsRepository {
     // TODO: Document
-    suspend fun getSuggestions(): Result<List<Suggestion>, SuggestionsError.GetSuggestionsError>
+    suspend fun getSuggestions(): Result<List<Suggestion>, GetSuggestionsError>
 
     /**
      * Remove a follow suggestion.
@@ -46,4 +51,12 @@ interface SuggestionsRepository {
      * @return Unit, or an error
      */
     suspend fun deleteSuggestion(accountId: String): Result<Unit, DeleteSuggestionError>
+
+    /**
+     * Follow an account from a suggestion
+     *
+     * @param accountId ID of the account to follow
+     * @return Unit, or an error
+     */
+    suspend fun followAccount(accountId: String): Result<Unit, FollowAccountError>
 }

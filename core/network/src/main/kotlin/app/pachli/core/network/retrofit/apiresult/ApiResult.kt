@@ -46,10 +46,11 @@ data class ApiResponse<out T>(
 /**
  * A failed response from an API call.
  */
-interface ApiError {
+sealed interface ApiError {
+    /** The underlying [Throwable] that triggered the error. */
     // This has to be Throwable, not Exception, because Retrofit exposes
     // errors as Throwable
-    val throwable: Throwable
+    val cause: Throwable
 
     companion object {
         fun from(exception: Throwable): ApiError {
@@ -67,21 +68,11 @@ interface ApiError {
         }
     }
 
-    data class Unknown(override val throwable: Throwable) : ApiError
+    data class Unknown(override val cause: Throwable) : ApiError
 }
 
 sealed interface HttpError : ApiError {
-    override val throwable: HttpException
-
-    /**
-     * The error message for this error, one of (in preference order):
-     *
-     * - The error body of the response that created this error
-     * - The throwable.message
-     * - Literal string "Unknown"
-     */
-    val message
-        get() = throwable.response()?.errorBody()?.string() ?: throwable.message() ?: "Unknown"
+    override val cause: HttpException
 }
 
 /** 4xx errors */
@@ -89,6 +80,7 @@ sealed interface ClientError : HttpError {
     companion object {
         fun from(exception: HttpException): ClientError {
             return when (exception.code()) {
+                400 -> BadRequest(exception)
                 401 -> Unauthorized(exception)
                 404 -> NotFound(exception)
                 410 -> Gone(exception)
@@ -97,10 +89,20 @@ sealed interface ClientError : HttpError {
         }
     }
 
-    data class Unauthorized(override val throwable: HttpException) : ClientError
-    data class NotFound(override val throwable: HttpException) : ClientError
-    data class Gone(override val throwable: HttpException) : ClientError
-    data class UnknownClientError(override val throwable: HttpException) : ClientError
+    /** 400 Bad request */
+    data class BadRequest(override val cause: HttpException) : ClientError
+
+    /** 401 Unauthorized */
+    data class Unauthorized(override val cause: HttpException) : ClientError
+
+    /** 404 Not found */
+    data class NotFound(override val cause: HttpException) : ClientError
+
+    /** 410 Gone */
+    data class Gone(override val cause: HttpException) : ClientError
+
+    /** All other 4xx client errors */
+    data class UnknownClientError(override val cause: HttpException) : ClientError
 }
 
 /** 5xx errors */
@@ -117,15 +119,24 @@ sealed interface ServerError : HttpError {
         }
     }
 
-    data class Internal(override val throwable: HttpException) : ServerError
-    data class NotImplemented(override val throwable: HttpException) : ServerError
-    data class BadGateway(override val throwable: HttpException) : ServerError
-    data class ServiceUnavailable(override val throwable: HttpException) : ServerError
-    data class UnknownServerError(override val throwable: HttpException) : ServerError
+    /** 500 Internal error */
+    data class Internal(override val cause: HttpException) : ServerError
+
+    /** 501 Not implemented */
+    data class NotImplemented(override val cause: HttpException) : ServerError
+
+    /** 502 Bad gateway */
+    data class BadGateway(override val cause: HttpException) : ServerError
+
+    /** 503 Service unavailable */
+    data class ServiceUnavailable(override val cause: HttpException) : ServerError
+
+    /** All other 5xx server errors */
+    data class UnknownServerError(override val cause: HttpException) : ServerError
 }
-data class JsonParse(override val throwable: JsonDataException) : ApiError
+data class JsonParse(override val cause: JsonDataException) : ApiError
 sealed interface NetworkError : ApiError
-data class IO(override val throwable: Exception) : NetworkError
+data class IO(override val cause: Exception) : NetworkError
 
 /**
  * Creates an [ApiResult] from a [Response].

@@ -19,9 +19,11 @@ package app.pachli.feature.suggestions
 
 import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.SuggestionsError
+import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
+import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
 
-/** Actions the user can take from the user interface. */
+/** Actions the user can take from the UI. */
 internal sealed interface UiAction {
     /** Get fresh suggestions. */
     data object GetSuggestions : UiAction
@@ -33,7 +35,7 @@ internal sealed interface UiAction {
         data class ViewUrl(val url: String) : NavigationAction
     }
 
-    /** Actions that operate on a suggestion */
+    /** Actions that operate on a suggestion. */
     sealed interface SuggestionAction : UiAction {
         val suggestion: Suggestion
 
@@ -59,36 +61,32 @@ internal sealed interface UiSuccess {
     }
 }
 
-// These three wrap the error types from the repository so the Fragment
-// doesn't import anything from the repository.
-
 @JvmInline
-value class DeleteSuggestionError(private val e: SuggestionsError.DeleteSuggestionError) : SuggestionsError by e
+value class GetSuggestionsError(val cause: SuggestionsError.GetSuggestionsError)
 
-@JvmInline
-value class GetSuggestionsError(private val e: SuggestionsError.GetSuggestionsError) : SuggestionsError by e
-
-@JvmInline
-value class AcceptSuggestionError(private val e: SuggestionsError.FollowAccountError) : SuggestionsError by e
-
+/** Errors that can occur from actions the user takes in the UI */
 internal sealed interface UiError {
-    val error: SuggestionsError
-    val action: UiAction
+    /** The underlying repository error. */
+    val cause: SuggestionsError
+
+    /** The action that caused the error. */
+    val action: SuggestionAction
 
     data class DeleteSuggestion(
-        override val error: DeleteSuggestionError,
+        override val cause: DeleteSuggestionError,
         override val action: SuggestionAction.DeleteSuggestion,
     ) : UiError
 
     data class AcceptSuggestion(
-        override val error: AcceptSuggestionError,
+        override val cause: FollowAccountError,
         override val action: SuggestionAction.AcceptSuggestion,
     ) : UiError
 
     companion object {
+        /** Create a [UiError] from the [SuggestionAction] and [SuggestionsError]. */
         fun make(error: SuggestionsError, action: SuggestionAction) = when (action) {
-            is SuggestionAction.DeleteSuggestion -> DeleteSuggestion(DeleteSuggestionError(error as SuggestionsError.DeleteSuggestionError), action)
-            is SuggestionAction.AcceptSuggestion -> AcceptSuggestion(AcceptSuggestionError(error as SuggestionsError.FollowAccountError), action)
+            is SuggestionAction.DeleteSuggestion -> DeleteSuggestion(error as DeleteSuggestionError, action)
+            is SuggestionAction.AcceptSuggestion -> AcceptSuggestion(error as FollowAccountError, action)
         }
     }
 }
