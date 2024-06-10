@@ -24,6 +24,7 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
+import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.settings.AccountPreferenceDataStore

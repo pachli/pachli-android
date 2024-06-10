@@ -35,8 +35,8 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.PreviewCardKind
 import app.pachli.core.network.model.Status
+import app.pachli.core.preferences.CardViewMode
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.CardViewMode
 import app.pachli.util.CompositeWithOpaqueBackground
 import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.aspectRatios
