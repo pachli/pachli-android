@@ -34,6 +34,10 @@ dependencies {
     implementation(projects.core.database)
     implementation(projects.core.model)
     implementation(projects.core.network)
+    implementation(projects.core.preferences)
+
+    // PreferenceDataStore
+    implementation(libs.bundles.androidx)
 
     testImplementation(projects.core.networkTest)
     testImplementation(libs.bundles.mockito)
