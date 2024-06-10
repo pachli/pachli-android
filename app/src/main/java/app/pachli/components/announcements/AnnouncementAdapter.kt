@@ -32,8 +32,8 @@ import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemAnnouncementBinding
-import app.pachli.interfaces.LinkListener
 import app.pachli.util.equalByMinute
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.setClickableText

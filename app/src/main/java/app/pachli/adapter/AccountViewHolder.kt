@@ -24,9 +24,9 @@ import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemAccountBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.interfaces.LinkListener
 
 class AccountViewHolder(
     private val binding: ItemAccountBinding,

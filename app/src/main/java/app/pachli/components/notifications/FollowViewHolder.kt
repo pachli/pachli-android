@@ -27,8 +27,8 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemFollowBinding
-import app.pachli.interfaces.LinkListener
 import app.pachli.util.setClickableText
 import app.pachli.viewdata.NotificationViewData
 

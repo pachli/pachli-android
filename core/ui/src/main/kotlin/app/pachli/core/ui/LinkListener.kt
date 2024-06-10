@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.interfaces
+package app.pachli.core.ui
 
 interface LinkListener {
     fun onViewTag(tag: String)

@@ -31,8 +31,8 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemReportStatusBinding
-import app.pachli.interfaces.LinkListener
 import app.pachli.util.StatusViewHelper
 import app.pachli.util.StatusViewHelper.Companion.COLLAPSE_INPUT_FILTER
 import app.pachli.util.StatusViewHelper.Companion.NO_INPUT_FILTER

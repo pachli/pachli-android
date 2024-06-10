@@ -22,8 +22,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.adapter.AccountViewHolder
 import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemAccountBinding
-import app.pachli.interfaces.LinkListener
 
 class SearchAccountsAdapter(private val linkListener: LinkListener, private val animateAvatars: Boolean, private val animateEmojis: Boolean, private val showBotOverlay: Boolean) :
     PagingDataAdapter<TimelineAccount, AccountViewHolder>(ACCOUNT_COMPARATOR) {
