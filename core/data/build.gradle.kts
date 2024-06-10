@@ -39,6 +39,9 @@ dependencies {
     // PreferenceDataStore
     implementation(libs.bundles.androidx)
 
+    // ServerRepository
+    implementation(libs.semver)
+
     testImplementation(projects.core.networkTest)
     testImplementation(libs.bundles.mockito)
 }

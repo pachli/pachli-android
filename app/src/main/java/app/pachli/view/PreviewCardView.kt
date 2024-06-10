@@ -26,10 +26,10 @@ import android.widget.LinearLayout
 import app.pachli.R
 import app.pachli.core.activity.decodeBlurHash
 import app.pachli.core.common.extensions.hide
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.PreviewCard
 import app.pachli.databinding.PreviewCardBinding
-import app.pachli.util.StatusDisplayOptions
 import com.bumptech.glide.Glide
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel

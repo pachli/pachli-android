@@ -44,6 +44,7 @@ import app.pachli.appstore.UnfollowEvent
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
@@ -53,7 +54,6 @@ import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.network.FilterModel
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.throttleFirst
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow

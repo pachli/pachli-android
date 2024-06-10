@@ -24,6 +24,7 @@ import app.pachli.components.timeline.FiltersRepository
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ServerRepository
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
@@ -33,7 +34,6 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.fakes.InMemorySharedPreferences
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.StatusDisplayOptionsRepository
 import at.connyduck.calladapter.networkresult.NetworkResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestScope

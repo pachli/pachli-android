@@ -38,6 +38,7 @@ import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Notification
@@ -45,7 +46,6 @@ import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.interfaces.LinkListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.SmartLengthInputFilter
-import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.setClickableText
 import app.pachli.viewdata.NotificationViewData

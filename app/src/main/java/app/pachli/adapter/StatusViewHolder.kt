@@ -26,12 +26,12 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Filter
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.SmartLengthInputFilter
-import app.pachli.util.StatusDisplayOptions
 import app.pachli.viewdata.IStatusViewData
 import at.connyduck.sparkbutton.helpers.Utils
 

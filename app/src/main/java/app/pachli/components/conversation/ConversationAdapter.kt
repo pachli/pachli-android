@@ -22,8 +22,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.StatusDisplayOptions
 
 class ConversationAdapter(
     private var statusDisplayOptions: StatusDisplayOptions,

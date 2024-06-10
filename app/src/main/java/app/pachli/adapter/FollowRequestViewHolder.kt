@@ -30,13 +30,13 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.LinkListener
-import app.pachli.util.StatusDisplayOptions
 import app.pachli.util.setClickableText
 import app.pachli.viewdata.NotificationViewData
 

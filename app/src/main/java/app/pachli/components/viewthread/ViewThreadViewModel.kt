@@ -33,6 +33,7 @@ import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
@@ -44,7 +45,6 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.network.FilterModel
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse

@@ -21,10 +21,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.trending.TrendingLinksRepository
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.TrendsLink
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.util.StatusDisplayOptionsRepository
 import app.pachli.util.throttleFirst
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
