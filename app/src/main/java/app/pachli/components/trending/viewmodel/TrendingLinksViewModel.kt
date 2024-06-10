@@ -21,15 +21,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.trending.TrendingLinksRepository
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.TrendsLink
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.util.throttleFirst
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -84,7 +83,7 @@ class TrendingLinksViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             uiAction
-                .throttleFirst(THROTTLE_TIMEOUT)
+                .throttleFirst()
                 .filterIsInstance<InfallibleUiAction.Reload>()
                 .onEach { invalidate() }
                 .collect()
@@ -98,9 +97,5 @@ class TrendingLinksViewModel @Inject constructor(
             { list -> _loadState.update { LoadState.Success(list) } },
             { throwable -> _loadState.update { LoadState.Error(throwable) } },
         )
-    }
-
-    companion object {
-        private val THROTTLE_TIMEOUT = 500.milliseconds
     }
 }

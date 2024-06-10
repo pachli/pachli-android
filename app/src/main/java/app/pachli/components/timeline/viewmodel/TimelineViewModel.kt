@@ -44,6 +44,7 @@ import app.pachli.appstore.UnfollowEvent
 import app.pachli.components.timeline.FilterKind
 import app.pachli.components.timeline.FiltersRepository
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Filter
@@ -54,10 +55,8 @@ import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.network.FilterModel
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.throttleFirst
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
-import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -329,7 +328,7 @@ abstract class TimelineViewModel(
         // Handle StatusAction.*
         viewModelScope.launch {
             uiAction.filterIsInstance<StatusAction>()
-                .throttleFirst(THROTTLE_TIMEOUT) // avoid double-taps
+                .throttleFirst() // avoid double-taps
                 .collect { action ->
                     try {
                         when (action) {
@@ -623,8 +622,6 @@ abstract class TimelineViewModel(
     }
 
     companion object {
-        private val THROTTLE_TIMEOUT = 500.milliseconds
-
         /** Tag for the timelineKind in `savedStateHandle` */
         @VisibleForTesting(VisibleForTesting.PRIVATE)
         const val TIMELINE_TAG = "timeline"

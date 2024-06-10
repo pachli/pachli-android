@@ -15,9 +15,10 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.common.extensions
 
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.TimeMark
 import kotlin.time.TimeSource
 import kotlinx.coroutines.flow.Flow
@@ -50,11 +51,12 @@ import kotlinx.coroutines.flow.flow
  * ```
  *
  * @see kotlinx.coroutines.flow.debounce(Duration)
- * @param timeout Emissions within this duration of the last emission are filtered
+ * @param timeout Emissions within this duration of the last emission are filtered.
+ *     Defaults to [DEFAULT_THROTTLE_FIRST_TIMEOUT] if omitted.
  * @param timeSource Used to measure elapsed time. Normally only overridden in tests
  */
 fun <T> Flow<T>.throttleFirst(
-    timeout: Duration,
+    timeout: Duration = DEFAULT_THROTTLE_FIRST_TIMEOUT,
     timeSource: TimeSource = TimeSource.Monotonic,
 ) = flow {
     var marker: TimeMark? = null
@@ -65,3 +67,5 @@ fun <T> Flow<T>.throttleFirst(
         }
     }
 }
+
+private val DEFAULT_THROTTLE_FIRST_TIMEOUT = 500.milliseconds
