@@ -24,6 +24,7 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
 import app.pachli.core.data.repository.ServerRepository.Error.Capabilities
 import app.pachli.core.data.repository.ServerRepository.Error.GetInstanceInfoV1
+import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
@@ -102,15 +103,15 @@ class ServerRepository @Inject constructor(
         Timber.d("Loading node info from %s", nodeInfoUrl)
         val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).fold(
             { NodeInfo.from(it).mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
-            { Err(Error.GetNodeInfo(nodeInfoUrl, it)) },
+            { Err(GetNodeInfo(nodeInfoUrl, it)) },
         ).bind()
 
         mastodonApi.getInstanceV2().fold(
-            { Server.Companion.from(nodeInfo.software, it).mapError(::Capabilities) },
+            { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
             { throwable ->
-                Timber.Forest.e(throwable, "Couldn't process /api/v2/instance result")
+                Timber.e(throwable, "Couldn't process /api/v2/instance result")
                 mastodonApi.getInstanceV1().fold(
-                    { Server.Companion.from(nodeInfo.software, it).mapError(::Capabilities) },
+                    { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
                     { Err(GetInstanceInfoV1(it)) },
                 )
             },

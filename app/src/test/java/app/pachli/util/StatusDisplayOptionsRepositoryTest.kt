@@ -23,6 +23,7 @@ import app.cash.turbine.test
 import app.pachli.PachliApplication
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
@@ -32,7 +33,6 @@ import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.rules.MainCoroutineRule
-import app.pachli.settings.AccountPreferenceDataStore
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.CustomTestApplication

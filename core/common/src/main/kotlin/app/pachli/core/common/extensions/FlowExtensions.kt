@@ -68,4 +68,4 @@ fun <T> Flow<T>.throttleFirst(
     }
 }
 
-val DEFAULT_THROTTLE_FIRST_TIMEOUT = 500.milliseconds
+private val DEFAULT_THROTTLE_FIRST_TIMEOUT = 500.milliseconds
