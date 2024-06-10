@@ -15,23 +15,23 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.network
+package app.pachli.core.data.repository
 
 import androidx.annotation.StringRes
-import app.pachli.R
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.R
+import app.pachli.core.data.repository.ServerRepository.Error.Capabilities
+import app.pachli.core.data.repository.ServerRepository.Error.GetInstanceInfoV1
+import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
+import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
+import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
+import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.network.Server
 import app.pachli.core.network.model.nodeinfo.NodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
-import app.pachli.network.ServerRepository.Error.Capabilities
-import app.pachli.network.ServerRepository.Error.GetInstanceInfoV1
-import app.pachli.network.ServerRepository.Error.GetNodeInfo
-import app.pachli.network.ServerRepository.Error.GetWellKnownNodeInfo
-import app.pachli.network.ServerRepository.Error.UnsupportedSchema
-import app.pachli.network.ServerRepository.Error.ValidateNodeInfo
 import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
