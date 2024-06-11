@@ -222,6 +222,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
 
     private fun bind(state: Result<Lists, ApiError>) {
         state.onFailure {
+            binding.listsRecycler.hide()
             binding.messageView.show()
             binding.swipeRefreshLayout.isRefreshing = false
 
@@ -238,9 +239,11 @@ class ListsActivity : BaseActivity(), MenuProvider {
                     adapter.submitList(lists.lists.sortedWith(compareByListTitle))
                     binding.swipeRefreshLayout.isRefreshing = false
                     if (lists.lists.isEmpty()) {
+                        binding.listsRecycler.hide()
                         binding.messageView.show()
                         binding.messageView.setup(BackgroundMessage.Empty())
                     } else {
+                        binding.listsRecycler.show()
                         binding.messageView.hide()
                     }
                 }
