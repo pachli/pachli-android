@@ -141,7 +141,7 @@ class AccountsInListFragment : DialogFragment() {
 
                 launch {
                     viewModel.errors.collect {
-                        handleError(it.throwable)
+                        handleError(it.cause.cause)
                     }
                 }
             }
@@ -172,7 +172,7 @@ class AccountsInListFragment : DialogFragment() {
             if (it is Accounts.Loaded) adapter.submitList(it.accounts)
         }.onFailure {
             binding.messageView.show()
-            handleError(it.throwable)
+            handleError(it.cause.cause)
         }
     }
 
@@ -195,8 +195,8 @@ class AccountsInListFragment : DialogFragment() {
                 }
             }
         }.onFailure {
-            Timber.w(it.throwable, "Error searching for accounts in list")
-            handleError(it.throwable)
+            Timber.w(it.cause, "Error searching for accounts in list")
+            handleError(it.cause)
         }
     }
 

@@ -455,7 +455,7 @@ class ComposeViewModel @Inject constructor(
                 return api.searchAccounts(query = token.substring(1), limit = 10).mapBoth(
                     { it.body.map { AutocompleteResult.AccountResult(it) } },
                     {
-                        Timber.e(it.throwable, "Autocomplete search for %s failed.", token)
+                        Timber.e(it.cause, "Autocomplete search for %s failed.", token)
                         emptyList()
                     },
                 )
