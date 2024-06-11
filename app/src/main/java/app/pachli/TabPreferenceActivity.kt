@@ -17,6 +17,7 @@
 
 package app.pachli
 
+import app.pachli.core.designsystem.R as DR
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -46,7 +47,6 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.network.model.MastoList

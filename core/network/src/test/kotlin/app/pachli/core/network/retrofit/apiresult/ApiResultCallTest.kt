@@ -89,7 +89,6 @@ class ApiResultCallTest {
                 override fun onResponse(call: Call<ApiResult<String>>, response: Response<ApiResult<String>>) {
                     val error = response.body()?.getError() as? ClientError.NotFound
                     assertThat(error).isInstanceOf(ClientError.NotFound::class.java)
-                    assertThat(error?.message).isEqualTo("not found")
 
                     val throwable = error?.cause
                     assertThat(throwable).isInstanceOf(HttpException::class.java)

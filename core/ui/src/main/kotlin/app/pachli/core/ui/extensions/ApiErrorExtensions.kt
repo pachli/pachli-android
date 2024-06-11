@@ -29,6 +29,7 @@ import app.pachli.core.network.retrofit.apiresult.NetworkError
 import app.pachli.core.network.retrofit.apiresult.ServerError
 import app.pachli.core.ui.R
 
+/** @return Formatted error message for this [ApiError]. */
 fun ApiError.fmt(context: Context) = when (this) {
     is HttpError -> when (this) {
         is ClientError.BadRequest -> String.format(context.getString(R.string.error_generic_fmt), cause.localizedMessage)

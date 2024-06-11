@@ -163,7 +163,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
      *  Marker for errors that can be part of the [Result] in the
      *  [ListsForAccountViewModel.listsWithMembership] flow
      */
-    sealed interface FlowError : Error // : ApiError
+    sealed interface FlowError : Error
 
     /** Asynchronous errors from network operations */
     sealed interface Error {
