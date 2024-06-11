@@ -17,8 +17,10 @@
 
 package app.pachli.feature.lists
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.network.model.UserListRepliesPolicy
@@ -32,14 +34,20 @@ import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-sealed interface Error : ListsError {
-    val title: String
+sealed class Error(
+    @StringRes override val resourceId: Int,
+    override val formatArgs: Array<out String>,
+    override val cause: ListsError? = null,
+) : ListsError {
 
-    data class Create(override val title: String, private val error: ListsError.Create) : Error, ListsError by error
+    data class Create(val title: String, override val cause: ListsError.Create) :
+        Error(R.string.error_create_list_fmt, arrayOf(title.unicodeWrap()), cause)
 
-    data class Delete(override val title: String, private val error: ListsError.Delete) : Error, ListsError by error
+    data class Delete(val title: String, override val cause: ListsError.Delete) :
+        Error(R.string.error_delete_list_fmt, arrayOf(title.unicodeWrap()), cause)
 
-    data class Update(override val title: String, private val error: ListsError.Update) : Error, ListsError by error
+    data class Update(val title: String, override val cause: ListsError.Update) :
+        Error(R.string.error_rename_list_fmt, arrayOf(title.unicodeWrap()), cause)
 }
 
 @HiltViewModel

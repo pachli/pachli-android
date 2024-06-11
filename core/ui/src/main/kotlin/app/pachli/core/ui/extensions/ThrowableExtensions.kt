@@ -18,7 +18,9 @@
 package app.pachli.core.ui.extensions
 
 import android.content.Context
+import androidx.annotation.DrawableRes
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.network.R as NR
 import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.ui.R
 import com.squareup.moshi.JsonDataException
@@ -26,6 +28,7 @@ import java.io.IOException
 import retrofit2.HttpException
 
 /** @return A drawable resource to accompany the error message for this throwable */
+@DrawableRes
 fun Throwable.getDrawableRes(): Int = when (this) {
     is IOException -> R.drawable.errorphant_offline
     is HttpException -> {
@@ -41,15 +44,15 @@ fun Throwable.getDrawableRes(): Int = when (this) {
 /** @return A unicode-wrapped string error message for this throwable */
 fun Throwable.getErrorString(context: Context): String = (
     getServerErrorMessage() ?: when (this) {
-        is IOException -> String.format(context.getString(R.string.error_network_fmt), localizedMessage)
+        is IOException -> String.format(context.getString(NR.string.error_network_fmt), localizedMessage)
         is HttpException -> {
             if (code() == 404) {
-                String.format(context.getString(R.string.error_404_not_found_fmt), localizedMessage)
+                String.format(context.getString(NR.string.error_404_not_found_fmt), localizedMessage)
             } else {
-                String.format(context.getString(R.string.error_generic_fmt), localizedMessage)
+                String.format(context.getString(NR.string.error_generic_fmt), localizedMessage)
             }
         }
-        is JsonDataException -> String.format(context.getString(R.string.error_json_data_fmt), localizedMessage)
-        else -> String.format(context.getString(R.string.error_generic_fmt), localizedMessage)
+        is JsonDataException -> String.format(context.getString(NR.string.error_json_data_fmt), localizedMessage)
+        else -> String.format(context.getString(NR.string.error_generic_fmt), localizedMessage)
     }
     ).unicodeWrap()

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="error_network">حدث خطأ في الشبكة! يرجى التحقق من اتصالك ثم أعد المحاولة!</string>
-    <string name="error_network_fmt">وقع خطأ في الشبكة: %s</string>
-    <string name="error_generic_fmt">وقع خطأ: %s</string>
-    <string name="error_404_not_found_fmt">خادمك لا يدعم هذه الميزة: %1$s</string>
     <string name="error_generic">وقع هناك خطأ.</string>
     <string name="message_empty">لا شيء هنا.</string>
     <string name="action_retry">أعد المحاولة</string>

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="error_network">Er deed zich een netwerkfout voor. Controleer je verbinding en probeer opnieuw.</string>
-    <string name="error_network_fmt">Er deed zich een netwerkfout voor: %s</string>
-    <string name="error_generic_fmt">Er deed zich een fout voor: %s</string>
-    <string name="error_404_not_found_fmt">Je server beschikt niet over ondersteuning voor deze feature: %1$s</string>
     <string name="error_generic">Er deed zich een fout voor.</string>
     <string name="message_empty">Hier is niets.</string>
     <string name="action_retry">Opnieuw proberen</string>

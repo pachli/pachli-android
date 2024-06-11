@@ -17,7 +17,6 @@
 
 package app.pachli
 
-import app.pachli.core.designsystem.R as DR
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -47,6 +46,7 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ListActivityIntent
 import app.pachli.core.network.model.MastoList
@@ -65,7 +65,6 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
@@ -332,7 +331,6 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                     selectListBinding.progressBar.hide()
                     dialog.dismiss()
                     Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_LONG).show()
-                    Timber.w(it.cause.cause, "failed to load lists")
                 }
             }
         }

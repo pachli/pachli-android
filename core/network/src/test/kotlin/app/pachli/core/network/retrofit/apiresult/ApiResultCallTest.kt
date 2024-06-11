@@ -90,9 +90,9 @@ class ApiResultCallTest {
                     val error = response.body()?.getError() as? ClientError.NotFound
                     assertThat(error).isInstanceOf(ClientError.NotFound::class.java)
 
-                    val throwable = error?.cause
-                    assertThat(throwable).isInstanceOf(HttpException::class.java)
-                    assertThat(throwable?.code()).isEqualTo(404)
+                    val exception = error?.exception
+                    assertThat(exception).isInstanceOf(HttpException::class.java)
+                    assertThat(exception?.code()).isEqualTo(404)
                 }
 
                 override fun onFailure(call: Call<ApiResult<String>>, t: Throwable) {
@@ -106,7 +106,7 @@ class ApiResultCallTest {
 
     @Test
     fun `should parse call with IOException as ApiResult-failure`() {
-        val error = Err(IO(IOException()))
+        val error = Err(IoError(IOException()))
 
         networkApiResultCall.enqueue(
             object : Callback<ApiResult<String>> {
@@ -120,6 +120,6 @@ class ApiResultCallTest {
             },
         )
 
-        backingCall.completeWithException(error.error.cause)
+        backingCall.completeWithException(error.error.throwable)
     }
 }
