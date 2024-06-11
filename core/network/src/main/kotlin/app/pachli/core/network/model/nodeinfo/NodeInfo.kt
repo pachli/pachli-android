@@ -77,10 +77,11 @@ data class NodeInfo(val software: Software) {
     }
 
     sealed class Error(
-        @StringRes resourceId: Int,
-        vararg formatArgs: String,
-        source: PachliError? = null,
-    ) : PachliError(resourceId, *formatArgs, source = source) {
+        @StringRes override val resourceId: Int,
+    ) : PachliError {
+        override val formatArgs = emptyArray<String>()
+        override val cause: PachliError? = null
+
         data object NoSoftwareBlock : Error(R.string.node_info_error_no_software)
         data object NoSoftwareName : Error(R.string.node_info_error_no_software_name)
         data object NoSoftwareVersion : Error(R.string.node_info_error_no_software_version)

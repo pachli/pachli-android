@@ -119,13 +119,14 @@ class ServerRepository @Inject constructor(
     }
 
     sealed class Error(
-        @StringRes resourceId: Int,
-        vararg formatArgs: String,
-        source: PachliError? = null,
-    ) : PachliError(resourceId, *formatArgs, source = source) {
+        @StringRes override val resourceId: Int,
+        override val formatArgs: Array<out String> = emptyArray<String>(),
+        override val cause: PachliError? = null,
+    ) : PachliError {
+
         data class GetWellKnownNodeInfo(val throwable: Throwable) : Error(
             R.string.server_repository_error_get_well_known_node_info,
-            throwable.localizedMessage,
+            throwable.localizedMessage?.let { arrayOf(it) }.orEmpty(),
         )
 
         data object UnsupportedSchema : Error(
@@ -134,24 +135,23 @@ class ServerRepository @Inject constructor(
 
         data class GetNodeInfo(val url: String, val throwable: Throwable) : Error(
             R.string.server_repository_error_get_node_info,
-            url,
-            throwable.localizedMessage,
+            arrayOf(url, throwable.localizedMessage ?: ""),
         )
 
         data class ValidateNodeInfo(val url: String, val error: NodeInfo.Error) : Error(
             R.string.server_repository_error_validate_node_info,
-            url,
-            source = error,
+            arrayOf(url),
+            cause = error,
         )
 
         data class GetInstanceInfoV1(val throwable: Throwable) : Error(
             R.string.server_repository_error_get_instance_info,
-            throwable.localizedMessage,
+            throwable.localizedMessage?.let { arrayOf(it) }.orEmpty(),
         )
 
         data class Capabilities(val error: Server.Error) : Error(
             R.string.server_repository_error_capabilities,
-            source = error,
+            cause = error,
         )
     }
 }

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Ha ocurrido un error de red. Por favor, comprueba tu conexión e inténtalo de nuevo.</string>
-    <string name="error_network_fmt">Ha ocurrido un error de red: %s</string>
-    <string name="error_generic_fmt">Ha ocurrido un error: %s</string>
-    <string name="error_404_not_found_fmt">Su servidor no soporta esta función: %1$s</string>
     <string name="error_generic">Ha ocurrido un error.</string>
     <string name="message_empty">Nada aquí.</string>
     <string name="action_retry">Reintentar</string>
@@ -11,6 +8,5 @@
     <string name="action_view_profile">Perfil</string>
     <string name="action_more">Más</string>
     <string name="action_refresh">Recargar</string>
-    <string name="error_json_data_fmt">Tu servidor devolvió una respuesta inválida: %1$s</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
 </resources>

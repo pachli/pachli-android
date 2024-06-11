@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="error_network">Ein Netzwerkfehler ist aufgetreten. Bitte überprüfe deine Internetverbindung und versuche es erneut.</string>
-    <string name="error_network_fmt">Ein Netzwerkfehler ist aufgetreten: %s</string>
-    <string name="error_generic_fmt">Es ist ein Fehler aufgetreten: %s</string>
-    <string name="error_404_not_found_fmt">Dein Server unterstützt diese Funktion nicht: %1$s</string>
     <string name="error_generic">Ein Fehler ist aufgetreten.</string>
     <string name="message_empty">Hier ist nichts.</string>
     <string name="action_retry">Erneut versuchen</string>

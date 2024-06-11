@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="error_network">Verkkovirhe. Tarkista yhteytesi ja yritä uudelleen.</string>
-    <string name="error_network_fmt">Tapahtui verkkovirhe: %s</string>
-    <string name="error_generic_fmt">Tapahtui virhe: %s</string>
-    <string name="error_404_not_found_fmt">Palvelimesi ei tue tätä ominaisuutta: %1$s</string>
     <string name="error_generic">Tapahtui virhe.</string>
     <string name="message_empty">Täällä ei ole mitään.</string>
     <string name="action_retry">Yritä uudelleen</string>

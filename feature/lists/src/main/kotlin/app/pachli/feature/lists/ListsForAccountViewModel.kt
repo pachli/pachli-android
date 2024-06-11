@@ -166,20 +166,18 @@ class ListsForAccountViewModel @AssistedInject constructor(
     sealed interface FlowError : Error
 
     /** Asynchronous errors from network operations */
-    sealed interface Error {
-        val cause: ListsError
-
+    sealed interface Error : ListsError {
         /** Failed to fetch lists, or lists containing a particular account */
         @JvmInline
-        value class GetListsWithAccount(override val cause: ListsError.GetListsWithAccount) : FlowError, Error
+        value class GetListsWithAccount(private val error: ListsError.GetListsWithAccount) : FlowError, Error, ListsError by error
 
         @JvmInline
-        value class Retrieve(override val cause: ListsError.Retrieve) : FlowError, Error
+        value class Retrieve(private val error: ListsError.Retrieve) : FlowError, Error, ListsError by error
 
         @JvmInline
-        value class AddAccounts(override val cause: ListsError.AddAccounts) : Error, HasListId by cause
+        value class AddAccounts(private val error: ListsError.AddAccounts) : Error, HasListId by error, ListsError by error
 
         @JvmInline
-        value class DeleteAccounts(override val cause: ListsError.DeleteAccounts) : Error, HasListId by cause
+        value class DeleteAccounts(private val error: ListsError.DeleteAccounts) : Error, HasListId by error, ListsError by error
     }
 }
