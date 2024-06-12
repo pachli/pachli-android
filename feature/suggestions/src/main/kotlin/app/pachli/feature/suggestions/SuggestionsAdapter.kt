@@ -17,8 +17,11 @@
 
 package app.pachli.feature.suggestions
 
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.core.view.children
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -29,6 +32,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.Suggestion
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
@@ -37,6 +41,9 @@ import app.pachli.feature.suggestions.UiAction.NavigationAction
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
 import app.pachli.feature.suggestions.ViewHolder.ChangePayload
 import app.pachli.feature.suggestions.databinding.ItemSuggestionBinding
+import java.time.Duration
+import java.time.Instant
+import kotlin.math.roundToInt
 
 /**
  * Adapter for [Suggestion].
@@ -152,22 +159,33 @@ internal class ViewHolder(
 
             username.text = username.context.getString(app.pachli.core.designsystem.R.string.post_username_format, account.username)
 
-            bindAnimateAvatars(viewData, animateAvatars)
+            bindAvatar(viewData, animateAvatars)
             bindAnimateEmojis(viewData, animateEmojis)
             bindShowBotOverlay(viewData, showBotOverlay)
+            bindPostStatistics(viewData)
             bindIsEnabled(viewData.isEnabled)
         }
     }
 
+    /**
+     * Enables or disables all views depending on [isEnabled].
+     */
     fun bindIsEnabled(isEnabled: Boolean) = with(binding) {
         (root as? ViewGroup)?.children?.forEach { it.isEnabled = isEnabled }
         root.isEnabled = isEnabled
     }
 
-    fun bindAnimateAvatars(viewData: SuggestionViewData, animateAvatars: Boolean) = with(binding) {
+    /**
+     * Binds the avatar image, respecting [animateAvatars].
+     */
+    fun bindAvatar(viewData: SuggestionViewData, animateAvatars: Boolean) = with(binding) {
         loadAvatar(viewData.suggestion.account.avatar, avatar, avatarRadius, animateAvatars)
     }
 
+    /**
+     * Binds the account's [name][app.pachli.core.network.model.Account.name] and
+     * [note][app.pachli.core.network.model.Account.note] respecting [animateEmojis].
+     */
     fun bindAnimateEmojis(viewData: SuggestionViewData, animateEmojis: Boolean) = with(binding) {
         val account = viewData.suggestion.account
         displayName.text = account.name.unicodeWrap().emojify(account.emojis, itemView, animateEmojis)
@@ -183,8 +201,84 @@ internal class ViewHolder(
         }
     }
 
+    /**
+     * Display's the bot overlay on the avatar image (if appropriate), respecting
+     * [showBotOverlay].
+     */
     fun bindShowBotOverlay(viewData: SuggestionViewData, showBotOverlay: Boolean) = with(binding) {
         avatarBadge.visible(viewData.suggestion.account.bot && showBotOverlay)
+    }
+
+    /** Bind's the account's post statistics. */
+    private fun bindPostStatistics(viewData: SuggestionViewData) = with(binding) {
+        val account = viewData.suggestion.account
+
+        // Strings all have embedded HTML `<b>...</b>` to render different sections in bold
+        // without needing to compute spannable widths from arbitrary content. The `<b>` in
+        // the resource strings must have the leading `<` escaped as `&lt;`.
+
+        followerCount.text = HtmlCompat.fromHtml(
+            followerCount.context.getString(
+                R.string.follower_count_fmt,
+                formatNumber(account.followersCount.toLong(), 1000),
+            ),
+            FROM_HTML_MODE_LEGACY,
+        )
+
+        followsCount.text = HtmlCompat.fromHtml(
+            followsCount.context.getString(
+                R.string.follows_count_fmt,
+                formatNumber(account.followingCount.toLong(), 1000),
+            ),
+            FROM_HTML_MODE_LEGACY,
+        )
+
+        // statusesCount can be displayed as either:
+        //
+        // 1. A count of posts (if the account has no creation date).
+        // 2. (1) + a breakdown of posts per week (if there is no "last post" date).
+        // 3. (1) + (2) + when the account last posted.
+        statusesCount.apply {
+            if (account.createdAt == null) {
+                text = HtmlCompat.fromHtml(
+                    context.getString(
+                        R.string.statuses_count_fmt,
+                        formatNumber(account.statusesCount.toLong(), 1000),
+                    ),
+                    FROM_HTML_MODE_LEGACY,
+                )
+            } else {
+                val then = account.createdAt!!.toInstant()
+                val now = Instant.now()
+                val elapsed = Duration.between(then, now).toDays() / 7.0
+
+                if (account.lastStatusAt == null) {
+                    text = HtmlCompat.fromHtml(
+                        context.getString(
+                            R.string.statuses_count_per_week_fmt,
+                            formatNumber(account.statusesCount.toLong(), 1000),
+                            (account.statusesCount / elapsed).roundToInt(),
+                        ),
+                        FROM_HTML_MODE_LEGACY,
+                    )
+                } else {
+                    text = HtmlCompat.fromHtml(
+                        context.getString(
+                            R.string.statuses_count_per_week_last_fmt,
+                            formatNumber(account.statusesCount.toLong(), 1000),
+                            (account.statusesCount / elapsed).roundToInt(),
+                            DateUtils.getRelativeTimeSpanString(
+                                account.lastStatusAt!!.time,
+                                now.toEpochMilli(),
+                                DateUtils.DAY_IN_MILLIS,
+                                DateUtils.FORMAT_ABBREV_RELATIVE,
+                            ),
+                        ),
+                        FROM_HTML_MODE_LEGACY,
+                    )
+                }
+            }
+        }
     }
 }
 

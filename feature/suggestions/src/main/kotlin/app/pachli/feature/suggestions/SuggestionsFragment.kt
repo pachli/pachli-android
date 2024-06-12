@@ -73,7 +73,6 @@ import timber.log.Timber
 // TODO:
 //
 // - Tap title to jump to top
-// - Post count metadata
 // - talkbackWasEnabled machinery
 // - Write a document that talks about this
 
