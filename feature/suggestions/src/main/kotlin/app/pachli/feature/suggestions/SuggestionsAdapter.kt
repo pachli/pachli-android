@@ -51,7 +51,7 @@ import kotlin.math.roundToInt
  * Suggestions are shown with buttons to dismiss the suggestion or follow the
  * account.
  */
-// TODO: This is quite similar to AccountAdapter, so if some functionality can be
+// TODO: This is quite similar to AccountAdapter, see if some functionality can be
 // made common. See things like FollowRequestViewHolder.setupWithAccount as well.
 internal class SuggestionsAdapter(
     private var animateAvatars: Boolean,
@@ -86,12 +86,17 @@ internal class SuggestionsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any?>) {
         val viewData = currentList[position]
-        when (val payload = payloads.lastOrNull()) {
-            is ChangePayload.IsEnabled -> holder.bindIsEnabled(payload.isEnabled)
-            is ChangePayload.AnimateAvatars -> holder.bindAnimateAvatars(viewData, payload.animateAvatars)
-            is ChangePayload.AnimateEmojis -> holder.bindAnimateEmojis(viewData, payload.animateEmojis)
-            is ChangePayload.ShowBotOverlay -> holder.bindShowBotOverlay(viewData, payload.showBotOverlay)
-            else -> onBindViewHolder(holder, position)
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            payloads.filterIsInstance<ChangePayload>().forEach { payload ->
+                when (payload) {
+                    is ChangePayload.IsEnabled -> holder.bindIsEnabled(payload.isEnabled)
+                    is ChangePayload.AnimateAvatars -> holder.bindAvatar(viewData, payload.animateAvatars)
+                    is ChangePayload.AnimateEmojis -> holder.bindAnimateEmojis(viewData, payload.animateEmojis)
+                    is ChangePayload.ShowBotOverlay -> holder.bindShowBotOverlay(viewData, payload.showBotOverlay)
+                }
+            }
         }
     }
 

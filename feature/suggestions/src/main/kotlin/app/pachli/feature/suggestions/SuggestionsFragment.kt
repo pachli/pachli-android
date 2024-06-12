@@ -204,24 +204,18 @@ class SuggestionsFragment :
             binding.messageView.show()
             binding.recyclerView.hide()
 
-            // TODO: binding.swipeRefreshLayout.isRefreshing = false
-
-//            if (it is NetworkError) {
-//                binding.messageView.setup(BackgroundMessage.Network()) { viewModel.refresh() }
-//            } else {
-//                binding.messageView.setup(BackgroundMessage.GenericError()) { viewModel.refresh() }
-//            }
+            binding.messageView.setup(it) { viewModel.accept(GetSuggestions) }
         }
 
-        result.onSuccess { suggestions ->
-            when (suggestions) {
+        result.onSuccess {
+            when (it) {
                 Suggestions.Loading -> { /* nothing to do */ }
                 is Suggestions.Loaded -> {
-                    if (suggestions.suggestions.isEmpty()) {
+                    if (it.suggestions.isEmpty()) {
                         binding.messageView.show()
                         binding.messageView.setup(BackgroundMessage.Empty())
                     } else {
-                        suggestionsAdapter.submitList(suggestions.suggestions)
+                        suggestionsAdapter.submitList(it.suggestions)
                         binding.messageView.hide()
                         binding.recyclerView.show()
                     }

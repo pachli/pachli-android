@@ -64,7 +64,7 @@ internal sealed interface UiSuccess {
 }
 
 @JvmInline
-value class GetSuggestionsError(val cause: SuggestionsError.GetSuggestionsError)
+value class GetSuggestionsError(val error: SuggestionsError.GetSuggestionsError) : PachliError by error
 
 /** Errors that can occur from actions the user takes in the UI */
 internal sealed class UiError(
