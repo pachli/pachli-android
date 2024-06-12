@@ -19,36 +19,41 @@ package app.pachli.core.common
 
 import android.content.Context
 import androidx.annotation.StringRes
+import app.pachli.core.common.string.unicodeWrap
 
 /**
- * Base class for errors throughout the app.
+ * Interface for errors throughout the app.
  *
  * Derive new error class hierarchies for different components using a sealed
  * class hierarchy like so:
  *
  * ```kotlin
  * sealed class Error(
- *     @StringRes resourceId: Int,
- *     vararg formatArgs: String,
- *     source: PachliError? = null,
- * ) : PachliError(resourceId, *formatArgs, source = source) {
+ *     @StringRes override val resourceId: Int,
+ *     override val formatArgs: Array<out String>,
+ *     cause: PachliError? = null,
+ * ) : PachliError {
  *     data object SomeProblem : Error(R.string.error_some_problem)
  *     data class OutOfRange(val input: Int) : Error(
- *         R.string.error_out_of_range
+ *         R.string.error_out_of_range, // "Value %1$d is out of range"
  *         input,
  *     )
- *     data class Fetch(val url: String, val e: PachliError) : Error(
- *         R.string.error_fetch,
+ *     data class Fetch(val url: String, val cause: PachliError) : Error(
+ *         R.string.error_fetch, // "Could not fetch %1$s: %2$s"
  *         url,
- *         source = e,
+ *         cause = cause,
  *     )
  * }
  * ```
  *
- * In this example `SomeProblem` represents an error with no additional context,
- * `OtherProblem` is an error relating to a URL and the URL will be included in
- * the error message, and `WrappedError` represents an error that wraps another
- * error that was the actual cause.
+ * In this example `SomeProblem` represents an error with no additional context.
+ *
+ * `OutOfRange` is an error relating to a single value with no underlying cause.
+ * The value (`input`) will be inserted in the string at `%1$s`.
+ *
+ * `Fetch` is an error relating to a URL with an underlying cause. The URL will be
+ * included in the error message at `%1$s`, and the string representation of the
+ * cause will be included at `%2$s`.
  *
  * Possible string resources for those errors would be:
  *
@@ -57,23 +62,27 @@ import androidx.annotation.StringRes
  * <string name="error_out_of_range">Value %1$d is out of range</string>
  * <string name="error_fetch">Could not fetch %1$s: %2$s</string>
  * ```
- *
- * In that last example the `url` parameter will be interpolated as the first
- * placeholder and the error message from the error passed as the `source`
- * parameter will be interpolated as the second placeholder.
- *
- * @property resourceId String resource ID for the error message
- * @property formatArgs 0 or more arguments to interpolate in to the string resource
- * @property source (optional) The underlying error that caused this error
  */
-open class PachliError(
-    @StringRes private val resourceId: Int,
-    private vararg val formatArgs: String,
-    val source: PachliError? = null,
-) {
-    fun msg(context: Context): String {
+interface PachliError {
+    /** String resource ID for the error message. */
+    @get:StringRes
+    val resourceId: Int
+
+    /** Arguments to be interpolated in to the string from [resourceId]. */
+    val formatArgs: Array<out String>
+
+    /**
+     * The cause of this error. If present the string representation of `cause`
+     * will be set as the last format argument when formatting [resourceId].
+     */
+    val cause: PachliError?
+
+    /**
+     * @return A localised, unicode-wrapped error message for this error.
+     */
+    fun fmt(context: Context): String {
         val args = mutableListOf(*formatArgs)
-        source?.let { args.add(it.msg(context)) }
-        return context.getString(resourceId, *args.toTypedArray())
+        cause?.let { args.add(it.fmt(context)) }
+        return context.getString(resourceId, *args.toTypedArray()).unicodeWrap()
     }
 }

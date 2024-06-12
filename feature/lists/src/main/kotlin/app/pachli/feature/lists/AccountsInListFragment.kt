@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -141,7 +142,7 @@ class AccountsInListFragment : DialogFragment() {
 
                 launch {
                     viewModel.errors.collect {
-                        handleError(it.throwable)
+                        handleError(it)
                     }
                 }
             }
@@ -172,7 +173,7 @@ class AccountsInListFragment : DialogFragment() {
             if (it is Accounts.Loaded) adapter.submitList(it.accounts)
         }.onFailure {
             binding.messageView.show()
-            handleError(it.throwable)
+            handleError(it)
         }
     }
 
@@ -196,11 +197,11 @@ class AccountsInListFragment : DialogFragment() {
             }
         }.onFailure {
             Timber.w(it.throwable, "Error searching for accounts in list")
-            handleError(it.throwable)
+            handleError(it)
         }
     }
 
-    private fun handleError(error: Throwable) {
+    private fun handleError(error: PachliError) {
         binding.messageView.show()
         binding.messageView.setup(error) {
             binding.messageView.hide()

@@ -65,7 +65,6 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
@@ -332,7 +331,6 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                     selectListBinding.progressBar.hide()
                     dialog.dismiss()
                     Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_LONG).show()
-                    Timber.w(it.throwable, "failed to load lists")
                 }
             }
         }

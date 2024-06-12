@@ -4,4 +4,7 @@
     <string name="node_info_error_no_software_name">software naam mist, is leeg of blanco</string>
     <string name="node_info_error_no_software_version">software versie mist, is leeg of blanco</string>
     <string name="server_error_unparseable_version">kon \"%1$s\" niet verwerken als een versie: %2$s</string>
+    <string name="error_generic_fmt">Er deed zich een fout voor: %s</string>
+    <string name="error_404_not_found_fmt">Je server beschikt niet over ondersteuning voor deze feature: %1$s</string>
+    <string name="error_network_fmt">Er deed zich een netwerkfout voor: %s</string>
 </resources>

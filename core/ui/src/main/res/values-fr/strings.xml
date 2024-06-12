@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="error_network">Une erreur réseau s’est produite ! Veuillez vérifier votre connexion puis réessayez !</string>
-    <string name="error_network_fmt">Une erreur réseau s\'est produite : %s</string>
-    <string name="error_generic_fmt">Une erreur s\'est produite : %s</string>
-    <string name="error_404_not_found_fmt">Votre serveur ne prend pas en charge cette fonctionnalité: %1$s</string>
     <string name="error_generic">Une erreur s’est produite.</string>
     <string name="message_empty">Rien ici.</string>
     <string name="action_retry">Réessayer</string>

@@ -140,8 +140,8 @@ class ApiTest {
 
         val error = responseObject as? ServerError.Internal
         assertThat(error).isInstanceOf(ServerError.Internal::class.java)
-        assertThat(error?.throwable?.code()).isEqualTo(500)
-        assertThat(error?.throwable?.message()).isEqualTo("Server Error")
+        assertThat(error?.exception?.code()).isEqualTo(500)
+        assertThat(error?.exception?.message()).isEqualTo("Server Error")
     }
 
     @Test
@@ -155,8 +155,8 @@ class ApiTest {
 
         val error = responseObject as? ServerError.Internal
         assertThat(error).isInstanceOf(ServerError.Internal::class.java)
-        assertThat(error?.throwable?.code()).isEqualTo(500)
-        assertThat(error?.throwable?.message()).isEqualTo("Server Error")
+        assertThat(error?.exception?.code()).isEqualTo(500)
+        assertThat(error?.exception?.message()).isEqualTo("Server Error")
     }
 
     @Test
@@ -167,9 +167,9 @@ class ApiTest {
                 api.getSiteAsync()
             }
 
-        val error = responseObject.getError() as? IO
+        val error = responseObject.getError() as? IoError
 
-        assertThat(error).isInstanceOf(IO::class.java)
+        assertThat(error).isInstanceOf(IoError::class.java)
     }
 
     @Test
@@ -177,9 +177,9 @@ class ApiTest {
         mockWebServer.enqueue(MockResponse().apply { socketPolicy = SocketPolicy.DISCONNECT_AFTER_REQUEST })
         val responseObject = runBlocking { api.getSiteSync() }
 
-        val error = responseObject.getError() as? IO
+        val error = responseObject.getError() as? IoError
 
-        assertThat(error).isInstanceOf(IO::class.java)
+        assertThat(error).isInstanceOf(IoError::class.java)
     }
 
     @Test
@@ -189,9 +189,9 @@ class ApiTest {
         mockWebServer.enqueue(response)
         val responseObject = api.getSitesAsync().getError()
 
-        val error = responseObject as? JsonParse
+        val error = responseObject as? JsonParseError
 
-        assertThat(error).isInstanceOf(JsonParse::class.java)
+        assertThat(error).isInstanceOf(JsonParseError::class.java)
     }
 
     @Test
@@ -201,11 +201,11 @@ class ApiTest {
 
         val responseObject = api.getSitesAsync().getError()
 
-        val error = responseObject as? IO
+        val error = responseObject as? IoError
 
         // Moshi reports invalid JSON as an IoException wrapping a JsonEncodingException
-        assertThat(error).isInstanceOf(IO::class.java)
-        assertThat(error?.throwable).isInstanceOf(JsonEncodingException::class.java)
+        assertThat(error).isInstanceOf(IoError::class.java)
+        assertThat(error?.exception).isInstanceOf(JsonEncodingException::class.java)
     }
 
     @Test

@@ -129,7 +129,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         val msg = getString(
                             R.string.server_repository_error,
                             accountManager.activeAccount!!.domain,
-                            it.msg(requireContext()),
+                            it.fmt(requireContext()),
                         )
                         Timber.e(msg)
                         try {

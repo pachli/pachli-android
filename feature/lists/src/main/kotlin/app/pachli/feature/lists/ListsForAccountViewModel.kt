@@ -24,7 +24,6 @@ import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.network.model.MastoList
-import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -67,7 +66,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
     private val _listsWithMembership = MutableStateFlow<Result<ListsWithMembership, FlowError>>(Ok(ListsWithMembership.Loading))
     val listsWithMembership = _listsWithMembership.asStateFlow()
 
-    private val _errors = Channel<Error>()
+    private val _errors = Channel<HasListId>()
     val errors = _errors.receiveAsFlow()
 
     private val listsWithMembershipMap = mutableMapOf<String, ListWithMembership>()
@@ -164,21 +163,21 @@ class ListsForAccountViewModel @AssistedInject constructor(
      *  Marker for errors that can be part of the [Result] in the
      *  [ListsForAccountViewModel.listsWithMembership] flow
      */
-    sealed interface FlowError : ApiError
+    sealed interface FlowError : Error
 
     /** Asynchronous errors from network operations */
     sealed interface Error : ListsError {
         /** Failed to fetch lists, or lists containing a particular account */
         @JvmInline
-        value class GetListsWithAccount(val error: ListsError.GetListsWithAccount) : FlowError, ListsError by error
+        value class GetListsWithAccount(private val error: ListsError.GetListsWithAccount) : FlowError, Error, ListsError by error
 
         @JvmInline
-        value class Retrieve(val error: ListsError.Retrieve) : FlowError, ListsError by error
+        value class Retrieve(private val error: ListsError.Retrieve) : FlowError, Error, ListsError by error
 
         @JvmInline
-        value class AddAccounts(val error: ListsError.AddAccounts) : Error, HasListId by error, ListsError by error
+        value class AddAccounts(private val error: ListsError.AddAccounts) : Error, HasListId by error, ListsError by error
 
         @JvmInline
-        value class DeleteAccounts(val error: ListsError.DeleteAccounts) : Error, HasListId by error, ListsError by error
+        value class DeleteAccounts(private val error: ListsError.DeleteAccounts) : Error, HasListId by error, ListsError by error
     }
 }

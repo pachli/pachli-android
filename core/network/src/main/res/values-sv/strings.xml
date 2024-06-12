@@ -4,4 +4,7 @@
     <string name="node_info_error_no_software">innehöll inget mjukvarublock</string>
     <string name="node_info_error_no_software_name">mjukvarunamnet saknas, är tomt eller blankt</string>
     <string name="server_error_unparseable_version">Kunde inte analysera \"%1$s\" som en version: %2$s</string>
+    <string name="error_generic_fmt">Ett fel har uppstått: %s</string>
+    <string name="error_404_not_found_fmt">Din server stöder inte denna funktion: %1$s</string>
+    <string name="error_network_fmt">Ett nätverksfel har uppstått: %s</string>
 </resources>

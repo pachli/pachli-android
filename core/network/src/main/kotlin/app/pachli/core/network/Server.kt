@@ -17,7 +17,6 @@
 
 package app.pachli.core.network
 
-import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.common.PachliError
@@ -296,16 +295,13 @@ data class Server(
     }
 
     /** Errors that can occur when processing server capabilities */
-    sealed class Error(
-        @StringRes resourceId: Int,
-        vararg formatArgs: String,
-    ) : PachliError(resourceId, *formatArgs) {
+    sealed interface Error : PachliError {
         /** Could not parse the server's version string */
-        data class UnparseableVersion(val version: String, val throwable: Throwable) : Error(
-            R.string.server_error_unparseable_version,
-            version,
-            throwable.localizedMessage,
-        )
+        data class UnparseableVersion(val version: String, val throwable: Throwable) : Error {
+            override val resourceId = R.string.server_error_unparseable_version
+            override val formatArgs: Array<String> = arrayOf(version, throwable.localizedMessage ?: "")
+            override val cause: PachliError? = null
+        }
     }
 }
 

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="error_network">Ett nätverksfel uppstod. Kontrollera din anslutning och försök igen.</string>
-    <string name="error_network_fmt">Ett nätverksfel har uppstått: %s</string>
-    <string name="error_generic_fmt">Ett fel har uppstått: %s</string>
-    <string name="error_404_not_found_fmt">Din server stöder inte denna funktion: %1$s</string>
     <string name="error_generic">Ett fel har uppstått.</string>
     <string name="message_empty">Ingenting här.</string>
     <string name="action_retry">Försök igen</string>

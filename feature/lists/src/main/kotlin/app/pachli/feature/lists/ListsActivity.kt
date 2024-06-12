@@ -43,14 +43,12 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.Lists
+import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.UserListRepliesPolicy
-import app.pachli.core.network.retrofit.apiresult.ApiError
-import app.pachli.core.network.retrofit.apiresult.NetworkError
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.await
 import app.pachli.feature.lists.databinding.ActivityListsBinding
@@ -113,29 +111,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
 
         lifecycleScope.launch {
             viewModel.errors.collect { error ->
-                when (error) {
-                    is Error.Create -> showMessage(
-                        String.format(
-                            getString(R.string.error_create_list_fmt),
-                            error.title.unicodeWrap(),
-                            error.throwable.message.unicodeWrap(),
-                        ),
-                    )
-                    is Error.Delete -> showMessage(
-                        String.format(
-                            getString(R.string.error_delete_list_fmt),
-                            error.title.unicodeWrap(),
-                            error.throwable.message.unicodeWrap(),
-                        ),
-                    )
-                    is Error.Update -> showMessage(
-                        String.format(
-                            getString(R.string.error_rename_list_fmt),
-                            error.title.unicodeWrap(),
-                            error.throwable.message.unicodeWrap(),
-                        ),
-                    )
-                }
+                showMessage(error.fmt(this@ListsActivity))
             }
         }
 
@@ -220,17 +196,13 @@ class ListsActivity : BaseActivity(), MenuProvider {
         if (result == AlertDialog.BUTTON_POSITIVE) viewModel.deleteList(list.id, list.title)
     }
 
-    private fun bind(state: Result<Lists, ApiError>) {
+    private fun bind(state: Result<Lists, ListsError>) {
         state.onFailure {
             binding.listsRecycler.hide()
             binding.messageView.show()
             binding.swipeRefreshLayout.isRefreshing = false
 
-            if (it is NetworkError) {
-                binding.messageView.setup(BackgroundMessage.Network()) { viewModel.refresh() }
-            } else {
-                binding.messageView.setup(BackgroundMessage.GenericError()) { viewModel.refresh() }
-            }
+            binding.messageView.setup(it) { viewModel.refresh() }
         }
 
         state.onSuccess { lists ->

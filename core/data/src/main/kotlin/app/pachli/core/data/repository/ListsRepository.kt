@@ -17,6 +17,7 @@
 
 package app.pachli.core.data.repository
 
+import app.pachli.core.common.PachliError
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.UserListRepliesPolicy
@@ -36,26 +37,26 @@ interface HasListId {
 }
 
 /** Errors that can be returned from this repository */
-interface ListsError : ApiError {
+interface ListsError : PachliError {
     @JvmInline
-    value class Create(private val error: ApiError) : ListsError, ApiError by error
-
-    @JvmInline
-    value class Retrieve(private val error: ApiError) : ListsError, ApiError by error
+    value class Create(private val error: ApiError) : ListsError, PachliError by error
 
     @JvmInline
-    value class Update(private val error: ApiError) : ListsError, ApiError by error
+    value class Retrieve(private val error: ApiError) : ListsError, PachliError by error
 
     @JvmInline
-    value class Delete(private val error: ApiError) : ListsError, ApiError by error
+    value class Update(private val error: ApiError) : ListsError, PachliError by error
 
-    data class GetListsWithAccount(val accountId: String, private val error: ApiError) : ListsError, ApiError by error
+    @JvmInline
+    value class Delete(private val error: ApiError) : ListsError, PachliError by error
 
-    data class GetAccounts(override val listId: String, private val error: ApiError) : ListsError, HasListId, ApiError by error
+    data class GetListsWithAccount(val accountId: String, private val error: ApiError) : ListsError, PachliError by error
 
-    data class AddAccounts(override val listId: String, private val error: ApiError) : ListsError, HasListId, ApiError by error
+    data class GetAccounts(override val listId: String, private val error: ApiError) : ListsError, HasListId, PachliError by error
 
-    data class DeleteAccounts(override val listId: String, private val error: ApiError) : ListsError, HasListId, ApiError by error
+    data class AddAccounts(override val listId: String, private val error: ApiError) : ListsError, HasListId, PachliError by error
+
+    data class DeleteAccounts(override val listId: String, private val error: ApiError) : ListsError, HasListId, PachliError by error
 }
 
 interface ListsRepository {

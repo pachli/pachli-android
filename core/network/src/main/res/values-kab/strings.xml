@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_generic_fmt">Tella-d tuccḍa: %s</string>
+</resources>

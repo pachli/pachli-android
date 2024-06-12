@@ -155,7 +155,7 @@ class ListsForAccountFragment : DialogFragment() {
             binding.listsView.hide()
             binding.messageView.apply {
                 show()
-                setup(it.throwable) {
+                setup(it) {
                     viewModel.refresh()
                     load()
                 }
