@@ -126,7 +126,11 @@ class BackgroundMessageView @JvmOverloads constructor(
         binding.messageTextView.text = message
         binding.messageTextView.movementMethod = LinkMovementMethod.getInstance()
         binding.imageView.setImageResource(imageRes)
-        binding.button.setOnClickListener(clickListener)
+        binding.button.setOnClickListener {
+            it.isEnabled = false
+            clickListener?.invoke(it)
+        }
+        binding.button.isEnabled = true
         binding.button.visible(clickListener != null)
     }
 
