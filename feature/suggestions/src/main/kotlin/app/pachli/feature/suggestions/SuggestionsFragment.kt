@@ -41,7 +41,6 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.model.SuggestionSources
 import app.pachli.core.data.model.SuggestionSources.FEATURED
 import app.pachli.core.data.model.SuggestionSources.FRIENDS_OF_FRIENDS
@@ -52,7 +51,6 @@ import app.pachli.core.data.model.SuggestionSources.UNKNOWN
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.ui.BackgroundMessage
-import app.pachli.core.ui.extensions.fmt
 import app.pachli.feature.suggestions.UiAction.GetSuggestions
 import app.pachli.feature.suggestions.UiAction.NavigationAction
 import app.pachli.feature.suggestions.databinding.FragmentSuggestionsBinding
@@ -163,7 +161,9 @@ class SuggestionsFragment :
 
                 // TODO: Very similar to code in ListsActivity
                 launch {
-                    viewModel.operationCount.collectLatest { binding.progressIndicator.visible(it != 0) }
+                    viewModel.operationCount.collectLatest {
+                        if (it == 0) binding.progressIndicator.hide() else binding.progressIndicator.show()
+                    }
                 }
             }
         }
@@ -301,17 +301,4 @@ fun SuggestionSources.stringResource() = when (this) {
     SIMILAR_TO_RECENTLY_FOLLOWED -> R.string.sources_similar_to_recently_followed
     FRIENDS_OF_FRIENDS -> R.string.sources_friends_of_friends
     UNKNOWN -> R.string.sources_unknown
-}
-
-internal fun UiError.fmt(context: Context) = when (this) {
-    is UiError.AcceptSuggestion -> context.getString(
-        R.string.ui_error_follow_account_fmt,
-        action.suggestion.account.displayName,
-        cause.cause.fmt(context),
-    )
-    is UiError.DeleteSuggestion -> context.getString(
-        R.string.ui_error_delete_suggestion_fmt,
-        action.suggestion.account.displayName,
-        cause.cause.fmt(context),
-    )
 }

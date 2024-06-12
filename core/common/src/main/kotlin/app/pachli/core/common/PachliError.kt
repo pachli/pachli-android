@@ -69,7 +69,7 @@ interface PachliError {
     val resourceId: Int
 
     /** Arguments to be interpolated in to the string from [resourceId]. */
-    val formatArgs: Array<out String>
+    val formatArgs: Array<out String>?
 
     /**
      * The cause of this error. If present the string representation of `cause`
@@ -81,8 +81,10 @@ interface PachliError {
      * @return A localised, unicode-wrapped error message for this error.
      */
     fun fmt(context: Context): String {
-        val args = mutableListOf(*formatArgs)
-        cause?.let { args.add(it.fmt(context)) }
+        val args = buildList {
+            formatArgs?.let { addAll(it) }
+            cause?.let { add(it.fmt(context)) }
+        }
         return context.getString(resourceId, *args.toTypedArray()).unicodeWrap()
     }
 }

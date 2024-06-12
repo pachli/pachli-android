@@ -61,7 +61,7 @@ sealed class ApiError(
 ) : PachliError {
     override val formatArgs = (
         throwable.getServerErrorMessage() ?: throwable.localizedMessage
-        )?.let { arrayOf(it) }.orEmpty()
+        )?.let { arrayOf(it) }
     override val cause: PachliError? = null
 
     companion object {

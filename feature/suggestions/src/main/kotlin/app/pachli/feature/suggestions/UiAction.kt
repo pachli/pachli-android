@@ -17,6 +17,8 @@
 
 package app.pachli.feature.suggestions
 
+import androidx.annotation.StringRes
+import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.SuggestionsError
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
@@ -65,28 +67,28 @@ internal sealed interface UiSuccess {
 value class GetSuggestionsError(val cause: SuggestionsError.GetSuggestionsError)
 
 /** Errors that can occur from actions the user takes in the UI */
-internal sealed interface UiError {
-    /** The underlying repository error. */
-    val cause: SuggestionsError
-
-    /** The action that caused the error. */
-    val action: SuggestionAction
+internal sealed class UiError(
+    @StringRes override val resourceId: Int,
+    open val action: SuggestionAction,
+    override val cause: SuggestionsError,
+    override val formatArgs: Array<out String>? = action.suggestion.account.displayName?.let { arrayOf(it) },
+) : PachliError {
 
     data class DeleteSuggestion(
-        override val cause: DeleteSuggestionError,
         override val action: SuggestionAction.DeleteSuggestion,
-    ) : UiError
+        override val cause: DeleteSuggestionError,
+    ) : UiError(R.string.ui_error_delete_suggestion_fmt, action, cause)
 
     data class AcceptSuggestion(
-        override val cause: FollowAccountError,
         override val action: SuggestionAction.AcceptSuggestion,
-    ) : UiError
+        override val cause: FollowAccountError,
+    ) : UiError(R.string.ui_error_follow_account_fmt, action, cause)
 
     companion object {
         /** Create a [UiError] from the [SuggestionAction] and [SuggestionsError]. */
         fun make(error: SuggestionsError, action: SuggestionAction) = when (action) {
-            is SuggestionAction.DeleteSuggestion -> DeleteSuggestion(error as DeleteSuggestionError, action)
-            is SuggestionAction.AcceptSuggestion -> AcceptSuggestion(error as FollowAccountError, action)
+            is SuggestionAction.DeleteSuggestion -> DeleteSuggestion(action, error as DeleteSuggestionError)
+            is SuggestionAction.AcceptSuggestion -> AcceptSuggestion(action, error as FollowAccountError)
         }
     }
 }

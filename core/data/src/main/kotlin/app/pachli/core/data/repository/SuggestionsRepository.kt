@@ -17,6 +17,7 @@
 
 package app.pachli.core.data.repository
 
+import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
@@ -25,19 +26,17 @@ import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 
 /** Errors that can be returned from this repository. */
-sealed interface SuggestionsError {
-    val cause: ApiError
+sealed interface SuggestionsError : PachliError {
+    @JvmInline
+    value class GetSuggestionsError(private val error: ApiError) : SuggestionsError, PachliError by error
 
     @JvmInline
-    value class GetSuggestionsError(override val cause: ApiError) : SuggestionsError
-
-    @JvmInline
-    value class DeleteSuggestionError(override val cause: ApiError) : SuggestionsError
+    value class DeleteSuggestionError(private val error: ApiError) : SuggestionsError, PachliError by error
 
     // TODO: Doesn't belong here. When there's a repository for the user's account
     // this should move there.
     @JvmInline
-    value class FollowAccountError(override val cause: ApiError) : SuggestionsError
+    value class FollowAccountError(private val error: ApiError) : SuggestionsError, PachliError by error
 }
 
 interface SuggestionsRepository {
