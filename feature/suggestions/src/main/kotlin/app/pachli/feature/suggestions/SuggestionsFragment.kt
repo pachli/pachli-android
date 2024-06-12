@@ -35,6 +35,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.RefreshableFragment
+import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
@@ -72,7 +73,6 @@ import timber.log.Timber
 
 // TODO:
 //
-// - Tap title to jump to top
 // - talkbackWasEnabled machinery
 // - Write a document that talks about this
 
@@ -95,7 +95,8 @@ class SuggestionsFragment :
     Fragment(R.layout.fragment_suggestions),
     MenuProvider,
     OnRefreshListener,
-    RefreshableFragment {
+    RefreshableFragment,
+    ReselectableFragment {
     private val viewModel: SuggestionsViewModel by viewModels()
 
     private val binding by viewBinding(FragmentSuggestionsBinding::bind)
@@ -263,6 +264,10 @@ class SuggestionsFragment :
             }
             else -> false
         }
+    }
+
+    override fun onReselect() {
+        binding.recyclerView.scrollToPosition(0)
     }
 
     override fun refreshContent() {

@@ -19,6 +19,7 @@ package app.pachli.feature.suggestions
 
 import android.os.Bundle
 import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.feature.suggestions.databinding.ActivitySuggestionsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +37,10 @@ class SuggestionsActivity : BottomSheetActivity() {
             setTitle(R.string.title_suggestions)
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
+        }
+
+        binding.toolbar.setOnClickListener {
+            (binding.fragmentContainer.getFragment<SuggestionsFragment>() as? ReselectableFragment)?.onReselect()
         }
     }
 }
