@@ -72,10 +72,8 @@ import timber.log.Timber
 
 // TODO:
 //
-// - Swipe left to delete suggestion
-// - Swipe right to follow
-// - TODOs in the adapter
-// - How much of AccountViewHolder can be reused?
+// - Tap title to jump to top
+// - Post count metadata
 // - talkbackWasEnabled machinery
 // - Write a document that talks about this
 
@@ -125,8 +123,8 @@ class SuggestionsFragment :
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         suggestionsAdapter = SuggestionsAdapter(
-            animateEmojis = viewModel.uiState.value.animateEmojis,
             animateAvatars = viewModel.uiState.value.animateAvatars,
+            animateEmojis = viewModel.uiState.value.animateEmojis,
             showBotOverlay = viewModel.uiState.value.showBotOverlay,
             accept = accept,
         )

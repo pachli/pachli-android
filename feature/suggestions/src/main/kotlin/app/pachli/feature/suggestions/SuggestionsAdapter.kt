@@ -47,8 +47,8 @@ import app.pachli.feature.suggestions.databinding.ItemSuggestionBinding
 // TODO: This is quite similar to AccountAdapter, so if some functionality can be
 // made common. See things like FollowRequestViewHolder.setupWithAccount as well.
 internal class SuggestionsAdapter(
-    private var animateEmojis: Boolean,
     private var animateAvatars: Boolean,
+    private var animateEmojis: Boolean,
     private var showBotOverlay: Boolean,
     private val accept: (UiAction) -> Unit,
 ) : ListAdapter<SuggestionViewData, ViewHolder>(SuggestionDiffer) {
@@ -59,27 +59,31 @@ internal class SuggestionsAdapter(
         return ViewHolder(binding, accept)
     }
 
-    fun setAnimateEmojis(animateEmojis: Boolean) {
-        if (this.animateEmojis == animateEmojis) return
-        this.animateEmojis = animateEmojis
-        notifyItemRangeChanged(0, currentList.size)
-    }
-
     fun setAnimateAvatars(animateAvatars: Boolean) {
         if (this.animateAvatars == animateAvatars) return
         this.animateAvatars = animateAvatars
-        notifyItemRangeChanged(0, currentList.size)
+        notifyItemRangeChanged(0, currentList.size, ChangePayload.AnimateAvatars(animateAvatars))
+    }
+
+    fun setAnimateEmojis(animateEmojis: Boolean) {
+        if (this.animateEmojis == animateEmojis) return
+        this.animateEmojis = animateEmojis
+        notifyItemRangeChanged(0, currentList.size, ChangePayload.AnimateEmojis(animateEmojis))
     }
 
     fun setShowBotOverlay(showBotOverlay: Boolean) {
         if (this.showBotOverlay == showBotOverlay) return
         this.showBotOverlay = showBotOverlay
-        notifyItemRangeChanged(0, currentList.size)
+        notifyItemRangeChanged(0, currentList.size, ChangePayload.ShowBotOverlay(showBotOverlay))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any?>) {
+        val viewData = currentList[position]
         when (val payload = payloads.lastOrNull()) {
             is ChangePayload.IsEnabled -> holder.bindIsEnabled(payload.isEnabled)
+            is ChangePayload.AnimateAvatars -> holder.bindAnimateAvatars(viewData, payload.animateAvatars)
+            is ChangePayload.AnimateEmojis -> holder.bindAnimateEmojis(viewData, payload.animateEmojis)
+            is ChangePayload.ShowBotOverlay -> holder.bindShowBotOverlay(viewData, payload.showBotOverlay)
             else -> onBindViewHolder(holder, position)
         }
     }
@@ -146,23 +150,11 @@ internal class ViewHolder(
                 suggestionReason.show()
             } ?: suggestionReason.hide()
 
-            displayName.text = account.name.unicodeWrap().emojify(account.emojis, itemView, animateEmojis)
-
             username.text = username.context.getString(app.pachli.core.designsystem.R.string.post_username_format, account.username)
 
-            if (account.note.isBlank()) {
-                accountNote.hide()
-            } else {
-                accountNote.show()
-                val emojifiedNote = account.note.parseAsMastodonHtml()
-                    .emojify(account.emojis, accountNote, animateEmojis)
-
-                setClickableText(accountNote, emojifiedNote, emptyList(), null, linkListener)
-            }
-
-            loadAvatar(account.avatar, avatar, avatarRadius, animateAvatars)
-            avatarBadge.visible(showBotOverlay && account.bot)
-
+            bindAnimateAvatars(viewData, animateAvatars)
+            bindAnimateEmojis(viewData, animateEmojis)
+            bindShowBotOverlay(viewData, showBotOverlay)
             bindIsEnabled(viewData.isEnabled)
         }
     }
@@ -171,13 +163,35 @@ internal class ViewHolder(
         (root as? ViewGroup)?.children?.forEach { it.isEnabled = isEnabled }
         root.isEnabled = isEnabled
     }
+
+    fun bindAnimateAvatars(viewData: SuggestionViewData, animateAvatars: Boolean) = with(binding) {
+        loadAvatar(viewData.suggestion.account.avatar, avatar, avatarRadius, animateAvatars)
+    }
+
+    fun bindAnimateEmojis(viewData: SuggestionViewData, animateEmojis: Boolean) = with(binding) {
+        val account = viewData.suggestion.account
+        displayName.text = account.name.unicodeWrap().emojify(account.emojis, itemView, animateEmojis)
+
+        if (account.note.isBlank()) {
+            accountNote.hide()
+        } else {
+            accountNote.show()
+            val emojifiedNote = account.note.parseAsMastodonHtml()
+                .emojify(account.emojis, accountNote, animateEmojis)
+
+            setClickableText(accountNote, emojifiedNote, emptyList(), null, linkListener)
+        }
+    }
+
+    fun bindShowBotOverlay(viewData: SuggestionViewData, showBotOverlay: Boolean) = with(binding) {
+        avatarBadge.visible(viewData.suggestion.account.bot && showBotOverlay)
+    }
 }
 
 private object SuggestionDiffer : DiffUtil.ItemCallback<SuggestionViewData>() {
     override fun areItemsTheSame(oldItem: SuggestionViewData, newItem: SuggestionViewData) = oldItem.suggestion.account.id == newItem.suggestion.account.id
     override fun areContentsTheSame(oldItem: SuggestionViewData, newItem: SuggestionViewData) = oldItem == newItem
 
-    // TODO: Diffing on enabled or not
     override fun getChangePayload(oldItem: SuggestionViewData, newItem: SuggestionViewData): Any? {
         return when {
             oldItem.isEnabled != newItem.isEnabled -> ChangePayload.IsEnabled(newItem.isEnabled)
