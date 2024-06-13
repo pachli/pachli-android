@@ -94,6 +94,7 @@ import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.extensions.getErrorString
+import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityComposeBinding
 import app.pachli.util.PickMediaFiles
 import app.pachli.util.getInitialLanguages
@@ -101,7 +102,6 @@ import app.pachli.util.getLocaleList
 import app.pachli.util.getMediaSize
 import app.pachli.util.highlightSpans
 import app.pachli.util.iconRes
-import app.pachli.core.ui.makeIcon
 import app.pachli.util.modernLanguageCode
 import app.pachli.util.setDrawableTint
 import com.canhub.cropper.CropImage

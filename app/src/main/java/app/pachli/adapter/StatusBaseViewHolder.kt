@@ -37,6 +37,7 @@ import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.PreviewCardKind
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
 import app.pachli.core.ui.setClickableText
 import app.pachli.interfaces.StatusActionListener
@@ -47,7 +48,6 @@ import app.pachli.util.expandTouchSizeToFillRow
 import app.pachli.util.getFormattedDescription
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.iconResource
-import app.pachli.core.ui.makeIcon
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.view.MediaPreviewLayout
 import app.pachli.view.PollView

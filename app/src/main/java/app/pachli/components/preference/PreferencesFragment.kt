@@ -16,7 +16,6 @@
 
 package app.pachli.components.preference
 
-import app.pachli.core.designsystem.R as DR
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +29,7 @@ import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.AppTheme.Companion.APP_THEME_DEFAULT
