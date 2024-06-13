@@ -76,6 +76,7 @@
     <string name="action_unmute">Ta bort tystade användare</string>
     <string name="action_mention">Omnämn</string>
     <string name="action_hide_media">Dölj media</string>
+    <string name="action_open_drawer">Öppna låda</string>
     <string name="action_save">Spara</string>
     <string name="action_edit_profile">Redigera profil</string>
     <string name="action_edit_own_profile">Redigera</string>

@@ -76,6 +76,7 @@
     <string name="action_unmute">Fjern demping</string>
     <string name="action_mention">Nevn</string>
     <string name="action_hide_media">Skjul media</string>
+    <string name="action_open_drawer">Åpne skuff</string>
     <string name="action_save">Lagre</string>
     <string name="action_edit_profile">Endre profil</string>
     <string name="action_edit_own_profile">Endre</string>

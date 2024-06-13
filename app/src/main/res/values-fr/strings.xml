@@ -76,6 +76,7 @@
     <string name="action_unmute">Ne plus masquer</string>
     <string name="action_mention">Mentionner</string>
     <string name="action_hide_media">Cacher les médias</string>
+    <string name="action_open_drawer">Ouvrir le menu</string>
     <string name="action_save">Enregistrer</string>
     <string name="action_edit_profile">Modifier le profil</string>
     <string name="action_edit_own_profile">Modifier</string>

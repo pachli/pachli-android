@@ -88,6 +88,7 @@
     <string name="action_mute_domain">Þagga niður í %s</string>
     <string name="action_mention">Tilvísun</string>
     <string name="action_hide_media">Fela myndefni</string>
+    <string name="action_open_drawer">Opna sleða</string>
     <string name="action_save">Vista</string>
     <string name="action_edit_own_profile">Breyta</string>
     <string name="action_undo">Afturkalla</string>

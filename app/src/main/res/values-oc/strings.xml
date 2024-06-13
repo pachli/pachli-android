@@ -69,6 +69,7 @@
     <string name="action_unmute">Quitar de silenciar</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_hide_media">Amagar los mèdias</string>
+    <string name="action_open_drawer">Dobrir lo repertòri</string>
     <string name="action_save">Enregistrar</string>
     <string name="action_edit_profile">Modificar lo perfil</string>
     <string name="action_edit_own_profile">Modificar</string>

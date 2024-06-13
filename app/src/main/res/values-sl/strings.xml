@@ -73,6 +73,7 @@
     <string name="action_mute">Utišaj</string>
     <string name="action_mention">Omeni</string>
     <string name="action_hide_media">Skrij medij</string>
+    <string name="action_open_drawer">Odpri predal</string>
     <string name="action_save">Shrani</string>
     <string name="action_edit_profile">Uredi profil</string>
     <string name="action_edit_own_profile">Uredi</string>

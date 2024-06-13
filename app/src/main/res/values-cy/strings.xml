@@ -70,6 +70,7 @@
     <string name="action_unmute">Dad-dewi</string>
     <string name="action_mention">Crybwyll</string>
     <string name="action_hide_media">Cuddio cyfrwng</string>
+    <string name="action_open_drawer">Agor drôr</string>
     <string name="action_save">Cadw</string>
     <string name="action_edit_profile">Golygu\'ch proffil</string>
     <string name="action_edit_own_profile">Golygu</string>

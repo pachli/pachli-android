@@ -77,6 +77,7 @@
     <string name="action_unmute">Stummschaltung aufheben</string>
     <string name="action_mention">Erwähnen</string>
     <string name="action_hide_media">Mediendateien ausblenden</string>
+    <string name="action_open_drawer">Menü öffnen</string>
     <string name="action_save">Speichern</string>
     <string name="action_edit_profile">Profil bearbeiten</string>
     <string name="action_edit_own_profile">Bearbeiten</string>

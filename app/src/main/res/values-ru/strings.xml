@@ -77,6 +77,7 @@
     <string name="action_unmute">Отменить глушение</string>
     <string name="action_mention">Упомянуть</string>
     <string name="action_hide_media">Скрыть медиаконтент</string>
+    <string name="action_open_drawer">Открыть черновик</string>
     <string name="action_save">Сохранить</string>
     <string name="action_edit_profile">Редактировать профиль</string>
     <string name="action_edit_own_profile">Изменить</string>

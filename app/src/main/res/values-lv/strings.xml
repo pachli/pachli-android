@@ -307,6 +307,7 @@
     <string name="action_compose">Rakstīt</string>
     <string name="action_logout_confirm">Vai tiešām vēlies iziet no konta %1$s\?</string>
     <string name="action_add_media">Pievienot multividi</string>
+    <string name="action_open_drawer">Atvērt izvēlni</string>
     <string name="action_open_media_n">Atvērt multividi #%d</string>
     <string name="download_media">Lejupielādēt multividi</string>
     <string name="downloading_media">Lejupielādē multividi</string>

@@ -74,6 +74,7 @@
     <string name="action_unmute">Dejar de silenciar</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_hide_media">Ocultar multimedia</string>
+    <string name="action_open_drawer">Abrir menu</string>
     <string name="action_save">Guardar</string>
     <string name="action_edit_profile">Editar perfil</string>
     <string name="action_edit_own_profile">Editar</string>

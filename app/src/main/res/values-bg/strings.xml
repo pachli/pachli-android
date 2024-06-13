@@ -270,6 +270,7 @@
     <string name="action_edit_own_profile">Редакция</string>
     <string name="action_edit_profile">Редакция на профил</string>
     <string name="action_save">Запазване</string>
+    <string name="action_open_drawer">Отваряне на чекмедже</string>
     <string name="action_hide_media">Скриване на мултимедия</string>
     <string name="action_mention">Споменаване</string>
     <string name="action_unmute_conversation">Раззаглушаване на разговор</string>

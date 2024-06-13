@@ -74,6 +74,7 @@
     <string name="action_unmute">Sessizden çıkar</string>
     <string name="action_mention">Bahset</string>
     <string name="action_hide_media">Medyayı gizle</string>
+    <string name="action_open_drawer">Çekmece aç</string>
     <string name="action_save">Kaydet</string>
     <string name="action_edit_profile">Profili düzenle</string>
     <string name="action_edit_own_profile">Düzenle</string>

@@ -280,6 +280,7 @@
     <string name="action_undo">ยกเลิก</string>
     <string name="action_edit_own_profile">แก้ไข</string>
     <string name="action_save">บันทึก</string>
+    <string name="action_open_drawer">เปิดเมนู</string>
     <string name="action_hide_media">ซ่อนสื่อ</string>
     <string name="action_mention">กล่าวถึง</string>
     <string name="action_unmute_conversation">เลิกปิดเสียงการสนทนา</string>

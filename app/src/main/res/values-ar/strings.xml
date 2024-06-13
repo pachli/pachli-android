@@ -76,6 +76,7 @@
     <string name="action_unmute">إلغاء الكتم</string>
     <string name="action_mention">أذكر</string>
     <string name="action_hide_media">إخفاء الوسائط</string>
+    <string name="action_open_drawer">إفتح الدرج</string>
     <string name="action_save">إحفظ</string>
     <string name="action_edit_profile">تعديل الملف التعريفي</string>
     <string name="action_edit_own_profile">تعديل</string>

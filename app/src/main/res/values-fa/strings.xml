@@ -70,6 +70,7 @@
     <string name="action_unmute">ناخموشی</string>
     <string name="action_mention">اشاره</string>
     <string name="action_hide_media">نهفتن رسانه</string>
+    <string name="action_open_drawer">گشودن کشو</string>
     <string name="action_save">ذخیره</string>
     <string name="action_edit_profile">ویرایش نمایه</string>
     <string name="action_edit_own_profile">ویرایش</string>

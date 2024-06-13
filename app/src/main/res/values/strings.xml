@@ -158,6 +158,7 @@
     <string name="action_unmute_conversation">Unmute conversation</string>
     <string name="action_mention">Mention</string>
     <string name="action_hide_media">Hide media</string>
+    <string name="action_open_drawer">Open drawer</string>
     <string name="action_save">Save</string>
     <string name="action_edit_profile">Edit profile</string>
     <string name="action_edit_own_profile">Edit</string>

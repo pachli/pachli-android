@@ -149,6 +149,7 @@
     <string name="action_hide_media">Сховати медіа</string>
     <string name="notification_subscription_format">%s щойно опубліковано</string>
     <string name="title_announcements">Оголошення</string>
+    <string name="action_open_drawer">Відкрити меню</string>
     <string name="download_fonts">Спочатку потрібно буде завантажити ці набори емодзі</string>
     <string name="system_default">Типовий системний</string>
     <string name="emoji_style">Стиль емодзі</string>

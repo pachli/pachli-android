@@ -68,6 +68,7 @@
     <string name="action_unmute">Cofnij wyciszenie</string>
     <string name="action_mention">Wspomnij</string>
     <string name="action_hide_media">Ukryj multimedia</string>
+    <string name="action_open_drawer">Otwórz szufladkę</string>
     <string name="action_save">Zapisz</string>
     <string name="action_edit_profile">Edytuj profil</string>
     <string name="action_edit_own_profile">Edytuj</string>

@@ -71,6 +71,7 @@
     <string name="action_unmute">Desmututu</string>
     <string name="action_mention">Aipatu</string>
     <string name="action_hide_media">Multimedia ezkutatu</string>
+    <string name="action_open_drawer">Tiradera ireki</string>
     <string name="action_save">Gorde</string>
     <string name="action_edit_profile">Profila editatu</string>
     <string name="action_edit_own_profile">Editatu</string>

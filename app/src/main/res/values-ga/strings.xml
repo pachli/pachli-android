@@ -111,6 +111,7 @@
     <string name="action_undo">Cealaigh</string>
     <string name="action_edit_own_profile">Cuir in Eagar</string>
     <string name="action_save">Sábháil</string>
+    <string name="action_open_drawer">Tarraiceán a oscailt</string>
     <string name="action_hide_media">Folaigh na meáin</string>
     <string name="action_mention">Luaigh</string>
     <string name="action_unmute">Unmute</string>

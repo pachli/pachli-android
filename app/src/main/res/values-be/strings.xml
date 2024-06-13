@@ -207,6 +207,7 @@
     <string name="action_unmute_conversation">Паказаць размову</string>
     <string name="action_mention">Згадаць</string>
     <string name="action_hide_media">Схаваць медыя</string>
+    <string name="action_open_drawer">Адкрыць меню</string>
     <string name="action_save">Захаваць</string>
     <string name="action_edit_profile">Рэдагаваць профіль</string>
     <string name="action_edit_own_profile">Рэдагаваць</string>

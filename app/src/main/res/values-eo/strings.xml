@@ -76,6 +76,7 @@
     <string name="action_unmute">Malsilentigi</string>
     <string name="action_mention">Mencii</string>
     <string name="action_hide_media">Kaŝi aŭdovidaĵojn</string>
+    <string name="action_open_drawer">Montri tirmenuon</string>
     <string name="action_save">Konservi</string>
     <string name="action_edit_profile">Redakti profilon</string>
     <string name="action_edit_own_profile">Redakti</string>

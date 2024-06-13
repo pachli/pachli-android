@@ -132,6 +132,7 @@
     <string name="action_edit_own_profile">Oanpasse</string>
     <string name="action_edit_profile">Profyl oanpasse</string>
     <string name="action_save">Bewarje</string>
+    <string name="action_open_drawer">Laad iepenje</string>
     <string name="action_hide_media">Media ferbergje</string>
     <string name="action_mention">Beneame</string>
     <string name="action_unmute_conversation">Petear net mear negearre</string>

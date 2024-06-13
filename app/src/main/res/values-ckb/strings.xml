@@ -40,6 +40,7 @@
     <string name="action_edit_own_profile">بژارکردن</string>
     <string name="action_edit_profile">دەستکاری پرۆفایل بکە</string>
     <string name="action_save">بپارێزە</string>
+    <string name="action_open_drawer">کردنەوەی وێنەکێش</string>
     <string name="action_hide_media">شاردنەوەی میدیا</string>
     <string name="action_mention">ئاماژە</string>
     <string name="action_unmute_conversation">گفتوگۆی لاببە</string>

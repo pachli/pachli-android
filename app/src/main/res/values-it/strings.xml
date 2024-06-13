@@ -82,6 +82,7 @@
     <string name="action_unmute">Smetti di silenziare</string>
     <string name="action_mention">Menzioni</string>
     <string name="action_hide_media">Nascondi media</string>
+    <string name="action_open_drawer">Apri compositore</string>
     <string name="action_save">Salva</string>
     <string name="action_edit_profile">Modifica profilo</string>
     <string name="action_edit_own_profile">Modifica</string>

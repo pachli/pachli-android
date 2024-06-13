@@ -77,6 +77,7 @@
     <string name="action_unmute">取消隐藏</string>
     <string name="action_mention">提及</string>
     <string name="action_hide_media">隐藏媒体文件</string>
+    <string name="action_open_drawer">打开应用抽屉</string>
     <string name="action_save">保存</string>
     <string name="action_edit_profile">编辑个人资料</string>
     <string name="action_edit_own_profile">编辑</string>

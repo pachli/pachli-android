@@ -118,6 +118,7 @@
     <string name="action_edit_own_profile">सम्पाद्यताम्</string>
     <string name="action_edit_profile">व्यक्तिविवरणं सम्पाद्यताम्</string>
     <string name="action_save">रक्ष्यताम्</string>
+    <string name="action_open_drawer">पेटिकोद्घट्यताम्</string>
     <string name="action_hide_media">सामग्र्यः वार्यन्ताम्</string>
     <string name="action_mention">उल्लिख्यताम्</string>
     <string name="action_unmute_conversation">सशब्द आलापः क्रियताम्</string>

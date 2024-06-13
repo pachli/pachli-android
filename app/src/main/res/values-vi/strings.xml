@@ -93,6 +93,7 @@
     <string name="action_undo">Trở về</string>
     <string name="action_edit_own_profile">Sửa</string>
     <string name="action_save">Lưu</string>
+    <string name="action_open_drawer">Mở ngăn kéo</string>
     <string name="action_hide_media">Làm mờ hình ảnh</string>
     <string name="action_mention">Nhắc tới</string>
     <string name="action_unmute_conversation">Mở lại thông báo</string>

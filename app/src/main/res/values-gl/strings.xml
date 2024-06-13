@@ -11,6 +11,7 @@
     <string name="action_edit_own_profile">Editar</string>
     <string name="action_edit_profile">Editar perfil</string>
     <string name="action_save">Gardar</string>
+    <string name="action_open_drawer">Abrir editor</string>
     <string name="action_hide_media">Agochar multimedia</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_unmute_conversation">Reactivar conversa</string>

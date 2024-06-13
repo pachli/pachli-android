@@ -190,6 +190,7 @@
     <string name="action_edit_own_profile">সম্পাদন</string>
     <string name="action_edit_profile">প্রোফাইল সম্পাদনা করো</string>
     <string name="action_save">সংরক্ষণ</string>
+    <string name="action_open_drawer">ড্রয়ার খুলুন</string>
     <string name="action_hide_media">মিডিয়া লুকান</string>
     <string name="action_mention">উল্লেখ</string>
     <string name="action_unmute">সশব্দ</string>

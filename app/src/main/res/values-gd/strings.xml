@@ -390,6 +390,7 @@
     <string name="action_accept">Gabh ris</string>
     <string name="action_undo">Neo-dhèan</string>
     <string name="action_save">Sàbhail</string>
+    <string name="action_open_drawer">Fosgail an drathair</string>
     <string name="action_hide_media">Falaich na meadhanan</string>
     <string name="action_mention">Iomradh</string>
     <string name="action_unmute_conversation">Dì-mhùch an còmhradh</string>

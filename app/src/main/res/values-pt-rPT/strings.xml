@@ -115,6 +115,7 @@
     <string name="action_unmute_conversation">Remover conversa do silêncio</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_hide_media">Esconder conteúdo multimédia</string>
+    <string name="action_open_drawer">Abrir menu</string>
     <string name="action_search">Pesquisar</string>
     <string name="action_access_drafts">Rascunhos</string>
     <string name="action_access_scheduled_posts">Toots Agendados</string>
