@@ -562,7 +562,6 @@
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="notification_unknown_name">Невідомо</string>
     <string name="socket_timeout_exception">Надто тривала спроба з\'єднання з вашим сервером</string>
-    <string name="ui_error_unknown">невідома причина</string>
     <string name="ui_error_bookmark_fmt">Не вдалося додати допис до закладок: %1$s</string>
     <string name="ui_error_clear_notifications">Не вдалося очистити сповіщення: %s</string>
     <string name="ui_error_favourite_fmt">Не вдалося вподобати допис: %1$s</string>

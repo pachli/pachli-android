@@ -544,7 +544,6 @@
     <string name="dialog_follow_hashtag_title">关注话题标签</string>
     <string name="notification_unknown_name">未知</string>
     <string name="socket_timeout_exception">联系你的服务器花了太长时间</string>
-    <string name="ui_error_unknown">未知原因</string>
     <string name="ui_error_clear_notifications">未能清除通知：%s</string>
     <string name="ui_error_bookmark_fmt">未能将嘟文将入书签：%1$s</string>
     <string name="ui_error_favourite_fmt">收藏嘟文失败：%1$s</string>

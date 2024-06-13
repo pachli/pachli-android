@@ -557,7 +557,6 @@
     <string name="error_list_load">Feil under lading av lister</string>
     <string name="select_list_manage">Forvalte lister</string>
     <string name="ui_error_reblog_fmt">Deling av innlegget feilet: %1$s</string>
-    <string name="ui_error_unknown">ukjent grunn</string>
     <string name="ui_error_favourite_fmt">Favorisering av innlegg feilet: %1$s</string>
     <string name="ui_error_vote_fmt">Stemming mislykkes: %1$s</string>
     <string name="filter_description_hide">Gjem helt</string>

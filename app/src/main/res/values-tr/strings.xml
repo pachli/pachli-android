@@ -544,7 +544,6 @@
     <string name="action_post_failed_do_nothing">Yoksay</string>
     <string name="notification_unknown_name">Bilinmeyen</string>
     <string name="socket_timeout_exception">Sunucuyla bağlantı kurmak çok uzun sürdü</string>
-    <string name="ui_error_unknown">bilinmeyen sebep</string>
     <string name="ui_error_bookmark_fmt">Yer imi gönderisi başarısız oldu: %1$s</string>
     <string name="ui_error_vote_fmt">Ankete oy gönderilemedi: %1$s</string>
     <string name="ui_error_clear_notifications">Bildirimler temizlenemedi: %s</string>
