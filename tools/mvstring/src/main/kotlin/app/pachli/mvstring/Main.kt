@@ -112,10 +112,10 @@ class App : CliktCommand(help = """Move string resources between modules""") {
         }
     }
 
-    enum class State {
-        Searching,
-        Moving,
-        Moved,
+    sealed interface State {
+        data object Searching : State
+        data class Moving(val etag: String) : State
+        data object Moved : State
     }
 
     private fun moveResource(src: Path, dst: Path, id: String) {
@@ -130,27 +130,33 @@ class App : CliktCommand(help = """Move string resources between modules""") {
         val dstFile = dst / "strings.xml"
 
         val toCopy = mutableListOf<String>()
-        var state = State.Searching
+        var state: State = State.Searching
 
         srcFile.useLines { srcLines ->
             for (srcLine in srcLines) {
                 // Moved the resource, copy the remaining lines
-                if (state == State.Moved) {
+                if (state is State.Moved) {
                     tmpSrc.println(srcLine)
                     continue
                 }
 
-                // Not the resource we're looking for
-                if (state == State.Searching && !srcLine.contains("""<string name="$id""")) {
-                    tmpSrc.println(srcLine)
-                    continue
+                if (state == State.Searching) {
+                    when {
+                        srcLine.contains("""<string name="$id"""") -> state = State.Moving("</string>")
+                        srcLine.contains("""<plurals name="$id"""") -> state = State.Moving("</plurals>")
+                        else -> {
+                            tmpSrc.println(srcLine)
+                            continue
+                        }
+                    }
                 }
 
                 // Matching resource. Append to dstFile
-                state = State.Moving
                 toCopy.add(srcLine)
 
-                if (srcLine.contains("</string>")) {
+                if (state !is State.Moving) throw RuntimeException("invalid state, $state")
+
+                if (srcLine.contains((state as State.Moving).etag)) {
                     if (!dstFile.exists()) createResourceFile(dstFile)
                     dstFile.useLines { dstLines ->
                         for (dstLine in dstLines) {
