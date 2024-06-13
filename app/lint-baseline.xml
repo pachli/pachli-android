@@ -1615,23 +1615,12 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.ui_error_unknown` appears to be unused"
-        errorLine1="    &lt;string name=&quot;ui_error_unknown&quot;>unknown reason&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="638"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.string.hint_filter_title` appears to be unused"
         errorLine1="    &lt;string name=&quot;hint_filter_title&quot;>My filter&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="651"
+            line="650"
             column="13"/>
     </issue>
 
