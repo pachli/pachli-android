@@ -530,7 +530,6 @@
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="notification_unknown_name">Chưa biết</string>
     <string name="socket_timeout_exception">Mất thời gian kết nối quá lâu</string>
-    <string name="ui_error_unknown">chưa rõ lý do</string>
     <string name="ui_error_bookmark_fmt">Lưu tút không thành công: %1$s</string>
     <string name="ui_error_clear_notifications">Xóa thông báo không thành công: %s</string>
     <string name="ui_error_favourite_fmt">Thích tút không thành công: %1$s</string>

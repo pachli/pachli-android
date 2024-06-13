@@ -506,7 +506,6 @@
     <string name="total_accounts">Konti kopā</string>
     <string name="dialog_follow_hashtag_title">Sekot tēmturim</string>
     <string name="dialog_follow_hashtag_hint">#tēmturis</string>
-    <string name="ui_error_unknown">nezināms iemesls</string>
     <string name="title_public_trending_hashtags">Tendenču tēmturi</string>
     <string name="action_add">Pievienot</string>
     <string name="filter_description_format">%s: %s</string>

@@ -558,7 +558,6 @@
     <string name="ui_success_accepted_follow_request">Folgeanfrage akzeptiert</string>
     <string name="ui_success_rejected_follow_request">Folgeanfrage blockiert</string>
     <string name="notification_unknown_name">Unbekannt</string>
-    <string name="ui_error_unknown">Unbekannter Grund</string>
     <string name="ui_error_clear_notifications">Löschen der Benachrichtigungen schlug fehl: %s</string>
     <string name="ui_error_reject_follow_request">Ablehnen der Folgeanfrage schlug fehl: %s</string>
     <string name="status_filter_placeholder_label_format">Gefiltert: %s</string>

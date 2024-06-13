@@ -555,7 +555,6 @@
     <string name="filter_description_hide">Fela alveg</string>
     <string name="ui_error_bookmark_fmt">Mistókst að bókamerkja færslu: %1$s</string>
     <string name="socket_timeout_exception">Rann út á tíma við að tengjast netþjóninum þínum</string>
-    <string name="ui_error_unknown">óþekkt ástæða</string>
     <string name="ui_error_clear_notifications">Vandamál með hreinsun á tilkynningum: %s</string>
     <string name="ui_error_reject_follow_request">Mistókst að hafna fylgjendabeiðni: %s</string>
     <string name="ui_success_accepted_follow_request">Samþykkt beiðni um að fylgjast með</string>

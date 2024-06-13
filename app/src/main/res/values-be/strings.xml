@@ -578,7 +578,6 @@
     <string name="ui_success_accepted_follow_request">Запыт на падпіску пацверджаны</string>
     <string name="ui_success_rejected_follow_request">Запыт на падпіску заблакіраваны</string>
     <string name="ui_error_clear_notifications">Не атрымалася ачысціць апавяшчэнні: %s</string>
-    <string name="ui_error_unknown">невядомая прычына</string>
     <string name="label_filter_title">Загаловак</string>
     <string name="filter_action_hide">Схаваць</string>
     <string name="filter_description_hide">Схаваць поўнасцю</string>

@@ -562,7 +562,6 @@
     <string name="filter_action_hide">Falaich</string>
     <string name="notification_unknown_name">Neo-aithnichte</string>
     <string name="socket_timeout_exception">Thug conaltradh ris an fhrithealaiche ro fhada</string>
-    <string name="ui_error_unknown">chan eil fhios dè an t-adhbhar</string>
     <string name="ui_error_bookmark_fmt">Cha deach leinn comharra-lìn a chur ris a’ phost: %1$s</string>
     <string name="ui_error_clear_notifications">Dh’fhàillig falamhachadh nam brathan: %s</string>
     <string name="ui_error_favourite_fmt">Cha deach leinn am post a chur ris na h-annsachdan: %1$s</string>

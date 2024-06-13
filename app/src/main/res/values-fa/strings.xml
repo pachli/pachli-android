@@ -547,7 +547,6 @@
     <string name="dialog_follow_hashtag_hint">#برچسب</string>
     <string name="notification_unknown_name">ناشناخته</string>
     <string name="socket_timeout_exception">تماس با کارسازتان بیش از حد طول کشید</string>
-    <string name="ui_error_unknown">دلیل نامعلوم</string>
     <string name="ui_error_bookmark_fmt">%1$s: نشانک گذاری فرسته شکست خورد</string>
     <string name="ui_error_clear_notifications">پاک سازی آگاهی‌ها شکست خورد: %s</string>
     <string name="ui_error_favourite_fmt">%1$s: برگزیدن فرسته شکست خورد</string>

@@ -547,5 +547,4 @@
     <string name="pref_title_account_filter_keywords">Perfils</string>
     <string name="status_filtered_show_anyway">Mostra de totes maneres</string>
     <string name="socket_timeout_exception">El contacte amb el teu servidor ha trigat massa</string>
-    <string name="ui_error_unknown">motiu desconegut</string>
 </resources>

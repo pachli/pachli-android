@@ -546,7 +546,6 @@
     <string name="hint_filter_title">O meu filtro</string>
     <string name="notification_unknown_name">Descoñecido</string>
     <string name="socket_timeout_exception">Estamos tardando demasiado en conectar co servidor</string>
-    <string name="ui_error_unknown">razón descoñecida</string>
     <string name="ui_error_bookmark_fmt">Fallou engadir a marcadores: %1$s</string>
     <string name="ui_error_clear_notifications">Fallou a limpeza das notificacións: %s</string>
     <string name="ui_error_vote_fmt">Fallou a votación na enquisa: %1$s</string>

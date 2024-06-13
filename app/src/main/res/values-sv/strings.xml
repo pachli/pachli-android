@@ -557,7 +557,6 @@
     <string name="filter_edit_keyword_title">Redigera nyckelord</string>
     <string name="notification_unknown_name">Okänd</string>
     <string name="socket_timeout_exception">Att kontakta din server tog för lång tid</string>
-    <string name="ui_error_unknown">okänd anledning</string>
     <string name="ui_success_accepted_follow_request">Följ begäran accepterad</string>
     <string name="ui_success_rejected_follow_request">Följ begäran blockerad</string>
     <string name="select_list_manage">Hantera listor</string>

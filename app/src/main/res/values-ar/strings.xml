@@ -582,7 +582,6 @@
     <string name="title_public_trending_hashtags">الوسوم المتداولة</string>
     <string name="accessibility_talking_about_tag">هناك %1$d أشخاص يتحدثون عن الوسم %2$s</string>
     <string name="total_usage">الاستخدام الإجمالي</string>
-    <string name="ui_error_unknown">سبب مجهول</string>
     <string name="socket_timeout_exception">طال الاتصال بخادمك كثيرًا</string>
     <string name="action_add">إضافة</string>
     <string name="ui_error_translate_status_fmt">%1$s :فشلت الترجمة</string>

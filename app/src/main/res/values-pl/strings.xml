@@ -582,7 +582,6 @@
     <string name="total_usage">Całkowite użycie</string>
     <string name="filter_keyword_addition_title">Dodaj słowo kluczowe</string>
     <string name="hint_description">Opis</string>
-    <string name="ui_error_unknown">nieznany powód</string>
     <string name="confirmation_hashtag_muted">Ukryto #%s</string>
     <string name="title_tab_public_trending_statuses">Wpisy</string>
     <string name="filter_description_hide">Ukryj całkowicie</string>

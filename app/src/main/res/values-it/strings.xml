@@ -586,7 +586,6 @@
     <string name="filter_action_hide">Nascondi</string>
     <string name="ui_error_bookmark_fmt">Salvataggio nei segnalibri fallito: %1$s</string>
     <string name="socket_timeout_exception">Contattare il tuo server ha richiesto troppo tempo</string>
-    <string name="ui_error_unknown">Motivo sconosciuto</string>
     <string name="ui_error_clear_notifications">Cancellazione notifiche fallita: %s</string>
     <string name="ui_error_favourite_fmt">Apprezzamento post fallito: %1$s</string>
     <string name="ui_error_reblog_fmt">Condivisione del post fallita: %1$s</string>
