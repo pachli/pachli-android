@@ -40,7 +40,7 @@ data class Account(
     // Pixelfed might omit `header`
     val header: String = "",
     val locked: Boolean = false,
-    @Json(name = "last_status_at") val lastStatusAt: Date?,
+    @Json(name = "last_status_at") val lastStatusAt: Date? = null,
     @Json(name = "followers_count") val followersCount: Int = 0,
     @Json(name = "following_count") val followingCount: Int = 0,
     @Json(name = "statuses_count") val statusesCount: Int = 0,

@@ -26,7 +26,8 @@ Note: Almost identical to item_follow_request.xml
     android:layout_height="wrap_content"
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:paddingBottom="8dp">
+    android:paddingBottom="8dp"
+    tools:ignore="SelectableText">
 
     <TextView
         android:id="@+id/suggestionReason"
@@ -43,6 +44,7 @@ Note: Almost identical to item_follow_request.xml
         app:drawableStartCompat="@drawable/ic_person_add_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:importantForAccessibility="no"
         tools:ignore="RtlSymmetry"
         tools:text="Someone requested to follow you" />
 
@@ -146,8 +148,7 @@ Note: Almost identical to item_follow_request.xml
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:importantForAccessibility="no"
-        android:minHeight="0dp"
+        android:minHeight="48dp"
         android:paddingStart="16dp"
         android:paddingTop="4dp"
         android:paddingEnd="16dp"
@@ -163,8 +164,7 @@ Note: Almost identical to item_follow_request.xml
         style="@style/AppButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:importantForAccessibility="no"
-        android:minHeight="0dp"
+        android:minHeight="48dp"
         android:paddingStart="16dp"
         android:paddingTop="4dp"
         android:paddingEnd="16dp"

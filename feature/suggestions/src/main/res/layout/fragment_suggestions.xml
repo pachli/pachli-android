@@ -59,7 +59,7 @@
                 android:src="@android:color/transparent"
                 android:visibility="gone"
                 tools:src="@drawable/errorphant_error"
-                tools:visibility="visible" />
+                tools:visibility="gone" />
         </FrameLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

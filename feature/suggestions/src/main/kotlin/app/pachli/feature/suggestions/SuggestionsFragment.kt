@@ -23,7 +23,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.accessibility.AccessibilityManager
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -71,25 +73,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-// TODO:
-//
-// - talkbackWasEnabled machinery
-// - Write a document that talks about this
-
-/**
- * Notes on standard ways to do things.
- *
- * ## If there's a [SwipeRefreshLayout]
- *
- * - Fragment implements [OnRefreshListener] and [RefreshableFragment]
- * - OnRefreshListener.onRefresh() performs the work of refreshing the content (e.g.,
- *   updating the UI, sending the refresh request to the viewmodel)
- * - RefreshableFragment.refreshContent() exists so the swiperefreshlayout.isRefreshing
- *   can be set to true for a refresh triggered by a menu
- * - The fragment/activity must implement [MenuProvider], and provide a menu with a
- *   "Refresh" option for accessibility
- */
-
 @AndroidEntryPoint
 class SuggestionsFragment :
     Fragment(R.layout.fragment_suggestions),
@@ -104,6 +87,8 @@ class SuggestionsFragment :
     private lateinit var bottomSheetActivity: BottomSheetActivity
 
     private lateinit var suggestionsAdapter: SuggestionsAdapter
+
+    private var talkBackWasEnabled = false
 
     /** Flow of actions the user has taken in the UI */
     private val uiAction = MutableSharedFlow<UiAction>()
@@ -132,13 +117,13 @@ class SuggestionsFragment :
         with(binding.swipeRefreshLayout) {
             isEnabled = true
             setOnRefreshListener(this@SuggestionsFragment)
-            setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
+            setColorSchemeColors(MaterialColors.getColor(this, androidx.appcompat.R.attr.colorPrimary))
         }
 
         with(binding.recyclerView) {
-            layoutManager = LinearLayoutManager(view.context)
+            layoutManager = LinearLayoutManager(context)
             adapter = suggestionsAdapter
-            addItemDecoration(MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL))
+            addItemDecoration(MaterialDividerItemDecoration(context, MaterialDividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
         }
 
@@ -189,12 +174,6 @@ class SuggestionsFragment :
                 viewModel.accept(uiAction)
             }
         }
-    }
-
-    // TODO: Copied from ListsActivity, should maybe be in core.ui as a Snackbar extension
-    // See also ComposeActivity.displayTransientMessage
-    private fun showMessage(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).show()
     }
 
     private fun bindSuggestions(result: Result<Suggestions, GetSuggestionsError>) {
@@ -266,10 +245,6 @@ class SuggestionsFragment :
         }
     }
 
-    override fun onReselect() {
-        binding.recyclerView.scrollToPosition(0)
-    }
-
     override fun refreshContent() {
         binding.swipeRefreshLayout.isRefreshing = true
         onRefresh()
@@ -278,6 +253,21 @@ class SuggestionsFragment :
     override fun onRefresh() {
         snackbar?.dismiss()
         viewModel.accept(GetSuggestions)
+    }
+
+    override fun onReselect() {
+        binding.recyclerView.scrollToPosition(0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val a11yManager = ContextCompat.getSystemService(requireContext(), AccessibilityManager::class.java)
+        val wasEnabled = talkBackWasEnabled
+        talkBackWasEnabled = a11yManager?.isEnabled == true
+        if (talkBackWasEnabled && !wasEnabled) {
+            suggestionsAdapter.notifyItemRangeChanged(0, suggestionsAdapter.itemCount)
+        }
     }
 
     companion object {
