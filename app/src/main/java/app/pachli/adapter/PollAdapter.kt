@@ -23,8 +23,8 @@ import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ItemPollBinding
-import app.pachli.util.makeIcon
 import app.pachli.viewdata.PollOptionViewData
 import app.pachli.viewdata.buildDescription
 import app.pachli.viewdata.calculatePercent

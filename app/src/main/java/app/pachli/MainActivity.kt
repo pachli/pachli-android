@@ -109,6 +109,7 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
+import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityMainBinding
 import app.pachli.db.DraftsAlert
 import app.pachli.interfaces.ActionButtonActivity
@@ -117,7 +118,6 @@ import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
 import app.pachli.util.getDimension
-import app.pachli.util.makeIcon
 import app.pachli.util.updateShortcut
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
