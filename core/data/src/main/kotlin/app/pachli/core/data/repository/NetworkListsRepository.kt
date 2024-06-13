@@ -59,13 +59,14 @@ class NetworkListsRepository @Inject constructor(
     override fun refresh() {
         externalScope.launch {
             _lists.value = Ok(Lists.Loading)
-            _lists.value = api.getLists().mapEither(
-                {
-                    updateTabPreferences(it.body.associateBy { it.id })
-                    Lists.Loaded(it.body)
-                },
-                { Retrieve(it) },
-            )
+            _lists.value = api.getLists()
+                .mapEither(
+                    {
+                        updateTabPreferences(it.body.associateBy { it.id })
+                        Lists.Loaded(it.body)
+                    },
+                    { Retrieve(it) },
+                )
         }
     }
 

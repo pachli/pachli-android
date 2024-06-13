@@ -26,6 +26,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -81,11 +82,10 @@ class AccountsInListViewModel @AssistedInject constructor(
     fun refresh() = viewModelScope.launch {
         _accountsInList.value = Ok(Accounts.Loading)
         _accountsInList.value = listsRepository.getAccountsInList(listId)
-            .mapEither({
-                Accounts.Loaded(it)
-            }, {
-                FlowError.GetAccounts(it)
-            })
+            .mapEither(
+                { Accounts.Loaded(it) },
+                { FlowError.GetAccounts(it) },
+            )
     }
 
     /**
@@ -119,10 +119,8 @@ class AccountsInListViewModel @AssistedInject constructor(
             query.isEmpty() -> _searchResults.value = Ok(SearchResults.Empty)
             query.isBlank() -> _searchResults.value = Ok(SearchResults.Loaded(emptyList()))
             else -> viewModelScope.launch {
-                _searchResults.value = api.searchAccounts(query, null, 10, true).mapEither(
-                    { SearchResults.Loaded(it.body) },
-                    { it },
-                )
+                _searchResults.value = api.searchAccounts(query, null, 10, true)
+                    .map { SearchResults.Loaded(it.body) }
             }
         }
     }
