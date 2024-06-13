@@ -38,6 +38,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.appstore.EventHub
+import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -54,7 +55,6 @@ import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
-import app.pachli.interfaces.ReselectableFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
 import at.connyduck.sparkbutton.helpers.Utils
