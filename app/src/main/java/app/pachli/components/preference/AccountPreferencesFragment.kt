@@ -16,6 +16,7 @@
 
 package app.pachli.components.preference
 
+import app.pachli.core.designsystem.R as DR
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -31,7 +32,6 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ServerRepository
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.FiltersActivityIntent
 import app.pachli.core.navigation.FollowedTagsActivityIntent
@@ -47,6 +47,7 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.makeIcon
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preference
@@ -56,7 +57,6 @@ import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getPachliDisplayName
 import app.pachli.util.iconRes
-import app.pachli.util.makeIcon
 import com.github.michaelbull.result.getOrElse
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable

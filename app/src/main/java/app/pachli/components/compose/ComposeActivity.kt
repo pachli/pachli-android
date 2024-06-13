@@ -101,7 +101,7 @@ import app.pachli.util.getLocaleList
 import app.pachli.util.getMediaSize
 import app.pachli.util.highlightSpans
 import app.pachli.util.iconRes
-import app.pachli.util.makeIcon
+import app.pachli.core.ui.makeIcon
 import app.pachli.util.modernLanguageCode
 import app.pachli.util.setDrawableTint
 import com.canhub.cropper.CropImage

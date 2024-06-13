@@ -16,6 +16,7 @@
 
 package app.pachli.components.preference
 
+import app.pachli.core.designsystem.R as DR
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,12 +30,12 @@ import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.AppTheme.Companion.APP_THEME_DEFAULT
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.makeIcon
 import app.pachli.settings.emojiPreference
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
@@ -47,7 +48,6 @@ import app.pachli.updatecheck.UpdateCheckResult.AT_LATEST
 import app.pachli.updatecheck.UpdateNotificationFrequency
 import app.pachli.util.LocaleManager
 import app.pachli.util.deserialize
-import app.pachli.util.makeIcon
 import app.pachli.util.serialize
 import app.pachli.view.FontFamilyDialogFragment
 import com.mikepenz.iconics.IconicsDrawable

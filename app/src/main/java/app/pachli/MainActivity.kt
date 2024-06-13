@@ -117,7 +117,7 @@ import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
 import app.pachli.util.getDimension
-import app.pachli.util.makeIcon
+import app.pachli.core.ui.makeIcon
 import app.pachli.util.updateShortcut
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
