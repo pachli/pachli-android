@@ -9,5 +9,4 @@
     <string name="action_more">Meer</string>
     <string name="action_refresh">Ververs</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
-    <string name="action_open_drawer">Menu openen</string>
 </resources>

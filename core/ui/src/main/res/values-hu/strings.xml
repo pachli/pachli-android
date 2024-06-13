@@ -9,5 +9,4 @@
     <string name="action_more">Több</string>
     <string name="action_refresh">Frissítés</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
-    <string name="action_open_drawer">Menü megnyitása</string>
 </resources>

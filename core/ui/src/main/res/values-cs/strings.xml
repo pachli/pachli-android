@@ -8,5 +8,4 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Více</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
-    <string name="action_open_drawer">Otevřít menu</string>
 </resources>

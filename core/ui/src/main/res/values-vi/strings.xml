@@ -9,5 +9,4 @@
     <string name="action_more">Thêm</string>
     <string name="action_refresh">Làm mới</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
-    <string name="action_open_drawer">Mở ngăn kéo</string>
 </resources>

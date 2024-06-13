@@ -9,5 +9,4 @@
     <string name="action_more">Mais</string>
     <string name="action_refresh">Atualizar</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
-    <string name="action_open_drawer">Abrir menu</string>
 </resources>

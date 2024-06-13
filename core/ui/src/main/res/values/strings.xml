@@ -9,5 +9,4 @@
     <string name="action_more">More</string>
     <string name="action_refresh">Refresh</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
-    <string name="action_open_drawer">Open drawer</string>
 </resources>

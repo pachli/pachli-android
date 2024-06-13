@@ -7,5 +7,4 @@
     <string name="button_done">Готово</string>
     <string name="action_view_profile">Профиль</string>
     <string name="action_more">Больше</string>
-    <string name="action_open_drawer">Открыть черновик</string>
 </resources>

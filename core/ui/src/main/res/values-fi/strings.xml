@@ -9,5 +9,4 @@
     <string name="action_more">Enemmän</string>
     <string name="action_refresh">Päivitä</string>
     <string name="url_domain_notifier">" (🔗 %s)"</string>
-    <string name="action_open_drawer">Avaa laatikko</string>
 </resources>

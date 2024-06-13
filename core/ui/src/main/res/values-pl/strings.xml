@@ -9,5 +9,4 @@
     <string name="action_more">Więcej</string>
     <string name="action_refresh">Odśwież</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
-    <string name="action_open_drawer">Otwórz szufladkę</string>
 </resources>

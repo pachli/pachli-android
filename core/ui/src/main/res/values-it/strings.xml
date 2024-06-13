@@ -9,5 +9,4 @@
     <string name="action_more">Di più</string>
     <string name="action_refresh">Aggiorna</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
-    <string name="action_open_drawer">Apri compositore</string>
 </resources>
