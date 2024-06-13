@@ -61,6 +61,7 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.getErrorString
+import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.AccountActionListener
@@ -69,7 +70,6 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
 import app.pachli.util.UserRefreshState
 import app.pachli.util.asRefreshState
-import app.pachli.util.makeIcon
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
