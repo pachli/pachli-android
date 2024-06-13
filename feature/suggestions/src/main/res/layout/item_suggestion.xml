@@ -16,9 +16,6 @@
   ~ see <http://www.gnu.org/licenses>.
   -->
 
-<!--
-Note: Almost identical to item_follow_request.xml
--->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
