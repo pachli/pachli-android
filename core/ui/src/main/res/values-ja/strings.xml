@@ -10,5 +10,4 @@
     <string name="action_refresh">再読み込み</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_open_drawer">メニューを開く</string>
-    <string name="ui_error_unknown">不明な理由</string>
 </resources>

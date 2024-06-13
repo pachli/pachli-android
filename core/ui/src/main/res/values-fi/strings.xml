@@ -10,5 +10,4 @@
     <string name="action_refresh">Päivitä</string>
     <string name="url_domain_notifier">" (🔗 %s)"</string>
     <string name="action_open_drawer">Avaa laatikko</string>
-    <string name="ui_error_unknown">tuntematon syy</string>
 </resources>

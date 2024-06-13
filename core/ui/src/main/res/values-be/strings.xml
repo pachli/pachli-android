@@ -10,5 +10,4 @@
     <string name="action_refresh">Абнавіць</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_open_drawer">Адкрыць меню</string>
-    <string name="ui_error_unknown">невядомая прычына</string>
 </resources>

@@ -10,5 +10,4 @@
     <string name="action_refresh">نوسازی</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_open_drawer">گشودن کشو</string>
-    <string name="ui_error_unknown">دلیل نامعلوم</string>
 </resources>

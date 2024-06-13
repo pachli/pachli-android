@@ -10,5 +10,4 @@
     <string name="action_refresh">Recargar</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_open_drawer">Abrir menu</string>
-    <string name="ui_error_unknown">razón desconocida</string>
 </resources>
