@@ -44,6 +44,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.SuggestionSources
 import app.pachli.core.data.model.SuggestionSources.FEATURED
 import app.pachli.core.data.model.SuggestionSources.FRIENDS_OF_FRIENDS
@@ -54,6 +55,7 @@ import app.pachli.core.data.model.SuggestionSources.UNKNOWN
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.makeIcon
 import app.pachli.feature.suggestions.UiAction.GetSuggestions
 import app.pachli.feature.suggestions.UiAction.NavigationAction
 import app.pachli.feature.suggestions.databinding.FragmentSuggestionsBinding
@@ -63,10 +65,7 @@ import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
-import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
-import com.mikepenz.iconics.utils.colorInt
-import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -89,6 +88,8 @@ class SuggestionsFragment :
     private lateinit var suggestionsAdapter: SuggestionsAdapter
 
     private var talkBackWasEnabled = false
+
+    private val iconSize by unsafeLazy { resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.preference_icon_size) }
 
     /** Flow of actions the user has taken in the UI */
     private val uiAction = MutableSharedFlow<UiAction>()
@@ -227,11 +228,7 @@ class SuggestionsFragment :
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.fragment_suggestions, menu)
         menu.findItem(R.id.action_refresh)?.apply {
-            // TODO: This should use makeIcon, which should be moved somewhere common
-            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {
-                sizeDp = 20
-                colorInt = MaterialColors.getColor(binding.root, android.R.attr.textColorPrimary)
-            }
+            icon = makeIcon(requireContext(), GoogleMaterial.Icon.gmd_refresh, iconSize)
         }
     }
 
