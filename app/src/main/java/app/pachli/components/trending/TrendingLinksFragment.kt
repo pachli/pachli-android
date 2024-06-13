@@ -39,6 +39,7 @@ import app.pachli.components.trending.viewmodel.InfallibleUiAction
 import app.pachli.components.trending.viewmodel.LoadState
 import app.pachli.components.trending.viewmodel.TrendingLinksViewModel
 import app.pachli.core.activity.RefreshableFragment
+import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -49,7 +50,6 @@ import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
-import app.pachli.interfaces.ReselectableFragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable

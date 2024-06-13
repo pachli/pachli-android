@@ -56,6 +56,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.R
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.emojify
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
@@ -88,7 +89,6 @@ import app.pachli.databinding.ActivityAccountBinding
 import app.pachli.db.DraftsAlert
 import app.pachli.feature.lists.ListsForAccountFragment
 import app.pachli.interfaces.ActionButtonActivity
-import app.pachli.interfaces.ReselectableFragment
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
