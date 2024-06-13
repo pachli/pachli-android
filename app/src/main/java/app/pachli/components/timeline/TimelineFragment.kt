@@ -238,6 +238,7 @@ class TimelineFragment :
                             error.throwable.getErrorString(requireContext()),
                         )
                         Timber.d(error.throwable, message)
+                        snackbar?.dismiss()
                         snackbar = Snackbar.make(
                             // Without this the FAB will not move out of the way
                             (activity as? ActionButtonActivity)?.actionButton ?: binding.root,
