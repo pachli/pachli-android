@@ -9,4 +9,9 @@
     <string name="action_more">Devamı</string>
     <string name="action_refresh">Yenile</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Bağlantılar</string>
+    <string name="action_mentions">Bahsedenler</string>
+    <string name="action_hashtags">Etiketler</string>
+    <string name="title_links_dialog">Bağlantılar</string>
+    <string name="title_hashtags_dialog">Etiketler</string>
 </resources>

@@ -244,15 +244,10 @@
     <string name="action_add_poll">افزودن نظرسنجی</string>
     <string name="action_mute_domain">خموشی %s</string>
     <string name="action_add_tab">افزودن زبانه</string>
-    <string name="action_links">پیوندها</string>
-    <string name="action_mentions">اشاره‌ها</string>
-    <string name="action_hashtags">برچسب‌ها</string>
     <string name="action_open_reblogger">گشودن تقویت‌کنندهٔ بوق</string>
     <string name="action_open_reblogged_by">نمایش تقویت‌ها</string>
     <string name="action_open_faved_by">نمایش برگزیده‌ها</string>
-    <string name="title_hashtags_dialog">برچسب‌ها</string>
     <string name="title_mentions_dialog">اشاره‌ها</string>
-    <string name="title_links_dialog">پیوندها</string>
     <string name="action_open_media_n">گشودن رسانه #%d</string>
     <string name="action_share_as">هم‌رسانی به عنوان …</string>
     <string name="download_media">بارگیری رسانه</string>

@@ -9,4 +9,9 @@
     <string name="action_more">Mai</string>
     <string name="action_refresh">Actualizar</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Ligams</string>
+    <string name="action_mentions">Mencions</string>
+    <string name="action_hashtags">Etiquetas</string>
+    <string name="title_links_dialog">Ligams</string>
+    <string name="title_hashtags_dialog">Etiquetas</string>
 </resources>

@@ -90,15 +90,10 @@
     <string name="action_content_warning">设置内容提醒</string>
     <string name="action_emoji_keyboard">插入表情符号</string>
     <string name="action_add_tab">添加标签页</string>
-    <string name="action_links">链接</string>
-    <string name="action_mentions">提及</string>
-    <string name="action_hashtags">话题</string>
     <string name="action_open_reblogger">打开转嘟用户主页</string>
     <string name="action_open_reblogged_by">显示转嘟</string>
     <string name="action_open_faved_by">显示喜欢</string>
-    <string name="title_hashtags_dialog">话题</string>
     <string name="title_mentions_dialog">提及</string>
-    <string name="title_links_dialog">链接</string>
     <string name="action_open_media_n">打开媒体文件 #%d</string>
     <string name="download_image">下载中 %1$s</string>
     <string name="action_copy_link">复制链接</string>

@@ -36,13 +36,8 @@
     <string name="action_delete">Vymazať</string>
     <string name="action_delete_and_redraft">Vymazať a prepísať</string>
     <string name="action_reset_schedule">Obnoviť</string>
-    <string name="action_links">Odkazy</string>
-    <string name="action_mentions">Zmienky</string>
-    <string name="action_hashtags">Hashtagy</string>
     <string name="action_open_faved_by">Zobraziť obľúbené</string>
-    <string name="title_hashtags_dialog">Hashtagy</string>
     <string name="title_mentions_dialog">Zmienky</string>
-    <string name="title_links_dialog">Odkazy</string>
     <string name="action_open_media_n">Otvoriť médium #%d</string>
     <string name="download_image">Sťahovanie %1$s</string>
     <string name="action_copy_link">Kopírovať odkaz</string>

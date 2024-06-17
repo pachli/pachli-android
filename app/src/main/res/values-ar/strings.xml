@@ -89,14 +89,9 @@
     <string name="action_content_warning">تحذير عن المحتوى</string>
     <string name="action_emoji_keyboard">لوحة مفاتيح الإيموجي</string>
     <string name="action_add_tab">إضافة لسان</string>
-    <string name="action_links">الروابط</string>
-    <string name="action_mentions">الإشارات</string>
-    <string name="action_hashtags">الوسوم</string>
     <string name="action_open_reblogged_by">اعرض المشاركات</string>
     <string name="action_open_faved_by">اعرض المفضلات</string>
-    <string name="title_hashtags_dialog">الوسوم</string>
     <string name="title_mentions_dialog">الإشارات</string>
-    <string name="title_links_dialog">الروابط</string>
     <string name="download_image">تنزيل %1$s</string>
     <string name="action_copy_link">إنسخ الرابط</string>
     <string name="action_share_as">شاركه كـ…</string>

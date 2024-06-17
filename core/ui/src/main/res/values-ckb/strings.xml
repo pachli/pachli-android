@@ -7,4 +7,9 @@
     <string name="button_done">تەواوبوو</string>
     <string name="action_view_profile">پرۆفایل</string>
     <string name="action_more">زیاتر</string>
+    <string name="action_links">بەستەرەکان</string>
+    <string name="action_mentions">ئاماژەکان</string>
+    <string name="action_hashtags">هاشتاگ</string>
+    <string name="title_links_dialog">بەستەرەکان</string>
+    <string name="title_hashtags_dialog">هاشتاگی</string>
 </resources>

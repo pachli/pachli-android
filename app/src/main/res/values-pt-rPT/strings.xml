@@ -125,15 +125,10 @@
     <string name="action_schedule_post">Agendar Toot</string>
     <string name="action_reset_schedule">Redefinir</string>
     <string name="action_add_tab">Adicionar Separador</string>
-    <string name="action_links">Hiperligações</string>
-    <string name="action_mentions">Menções</string>
-    <string name="action_hashtags">Hashtags</string>
     <string name="action_open_reblogger">Ver autor do boost</string>
     <string name="action_open_reblogged_by">Mostrar boosts</string>
     <string name="action_open_faved_by">Mostrar favoritos</string>
-    <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Menções</string>
-    <string name="title_links_dialog">Hiperligações</string>
     <string name="action_open_media_n">Abrir conteúdo multimédia #%d</string>
     <string name="download_image">A descarregar %1$s</string>
     <string name="action_copy_link">Copiar a hiperligação</string>

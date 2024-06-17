@@ -6,4 +6,9 @@
     <string name="action_retry">पुनः प्रयास करें</string>
     <string name="button_done">पूर्ण</string>
     <string name="action_view_profile">प्रोफाइल</string>
+    <string name="action_links">लिंक</string>
+    <string name="action_mentions">ज़िक्र</string>
+    <string name="action_hashtags">हैशटैग</string>
+    <string name="title_links_dialog">लिंक</string>
+    <string name="title_hashtags_dialog">हैशटैग</string>
 </resources>

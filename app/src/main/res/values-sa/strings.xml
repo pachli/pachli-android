@@ -94,15 +94,10 @@
     <string name="action_copy_link">जालस्थलं प्रतिलिख्यताम्</string>
     <string name="download_image">अवारोप्यमाणम् %1$s</string>
     <string name="action_open_media_n">उद्घाट्यताम् #%d</string>
-    <string name="title_links_dialog">जालस्थलानि</string>
     <string name="title_mentions_dialog">उल्लेखाः</string>
-    <string name="title_hashtags_dialog">निश्रेणिचिह्नशीर्षकाः</string>
     <string name="action_open_faved_by">प्रियाणि दृश्यन्ताम्</string>
     <string name="action_open_reblogged_by">प्रकाशनानि दृश्यन्ताम्</string>
     <string name="action_open_reblogger">प्रकाशनलेखकः उद्घाट्यताम्</string>
-    <string name="action_hashtags">निश्रेणिचिह्नशीर्षकाः</string>
-    <string name="action_mentions">उल्लेखाः</string>
-    <string name="action_links">जालस्थलानि</string>
     <string name="action_add_tab">पीठिका युज्यताम्</string>
     <string name="action_reset_schedule">पुनरारम्भः</string>
     <string name="action_schedule_post">कालबद्धदौत्यं क्रियताम्</string>

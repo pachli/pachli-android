@@ -9,4 +9,9 @@
     <string name="action_more">Barrachd</string>
     <string name="action_refresh">Ath-nuadhaich</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Ceanglaichean</string>
+    <string name="action_mentions">Iomraidhean</string>
+    <string name="action_hashtags">Tagaichean hais</string>
+    <string name="title_links_dialog">Ceanglaichean</string>
+    <string name="title_hashtags_dialog">Tagaichean hais</string>
 </resources>

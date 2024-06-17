@@ -7,4 +7,9 @@
     <string name="button_done">ทำ</string>
     <string name="action_view_profile">โปรไฟล์</string>
     <string name="action_more">อื่น ๆ</string>
+    <string name="action_links">ลิงก์</string>
+    <string name="action_mentions">โต้ตอบ</string>
+    <string name="action_hashtags">แฮชแท็ก</string>
+    <string name="title_links_dialog">ลิงก์</string>
+    <string name="title_hashtags_dialog">แฮชแท็ก</string>
 </resources>

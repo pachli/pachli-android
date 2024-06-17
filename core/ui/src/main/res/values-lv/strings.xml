@@ -9,4 +9,9 @@
     <string name="action_more">Vairāk</string>
     <string name="action_refresh">Atsvaizdināt</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Saites</string>
+    <string name="action_mentions">Pieminējumi</string>
+    <string name="action_hashtags">Tēmturi</string>
+    <string name="title_links_dialog">Saites</string>
+    <string name="title_hashtags_dialog">Tēmturi</string>
 </resources>

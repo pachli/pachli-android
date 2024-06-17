@@ -115,9 +115,7 @@
     <string name="action_copy_link">Keppeling kopiearje</string>
     <string name="download_image">Oan it delheljen fan %1$s</string>
     <string name="action_open_media_n">Media #%d iepenje</string>
-    <string name="title_links_dialog">Keppelingen</string>
     <string name="action_open_faved_by">Favoriten besjen</string>
-    <string name="action_links">Keppelingen</string>
     <string name="action_add_tab">Ljepblêd Tafoegje</string>
     <string name="action_schedule_post">Toot ynplanne</string>
     <string name="action_emoji_keyboard">Emoji toetseboerd</string>
@@ -219,10 +217,8 @@
     <string name="error_no_web_browser_found">Koe gjin webblêder fine om te brûken.</string>
     <string name="label_avatar">Profylôfbylding</string>
     <string name="hint_note">Oer dy</string>
-    <string name="title_hashtags_dialog">Hashtags</string>
     <string name="action_open_reblogged_by">Boosts sjen litte</string>
     <string name="action_open_reblogger">Auteur fan boost iepenje</string>
-    <string name="action_hashtags">Hashtags</string>
     <string name="action_reset_schedule">Nei standert ynstelling weromsette</string>
     <string name="action_show_reblogs">Boosts sjen litte</string>
     <string name="action_hide_reblogs">Boosts ferburgje</string>
