@@ -9,4 +9,9 @@
     <string name="action_more">更多</string>
     <string name="action_refresh">刷新</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">链接</string>
+    <string name="action_mentions">提及</string>
+    <string name="action_hashtags">话题</string>
+    <string name="title_links_dialog">链接</string>
+    <string name="title_hashtags_dialog">话题</string>
 </resources>

@@ -100,7 +100,6 @@
     <string name="action_share">പങ്കിടുക</string>
     <string name="pref_title_browser_settings">ബ്രൗസർ</string>
     <string name="notification_mention_name">പുതിയ സൂചനകൾ</string>
-    <string name="action_links">ലിങ്കുകൾ</string>
     <string name="unreblog_private">ബൂസ്റ്റ് ചെയ്യേണ്ട</string>
     <string name="filter_apply">പ്രയോഗിക്കുക</string>
     <string name="add_account_name">അക്കൗണ്ട് ചേർക്കുക</string>
@@ -131,10 +130,8 @@
     <string name="pref_title_timeline_filters">ഫിൽടറുകൾ</string>
     <string name="pref_title_language">ഭാഷ</string>
     <string name="profile_metadata_content_label">ഉള്ളടക്കം</string>
-    <string name="action_mentions">സൂചനകൾ</string>
     <string name="filter_dialog_update_button">പുതുക്കുക</string>
     <string name="label_avatar">അവതാർ</string>
-    <string name="title_links_dialog">ലിങ്കുകൾ</string>
     <string name="post_media_video">വിഡിയോ</string>
     <string name="action_mention">സൂചിപ്പിക്കുക</string>
     <string name="filter_dialog_remove_button">നീക്കം ചെയ്യുക</string>

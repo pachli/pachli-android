@@ -9,4 +9,9 @@
     <string name="action_more">بیش‌تر</string>
     <string name="action_refresh">نوسازی</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">پیوندها</string>
+    <string name="action_mentions">اشاره‌ها</string>
+    <string name="action_hashtags">برچسب‌ها</string>
+    <string name="title_links_dialog">پیوندها</string>
+    <string name="title_hashtags_dialog">برچسب‌ها</string>
 </resources>

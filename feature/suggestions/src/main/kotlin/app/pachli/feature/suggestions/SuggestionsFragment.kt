@@ -70,8 +70,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
+/**
+ * Show the user a list of suggested accounts, and allow them to dismiss or follow
+ * the suggestion.
+ */
 @AndroidEntryPoint
 class SuggestionsFragment :
     Fragment(R.layout.fragment_suggestions),
@@ -126,6 +129,8 @@ class SuggestionsFragment :
             adapter = suggestionsAdapter
             addItemDecoration(MaterialDividerItemDecoration(context, MaterialDividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
+
+            setAccessibilityDelegateCompat(SuggestionAccessibilityDelegate(this, accept))
         }
 
         bind()
@@ -143,7 +148,6 @@ class SuggestionsFragment :
 
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
-                // TODO: Very similar to code in ListsActivity
                 launch {
                     viewModel.operationCount.collectLatest {
                         if (it == 0) binding.progressIndicator.hide() else binding.progressIndicator.show()
@@ -153,15 +157,14 @@ class SuggestionsFragment :
         }
     }
 
+    /** Update the adapter if [UiState] information changes. */
     private fun bindUiState(uiState: UiState) {
         suggestionsAdapter.setAnimateEmojis(uiState.animateEmojis)
         suggestionsAdapter.setAnimateAvatars(uiState.animateAvatars)
         suggestionsAdapter.setShowBotOverlay(uiState.showBotOverlay)
     }
 
-    /**
-     * Process actions from the UI.
-     */
+    /** Process user actions. */
     private fun bindUiAction(uiAction: UiAction) {
         when (uiAction) {
             is NavigationAction -> {
@@ -177,10 +180,10 @@ class SuggestionsFragment :
         }
     }
 
+    /** Bind suggestions results to the UI. */
     private fun bindSuggestions(result: Result<Suggestions, GetSuggestionsError>) {
         binding.swipeRefreshLayout.isRefreshing = false
 
-        Timber.d("bindSuggestions: %s", result)
         result.onFailure {
             binding.messageView.show()
             binding.recyclerView.hide()

@@ -37,7 +37,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTextListener {
+class SearchActivity :
+    BottomSheetActivity(),
+    MenuProvider,
+    SearchView.OnQueryTextListener {
     private val viewModel: SearchViewModel by viewModels()
 
     private val binding by viewBinding(ActivitySearchBinding::inflate)
@@ -92,7 +95,7 @@ class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTe
         return when (position) {
             0 -> getString(R.string.title_posts)
             1 -> getString(R.string.title_accounts)
-            2 -> getString(R.string.title_hashtags_dialog)
+            2 -> getString(app.pachli.core.ui.R.string.title_hashtags_dialog)
             else -> throw IllegalArgumentException("Unknown page index: $position")
         }
     }

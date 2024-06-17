@@ -10,4 +10,9 @@
     <string name="action_refresh">Aktualisieren</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_open_drawer">Menü öffnen</string>
+    <string name="action_links">Links</string>
+    <string name="action_mentions">Erwähnungen</string>
+    <string name="action_hashtags">Hashtags</string>
+    <string name="title_links_dialog">Links</string>
+    <string name="title_hashtags_dialog">Hashtags</string>
 </resources>

@@ -28,19 +28,26 @@ import com.github.michaelbull.result.Result
 /** Errors that can be returned from this repository. */
 sealed interface SuggestionsError : PachliError {
     @JvmInline
-    value class GetSuggestionsError(private val error: ApiError) : SuggestionsError, PachliError by error
+    value class GetSuggestionsError(private val error: ApiError) :
+        SuggestionsError,
+        PachliError by error
 
     @JvmInline
-    value class DeleteSuggestionError(private val error: ApiError) : SuggestionsError, PachliError by error
+    value class DeleteSuggestionError(private val error: ApiError) :
+        SuggestionsError,
+        PachliError by error
 
     // TODO: Doesn't belong here. When there's a repository for the user's account
     // this should move there.
     @JvmInline
-    value class FollowAccountError(private val error: ApiError) : SuggestionsError, PachliError by error
+    value class FollowAccountError(private val error: ApiError) :
+        SuggestionsError,
+        PachliError by error
 }
 
+/** Operations that can be performed on this repository. */
 interface SuggestionsRepository {
-    // TODO: Document
+    /** Get a set of fresh suggestions from the server. */
     suspend fun getSuggestions(): Result<List<Suggestion>, GetSuggestionsError>
 
     /**

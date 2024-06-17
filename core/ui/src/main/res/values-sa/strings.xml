@@ -8,4 +8,9 @@
     <string name="action_view_profile">व्यक्तिविवरणम्</string>
     <string name="action_more">अधिकम्</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">जालस्थलानि</string>
+    <string name="action_mentions">उल्लेखाः</string>
+    <string name="action_hashtags">निश्रेणिचिह्नशीर्षकाः</string>
+    <string name="title_links_dialog">जालस्थलानि</string>
+    <string name="title_hashtags_dialog">निश्रेणिचिह्नशीर्षकाः</string>
 </resources>

@@ -39,5 +39,9 @@ dependencies {
     implementation(projects.core.network)
     implementation(projects.core.ui)
 
+    // TODO: These three dependencies are required by BottomSheetActivity,
+    // make this part of the projects.core.activity API?
+    implementation(projects.core.network)
+    implementation(projects.core.preferences)
     implementation(libs.bundles.androidx)
 }

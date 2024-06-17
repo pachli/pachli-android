@@ -5,4 +5,7 @@
     <string name="action_view_profile">පැතිකඩ</string>
     <string name="action_more">තව</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">සබැඳි</string>
+    <string name="action_mentions">සඳැහුම්</string>
+    <string name="title_links_dialog">සබැඳි</string>
 </resources>

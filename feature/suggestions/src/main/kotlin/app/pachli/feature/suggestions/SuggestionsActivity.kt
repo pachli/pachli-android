@@ -24,6 +24,10 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.feature.suggestions.databinding.ActivitySuggestionsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Show the user a list of suggested accounts, and allow them to dismiss or follow
+ * the suggestion.
+ */
 @AndroidEntryPoint
 class SuggestionsActivity : BottomSheetActivity() {
     private val binding by viewBinding(ActivitySuggestionsBinding::inflate)

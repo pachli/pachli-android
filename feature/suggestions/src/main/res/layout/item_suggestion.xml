@@ -24,6 +24,8 @@
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
     android:paddingBottom="8dp"
+    android:focusable="true"
+    android:importantForAccessibility="yes"
     tools:ignore="SelectableText">
 
     <TextView
@@ -38,10 +40,10 @@
         android:paddingStart="28dp"
         android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
+        android:importantForAccessibility="no"
         app:drawableStartCompat="@drawable/ic_person_add_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:importantForAccessibility="no"
         tools:ignore="RtlSymmetry"
         tools:text="Someone requested to follow you" />
 
@@ -52,6 +54,7 @@
         android:layout_centerVertical="false"
         android:layout_marginTop="10dp"
         android:contentDescription="@string/action_view_profile"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/suggestionReason"
         tools:src="@drawable/avatar_default" />
@@ -62,6 +65,7 @@
         android:layout_height="24dp"
         android:contentDescription="@string/profile_badge_bot_text"
         android:src="@drawable/bot_badge"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintEnd_toEndOf="@id/avatar" />
 
@@ -76,6 +80,7 @@
         android:textColor="?android:textColorPrimary"
         android:textSize="?attr/status_text_medium"
         android:textStyle="normal|bold"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@id/suggestionReason"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,6 +95,7 @@
         android:maxLines="1"
         android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toBottomOf="@id/displayName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,6 +109,7 @@
         android:textSize="?attr/status_text_medium"
         android:hyphenationFrequency="full"
         android:lineSpacingMultiplier="1.1"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="@+id/username"
         app:layout_constraintTop_toBottomOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,6 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textSize="?attr/status_text_small"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="@id/displayName"
         app:layout_constraintTop_toBottomOf="@id/account_note"
         tools:text="4.6K followers" />
@@ -125,6 +133,7 @@
         android:layout_marginTop="8dp"
         android:textSize="?attr/status_text_small"
         android:layout_marginStart="8dp"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toEndOf="@id/follower_count"
         app:layout_constraintTop_toBottomOf="@id/account_note"
         tools:text="46 follows" />
@@ -135,6 +144,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:textSize="?attr/status_text_small"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="@+id/follower_count"
         app:layout_constraintTop_toBottomOf="@id/follower_count"
         tools:text="46 posts (4.6 per week)" />
@@ -150,9 +160,10 @@
         android:paddingTop="4dp"
         android:paddingEnd="16dp"
         android:paddingBottom="4dp"
-        android:text="@string/action_dismiss_suggestion"
+        android:text="@string/action_dismiss_follow_suggestion"
         android:textAllCaps="true"
         android:textSize="?attr/status_text_medium"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="@id/displayName"
         app:layout_constraintTop_toBottomOf="@id/statuses_count" />
 
@@ -170,6 +181,7 @@
         android:layout_marginEnd="8dp"
         android:textAllCaps="true"
         android:textSize="?attr/status_text_medium"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toEndOf="@id/delete_suggestion"
         app:layout_constraintTop_toTopOf="@+id/delete_suggestion"
         android:text="@string/action_follow_account" />

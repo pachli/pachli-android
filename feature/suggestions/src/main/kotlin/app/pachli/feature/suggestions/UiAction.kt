@@ -49,13 +49,19 @@ internal sealed interface UiAction {
     }
 }
 
+/** Represents actions that succeeded. */
 internal sealed interface UiSuccess {
+    /** The successful action. */
     val action: SuggestionAction
 
+    /** A successful [SuggestionAction.DeleteSuggestion]. */
     data class DeleteSuggestion(override val action: SuggestionAction.DeleteSuggestion) : UiSuccess
+
+    /** A successful [SuggestionAction.AcceptSuggestion]. */
     data class AcceptSuggestion(override val action: SuggestionAction.AcceptSuggestion) : UiSuccess
 
     companion object {
+        /** Create a [UiSuccess] from a [SuggestionAction]. */
         fun from(action: SuggestionAction) = when (action) {
             is SuggestionAction.DeleteSuggestion -> DeleteSuggestion(action)
             is SuggestionAction.AcceptSuggestion -> AcceptSuggestion(action)
@@ -66,7 +72,9 @@ internal sealed interface UiSuccess {
 @JvmInline
 value class GetSuggestionsError(val error: SuggestionsError.GetSuggestionsError) : PachliError by error
 
-/** Errors that can occur from actions the user takes in the UI */
+/**
+ * Errors that can occur from actions the user takes in the UI.
+ */
 internal sealed class UiError(
     @StringRes override val resourceId: Int,
     open val action: SuggestionAction,
@@ -74,11 +82,13 @@ internal sealed class UiError(
     override val formatArgs: Array<out String>? = action.suggestion.account.displayName?.let { arrayOf(it) },
 ) : PachliError {
 
+    /** A failed [SuggestionAction.DeleteSuggestion]. */
     data class DeleteSuggestion(
         override val action: SuggestionAction.DeleteSuggestion,
         override val cause: DeleteSuggestionError,
     ) : UiError(R.string.ui_error_delete_suggestion_fmt, action, cause)
 
+    /** A failed [SuggestionAction.AcceptSuggestion]. */
     data class AcceptSuggestion(
         override val action: SuggestionAction.AcceptSuggestion,
         override val cause: FollowAccountError,

@@ -9,4 +9,9 @@
     <string name="action_more">المزيد</string>
     <string name="action_refresh">إنعاش</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">الروابط</string>
+    <string name="action_mentions">الإشارات</string>
+    <string name="action_hashtags">الوسوم</string>
+    <string name="title_links_dialog">الروابط</string>
+    <string name="title_hashtags_dialog">الوسوم</string>
 </resources>

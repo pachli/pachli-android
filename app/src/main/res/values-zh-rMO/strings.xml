@@ -90,15 +90,10 @@
     <string name="action_content_warning">敏感內容警告</string>
     <string name="action_emoji_keyboard">插入表情符號</string>
     <string name="action_add_tab">新增標籤頁</string>
-    <string name="action_links">連結</string>
-    <string name="action_mentions">提及</string>
-    <string name="action_hashtags">話題</string>
     <string name="action_open_reblogger">打開轉嘟用戶主頁</string>
     <string name="action_open_reblogged_by">顯示轉嘟</string>
     <string name="action_open_faved_by">顯示收藏</string>
-    <string name="title_hashtags_dialog">話題</string>
     <string name="title_mentions_dialog">提及</string>
-    <string name="title_links_dialog">連結</string>
     <string name="action_open_media_n">打開媒體 #%d</string>
     <string name="download_image">正在下載 %1$s…</string>
     <string name="action_copy_link">複製連結</string>

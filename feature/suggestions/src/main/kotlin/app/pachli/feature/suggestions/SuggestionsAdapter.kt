@@ -17,6 +17,7 @@
 
 package app.pachli.feature.suggestions
 
+import android.annotation.SuppressLint
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -37,9 +38,9 @@ import app.pachli.core.data.model.Suggestion
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.setClickableText
+import app.pachli.feature.suggestions.SuggestionViewHolder.ChangePayload
 import app.pachli.feature.suggestions.UiAction.NavigationAction
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
-import app.pachli.feature.suggestions.ViewHolder.ChangePayload
 import app.pachli.feature.suggestions.databinding.ItemSuggestionBinding
 import java.time.Duration
 import java.time.Instant
@@ -58,12 +59,12 @@ internal class SuggestionsAdapter(
     private var animateEmojis: Boolean,
     private var showBotOverlay: Boolean,
     private val accept: (UiAction) -> Unit,
-) : ListAdapter<SuggestionViewData, ViewHolder>(SuggestionDiffer) {
+) : ListAdapter<SuggestionViewData, SuggestionViewHolder>(SuggestionDiffer) {
     override fun getItemViewType(position: Int) = R.layout.item_suggestion
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
         val binding = ItemSuggestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, accept)
+        return SuggestionViewHolder(binding, accept)
     }
 
     fun setAnimateAvatars(animateAvatars: Boolean) {
@@ -84,7 +85,7 @@ internal class SuggestionsAdapter(
         notifyItemRangeChanged(0, currentList.size, ChangePayload.ShowBotOverlay(showBotOverlay))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any?>) {
+    override fun onBindViewHolder(holder: SuggestionViewHolder, position: Int, payloads: List<Any?>) {
         val viewData = currentList[position]
         if (payloads.isEmpty()) {
             onBindViewHolder(holder, position)
@@ -100,7 +101,7 @@ internal class SuggestionsAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SuggestionViewHolder, position: Int) {
         holder.bind(
             currentList[position],
             animateEmojis,
@@ -110,18 +111,33 @@ internal class SuggestionsAdapter(
     }
 }
 
-internal class ViewHolder(
-    private val binding: ItemSuggestionBinding,
+/**
+ * Manage the display of a single suggestion.
+ *
+ * @param binding View binding.
+ * @param accept Asynchronous receiver of [UiAction].
+ */
+internal class SuggestionViewHolder(
+    internal val binding: ItemSuggestionBinding,
     private val accept: (UiAction) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
+    internal lateinit var viewData: SuggestionViewData
     private lateinit var suggestion: Suggestion
 
     private val avatarRadius: Int
 
+    /** Payloads for partial notification of item changes. */
     internal sealed interface ChangePayload {
+        /** The [isEnabled] state of the suggestion has changed. */
         data class IsEnabled(val isEnabled: Boolean) : ChangePayload
+
+        /** The [animateAvatars] state of the UI has changed. */
         data class AnimateAvatars(val animateAvatars: Boolean) : ChangePayload
+
+        /** The [animateEmojis] state of the UI has changed. */
         data class AnimateEmojis(val animateEmojis: Boolean) : ChangePayload
+
+        /** The [showBotOverlay] state of the UI has changed. */
         data class ShowBotOverlay(val showBotOverlay: Boolean) : ChangePayload
     }
 
@@ -146,6 +162,7 @@ internal class ViewHolder(
         }
     }
 
+    /** Bind [viewData] to the UI elements. */
     // TODO: Similar to FollowRequestViewHolder.setupWithAccount
     fun bind(
         viewData: SuggestionViewData,
@@ -153,6 +170,7 @@ internal class ViewHolder(
         animateAvatars: Boolean,
         showBotOverlay: Boolean,
     ) {
+        this.viewData = viewData
         this.suggestion = viewData.suggestion
         val account = suggestion.account
 
@@ -169,20 +187,33 @@ internal class ViewHolder(
             bindShowBotOverlay(viewData, showBotOverlay)
             bindPostStatistics(viewData)
             bindIsEnabled(viewData.isEnabled)
+
+            // Build an accessible content description.
+            root.contentDescription = root.context.getString(
+                R.string.account_content_description_fmt,
+                account.displayName,
+                followerCount.text,
+                followsCount.text,
+                statusesCount.text,
+                accountNote.text,
+            )
+
+            // Workaround for RecyclerView 1.0.0 / androidx.core 1.0.0
+            // RecyclerView tries to set AccessibilityDelegateCompat to null
+            // but ViewCompat code replaces is with the default one. RecyclerView never
+            // fetches another one from its delegate because it checks that it's set so we remove it
+            // and let RecyclerView ask for a new delegate.
+            root.accessibilityDelegate = null
         }
     }
 
-    /**
-     * Enables or disables all views depending on [isEnabled].
-     */
+    /** Enables or disables all views depending on [isEnabled]. */
     fun bindIsEnabled(isEnabled: Boolean) = with(binding) {
         (root as? ViewGroup)?.children?.forEach { it.isEnabled = isEnabled }
         root.isEnabled = isEnabled
     }
 
-    /**
-     * Binds the avatar image, respecting [animateAvatars].
-     */
+    /** Binds the avatar image, respecting [animateAvatars]. */
     fun bindAvatar(viewData: SuggestionViewData, animateAvatars: Boolean) = with(binding) {
         loadAvatar(viewData.suggestion.account.avatar, avatar, avatarRadius, animateAvatars)
     }
@@ -196,6 +227,8 @@ internal class ViewHolder(
         displayName.text = account.name.unicodeWrap().emojify(account.emojis, itemView, animateEmojis)
 
         if (account.note.isBlank()) {
+            @SuppressLint("SetTextI18n")
+            accountNote.text = ""
             accountNote.hide()
         } else {
             accountNote.show()

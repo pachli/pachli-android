@@ -6,4 +6,9 @@
     <string name="action_retry">Coba lagi</string>
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Lebih</string>
+    <string name="action_links">Tautan</string>
+    <string name="action_mentions">Menyebutkan</string>
+    <string name="action_hashtags">Hashtag</string>
+    <string name="title_links_dialog">Tautan</string>
+    <string name="title_hashtags_dialog">Hashtag</string>
 </resources>

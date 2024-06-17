@@ -53,7 +53,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * High-level UI state, derived from [StatusDisplayOptions].
@@ -76,9 +75,7 @@ internal data class UiState(
     }
 }
 
-/**
- * Data to show a [Suggestion].
- */
+/** Data to show a [Suggestion]. */
 internal data class SuggestionViewData(
     /** If false the user should not be able to interact with the suggestion. */
     val isEnabled: Boolean = true,
@@ -126,7 +123,8 @@ internal interface ISuggestionsViewModel {
 internal class SuggestionsViewModel @Inject constructor(
     private val suggestionsRepository: SuggestionsRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
-) : ViewModel(), ISuggestionsViewModel {
+) : ViewModel(),
+    ISuggestionsViewModel {
     private val uiAction = MutableSharedFlow<UiAction>()
     override val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
 
@@ -190,6 +188,7 @@ internal class SuggestionsViewModel @Inject constructor(
         // Mark this suggestion as disabled for the duration of the operation.
         disabledSuggestions.update { it.plus(suggestionAction.suggestion.account.id) }
 
+        // Process the suggestion, and handle the success/failure
         val result = when (suggestionAction) {
             is DeleteSuggestion -> deleteSuggestion(suggestionAction.suggestion)
             is AcceptSuggestion -> acceptSuggestion(suggestionAction.suggestion)
@@ -215,6 +214,7 @@ internal class SuggestionsViewModel @Inject constructor(
         _uiResult.send(result)
     }
 
+    /** Get fresh suggestions from the repository. */
     private suspend fun getSuggestions(): Result<Suggestions.Loaded, GetSuggestionsError> = operation {
         // Note: disabledSuggestions is *not* cleared here. Suppose the user has
         // dismissed a suggestion and the network operation has not completed yet.
@@ -227,13 +227,13 @@ internal class SuggestionsViewModel @Inject constructor(
         )
     }
 
+    /** Delete a suggestion from the repository. */
     private suspend fun deleteSuggestion(suggestion: Suggestion): Result<Unit, DeleteSuggestionError> = operation {
-        Timber.d("Request to delete $suggestion")
         suggestionsRepository.deleteSuggestion(suggestion.account.id)
     }
 
+    /** Accept the suggestion and follow the account. */
     private suspend fun acceptSuggestion(suggestion: Suggestion): Result<Unit, FollowAccountError> = operation {
-        Timber.d("Request to follow account with id: ${suggestion.account.id}")
         suggestionsRepository.followAccount(suggestion.account.id)
     }
 
@@ -249,7 +249,7 @@ internal class SuggestionsViewModel @Inject constructor(
      *
      * @return Whatever [block] returned
      */
-    private suspend fun <R> operation(block: suspend() -> R): R {
+    private suspend fun <R> operation(block: suspend () -> R): R {
         _operationCount.getAndUpdate { it + 1 }
         val result = block.invoke()
         _operationCount.getAndUpdate { it - 1 }

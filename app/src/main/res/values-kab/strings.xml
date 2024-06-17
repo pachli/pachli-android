@@ -180,10 +180,7 @@
     <string name="title_follows">Ig ṭṭafar</string>
     <string name="title_followers">Imeḍfaṛen</string>
     <string name="description_visibility_private">Imeḍfaṛen</string>
-    <string name="action_links">Iseɣwan</string>
-    <string name="action_mentions">Tibdarin</string>
     <string name="title_mentions_dialog">Tibdarin</string>
-    <string name="title_links_dialog">Iseɣwan</string>
     <string name="confirmation_reported">Yettwaceyyeɛ!</string>
     <string name="post_sent">Yettwaceyyaɛ!</string>
     <string name="search_no_results">Ula d yiwen n ugmuḍ</string>
@@ -218,9 +215,7 @@
     <string name="action_show_reblogs">Sken-d beṭuyat</string>
     <string name="action_unmute">Ur sgugum ara</string>
     <string name="action_accept">Ddeg</string>
-    <string name="action_hashtags">Ihacṭagen</string>
     <string name="action_open_reblogged_by">Sken-d beṭuyat</string>
-    <string name="title_hashtags_dialog">Ihacṭagen</string>
     <string name="confirmation_unmuted">Aseqdac nni ur yettwasgugem ara tura</string>
     <string name="confirmation_domain_unmuted">%s ur yettwaffer ara</string>
     <string name="hint_note">Assisen</string>

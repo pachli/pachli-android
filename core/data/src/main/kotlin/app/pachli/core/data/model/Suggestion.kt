@@ -21,6 +21,12 @@ import app.pachli.core.network.json.Default
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.SuggestionSource
 
+/**
+ * Sources of suggestions for followed accounts.
+ *
+ * Wraps and merges the different sources supplied across different Mastodon API
+ * versions.
+ */
 enum class SuggestionSources {
     /** "Hand-picked by the {domain} team" */
     FEATURED,

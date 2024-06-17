@@ -216,10 +216,8 @@
         <item quantity="other">ප්‍රියතමයන් <b>%1$s</b></item>
     </plurals>
     <string name="action_favourite">ප්‍රියතම</string>
-    <string name="action_mentions">සඳැහුම්</string>
     <string name="filter_dialog_update_button">යාවත්කාල</string>
     <string name="notification_summary_small">%1$s සහ %2$s</string>
-    <string name="title_links_dialog">සබැඳි</string>
     <string name="title_media">මාධ්‍ය</string>
     <string name="dialog_block_warning">\@%s අවහිර\?</string>
     <string name="pref_title_notification_alert_light">ආලෝකය සමඟ දන්වන්න</string>
@@ -240,7 +238,6 @@
     <string name="dialog_mute_hide_notifications">දැනුම්දීම් සඟවන්න</string>
     <string name="pref_post_text_size">තත්ව පාඨයේ ප්‍රමාණය</string>
     <string name="pref_title_show_cards_in_timelines">කාලරේඛාවෙහි සබැඳි පෙරදසුන් පෙන්වන්න</string>
-    <string name="action_links">සබැඳි</string>
     <string name="pref_title_browser_settings">අතිරික්සුව</string>
     <string name="abbreviated_seconds_ago">තත්. %d</string>
 </resources>

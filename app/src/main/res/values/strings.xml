@@ -174,9 +174,6 @@
     <string name="action_schedule_post">Schedule Post</string>
     <string name="action_reset_schedule">Reset</string>
     <string name="action_add_tab">Add Tab</string>
-    <string name="action_links">Links</string>
-    <string name="action_mentions">Mentions</string>
-    <string name="action_hashtags">Hashtags</string>
     <string name="action_open_reblogger">Open boost author</string>
     <string name="action_open_reblogged_by">Show boosts</string>
     <string name="action_open_faved_by">Show favorites</string>
@@ -186,9 +183,7 @@
     <string name="action_suggestions">Suggested accounts</string>
     <string name="action_translate">Translate</string>
     <string name="action_translate_undo">Undo translate</string>
-    <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Mentions</string>
-    <string name="title_links_dialog">Links</string>
     <string name="action_open_media_n">Open media #%d</string>
     <string name="download_image">Downloading %1$s</string>
     <string name="action_copy_link">Copy the link</string>

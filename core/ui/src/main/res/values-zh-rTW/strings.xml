@@ -8,4 +8,9 @@
     <string name="action_view_profile">個人資料</string>
     <string name="action_more">更多</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">連結</string>
+    <string name="action_mentions">提及</string>
+    <string name="action_hashtags">話題</string>
+    <string name="title_links_dialog">連結</string>
+    <string name="title_hashtags_dialog">話題</string>
 </resources>

@@ -9,4 +9,9 @@
     <string name="action_more">Mer</string>
     <string name="action_refresh">Uppdatera</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Länkar</string>
+    <string name="action_mentions">Omnämnanden</string>
+    <string name="action_hashtags">Hashtaggar</string>
+    <string name="title_links_dialog">Länkar</string>
+    <string name="title_hashtags_dialog">Hashtaggar</string>
 </resources>

@@ -8,4 +8,9 @@
     <string name="action_view_profile">Profilo</string>
     <string name="action_more">Pli</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Ligiloj</string>
+    <string name="action_mentions">Mencioj</string>
+    <string name="action_hashtags">Kradvortoj</string>
+    <string name="title_links_dialog">Ligiloj</string>
+    <string name="title_hashtags_dialog">Kradvortoj</string>
 </resources>

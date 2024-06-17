@@ -2,4 +2,9 @@
 <resources>
     <string name="error_network">Vyskytla sa chyba v sieti! Prosím skontrolujte svoje pripojenie a skúste to znova!</string>
     <string name="error_generic">Vyskytla sa chyba.</string>
+    <string name="action_links">Odkazy</string>
+    <string name="action_mentions">Zmienky</string>
+    <string name="action_hashtags">Hashtagy</string>
+    <string name="title_links_dialog">Odkazy</string>
+    <string name="title_hashtags_dialog">Hashtagy</string>
 </resources>

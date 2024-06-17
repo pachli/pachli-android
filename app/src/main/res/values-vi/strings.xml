@@ -72,15 +72,10 @@
     <string name="action_copy_link">Chép URL</string>
     <string name="download_image">Đang tải %1$s</string>
     <string name="action_open_media_n">Mở tập tin #%d</string>
-    <string name="title_links_dialog">Links</string>
     <string name="title_mentions_dialog">Lượt nhắc tới</string>
-    <string name="title_hashtags_dialog">Hashtag</string>
     <string name="action_open_faved_by">Xem lượt thích</string>
     <string name="action_open_reblogged_by">Xem lượt đăng lại</string>
     <string name="action_open_reblogger">Xem lượt đăng lại</string>
-    <string name="action_hashtags">Hashtag</string>
-    <string name="action_mentions">Lượt nhắc tới</string>
-    <string name="action_links">Links</string>
     <string name="action_add_tab">Thêm Tab</string>
     <string name="action_schedule_post">Lên lịch</string>
     <string name="action_emoji_keyboard">Emoji</string>

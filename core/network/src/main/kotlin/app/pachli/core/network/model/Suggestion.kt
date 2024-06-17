@@ -22,14 +22,22 @@ import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+/**
+ * Sources for suggestions returned from Mastodon 3.x.
+ *
+ * See [https://docs.joinmastodon.org/entities/Suggestion/](https://docs.joinmastodon.org/entities/Suggestion/).
+ */
 @HasDefault
 enum class SuggestionSource {
+    /** "This account was manually recommended by your administration team" */
     @Json(name = "staff")
     STAFF,
 
+    /** "You have interacted with this account previously" */
     @Json(name = "past_interactions")
     PAST_INTERACTIONS,
 
+    /** "This account has many reblogs, favourites, and active local followers within the last 30 days" */
     @Json(name = "global")
     GLOBAL,
 
@@ -37,6 +45,10 @@ enum class SuggestionSource {
     UNKNOWN,
 }
 
+/**
+ * Sources for suggestions returned from Mastodon 4.x
+ * ([https://github.com/mastodon/documentation/issues/1398](https://github.com/mastodon/documentation/issues/1398))
+ */
 @HasDefault
 enum class SuggestionSources {
     /** "Hand-picked by the {domain} team" */
@@ -63,16 +75,16 @@ enum class SuggestionSources {
     UNKNOWN,
 }
 
-//   featured: 'staff',
-//    most_followed: 'global',
-//    most_interactions: 'global',
-//    # NOTE: Those are not completely accurate, but those are personalized interactions
-//    similar_to_recently_followed: 'past_interactions',
-//    friends_of_friends: 'past_interactions',
-//  }.freeze
-
+/**
+ * A suggested account to follow.
+ *
+ * @property source The single reason for this suggestion.
+ * @property sources One or more reasons for this suggestion.
+ * @property account The suggested account.
+ */
 @JsonClass(generateAdapter = true)
 data class Suggestion(
+    @Deprecated("Mastodon 4.x switched to sources")
     val source: SuggestionSource,
     val sources: List<SuggestionSources>? = null,
     val account: Account,
