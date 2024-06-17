@@ -30,7 +30,7 @@ import app.pachli.core.common.string.unicodeWrap
  * ```kotlin
  * sealed class Error(
  *     @StringRes override val resourceId: Int,
- *     override val formatArgs: Array<out String>,
+ *     override val formatArgs: Array<out String>?,
  *     cause: PachliError? = null,
  * ) : PachliError {
  *     data object SomeProblem : Error(R.string.error_some_problem)
@@ -62,6 +62,12 @@ import app.pachli.core.common.string.unicodeWrap
  * <string name="error_out_of_range">Value %1$d is out of range</string>
  * <string name="error_fetch">Could not fetch %1$s: %2$s</string>
  * ```
+ *
+ * @property resourceId A string resource for the error message associated with
+ * this error.
+ * @property formatArgs Additional arguments to be interpolated in to the string
+ * resource when constructing the error message.
+ * @property cause The cause of this error, if any.
  */
 interface PachliError {
     /** String resource ID for the error message. */
@@ -69,7 +75,7 @@ interface PachliError {
     val resourceId: Int
 
     /** Arguments to be interpolated in to the string from [resourceId]. */
-    val formatArgs: Array<out String>
+    val formatArgs: Array<out String>?
 
     /**
      * The cause of this error. If present the string representation of `cause`
@@ -78,11 +84,16 @@ interface PachliError {
     val cause: PachliError?
 
     /**
-     * @return A localised, unicode-wrapped error message for this error.
+     * Generate a formatted error message for this error. [resourceId] is
+     * fetched and the values of [formatArgs] are interpolated in to it.
+     * If [cause] is non-null then its error message is generated (recursively)
+     * and used as the last format argument.
      */
     fun fmt(context: Context): String {
-        val args = mutableListOf(*formatArgs)
-        cause?.let { args.add(it.fmt(context)) }
+        val args = buildList {
+            formatArgs?.let { addAll(it) }
+            cause?.let { add(it.fmt(context)) }
+        }
         return context.getString(resourceId, *args.toTypedArray()).unicodeWrap()
     }
 }
