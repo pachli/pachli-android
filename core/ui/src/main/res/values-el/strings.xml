@@ -5,4 +5,6 @@
     <string name="action_retry">Προσπαθήστε ξανά</string>
     <string name="action_view_profile">Προφίλ</string>
     <string name="action_more">Περισσότερα</string>
+    <string name="action_links">Σύνδεσμοι</string>
+    <string name="title_links_dialog">Σύνδεσμοι</string>
 </resources>

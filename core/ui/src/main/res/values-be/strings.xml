@@ -9,4 +9,9 @@
     <string name="action_more">Разгарнуць</string>
     <string name="action_refresh">Абнавіць</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Спасылкі</string>
+    <string name="action_mentions">Згадкі</string>
+    <string name="action_hashtags">Хэштэгі</string>
+    <string name="title_links_dialog">Спасылкі</string>
+    <string name="title_hashtags_dialog">Хэштэгі</string>
 </resources>

@@ -6,4 +6,8 @@
     <string name="action_retry">Opnij probearje</string>
     <string name="action_view_profile">Profyl</string>
     <string name="action_more">Mear</string>
+    <string name="action_links">Keppelingen</string>
+    <string name="action_hashtags">Hashtags</string>
+    <string name="title_links_dialog">Keppelingen</string>
+    <string name="title_hashtags_dialog">Hashtags</string>
 </resources>

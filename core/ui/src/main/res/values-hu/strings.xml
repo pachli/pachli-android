@@ -9,4 +9,9 @@
     <string name="action_more">Több</string>
     <string name="action_refresh">Frissítés</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Linkek</string>
+    <string name="action_mentions">Említések</string>
+    <string name="action_hashtags">Hashtagek</string>
+    <string name="title_links_dialog">Linkek</string>
+    <string name="title_hashtags_dialog">Hashtagek</string>
 </resources>

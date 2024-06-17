@@ -38,11 +38,8 @@
     <string name="action_share_as">Поділитися як …</string>
     <string name="action_copy_link">Копіювати посилання</string>
     <string name="download_image">Завантаження %1$s</string>
-    <string name="title_links_dialog">Посилання</string>
     <string name="title_mentions_dialog">Згадки</string>
     <string name="action_open_faved_by">Показати, хто вподобав</string>
-    <string name="action_mentions">Згадки</string>
-    <string name="action_links">Посилання</string>
     <string name="action_content_warning">Попередження про вміст</string>
     <string name="action_access_scheduled_posts">Заплановані дописи</string>
     <string name="action_access_drafts">Чернетки</string>
@@ -389,8 +386,6 @@
     <string name="download_media">Завантажити медіа</string>
     <string name="action_open_media_n">Відкрити медіа #%d</string>
     <string name="hashtags">Хештеги</string>
-    <string name="action_hashtags">Хештеги</string>
-    <string name="title_hashtags_dialog">Хештеги</string>
     <string name="action_open_reblogger">Відкрити автора поширення</string>
     <string name="action_add_tab">Додати вкладку</string>
     <string name="action_schedule_post">Запланувати допис</string>
