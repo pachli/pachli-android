@@ -19,6 +19,8 @@ package app.pachli.core.data.di
 
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.NetworkListsRepository
+import app.pachli.core.data.repository.NetworkSuggestionsRepository
+import app.pachli.core.data.repository.SuggestionsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -31,4 +33,9 @@ abstract class DataModule {
     internal abstract fun bindsListsRepository(
         listsRepository: NetworkListsRepository,
     ): ListsRepository
+
+    @Binds
+    internal abstract fun bindsSuggestionsRepository(
+        suggestionsRepository: NetworkSuggestionsRepository,
+    ): SuggestionsRepository
 }

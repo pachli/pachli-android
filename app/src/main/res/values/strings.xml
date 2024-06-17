@@ -180,6 +180,7 @@
     <string name="action_dismiss">Dismiss</string>
     <string name="action_details">Details</string>
     <string name="action_add_reaction">add reaction</string>
+    <string name="action_suggestions">Suggested accounts</string>
     <string name="action_translate">Translate</string>
     <string name="action_translate_undo">Undo translate</string>
     <string name="title_mentions_dialog">Mentions</string>

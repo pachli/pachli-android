@@ -18,32 +18,30 @@
 plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
-    namespace = "app.pachli.core.ui"
+    namespace = "app.pachli.feature.suggestions"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunnerArguments["disableAnalytics"] = "true"
     }
 }
 
 dependencies {
-    // Calls "openLink" from projects.core.activity
     implementation(projects.core.activity)
     implementation(projects.core.common)
+    implementation(projects.core.data)
     implementation(projects.core.designsystem)
-
-    // Uses HttpException from Retrofit
+    implementation(projects.core.navigation)
     implementation(projects.core.network)
+    implementation(projects.core.ui)
 
-    // Uses JsonDataException from Moshi
-    implementation(libs.moshi)
-
-    // Some views inherit from AndroidX views
+    // TODO: These three dependencies are required by BottomSheetActivity,
+    // make this part of the projects.core.activity API?
+    implementation(projects.core.network)
+    implementation(projects.core.preferences)
     implementation(libs.bundles.androidx)
-
-    api(libs.material.iconics)
-    api(libs.material.typeface)
 }
