@@ -37,10 +37,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchActivity :
-    BottomSheetActivity(),
-    MenuProvider,
-    SearchView.OnQueryTextListener {
+class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTextListener {    BottomSheetActivity(),
     private val viewModel: SearchViewModel by viewModels()
 
     private val binding by viewBinding(ActivitySearchBinding::inflate)

@@ -176,52 +176,21 @@ class StatusDisplayOptionsRepository @Inject constructor(
     @VisibleForTesting(otherwise = PRIVATE)
     fun initialStatusDisplayOptions(account: AccountEntity? = null): StatusDisplayOptions {
         return StatusDisplayOptions(
-            animateAvatars = sharedPreferencesRepository.getBoolean(
-                PrefKeys.ANIMATE_GIF_AVATARS,
-                default.animateAvatars,
-            ),
-            animateEmojis = sharedPreferencesRepository.getBoolean(
-                PrefKeys.ANIMATE_CUSTOM_EMOJIS,
-                default.animateEmojis,
-            ),
+            animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, default.animateAvatars),
+            animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, default.animateEmojis),
             mediaPreviewEnabled = account?.mediaPreviewEnabled ?: default.mediaPreviewEnabled,
-            useAbsoluteTime = sharedPreferencesRepository.getBoolean(
-                PrefKeys.ABSOLUTE_TIME_VIEW,
-                default.useAbsoluteTime,
-            ),
-            showBotOverlay = sharedPreferencesRepository.getBoolean(
-                PrefKeys.SHOW_BOT_OVERLAY,
-                default.showBotOverlay,
-            ),
-            useBlurhash = sharedPreferencesRepository.getBoolean(
-                PrefKeys.USE_BLURHASH,
-                default.useBlurhash,
-            ),
-            cardViewMode = if (sharedPreferencesRepository.getBoolean(
-                    PrefKeys.SHOW_CARDS_IN_TIMELINES,
-                    false,
-                )
-            ) {
+            useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, default.useAbsoluteTime),
+            showBotOverlay = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, default.showBotOverlay),
+            useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, default.useBlurhash),
+            cardViewMode = if (sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_CARDS_IN_TIMELINES, false)) {
                 CardViewMode.INDENTED
             } else {
                 default.cardViewMode
             },
-            confirmReblogs = sharedPreferencesRepository.getBoolean(
-                PrefKeys.CONFIRM_REBLOGS,
-                default.confirmReblogs,
-            ),
-            confirmFavourites = sharedPreferencesRepository.getBoolean(
-                PrefKeys.CONFIRM_FAVOURITES,
-                default.confirmFavourites,
-            ),
-            hideStats = sharedPreferencesRepository.getBoolean(
-                PrefKeys.WELLBEING_HIDE_STATS_POSTS,
-                default.hideStats,
-            ),
-            showStatsInline = sharedPreferencesRepository.getBoolean(
-                PrefKeys.SHOW_STATS_INLINE,
-                default.showStatsInline,
-            ),
+            confirmReblogs = sharedPreferencesRepository.getBoolean(PrefKeys.CONFIRM_REBLOGS, default.confirmReblogs),
+            confirmFavourites = sharedPreferencesRepository.getBoolean(PrefKeys.CONFIRM_FAVOURITES, default.confirmFavourites),
+            hideStats = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, default.hideStats),
+            showStatsInline = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_STATS_INLINE, default.showStatsInline),
             showSensitiveMedia = account?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
             openSpoiler = account?.alwaysOpenSpoiler ?: default.openSpoiler,
             canTranslate = default.canTranslate,
