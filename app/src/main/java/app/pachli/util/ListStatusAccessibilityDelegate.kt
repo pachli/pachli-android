@@ -183,7 +183,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             val links = getLinks(status).toList()
             val textLinks = links.map { item -> item.link }
             AlertDialog.Builder(host.context)
-                .setTitle(R.string.title_links_dialog)
+                .setTitle(app.pachli.core.ui.R.string.title_links_dialog)
                 .setAdapter(
                     ArrayAdapter(
                         host.context,
@@ -218,7 +218,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             val status = getStatus(host) as? StatusViewData ?: return
             val tags = getHashtags(status).map { it.subSequence(1, it.length) }.toList()
             AlertDialog.Builder(host.context)
-                .setTitle(R.string.title_hashtags_dialog)
+                .setTitle(app.pachli.core.ui.R.string.title_hashtags_dialog)
                 .setAdapter(
                     ArrayAdapter(
                         host.context,
@@ -330,17 +330,17 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
     private val linksAction = AccessibilityActionCompat(
         R.id.action_links,
-        context.getString(R.string.action_links),
+        context.getString(app.pachli.core.ui.R.string.action_links),
     )
 
     private val mentionsAction = AccessibilityActionCompat(
         R.id.action_mentions,
-        context.getString(R.string.action_mentions),
+        context.getString(app.pachli.core.ui.R.string.action_mentions),
     )
 
     private val hashtagsAction = AccessibilityActionCompat(
         R.id.action_hashtags,
-        context.getString(R.string.action_hashtags),
+        context.getString(app.pachli.core.ui.R.string.action_hashtags),
     )
 
     private val openRebloggerAction = AccessibilityActionCompat(
