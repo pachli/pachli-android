@@ -120,13 +120,13 @@ class ServerRepository @Inject constructor(
 
     sealed class Error(
         @StringRes override val resourceId: Int,
-        override val formatArgs: Array<out String> = emptyArray<String>(),
+        override val formatArgs: Array<out String>? = emptyArray<String>(),
         override val cause: PachliError? = null,
     ) : PachliError {
 
         data class GetWellKnownNodeInfo(val throwable: Throwable) : Error(
             R.string.server_repository_error_get_well_known_node_info,
-            throwable.localizedMessage?.let { arrayOf(it) }.orEmpty(),
+            throwable.localizedMessage?.let { arrayOf(it) },
         )
 
         data object UnsupportedSchema : Error(
@@ -146,7 +146,7 @@ class ServerRepository @Inject constructor(
 
         data class GetInstanceInfoV1(val throwable: Throwable) : Error(
             R.string.server_repository_error_get_instance_info,
-            throwable.localizedMessage?.let { arrayOf(it) }.orEmpty(),
+            throwable.localizedMessage?.let { arrayOf(it) },
         )
 
         data class Capabilities(val error: Server.Error) : Error(
