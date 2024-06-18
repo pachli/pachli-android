@@ -167,15 +167,15 @@ class ComposeAutoCompleteAdapter(
         private const val EMOJI_VIEW_TYPE = 2
 
         private fun formatUsername(result: AutocompleteResult.AccountResult): String {
-            return String.format("@%s", result.account.username)
+            return "@${result.account.username}"
         }
 
         private fun formatHashtag(result: AutocompleteResult.HashtagResult): String {
-            return String.format("#%s", result.hashtag)
+            return "#${result.hashtag}"
         }
 
         private fun formatEmoji(result: AutocompleteResult.EmojiResult): String {
-            return String.format(":%s:", result.emoji.shortcode)
+            return ":${result.emoji.shortcode}:"
         }
     }
 }

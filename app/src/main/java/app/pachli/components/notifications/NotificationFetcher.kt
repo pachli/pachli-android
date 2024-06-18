@@ -147,7 +147,7 @@ class NotificationFetcher @Inject constructor(
      */
     private suspend fun fetchNewNotifications(account: AccountEntity): List<Notification> {
         Timber.d("fetchNewNotifications(%s)", account.fullName)
-        val authHeader = String.format("Bearer %s", account.accessToken)
+        val authHeader = "Bearer ${account.accessToken}"
 
         // Figure out where to read from. Choose the most recent notification ID from:
         //

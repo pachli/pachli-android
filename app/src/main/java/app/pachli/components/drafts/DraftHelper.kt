@@ -175,7 +175,7 @@ class DraftHelper @Inject constructor(
             map.getExtensionFromMimeType(mimeType)
         }
 
-        val filename = String.format("Pachli_Draft_Media_%s_%d.%s", timeStamp, index, fileExtension)
+        val filename = "Pachli_Draft_Media_${timeStamp}_$index.$fileExtension"
         val file = File(folder, filename)
 
         if (scheme == "https") {
