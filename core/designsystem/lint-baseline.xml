@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.3.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.3.0)" variant="all" version="8.3.0">
+<issues format="6" by="lint 8.5.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.5.0)" variant="all" version="8.5.0">
 
     <issue
         id="PrivateResource"
-        message="The resource `@dimen/m3_btn_icon_btn_padding_left` is marked as private in com.google.android.material:material:1.11.0"
+        message="The resource `@dimen/m3_btn_icon_btn_padding_left` is marked as private in com.google.android.material:material:1.12.0"
         errorLine1="        &lt;item name=&quot;android:paddingLeft&quot;>@dimen/m3_btn_icon_btn_padding_left&lt;/item>"
         errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -14,7 +14,7 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@dimen/m3_btn_icon_btn_padding_right` is marked as private in com.google.android.material:material:1.11.0"
+        message="The resource `@dimen/m3_btn_icon_btn_padding_right` is marked as private in com.google.android.material:material:1.12.0"
         errorLine1="        &lt;item name=&quot;android:paddingRight&quot;>@dimen/m3_btn_icon_btn_padding_right&lt;/item>"
         errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
