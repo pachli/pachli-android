@@ -7,4 +7,9 @@
     <string name="button_done">Готово</string>
     <string name="action_view_profile">Профиль</string>
     <string name="action_more">Больше</string>
+    <string name="action_links">Ссылки</string>
+    <string name="action_mentions">Упоминания</string>
+    <string name="action_hashtags">Хэштеги</string>
+    <string name="title_links_dialog">Ссылки</string>
+    <string name="title_hashtags_dialog">Хэштеги</string>
 </resources>

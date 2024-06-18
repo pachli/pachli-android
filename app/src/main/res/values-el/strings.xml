@@ -69,7 +69,6 @@
     <string name="dialog_delete_post_warning">Διαγραφή αυτής της δημοσίευσης;</string>
     <string name="action_unmute">Άρση σίγασης</string>
     <string name="action_favourite">Αγαπημένο</string>
-    <string name="title_links_dialog">Σύνδεσμοι</string>
     <string name="title_notifications">Ειδοποιήσεις</string>
     <string name="action_compose">Γράψτε</string>
     <string name="action_edit_own_profile">Επεξεργασία</string>
@@ -78,7 +77,6 @@
     <string name="dialog_mute_hide_notifications">Απόκρυψη ειδοποιήσεων</string>
     <string name="action_unbookmark">Αφαίρεση σελιδοδείκτη</string>
     <string name="action_content_warning">Προειδοποίηση περιεχομένου</string>
-    <string name="action_links">Σύνδεσμοι</string>
     <string name="action_access_scheduled_posts">Προγραμματισμένες δημοσιεύσεις</string>
     <string name="action_schedule_post">Προγραμματισμός δημοσίευσης</string>
     <string name="title_scheduled_posts">Προγραμματισμένες δημοσιεύσεις</string>

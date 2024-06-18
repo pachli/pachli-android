@@ -8,4 +8,9 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Více</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Odkazy</string>
+    <string name="action_mentions">Zmínky</string>
+    <string name="action_hashtags">Hashtagy</string>
+    <string name="title_links_dialog">Odkazy</string>
+    <string name="title_hashtags_dialog">Hashtagy</string>
 </resources>

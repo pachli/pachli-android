@@ -102,6 +102,7 @@ import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.ScheduledStatusActivityIntent
 import app.pachli.core.navigation.SearchActivityIntent
+import app.pachli.core.navigation.SuggestionsActivityIntent
 import app.pachli.core.navigation.TabPreferenceActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.TrendingActivityIntent
@@ -697,6 +698,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     onClick = {
                         val intent = AccountListActivityIntent(context, AccountListActivityIntent.Kind.FOLLOW_REQUESTS)
                         startActivityWithDefaultTransition(intent)
+                    }
+                },
+                primaryDrawerItem {
+                    nameRes = R.string.action_suggestions
+                    iconicsIcon = GoogleMaterial.Icon.gmd_explore
+                    onClick = {
+                        startActivityWithDefaultTransition(SuggestionsActivityIntent(context))
                     }
                 },
                 SectionDrawerItem().apply {

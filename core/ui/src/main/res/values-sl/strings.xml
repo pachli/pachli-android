@@ -7,4 +7,9 @@
     <string name="button_done">Končano</string>
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Več</string>
+    <string name="action_links">Povezave</string>
+    <string name="action_mentions">Omembe</string>
+    <string name="action_hashtags">Ključniki</string>
+    <string name="title_links_dialog">Povezave</string>
+    <string name="title_hashtags_dialog">Ključniki</string>
 </resources>

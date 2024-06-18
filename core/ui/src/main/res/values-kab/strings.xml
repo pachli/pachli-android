@@ -7,4 +7,9 @@
     <string name="action_more">Ugar</string>
     <string name="action_refresh">Smiren</string>
     <string name="button_done">Immed</string>
+    <string name="action_links">Iseɣwan</string>
+    <string name="action_mentions">Tibdarin</string>
+    <string name="action_hashtags">Ihacṭagen</string>
+    <string name="title_links_dialog">Iseɣwan</string>
+    <string name="title_hashtags_dialog">Ihacṭagen</string>
 </resources>

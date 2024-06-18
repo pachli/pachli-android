@@ -67,7 +67,6 @@
     <string name="action_search">Cari</string>
     <string name="action_access_drafts">Draf</string>
     <string name="action_reset_schedule">Setel Ulang</string>
-    <string name="action_links">Tautan</string>
     <string name="action_details">Detail</string>
     <string name="action_copy_link">Salin tautan</string>
     <string name="download_image">Mengunduh %1$s</string>
@@ -179,13 +178,10 @@
     <string name="action_content_warning">Peringatan konten</string>
     <string name="action_emoji_keyboard">Papan ketik Emoji</string>
     <string name="action_add_tab">Tambah Tab</string>
-    <string name="action_hashtags">Hashtag</string>
     <string name="action_open_reblogger">Buka penulis boost</string>
     <string name="action_open_reblogged_by">Tampilkan boost</string>
     <string name="action_open_faved_by">Tampilkan favorit</string>
     <string name="action_dismiss">Menolak</string>
-    <string name="title_hashtags_dialog">Hashtag</string>
-    <string name="title_links_dialog">Tautan</string>
     <string name="action_open_media_n">Buka media #%d</string>
     <string name="send_media_to">Bagikan media kepada…</string>
     <string name="confirmation_unblocked">Pengguna ter-unblock</string>
@@ -253,7 +249,6 @@
     <string name="action_discard">Buang perubahan</string>
     <string name="action_continue_edit">Lanjutkan pengeditan</string>
     <string name="action_send_public">TOOT!</string>
-    <string name="action_mentions">Menyebutkan</string>
     <string name="action_translate">Terjemah</string>
     <string name="action_translate_undo">Batalkan terjemahan</string>
     <string name="title_mentions_dialog">Menyebutkan</string>

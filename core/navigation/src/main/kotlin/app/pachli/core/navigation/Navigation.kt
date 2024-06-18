@@ -614,6 +614,12 @@ class SearchActivityIntent(context: Context) : Intent() {
     }
 }
 
+class SuggestionsActivityIntent(context: Context) : Intent() {
+    init {
+        setClassName(context, QuadrantConstants.SUGGESTIONS_ACTIVITY)
+    }
+}
+
 class TabPreferenceActivityIntent(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.TAB_PREFERENCE_ACTIVITY)

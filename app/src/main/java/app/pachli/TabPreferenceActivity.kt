@@ -241,7 +241,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
 
         val editText = AppCompatEditText(this)
         editText.setHint(R.string.edit_hashtag_hint)
-        editText.setText("")
+        editText.text?.clear()
         frameLayout.addView(editText)
 
         val dialog = AlertDialog.Builder(this)

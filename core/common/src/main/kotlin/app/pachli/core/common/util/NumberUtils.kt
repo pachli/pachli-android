@@ -17,6 +17,7 @@
 
 package app.pachli.core.common.util
 
+import androidx.core.os.LocaleListCompat
 import java.text.NumberFormat
 import kotlin.math.abs
 import kotlin.math.ln
@@ -38,6 +39,8 @@ fun formatNumber(num: Long, min: Int = 100000): String {
 
     val exp = (ln(absNum.toDouble()) / ln_1k).toInt()
 
-    // Suffixes here are locale-agnostic
-    return String.format("%.1f%c", num / 1000.0.pow(exp.toDouble()), "KMGTPE"[exp - 1])
+    // Formatting of the number is locale-specific, but the suffixes
+    // are locale-agnostic.
+    val locale = LocaleListCompat.getAdjustedDefault()[0]
+    return String.format(locale, "%.1f%c", num / 1000.0.pow(exp.toDouble()), "KMGTPE"[exp - 1])
 }

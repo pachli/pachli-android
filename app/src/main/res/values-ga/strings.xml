@@ -93,12 +93,9 @@
     <string name="action_copy_link">Cóipeáil an nasc</string>
     <string name="download_image">Ag íoslódáil %1$s</string>
     <string name="action_open_media_n">Meáin oscailte #%d</string>
-    <string name="title_links_dialog">Naisc Ghréasáin</string>
     <string name="action_open_faved_by">Taispeáin toghanna</string>
     <string name="action_open_reblogged_by">Taispeáin athchraolta</string>
     <string name="action_open_reblogger">Oscail údar an athchraolta</string>
-    <string name="action_mentions">Buaicphointí</string>
-    <string name="action_links">Naisc ghréasáin</string>
     <string name="action_add_tab">Cuir Tab leis</string>
     <string name="action_schedule_post">Sceidealaigh Postáil</string>
     <string name="action_emoji_keyboard">Méarchlár Emoji</string>
@@ -228,8 +225,6 @@
     <string name="notification_favourite_format">Thogh %s do phostáil</string>
     <string name="action_unmute_desc">Unmute %s</string>
     <string name="action_mute_conversation">Comhrá tost</string>
-    <string name="action_hashtags">Clibeanna hash</string>
-    <string name="title_hashtags_dialog">Hashtags</string>
     <string name="post_media_video">Físeán</string>
     <string name="state_follow_requested">Lean iarrtha</string>
     <string name="follows_you">Leanann tú</string>

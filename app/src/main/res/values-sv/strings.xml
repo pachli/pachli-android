@@ -89,15 +89,10 @@
     <string name="action_content_warning">Innehållsvarning</string>
     <string name="action_emoji_keyboard">Emoji-tangentbord</string>
     <string name="action_add_tab">Lägg till flik</string>
-    <string name="action_links">Länkar</string>
-    <string name="action_mentions">Omnämnanden</string>
-    <string name="action_hashtags">Hashtaggar</string>
     <string name="action_open_reblogger">Öppna knuff författare</string>
     <string name="action_open_reblogged_by">Visa knuffar</string>
     <string name="action_open_faved_by">Visa favoriter</string>
-    <string name="title_hashtags_dialog">Hashtaggar</string>
     <string name="title_mentions_dialog">Omnämnanden</string>
-    <string name="title_links_dialog">Länkar</string>
     <string name="action_open_media_n">Öppna media #%d</string>
     <string name="download_image">Laddar ned %1$s</string>
     <string name="action_copy_link">Kopiera länk</string>

@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli
+package app.pachli.core.ui
 
 import android.content.Context
 import android.text.SpannableStringBuilder
@@ -26,12 +26,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.core.activity.BottomSheetActivity.Companion.looksLikeMastodonUrl
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status
-import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.R
-import app.pachli.core.ui.getDomain
-import app.pachli.core.ui.getTagName
-import app.pachli.core.ui.markupHiddenUrls
-import app.pachli.core.ui.setClickableText
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
