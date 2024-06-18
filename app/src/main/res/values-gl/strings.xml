@@ -420,15 +420,10 @@
     <string name="action_copy_link">Copiar ligazón</string>
     <string name="download_image">Descargando %1$s</string>
     <string name="action_open_media_n">Abrir multimedia #%d</string>
-    <string name="title_links_dialog">Ligazóns</string>
     <string name="title_mentions_dialog">Mencións</string>
-    <string name="title_hashtags_dialog">Cancelos</string>
     <string name="action_open_faved_by">Mostrar favoritos</string>
     <string name="action_open_reblogged_by">Mostrar promocións</string>
     <string name="action_open_reblogger">Abrir autor da promoción</string>
-    <string name="action_hashtags">Cancelos</string>
-    <string name="action_mentions">Mencións</string>
-    <string name="action_links">Ligazóns</string>
     <string name="action_add_tab">Engadir lapela</string>
     <string name="action_reset_schedule">Restablecer</string>
     <string name="action_schedule_post">Programar Toot</string>
@@ -546,7 +541,6 @@
     <string name="hint_filter_title">O meu filtro</string>
     <string name="notification_unknown_name">Descoñecido</string>
     <string name="socket_timeout_exception">Estamos tardando demasiado en conectar co servidor</string>
-    <string name="ui_error_unknown">razón descoñecida</string>
     <string name="ui_error_bookmark_fmt">Fallou engadir a marcadores: %1$s</string>
     <string name="ui_error_clear_notifications">Fallou a limpeza das notificacións: %s</string>
     <string name="ui_error_vote_fmt">Fallou a votación na enquisa: %1$s</string>

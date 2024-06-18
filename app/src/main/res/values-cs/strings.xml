@@ -89,15 +89,10 @@
     <string name="action_content_warning">Varování o obsahu</string>
     <string name="action_emoji_keyboard">Klávesnice s emoji</string>
     <string name="action_add_tab">Přidat panel</string>
-    <string name="action_links">Odkazy</string>
-    <string name="action_mentions">Zmínky</string>
-    <string name="action_hashtags">Hashtagy</string>
     <string name="action_open_reblogger">Otevřít autora boostu</string>
     <string name="action_open_reblogged_by">Zobrazit boosty</string>
     <string name="action_open_faved_by">Zobrazit oblíbení</string>
-    <string name="title_hashtags_dialog">Hashtagy</string>
     <string name="title_mentions_dialog">Zmínky</string>
-    <string name="title_links_dialog">Odkazy</string>
     <string name="action_open_media_n">Otevřít médium #%d</string>
     <string name="download_image">Stahuji %1$s</string>
     <string name="action_copy_link">Zkopírovat odkaz</string>

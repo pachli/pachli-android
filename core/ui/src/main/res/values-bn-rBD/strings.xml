@@ -7,4 +7,9 @@
     <string name="button_done">সম্পন্ন</string>
     <string name="action_view_profile">প্রোফাইল</string>
     <string name="action_more">অধিক</string>
+    <string name="action_links">লিংকসমূহ</string>
+    <string name="action_mentions">উল্লেখসমূহ</string>
+    <string name="action_hashtags">হ্যাশট্যাগ</string>
+    <string name="title_links_dialog">লিংকসমূহ</string>
+    <string name="title_hashtags_dialog">হ্যাশট্যাগ</string>
 </resources>

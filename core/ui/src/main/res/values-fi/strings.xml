@@ -9,4 +9,9 @@
     <string name="action_more">Enemmän</string>
     <string name="action_refresh">Päivitä</string>
     <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="action_links">Linkit</string>
+    <string name="action_mentions">Maininnat</string>
+    <string name="action_hashtags">Aihetunnisteet</string>
+    <string name="title_links_dialog">Linkit</string>
+    <string name="title_hashtags_dialog">Aihetunnisteet</string>
 </resources>

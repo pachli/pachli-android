@@ -251,12 +251,9 @@
     <string name="action_schedule_post">Tuta programatu</string>
     <string name="action_reset_schedule">Berrezarri</string>
     <string name="action_add_tab">Kategoria gehitu</string>
-    <string name="action_links">Estekak</string>
-    <string name="action_mentions">Aipamenak</string>
     <string name="action_open_reblogged_by">Bultzadak erakutsi</string>
     <string name="action_open_faved_by">Gogokoak erakutsi</string>
     <string name="title_mentions_dialog">Aipamenak</string>
-    <string name="title_links_dialog">Estekak</string>
     <string name="action_open_media_n">Ireki media #%d</string>
     <string name="action_share_as">… bezala partekatu</string>
     <string name="download_media">Media jaisten</string>
@@ -274,8 +271,6 @@
     <string name="notification_poll_name">Galdeketak</string>
     <string name="notification_poll_description">Bukatutako galdeketen jakinarazpenak</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="action_hashtags">Traolak</string>
-    <string name="title_hashtags_dialog">Traolak</string>
     <string name="abbreviated_hours_ago">%dh</string>
     <string name="abbreviated_minutes_ago">%dm</string>
     <string name="abbreviated_seconds_ago">%ds</string>

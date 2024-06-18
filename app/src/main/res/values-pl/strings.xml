@@ -231,13 +231,8 @@
     <string name="action_unfavourite">Usuń z ulubionych</string>
     <string name="action_delete_and_redraft">Usuń i przeredaguj</string>
     <string name="action_view_account_preferences">Ustawienia konta</string>
-    <string name="action_links">Linki</string>
-    <string name="action_mentions">Wzmianki</string>
-    <string name="action_hashtags">Hashtagi</string>
     <string name="action_open_faved_by">Pokaż ulubione</string>
-    <string name="title_hashtags_dialog">Hashtagi</string>
     <string name="title_mentions_dialog">Wzmianki</string>
-    <string name="title_links_dialog">Linki</string>
     <string name="action_share_as">Udostępnij jako …</string>
     <string name="title_tab_preferences">Zakładki</string>
     <string name="title_domain_mutes">Ukryte domeny</string>
@@ -582,7 +577,6 @@
     <string name="total_usage">Całkowite użycie</string>
     <string name="filter_keyword_addition_title">Dodaj słowo kluczowe</string>
     <string name="hint_description">Opis</string>
-    <string name="ui_error_unknown">nieznany powód</string>
     <string name="confirmation_hashtag_muted">Ukryto #%s</string>
     <string name="title_tab_public_trending_statuses">Wpisy</string>
     <string name="filter_description_hide">Ukryj całkowicie</string>

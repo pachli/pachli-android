@@ -88,10 +88,6 @@
     <string name="action_content_warning">注意書き</string>
     <string name="action_emoji_keyboard">絵文字キーボード</string>
     <string name="action_add_tab">タブの追加</string>
-    <string name="action_links">リンク</string>
-    <string name="action_hashtags">ハッシュタグ</string>
-    <string name="title_hashtags_dialog">ハッシュタグ</string>
-    <string name="title_links_dialog">リンク</string>
     <string name="download_image">%1$s をダウンロードしています</string>
     <string name="action_copy_link">リンクをコピー</string>
     <string name="action_share_as">共有先…</string>
@@ -300,7 +296,6 @@
     <string name="notification_poll_description">投票の集計が完了したときの通知</string>
     <string name="pref_title_thread_filter_keywords">スレッド</string>
     <string name="action_add_poll">投票</string>
-    <string name="action_mentions">返信</string>
     <string name="title_mentions_dialog">返信</string>
     <string name="dialog_redraft_post_warning">この投稿を削除し、下書きに戻しますか？</string>
     <string name="filter_dialog_remove_button">削除</string>
@@ -564,7 +559,6 @@
     <string name="filter_keyword_addition_title">キーワードを追加</string>
     <string name="total_usage">合計使用量</string>
     <string name="total_accounts">総アカウント</string>
-    <string name="ui_error_unknown">不明な理由</string>
     <string name="ui_error_accept_follow_request">フォローリクエストの承認に失敗しました: %s</string>
     <string name="ui_error_reject_follow_request">フォローリクエストの拒否に失敗しました: %s</string>
     <string name="hint_filter_title">フィルター</string>

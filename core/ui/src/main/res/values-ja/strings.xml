@@ -9,4 +9,9 @@
     <string name="action_more">その他</string>
     <string name="action_refresh">再読み込み</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">リンク</string>
+    <string name="action_mentions">返信</string>
+    <string name="action_hashtags">ハッシュタグ</string>
+    <string name="title_links_dialog">リンク</string>
+    <string name="title_hashtags_dialog">ハッシュタグ</string>
 </resources>

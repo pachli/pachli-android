@@ -9,4 +9,9 @@
     <string name="action_more">Meira</string>
     <string name="action_refresh">Endurlesa</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Tenglar</string>
+    <string name="action_mentions">Tilvísanir</string>
+    <string name="action_hashtags">Myllumerki</string>
+    <string name="title_links_dialog">Tenglar</string>
+    <string name="title_hashtags_dialog">Myllumerki</string>
 </resources>

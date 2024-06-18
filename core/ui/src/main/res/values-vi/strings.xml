@@ -9,4 +9,9 @@
     <string name="action_more">Thêm</string>
     <string name="action_refresh">Làm mới</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Links</string>
+    <string name="action_mentions">Lượt nhắc tới</string>
+    <string name="action_hashtags">Hashtag</string>
+    <string name="title_links_dialog">Links</string>
+    <string name="title_hashtags_dialog">Hashtag</string>
 </resources>

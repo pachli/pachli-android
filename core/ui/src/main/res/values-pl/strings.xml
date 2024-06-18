@@ -9,4 +9,9 @@
     <string name="action_more">Więcej</string>
     <string name="action_refresh">Odśwież</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Linki</string>
+    <string name="action_mentions">Wzmianki</string>
+    <string name="action_hashtags">Hashtagi</string>
+    <string name="title_links_dialog">Linki</string>
+    <string name="title_hashtags_dialog">Hashtagi</string>
 </resources>

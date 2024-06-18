@@ -232,15 +232,10 @@
     <string name="action_unfavourite">Suprimir lo favorit</string>
     <string name="action_view_account_preferences">Preferéncias del compte</string>
     <string name="action_add_tab">Ajustar un onglet</string>
-    <string name="action_links">Ligams</string>
-    <string name="action_mentions">Mencions</string>
-    <string name="action_hashtags">Etiquetas</string>
     <string name="action_open_reblogger">Dobrir l’autor del partatge</string>
     <string name="action_open_reblogged_by">Mostrar los retuts</string>
     <string name="action_open_faved_by">Mostrar los favorits</string>
-    <string name="title_hashtags_dialog">Etiquetas</string>
     <string name="title_mentions_dialog">Mencions</string>
-    <string name="title_links_dialog">Ligams</string>
     <string name="action_open_media_n">Dobrir lo mèdia #%d</string>
     <string name="action_share_as">Partejar coma…</string>
     <string name="download_media">Telecargar lo mèdia</string>
@@ -554,7 +549,6 @@
     <string name="status_filtered_show_anyway">Afichar ça que la</string>
     <string name="status_filter_placeholder_label_format">Filtrat : %s</string>
     <string name="pref_title_account_filter_keywords">Perfils</string>
-    <string name="ui_error_unknown">rason desconeguda</string>
     <string name="hint_filter_title">Mon filtre</string>
     <string name="label_filter_title">Títol</string>
     <string name="filter_action_warn">Avís</string>

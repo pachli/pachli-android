@@ -175,13 +175,8 @@
     <string name="action_toggle_visibility">Visibilitat de la publicació</string>
     <string name="action_content_warning">Contingut sensible</string>
     <string name="action_add_tab">Afegir una pestanya</string>
-    <string name="action_links">Enllaços</string>
-    <string name="action_mentions">Mencions</string>
-    <string name="action_hashtags">Hashtags</string>
     <string name="action_open_faved_by">Mostra els favorits</string>
-    <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Mencions</string>
-    <string name="title_links_dialog">Enllaç</string>
     <string name="action_share_as">Comparteix com a…</string>
     <string name="download_media">Baixa el fitxer</string>
     <string name="send_media_to">Compartir la imatge a …</string>
@@ -547,5 +542,4 @@
     <string name="pref_title_account_filter_keywords">Perfils</string>
     <string name="status_filtered_show_anyway">Mostra de totes maneres</string>
     <string name="socket_timeout_exception">El contacte amb el teu servidor ha trigat massa</string>
-    <string name="ui_error_unknown">motiu desconegut</string>
 </resources>

@@ -9,4 +9,9 @@
     <string name="action_more">Més</string>
     <string name="action_refresh">Actualitzar</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="action_links">Enllaços</string>
+    <string name="action_mentions">Mencions</string>
+    <string name="action_hashtags">Hashtags</string>
+    <string name="title_links_dialog">Enllaç</string>
+    <string name="title_hashtags_dialog">Hashtags</string>
 </resources>

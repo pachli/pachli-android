@@ -72,15 +72,10 @@
     <string name="action_copy_link">Chép URL</string>
     <string name="download_image">Đang tải %1$s</string>
     <string name="action_open_media_n">Mở tập tin #%d</string>
-    <string name="title_links_dialog">Links</string>
     <string name="title_mentions_dialog">Lượt nhắc tới</string>
-    <string name="title_hashtags_dialog">Hashtag</string>
     <string name="action_open_faved_by">Xem lượt thích</string>
     <string name="action_open_reblogged_by">Xem lượt đăng lại</string>
     <string name="action_open_reblogger">Xem lượt đăng lại</string>
-    <string name="action_hashtags">Hashtag</string>
-    <string name="action_mentions">Lượt nhắc tới</string>
-    <string name="action_links">Links</string>
     <string name="action_add_tab">Thêm Tab</string>
     <string name="action_schedule_post">Lên lịch</string>
     <string name="action_emoji_keyboard">Emoji</string>
@@ -530,7 +525,6 @@
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="notification_unknown_name">Chưa biết</string>
     <string name="socket_timeout_exception">Mất thời gian kết nối quá lâu</string>
-    <string name="ui_error_unknown">chưa rõ lý do</string>
     <string name="ui_error_bookmark_fmt">Lưu tút không thành công: %1$s</string>
     <string name="ui_error_clear_notifications">Xóa thông báo không thành công: %s</string>
     <string name="ui_error_favourite_fmt">Thích tút không thành công: %1$s</string>

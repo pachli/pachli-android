@@ -44,6 +44,6 @@ dependencies {
     // Some views inherit from AndroidX views
     implementation(libs.bundles.androidx)
 
-    implementation(libs.material.iconics)
-    implementation(libs.material.typeface)
+    api(libs.material.iconics)
+    api(libs.material.typeface)
 }

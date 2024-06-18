@@ -244,15 +244,10 @@
     <string name="action_add_poll">افزودن نظرسنجی</string>
     <string name="action_mute_domain">خموشی %s</string>
     <string name="action_add_tab">افزودن زبانه</string>
-    <string name="action_links">پیوندها</string>
-    <string name="action_mentions">اشاره‌ها</string>
-    <string name="action_hashtags">برچسب‌ها</string>
     <string name="action_open_reblogger">گشودن تقویت‌کنندهٔ بوق</string>
     <string name="action_open_reblogged_by">نمایش تقویت‌ها</string>
     <string name="action_open_faved_by">نمایش برگزیده‌ها</string>
-    <string name="title_hashtags_dialog">برچسب‌ها</string>
     <string name="title_mentions_dialog">اشاره‌ها</string>
-    <string name="title_links_dialog">پیوندها</string>
     <string name="action_open_media_n">گشودن رسانه #%d</string>
     <string name="action_share_as">هم‌رسانی به عنوان …</string>
     <string name="download_media">بارگیری رسانه</string>
@@ -547,7 +542,6 @@
     <string name="dialog_follow_hashtag_hint">#برچسب</string>
     <string name="notification_unknown_name">ناشناخته</string>
     <string name="socket_timeout_exception">تماس با کارسازتان بیش از حد طول کشید</string>
-    <string name="ui_error_unknown">دلیل نامعلوم</string>
     <string name="ui_error_bookmark_fmt">%1$s: نشانک گذاری فرسته شکست خورد</string>
     <string name="ui_error_clear_notifications">پاک سازی آگاهی‌ها شکست خورد: %s</string>
     <string name="ui_error_favourite_fmt">%1$s: برگزیدن فرسته شکست خورد</string>

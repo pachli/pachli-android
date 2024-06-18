@@ -111,14 +111,10 @@
     <string name="confirmation_reported">भेज दिया!</string>
     <string name="downloading_media">मीडिया डाउनलोड हो रहा है</string>
     <string name="download_media">मीडिया डाउनलोड करें</string>
-    <string name="title_links_dialog">लिंक</string>
     <string name="action_copy_link">लिंक कॉपी करें</string>
     <string name="action_open_media_n">मीडिया खोलें #%d</string>
     <string name="title_mentions_dialog">ज़िक्र</string>
-    <string name="title_hashtags_dialog">हैशटैग</string>
     <string name="action_open_faved_by">पसंदीदा दिखाएँ</string>
-    <string name="action_hashtags">हैशटैग</string>
-    <string name="action_mentions">ज़िक्र</string>
     <string name="action_add_tab">ऐड टैब</string>
     <string name="action_schedule_post">अनुसूची टूट</string>
     <string name="action_emoji_keyboard">इमोजी कीबोर्ड</string>
@@ -315,7 +311,6 @@
     <string name="send_post_link_to">टूट यूआरएल को साझा करें …</string>
     <string name="action_share_as">साझा करें …</string>
     <string name="download_image">%1$s डाउनलोड हो रहा है</string>
-    <string name="action_links">लिंक</string>
     <string name="action_unmute_desc">अनम्यूट %s</string>
     <string name="action_view_domain_mutes">छिपे हुए डोमेन</string>
     <string name="action_view_blocks">रोके गए उपयोगकर्ता</string>

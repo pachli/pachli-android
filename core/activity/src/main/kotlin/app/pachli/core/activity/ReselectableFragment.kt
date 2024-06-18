@@ -1,4 +1,4 @@
-package app.pachli.interfaces
+package app.pachli.core.activity
 
 interface ReselectableFragment {
     /**

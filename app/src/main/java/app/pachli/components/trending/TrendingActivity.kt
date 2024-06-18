@@ -30,12 +30,12 @@ import app.pachli.TabViewData
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.model.Timeline
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityTrendingBinding
 import app.pachli.interfaces.AppBarLayoutHost
-import app.pachli.interfaces.ReselectableFragment
 import app.pachli.pager.MainPagerAdapter
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout

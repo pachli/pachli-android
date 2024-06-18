@@ -174,20 +174,16 @@
     <string name="action_schedule_post">Schedule Post</string>
     <string name="action_reset_schedule">Reset</string>
     <string name="action_add_tab">Add Tab</string>
-    <string name="action_links">Links</string>
-    <string name="action_mentions">Mentions</string>
-    <string name="action_hashtags">Hashtags</string>
     <string name="action_open_reblogger">Open boost author</string>
     <string name="action_open_reblogged_by">Show boosts</string>
     <string name="action_open_faved_by">Show favorites</string>
     <string name="action_dismiss">Dismiss</string>
     <string name="action_details">Details</string>
     <string name="action_add_reaction">add reaction</string>
+    <string name="action_suggestions">Suggested accounts</string>
     <string name="action_translate">Translate</string>
     <string name="action_translate_undo">Undo translate</string>
-    <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Mentions</string>
-    <string name="title_links_dialog">Links</string>
     <string name="action_open_media_n">Open media #%d</string>
     <string name="download_image">Downloading %1$s</string>
     <string name="action_copy_link">Copy the link</string>
@@ -635,7 +631,6 @@
     <!-- User friendly error messages for different network errors -->
     <string name="socket_timeout_exception">Contacting your server took too long</string>
     <!-- Error messages, displayed in snackbars, when something failed -->
-    <string name="ui_error_unknown">unknown reason</string>
     <string name="ui_error_bookmark_fmt">Bookmarking post failed: %1$s</string>
     <string name="ui_error_clear_notifications">Clearing notifications failed: %s</string>
     <string name="ui_error_favourite_fmt">Favoriting post failed: %1$s</string>

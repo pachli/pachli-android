@@ -242,8 +242,6 @@
     <string name="action_view_domain_mutes">Parthau cudd</string>
     <string name="action_mute_domain">Tewi %s</string>
     <string name="action_add_tab">Ychwanegu tab</string>
-    <string name="action_links">Dolenni</string>
-    <string name="title_links_dialog">Dolenni</string>
     <string name="action_open_reblogged_by">Dangos hybiau</string>
     <string name="notification_follow_request_name">Ceisiadau i\'ch dilyn</string>
     <string name="action_bookmark">Tudalnodi</string>
@@ -276,7 +274,6 @@
     <string name="confirmation_domain_unmuted">%s wedi ei amlygu</string>
     <string name="action_access_scheduled_posts">Negeseuon a amserlennwyd</string>
     <string name="action_schedule_post">Amserlennu Neges</string>
-    <string name="action_mentions">Crybwylliadau</string>
     <string name="dialog_mute_warning">Tewi @%s\?</string>
     <string name="dialog_mute_hide_notifications">Cuddio hysbysiadau</string>
     <string name="pref_title_notification_filter_sign_ups">mae rhywun wedi cofrestru</string>
@@ -313,7 +310,6 @@
     <string name="error_image_edit_failed">Methu golygu\'r ddelwedd.</string>
     <string name="description_post_favourited">Hoffwyd</string>
     <string name="saving_draft">Yn cadw drafft…</string>
-    <string name="action_hashtags">Hashnodau</string>
     <string name="action_dismiss">Diystyru</string>
     <string name="action_details">Manylion</string>
     <string name="title_mentions_dialog">Crybwylliadau</string>
@@ -329,7 +325,6 @@
     <string name="pref_failed_to_sync">Methu cydweddu gosodiadau</string>
     <string name="pref_main_nav_position_option_top">Brig</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="title_hashtags_dialog">Hashnodau</string>
     <string name="pref_main_nav_position_option_bottom">Gwaelod</string>
     <string name="action_open_faved_by">Dangos ffefrynnau</string>
     <string name="report_description_1">Bydd yr adroddiad yn cael ei anfon at reolwr eich gweinydd. Gallwch esbonio pam rydych chi\'n adrodd ar y cyfrif hwn isod:</string>
@@ -594,7 +589,6 @@
     <string name="status_filter_placeholder_label_format">Hidlwyd: %s</string>
     <string name="pref_title_account_filter_keywords">Proffiliau</string>
     <string name="socket_timeout_exception">Cymrodd hi\'n rhy hir i gysylltu â\'ch gweinydd</string>
-    <string name="ui_error_unknown">rheswm anhysbys</string>
     <string name="ui_error_bookmark_fmt">Methodd tudalnodi\'r neges: %1$s</string>
     <string name="ui_error_clear_notifications">Methodd clirio hysbysiadau: %s</string>
     <string name="ui_error_favourite_fmt">Methodd hoffi\'r neges: %1$s</string>

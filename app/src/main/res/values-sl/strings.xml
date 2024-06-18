@@ -86,13 +86,10 @@
     <string name="action_content_warning">Opozorilo o vsebini</string>
     <string name="action_emoji_keyboard">Tipkovnica z emotikoni</string>
     <string name="action_add_tab">Dodaj zavihek</string>
-    <string name="action_links">Povezave</string>
-    <string name="action_mentions">Omembe</string>
     <string name="action_open_reblogger">Odpri spodbujenega avtorja</string>
     <string name="action_open_reblogged_by">Prikaži spodbude</string>
     <string name="action_open_faved_by">Prikaži priljubljene</string>
     <string name="title_mentions_dialog">Omembe</string>
-    <string name="title_links_dialog">Povezave</string>
     <string name="action_open_media_n">Odpri medij #%d</string>
     <string name="download_image">Prejemanje %1$s</string>
     <string name="action_copy_link">Kopiraj povezavo</string>
@@ -116,8 +113,6 @@
     <string name="label_header">Glava</string>
     <string name="action_unfavourite">Odstrani priljubljene</string>
     <string name="action_unmute">Prekini utišanje</string>
-    <string name="action_hashtags">Ključniki</string>
-    <string name="title_hashtags_dialog">Ključniki</string>
     <string name="confirmation_unblocked">Odblokiran uporabnik</string>
     <string name="confirmation_unmuted">Prekinjeno utišanje uporabnika</string>
     <string name="dialog_title_finishing_media_upload">Dokončanje pošiljanja medija</string>

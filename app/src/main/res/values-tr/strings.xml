@@ -261,11 +261,7 @@
     <string name="action_unfavourite">Gözdeyi kaldır</string>
     <string name="action_view_domain_mutes">Gizli alan adları</string>
     <string name="action_mute_domain">%s alan adını sessize al</string>
-    <string name="action_links">Bağlantılar</string>
-    <string name="action_hashtags">Etiketler</string>
     <string name="action_open_faved_by">Gözdeleri göster</string>
-    <string name="title_hashtags_dialog">Etiketler</string>
-    <string name="title_links_dialog">Bağlantılar</string>
     <string name="download_media">Medya indir</string>
     <string name="downloading_media">Medya indiriliyor</string>
     <string name="mute_domain_warning">%s\? alan adından gelen her şeyi engellemek istediğinden emin misin\? Bu alan adından gelen içeriği herhangi bir genel zaman tünelinde veya bildirimlerinde göremezsiniz. Bu alan adındaki takipçilerin de kaldırılacak.</string>
@@ -336,7 +332,6 @@
     <string name="failed_fetch_posts">Yayınlar getirilemedi</string>
     <string name="report_description_1">Bildirim sunucu yöneticinize gönderilecektir. Bu hesabı neden bildirdiğinizle ilgili açıklama yapabilirsiniz:</string>
     <string name="report_description_remote_instance">Hesap başka bir sunucudan. Raporun anonim bir kopyasını da oraya gönderilsin mi\?</string>
-    <string name="action_mentions">Bahsedenler</string>
     <string name="action_open_reblogger">Gönderi yazanını aç</string>
     <string name="action_open_reblogged_by">Yeniden paylaşımları göster</string>
     <string name="title_mentions_dialog">Bahsedenler</string>
@@ -544,7 +539,6 @@
     <string name="action_post_failed_do_nothing">Yoksay</string>
     <string name="notification_unknown_name">Bilinmeyen</string>
     <string name="socket_timeout_exception">Sunucuyla bağlantı kurmak çok uzun sürdü</string>
-    <string name="ui_error_unknown">bilinmeyen sebep</string>
     <string name="ui_error_bookmark_fmt">Yer imi gönderisi başarısız oldu: %1$s</string>
     <string name="ui_error_vote_fmt">Ankete oy gönderilemedi: %1$s</string>
     <string name="ui_error_clear_notifications">Bildirimler temizlenemedi: %s</string>

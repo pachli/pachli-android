@@ -38,6 +38,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.components.trending.viewmodel.TrendingTagsViewModel
 import app.pachli.core.activity.RefreshableFragment
+import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -48,7 +49,6 @@ import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTrendingTagsBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
-import app.pachli.interfaces.ReselectableFragment
 import app.pachli.viewdata.TrendingViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors

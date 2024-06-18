@@ -79,15 +79,12 @@
     <string name="action_access_drafts">Чарнавікі</string>
     <string name="action_access_scheduled_posts">Запланаваныя допісы</string>
     <string name="action_toggle_visibility">Бачнасць допісаў</string>
-    <string name="action_hashtags">Хэштэгі</string>
     <string name="action_open_reblogger">Адкрыць аўтара пашырэння</string>
     <string name="action_open_reblogged_by">Паказаць пашырэнні</string>
     <string name="action_open_faved_by">Паказаць абраныя</string>
-    <string name="title_hashtags_dialog">Хэштэгі</string>
     <string name="title_mentions_dialog">Згадкі</string>
     <string name="action_dismiss">Адхіліць</string>
     <string name="action_details">Дэталі</string>
-    <string name="title_links_dialog">Спасылкі</string>
     <string name="action_open_media_n">Адкрыць медыя #%d</string>
     <string name="action_add_reaction">дадаць рэакцыю</string>
     <string name="download_image">Спампоўка %1$s</string>
@@ -217,8 +214,6 @@
     <string name="action_schedule_post">Запланаваць допіс</string>
     <string name="action_reset_schedule">Скінуць</string>
     <string name="action_add_tab">Дадаць укладку</string>
-    <string name="action_links">Спасылкі</string>
-    <string name="action_mentions">Згадкі</string>
     <string name="action_copy_link">Капіяваць спасылку</string>
     <string name="confirmation_unmuted">Прыхоўванне карыстальніка скасавана</string>
     <string name="confirmation_domain_unmuted">%s адкрыты</string>
@@ -578,7 +573,6 @@
     <string name="ui_success_accepted_follow_request">Запыт на падпіску пацверджаны</string>
     <string name="ui_success_rejected_follow_request">Запыт на падпіску заблакіраваны</string>
     <string name="ui_error_clear_notifications">Не атрымалася ачысціць апавяшчэнні: %s</string>
-    <string name="ui_error_unknown">невядомая прычына</string>
     <string name="label_filter_title">Загаловак</string>
     <string name="filter_action_hide">Схаваць</string>
     <string name="filter_description_hide">Схаваць поўнасцю</string>

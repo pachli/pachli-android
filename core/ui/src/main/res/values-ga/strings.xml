@@ -7,4 +7,9 @@
     <string name="button_done">Déanta</string>
     <string name="action_view_profile">Próifíl</string>
     <string name="action_more">Níos mó</string>
+    <string name="action_links">Naisc ghréasáin</string>
+    <string name="action_mentions">Buaicphointí</string>
+    <string name="action_hashtags">Clibeanna hash</string>
+    <string name="title_links_dialog">Naisc Ghréasáin</string>
+    <string name="title_hashtags_dialog">Hashtags</string>
 </resources>

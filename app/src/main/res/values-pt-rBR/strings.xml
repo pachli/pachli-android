@@ -85,12 +85,9 @@
     <string name="action_content_warning">Aviso de conteúdo</string>
     <string name="action_emoji_keyboard">Teclado de Emojis</string>
     <string name="action_add_tab">Adicionar aba</string>
-    <string name="action_links">URL</string>
-    <string name="action_mentions">Menções</string>
     <string name="action_open_reblogged_by">Mostrar Boosts</string>
     <string name="action_open_faved_by">Mostrar favoritos</string>
     <string name="title_mentions_dialog">Menções</string>
-    <string name="title_links_dialog">Links</string>
     <string name="download_image">Baixando %1$s</string>
     <string name="action_copy_link">Copiar URL</string>
     <string name="action_share_as">Compartilhar como…</string>
@@ -252,9 +249,7 @@
     <string name="post_content_show_less">Mostrar menos</string>
     <string name="action_delete_and_redraft">Excluir e rascunhar</string>
     <string name="action_view_account_preferences">Preferências da conta</string>
-    <string name="action_hashtags">Hashtags</string>
     <string name="action_open_reblogger">Ver quem deu Boost</string>
-    <string name="title_hashtags_dialog">Hashtags</string>
     <string name="action_open_media_n">Abrir mídia #%d</string>
     <string name="download_media">Baixar mídia</string>
     <string name="downloading_media">Baixando mídia</string>
@@ -589,7 +584,6 @@
     <string name="hint_description">Descrição</string>
     <string name="notification_report_format">Nova denúncia sobre %s</string>
     <string name="pref_title_show_stat_inline">Mostrar estatísticas do Toot na linha do tempo</string>
-    <string name="ui_error_unknown">causa desconhecida</string>
     <string name="ui_error_filter_v1_load_fmt">Falha ao carregar os filtros: %1$s</string>
     <string name="notification_sign_up_name">Inscrições</string>
     <string name="confirmation_hashtag_muted">#%s oculto</string>

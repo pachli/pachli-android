@@ -90,14 +90,9 @@
     <string name="action_content_warning">Inhaltswarnung</string>
     <string name="action_emoji_keyboard">Emoji-Tastatur</string>
     <string name="action_add_tab">Tab hinzufügen</string>
-    <string name="action_links">Links</string>
-    <string name="action_mentions">Erwähnungen</string>
-    <string name="action_hashtags">Hashtags</string>
     <string name="action_open_reblogged_by">Geteilte Beiträge anzeigen</string>
     <string name="action_open_faved_by">Favoriten anzeigen</string>
-    <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Erwähnungen</string>
-    <string name="title_links_dialog">Links</string>
     <string name="action_open_media_n">Datei #%d öffnen</string>
     <string name="download_image">%1$s heruntergeladen</string>
     <string name="action_copy_link">Link kopieren</string>
@@ -558,7 +553,6 @@
     <string name="ui_success_accepted_follow_request">Folgeanfrage akzeptiert</string>
     <string name="ui_success_rejected_follow_request">Folgeanfrage blockiert</string>
     <string name="notification_unknown_name">Unbekannt</string>
-    <string name="ui_error_unknown">Unbekannter Grund</string>
     <string name="ui_error_clear_notifications">Löschen der Benachrichtigungen schlug fehl: %s</string>
     <string name="ui_error_reject_follow_request">Ablehnen der Folgeanfrage schlug fehl: %s</string>
     <string name="status_filter_placeholder_label_format">Gefiltert: %s</string>

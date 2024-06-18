@@ -89,15 +89,10 @@
     <string name="action_content_warning">Contenu sensible</string>
     <string name="action_emoji_keyboard">Clavier d’émojis</string>
     <string name="action_add_tab">Ajouter un onglet</string>
-    <string name="action_links">Liens</string>
-    <string name="action_mentions">Mentions</string>
-    <string name="action_hashtags">Hashtags</string>
     <string name="action_open_reblogger">Afficher l’auteur·rice du partage</string>
     <string name="action_open_reblogged_by">Afficher les partages</string>
     <string name="action_open_faved_by">Montrer les favoris</string>
-    <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Mentions</string>
-    <string name="title_links_dialog">Liens</string>
     <string name="action_open_media_n">Ouvrir le média #%d</string>
     <string name="download_image">Téléchargement de %1$s</string>
     <string name="action_copy_link">Copier le lien</string>
@@ -573,7 +568,6 @@
     <string name="error_list_load">Erreur de chargement des listes</string>
     <string name="report_category_violation">Règle enfreinte</string>
     <string name="error_status_source_load">Le texte d\'origine du statut n\'a pas pu être chargé.</string>
-    <string name="ui_error_unknown">raison inconnue</string>
     <string name="ui_error_clear_notifications">Échec du nettoyage des notifications : %s</string>
     <string name="ui_error_favourite_fmt">Échec de la mise en favori : %1$s</string>
     <string name="label_filter_title">Nom</string>

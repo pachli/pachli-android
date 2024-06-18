@@ -87,13 +87,8 @@
     <string name="action_content_warning">Tartalom figyelmeztetés</string>
     <string name="action_emoji_keyboard">Emoji billentyűzet</string>
     <string name="action_add_tab">Fül hozzáadása</string>
-    <string name="action_links">Linkek</string>
-    <string name="action_mentions">Említések</string>
-    <string name="action_hashtags">Hashtagek</string>
     <string name="action_open_faved_by">Kedvencek megjelenítése</string>
-    <string name="title_hashtags_dialog">Hashtagek</string>
     <string name="title_mentions_dialog">Említések</string>
-    <string name="title_links_dialog">Linkek</string>
     <string name="download_image">%1$s letöltése</string>
     <string name="action_copy_link">Link másolása</string>
     <string name="action_share_as">Megosztás mint …</string>
@@ -554,7 +549,6 @@
     <string name="status_filter_placeholder_label_format">Szűrve: %s</string>
     <string name="pref_title_account_filter_keywords">Profil</string>
     <string name="socket_timeout_exception">A kapcsolatfelvétel a kiszolgálóddal túl sokáig tartott</string>
-    <string name="ui_error_unknown">ismeretlen ok</string>
     <string name="ui_error_bookmark_fmt">Bejegyzés könyvjelzőzése sikertelen: %1$s</string>
     <string name="ui_error_clear_notifications">Értesítések törlése sikertelen: %s</string>
     <string name="filter_action_warn">Figyelmeztetés</string>

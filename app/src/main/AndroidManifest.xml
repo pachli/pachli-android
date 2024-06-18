@@ -158,6 +158,7 @@
         <activity android:name=".components.drafts.DraftsActivity" />
         <activity android:name=".components.filters.EditFilterActivity"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".feature.suggestions.SuggestionsActivity" />
 
         <receiver
             android:name=".receiver.SendStatusBroadcastReceiver"

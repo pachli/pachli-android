@@ -7,4 +7,9 @@
     <string name="button_done">완료</string>
     <string name="action_view_profile">프로필</string>
     <string name="action_more">더 보기</string>
+    <string name="action_links">링크</string>
+    <string name="action_mentions">멘션</string>
+    <string name="action_hashtags">해시태그</string>
+    <string name="title_links_dialog">링크</string>
+    <string name="title_hashtags_dialog">해시태그</string>
 </resources>

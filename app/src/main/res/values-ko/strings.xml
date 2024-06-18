@@ -93,15 +93,10 @@
     <string name="action_content_warning">열람 주의</string>
     <string name="action_emoji_keyboard">이모지 추가</string>
     <string name="action_add_tab">탭 추가</string>
-    <string name="action_links">링크</string>
-    <string name="action_mentions">멘션</string>
-    <string name="action_hashtags">해시태그</string>
     <string name="action_open_reblogger">부스트한 유저의 프로필로 이동</string>
     <string name="action_open_reblogged_by">부스트 보이기</string>
     <string name="action_open_faved_by">좋아요한 유저 보이기</string>
-    <string name="title_hashtags_dialog">해시태그</string>
     <string name="title_mentions_dialog">멘션</string>
-    <string name="title_links_dialog">링크</string>
     <string name="action_open_media_n">미디어 #%d 열기</string>
     <string name="download_image">%1$s 다운로드 중</string>
     <string name="action_copy_link">링크 복사</string>
