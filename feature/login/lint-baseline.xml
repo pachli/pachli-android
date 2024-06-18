@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.2.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.2.2)" variant="all" version="8.2.2">
+<issues format="6" by="lint 8.5.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.5.0)" variant="all" version="8.5.0">
+
+    <issue
+        id="StringFormatInvalid"
+        message="Format string &apos;`error_authorization_denied`&apos; is not a valid format string so it should not be passed to `String.format`"
+        errorLine1="            Timber.e(&quot;%s %s&quot;.format(getString(R.string.error_authorization_denied), error))"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/feature/login/LoginActivity.kt"
+            line="270"
+            column="22"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="17"
+            column="5"
+            message="This definition does not require arguments"/>
+    </issue>
+
+    <issue
+        id="StringFormatInvalid"
+        message="Format string &apos;`error_authorization_denied`&apos; is not a valid format string so it should not be passed to `String.format`"
+        errorLine1="            Timber.e(&quot;%s %s&quot;.format(getString(R.string.error_authorization_denied), error))"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/feature/login/LoginActivity.kt"
+            line="270"
+            column="22"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="17"
+            column="5"
+            message="This definition does not require arguments"/>
+    </issue>
 
     <issue
         id="SelectableText"

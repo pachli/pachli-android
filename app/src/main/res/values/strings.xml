@@ -503,6 +503,7 @@
     <string name="filter_apply">Apply</string>
     <string name="compose_shortcut_long_label">Compose post</string>
     <string name="compose_shortcut_short_label">Compose</string>
+    <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
     <string name="notification_clear_text">Are you sure you want to permanently clear all your notifications?</string>
     <string name="compose_preview_image_description">Actions for image %s</string>
     <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>

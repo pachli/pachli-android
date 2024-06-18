@@ -82,8 +82,8 @@ class ComposeScheduleView
         }
 
         val scheduled = scheduleDateTimeUtc!!.time
-        binding.scheduledDateTime.text = String.format(
-            "%s %s",
+        binding.scheduledDateTime.text = context.getString(
+            R.string.compose_schedule_date_time_fmt,
             dateFormat.format(scheduled),
             timeFormat.format(scheduled),
         )
