@@ -56,6 +56,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.EntryPointAccessors.fromApplication
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -68,13 +69,18 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
 
     private var requesters: HashMap<Int, PermissionRequester> = HashMap()
 
+    /** The most recent theme ID set with [setTheme]. */
+    @get:StyleRes
+    private var activeThemeId by Delegates.notNull<Int>()
+
     @EntryPoint
     @InstallIn(SingletonComponent::class)
     interface SharedPreferencesRepositoryEntryPoint {
         fun sharedPreferencesRepository(): SharedPreferencesRepository
     }
 
-    override fun setTheme(themeId: Int) {
+    override fun setTheme(@StyleRes themeId: Int) {
+        activeThemeId = themeId
         super.setTheme(themeId)
         if (BuildConfig.DEBUG) {
             val name = resources.getResourceEntryName(themeId)
@@ -97,6 +103,8 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         Timber.d("activeTheme: %s", theme)
         if (theme == AppTheme.BLACK) {
             setTheme(DR.style.Theme_Pachli_Black)
+        } else if (activeThemeId == DR.style.SplashTheme) {
+            setTheme(DR.style.Theme_Pachli)
         }
 
         // Set the task description, the theme would turn it blue
