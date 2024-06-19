@@ -65,7 +65,7 @@ quadrant = "1.9.1"
 retrofit = "2.11.0"
 robolectric = "4.12.2"
 semver = "2.0.0"
-sparkbutton = "4.1.0"
+sparkbutton = "4.2.0"
 timber = "5.0.1"
 touchimageview = "3.6"
 truth = "1.4.2"
@@ -207,7 +207,7 @@ retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", 
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 semver = { module = "io.github.z4kn4fein:semver", version.ref = "semver" }
-sparkbutton = { module = "com.github.connyduck:sparkbutton", version.ref = "sparkbutton" }
+sparkbutton = { module = "at.connyduck.sparkbutton:sparkbutton", version.ref = "sparkbutton" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 touchimageview = { module = "com.github.MikeOrtiz:TouchImageView", version.ref = "touchimageview" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
