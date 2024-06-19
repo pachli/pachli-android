@@ -662,4 +662,5 @@
     <string name="error_filter_missing_keyword">Por lo menos se necesita una palabra clave o frase</string>
     <string name="error_filter_missing_context">Por lo menos se necesita un contexto para el filtro</string>
     <string name="error_filter_missing_title">Se necesita el título</string>
+    <string name="action_suggestions">Cuentas sugeridas</string>
 </resources>
