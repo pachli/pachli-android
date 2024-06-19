@@ -270,11 +270,15 @@ data class Server(
                     }
                 }
 
-                // GoToSocial has client-side filtering, not server-side
                 GOTOSOCIAL -> {
                     when {
                         // Implemented in https://github.com/superseriousbusiness/gotosocial/pull/2594
                         v >= "0.15.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
+                        // Implemented in https://github.com/superseriousbusiness/gotosocial/pull/2936
+                        v >= "0.16.0".toVersion() -> {
+                            c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
+                            c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
+                        }
                     }
                 }
 
