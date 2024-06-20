@@ -6,9 +6,8 @@ Contributions generally fall in to one of several different categories, each of 
 
 - [Translations](/docs/contributing/translate.md)
 - [Code](/docs/contributing/code.md)
-- Documentation (details coming mid-September 2023)
-- Project Management (details coming mid-September 2023)
-- User support  (details coming mid-September 2023)
-- Social presence (details coming mid-September 2023)
+- [Documentation](/docs/contributing/documentation.md)
+- [Project Management](/docs/contributing/project-management.md)
+- [User support and social presence](/docs/contributing/user-support.md)
 
 If you have any questions please join one of the [discussions](https://github.com/pachli/pachli-android/discussions)
