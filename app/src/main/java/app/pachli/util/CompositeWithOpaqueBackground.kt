@@ -25,12 +25,12 @@ import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
 import android.graphics.Shader
 import androidx.annotation.ColorInt
+import com.bumptech.glide.load.Key
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-import com.bumptech.glide.util.Util
 import java.nio.ByteBuffer
-import java.nio.charset.Charset
 import java.security.MessageDigest
+import java.util.Objects
 
 /**
  * Set an opaque background behind the non-transparent areas of a bitmap.
@@ -58,10 +58,11 @@ class CompositeWithOpaqueBackground(@ColorInt val backgroundColor: Int) : Bitmap
         return false
     }
 
-    override fun hashCode() = Util.hashCode(ID.hashCode(), backgroundColor.hashCode())
+    override fun hashCode() = Objects.hash(ID, backgroundColor)
+
     override fun updateDiskCacheKey(messageDigest: MessageDigest) {
         messageDigest.update(ID_BYTES)
-        messageDigest.update(ByteBuffer.allocate(4).putInt(backgroundColor.hashCode()).array())
+        messageDigest.update(ByteBuffer.allocate(Int.SIZE_BYTES).putInt(backgroundColor).array())
     }
 
     override fun transform(
@@ -109,7 +110,7 @@ class CompositeWithOpaqueBackground(@ColorInt val backgroundColor: Int) : Bitmap
 
     companion object {
         private val ID = CompositeWithOpaqueBackground::class.qualifiedName!!
-        private val ID_BYTES = ID.toByteArray(Charset.forName("UTF-8"))
+        private val ID_BYTES = ID.toByteArray(Key.CHARSET)
 
         /** Paint with a color filter that converts 8bpp alpha images to a 1bpp mask */
         private val EXTRACT_MASK_PAINT = Paint().apply {
