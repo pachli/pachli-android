@@ -120,7 +120,7 @@ import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUsecase
 import app.pachli.util.getDimension
-import app.pachli.util.updateShortcut
+import app.pachli.util.updateShortcuts
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -1085,7 +1085,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         updateProfiles()
 
         externalScope.launch {
-            updateShortcut(applicationContext, accountManager.activeAccount!!)
+            updateShortcuts(applicationContext, accountManager)
         }
     }
 
