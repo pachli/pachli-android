@@ -16,7 +16,6 @@
 
 package app.pachli.components.compose
 
-import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
 import android.media.MediaMetadataRetriever
@@ -33,14 +32,12 @@ import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.ui.extensions.getErrorString
-import app.pachli.network.ProgressRequestBody
 import app.pachli.util.MEDIA_SIZE_UNKNOWN
+import app.pachli.util.asRequestBody
 import app.pachli.util.getImageSquarePixels
 import app.pachli.util.getMediaSize
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -60,6 +57,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.shareIn
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okio.buffer
+import okio.sink
+import okio.source
 import retrofit2.HttpException
 import timber.log.Timber
 
@@ -167,22 +167,20 @@ class MediaUploader @Inject constructor(
 
                     val suffix = "." + MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType ?: "tmp")
 
-                    contentResolver.openInputStream(inUri).use { input ->
+                    contentResolver.openInputStream(inUri)?.source()?.buffer().use { input ->
                         if (input == null) {
                             Timber.w("Media input is null")
                             uri = inUri
                             return@use
                         }
                         val file = File.createTempFile("randomTemp1", suffix, context.cacheDir)
-                        FileOutputStream(file.absoluteFile).use { out ->
-                            input.copyTo(out)
-                            uri = FileProvider.getUriForFile(
-                                context,
-                                BuildConfig.APPLICATION_ID + ".fileprovider",
-                                file,
-                            )
-                            mediaSize = getMediaSize(contentResolver, uri)
-                        }
+                        file.absoluteFile.sink().buffer().use { it.writeAll(input) }
+                        uri = FileProvider.getUriForFile(
+                            context,
+                            BuildConfig.APPLICATION_ID + ".fileprovider",
+                            file,
+                        )
+                        mediaSize = getMediaSize(contentResolver, uri)
                     }
                 }
                 ContentResolver.SCHEME_FILE -> {
@@ -195,17 +193,16 @@ class MediaUploader @Inject constructor(
                     val suffix = inputFile.name.substringAfterLast('.', "tmp")
                     mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(suffix)
                     val file = File.createTempFile("randomTemp1", ".$suffix", context.cacheDir)
-                    val input = FileInputStream(inputFile)
 
-                    FileOutputStream(file.absoluteFile).use { out ->
-                        input.copyTo(out)
-                        uri = FileProvider.getUriForFile(
-                            context,
-                            BuildConfig.APPLICATION_ID + ".fileprovider",
-                            file,
-                        )
-                        mediaSize = getMediaSize(contentResolver, uri)
+                    inputFile.source().buffer().use { input ->
+                        file.absoluteFile.sink().buffer().use { it.writeAll(input) }
                     }
+                    uri = FileProvider.getUriForFile(
+                        context,
+                        BuildConfig.APPLICATION_ID + ".fileprovider",
+                        file,
+                    )
+                    mediaSize = getMediaSize(contentResolver, uri)
                 }
                 else -> {
                     Timber.w("Unknown uri scheme %s", uri)
@@ -268,24 +265,20 @@ class MediaUploader @Inject constructor(
             }
             val map = MimeTypeMap.getSingleton()
             val fileExtension = map.getExtensionFromMimeType(mimeType)
-            val filename = "%s_%s_%s.%s".format(
+            val filename = "%s_%d_%s.%s".format(
                 context.getString(R.string.app_name),
-                System.currentTimeMillis().toString(),
+                System.currentTimeMillis(),
                 randomAlphanumericString(10),
                 fileExtension,
             )
 
-            // `stream` is closed in ProgressRequestBody.writeTo
-            @SuppressLint("recycle")
-            val stream = contentResolver.openInputStream(media.uri)
-
             if (mimeType == null) mimeType = "multipart/form-data"
 
             var lastProgress = -1
-            val fileBody = ProgressRequestBody(
-                stream!!,
+            val fileBody = media.uri.asRequestBody(
+                contentResolver,
+                requireNotNull(mimeType.toMediaTypeOrNull()) { "Invalid Content Type" },
                 media.mediaSize,
-                mimeType.toMediaTypeOrNull()!!,
             ) { percentage ->
                 if (percentage != lastProgress) {
                     trySend(UploadEvent.ProgressEvent(percentage))

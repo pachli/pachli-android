@@ -151,6 +151,7 @@ dependencies {
     implementation(libs.bundles.retrofit)
 
     implementation(libs.bundles.okhttp)
+    implementation(libs.okio)
 
     implementation(libs.conscrypt.android)
 

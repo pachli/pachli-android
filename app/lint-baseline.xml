@@ -105,11 +105,11 @@
     <issue
         id="StringFormatInvalid"
         message="Format string &apos;`app_name`&apos; is not a valid format string so it should not be passed to `String.format`"
-        errorLine1="            val filename = &quot;%s_%s_%s.%s&quot;.format("
+        errorLine1="            val filename = &quot;%s_%d_%s.%s&quot;.format("
         errorLine2="                           ^">
         <location
             file="src/main/java/app/pachli/components/compose/MediaUploader.kt"
-            line="271"
+            line="268"
             column="28"/>
         <location
             file="${:core:activity*buildDir}/generated/res/resValues/orangeFdroid/debug/values/gradleResValues.xml"

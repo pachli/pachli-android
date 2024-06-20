@@ -182,15 +182,10 @@ class DraftHelper @Inject constructor(
             // saving redrafted media
             try {
                 val request = Request.Builder().url(toString()).build()
-
                 val response = okHttpClient.newCall(request).execute()
 
-                val sink = file.sink().buffer()
-
-                response.body?.source()?.use { input ->
-                    sink.use { output ->
-                        output.writeAll(input)
-                    }
+                response.body?.source()?.buffer?.use { input ->
+                    file.sink().buffer().use { it.writeAll(input) }
                 }
             } catch (ex: IOException) {
                 Timber.w(ex, "failed to save media")

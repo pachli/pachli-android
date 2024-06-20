@@ -20,8 +20,8 @@ import android.content.ContentResolver
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.net.Uri
+import androidx.exifinterface.media.ExifInterface
 import app.pachli.util.calculateInSampleSize
-import app.pachli.util.getImageOrientation
 import app.pachli.util.reorientBitmap
 import java.io.File
 import java.io.FileNotFoundException
@@ -32,25 +32,26 @@ import java.io.FileOutputStream
  * @param sizeLimit       the maximum number of bytes the output image is allowed to have
  * @param contentResolver to resolve the specified input uri
  * @param tempFile        the file where the result will be stored
- * @return true when the image was successfully resized, false otherwise
+ * @throws FileNotFoundException if [uri] could not be opened.
  */
 fun downsizeImage(
     uri: Uri,
     sizeLimit: Long,
     contentResolver: ContentResolver,
     tempFile: File,
-): Boolean {
-    val decodeBoundsInputStream = try {
-        contentResolver.openInputStream(uri)
-    } catch (e: FileNotFoundException) {
-        return false
-    }
+) {
     // Initially, just get the image dimensions.
     val options = BitmapFactory.Options()
-    options.inJustDecodeBounds = true
-    decodeBoundsInputStream.use { BitmapFactory.decodeStream(it, null, options) }
+    val inputStream = contentResolver.openInputStream(uri)
+        ?: throw FileNotFoundException("openInputStream returned null")
+    inputStream.use { input ->
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeStream(input, null, options)
+    }
+
     // Get EXIF data, for orientation info.
     val orientation = getImageOrientation(uri, contentResolver)
+
     /* Unfortunately, there isn't a determined worst case compression ratio for image
      * formats. So, the only way to tell if they're too big is to compress them and
      * test, and keep trying at smaller sizes. The initial estimate should be good for
@@ -58,27 +59,20 @@ fun downsizeImage(
      * sure it gets downsized to below the limit. */
     var scaledImageSize = 1024
     do {
-        val outputStream = try {
-            FileOutputStream(tempFile)
-        } catch (e: FileNotFoundException) {
-            return false
-        }
-        val decodeBitmapInputStream = try {
-            contentResolver.openInputStream(uri)
-        } catch (e: FileNotFoundException) {
-            return false
-        }
+        val outputStream = FileOutputStream(tempFile)
+        val decodeBitmapInputStream = contentResolver.openInputStream(uri)
+            ?: throw FileNotFoundException("openInputStream returned null")
         options.inSampleSize = calculateInSampleSize(options, scaledImageSize, scaledImageSize)
         options.inJustDecodeBounds = false
 
         val scaledBitmap = decodeBitmapInputStream.use {
             BitmapFactory.decodeStream(it, null, options)
-        } ?: return false
+        } ?: return
 
         val reorientedBitmap = reorientBitmap(scaledBitmap, orientation)
         if (reorientedBitmap == null) {
             scaledBitmap.recycle()
-            return false
+            return
         }
         /* Retain transparency if there is any by encoding as png */
         val format: CompressFormat = if (!reorientedBitmap.hasAlpha()) {
@@ -90,6 +84,20 @@ fun downsizeImage(
         reorientedBitmap.recycle()
         scaledImageSize /= 2
     } while (tempFile.length() > sizeLimit)
+}
 
-    return true
+/**
+ * @return The EXIF orientation of the image at the local [uri].
+ * @throws FileNotFoundException if [uri] could not be opened.
+ */
+private fun getImageOrientation(uri: Uri, contentResolver: ContentResolver): Int {
+    val inputStream = contentResolver.openInputStream(uri)
+        ?: throw FileNotFoundException("openInputStream returned null")
+
+    return inputStream.use { input ->
+        ExifInterface(input).getAttributeInt(
+            ExifInterface.TAG_ORIENTATION,
+            ExifInterface.ORIENTATION_NORMAL,
+        )
+    }
 }

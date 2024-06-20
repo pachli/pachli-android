@@ -25,11 +25,9 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import androidx.exifinterface.media.ExifInterface
 import java.io.FileNotFoundException
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import timber.log.Timber
 
 /**
  * Helper methods for obtaining and resizing media files
@@ -45,9 +43,7 @@ const val MEDIA_SIZE_UNKNOWN = -1L
  * @return the size of the media in bytes or {@link MediaUtils#MEDIA_SIZE_UNKNOWN}
  */
 fun getMediaSize(contentResolver: ContentResolver, uri: Uri?): Long {
-    if (uri == null) {
-        return MEDIA_SIZE_UNKNOWN
-    }
+    uri ?: return MEDIA_SIZE_UNKNOWN
 
     var mediaSize = MEDIA_SIZE_UNKNOWN
     val cursor: Cursor?
@@ -66,14 +62,14 @@ fun getMediaSize(contentResolver: ContentResolver, uri: Uri?): Long {
 }
 
 @Throws(FileNotFoundException::class)
-fun getImageSquarePixels(contentResolver: ContentResolver, uri: Uri): Long {
+fun getImageSquarePixels(contentResolver: ContentResolver, uri: Uri): Int {
     val options = BitmapFactory.Options()
     contentResolver.openInputStream(uri).use { input ->
         options.inJustDecodeBounds = true
         BitmapFactory.decodeStream(input, null, options)
     }
 
-    return (options.outWidth * options.outHeight).toLong()
+    return options.outWidth * options.outHeight
 }
 
 fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
@@ -119,9 +115,7 @@ fun reorientBitmap(bitmap: Bitmap?, orientation: Int): Bitmap? {
         else -> return bitmap
     }
 
-    if (bitmap == null) {
-        return null
-    }
+    bitmap ?: return null
 
     return try {
         val result = Bitmap.createBitmap(
@@ -139,27 +133,6 @@ fun reorientBitmap(bitmap: Bitmap?, orientation: Int): Bitmap? {
         result
     } catch (e: OutOfMemoryError) {
         null
-    }
-}
-
-fun getImageOrientation(uri: Uri, contentResolver: ContentResolver): Int {
-    val inputStream = try {
-        contentResolver.openInputStream(uri)
-    } catch (e: FileNotFoundException) {
-        Timber.w(e)
-        return ExifInterface.ORIENTATION_UNDEFINED
-    }
-    inputStream ?: return ExifInterface.ORIENTATION_UNDEFINED
-
-    return inputStream.use {
-        val exifInterface = try {
-            ExifInterface(it)
-        } catch (e: IOException) {
-            Timber.w(e)
-            return@use ExifInterface.ORIENTATION_UNDEFINED
-        }
-
-        exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
     }
 }
 
