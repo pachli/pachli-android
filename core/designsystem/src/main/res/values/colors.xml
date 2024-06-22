@@ -91,6 +91,7 @@
     <color name="transparent_tusky_blue">#8c2b90d9</color>
     <color name="transparent_black">#8f000000</color>
     <color name="transparent_statusbar_background">#44000000</color>
+    <color name="account_header_scrim">#8fffffff</color>
 
     <!-- colors used in the app icon -->
     <color name="icon_background">#09497b</color>

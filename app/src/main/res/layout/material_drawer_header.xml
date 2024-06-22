@@ -18,6 +18,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Partially transparent scrim so the text is visible whatever the background is -->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:foreground="@color/account_header_scrim"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/material_drawer_text_guideline" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/material_drawer_statusbar_guideline"
         android:layout_width="wrap_content"

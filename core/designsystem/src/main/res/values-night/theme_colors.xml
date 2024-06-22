@@ -7,4 +7,6 @@
     <!-- colors used to show inserted/deleted text -->
     <color name="view_edits_background_insert">#00731B</color>
     <color name="view_edits_background_delete">#DF0000</color>
+
+    <color name="account_header_scrim">#8f000000</color>
 </resources>
