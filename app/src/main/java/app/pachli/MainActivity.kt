@@ -140,6 +140,7 @@ import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ColorHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.iconics.iconicsIcon
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
@@ -1057,9 +1058,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun onFetchUserInfoSuccess(me: Account) {
-        glide.asBitmap()
-            .load(me.header)
-            .into(header.accountHeaderBackground)
+        header.headerBackground = ImageHolder(me.header)
 
         loadDrawerAvatar(me.avatar, false)
 
