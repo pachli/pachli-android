@@ -643,4 +643,6 @@
     <string name="error_filter_missing_keyword">Tarvitaan vähintään yksi avainsana tai lauseke</string>
     <string name="error_filter_missing_context">Tarvitaan vähintään yksi suodatettava asia</string>
     <string name="error_filter_missing_title">Otsikko vaaditaan</string>
+    <string name="action_suggestions">Tilisuositukset</string>
+    <string name="compose_schedule_date_time_fmt">%1$s%2$s</string>
 </resources>
