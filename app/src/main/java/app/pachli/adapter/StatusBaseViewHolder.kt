@@ -571,7 +571,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
 
                 // Set the icon next to the label.
                 val drawableId = attachments[0].iconResource()
-                mediaLabel.setCompoundDrawablesWithIntrinsicBounds(drawableId, 0, 0, 0)
+                mediaLabel.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableId, 0, 0, 0)
                 setAttachmentClickListener(viewData, mediaLabel, listener, i, attachment, false)
             } else {
                 mediaLabel.visibility = View.GONE
