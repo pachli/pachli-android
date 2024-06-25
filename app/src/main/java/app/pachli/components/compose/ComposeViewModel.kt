@@ -89,7 +89,11 @@ class ComposeViewModel @Inject constructor(
     /** The initial content warning for this status, before any edits */
     private var initialContentWarning: String = ""
 
-    internal var postLanguage: String? = null
+    /** The initial language for this status, before any changes */
+    private var initialLanguage: String? = null
+
+    /** The current language for this status. */
+    internal var language: String? = null
 
     /** If editing a draft then the ID of the draft, otherwise 0 */
     private var draftId: Int = 0
@@ -279,6 +283,12 @@ class ComposeViewModel @Inject constructor(
         _statusVisibility.value = newVisibility
     }
 
+    /** Call this to change the status' language */
+    fun onLanguageChanged(newLanguage: String) {
+        language = newLanguage
+        updateCloseConfirmation()
+    }
+
     @VisibleForTesting
     fun updateStatusLength() {
         _statusLength.value = statusLength(content, effectiveContentWarning, instanceInfo.value.charactersReservedPerUrl)
@@ -317,8 +327,9 @@ class ComposeViewModel @Inject constructor(
         val contentWarningChanged = effectiveContentWarning != initialContentWarning
         val mediaChanged = media.value.isNotEmpty()
         val pollChanged = poll.value != null
+        val languageChanged = initialLanguage != language
 
-        return modifiedInitialState || contentChanged || contentWarningChanged || mediaChanged || pollChanged || scheduledTimeChanged
+        return modifiedInitialState || contentChanged || contentWarningChanged || mediaChanged || pollChanged || languageChanged || scheduledTimeChanged
     }
 
     private fun isEmpty(content: CharSequence, contentWarning: CharSequence): Boolean {
@@ -375,7 +386,7 @@ class ComposeViewModel @Inject constructor(
             failedToSend = false,
             failedToSendAlert = false,
             scheduledAt = scheduledAt.value,
-            language = postLanguage,
+            language = language,
             statusId = originalStatusId,
         )
     }
@@ -418,7 +429,7 @@ class ComposeViewModel @Inject constructor(
             draftId = draftId,
             idempotencyKey = randomAlphanumericString(16),
             retries = 0,
-            language = postLanguage,
+            language = language,
             statusId = originalStatusId,
         )
 
@@ -538,7 +549,8 @@ class ComposeViewModel @Inject constructor(
         scheduledTootId = composeOptions?.scheduledTootId
         originalStatusId = composeOptions?.statusId
         initialContent = composeOptions?.content ?: ""
-        postLanguage = composeOptions?.language
+        initialLanguage = composeOptions?.language
+        language = initialLanguage
 
         val tootVisibility = composeOptions?.visibility ?: Status.Visibility.UNKNOWN
         if (tootVisibility != Status.Visibility.UNKNOWN) {
