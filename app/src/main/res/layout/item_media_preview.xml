@@ -47,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
         android:id="@+id/status_media_label_0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,14 +59,15 @@
         android:maxLines="10"
         android:textSize="?attr/status_text_medium"
         android:visibility="gone"
-        app:drawableTint="?android:attr/textColorTertiary"
+        app:drawableTint="?android:attr/colorControlNormal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
         android:id="@+id/status_media_label_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackground"
         android:drawablePadding="4dp"
         android:ellipsize="end"
@@ -79,10 +80,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_media_label_0" />
 
-    <TextView
+    <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
         android:id="@+id/status_media_label_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackground"
         android:drawablePadding="4dp"
         android:ellipsize="end"
@@ -95,10 +97,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_media_label_1" />
 
-    <TextView
+    <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
         android:id="@+id/status_media_label_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackground"
         android:drawablePadding="4dp"
         android:ellipsize="end"
