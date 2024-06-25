@@ -24,6 +24,7 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.appstore.EventHub
 import app.pachli.core.activity.BaseActivity
@@ -108,11 +109,11 @@ class PreferencesActivity :
                         setAppNightMode(theme)
 
                         restartActivitiesOnBackPressedCallback.isEnabled = true
-                        this@PreferencesActivity.recreate()
+                        this@PreferencesActivity.restartCurrentActivity()
                     }
                     PrefKeys.FONT_FAMILY, PrefKeys.UI_TEXT_SCALE_RATIO -> {
                         restartActivitiesOnBackPressedCallback.isEnabled = true
-                        this@PreferencesActivity.recreate()
+                        this@PreferencesActivity.restartCurrentActivity()
                     }
                     PrefKeys.STATUS_TEXT_SIZE, PrefKeys.ABSOLUTE_TIME_VIEW, PrefKeys.SHOW_BOT_OVERLAY, PrefKeys.ANIMATE_GIF_AVATARS, PrefKeys.USE_BLURHASH,
                     PrefKeys.SHOW_SELF_USERNAME, PrefKeys.SHOW_CARDS_IN_TIMELINES, PrefKeys.CONFIRM_REBLOGS, PrefKeys.CONFIRM_FAVOURITES,
@@ -151,12 +152,18 @@ class PreferencesActivity :
         return true
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putBoolean(EXTRA_RESTART_ON_BACK, restartActivitiesOnBackPressedCallback.isEnabled)
-        super.onSaveInstanceState(outState)
+    private fun restartCurrentActivity() {
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.putExtras(
+            Bundle().apply {
+                putBoolean(EXTRA_RESTART_ON_BACK, restartActivitiesOnBackPressedCallback.isEnabled)
+            },
+        )
+        startActivityWithDefaultTransition(intent)
+        finish()
     }
 
     companion object {
-        private const val EXTRA_RESTART_ON_BACK = "restart"
+        private const val EXTRA_RESTART_ON_BACK = BuildConfig.APPLICATION_ID + ".restart"
     }
 }
