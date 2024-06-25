@@ -413,6 +413,13 @@ class ComposeActivity :
         )
         binding.composeEditField.setTokenizer(ComposeTokenizer())
 
+        val mentionColour = binding.composeEditField.linkTextColors.defaultColor
+        highlightSpans(binding.composeEditField.text, mentionColour)
+        binding.composeEditField.doAfterTextChanged { editable ->
+            highlightSpans(editable!!, mentionColour)
+            viewModel.onContentChanged(editable)
+        }
+
         binding.composeEditField.setText(startingText)
 
         when (composeOptions?.initialCursorPosition ?: InitialCursorPosition.END) {
@@ -420,13 +427,6 @@ class ComposeActivity :
             InitialCursorPosition.END -> binding.composeEditField.setSelection(
                 binding.composeEditField.length(),
             )
-        }
-
-        val mentionColour = binding.composeEditField.linkTextColors.defaultColor
-        highlightSpans(binding.composeEditField.text, mentionColour)
-        binding.composeEditField.doAfterTextChanged { editable ->
-            highlightSpans(editable!!, mentionColour)
-            viewModel.onContentChanged(editable)
         }
 
         // work around Android platform bug -> https://issuetracker.google.com/issues/67102093
@@ -594,7 +594,7 @@ class ComposeActivity :
     private fun setupLanguageSpinner(initialLanguages: List<String>) {
         binding.composePostLanguageButton.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                viewModel.postLanguage = (parent.adapter.getItem(position) as Locale).modernLanguageCode
+                viewModel.onLanguageChanged((parent.adapter.getItem(position) as Locale).modernLanguageCode)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -927,7 +927,7 @@ class ComposeActivity :
 
     @VisibleForTesting
     val selectedLanguage: String?
-        get() = viewModel.postLanguage
+        get() = viewModel.language
 
     private fun updateVisibleCharactersLeft(textLength: Int) {
         val remainingLength = maximumTootCharacters - textLength
