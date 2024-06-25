@@ -69,80 +69,52 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
         const val KEY_CREATED = "created"
     }
 
-    protected val context: Context
-    private val displayName: TextView
-    private val username: TextView
-    private val replyButton: ImageButton
-    private val replyCountLabel: TextView?
-    private val reblogButton: SparkButton?
-    private val favouriteButton: SparkButton
-    private val bookmarkButton: SparkButton
-    private val moreButton: ImageButton
-    private val mediaContainer: ConstraintLayout
-    protected val mediaPreview: MediaPreviewLayout
-    private val sensitiveMediaWarning: TextView
-    private val sensitiveMediaShow: View
-    protected val mediaLabels: Array<TextView>
-    private val mediaDescriptions: Array<CharSequence?>
-    private val contentWarningButton: MaterialButton
-    private val avatarInset: ImageView
-    val avatar: ImageView
-    val metaInfo: TextView
-    val content: TextView
-    private val contentWarningDescription: TextView
-    private val pollView: PollView
-    private val cardView: PreviewCardView?
-    private val filteredPlaceholder: LinearLayout?
-    private val filteredPlaceholderLabel: TextView?
-    private val filteredPlaceholderShowButton: Button?
-    private val statusContainer: ConstraintLayout?
+    protected val context: Context = itemView.context
+    private val displayName: TextView = itemView.findViewById(R.id.status_display_name)
+    private val username: TextView = itemView.findViewById(R.id.status_username)
+    private val replyButton: ImageButton = itemView.findViewById(R.id.status_reply)
+    private val replyCountLabel: TextView? = itemView.findViewById(R.id.status_replies)
+    private val reblogButton: SparkButton? = itemView.findViewById(R.id.status_inset)
+    private val favouriteButton: SparkButton = itemView.findViewById(R.id.status_favourite)
+    private val bookmarkButton: SparkButton = itemView.findViewById(R.id.status_bookmark)
+    private val moreButton: ImageButton = itemView.findViewById(R.id.status_more)
+    private val mediaContainer: ConstraintLayout = itemView.findViewById<ConstraintLayout?>(R.id.status_media_preview_container).apply {
+        clipToOutline = true
+    }
+    protected val mediaPreview: MediaPreviewLayout = itemView.findViewById(R.id.status_media_preview)
+    private val sensitiveMediaWarning: TextView = itemView.findViewById(R.id.status_sensitive_media_warning)
+    private val sensitiveMediaShow: View = itemView.findViewById(R.id.status_sensitive_media_button)
+    protected val mediaLabels: Array<TextView> = arrayOf(
+        itemView.findViewById(R.id.status_media_label_0),
+        itemView.findViewById(R.id.status_media_label_1),
+        itemView.findViewById(R.id.status_media_label_2),
+        itemView.findViewById(R.id.status_media_label_3),
+    )
+    private val mediaDescriptions: Array<CharSequence?> = arrayOfNulls(mediaLabels.size)
+    private val contentWarningButton: MaterialButton = itemView.findViewById(R.id.status_content_warning_button)
+    private val avatarInset: ImageView = itemView.findViewById(R.id.status_avatar_inset)
+    val avatar: ImageView = itemView.findViewById(R.id.status_avatar)
+    val metaInfo: TextView = itemView.findViewById(R.id.status_meta_info)
+    val content: TextView = itemView.findViewById(R.id.status_content)
+    private val contentWarningDescription: TextView = itemView.findViewById(R.id.status_content_warning_description)
+    private val pollView: PollView = itemView.findViewById(R.id.status_poll)
+    private val cardView: PreviewCardView? = itemView.findViewById(R.id.status_card_view)
+    private val filteredPlaceholder: LinearLayout? = itemView.findViewById(R.id.status_filtered_placeholder)
+    private val filteredPlaceholderLabel: TextView? = itemView.findViewById(R.id.status_filter_label)
+    private val filteredPlaceholderShowButton: Button? = itemView.findViewById(R.id.status_filter_show_anyway)
+    private val statusContainer: ConstraintLayout? = itemView.findViewById(R.id.status_container)
     private val numberFormat = NumberFormat.getNumberInstance()
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
-    protected val avatarRadius48dp: Int
-    private val avatarRadius36dp: Int
-    private val avatarRadius24dp: Int
-    private val mediaPreviewUnloaded: Drawable
-    private val translationProvider: TextView?
+    private val translationProvider: TextView? = itemView.findViewById<TextView?>(R.id.translationProvider)?.apply {
+        val icon = makeIcon(context, GoogleMaterial.Icon.gmd_translate, textSize.toInt())
+        setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+    }
+    protected val avatarRadius48dp: Int = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
+    private val avatarRadius36dp: Int = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
+    private val avatarRadius24dp: Int = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp)
+    private val mediaPreviewUnloaded: Drawable = ColorDrawable(MaterialColors.getColor(itemView, android.R.attr.textColorLink))
 
     init {
-        context = itemView.context
-        displayName = itemView.findViewById(R.id.status_display_name)
-        username = itemView.findViewById(R.id.status_username)
-        metaInfo = itemView.findViewById(R.id.status_meta_info)
-        content = itemView.findViewById(R.id.status_content)
-        avatar = itemView.findViewById(R.id.status_avatar)
-        replyButton = itemView.findViewById(R.id.status_reply)
-        replyCountLabel = itemView.findViewById(R.id.status_replies)
-        reblogButton = itemView.findViewById(R.id.status_inset)
-        favouriteButton = itemView.findViewById(R.id.status_favourite)
-        bookmarkButton = itemView.findViewById(R.id.status_bookmark)
-        moreButton = itemView.findViewById(R.id.status_more)
-        mediaContainer = itemView.findViewById(R.id.status_media_preview_container)
-        mediaContainer.clipToOutline = true
-        mediaPreview = itemView.findViewById(R.id.status_media_preview)
-        sensitiveMediaWarning = itemView.findViewById(R.id.status_sensitive_media_warning)
-        sensitiveMediaShow = itemView.findViewById(R.id.status_sensitive_media_button)
-        mediaLabels = arrayOf(
-            itemView.findViewById(R.id.status_media_label_0),
-            itemView.findViewById(R.id.status_media_label_1),
-            itemView.findViewById(R.id.status_media_label_2),
-            itemView.findViewById(R.id.status_media_label_3),
-        )
-        mediaDescriptions = arrayOfNulls(mediaLabels.size)
-        contentWarningDescription = itemView.findViewById(R.id.status_content_warning_description)
-        contentWarningButton = itemView.findViewById(R.id.status_content_warning_button)
-        avatarInset = itemView.findViewById(R.id.status_avatar_inset)
-        pollView = itemView.findViewById(R.id.status_poll)
-        cardView = itemView.findViewById(R.id.status_card_view)
-        filteredPlaceholder = itemView.findViewById(R.id.status_filtered_placeholder)
-        filteredPlaceholderLabel = itemView.findViewById(R.id.status_filter_label)
-        filteredPlaceholderShowButton = itemView.findViewById(R.id.status_filter_show_anyway)
-        statusContainer = itemView.findViewById(R.id.status_container)
-        avatarRadius48dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
-        avatarRadius36dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
-        avatarRadius24dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp)
-        mediaPreviewUnloaded =
-            ColorDrawable(MaterialColors.getColor(itemView, android.R.attr.textColorLink))
         (itemView as ViewGroup).expandTouchSizeToFillRow(
             listOfNotNull(
                 replyButton,
@@ -152,10 +124,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
                 moreButton,
             ),
         )
-        translationProvider = itemView.findViewById<TextView?>(R.id.translationProvider)?.apply {
-            val icon = makeIcon(context, GoogleMaterial.Icon.gmd_translate, textSize.toInt())
-            setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
-        }
     }
 
     protected fun setDisplayName(

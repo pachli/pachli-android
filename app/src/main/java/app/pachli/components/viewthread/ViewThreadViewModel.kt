@@ -88,18 +88,13 @@ class ViewThreadViewModel @Inject constructor(
 
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
-    private val alwaysShowSensitiveMedia: Boolean
-    private val alwaysOpenSpoiler: Boolean
-
-    val activeAccount: AccountEntity
+    val activeAccount: AccountEntity = accountManager.activeAccount!!
+    private val alwaysShowSensitiveMedia: Boolean = activeAccount.alwaysShowSensitiveMedia
+    private val alwaysOpenSpoiler: Boolean = activeAccount.alwaysOpenSpoiler
 
     private var filterModel: FilterModel? = null
 
     init {
-        activeAccount = accountManager.activeAccount!!
-        alwaysShowSensitiveMedia = activeAccount.alwaysShowSensitiveMedia
-        alwaysOpenSpoiler = activeAccount.alwaysOpenSpoiler
-
         viewModelScope.launch {
             eventHub.events
                 .collect { event ->
