@@ -37,19 +37,13 @@ class ConversationViewHolder internal constructor(
     private val statusDisplayOptions: StatusDisplayOptions,
     private val listener: StatusActionListener<ConversationViewData>,
 ) : StatusBaseViewHolder<ConversationViewData>(itemView) {
-    private val conversationNameTextView: TextView
-    private val contentCollapseButton: Button
-    private val avatars: Array<ImageView>
-
-    init {
-        conversationNameTextView = itemView.findViewById(R.id.conversation_name)
-        contentCollapseButton = itemView.findViewById(R.id.button_toggle_content)
-        avatars = arrayOf(
-            avatar,
-            itemView.findViewById(R.id.status_avatar_1),
-            itemView.findViewById(R.id.status_avatar_2),
-        )
-    }
+    private val conversationNameTextView: TextView = itemView.findViewById(R.id.conversation_name)
+    private val contentCollapseButton: Button = itemView.findViewById(R.id.button_toggle_content)
+    private val avatars: Array<ImageView> = arrayOf(
+        avatar,
+        itemView.findViewById(R.id.status_avatar_1),
+        itemView.findViewById(R.id.status_avatar_2),
+    )
 
     fun setupWithConversation(
         viewData: ConversationViewData,
