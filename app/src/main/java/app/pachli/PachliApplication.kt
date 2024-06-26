@@ -19,11 +19,14 @@ package app.pachli
 
 import android.app.Application
 import android.content.Context
+import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import app.pachli.components.notifications.createWorkerNotificationChannel
+import app.pachli.core.activity.LogEntryTree
+import app.pachli.core.activity.TreeRing
 import app.pachli.core.activity.initCrashReporter
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.NEW_INSTALL_SCHEMA_VERSION
@@ -48,10 +51,16 @@ import timber.log.Timber
 @HiltAndroidApp
 class PachliApplication : Application() {
     @Inject
+    lateinit var workerFactory: HiltWorkerFactory
+
+    @Inject
     lateinit var localeManager: LocaleManager
 
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
+    @Inject
+    lateinit var logEntryTree: LogEntryTree
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
@@ -74,6 +83,12 @@ class PachliApplication : Application() {
 
         Security.insertProviderAt(Conscrypt.newProvider(), 1)
 
+        when {
+            BuildConfig.DEBUG -> Timber.plant(Timber.DebugTree())
+            BuildConfig.FLAVOR_color == "orange" -> Timber.plant(TreeRing)
+        }
+        Timber.plant(logEntryTree)
+
         // Migrate shared preference keys and defaults from version to version.
         val oldVersion = sharedPreferencesRepository.getInt(PrefKeys.SCHEMA_VERSION, NEW_INSTALL_SCHEMA_VERSION)
         if (oldVersion != SCHEMA_VERSION) {
@@ -93,8 +108,12 @@ class PachliApplication : Application() {
 
         createWorkerNotificationChannel(this)
 
-        val workManager = WorkManager.getInstance(this)
+        WorkManager.initialize(
+            this,
+            androidx.work.Configuration.Builder().setWorkerFactory(workerFactory).build(),
+        )
 
+        val workManager = WorkManager.getInstance(this)
         // Prune the database every ~ 12 hours when the device is idle.
         val pruneCacheWorker = PeriodicWorkRequestBuilder<PruneCacheWorker>(12, TimeUnit.HOURS)
             .setConstraints(Constraints.Builder().setRequiresDeviceIdle(true).build())
