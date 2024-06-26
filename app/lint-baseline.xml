@@ -74,13 +74,6 @@
     </issue>
 
     <issue
-        id="BadConfigurationProvider"
-        message="Expected Application subtype to implement Configuration.Provider">
-        <location
-            file="src/main/java/app/pachli/PachliApplication.kt"/>
-    </issue>
-
-    <issue
         id="SelectedPhotoAccess"
         message="Your app is currently not handling Selected Photos Access introduced in Android 14+"
         errorLine1="    &lt;uses-permission android:name=&quot;android.permission.READ_MEDIA_IMAGES&quot; />"
