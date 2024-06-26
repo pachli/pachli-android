@@ -64,4 +64,5 @@
     <string name="notification_log_download_failed">Download failed: %1$s</string>
     <string name="notitication_log_filter_dialog_title">Show log priorities</string>
     <string name="action_refresh">Refresh</string>
+    <string name="about_nivenly_foundation">Pachli is a <a href="https://nivenly.org">Nivenly Foundation</a> project.</string>
 </resources>
