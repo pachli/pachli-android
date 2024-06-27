@@ -1,5 +1,28 @@
 # Pachli changelog
 
+## v2.6.0
+
+### New features and other improvements
+
+- Show "Suggested accounts" (#[734](https://github.com/pachli/pachli-android/pull/734), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support server filters in GoToSocial 0.16.0 (#[765](https://github.com/pachli/pachli-android/pull/765), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Set font size and family when going back from Preferences (#[781](https://github.com/pachli/pachli-android/pull/781), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Correctly handle setting / editing a status' language (#[780](https://github.com/pachli/pachli-android/pull/780), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve readability of status media labels (#[778](https://github.com/pachli/pachli-android/pull/778), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure text in nav menu account header is legible (#[773](https://github.com/pachli/pachli-android/pull/773), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't exceed the maximum number of created shortcuts (#[771](https://github.com/pachli/pachli-android/pull/771), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use default "Navigate up" content description in ViewThreadActivity (#[764](https://github.com/pachli/pachli-android/pull/764), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show/hide the list of lists appropriately when showing errors (#[740](https://github.com/pachli/pachli-android/pull/740), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Spanish translations ([Miles Krell](https://github.com/pachli/pachli-android/commits?author=noreply@mileskrell.com))
+- Update Swedish translations ([bittin1ddc447d824349b2](https://github.com/pachli/pachli-android/commits?author=bittin@reimu.nl))
+
 ## v2.5.2
 
 ### New features and other improvements
