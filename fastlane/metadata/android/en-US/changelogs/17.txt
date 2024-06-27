@@ -1,0 +1,16 @@
+Pachli 2.6.0
+
+New features:
+
+- Show "Suggested accounts"
+- Support server filters in GoToSocial 0.16.0
+
+Fixes:
+
+- Update font when returning from from Preferences
+- Correctly handle editing a status' language
+- Improve readability of status media labels
+- Ensure text in nav menu account header is legible
+- Don't exceed the maximum number of created shortcuts
+- Use default "Navigate up" content description in ViewThreadActivity
+- Update Finnish, Spanish, and Swedish translations
