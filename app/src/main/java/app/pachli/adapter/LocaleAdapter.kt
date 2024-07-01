@@ -27,6 +27,15 @@ import app.pachli.util.modernLanguageCode
 import com.google.android.material.color.MaterialColors
 import java.util.Locale
 
+/**
+ * Display a list of [Locale] in a spinner.
+ *
+ * At rest the locale is represented by the uppercase 2-3 character language code without
+ * any subcategories ("EN", "DE", "ZH") etc.
+ *
+ * In the menu the locale is presented as "Local name (name)". E.g,. when the current
+ * locale is English the German locale is displayed as "German (Deutsch)".
+ */
 class LocaleAdapter(context: Context, resource: Int, locales: List<Locale>) : ArrayAdapter<Locale>(context, resource, locales) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return (super.getView(position, convertView, parent) as TextView).apply {

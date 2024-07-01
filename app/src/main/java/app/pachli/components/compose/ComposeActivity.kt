@@ -93,9 +93,12 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityComposeBinding
+import app.pachli.languageidentification.LanguageIdentifierFactory
+import app.pachli.languageidentification.UNDETERMINED_LANGUAGE_TAG
 import app.pachli.util.PickMediaFiles
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
@@ -119,6 +122,7 @@ import java.io.File
 import java.io.IOException
 import java.text.DecimalFormat
 import java.util.Locale
+import javax.inject.Inject
 import kotlin.math.max
 import kotlin.math.min
 import kotlinx.coroutines.flow.collect
@@ -160,6 +164,12 @@ class ComposeActivity :
     private val binding by viewBinding(ActivityComposeBinding::inflate)
 
     private var maxUploadMediaNumber = DEFAULT_MAX_MEDIA_ATTACHMENTS
+
+    /** List of locales the user can choose from when posting. */
+    private lateinit var locales: List<Locale>
+
+    @Inject
+    lateinit var languageIdentifierFactory: LanguageIdentifierFactory
 
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         if (success) {
@@ -602,7 +612,8 @@ class ComposeActivity :
             }
         }
         binding.composePostLanguageButton.apply {
-            adapter = LocaleAdapter(context, android.R.layout.simple_spinner_dropdown_item, getLocaleList(initialLanguages))
+            locales = getLocaleList(initialLanguages)
+            adapter = LocaleAdapter(context, android.R.layout.simple_spinner_dropdown_item, locales)
             setSelection(0)
         }
     }
@@ -950,11 +961,85 @@ class ComposeActivity :
         return binding.composeScheduleView.verifyScheduledTime(binding.composeScheduleView.getDateTime(viewModel.scheduledAt.value))
     }
 
-    private fun onSendClicked() {
+    private fun onSendClicked() = lifecycleScope.launch {
+        confirmStatusLanguage()
+
         if (verifyScheduledTime()) {
             sendStatus()
         } else {
             showScheduleView()
+        }
+    }
+
+    /**
+     * Check the status' language.
+     *
+     * Try and identify the language the status is written in, and compare that with
+     * the language the user selected. If the selected language is not in the top three
+     * detected languages, and the language was detected at 60+% confidence then prompt
+     * the user to change the language before posting.
+     */
+    private suspend fun confirmStatusLanguage() {
+        // Note: There's some dancing around here because the language identifiers
+        // are BCP-47 codes (potentially with multiple components) and the Mastodon API wants ISO 639.
+        // See https://github.com/mastodon/mastodon/issues/23541
+
+        // Null check. Shouldn't be necessary
+        val currentLang = viewModel.language ?: return
+
+        // Try and identify the language the status is written in. Limit to the
+        // first three possibilities.
+        val languageIdentifier = languageIdentifierFactory.newInstance()
+        val languages = languageIdentifier.use {
+            it.identifyPossibleLanguages(binding.composeEditField.text.toString()).take(3)
+        }
+
+        // If there are no matches then bail
+        // Note: belt and braces, shouldn't happen per documented behaviour, as at
+        // least one item should always be returned.
+        if (languages.isEmpty()) return
+
+        // Ignore results where the language could not be determined.
+        if (languages.first().languageTag == UNDETERMINED_LANGUAGE_TAG) return
+
+        // If the current language is any of the ones detected then it's OK.
+        if (languages.any { it.languageTag.startsWith(currentLang) }) return
+
+        // Warn the user about the language mismatch only if 60+% sure of the guess.
+        val detectedLang = languages.first()
+        if (detectedLang.confidence < 0.6) return
+
+        // Viewmodel's language tag has just the first component (e.g., "zh"), the
+        // guessed language might more (e.g,. "-Hant"), so trim to just the first.
+        val detectedLangTruncatedTag = detectedLang.languageTag.split('-', limit = 2)[0]
+
+        val localeList = getLocaleList(emptyList()).associateBy { it.modernLanguageCode }
+
+        val detectedLocale = localeList[detectedLangTruncatedTag] ?: return
+        val detectedDisplayLang = detectedLocale.displayLanguage
+        val currentDisplayLang = localeList[viewModel.language]?.displayLanguage ?: return
+
+        // Otherwise, show the dialog.
+        val dialog = AlertDialog.Builder(this@ComposeActivity)
+            .setTitle(R.string.compose_warn_language_dialog_title)
+            .setMessage(
+                getString(
+                    R.string.compose_warn_language_dialog_fmt,
+                    currentDisplayLang,
+                    detectedDisplayLang,
+                ),
+            )
+            .create()
+            .await(
+                getString(R.string.compose_warn_language_dialog_change_language_fmt, detectedDisplayLang),
+                getString(R.string.compose_warn_language_dialog_accept_language_fmt, currentDisplayLang),
+            )
+
+        if (dialog == AlertDialog.BUTTON_POSITIVE) {
+            viewModel.onLanguageChanged(detectedLangTruncatedTag)
+            locales.indexOf(detectedLocale).takeIf { it != -1 }?.let {
+                binding.composePostLanguageButton.setSelection(it)
+            }
         }
     }
 

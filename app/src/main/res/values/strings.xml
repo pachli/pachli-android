@@ -693,4 +693,8 @@
     <string name="error_filter_missing_context">At least one filter context is required</string>
     <string name="error_filter_missing_title">Title is required</string>
 
+    <string name="compose_warn_language_dialog_title">Check post\'s language</string>
+    <string name="compose_warn_language_dialog_fmt">The post\'s language is set to %1$s but you might have written it in %2$s.</string>
+    <string name="compose_warn_language_dialog_change_language_fmt">Change language to "%1$s" and post</string>
+    <string name="compose_warn_language_dialog_accept_language_fmt">Post as-is (%1$s)</string>
 </resources>
