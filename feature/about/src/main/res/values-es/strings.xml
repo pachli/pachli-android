@@ -67,4 +67,5 @@
     <string name="notification_log_download">Descargar</string>
     <string name="notification_log_method_push">Las notificaciones son obtenidas mediante UnifiedPush y deberían ser inmediatas</string>
     <string name="notification_log_method_pusherror">UnifiedPush está habilitado, pero ocurrió un error: %1$s</string>
+    <string name="about_nivenly_foundation">Pachli es un proyecto de la <a href="https://nivenly.org">Fundación Nivenly</a>.</string>
 </resources>
