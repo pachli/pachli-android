@@ -1,0 +1,16 @@
+Pachli 2.6.0
+
+Nuevo:
+
+- Mostrar "Cuentas sugeridas"
+- Soporte para filtros de GoToSocial 0.16.0
+
+Correcciones:
+
+- Actualizar fuente al volver desde Ajustes
+- Manejar correctamente el idioma de un estado
+- Mejorar la lectura de las etiquetas de medios
+- Asegurar que el texto de la cuenta en el menú sea legible
+- No exceder el máximo de accesos directos creados
+- Usar por defecto la descripción de contenido "Navigate up" al VerActividadDeHilo
+- Actualizar traducciones al español, finés y sueco
