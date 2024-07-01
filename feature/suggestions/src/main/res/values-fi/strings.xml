@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="sources_friends_of_friends">Seuraamiesi henkilöiden suosima</string>
+    <string name="title_suggestions">Tilisuositukset</string>
+    <string name="sources_most_interactions">Saa paljon huomiota palvelimellasi</string>
+    <string name="sources_unknown">(palvelimen vastauksessa tunnistamattomia lähteitä)</string>
+    <string name="sources_most_followed">Palvelimesi eniten seurattuja</string>
+    <string name="sources_featured">Palvelimesi ylläpitäjien ehdotuksia</string>
+    <string name="sources_similar_to_recently_followed">Muistuttaa äskettäin seuraamiasi tilejä</string>
+    <string name="follower_count_fmt"><b>%1$s</b> seuraajaa</string>
+    <string name="follows_count_fmt"><b>%1$s</b> seuraa</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> julkaisua <b>%2$d</b> viikossa, uusin <b>%3$s</b>)</string>
+    <string name="source_unknown">(palvelimen vastauksessa tunnistamaton lähde)</string>
+    <string name="action_follow_account">Seuraa</string>
+    <string name="action_dismiss_follow_suggestion">Ohita</string>
+    <string name="ui_error_delete_suggestion_fmt">Ehdotuksen %1$s ohittaminen epäonnistui: %2$s</string>
+    <string name="ui_error_follow_account_fmt">Tilin %1$s seuraaminen epäonnistui: %2$s</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> julkaisua</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> julkaisua (<b>%2$d</b> viikossa)</string>
+</resources>
