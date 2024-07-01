@@ -17,18 +17,25 @@
 
 package app.pachli.di
 
-import app.pachli.languageidentification.LanguageIdentifier
+import android.content.Context
+import app.pachli.core.common.di.ApplicationScope
+import app.pachli.languageidentification.Factory
 import app.pachli.languageidentification.LanguageIdentifierFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineScope
 
 @InstallIn(SingletonComponent::class)
 @Module
 object LanguageIdentifierFactoryModule {
     @Provides
     @Singleton
-    fun providesLanguageIdentifierFactory(): LanguageIdentifierFactory = LanguageIdentifier.Factory
+    fun providesLanguageIdentifierFactory(
+        @ApplicationScope externalScope: CoroutineScope,
+        @ApplicationContext context: Context,
+    ): LanguageIdentifierFactory = Factory(externalScope, context)
 }

@@ -56,5 +56,5 @@ interface LanguageIdentifierBase :
 // factory to create the language identifier, and then close the language
 // identifier when finished.
 abstract class LanguageIdentifierFactory {
-    abstract fun newInstance(): LanguageIdentifier
+    abstract fun newInstance(): LanguageIdentifierBase
 }
