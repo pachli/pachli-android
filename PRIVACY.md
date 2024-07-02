@@ -28,7 +28,21 @@ You can not delete your Mastodon account using the application. Deleting your ac
 
 ## Data sharing
 
+### If you have installed Pachli from F-Droid or GitHub releases
+
 **None of the data used by the application is shared with the application developers or unrelated third parties.** Your data is only ever sent to your server, and handled in accordance with your server's privacy policy.
+
+### If you have installed Pachli from Google Play
+
+Pachli uses Google's [ML Kit](https://developers.google.com/ml-kit) to provide features that:
+
+- Warn you if the language you have selected when editing a post appears to be different from the language you used
+
+When Pachli does this all of the data you have provided (e.g., the content you are posting) is processed on your device, and **ML Kit does not send that data to Google servers**.
+
+The ML Kit APIs may contact Google servers from time to time in order to receive things like bug fixes, updated models and hardware accelerator compatibility information. The ML Kit APIs also send metrics about the performance and utilization of the APIs in your app to Google. Google uses this metrics data to measure performance, debug, maintain and improve the APIs, and detect misuse or abuse, as further described in Google's [Privacy Policy](https://policies.google.com/privacy).
+
+The specific data collected by ML Kit is in Google's [data disclosure](https://developers.google.com/ml-kit/android-data-disclosure) description.
 
 ## Data types
 

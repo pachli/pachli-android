@@ -179,6 +179,11 @@ dependencies {
     googleImplementation(libs.app.update)
     googleImplementation(libs.app.update.ktx)
 
+    // Language detection
+    googleImplementation(libs.play.services.base)
+    googleImplementation(libs.mlkit.language.id)
+    googleImplementation(libs.kotlinx.coroutines.play.services)
+
     implementation(libs.semver)
 
     debugImplementation(libs.leakcanary)
