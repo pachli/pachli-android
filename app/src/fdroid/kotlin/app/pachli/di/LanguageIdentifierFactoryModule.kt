@@ -20,6 +20,7 @@ package app.pachli.di
 import android.content.Context
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.languageidentification.DefaultLanguageIdentifierFactory
+import app.pachli.languageidentification.LanguageIdentifier
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
