@@ -20,7 +20,7 @@ package app.pachli.di
 import android.content.Context
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.languageidentification.LanguageIdentifier
-import app.pachli.languageidentification.LanguageIdentifierFactory
+import app.pachli.languageidentification.MlKitLanguageIdentifier
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,5 +37,5 @@ object LanguageIdentifierFactoryModule {
     fun providesLanguageIdentifierFactory(
         @ApplicationScope externalScope: CoroutineScope,
         @ApplicationContext context: Context,
-    ): LanguageIdentifierFactory = LanguageIdentifier.Factory(externalScope, context)
+    ): LanguageIdentifier.Factory = MlKitLanguageIdentifier.Factory(externalScope, context)
 }

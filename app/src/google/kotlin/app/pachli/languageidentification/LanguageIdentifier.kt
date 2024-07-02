@@ -18,83 +18,91 @@
 package app.pachli.languageidentification
 
 import android.content.Context
-import com.google.android.gms.common.moduleinstall.ModuleAvailabilityResponse.AvailabilityStatus.STATUS_READY_TO_DOWNLOAD
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.coroutines.runSuspendCatching
+import com.github.michaelbull.result.mapError
 import com.google.android.gms.common.moduleinstall.ModuleInstall
-import com.google.android.gms.common.moduleinstall.ModuleInstallClient
 import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
 import com.google.mlkit.nl.languageid.LanguageIdentification
-import com.google.mlkit.nl.languageid.LanguageIdentifier
+import com.google.mlkit.nl.languageid.LanguageIdentifier as GoogleLanguageIdentifier
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 /**
- * LanguageIdentifer that uses Google's ML Kit to perform the language identification.
- *
- * If the ML Kit module is not installed on the device it will be installed on
- * first use.
+ * [LanguageIdentifier] that uses Google's ML Kit to perform the language
+ * identification.
  */
-class LanguageIdentifier(
-    private val moduleInstallClient: ModuleInstallClient,
-    private val googleLanguageIdentifier: LanguageIdentifier,
-) : LanguageIdentifierBase {
-    override suspend fun identifyPossibleLanguages(text: String): List<IdentifiedLanguage> {
-        val modulesAvailable = moduleInstallClient
-            .areModulesAvailable(googleLanguageIdentifier)
-            .await()
-            .areModulesAvailable()
+class MlKitLanguageIdentifier private constructor() : LanguageIdentifier {
+    private var client: GoogleLanguageIdentifier? = null
 
-        return if (modulesAvailable) {
-            googleLanguageIdentifier.identifyPossibleLanguages(text).await().map {
-                IdentifiedLanguage(
-                    confidence = it.confidence,
-                    languageTag = it.languageTag,
-                )
-            }
-        } else {
-            Timber.d("langid module not installed yet")
-            listOf(IdentifiedLanguage(confidence = 1f, languageTag = UNDETERMINED_LANGUAGE_TAG))
-        }
+    init {
+        client = LanguageIdentification.getClient()
+    }
+
+    override suspend fun identifyPossibleLanguages(text: String): Result<List<IdentifiedLanguage>, LanguageIdentifierError> {
+        return client?.let { client ->
+            // May throw an MlKitException, so catch and map error
+            runSuspendCatching {
+                client.identifyPossibleLanguages(text).await().map {
+                    IdentifiedLanguage(
+                        confidence = it.confidence,
+                        languageTag = it.languageTag,
+                    )
+                }
+            }.mapError { LanguageIdentifierError.Unknown(it) }
+        } ?: Err(LanguageIdentifierError.UseAfterClose)
     }
 
     override fun close() {
-        googleLanguageIdentifier.close()
+        client?.close()
+        client = null
     }
 
     /**
      * Factory for LanguageIdentifer based on Google's ML Kit.
      *
-     * When the factory is constructed a coroutine to check and install the
-     * language module is launched, increasing the chances the module will
-     * be installed before it is first used.
+     * When the factory is constructed a [com.google.android.gms.tasks.Task]
+     * to check and install the language module is launched, increasing the
+     * chances the module will be installed before it is first used.
      */
     class Factory(
-        externalScope: CoroutineScope,
-        context: Context,
-    ) : LanguageIdentifierFactory() {
+        private val externalScope: CoroutineScope,
+        private val context: Context,
+    ) : LanguageIdentifier.Factory() {
         private val moduleInstallClient = ModuleInstall.getClient(context)
 
         init {
-            externalScope.launch {
-                LanguageIdentification.getClient().use { langIdClient ->
-                    val availablityStatus = moduleInstallClient
-                        .areModulesAvailable(langIdClient)
-                        .await()
-                        .availabilityStatus
+            LanguageIdentification.getClient().use { langIdClient ->
+                val moduleInstallRequest = ModuleInstallRequest.newBuilder()
+                    .addApi(langIdClient)
+                    .build()
 
-                    if (availablityStatus != STATUS_READY_TO_DOWNLOAD) return@launch
-                    Timber.d("langid module not installed, requesting download")
-                    val moduleInstallRequest = ModuleInstallRequest.newBuilder()
-                        .addApi(langIdClient)
-                        .build()
-                    moduleInstallClient.installModules(moduleInstallRequest)
-                        .addOnSuccessListener { Timber.d("langid module installed") }
-                        .addOnFailureListener { e -> Timber.d(e, "langid module install failed") }
-                }
+                moduleInstallClient.installModules(moduleInstallRequest)
             }
         }
 
-        override fun newInstance() = LanguageIdentifier(moduleInstallClient, LanguageIdentification.getClient())
+        /**
+         * Returns a [MlKitLanguageIdentifier] if the relevant modules are
+         * installed, defers to [DefaultLanguageIdentifierFactory] if not.
+         */
+        override suspend fun newInstance(): LanguageIdentifier {
+            LanguageIdentification.getClient().use { langIdClient ->
+                val modulesAreAvailable = moduleInstallClient
+                    .areModulesAvailable(langIdClient)
+                    .await()
+                    .areModulesAvailable()
+
+                return if (modulesAreAvailable) {
+                    Timber.d("mlkit langid module available")
+                    MlKitLanguageIdentifier()
+                } else {
+                    Timber.d("mlkit langid module *not* available")
+                    DefaultLanguageIdentifierFactory(externalScope, context)
+                        .newInstance()
+                }
+            }
+        }
     }
 }

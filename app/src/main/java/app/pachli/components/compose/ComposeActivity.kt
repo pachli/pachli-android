@@ -97,7 +97,7 @@ import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityComposeBinding
-import app.pachli.languageidentification.LanguageIdentifierFactory
+import app.pachli.languageidentification.LanguageIdentifier
 import app.pachli.languageidentification.UNDETERMINED_LANGUAGE_TAG
 import app.pachli.util.PickMediaFiles
 import app.pachli.util.getInitialLanguages
@@ -110,6 +110,7 @@ import app.pachli.util.setDrawableTint
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.options
+import com.github.michaelbull.result.getOrElse
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
@@ -169,7 +170,7 @@ class ComposeActivity :
     private lateinit var locales: List<Locale>
 
     @Inject
-    lateinit var languageIdentifierFactory: LanguageIdentifierFactory
+    lateinit var languageIdentifierFactory: LanguageIdentifier.Factory
 
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         if (success) {
@@ -988,10 +989,14 @@ class ComposeActivity :
         val currentLang = viewModel.language ?: return
 
         // Try and identify the language the status is written in. Limit to the
-        // first three possibilities.
-        val languageIdentifier = languageIdentifierFactory.newInstance()
-        val languages = languageIdentifier.use {
-            it.identifyPossibleLanguages(binding.composeEditField.text.toString()).take(3)
+        // first three possibilities. Don't show errors to the user, just bail,
+        // as there's nothing they can do to resolve any error.
+        val languages = languageIdentifierFactory.newInstance().use {
+            it.identifyPossibleLanguages(binding.composeEditField.text.toString())
+                .getOrElse {
+                    Timber.d("error when identifying languages: %s", it)
+                    return
+                }
         }
 
         // If there are no matches then bail

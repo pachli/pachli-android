@@ -19,8 +19,7 @@ package app.pachli.di
 
 import android.content.Context
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.languageidentification.Factory
-import app.pachli.languageidentification.LanguageIdentifierFactory
+import app.pachli.languageidentification.DefaultLanguageIdentifierFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,5 +36,5 @@ object LanguageIdentifierFactoryModule {
     fun providesLanguageIdentifierFactory(
         @ApplicationScope externalScope: CoroutineScope,
         @ApplicationContext context: Context,
-    ): LanguageIdentifierFactory = Factory(externalScope, context)
+    ): LanguageIdentifier.Factory = DefaultLanguageIdentifierFactory(externalScope, context)
 }
