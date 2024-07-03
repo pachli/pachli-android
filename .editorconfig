@@ -21,6 +21,18 @@ ij_java_class_count_to_use_import_on_demand = 999
 ij_kotlin_allow_trailing_comma = true
 ij_kotlin_allow_trailing_comma_on_call_site = true
 
+# https://pinterest.github.io/ktlint/latest/rules/standard/#class-signature
+# Was re-writing class signatures causing spurious diffs.
+ktlint_standard_class-signature = disabled
+
+# https://pinterest.github.io/ktlint/latest/rules/standard/#condition-wrapping
+# Was re-writing conditions causing spurious diffs.
+ktlint-standard_condition-wrapping = disabled
+
+# https://pinterest.github.io/ktlint/latest/rules/standard/#function-expression-body
+# Was re-writing functions to expression bodies, causing spurious diffs.
+ktlint_standard_function-expression-body = disabled
+
 max_line_length = off
 
 [*.{yml,yaml}]
