@@ -94,7 +94,6 @@ import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.extensions.await
-import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityComposeBinding
 import app.pachli.languageidentification.LanguageIdentifier
@@ -111,6 +110,7 @@ import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.options
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.onFailure
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
@@ -121,7 +121,6 @@ import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.IOException
-import java.text.DecimalFormat
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.max
@@ -518,14 +517,10 @@ class ComposeActivity :
         }
 
         lifecycleScope.launch {
-            viewModel.uploadError.collect { throwable ->
-                if (throwable is UploadServerError) {
-                    displayTransientMessage(throwable.getErrorString(this@ComposeActivity))
-                } else {
-                    displayTransientMessage(
-                        getString(R.string.error_media_upload_sending_fmt, throwable.getErrorString(this@ComposeActivity)),
-                    )
-                }
+            viewModel.uploadError.collect { mediaUploaderError ->
+                val message = mediaUploaderError.fmt(this@ComposeActivity)
+
+                displayPermamentMessage(getString(R.string.error_media_upload_sending_fmt, message))
             }
         }
     }
@@ -719,6 +714,14 @@ class ComposeActivity :
         super.onSaveInstanceState(outState)
     }
 
+    private fun displayPermamentMessage(message: String) {
+        val bar = Snackbar.make(binding.activityCompose, message, Snackbar.LENGTH_INDEFINITE)
+        // necessary so snackbar is shown over everything
+        bar.view.elevation = resources.getDimension(DR.dimen.compose_activity_snackbar_elevation)
+        bar.setAnchorView(R.id.composeBottomBar)
+        bar.show()
+    }
+
     private fun displayTransientMessage(message: String) {
         val bar = Snackbar.make(binding.activityCompose, message, Snackbar.LENGTH_LONG)
         // necessary so snackbar is shown over everything
@@ -726,6 +729,7 @@ class ComposeActivity :
         bar.setAnchorView(R.id.composeBottomBar)
         bar.show()
     }
+
     private fun displayTransientMessage(@StringRes stringId: Int) {
         displayTransientMessage(getString(stringId))
     }
@@ -1181,18 +1185,12 @@ class ComposeActivity :
 
     private fun pickMedia(uri: Uri, description: String? = null) {
         lifecycleScope.launch {
-            viewModel.pickMedia(uri, description).onFailure { throwable ->
-                val errorString = when (throwable) {
-                    is FileSizeException -> {
-                        val decimalFormat = DecimalFormat("0.##")
-                        val allowedSizeInMb = throwable.allowedSizeInBytes.toDouble() / (1024 * 1024)
-                        val formattedSize = decimalFormat.format(allowedSizeInMb)
-                        getString(R.string.error_multimedia_size_limit, formattedSize)
-                    }
-                    is VideoOrImageException -> getString(R.string.error_media_upload_image_or_video)
-                    else -> getString(R.string.error_media_upload_opening)
-                }
-                displayTransientMessage(errorString)
+            viewModel.pickMedia(uri, description).onFailure {
+                val message = getString(
+                    R.string.error_pick_media_fmt,
+                    it.fmt(this@ComposeActivity),
+                )
+                displayPermamentMessage(message)
             }
         }
     }
@@ -1377,6 +1375,7 @@ class ComposeActivity :
         }
     }
 
+    /** Media queued for upload. */
     data class QueuedMedia(
         val localId: Int,
         val uri: Uri,

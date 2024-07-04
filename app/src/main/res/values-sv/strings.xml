@@ -466,7 +466,6 @@
     <string name="account_date_joined">Gick med i %1$s</string>
     <string name="saving_draft">Sparar utkast…</string>
     <string name="tips_push_notification_migration">Logga in igen på alla konton för att tillåta pushnotiser.</string>
-    <string name="error_multimedia_size_limit">Video- och ljudfiler kan inte överskrida %s MB i storlek.</string>
     <string name="error_image_edit_failed">Bilden kunde inte redigeras.</string>
     <string name="duration_365_days">365 dagar</string>
     <string name="duration_180_days">180 dagar</string>

@@ -486,7 +486,6 @@
     <string name="notification_update_format">قام %s بتعديل منشوره</string>
     <string name="a11y_label_loading_thread">تحميل خيط المحادثة</string>
     <string name="hint_media_description_missing">يجب أن تضع وصفًا للوسائط.</string>
-    <string name="error_multimedia_size_limit">لا يمكن أن يتجاوز حجم ملفات الفيديو والصوت %s ميغا بايت.</string>
     <string name="error_image_edit_failed">لا يمكن تحرير الصورة.</string>
     <string name="title_edits">التعديلات</string>
     <string name="pref_title_notification_filter_reports">هناك شكوى جديدة</string>

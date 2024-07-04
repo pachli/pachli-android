@@ -471,7 +471,6 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="failed_to_pin">شکست در سنجاق کردن</string>
     <string name="failed_to_unpin">شکست در برداشتن سنجاق</string>
-    <string name="error_multimedia_size_limit">پرونده‌های صوتی و ویدیویی نمی‌توانند بیش از %sم‌ب باشند.</string>
     <string name="error_image_edit_failed">تصویر نتوانست ویرایش شود.</string>
     <string name="description_post_language">زبان فرسته</string>
     <string name="pref_show_self_username_always">همیشه</string>

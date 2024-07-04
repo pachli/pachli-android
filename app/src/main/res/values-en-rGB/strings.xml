@@ -46,7 +46,6 @@
     <string name="error_media_download_permission">Permission to store media is required.</string>
     <string name="title_posts_with_replies">With replies</string>
     <string name="title_posts_pinned">Pinned</string>
-    <string name="error_multimedia_size_limit">Video and audio files cannot exceed %s MB in size.</string>
     <string name="error_status_source_load">Failed to load the status source from the server.</string>
     <string name="title_public_trending_links">Trending links</string>
     <string name="title_tab_public_trending_links">Links</string>

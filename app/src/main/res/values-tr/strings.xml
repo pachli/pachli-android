@@ -402,7 +402,6 @@
     <string name="pref_title_hide_top_toolbar">Üst araç çubuğunun başlığını gizle</string>
     <string name="action_delete_conversation">Konuşmayı sil</string>
     <string name="title_announcements">Duyurular</string>
-    <string name="error_multimedia_size_limit">Video ve ses dosyaları %s MB boyutunu aşamaz.</string>
     <string name="error_image_edit_failed">Görsel düzenlemedi.</string>
     <string name="error_following_hashtag_format">#%s\'i izleyen hata</string>
     <string name="error_muting_hashtag_format">Sessize alma hatası #%s</string>

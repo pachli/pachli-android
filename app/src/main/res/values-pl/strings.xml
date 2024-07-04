@@ -491,7 +491,6 @@
     <string name="title_migration_relogin">Zaloguj się ponownie aby włączyć powiadomienia push</string>
     <string name="action_dismiss">Odrzuć</string>
     <string name="action_details">Detale</string>
-    <string name="error_multimedia_size_limit">Pliki wideo i audio nie mogą przekraczać rozmiarem %s MB.</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="description_post_language">Język wpisu</string>
     <string name="duration_no_change">(bez zmian)</string>

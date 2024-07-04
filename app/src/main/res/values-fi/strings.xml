@@ -271,7 +271,6 @@
     <string name="abbreviated_seconds_ago">%ds</string>
     <string name="confirmation_unmuted">Käyttäjän mykistys poistettu</string>
     <string name="action_continue_edit">Jatka muokkausta</string>
-    <string name="error_multimedia_size_limit">Video- ja äänitiedostot eivät saa ylittää %s Mt.</string>
     <string name="error_status_source_load">Tilan lähteen lataaminen palvelimelta epäonnistui.</string>
     <string name="abbreviated_days_ago">%dpv</string>
     <string name="title_public_trending_links">Nousussa olevat linkit</string>

@@ -496,7 +496,6 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="dialog_push_notification_migration_other_accounts">Nuovo accesso eseguito per l\'utenza corrente al fine di garantire il permesso delle notifiche a Pachli. Però hai altre utenze che non sono state migrate in questo modo. Cambia utenza e riaccedi una alla volta per abilitare il supporto alle notifiche UnifiedPush.</string>
     <string name="account_date_joined">Registrato da %1$s</string>
-    <string name="error_multimedia_size_limit">File video e audio non possono eccedere %s MB in dimensione.</string>
     <string name="error_image_edit_failed">L\'immagine non può essere modificata.</string>
     <string name="title_migration_relogin">Riaccedi per le notifiche</string>
     <string name="error_following_hashtag_format">Errore provando a seguire #%s</string>

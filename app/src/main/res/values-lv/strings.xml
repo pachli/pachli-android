@@ -204,7 +204,6 @@
     <string name="notification_report_format">Jauns ziņojums par %s</string>
     <string name="action_mute_conversation">Apklusināt sarunu</string>
     <string name="action_access_scheduled_posts">Ieplānotie ieraksti</string>
-    <string name="error_multimedia_size_limit">Video un audio faili nevar pārsniegt %s MB izmēru.</string>
     <string name="error_following_hashtags_unsupported">Šī instance neatbalsta sekošanu tēmturiem.</string>
     <string name="send_post_notification_channel_name">Sūta ierakstus</string>
     <string name="emoji_style">Emocijzīmju stils</string>

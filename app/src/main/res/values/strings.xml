@@ -18,13 +18,12 @@
     <string name="error_empty">This cannot be empty.</string>
     <string name="error_no_web_browser_found">Couldn\'t find a web browser to use.</string>
     <string name="error_compose_character_limit">The post is too long!</string>
-    <string name="error_multimedia_size_limit">Video and audio files cannot exceed %s MB in size.</string>
     <string name="error_image_edit_failed">The image could not be edited.</string>
     <string name="error_media_upload_type">That type of file cannot be uploaded.</string>
     <string name="error_media_upload_opening">That file could not be opened.</string>
     <string name="error_media_upload_permission">Permission to read media is required.</string>
     <string name="error_media_download_permission">Permission to store media is required.</string>
-    <string name="error_media_upload_image_or_video">Images and videos cannot both be attached to the same post.</string>
+    <string name="error_media_upload_image_or_video">images and videos cannot both be attached to the same post.</string>
     <string name="error_media_upload_sending">The upload failed.</string>
     <string name="error_media_upload_sending_fmt">The upload failed: %s</string>
     <string name="error_sender_account_gone">Error sending post.</string>
@@ -697,4 +696,17 @@
     <string name="compose_warn_language_dialog_fmt">The post\'s language is set to %1$s but you might have written it in %2$s.</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Change language to "%1$s" and post</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Post as-is (%1$s)</string>
+
+    <string name="error_media_uploader_upload_not_found_fmt">media upload with ID %1$s not found</string>
+    <string name="error_media_uploader_throwable_fmt">%1$s</string>
+
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">content resolver URI was missing a path: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">content resolver URI has unsupported scheme: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">file size is %1$s, maximum allowed is %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">file size could not be determined</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">server does not support file type: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">file\'s type is not known</string>
+
+    <string name="error_pick_media_fmt">Could not attach file to post: %1$s</string>
 </resources>

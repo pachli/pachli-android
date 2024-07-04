@@ -16,6 +16,7 @@
 
 package app.pachli.components.compose
 
+import android.content.ContentResolver
 import android.net.Uri
 import android.text.Editable
 import android.text.Spanned
@@ -24,11 +25,13 @@ import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.components.compose.ComposeAutoCompleteAdapter.AutocompleteResult
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.search.SearchType
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.InstanceInfoRepository
@@ -43,7 +46,12 @@ import app.pachli.service.MediaToSend
 import app.pachli.service.ServiceClient
 import app.pachli.service.StatusToSend
 import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.mapError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -125,7 +133,7 @@ class ComposeViewModel @Inject constructor(
 
     private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
     val media = _media.asStateFlow()
-    private val _uploadError = MutableSharedFlow<Throwable>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private val _uploadError = MutableSharedFlow<MediaUploaderError>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val uploadError = _uploadError.asSharedFlow()
     private val _closeConfirmation = MutableStateFlow(ConfirmationKind.NONE)
     val closeConfirmation = _closeConfirmation.asStateFlow()
@@ -139,21 +147,38 @@ class ComposeViewModel @Inject constructor(
 
     private var setupComplete = false
 
-    suspend fun pickMedia(mediaUri: Uri, description: String? = null, focus: Attachment.Focus? = null): Result<QueuedMedia> = withContext(Dispatchers.IO) {
-        try {
-            val (type, uri, size) = mediaUploader.prepareMedia(mediaUri, instanceInfo.value)
-            val mediaItems = media.value
-            if (type != QueuedMedia.Type.IMAGE &&
-                mediaItems.isNotEmpty() &&
-                mediaItems[0].type == QueuedMedia.Type.IMAGE
-            ) {
-                Result.failure(VideoOrImageException())
-            } else {
-                val queuedMedia = addMediaToQueue(type, uri, size, description, focus)
-                Result.success(queuedMedia)
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
+    /** Errors preparing media for upload. */
+    sealed interface PickMediaError : PachliError {
+        @JvmInline
+        value class PrepareMediaError(val error: MediaUploaderError.PrepareMediaError) : PickMediaError, MediaUploaderError.PrepareMediaError by error
+
+        /**
+         * User is trying to add an image to a post that already has a video
+         * attachment, or vice-versa.
+         */
+        data object MixedMediaTypesError : PickMediaError {
+            override val resourceId = R.string.error_media_upload_image_or_video
+            override val formatArgs = null
+            override val cause = null
+        }
+    }
+
+    /**
+     * Copies selected media and adds to the upload queue.
+     *
+     * @param mediaUri [ContentResolver] URI for the file to copy
+     * @param description media description / caption
+     * @param focus focus, if relevant
+     */
+    suspend fun pickMedia(mediaUri: Uri, description: String? = null, focus: Attachment.Focus? = null): Result<QueuedMedia, PickMediaError> = withContext(Dispatchers.IO) {
+        val (type, uri, size) = mediaUploader.prepareMedia(mediaUri, instanceInfo.value)
+            .mapError { PickMediaError.PrepareMediaError(it) }.getOrElse { return@withContext Err(it) }
+        val mediaItems = media.value
+        if (type != QueuedMedia.Type.IMAGE && mediaItems.isNotEmpty() && mediaItems[0].type == QueuedMedia.Type.IMAGE) {
+            Err(PickMediaError.MixedMediaTypesError)
+        } else {
+            val queuedMedia = addMediaToQueue(type, uri, size, description, focus)
+            Ok(queuedMedia)
         }
     }
 
@@ -196,32 +221,30 @@ class ComposeViewModel @Inject constructor(
                 .collect { event ->
                     val item = media.value.find { it.localId == mediaItem.localId }
                         ?: return@collect
-                    val newMediaItem = when (event) {
-                        is UploadEvent.ProgressEvent ->
-                            item.copy(uploadPercent = event.percentage)
-                        is UploadEvent.FinishedEvent ->
+                    var newMediaItem: QueuedMedia? = null
+                    val uploadEvent = event.getOrElse {
+                        _media.update { mediaList -> mediaList.filter { it.localId != mediaItem.localId } }
+                        _uploadError.emit(it)
+                        return@collect
+                    }
+
+                    newMediaItem = when (uploadEvent) {
+                        is UploadEvent.ProgressEvent -> item.copy(uploadPercent = uploadEvent.percentage)
+                        is UploadEvent.FinishedEvent -> {
                             item.copy(
-                                id = event.mediaId,
+                                id = uploadEvent.media.mediaId,
                                 uploadPercent = -1,
-                                state = if (event.processed) {
+                                state = if (uploadEvent.media.processed) {
                                     QueuedMedia.State.PROCESSED
                                 } else {
                                     QueuedMedia.State.UNPROCESSED
                                 },
                             )
-                        is UploadEvent.ErrorEvent -> {
-                            _media.update { mediaList -> mediaList.filter { it.localId != mediaItem.localId } }
-                            _uploadError.emit(event.error)
-                            return@collect
                         }
                     }
-                    _media.update { mediaList ->
-                        mediaList.map { mediaItem ->
-                            if (mediaItem.localId == newMediaItem.localId) {
-                                newMediaItem
-                            } else {
-                                mediaItem
-                            }
+                    newMediaItem.let {
+                        _media.update { mediaList ->
+                            mediaList.map { mediaItem -> if (mediaItem.localId == it.localId) it else mediaItem }
                         }
                     }
                 }
@@ -662,8 +685,3 @@ class ComposeViewModel @Inject constructor(
         }
     }
 }
-
-/**
- * Thrown when trying to add an image when video is already present or the other way around
- */
-class VideoOrImageException : Exception()

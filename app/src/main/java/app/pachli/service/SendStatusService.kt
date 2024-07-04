@@ -24,7 +24,6 @@ import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.StatusScheduledEvent
 import app.pachli.components.compose.MediaUploader
-import app.pachli.components.compose.UploadEvent
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.pendingIntentFlags
 import app.pachli.core.accounts.AccountManager
@@ -38,6 +37,7 @@ import app.pachli.core.network.model.NewStatus
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.getOrElse
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
@@ -144,15 +144,14 @@ class SendStatusService : Service() {
             // first, wait for media uploads to finish
             val media = statusToSend.media.map { mediaItem ->
                 if (mediaItem.id == null) {
-                    when (val uploadState = mediaUploader.getMediaUploadState(mediaItem.localId)) {
-                        is UploadEvent.FinishedEvent -> mediaItem.copy(id = uploadState.mediaId, processed = uploadState.processed)
-                        is UploadEvent.ErrorEvent -> {
-                            Timber.w(uploadState.error, "failed uploading media")
-                            failSending(statusId)
-                            stopSelfWhenDone()
-                            return@launch
-                        }
-                    }
+                    val uploadState = mediaUploader.getMediaUploadState(mediaItem.localId)
+                    val media = uploadState.getOrElse {
+                        Timber.w("failed uploading media: %s", it.fmt(this@SendStatusService))
+                        failSending(statusId)
+                        stopSelfWhenDone()
+                        return@launch
+                    }.media
+                    mediaItem.copy(id = media.mediaId, processed = media.processed)
                 } else {
                     mediaItem
                 }

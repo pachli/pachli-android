@@ -457,7 +457,6 @@
     <string name="duration_90_days">90 jorns</string>
     <string name="duration_180_days">180 jorns</string>
     <string name="duration_365_days">365 jorns</string>
-    <string name="error_multimedia_size_limit">Los fichièrs video e àudio pòdon pas despassar %s.</string>
     <string name="set_focus_description">Tocatz o lisatz lo cercle per causir lo punt focal que deu aparéisser sus las miniaturas.</string>
     <string name="pref_title_show_self_username">Mostrar lo nom d’utilizaire dins la barra d’aisinas</string>
     <string name="pref_show_self_username_disambiguate">Quand mai d’un compte es connectat</string>

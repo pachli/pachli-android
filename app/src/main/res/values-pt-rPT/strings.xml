@@ -482,7 +482,6 @@
     <string name="pref_show_self_username_never">Nunca</string>
     <string name="description_post_language">Idioma da publicação</string>
     <string name="pref_title_show_self_username">Mostrar o nome de utilizador nas barras de ferramentas</string>
-    <string name="error_multimedia_size_limit">Os ficheiros de áudio e vídeo não podem exceder os %s MB.</string>
     <string name="action_set_focus">Define o ponto de focagem</string>
     <string name="error_following_hashtag_format">Erro ao seguir #%s</string>
     <string name="error_unfollowing_hashtag_format">Erro ao deixar de seguir #%s</string>
