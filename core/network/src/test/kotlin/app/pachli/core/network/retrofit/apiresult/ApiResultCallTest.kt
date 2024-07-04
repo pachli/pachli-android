@@ -68,7 +68,6 @@ class ApiResultCallTest {
 
     @Test
     fun `should parse successful call as ApiResult-success`() {
-        // TODO: Body should be JSON
         val okResponse = Response.success("Test body", jsonHeaders)
 
         networkApiResultCall.enqueue(
