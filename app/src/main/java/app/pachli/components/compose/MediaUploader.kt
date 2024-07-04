@@ -122,7 +122,7 @@ sealed interface MediaUploaderError : PachliError {
          */
         data class IoError(val exception: IOException) : PrepareMediaError {
             override val resourceId = R.string.error_prepare_media_io_fmt
-            override val formatArgs = arrayOf(exception.localizedMessage)
+            override val formatArgs = arrayOf(exception.localizedMessage ?: "")
             override val cause = null
         }
 
@@ -178,7 +178,7 @@ sealed interface MediaUploaderError : PachliError {
     /** Catch-all for arbitrary throwables */
     data class ThrowableError(private val throwable: Throwable) : MediaUploaderError {
         override val resourceId = R.string.error_media_uploader_throwable_fmt
-        override val formatArgs = arrayOf(throwable.localizedMessage)
+        override val formatArgs = arrayOf(throwable.localizedMessage ?: "")
         override val cause = null
     }
 }
