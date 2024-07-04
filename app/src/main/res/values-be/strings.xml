@@ -3,7 +3,6 @@
     <string name="error_empty">Не можа быць пустым.</string>
     <string name="error_no_web_browser_found">Браўзер не знойдзены.</string>
     <string name="error_compose_character_limit">Допіс занадта доўгі!</string>
-    <string name="error_multimedia_size_limit">Памер відэа- ды аўдыяфайлаў не можа перавышаць %s Мб.</string>
     <string name="error_media_upload_type">Немагчыма запампаваць файл гэтага тыпу.</string>
     <string name="error_media_upload_opening">Немагчыма адкрыць гэты файл.</string>
     <string name="error_media_download_permission">Патрабуецца дазвол на захаванне медыя.</string>

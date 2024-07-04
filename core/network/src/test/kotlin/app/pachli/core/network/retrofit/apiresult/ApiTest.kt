@@ -61,6 +61,7 @@ class ApiTest {
 
     private fun mockResponse(responseCode: Int, body: String = "") = MockResponse()
         .setResponseCode(responseCode)
+        .setHeader("content-type", "application/json")
         .setBody(body)
 
     @Test

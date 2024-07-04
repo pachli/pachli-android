@@ -75,7 +75,7 @@ interface PachliError {
     val resourceId: Int
 
     /** Arguments to be interpolated in to the string from [resourceId]. */
-    val formatArgs: Array<out String>?
+    val formatArgs: Array<out Any>?
 
     /**
      * The cause of this error. If present the string representation of `cause`

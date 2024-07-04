@@ -462,7 +462,6 @@
     <string name="pref_summary_http_proxy_invalid">&lt;inválido&gt;</string>
     <string name="pref_show_self_username_always">Sempre</string>
     <string name="error_image_edit_failed">A imagem não pôde ser editada.</string>
-    <string name="error_multimedia_size_limit">Arquivos de vídeo e áudio não podem exceder %s MB de tamanho.</string>
     <string name="hint_media_description_missing">A mídia deve ter uma descrição.</string>
     <string name="pref_show_self_username_never">Nunca</string>
     <string name="post_media_alt">ALT</string>

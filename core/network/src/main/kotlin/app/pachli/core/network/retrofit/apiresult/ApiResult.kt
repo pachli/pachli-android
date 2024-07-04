@@ -39,12 +39,14 @@ typealias ApiResult<T> = Result<ApiResponse<T>, ApiError>
 /**
  * A successful response from an API call.
  *
- * @param headers The HTTP headers from the response
- * @param body The response body, converted to [T]
+ * @param headers HTTP headers from the response
+ * @param body Response body, converted to [T]
+ * @param code HTTP response code (200, etc)
  */
 data class ApiResponse<out T>(
     val headers: Headers,
     val body: T,
+    val code: Int,
 )
 
 /**
@@ -59,8 +61,8 @@ sealed class ApiError(
     @StringRes override val resourceId: Int,
     val throwable: Throwable,
 ) : PachliError {
-    override val formatArgs = (
-        throwable.getServerErrorMessage() ?: throwable.localizedMessage
+    override val formatArgs: Array<out Any>? = (
+        throwable.getServerErrorMessage() ?: throwable.localizedMessage?.trim()
         )?.let { arrayOf(it) }
     override val cause: PachliError? = null
 
@@ -167,6 +169,27 @@ sealed class ServerError(
         ServerError(R.string.error_generic_fmt, exception)
 }
 
+/**
+ * The server sent a response without a content type. Note that the underlying
+ * response in [exception] may be a success, as the server may have sent a 2xx
+ * without a content-type.
+ */
+data class MissingContentType(val exception: HttpException) :
+    ApiError(R.string.error_missing_content_type_fmt, exception)
+
+/**
+ * The server sent a response with the wrong content type (not "application/json")
+ * Note that the underlying response in [exception] may be a success, as the server
+ * may have sent a 2xx with the wrong content-type.
+ */
+data class WrongContentType(val contentType: String, val exception: HttpException) :
+    ApiError(R.string.error_wrong_content_type_fmt, exception) {
+    override val formatArgs: Array<out Any>
+        get() = super.formatArgs?.let {
+            arrayOf(contentType, *it)
+        } ?: arrayOf(contentType)
+}
+
 data class JsonParseError(val exception: JsonDataException) :
     ApiError(R.string.error_json_data_fmt, exception)
 
@@ -177,6 +200,12 @@ data class IoError(val exception: IOException) :
  * Creates an [ApiResult] from a [Response].
  */
 fun <T> Result.Companion.from(response: Response<T>, successType: Type): ApiResult<T> {
+    response.headers()["content-type"]?.let { contentType ->
+        if (!contentType.startsWith("application/json")) {
+            return Err(WrongContentType(contentType, HttpException(response)))
+        }
+    } ?: return Err(MissingContentType(HttpException(response)))
+
     if (!response.isSuccessful) {
         val err = ApiError.from(HttpException(response))
         return Err(err)
@@ -185,11 +214,11 @@ fun <T> Result.Companion.from(response: Response<T>, successType: Type): ApiResu
     // Skip body processing for successful responses expecting Unit
     if (successType == Unit::class.java) {
         @Suppress("UNCHECKED_CAST")
-        return Ok(ApiResponse(response.headers(), Unit as T))
+        return Ok(ApiResponse(response.headers(), Unit as T, response.code()))
     }
 
     response.body()?.let { body ->
-        return Ok(ApiResponse(response.headers(), body))
+        return Ok(ApiResponse(response.headers(), body, response.code()))
     }
 
     return Err(ApiError.from(HttpException(response)))

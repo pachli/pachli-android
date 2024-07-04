@@ -45,4 +45,8 @@ dependencies {
 
     testImplementation(libs.mockwebserver)
     testImplementation(libs.bundles.mockito)
+
+    // ThrowableExtensions uses JSONObject, which is missing from Robolectric.
+    // Use the real implementation
+    testImplementation(libs.org.json)
 }

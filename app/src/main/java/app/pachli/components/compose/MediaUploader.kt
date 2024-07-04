@@ -28,14 +28,21 @@ import androidx.core.net.toUri
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
+import app.pachli.components.compose.MediaUploaderError.PrepareMediaError
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.string.randomAlphanumericString
+import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.network.model.MediaUploadApi
-import app.pachli.core.ui.extensions.getErrorString
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.util.MEDIA_SIZE_UNKNOWN
 import app.pachli.util.asRequestBody
 import app.pachli.util.getImageSquarePixels
 import app.pachli.util.getMediaSize
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.mapEither
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.IOException
@@ -49,7 +56,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
@@ -60,21 +66,142 @@ import okhttp3.MultipartBody
 import okio.buffer
 import okio.sink
 import okio.source
-import retrofit2.HttpException
 import timber.log.Timber
 
-sealed interface FinalUploadEvent
+/**
+ * Media that has been fully uploaded to the server and may still be being
+ * processed.
+ *
+ * @property mediaId Server-side identifier for this media item
+ * @property processed True if the server has finished processing this media item
+ */
+data class UploadedMedia(
+    val mediaId: String,
+    val processed: Boolean,
+)
 
+/**
+ * Media that has been prepared for uploading.
+ *
+ * @param type file's general type (image, video, etc)
+ * @param uri content URI for the prepared media file
+ * @param size size of the media file, in bytes
+ */
+data class PreparedMedia(val type: QueuedMedia.Type, val uri: Uri, val size: Long)
+
+/* Errors that can be returned when uploading media. */
+sealed interface MediaUploaderError : PachliError {
+    /** Errors that can occur while preparing media for upload. */
+    sealed interface PrepareMediaError : MediaUploaderError {
+        /**
+         * Content resolver returned an empty URI for the file.
+         *
+         * @property uri URI returned by the content resolver.
+         */
+        data class ContentResolverMissingPathError(val uri: Uri) : PrepareMediaError {
+            override val resourceId = R.string.error_prepare_media_content_resolver_missing_path_fmt
+            override val formatArgs = arrayOf(uri)
+            override val cause = null
+        }
+
+        /**
+         * Content resolver returned an unsupported URI scheme.
+         *
+         * @property uri URI returned by the content provider.
+         */
+        data class ContentResolverUnsupportedSchemeError(val uri: Uri) : PrepareMediaError {
+            override val resourceId = R.string.error_prepare_media_content_resolver_unsupported_scheme_fmt
+            override val formatArgs = arrayOf(uri)
+            override val cause = null
+        }
+
+        /**
+         * [IOException] while operating on the file
+         *
+         * @property exception Thrown exception.
+         */
+        data class IoError(val exception: IOException) : PrepareMediaError {
+            override val resourceId = R.string.error_prepare_media_io_fmt
+            override val formatArgs = arrayOf(exception.localizedMessage ?: "")
+            override val cause = null
+        }
+
+        /**
+         * File's size exceeds servers limits.
+         *
+         * @property fileSizeBytes size of the file being uploaded
+         * @property allowedSizeBytes maximum size of file server accepts
+         */
+        data class FileIsTooLargeError(val fileSizeBytes: Long, val allowedSizeBytes: Long) : PrepareMediaError {
+            override val resourceId = R.string.error_prepare_media_file_is_too_large_fmt
+            override val formatArgs = arrayOf(formatNumber(fileSizeBytes), formatNumber(allowedSizeBytes))
+            override val cause = null
+        }
+
+        /** File's size could not be determined. */
+        data object UnknownFileSizeError : PrepareMediaError {
+            override val resourceId = R.string.error_prepare_media_unknown_file_size
+            override val formatArgs = null
+            override val cause = null
+        }
+
+        /**
+         * File's MIME type is not supported by server.
+         *
+         * @property mimeType File's MIME type.
+         */
+        data class UnsupportedMimeTypeError(val mimeType: String) : PrepareMediaError {
+            override val resourceId = R.string.error_prepare_media_unsupported_mime_type_fmt
+            override val formatArgs = arrayOf(mimeType)
+            override val cause = null
+        }
+
+        /** File's MIME type is not known. */
+        data object UnknownMimeTypeError : PrepareMediaError {
+            override val resourceId = R.string.error_prepare_media_unknown_mime_type
+            override val formatArgs = null
+            override val cause = null
+        }
+    }
+
+    /** [ApiError] wrapper. */
+    @JvmInline
+    value class UploadMediaError(private val error: ApiError) : MediaUploaderError, PachliError by error
+
+    /** Server did return media with ID [uploadId]. */
+    data class UploadIdNotFoundError(val uploadId: Int) : MediaUploaderError {
+        override val resourceId = R.string.error_media_uploader_upload_not_found_fmt
+        override val formatArgs = arrayOf(uploadId.toString())
+        override val cause = null
+    }
+
+    /** Catch-all for arbitrary throwables */
+    data class ThrowableError(private val throwable: Throwable) : MediaUploaderError {
+        override val resourceId = R.string.error_media_uploader_throwable_fmt
+        override val formatArgs = arrayOf(throwable.localizedMessage ?: "")
+        override val cause = null
+    }
+}
+
+/** Events that happen over the life of a media upload. */
 sealed interface UploadEvent {
+    /**
+     * Upload has made progress.
+     *
+     * @property percentage What percent of the file has been uploaded.
+     */
     data class ProgressEvent(val percentage: Int) : UploadEvent
-    data class FinishedEvent(val mediaId: String, val processed: Boolean) :
-        UploadEvent,
-        FinalUploadEvent
-    data class ErrorEvent(val error: Throwable) : UploadEvent, FinalUploadEvent
+
+    /**
+     * Upload has finished.
+     *
+     * @property media The uploaded media
+     */
+    data class FinishedEvent(val media: UploadedMedia) : UploadEvent
 }
 
 data class UploadData(
-    val flow: Flow<UploadEvent>,
+    val flow: Flow<Result<UploadEvent, MediaUploaderError>>,
     val scope: CoroutineScope,
 )
 
@@ -90,13 +217,6 @@ fun createNewImageFile(context: Context, suffix: String = ".jpg"): File {
     )
 }
 
-data class PreparedMedia(val type: QueuedMedia.Type, val uri: Uri, val size: Long)
-
-class FileSizeException(val allowedSizeInBytes: Long) : Exception()
-class MediaTypeException : Exception()
-class CouldNotOpenFileException : Exception()
-class UploadServerError(val errorMessage: String) : Exception()
-
 @Singleton
 class MediaUploader @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -111,11 +231,11 @@ class MediaUploader @Inject constructor(
         return mostRecentId++
     }
 
-    suspend fun getMediaUploadState(localId: Int): FinalUploadEvent {
+    suspend fun getMediaUploadState(localId: Int): Result<UploadEvent.FinishedEvent, MediaUploaderError> {
         return uploads[localId]?.flow
-            ?.filterIsInstance<FinalUploadEvent>()
+            ?.filterIsInstance<Ok<UploadEvent.FinishedEvent>>()
             ?.first()
-            ?: UploadEvent.ErrorEvent(IllegalStateException("media upload with id $localId not found"))
+            ?: Err(MediaUploaderError.UploadIdNotFoundError(localId))
     }
 
     /**
@@ -126,9 +246,9 @@ class MediaUploader @Inject constructor(
      * The Flow is hot, in order to cancel upload or clear resources call [cancelUploadScope].
      */
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun uploadMedia(media: QueuedMedia, instanceInfo: InstanceInfo): Flow<UploadEvent> {
+    fun uploadMedia(media: QueuedMedia, instanceInfo: InstanceInfo): Flow<Result<UploadEvent, MediaUploaderError>> {
         val uploadScope = CoroutineScope(Dispatchers.IO)
-        val uploadFlow = flow {
+        val uploadFlow: Flow<Result<UploadEvent, MediaUploaderError>> = flow {
             if (shouldResizeMedia(media, instanceInfo)) {
                 emit(downsize(media, instanceInfo))
             } else {
@@ -136,9 +256,6 @@ class MediaUploader @Inject constructor(
             }
         }
             .flatMapLatest { upload(it) }
-            .catch { exception ->
-                emit(UploadEvent.ErrorEvent(exception))
-            }
             .shareIn(uploadScope, SharingStarted.Lazily, 1)
 
         uploads[media.localId] = UploadData(uploadFlow, uploadScope)
@@ -155,7 +272,14 @@ class MediaUploader @Inject constructor(
         }
     }
 
-    fun prepareMedia(inUri: Uri, instanceInfo: InstanceInfo): PreparedMedia {
+    /**
+     * Prepares media for the upload queue by copying it from the [ContentResolver] to
+     * a temporary location.
+     *
+     * @param inUri [ContentResolver] URI for the file to prepare
+     * @param instanceInfo server's configuration, for maximum file size limits
+     */
+    fun prepareMedia(inUri: Uri, instanceInfo: InstanceInfo): Result<PreparedMedia, PrepareMediaError> {
         var mediaSize = MEDIA_SIZE_UNKNOWN
         var uri = inUri
         val mimeType: String?
@@ -184,11 +308,7 @@ class MediaUploader @Inject constructor(
                     }
                 }
                 ContentResolver.SCHEME_FILE -> {
-                    val path = uri.path
-                    if (path == null) {
-                        Timber.w("empty uri path %s", uri)
-                        throw CouldNotOpenFileException()
-                    }
+                    val path = uri.path ?: return Err(PrepareMediaError.ContentResolverMissingPathError(uri))
                     val inputFile = File(path)
                     val suffix = inputFile.name.substringAfterLast('.', "tmp")
                     mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(suffix)
@@ -206,62 +326,62 @@ class MediaUploader @Inject constructor(
                 }
                 else -> {
                     Timber.w("Unknown uri scheme %s", uri)
-                    throw CouldNotOpenFileException()
+                    return Err(PrepareMediaError.ContentResolverUnsupportedSchemeError(uri))
                 }
             }
         } catch (e: IOException) {
             Timber.w(e)
-            throw CouldNotOpenFileException()
-        }
-        if (mediaSize == MEDIA_SIZE_UNKNOWN) {
-            Timber.w("Could not determine file size of upload")
-            throw MediaTypeException()
+            return Err(PrepareMediaError.IoError(e))
         }
 
-        if (mimeType != null) {
-            return when (mimeType.substring(0, mimeType.indexOf('/'))) {
-                "video" -> {
-                    if (mediaSize > instanceInfo.videoSizeLimit) {
-                        throw FileSizeException(instanceInfo.videoSizeLimit)
-                    }
-                    PreparedMedia(QueuedMedia.Type.VIDEO, uri, mediaSize)
-                }
-                "image" -> {
-                    PreparedMedia(QueuedMedia.Type.IMAGE, uri, mediaSize)
-                }
-                "audio" -> {
-                    if (mediaSize > instanceInfo.videoSizeLimit) {
-                        throw FileSizeException(instanceInfo.videoSizeLimit)
-                    }
-                    PreparedMedia(QueuedMedia.Type.AUDIO, uri, mediaSize)
-                }
-                else -> {
-                    throw MediaTypeException()
+        if (mediaSize == MEDIA_SIZE_UNKNOWN) {
+            Timber.w("Could not determine file size of upload")
+            return Err(PrepareMediaError.UnknownFileSizeError)
+        }
+
+        mimeType ?: return Err(PrepareMediaError.UnknownMimeTypeError)
+
+        return when (mimeType.substring(0, mimeType.indexOf('/'))) {
+            "video" -> {
+                if (mediaSize > instanceInfo.videoSizeLimit) {
+                    Err(PrepareMediaError.FileIsTooLargeError(mediaSize, instanceInfo.videoSizeLimit))
+                } else {
+                    Ok(PreparedMedia(QueuedMedia.Type.VIDEO, uri, mediaSize))
                 }
             }
-        } else {
-            Timber.w("Could not determine mime type of upload")
-            throw MediaTypeException()
+            "image" -> {
+                Ok(PreparedMedia(QueuedMedia.Type.IMAGE, uri, mediaSize))
+            }
+            "audio" -> {
+                if (mediaSize > instanceInfo.videoSizeLimit) {
+                    Err(PrepareMediaError.FileIsTooLargeError(mediaSize, instanceInfo.videoSizeLimit))
+                } else {
+                    Ok(PreparedMedia(QueuedMedia.Type.AUDIO, uri, mediaSize))
+                }
+            }
+            else -> {
+                Err(PrepareMediaError.UnsupportedMimeTypeError(mimeType))
+            }
         }
     }
 
     private val contentResolver = context.contentResolver
 
-    private suspend fun upload(media: QueuedMedia): Flow<UploadEvent> {
+    private suspend fun upload(media: QueuedMedia): Flow<Result<UploadEvent, MediaUploaderError.UploadMediaError>> {
         return callbackFlow {
             var mimeType = contentResolver.getType(media.uri)
 
             // Android's MIME type suggestions from file extensions is broken for at least
             // .m4a files. See https://github.com/tuskyapp/Tusky/issues/3189 for details.
             // Sniff the content of the file to determine the actual type.
-            if (mimeType != null && (
-                    mimeType.startsWith("audio/", ignoreCase = true) ||
-                        mimeType.startsWith("video/", ignoreCase = true)
-                    )
-            ) {
-                val retriever = MediaMetadataRetriever()
-                retriever.setDataSource(context, media.uri)
-                mimeType = retriever.extractMetadata(METADATA_KEY_MIMETYPE)
+            mimeType?.let {
+                if (it.startsWith("audio/", ignoreCase = true) ||
+                    it.startsWith("video/", ignoreCase = true)
+                ) {
+                    val retriever = MediaMetadataRetriever()
+                    retriever.setDataSource(context, media.uri)
+                    mimeType = retriever.extractMetadata(METADATA_KEY_MIMETYPE)
+                }
             }
             val map = MimeTypeMap.getSingleton()
             val fileExtension = map.getExtensionFromMimeType(mimeType)
@@ -277,11 +397,11 @@ class MediaUploader @Inject constructor(
             var lastProgress = -1
             val fileBody = media.uri.asRequestBody(
                 contentResolver,
-                requireNotNull(mimeType.toMediaTypeOrNull()) { "Invalid Content Type" },
+                requireNotNull(mimeType!!.toMediaTypeOrNull()) { "Invalid Content Type" },
                 media.mediaSize,
             ) { percentage ->
                 if (percentage != lastProgress) {
-                    trySend(UploadEvent.ProgressEvent(percentage))
+                    trySend(Ok(UploadEvent.ProgressEvent(percentage)))
                 }
                 lastProgress = percentage
             }
@@ -294,20 +414,16 @@ class MediaUploader @Inject constructor(
                 null
             }
 
-            val focus = if (media.focus != null) {
-                MultipartBody.Part.createFormData("focus", "${media.focus.x},${media.focus.y}")
-            } else {
-                null
+            val focus = media.focus?.let {
+                MultipartBody.Part.createFormData("focus", "${it.x},${it.y}")
             }
 
-            val uploadResponse = mediaUploadApi.uploadMedia(body, description, focus)
-            val responseBody = uploadResponse.body()
-            if (uploadResponse.isSuccessful && responseBody != null) {
-                send(UploadEvent.FinishedEvent(responseBody.id, uploadResponse.code() == 200))
-            } else {
-                val error = HttpException(uploadResponse)
-                throw UploadServerError(error.getErrorString(context))
-            }
+            val uploadResult = mediaUploadApi.uploadMedia(body, description, focus)
+                .mapEither(
+                    { UploadEvent.FinishedEvent(UploadedMedia(it.body.id, it.code == 200)) },
+                    { MediaUploaderError.UploadMediaError(it) },
+                )
+            send(uploadResult)
 
             awaitClose()
         }

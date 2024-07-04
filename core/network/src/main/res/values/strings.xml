@@ -25,4 +25,6 @@
     <string name="error_404_not_found_fmt">Your server does not support this feature: %1$s</string>
     <string name="error_json_data_fmt">Your server returned an invalid response: %1$s</string>
     <string name="error_network_fmt">A network error occurred: %s</string>
+    <string name="error_missing_content_type_fmt">your server is mis-configured, the response has no content-type: %1$s</string>
+    <string name="error_wrong_content_type_fmt">your server is mis-configured and returned \'%2$s\' with the wrong content-type, \'%1$s\'</string>
 </resources>

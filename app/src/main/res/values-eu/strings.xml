@@ -440,7 +440,6 @@
     <string name="wellbeing_hide_stats_posts">Mezuetan estatistika kuantitatiboak ezkutatu</string>
     <string name="action_unbookmark">Laster-marka kendu</string>
     <string name="error_image_edit_failed">Ezin izan da irudia editatu.</string>
-    <string name="error_multimedia_size_limit">Bideo eta audio fitxategiek ezin dute %s MBeko tamaina baino handiagoa izan.</string>
     <string name="error_muting_hashtag_format">Akatsa #%s mututzerakoan</string>
     <string name="error_unmuting_hashtag_format">Errorea #%s desmututzerakoan</string>
     <string name="error_following_hashtags_unsupported">Instantzia honek traolak jarraitzeko funtzioarekin bateragarritasuna ez dauka.</string>

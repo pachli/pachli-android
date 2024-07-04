@@ -11,6 +11,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
 import java.util.Date
 import kotlinx.coroutines.runBlocking
+import okhttp3.Protocol
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -60,8 +61,14 @@ class TimelineCasesTest {
             onBlocking { pinStatus(statusId) } doReturn NetworkResult.failure(
                 HttpException(
                     Response.error<Status>(
-                        422,
                         "{\"error\":\"Validation Failed: You have already pinned the maximum number of toots\"}".toResponseBody(),
+                        okhttp3.Response.Builder()
+                            .request(okhttp3.Request.Builder().url("http://localhost/").build())
+                            .protocol(Protocol.HTTP_1_1)
+                            .addHeader("content-type", "application/json")
+                            .code(422)
+                            .message("")
+                            .build(),
                     ),
                 ),
             )

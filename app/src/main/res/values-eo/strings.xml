@@ -454,7 +454,6 @@
     <string name="notification_sign_up_description">Sciigoj pri novaj uzantoj</string>
     <string name="status_count_one_plus">1+</string>
     <string name="follow_requests_info">Kvankam via konto ne estas ŝlosita, la teamo de %1$s pensas, ke vi eble volus permane validigi la sekvopetojn de tiuj ĉi kontoj.</string>
-    <string name="error_multimedia_size_limit">Filmetoj kaj sondosieroj ne povas esti pli grandaj ol %s MB.</string>
     <string name="error_image_edit_failed">La bildo ne povis esti redaktita.</string>
     <string name="error_following_hashtag_format">Okazis eraro dum la sekvado de #%s</string>
     <string name="error_unfollowing_hashtag_format">Okazos eraro dum la malsekvado de #%s</string>

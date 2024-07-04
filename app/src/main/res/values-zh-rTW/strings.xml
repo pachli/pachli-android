@@ -467,7 +467,6 @@
     <string name="tips_push_notification_migration">重新登入所有帳號以啟用推播功能。</string>
     <string name="action_set_focus">設置關注點</string>
     <string name="title_migration_relogin">重新登入以啟用推播功能</string>
-    <string name="error_multimedia_size_limit">影片和音訊檔案大小不能超過 %s MB。</string>
     <string name="status_count_one_plus">1+</string>
     <string name="action_add_reaction">添加反應</string>
     <string name="pref_title_notification_filter_sign_ups">有人進行了註冊</string>

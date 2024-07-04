@@ -500,7 +500,6 @@
     <string name="pref_summary_http_proxy_missing">&lt;non spécifié&gt;</string>
     <string name="title_edits">Modifications</string>
     <string name="pref_default_post_language">Langue de publication par défaut</string>
-    <string name="error_multimedia_size_limit">Les fichiers vidéo et audio ne peuvent pas dépasser %s Mo.</string>
     <string name="pref_title_http_proxy_port_message">Le port doit être entre %d et %d</string>
     <string name="action_set_focus">Définir le point focal</string>
     <string name="hint_description">Description</string>

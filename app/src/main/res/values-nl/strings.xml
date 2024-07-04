@@ -440,7 +440,6 @@
 \nPushmeldingen worden hierdoor niet beïnvloed, maar je kunt de voorkeuren voor meldingen handmatig wijzigen.</string>
     <string name="notification_sign_up_format">%s heeft zich geregistreerd</string>
     <string name="tips_push_notification_migration">Alle accounts opnieuw inloggen i.v.m. ondersteuning pushmeldingen.</string>
-    <string name="error_multimedia_size_limit">Afbeeldingen en video\'s kunnen niet groter zijn dan %s MB.</string>
     <string name="error_image_edit_failed">Deze afbeelding kon niet worden bewerkt.</string>
     <string name="title_migration_relogin">Opnieuw inloggen i.v.m. pushmeldingen</string>
     <string name="notification_update_format">%s heeft diens bericht bewerkt</string>
