@@ -1,13 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Om</string>
     <string name="about_powered_by_pachli">Drevet av Pachli</string>
-    <string name="about_pachli_license">Pachli er fri og åpen kildekode. Applikasjonen er lisensiert under GNU General Public License versjon 3. Du kan se lisensen her: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_pachli_license">Pachli har fri og åpen kildekode. Applikasjonen er lisensiert under GNU General Public License versjon 3. Du kan se lisensen her: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="about_project_site">Hjemmeside:
 \n https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Rapporter feil og ønsker om funksjonalitet her:
+    <string name="about_bug_feature_request_site">Rapporter feil og send inn ønsker om funksjoner ved å trykke på lenken nedenfor:
 \n https://github.com/pachli/pachli-android/issues</string>
-    <string name="about_pachli_account">Pachlis Profil</string>
+    <string name="about_pachli_account">Pachli sin profil</string>
     <string name="title_licenses">Lisenser</string>
     <string name="license_description">Pachli inneholder programkode og elementer fra følgende åpen kildekode-prosjekter:</string>
+    <string name="notification_details_notifications_enabled_help">Varslinger er ikke slått på for noen av kontoene dine. Du kan lett forandre dette ved å gå til Kontoinnstillinger &gt; Varsler. Helt til du gjør dette, skal varslinger ikke sendes.</string>
+    <string name="notification_details_unifiedpush_available">Er UnifiedPush tilgjengelig?</string>
+    <string name="notification_details_accounts_unified_push_url_help">Én eller flere kontoer har ikke en URL med UnifiedPush og som følge er varslinger for disse kontoene avslåtte.</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Én eller flere kontoer klarte ikke oppdatere UnifiedPush-abonnementen sin og som følge skal ikke ta imot varslinger.</string>
+    <string name="notification_details_ntfy_exempt">Er NTFY unntatt fra batteribrukoptimiseringer?</string>
+    <string name="notification_details_pull_section">Se etter varslinger med «periodic workers»</string>
+    <string name="notification_details_pachli_exempt">Er Pachli unntatt fra batteribrukoptimiseringer?</string>
+    <string name="notification_details_last_fetch_help">Uansett hvilken metode som brukes for å se etter varslinger skal dette vise for hver konto når den siste forespørselen skjedde, hvis det lyktes, og feilbeskjedet hvis det mislyktes.</string>
+    <string name="notification_details_standby_bucket_rare">Sjeldent. Begrenset til ti minutter om døgnet</string>
+    <string name="notification_details_standby_bucket_never">Aldri</string>
+    <string name="notification_log_title">Logg</string>
+    <string name="notification_log_filter_content_description">Filtrér loggene etter tagger</string>
+    <string name="notification_log_filter">Filtrér</string>
+    <string name="notification_log_download">Last ned</string>
+    <string name="notification_log_sort">Sortér etter nyeste først</string>
+    <string name="about_device_info_title">Enheten din</string>
+    <string name="about_account_info_title">Kontoen din</string>
+    <string name="about_copied">Kopierte versjon og enhetsinformasjon</string>
+    <string name="about_copy">Kopiér versjon og enhetsinformasjon</string>
+    <string name="about_device_info">%s %s
+\nAndroid-versjon: %s
+\nSDK-nivå: %d</string>
+    <string name="about_privacy_policy">Personvernserklæring</string>
+    <string name="about_account_info">\@%s@%s
+\nVersjon: %s</string>
+    <string name="notification_details_title">Detaljer</string>
+    <string name="notification_details_android_notifications_enabled">Er Android-varslinger påslått?</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Varslinger ved bruk av UnifiedPush</string>
+    <string name="notification_details_any_account_needs_migration">Har alle kontoer «push»-tillatelsen?</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (d.v.s. ntfy.sh) er ikke tilgjengelig og i følge skal Pachli se sporadisk etter varslinger. Videre paragrafer skal forklare hvorfor UnifiedPush brukes ikke, men slike opplysninger er ikke relevante til hvordan Pachli skal se etter varslinger nå.</string>
+    <string name="notification_details_any_account_needs_migration_help">Én eller flere kontoer har ikke tillatelsen «push» og som følge er varslinger avslåtte.</string>
+    <string name="notification_details_accounts_unified_push_url">Har alle kontoer en URL med UnifiedPush?</string>
+    <string name="notification_details_ntfy_exempt_help">NTFY er ikke unntatt fra batteribrukoptimiseringer. Android kan som følge forsinke varslinger mens skjermen er avslått.</string>
+    <string name="notification_details_accounts_unified_push_subscription">Er alle kontoer abonnerte?</string>
+    <string name="notification_details_pachli_exempt_help">Pachli er ikke unntatt fra batteribrukoptimiseringer og som følge kan det skje at Android forsinker varslingene mens skjermen er avslått.</string>
+    <string name="notification_details_workers_help">Dette er listen over «workers»ene som ser etter nye varslinger. Det bør finnes én, tilstandet dens bør være RUNNING eller ENQUEUED, og det bør stå at det skal kjøre om mindre enn 15 minutter.</string>
+    <string name="notification_details_last_fetch_label">Siste forespørsel av /api/v1/notifications</string>
+    <string name="notification_details_standby_bucket_working_set">«Working» er angitt. Begrenset til ti minutter om to timer</string>
+    <string name="notification_details_usage_event_label">Android kan begrense hva apper kan gjøre i bakgrunnen. Dette er listen over hvordan Pachli har blitt begrenset av systemet i løpet av de siste tre dagene, med de nyeste hendelsene først.</string>
+    <string name="notification_details_ago">For %1$s siden @ %2$s</string>
+    <string name="notification_details_standby_bucket_exempted">Unntatt</string>
+    <string name="notification_details_standby_bucket_frequent">Hyppig. Begrenset til ti minutter om to timer</string>
+    <string name="notification_details_usage_event">Strømhåndteringsgrenser</string>
+    <string name="notification_details_standby_bucket_active">Aktiv, ubegrenset antall bakgrunnsjobber</string>
+    <string name="notification_details_standby_bucket_restricted">Begrenset. Én gang om døgnet</string>
+    <string name="notification_details_standby_bucket_unknown">Ukjent</string>
+    <string name="notification_log_download_content_description">Last ned loggene</string>
 </resources>
