@@ -58,7 +58,23 @@ interface PreviewCard {
     val image: String?
     val embedUrl: String
     val blurhash: String?
+    val authors: List<PreviewCardAuthor>?
 }
+
+/**
+ * An author of a link in a [PreviewCard].
+ *
+ * @property name Author's name, equivalent to [PreviewCard.authorName]
+ * @property url Author's URL, equivalent to [PreviewCard.authorUrl]
+ * @property account Author's account information, may be null if the link target
+ * did not include metadata about the author's account.
+ */
+@JsonClass(generateAdapter = true)
+data class PreviewCardAuthor(
+    val name: String,
+    val url: String,
+    val account: TimelineAccount? = null,
+)
 
 @JsonClass(generateAdapter = true)
 data class LinkHistory(
@@ -84,5 +100,6 @@ data class TrendsLink(
     override val image: String? = null,
     @Json(name = "embed_url") override val embedUrl: String,
     override val blurhash: String? = null,
+    override val authors: List<PreviewCardAuthor>? = null,
     val history: List<LinkHistory>,
 ) : PreviewCard

@@ -45,6 +45,7 @@ data class Card(
     @Json(name = "embed_url") override val embedUrl: String = "",
     // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
     override val blurhash: String? = null,
+    override val authors: List<PreviewCardAuthor>? = null,
 ) : PreviewCard {
 
     override fun hashCode() = url.hashCode()

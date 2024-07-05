@@ -18,6 +18,7 @@
 package app.pachli.view
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,12 +26,20 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import app.pachli.R
 import app.pachli.core.activity.decodeBlurHash
+import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.PreviewCard
 import app.pachli.databinding.PreviewCardBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel
 
@@ -51,22 +60,52 @@ class PreviewCardView @JvmOverloads constructor(
         /** Any part of the card that's not the image */
         CARD,
 
-        /** The image **/
+        /** The image */
         IMAGE,
+
+        /** The author byline */
+        BYLINE,
     }
 
     fun interface OnClickListener {
         /** @param target Where on the card the user clicked */
-        fun onClick(target: Target)
+        fun onClick(card: PreviewCard, target: Target)
     }
 
     private val binding: PreviewCardBinding
-    private val radius = context.resources.getDimensionPixelSize(DR.dimen.card_radius).toFloat()
+    private val cardCornerRadius = context.resources.getDimensionPixelSize(DR.dimen.card_radius).toFloat()
+
+    /** Corner radius of the byline avatar. */
+    private val bylineAvatarCornerRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
+
+    /** Dimensions (width and height) of the byline avatar. */
+    val bylineAvatarDimen = context.resources.getDimensionPixelSize(DR.dimen.card_byline_avatar_dimen)
+
+    /** Transformations to apply when loading the byline avatar. */
+    private val bylineAvatarTransformation = MultiTransformation(
+        buildList {
+            add(CenterCrop())
+            add(RoundedCorners(bylineAvatarCornerRadius))
+        },
+    )
+
+    /** Glide custom target that loads images in to the authorInfo drawable */
+    private val bylineAvatarTarget: CustomTarget<Drawable>
 
     init {
         val inflater = context.getSystemService(LayoutInflater::class.java)
         binding = PreviewCardBinding.inflate(inflater, this)
         orientation = VERTICAL
+
+        bylineAvatarTarget = object : CustomTarget<Drawable>(bylineAvatarDimen, bylineAvatarDimen) {
+            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                binding.authorInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(resource, null, null, null)
+            }
+
+            override fun onLoadCleared(placeholder: Drawable?) {
+                binding.authorInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(placeholder, null, null, null)
+            }
+        }
     }
 
     /**
@@ -91,8 +130,9 @@ class PreviewCardView @JvmOverloads constructor(
             else -> null
         }?.let { cardDescription.text = it } ?: cardDescription.hide()
 
-        previewCardWrapper.setOnClickListener { listener.onClick(Target.CARD) }
-        cardImage.setOnClickListener { listener.onClick(Target.IMAGE) }
+        previewCardWrapper.setOnClickListener { listener.onClick(card, Target.CARD) }
+        cardImage.setOnClickListener { listener.onClick(card, Target.IMAGE) }
+        byline.setOnClickListener { listener.onClick(card, Target.BYLINE) }
 
         cardLink.text = card.url
 
@@ -137,6 +177,15 @@ class PreviewCardView @JvmOverloads constructor(
                 .load(R.drawable.card_image_placeholder)
                 .into(cardImage)
         }
+
+        card.authors?.firstOrNull()?.account?.let { account ->
+            val name = account.name.unicodeWrap().emojify(account.emojis, authorInfo, false)
+            authorInfo.text = authorInfo.context.getString(R.string.preview_card_byline_fmt, name)
+
+            Glide.with(authorInfo.context).load(account.avatar).transform(bylineAvatarTransformation)
+                .placeholder(DR.drawable.avatar_default).into(bylineAvatarTarget)
+            byline.show()
+        } ?: byline.hide()
     }
 
     /** Adjusts the layout parameters to place the image above the information views */
@@ -148,8 +197,8 @@ class PreviewCardView @JvmOverloads constructor(
         cardImage.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
         cardInfo.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
         cardInfo.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, radius)
-        cardImageShape.setTopRightCorner(CornerFamily.ROUNDED, radius)
+        cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
+        cardImageShape.setTopRightCorner(CornerFamily.ROUNDED, cardCornerRadius)
         return@with cardImageShape
     }
 
@@ -162,8 +211,8 @@ class PreviewCardView @JvmOverloads constructor(
             cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_horizontal_width)
         cardInfo.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
         cardInfo.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-        cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, radius)
-        cardImageShape.setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+        cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
+        cardImageShape.setBottomLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
         return@with cardImageShape
     }
 }

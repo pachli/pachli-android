@@ -21,14 +21,17 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.network.model.TrendsLink
 import app.pachli.databinding.ItemTrendingLinkBinding
+import app.pachli.view.PreviewCardView
 
 class TrendingLinkViewHolder(
     private val binding: ItemTrendingLinkBinding,
-    private val onClick: (String) -> Unit,
+    private val onClick: PreviewCardView.OnClickListener,
 ) : RecyclerView.ViewHolder(binding.root) {
+    internal lateinit var link: TrendsLink
+
     fun bind(link: TrendsLink, statusDisplayOptions: StatusDisplayOptions) {
-        binding.statusCardView.bind(link, sensitive = false, statusDisplayOptions) {
-            onClick(link.url)
-        }
+        this.link = link
+
+        binding.statusCardView.bind(link, sensitive = false, statusDisplayOptions, onClick)
     }
 }

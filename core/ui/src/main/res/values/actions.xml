@@ -39,6 +39,12 @@
     <item name="action_open_reblogger" type="id" />
     <item name="action_open_reblogged_by" type="id" />
     <item name="action_open_faved_by" type="id" />
+
+    <!-- Open the account on a preview card's byline -->
+    <item name="action_open_byline_account" type="id" />
+    <!-- Open the link in a preview card -->
+    <item name="action_open_link" type="id" />
+
     <item name="action_more" type="id" />
 
     <item name="action_dismiss_follow_suggestion" type="id" />

@@ -25,10 +25,11 @@ import app.pachli.R
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.network.model.TrendsLink
 import app.pachli.databinding.ItemTrendingLinkBinding
+import app.pachli.view.PreviewCardView
 
 class TrendingLinksAdapter(
     statusDisplayOptions: StatusDisplayOptions,
-    private val onViewLink: (String) -> Unit,
+    private val onViewLink: PreviewCardView.OnClickListener,
 ) : ListAdapter<TrendsLink, TrendingLinkViewHolder>(diffCallback) {
     var statusDisplayOptions = statusDisplayOptions
         set(value) {
