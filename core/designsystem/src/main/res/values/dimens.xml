@@ -50,6 +50,7 @@
     <dimen name="profile_badge_icon_end_padding">0dp</dimen>
 
     <dimen name="card_radius">5dp</dimen>
+    <dimen name="card_byline_avatar_dimen">36dp</dimen>
 
     <dimen name="poll_preview_padding">12dp</dimen>
     <dimen name="poll_preview_min_width">120dp</dimen>

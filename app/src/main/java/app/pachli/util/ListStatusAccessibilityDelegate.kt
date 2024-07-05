@@ -100,6 +100,10 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             if (actionable.reblogsCount > 0) info.addAction(openRebloggedByAction)
             if (actionable.favouritesCount > 0) info.addAction(openFavsAction)
 
+            status.actionable.card?.authors?.firstOrNull()?.account?.let {
+                info.addAction(openBylineAccountAction)
+            }
+
             info.addAction(moreAction)
         }
 
@@ -169,6 +173,12 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 app.pachli.core.ui.R.id.action_open_faved_by -> {
                     interrupt()
                     statusActionListener.onShowFavs(status.actionableId)
+                }
+                app.pachli.core.ui.R.id.action_open_byline_account -> {
+                    status.actionable.card?.authors?.firstOrNull()?.account?.let {
+                        interrupt()
+                        statusActionListener.onViewAccount(it.id)
+                    }
                 }
                 app.pachli.core.ui.R.id.action_more -> {
                     statusActionListener.onMore(host, status)
@@ -356,6 +366,11 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val openFavsAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_open_faved_by,
         context.getString(R.string.action_open_faved_by),
+    )
+
+    private val openBylineAccountAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_open_byline_account,
+        context.getString(R.string.action_open_byline_account),
     )
 
     private val moreAction = AccessibilityActionCompat(

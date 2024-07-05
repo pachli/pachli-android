@@ -709,4 +709,7 @@
     <string name="error_prepare_media_unknown_mime_type">file\'s type is not known</string>
 
     <string name="error_pick_media_fmt">Could not attach file to post: %1$s</string>
+    <string name="preview_card_byline_fmt">See more from %1$s</string>
+    <string name="action_open_byline_account">Show article author\'s profile</string>
+    <string name="action_open_link">Open link</string>
 </resources>

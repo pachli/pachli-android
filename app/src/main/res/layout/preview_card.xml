@@ -50,7 +50,6 @@
                 android:id="@+id/card_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-medium"
                 android:maxLines="2"
@@ -62,7 +61,7 @@
                 android:id="@+id/card_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:lineSpacingMultiplier="1.1"
                 android:maxLines="3"
@@ -74,11 +73,43 @@
                 android:id="@+id/card_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:lines="1"
                 android:textColor="?android:attr/textColorLink"
                 android:textSize="?attr/status_text_small"
                 tools:ignore="SelectableText" />
+
+            <LinearLayout
+                android:id="@+id/byline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp" />
+
+                <TextView
+                    android:id="@+id/author_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
+                    android:textColor="?android:textColorTertiary"
+                    android:textSize="?attr/status_text_medium"
+                    android:ellipsize="end"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
+                    android:paddingBottom="2dp"
+                    tools:ignore="SelectableText" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </merge>

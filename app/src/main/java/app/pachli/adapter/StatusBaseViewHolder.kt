@@ -31,6 +31,7 @@ import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
@@ -831,14 +832,20 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
             (!viewData.isCollapsible || !viewData.isCollapsed)
         ) {
             cardView.visibility = View.VISIBLE
-            cardView.bind(card, viewData.actionable.sensitive, statusDisplayOptions) { target ->
-                if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
-                    context.startActivity(
-                        ViewMediaActivityIntent(context, card.embedUrl),
-                    )
-                } else {
-                    listener.onViewUrl(card.url)
+            cardView.bind(card, viewData.actionable.sensitive, statusDisplayOptions) { card, target ->
+                if (target == PreviewCardView.Target.BYLINE) {
+                    card.authors?.firstOrNull()?.account?.id?.let {
+                        context.startActivity(AccountActivityIntent(context, it))
+                    }
+                    return@bind
                 }
+
+                if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
+                    context.startActivity(ViewMediaActivityIntent(context, card.embedUrl))
+                    return@bind
+                }
+
+                listener.onViewUrl(card.url)
             }
         } else {
             cardView.visibility = View.GONE

@@ -45,11 +45,14 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.navigation.AccountActivityIntent
+import app.pachli.core.network.model.PreviewCard
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
+import app.pachli.view.PreviewCardView.Target
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
@@ -74,7 +77,7 @@ class TrendingLinksFragment :
 
     private val binding by viewBinding(FragmentTrendingLinksBinding::bind)
 
-    private lateinit var adapter: TrendingLinksAdapter
+    private lateinit var trendingLinksAdapter: TrendingLinksAdapter
 
     private var talkBackWasEnabled = false
 
@@ -88,7 +91,7 @@ class TrendingLinksFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        adapter = TrendingLinksAdapter(viewModel.statusDisplayOptions.value, ::onOpenLink)
+        trendingLinksAdapter = TrendingLinksAdapter(viewModel.statusDisplayOptions.value, ::onOpenLink)
 
         setupSwipeRefreshLayout()
         setupRecyclerView()
@@ -124,7 +127,7 @@ class TrendingLinksFragment :
                     }
 
                     is LoadState.Success -> {
-                        adapter.submitList(it.data)
+                        trendingLinksAdapter.submitList(it.data)
                         binding.progressBar.hide()
                         binding.swipeRefreshLayout.isRefreshing = false
                         if (it.data.isEmpty()) {
@@ -140,7 +143,7 @@ class TrendingLinksFragment :
                         binding.progressBar.hide()
                         binding.swipeRefreshLayout.isRefreshing = false
                         binding.recyclerView.hide()
-                        if (adapter.itemCount != 0) {
+                        if (trendingLinksAdapter.itemCount != 0) {
                             val snackbar = Snackbar.make(
                                 binding.root,
                                 it.throwable.message ?: "Error",
@@ -168,7 +171,7 @@ class TrendingLinksFragment :
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.statusDisplayOptions.collectLatest {
-                adapter.statusDisplayOptions = it
+                trendingLinksAdapter.statusDisplayOptions = it
             }
         }
     }
@@ -179,11 +182,13 @@ class TrendingLinksFragment :
     }
 
     private fun setupRecyclerView() {
-        binding.recyclerView.layoutManager =
-            getLayoutManager(requireContext().resources.getInteger(DR.integer.trending_column_count))
-        binding.recyclerView.setHasFixedSize(true)
-        (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        binding.recyclerView.adapter = adapter
+        with(binding.recyclerView) {
+            layoutManager = getLayoutManager(requireContext().resources.getInteger(DR.integer.trending_column_count))
+            setHasFixedSize(true)
+            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            adapter = trendingLinksAdapter
+            setAccessibilityDelegateCompat(TrendingLinksAccessibilityDelegate(this, ::onOpenLink))
+        }
     }
 
     private fun getLayoutManager(columnCount: Int) = GridLayoutManager(context, columnCount)
@@ -224,7 +229,16 @@ class TrendingLinksFragment :
         }
     }
 
-    private fun onOpenLink(url: String) = requireContext().openLink(url)
+    private fun onOpenLink(card: PreviewCard, target: Target) {
+        if (target == Target.BYLINE) {
+            card.authors?.firstOrNull()?.account?.id?.let {
+                startActivity(AccountActivityIntent(requireContext(), it))
+            }
+            return
+        }
+
+        requireContext().openLink(card.url)
+    }
 
     override fun onResume() {
         super.onResume()
@@ -235,7 +249,7 @@ class TrendingLinksFragment :
         talkBackWasEnabled = a11yManager?.isEnabled == true
         Timber.d("talkback was enabled: %s, now %s", wasEnabled, talkBackWasEnabled)
         if (talkBackWasEnabled && !wasEnabled) {
-            adapter.notifyItemRangeChanged(0, adapter.itemCount)
+            trendingLinksAdapter.notifyItemRangeChanged(0, trendingLinksAdapter.itemCount)
         }
 
         (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
