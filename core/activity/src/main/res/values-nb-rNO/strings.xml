@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">Åpne som %s</string>
     <string name="post_lookup_error_format">Det oppsto en feil under henting av %s</string>
     <string name="performing_lookup_title">Søker…</string>
+    <string name="send_error_report">Send feilrapportering</string>
 </resources>
