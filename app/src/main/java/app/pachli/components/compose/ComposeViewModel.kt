@@ -497,7 +497,12 @@ class ComposeViewModel @Inject constructor(
             '#' -> {
                 return api.search(query = token, type = SearchType.Hashtag.apiParameter, limit = 10)
                     .fold({ searchResult ->
-                        searchResult.hashtags.map { AutocompleteResult.HashtagResult(it.name) }
+                        searchResult.hashtags.map {
+                            AutocompleteResult.HashtagResult(
+                                hashtag = it.name,
+                                usage7d = it.history.sumOf { it.uses },
+                            )
+                        }.sortedByDescending { it.usage7d }
                     }, { e ->
                         Timber.e(e, "Autocomplete search for %s failed.", token)
                         emptyList()

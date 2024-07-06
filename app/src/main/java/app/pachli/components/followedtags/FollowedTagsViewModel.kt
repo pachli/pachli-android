@@ -53,7 +53,12 @@ class FollowedTagsViewModel @Inject constructor(
     suspend fun searchAutocompleteSuggestions(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {
         return api.search(query = token, type = SearchType.Hashtag.apiParameter, limit = 10)
             .fold({ searchResult ->
-                searchResult.hashtags.map { ComposeAutoCompleteAdapter.AutocompleteResult.HashtagResult(it.name) }
+                searchResult.hashtags.map {
+                    ComposeAutoCompleteAdapter.AutocompleteResult.HashtagResult(
+                        hashtag = it.name,
+                        usage7d = it.history.sumOf { it.uses },
+                    )
+                }
             }, { e ->
                 Timber.e(e, "Autocomplete search for %s failed.", token)
                 emptyList()
