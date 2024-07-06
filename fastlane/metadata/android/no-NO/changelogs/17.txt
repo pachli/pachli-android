@@ -1,0 +1,13 @@
+Pachli 2,6,0
+
+Nye funksjoner:
+
+- Vis «Foreslåtte kontoer»
+- Støtte filtere på GoToSocial 0.16.0 og høyere
+
+Fiks:
+
+- Oppdater skriftfamilie, når man returnerer fra «Innstillinger».
+- Behandle korrekt redigering av språket til et innlegg.
+- Forbedre lesbarhet av etiketter på media i innlegg.
+- Forsikre lesbarhet av
