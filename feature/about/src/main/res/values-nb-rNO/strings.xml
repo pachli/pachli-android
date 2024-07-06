@@ -57,4 +57,14 @@
     <string name="notification_details_standby_bucket_restricted">Begrenset. Én gang om døgnet</string>
     <string name="notification_details_standby_bucket_unknown">Ukjent</string>
     <string name="notification_log_download_content_description">Last ned loggene</string>
+    <string name="notification_log_scheduled_in">Planlagt om %1$s @ %2$s</string>
+    <string name="notitication_log_filter_dialog_title">Vis loggprioriteter</string>
+    <string name="about_nivenly_foundation">Pachli er et prosjekt av <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
+    <string name="notification_log_previous_attempts">Forrige forsøker: %1$d</string>
+    <string name="notification_log_method_push">Varslinger leveres ved bruk av UnifiedPush og skal dermed leveres umiddelbart</string>
+    <string name="notification_log_method_pull">Pachli skal se etter varslinger omtrent 4 ganger om timen</string>
+    <string name="notification_log_method_unknown">Metoden som brukes for å levere varslinger, er ukjent</string>
+    <string name="notification_log_method_pusherror">UnifiedPush er påslått men har oppdaget en feil: %1$s</string>
+    <string name="notification_log_download_failed">Nedlasting mislyktes: %1$s</string>
+    <string name="action_refresh">Last inn på nytt</string>
 </resources>
