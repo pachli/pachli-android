@@ -1,6 +1,5 @@
 package app.pachli.adapter
 
-import app.pachli.core.designsystem.R as DR
 import android.content.Context
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
@@ -31,6 +30,7 @@ import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
