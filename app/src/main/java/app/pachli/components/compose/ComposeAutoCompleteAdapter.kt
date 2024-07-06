@@ -28,6 +28,7 @@ import app.pachli.core.activity.databinding.ItemAutocompleteAccountBinding
 import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.formatNumber
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.TimelineAccount
@@ -125,7 +126,8 @@ class ComposeAutoCompleteAdapter(
             }
             is ItemAutocompleteHashtagBinding -> {
                 val result = getItem(position) as AutocompleteResult.HashtagResult
-                binding.root.text = formatHashtag(result)
+                binding.hashtag.text = formatHashtag(result)
+                binding.usage7d.text = formatNumber(result.usage7d.toLong(), 10000)
             }
             is ItemAutocompleteEmojiBinding -> {
                 val emojiResult = getItem(position) as AutocompleteResult.EmojiResult
@@ -150,11 +152,11 @@ class ComposeAutoCompleteAdapter(
     }
 
     sealed interface AutocompleteResult {
-        class AccountResult(val account: TimelineAccount) : AutocompleteResult
+        data class AccountResult(val account: TimelineAccount) : AutocompleteResult
 
-        class HashtagResult(val hashtag: String) : AutocompleteResult
+        data class HashtagResult(val hashtag: String, val usage7d: Int) : AutocompleteResult
 
-        class EmojiResult(val emoji: Emoji) : AutocompleteResult
+        data class EmojiResult(val emoji: Emoji) : AutocompleteResult
     }
 
     interface AutocompletionProvider {
