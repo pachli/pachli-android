@@ -1,0 +1,11 @@
+Pachli er en klient for Mastodon og lignende serverer, som har alle funksjoner.
+
+• Les, svar, filtrér, tute, favorittmerke, og dele innlegg
+• Oversett innlegg fra andre språk
+• Les innlegg mens frakoblet, fordi tidslinjen er lagret midlertidig på enheten
+• Lag utkast av innlegg
+• Skriv innlegg nå og angi at de skal bli offentliggjort senere
+• Les og skriv fra mange ulike kontoer
+• Mange temaer for brukergrensesnittet
+• Setter pris på at alle funksjoner kan brukes av funksjonshemmede folk
+• Har åpen kildekode, https://github.com/pachli
