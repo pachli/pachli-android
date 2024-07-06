@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Foreslåtte kontoer</string>
+    <string name="source_unknown">(Serveren har gitt en ukjent kilde)</string>
+    <string name="sources_most_followed">Én av de som følges mest på hele instansen</string>
+    <string name="ui_error_delete_suggestion_fmt">Å avvise forslag til %1$s mislyktes: %2$s</string>
+    <string name="ui_error_follow_account_fmt">Å følge %1$s mislyktes: %2$s</string>
+    <string name="sources_featured">Valgt av moderatorene til instansen din</string>
+    <string name="action_follow_account">Følg</string>
+    <string name="sources_most_interactions">Får mye oppmerksomhet på instansen din</string>
+    <string name="sources_similar_to_recently_followed">Ligner seg med noen kontoer som du har fulgt i det siste</string>
+    <string name="sources_friends_of_friends">Populær blant de du følger</string>
+    <string name="sources_unknown">(Serveren ga ukjente kilder)</string>
+    <string name="action_dismiss_follow_suggestion">Avvis</string>
+    <string name="follower_count_fmt"><b>%1$s</b> følgere</string>
+    <string name="follows_count_fmt">Følger <b>%1$s</b></string>
+    <string name="statuses_count_fmt"><b>%1$s</b> innlegg</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> innlegg (<b>%2$d</b> om uken)</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> innlegg (<b>%2$d</b> om uken, siste uke <b>%3$s</b>)</string>
+</resources>
