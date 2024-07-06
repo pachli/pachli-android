@@ -740,7 +740,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
             )
             setRebloggingEnabled(actionable.rebloggingAllowed(), actionable.visibility)
             setSpoilerAndContent(viewData, statusDisplayOptions, listener)
-            setDescriptionForStatus(viewData, statusDisplayOptions)
+            setContentDescriptionForStatus(viewData, statusDisplayOptions)
 
             // Workaround for RecyclerView 1.0.0 / androidx.core 1.0.0
             // RecyclerView tries to set AccessibilityDelegateCompat to null
@@ -759,41 +759,86 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
         }
     }
 
-    private fun setDescriptionForStatus(
-        viewData: T,
-        statusDisplayOptions: StatusDisplayOptions,
-    ) {
+    /** Creates and sets the content description for the status. */
+    private fun setContentDescriptionForStatus(viewData: T, statusDisplayOptions: StatusDisplayOptions) {
         val (_, _, account, _, _, _, _, createdAt, editedAt, _, reblogsCount, favouritesCount, _, reblogged, favourited, bookmarked, sensitive, _, visibility) = viewData.actionable
-        val description = context.getString(
-            R.string.description_status,
-            account.displayName,
-            getContentWarningDescription(context, viewData),
-            if (TextUtils.isEmpty(viewData.spoilerText) || !sensitive || viewData.isExpanded) viewData.content else "",
-            getCreatedAtDescription(createdAt, statusDisplayOptions),
-            editedAt?.let { context.getString(R.string.description_post_edited) } ?: "",
-            getReblogDescription(context, viewData),
-            viewData.username,
-            if (reblogged) context.getString(R.string.description_post_reblogged) else "",
-            if (favourited) context.getString(R.string.description_post_favourited) else "",
-            if (bookmarked) context.getString(R.string.description_post_bookmarked) else "",
-            getMediaDescription(context, viewData),
-            visibility.description(context),
-            getFavsText(favouritesCount),
-            getReblogsText(reblogsCount),
+
+        // Build the content description using a string builder instead of a string resource
+        // as there are many places where optional ";" and "," are needed.
+        //
+        // The full string will look like (content in parentheses is optional),
+        //
+        // account.name
+        // (; contentWarning)
+        // ; (content)
+        // (, poll)
+        // , relativeDate
+        // (, editedAt)
+        // (, reblogDescription)
+        // , username
+        // (, "Reblogged")
+        // (, "Favourited")
+        // (, "Bookmarked")
+        // (, "n Favorite")
+        // (, "n Boost")
+        val description = StringBuilder().apply {
+            append(account.name)
+
+            getContentWarningDescription(context, viewData)?.let { append("; ", it) }
+
+            append("; ")
+
+            // Content is optional, and hidden if there are spoilers or the status is
+            // marked sensitive, and it has not been expanded.
+            if (TextUtils.isEmpty(viewData.spoilerText) || !sensitive || viewData.isExpanded) {
+                append(viewData.content, ", ")
+            }
+
             viewData.actionable.poll?.let {
-                pollView.getPollDescription(
-                    from(it),
-                    statusDisplayOptions,
-                    numberFormat,
-                    absoluteTimeFormatter,
+                append(
+                    pollView.getPollDescription(
+                        from(it),
+                        statusDisplayOptions,
+                        numberFormat,
+                        absoluteTimeFormatter,
+                    ),
+                    ", ",
                 )
-            } ?: "",
-        )
+            }
+
+            append(getCreatedAtDescription(createdAt, statusDisplayOptions))
+
+            editedAt?.let { append(", ", context.getString(R.string.description_post_edited)) }
+
+            getReblogDescription(context, viewData)?.let { append(", ", it) }
+
+            append(", ", viewData.username)
+
+            if (reblogged) {
+                append(", ", context.getString(R.string.description_post_reblogged))
+            }
+
+            if (favourited) {
+                append(", ", context.getString(R.string.description_post_favourited))
+            }
+            if (bookmarked) {
+                append(", ", context.getString(R.string.description_post_bookmarked))
+            }
+            getMediaDescription(context, viewData)?.let { append(", ", it) }
+
+            append("; ")
+
+            visibility.description(context)?.let { append(it) }
+            getFavouritesCountDescription(favouritesCount)?.let { append(", ", it) }
+            getReblogsCountDescription(reblogsCount)?.let { append(", ", it) }
+        }
+
         itemView.contentDescription = description
     }
 
-    protected fun getFavsText(count: Int): CharSequence {
-        if (count <= 0) return ""
+    /** @return "n Favourite", for use in a content description. */
+    protected fun getFavouritesCountDescription(count: Int): CharSequence? {
+        if (count <= 0) return null
 
         val countString = numberFormat.format(count.toLong())
         return HtmlCompat.fromHtml(
@@ -802,8 +847,9 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
         )
     }
 
-    protected fun getReblogsText(count: Int): CharSequence {
-        if (count <= 0) return ""
+    /** @return "n Boost", for use in a content description. */
+    protected fun getReblogsCountDescription(count: Int): CharSequence? {
+        if (count <= 0) return null
 
         val countString = numberFormat.format(count.toLong())
         return HtmlCompat.fromHtml(
@@ -826,7 +872,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
         cardView ?: return
 
         val (_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, sensitive, _, _, attachments, _, _, _, _, _, poll, card) = viewData.actionable
-        if (cardViewMode !== CardViewMode.NONE && attachments.isEmpty() && poll == null && card != null &&
+        if (cardViewMode !== CardViewMode.NONE &&
+            attachments.isEmpty() &&
+            poll == null &&
+            card != null &&
             !TextUtils.isEmpty(card.url) &&
             (!sensitive || expanded) &&
             (!viewData.isCollapsible || !viewData.isCollapsed)
@@ -883,34 +932,32 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
             return attachments.all { it.isPreviewable() }
         }
 
-        private fun getReblogDescription(context: Context, status: IStatusViewData): CharSequence {
+        /** @return "{account.username} boosted", for use in a content description. */
+        private fun getReblogDescription(context: Context, status: IStatusViewData): String? {
             return status.rebloggingStatus?.let {
                 context.getString(R.string.post_boosted_format, it.account.username)
-            } ?: ""
+            }
         }
 
-        private fun getMediaDescription(context: Context, status: IStatusViewData): CharSequence {
-            if (status.actionable.attachments.isEmpty()) return ""
+        /** @return "Media: {0-n descriptions}", for use in a content description. */
+        private fun getMediaDescription(context: Context, status: IStatusViewData): String? {
+            if (status.actionable.attachments.isEmpty()) return null
 
-            val mediaDescriptions =
-                status.actionable.attachments.fold(StringBuilder()) { builder: StringBuilder, (_, _, _, _, _, description): Attachment ->
-                    if (description == null) {
-                        val placeholder =
-                            context.getString(R.string.description_post_media_no_description_placeholder)
-                        return@fold builder.append(placeholder)
-                    } else {
-                        builder.append("; ")
-                        return@fold builder.append(description)
-                    }
-                }
-            return context.getString(R.string.description_post_media, mediaDescriptions)
+            val missingDescription = context.getString(R.string.description_post_media_no_description_placeholder)
+
+            val mediaDescriptions = status.actionable.attachments.map {
+                it.description ?: missingDescription
+            }
+
+            return context.getString(R.string.description_post_media, mediaDescriptions.joinToString(", "))
         }
 
-        private fun getContentWarningDescription(context: Context, status: IStatusViewData): CharSequence {
+        /** @return "Content warning: {spoilerText}", for use in a content description. */
+        private fun getContentWarningDescription(context: Context, status: IStatusViewData): String? {
             return if (!TextUtils.isEmpty(status.spoilerText)) {
                 context.getString(R.string.description_post_cw, status.spoilerText)
             } else {
-                ""
+                null
             }
         }
     }

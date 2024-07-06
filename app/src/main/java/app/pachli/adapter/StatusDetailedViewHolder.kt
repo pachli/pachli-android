@@ -38,7 +38,7 @@ class StatusDetailedViewHolder(
         visibilityIcon?.also {
             val alignment = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) DynamicDrawableSpan.ALIGN_CENTER else DynamicDrawableSpan.ALIGN_BASELINE
             val visibilityIconSpan = ImageSpan(it, alignment)
-            sb.setSpan(visibilityIconSpan, 0, visibilityString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            sb.setSpan(visibilityIconSpan, 0, visibilityString?.length ?: 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         val metadataJoiner = context.getString(R.string.metadata_joiner)
         sb.append(" ")
@@ -82,13 +82,13 @@ class StatusDetailedViewHolder(
         listener: StatusActionListener<StatusViewData>,
     ) {
         if (reblogCount > 0) {
-            binding.statusReblogs.text = getReblogsText(reblogCount)
+            binding.statusReblogs.text = getReblogsCountDescription(reblogCount)
             binding.statusReblogs.show()
         } else {
             binding.statusReblogs.hide()
         }
         if (favCount > 0) {
-            binding.statusFavourites.text = getFavsText(favCount)
+            binding.statusFavourites.text = getFavouritesCountDescription(favCount)
             binding.statusFavourites.show()
         } else {
             binding.statusFavourites.hide()

@@ -30,17 +30,17 @@ import app.pachli.core.network.model.Status
 // store resources (yet).
 
 /**
- * @return A description for this visibility, or "" if it's null or [Status.Visibility.UNKNOWN].
+ * @return A description for this visibility, or null if it's null or [Status.Visibility.UNKNOWN].
  */
-fun Status.Visibility?.description(context: Context): CharSequence {
-    this ?: return ""
+fun Status.Visibility?.description(context: Context): CharSequence? {
+    this ?: return null
 
     val resource: Int = when (this) {
         Status.Visibility.PUBLIC -> R.string.description_visibility_public
         Status.Visibility.UNLISTED -> R.string.description_visibility_unlisted
         Status.Visibility.PRIVATE -> R.string.description_visibility_private
         Status.Visibility.DIRECT -> R.string.description_visibility_direct
-        Status.Visibility.UNKNOWN -> return ""
+        Status.Visibility.UNKNOWN -> return null
     }
     return context.getString(resource)
 }

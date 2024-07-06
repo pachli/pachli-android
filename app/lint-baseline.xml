@@ -717,6 +717,17 @@
     </issue>
 
     <issue
+        id="Typos"
+        message="Repeated word &quot;til&quot; in message: possible typo"
+        errorLine1="    &lt;string name=&quot;action_add_to_tab&quot;>Legg til til fane&lt;/string>"
+        errorLine2="                                          ^">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="649"
+            column="43"/>
+    </issue>
+
+    <issue
         id="ImpliedQuantity"
         message="The quantity `&apos;one&apos;` matches more than one specific number in this locale (0, 1), but the message did not include a formatting argument (such as `%d`). This is usually an internationalization error. See full issue explanation for more."
         errorLine1="        &lt;item quantity=&quot;one&quot;>برهم‌کنشی جدید&lt;/item>"
@@ -1185,7 +1196,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="278"
+            line="273"
             column="19"/>
     </issue>
 
@@ -1196,7 +1207,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="283"
+            line="278"
             column="19"/>
     </issue>
 
