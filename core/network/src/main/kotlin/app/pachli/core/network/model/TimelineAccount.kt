@@ -40,6 +40,10 @@ data class TimelineAccount(
     val emojis: List<Emoji>? = emptyList(),
 ) {
 
+    /**
+     * The account's [displayName], falling back to [localUsername] if
+     * [displayName] is null or empty.
+     */
     @Suppress("DEPRECATION")
     val name: String
         get() = if (displayName.isNullOrEmpty()) {
