@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">Oscail mar %s</string>
     <string name="post_lookup_error_format">Earráid agus an post á lorg %s</string>
     <string name="performing_lookup_title">Amharc taibhithe…</string>
+    <string name="send_error_report">Seol tuairisc earráide</string>
 </resources>
