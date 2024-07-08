@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">Tharla earráid líonra! Seiceáil do nasc agus bain triail eile as!</string>
+    <string name="error_network">Tharla earráid líonra. Seiceáil do cheangal agus bain triail eile as.</string>
     <string name="error_generic">Tharla earráid.</string>
     <string name="message_empty">Níl aon rud anseo.</string>
     <string name="action_retry">Atriail</string>
@@ -11,5 +11,7 @@
     <string name="action_mentions">Buaicphointí</string>
     <string name="action_hashtags">Clibeanna hash</string>
     <string name="title_links_dialog">Naisc Ghréasáin</string>
-    <string name="title_hashtags_dialog">Hashtags</string>
+    <string name="title_hashtags_dialog">Haischlibeanna</string>
+    <string name="action_refresh">Athnuaigh</string>
+    <string name="url_domain_notifier">" (🔗 %s)"</string>
 </resources>
