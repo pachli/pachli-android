@@ -1,13 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Faoi</string>
     <string name="about_powered_by_pachli">Cumhachtaithe ag Pachli</string>
     <string name="about_pachli_license">Is bogearraí foinse oscailte agus saor in aisce é Pachli. Tá sé ceadúnaithe faoi Leagan 3. Ceadúnas Poiblí Ginearálta GNU 3. Is féidir leat an ceadúnas a fheiceáil anseo: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_project_site">Suíomh Gréasáin an tionscadail:
-\n https://pachli.app</string>
+    <string name="about_project_site">Suíomh Gréasáin an tionscadail: https://pachli.app</string>
     <string name="about_bug_feature_request_site">Tuarascálacha ar fhabhtanna &amp; iarratais ar ghnéithe:
 \n https://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Próifíl Pachli</string>
     <string name="title_licenses">Ceadúnais</string>
     <string name="license_description">Tá cód agus sócmhainní ó na tionscadail foinse oscailte seo a leanas i Pachli:</string>
+    <string name="notification_details_android_notifications_enabled">An bhfuil fógraí Android cumasaithe?</string>
+    <string name="notification_details_unifiedpush_available">Tá UnifiedPush ar fáil?</string>
+    <string name="notification_details_accounts_unified_push_url_help">Níl cuntas amháin nó níos mó cumraithe le URL UnifiedPush, tá fógraí brú don chuntas seo díchumasaithe.</string>
+    <string name="notification_details_accounts_unified_push_subscription">An bhfuil gach cuntas suibscríofa?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Theip ar chuntas amháin nó níos mó a shíntiús UnifiedPush a nuashonrú agus ní bhfaighidh sé fógraí.</string>
+    <string name="notification_details_ntfy_exempt">Tá NTFY díolmhaithe ó bharrfheabhsú ceallraí?</string>
+    <string name="notification_details_usage_event">Srianta bainistíochta cumhachta</string>
+    <string name="notification_details_ago">%1$s ó shin @ %2$s</string>
+    <string name="notification_details_standby_bucket_exempted">Díolmhaithe</string>
+    <string name="notification_details_standby_bucket_rare">Annamh. Teoranta do 10 nóiméad gach 24 uair an chloig</string>
+    <string name="notification_details_standby_bucket_never">Riamh</string>
+    <string name="notification_details_standby_bucket_unknown">Anaithnid</string>
+    <string name="notification_log_title">Loga</string>
+    <string name="notification_log_download_content_description">Íosluchtaigh logs</string>
+    <string name="notification_log_download">Íoslódáil</string>
+    <string name="notification_log_sort">Sórtáil an ceann is nuaí ar dtús</string>
+    <string name="notification_log_previous_attempts">Iarrachtaí roimhe seo: %1$d</string>
+    <string name="notification_log_scheduled_in">Sceidealta i %1$s @ %2$s</string>
+    <string name="notification_log_method_pull">Tá fógraí á dtarraingt go tréimhsiúil, thart ar gach 15 nóiméad</string>
+    <string name="notification_log_method_unknown">Níl meicníocht fógartha cinntithe</string>
+    <string name="about_device_info_title">Do ghléas</string>
+    <string name="about_account_info_title">Do chuntas</string>
+    <string name="about_copy">Cóipeáil leagan agus faisnéis gléas</string>
+    <string name="about_privacy_policy">Beartas Príobháideachais</string>
+    <string name="about_device_info">%s %s
+\nLeagan Android: %s
+\nLeibhéal SDK: %d</string>
+    <string name="about_account_info">\@%s@%s
+\nLeagan: %s</string>
+    <string name="about_nivenly_foundation">Is tionscadal <a href="https://nivenly.org">Fondúireacht Nivenly</a> é Pachli.</string>
+    <string name="action_refresh">Athnuaigh</string>
+    <string name="about_copied">Leagan cóipeáilte agus faisnéis gléas</string>
+    <string name="notification_log_filter_content_description">Scag logs de réir clib</string>
+    <string name="notification_details_title">Sonraí</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Brúigh fógraí le UnifiedPush</string>
+    <string name="notification_details_any_account_needs_migration_help">Níl an raon feidhme OAuth \'brúigh\' ag cuntas amháin nó níos mó, díchumasaítear fógraí brú.</string>
+    <string name="notification_details_standby_bucket_working_set">Sraith oibre. Teoranta do 10 nóiméad gach 2 uair an chloig</string>
+    <string name="notification_details_notifications_enabled_help">Níl fógraí cumasaithe le haghaidh aon cheann de do chuntais. Athraigh é seo i Roghanna Cuntais &gt; Fógraí. Go dtí sin tá gach fógra díchumasaithe.</string>
+    <string name="notification_details_any_account_needs_migration">An bhfuil raon feidhme OAuth \'brú\' ag gach cuntas?</string>
+    <string name="notification_details_unifiedpush_available_help">Níl UnifiedPush (ntfy.sh) ar fáil, tarraingeofar fógraí go tréimhsiúil. Míníonn an chuid eile den alt seo cén fáth nach bhfuil UnifiedPush á úsáid, ach nach bhfuil sé ábhartha maidir le conas a tharraingítear fógraí faoi láthair.</string>
+    <string name="notification_details_accounts_unified_push_url">Tá URL UnifiedPush ag gach cuntas?</string>
+    <string name="notification_details_pull_section">Tarraing fógraí le hoibrithe tréimhsiúla</string>
+    <string name="notification_details_pachli_exempt_help">Níl Pachli díolmhaithe ó optimizations ceallraí. Seans go bhfuil Android ag cur moill ar fhógraí nuair a bhíonn an scáileán múchta.</string>
+    <string name="notification_details_pachli_exempt">Tá Pachli díolmhaithe ó bharrfheabhsú ceallraí?</string>
+    <string name="notification_details_ntfy_exempt_help">Níl NTFY díolmhaithe ó optimizations ceallraí. Seans go bhfuil Android ag cur moill ar fhógraí nuair a bhíonn an scáileán múchta.</string>
+    <string name="notification_details_workers_help">Is é seo an liosta oibrithe a fhaigheann fógraí nua. Ba chóir go mbeadh ceann amháin ann, ba chóir go mbeadh an stát RUNNING or ENQUEUED, agus ba chóir go mbeadh sé sceidealta a rith i níos lú ná 15 nóiméad ó anois.</string>
+    <string name="notification_details_standby_bucket_restricted">Srianta. Uair sa lá</string>
+    <string name="notification_log_filter">Scagaire</string>
+    <string name="notification_details_last_fetch_label">Iarratas deiridh /api/v1/fógraí</string>
+    <string name="notification_details_last_fetch_help">Beag beann ar an modh fógartha, taispeánann sé seo, in aghaidh an chuntais, cathain a tharla an ghabháil dheireanach, cé acu ar éirigh leis, agus an teachtaireacht earráide mura raibh.</string>
+    <string name="notification_details_usage_event_label">Is féidir le Android teorainn a chur le cad is féidir le haipeanna a dhéanamh sa chúlra. Is é an liosta seo ná mar a cuireadh srian le Pachli le trí lá anuas, is nua ar dtús.</string>
+    <string name="notification_details_standby_bucket_active">Gníomhach. Poist chúlra gan srian</string>
+    <string name="notification_details_standby_bucket_frequent">Go minic. Teoranta do 10 nóiméad gach 2 uair an chloig</string>
+    <string name="notitication_log_filter_dialog_title">Taispeáin tosaíochtaí logála</string>
+    <string name="notification_log_method_push">Tá fógraí á bhrú ag baint úsáide as UnifiedPush, agus ba cheart go mbeadh siad láithreach</string>
+    <string name="notification_log_download_failed">Theip ar an íosluchtú: %1$s</string>
+    <string name="notification_log_method_pusherror">Tá UnifiedPush cumasaithe ach bhí earráid ann: %1$s</string>
 </resources>
