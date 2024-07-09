@@ -607,7 +607,7 @@
     <string name="pref_title_update_settings">Actualizaciones de programa</string>
     <string name="title_public_trending_statuses">Publicaciones en tendencia</string>
     <string name="announcement_date">%1$s %2$s</string>
-    <string name="load_newest_statuses">Carga publicaciones más nuevas</string>
+    <string name="load_newest_statuses">Cargar las publicaciones más nuevas</string>
     <string name="dialog_save_profile_changes_message">¿Quieres guardar tus cambios de perfil?</string>
     <string name="pref_update_notification_frequency_always">Siempre</string>
     <string name="error_media_upload_sending_fmt">La carga falló: %s</string>
@@ -663,4 +663,16 @@
     <string name="error_filter_missing_title">Se necesita el título</string>
     <string name="action_suggestions">Cuentas sugeridas</string>
     <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
+    <string name="compose_warn_language_dialog_change_language_fmt">Cambiar el idioma a %1$s y publicar</string>
+    <string name="compose_warn_language_dialog_accept_language_fmt">Publicar tal cual (%1$s)</string>
+    <string name="error_media_uploader_upload_not_found_fmt">no se encontró la subida de medios con ID de %1$s</string>
+    <string name="error_prepare_media_unknown_file_size">no se pudo determinar el tamaño del archivo</string>
+    <string name="error_prepare_media_unknown_mime_type">se desconoce el tipo de archivo</string>
+    <string name="preview_card_byline_fmt">Ver más de %1$s</string>
+    <string name="action_open_byline_account">Mostrar el perfil del autor del artículo</string>
+    <string name="action_open_link">Abrir enlace</string>
+    <string name="compose_warn_language_dialog_title">Comprueba el idioma de la publicación</string>
+    <string name="compose_warn_language_dialog_fmt">El idioma de la publicación está configurado en %1$s, pero es posible que la hayas escrito en %2$s.</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">el servidor no es compatible con el tipo de archivo: %1$s</string>
+    <string name="error_pick_media_fmt">No se pudo adjuntar el archivo a la publicación: %1$s</string>
 </resources>
