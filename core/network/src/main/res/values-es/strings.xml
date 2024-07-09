@@ -8,4 +8,6 @@
     <string name="error_404_not_found_fmt">Su servidor no soporta esta función: %1$s</string>
     <string name="error_json_data_fmt">Tu servidor devolvió una respuesta inválida: %1$s</string>
     <string name="error_network_fmt">Ha ocurrido un error de red: %s</string>
+    <string name="error_wrong_content_type_fmt">tu servidor está mal configurado y devolvió \'%2$s\' con el tipo de contenido incorrecto, \'%1$s\'</string>
+    <string name="error_missing_content_type_fmt">tu servidor está mal configurado, la respuesta no tiene tipo de contenido: %1$s</string>
 </resources>
