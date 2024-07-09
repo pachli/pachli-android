@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dialog_whats_an_instance">Is féidir an seoladh nó fearann a ghabhann le hásc ar bith a chur isteach anseo, mar shampla mastodon.social, icosahedron.website, social.tchncs.de, agus <a href="https://instances.social">níos mó!</a>
 \n
@@ -20,4 +20,7 @@
     <string name="login_connection">Ag nascadh…</string>
     <string name="title_login">Logáil isteach</string>
     <string name="instance_rule_title">Rialacha %s</string>
+    <string name="action_browser_login">Logáil isteach le Brabhsálaí</string>
+    <string name="error_could_not_load_login_page">Níorbh fhéidir an leathanach logála isteach a lódáil.</string>
+    <string name="instance_rule_info">Trí logáil isteach aontaíonn tú le rialacha %s.</string>
 </resources>
