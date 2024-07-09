@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="server_repository_error_get_node_info">Theip ar fháil nódinfo %1$s: %2$s</string>
+    <string name="server_repository_error_validate_node_info">theip ar bhailíochtú nódinfo %1$s: %2$s</string>
+    <string name="server_repository_error_get_instance_info">Theip ar fháil /api/v1/instance: %1$s</string>
+    <string name="server_repository_error_capabilities">Theip ar pharsáil cumais an fhreastalaí: %1$s</string>
+    <string name="server_repository_error_get_well_known_node_info">Theip ar fháil /.well-known/nodeinfo: %1$s</string>
+    <string name="server_repository_error_unsupported_schema">Ní raibh scéimrí intuigthe i /.well-known/nodeinfo</string>
+</resources>
