@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">Tuairisc earráide %1$s</string>
+    <string name="acra_email_body">Seolfar na sonraí seo chuig na forbróirí.
+\n
+\n Déan seiceáil le do thoil chun a chinntiú nach bhfuil aon rud ann nach bhfuil tú ag iarraidh a roinnt, agus cuir síos le do thoil ar a raibh ar siúl agat nuair a tharla an timpiste.
+\n
+\n ----
+\n Do chur síos anseo:
+\n
+\n ----
+\n</string>
+    <string name="acra_dialog_text">Cliceáil OK chun r-phost a ullmhú chuig na forbróirí le sonraí</string>
+</resources>
