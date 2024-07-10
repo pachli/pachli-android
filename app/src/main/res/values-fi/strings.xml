@@ -644,4 +644,21 @@
     <string name="error_filter_missing_title">Otsikko vaaditaan</string>
     <string name="action_suggestions">Tilisuositukset</string>
     <string name="compose_schedule_date_time_fmt">%1$s%2$s</string>
+    <string name="compose_warn_language_dialog_title">Tarkista julkaisun kieli</string>
+    <string name="compose_warn_language_dialog_fmt">Julkaisun kieleksi on valittu %1$s mutta se saattaa olla kielellä %2$s.</string>
+    <string name="compose_warn_language_dialog_change_language_fmt">Merkitse kieleksi %1$s ja julkaise</string>
+    <string name="compose_warn_language_dialog_accept_language_fmt">Julkaise muuttamattomana (%1$s)</string>
+    <string name="error_media_uploader_upload_not_found_fmt">medialatausta nimeltä %1$s ei löydy</string>
+    <string name="error_media_uploader_throwable_fmt">%1$s</string>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">sisällönselvittäjä-URI:ltä puuttui polku: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">tiedoston koko on %1$s, suurin sallittu on %2$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">sisältöselvittäjä-URI:n kaavaa ei tueta: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">tuntematon tiedostotyyppi</string>
+    <string name="error_pick_media_fmt">Julkaisuun ei voitu liittää tiedostoa: %1$s</string>
+    <string name="preview_card_byline_fmt">Katso lisää täältä: %1$s</string>
+    <string name="action_open_byline_account">Näytä julkaisun tekijän profiili</string>
+    <string name="action_open_link">Avaa linkki</string>
+    <string name="error_prepare_media_unknown_file_size">tiedoston kokoa ei voitu määrittää</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">palvelin ei tue tidostomuotoa: %1$s</string>
 </resources>
