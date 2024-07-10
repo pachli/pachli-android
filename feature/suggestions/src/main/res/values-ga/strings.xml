@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Cuntais mholta</string>
+    <string name="source_unknown">(Fuair an freastalaí foinse neamhaitheanta)</string>
+    <string name="sources_featured">Lámh-roghnaithe ag d\'fhoireann freastalaí</string>
+    <string name="sources_most_followed">Ceann de na cinn is mó a leanann ar do fhreastalaí</string>
+    <string name="sources_most_interactions">Ag fáil go leor aird ar do fhreastalaí</string>
+    <string name="sources_friends_of_friends">Coitianta i measc na ndaoine a leanann tú</string>
+    <string name="sources_unknown">(tug an freastalaí foinsí neamhaitheanta ar ais)</string>
+    <string name="action_follow_account">Lean</string>
+    <string name="action_dismiss_follow_suggestion">Díbhe</string>
+    <string name="ui_error_delete_suggestion_fmt">Theip ar mholadh le haghaidh %1$s a dhíbhe: %2$s</string>
+    <string name="follower_count_fmt"><b>%1$s</b> leantóir</string>
+    <string name="follows_count_fmt"><b>%1$s</b> ina dhiaidh</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> postáil</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> postáil (<b>%2$d</b> in aghaidh na seachtaine)</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> postáil (<b>%2$d</b> sa tseachtain, an <b>%3$s</b> deireanach)</string>
+    <string name="sources_similar_to_recently_followed">Cosúil le cuntais a lean tú le déanaí</string>
+    <string name="ui_error_follow_account_fmt">Theip ar %1$s a leanúint: %2$s</string>
+</resources>
