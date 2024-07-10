@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hint_list_name">Ainm liosta</string>
     <string name="title_lists">Liostaí</string>
@@ -11,4 +11,14 @@
     <string name="action_add_to_list">Cuir cuntas leis an liosta</string>
     <string name="action_delete_list">Scrios an liosta</string>
     <string name="hint_search_people_list">Cuardaigh daoine a leanann tú</string>
+    <string name="list_exclusive_label">Folaigh ón amlíne baile</string>
+    <string name="replies_policy_title">Taispeáin freagraí ar:</string>
+    <string name="replies_policy_name_followed">Aon úsáideoir ina dhiaidh sin</string>
+    <string name="replies_policy_name_list">Baill an liosta</string>
+    <string name="replies_policy_name_none">Duine ar bith</string>
+    <string name="dialog_delete_list_warning">An bhfuil tú cinnte gur mhaith leat an liosta %s a scriosadh?</string>
+    <string name="failed_to_add_to_list">Theip ar an gcuntas a chur leis an liosta</string>
+    <string name="no_lists">Níl aon liostaí agat.</string>
+    <string name="action_add_or_remove_from_list">Cuir leis nó bain den liosta</string>
+    <string name="failed_to_remove_from_list">Theip ar an gcuntas a bhaint den liosta</string>
 </resources>
