@@ -1,0 +1,15 @@
+Pacli 2.3.0
+
+Gnéithe nua:
+
+- Taispeáin meáin neamhghearrtha ar leathanaigh meán cuntais
+- Lig don úsáideoir seiceálacha nuashonraithe a spreagadh
+- Taispeáin réamhamharc le haghaidh ceangaltán fuaime inimeartha
+- Taispeáin faisnéis faoi fetches fógraí
+
+Ceartúcháin:
+
+- Coinnigh an scáileán ar siúl agus na meáin ag imirt
+- Inléiteacht na lipéid stats a fheabhsú
+- Taispeáin cuntas/amlíne cheart agus tú ag cumadh ó fhógraí
+- Aistriúcháin Araibis, Ollainnis, Fionlainnis, Fraincis, Indinéisis, Spáinnise agus Sualainnis a nuashonrú

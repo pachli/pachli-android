@@ -1,0 +1,11 @@
+Is cliant lán-feiceáil é Pachli do Mastodon agus freastalaithe comhchosúla.
+
+• Léigh, freagair, scagadh, postáil, post is fearr leat agus treisigh postálacha
+• Aistrigh postálacha ó theangacha eile
+• Tá d'amlíne i dtaisce go háitiúil, ionas gur féidir leat léamh agus tú as líne
+• Dréachtaigh postálacha anois, chun iad a chríochnú níos déanaí
+• Scríobh postálacha anois, sceidealaigh iad le seoladh níos déanaí
+• Léigh agus postáil ó chuntais iolracha
+• Téamaí iolracha
+• Dírithe ar a chinntiú go bhfuil gach feidhmiúlacht ar fáil do dhaoine le riachtanais inrochtaineachta
+• Foinse oscailte, https://github.com/pachli

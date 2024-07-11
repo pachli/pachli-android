@@ -1,0 +1,11 @@
+Pacli 1.1
+
+Ceartúcháin:
+
+- Úsáid an dath codarsnachta ceart ar sceallóga cluaisíní hashtag
+- Scála an deilbhín monacrómach a d'oirfeadh
+- Athchóirigh suíomh amlíne baile an úsáideora
+- A chinntiú nach gcruthóidh athnuachan bearna san amlíne
+- Taispeáin an FAB de réir roghanna an úsáideora
+- Deisigh flickering an bharra uirlisí agus liostaí á scrollú
+- Deisigh tuairteáil nuair a théann tú isteach MainActivity ar fheistí picteilíní C

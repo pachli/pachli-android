@@ -1,0 +1,17 @@
+Pacli 2.1.0
+
+Gnéithe nua:
+
+- Taispeáin róil ar phróifílí
+- Taispeáin an cnaipe cumadóireachta agus tú ag féachaint ar liostaí
+- Taispeáin an cnaipe cum agus tú ag féachaint ar an liosta leabharmharcanna
+
+Ceartúcháin:
+
+- Taispeáin ábhar aistrithe i snáitheanna
+- Ríomh fad postálacha agus pobalbhreith le emojis i gceart
+- Cosc a chur ar tuairteála
+ - Mura bhfuil aon údar ag cárta réamhamhairc
+ - Má tharlaíonn earráid in amlíne gan FAB
+ - Ar phróifíl má tá réimse `cruthaitheAt` nialasach ag an gcuntas
+- Nuashonraigh aistriúcháin

@@ -1,0 +1,15 @@
+Pacli 1.4.0
+
+Gnéithe nua:
+
+- Seiceáil go tréimhsiúil le haghaidh nuashonruithe agus úsáideoir foláirimh
+
+Ceartúcháin:
+
+- Taispeáin athruithe tosaíochta láithreach
+- Tabhair onóir don rogha FAB_HIDE in amlínte
+- Cinntigh go bhfuil rialuithe córais le feiceáil ar ghléasanna níos sine
+- Bain an barra dul chun cinn de na hamlínte stádais
+- Athchóirigh cóimheas gné íomhá nuair a thagann deireadh leis an tarraingt
+- Cosc a chur ar thuairteála féideartha nuair a bhíonn na scagairí mall le luchtú
+- Nuashonraigh aistriúcháin Iodáilis
