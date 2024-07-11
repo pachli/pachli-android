@@ -1,0 +1,5 @@
+Pacli 1.2.2
+
+Gnéithe nua:
+
+- Leabaigh an polasaí príobháideachta san aip

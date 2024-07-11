@@ -1,0 +1,5 @@
+Pacli 1.2.1
+
+Gnéithe nua:
+
+- Nasc leis an bpolasaí príobháideachais ó "About"

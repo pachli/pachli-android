@@ -1,0 +1,16 @@
+Pacli 2.5.2
+
+Gnéithe nua:
+
+- Tacaigh leis an aistriúchán ar fhreastalaithe Baile Dúchais/Glitch
+
+Ceartúcháin:
+
+- Cosc a chur ar tuairteála ar leathanach "fearainn i bhfolach".
+- Taispeáin teachtaireachtaí earráide úsáideacha do gach earráid
+- Ná cuir san áireamh ach trasdulChainnt mar rún do ghníomhaíochtaí Pachli
+- Ná mol ach uasghrádú go dtí na leaganacha atá tógtha ag F-Droid
+- Gníomhartha inrochtaineachta a athchumasú i ngach amlíne
+- Spreag an t-úsáideoir chun athruithe a shábháil / a scriosadh tar éis eagarthóireacht a dhéanamh ar an mbitheolaíocht
+- Taispeáin stair eagarthóireachta le haghaidh pobalbhreith
+- Aistriúcháin Fhionlainnis, Fraincise agus Spáinnise a nuashonrú

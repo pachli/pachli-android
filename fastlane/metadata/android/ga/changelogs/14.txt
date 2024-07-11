@@ -1,0 +1,16 @@
+Pacli 2.5.0
+
+Gnéithe nua:
+
+- Aistrithe UX níos réidhe
+- Bundle Deimhnithe Criptímid
+- Faigh níos mó postálacha treochta, naisc agus hashtags
+- Simpligh línte ama a chur leis/a bhaint as cluaisíní
+- Nuashonraigh aistriúcháin Fhionlainnis, Kabyle agus Spáinnis
+
+Ceartúcháin:
+
+- Cumasaigh gníomhartha cainte ar ais i bhfógraí agus i gcomhráite
+- Feabhas a chur ar aistrithe isteach / amach as físeáin
+- Nuashonraigh PageCache chun ordú neamhchróineolaíoch a láimhseáil
+- Ceadaigh éaga an scagaire a shocrú go "éiginnte"

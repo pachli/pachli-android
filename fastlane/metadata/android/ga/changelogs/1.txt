@@ -1,0 +1,20 @@
+I measc na ngnéithe nua tá:
+
+- "Lódáil níos mó" ná a thuilleadh, lódálann postálacha de réir mar a scrollaíonn tú
+- Naisc treochta agus post
+- Níos mó ná 5 tabs
+- Roghnaigh ó raon clónna inrochtana
+- Seinnteoir meáin nua
+- Scagairí i bhfógraí
+- Marcáil liostaí mar "eisiach"
+- Cuir "leabharmharcanna" le cluaisíní
+
+I measc na gceartúchán fabhtanna tá:
+
+- Ní "greann" íomhánna nuair a dhéanann tú zúmáil nó svaidhpeáil eatarthu
+
+Áirítear le hathruithe UX:
+
+- Athnuachan amhairc, scéim dathanna nua
+- Socraigh an téama réamhshocraithe ó do shocruithe Android
+- Is mír roghchláir é "Fógraí soiléire"

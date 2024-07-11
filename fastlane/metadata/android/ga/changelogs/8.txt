@@ -1,0 +1,15 @@
+Pachli 2.0.0
+
+Gnéithe nua:
+
+- Aistrigh stádais ar línte ama i dtaisce
+- Taispeáin an cnaipe cumadóireachta agus tú ag féachaint ar hashtags agus ceanáin
+- Méadú ar an méid faisnéise i réamhamhairc naisc
+- Tabhair rabhadh don úsáideoir faoi fhabht beochana Android
+
+Ceartúcháin:
+
+- Cosc a chur ar ClassCastException agus earráidí amlíne á láimhseáil
+- Nuashonraigh dathanna téama
+- A chinntiú go gcoimeádtar aicmí sonraí a bhaineann le nuashonrú
+- Aistriúcháin Gearmáinise, Iodáilis agus Seapáinise a nuashonrú

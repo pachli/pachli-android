@@ -1,0 +1,19 @@
+Pacli 1.3.0
+
+Gnéithe nua:
+
+- Cuir rogha leis chun "féin-borduithe" a chur i bhfolach
+- Taispeáin taispeáint iomlán agus ainm úsáideora i radharc próifíle
+- Feabhas a chur ar taispeáint naisc "doiléir".
+- Coigeartaigh iompar UX athsheinm físe
+
+Ceartúcháin:
+
+- Cinntigh go bhfuil teachtaireacht folamh amlíne le feiceáil
+- Bain úsáid as Pachli gorm agus oráiste le haghaidh deilbhíní fógra
+- Taispeáin na meáin agus ViewMediaFragment á atosú
+- Taispeáin táscairí snáithe agus roinnteoirí eile ag baint úsáide as dathanna Ábhar
+
+Aistriúcháin:
+
+- Nuashonraigh aistriúcháin Polainnis agus Seapáinis

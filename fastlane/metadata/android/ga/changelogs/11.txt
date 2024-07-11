@@ -1,0 +1,17 @@
+Pacli 2.2.0
+
+Gnéithe nua:
+
+- Díchumasaigh feidhmiúlacht an scagaire mura dtacaíonn an freastalaí leis
+
+Ceartúcháin:
+
+- Cinntiú go dtarlaíonn gníomhartha in aghaidh an stádais cheart
+- Ná sceith Príomhghníomhaíocht i DrawerImageLoader
+- Taispeáin na luachanna treochta cearta ag deireadh línte na cairte
+- Nuashonraigh aistriúcháin Sualainnis
+- Nuashonraigh aistriúcháin Indinéisis
+- Nuashonraigh aistriúcháin Ollainnise
+- Nuashonraigh na Portaingéile
+- Nuashonraigh aistriúcháin Fhionlainnis
+- Nuashonraigh aistriúcháin Araibis

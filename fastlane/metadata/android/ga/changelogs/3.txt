@@ -1,0 +1,12 @@
+Pacli 1.2
+
+Gnéithe nua:
+
+- Taispeáin scrollbharraí ingearacha ar liostaí inscrollaithe
+
+Ceartúcháin:
+
+- Athchóirigh suíomh léitheoireachta an úsáideora i ngach cás
+- Cumasaigh/díchumasaigh an cnaipe vótála nuair is féidir/nach féidir leis an úsáideoir vótáil
+- Úsáid an dath ceart don bharra stádais
+- Cinntigh go bhfuil téacs rogha na vótaíochta le feiceáil sa chúlra

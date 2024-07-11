@@ -1,0 +1,5 @@
+Pacli 2.1.1
+
+Ceartúcháin:
+
+- Cosc a chur ar tuairteála má tá cluaisín treochta i láthair

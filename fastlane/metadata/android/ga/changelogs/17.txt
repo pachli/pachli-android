@@ -1,0 +1,16 @@
+Pacli 2.6.0
+
+Gnéithe nua:
+
+- Taispeáin "cuntais mholta"
+- Tacaigh le scagairí freastalaí i GoToSocial 0.16.0
+
+Ceartúcháin:
+
+- Nuashonraigh an cló agus tú ag filleadh ó na Roghanna
+- Déan eagarthóireacht ceart ar theanga stádais
+- Inléiteacht lipéad meán stádais a fheabhsú
+- Cinntigh go bhfuil an téacs i gceanntásc an chuntais roghchláir nascleanúna inléite
+- Ná sáraigh uaslíon na n-aicearraí cruthaithe
+- Úsáid cur síos réamhshocraithe ar an ábhar "Navigate up" in ViewThreadActivity
+- Nuashonraigh aistriúcháin Fhionlainnis, Spáinnise agus Sualainnis

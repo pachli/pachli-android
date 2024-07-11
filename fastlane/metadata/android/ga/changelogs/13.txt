@@ -1,0 +1,16 @@
+Pacli 2.4.0
+
+Gnéithe nua:
+
+- Cuir an t-úsáideoir ar an eolas faoi chaidreamh scoilte
+- Lig don úsáideoir torthaí na vótaíochta a fheiceáil roimh vótáil, socraigh polasaí freagra an liosta
+- Taispeáin "Fógraí", "hashtags le leanúint" agus liostaí an mhír sa nav ar chlé
+- Auto-hide Image Viewer toolbar
+
+Ceartúcháin:
+
+- Feabhas a chur ar eastóscadh URL agus tú ag déanamh cumadóireachta
+- Nuashonraigh cluaisíní nuair a athainmnítear nó nuair a scriostar liostaí
+- Cinntigh go gcríochnaítear logáil amach cuntais
+- Cinntigh go ndéantar comhaid a íoslódáil go hiomlán sula gcomhroinntear iad
+- Nuashonraigh aistriúcháin Fhionlainnis, Kabyle agus Spáinnis
