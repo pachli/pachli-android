@@ -23,7 +23,7 @@
     <string name="error_media_upload_opening">That file could not be opened.</string>
     <string name="error_media_upload_permission">Permission to read media is required.</string>
     <string name="error_media_download_permission">Permission to store media is required.</string>
-    <string name="error_media_upload_image_or_video">images and videos cannot both be attached to the same post.</string>
+    <string name="error_media_upload_image_or_video">Images and videos cannot both be attached to the same post.</string>
     <string name="error_media_upload_sending">The upload failed.</string>
     <string name="error_media_upload_sending_fmt">The upload failed: %s</string>
     <string name="error_sender_account_gone">Error sending post.</string>
