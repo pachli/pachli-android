@@ -13,7 +13,7 @@ import kotlinx.parcelize.Parcelize
 data class Filter(
     val id: String = "",
     val title: String = "",
-    @Json(name = "context") val contexts: List<FilterContext> = emptyList(),
+    @Json(name = "context") val contexts: Set<FilterContext> = emptySet(),
     @Json(name = "expires_at") val expiresAt: Date? = null,
     @Json(name = "filter_action") val action: Action = Action.WARN,
     // This should not normally be empty. However, Mastodon does not include
@@ -29,8 +29,8 @@ data class Filter(
         @Json(name = "none")
         NONE,
 
-        @Json(name = "warn")
         @Default
+        @Json(name = "warn")
         WARN,
 
         @Json(name = "hide")

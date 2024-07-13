@@ -18,8 +18,7 @@ package app.pachli.components.trending.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.FilterChangedEvent
+import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.TrendingTag
 import app.pachli.core.network.model.end
@@ -27,20 +26,19 @@ import app.pachli.core.network.model.start
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.viewdata.TrendingViewData
 import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.get
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.IOException
 import javax.inject.Inject
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @HiltViewModel
 class TrendingTagsViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val eventHub: EventHub,
+    private val filtersRepository: FiltersRepository,
 ) : ViewModel() {
     enum class LoadingState {
         INITIAL,
@@ -61,17 +59,7 @@ class TrendingTagsViewModel @Inject constructor(
 
     init {
         invalidate()
-
-        // Collect FilterChangedEvent, FiltersActivity creates them when a filter is created
-        // or deleted. Unfortunately, there's nothing in the event to determine if it's a filter
-        // that was modified, so refresh on every preference change.
-        viewModelScope.launch {
-            eventHub.events
-                .filterIsInstance<FilterChangedEvent>()
-                .collect {
-                    invalidate()
-                }
-        }
+        viewModelScope.launch { filtersRepository.filters.collect { invalidate() } }
     }
 
     /**
@@ -86,8 +74,6 @@ class TrendingTagsViewModel @Inject constructor(
             _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.LOADING)
         }
 
-        val deferredFilters = async { mastodonApi.getFilters() }
-
         mastodonApi.trendingTags(limit = LIMIT_TRENDING_HASHTAGS).fold(
             { tagResponse ->
 
@@ -95,7 +81,7 @@ class TrendingTagsViewModel @Inject constructor(
                 _uiState.value = if (firstTag == null) {
                     TrendingTagsUiState(emptyList(), LoadingState.LOADED)
                 } else {
-                    val homeFilters = deferredFilters.await().getOrNull()?.filter { filter ->
+                    val homeFilters = filtersRepository.filters.value.get()?.filters?.filter { filter ->
                         filter.contexts.contains(FilterContext.HOME)
                     }
                     val tags = tagResponse

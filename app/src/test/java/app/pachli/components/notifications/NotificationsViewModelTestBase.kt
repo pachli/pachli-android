@@ -18,11 +18,13 @@
 package app.pachli.components.notifications
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.appstore.EventHub
-import app.pachli.components.timeline.FilterKind
-import app.pachli.components.timeline.FiltersRepository
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
+import app.pachli.core.data.repository.Filters
+import app.pachli.core.data.repository.FiltersError
+import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
@@ -35,6 +37,8 @@ import app.pachli.core.testing.fakes.InMemorySharedPreferences
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.usecase.TimelineCases
 import at.connyduck.calladapter.networkresult.NetworkResult
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestScope
 import okhttp3.ResponseBody
@@ -103,8 +107,9 @@ abstract class NotificationsViewModelTestBase {
         )
 
         timelineCases = mock()
+
         filtersRepository = mock {
-            onBlocking { getFilters() } doReturn FilterKind.V2(emptyList())
+            whenever(it.filters).thenReturn(MutableStateFlow<Result<Filters?, FiltersError.GetFiltersError>>(Ok(null)))
         }
 
         sharedPreferencesRepository = SharedPreferencesRepository(
@@ -149,6 +154,7 @@ abstract class NotificationsViewModelTestBase {
         )
 
         viewModel = NotificationsViewModel(
+            InstrumentationRegistry.getInstrumentation().targetContext,
             notificationsRepository,
             accountManager,
             timelineCases,

@@ -19,10 +19,12 @@ package app.pachli.components.timeline
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Account
@@ -30,16 +32,19 @@ import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
+import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.HiltTestApplication_Application
 import at.connyduck.calladapter.networkresult.NetworkResult
+import com.github.michaelbull.result.Ok
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
+import okhttp3.Headers
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
@@ -103,7 +108,7 @@ abstract class NetworkTimelineViewModelTestBase {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
-            onBlocking { getFilters() } doReturn NetworkResult.success(emptyList())
+            onBlocking { getFilters() } doReturn Ok(ApiResponse(Headers.headersOf(), emptyList(), 200))
         }
 
         reset(nodeInfoApi)
@@ -145,6 +150,7 @@ abstract class NetworkTimelineViewModelTestBase {
         timelineCases = mock()
 
         viewModel = NetworkTimelineViewModel(
+            InstrumentationRegistry.getInstrumentation().targetContext,
             SavedStateHandle(mapOf(TimelineViewModel.TIMELINE_TAG to Timeline.Bookmarks)),
             networkTimelineRepository,
             timelineCases,

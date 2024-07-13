@@ -24,7 +24,7 @@ import java.util.Date
 data class FilterV1(
     val id: String,
     val phrase: String,
-    @Json(name = "context") val contexts: List<FilterContext>,
+    @Json(name = "context") val contexts: Set<FilterContext>,
     @Json(name = "expires_at") val expiresAt: Date?,
     val irreversible: Boolean,
     @Json(name = "whole_word") val wholeWord: Boolean,
@@ -40,21 +40,12 @@ data class FilterV1(
         val filter = other as FilterV1?
         return filter?.id.equals(id)
     }
-
-    fun toFilter(): Filter {
-        return Filter(
-            id = id,
-            title = phrase,
-            contexts = contexts,
-            expiresAt = expiresAt,
-            action = Filter.Action.WARN,
-            keywords = listOf(
-                FilterKeyword(
-                    id = id,
-                    keyword = phrase,
-                    wholeWord = wholeWord,
-                ),
-            ),
-        )
-    }
 }
+
+data class NewFilterV1(
+    val phrase: String,
+    val contexts: Set<FilterContext>,
+    val expiresIn: Int,
+    val irreversible: Boolean,
+    val wholeWord: Boolean,
+)

@@ -18,6 +18,7 @@
 plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {

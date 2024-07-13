@@ -22,17 +22,16 @@ import app.pachli.appstore.BlockEvent
 import app.pachli.appstore.BookmarkEvent
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
-import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.PinEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
-import app.pachli.components.timeline.FilterKind
-import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.FilterVersion
+import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
@@ -49,6 +48,8 @@ import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.getOrThrow
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -107,16 +108,27 @@ class ViewThreadViewModel @Inject constructor(
                         is StatusComposedEvent -> handleStatusComposedEvent(event)
                         is StatusDeletedEvent -> handleStatusDeletedEvent(event)
                         is StatusEditedEvent -> handleStatusEditedEvent(event)
-                        is FilterChangedEvent -> {
-                            if (event.filterContext == FilterContext.THREAD) {
-                                loadFilters()
-                            }
-                        }
                     }
                 }
         }
 
-        loadFilters()
+        viewModelScope.launch {
+            filtersRepository.filters.collect { filters ->
+                filters.onSuccess {
+                    filterModel = when (it?.version) {
+                        FilterVersion.V2 -> FilterModel(FilterContext.THREAD)
+                        FilterVersion.V1 -> FilterModel(FilterContext.THREAD, it.filters)
+                        else -> null
+                    }
+                    updateStatuses()
+                }
+                    .onFailure {
+                        // TODO: Deliberately don't emit to _errors here -- at the moment
+                        // ViewThreadFragment shows a generic error to the user, and that
+                        // would confuse them when the rest of the thread is loading OK.
+                    }
+            }
+        }
     }
 
     fun loadThread(id: String) {
@@ -205,8 +217,7 @@ class ViewThreadViewModel @Inject constructor(
                         translation = cachedTranslations[status.id],
                     )
                 }.filterByFilterAction()
-                val descendants = statusContext.descendants.map {
-                        status ->
+                val descendants = statusContext.descendants.map { status ->
                     val svd = cachedViewData[status.id]
                     StatusViewData.from(
                         status,
@@ -517,22 +528,6 @@ class ViewThreadViewModel @Inject constructor(
         }
 
         return RevealButtonState.NO_BUTTON
-    }
-
-    private fun loadFilters() {
-        viewModelScope.launch {
-            try {
-                filterModel = when (val filters = filtersRepository.getFilters()) {
-                    is FilterKind.V1 -> FilterModel(FilterContext.THREAD, filters.filters)
-                    is FilterKind.V2 -> FilterModel(FilterContext.THREAD)
-                }
-                updateStatuses()
-            } catch (_: Exception) {
-                // TODO: Deliberately don't emit to _errors here -- at the moment
-                // ViewThreadFragment shows a generic error to the user, and that
-                // would confuse them when the rest of the thread is loading OK.
-            }
-        }
     }
 
     private fun updateStatuses() {

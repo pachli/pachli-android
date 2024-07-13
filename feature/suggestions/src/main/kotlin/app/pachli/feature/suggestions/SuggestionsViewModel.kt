@@ -273,3 +273,15 @@ inline infix fun <V, E, reified T : V> Result<V, E>.mapIfInstance(transform: (T)
         is Err -> this
     }
 }
+
+@OptIn(ExperimentalContracts::class)
+inline infix fun <V, E> Result<V?, E>.mapNotNull(transform: (V) -> V): Result<V?, E> {
+    contract {
+        callsInPlace(transform, InvocationKind.AT_MOST_ONCE)
+    }
+
+    return when (this) {
+        is Ok -> value?.let { Ok(transform(it)) } ?: this
+        is Err -> this
+    }
+}

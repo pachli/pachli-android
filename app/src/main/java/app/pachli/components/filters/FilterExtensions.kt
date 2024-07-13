@@ -18,10 +18,8 @@
 package app.pachli.components.filters
 
 import android.app.Activity
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import app.pachli.R
-import app.pachli.core.network.model.Filter
 import app.pachli.core.ui.extensions.await
 
 internal suspend fun Activity.showDeleteFilterDialog(filterTitle: String) = AlertDialog.Builder(this)
@@ -29,36 +27,3 @@ internal suspend fun Activity.showDeleteFilterDialog(filterTitle: String) = Aler
     .setCancelable(true)
     .create()
     .await(R.string.dialog_delete_filter_positive_action, android.R.string.cancel)
-
-/** Reasons why a filter might be invalid */
-enum class FilterValidationError {
-    /** Filter title is empty or blank */
-    NO_TITLE,
-
-    /** Filter has no keywords */
-    NO_KEYWORDS,
-
-    /** Filter has no contexts */
-    NO_CONTEXT,
-}
-
-/**
- * @return Set of validation errors for this filter, empty set if there
- *   are no errors.
- */
-fun Filter.validate() = buildSet {
-    if (title.isBlank()) add(FilterValidationError.NO_TITLE)
-    if (keywords.isEmpty()) add(FilterValidationError.NO_KEYWORDS)
-    if (contexts.isEmpty()) add(FilterValidationError.NO_CONTEXT)
-}
-
-/**
- * @return String resource containing an error message for this
- *   validation error.
- */
-@StringRes
-fun FilterValidationError.stringResource() = when (this) {
-    FilterValidationError.NO_TITLE -> R.string.error_filter_missing_title
-    FilterValidationError.NO_KEYWORDS -> R.string.error_filter_missing_keyword
-    FilterValidationError.NO_CONTEXT -> R.string.error_filter_missing_context
-}

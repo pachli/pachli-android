@@ -30,6 +30,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.data)
     implementation(projects.core.database) // For DraftAttachment, used in ComposeOptions
     implementation(projects.core.model)
     implementation(projects.core.network) // For Attachment, used in AttachmentViewData

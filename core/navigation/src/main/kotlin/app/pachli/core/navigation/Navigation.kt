@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
+import app.pachli.core.data.model.Filter
 import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
@@ -32,7 +33,6 @@ import app.pachli.core.navigation.TimelineActivityIntent.Companion.list
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicFederated
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicLocal
 import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
@@ -190,23 +190,47 @@ class ComposeActivityIntent(context: Context) : Intent() {
 }
 
 /**
+ * Launch with an empty filter to edit.
+ *
  * @param context
- * @param filter Optional filter to edit. If null an empty filter is created.
  * @see [app.pachli.components.filters.EditFilterActivity]
  */
-class EditFilterActivityIntent(context: Context, filter: Filter? = null) : Intent() {
+class EditFilterActivityIntent(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.EDIT_FILTER_ACTIVITY)
-        filter?.let {
-            putExtra(EXTRA_FILTER_TO_EDIT, it)
-        }
     }
 
     companion object {
-        const val EXTRA_FILTER_TO_EDIT = "filterToEdit"
+        private const val EXTRA_FILTER_TO_EDIT = "filterToEdit"
+        private const val EXTRA_FILTER_ID_TO_LOAD = "filterIdToLoad"
+
+        /**
+         * Launch with [filter] displayed, ready to edit.
+         *
+         * @param context
+         * @param filter Filter to edit
+         * @see [app.pachli.components.filters.EditFilterActivity]
+         */
+        fun edit(context: Context, filter: Filter) = EditFilterActivityIntent(context).apply {
+            putExtra(EXTRA_FILTER_TO_EDIT, filter)
+        }
+
+        /**
+         * Launch and load [filterId], display it ready to edit.
+         *
+         * @param context
+         * @param filterId ID of the filter to load
+         * @see [app.pachli.components.filters.EditFilterActivity]
+         */
+        fun edit(context: Context, filterId: String) = EditFilterActivityIntent(context).apply {
+            putExtra(EXTRA_FILTER_ID_TO_LOAD, filterId)
+        }
 
         /** @return the [Filter] passed in this intent, or null */
         fun getFilter(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_FILTER_TO_EDIT, Filter::class.java)
+
+        /** @return the filter ID passed in this intent, or null */
+        fun getFilterId(intent: Intent) = intent.getStringExtra(EXTRA_FILTER_ID_TO_LOAD)
     }
 }
 

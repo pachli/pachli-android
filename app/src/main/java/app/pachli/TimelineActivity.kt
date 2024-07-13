@@ -26,33 +26,31 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.repository.ServerRepository
+import app.pachli.core.data.model.Filter
+import app.pachli.core.data.model.NewFilterKeyword
+import app.pachli.core.data.repository.FilterEdit
+import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.NewFilter
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.TimelineActivityIntent
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
-import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
-import app.pachli.core.network.model.FilterV1
 import app.pachli.databinding.ActivityTimelineBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import at.connyduck.calladapter.networkresult.fold
-import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import timber.log.Timber
 
 /**
@@ -64,7 +62,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
     lateinit var eventHub: EventHub
 
     @Inject
-    lateinit var serverRepository: ServerRepository
+    lateinit var filtersRepository: FiltersRepository
 
     private val binding: ActivityTimelineBinding by viewBinding(ActivityTimelineBinding::inflate)
     private lateinit var timeline: Timeline
@@ -85,7 +83,6 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
     private var unmuteTagItem: MenuItem? = null
 
     /** The filter muting hashtag, null if unknown or hashtag is not filtered */
-    private var mutedFilterV1: FilterV1? = null
     private var mutedFilter: Filter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -238,14 +235,9 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
     private fun updateMuteTagMenuItems() {
         val tagWithHash = hashtag?.let { "#$it" } ?: return
 
-        // If there's no server info, or the server can't filter then it's impossible
-        // to mute hashtags, so disable the functionality.
-        val server = serverRepository.flow.value.getOrElse { null }
-        if (server == null || (
-                !server.can(ORG_JOINMASTODON_FILTERS_CLIENT, ">=1.0.0".toConstraint()) &&
-                    !server.can(ORG_JOINMASTODON_FILTERS_SERVER, ">=1.0.0".toConstraint())
-                )
-        ) {
+        // If the server can't filter then it's impossible to mute hashtags, so disable
+        // the functionality.
+        if (!filtersRepository.canFilter()) {
             muteTagItem?.isVisible = false
             unmuteTagItem?.isVisible = false
             return
@@ -256,33 +248,15 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         unmuteTagItem?.isVisible = false
 
         lifecycleScope.launch {
-            mastodonApi.getFilters().fold(
-                { filters ->
-                    mutedFilter = filters.firstOrNull { filter ->
-                        filter.contexts.contains(FilterContext.HOME) && filter.keywords.any {
-                            it.keyword == tagWithHash
-                        }
+            filtersRepository.filters.collect { result ->
+                result.onSuccess { filters ->
+                    mutedFilter = filters?.filters?.firstOrNull { filter ->
+                        filter.contexts.contains(FilterContext.HOME) &&
+                            filter.keywords.any { it.keyword == tagWithHash }
                     }
                     updateTagMuteState(mutedFilter != null)
-                },
-                { throwable ->
-                    if (throwable is HttpException && throwable.code() == 404) {
-                        mastodonApi.getFiltersV1().fold(
-                            { filters ->
-                                mutedFilterV1 = filters.firstOrNull { filter ->
-                                    tagWithHash == filter.phrase && filter.contexts.contains(FilterContext.HOME)
-                                }
-                                updateTagMuteState(mutedFilterV1 != null)
-                            },
-                            { throwable ->
-                                Timber.e(throwable, "Error getting filters")
-                            },
-                        )
-                    } else {
-                        Timber.e(throwable, "Error getting filters")
-                    }
-                },
-            )
+                }
+            }
         }
     }
 
@@ -298,108 +272,57 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         }
     }
 
-    private fun muteTag(): Boolean {
-        val tagWithHash = hashtag?.let { "#$it" } ?: return true
+    private fun muteTag() {
+        val tagWithHash = hashtag?.let { "#$it" } ?: return
 
         lifecycleScope.launch {
-            mastodonApi.createFilter(
+            val newFilter = NewFilter(
                 title = tagWithHash,
-                context = listOf(FilterContext.HOME),
-                filterAction = Filter.Action.WARN,
-                expiresInSeconds = null,
-            ).fold(
-                { filter ->
-                    if (mastodonApi.addFilterKeyword(filterId = filter.id, keyword = tagWithHash, wholeWord = true).isSuccess) {
-                        mutedFilter = filter
-                        updateTagMuteState(true)
-                        eventHub.dispatch(FilterChangedEvent(filter.contexts[0]))
-                        Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_muted, hashtag), Snackbar.LENGTH_SHORT).show()
-                    } else {
-                        Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
-                        Timber.e("Failed to mute %s", tagWithHash)
-                    }
-                },
-                { throwable ->
-                    if (throwable is HttpException && throwable.code() == 404) {
-                        mastodonApi.createFilterV1(
-                            tagWithHash,
-                            listOf(FilterContext.HOME),
-                            irreversible = false,
-                            wholeWord = true,
-                            expiresInSeconds = null,
-                        ).fold(
-                            { filter ->
-                                mutedFilterV1 = filter
-                                updateTagMuteState(true)
-                                eventHub.dispatch(FilterChangedEvent(filter.contexts[0]))
-                                Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_muted, hashtag), Snackbar.LENGTH_SHORT).show()
-                            },
-                            { throwable ->
-                                Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
-                                Timber.e(throwable, "Failed to mute %s", tagWithHash)
-                            },
-                        )
-                    } else {
-                        Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
-                        Timber.e(throwable, "Failed to mute %s", tagWithHash)
-                    }
-                },
+                contexts = setOf(FilterContext.HOME),
+                action = app.pachli.core.network.model.Filter.Action.WARN,
+                expiresIn = 0,
+                keywords = listOf(
+                    NewFilterKeyword(
+                        keyword = tagWithHash,
+                        wholeWord = true,
+                    ),
+                ),
             )
-        }
 
-        return true
+            filtersRepository.createFilter(newFilter)
+                .onSuccess {
+                    mutedFilter = it
+                    updateTagMuteState(true)
+                    Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_muted, hashtag), Snackbar.LENGTH_SHORT).show()
+                }
+                .onFailure {
+                    Snackbar.make(binding.root, getString(R.string.error_muting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
+                    Timber.e("Failed to mute %s: %s", tagWithHash, it.fmt(this@TimelineActivity))
+                }
+        }
     }
 
-    private fun unmuteTag(): Boolean {
+    private fun unmuteTag() {
         lifecycleScope.launch {
             val tagWithHash = hashtag?.let { "#$it" } ?: return@launch
 
-            val result = if (mutedFilter != null) {
-                val filter = mutedFilter!!
-                if (filter.contexts.size > 1) {
-                    // This filter exists in multiple contexts, just remove the home context
-                    mastodonApi.updateFilter(
-                        id = filter.id,
-                        context = filter.contexts.filter { it != FilterContext.HOME },
-                    )
+            val result = mutedFilter?.let { filter ->
+                val newContexts = filter.contexts.filter { it != FilterContext.HOME }
+                if (newContexts.isEmpty()) {
+                    filtersRepository.deleteFilter(filter.id)
                 } else {
-                    mastodonApi.deleteFilter(filter.id)
+                    filtersRepository.updateFilter(filter, FilterEdit(filter.id, contexts = newContexts))
                 }
-            } else if (mutedFilterV1 != null) {
-                mutedFilterV1?.let { filter ->
-                    if (filter.contexts.size > 1) {
-                        // This filter exists in multiple contexts, just remove the home context
-                        mastodonApi.updateFilterV1(
-                            id = filter.id,
-                            phrase = filter.phrase,
-                            context = filter.contexts.filter { it != FilterContext.HOME },
-                            irreversible = null,
-                            wholeWord = null,
-                            expiresInSeconds = null,
-                        )
-                    } else {
-                        mastodonApi.deleteFilterV1(filter.id)
-                    }
-                }
-            } else {
-                null
             }
 
-            result?.fold(
-                {
-                    updateTagMuteState(false)
-                    Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_unmuted, hashtag), Snackbar.LENGTH_SHORT).show()
-                    eventHub.dispatch(FilterChangedEvent(FilterContext.HOME))
-                    mutedFilterV1 = null
-                    mutedFilter = null
-                },
-                { throwable ->
-                    Snackbar.make(binding.root, getString(R.string.error_unmuting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
-                    Timber.e(throwable, "Failed to unmute %s", tagWithHash)
-                },
-            )
+            result?.onSuccess {
+                updateTagMuteState(false)
+                Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_unmuted, hashtag), Snackbar.LENGTH_SHORT).show()
+                mutedFilter = null
+            }?.onFailure { e ->
+                Snackbar.make(binding.root, getString(R.string.error_unmuting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
+                Timber.e("Failed to unmute %s: %s", tagWithHash, e.fmt(this@TimelineActivity))
+            }
         }
-
-        return true
     }
 }

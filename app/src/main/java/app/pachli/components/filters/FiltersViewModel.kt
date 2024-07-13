@@ -3,23 +3,21 @@ package app.pachli.components.filters
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.FilterChangedEvent
-import app.pachli.core.network.model.Filter
-import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.fold
+import app.pachli.core.data.model.Filter
+import app.pachli.core.data.repository.FiltersRepository
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 @HiltViewModel
 class FiltersViewModel @Inject constructor(
-    private val api: MastodonApi,
-    private val eventHub: EventHub,
+    private val filtersRepository: FiltersRepository,
 ) : ViewModel() {
 
     enum class LoadingState {
@@ -35,63 +33,34 @@ class FiltersViewModel @Inject constructor(
     val state: Flow<State> get() = _state
     private val _state = MutableStateFlow(State(emptyList(), LoadingState.INITIAL))
 
-    // TODO: Now that FilterRepository exists this code should be updated to use that.
     fun load() {
         this@FiltersViewModel._state.value = _state.value.copy(loadingState = LoadingState.LOADING)
 
         viewModelScope.launch {
-            api.getFilters().fold(
-                { filters ->
-                    this@FiltersViewModel._state.value = State(filters, LoadingState.LOADED)
-                },
-                { throwable ->
-                    if (throwable is HttpException && throwable.code() == 404) {
-                        api.getFiltersV1().fold(
-                            { filters ->
-                                this@FiltersViewModel._state.value = State(filters.map { it.toFilter() }, LoadingState.LOADED)
-                            },
-                            { throwable ->
-                                // TODO log errors (also below)
-
-                                this@FiltersViewModel._state.value = _state.value.copy(loadingState = LoadingState.ERROR_OTHER)
-                            },
-                        )
-                        this@FiltersViewModel._state.value = _state.value.copy(loadingState = LoadingState.ERROR_OTHER)
-                    } else {
-                        this@FiltersViewModel._state.value = _state.value.copy(loadingState = LoadingState.ERROR_NETWORK)
+            filtersRepository.filters.collect { result ->
+                result.onSuccess { filters ->
+                    this@FiltersViewModel._state.update { State(filters?.filters.orEmpty(), LoadingState.LOADED) }
+                }
+                    .onFailure {
+                        // TODO: There's an ERROR_NETWORK state to maybe consider here. Or get rid of
+                        // that and do proper error handling.
+                        this@FiltersViewModel._state.update {
+                            it.copy(loadingState = LoadingState.ERROR_OTHER)
+                        }
                     }
-                },
-            )
+            }
         }
     }
 
     fun deleteFilter(filter: Filter, parent: View) {
         viewModelScope.launch {
-            api.deleteFilter(filter.id).fold(
-                {
+            filtersRepository.deleteFilter(filter.id)
+                .onSuccess {
                     this@FiltersViewModel._state.value = State(this@FiltersViewModel._state.value.filters.filter { it.id != filter.id }, LoadingState.LOADED)
-                    for (context in filter.contexts) {
-                        eventHub.dispatch(FilterChangedEvent(context))
-                    }
-                },
-                { throwable ->
-                    if (throwable is HttpException && throwable.code() == 404) {
-                        api.deleteFilterV1(filter.id).fold(
-                            {
-                                this@FiltersViewModel._state.value = State(this@FiltersViewModel._state.value.filters.filter { it.id != filter.id }, LoadingState.LOADED)
-                                filter.contexts.forEach {
-                                    eventHub.dispatch(FilterChangedEvent(it))
-                                }
-                            },
-                            {
-                                Snackbar.make(parent, "Error deleting filter '${filter.title}'", Snackbar.LENGTH_SHORT).show()
-                            },
-                        )
-                    } else {
-                        Snackbar.make(parent, "Error deleting filter '${filter.title}'", Snackbar.LENGTH_SHORT).show()
-                    }
-                },
-            )
+                }
+                .onFailure {
+                    Snackbar.make(parent, "Error deleting filter '${filter.title}'", Snackbar.LENGTH_SHORT).show()
+                }
         }
     }
 }
