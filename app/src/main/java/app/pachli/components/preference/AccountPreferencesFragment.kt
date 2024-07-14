@@ -30,7 +30,7 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountPreferenceDataStore
-import app.pachli.core.data.repository.ServerRepository
+import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.FiltersActivityIntent
@@ -41,8 +41,6 @@ import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.TabPreferenceActivityIntent
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
@@ -57,12 +55,10 @@ import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getPachliDisplayName
 import app.pachli.util.iconRes
-import com.github.michaelbull.result.getOrElse
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import retrofit2.Call
 import retrofit2.Callback
@@ -78,7 +74,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
     lateinit var mastodonApi: MastodonApi
 
     @Inject
-    lateinit var serverRepository: ServerRepository
+    lateinit var filtersRepository: FiltersRepository
 
     @Inject
     lateinit var eventHub: EventHub
@@ -170,16 +166,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
-                val server = serverRepository.flow.value.getOrElse { null }
-                isEnabled = server?.let {
-                    it.can(
-                        ORG_JOINMASTODON_FILTERS_CLIENT,
-                        ">1.0.0".toConstraint(),
-                    ) || it.can(
-                        ORG_JOINMASTODON_FILTERS_SERVER,
-                        ">1.0.0".toConstraint(),
-                    )
-                } ?: false
+                isEnabled = filtersRepository.canFilter()
                 if (!isEnabled) summary = context.getString(R.string.pref_summary_timeline_filters)
             }
 

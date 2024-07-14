@@ -9,11 +9,12 @@ import app.pachli.appstore.FavoriteEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.CachedTimelineRepository
-import app.pachli.components.timeline.FilterKind
-import app.pachli.components.timeline.FiltersRepository
 import app.pachli.components.timeline.mockStatus
 import app.pachli.components.timeline.mockStatusViewData
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.Filters
+import app.pachli.core.data.repository.FiltersError
+import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
@@ -26,6 +27,8 @@ import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
 import at.connyduck.calladapter.networkresult.NetworkResult
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
@@ -35,6 +38,7 @@ import java.io.IOException
 import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -47,6 +51,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 open class PachliHiltApplication : PachliApplication()
@@ -129,7 +134,7 @@ class ViewThreadViewModelTest {
 
         reset(filtersRepository)
         filtersRepository.stub {
-            onBlocking { getFilters() } doReturn FilterKind.V2(emptyList())
+            whenever(it.filters).thenReturn(MutableStateFlow<Result<Filters?, FiltersError.GetFiltersError>>(Ok(null)))
         }
 
         reset(nodeInfoApi)

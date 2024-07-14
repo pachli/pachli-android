@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline.viewmodel
 
+import android.content.Context
 import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
@@ -32,7 +33,6 @@ import app.pachli.appstore.DomainMuteEvent
 import app.pachli.appstore.Event
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.FavoriteEvent
-import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.appstore.PinEvent
@@ -41,10 +41,10 @@ import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
-import app.pachli.components.timeline.FilterKind
-import app.pachli.components.timeline.FiltersRepository
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.repository.FilterVersion
+import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Filter
@@ -57,6 +57,9 @@ import app.pachli.network.FilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -68,9 +71,9 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.fold
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -258,6 +261,9 @@ sealed interface UiError {
 }
 
 abstract class TimelineViewModel(
+    // TODO: Context is required because handling filter errors needs to
+    // format a resource string. As soon as that is removed this can be removed.
+    @ApplicationContext private val context: Context,
     savedStateHandle: SavedStateHandle,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
@@ -320,8 +326,22 @@ abstract class TimelineViewModel(
 
     init {
         viewModelScope.launch {
-            updateFiltersFromPreferences().collectLatest {
-                Timber.d("Filters updated")
+            FilterContext.from(timeline)?.let { filterContext ->
+                filtersRepository.filters.fold(false) { reload, filters ->
+                    filters.onSuccess {
+                        filterModel = when (it?.version) {
+                            FilterVersion.V2 -> FilterModel(filterContext)
+                            FilterVersion.V1 -> FilterModel(filterContext, it.filters)
+                            else -> null
+                        }
+                        if (reload) {
+                            reloadKeepingReadingPosition()
+                        }
+                    }.onFailure {
+                        _uiErrorChannel.send(UiError.GetFilters(RuntimeException(it.fmt(context))))
+                    }
+                    true
+                }
             }
         }
 
@@ -514,35 +534,6 @@ abstract class TimelineViewModel(
         } else {
             statusViewData.filterAction = filterModel?.filterActionFor(status.actionableStatus) ?: Filter.Action.NONE
             statusViewData.filterAction
-        }
-    }
-
-    /** Updates the current set of filters if filter-related preferences change */
-    private fun updateFiltersFromPreferences() = eventHub.events
-        .filterIsInstance<FilterChangedEvent>()
-        .filter { filterContextMatchesKind(timeline, listOf(it.filterContext)) }
-        .map {
-            getFilters()
-            Timber.d("Reload because FilterChangedEvent")
-            reloadKeepingReadingPosition()
-        }
-        .onStart { getFilters() }
-
-    /** Gets the current filters from the repository. */
-    private fun getFilters() {
-        viewModelScope.launch {
-            Timber.d("getFilters()")
-            try {
-                FilterContext.from(timeline)?.let { filterContext ->
-                    filterModel = when (val filters = filtersRepository.getFilters()) {
-                        is FilterKind.V1 -> FilterModel(filterContext, filters.filters)
-                        is FilterKind.V2 -> FilterModel(filterContext)
-                    }
-                }
-            } catch (throwable: Throwable) {
-                Timber.d(throwable, "updateFilter(): Error fetching filters")
-                _uiErrorChannel.send(UiError.GetFilters(throwable))
-            }
         }
     }
 

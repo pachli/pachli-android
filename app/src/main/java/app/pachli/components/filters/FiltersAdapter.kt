@@ -2,9 +2,11 @@ package app.pachli.components.filters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.network.model.Filter
+import app.pachli.core.data.model.Filter
+import app.pachli.core.data.model.FilterValidationError
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemRemovableBinding
 import app.pachli.util.getRelativeTimeSpanString
@@ -63,4 +65,15 @@ class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
             listener.updateFilter(filter)
         }
     }
+}
+
+/**
+ * @return String resource containing an error message for this
+ *   validation error.
+ */
+@StringRes
+fun FilterValidationError.stringResource() = when (this) {
+    FilterValidationError.NO_TITLE -> R.string.error_filter_missing_title
+    FilterValidationError.NO_KEYWORDS -> R.string.error_filter_missing_keyword
+    FilterValidationError.NO_CONTEXT -> R.string.error_filter_missing_context
 }

@@ -41,8 +41,10 @@ import com.github.michaelbull.result.mapError
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -65,18 +67,14 @@ class ServerRepository @Inject constructor(
     private val accountManager: AccountManager,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
-    private val _flow = MutableStateFlow<Result<Server?, Error>>(Ok(null))
-    val flow = _flow.asStateFlow()
+    private val reload = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
 
-    init {
-        externalScope.launch {
-            accountManager.activeAccountFlow.collect { _flow.emit(getServer()) }
-        }
-    }
+    // SharedFlow, **not** StateFlow, to ensure a new value is emitted even if the
+    // user switches between accounts that are on the same server.
+    val flow = reload.combine(accountManager.activeAccountFlow) { _, _ -> getServer() }
+        .shareIn(externalScope, SharingStarted.Lazily, replay = 1)
 
-    fun retry() = externalScope.launch {
-        _flow.emit(getServer())
-    }
+    fun reload() = externalScope.launch { reload.emit(Unit) }
 
     /**
      * @return the server info or a [Server.Error] if the server info can not

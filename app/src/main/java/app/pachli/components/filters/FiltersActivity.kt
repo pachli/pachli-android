@@ -12,8 +12,8 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.model.Filter
 import app.pachli.core.navigation.EditFilterActivityIntent
-import app.pachli.core.network.model.Filter
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityFiltersBinding
 import com.google.android.material.color.MaterialColors
@@ -94,7 +94,9 @@ class FiltersActivity : BaseActivity(), FiltersListener {
     }
 
     private fun launchEditFilterActivity(filter: Filter? = null) {
-        val intent = EditFilterActivityIntent(this, filter)
+        val intent = filter?.let {
+            EditFilterActivityIntent.edit(this, filter)
+        } ?: EditFilterActivityIntent(this)
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 

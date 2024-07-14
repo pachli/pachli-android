@@ -97,10 +97,20 @@ interface MastodonApi {
     suspend fun getInstanceV2(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV2>
 
     @GET("api/v1/filters")
-    suspend fun getFiltersV1(): NetworkResult<List<FilterV1>>
+    suspend fun getFiltersV1(): ApiResult<List<FilterV1>>
 
     @GET("api/v2/filters")
-    suspend fun getFilters(): NetworkResult<List<Filter>>
+    suspend fun getFilters(): ApiResult<List<Filter>>
+
+    @GET("api/v2/filters/{id}")
+    suspend fun getFilter(
+        @Path("id") filterId: String,
+    ): ApiResult<Filter>
+
+    @GET("api/v1/filters/{id}")
+    suspend fun getFilterV1(
+        @Path("id") filterId: String,
+    ): ApiResult<FilterV1>
 
     @GET("api/v1/timelines/home")
     @Throws(Exception::class)
@@ -612,59 +622,59 @@ interface MastodonApi {
     @POST("api/v1/filters")
     suspend fun createFilterV1(
         @Field("phrase") phrase: String,
-        @Field("context[]") context: List<FilterContext>,
+        @Field("context[]") context: Set<FilterContext>,
         @Field("irreversible") irreversible: Boolean?,
         @Field("whole_word") wholeWord: Boolean?,
         // String not Int because the empty string is used to represent "indefinite",
         // see https://github.com/mastodon/documentation/issues/1216#issuecomment-2030222940
         @Field("expires_in") expiresInSeconds: String?,
-    ): NetworkResult<FilterV1>
+    ): ApiResult<FilterV1>
 
     @FormUrlEncoded
     @PUT("api/v1/filters/{id}")
     suspend fun updateFilterV1(
         @Path("id") id: String,
         @Field("phrase") phrase: String,
-        @Field("context[]") context: List<FilterContext>,
+        @Field("context[]") contexts: Collection<FilterContext>,
         @Field("irreversible") irreversible: Boolean?,
         @Field("whole_word") wholeWord: Boolean?,
         // String not Int because the empty string is used to represent "indefinite",
         // see https://github.com/mastodon/documentation/issues/1216#issuecomment-2030222940
         @Field("expires_in") expiresInSeconds: String?,
-    ): NetworkResult<FilterV1>
+    ): ApiResult<FilterV1>
 
     @DELETE("api/v1/filters/{id}")
     suspend fun deleteFilterV1(
         @Path("id") id: String,
-    ): NetworkResult<ResponseBody>
+    ): ApiResult<Unit>
 
     @FormUrlEncoded
     @POST("api/v2/filters")
     suspend fun createFilter(
         @Field("title") title: String,
-        @Field("context[]") context: List<FilterContext>,
+        @Field("context[]") contexts: Set<FilterContext>,
         @Field("filter_action") filterAction: Filter.Action,
         // String not Int because the empty string is used to represent "indefinite",
         // see https://github.com/mastodon/documentation/issues/1216#issuecomment-2030222940
         @Field("expires_in") expiresInSeconds: String?,
-    ): NetworkResult<Filter>
+    ): ApiResult<Filter>
 
     @FormUrlEncoded
     @PUT("api/v2/filters/{id}")
     suspend fun updateFilter(
         @Path("id") id: String,
         @Field("title") title: String? = null,
-        @Field("context[]") context: List<FilterContext>? = null,
+        @Field("context[]") contexts: Collection<FilterContext>? = null,
         @Field("filter_action") filterAction: Filter.Action? = null,
         // String not Int because the empty string is used to represent "indefinite",
         // see https://github.com/mastodon/documentation/issues/1216#issuecomment-2030222940
         @Field("expires_in") expiresInSeconds: String? = null,
-    ): NetworkResult<Filter>
+    ): ApiResult<Filter>
 
     @DELETE("api/v2/filters/{id}")
     suspend fun deleteFilter(
         @Path("id") id: String,
-    ): NetworkResult<ResponseBody>
+    ): ApiResult<Unit>
 
     @FormUrlEncoded
     @POST("api/v2/filters/{filterId}/keywords")
@@ -672,7 +682,7 @@ interface MastodonApi {
         @Path("filterId") filterId: String,
         @Field("keyword") keyword: String,
         @Field("whole_word") wholeWord: Boolean,
-    ): NetworkResult<FilterKeyword>
+    ): ApiResult<FilterKeyword>
 
     @FormUrlEncoded
     @PUT("api/v2/filters/keywords/{keywordId}")
@@ -680,12 +690,12 @@ interface MastodonApi {
         @Path("keywordId") keywordId: String,
         @Field("keyword") keyword: String,
         @Field("whole_word") wholeWord: Boolean,
-    ): NetworkResult<FilterKeyword>
+    ): ApiResult<FilterKeyword>
 
     @DELETE("api/v2/filters/keywords/{keywordId}")
     suspend fun deleteFilterKeyword(
         @Path("keywordId") keywordId: String,
-    ): NetworkResult<ResponseBody>
+    ): ApiResult<Unit>
 
     @FormUrlEncoded
     @POST("api/v1/polls/{id}/votes")

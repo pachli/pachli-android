@@ -134,7 +134,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         Timber.e(msg)
                         try {
                             Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE)
-                                .setAction(app.pachli.core.ui.R.string.action_retry) { serverRepository.retry() }
+                                .setAction(app.pachli.core.ui.R.string.action_retry) { serverRepository.reload() }
                                 .show()
                         } catch (e: IllegalArgumentException) {
                             // On rare occasions this code is running before the fragment's

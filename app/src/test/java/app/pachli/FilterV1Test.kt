@@ -19,8 +19,9 @@ package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.filters.EditFilterViewModel.Companion.getSecondsForDurationIndex
+import app.pachli.core.data.model.Filter
 import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.Poll
@@ -46,7 +47,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "badWord",
-                contexts = listOf(FilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = false,
@@ -54,7 +55,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "badWholeWord",
-                contexts = listOf(FilterContext.HOME, FilterContext.PUBLIC),
+                contexts = setOf(FilterContext.HOME, FilterContext.PUBLIC),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -62,7 +63,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "@twitter.com",
-                contexts = listOf(FilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -70,7 +71,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "#hashtag",
-                contexts = listOf(FilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -78,7 +79,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "expired",
-                contexts = listOf(FilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = Date.from(Instant.now().minusSeconds(10)),
                 irreversible = false,
                 wholeWord = true,
@@ -86,7 +87,7 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "unexpired",
-                contexts = listOf(FilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = Date.from(Instant.now().plusSeconds(3600)),
                 irreversible = false,
                 wholeWord = true,
@@ -94,12 +95,12 @@ class FilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "href",
-                contexts = listOf(FilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = false,
             ),
-        )
+        ).map { Filter.from(it) }
 
         filterModel = FilterModel(FilterContext.HOME, filters)
     }
@@ -107,7 +108,7 @@ class FilterV1Test {
     @Test
     fun shouldNotFilter() {
         assertEquals(
-            Filter.Action.NONE,
+            NetworkFilter.Action.NONE,
             filterModel.filterActionFor(
                 mockStatus(content = "should not be filtered"),
             ),
@@ -117,7 +118,7 @@ class FilterV1Test {
     @Test
     fun shouldFilter_whenContentMatchesBadWord() {
         assertEquals(
-            Filter.Action.HIDE,
+            NetworkFilter.Action.HIDE,
             filterModel.filterActionFor(
                 mockStatus(content = "one two badWord three"),
             ),
@@ -127,7 +128,7 @@ class FilterV1Test {
     @Test
     fun shouldFilter_whenContentMatchesBadWordPart() {
         assertEquals(
-            Filter.Action.HIDE,
+            NetworkFilter.Action.HIDE,
             filterModel.filterActionFor(
                 mockStatus(content = "one two badWordPart three"),
             ),
@@ -137,7 +138,7 @@ class FilterV1Test {
     @Test
     fun shouldFilter_whenContentMatchesBadWholeWord() {
         assertEquals(
-            Filter.Action.HIDE,
+            NetworkFilter.Action.HIDE,
             filterModel.filterActionFor(
                 mockStatus(content = "one two badWholeWord three"),
             ),
@@ -147,7 +148,7 @@ class FilterV1Test {
     @Test
     fun shouldNotFilter_whenContentDoesNotMatchWholeWord() {
         assertEquals(
-            Filter.Action.NONE,
+            NetworkFilter.Action.NONE,
             filterModel.filterActionFor(
                 mockStatus(content = "one two badWholeWordTest three"),
             ),
@@ -157,7 +158,7 @@ class FilterV1Test {
     @Test
     fun shouldFilter_whenSpoilerTextDoesMatch() {
         assertEquals(
-            Filter.Action.HIDE,
+            NetworkFilter.Action.HIDE,
             filterModel.filterActionFor(
                 mockStatus(
                     content = "should not be filtered",
@@ -170,7 +171,7 @@ class FilterV1Test {
     @Test
     fun shouldFilter_whenPollTextDoesMatch() {
         assertEquals(
-            Filter.Action.HIDE,
+            NetworkFilter.Action.HIDE,
             filterModel.filterActionFor(
                 mockStatus(
                     content = "should not be filtered",
@@ -184,7 +185,7 @@ class FilterV1Test {
     @Test
     fun shouldFilter_whenMediaDescriptionDoesMatch() {
         assertEquals(
-            Filter.Action.HIDE,
+            NetworkFilter.Action.HIDE,
             filterModel.filterActionFor(
                 mockStatus(
                     content = "should not be filtered",
@@ -198,7 +199,7 @@ class FilterV1Test {
     @Test
     fun shouldFilterPartialWord_whenWholeWordFilterContainsNonAlphanumericCharacters() {
         assertEquals(
-            Filter.Action.HIDE,
+            NetworkFilter.Action.HIDE,
             filterModel.filterActionFor(
                 mockStatus(content = "one two someone@twitter.com three"),
             ),
@@ -208,7 +209,7 @@ class FilterV1Test {
     @Test
     fun shouldFilterHashtags() {
         assertEquals(
-            Filter.Action.HIDE,
+            NetworkFilter.Action.HIDE,
             filterModel.filterActionFor(
                 mockStatus(content = "#hashtag one two three"),
             ),
@@ -218,7 +219,7 @@ class FilterV1Test {
     @Test
     fun shouldFilterHashtags_whenContentIsMarkedUp() {
         assertEquals(
-            Filter.Action.HIDE,
+            NetworkFilter.Action.HIDE,
             filterModel.filterActionFor(
                 mockStatus(content = "<p><a href=\"https://foo.bar/tags/hashtag\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>hashtag</span></a>one two three</p>"),
             ),
@@ -228,7 +229,7 @@ class FilterV1Test {
     @Test
     fun shouldNotFilterHtmlAttributes() {
         assertEquals(
-            Filter.Action.NONE,
+            NetworkFilter.Action.NONE,
             filterModel.filterActionFor(
                 mockStatus(content = "<p><a href=\"https://foo.bar/\">https://foo.bar/</a> one two three</p>"),
             ),
@@ -238,7 +239,7 @@ class FilterV1Test {
     @Test
     fun shouldNotFilter_whenFilterIsExpired() {
         assertEquals(
-            Filter.Action.NONE,
+            NetworkFilter.Action.NONE,
             filterModel.filterActionFor(
                 mockStatus(content = "content matching expired filter should not be filtered"),
             ),
@@ -248,7 +249,7 @@ class FilterV1Test {
     @Test
     fun shouldFilter_whenFilterIsUnexpired() {
         assertEquals(
-            Filter.Action.HIDE,
+            NetworkFilter.Action.HIDE,
             filterModel.filterActionFor(
                 mockStatus(content = "content matching unexpired filter should be filtered"),
             ),

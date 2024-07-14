@@ -19,11 +19,13 @@ package app.pachli.components.timeline
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.PachliApplication
 import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Account
@@ -33,6 +35,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.rules.MainCoroutineRule
+import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.squareup.moshi.Moshi
@@ -113,7 +116,7 @@ abstract class CachedTimelineViewModelTestBase {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
-            onBlocking { getFilters() } doReturn NetworkResult.success(emptyList())
+            onBlocking { getFilters() } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
@@ -155,6 +158,7 @@ abstract class CachedTimelineViewModelTestBase {
         timelineCases = mock()
 
         viewModel = CachedTimelineViewModel(
+            InstrumentationRegistry.getInstrumentation().targetContext,
             SavedStateHandle(mapOf(TimelineViewModel.TIMELINE_TAG to Timeline.Home)),
             cachedTimelineRepository,
             timelineCases,

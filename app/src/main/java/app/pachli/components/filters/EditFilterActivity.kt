@@ -1,58 +1,74 @@
 package app.pachli.components.filters
 
+import android.content.Context
 import android.content.DialogInterface.BUTTON_NEGATIVE
 import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.core.view.size
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
-import app.pachli.appstore.EventHub
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.model.FilterValidationError
 import app.pachli.core.navigation.EditFilterActivityIntent
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
-import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.extensions.await
 import app.pachli.databinding.ActivityEditFilterBinding
 import app.pachli.databinding.DialogFilterBinding
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 /**
  * Edit a single server-side filter.
  */
 @AndroidEntryPoint
 class EditFilterActivity : BaseActivity() {
-    @Inject
-    lateinit var api: MastodonApi
-
-    @Inject
-    lateinit var eventHub: EventHub
-
     private val binding by viewBinding(ActivityEditFilterBinding::inflate)
-    private val viewModel: EditFilterViewModel by viewModels()
 
-    private lateinit var filter: Filter
-    private var originalFilter: Filter? = null
+    // Pass the optional filter and filterId values from the intent to
+    // EditFilterViewModel.
+    private val viewModel: EditFilterViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<EditFilterViewModel.Factory> { factory ->
+                factory.create(
+                    EditFilterActivityIntent.getFilter(intent),
+                    EditFilterActivityIntent.getFilterId(intent),
+                )
+            }
+        },
+    )
+
+    private lateinit var filterDurationAdapter: FilterDurationAdapter
+
     private lateinit var filterContextSwitches: Map<SwitchMaterial, FilterContext>
+
+    /** The active snackbar */
+    private var snackbar: Snackbar? = null
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -66,8 +82,6 @@ class EditFilterActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
-        originalFilter = EditFilterActivityIntent.getFilter(intent)
-        filter = originalFilter ?: Filter()
         binding.apply {
             filterContextSwitches = mapOf(
                 filterContextHome to FilterContext.HOME,
@@ -86,21 +100,35 @@ class EditFilterActivity : BaseActivity() {
         }
 
         setTitle(
-            if (originalFilter == null) {
-                R.string.filter_addition_title
-            } else {
-                R.string.filter_edit_title
+            when (viewModel.uiMode) {
+                UiMode.CREATE -> R.string.filter_addition_title
+                UiMode.EDIT -> R.string.filter_edit_title
             },
         )
 
         binding.actionChip.setOnClickListener { showAddKeywordDialog() }
+
+        filterDurationAdapter = FilterDurationAdapter(this, viewModel.uiMode)
+        binding.filterDurationSpinner.adapter = filterDurationAdapter
+        binding.filterDurationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                viewModel.setExpiresIn(filterDurationAdapter.getItem(position)!!.duration)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                viewModel.setExpiresIn(0)
+            }
+        }
+
         binding.filterSaveButton.setOnClickListener { saveChanges() }
         binding.filterDeleteButton.setOnClickListener {
             lifecycleScope.launch {
-                if (showDeleteFilterDialog(filter.title) == BUTTON_POSITIVE) deleteFilter()
+                viewModel.filterViewData.value.get()?.let {
+                    if (showDeleteFilterDialog(it.title) == BUTTON_POSITIVE) deleteFilter()
+                }
             }
         }
-        binding.filterDeleteButton.visible(originalFilter != null)
+        binding.filterDeleteButton.visible(viewModel.uiMode == UiMode.EDIT)
 
         for (switch in filterContextSwitches.keys) {
             switch.setOnCheckedChangeListener { _, isChecked ->
@@ -108,7 +136,7 @@ class EditFilterActivity : BaseActivity() {
                 if (isChecked) {
                     viewModel.addContext(context)
                 } else {
-                    viewModel.removeContext(context)
+                    viewModel.deleteContext(context)
                 }
             }
         }
@@ -116,95 +144,116 @@ class EditFilterActivity : BaseActivity() {
             viewModel.setTitle(editable.toString())
         }
         binding.filterActionWarn.setOnCheckedChangeListener { _, checked ->
-            viewModel.setAction(
-                if (checked) {
-                    Filter.Action.WARN
-                } else {
-                    Filter.Action.HIDE
-                },
-            )
-        }
-        binding.filterDurationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                viewModel.setDuration(
-                    if (originalFilter?.expiresAt == null) {
-                        position
-                    } else {
-                        position - 1
-                    },
-                )
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                viewModel.setDuration(0)
-            }
+            viewModel.setAction(if (checked) Filter.Action.WARN else Filter.Action.HIDE)
         }
 
-        loadFilter()
-        observeModel()
+        bind()
     }
 
-    private fun observeModel() {
+    private fun bind() {
         lifecycleScope.launch {
-            viewModel.title.collect { title ->
-                if (title != binding.filterTitle.text.toString()) {
-                    // We also get this callback when typing in the field,
-                    // which messes with the cursor focus
-                    binding.filterTitle.setText(title)
-                }
-            }
-        }
-        lifecycleScope.launch {
-            viewModel.keywords.collect { keywords ->
-                updateKeywords(keywords)
-            }
-        }
-        lifecycleScope.launch {
-            viewModel.contexts.collect { contexts ->
-                for ((key, value) in filterContextSwitches) {
-                    key.isChecked = contexts.contains(value)
-                }
-            }
-        }
-        lifecycleScope.launch {
-            viewModel.action.collect { action ->
-                when (action) {
-                    Filter.Action.HIDE -> binding.filterActionHide.isChecked = true
-                    else -> binding.filterActionWarn.isChecked = true
-                }
-            }
-        }
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch { viewModel.uiResult.collect(::bindUiResult) }
 
-        lifecycleScope.launch {
-            viewModel.isDirty.collectLatest { onBackPressedCallback.isEnabled = it }
-        }
+                launch { viewModel.filterViewData.collect(::bindFilter) }
 
-        lifecycleScope.launch {
-            viewModel.validationErrors.collectLatest { errors ->
-                binding.filterSaveButton.isEnabled = errors.isEmpty()
+                launch { viewModel.isDirty.collectLatest { onBackPressedCallback.isEnabled = it } }
 
-                binding.filterTitleWrapper.error = if (errors.contains(FilterValidationError.NO_TITLE)) {
-                    getString(R.string.error_filter_missing_title)
-                } else {
-                    null
+                launch {
+                    viewModel.validationErrors.collectLatest { errors ->
+                        binding.filterTitleWrapper.error = if (errors.contains(FilterValidationError.NO_TITLE)) {
+                            getString(R.string.error_filter_missing_title)
+                        } else {
+                            null
+                        }
+
+                        binding.keywordChipsError.isVisible = errors.contains(FilterValidationError.NO_KEYWORDS)
+                        binding.filterContextError.isVisible = errors.contains(FilterValidationError.NO_CONTEXT)
+                    }
                 }
 
-                binding.keywordChipsError.isVisible = errors.contains(FilterValidationError.NO_KEYWORDS)
-                binding.filterContextError.isVisible = errors.contains(FilterValidationError.NO_CONTEXT)
+                launch {
+                    viewModel.isDirty.combine(viewModel.validationErrors) { dirty, errors ->
+                        dirty && errors.isEmpty()
+                    }.collectLatest { binding.filterSaveButton.isEnabled = it }
+                }
             }
         }
     }
 
-    // Populate the UI from the filter's members
-    private fun loadFilter() {
-        viewModel.load(filter)
-        if (filter.expiresAt != null) {
-            val durationNames = listOf(getString(R.string.duration_no_change)) + resources.getStringArray(R.array.filter_duration_names)
-            binding.filterDurationSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, durationNames)
+    /** Act on the result of UI actions */
+    private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+        uiResult.onFailure(::bindUiError)
+        uiResult.onSuccess { uiSuccess ->
+            when (uiSuccess) {
+                UiSuccess.SaveFilter -> finish()
+                UiSuccess.DeleteFilter -> finish()
+            }
         }
     }
 
-    private fun updateKeywords(newKeywords: List<FilterKeyword>) {
+    private fun bindUiError(uiError: UiError) {
+        val message = uiError.fmt(this)
+        snackbar?.dismiss()
+        try {
+            Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).apply {
+                setAction(app.pachli.core.ui.R.string.action_retry) {
+                    when (uiError) {
+                        is UiError.DeleteFilterError -> viewModel.deleteFilter()
+                        is UiError.GetFilterError -> viewModel.reload()
+                        is UiError.SaveFilterError -> viewModel.saveChanges()
+                    }
+                }
+                show()
+                snackbar = this
+            }
+        } catch (_: IllegalArgumentException) {
+            // On rare occasions this code is running before the fragment's
+            // view is connected to the parent. This causes Snackbar.make()
+            // to crash.  See https://issuetracker.google.com/issues/228215869.
+            // For now, swallow the exception.
+        }
+    }
+
+    private fun bindFilter(result: Result<FilterViewData?, UiError.GetFilterError>) {
+        result.onFailure(::bindUiError)
+
+        result.onSuccess { filterViewData ->
+            filterViewData ?: return
+
+            when (val expiresIn = filterViewData.expiresIn) {
+                -1 -> binding.filterDurationSpinner.setSelection(0)
+                else -> {
+                    filterDurationAdapter.items.indexOfFirst { it.duration == expiresIn }.let {
+                        if (it == -1) {
+                            binding.filterDurationSpinner.setSelection(0)
+                        } else {
+                            binding.filterDurationSpinner.setSelection(it)
+                        }
+                    }
+                }
+            }
+
+            if (filterViewData.title != binding.filterTitle.text.toString()) {
+                // We also get this callback when typing in the field,
+                // which messes with the cursor focus
+                binding.filterTitle.setText(filterViewData.title)
+            }
+
+            bindKeywords(filterViewData.keywords)
+
+            for ((key, value) in filterContextSwitches) {
+                key.isChecked = filterViewData.contexts.contains(value)
+            }
+
+            when (filterViewData.action) {
+                Filter.Action.HIDE -> binding.filterActionHide.isChecked = true
+                else -> binding.filterActionWarn.isChecked = true
+            }
+        }
+    }
+
+    private fun bindKeywords(newKeywords: List<FilterKeyword>) {
         newKeywords.forEachIndexed { index, filterKeyword ->
             val chip = binding.keywordChips.getChildAt(index).takeUnless {
                 it.id == R.id.actionChip
@@ -234,8 +283,6 @@ class EditFilterActivity : BaseActivity() {
         while (binding.keywordChips.size - 1 > newKeywords.size) {
             binding.keywordChips.removeViewAt(newKeywords.size)
         }
-
-        filter = filter.copy(keywords = newKeywords)
     }
 
     private fun showAddKeywordDialog() {
@@ -266,7 +313,7 @@ class EditFilterActivity : BaseActivity() {
             .setTitle(R.string.filter_edit_keyword_title)
             .setView(binding.root)
             .setPositiveButton(R.string.filter_dialog_update_button) { _, _ ->
-                viewModel.modifyKeyword(
+                viewModel.updateKeyword(
                     keyword,
                     keyword.copy(
                         keyword = binding.phraseEditText.text.toString(),
@@ -291,41 +338,57 @@ class EditFilterActivity : BaseActivity() {
         .create()
         .await(R.string.action_continue_edit, R.string.action_discard)
 
-    private fun saveChanges() {
-        // TODO use a progress bar here (see EditProfileActivity/activity_edit_profile.xml for example)?
+    // TODO use a progress bar here (see EditProfileActivity/activity_edit_profile.xml for example)?
+    private fun saveChanges() = viewModel.saveChanges()
 
-        lifecycleScope.launch {
-            if (viewModel.saveChanges(this@EditFilterActivity)) {
-                finish()
-            } else {
-                Snackbar.make(binding.root, "Error saving filter '${viewModel.title.value}'", Snackbar.LENGTH_SHORT).show()
-            }
+    private fun deleteFilter() = viewModel.deleteFilter()
+}
+
+data class FilterDuration(
+    /** Filter duration, in seconds. -1 means no change, 0 means indefinite. */
+    val duration: Int,
+    /** Label to use for this duration. */
+    val label: String,
+)
+
+/**
+ * Displays [FilterDuration] derived from R.array.filter_duration_values and
+ * R.array.filter_duration_labels.
+ *
+ * In addition, if [uiMode] is [UiMode.EDIT] an extra duration corresponding to
+ * "no change" is included in the list of possible values.
+ */
+class FilterDurationAdapter(context: Context, uiMode: UiMode) : ArrayAdapter<FilterDuration>(
+    context,
+    android.R.layout.simple_list_item_1,
+) {
+    val items = buildList {
+        if (uiMode == UiMode.EDIT) {
+            add(FilterDuration(-1, context.getString(R.string.duration_no_change)))
+        }
+
+        val values = context.resources.getIntArray(R.array.filter_duration_values)
+        val labels = context.resources.getStringArray(R.array.filter_duration_labels)
+        assert(values.size == labels.size)
+
+        values.zip(labels) { value, label ->
+            add(FilterDuration(duration = value, label = label))
         }
     }
 
-    private fun deleteFilter() {
-        originalFilter?.let { filter ->
-            lifecycleScope.launch {
-                api.deleteFilter(filter.id).fold(
-                    {
-                        finish()
-                    },
-                    { throwable ->
-                        if (throwable is HttpException && throwable.code() == 404) {
-                            api.deleteFilterV1(filter.id).fold(
-                                {
-                                    finish()
-                                },
-                                {
-                                    Snackbar.make(binding.root, "Error deleting filter '${filter.title}'", Snackbar.LENGTH_SHORT).show()
-                                },
-                            )
-                        } else {
-                            Snackbar.make(binding.root, "Error deleting filter '${filter.title}'", Snackbar.LENGTH_SHORT).show()
-                        }
-                    },
-                )
-            }
-        }
+    init {
+        addAll(items)
+    }
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val view = super.getView(position, convertView, parent)
+        getItem(position)?.let { item -> (view as? TextView)?.text = item.label }
+        return view
+    }
+
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val view = super.getDropDownView(position, convertView, parent)
+        getItem(position)?.let { item -> (view as? TextView)?.text = item.label }
+        return view
     }
 }

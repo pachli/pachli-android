@@ -17,6 +17,7 @@
 
 package app.pachli.components.notifications
 
+import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,13 +28,12 @@ import androidx.paging.map
 import app.pachli.R
 import app.pachli.appstore.BlockEvent
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.FilterChangedEvent
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
-import app.pachli.components.timeline.FilterKind
-import app.pachli.components.timeline.FiltersRepository
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.repository.FilterVersion
+import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
@@ -48,7 +48,10 @@ import app.pachli.util.serialize
 import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
@@ -57,7 +60,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -301,6 +303,9 @@ sealed interface UiError {
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class NotificationsViewModel @Inject constructor(
+    // TODO: Context is required because handling filter errors needs to
+    // format a resource string. As soon as that is removed this can be removed.
+    @ApplicationContext private val context: Context,
     private val repository: NotificationsRepository,
     private val accountManager: AccountManager,
     private val timelineCases: TimelineCases,
@@ -469,15 +474,18 @@ class NotificationsViewModel @Inject constructor(
 
         // Fetch the status filters
         viewModelScope.launch {
-            eventHub.events
-                .filterIsInstance<FilterChangedEvent>()
-                .filter { it.filterContext == FilterContext.NOTIFICATIONS }
-                .map {
-                    getFilters()
-                    repository.invalidate()
+            filtersRepository.filters.collect { filters ->
+                filters.onSuccess {
+                    filterModel = when (it?.version) {
+                        FilterVersion.V2 -> FilterModel(FilterContext.NOTIFICATIONS)
+                        FilterVersion.V1 -> FilterModel(FilterContext.NOTIFICATIONS, it.filters)
+                        else -> null
+                    }
+                    reload.getAndUpdate { it + 1 }
+                }.onFailure {
+                    _uiErrorChannel.send(UiError.GetFilters(RuntimeException(it.fmt(context))))
                 }
-                .onStart { getFilters() }
-                .collect()
+            }
         }
 
         // Handle events that should refresh the list
@@ -531,18 +539,6 @@ class NotificationsViewModel @Inject constructor(
                     it.statusViewData?.filterAction != Filter.Action.HIDE
                 }
             }
-    }
-
-    /** Gets the current filters from the repository. */
-    private fun getFilters() = viewModelScope.launch {
-        try {
-            filterModel = when (val filters = filtersRepository.getFilters()) {
-                is FilterKind.V1 -> FilterModel(FilterContext.NOTIFICATIONS, filters.filters)
-                is FilterKind.V2 -> FilterModel(FilterContext.NOTIFICATIONS)
-            }
-        } catch (throwable: Throwable) {
-            _uiErrorChannel.send(UiError.GetFilters(throwable))
-        }
     }
 
     // The database stores "0" as the last notification ID if notifications have not been

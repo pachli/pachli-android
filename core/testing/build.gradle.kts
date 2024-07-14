@@ -30,6 +30,7 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.network)
 
     api(libs.kotlinx.coroutines.test)
     api(libs.androidx.test.junit)

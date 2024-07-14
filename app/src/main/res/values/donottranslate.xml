@@ -237,7 +237,8 @@
         <item>@string/duration_7_days</item>
     </string-array>
 
-    <integer-array name="mute_duration_values"> <!-- values in seconds, corresponding to mute_duration_names -->
+    <!-- values in seconds, corresponding to mute_duration_names -->
+    <integer-array name="mute_duration_values">
         <item>0</item>
         <item>300</item>
         <item>1800</item>
@@ -248,7 +249,7 @@
         <item>604800</item>
     </integer-array>
 
-    <string-array name="filter_duration_names">
+    <string-array name="filter_duration_labels">
         <item>@string/duration_indefinite</item>
         <item>@string/duration_5_min</item>
         <item>@string/duration_30_min</item>
@@ -259,7 +260,8 @@
         <item>@string/duration_7_days</item>
     </string-array>
 
-    <string-array name="filter_duration_values"> <!-- values in seconds, corresponding to filter_duration_names -->
+    <!-- values in seconds, corresponding to filter_duration_names -->
+    <integer-array name="filter_duration_values">
         <item>0</item>
         <item>300</item>
         <item>1800</item>
@@ -268,7 +270,7 @@
         <item>86400</item>
         <item>259200</item>
         <item>604800</item>
-    </string-array>
+    </integer-array>
 
     <string-array name="filter_action_values">
         <item>warn</item>
