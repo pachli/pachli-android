@@ -32,8 +32,8 @@ import retrofit2.Response
 /**
  * Returns an [Ok][Ok] [ApiResult&lt;T>][ApiResult] wrapping [data].
  *
- * @param data
- * @param code HTTP response code
+ * @param data Data to wrap in the result.
+ * @param code HTTP response code.
  * @param headers Optional additional headers to include in the response. See
  * [Headers.headersOf].
  */
@@ -44,39 +44,31 @@ fun <T> success(data: T, code: Int = 200, vararg headers: String): ApiResult<T> 
  * Returns an [Err][Err] [ApiResult&lt;T>][ApiResult] representing an HTTP request
  * failure.
  *
- * @param code HTTP failure code
- * @param body Data to use as the HTTP response body
- * @param message String to use as the HTTP status message.
+ * @param code HTTP failure code.
+ * @param body Data to use as the HTTP response body.
+ * @param message (optional) String to use as the HTTP status message.
  */
 fun <T> failure(code: Int = 404, body: String = "", message: String = code.httpStatusMessage()): ApiResult<T> =
-    Err(
-        ApiError.from(
-            HttpException(
-                Response.error<String>(
-                    body.toResponseBody(),
-                    okhttp3.Response.Builder()
-                        .request(Request.Builder().url("http://localhost/").build())
-                        .protocol(Protocol.HTTP_1_1)
-                        .addHeader("content-type", "application/json")
-                        .code(code)
-                        .message(message)
-                        .build(),
-                ),
-            ),
-        ),
-    )
+    Err(ApiError.from(HttpException(jsonError(code, body, message))))
 
-fun errorResponse(code: Int, body: String, message: String = code.httpStatusMessage()): Response<String> = Response.error<String>(
-        body.toResponseBody(),
-        okhttp3.Response.Builder()
-            .request(Request.Builder().url("http://localhost/").build())
-            .protocol(Protocol.HTTP_1_1)
-            .addHeader("content-type", "application/json")
-            .code(code)
-            .message(message)
-            .build(),
-    )
-
+/**
+ * Equivalent to [Response.error] with the content-type set to `application/json`.
+ *
+ * @param code HTTP failure code.
+ * @param body Data to use as the HTTP response body. Should be JSON (unless you are
+ * testing the ability to handle invalid JSON).
+ * @param message (optional) String to use as the HTTP status message.
+ */
+fun jsonError(code: Int, body: String, message: String = code.httpStatusMessage()): Response<String> = Response.error(
+    body.toResponseBody(),
+    okhttp3.Response.Builder()
+        .request(Request.Builder().url("http://localhost/").build())
+        .protocol(Protocol.HTTP_1_1)
+        .addHeader("content-type", "application/json")
+        .code(code)
+        .message(message)
+        .build(),
+)
 
 /** Default HTTP status messages for different response codes. */
 private fun Int.httpStatusMessage() = when (this) {
