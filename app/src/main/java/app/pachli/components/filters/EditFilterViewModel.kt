@@ -17,7 +17,6 @@
 
 package app.pachli.components.filters
 
-import app.pachli.core.network.model.Filter as NetworkFilter
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
@@ -33,6 +32,7 @@ import app.pachli.core.data.model.NewFilterKeyword
 import app.pachli.core.data.repository.FilterEdit
 import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.NewFilter
+import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import com.github.michaelbull.result.Err
