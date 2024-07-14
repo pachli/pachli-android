@@ -17,6 +17,7 @@
 
 package app.pachli.components.filters
 
+import app.pachli.core.network.model.Filter as NetworkFilter
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
@@ -25,16 +26,15 @@ import app.pachli.R
 import app.pachli.components.filters.UiError.DeleteFilterError
 import app.pachli.components.filters.UiError.SaveFilterError
 import app.pachli.core.common.PachliError
+import app.pachli.core.common.extensions.mapIfNotNull
 import app.pachli.core.data.model.Filter
 import app.pachli.core.data.model.FilterValidationError
 import app.pachli.core.data.model.NewFilterKeyword
 import app.pachli.core.data.repository.FilterEdit
 import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.NewFilter
-import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
-import app.pachli.feature.suggestions.mapNotNull
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -278,7 +278,7 @@ class EditFilterViewModel @AssistedInject constructor(
     /** Adds [keyword] to [filterViewData]. */
     fun addKeyword(keyword: FilterKeyword) = viewModelScope.launch {
         _filterViewData.emit(
-            filterViewData.value.mapNotNull {
+            filterViewData.value.mapIfNotNull {
                 it.copy(keywords = it.keywords + keyword)
             },
         )
@@ -287,7 +287,7 @@ class EditFilterViewModel @AssistedInject constructor(
     /** Deletes [keyword] from [filterViewData]. */
     fun deleteKeyword(keyword: FilterKeyword) = viewModelScope.launch {
         _filterViewData.emit(
-            filterViewData.value.mapNotNull {
+            filterViewData.value.mapIfNotNull {
                 it.copy(keywords = it.keywords.filterNot { it == keyword })
             },
         )
@@ -296,25 +296,41 @@ class EditFilterViewModel @AssistedInject constructor(
     /** Replaces [original] keyword in [filterViewData] with [newKeyword]. */
     fun updateKeyword(original: FilterKeyword, newKeyword: FilterKeyword) = viewModelScope.launch {
         _filterViewData.emit(
-            filterViewData.value.mapNotNull {
-                it.copy(keywords = it.keywords.map { if (it == original) newKeyword else it })
+            filterViewData.value.mapIfNotNull {
+                it.copy(
+                    keywords = it.keywords.map {
+                        if (it == original) newKeyword else it
+                    },
+                )
             },
         )
     }
 
     /** Replaces [filterViewData]'s [title][FilterViewData.title] with [title]. */
     fun setTitle(title: String) = viewModelScope.launch {
-        _filterViewData.emit(filterViewData.value.mapNotNull { it.copy(title = title) })
+        _filterViewData.emit(
+            filterViewData.value.mapIfNotNull {
+                it.copy(title = title)
+            },
+        )
     }
 
     /** Replaces [filterViewData]'s [expiresIn][FilterViewData.expiresIn] with [expiresIn]. */
     fun setExpiresIn(expiresIn: Int) = viewModelScope.launch {
-        _filterViewData.emit(filterViewData.value.mapNotNull { it.copy(expiresIn = expiresIn) })
+        _filterViewData.emit(
+            filterViewData.value.mapIfNotNull {
+                it.copy(expiresIn = expiresIn)
+            },
+        )
     }
 
     /** Replaces [filterViewData]'s [action][FilterViewData.action] with [action]. */
     fun setAction(action: NetworkFilter.Action) = viewModelScope.launch {
-        _filterViewData.emit(filterViewData.value.mapNotNull { it.copy(action = action) })
+        _filterViewData.emit(
+            filterViewData.value.mapIfNotNull {
+                it.copy(action = action)
+            },
+        )
     }
 
     /** Adds [filterContext] to [filterViewData]'s [contexts][FilterViewData.contexts]. */

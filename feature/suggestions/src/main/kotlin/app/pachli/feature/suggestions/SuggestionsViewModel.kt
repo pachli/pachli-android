@@ -19,6 +19,7 @@ package app.pachli.feature.suggestions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.core.common.extensions.mapIfInstance
 import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.Suggestion
@@ -30,15 +31,11 @@ import app.pachli.feature.suggestions.UiAction.GetSuggestions
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
 import app.pachli.feature.suggestions.UiAction.SuggestionAction.AcceptSuggestion
 import app.pachli.feature.suggestions.UiAction.SuggestionAction.DeleteSuggestion
-import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -254,34 +251,5 @@ internal class SuggestionsViewModel @Inject constructor(
         val result = block.invoke()
         _operationCount.getAndUpdate { it - 1 }
         return result
-    }
-}
-
-/**
- * Maps this [Result<V, E>][Result] to [Result<V, E>][Result] by either applying the [transform]
- * function to the [value][Ok.value] if this [Result] is [Ok&lt;T>][Ok], or returning the result
- * unchanged.
- */
-@OptIn(ExperimentalContracts::class)
-inline infix fun <V, E, reified T : V> Result<V, E>.mapIfInstance(transform: (T) -> V): Result<V, E> {
-    contract {
-        callsInPlace(transform, InvocationKind.AT_MOST_ONCE)
-    }
-
-    return when (this) {
-        is Ok -> (value as? T)?.let { Ok(transform(it)) } ?: this
-        is Err -> this
-    }
-}
-
-@OptIn(ExperimentalContracts::class)
-inline infix fun <V, E> Result<V?, E>.mapNotNull(transform: (V) -> V): Result<V?, E> {
-    contract {
-        callsInPlace(transform, InvocationKind.AT_MOST_ONCE)
-    }
-
-    return when (this) {
-        is Ok -> value?.let { Ok(transform(it)) } ?: this
-        is Err -> this
     }
 }

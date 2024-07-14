@@ -83,7 +83,6 @@ class FiltersRepositoryTestCreate : BaseFiltersRepositoryTest() {
         filtersRepository.filters.test {
             advanceUntilIdle()
 
-            // TODO: Check result
             filtersRepository.createFilter(filterWithTwoKeywords)
             advanceUntilIdle()
 

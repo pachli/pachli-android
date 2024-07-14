@@ -183,6 +183,9 @@ class FiltersRepository @Inject constructor(
      *
      * - A new value is emitted to [reload]
      * - The active server changes
+     *
+     * The [Ok] value is either `null` if the filters have not yet been loaded, or
+     * the most recent loaded filters.
      */
     val filters = reload.combine(serverRepository.flow) { _, server ->
         this.server = server.mapError { ServerRepositoryError(it) }

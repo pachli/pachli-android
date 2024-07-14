@@ -33,12 +33,11 @@ import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
-import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.rules.MainCoroutineRule
+import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import at.connyduck.calladapter.networkresult.NetworkResult
-import com.github.michaelbull.result.Ok
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -46,7 +45,6 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
-import okhttp3.Headers
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
@@ -118,7 +116,7 @@ abstract class CachedTimelineViewModelTestBase {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
-            onBlocking { getFilters() } doReturn Ok(ApiResponse(Headers.headersOf(), emptyList(), 200))
+            onBlocking { getFilters() } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
