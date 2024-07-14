@@ -105,6 +105,7 @@ sealed class ClientError(
                 401 -> Unauthorized(exception)
                 404 -> NotFound(exception)
                 410 -> Gone(exception)
+                429 -> RateLimit(exception)
                 else -> UnknownClientError(exception)
             }
         }
@@ -125,6 +126,10 @@ sealed class ClientError(
     /** 410 Gone */
     data class Gone(override val exception: HttpException) :
         ClientError(R.string.error_generic_fmt, exception)
+
+    /** 429 Rate limit */
+    data class RateLimit(override val exception: HttpException) :
+        ClientError(R.string.error_429_rate_limit_fmt, exception)
 
     /** All other 4xx client errors */
     data class UnknownClientError(override val exception: HttpException) :
