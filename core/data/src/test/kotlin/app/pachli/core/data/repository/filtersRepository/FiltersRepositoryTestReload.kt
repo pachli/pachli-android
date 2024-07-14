@@ -18,7 +18,10 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
+import app.pachli.core.testing.failure
+import app.pachli.core.testing.success
 import com.github.michaelbull.result.Ok
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -29,6 +32,7 @@ import org.mockito.kotlin.stub
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
+@HiltAndroidTest
 class FiltersRepositoryTestReload : BaseFiltersRepositoryTest() {
     @Test
     fun `reload should trigger a network request`() = runTest {

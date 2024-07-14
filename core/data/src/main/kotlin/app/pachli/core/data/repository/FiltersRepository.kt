@@ -17,7 +17,6 @@
 
 package app.pachli.core.data.repository
 
-import app.pachli.core.network.model.Filter as NetworkFilter
 import androidx.annotation.VisibleForTesting
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
@@ -31,6 +30,7 @@ import app.pachli.core.data.repository.FiltersError.ServerRepositoryError
 import app.pachli.core.network.Server
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
+import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.model.NewFilterV1

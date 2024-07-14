@@ -18,7 +18,9 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
+import app.pachli.core.testing.success
 import com.github.michaelbull.result.Ok
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -29,6 +31,7 @@ import org.mockito.kotlin.stub
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
+@HiltAndroidTest
 class FiltersRepositoryTestDelete : BaseFiltersRepositoryTest() {
     @Test
     fun `delete on v2 server should call delete and refresh`() = runTest {

@@ -17,11 +17,11 @@
 
 package app.pachli
 
-import app.pachli.core.network.model.Filter as NetworkFilter
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.filters.EditFilterViewModel.Companion.getSecondsForDurationIndex
 import app.pachli.core.data.model.Filter
 import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.Poll

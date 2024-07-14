@@ -17,13 +17,12 @@
 
 package app.pachli.core.network.retrofit.apiresult
 
+import app.pachli.core.testing.errorResponse
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.unwrapError
 import com.google.common.truth.Truth.assertThat
 import java.io.IOException
 import okhttp3.Headers
-import okhttp3.Protocol
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import retrofit2.Call
@@ -143,17 +142,7 @@ class ApiResultCallTest {
     @Test
     fun `should parse call with 404 error code as ApiResult-failure (no JSON)`() {
         val errorMsg = "dummy error message"
-        val errorResponse = Response.error<String>(
-            "".toResponseBody(),
-            okhttp3.Response.Builder()
-                .request(okhttp3.Request.Builder().url("http://localhost/").build())
-                .protocol(Protocol.HTTP_1_1)
-                .addHeader("content-type", "application/json")
-                .code(404)
-                .message(errorMsg)
-                .build(),
-
-        )
+        val errorResponse = errorResponse(404, "", errorMsg)
 
         networkApiResultCall.enqueue(
             object : Callback<ApiResult<String>> {
@@ -181,17 +170,7 @@ class ApiResultCallTest {
     @Test
     fun `should parse call with 404 error code as ApiResult-failure (JSON error message)`() {
         val errorMsg = "JSON error message"
-        val errorResponse = Response.error<String>(
-            "{\"error\": \"$errorMsg\"}".toResponseBody(),
-            okhttp3.Response.Builder()
-                .request(okhttp3.Request.Builder().url("http://localhost/").build())
-                .protocol(Protocol.HTTP_1_1)
-                .addHeader("content-type", "application/json")
-                .code(404)
-                .message("")
-                .build(),
-
-        )
+        val errorResponse = errorResponse(404, "{\"error\": \"$errorMsg\"}")
 
         networkApiResultCall.enqueue(
             object : Callback<ApiResult<String>> {
@@ -220,17 +199,7 @@ class ApiResultCallTest {
     fun `should parse call with 404 error code as ApiResult-failure (JSON error and description message)`() {
         val errorMsg = "JSON error message"
         val descriptionMsg = "JSON error description"
-        val errorResponse = Response.error<String>(
-            "{\"error\": \"$errorMsg\", \"description\": \"$descriptionMsg\"}".toResponseBody(),
-            okhttp3.Response.Builder()
-                .request(okhttp3.Request.Builder().url("http://localhost/").build())
-                .protocol(Protocol.HTTP_1_1)
-                .addHeader("content-type", "application/json")
-                .code(404)
-                .message("")
-                .build(),
-
-        )
+        val errorResponse = errorResponse(404, "{\"error\": \"$errorMsg\", \"description\": \"$descriptionMsg\"}")
 
         networkApiResultCall.enqueue(
             object : Callback<ApiResult<String>> {

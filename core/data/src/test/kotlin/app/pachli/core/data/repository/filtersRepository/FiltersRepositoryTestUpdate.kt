@@ -17,13 +17,15 @@
 
 package app.pachli.core.data.repository.filtersRepository
 
-import app.pachli.core.network.model.Filter as NetworkFilter
 import app.cash.turbine.test
 import app.pachli.core.data.model.Filter
 import app.pachli.core.data.repository.FilterEdit
+import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.Filter.Action
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
+import app.pachli.core.testing.success
+import dagger.hilt.android.testing.HiltAndroidTest
 import java.util.Date
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -41,6 +43,7 @@ import org.mockito.kotlin.verify
  * Test that ensures the correct API calls are made given an [FilterEdit]. The correct
  * creation of the [FilterEdit] is tested in FilterViewDataTest.kt
  */
+@HiltAndroidTest
 class FiltersRepositoryTestUpdate : BaseFiltersRepositoryTest() {
     private val originalNetworkFilter = NetworkFilter(
         id = "1",

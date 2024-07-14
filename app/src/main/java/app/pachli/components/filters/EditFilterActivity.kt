@@ -103,7 +103,7 @@ class EditFilterActivity : BaseActivity() {
             when (viewModel.uiMode) {
                 UiMode.CREATE -> R.string.filter_addition_title
                 UiMode.EDIT -> R.string.filter_edit_title
-            }
+            },
         )
 
         binding.actionChip.setOnClickListener { showAddKeywordDialog() }
@@ -175,7 +175,7 @@ class EditFilterActivity : BaseActivity() {
                 launch {
                     viewModel.isDirty.combine(viewModel.validationErrors) { dirty, errors ->
                         dirty && errors.isEmpty()
-                    }.collectLatest { binding.filterSaveButton.isEnabled = it}
+                    }.collectLatest { binding.filterSaveButton.isEnabled = it }
                 }
             }
         }
@@ -199,9 +199,9 @@ class EditFilterActivity : BaseActivity() {
             Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).apply {
                 setAction(app.pachli.core.ui.R.string.action_retry) {
                     when (uiError) {
-                        is UiError.DeleteFilterError -> { viewModel.deleteFilter()}
-                        is UiError.GetFilterError -> { viewModel.reload() }
-                        is UiError.SaveFilterError -> { viewModel.saveChanges() }
+                        is UiError.DeleteFilterError -> viewModel.deleteFilter()
+                        is UiError.GetFilterError -> viewModel.reload()
+                        is UiError.SaveFilterError -> viewModel.saveChanges()
                     }
                 }
                 show()
@@ -344,12 +344,11 @@ class EditFilterActivity : BaseActivity() {
     private fun deleteFilter() = viewModel.deleteFilter()
 }
 
-
 data class FilterDuration(
     /** Filter duration, in seconds. -1 means no change, 0 means indefinite. */
     val duration: Int,
     /** Label to use for this duration. */
-    val label: String
+    val label: String,
 )
 
 /**

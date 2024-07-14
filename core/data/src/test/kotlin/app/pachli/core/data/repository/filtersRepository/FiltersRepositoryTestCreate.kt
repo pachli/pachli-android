@@ -17,15 +17,17 @@
 
 package app.pachli.core.data.repository.filtersRepository
 
-import app.pachli.core.network.model.Filter as NetworkFilter
-import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
 import app.cash.turbine.test
 import app.pachli.core.data.model.NewFilterKeyword
 import app.pachli.core.data.repository.NewFilter
+import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.Filter.Action
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
+import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
+import app.pachli.core.testing.success
 import com.github.michaelbull.result.Ok
+import dagger.hilt.android.testing.HiltAndroidTest
 import java.util.Date
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -38,6 +40,7 @@ import org.mockito.kotlin.stub
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
+@HiltAndroidTest
 class FiltersRepositoryTestCreate : BaseFiltersRepositoryTest() {
     private val filterWithTwoKeywords = NewFilter(
         title = "new filter",

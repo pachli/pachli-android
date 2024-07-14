@@ -17,22 +17,25 @@
 
 package app.pachli.core.data.repository.filtersRepository
 
-import app.pachli.core.network.model.Filter as NetworkFilter
-import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
 import app.cash.turbine.test
 import app.pachli.core.data.model.Filter
 import app.pachli.core.data.repository.FilterVersion.V1
 import app.pachli.core.data.repository.FilterVersion.V2
 import app.pachli.core.data.repository.Filters
 import app.pachli.core.data.repository.FiltersError
+import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.Filter.Action
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
+import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
 import app.pachli.core.network.retrofit.apiresult.ClientError
+import app.pachli.core.testing.failure
+import app.pachli.core.testing.success
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getError
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import java.util.Date
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -41,6 +44,7 @@ import org.junit.Test
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.stub
 
+@HiltAndroidTest
 class FiltersRepositoryTestFlow : BaseFiltersRepositoryTest() {
     @Test
     fun `filters flow returns empty list when there are no v2 filters`() = runTest {

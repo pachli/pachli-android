@@ -17,7 +17,6 @@
 
 package app.pachli.components.filters
 
-import app.pachli.core.network.model.Filter as NetworkFilter
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
@@ -32,6 +31,7 @@ import app.pachli.core.data.model.NewFilterKeyword
 import app.pachli.core.data.repository.FilterEdit
 import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.NewFilter
+import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.feature.suggestions.mapNotNull
@@ -76,7 +76,7 @@ data class FilterViewData(
      */
     val expiresIn: Int = 0,
     val action: NetworkFilter.Action = NetworkFilter.Action.WARN,
-    val keywords: List<FilterKeyword> = emptyList()
+    val keywords: List<FilterKeyword> = emptyList(),
 ) {
     /**
      * @return Set of [FilterValidationError] given the current state of the
@@ -159,6 +159,7 @@ fun NewFilter.Companion.from(filterViewData: FilterViewData) = NewFilter(
 sealed interface UiSuccess {
     /** Filter was saved. */
     data object SaveFilter : UiSuccess
+
     /** Filter was deleted. */
     data object DeleteFilter : UiSuccess
 }
@@ -270,7 +271,7 @@ class EditFilterViewModel @AssistedInject constructor(
                 .mapEither(
                     { FilterViewData.from(it) },
                     { UiError.GetFilterError(filterId, it) },
-                )
+                ),
         )
     }
 
@@ -321,7 +322,7 @@ class EditFilterViewModel @AssistedInject constructor(
         filterViewData.value.get()?.let { filter ->
             if (filter.contexts.contains(filterContext)) return@launch
 
-            _filterViewData.emit(Ok(filter.copy(contexts = filter.contexts + filterContext)),)
+            _filterViewData.emit(Ok(filter.copy(contexts = filter.contexts + filterContext)))
         }
     }
 
@@ -330,7 +331,7 @@ class EditFilterViewModel @AssistedInject constructor(
         filterViewData.value.get()?.let { filter ->
             if (!filter.contexts.contains(filterContext)) return@launch
 
-            _filterViewData.emit(Ok(filter.copy(contexts = filter.contexts - filterContext)),)
+            _filterViewData.emit(Ok(filter.copy(contexts = filter.contexts - filterContext)))
         }
     }
 
@@ -364,7 +365,7 @@ class EditFilterViewModel @AssistedInject constructor(
                 UiMode.CREATE -> createFilter(filterViewData)
                 UiMode.EDIT -> updateFilter(filterViewData)
             }
-                .map { UiSuccess.SaveFilter }
+                .map { UiSuccess.SaveFilter },
         )
     }
 
