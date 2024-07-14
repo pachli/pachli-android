@@ -346,6 +346,9 @@ class ConversationsFragment :
     override fun clearWarningAction(viewData: ConversationViewData) {
     }
 
+    // Filters don't apply in conversations
+    override fun onEditFilterById(filterId: String) {}
+
     override fun onReselect() {
         if (isAdded) {
             binding.recyclerView.layoutManager?.scrollToPosition(0)

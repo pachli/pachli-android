@@ -1,33 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/status_filtered_placeholder"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:minHeight="48dp">
 
     <TextView
         android:id="@+id/status_filter_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="0dp"
         android:textColor="?android:textColorTertiary"
         android:textSize="?attr/status_text_medium"
         android:textAlignment="center"
         android:textIsSelectable="false"
-        tools:text="Filter: MyFilter"
-        />
+        tools:text="Filter: MyFilter" />
+
+    <Button
+        android:id="@+id/status_filter_edit_filter"
+        style="@style/AppButton.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        android:text="@string/filter_edit_title"
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/status_filter_show_anyway"
+        app:layout_constraintTop_toTopOf="@+id/status_filter_show_anyway" />
 
     <Button
         android:id="@+id/status_filter_show_anyway"
-        android:layout_width="match_parent"
+        style="@style/AppButton.Outlined"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        style="@style/AppButton.TextButton"
-        android:textStyle="bold"
-        android:textSize="?attr/status_text_medium"
+        android:importantForAccessibility="no"
+        android:layout_marginTop="8dp"
         android:text="@string/status_filtered_show_anyway"
-        />
-
-</LinearLayout>
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintStart_toEndOf="@id/status_filter_edit_filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_filter_label" />
+</androidx.constraintlayout.widget.ConstraintLayout>

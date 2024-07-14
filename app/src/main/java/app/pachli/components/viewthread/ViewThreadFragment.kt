@@ -33,7 +33,9 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.components.viewthread.edits.ViewEditsFragment
+import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -41,6 +43,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
+import app.pachli.core.navigation.EditFilterActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.ui.extensions.getErrorString
@@ -321,6 +324,13 @@ class ViewThreadFragment :
 
     override fun onOpenReblog(status: Status) {
         // there are no reblogs in threads
+    }
+
+    override fun onEditFilterById(filterId: String) {
+        requireActivity().startActivityWithTransition(
+            EditFilterActivityIntent.edit(requireContext(), filterId),
+            TransitionKind.SLIDE_FROM_END,
+        )
     }
 
     override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {

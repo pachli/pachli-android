@@ -15,6 +15,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.Accessibilit
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
 import app.pachli.R
+import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.activity.openLink
 import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
@@ -47,6 +48,13 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             info: AccessibilityNodeInfoCompat,
         ) {
             super.onInitializeAccessibilityNodeInfo(host, info)
+
+            val viewHolder = recyclerView.findContainingViewHolder(host)
+            if (viewHolder is FilterableStatusViewHolder<*> && viewHolder.filtered) {
+                info.addAction(showAnywayAction)
+                info.addAction(editFilterAction)
+                return
+            }
 
             val pos = recyclerView.getChildAdapterPosition(host)
             val status = statusProvider.getStatus(pos) ?: return
@@ -183,6 +191,14 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 app.pachli.core.ui.R.id.action_more -> {
                     statusActionListener.onMore(host, status)
                 }
+                app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearWarningAction(status)
+                app.pachli.core.ui.R.id.action_edit_filter -> {
+                    (recyclerView.findContainingViewHolder(host) as? FilterableStatusViewHolder<*>)?.matchedFilter?.let {
+                        statusActionListener.onEditFilterById(it.id)
+                        return@let true
+                    } ?: false
+                }
+
                 else -> return super.performAccessibilityAction(host, action, args)
             }
             return true
@@ -376,6 +392,16 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val moreAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_more,
         context.getString(app.pachli.core.ui.R.string.action_more),
+    )
+
+    private val showAnywayAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_show_anyway,
+        context.getString(R.string.status_filtered_show_anyway),
+    )
+
+    private val editFilterAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_edit_filter,
+        context.getString(R.string.filter_edit_title),
     )
 
     private data class LinkSpanInfo(val text: String, val link: String)

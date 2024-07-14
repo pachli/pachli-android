@@ -18,6 +18,7 @@
 package app.pachli.adapter
 
 import android.view.View
+import androidx.core.text.HtmlCompat
 import app.pachli.R
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.network.model.Filter
@@ -28,6 +29,8 @@ import app.pachli.viewdata.IStatusViewData
 open class FilterableStatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusWrapperBinding,
 ) : StatusViewHolder<T>(binding.statusContainer, binding.root) {
+    var filtered = true
+    var matchedFilter: Filter? = null
 
     override fun setupWithStatus(
         viewData: T,
@@ -53,10 +56,10 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
         // for more details.
         val filterResults = status.actionable.filtered
         if (filterResults.isNullOrEmpty()) {
-            showFilteredPlaceholder(false)
+            filtered = false
+            showFilteredPlaceholder(filtered)
             return
         }
-        var matchedFilter: Filter? = null
         for ((filter) in filterResults) {
             if (filter.action === Filter.Action.WARN) {
                 matchedFilter = filter
@@ -64,18 +67,31 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
             }
         }
 
-        // Guard against a possible NPE
-        if (matchedFilter == null) {
+        filterResults.find { it.filter.action === Filter.Action.WARN }?.let { result ->
+            this.matchedFilter = result.filter
+            filtered = true
+            showFilteredPlaceholder(filtered)
+
+            val label = HtmlCompat.fromHtml(
+                context.getString(
+                    R.string.status_filter_placeholder_label_format,
+                    result.filter.title,
+                ),
+                HtmlCompat.FROM_HTML_MODE_LEGACY,
+            )
+            binding.root.contentDescription = label
+            binding.statusFilteredPlaceholder.statusFilterLabel.text = label
+
+            binding.statusFilteredPlaceholder.statusFilterShowAnyway.setOnClickListener {
+                listener.clearWarningAction(status)
+            }
+            binding.statusFilteredPlaceholder.statusFilterEditFilter.setOnClickListener {
+                listener.onEditFilterById(result.filter.id)
+            }
+        } ?: {
+            matchedFilter = null
+            filtered = false
             showFilteredPlaceholder(false)
-            return
-        }
-        showFilteredPlaceholder(true)
-        binding.statusFilteredPlaceholder.statusFilterLabel.text = context.getString(
-            R.string.status_filter_placeholder_label_format,
-            matchedFilter.title,
-        )
-        binding.statusFilteredPlaceholder.statusFilterShowAnyway.setOnClickListener {
-            listener.clearWarningAction(status)
         }
     }
 
