@@ -195,9 +195,6 @@ data class StatusViewData(
         this.isCollapsible = shouldTrimStatus(this.content)
     }
 
-    /** Helper for Java */
-    fun copyWithCollapsed(isCollapsed: Boolean) = copy(isCollapsed = isCollapsed)
-
     companion object {
         fun from(
             status: Status,

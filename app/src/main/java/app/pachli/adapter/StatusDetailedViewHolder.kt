@@ -114,7 +114,7 @@ class StatusDetailedViewHolder(
     ) {
         // We never collapse statuses in the detail view
         val uncollapsedStatus =
-            if (viewData.isCollapsible && viewData.isCollapsed) viewData.copyWithCollapsed(false) else viewData
+            if (viewData.isCollapsible && viewData.isCollapsed) viewData.copy(isCollapsed = false) else viewData
         super.setupWithStatus(uncollapsedStatus, listener, statusDisplayOptions, payloads)
         setupCard(
             uncollapsedStatus,
