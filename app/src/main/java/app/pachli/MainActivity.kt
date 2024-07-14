@@ -128,7 +128,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.FixedSizeDrawable
 import com.bumptech.glide.request.transition.Transition
-import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.get
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
@@ -605,7 +605,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun refreshMainDrawerItems(addSearchButton: Boolean) {
-        val (listsDrawerItems, listsSectionTitle) = listsRepository.lists.value.getOrElse { null }?.let { result ->
+        val (listsDrawerItems, listsSectionTitle) = listsRepository.lists.value.get()?.let { result ->
             when (result) {
                 Lists.Loading -> Pair(emptyList(), R.string.title_lists_loading)
                 is Lists.Loaded -> Pair(
