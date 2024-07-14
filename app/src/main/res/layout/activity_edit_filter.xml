@@ -56,7 +56,8 @@
             <com.google.android.material.chip.ChipGroup
                     android:id="@+id/keywordChips"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/actionChip"
