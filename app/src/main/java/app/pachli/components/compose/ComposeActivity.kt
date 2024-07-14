@@ -396,11 +396,11 @@ class ComposeActivity :
     }
 
     private fun setupContentWarningField(startingContentWarning: String?) {
-        if (startingContentWarning != null) {
-            binding.composeContentWarningField.setText(startingContentWarning)
-        }
         binding.composeContentWarningField.doOnTextChanged { newContentWarning, _, _, _ ->
             viewModel.onContentWarningChanged(newContentWarning?.toString() ?: "")
+        }
+        if (startingContentWarning != null) {
+            binding.composeContentWarningField.setText(startingContentWarning)
         }
     }
 
