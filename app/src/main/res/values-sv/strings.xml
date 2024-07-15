@@ -556,7 +556,7 @@
     <string name="select_list_manage">Hantera listor</string>
     <string name="select_list_empty">Du har inga listor, än</string>
     <string name="status_filtered_show_anyway">Visa allafall</string>
-    <string name="status_filter_placeholder_label_format">Filtrerad: %s</string>
+    <string name="status_filter_placeholder_label_format">Filtrerad: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_account_filter_keywords">Profiler</string>
     <string name="label_filter_action">Filteråtgärd</string>
     <string name="label_filter_keywords">Nyckelord eller fraser att filtrera</string>

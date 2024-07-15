@@ -545,7 +545,7 @@
     <string name="ui_error_vote_fmt">Szavazat leadása a szavazásba sikertelen: %1$s</string>
     <string name="ui_error_accept_follow_request">Követési kérelem elfogadása sikertelen: %s</string>
     <string name="status_filtered_show_anyway">Mutatás mindenképpen</string>
-    <string name="status_filter_placeholder_label_format">Szűrve: %s</string>
+    <string name="status_filter_placeholder_label_format">Szűrve: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_account_filter_keywords">Profil</string>
     <string name="socket_timeout_exception">A kapcsolatfelvétel a kiszolgálóddal túl sokáig tartott</string>
     <string name="ui_error_bookmark_fmt">Bejegyzés könyvjelzőzése sikertelen: %1$s</string>

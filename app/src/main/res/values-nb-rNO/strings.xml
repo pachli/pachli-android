@@ -564,7 +564,7 @@
     <string name="account_username_copied">Brukernavn kopiert</string>
     <string name="error_status_source_load">Kunne ikke laste status fra tjeneren.</string>
     <string name="status_filtered_show_anyway">Vis allikevel</string>
-    <string name="status_filter_placeholder_label_format">Filtrert: %s</string>
+    <string name="status_filter_placeholder_label_format">Filtrert: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_account_filter_keywords">Profiler</string>
     <string name="action_add">Legg til</string>
     <string name="filter_keyword_display_format">%s (helt ord)</string>

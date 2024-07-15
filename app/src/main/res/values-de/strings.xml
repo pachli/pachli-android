@@ -554,7 +554,7 @@
     <string name="notification_unknown_name">Unbekannt</string>
     <string name="ui_error_clear_notifications">Löschen der Benachrichtigungen schlug fehl: %s</string>
     <string name="ui_error_reject_follow_request">Ablehnen der Folgeanfrage schlug fehl: %s</string>
-    <string name="status_filter_placeholder_label_format">Gefiltert: %s</string>
+    <string name="status_filter_placeholder_label_format">Gefiltert: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_account_filter_keywords">Profile</string>
     <string name="hint_filter_title">Mein Filter</string>
     <string name="label_filter_title">Titel</string>

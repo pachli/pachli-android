@@ -593,7 +593,7 @@
     <string name="select_list_manage">Gestisci liste</string>
     <string name="error_list_load">Errore nel caricamento delle liste</string>
     <string name="status_filtered_show_anyway">Mostra comunque</string>
-    <string name="status_filter_placeholder_label_format">Filtrato: %s</string>
+    <string name="status_filter_placeholder_label_format">Filtrato: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_account_filter_keywords">Profili</string>
     <string name="hint_filter_title">I miei filtri</string>
     <string name="action_add">Aggiungi</string>

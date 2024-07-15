@@ -595,7 +595,7 @@
     <string name="pref_title_font_family">フォント</string>
     <string name="description_poll">選択肢付きの投票: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="label_image">画像</string>
-    <string name="status_filter_placeholder_label_format">フィルタ済み: %s</string>
+    <string name="status_filter_placeholder_label_format">フィルタ済み: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_show_self_boosts_description">自分の投稿をブーストすること</string>
     <string name="confirmation_hashtag_unmuted">%s を非表示にしました</string>
     <string name="pref_title_show_self_boosts">セルフブーストを表示</string>

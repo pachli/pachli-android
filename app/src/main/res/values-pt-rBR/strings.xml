@@ -531,7 +531,7 @@
     <string name="title_public_trending_links">URL em alta</string>
     <string name="title_tab_public_trending_links">URL</string>
     <string name="title_public_trending_hashtags">Hashtags em alta</string>
-    <string name="status_filter_placeholder_label_format">Filtrado(s): %s</string>
+    <string name="status_filter_placeholder_label_format">Filtrado(s): &lt;b>%1$s&lt;/b></string>
     <string name="confirmation_hashtag_unfollowed">#%s deixado de seguir</string>
     <string name="ui_error_vote_fmt">Votar na enquete falhou: %1$s</string>
     <string name="update_dialog_neutral">Não me lembre desta versão</string>
