@@ -139,7 +139,10 @@ class SearchActivity : BottomSheetActivity(), MenuProvider, SearchView.OnQueryTe
         searchView.setOnQueryTextListener(this)
         searchView.setQuery(viewModel.currentSearchFieldContent ?: "", false)
 
-        searchView.requestFocus()
+        // Only focus if the query is empty. This ensures that if the user is returning
+        // to the search results after visiting a result the full list is available,
+        // instead of being obscured by the keyboard.
+        if (searchView.query.isBlank()) searchView.requestFocus()
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
