@@ -29,7 +29,7 @@ import app.pachli.viewdata.IStatusViewData
 open class FilterableStatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusWrapperBinding,
 ) : StatusViewHolder<T>(binding.statusContainer, binding.root) {
-    var filtered = true
+    /** The filter that matched the status, null if the status is not being filtered. */
     var matchedFilter: Filter? = null
 
     override fun setupWithStatus(
@@ -47,30 +47,14 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
         listener: StatusActionListener<T>,
     ) {
         if (status.filterAction !== Filter.Action.WARN) {
-            showFilteredPlaceholder(false)
+            matchedFilter = null
+            setPlaceholderVisibility(false)
             return
         }
 
-        // Shouldn't be necessary given the previous test against getFilterAction(),
-        // but guards against a possible NPE. See the TODO in StatusViewData.filterAction
-        // for more details.
-        val filterResults = status.actionable.filtered
-        if (filterResults.isNullOrEmpty()) {
-            filtered = false
-            showFilteredPlaceholder(filtered)
-            return
-        }
-        for ((filter) in filterResults) {
-            if (filter.action === Filter.Action.WARN) {
-                matchedFilter = filter
-                break
-            }
-        }
-
-        filterResults.find { it.filter.action === Filter.Action.WARN }?.let { result ->
+        status.actionable.filtered?.find { it.filter.action === Filter.Action.WARN }?.let { result ->
             this.matchedFilter = result.filter
-            filtered = true
-            showFilteredPlaceholder(filtered)
+            setPlaceholderVisibility(true)
 
             val label = HtmlCompat.fromHtml(
                 context.getString(
@@ -90,12 +74,11 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
             }
         } ?: {
             matchedFilter = null
-            filtered = false
-            showFilteredPlaceholder(false)
+            setPlaceholderVisibility(false)
         }
     }
 
-    private fun showFilteredPlaceholder(show: Boolean) {
+    private fun setPlaceholderVisibility(show: Boolean) {
         binding.statusContainer.root.visibility = if (show) View.GONE else View.VISIBLE
         binding.statusFilteredPlaceholder.root.visibility = if (show) View.VISIBLE else View.GONE
     }

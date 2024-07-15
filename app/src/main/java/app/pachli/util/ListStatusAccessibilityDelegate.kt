@@ -50,7 +50,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             super.onInitializeAccessibilityNodeInfo(host, info)
 
             val viewHolder = recyclerView.findContainingViewHolder(host)
-            if (viewHolder is FilterableStatusViewHolder<*> && viewHolder.filtered) {
+            if (viewHolder is FilterableStatusViewHolder<*> && viewHolder.matchedFilter != null) {
                 info.addAction(showAnywayAction)
                 info.addAction(editFilterAction)
                 return
