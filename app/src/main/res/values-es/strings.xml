@@ -554,7 +554,7 @@
     <string name="pref_title_account_filter_keywords">Perfiles</string>
     <string name="notification_unknown_name">Desconocido</string>
     <string name="status_filtered_show_anyway">Mostrar de todas formas</string>
-    <string name="status_filter_placeholder_label_format">Filtrado: %s</string>
+    <string name="status_filter_placeholder_label_format">Filtrado: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_show_stat_inline">Mostrar estadísticas de la entrada en la línea de tiempo</string>
     <string name="socket_timeout_exception">Contactar con tu servidor ha tardado demasiado tiempo</string>
     <string name="select_list_empty">Todavía no tienes listas</string>

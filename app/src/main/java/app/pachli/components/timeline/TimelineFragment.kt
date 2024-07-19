@@ -51,7 +51,9 @@ import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiSuccess
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -59,6 +61,7 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.EditFilterActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.ui.ActionButtonScrollListener
@@ -613,6 +616,13 @@ class TimelineFragment :
 
     override fun clearWarningAction(viewData: StatusViewData) {
         viewModel.clearWarning(viewData)
+    }
+
+    override fun onEditFilterById(filterId: String) {
+        requireActivity().startActivityWithTransition(
+            EditFilterActivityIntent.edit(requireContext(), filterId),
+            TransitionKind.SLIDE_FROM_END,
+        )
     }
 
     override fun onMore(view: View, viewData: StatusViewData) {

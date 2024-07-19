@@ -49,11 +49,14 @@ import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.timeline.TimelineLoadStateAdapter
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
+import app.pachli.core.navigation.EditFilterActivityIntent
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
@@ -587,6 +590,13 @@ class NotificationsFragment :
                 it.value?.statusViewData = it.value?.statusViewData?.copy(isCollapsed = isCollapsed)
                 adapter.notifyItemChanged(it.index)
             }
+    }
+
+    override fun onEditFilterById(filterId: String) {
+        requireActivity().startActivityWithTransition(
+            EditFilterActivityIntent.edit(requireContext(), filterId),
+            TransitionKind.SLIDE_FROM_END,
+        )
     }
 
     override fun onNotificationContentCollapsedChange(

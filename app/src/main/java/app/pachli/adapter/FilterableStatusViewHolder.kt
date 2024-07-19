@@ -18,6 +18,7 @@
 package app.pachli.adapter
 
 import android.view.View
+import androidx.core.text.HtmlCompat
 import app.pachli.R
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.network.model.Filter
@@ -28,6 +29,8 @@ import app.pachli.viewdata.IStatusViewData
 open class FilterableStatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusWrapperBinding,
 ) : StatusViewHolder<T>(binding.statusContainer, binding.root) {
+    /** The filter that matched the status, null if the status is not being filtered. */
+    var matchedFilter: Filter? = null
 
     override fun setupWithStatus(
         viewData: T,
@@ -44,42 +47,38 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
         listener: StatusActionListener<T>,
     ) {
         if (status.filterAction !== Filter.Action.WARN) {
-            showFilteredPlaceholder(false)
+            matchedFilter = null
+            setPlaceholderVisibility(false)
             return
         }
 
-        // Shouldn't be necessary given the previous test against getFilterAction(),
-        // but guards against a possible NPE. See the TODO in StatusViewData.filterAction
-        // for more details.
-        val filterResults = status.actionable.filtered
-        if (filterResults.isNullOrEmpty()) {
-            showFilteredPlaceholder(false)
-            return
-        }
-        var matchedFilter: Filter? = null
-        for ((filter) in filterResults) {
-            if (filter.action === Filter.Action.WARN) {
-                matchedFilter = filter
-                break
+        status.actionable.filtered?.find { it.filter.action === Filter.Action.WARN }?.let { result ->
+            this.matchedFilter = result.filter
+            setPlaceholderVisibility(true)
+
+            val label = HtmlCompat.fromHtml(
+                context.getString(
+                    R.string.status_filter_placeholder_label_format,
+                    result.filter.title,
+                ),
+                HtmlCompat.FROM_HTML_MODE_LEGACY,
+            )
+            binding.root.contentDescription = label
+            binding.statusFilteredPlaceholder.statusFilterLabel.text = label
+
+            binding.statusFilteredPlaceholder.statusFilterShowAnyway.setOnClickListener {
+                listener.clearWarningAction(status)
             }
-        }
-
-        // Guard against a possible NPE
-        if (matchedFilter == null) {
-            showFilteredPlaceholder(false)
-            return
-        }
-        showFilteredPlaceholder(true)
-        binding.statusFilteredPlaceholder.statusFilterLabel.text = context.getString(
-            R.string.status_filter_placeholder_label_format,
-            matchedFilter.title,
-        )
-        binding.statusFilteredPlaceholder.statusFilterShowAnyway.setOnClickListener {
-            listener.clearWarningAction(status)
+            binding.statusFilteredPlaceholder.statusFilterEditFilter.setOnClickListener {
+                listener.onEditFilterById(result.filter.id)
+            }
+        } ?: {
+            matchedFilter = null
+            setPlaceholderVisibility(false)
         }
     }
 
-    private fun showFilteredPlaceholder(show: Boolean) {
+    private fun setPlaceholderVisibility(show: Boolean) {
         binding.statusContainer.root.visibility = if (show) View.GONE else View.VISIBLE
         binding.statusFilteredPlaceholder.root.visibility = if (show) View.VISIBLE else View.GONE
     }

@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
@@ -100,7 +99,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
     private val contentWarningDescription: TextView = itemView.findViewById(R.id.status_content_warning_description)
     private val pollView: PollView = itemView.findViewById(R.id.status_poll)
     private val cardView: PreviewCardView? = itemView.findViewById(R.id.status_card_view)
-    private val filteredPlaceholder: LinearLayout? = itemView.findViewById(R.id.status_filtered_placeholder)
+    private val filteredPlaceholder: ConstraintLayout? = itemView.findViewById(R.id.status_filtered_placeholder)
     private val filteredPlaceholderLabel: TextView? = itemView.findViewById(R.id.status_filter_label)
     private val filteredPlaceholderShowButton: Button? = itemView.findViewById(R.id.status_filter_show_anyway)
     private val statusContainer: ConstraintLayout? = itemView.findViewById(R.id.status_container)

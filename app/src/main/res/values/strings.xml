@@ -357,7 +357,7 @@
     <string name="status_count_one_plus">1+</string>
     <string name="status_created_at_now">now</string>
     <string name="status_filtered_show_anyway">Show anyway</string>
-    <string name="status_filter_placeholder_label_format">Filtered: %s</string>
+    <string name="status_filter_placeholder_label_format">Filtered: &lt;b>%1$s&lt;/b></string>
     <string name="state_follow_requested">Follow requested</string>
     <!--These are for timestamps on posts. For example: "16s" or "2d"-->
     <string name="abbreviated_in_years">in %dy</string>

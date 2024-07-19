@@ -364,7 +364,7 @@
     <string name="send_post_notification_error_title">Julkaisun lähettäminen epäonnistui</string>
     <string name="pref_title_notification_filter_follow_requests">seuraamista pyydetty</string>
     <string name="pref_title_notification_filters">Ilmoita kun</string>
-    <string name="status_filter_placeholder_label_format">Suodatettu: %s</string>
+    <string name="status_filter_placeholder_label_format">Suodatettu: &lt;b>%1$s&lt;/b></string>
     <string name="pref_main_nav_position_option_bottom">Alareuna</string>
     <string name="pref_title_notification_filter_poll">päättyneet äänestykset</string>
     <string name="abbreviated_in_seconds">%ds</string>

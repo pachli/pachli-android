@@ -534,7 +534,7 @@
     <string name="dialog_follow_hashtag_hint">#myllumerki</string>
     <string name="notification_unknown_name">Óþekkt</string>
     <string name="status_filtered_show_anyway">Birta samt</string>
-    <string name="status_filter_placeholder_label_format">Síað: %s</string>
+    <string name="status_filter_placeholder_label_format">Síað: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_account_filter_keywords">Notendasnið</string>
     <string name="pref_title_show_stat_inline">Sýna tölfræði færslu í tímalínu</string>
     <string name="ui_error_favourite_fmt">Mistókst að setja færslu í eftirlæti: %1$s</string>

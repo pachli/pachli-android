@@ -569,7 +569,7 @@
     <string name="select_list_empty">Chan eil liosta agad fhathast</string>
     <string name="error_list_load">Mearachd a’ luchdadh nan liostaichean</string>
     <string name="status_filtered_show_anyway">Seall e co-dhiù</string>
-    <string name="status_filter_placeholder_label_format">Criathraichte: %s</string>
+    <string name="status_filter_placeholder_label_format">Criathraichte: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_account_filter_keywords">Pròifilean</string>
     <string name="hint_filter_title">A’ chriathrag agam</string>
     <string name="filter_description_warn">Falaich le rabhadh</string>

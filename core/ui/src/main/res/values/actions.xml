@@ -49,4 +49,7 @@
 
     <item name="action_dismiss_follow_suggestion" type="id" />
     <item name="action_follow_account" type="id" />
+
+    <item name="action_show_anyway" type="id" />
+    <item name="action_edit_filter" type="id" />
 </resources>

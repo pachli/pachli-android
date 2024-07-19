@@ -550,7 +550,7 @@
     <string name="ui_success_accepted_follow_request">Aceptado o seguimento</string>
     <string name="ui_success_rejected_follow_request">Bloqueada a solicitude de seguimento</string>
     <string name="status_filtered_show_anyway">Mostrar igualmente</string>
-    <string name="status_filter_placeholder_label_format">Filtrado: %s</string>
+    <string name="status_filter_placeholder_label_format">Filtrado: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_account_filter_keywords">Perfís</string>
     <string name="label_filter_title">Título</string>
     <string name="filter_action_warn">Aviso</string>

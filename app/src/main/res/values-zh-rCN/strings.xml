@@ -548,7 +548,7 @@
     <string name="ui_success_accepted_follow_request">关注请求被接受</string>
     <string name="ui_success_rejected_follow_request">关注请求被拦截</string>
     <string name="status_filtered_show_anyway">仍要显示</string>
-    <string name="status_filter_placeholder_label_format">已过滤：%s</string>
+    <string name="status_filter_placeholder_label_format">已过滤：&lt;b>%1$s&lt;/b></string>
     <string name="pref_title_account_filter_keywords">个人资料</string>
     <string name="hint_filter_title">我的筛选器</string>
     <string name="label_filter_title">标题</string>

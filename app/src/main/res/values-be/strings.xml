@@ -551,7 +551,7 @@
     <string name="description_login">Працуе амаль заўсёды. Даныя не ўцякаюць у іншыя праграмы.</string>
     <string name="notification_unknown_name">Невядома</string>
     <string name="status_filtered_show_anyway">Усё роўна паказаць</string>
-    <string name="status_filter_placeholder_label_format">Адфільтрована: %s</string>
+    <string name="status_filter_placeholder_label_format">Адфільтрована: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_account_filter_keywords">Профілі</string>
     <string name="title_public_trending_hashtags">Папулярныя хэштэгі</string>
     <string name="description_browser_login">Можа падтрымліваць дадатковыя метады праверкі сапраўднасці, але для гэтага патрэбны адпаведны браузер.</string>
