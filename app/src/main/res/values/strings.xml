@@ -716,4 +716,109 @@
     <string name="error_load_filter_failed_fmt">Loading filter failed: %1$s</string>
     <string name="error_save_filter_failed_fmt">Saving filter failed: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Deleting filter failed: %1$s</string>
+
+    <string name="search_operator_attachment_dialog_title">Limit to posts with attachments?</string>
+    <string name="search_operator_attachment_dialog_any_label">Any type</string>
+    <string name="search_operator_attachment_dialog_image_label">Images</string>
+    <string name="search_operator_attachment_dialog_video_label">Video</string>
+    <string name="search_operator_attachment_dialog_audio_label">Sound</string>
+
+    <string name="search_operator_attachment_all">Attachments ▾</string>
+
+    <string name="search_operator_attachment_no_media_label">No attachments</string>
+    <string name="search_operator_attachment_kind_image_label">images</string>
+    <string name="search_operator_attachment_kind_video_label">video</string>
+    <string name="search_operator_attachment_kind_audio_label">sound</string>
+
+    <string name="search_operator_attachment_has_media_label">At least one attachment</string>
+    <string name="search_operator_attachment_has_media_except_1_label_fmt">Any except %1$s</string>
+    <string name="search_operator_attachment_has_media_except_2_label_fmt">Any except %1$s, %2$s</string>
+    <string name="search_operator_attachment_has_media_except_3_label_fmt">Any except %1$s, %2$s, %3$s</string>
+
+    <string name="search_operator_attachment_specific_media_include_2_exclude_1_fmt">With %1$s, %2$s, no %3$s</string>
+    <string name="search_operator_attachment_specific_media_include_1_exclude_2_fmt">With %1$s, no %2$s, %3$s</string>
+    <string name="search_operator_attachment_specific_media_include_1_exclude_1_fmt">With %1$s, no %2$s</string>
+    <string name="search_operator_attachment_specific_media_include_1_fmt">With %1$s</string>
+    <string name="search_operator_attachment_specific_media_include_2_fmt">With %1$s, %2$s</string>
+    <string name="search_operator_attachment_specific_media_include_3_fmt">With %1$s, %2$s, %3$s</string>
+    <string name="search_operator_attachment_specific_media_exclude_1_fmt">No %1$s</string>
+    <string name="search_operator_attachment_specific_media_exclude_2_fmt">No %1$s, %2$s</string>
+    <string name="search_operator_attachment_specific_media_exclude_3_fmt">No %1$s, %2$s, %3$s</string>
+
+    <string name="search_operator_attachment_none">None</string>
+    <string name="search_operator_attachment_at_least_one">At least one</string>
+
+    <string name="search_operator_from_all">From ▾</string>
+    <string name="search_operator_from_me">Only my posts</string>
+    <string name="search_operator_from_ignore_me">Not my posts</string>
+    <string name="search_operator_from_account_fmt">Only %1$s</string>
+    <string name="search_operator_from_ignore_account_fmt">Not %1$s</string>
+    <string name="search_operator_from_dialog_title">Limit to specific accounts?</string>
+    <string name="search_operator_from_dialog_all">All accounts</string>
+    <string name="search_operator_from_dialog_me">Only my posts</string>
+    <string name="search_operator_from_dialog_ignore_me">All posts except mine</string>
+    <string name="search_operator_from_dialog_other_account">Only posts from this account</string>
+    <string name="search_operator_from_dialog_ignore_other_account">All posts except this account</string>
+    <string name="search_operator_from_dialog_account_hint">\@account</string>
+
+    <string name="search_operator_poll_dialog_title">Show posts with polls?</string>
+    <string name="search_operator_poll_all">Polls ▾</string>
+    <string name="search_operator_poll_only">Only show polls</string>
+    <string name="search_operator_poll_no_polls">Without polls</string>
+    <string name="search_operator_poll_dialog_all">With or without polls</string>
+    <string name="search_operator_poll_dialog_only">Only posts with polls</string>
+    <string name="search_operator_poll_dialog_no_polls">Only posts without polls</string>
+
+    <string name="search_operator_embed_all">Preview cards ▾</string>
+    <string name="search_operator_embed_only">Only preview cards</string>
+    <string name="search_operator_embed_no_embeds">Without preview cards</string>
+    <string name="search_operator_embed_dialog_title">Show posts with preview cards?</string>
+    <string name="search_operator_embed_dialog_all">With or without preview cards</string>
+    <string name="search_operator_embed_dialog_only">Only posts with preview cards</string>
+    <string name="search_operator_embed_dialog_no_embeds">Only posts without preview cards</string>
+
+    <string name="search_operator_link_all">Links ▾</string>
+    <string name="search_operator_link_only">Only links</string>
+    <string name="search_operator_no_link">Without links</string>
+    <string name="search_operator_link_dialog_title">Show posts with links?</string>
+    <string name="search_operator_link_dialog_all">With or without links</string>
+    <string name="search_operator_link_dialog_only">Only posts with links</string>
+    <string name="search_operator_link_dialog_no_link">Only posts without links</string>
+
+    <string name="search_operator_date_all">Dates ▾</string>
+    <string name="search_operator_date_checked">%1$s - %2$s</string>
+    <string name="search_operator_date_checked_same_day">On %1$s</string>
+    <string name="search_operator_date_dialog_title">Limit to posts between…</string>
+
+    <string name="search_operator_language_dialog_title">Limit to posts written in…</string>
+    <string name="search_operator_language_all">All languages ▾</string>
+    <string name="search_operator_language_checked_fmt">%1$s</string>
+    <string name="search_operator_language_dialog_all">All languages</string>
+
+    <string name="search_operator_replies_all">Include replies ▾</string>
+    <string name="search_operator_replies_replies_only">Only show replies</string>
+    <string name="search_operator_replies_no_replies">Exclude replies</string>
+    <string name="search_operator_replies_dialog_title">Include replies?</string>
+    <string name="search_operator_replies_dialog_all">All posts</string>
+    <string name="search_operator_replies_dialog_replies_only">Only show replies</string>
+    <string name="search_operator_replies_dialog_no_replies">Without replies</string>
+
+    <string name="search_operator_sensitive_all">Include sensitive content ▾</string>
+    <string name="search_operator_sensitive_sensitive_only">Sensitive content only</string>
+    <string name="search_operator_sensitive_no_sensitive">Exclude sensitive content</string>
+    <string name="search_operator_sensitive_dialog_title">Posts with sensitive content</string>
+    <string name="search_operator_sensitive_dialog_all">All posts</string>
+    <string name="search_operator_sensitive_dialog_sensitive_only">Sensitive content only</string>
+    <string name="search_operator_sensitive_dialog_no_sensitive">Exclude sensitive content</string>
+
+    <string name="search_operator_where_all">All posts ▾</string>
+    <string name="search_operator_where_library">Your library</string>
+    <string name="search_operator_where_public">Public posts</string>
+    <string name="search_operator_where_dialog_title">Limit to…</string>
+    <string name="search_operator_where_dialog_all">All posts</string>
+    <string name="search_operator_where_dialog_all_hint">Posts in your library and public posts</string>
+    <string name="search_operator_where_dialog_library">Your library</string>
+    <string name="search_operator_where_dialog_library_hint">Your own posts, boosts, favorites, bookmarks, and posts that @mention you</string>
+    <string name="search_operator_where_dialog_public">Public posts</string>
+    <string name="search_operator_where_dialog_public_hint">Public, searchable posts known by server</string>
 </resources>

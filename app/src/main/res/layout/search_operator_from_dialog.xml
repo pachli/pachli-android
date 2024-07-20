@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="4dp"
+    android:paddingStart="?attr/listPreferredItemPaddingStart"
+    android:paddingEnd="?attr/listPreferredItemPaddingEnd">
+
+    <!-- textNoSuggestions is to disable spell check, it will auto-complete -->
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="4dp">
+
+        <RadioButton
+            android:id="@+id/radioAll"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+            android:text="@string/search_operator_from_dialog_all"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/textColorAlertDialogListItem"
+            tools:ignore="RtlSymmetry" />
+
+        <RadioButton
+            android:id="@+id/radioMe"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+            android:text="@string/search_operator_from_dialog_me"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/textColorAlertDialogListItem"
+            tools:ignore="RtlSymmetry" />
+
+        <RadioButton
+            android:id="@+id/radioIgnoreMe"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/textColorAlertDialogListItem"
+            tools:ignore="RtlSymmetry"
+            android:text="@string/search_operator_from_dialog_ignore_me" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/materialDivider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp" />
+
+        <RadioButton
+            android:id="@+id/radioOtherAccount"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+            android:text="@string/search_operator_from_dialog_other_account"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/textColorAlertDialogListItem"
+            tools:ignore="RtlSymmetry" />
+
+        <RadioButton
+            android:id="@+id/radioIgnoreOtherAccount"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+            android:text="@string/search_operator_from_dialog_ignore_other_account"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/textColorAlertDialogListItem"
+            tools:ignore="RtlSymmetry" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTextInput"
+            android:id="@+id/accountEditTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:hint="@string/search_operator_from_dialog_account_hint"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </RadioGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>

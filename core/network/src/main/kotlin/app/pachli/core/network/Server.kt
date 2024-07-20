@@ -36,6 +36,20 @@ import app.pachli.core.network.ServerKind.SHARKEY
 import app.pachli.core.network.ServerKind.UNKNOWN
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
@@ -89,6 +103,30 @@ enum class ServerOperation(id: String, versions: List<Version>) {
             Version(major = 1, minor = 1),
         ),
     ),
+
+    /** Search for posts from a particular account */
+    ORG_JOINMASTODON_SEARCH_QUERY_FROM(
+        "org.joinmastodon.search.query:from",
+        listOf(
+            // Initial introduction in Mastodon 3.5.0
+            Version(major = 1),
+            // Support for `from:me` in Mastodon 4.2.0
+            Version(major = 1, minor = 1),
+        ),
+    ),
+    ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE("org.joinmastodon.search.query:language", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA("org.joinmastodon.search.query:has:media", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE("org.joinmastodon.search.query:has:image", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO("org.joinmastodon.search.query:has:video", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO("org.joinmastodon.search.query:has:audio", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL("org.joinmastodon.search.query:has:poll", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK("org.joinmastodon.search.query:has:link", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED("org.joinmastodon.search.query:has:embed", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY("org.joinmastodon.search.query:is:reply", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE("org.joinmastodon.search.query:is:sensitive", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY("org.joinmastodon.search.query:in:library", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC("org.joinmastodon.search.query:in:public", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE("org.joinmastodon.search.query:in:public", listOf(Version(major = 1))),
 }
 
 data class Server(
@@ -271,6 +309,33 @@ data class Server(
                     when {
                         v >= "4.0.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                     }
+
+                    // Search operators
+                    when {
+                        v >= "4.3.0".toVersion() -> {
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC] = "1.0.0".toVersion()
+                        }
+
+                        v >= "4.2.0".toVersion() -> {
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_FROM] = "1.1.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE] = "1.0.0".toVersion()
+                        }
+
+                        v >= "3.5.0".toVersion() -> {
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_FROM] = "1.0.0".toVersion()
+                        }
+                    }
                 }
 
                 GOTOSOCIAL -> {
@@ -284,6 +349,14 @@ data class Server(
                         // Implemented in https://github.com/superseriousbusiness/gotosocial/pull/2594
                         v >= "0.15.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
                     }
+
+                    // Search
+                    when {
+                        // from: in https://github.com/superseriousbusiness/gotosocial/pull/2943
+                        v >= "0.16.0".toVersion() -> {
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_FROM] = "1.0.0".toVersion()
+                        }
+                    }
                 }
 
                 // FireFish can't filter (conversation in the Firefish dev. chat )
@@ -292,9 +365,25 @@ data class Server(
                 // Sharkey can't filter, https://activitypub.software/TransFem-org/Sharkey/-/issues/492
                 SHARKEY -> { }
 
+                FRIENDICA -> {
+                    // Assume filter support (may be wrong)
+                    c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
+
+                    // Search
+                    when {
+                        // Friendica has a number of search operators that are not in Mastodon.
+                        // See https://github.com/friendica/friendica/blob/develop/doc/Channels.md
+                        // for details.
+                        v >= "2024.3.0".toVersion() -> {
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_FROM] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE] = "1.0.0".toVersion()
+                        }
+                    }
+                }
+
                 // Everything else. Assume server side filtering and no translation. This may be an
                 // incorrect assumption.
-                AKKOMA, FEDIBIRD, FRIENDICA, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, UNKNOWN -> {
+                AKKOMA, FEDIBIRD, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, UNKNOWN -> {
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                 }
             }

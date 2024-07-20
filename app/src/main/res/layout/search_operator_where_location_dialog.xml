@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<!--
+Displays the options for SearchViewModel.WhereOperator.
+
+This **cannot** be a listview because alert dialogs assume the height of any
+interior listview can be computed by taking the number of items and multiplying
+by the height of the first item (i.e., items are an identical height).
+
+This is not the case for this layout, as the descriptions for the three options
+may span multiple lines, and the different items may be different heights.
+
+This causes AlertDialog to make the list height too small, and enforces scrolling.
+-->
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/where_all_dialog_group"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:minHeight="?attr/listPreferredItemHeight"
+    android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+    android:paddingTop="16dp"
+    android:paddingEnd="?attr/dialogPreferredPadding"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/where_all_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_operator_where_dialog_all"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?attr/textColorAlertDialogListItem"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/where_all_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_operator_where_dialog_all_hint"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="?attr/textColorAlertDialogListItem"
+        android:paddingStart="52dp"
+        android:gravity="center_vertical"
+        tools:ignore="RtlSymmetry" />
+
+    <RadioButton
+        android:id="@+id/where_library_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_operator_where_dialog_library"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?attr/textColorAlertDialogListItem"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+        android:layout_marginTop="8dp"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/where_library_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_operator_where_dialog_library_hint"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="?attr/textColorAlertDialogListItem"
+        android:paddingStart="52dp"
+        android:gravity="center_vertical"
+        tools:ignore="RtlSymmetry" />
+
+    <RadioButton
+        android:id="@+id/where_public_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_operator_where_dialog_public"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?attr/textColorAlertDialogListItem"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+        android:layout_marginTop="8dp"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/where_public_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_operator_where_dialog_public_hint"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="?attr/textColorAlertDialogListItem"
+        android:paddingStart="52dp"
+        android:gravity="center_vertical"
+        tools:ignore="RtlSymmetry" />
+
+</RadioGroup>
