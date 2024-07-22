@@ -197,6 +197,39 @@ class ServerTest(
                 ),
                 arrayOf(
                     Triple(
+                        "GoToSocial 0.15.0 has client filters",
+                        NodeInfo.Software("gotosocial", "0.15.0 git-ccecf5a"),
+                        defaultInstance,
+                    ),
+                    Ok(
+                        Server(
+                            kind = GOTOSOCIAL,
+                            version = "0.15.0".toVersion(),
+                            capabilities = mapOf(
+                                ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
+                            ),
+                        ),
+                    ),
+                ),
+                arrayOf(
+                    Triple(
+                        "GoToSocial 0.16.0 has server filters",
+                        NodeInfo.Software("gotosocial", "0.16.0 git-ccecf5a"),
+                        defaultInstance,
+                    ),
+                    Ok(
+                        Server(
+                            kind = GOTOSOCIAL,
+                            version = "0.16.0".toVersion(),
+                            capabilities = mapOf(
+                                ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
+                                ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                            ),
+                        ),
+                    ),
+                ),
+                arrayOf(
+                    Triple(
                         "Pleroma can filter",
                         NodeInfo.Software("pleroma", "2.6.50-875-g2eb5c453.service-origin+soapbox"),
                         defaultInstance,

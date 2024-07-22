@@ -238,7 +238,7 @@ data class Server(
                 }
 
                 // Uses format "yyyy.mm.dd" with an optional ".beta..." suffix.
-                // https://git.joinsharkey.org/Sharkey/Sharkey/issues/371
+                // https://activitypub.software/TransFem-org/Sharkey/-/issues/371
                 SHARKEY -> {
                     val rx = """^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)""".toRegex()
                     rx.find(version).toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
@@ -265,20 +265,22 @@ data class Server(
                         v >= "2.4.3".toVersion() -> c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.0.0".toVersion()
                     }
 
+                    // Server side filtering
                     when {
                         v >= "4.0.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                     }
                 }
 
                 GOTOSOCIAL -> {
+                    // Filters
                     when {
-                        // Implemented in https://github.com/superseriousbusiness/gotosocial/pull/2594
-                        v >= "0.15.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
                         // Implemented in https://github.com/superseriousbusiness/gotosocial/pull/2936
                         v >= "0.16.0".toVersion() -> {
                             c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
                             c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                         }
+                        // Implemented in https://github.com/superseriousbusiness/gotosocial/pull/2594
+                        v >= "0.15.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
                     }
                 }
 
