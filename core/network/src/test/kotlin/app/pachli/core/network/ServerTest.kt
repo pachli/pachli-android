@@ -26,6 +26,19 @@ import app.pachli.core.network.ServerKind.PLEROMA
 import app.pachli.core.network.ServerKind.UNKNOWN
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Configuration
@@ -133,6 +146,7 @@ class ServerTest(
                             capabilities = mapOf(
                                 ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_FROM to "1.0.0".toVersion(),
                             ),
                         ),
                     ),
@@ -154,6 +168,7 @@ class ServerTest(
                             capabilities = mapOf(
                                 ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_FROM to "1.0.0".toVersion(),
                                 ORG_JOINMASTODON_STATUSES_TRANSLATE to "1.0.0".toVersion(),
                             ),
                         ),
@@ -161,7 +176,7 @@ class ServerTest(
                 ),
                 arrayOf(
                     Triple(
-                        "Mastodon 4.2.0 has has translate 1.1.0",
+                        "Mastodon 4.2.0 has translate 1.1.0",
                         NodeInfo.Software("mastodon", "4.2.0"),
                         defaultInstance.copy(
                             configuration = defaultInstance.configuration.copy(
@@ -176,6 +191,19 @@ class ServerTest(
                             capabilities = mapOf(
                                 ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_FROM to "1.1.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE to "1.0.0".toVersion(),
                                 ORG_JOINMASTODON_STATUSES_TRANSLATE to "1.1.0".toVersion(),
                             ),
                         ),
@@ -224,6 +252,7 @@ class ServerTest(
                             capabilities = mapOf(
                                 ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_FROM to "1.0.0".toVersion(),
                             ),
                         ),
                     ),
