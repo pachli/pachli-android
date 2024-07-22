@@ -259,7 +259,9 @@ data class Server(
         private fun capabilitiesFromServerVersion(kind: ServerKind, v: Version): MutableMap<ServerOperation, Version> {
             val c = mutableMapOf<ServerOperation, Version>()
             when (kind) {
-                MASTODON -> {
+                // Glitch has the same version number as upstream Mastodon
+                GLITCH, MASTODON -> {
+                    // Client filtering
                     when {
                         v >= "3.1.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
                         v >= "2.4.3".toVersion() -> c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.0.0".toVersion()
@@ -292,7 +294,7 @@ data class Server(
 
                 // Everything else. Assume server side filtering and no translation. This may be an
                 // incorrect assumption.
-                AKKOMA, FEDIBIRD, FRIENDICA, GLITCH, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, UNKNOWN -> {
+                AKKOMA, FEDIBIRD, FRIENDICA, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, UNKNOWN -> {
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                 }
             }
