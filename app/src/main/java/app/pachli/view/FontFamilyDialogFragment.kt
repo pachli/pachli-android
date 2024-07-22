@@ -26,9 +26,11 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.R
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.withStyledAttributes
 import androidx.preference.ListPreference
 import androidx.preference.ListPreferenceDialogFragmentCompat
 import app.pachli.core.designsystem.EmbeddedFontFamily
+import kotlin.properties.Delegates
 
 /**
  * Dialog fragment for choosing a font family. Displays the list of font families with each
@@ -38,6 +40,7 @@ class FontFamilyDialogFragment : ListPreferenceDialogFragmentCompat() {
     private var clickedDialogEntryIndex = 0
     private lateinit var entries: Array<CharSequence>
     private lateinit var entryValues: Array<CharSequence>
+    private var itemLayout by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,13 @@ class FontFamilyDialogFragment : ListPreferenceDialogFragmentCompat() {
             entries = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRIES) as Array<CharSequence>
             entryValues = savedInstanceState.getCharSequenceArray(SAVE_STATE_ENTRY_VALUES) as Array<CharSequence>
         }
+
+        // Use the same layout AlertDialog uses, as android.R.layout.simple_list_item_single_choice
+        // puts the radio button at the end of the line, but the default dialog style puts it at
+        // the start.
+        requireContext().withStyledAttributes(null, R.styleable.AlertDialog, R.attr.alertDialogStyle, 0) {
+            itemLayout = getResourceId(R.styleable.AlertDialog_singleChoiceItemLayout, 0)
+        }
     }
 
     override fun onPrepareDialogBuilder(builder: AlertDialog.Builder) {
@@ -61,19 +71,7 @@ class FontFamilyDialogFragment : ListPreferenceDialogFragmentCompat() {
 
         val context = requireContext()
 
-        // Use the same layout AlertDialog uses, as android.R.layout.simple_list_item_single_choice
-        // puts the radio button at the end of the line, but the default dialog style puts it at
-        // the start.
-        val a = context.obtainStyledAttributes(
-            null,
-            R.styleable.AlertDialog,
-            R.attr.alertDialogStyle,
-            0,
-        )
-        val layout = a.getResourceId(R.styleable.AlertDialog_singleChoiceItemLayout, 0)
-        a.recycle()
-
-        val adapter = object : ArrayAdapter<CharSequence>(context, layout, entries) {
+        val adapter = object : ArrayAdapter<CharSequence>(context, itemLayout, entries) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
 
