@@ -102,6 +102,9 @@
     <style name="AppDialog" parent="@style/ThemeOverlay.Material3.Dialog.Alert">
         <item name="android:letterSpacing">0</item>
         <item name="dialogCornerRadius">8dp</item>
+
+        <!-- Sets the colour of the radio button or checkbox in a dialog. -->
+        <item name="colorSecondary">?colorPrimary</item>
     </style>
 
     <style name="AppDialogFragmentStyle" parent="@style/ThemeOverlay.MaterialComponents.Dialog">
