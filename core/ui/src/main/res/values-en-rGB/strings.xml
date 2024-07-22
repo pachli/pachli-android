@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">A network error occurred! Please check your connection and try again!</string>
+    <string name="error_network">A network error occurred. Please check your connection and try again.</string>
     <string name="error_generic">An error occurred.</string>
 </resources>
