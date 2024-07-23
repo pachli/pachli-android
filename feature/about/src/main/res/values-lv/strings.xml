@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Par</string>
     <string name="about_powered_by_pachli">Darbību nodrošina Pachli</string>
     <string name="about_pachli_license">Pachli ir bezmaksas un atvērtā pirmkoda programmatūra. Tā ir licencēta saskaņā ar GNU vispārējās publiskās licences 3. versiju. Licenci var apskatīt šeit: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="about_project_site">Projekta vietne:
 \n https://pachli.app</string>
-    <string name="about_bug_feature_request_site">"Kļūdu ziņojumi un jaunas funkcionalitātes pieprasījumi:
-\n  https://github.com/pachli/pachli-android/issues"</string>
+    <string name="about_bug_feature_request_site">Kļūdu ziņojumi un jaunas funkcionalitātes pieprasījumi:
+\nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Pachli profils</string>
     <string name="title_licenses">Licences</string>
     <string name="license_description">Pachli satur kodu un sastāvdaļas no šādiem atvērtā pirmkoda projektiem:</string>
