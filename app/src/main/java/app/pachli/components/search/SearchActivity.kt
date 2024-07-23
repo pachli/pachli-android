@@ -196,6 +196,8 @@ class SearchActivity :
                                 chip.setCloseIconVisible(viewData.operator.choice != null)
                                 chip.text = viewData.chipLabel(this@SearchActivity)
                             }
+
+                            viewModel.search()
                         }
                     }
                 }
@@ -913,7 +915,7 @@ class SearchActivity :
         if (Intent.ACTION_SEARCH == intent.action) {
             searchView.clearFocus()
             viewModel.currentQuery = intent.getStringExtra(SearchManager.QUERY).orEmpty()
-            viewModel.search(viewModel.currentQuery)
+            viewModel.search()
         }
     }
 
@@ -955,7 +957,7 @@ class SearchActivity :
         // Only focus if the query is empty. This ensures that if the user is returning
         // to the search results after visiting a result the full list is available,
         // instead of being obscured by the keyboard.
-        if (viewModel.currentSearchFieldContent?.isBlank() == true) searchView.requestFocus()
+        if (viewModel.currentQuery.isBlank()) searchView.requestFocus()
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
