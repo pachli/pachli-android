@@ -165,14 +165,14 @@ class SearchViewModel @Inject constructor(
         operators.find { it.javaClass == viewData.javaClass }?.let { operators - it + viewData } ?: (operators + viewData)
     }
 
-    fun search(query: String) {
+    fun search() {
         val operatorQuery = _operatorViewData.value.mapNotNull { it.operator.query() }.joinToString(" ")
-        val finalQuery = if (operatorQuery.isNotBlank()) arrayOf(query, operatorQuery).joinToString(" ") else query
+        currentQuery = if (operatorQuery.isNotBlank()) arrayOf(currentSearchFieldContent, operatorQuery).joinToString(" ") else currentSearchFieldContent ?: ""
 
         loadedStatuses.clear()
-        statusesPagingSourceFactory.newSearch(finalQuery)
-        accountsPagingSourceFactory.newSearch(finalQuery)
-        hashtagsPagingSourceFactory.newSearch(finalQuery)
+        statusesPagingSourceFactory.newSearch(currentQuery)
+        accountsPagingSourceFactory.newSearch(currentQuery)
+        hashtagsPagingSourceFactory.newSearch(currentQuery)
     }
 
     fun removeItem(statusViewData: StatusViewData) {
