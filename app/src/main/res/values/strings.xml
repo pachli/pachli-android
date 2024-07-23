@@ -717,15 +717,15 @@
     <string name="error_save_filter_failed_fmt">Saving filter failed: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Deleting filter failed: %1$s</string>
 
-    <string name="search_operator_attachment_dialog_title">Limit to posts with attachments?</string>
+    <string name="search_operator_attachment_dialog_title">Limit to posts with media?</string>
     <string name="search_operator_attachment_dialog_any_label">Any type</string>
     <string name="search_operator_attachment_dialog_image_label">Images</string>
     <string name="search_operator_attachment_dialog_video_label">Video</string>
     <string name="search_operator_attachment_dialog_audio_label">Sound</string>
 
-    <string name="search_operator_attachment_all">Attachments ▾</string>
+    <string name="search_operator_attachment_all">Media ▾</string>
 
-    <string name="search_operator_attachment_no_media_label">No attachments</string>
+    <string name="search_operator_attachment_no_media_label">No media</string>
     <string name="search_operator_attachment_kind_image_label">images</string>
     <string name="search_operator_attachment_kind_video_label">video</string>
     <string name="search_operator_attachment_kind_audio_label">sound</string>
@@ -791,11 +791,11 @@
     <string name="search_operator_date_dialog_title">Limit to posts between…</string>
 
     <string name="search_operator_language_dialog_title">Limit to posts written in…</string>
-    <string name="search_operator_language_all">All languages ▾</string>
+    <string name="search_operator_language_all">Any language ▾</string>
     <string name="search_operator_language_checked_fmt">%1$s</string>
-    <string name="search_operator_language_dialog_all">All languages</string>
+    <string name="search_operator_language_dialog_all">Any language</string>
 
-    <string name="search_operator_replies_all">Include replies ▾</string>
+    <string name="search_operator_replies_all">With replies ▾</string>
     <string name="search_operator_replies_replies_only">Only show replies</string>
     <string name="search_operator_replies_no_replies">Exclude replies</string>
     <string name="search_operator_replies_dialog_title">Include replies?</string>
@@ -803,7 +803,7 @@
     <string name="search_operator_replies_dialog_replies_only">Only show replies</string>
     <string name="search_operator_replies_dialog_no_replies">Without replies</string>
 
-    <string name="search_operator_sensitive_all">Include sensitive content ▾</string>
+    <string name="search_operator_sensitive_all">With sensitive content ▾</string>
     <string name="search_operator_sensitive_sensitive_only">Sensitive content only</string>
     <string name="search_operator_sensitive_no_sensitive">Exclude sensitive content</string>
     <string name="search_operator_sensitive_dialog_title">Posts with sensitive content</string>
