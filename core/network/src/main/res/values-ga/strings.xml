@@ -10,4 +10,5 @@
     <string name="node_info_error_no_software_version">tá leagan bogearraí in easnamh, folamh nó bán</string>
     <string name="server_error_unparseable_version">Níorbh fhéidir \"%1$s\" a pharsáil mar leagan: %2$s</string>
     <string name="error_network_fmt">Tharla earráid líonra: %s</string>
+    <string name="error_429_rate_limit_fmt">tá teorainn rátaí ag do fhreastalaí d\'iarratais: %1$s</string>
 </resources>
