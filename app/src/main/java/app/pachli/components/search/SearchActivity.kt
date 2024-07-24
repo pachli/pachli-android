@@ -25,6 +25,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.annotation.OptIn
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
@@ -70,6 +71,7 @@ import app.pachli.components.search.adapter.SearchPagerAdapter
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.toggleVisibility
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.network.Server
@@ -98,7 +100,11 @@ import app.pachli.databinding.SearchOperatorDateDialogBinding
 import app.pachli.databinding.SearchOperatorFromDialogBinding
 import app.pachli.databinding.SearchOperatorWhereLocationDialogBinding
 import com.github.michaelbull.result.get
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.chip.Chip
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -124,6 +130,9 @@ class SearchActivity :
     private val binding by viewBinding(ActivitySearchBinding::inflate)
 
     private lateinit var searchView: SearchView
+
+    val showFilterIcon: Boolean
+        get() = viewModel.availableOperators.value.isNotEmpty()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -156,6 +165,7 @@ class SearchActivity :
      * Binds the initial search operator chips UI and updates as the search
      * operators change.
      */
+    @OptIn(ExperimentalBadgeUtils::class)
     private fun bindOperators() {
         val viewDataToChip: Map<Class<out SearchOperatorViewData<SearchOperator>>, Chip> = mapOf(
             DateOperatorViewData::class.java to binding.chipDate,
@@ -169,6 +179,18 @@ class SearchActivity :
             LanguageOperatorViewData::class.java to binding.chipLanguage,
             WhereOperatorViewData::class.java to binding.chipWhere,
         )
+
+        // Chips are initially hidden, toggled by the "filter" button
+        binding.chipsFilter.hide()
+        binding.chipsFilter2.hide()
+        binding.chipsFilter3.hide()
+
+        // Badge to draw on the filter button if any filters are active.
+        val filterBadgeDrawable = BadgeDrawable.create(this).apply {
+            text = "!"
+            backgroundColor = MaterialColors.getColor(binding.toolbar, com.google.android.material.R.attr.colorPrimary)
+        }
+        BadgeUtils.attachBadgeDrawable(filterBadgeDrawable, binding.toolbar, R.id.action_filter_search)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -190,16 +212,27 @@ class SearchActivity :
                 }
 
                 launch {
+                    viewModel.availableOperators.collectLatest {
+                        invalidateOptionsMenu()
+                        setSearchViewWidth(showFilterIcon)
+                    }
+                }
+
+                launch {
                     viewModel.operatorViewData.collectLatest { operators ->
+                        var showFilterBadgeDrawable = false
+
                         operators.forEach { viewData ->
                             viewDataToChip[viewData::class.java]?.let { chip ->
+                                showFilterBadgeDrawable = showFilterBadgeDrawable or (viewData.operator.choice != null)
                                 chip.isChecked = viewData.operator.choice != null
                                 chip.setCloseIconVisible(viewData.operator.choice != null)
                                 chip.text = viewData.chipLabel(this@SearchActivity)
                             }
-
-                            viewModel.search()
                         }
+
+                        filterBadgeDrawable.setVisible(showFilterBadgeDrawable)
+                        viewModel.search()
                     }
                 }
             }
@@ -933,15 +966,35 @@ class SearchActivity :
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         super.onCreateMenu(menu, menuInflater)
         menuInflater.inflate(R.menu.search_toolbar, menu)
+
+        menu.findItem(R.id.action_filter_search)?.apply {
+            icon = makeIcon(this@SearchActivity, GoogleMaterial.Icon.gmd_tune, IconicsSize.dp(20))
+        }
+
         val searchViewMenuItem = menu.findItem(R.id.action_search)
         searchViewMenuItem.expandActionView()
         searchView = searchViewMenuItem.actionView as SearchView
         bindSearchView()
     }
 
+    override fun onPrepareMenu(menu: Menu) {
+        menu.findItem(R.id.action_filter_search)?.apply {
+            isVisible = showFilterIcon
+        }
+        return super<BottomSheetActivity>.onPrepareMenu(menu)
+    }
+
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        super.onMenuItemSelected(menuItem)
-        return false
+        return when (menuItem.itemId) {
+            R.id.action_filter_search -> {
+                binding.chipsFilter.toggleVisibility()
+                binding.chipsFilter2.toggleVisibility()
+                binding.chipsFilter3.toggleVisibility()
+                true
+            }
+
+            else -> super.onMenuItemSelected(menuItem)
+        }
     }
 
     private fun getPageTitle(position: Int): CharSequence {
@@ -965,6 +1018,28 @@ class SearchActivity :
         searchView.setIconifiedByDefault(false)
         searchView.setSearchableInfo((getSystemService(Context.SEARCH_SERVICE) as? SearchManager)?.getSearchableInfo(componentName))
 
+
+        setSearchViewWidth(showFilterIcon)
+
+        // Keep text that was entered also when switching to a different tab (before the search is executed)
+        searchView.setOnQueryTextListener(this)
+        searchView.setQuery(viewModel.currentSearchFieldContent ?: "", false)
+
+        // Only focus if the query is empty. This ensures that if the user is returning
+        // to the search results after visiting a result the full list is available,
+        // instead of being obscured by the keyboard.
+        if (viewModel.currentQuery.isBlank()) searchView.requestFocus()
+    }
+
+    /**
+     * Compute and set the width of [searchView].
+     *
+     * @param showingFilterIcon True if the filter icon is showing and the width should
+     * be adjusted to account for this.
+     */
+    private fun setSearchViewWidth(showingFilterIcon: Boolean) {
+        if (!this::searchView.isInitialized) return
+
         // SearchView has a bug. If it's displayed 'app:showAsAction="always"' it's too wide,
         // pushing other icons (including the options menu '...' icon) off the edge of the
         // screen.
@@ -986,20 +1061,11 @@ class SearchActivity :
         // It appears to be impossible to override this behaviour on API level < 33.
         //
         // SearchView does allow you to specify the maximum width. So take the screen width,
-        // subtract 48dp * 2 (for the menu icon and back icon on either side), convert to pixels,
-        // and use that.
+        // subtract 48dp * iconCount (for the menu, filter, and back icons), convert to pixels, and use that.
+        val iconCount = if (showingFilterIcon) 3 else 2
         val pxScreenWidth = resources.displayMetrics.widthPixels
-        val pxBuffer = ((48 * 2) * resources.displayMetrics.density).toInt()
+        val pxBuffer = ((48 * iconCount) * resources.displayMetrics.density).toInt()
         searchView.maxWidth = pxScreenWidth - pxBuffer
-
-        // Keep text that was entered also when switching to a different tab (before the search is executed)
-        searchView.setOnQueryTextListener(this)
-        searchView.setQuery(viewModel.currentSearchFieldContent ?: "", false)
-
-        // Only focus if the query is empty. This ensures that if the user is returning
-        // to the search results after visiting a result the full list is available,
-        // instead of being obscured by the keyboard.
-        if (viewModel.currentQuery.isBlank()) searchView.requestFocus()
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

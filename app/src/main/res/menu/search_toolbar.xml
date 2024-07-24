@@ -9,4 +9,9 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         android:actionLayout="@layout/search_view"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_filter_search"
+        android:title="Filter search"
+        app:showAsAction="always" />
 </menu>

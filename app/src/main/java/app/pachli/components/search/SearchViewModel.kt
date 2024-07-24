@@ -36,6 +36,20 @@ import app.pachli.components.search.adapter.SearchPagingSourceFactory
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
+import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
@@ -47,7 +61,9 @@ import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure
+import com.github.michaelbull.result.mapBoth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -118,6 +134,68 @@ class SearchViewModel @Inject constructor(
         null,
     )
 
+    /**
+     * Set of operators the server supports.
+     *
+     * Empty set if the server does not support any operators.
+     */
+    val availableOperators = serverRepository.flow.map { result ->
+        result.mapBoth(
+            { server ->
+                buildSet {
+                    val constraint100 = ">=1.0.0".toConstraint()
+                    val canHasMedia = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA, constraint100)
+                    val canHasImage = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE, constraint100)
+                    val canHasVideo = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO, constraint100)
+                    val canHasAudio = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO, constraint100)
+                    if (canHasMedia || canHasImage || canHasVideo || canHasAudio) {
+                        add(HasMediaOperator())
+                    }
+
+                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE, constraint100)) {
+                        add(DateOperator())
+                    }
+
+                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_FROM, constraint100)) {
+                        add(FromOperator())
+                    }
+
+                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE, constraint100)) {
+                        add(LanguageOperator())
+                    }
+
+                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK, constraint100)) {
+                        add(HasLinkOperator())
+                    }
+                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED, constraint100)) {
+                        add(HasEmbedOperator())
+                    }
+
+                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL, constraint100)) {
+                        add(HasPollOperator())
+                    }
+                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY, constraint100)) {
+                        add(IsReplyOperator())
+                    }
+                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE, constraint100)) {
+                        add(IsSensitiveOperator())
+                    }
+
+                    val canInLibrary = server.can(ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY, constraint100)
+                    val canInPublic = server.can(ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC, constraint100)
+                    if (canInLibrary || canInPublic) add(WhereOperator())
+                }
+            },
+            {
+                emptySet()
+            },
+        )
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        emptySet(),
+    )
+
     private val loadedStatuses: MutableList<StatusViewData> = mutableListOf()
 
     private val statusesPagingSourceFactory = SearchPagingSourceFactory(mastodonApi, SearchType.Status, loadedStatuses) {
@@ -162,7 +240,7 @@ class SearchViewModel @Inject constructor(
      * with [viewData].
      */
     fun <T : SearchOperator> replaceOperator(viewData: SearchOperatorViewData<T>) = _operatorViewData.update { operators ->
-        operators.find { it.javaClass == viewData.javaClass }?.let { operators - it + viewData } ?: (operators + viewData)
+        operators.find { it.javaClass == viewData.javaClass }?.let { operators - it + viewData } ?: operators
     }
 
     fun search() {
