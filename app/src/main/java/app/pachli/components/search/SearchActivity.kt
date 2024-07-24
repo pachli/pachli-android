@@ -1018,7 +1018,6 @@ class SearchActivity :
         searchView.setIconifiedByDefault(false)
         searchView.setSearchableInfo((getSystemService(Context.SEARCH_SERVICE) as? SearchManager)?.getSearchableInfo(componentName))
 
-
         setSearchViewWidth(showFilterIcon)
 
         // Keep text that was entered also when switching to a different tab (before the search is executed)
