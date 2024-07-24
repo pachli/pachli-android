@@ -165,6 +165,7 @@
     <string name="action_accept">Accept</string>
     <string name="action_reject">Reject</string>
     <string name="action_search">Search</string>
+    <string name="action_filter_search">Filter search</string>
     <string name="action_access_drafts">Drafts</string>
     <string name="action_access_scheduled_posts">Scheduled posts</string>
     <string name="action_toggle_visibility">Post visibility</string>
