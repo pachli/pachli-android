@@ -397,7 +397,7 @@ class SearchActivity :
                     when (choice) {
                         null -> R.id.radioAll
                         DateChoice.Today -> R.id.radioLastDay
-                        DateChoice.Last7Days -> R.id.radioLastWeek
+                        DateChoice.Last7Days -> R.id.radioLast7Days
                         DateChoice.Last30Days -> R.id.radioLast30Days
                         DateChoice.Last6Months -> R.id.radioLast6Months
                         is DateChoice.DateRange -> -1
@@ -449,7 +449,7 @@ class SearchActivity :
                 if (button == AlertDialog.BUTTON_POSITIVE) {
                     val operator = when (dialogBinding.radioGroup.checkedRadioButtonId) {
                         R.id.radioLastDay -> DateChoice.Today
-                        R.id.radioLastWeek -> DateChoice.Last7Days
+                        R.id.radioLast7Days -> DateChoice.Last7Days
                         R.id.radioLast30Days -> DateChoice.Last30Days
                         R.id.radioLast6Months -> DateChoice.Last6Months
                         else -> null

@@ -56,7 +56,7 @@
             tools:ignore="RtlSymmetry" />
 
         <RadioButton
-            android:id="@+id/radioLastWeek"
+            android:id="@+id/radioLast7Days"
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
