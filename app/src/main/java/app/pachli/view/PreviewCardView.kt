@@ -17,10 +17,12 @@
 
 package app.pachli.view
 
+import app.pachli.core.designsystem.R as DR
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -31,7 +33,6 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.PreviewCard
 import app.pachli.databinding.PreviewCardBinding
 import com.bumptech.glide.Glide
@@ -132,7 +133,9 @@ class PreviewCardView @JvmOverloads constructor(
 
         previewCardWrapper.setOnClickListener { listener.onClick(card, Target.CARD) }
         cardImage.setOnClickListener { listener.onClick(card, Target.IMAGE) }
-        byline.setOnClickListener { listener.onClick(card, Target.BYLINE) }
+        byline.referencedIds.forEach { id ->
+            root.findViewById<View>(id).setOnClickListener { listener.onClick(card, Target.BYLINE) }
+        }
 
         cardLink.text = card.url
 
@@ -143,6 +146,7 @@ class PreviewCardView @JvmOverloads constructor(
         // 2. Card has a blurhash, use that as the image, or
         // 3. Use R.drawable.card_image_placeholder
         if (statusDisplayOptions.mediaPreviewEnabled && (!sensitive || statusDisplayOptions.showSensitiveMedia) && !card.image.isNullOrBlank()) {
+            cardImage.show()
             cardImage.shapeAppearanceModel = if (card.width > card.height) {
                 setTopBottomLayout()
             } else {
@@ -162,6 +166,7 @@ class PreviewCardView @JvmOverloads constructor(
                 builder.into(cardImage)
             }
         } else if (statusDisplayOptions.useBlurhash && !card.blurhash.isNullOrBlank()) {
+            cardImage.show()
             cardImage.shapeAppearanceModel = setLeftRightLayout().build()
             cardImage.scaleType = ImageView.ScaleType.CENTER_CROP
 
@@ -170,12 +175,7 @@ class PreviewCardView @JvmOverloads constructor(
                 .dontTransform()
                 .into(cardImage)
         } else {
-            cardImage.shapeAppearanceModel = setLeftRightLayout().build()
-            cardImage.scaleType = ImageView.ScaleType.CENTER
-
-            Glide.with(cardImage.context)
-                .load(R.drawable.card_image_placeholder)
-                .into(cardImage)
+            cardImage.hide()
         }
 
         card.authors?.firstOrNull()?.account?.let { account ->
@@ -191,12 +191,10 @@ class PreviewCardView @JvmOverloads constructor(
     /** Adjusts the layout parameters to place the image above the information views */
     private fun setTopBottomLayout() = with(binding) {
         val cardImageShape = ShapeAppearanceModel.Builder()
-        previewCardWrapper.orientation = VERTICAL
         cardImage.layoutParams.height =
             cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_vertical_height)
         cardImage.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
         cardInfo.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-        cardInfo.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
         cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
         cardImageShape.setTopRightCorner(CornerFamily.ROUNDED, cardCornerRadius)
         return@with cardImageShape
@@ -205,7 +203,6 @@ class PreviewCardView @JvmOverloads constructor(
     /** Adjusts the layout parameters to place the image on the left, the information on the right */
     private fun setLeftRightLayout() = with(binding) {
         val cardImageShape = ShapeAppearanceModel.Builder()
-        previewCardWrapper.orientation = HORIZONTAL
         cardImage.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
         cardImage.layoutParams.width =
             cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_horizontal_width)
