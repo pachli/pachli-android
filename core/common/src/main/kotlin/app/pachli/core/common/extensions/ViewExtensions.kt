@@ -30,3 +30,11 @@ fun View.hide() {
 fun View.visible(visible: Boolean, or: Int = View.GONE) {
     this.visibility = if (visible) View.VISIBLE else or
 }
+
+fun View.toggleVisibility() {
+    when (this.visibility) {
+        View.GONE -> this.show()
+        View.INVISIBLE -> this.show()
+        View.VISIBLE -> this.hide()
+    }
+}

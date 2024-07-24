@@ -21,100 +21,141 @@
             app:layout_scrollFlags="scroll|snap|enterAlways"
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipsFilter"
-            android:layout_width="match_parent"
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="?listPreferredItemPaddingStart"
-            android:paddingEnd="?listPreferredItemPaddingEnd"
             app:layout_scrollFlags="scroll|snap|enterAlways"
-            android:animateLayoutChanges="true">
+            android:scrollbars="none">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipFrom"
-                style="@style/Widget.Material3.Chip.Suggestion"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:chipIconEnabled="true"
-                android:text="@string/search_operator_from_all" />
+                android:paddingStart="?listPreferredItemPaddingStart"
+                android:paddingEnd="?listPreferredItemPaddingEnd"
+                app:singleLine="true"
+                android:animateLayoutChanges="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipDate"
-                style="@style/Widget.Material3.Chip.Suggestion"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFrom"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIconEnabled="true"
+                    android:text="@string/search_operator_from_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDate"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIconEnabled="true"
+                    android:text="@string/search_operator_date_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipLanguage"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIconEnabled="true"
+                    android:text="@string/search_operator_language_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipWhere"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIconEnabled="true"
+                    android:text="@string/search_operator_where_all" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|snap|enterAlways"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsFilter2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:chipIconEnabled="true"
-                android:text="@string/search_operator_date_all" />
+                android:paddingStart="?listPreferredItemPaddingStart"
+                android:paddingEnd="?listPreferredItemPaddingEnd"
+                app:singleLine="true"
+                android:animateLayoutChanges="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipLanguage"
-                style="@style/Widget.Material3.Chip.Suggestion"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_has_media"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_attach_file_24dp"
+                    app:chipIconEnabled="true"
+                    android:text="@string/search_operator_attachment_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_has_poll"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_attach_file_24dp"
+                    app:chipIconEnabled="true"
+                    android:text="@string/search_operator_poll_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_has_link"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_link_24"
+                    app:chipIconEnabled="true"
+                    android:text="@string/search_operator_link_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_has_embed"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIconEnabled="true"
+                    android:text="@string/search_operator_embed_all" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|snap|enterAlways"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsFilter3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:chipIconEnabled="true"
-                android:text="@string/search_operator_language_all" />
+                android:paddingStart="?listPreferredItemPaddingStart"
+                android:paddingEnd="?listPreferredItemPaddingEnd"
+                app:singleLine="true"
+                android:animateLayoutChanges="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_has_media"
-                style="@style/Widget.Material3.Chip.Suggestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipIcon="@drawable/ic_attach_file_24dp"
-                app:chipIconEnabled="true"
-                android:text="@string/search_operator_attachment_all" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_is_reply"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_reply_all_24dp"
+                    app:chipIconEnabled="true"
+                    android:text="@string/search_operator_replies_all" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_is_reply"
-                style="@style/Widget.Material3.Chip.Suggestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipIcon="@drawable/ic_reply_all_24dp"
-                app:chipIconEnabled="true"
-                android:text="@string/search_operator_replies_all" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_is_sensitive"
-                style="@style/Widget.Material3.Chip.Suggestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipIcon="@drawable/ic_eye_24dp"
-                app:chipIconEnabled="true"
-                android:text="@string/search_operator_sensitive_all" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_has_poll"
-                style="@style/Widget.Material3.Chip.Suggestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipIcon="@drawable/ic_attach_file_24dp"
-                app:chipIconEnabled="true"
-                android:text="@string/search_operator_poll_all" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_has_embed"
-                style="@style/Widget.Material3.Chip.Suggestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipIconEnabled="true"
-                android:text="@string/search_operator_embed_all" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_has_link"
-                style="@style/Widget.Material3.Chip.Suggestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipIcon="@drawable/ic_link_24"
-                app:chipIconEnabled="true"
-                android:text="@string/search_operator_link_all" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipWhere"
-                style="@style/Widget.Material3.Chip.Suggestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:chipIconEnabled="true"
-                android:text="@string/search_operator_where_all" />
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_is_sensitive"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_eye_24dp"
+                    app:chipIconEnabled="true"
+                    android:text="@string/search_operator_sensitive_all" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
