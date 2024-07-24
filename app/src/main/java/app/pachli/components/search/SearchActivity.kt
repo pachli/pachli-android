@@ -35,7 +35,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
 import app.pachli.components.compose.ComposeAutoCompleteAdapter
 import app.pachli.components.search.SearchOperator.DateOperator
-import app.pachli.components.search.SearchOperator.DateOperator.DateRange
+import app.pachli.components.search.SearchOperator.DateOperator.DateChoice
 import app.pachli.components.search.SearchOperator.FromOperator
 import app.pachli.components.search.SearchOperator.FromOperator.FromKind.FromAccount
 import app.pachli.components.search.SearchOperator.FromOperator.FromKind.FromMe
@@ -94,6 +94,7 @@ import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivitySearchBinding
 import app.pachli.databinding.SearchOperatorAttachmentDialogBinding
+import app.pachli.databinding.SearchOperatorDateDialogBinding
 import app.pachli.databinding.SearchOperatorFromDialogBinding
 import app.pachli.databinding.SearchOperatorWhereLocationDialogBinding
 import com.github.michaelbull.result.get
@@ -389,30 +390,72 @@ class SearchActivity :
             binding.chipDate.toggle()
 
             lifecycleScope.launch {
-                val picker = MaterialDatePicker.Builder.dateRangePicker()
-                    .setTitleText(R.string.search_operator_date_dialog_title)
-                    .setCalendarConstraints(
-                        CalendarConstraints.Builder()
-                            .setValidator(DateValidatorPointBackward.now())
-                            // Default behaviour is to show two months, with the current month
-                            // at the top. This wastes space, as the user can't select beyond
-                            // the current month, so open one month earlier to show this month
-                            // and the previous month on screen.
-                            .setOpenAt(
-                                LocalDateTime.now().minusMonths(1).toInstant(ZoneOffset.UTC).toEpochMilli(),
-                            )
-                            .build(),
+                val dialogBinding = SearchOperatorDateDialogBinding.inflate(layoutInflater, null, false)
+                val choice = viewModel.getOperator<DateOperator>()?.choice
 
-                    )
-                    .build()
-                    .await(supportFragmentManager, "dateRangePicker")
+                dialogBinding.radioGroup.check(
+                    when (choice) {
+                        null -> R.id.radioAll
+                        DateChoice.Today -> R.id.radioLastDay
+                        DateChoice.Last7Days -> R.id.radioLastWeek
+                        DateChoice.Last30Days -> R.id.radioLast30Days
+                        DateChoice.Last6Months -> R.id.radioLast6Months
+                        is DateChoice.DateRange -> -1
+                    },
+                )
 
-                picker ?: return@launch
+                val dialog = AlertDialog.Builder(this@SearchActivity)
+                    .setView(dialogBinding.root)
+                    .setTitle(R.string.search_operator_date_dialog_title)
+                    .create()
 
-                val after = Instant.ofEpochMilli(picker.first).atOffset(ZoneOffset.UTC).toLocalDate()
-                val before = Instant.ofEpochMilli(picker.second).atOffset(ZoneOffset.UTC).toLocalDate()
+                // Wait until the dialog is shown to set up the custom range button click
+                // listener, as it needs a reference to the dialog to be able to dismiss
+                // it if appropriate.
+                dialog.setOnShowListener {
+                    dialogBinding.buttonCustomRange.setOnClickListener {
+                        launch {
+                            val picker = MaterialDatePicker.Builder.dateRangePicker()
+                                .setTitleText(R.string.search_operator_date_dialog_title)
+                                .setCalendarConstraints(
+                                    CalendarConstraints.Builder()
+                                        .setValidator(DateValidatorPointBackward.now())
+                                        // Default behaviour is to show two months, with the current month
+                                        // at the top. This wastes space, as the user can't select beyond
+                                        // the current month, so open one month earlier to show this month
+                                        // and the previous month on screen.
+                                        .setOpenAt(
+                                            LocalDateTime.now().minusMonths(1).toInstant(ZoneOffset.UTC).toEpochMilli(),
+                                        )
+                                        .build(),
 
-                viewModel.replaceOperator(SearchOperatorViewData.from(DateOperator(DateRange(after, before))))
+                                    )
+                                .build()
+                                .await(supportFragmentManager, "dateRangePicker")
+
+                            picker ?: return@launch
+
+                            val after = Instant.ofEpochMilli(picker.first).atOffset(ZoneOffset.UTC).toLocalDate()
+                            val before = Instant.ofEpochMilli(picker.second).atOffset(ZoneOffset.UTC).toLocalDate()
+
+                            viewModel.replaceOperator(SearchOperatorViewData.from(DateOperator(DateChoice.DateRange(after, before))))
+                            dialog.dismiss()
+                        }
+                    }
+                }
+
+                val button = dialog.await(android.R.string.ok, android.R.string.cancel)
+
+                if (button == AlertDialog.BUTTON_POSITIVE) {
+                    val operator = when (dialogBinding.radioGroup.checkedRadioButtonId) {
+                        R.id.radioLastDay -> DateChoice.Today
+                        R.id.radioLastWeek -> DateChoice.Last7Days
+                        R.id.radioLast30Days -> DateChoice.Last30Days
+                        R.id.radioLast6Months -> DateChoice.Last6Months
+                        else -> null
+                    }
+                    viewModel.replaceOperator(SearchOperatorViewData.from(DateOperator(operator)))
+                }
             }
         }
     }

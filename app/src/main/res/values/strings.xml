@@ -788,7 +788,13 @@
     <string name="search_operator_date_all">Dates ▾</string>
     <string name="search_operator_date_checked">%1$s - %2$s</string>
     <string name="search_operator_date_checked_same_day">On %1$s</string>
-    <string name="search_operator_date_dialog_title">Limit to posts between…</string>
+    <string name="search_operator_date_dialog_title">Limit to posts sent…</string>
+    <string name="search_operator_date_dialog_all">Any time</string>
+    <string name="search_operator_date_dialog_today">Today</string>
+    <string name="search_operator_date_dialog_last_7_days">Last 7 days</string>
+    <string name="search_operator_date_dialog_last_30_days">Last 30 days</string>
+    <string name="search_operator_date_dialog_last_6_months">Last 6 months</string>
+    <string name="search_operator_date_dialog_custom_range">Custom range</string>
 
     <string name="search_operator_language_dialog_title">Limit to posts written in…</string>
     <string name="search_operator_language_all">Any language ▾</string>

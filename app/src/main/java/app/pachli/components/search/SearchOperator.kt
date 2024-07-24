@@ -19,7 +19,9 @@ package app.pachli.components.search
 
 import app.pachli.BuildConfig
 import app.pachli.util.modernLanguageCode
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -111,26 +113,58 @@ sealed interface SearchOperator {
     }
 
     /** The date-range operator. Creates `after:... before:...`. */
-    class DateOperator(override val choice: DateRange? = null) : SearchOperator {
-        /**
-         * The date range to search.
-         *
-         * @param startDate Earliest date to search (inclusive)
-         * @param endDate Latest date to search (inclusive)
-         */
-        data class DateRange(val startDate: LocalDate, val endDate: LocalDate) {
-            // This class treats the date range as **inclusive** of the start and
-            // end dates, Mastodon's search treats the dates as exclusive, so the
-            // range must be expanded by one day in each direction when creating
-            // the search string.
-            fun fmt() = "after:${formatter.format(startDate.minusDays(1))} before:${formatter.format(endDate.plusDays(1))}"
+    class DateOperator(override val choice: DateChoice? = null) : SearchOperator {
+        sealed interface DateChoice {
+            fun fmt(): String
 
-            companion object {
-                private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            data object Today : DateChoice {
+                override fun fmt(): String {
+                    val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate()
+                    return "after:${now.minusDays(1)}"
+                }
+            }
+
+            data object Last7Days : DateChoice {
+                override fun fmt(): String {
+                    val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate()
+                    return "after:${now.minusDays(7)}"
+                }
+            }
+
+            data object Last30Days : DateChoice {
+                override fun fmt(): String {
+                    val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate()
+                    return "after:${now.minusDays(30)}"
+                }
+            }
+
+            data object Last6Months : DateChoice {
+                override fun fmt(): String {
+                    val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate()
+                    return "after:${now.minusMonths(6)}"
+                }
+            }
+
+            /**
+             * The date range to search.
+             *
+             * @param startDate Earliest date to search (inclusive)
+             * @param endDate Latest date to search (inclusive)
+             */
+            data class DateRange(val startDate: LocalDate, val endDate: LocalDate) : DateChoice {
+                // This class treats the date range as **inclusive** of the start and
+                // end dates, Mastodon's search treats the dates as exclusive, so the
+                // range must be expanded by one day in each direction when creating
+                // the search string.
+                override fun fmt() = "after:${formatter.format(startDate.minusDays(1))} before:${formatter.format(endDate.plusDays(1))}"
             }
         }
 
         override fun query() = choice?.fmt()
+
+        companion object {
+            private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        }
     }
 
     /** The `from:...` operator. */
