@@ -86,7 +86,11 @@ abstract class SearchFragment<T : Any> :
 
             val isNewSearch = currentQuery != viewModel.currentQuery
 
-            binding.searchProgressBar.visible(loadState.refresh == LoadState.Loading && isNewSearch && !binding.swipeRefreshLayout.isRefreshing)
+            if (loadState.refresh == LoadState.Loading && isNewSearch && !binding.swipeRefreshLayout.isRefreshing) {
+                binding.searchProgressBar.show()
+            } else {
+                binding.searchProgressBar.hide()
+            }
             binding.searchRecyclerView.visible(loadState.refresh is LoadState.NotLoading || !isNewSearch || binding.swipeRefreshLayout.isRefreshing)
 
             if (loadState.refresh != LoadState.Loading) {
