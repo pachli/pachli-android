@@ -185,19 +185,23 @@ sealed interface SearchOperatorViewData<out T : SearchOperator> {
     data class DateOperatorViewData(override val operator: DateOperator) : SearchOperatorViewData<DateOperator> {
         private val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
-        override fun chipLabel(context: Context) = when (operator.choice) {
+        override fun chipLabel(context: Context) = when (val choice = operator.choice) {
             null -> context.getString(R.string.search_operator_date_all)
-            else -> {
-                if (operator.choice.startDate == operator.choice.endDate) {
+            DateOperator.DateChoice.Today -> context.getString(R.string.search_operator_date_dialog_today)
+            DateOperator.DateChoice.Last7Days -> context.getString(R.string.search_operator_date_dialog_last_7_days)
+            DateOperator.DateChoice.Last30Days -> context.getString(R.string.search_operator_date_dialog_last_30_days)
+            DateOperator.DateChoice.Last6Months -> context.getString(R.string.search_operator_date_dialog_last_6_months)
+            is DateOperator.DateChoice.DateRange -> {
+                if (choice.startDate == choice.endDate) {
                     context.getString(
                         R.string.search_operator_date_checked_same_day,
-                        formatter.format(operator.choice.startDate),
+                        formatter.format(choice.startDate),
                     )
                 } else {
                     context.getString(
                         R.string.search_operator_date_checked,
-                        formatter.format(operator.choice.startDate),
-                        formatter.format(operator.choice.endDate),
+                        formatter.format(choice.startDate),
+                        formatter.format(choice.endDate),
                     )
                 }
             }

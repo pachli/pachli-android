@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="4dp"
+    android:paddingStart="?attr/listPreferredItemPaddingStart"
+    android:paddingEnd="?attr/listPreferredItemPaddingEnd">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioAll"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+            android:text="@string/search_operator_date_dialog_all"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/textColorAlertDialogListItem"
+            tools:ignore="RtlSymmetry" />
+
+        <RadioButton
+            android:id="@+id/radioLastDay"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+            android:text="@string/search_operator_date_dialog_today"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/textColorAlertDialogListItem"
+            tools:ignore="RtlSymmetry" />
+
+        <RadioButton
+            android:id="@+id/radioLast7Days"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+            android:text="@string/search_operator_date_dialog_last_7_days"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/textColorAlertDialogListItem"
+            tools:ignore="RtlSymmetry" />
+
+        <RadioButton
+            android:id="@+id/radioLast30Days"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+            android:text="@string/search_operator_date_dialog_last_30_days"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/textColorAlertDialogListItem"
+            tools:ignore="RtlSymmetry" />
+
+        <RadioButton
+            android:id="@+id/radioLast6Months"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeightSmall"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/abc_select_dialog_padding_start_material"
+            android:text="@string/search_operator_date_dialog_last_6_months"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/textColorAlertDialogListItem"
+            tools:ignore="RtlSymmetry" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonCustomRange"
+        style="@style/Widget.Material3.Button.TextButton.Dialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/search_operator_date_dialog_custom_range"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+</androidx.constraintlayout.widget.ConstraintLayout>
