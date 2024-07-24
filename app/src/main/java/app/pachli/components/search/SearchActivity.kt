@@ -428,8 +428,7 @@ class SearchActivity :
                                             LocalDateTime.now().minusMonths(1).toInstant(ZoneOffset.UTC).toEpochMilli(),
                                         )
                                         .build(),
-
-                                    )
+                                )
                                 .build()
                                 .await(supportFragmentManager, "dateRangePicker")
 
