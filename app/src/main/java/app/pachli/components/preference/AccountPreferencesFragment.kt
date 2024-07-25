@@ -16,7 +16,6 @@
 
 package app.pachli.components.preference
 
-import app.pachli.core.designsystem.R as DR
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -37,6 +36,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.FiltersActivityIntent
 import app.pachli.core.navigation.FollowedTagsActivityIntent
