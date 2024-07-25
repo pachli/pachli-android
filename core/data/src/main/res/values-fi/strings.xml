@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="server_repository_error_get_well_known_node_info">haku /.well-known/nodeinfo epäonnistui: %1$s</string>
     <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo ei sisältänyt ymmärrettäviä kaavoja</string>
@@ -6,4 +6,5 @@
     <string name="server_repository_error_validate_node_info">solmun %1$s tietojen validointi epäonnistui: %2$s</string>
     <string name="server_repository_error_get_instance_info">haku /api/v1/instance epäonnistui: %1$s</string>
     <string name="server_repository_error_capabilities">palvelimen tietojen jäsentely epäonnistui: %1$s</string>
+    <string name="error_filter_server_does_not_filter">Palvelin ei tue suodattimia</string>
 </resources>
