@@ -40,7 +40,6 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.coroutines.binding.binding
-import com.github.michaelbull.result.get
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.mapResult
@@ -171,7 +170,7 @@ data class Filters(
 class FiltersRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
-    private val serverRepository: ServerRepository,
+    serverRepository: ServerRepository,
 ) {
     /** Flow where emissions trigger fresh loads from the server. */
     private val reload = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
@@ -196,9 +195,6 @@ class FiltersRepository @Inject constructor(
         .stateIn(externalScope, SharingStarted.Lazily, Ok(null))
 
     suspend fun reload() = reload.emit(Unit)
-
-    /** @return True if the user's server can filter, false otherwise. */
-    fun canFilter() = server.get()?.let { it.canFilterV1() || it.canFilterV2() } ?: false
 
     /** Get a specific filter from the server, by [filterId]. */
     suspend fun getFilter(filterId: String): Result<Filter, FiltersError> = binding {

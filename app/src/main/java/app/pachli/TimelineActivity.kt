@@ -33,6 +33,7 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.Filter
 import app.pachli.core.data.model.NewFilterKeyword
 import app.pachli.core.data.repository.FilterEdit
+import app.pachli.core.data.repository.FiltersError
 import app.pachli.core.data.repository.FiltersRepository
 import app.pachli.core.data.repository.NewFilter
 import app.pachli.core.model.Timeline
@@ -132,7 +133,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
                         unmuteTagItem = menu.findItem(R.id.action_unmute_hashtag)
                         followTagItem?.isVisible = tagEntity.following == false
                         unfollowTagItem?.isVisible = tagEntity.following == true
-                        updateMuteTagMenuItems()
+                        updateMuteTagMenuItems(tag)
                     },
                     {
                         Timber.w(it, "Failed to query tag #%s", tag)
@@ -230,18 +231,10 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
     }
 
     /**
-     * Determine if the current hashtag is muted, and update the UI state accordingly.
+     * Determine if the given hashtag is muted, and update the UI state accordingly.
      */
-    private fun updateMuteTagMenuItems() {
-        val tagWithHash = hashtag?.let { "#$it" } ?: return
-
-        // If the server can't filter then it's impossible to mute hashtags, so disable
-        // the functionality.
-        if (!filtersRepository.canFilter()) {
-            muteTagItem?.isVisible = false
-            unmuteTagItem?.isVisible = false
-            return
-        }
+    private fun updateMuteTagMenuItems(tag: String) {
+        val tagWithHash = "#$tag"
 
         muteTagItem?.isVisible = true
         muteTagItem?.isEnabled = false
@@ -255,6 +248,14 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
                             filter.keywords.any { it.keyword == tagWithHash }
                     }
                     updateTagMuteState(mutedFilter != null)
+                }
+                result.onFailure { error ->
+                    // If the server can't filter then it's impossible to mute hashtags,
+                    // so disable the functionality.
+                    if (error is FiltersError.ServerDoesNotFilter) {
+                        muteTagItem?.isVisible = false
+                        unmuteTagItem?.isVisible = false
+                    }
                 }
             }
         }
