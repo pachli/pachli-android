@@ -65,7 +65,6 @@
     <string name="action_reset_schedule">Atiestatīt</string>
     <string name="download_image">Lejupielādē %1$s</string>
     <string name="title_mentions_dialog">Pieminējumi</string>
-    <string name="action_details">Detaļas</string>
     <string name="confirmation_reported">Nosūtīts!</string>
     <string name="action_copy_link">Nokopēt saiti</string>
     <string name="confirmation_unblocked">Lietotājs atbloķēts</string>
@@ -378,7 +377,6 @@
     <string name="wellbeing_hide_stats_posts">Slēpt ierakstu kvantitatīvo statistiku</string>
     <string name="drafts_failed_loading_reply">Neizdevās ielādēt atbildes informāciju</string>
     <string name="action_delete_and_redraft">Dzēst un sākt no jauna</string>
-    <string name="action_dismiss">Aizvākt</string>
     <string name="dialog_message_cancel_follow_request">Vai atcelt sekošanas pieprasījumu\?</string>
     <string name="dialog_redraft_post_warning">Vai dzēst šo ierakstu un sākt no jauna\?</string>
     <string name="send_post_notification_error_title">Sūtot ziņu, radās kļūda</string>

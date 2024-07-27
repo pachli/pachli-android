@@ -45,6 +45,7 @@ data class AccountEntity(
     // nullable for backward compatibility
     var clientSecret: String?,
     var isActive: Boolean,
+    /** Account's remote (server) ID. */
     var accountId: String = "",
     /** User's local name, without the leading `@` or the `@domain` portion */
     var username: String = "",
@@ -80,7 +81,7 @@ data class AccountEntity(
      */
     var mediaPreviewEnabled: Boolean = true,
     /**
-     * ID of the last notification the user read on the Notification, list, and should be restored
+     * ID of the last notification the user read on the Notification list, and should be restored
      * to view when the user returns to the list.
      *
      * May not be the ID of the most recent notification if the user has scrolled down the list.
@@ -121,6 +122,10 @@ data class AccountEntity(
     /** Full account name, of the form `@username@domain` */
     val fullName: String
         get() = "@$username@$domain"
+
+    /** UnifiedPush "instance" identifier for this account. */
+    val unifiedPushInstance: String
+        get() = id.toString()
 
     fun logout() {
         // deleting credentials so they cannot be used again

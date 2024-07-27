@@ -30,12 +30,15 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  * [AlertDialog.BUTTON_POSITIVE], [AlertDialog.BUTTON_NEGATIVE], or
  * [AlertDialog.BUTTON_NEUTRAL].
  *
- * @param positiveText Text to show on the positive button
- * @param negativeText Optional text to show on the negative button
- * @param neutralText Optional text to show on the neutral button
+ * @param positiveText Optional text to show on the positive button. If null the button isn't
+ * shown.
+ * @param negativeText Optional text to show on the negative button. If null the button isn't
+ * shown.
+ * @param neutralText Optional text to show on the neutral button If null the button isn't
+ * shown.
  */
 suspend fun AlertDialog.await(
-    positiveText: String,
+    positiveText: String?,
     negativeText: String? = null,
     neutralText: String? = null,
 ) = suspendCancellableCoroutine { cont ->
@@ -43,7 +46,7 @@ suspend fun AlertDialog.await(
         cont.resume(which) { dismiss() }
     }
 
-    setButton(AlertDialog.BUTTON_POSITIVE, positiveText, listener)
+    positiveText?.let { setButton(AlertDialog.BUTTON_POSITIVE, positiveText, listener) }
     negativeText?.let { setButton(AlertDialog.BUTTON_NEGATIVE, it, listener) }
     neutralText?.let { setButton(AlertDialog.BUTTON_NEUTRAL, it, listener) }
 
@@ -56,11 +59,11 @@ suspend fun AlertDialog.await(
  * @see [AlertDialog.await]
  */
 suspend fun AlertDialog.await(
-    @StringRes positiveTextResource: Int,
+    @StringRes positiveTextResource: Int?,
     @StringRes negativeTextResource: Int? = null,
     @StringRes neutralTextResource: Int? = null,
 ) = await(
-    context.getString(positiveTextResource),
+    positiveTextResource?.let { context.getString(it) },
     negativeTextResource?.let { context.getString(it) },
     neutralTextResource?.let { context.getString(it) },
 )

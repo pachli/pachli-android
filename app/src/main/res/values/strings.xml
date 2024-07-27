@@ -14,7 +14,9 @@
   ~
   ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
   ~ see <http://www.gnu.org/licenses>.
-  --><resources>
+  -->
+
+<resources>
     <string name="error_empty">This cannot be empty.</string>
     <string name="error_no_web_browser_found">Couldn\'t find a web browser to use.</string>
     <string name="error_compose_character_limit">The post is too long!</string>
@@ -177,8 +179,6 @@
     <string name="action_open_reblogger">Open boost author</string>
     <string name="action_open_reblogged_by">Show boosts</string>
     <string name="action_open_faved_by">Show favorites</string>
-    <string name="action_dismiss">Dismiss</string>
-    <string name="action_details">Details</string>
     <string name="action_add_reaction">add reaction</string>
     <string name="action_suggestions">Suggested accounts</string>
     <string name="action_translate">Translate</string>
@@ -610,9 +610,6 @@
     <string name="announcement_date_updated">(Updated: %1$s)</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="saving_draft">Saving draft…</string>
-    <string name="tips_push_notification_migration">Re-login all accounts to enable push notification support.</string>
-    <string name="dialog_push_notification_migration">In order to use push notifications via UnifiedPush, Pachli needs permission to subscribe to notifications on your Mastodon server. This requires a re-login to change the OAuth scopes granted to Pachli. Using the re-login option here or in "Account preferences" will preserve all of your local drafts and cache.</string>
-    <string name="dialog_push_notification_migration_other_accounts">You have re-logged into your current account to grant push subscription permission to Pachli. However, you still have other accounts that have not been migrated this way. Switch to them and re-login one by one in order to enable UnifiedPush notifications support.</string>
     <string name="delete_scheduled_post_warning">Delete this scheduled post?</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_violation">Rule violation</string>
@@ -684,6 +681,33 @@
     <string name="pref_labs_reverse_home_timeline_on_summary">Posts are ordered oldest first</string>
     <string name="translating">Translating…</string>
     <string name="translation_provider_fmt">%1$s</string>
+
+    <string name="pref_title_notification_up_distributor">Unified push distributor</string>
+    <string name="pref_notification_up_distributor_name_fmt">%1$s. Tap to open</string>
+    <string name="pref_notification_up_distributor_none">None</string>
+
+    <string name="pref_title_notification_method">Notification method</string>
+    <string name="pref_notification_method_all_pull">Fetched approximately once every 15 minutes</string>
+    <string name="pref_notification_method_all_push">All accounts use UnifiedPush</string>
+    <string name="pref_notification_method_mixed">Some accounts use UnifiedPush, some pull every 15 minutes. Tap for details</string>
+
+    <string name="pref_title_notification_battery_optimisation">Battery optimization</string>
+    <string name="pref_notification_battery_optimisation_should_ignore">Battery optimisation should be disabled. Tap to open.</string>
+    <string name="pref_notification_battery_optimisation_remove">Battery optimisation is </string>
+    <string name="pref_notification_battery_optimisation_ok">Battery optimisation does not need to be disabled.</string>
+
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="pref_notification_fetch_method_title">Notification method</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s ago @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s ago @ %2$s</string>
+
+    <string name="pref_notification_fetch_needs_push">Account does not have \"push\" scope. Logging out and back in may fix this.</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s rejected push registration</string>
+
+    <string name="pref_title_change_unified_push_distributor">Change Unified Push distributor</string>
+    <string name="pref_change_unified_push_distributor_msg">This will clear the Unified Push distributor choice and restart Pachli.\n
+\nIf multiple Unified Push distributors are installed you will be asked to choose one.</string>
 
     <string name="server_repository_error">Could not fetch server info for %1$s: %2$s</string>
     <string name="pref_title_update_check_now">Check for update now</string>

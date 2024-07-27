@@ -462,17 +462,12 @@
     <string name="action_undo">Desfazer</string>
     <string name="action_accept">Aceitar</string>
     <string name="action_reject">Rejeitar</string>
-    <string name="tips_push_notification_migration">Faz novamente login em todas as contas para ativar as notificações push.</string>
     <string name="account_date_joined">Criada em %1$s</string>
-    <string name="dialog_push_notification_migration">Para ativar as notificações push através de UnifiedPush, o Pachli necessita de permissão para subscrever as notificações da tua instância Mastodon. Isto obriga a fazer login novamente, por forma a alterar o escopo das permissões fornecidas ao Pachli pelo OAuth. Usar a opção de novo login, aqui ou nas Configurações da Conta, preservará todos os teus rascunhos e cache locais.</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="dialog_push_notification_migration_other_accounts">Fizeste novo login na tua conta para dar permissão para a subscrição das notificações push no Pachli. Contudo, ainda tens outras contas sem esta permissão. Podes atribuir essa permissão fazendo novo login em cada uma delas e ativar o suporte para UnifiedPush.</string>
     <string name="action_edit_image">Editar imagem</string>
     <string name="error_image_edit_failed">Não foi possível editar a imagem.</string>
     <string name="saving_draft">A guardar rascunho…</string>
     <string name="title_migration_relogin">Faz novamente login para as notificações push</string>
-    <string name="action_dismiss">Descartar</string>
-    <string name="action_details">Detalhes</string>
     <string name="delete_scheduled_post_warning">Apagar esta publicação agendada\?</string>
     <string name="set_focus_description">Toca ou arrasta o círculo para escolher o ponto de focagem que estará sempre visível nas pré-visualizações.</string>
     <string name="filter_expiration_format">%s(%s)</string>

@@ -662,14 +662,10 @@ fun clearNotificationsForAccount(context: Context, account: AccountEntity) {
     }
 }
 
-fun filterNotification(
-    notificationManager: NotificationManager,
-    account: AccountEntity,
-    notification: Notification,
-): Boolean {
-    return filterNotification(notificationManager, account, notification.type)
-}
-
+/**
+ * Returns true if [account] is **not** filtering notifications of [type],
+ * otherwise false.
+ */
 fun filterNotification(
     notificationManager: NotificationManager,
     account: AccountEntity,
@@ -775,52 +771,34 @@ private fun titleForType(
     account: AccountEntity,
 ): String? {
     val accountName = notification.account.name.unicodeWrap()
-    when (notification.type) {
+    return when (notification.type) {
         Notification.Type.MENTION -> {
-            return String.format(
-                context.getString(R.string.notification_mention_format),
-                accountName,
-            )
+            context.getString(R.string.notification_mention_format, accountName)
         }
 
         Notification.Type.STATUS -> {
-            return String.format(
-                context.getString(R.string.notification_subscription_format),
-                accountName,
-            )
+            context.getString(R.string.notification_subscription_format, accountName)
         }
 
         Notification.Type.FOLLOW -> {
-            return String.format(
-                context.getString(R.string.notification_follow_format),
-                accountName,
-            )
+            context.getString(R.string.notification_follow_format, accountName)
         }
 
         Notification.Type.FOLLOW_REQUEST -> {
-            return String.format(
-                context.getString(R.string.notification_follow_request_format),
-                accountName,
-            )
+            context.getString(R.string.notification_follow_request_format, accountName)
         }
 
         Notification.Type.FAVOURITE -> {
-            return String.format(
-                context.getString(R.string.notification_favourite_format),
-                accountName,
-            )
+            context.getString(R.string.notification_favourite_format, accountName)
         }
 
         Notification.Type.REBLOG -> {
-            return String.format(
-                context.getString(R.string.notification_reblog_format),
-                accountName,
-            )
+            context.getString(R.string.notification_reblog_format, accountName)
         }
 
         Notification.Type.POLL -> {
             val status = notification.status!!
-            return if (status.account.id == account.accountId) {
+            if (status.account.id == account.accountId) {
                 context.getString(R.string.poll_ended_created)
             } else {
                 context.getString(R.string.poll_ended_voted)
@@ -828,31 +806,25 @@ private fun titleForType(
         }
 
         Notification.Type.SIGN_UP -> {
-            return String.format(
-                context.getString(R.string.notification_sign_up_format),
-                accountName,
-            )
+            context.getString(R.string.notification_sign_up_format, accountName)
         }
 
         Notification.Type.UPDATE -> {
-            return String.format(
-                context.getString(R.string.notification_update_format),
-                accountName,
-            )
+            context.getString(R.string.notification_update_format, accountName)
         }
 
         Notification.Type.REPORT -> {
-            return context.getString(R.string.notification_report_format, account.domain)
+            context.getString(R.string.notification_report_format, account.domain)
         }
 
         Notification.Type.SEVERED_RELATIONSHIPS -> {
-            return context.getString(
+            context.getString(
                 R.string.notification_severed_relationships_format,
                 notification.relationshipSeveranceEvent?.targetName,
             )
         }
 
-        Notification.Type.UNKNOWN -> return null
+        Notification.Type.UNKNOWN -> null
     }
 }
 

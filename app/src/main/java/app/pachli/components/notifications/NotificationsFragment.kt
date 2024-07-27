@@ -627,8 +627,7 @@ class NotificationsFragment :
             if (viewModel.uiState.value.activeFilter != filter) {
                 viewModel.accept(InfallibleUiAction.ApplyFilter(filter))
             }
-        }
-            .show(parentFragmentManager, "dialogFilter")
+        }.show(parentFragmentManager, "dialogFilter")
     }
 
     override fun onViewTag(tag: String) {

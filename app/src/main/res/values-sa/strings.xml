@@ -462,8 +462,6 @@
     <string name="description_post_language">दौत्यस्य भाषा</string>
     <string name="error_following_hashtag_format">#%s-अनुसरणे दोषो जातः</string>
     <string name="error_unfollowing_hashtag_format">#%s-अनुसरण-अपाकरणे दोषो जातः</string>
-    <string name="action_details">विवरणानि</string>
-    <string name="action_dismiss">उत्सृज्यताम्</string>
     <string name="post_media_attachments">सम्योजितानि</string>
     <string name="status_count_one_plus">१+</string>
     <string name="account_note_saved">रक्षितम् !</string>

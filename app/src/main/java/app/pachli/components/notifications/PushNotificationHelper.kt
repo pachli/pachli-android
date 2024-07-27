@@ -16,187 +16,319 @@
 
 package app.pachli.components.notifications
 
-import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
-import android.view.View
 import androidx.appcompat.app.AlertDialog
-import app.pachli.R
+import androidx.preference.PreferenceManager
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.navigation.LoginActivityIntent
-import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.extensions.awaitSingleChoiceItem
 import app.pachli.util.CryptoUtil
-import at.connyduck.calladapter.networkresult.fold
-import at.connyduck.calladapter.networkresult.onFailure
-import at.connyduck.calladapter.networkresult.onSuccess
-import com.github.michaelbull.result.Err
-import com.github.michaelbull.result.Ok
-import com.github.michaelbull.result.Result
-import com.google.android.material.snackbar.Snackbar
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.unifiedpush.android.connector.PREF_MASTER
+import org.unifiedpush.android.connector.PREF_MASTER_DISTRIBUTOR
+import org.unifiedpush.android.connector.PREF_MASTER_DISTRIBUTOR_ACK
+import org.unifiedpush.android.connector.PREF_MASTER_INSTANCE
+import org.unifiedpush.android.connector.PREF_MASTER_TOKEN
 import org.unifiedpush.android.connector.UnifiedPush
 import timber.log.Timber
 
-private const val KEY_MIGRATION_NOTICE_DISMISSED = "migration_notice_dismissed"
+/** The notification method an account is using. */
+enum class AccountNotificationMethod {
+    /** Notifications are pushed. */
+    PUSH,
 
-private fun anyAccountNeedsMigration(accountManager: AccountManager): Boolean =
-    accountManager.accounts.any(::accountNeedsMigration)
-
-/** @return True if the account does not have the `push` OAuth scope, false otherwise */
-private fun accountNeedsMigration(account: AccountEntity): Boolean =
-    !account.oauthScopes.contains("push")
-
-fun currentAccountNeedsMigration(accountManager: AccountManager): Boolean =
-    accountManager.activeAccount?.let(::accountNeedsMigration) ?: false
-
-fun showMigrationNoticeIfNecessary(
-    context: Context,
-    parent: View,
-    anchorView: View?,
-    accountManager: AccountManager,
-    sharedPreferencesRepository: SharedPreferencesRepository,
-) {
-    // No point showing anything if we cannot enable it
-    if (!isUnifiedPushAvailable(context)) return
-    if (!anyAccountNeedsMigration(accountManager)) return
-
-    if (sharedPreferencesRepository.getBoolean(KEY_MIGRATION_NOTICE_DISMISSED, false)) return
-
-    Snackbar.make(parent, R.string.tips_push_notification_migration, Snackbar.LENGTH_INDEFINITE)
-        .setAnchorView(anchorView)
-        .setAction(R.string.action_details) {
-            showMigrationExplanationDialog(context, accountManager, sharedPreferencesRepository)
-        }
-        .show()
+    /** Notifications are pulled. */
+    PULL,
 }
 
-private fun showMigrationExplanationDialog(
-    context: Context,
-    accountManager: AccountManager,
-    sharedPreferencesRepository: SharedPreferencesRepository,
-) {
-    AlertDialog.Builder(context).apply {
-        if (currentAccountNeedsMigration(accountManager)) {
-            setMessage(R.string.dialog_push_notification_migration)
-            setPositiveButton(R.string.title_migration_relogin) { _, _ ->
-                context.startActivity(
-                    LoginActivityIntent(
-                        context,
-                        LoginMode.MIGRATION,
-                    ),
-                )
+/** The overall app notification method. */
+enum class AppNotificationMethod {
+    /** All accounts are configured to use UnifiedPush, and are registered with the distributor. */
+    ALL_PUSH,
+
+    /**
+     * Some accounts are configured to use UnifiedPush, and are registered with the distributor.
+     * For other accounts either registration failed, or their server does not support push, and
+     * notifications are pulled.
+     */
+    MIXED,
+
+    /** All accounts are configured to pull notifications. */
+    ALL_PULL,
+}
+
+/** The account's [AccountNotificationMethod]. */
+val AccountEntity.notificationMethod: AccountNotificationMethod
+    get() {
+        if (unifiedPushUrl.isBlank()) return AccountNotificationMethod.PULL
+        return AccountNotificationMethod.PUSH
+    }
+
+/** True if the account has the `push` OAuth scope, false otherwise. */
+val AccountEntity.hasPushScope: Boolean
+    get() = oauthScopes.contains("push")
+
+/**
+ * Logs the current state of UnifiedPush preferences for debugging.
+ *
+ * @param context
+ * @param msg Optional message to log before the preferences.
+ */
+fun logUnifiedPushPreferences(context: Context, msg: String? = null) {
+    msg?.let { Timber.d(it) }
+
+    context.getSharedPreferences(PREF_MASTER, Context.MODE_PRIVATE).all.entries.forEach {
+        Timber.d("  ${it.key} -> ${it.value}")
+    }
+}
+
+/** @return The app level [AppNotificationMethod]. */
+fun notificationMethod(context: Context, accountManager: AccountManager): AppNotificationMethod {
+    UnifiedPush.getAckDistributor(context) ?: return AppNotificationMethod.ALL_PULL
+
+    val notificationMethods = accountManager.accounts.map { it.notificationMethod }
+
+    // All pull?
+    if (notificationMethods.all { it == AccountNotificationMethod.PULL }) return AppNotificationMethod.ALL_PULL
+
+    // At least one is PUSH. If any are PULL then it's mixed, otherwise all must be push
+    if (notificationMethods.any { it == AccountNotificationMethod.PULL }) return AppNotificationMethod.MIXED
+
+    return AppNotificationMethod.ALL_PUSH
+}
+
+/** @return True if the active account does not have the `push` Oauth scope, false otherwise. */
+fun activeAccountNeedsPushScope(accountManager: AccountManager) = accountManager.activeAccount?.hasPushScope == false
+
+/**
+ * Attempts to enable notifications for all accounts.
+ *
+ * - Cancels any existing notification workers
+ * - Starts a periodic worker for pull notifications
+ *
+ * If a UnifiedPush distributor is available then use it, and register each account as an
+ * instance.
+ */
+suspend fun enableAllNotifications(context: Context, api: MastodonApi, accountManager: AccountManager) {
+    // Start from a clean slate.
+    disableAllNotifications(context, api, accountManager)
+
+    // Launch a single pull worker to periodically get notifications from all accounts,
+    // irrespective of whether or not UnifiedPush is configured.
+    enablePullNotifications(context)
+
+    // If no accounts have push scope there's nothing to do.
+    val accountsWithPushScope = accountManager.accounts.filter { it.hasPushScope }
+    if (accountsWithPushScope.isEmpty()) {
+        Timber.d("No accounts have push scope, skipping UnifiedPush reconfiguration")
+        return
+    }
+
+    // If no UnifiedPush distributors are installed then there's nothing more to do.
+    NotificationConfig.unifiedPushAvailable = false
+
+    // Get the UnifiedPush distributor to use, possibly falling back to the user's previous
+    // choice if it's still on the device.
+    val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    val usePreviousDistributor = prefs.getBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, true)
+    if (!usePreviousDistributor) {
+        prefs.edit().apply {
+            putBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, true)
+        }.apply()
+    }
+
+    val distributor = chooseUnifiedPushDistributor(context, usePreviousDistributor)
+    if (distributor == null) {
+        Timber.d("No UnifiedPush distributor installed, skipping UnifiedPush reconfiguration")
+
+        UnifiedPush.safeRemoveDistributor(context)
+        return
+    }
+    Timber.d("Chose %s as UnifiedPush distributor", distributor)
+    NotificationConfig.unifiedPushAvailable = true
+
+    UnifiedPush.saveDistributor(context, distributor)
+    accountsWithPushScope.forEach {
+        Timber.d("Registering %s with %s", it.fullName, distributor)
+        UnifiedPush.registerApp(context, it.unifiedPushInstance, messageForDistributor = it.fullName)
+    }
+}
+
+/**
+ * Choose the [UnifiedPush] distributor to register with.
+ *
+ * If no distributor is installed on the device, returns null.
+ *
+ * If one distributor is installed on the device, returns that.
+ *
+ * If multiple distributors are installed on the device, and the user has previously chosen
+ * a distributor, and that distributor is still installed on the device, and
+ * [usePreviousDistributor] is true, return that.
+ *
+ * Otherwise, show the user list of distributors and allows them to choose one. Returns
+ * their choice, unless they cancelled the dialog, in which case return null.
+ *
+ * @param context
+ * @param usePreviousDistributor
+ */
+suspend fun chooseUnifiedPushDistributor(context: Context, usePreviousDistributor: Boolean = true): String? {
+    val distributors = UnifiedPush.getDistributors(context)
+
+    Timber.d("Available distributors:")
+    distributors.forEach {
+        Timber.d("  %s", it)
+    }
+
+    return when (distributors.size) {
+        0 -> null
+        1 -> distributors.first()
+        else -> {
+            val distributor = UnifiedPush.getSavedDistributor(context)
+            if (usePreviousDistributor && distributors.contains(distributor)) {
+                Timber.d("Re-using user's previous distributor choice, %s", distributor)
+                return distributor
             }
+
+            val distributorLabels = distributors.mapNotNull { getApplicationLabel(context, it) }
+            val result = AlertDialog.Builder(context)
+                .setTitle("Choose UnifiedPush distributor")
+                .awaitSingleChoiceItem(
+                    distributorLabels,
+                    -1,
+                    android.R.string.ok,
+                )
+            if (result.button == AlertDialog.BUTTON_POSITIVE && result.index != -1) {
+                distributors[result.index]
+            } else {
+                null
+            }
+        }
+    }
+}
+
+/**
+ * @return The application label of [packageName], or null if the package name
+ * is not among installed packages.
+ */
+fun getApplicationLabel(context: Context, packageName: String): String? {
+    return try {
+        val info = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.packageManager.getApplicationInfo(
+                packageName,
+                PackageManager.ApplicationInfoFlags.of(PackageManager.GET_META_DATA.toLong()),
+            )
         } else {
-            setMessage(R.string.dialog_push_notification_migration_other_accounts)
+            context.packageManager.getApplicationInfo(packageName, 0)
         }
-        setNegativeButton(R.string.action_dismiss) { dialog, _ ->
-            sharedPreferencesRepository.edit().putBoolean(KEY_MIGRATION_NOTICE_DISMISSED, true).apply()
-            dialog.dismiss()
-        }
-        show()
-    }
+        context.packageManager.getApplicationLabel(info)
+    } catch (e: PackageManager.NameNotFoundException) {
+        null
+    } as String?
 }
 
-private suspend fun enableUnifiedPushNotificationsForAccount(context: Context, api: MastodonApi, accountManager: AccountManager, account: AccountEntity) {
-    if (isUnifiedPushNotificationEnabledForAccount(account)) {
-        // Already registered, update the subscription to match notification settings
-        val result = updateUnifiedPushSubscription(context, api, accountManager, account)
-        NotificationConfig.notificationMethodAccount[account.fullName] = when (result) {
-            is Err -> NotificationConfig.Method.PushError(result.error)
-            is Ok -> NotificationConfig.Method.Push
-        }
-    } else {
-        UnifiedPush.registerAppWithDialog(context, account.id.toString(), features = arrayListOf(UnifiedPush.FEATURE_BYTES_MESSAGE))
-        NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Push
-    }
-}
-
-fun disableUnifiedPushNotificationsForAccount(context: Context, account: AccountEntity) {
-    if (!isUnifiedPushNotificationEnabledForAccount(account)) {
-        // Not registered
-        return
-    }
-
-    UnifiedPush.unregisterApp(context, account.id.toString())
-}
-
-fun isUnifiedPushNotificationEnabledForAccount(account: AccountEntity): Boolean =
-    account.unifiedPushUrl.isNotEmpty()
-
-/** True if one or more UnifiedPush distributors are available */
-private fun isUnifiedPushAvailable(context: Context): Boolean =
-    UnifiedPush.getDistributors(context).isNotEmpty()
-
-fun canEnablePushNotifications(context: Context, accountManager: AccountManager): Boolean {
-    val unifiedPushAvailable = isUnifiedPushAvailable(context)
-    val anyAccountNeedsMigration = anyAccountNeedsMigration(accountManager)
-
-    NotificationConfig.unifiedPushAvailable = unifiedPushAvailable
-    NotificationConfig.anyAccountNeedsMigration = anyAccountNeedsMigration
-
-    return unifiedPushAvailable && !anyAccountNeedsMigration
-}
-
-suspend fun enablePushNotificationsWithFallback(context: Context, api: MastodonApi, accountManager: AccountManager) {
-    Timber.d("Enabling push notifications with fallback")
-    if (!canEnablePushNotifications(context, accountManager)) {
-        Timber.d("Cannot enable push notifications, switching to pull")
-        NotificationConfig.notificationMethod = NotificationConfig.Method.Pull
-        accountManager.accounts.map {
-            NotificationConfig.notificationMethodAccount[it.fullName] = NotificationConfig.Method.Pull
-        }
-        // No UP distributors
-        enablePullNotifications(context)
-        return
-    }
-
-    NotificationConfig.notificationMethod = NotificationConfig.Method.Push
-
-    val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    accountManager.accounts.forEach {
-        val notificationGroupEnabled = Build.VERSION.SDK_INT < 28 ||
-            nm.getNotificationChannelGroup(it.identifier)?.isBlocked == false
-        val shouldEnable = it.notificationsEnabled && notificationGroupEnabled
-
-        if (shouldEnable) {
-            enableUnifiedPushNotificationsForAccount(context, api, accountManager, it)
-        } else {
-            disableUnifiedPushNotificationsForAccount(context, it)
-        }
-    }
-}
-
-private fun disablePushNotifications(context: Context, accountManager: AccountManager) {
-    accountManager.accounts.forEach {
-        disableUnifiedPushNotificationsForAccount(context, it)
-    }
-}
-
-fun disableAllNotifications(context: Context, accountManager: AccountManager) {
+/**
+ * Disables all notifications.
+ *
+ * - Cancels notification workers
+ * - Unregisters instances from the UnifiedPush distributor
+ */
+suspend fun disableAllNotifications(context: Context, api: MastodonApi, accountManager: AccountManager) {
     Timber.d("Disabling all notifications")
-    disablePushNotifications(context, accountManager)
+    disablePushNotifications(context, api, accountManager)
     disablePullNotifications(context)
 }
 
-private fun buildSubscriptionData(context: Context, account: AccountEntity): Map<String, Boolean> =
-    buildMap {
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        Notification.Type.visibleTypes.forEach {
-            put(
-                "data[alerts][${it.presentation}]",
-                filterNotification(notificationManager, account, it),
-            )
+/**
+ * Disables all push notifications.
+ *
+ * Disables push notifications for each account, and clears the relevant UnifiedPush preferences
+ * to work around a bug.
+ */
+private suspend fun disablePushNotifications(context: Context, api: MastodonApi, accountManager: AccountManager) {
+    accountManager.accounts.forEach { disablePushNotificationsForAccount(context, api, accountManager, it) }
+
+    // Clear UnifiedPush preferences, to work around
+    // https://github.com/UnifiedPush/android-connector/issues/85
+    val prefs = context.getSharedPreferences(PREF_MASTER, Context.MODE_PRIVATE)
+    prefs.edit().apply {
+        // Remove the set of instances.
+        remove(PREF_MASTER_INSTANCE)
+
+        // Remove the entry for each instance that points to the instance's token.
+        prefs.all.filter { it.key.endsWith("/$PREF_MASTER_TOKEN") }.forEach { remove(it.key) }
+    }.apply()
+}
+
+/**
+ * Disables UnifiedPush notifications for [account].
+ *
+ * - Clears UnifiedPush related data from the account's data
+ * - Calls the server to disable push notifications
+ * - Unregisters from the UnifiedPush provider
+ */
+suspend fun disablePushNotificationsForAccount(context: Context, api: MastodonApi, accountManager: AccountManager, account: AccountEntity) {
+    if (account.notificationMethod != AccountNotificationMethod.PUSH) return
+
+    // Clear the push notification from the account.
+    account.unifiedPushUrl = ""
+    account.pushServerKey = ""
+    account.pushAuth = ""
+    account.pushPrivKey = ""
+    account.pushPubKey = ""
+    accountManager.saveAccount(account)
+    NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Pull
+
+    // Try and unregister the endpoint from the server. Nothing we can do if this fails, and no
+    // need to wait for it to complete.
+    withContext(Dispatchers.IO) {
+        launch {
+            api.unsubscribePushNotifications("Bearer ${account.accessToken}", account.domain)
         }
     }
 
-// Called by UnifiedPush callback
+    // Unregister from the UnifiedPush provider.
+    //
+    // UnifiedPush.unregisterApp will try and remove the user's distributor choice (including
+    // whether or not instances had acked it). Work around this bug by saving the values, and
+    // restoring them afterwards.
+    val prefs = context.getSharedPreferences(PREF_MASTER, Context.MODE_PRIVATE)
+    val savedDistributor = UnifiedPush.getSavedDistributor(context)
+    val savedDistributorAck = prefs.getBoolean(PREF_MASTER_DISTRIBUTOR_ACK, false)
+
+    UnifiedPush.unregisterApp(context, account.unifiedPushInstance)
+
+    prefs.edit().apply {
+        putString(PREF_MASTER_DISTRIBUTOR, savedDistributor)
+        putBoolean(PREF_MASTER_DISTRIBUTOR_ACK, savedDistributorAck)
+    }.apply()
+}
+
+/**
+ * Subscription data for [MastodonApi.subscribePushNotifications]. Fetches all user visible
+ * notifications.
+ */
+val subscriptionData = buildMap {
+    Notification.Type.visibleTypes.forEach {
+        put("data[alerts][${it.presentation}]", true)
+    }
+}
+
+/**
+ * Finishes Unified Push distributor registration
+ *
+ * Called from [app.pachli.receiver.UnifiedPushBroadcastReceiver.onNewEndpoint] after
+ * the distributor has set the endpoint.
+ */
 suspend fun registerUnifiedPushEndpoint(
     context: Context,
     api: MastodonApi,
@@ -218,56 +350,21 @@ suspend fun registerUnifiedPushEndpoint(
         endpoint,
         keyPair.pubkey,
         auth,
-        buildSubscriptionData(context, account),
-    ).onFailure { throwable ->
-        Timber.w(throwable, "Error setting push endpoint for account %d", account.id)
-        disableUnifiedPushNotificationsForAccount(context, account)
+        subscriptionData,
+    ).onFailure { error ->
+        Timber.w("Error setting push endpoint for account %s %d: %s", account, account.id, error.fmt(context))
+        NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.PushError(error.throwable)
+        disablePushNotificationsForAccount(context, api, accountManager, account)
     }.onSuccess {
         Timber.d("UnifiedPush registration succeeded for account %d", account.id)
 
         account.pushPubKey = keyPair.pubkey
         account.pushPrivKey = keyPair.privKey
         account.pushAuth = auth
-        account.pushServerKey = it.serverKey
+        account.pushServerKey = it.body.serverKey
         account.unifiedPushUrl = endpoint
         accountManager.saveAccount(account)
-    }
-}
 
-// Synchronize the enabled / disabled state of notifications with server-side subscription
-suspend fun updateUnifiedPushSubscription(context: Context, api: MastodonApi, accountManager: AccountManager, account: AccountEntity): Result<Unit, Throwable> {
-    return withContext(Dispatchers.IO) {
-        return@withContext api.updatePushNotificationSubscription(
-            "Bearer ${account.accessToken}",
-            account.domain,
-            buildSubscriptionData(context, account),
-        ).fold({
-            Timber.d("UnifiedPush subscription updated for account %d", account.id)
-            account.pushServerKey = it.serverKey
-            accountManager.saveAccount(account)
-            Ok(Unit)
-        }, {
-            Timber.e(it, "Could not enable UnifiedPush subscription for account %d", account.id)
-            Err(it)
-        })
-    }
-}
-
-suspend fun unregisterUnifiedPushEndpoint(api: MastodonApi, accountManager: AccountManager, account: AccountEntity) {
-    withContext(Dispatchers.IO) {
-        api.unsubscribePushNotifications("Bearer ${account.accessToken}", account.domain)
-            .onFailure { throwable ->
-                Timber.w(throwable, "Error unregistering push endpoint for account %d", account.id)
-            }
-            .onSuccess {
-                Timber.d("UnifiedPush unregistration succeeded for account %d", account.id)
-                // Clear the URL in database
-                account.unifiedPushUrl = ""
-                account.pushServerKey = ""
-                account.pushAuth = ""
-                account.pushPrivKey = ""
-                account.pushPubKey = ""
-                accountManager.saveAccount(account)
-            }
+        NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Push
     }
 }

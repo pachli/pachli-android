@@ -28,6 +28,7 @@ import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.worker.NotificationWorker
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -52,9 +53,18 @@ class NotificationFetcher @Inject constructor(
     private val accountManager: AccountManager,
     @ApplicationContext private val context: Context,
 ) {
-    suspend fun fetchAndShow() {
+    suspend fun fetchAndShow(accountId: Long) {
         Timber.d("NotificationFetcher.fetchAndShow() started")
-        for (account in accountManager.getAllAccountsOrderedByActive()) {
+
+        val accounts = buildList {
+            if (accountId == NotificationWorker.ALL_ACCOUNTS) {
+                addAll(accountManager.getAllAccountsOrderedByActive())
+            } else {
+                accountManager.getAccountById(accountId)?.let { add(it) }
+            }
+        }
+
+        for (account in accounts) {
             Timber.d(
                 "Checking %s$, notificationsEnabled = %s",
                 account.fullName,
@@ -66,7 +76,7 @@ class NotificationFetcher @Inject constructor(
 
                     // Create sorted list of new notifications
                     val notifications = fetchNewNotifications(account)
-                        .filter { filterNotification(notificationManager, account, it) }
+                        .filter { filterNotification(notificationManager, account, it.type) }
                         .sortedWith(compareBy({ it.id.length }, { it.id })) // oldest notifications first
                         .toMutableList()
 

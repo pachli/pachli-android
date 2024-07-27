@@ -21,6 +21,7 @@ import android.app.Notification
 import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
+import androidx.work.Data
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import app.pachli.R
@@ -42,9 +43,20 @@ class NotificationWorker @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         Timber.d("NotificationWorker.doWork() started")
-        notificationsFetcher.fetchAndShow()
+        val accountId = inputData.getAccountId()
+
+        notificationsFetcher.fetchAndShow(accountId)
         return Result.success()
     }
 
     override suspend fun getForegroundInfo() = ForegroundInfo(NOTIFICATION_ID_FETCH_NOTIFICATION, notification)
+
+    companion object {
+        private const val ACCOUNT_ID = "accountId"
+        const val ALL_ACCOUNTS = -1L
+
+        fun data(accountId: Long) = Data.Builder().putLong(ACCOUNT_ID, accountId).build()
+
+        fun Data.getAccountId() = getLong(ACCOUNT_ID, ALL_ACCOUNTS)
+    }
 }

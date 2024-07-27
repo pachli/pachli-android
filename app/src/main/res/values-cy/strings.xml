@@ -309,8 +309,6 @@
     <string name="error_image_edit_failed">Methu golygu\'r ddelwedd.</string>
     <string name="description_post_favourited">Hoffwyd</string>
     <string name="saving_draft">Yn cadw drafft…</string>
-    <string name="action_dismiss">Diystyru</string>
-    <string name="action_details">Manylion</string>
     <string name="title_mentions_dialog">Crybwylliadau</string>
     <string name="action_open_media_n">Agor cyfryngau #%d</string>
     <string name="action_share_as">Rhannu fel …</string>
@@ -393,8 +391,6 @@
     <string name="compose_shortcut_long_label">Ysgrifennu neges</string>
     <string name="drafts_post_failed_to_send">Methodd anfon y neges hon!</string>
     <string name="pachli_compose_post_quicksetting_label">Ysgrifennu Neges</string>
-    <string name="tips_push_notification_migration">Ailfewngofnodwch i\'ch cyfrifon er mwyn galluogi hysbysiadau i\'ch ffôn.</string>
-    <string name="dialog_push_notification_migration">Er mwyn derbyn hysbysiadau i\'ch ffôn drwy UnifiedPush, mae angen caniatâd ar Pachli i danysgrifio i hysbysiadau ar eich gweinydd Mastodon. Bydd rhaid i chi fewngofnodi eto i newid y sgôp OAuth sy\'n cael ei roi i Pachli. Bydd defnyddio\'r opsiwn ailfewngofnodi yma neu yn newisiadau Cyfrif yn cadw\'ch holl ddrafftiau a\'ch storfa leol.</string>
     <string name="mute_domain_warning">Ydych chi\'n siŵr yr hoffech chi flocio %s gyfan\? Fyddwch chi ddim yn gweld dim cynnwys o\'r parth hwnnw mewn unrhyw ffrwd gyhoeddus na chwaith yn eich hysbysiadau. Bydd eich dilynwyr o\'r parth hwnnw yn cael eu dileu.</string>
     <string name="duration_indefinite">Dim diwedd</string>
     <plurals name="favs">
@@ -408,7 +404,6 @@
     <string name="description_visibility_direct">Uniongyrchol</string>
     <string name="compose_save_draft_loses_media">Cadw drafft\? (Bydd atodiadau\'n cael eu lanlwytho eto pan fyddwch chi\'n adfer y drafft.)</string>
     <string name="description_post_reblogged">Ailflogiwyd</string>
-    <string name="dialog_push_notification_migration_other_accounts">Rydych wedi ail-fewngofnodi i\'ch cyfrif cyfredol i roi caniatâd tanysgrifio gwthio i Pachli. Fodd bynnag, mae gennych gyfrifon eraill o hyd nad ydyn nhw wedi\'u mudo fel hyn. Newidiwch atyn nhw ac ail-fewngofnodi fesul un er mwyn galluogi cefnogaeth hysbysiadau UnifiedPush.</string>
     <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="hint_media_description_missing">Dylai fod gan y cyfryngau ddisgrifiad.</string>
     <string name="description_post_cw">Rhybudd cynnwys: %s</string>

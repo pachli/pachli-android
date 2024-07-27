@@ -64,9 +64,7 @@ import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
 import app.pachli.components.notifications.androidNotificationsAreEnabled
 import app.pachli.components.notifications.createNotificationChannelsForAccount
-import app.pachli.components.notifications.disableAllNotifications
-import app.pachli.components.notifications.enablePushNotificationsWithFallback
-import app.pachli.components.notifications.showMigrationNoticeIfNecessary
+import app.pachli.components.notifications.enableAllNotifications
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
@@ -1065,21 +1063,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         accountManager.updateActiveAccount(me)
         createNotificationChannelsForAccount(accountManager.activeAccount!!, this)
 
-        // Setup push notifications
-        showMigrationNoticeIfNecessary(
-            this,
-            binding.mainCoordinatorLayout,
-            binding.composeButton,
-            accountManager,
-            sharedPreferencesRepository,
-        )
-        if (androidNotificationsAreEnabled(this, accountManager)) {
-            lifecycleScope.launch {
-                enablePushNotificationsWithFallback(this@MainActivity, mastodonApi, accountManager)
-            }
-        } else {
-            disableAllNotifications(this, accountManager)
-        }
+        // Setup notifications
+        // TODO: Continue to call this, as it sets properties in NotificationConfig
+        androidNotificationsAreEnabled(this, accountManager)
+        lifecycleScope.launch { enableAllNotifications(this@MainActivity, mastodonApi, accountManager) }
 
         updateProfiles()
 

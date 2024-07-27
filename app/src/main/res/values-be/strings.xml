@@ -82,8 +82,6 @@
     <string name="action_open_reblogged_by">Паказаць пашырэнні</string>
     <string name="action_open_faved_by">Паказаць абраныя</string>
     <string name="title_mentions_dialog">Згадкі</string>
-    <string name="action_dismiss">Адхіліць</string>
-    <string name="action_details">Дэталі</string>
     <string name="action_open_media_n">Адкрыць медыя #%d</string>
     <string name="action_add_reaction">дадаць рэакцыю</string>
     <string name="download_image">Спампоўка %1$s</string>
@@ -486,13 +484,11 @@
 \n- Статыстыка ў профілях пра Падпісчыкаў/Допісы
 \n
 \nНа Push-паведамленні гэта не ўплывае, але Вы можаце праглядзець налады апавяшчэнняў уручную.</string>
-    <string name="dialog_push_notification_migration">Каб выкарыстоўваць push-апавяшчэнні праз UnifiedPush, Pachli патрэбен дазвол, каб падпісацца на апавяшчэнні з Вашага сервера Mastodon. Для гэтага патрэбна выйсці і зайсці ва ўліковы запіс зноў, каб аднавіць вобласці дазволу OAuth, дадзеныя Pachli. Выкарыстоўванне магчымасці паўторнага ўваходу тут ці ў наладах уліковага запісу захоўвае ўсе Вашыя лакальныя чарнавікі і кэш.</string>
     <string name="poll_allow_multiple_choices">Некалькі варыянтаў</string>
     <string name="add_poll_choice">Дадаць варыянт</string>
     <string name="edit_poll">Змяніць</string>
     <string name="account_date_joined">Далучыўся(-лася) %1$s</string>
     <string name="account_note_saved">Захавана!</string>
-    <string name="dialog_push_notification_migration_other_accounts">Вы паўторна зайшлі ў бягучы ўліковы запіс, каб дазволіць Pachli падпісацца на push-апавяшчэнні. Але ў Вас яшчэ засталіся ўліковыя запісы, якія не мігрыравалі такім чынам. Пераключыцеся на іх і зайдзіце паўторна, каб уключыць падтрымку апавяшчэнняў праз UnifiedPush.</string>
     <string name="status_edit_info">%1$s адрэдагаваў(-ла)</string>
     <string name="status_created_info">%1$s стварыў(-ла)</string>
     <string name="pref_title_hide_top_toolbar">Схаваць загаловак верхняй панэлі інструментаў</string>
@@ -531,7 +527,6 @@
     <string name="delete_scheduled_post_warning">Выдаліць гэты запланаваны допіс\?</string>
     <string name="poll_new_choice_hint">Варыянт %d</string>
     <string name="drafts_post_failed_to_send">Не атрымалася даслаць гэты допіс!</string>
-    <string name="tips_push_notification_migration">Увайдзіце зноў на ўсіх уліковых запісах, каб push-апавяшчэнні запрацавалі.</string>
     <string name="mute_notifications_switch">Бязгучныя апавяшчэнні</string>
     <string name="warning_scheduling_interval">Найменшы час планавання ў Mastodon складае 5 хвілін.</string>
     <string name="pref_summary_http_proxy_disabled">Адключана</string>

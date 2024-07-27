@@ -16,26 +16,49 @@
 
 package app.pachli.components.preference
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import app.pachli.R
+import app.pachli.components.notifications.AccountNotificationMethod
+import app.pachli.components.notifications.AppNotificationMethod
+import app.pachli.components.notifications.getApplicationLabel
+import app.pachli.components.notifications.hasPushScope
+import app.pachli.components.notifications.notificationMethod
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.activity.NotificationConfig
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.AppTheme.Companion.APP_THEME_DEFAULT
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.makeIcon
+import app.pachli.databinding.AccountNotificationDetailsListItemBinding
+import app.pachli.feature.about.asDdHhMmSs
+import app.pachli.feature.about.instantFormatter
 import app.pachli.settings.emojiPreference
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
@@ -50,12 +73,17 @@ import app.pachli.util.LocaleManager
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
 import app.pachli.view.FontFamilyDialogFragment
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.views.picker.preference.EmojiPickerPreference
+import java.time.Duration
+import java.time.Instant
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+import org.unifiedpush.android.connector.UnifiedPush
 
 @AndroidEntryPoint
 class PreferencesFragment : PreferenceFragmentCompat() {
@@ -71,6 +99,9 @@ class PreferencesFragment : PreferenceFragmentCompat() {
 
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
+    @Inject
+    lateinit var powerManager: PowerManager
 
     private val iconSize by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.preference_icon_size) }
 
@@ -103,6 +134,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+    @SuppressLint("BatteryLife", "ApplySharedPref")
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         makePreferenceScreen {
             preferenceCategory(R.string.pref_title_appearance_settings) {
@@ -270,6 +302,131 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                 }
             }
 
+            preferenceCategory(R.string.pref_title_edit_notification_settings) {
+                val method = notificationMethod(context, accountManager)
+
+                preference {
+                    setTitle(R.string.pref_title_notification_up_distributor)
+
+                    val distributorPkg = UnifiedPush.getAckDistributor(context)
+                    val distributorLabel = distributorPkg?.let { getApplicationLabel(context, it) }
+
+                    setSummaryProvider {
+                        distributorLabel?.let {
+                            context.getString(R.string.pref_notification_up_distributor_name_fmt, it)
+                        } ?: context.getString(R.string.pref_notification_up_distributor_none)
+                    }
+
+                    setOnPreferenceClickListener {
+                        distributorPkg?.let { pkg ->
+                            context.packageManager.getLaunchIntentForPackage(pkg)?.also {
+                                startActivity(it)
+                            }
+                        }
+
+                        return@setOnPreferenceClickListener true
+                    }
+                }
+
+                if (UnifiedPush.getDistributors(context).size > 1) {
+                    preference {
+                        setTitle(R.string.pref_title_change_unified_push_distributor)
+
+                        setOnPreferenceClickListener {
+                            viewLifecycleOwner.lifecycleScope.launch {
+                                val button = AlertDialog.Builder(context)
+                                    .setMessage(R.string.pref_change_unified_push_distributor_msg)
+                                    .setCancelable(true)
+                                    .create()
+                                    .await(R.string.restart, android.R.string.cancel)
+
+                                if (button != AlertDialog.BUTTON_POSITIVE) return@launch
+
+                                // Ideally UnifiedPush.forceRemoveDistributor would be used here
+                                // and then the restart would force a new choice. However,
+                                // forceRemoveDistributor triggers ConcurrentModificationException
+                                // and crashes.
+                                //
+                                // So work around that by setting a preference to indicate that
+                                // the chosen distributor should be ignored. This is then used
+                                // in MainActivity and passed to chooseUnifiedPushDistributor.
+                                sharedPreferencesRepository.edit().apply {
+                                    putBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, false)
+                                }.commit()
+
+                                val packageManager = context.packageManager
+                                val intent = packageManager.getLaunchIntentForPackage(context.packageName)!!
+                                val componentName = intent.component
+                                val mainIntent = Intent.makeRestartActivityTask(componentName)
+                                mainIntent.setPackage(context.packageName)
+                                context.startActivity(mainIntent)
+                                Runtime.getRuntime().exit(0)
+                            }
+                            return@setOnPreferenceClickListener true
+                        }
+                    }
+                }
+
+                preference {
+                    setTitle(R.string.pref_title_notification_method)
+                    setSummaryProvider {
+                        val string = when (method) {
+                            AppNotificationMethod.ALL_PUSH -> R.string.pref_notification_method_all_push
+                            AppNotificationMethod.MIXED -> R.string.pref_notification_method_mixed
+                            AppNotificationMethod.ALL_PULL -> R.string.pref_notification_method_all_pull
+                        }
+                        context.getString(string)
+                    }
+
+                    setOnPreferenceClickListener {
+                        val adapter = AccountNotificationDetailsAdapter(context, accountManager.accounts.sortedBy { it.fullName })
+
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            val dialog = AlertDialog.Builder(requireContext())
+                                .setAdapter(adapter) { _, _ -> }
+                                .create()
+                            dialog.setOnShowListener {
+                                dialog.listView.divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).drawable
+
+                                // Prevent a divider from appearing after the last item by disabling footer
+                                // dividers and adding an empty footer.
+                                dialog.listView.setFooterDividersEnabled(false)
+                                dialog.listView.addFooterView(View(context))
+                            }
+
+                            dialog.await(positiveText = null)
+                        }
+
+                        return@setOnPreferenceClickListener true
+                    }
+                }
+
+                preference {
+                    setTitle(R.string.pref_title_notification_battery_optimisation)
+                    val needsPull = method != AppNotificationMethod.ALL_PUSH
+                    val isIgnoringBatteryOptimisations = powerManager.isIgnoringBatteryOptimizations(context.packageName)
+                    val shouldIgnore = needsPull && !isIgnoringBatteryOptimisations
+
+                    setSummaryProvider {
+                        when {
+                            shouldIgnore -> context.getString(R.string.pref_notification_battery_optimisation_should_ignore)
+                            isIgnoringBatteryOptimisations -> context.getString(R.string.pref_notification_battery_optimisation_remove)
+                            else -> context.getString(R.string.pref_notification_battery_optimisation_ok)
+                        }
+                    }
+                    setOnPreferenceClickListener {
+                        if (shouldIgnore) {
+                            val intent = Intent().apply {
+                                action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+                                data = Uri.parse("package:${context.packageName}")
+                            }
+                            context.startActivity(intent)
+                        }
+                        return@setOnPreferenceClickListener true
+                    }
+                }
+            }
+
             preferenceCategory(R.string.pref_title_browser_settings) {
                 switchPreference {
                     setDefaultValue(false)
@@ -402,5 +559,90 @@ class PreferencesFragment : PreferenceFragmentCompat() {
         fun newInstance(): PreferencesFragment {
             return PreferencesFragment()
         }
+    }
+}
+
+/**
+ * Displays notification configuration information for each [AccountEntity].
+ *
+ * Shows:
+ *
+ * - Account's full name.
+ * - The notification method (push or pull).
+ * - If pull, an explanation for why it's not push.
+ * - The last time notifications were fetched for the account, and the result.
+ */
+class AccountNotificationDetailsAdapter(context: Context, accounts: List<AccountEntity>) : ArrayAdapter<AccountEntity>(
+    context,
+    R.layout.account_notification_details_list_item,
+    R.id.accountName,
+    accounts,
+) {
+
+    @get:StringRes
+    private val AccountNotificationMethod.stringRes: Int
+        get() = when (this) {
+            AccountNotificationMethod.PUSH -> R.string.pref_notification_method_push
+            AccountNotificationMethod.PULL -> R.string.pref_notification_method_pull
+        }
+
+    private fun AccountEntity.notificationMethodExtra(): String {
+        return if (hasPushScope) {
+            context.getString(R.string.pref_notification_fetch_server_rejected, domain)
+        } else {
+            context.getString(R.string.pref_notification_fetch_needs_push)
+        }
+    }
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val binding = if (convertView == null) {
+            AccountNotificationDetailsListItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        } else {
+            AccountNotificationDetailsListItemBinding.bind(convertView)
+        }
+
+        val account = getItem(position) ?: return binding.root
+
+        with(binding) {
+            accountName.text = account.fullName
+            notificationMethod.text = context.getString(account.notificationMethod.stringRes)
+            notificationMethodExtra.text = account.notificationMethodExtra()
+
+            accountName.show()
+            notificationMethod.show()
+            notificationMethodExtra.show()
+
+            val lastFetch = NotificationConfig.lastFetchNewNotifications[account.fullName]
+            if (lastFetch == null) {
+                lastFetchTime.hide()
+                lastFetchError.hide()
+                return@with
+            }
+
+            val now = Instant.now()
+            val instant = lastFetch.first
+            val result = lastFetch.second
+
+            val (resTimestamp, error) = when (result) {
+                is Ok -> Pair(R.string.pref_notification_fetch_ok_timestamp_fmt, null)
+                is Err -> Pair(R.string.pref_notification_fetch_err_timestamp_fmt, result.error)
+            }
+
+            lastFetchTime.text = context.getString(
+                resTimestamp,
+                Duration.between(instant, now).asDdHhMmSs(),
+                instantFormatter.format(instant),
+            )
+
+            lastFetchTime.show()
+            if (error != null) {
+                lastFetchError.text = error
+                lastFetchError.show()
+            } else {
+                lastFetchError.hide()
+            }
+        }
+
+        return binding.root
     }
 }

@@ -225,7 +225,6 @@
     <string name="notification_update_format">%s muokkasi julkaisua</string>
     <string name="notification_update_name">Julkaisujen muokkaukset</string>
     <string name="title_migration_relogin">Kirjaudu uudestaan sisään ottaaksesi vastaan push-ilmoituksia</string>
-    <string name="action_details">Yksityiskohdat</string>
     <string name="error_image_edit_failed">Kuvaa ei voitu muokata.</string>
     <string name="description_visibility_unlisted">Listaamaton</string>
     <string name="dialog_delete_conversation_warning">Poista tämä keskustelu\?</string>
@@ -298,7 +297,6 @@
     <string name="filter_dialog_whole_word_description">Kun avainsana tai lauseke sisältää ainoastaan kirjaimia ja numeroita, sitä sovelletaan vain jos se vastaa koko sanaa</string>
     <string name="abbreviated_years_ago">%dv</string>
     <string name="title_public_trending_statuses">Nousussa olevat julkaisut</string>
-    <string name="action_dismiss">Hylkää</string>
     <string name="compose_active_account_description">Julkaistaan käyttäjänä %1$s</string>
     <string name="dialog_redraft_post_warning">Julkaisu poistetaan ja kirjoitetaan uudestaan?</string>
     <string name="error_following_hashtags_unsupported">Tämä instanssi ei tue aihetunnisteita.</string>
@@ -449,7 +447,6 @@
     <string name="error_media_playback">Toisto epäonnistui: %s</string>
     <string name="drafts_failed_loading_reply">Vastaustietojn lataaminen epäonnistui</string>
     <string name="warning_scheduling_interval">Lyhin ajastusväli Mastodonissa on 5 minuuttia.</string>
-    <string name="dialog_push_notification_migration_other_accounts">Olet kirjautunut uudelleen nykyiseen tiliisi myöntääksesi Pachlille tilausluvan. Sinulla on kuitenkin muitakin tilejä, joita ei ole siirretty tällä tavalla. Vaihda niihin ja kirjaudu uudelleen yksi kerrallaan, jotta UnifiedPush-ilmoitusten tuki voidaan ottaa käyttöön.</string>
     <string name="mute_notifications_switch">Hiljennä ilmoitukset</string>
     <string name="accessibility_talking_about_tag">%1$d käyttäjää keskustelee aihetunnisteesta %2$s</string>
     <string name="translation_provider_fmt">%1$s</string>
@@ -482,7 +479,6 @@
     <string name="account_date_joined">Liittyi %1$s</string>
     <string name="ui_error_filter_v1_load_fmt">Suodattimien lataaminen epäonnistui: %1$s</string>
     <string name="announcement_date_updated">(Päivitetty: %1$s)</string>
-    <string name="tips_push_notification_migration">Kirjaudu uudelleen kaikille tileille push-ilmoitusten ottamiseksi käyttöön.</string>
     <string name="pref_update_notification_frequency_once_per_version">Kerran jokaisesta versiosta</string>
     <string name="filter_description_hide">Piilota täysin</string>
     <string name="filter_description_format">%s: %s</string>
@@ -503,7 +499,6 @@
     <string name="label_filter_context">Suodattimen kontekstit</string>
     <string name="pref_title_confirm_reblogs">Pyydä vahvistus ennen tehostamista</string>
     <string name="account_note_hint">Yksityinen muistiinpano tästä tilistä</string>
-    <string name="dialog_push_notification_migration">Push-ilmoitusten käyttämiseksi UnifiedPushin kautta Pachli tarvitsee luvan tilata Mastodon-palvelimellesi ilmoitukset. Tämä edellyttää Pachlille myönnettyjen OAuthin laajuuksien muuttamista. Uudelleenkirjautumisvaihtoehdon käyttäminen täällä tai tilin asetuksissa tallentaa kaikki paikalliset luonnokset ja välimuistin.</string>
     <string name="label_filter_action">Suodattimen toiminta</string>
     <string name="update_dialog_title">Päivitys on saatavilla</string>
     <string name="filter_edit_keyword_title">Muokkaa avainsanaa</string>

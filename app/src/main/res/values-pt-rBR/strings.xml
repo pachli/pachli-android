@@ -468,18 +468,14 @@
     <string name="error_muting_hashtag_format">Erro ao silenciar #%s</string>
     <string name="account_username_copied">Nome de usuário copiado</string>
     <string name="title_followed_hashtags">Hashtags seguidas</string>
-    <string name="action_details">Detalhes</string>
     <string name="error_following_hashtag_format">Erro ao seguir #%s</string>
     <string name="error_unfollowing_hashtag_format">Erro ao deixar de seguir #%s</string>
     <string name="a11y_label_loading_thread">Carregando fio</string>
     <string name="set_focus_description">Toque ou arraste o círculo para escolher o ponto focal que estará sempre visível nas miniaturas.</string>
     <string name="filter_expiration_format">%s (%s)</string>
-    <string name="dialog_push_notification_migration_other_accounts">Você se conectou novamente à tua conta atual para conceder permissão de assinatura Push à Pachli. No entanto, ainda tem outras contas que não foram migradas dessa forma. Alterne para elas e autentique novamente uma por uma para habilitar o suporte às notificações UnifiedPush.</string>
-    <string name="dialog_push_notification_migration">Para usar notificações Push via UnifiedPush, Pachli precisa de permissão para assinar notificações em teu servidor Mastodon. Isso requer uma nova autenticação para alterar os escopos OAuth concedidos à Pachli. Usar a opção de reautenticar aqui ou nas preferências da conta preservará todos os teus rascunhos e cache locais.</string>
     <string name="failed_to_pin">Falha ao fixar</string>
     <string name="failed_to_unpin">Falha ao desafixar</string>
     <string name="compose_save_draft_loses_media">Salvar rascunho\? (Os anexos serão reenviados assim que você restaurar o rascunho.)</string>
-    <string name="tips_push_notification_migration">Reautentique todas as contas para habilitar o suporte de notificação Push.</string>
     <string name="status_created_info">%1$s publicou</string>
     <string name="title_edits">Edições</string>
     <string name="pref_default_post_language">Idioma padrão dos Toots</string>
@@ -562,7 +558,6 @@
     <string name="title_public_trending_statuses">Toots em alta</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="socket_timeout_exception">A comunicação com tua instância demorou muito</string>
-    <string name="action_dismiss">Dispensar</string>
     <string name="select_list_manage">Gerenciar listas</string>
     <string name="load_newest_statuses">Carregar Toots mais recentes</string>
     <string name="notification_report_description">Notificações sobre denúncias da moderação</string>

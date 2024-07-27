@@ -764,21 +764,13 @@ interface MastodonApi {
         // Should be generated dynamically from all the available notification
         // types defined in [app.pachli.entities.Notification.Types]
         @FieldMap data: Map<String, Boolean>,
-    ): NetworkResult<NotificationSubscribeResult>
-
-    @FormUrlEncoded
-    @PUT("api/v1/push/subscription")
-    suspend fun updatePushNotificationSubscription(
-        @Header("Authorization") auth: String,
-        @Header(DOMAIN_HEADER) domain: String,
-        @FieldMap data: Map<String, Boolean>,
-    ): NetworkResult<NotificationSubscribeResult>
+    ): ApiResult<NotificationSubscribeResult>
 
     @DELETE("api/v1/push/subscription")
     suspend fun unsubscribePushNotifications(
         @Header("Authorization") auth: String,
         @Header(DOMAIN_HEADER) domain: String,
-    ): NetworkResult<ResponseBody>
+    ): ApiResult<Unit>
 
     @GET("api/v1/tags/{name}")
     suspend fun tag(@Path("name") name: String): NetworkResult<HashTag>
