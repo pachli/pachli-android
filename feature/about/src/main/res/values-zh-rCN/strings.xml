@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">关于 Pachli</string>
     <string name="about_device_info_title">你的设备</string>
@@ -18,4 +18,5 @@
     <string name="about_account_info">\@%s@%s
 \n版本: %s</string>
     <string name="license_description">Pachli 使用了以下开源项目的源码：</string>
+    <string name="action_refresh">刷新</string>
 </resources>
