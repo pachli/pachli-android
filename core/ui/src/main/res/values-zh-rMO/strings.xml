@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">網絡請求出錯，請檢查互聯網連接並重試</string>
-    <string name="error_generic">應用程式出現異常</string>
-    <string name="message_empty">沒有內容</string>
+    <string name="error_network">網絡請求出錯，請檢查互聯網連接並重試。</string>
+    <string name="error_generic">應用程式出現異常。</string>
+    <string name="message_empty">沒有內容。</string>
     <string name="action_retry">重試</string>
     <string name="action_view_profile">個人資料</string>
     <string name="action_more">更多</string>
