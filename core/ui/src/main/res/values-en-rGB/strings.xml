@@ -2,4 +2,5 @@
 <resources>
     <string name="error_network">A network error occurred. Please check your connection and try again.</string>
     <string name="error_generic">An error occurred.</string>
+    <string name="action_refresh">Refresh</string>
 </resources>
