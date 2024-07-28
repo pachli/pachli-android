@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">輸入你帳號所在的 Mastodon 站點的域名或地址，譬如 mastodon.social、icosahedron.website、social.tchncs.de 和 <a href="https://instances.social">更多</a>
-\n
-\n如果你還沒有帳號，你可以輸入你想要加入的域名並在此建立新帳號。
-\n
-\n一個站點是一個託管你的帳號的地方，但是你可以很容易的跟不同站台的人們交流，就像是在同一個站台一樣。
-\n
-\n更多資訊可以在 <a href="https://joinmastodon.org">joinmastodon.org</a> 查看。 </string>
+    <string name="dialog_whats_an_instance">輸入你帳號所在的 Mastodon 站點的域名或地址，譬如 mastodon.social、icosahedron.website、social.tchncs.de 和 <a href="https://instances.social">更多</a> 
+\n 
+\n如果你還沒有帳號，你可以輸入你想要加入的域名並在此建立新帳號。 
+\n 
+\n一個站點是一個託管你的帳號的地方，但是你可以很容易的跟不同站台的人們交流，就像是在同一個站台一樣。 
+\n 
+\n更多資訊可以在 <a href="https://joinmastodon.org">joinmastodon.org</a> 查看。 \u0020</string>
     <string name="action_close">關閉</string>
     <string name="error_invalid_domain">該域名無效</string>
     <string name="error_failed_app_registration_fmt">無法連接此伺服器。: %1$s</string>
-    <string name="error_authorization_unknown">認證過程出現未知錯誤。</string>
-    <string name="error_authorization_denied">授權被拒絕。</string>
-    <string name="error_retrieving_oauth_token">無法獲取登入資訊。</string>
+    <string name="error_authorization_unknown">認證過程出現未知錯誤。如果此問題持續發生，請嘗試選單中的「在瀏覽器中登錄」。</string>
+    <string name="error_authorization_denied">授權被拒絕。如果您確定提供了正確登入訊息，請嘗試選單中的「在瀏覽器中登錄」。</string>
+    <string name="error_retrieving_oauth_token">無法獲取登入資訊。如果此問題持續發生，請嘗試選單中的「在瀏覽器中登錄」。</string>
     <string name="hint_domain">哪一個域名？</string>
     <string name="action_login">登入 Mastodon 帳號</string>
     <string name="link_whats_an_instance">什麼是站點？</string>
