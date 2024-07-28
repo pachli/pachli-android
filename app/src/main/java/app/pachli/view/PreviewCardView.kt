@@ -17,7 +17,6 @@
 
 package app.pachli.view
 
-import app.pachli.core.designsystem.R as DR
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -33,6 +32,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.PreviewCard
 import app.pachli.databinding.PreviewCardBinding
 import com.bumptech.glide.Glide
