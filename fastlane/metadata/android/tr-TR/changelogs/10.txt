@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Fixes:
+
+- Bir trend sekme mevcutsa kazayı önlemek
