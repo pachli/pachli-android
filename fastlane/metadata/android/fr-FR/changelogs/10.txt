@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Fixes:
+
+- Prévenir le crash si un onglet tendance est présent
