@@ -1,0 +1,5 @@
+Synthesia 10.2
+
+Opravy:
+
+- Zabránit havárii, pokud je přítomna záložky trendu
