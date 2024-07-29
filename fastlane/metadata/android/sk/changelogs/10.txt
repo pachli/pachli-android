@@ -1,0 +1,5 @@
+TLhliadka absolvovanie
+
+Opravy:
+
+- Zabráňte pádu, ak je prítomný trendová karta
