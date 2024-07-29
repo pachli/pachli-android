@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Fixok:
+
+- Prevent crash, ha egy trendi lap jelen van
