@@ -1,5 +1,39 @@
 # Pachli changelog
 
+## v2.7.0
+
+### New features and other improvements
+
+- Provide a UI to edit different search operators (#[829](https://github.com/pachli/pachli-android/pull/829), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Edit a matching filter directly from the timeline (#[819](https://github.com/pachli/pachli-android/pull/819), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show a specific message if requests are rate-limited (#[818](https://github.com/pachli/pachli-android/pull/818), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show autocomplete hashtags with usage counts, sort by popularity (#[807](https://github.com/pachli/pachli-android/pull/807), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show author bylines on preview cards, tap to view profile (#[805](https://github.com/pachli/pachli-android/pull/805), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Provide more detail in errors, especially media upload errors (#[801](https://github.com/pachli/pachli-android/pull/801), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Warn the user if the posting language might be incorrect (#[792](https://github.com/pachli/pachli-android/pull/792), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Ensure trending tag name is fully visible (#[831](https://github.com/pachli/pachli-android/pull/831), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support same capabilities on Glitch as Mastodon (#[828](https://github.com/pachli/pachli-android/pull/828), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Enable server filtering on GoToSocial 0.16+ (#[826](https://github.com/pachli/pachli-android/pull/826), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use colorPrimary for checked/selected dialog items (#[825](https://github.com/pachli/pachli-android/pull/825), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't focus search query when returning to the results list (#[824](https://github.com/pachli/pachli-android/pull/824), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure initial status length calculation includes the content warning (#[821](https://github.com/pachli/pachli-android/pull/821), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Correctly punctuate a status content description (#[808](https://github.com/pachli/pachli-android/pull/808), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Chinese (Traditional) translations ([Ricky From Hong Kong](https://github.com/pachli/pachli-android/commits?author=lamricky11@hotmail.com))
+- Update Chinese (Simplified) (zh_MO) translations ([Ricky From Hong Kong](https://github.com/pachli/pachli-android/commits?author=lamricky11@hotmail.com))
+- Update Chinese (Traditional, Hong Kong) translations ([Ricky From Hong Kong](https://github.com/pachli/pachli-android/commits?author=lamricky11@hotmail.com))
+- Update English (United Kingdom) translations ([Ricky From Hong Kong](https://github.com/pachli/pachli-android/commits?author=lamricky11@hotmail.com))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Spanish translations ([Miles Krell](https://github.com/pachli/pachli-android/commits?author=noreply@mileskrell.com))
+- Update Norwegian Bokmål translations ([sunniva](https://github.com/pachli/pachli-android/commits?author=schildkroteskoldpadda@gmail.com))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v2.6.0
 
 ### New features and other improvements

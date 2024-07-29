@@ -1,0 +1,18 @@
+Pachli 2.7.0
+
+New features:
+
+- New search operators UI
+- Warn if post language might be wrong
+- Show author bylines
+- Edit a matching filter from the timeline
+- Show autocomplete hashtags with usage counts
+
+Fixes:
+
+- Ensure trending tag name is visible
+- Enable server filtering on GoToSocial 0.16+
+- Don't show keyboard after search results
+- Correct post length calculation
+- Correct content description punctuation
+- Update Chinese, Finnish, Irish, Spanish, Norwegian translations
