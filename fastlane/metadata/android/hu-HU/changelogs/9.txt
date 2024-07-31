@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Új funkciók:
+
+- Mutassa be a profilok szerepét
+- Mutasd össze a gombot a listák megtekintésekor
+- Mutasd össze a gombot a könyvjelzők listájának megtekintésekor
+
+Fixok:
+
+- Mutassa lefordított tartalmat szálakban
+- Számítsa ki a posztok és a közvélemények hosszát az emojisokkal helyesen
+- Prevent crash
+- Ha egy előnézeti kártyának nincs szerzője
+- Ha hiba történik egy idővonalban anélkül, hogy FAB
+- Profilon, ha a fiók null `createdAt' mező
+- Frissítési fordítások
