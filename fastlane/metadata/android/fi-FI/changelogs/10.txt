@@ -2,4 +2,4 @@ Pachli 2.1.1
 
 Korjaukset:
 
-Estää kaatuminen, jos trendivälilehti on läsnä
+- Estää kaatuminen, jos trendivälilehti on läsnä
