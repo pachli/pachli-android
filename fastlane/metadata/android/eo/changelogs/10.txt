@@ -1,5 +1,5 @@
-2.1 Pachli 2.1.1
+Pachli 2.1.1
 
 Fiksoj:
 
-Eviti kraŝon se inklina klako ĉeestas
+- Eviti kraŝon se inklina klako ĉeestas
