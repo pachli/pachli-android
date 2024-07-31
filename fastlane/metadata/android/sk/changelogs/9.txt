@@ -1,0 +1,17 @@
+Bradavičkehliadka 2.1.0
+
+Nové funkcie:
+
+- Zobraziť úlohy na profiloch
+- Zobraziť tlačidlo preložiť pri prezeraní zoznamov
+- Zobraziť tlačidlo preložiť pri prezeraní zoznamu záložky
+
+Opravy:
+
+- Zobraziť preložený obsah v závitoch
+- Vypočítajte si dĺžku príspevkov a kolí smajlíkmi správne
+- Zabráňte pádu
+- Ak preview karta nemá autor
+- Ak dôjde k chybe v časovej osi bez FAB
+- Na profil, ak má účet null `createdAt' pole
+- Aktualizácia prekladov
