@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Yeni özellikler:
+
+- Profillerdeki rolleri göster
+- Show düğmesi, liste liste listelerini görüntülemek için oluşturulur
+- Show düğmesi, kitap işaretlerini incelediği zaman oluşturur
+
+Fixes:
+
+- Göster threads içinde içerik tercüme
+- emojilerle mesajların ve anketlerin uzunluğu doğru
+- Kazayı önlemek
+- Bir önizleme kartının yazarı yoksa
+- Bir hata bir FAB olmadan zaman zaman içinde gerçekleşirse
+- Hesabın çıplak olması durumunda profilinde,
+Güncelleme çevirileri
