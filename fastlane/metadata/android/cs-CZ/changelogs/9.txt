@@ -1,0 +1,17 @@
+Revo Uninstaller Pro 2.0.5
+
+Nové funkce:
+
+- Zobrazit role profilů
+- Zobrazte tlačítko s nastavením při prohlížení seznamů
+- Zobrazit compose tlačítko při prohlížení seznamu záložek
+
+Opravy:
+
+- Zobrazit přeložený obsah v nití
+- Vypočítat délku příspěvků a ankety s emodžis správně
+- Zabránit zhroucení
+- Pokud náhled karty nemá autor
+- Pokud dojde k chybě v časové linii bez FAB
+- Na profilu, pokud má účet null `createdAt` pole
+- Aktualizace překladů
