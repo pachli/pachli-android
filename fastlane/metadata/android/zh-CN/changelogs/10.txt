@@ -1,5 +1,5 @@
 Pachli
 
-ixes:
+Fixes:
 
 - 如果出现趋势表,防止坠毁
