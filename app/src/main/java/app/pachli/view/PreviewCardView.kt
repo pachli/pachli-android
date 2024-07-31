@@ -25,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import app.pachli.R
 import app.pachli.core.activity.decodeBlurHash
 import app.pachli.core.activity.emojify
@@ -129,7 +130,10 @@ class PreviewCardView @JvmOverloads constructor(
             card.description.isNotBlank() -> card.description
             card.authorName.isNotBlank() -> card.authorName
             else -> null
-        }?.let { cardDescription.text = it } ?: cardDescription.hide()
+        }?.let {
+            cardDescription.text = it
+            cardDescription.show()
+        } ?: cardDescription.hide()
 
         previewCardWrapper.setOnClickListener { listener.onClick(card, Target.CARD) }
         cardImage.setOnClickListener { listener.onClick(card, Target.IMAGE) }
@@ -150,7 +154,7 @@ class PreviewCardView @JvmOverloads constructor(
             cardImage.shapeAppearanceModel = if (card.width > card.height) {
                 setTopBottomLayout()
             } else {
-                setLeftRightLayout()
+                setStartEndLayout()
             }.build()
 
             cardImage.scaleType = ImageView.ScaleType.CENTER_CROP
@@ -167,7 +171,7 @@ class PreviewCardView @JvmOverloads constructor(
             }
         } else if (statusDisplayOptions.useBlurhash && !card.blurhash.isNullOrBlank()) {
             cardImage.show()
-            cardImage.shapeAppearanceModel = setLeftRightLayout().build()
+            cardImage.shapeAppearanceModel = setStartEndLayout().build()
             cardImage.scaleType = ImageView.ScaleType.CENTER_CROP
 
             Glide.with(cardImage.context)
@@ -191,23 +195,53 @@ class PreviewCardView @JvmOverloads constructor(
     /** Adjusts the layout parameters to place the image above the information views */
     private fun setTopBottomLayout() = with(binding) {
         val cardImageShape = ShapeAppearanceModel.Builder()
-        cardImage.layoutParams.height =
-            cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_vertical_height)
-        cardImage.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+
+        // Move image to top.
+        with(cardImage.layoutParams as ConstraintLayout.LayoutParams) {
+            height = cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_vertical_height)
+            width = ViewGroup.LayoutParams.MATCH_PARENT
+
+            bottomToBottom = ConstraintLayout.LayoutParams.UNSET
+        }
+
+        // Move cardInfo below image
+        with(cardInfo.layoutParams as ConstraintLayout.LayoutParams) {
+            startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+            topToBottom = cardImage.id
+
+            startToEnd = ConstraintLayout.LayoutParams.UNSET
+            topToTop = ConstraintLayout.LayoutParams.UNSET
+        }
+
         cardInfo.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
         cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
         cardImageShape.setTopRightCorner(CornerFamily.ROUNDED, cardCornerRadius)
         return@with cardImageShape
     }
 
-    /** Adjusts the layout parameters to place the image on the left, the information on the right */
-    private fun setLeftRightLayout() = with(binding) {
+    /**
+     * Adjusts the layout parameters to place the image at the start, the information at
+     * the end.
+     */
+    private fun setStartEndLayout() = with(binding) {
         val cardImageShape = ShapeAppearanceModel.Builder()
-        cardImage.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-        cardImage.layoutParams.width =
-            cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_horizontal_width)
-        cardInfo.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        cardInfo.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+
+        // Move image to start with fixed width to allow space for cardInfo.
+        with(cardImage.layoutParams as ConstraintLayout.LayoutParams) {
+            height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+            width = cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_horizontal_width)
+            bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+        }
+
+        // Move cardInfo to end of image
+        with(cardInfo.layoutParams as ConstraintLayout.LayoutParams) {
+            startToEnd = binding.cardImage.id
+            topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+
+            startToStart = ConstraintLayout.LayoutParams.UNSET
+            topToBottom = ConstraintLayout.LayoutParams.UNSET
+        }
+
         cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
         cardImageShape.setBottomLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
         return@with cardImageShape
