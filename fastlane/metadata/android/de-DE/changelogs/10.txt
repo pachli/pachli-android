@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Behebungen:
+
+- Verhindern Sie den Absturz, wenn ein Trend Tab vorhanden ist

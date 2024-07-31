@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Nowe cechy:
+
+- Show role na profilach
+Show komponuje przycisk podczas oglądania list.
+- Show komponuje przycisk, gdy ogląda listę książek.
+
+Fiksy
+
+- Show przetłumaczył treści w wątkach.
+- Kalkulacja długości postów i pollów z emojis prawidłowo.
+- katastrofa wstępna
+Jeśli karta przedpremierowa nie ma autora.
+Jeśli błędy występują w linii czasowej bez FAB.
+Profil na profilu jeśli rachunek ma puste pole 'createdAt'.
+- tłumaczenie aktualne

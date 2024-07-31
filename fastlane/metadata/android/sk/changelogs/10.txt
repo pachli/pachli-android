@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Opravy:
+
+- Zabráňte pádu, ak je prítomný trendová karta

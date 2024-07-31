@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Correções:
+
+- Evite o acidente se uma aba de tendência estiver presente

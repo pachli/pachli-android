@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Fiksy
+
+Prevent crash if the trending tab is present

@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Opravy:
+
+- Zabránit havárii, pokud je přítomna záložky trendu

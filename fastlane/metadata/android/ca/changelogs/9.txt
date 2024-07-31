@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Novetats:
+
+- Mostra els rols dels perfils
+- Mostra el botó de compondre quan es mostren les llistes
+- Mostra el botó de compondre a la llista de marcadors de visualització
+
+Fixacions:
+
+- Mostrar contingut traduït en fils
+- Calcular la longitud dels missatges i les enquestes amb els emojis correctament
+- Evitar l'accident
+- Si una targeta de previsualització no té cap autor
+- Si es produeix un error en una línia de temps sense una FAB
+`creatatAt` field`
+Traducció
