@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Uudet ominaisuudet:
+
+Näytä rooleja profiileissa
+Näytä painiketta, kun katselet listoja
+Näytä kompostipainike, kun katselet kirjanmerkkejä
+
+Korjaukset:
+
+Näytä käännetty sisältö threads
+Laske pituus postauksia ja kyselyjä emoji oikein
+Ennaltaehkäisevä törmäys
+Jos esikatselukortti ei ole kirjailija
+Jos virhe ilmenee aikataulussa ilman FAB: tä
+profiilissa, jos tilillä on "luotu"-kenttä
+Päivitä käännökset
