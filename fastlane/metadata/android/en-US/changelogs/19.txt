@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Fixes:
+
+- Correctly position preview card images, show card description 

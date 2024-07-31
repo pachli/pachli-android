@@ -1,5 +1,11 @@
 # Pachli changelog
 
+## v2.7.1
+
+### Significant bug fixes
+
+- Correctly position preview card images, show card description (#[860](https://github.com/pachli/pachli-android/pull/860), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
 ## v2.7.0
 
 ### New features and other improvements
