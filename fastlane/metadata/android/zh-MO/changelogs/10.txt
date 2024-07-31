@@ -1,5 +1,5 @@
-Pachli
+Pachli 2.1.1
 
-ixes:
+Fixes:
 
 - 如果出现趋势表,防止坠毁
