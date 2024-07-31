@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Novos recursos:
+
+- Mostrar papéis em perfis
+- Mostrar botão de compor quando visualizar listas
+- Mostrar botão de composição ao visualizar a lista de favoritos
+
+Correções:
+
+- Mostrar conteúdo traduzido em threads
+- Calcular o comprimento de posts e pesquisas com emojis corretamente
+- Impedir acidente
+- Se um cartão de visualização não tiver autor
+- Se ocorrer um erro numa linha temporal sem uma FAB
+- No perfil se a conta tiver nulo campo `createdAt`
+- Atualizar traduções
