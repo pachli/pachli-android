@@ -1,0 +1,17 @@
+2.1.0
+
+Novaj ecoj:
+
+Montri rolojn sur profiloj
+Montri butonon dum spektado de listoj
+Montri butonon dum spektado de librostampoj listigas
+
+Fiksoj:
+
+Spektaklo tradukis enhavon en fadenoj
+Kalkuli longon de postenoj kaj balotenketoj kun emojis ĝuste
+- Malhelpu akcidenton
+Se antaŭprezento karto havas neniun verkinton
+Se eraro okazas en templinio sen FAB
+En profilo se raporto havas nul "kreitan ĉe " kampo
+Ĝisdatigu tradukojn
