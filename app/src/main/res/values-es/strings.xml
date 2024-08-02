@@ -554,7 +554,7 @@
     <string name="pref_title_account_filter_keywords">Perfiles</string>
     <string name="notification_unknown_name">Desconocido</string>
     <string name="status_filtered_show_anyway">Mostrar de todas formas</string>
-    <string name="status_filter_placeholder_label_format">Filtrado: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Filtrado: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_show_stat_inline">Mostrar estadísticas de la entrada en la línea de tiempo</string>
     <string name="socket_timeout_exception">Contactar con tu servidor ha tardado demasiado tiempo</string>
     <string name="select_list_empty">Todavía no tienes listas</string>
@@ -680,4 +680,25 @@
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">el agente de resolución de contenido tiene un esquema no compatible: %1$s</string>
     <string name="error_prepare_media_file_is_too_large_fmt">el tamaño del archivo es %1$s, el máximo permitido es %2$s</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_load_filter_failed_fmt">Fallo al cargar el filtro: %1$s</string>
+    <string name="search_operator_attachment_dialog_any_label">Cualquier tipo</string>
+    <string name="search_operator_attachment_kind_video_label">video</string>
+    <string name="search_operator_attachment_specific_media_include_1_exclude_2_fmt">Con %1$s, sin %2$s, %3$s</string>
+    <string name="search_operator_attachment_specific_media_include_1_fmt">Con %1$s</string>
+    <string name="search_operator_attachment_specific_media_include_1_exclude_1_fmt">Con %1$s, sin %2$s</string>
+    <string name="search_operator_attachment_specific_media_exclude_3_fmt">Sin %1$s, %2$s, %3$s</string>
+    <string name="action_filter_search">Filtrar la búsqueda</string>
+    <string name="search_operator_attachment_kind_audio_label">sonido</string>
+    <string name="search_operator_attachment_has_media_label">Por lo menos un adjunto</string>
+    <string name="error_save_filter_failed_fmt">Fallo al guardar el filtro: %1$s</string>
+    <string name="error_delete_filter_failed_fmt">Fallo al borrar el filtro: %1$s</string>
+    <string name="search_operator_attachment_dialog_title">¿Limitar a publicaciones con medios?</string>
+    <string name="search_operator_attachment_has_media_except_1_label_fmt">Cualquier excepto %1$s</string>
+    <string name="search_operator_attachment_has_media_except_2_label_fmt">Cualquier excepto %1$s, %2$s</string>
+    <string name="search_operator_attachment_has_media_except_3_label_fmt">Cualquier excepto %1$s, %2$s, %3$s</string>
+    <string name="search_operator_attachment_specific_media_include_2_fmt">Con %1$s, %2$s</string>
+    <string name="search_operator_attachment_specific_media_include_3_fmt">Con %1$s, %2$s, %3$s</string>
+    <string name="search_operator_attachment_specific_media_include_2_exclude_1_fmt">Con %1$s, %2$s, sin %3$s</string>
+    <string name="search_operator_attachment_specific_media_exclude_1_fmt">Sin %1$s</string>
+    <string name="search_operator_attachment_specific_media_exclude_2_fmt">Sin %1$s, %2$s</string>
 </resources>
