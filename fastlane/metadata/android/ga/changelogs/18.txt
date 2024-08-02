@@ -1,0 +1,18 @@
+Pacli 2.7.0
+
+Gnéithe nua:
+
+ Comhéadain oibreoirí cuardaigh nua
+ Rabhadh má tá teanga an phoist mícheart
+ Taispeáin bylines údar
+ Eagar scagaire meaitseála ón amlíne
+ Taispeáin hashtags uathchríochnaithe le comhaireamh úsáide
+
+Ceartúcháin:
+
+ Ainm clibeanna treochta le feiceáil
+ Scagadh freastalaí ar GoToSocial 0.16+
+ Ná taispeáin méarchlár tar éis cuardaigh
+ Ríomh fad an phoist i gceart
+ Pointe cur síos ceart ar ábhar
+ Aistriúcháin na Síne, Fionlainne, Gaeilge, Spáinne, hIorua
