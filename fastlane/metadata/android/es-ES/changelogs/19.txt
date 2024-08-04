@@ -1,5 +1,5 @@
 Pachli 2.7.1
 
-Arreglos:
+Correcciones:
 
-- Posición correcta imágenes de la tarjeta de vista previa, mostrar la descripción de la tarjeta
+- Posicionar correctamente las tarjetas de previsualización, mostrar la descripción de la tarjeta
