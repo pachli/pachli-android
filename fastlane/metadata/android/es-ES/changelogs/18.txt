@@ -1,18 +1,18 @@
 Pachli 2.7.0
 
-Nuevas características:
+Nuevo:
 
-- Nuevos operadores de búsqueda UI
-- Advierta si el lenguaje post podría estar equivocado
-- Show author bylines
-- Editar un filtro que coincida con el cronómetro
-- Mostrar hashtags autocompletos con conteos de uso
+- Operadores de búsqueda en interfaz
+- Advertir si el idioma de la publicación fuese erróneo
+- Mostrar autor
+- Editar filtros desde línea de tiempo
+- Autocompletar etiquetas y mostrar su uso
 
-Arreglos:
+Correcciones:
 
-- Asegurar que el nombre de la etiqueta de tendencia sea visible
-- Permite filtrar el servidor en GoToSocial 0.16+
-- No mostrar teclado después de resultados de búsqueda
-- Cálculo correcto de la longitud post
+- Visibilidad de la etiqueta en tendencia
+- Filtros en GoToSocial 0.16+
+- Ocultar teclado después de búsqueda
+- Cálculo correcto de caracteres
 - Correcta puntuación de la descripción del contenido
-- Actualizar traducciones al chino, finlandés, irlandés, español, noruego
+- Actualizar traducciones: chino, español, finés, irlandés y noruego
