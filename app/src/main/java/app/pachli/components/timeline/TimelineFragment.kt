@@ -324,7 +324,17 @@ class TimelineFragment :
                 // Collect the uiState. Nothing is done with it, but if you don't collect it then
                 // accessing viewModel.uiState.value (e.g., to check whether the FAB should be
                 // hidden) always returns the initial state.
-                launch { viewModel.uiState.collect() }
+                launch {
+                    viewModel.uiState.collect { uiState ->
+                        if (layoutManager.reverseLayout != uiState.reverseTimeline) {
+                            layoutManager.reverseLayout = uiState.reverseTimeline
+                            layoutManager.stackFromEnd = uiState.reverseTimeline
+                            // Force recyclerView to re-layout everything.
+                            binding.recyclerView.layoutManager = null
+                            binding.recyclerView.layoutManager = layoutManager
+                        }
+                    }
+                }
 
                 // Update status display from statusDisplayOptions. If the new options request
                 // relative time display collect the flow to periodically re-bind the UI.

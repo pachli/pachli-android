@@ -677,6 +677,11 @@
     <string name="update_dialog_title">An update is available</string>
     <string name="update_dialog_neutral">Don\'t remind me for this version</string>
     <string name="update_dialog_negative">Never remind me</string>
+    <string name="pref_title_labs">Lab experiments</string>
+    <string name="pref_labs_warning">These are experimental features. There is no guarantee they work, or will be included in future versions. Use at your own risk.</string>
+    <string name="pref_labs_reverse_home_timeline_title">Reverse timeline order</string>
+    <string name="pref_labs_reverse_home_timeline_off_summary">Posts are ordered newest first</string>
+    <string name="pref_labs_reverse_home_timeline_on_summary">Posts are ordered oldest first</string>
     <string name="translating">Translating…</string>
     <string name="translation_provider_fmt">%1$s</string>
 

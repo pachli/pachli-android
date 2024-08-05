@@ -127,6 +127,8 @@ object PrefKeys {
     const val UPDATE_NOTIFICATION_VERSIONCODE = "updateNotificationVersioncode"
     const val UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS = "updateNotificationLastNotificationMs"
 
+    const val LAB_REVERSE_TIMELINE = "labReverseTimeline"
+
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         // Empty at this time

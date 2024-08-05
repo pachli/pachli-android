@@ -366,6 +366,14 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     icon = makeIcon(GoogleMaterial.Icon.gmd_refresh)
                 }
             }
+
+            preferenceCategory(R.string.pref_title_labs) {
+                it.icon = makeIcon(GoogleMaterial.Icon.gmd_science)
+                preference {
+                    setTitle(R.string.pref_title_labs)
+                    fragment = LabPreferencesFragment::class.qualifiedName
+                }
+            }
         }
     }
 
