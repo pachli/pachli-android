@@ -665,7 +665,7 @@
     <string name="search_operator_attachment_dialog_any_label">Kaikki</string>
     <string name="search_operator_attachment_dialog_image_label">Kuvat</string>
     <string name="search_operator_attachment_dialog_video_label">Video</string>
-    <string name="search_operator_attachment_no_media_label">Ei liitteitä</string>
+    <string name="search_operator_attachment_no_media_label">Ei mediaa</string>
     <string name="search_operator_attachment_kind_image_label">kuvat</string>
     <string name="search_operator_attachment_kind_video_label">video</string>
     <string name="search_operator_attachment_kind_audio_label">audio</string>
@@ -701,12 +701,12 @@
     <string name="search_operator_date_all">Päivämäärät ▾</string>
     <string name="search_operator_date_checked">%1$s - %2$s</string>
     <string name="search_operator_date_checked_same_day">Päivänä %1$s</string>
-    <string name="search_operator_date_dialog_title">Rajoita ajalle välillä…</string>
+    <string name="search_operator_date_dialog_title">Rajoita julkaisuihin jotka on lähetetty…</string>
     <string name="search_operator_language_dialog_title">Rajoita julkaisuun, jotka on kirjoitettu…</string>
-    <string name="search_operator_language_all">Kaikki kielet ▾</string>
+    <string name="search_operator_language_all">Mikä tahansa kieli ▾</string>
     <string name="search_operator_language_checked_fmt">%1$s</string>
-    <string name="search_operator_language_dialog_all">Kaikki kielet</string>
-    <string name="search_operator_replies_all">Sisällytä vastaukset ▾</string>
+    <string name="search_operator_language_dialog_all">Mikä tahansa kieli</string>
+    <string name="search_operator_replies_all">Myös vastaukset ▾</string>
     <string name="search_operator_replies_replies_only">Näytä vain vastaukset</string>
     <string name="search_operator_replies_no_replies">Ei vastauksia</string>
     <string name="search_operator_replies_dialog_title">Sisällytä vastaukset?</string>
@@ -729,9 +729,9 @@
     <string name="search_operator_attachment_has_media_except_1_label_fmt">Kaikki paitsi %1$s</string>
     <string name="error_load_filter_failed_fmt">Suodattimen lataaminen epäonnistui: %1$s</string>
     <string name="error_save_filter_failed_fmt">Suodattimen tallentaminen epäonnistui: %1$s</string>
-    <string name="search_operator_attachment_all">Liitteet ▾</string>
+    <string name="search_operator_attachment_all">Mediat ▾</string>
     <string name="search_operator_attachment_has_media_except_2_label_fmt">Kaikki paitsi %1$s, %2$s</string>
-    <string name="search_operator_attachment_dialog_title">Vain julkaisut joissa on liitteitä?</string>
+    <string name="search_operator_attachment_dialog_title">Vain julkaisut joissa on medialiitteitä?</string>
     <string name="search_operator_attachment_dialog_audio_label">Audio</string>
     <string name="search_operator_attachment_has_media_label">Vähintään yksi liite</string>
     <string name="search_operator_attachment_has_media_except_3_label_fmt">Kaikki paitsi %1$s, %2$s, %3$s</string>
@@ -752,6 +752,13 @@
     <string name="search_operator_sensitive_dialog_title">Julkaisut joissa arkaluonteista sisältöä</string>
     <string name="search_operator_sensitive_dialog_all">Kaikki julkaisut</string>
     <string name="search_operator_replies_dialog_no_replies">Ilman vastauksia</string>
-    <string name="search_operator_sensitive_all">Näytä arkaluonteinen sisältö ▾</string>
+    <string name="search_operator_sensitive_all">Myös arkaluonteinen sisältö ▾</string>
     <string name="search_operator_sensitive_no_sensitive">Ei arkaluonteista sisältöä</string>
+    <string name="action_filter_search">Suodata tulokset</string>
+    <string name="search_operator_date_dialog_all">Milloin tahansa</string>
+    <string name="search_operator_date_dialog_last_7_days">Viimeiset 7 päivää</string>
+    <string name="search_operator_date_dialog_today">Tänään</string>
+    <string name="search_operator_date_dialog_last_30_days">Viimeiset 30 päivää</string>
+    <string name="search_operator_date_dialog_last_6_months">Viimeiset 6 kuukautta</string>
+    <string name="search_operator_date_dialog_custom_range">Valinnainen aika</string>
 </resources>
