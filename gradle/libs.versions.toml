@@ -53,7 +53,7 @@ org-json = "20240303"
 junit = "4.13.2"
 kotlin = "2.0.0"
 kotlin-result = "1.1.20"
-ksp = "2.0.0-1.0.23"
+ksp = "2.0.0-1.0.24"
 image-cropper = "4.3.2"
 leakcanary = "2.14"
 lint = "31.5.0" # = agp + 23.0.0 (= 8.5.0), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
