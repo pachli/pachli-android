@@ -37,6 +37,7 @@ class NetworkTimelineViewModelTestUiState : NetworkTimelineViewModelTestBase() {
 
     private val initialUiState = UiState(
         showFabWhileScrolling = true,
+        reverseTimeline = false,
     )
 
     @Test

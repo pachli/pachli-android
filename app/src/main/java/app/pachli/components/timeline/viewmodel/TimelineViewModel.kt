@@ -82,6 +82,9 @@ import timber.log.Timber
 data class UiState(
     /** True if the FAB should be shown while scrolling */
     val showFabWhileScrolling: Boolean,
+
+    /** True if the timeline should be shown in reverse order (oldest first) */
+    val reverseTimeline: Boolean,
 )
 
 // TODO: Ui* classes are copied from NotificationsViewModel. Not yet sure whether these actions
@@ -403,16 +406,21 @@ abstract class TimelineViewModel(
             }
         }
 
+        val watchedPrefs = setOf(PrefKeys.FAB_HIDE, PrefKeys.LAB_REVERSE_TIMELINE)
         uiState = sharedPreferencesRepository.changes
-            .filter { it == PrefKeys.FAB_HIDE }
+            .filter { watchedPrefs.contains(it) }
             .map {
                 UiState(
                     showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
+                    reverseTimeline = sharedPreferencesRepository.getBoolean(PrefKeys.LAB_REVERSE_TIMELINE, false),
                 )
             }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-                initialValue = UiState(showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)),
+                initialValue = UiState(
+                    showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
+                    reverseTimeline = sharedPreferencesRepository.getBoolean(PrefKeys.LAB_REVERSE_TIMELINE, false),
+                ),
             )
 
         if (timeline is Timeline.Home) {

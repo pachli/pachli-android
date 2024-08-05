@@ -37,6 +37,7 @@ class CachedTimelineViewModelTestUiState : CachedTimelineViewModelTestBase() {
 
     private val initialUiState = UiState(
         showFabWhileScrolling = true,
+        reverseTimeline = false,
     )
 
     @Test
