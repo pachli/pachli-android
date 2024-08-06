@@ -761,4 +761,9 @@
     <string name="search_operator_date_dialog_last_30_days">Viimeiset 30 päivää</string>
     <string name="search_operator_date_dialog_last_6_months">Viimeiset 6 kuukautta</string>
     <string name="search_operator_date_dialog_custom_range">Valinnainen aika</string>
+    <string name="pref_title_labs">Laboratoriokokeet</string>
+    <string name="pref_labs_warning">Nämä ovat koeluontoisia toimintoja. Ei ole varmaa, toimivatko ne, tai otetaanko ne tuleviin versioihin. Käytä omalla riskillä.</string>
+    <string name="pref_labs_reverse_home_timeline_title">Aikajana käänteisessä järjestyksessä</string>
+    <string name="pref_labs_reverse_home_timeline_off_summary">Uusimmat julkaisut ensin</string>
+    <string name="pref_labs_reverse_home_timeline_on_summary">Vanhimmat julkaisut ensin</string>
 </resources>
