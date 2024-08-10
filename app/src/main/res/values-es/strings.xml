@@ -693,9 +693,9 @@
     <string name="error_save_filter_failed_fmt">Fallo al guardar el filtro: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Fallo al borrar el filtro: %1$s</string>
     <string name="search_operator_attachment_dialog_title">¿Limitar a publicaciones con medios?</string>
-    <string name="search_operator_attachment_has_media_except_1_label_fmt">Cualquier excepto %1$s</string>
-    <string name="search_operator_attachment_has_media_except_2_label_fmt">Cualquier excepto %1$s, %2$s</string>
-    <string name="search_operator_attachment_has_media_except_3_label_fmt">Cualquier excepto %1$s, %2$s, %3$s</string>
+    <string name="search_operator_attachment_has_media_except_1_label_fmt">Cualesquiera excepto %1$s</string>
+    <string name="search_operator_attachment_has_media_except_2_label_fmt">Cualesquiera excepto %1$s, %2$s</string>
+    <string name="search_operator_attachment_has_media_except_3_label_fmt">Cualesquiera excepto %1$s, %2$s, %3$s</string>
     <string name="search_operator_attachment_specific_media_include_2_fmt">Con %1$s, %2$s</string>
     <string name="search_operator_attachment_specific_media_include_3_fmt">Con %1$s, %2$s, %3$s</string>
     <string name="search_operator_attachment_specific_media_include_2_exclude_1_fmt">Con %1$s, %2$s, sin %3$s</string>
@@ -780,4 +780,9 @@
     <string name="search_operator_where_dialog_all">Todas las publicaciones</string>
     <string name="search_operator_where_dialog_all_hint">Publicaciones en tu biblioteca y publicaciones públicas</string>
     <string name="search_operator_where_dialog_library_hint">Tus propias publicaciones, impulsos, favoritos, marcadores y publicaciones en las que te hayan @mencionado</string>
+    <string name="pref_title_labs">Experimentos de laboratorio</string>
+    <string name="pref_labs_warning">Características experimentales. No hay garantías de que funcionen o de que sean incluidas en futuras versiones. Su uso queda bajo tu entera responsabilidad.</string>
+    <string name="pref_labs_reverse_home_timeline_title">Orden inverso en línea de tiempo</string>
+    <string name="pref_labs_reverse_home_timeline_off_summary">Publicaciones más recientes primero</string>
+    <string name="pref_labs_reverse_home_timeline_on_summary">Publicaciones más antiguas primero</string>
 </resources>
