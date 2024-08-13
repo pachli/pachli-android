@@ -5,10 +5,10 @@
     <string name="error_compose_character_limit">Innlegget er for langt!</string>
     <string name="error_media_upload_type">Den filtypen kan ikke lastes opp.</string>
     <string name="error_media_upload_opening">Den filen kunne ikke åpnes.</string>
-    <string name="error_media_upload_permission">Trenger tillatelse til å lese media.</string>
-    <string name="error_media_download_permission">Trenger tillatelse for å lagre media.</string>
+    <string name="error_media_upload_permission">Pachli tenger tillatelse for å lese media.</string>
+    <string name="error_media_download_permission">Pachli trenger tillatelse for å lagre media.</string>
     <string name="error_media_upload_image_or_video">Bilder og videoer kan ikke legges til i samme innlegg.</string>
-    <string name="error_media_upload_sending">Opplastingen feilet.</string>
+    <string name="error_media_upload_sending">Mislyktes ved opplasting.</string>
     <string name="error_sender_account_gone">En feil oppsto under sending av innlegget.</string>
     <string name="title_home">Hjem</string>
     <string name="title_notifications">Varsler</string>
@@ -39,7 +39,7 @@
     <string name="footer_empty">Ingenting her. Dra ned for å oppdatere!</string>
     <string name="notification_reblog_format">%s delte innlegget ditt</string>
     <string name="notification_favourite_format">%s favoriserte innlegget ditt</string>
-    <string name="notification_follow_format">%s følger deg</string>
+    <string name="notification_follow_format">%s fulgte deg</string>
     <string name="report_username_format">Rapporter @%s</string>
     <string name="report_comment_hint">Ytterligere kommentarer\?</string>
     <string name="action_quick_reply">Hurtigsvar</string>
@@ -50,13 +50,13 @@
     <string name="action_unfavourite">Fjern favoritt</string>
     <string name="action_compose">Skriv</string>
     <string name="action_logout">Logg ut</string>
-    <string name="action_logout_confirm">Er du sikker på at du vil logge ut fra kontoen %1$s\? Dette vil slette all lokal data for kontoen, som utkast og instillinger.</string>
+    <string name="action_logout_confirm">Er du sikker på at du vil logge ut fra kontoen %1$s? Alle opplysninger, utkast, og innstillinger som er lagret på enheten, skal slettes for godt.</string>
     <string name="action_follow">Følg</string>
     <string name="action_unfollow">Slutt å følge</string>
     <string name="action_block">Blokkér</string>
     <string name="action_unblock">Fjern blokkering</string>
     <string name="action_hide_reblogs">Skjul delinger</string>
-    <string name="action_show_reblogs">Vis delte inlegg</string>
+    <string name="action_show_reblogs">Vis delte innlegg</string>
     <string name="action_report">Rapporter</string>
     <string name="action_delete">Slett</string>
     <string name="action_send">TUT</string>
@@ -89,7 +89,7 @@
     <string name="action_content_warning">Innholdsadvarsel</string>
     <string name="action_emoji_keyboard">Emoji-tastatur</string>
     <string name="action_add_tab">Legg til fane</string>
-    <string name="action_open_reblogger">Åpne deler</string>
+    <string name="action_open_reblogger">Åpne delerens profil</string>
     <string name="action_open_reblogged_by">Vis delinger</string>
     <string name="action_open_faved_by">Vis favoritter</string>
     <string name="title_mentions_dialog">Nevnelser</string>
@@ -462,7 +462,7 @@
     <string name="action_edit_image">Rediger bilde</string>
     <string name="error_image_edit_failed">Bildet kunne ikke redigeres.</string>
     <string name="error_following_hashtag_format">Det oppsto en feil under følging av #%s</string>
-    <string name="error_unfollowing_hashtag_format">Kunne ikke slutte å følge #%s</string>
+    <string name="error_unfollowing_hashtag_format">Klarte ikke slutte å følge #%s</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="duration_no_change">(Ingen endring)</string>
     <string name="description_post_language">Innleggspråk</string>
@@ -489,7 +489,7 @@
     <string name="notification_report_name">Rapporter</string>
     <string name="description_post_edited">Redigert</string>
     <string name="error_following_hashtags_unsupported">Denne instansen støtter ikke følging av emneknagger.</string>
-    <string name="title_followed_hashtags">Fulgte Emneknagger</string>
+    <string name="title_followed_hashtags">Fulgte emneknagger</string>
     <string name="report_category_violation">Regelbrudd</string>
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Annet</string>
@@ -525,9 +525,9 @@
     <string name="filter_description_format">%s: %s</string>
     <string name="pref_title_http_proxy_port_message">Portnummer burde være mellom %d og %d</string>
     <string name="action_post_failed">Opplastningen mislykkets</string>
-    <string name="action_post_failed_detail_plural">Opplastningen av innleggene dine mislykktes og de har blitt lagret som utkast.
+    <string name="action_post_failed_detail_plural">Opplasting av innleggene dine mislyktes og innleggene har blitt lagret som utkast.
 \n
-\nEnten kunne ikke tjeneren nås, eller så ble opplastningen nektet.</string>
+\nDette skjedde fordi serveren kunne ikke bli nådd, eller fordi serveren nektet å ta imot innleggene.</string>
     <string name="action_post_failed_show_drafts">Vis utkast</string>
     <string name="action_post_failed_do_nothing">Lukk</string>
     <string name="post_media_alt">ALT</string>
@@ -536,16 +536,16 @@
     <string name="ui_error_clear_notifications">Sletting av vasler feilet: %s</string>
     <string name="ui_error_reject_follow_request">Avvisning av følgeforespørselen misslyktes: %s</string>
     <string name="ui_error_accept_follow_request">Godtagelse av følgeforespørsel mislykktes: %s</string>
-    <string name="error_muting_hashtag_format">Kunne ikke dempe #%s</string>
-    <string name="error_unmuting_hashtag_format">Kunne ikke skru av dempingen av #%s</string>
+    <string name="error_muting_hashtag_format">Klarte ikke dempe #%s</string>
+    <string name="error_unmuting_hashtag_format">Klarte ikke slutte å dempe #%s</string>
     <string name="description_browser_login">Kan støtte flere autentiseringsmetoder, men trenger en støttet nettleser.</string>
     <string name="description_login">Virker som oftest. Ingen informasjon deles med andre apper.</string>
-    <string name="action_post_failed_detail">Opplastingen misslykktes og har blit lagret som utkast.
+    <string name="action_post_failed_detail">Opplasting av innlegget ditt mislyktes og innlegget ditt har blitt lagret som et utkast.
 \n
-\nEnten kunne tjeneren ikke kontakteres, eller den nektet opplastningen.</string>
+\nDette skjedde fordi serveren kunne ikke bli nådd, eller fordi serveren har nektet å ta imot innlegget ditt.</string>
     <string name="ui_success_accepted_follow_request">Følgeforespørsel akseptert</string>
     <string name="action_discard">Forkast endringer</string>
-    <string name="action_continue_edit">Fortsett endring</string>
+    <string name="action_continue_edit">Fortsett å redigere</string>
     <string name="unsaved_changes">Du har ulagrede endringer.</string>
     <string name="select_list_empty">Du har ingen lister, enda</string>
     <string name="error_list_load">Feil under lading av lister</string>
@@ -562,9 +562,9 @@
     <string name="send_account_link_to">Del konto-URL med…</string>
     <string name="send_account_username_to">Del kontoens brukernavn med…</string>
     <string name="account_username_copied">Brukernavn kopiert</string>
-    <string name="error_status_source_load">Kunne ikke laste status fra tjeneren.</string>
+    <string name="error_status_source_load">Kunne ikke laste inn statuskilden fra serveren.</string>
     <string name="status_filtered_show_anyway">Vis allikevel</string>
-    <string name="status_filter_placeholder_label_format">Filtrert: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Filtrert: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Profiler</string>
     <string name="action_add">Legg til</string>
     <string name="filter_keyword_display_format">%s (helt ord)</string>
@@ -574,7 +574,7 @@
     <string name="label_filter_title">Tittel</string>
     <string name="filter_action_warn">Varsle</string>
     <string name="filter_keyword_addition_title">Legg til nøkkelord</string>
-    <string name="title_public_trending_hashtags">Trendy hashtaggs</string>
+    <string name="title_public_trending_hashtags">Trendende emneknagger</string>
     <string name="pref_title_show_stat_inline">Vis poststatistikk i tidslinjen</string>
     <string name="load_newest_notifications">Last de nyeste varslene</string>
     <string name="compose_delete_draft">Del utkast\?</string>
@@ -587,13 +587,13 @@
     <string name="confirmation_hashtag_unmuted">#%s er ikke lenger skjult</string>
     <string name="action_add_to_tab_success">La til «%1$s» til fanene</string>
     <string name="action_remove_tab">Fjern fane</string>
-    <string name="action_manage_tabs">Håndter fanene</string>
+    <string name="action_manage_tabs">Håndter faner</string>
     <string name="action_suggestions">Foreslåtte kontoer</string>
     <string name="confirmation_hashtag_muted">#%s skjult</string>
     <string name="title_lists_failed">Lister - kunne ikke lastes inn</string>
     <string name="manage_lists">Håndter lister</string>
     <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
-    <string name="error_media_upload_sending_fmt">Oppladningen mislyktes: %s</string>
+    <string name="error_media_upload_sending_fmt">Mislyktes ved opplasting: %s</string>
     <string name="title_public_trending_links">Trendende lenker</string>
     <string name="title_tab_public_trending_hashtags">Emneknagger</string>
     <string name="title_tab_public_trending_links">Lenker</string>
@@ -610,7 +610,7 @@
     <string name="notification_severed_relationships_account_suspension_body">En moderator suspenderte kontoen</string>
     <string name="notification_severed_relationships_user_domain_block_body">Du blokkerte instansen</string>
     <string name="action_translate">Oversett</string>
-    <string name="action_translate_undo">Angre oversettelse</string>
+    <string name="action_translate_undo">Angre oversetting</string>
     <string name="pref_summary_timeline_filters">Serveren din støtter ikke filtere</string>
     <string name="notification_severed_relationships_description">Varslinger om brutte forhold</string>
     <string name="announcement_date_updated">(Oppdatert: %1$s)</string>
@@ -652,4 +652,5 @@
     <string name="error_filter_missing_context">Minst én filterkontekst kreves</string>
     <string name="error_filter_missing_title">Tittel kreves</string>
     <string name="load_newest_statuses">Last inn de nyeste innleggene</string>
+    <string name="action_filter_search">Filtrér søket</string>
 </resources>
