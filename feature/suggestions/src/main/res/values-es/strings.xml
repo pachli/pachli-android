@@ -3,10 +3,10 @@
     <string name="sources_friends_of_friends">Popular entre la gente que sigues</string>
     <string name="title_suggestions">Cuentas sugeridas</string>
     <string name="source_unknown">(el servidor devolvió una fuente no reconocida)</string>
-    <string name="sources_featured">Elegidas por el equipo de tu servidor</string>
+    <string name="sources_featured">Elegida por el equipo de tu servidor</string>
     <string name="sources_most_followed">Una de las más seguidas en tu servidor</string>
     <string name="sources_most_interactions">Con gran repercusión en tu servidor</string>
-    <string name="sources_similar_to_recently_followed">Similares a las últimas cuentas que has seguido</string>
+    <string name="sources_similar_to_recently_followed">Similar a las últimas cuentas que has seguido</string>
     <string name="sources_unknown">(el servidor devolvió fuentes no reconocidas)</string>
     <string name="action_follow_account">Seguir</string>
     <string name="action_dismiss_follow_suggestion">Descartar</string>
@@ -16,5 +16,5 @@
     <string name="follows_count_fmt"><b>%1$s</b> siguiendo</string>
     <string name="statuses_count_fmt"><b>%1$s</b> publicaciones</string>
     <string name="statuses_count_per_week_fmt"><b>%1$s</b> publicaciones (<b>%2$d</b> por semana)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> publicaciones (<b>%2$d</b> por semana, última <b>%3$s</b>)</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> publicaciones (<b>%2$d</b> por semana; última: <b>%3$s</b>)</string>
 </resources>
