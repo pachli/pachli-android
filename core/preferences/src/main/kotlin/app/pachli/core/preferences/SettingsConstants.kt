@@ -129,6 +129,14 @@ object PrefKeys {
 
     const val LAB_REVERSE_TIMELINE = "labReverseTimeline"
 
+    /**
+     * True if the user's previous choice of UnifiedPush distributor should be
+     * used by default.
+     *
+     * Default is `true`.
+     */
+    const val USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR = "usePreviousUnifiedPushDistributor"
+
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         // Empty at this time

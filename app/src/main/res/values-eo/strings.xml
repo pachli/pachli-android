@@ -459,8 +459,6 @@
     <string name="error_unfollowing_hashtag_format">Okazos eraro dum la malsekvado de #%s</string>
     <string name="title_migration_relogin">Ensaluti denove por ricevi sciigojn</string>
     <string name="notification_update_format">%s redaktis sian mesaĝon</string>
-    <string name="action_dismiss">Fermi</string>
-    <string name="action_details">Detaloj</string>
     <string name="notification_update_name">Redaktitaj mesaĝoj</string>
     <string name="notification_update_description">Sciigoj, kiam mesaĝoj, kun kiuj vi interagis, estas redaktitaj</string>
     <string name="action_edit_image">Redakti la bildon</string>
@@ -473,7 +471,6 @@
     <string name="pachli_compose_post_quicksetting_label">Ekverki mesaĝon</string>
     <string name="account_date_joined">Aliĝis je %1$s</string>
     <string name="saving_draft">Konservado de la malneto…</string>
-    <string name="tips_push_notification_migration">Ensalutu denove al ĉiuj kontoj por ŝalti sciigojn.</string>
     <string name="delete_scheduled_post_warning">Ĉu forigi tiun planitan mesaĝon\?</string>
     <string name="duration_no_change">(Neniu ŝanĝo)</string>
     <string name="filter_expiration_format">%s (%s)</string>
@@ -482,6 +479,4 @@
     <string name="pref_show_self_username_never">Neniam</string>
     <string name="pref_title_show_self_username">Montri uzantnomon en ilobreto</string>
     <string name="description_post_language">Mesaĝolingvo</string>
-    <string name="dialog_push_notification_migration">Por ricevi sciigoj per UnifiedPush, Pachli bezonas taŭgan permeson el Mastodon-servilo. Tio postulas re-ensaluton por ŝanĝi OAuth-rajtoj donitaj al Pachli. Se vi uzas la opcion re-ensaluti ĉi tie aŭ en la agordoj de la konto, viaj malnetoj kaj kaŝmemoroj estos konservitaj.</string>
-    <string name="dialog_push_notification_migration_other_accounts">Vi re-ensalutis en tiu konto por doni sciigo-permeson al Pachli. Vi havas tamen aliajn kontojn, ĉe kiuj vi devas re-sensaluti. Iru al ili, kaj re-ensalutu por ebligi ricevon de sciigoj per UnifiedPush.</string>
 </resources>

@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:name=".PachliApplication"
@@ -177,16 +178,6 @@
                 <action android:name="org.unifiedpush.android.connector.REGISTRATION_REFUSED"/>
             </intent-filter>
         </receiver>
-        <receiver
-            android:exported="true"
-            android:enabled="true"
-            android:name=".receiver.NotificationBlockStateBroadcastReceiver"
-            tools:ignore="ExportedReceiver">
-            <intent-filter>
-                <action android:name="android.app.action.NOTIFICATION_CHANNEL_BLOCK_STATE_CHANGED"/>
-                <action android:name="android.app.action.NOTIFICATION_CHANNEL_GROUP_BLOCK_STATE_CHANGED"/>
-            </intent-filter>
-        </receiver>
 
         <service
             android:name=".service.PachliTileService"
@@ -221,5 +212,4 @@
             tools:node="remove" />
 
     </application>
-
 </manifest>

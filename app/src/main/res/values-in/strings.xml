@@ -66,7 +66,6 @@
     <string name="action_search">Cari</string>
     <string name="action_access_drafts">Draf</string>
     <string name="action_reset_schedule">Setel Ulang</string>
-    <string name="action_details">Detail</string>
     <string name="action_copy_link">Salin tautan</string>
     <string name="download_image">Mengunduh %1$s</string>
     <string name="download_media">Unduh media</string>
@@ -180,7 +179,6 @@
     <string name="action_open_reblogger">Buka penulis boost</string>
     <string name="action_open_reblogged_by">Tampilkan boost</string>
     <string name="action_open_faved_by">Tampilkan favorit</string>
-    <string name="action_dismiss">Menolak</string>
     <string name="action_open_media_n">Buka media #%d</string>
     <string name="send_media_to">Bagikan media kepada…</string>
     <string name="confirmation_unblocked">Pengguna ter-unblock</string>

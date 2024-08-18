@@ -36,7 +36,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="17"
+            line="18"
             column="9"/>
     </issue>
 
@@ -47,7 +47,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="24"
+            line="25"
             column="9"/>
     </issue>
 
@@ -58,7 +58,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="25"
+            line="26"
             column="9"/>
     </issue>
 
@@ -69,7 +69,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="26"
+            line="27"
             column="9"/>
     </issue>
 
@@ -696,23 +696,12 @@
 
     <issue
         id="Typos"
-        message="Repeated word &quot;tek&quot; in message: possible typo"
-        errorLine1="    &lt;string name=&quot;dialog_push_notification_migration_other_accounts&quot;>Pachli\&apos;ye bildirim aboneliği izni vermek için mevcut hesabınıza yeniden giriş yaptınız. Ancak, yine de bu şekilde geçirilmemiş başka hesaplarınız var. UnifiedPush bildirimleri desteğini etkinleştirmek için bunlara geçin ve tek tek yeniden giriş yapın.&lt;/string>"
-        errorLine2="                                                                                                                                                                                                                                                                                                     ^">
-        <location
-            file="src/main/res/values-tr/strings.xml"
-            line="497"
-            column="294"/>
-    </issue>
-
-    <issue
-        id="Typos"
         message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
         errorLine1="    &lt;string name=&quot;hint_media_description_missing&quot;>Media bør ha en beskrivelse.&lt;/string>"
         errorLine2="                                                  ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="519"
+            line="514"
             column="51"/>
     </issue>
 
@@ -723,7 +712,7 @@
         errorLine2="                                          ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="649"
+            line="644"
             column="43"/>
     </issue>
 
@@ -756,7 +745,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="99"
+            line="101"
             column="5"/>
     </issue>
 
@@ -800,7 +789,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="629"
+            line="626"
             column="5"/>
     </issue>
 
@@ -811,7 +800,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="24"
+            line="25"
             column="31"/>
     </issue>
 
@@ -822,7 +811,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="24"
+            line="25"
             column="31"/>
     </issue>
 
@@ -833,7 +822,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="24"
+            line="25"
             column="31"/>
     </issue>
 
@@ -844,7 +833,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="24"
+            line="25"
             column="31"/>
     </issue>
 
@@ -855,7 +844,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="24"
+            line="25"
             column="31"/>
     </issue>
 
@@ -866,7 +855,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="24"
+            line="25"
             column="31"/>
     </issue>
 
@@ -877,7 +866,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="24"
+            line="25"
             column="31"/>
     </issue>
 
@@ -888,7 +877,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="24"
+            line="25"
             column="31"/>
     </issue>
 
@@ -899,7 +888,7 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="24"
+            line="25"
             column="31"/>
     </issue>
 
@@ -910,7 +899,7 @@
         errorLine2="                             ~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="18"
+            line="19"
             column="30"/>
     </issue>
 
@@ -1207,7 +1196,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="19"
+            line="21"
             column="13"/>
     </issue>
 
@@ -1218,7 +1207,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="22"
+            line="24"
             column="13"/>
     </issue>
 
@@ -1229,7 +1218,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="32"
+            line="34"
             column="13"/>
     </issue>
 
@@ -1240,7 +1229,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="74"
+            line="76"
             column="13"/>
     </issue>
 
@@ -1251,7 +1240,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="80"
+            line="82"
             column="13"/>
     </issue>
 
@@ -1262,7 +1251,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="101"
+            line="103"
             column="13"/>
     </issue>
 
@@ -1273,7 +1262,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="109"
+            line="111"
             column="13"/>
     </issue>
 
@@ -1284,7 +1273,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="143"
+            line="145"
             column="13"/>
     </issue>
 
@@ -1406,17 +1395,6 @@
         <location
             file="src/main/res/values/strings.xml"
             line="425"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.restart` appears to be unused"
-        errorLine1="    &lt;string name=&quot;restart&quot;>Restart&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="426"
             column="13"/>
     </issue>
 
@@ -1559,7 +1537,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="621"
+            line="618"
             column="13"/>
     </issue>
 
@@ -1570,7 +1548,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="647"
+            line="644"
             column="13"/>
     </issue>
 

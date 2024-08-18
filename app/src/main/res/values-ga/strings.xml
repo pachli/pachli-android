@@ -430,7 +430,5 @@
     <string name="notification_sign_up_format">Chláraigh %s</string>
     <string name="action_unbookmark">Bain leabharmharc</string>
     <string name="action_delete_conversation">Scrios comhrá</string>
-    <string name="action_dismiss">Dún</string>
-    <string name="action_details">Sonraí</string>
     <string name="dialog_delete_conversation_warning">Scrios an comhrá seo\?</string>
 </resources>

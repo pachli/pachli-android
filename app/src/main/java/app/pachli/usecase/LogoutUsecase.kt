@@ -2,10 +2,8 @@ package app.pachli.usecase
 
 import android.content.Context
 import app.pachli.components.drafts.DraftHelper
-import app.pachli.components.notifications.androidNotificationsAreEnabled
 import app.pachli.components.notifications.deleteNotificationChannelsForAccount
-import app.pachli.components.notifications.disablePullNotifications
-import app.pachli.components.notifications.disableUnifiedPushNotificationsForAccount
+import app.pachli.components.notifications.disablePushNotificationsForAccount
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -50,12 +48,7 @@ class LogoutUsecase @Inject constructor(
             }
 
             // disable push notifications
-            disableUnifiedPushNotificationsForAccount(context, activeAccount)
-
-            // disable pull notifications
-            if (!androidNotificationsAreEnabled(context, accountManager)) {
-                disablePullNotifications(context)
-            }
+            disablePushNotificationsForAccount(context, api, accountManager, activeAccount)
 
             // clear notification channels
             deleteNotificationChannelsForAccount(activeAccount, context)
