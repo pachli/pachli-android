@@ -579,6 +579,7 @@ class AccountNotificationDetailsAdapter(context: Context, accounts: List<Account
     accounts,
 ) {
 
+    /** String resource for the account's notification method. */
     @get:StringRes
     private val AccountNotificationMethod.stringRes: Int
         get() = when (this) {
@@ -586,11 +587,23 @@ class AccountNotificationDetailsAdapter(context: Context, accounts: List<Account
             AccountNotificationMethod.PULL -> R.string.pref_notification_method_pull
         }
 
+    /**
+     * String to show as the "extra" for the notification method.
+     *
+     * If the notification method is [PUSH][AccountNotificationMethod.PUSH] this should be the
+     * URL notifications are delivered to.
+     *
+     * Otherwise this should explain why the method is [PULL][AccountNotificationMethod.PULL]
+     * (either the error when registering, or the lack of the `push` oauth scope).
+     */
     private fun AccountEntity.notificationMethodExtra(): String {
-        return if (hasPushScope) {
-            context.getString(R.string.pref_notification_fetch_server_rejected, domain)
-        } else {
-            context.getString(R.string.pref_notification_fetch_needs_push)
+        return when (notificationMethod) {
+            AccountNotificationMethod.PUSH -> unifiedPushUrl
+            AccountNotificationMethod.PULL -> if (hasPushScope) {
+                context.getString(R.string.pref_notification_fetch_server_rejected, domain)
+            } else {
+                context.getString(R.string.pref_notification_fetch_needs_push)
+            }
         }
     }
 
