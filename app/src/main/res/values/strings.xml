@@ -687,8 +687,8 @@
     <string name="pref_notification_up_distributor_none">None</string>
 
     <string name="pref_title_notification_method">Notification method</string>
-    <string name="pref_notification_method_all_pull">Fetched approximately once every 15 minutes</string>
-    <string name="pref_notification_method_all_push">All accounts use UnifiedPush</string>
+    <string name="pref_notification_method_all_pull">Fetched approximately once every 15 minutes. Tap for details.</string>
+    <string name="pref_notification_method_all_push">All accounts use UnifiedPush. Tap for details.</string>
     <string name="pref_notification_method_mixed">Some accounts use UnifiedPush, some pull every 15 minutes. Tap for details</string>
 
     <string name="pref_title_notification_battery_optimisation">Battery optimization</string>
