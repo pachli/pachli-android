@@ -131,7 +131,7 @@ class SearchActivity :
 
     private lateinit var searchView: SearchView
 
-    val showFilterIcon: Boolean
+    private val showFilterIcon: Boolean
         get() = viewModel.availableOperators.value.isNotEmpty()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -662,10 +662,6 @@ class SearchActivity :
         }
     }
 
-    // binding.chipLink
-    // empty operator (LinkOperator() here)
-    // options to string map
-    // Dialog title resource
     private fun bindHasLinkChip(server: Server) {
         if (!server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK, ">=1.0.0".toConstraint())) {
             binding.chipHasLink.hide()
