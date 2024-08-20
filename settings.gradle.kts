@@ -30,7 +30,7 @@ dependencyResolutionManagement {
 }
 
 plugins {
-    id("com.gradle.develocity") version "3.17.6"
+    id("com.gradle.develocity") version "3.18"
 }
 
 develocity {
