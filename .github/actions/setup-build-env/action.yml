@@ -12,9 +12,6 @@ runs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Gradle Wrapper Validation
-      uses: gradle/actions/wrapper-validation@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4
-
     - name: Copy CI gradle.properties
       shell: bash
       run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
