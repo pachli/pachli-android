@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.5.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.5.0)" variant="all" version="8.5.0">
+<issues format="6" by="lint 8.5.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.5.2)" variant="all" version="8.5.2">
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.bouncycastle:bcprov-jdk18on; not included in Android: `javax.naming.directory`. Referenced from `org.bouncycastle.jce.provider.CrlCache`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk18on/1.77/2cc971b6c20949c1ff98d1a4bc741ee848a09523/bcprov-jdk18on-1.77.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk18on/1.78.1/39e9e45359e20998eb79c1828751f94a818d25f8/bcprov-jdk18on-1.78.1.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.bouncycastle:bcprov-jdk18on; not included in Android: `javax.naming`. Referenced from `org.bouncycastle.jce.provider.X509LDAPCertStoreSpi`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk18on/1.77/2cc971b6c20949c1ff98d1a4bc741ee848a09523/bcprov-jdk18on-1.77.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk18on/1.78.1/39e9e45359e20998eb79c1828751f94a818d25f8/bcprov-jdk18on-1.78.1.jar"/>
     </issue>
 
     <issue
@@ -26,49 +26,49 @@
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:resources; not included in Android: `javax.xml.stream`. Referenced from `org.robolectric.res.NodeHandler`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/resources/4.12.2/200179428ee6b83a1341f6be869b4518d00ced5f/resources-4.12.2.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/resources/4.13/3f89df602a7bbc4532f678a18e697f0456256d0d/resources-4.13.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `java.awt.geom`. Referenced from `org.robolectric.shadows.CachedPathIteratorFactory`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.12.2/b2804ae237fb6edfd266bcb81f13cb4d9d859bf1/shadows-framework-4.12.2.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.13/f37f6a20295b6b21164998b610a221dbb2bb7c81/shadows-framework-4.13.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `java.awt.image`. Referenced from `org.robolectric.shadows.AutoValue_ImageUtil_RobolectricBufferedImage`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.12.2/b2804ae237fb6edfd266bcb81f13cb4d9d859bf1/shadows-framework-4.12.2.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.13/f37f6a20295b6b21164998b610a221dbb2bb7c81/shadows-framework-4.13.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `java.awt`. Referenced from `org.robolectric.shadows.ImageUtil`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.12.2/b2804ae237fb6edfd266bcb81f13cb4d9d859bf1/shadows-framework-4.12.2.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.13/f37f6a20295b6b21164998b610a221dbb2bb7c81/shadows-framework-4.13.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `javax.imageio.stream`. Referenced from `org.robolectric.shadows.ImageUtil`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.12.2/b2804ae237fb6edfd266bcb81f13cb4d9d859bf1/shadows-framework-4.12.2.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.13/f37f6a20295b6b21164998b610a221dbb2bb7c81/shadows-framework-4.13.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `javax.imageio`. Referenced from `org.robolectric.shadows.ImageUtil`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.12.2/b2804ae237fb6edfd266bcb81f13cb4d9d859bf1/shadows-framework-4.12.2.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.13/f37f6a20295b6b21164998b610a221dbb2bb7c81/shadows-framework-4.13.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:utils; not included in Android: `javax.inject`. Referenced from `org.robolectric.util.inject.Injector`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/utils/4.12.2/8eeee6700686e38b488cd1e67e231c6e1c2b4af8/utils-4.12.2.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/utils/4.13/47f61b1a3cf0b5646f68d3c4961ccf11c2f31463/utils-4.13.jar"/>
     </issue>
 
 </issues>
