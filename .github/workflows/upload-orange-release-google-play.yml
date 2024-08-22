@@ -74,4 +74,5 @@ jobs:
           track: production
           whatsNewDirectory: googleplay/whatsnew
           status: completed
+          changesNotSentForReview: true
           mappingFile: app/build/outputs/mapping/orangeGoogleRelease/mapping.txt
