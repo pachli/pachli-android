@@ -14,12 +14,7 @@ androidx-hilt = "1.2.0"
 androidx-junit = "1.2.1"
 androidx-lifecycle = "2.8.4"
 androidx-media3 = "1.4.0"
-# Deliberate downgrade until a version with the fix in
-# https://android-review.googlesource.com/c/platform/frameworks/support/+/3156343
-# is released.
-# - https://issuetracker.google.com/issues/343124454
-# - https://issuetracker.google.com/issues/349090863
-androidx-paging = "3.2.1"
+androidx-paging = "3.3.2"
 androidx-preference = "1.2.1"
 androidx-recyclerview = "1.3.2"
 androidx-sharetarget = "1.2.0"
