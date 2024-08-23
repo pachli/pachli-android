@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_filter_server_does_not_filter">O servidor non ten compatibilidade para filtros</string>
+    <string name="server_repository_error_get_well_known_node_info">non se obtivo /.well-known/nodeinfo: %1$s</string>
+    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo non contén esquemas comprensibles</string>
+    <string name="server_repository_error_get_node_info">Fallou a obtención de nodeinfo de %1$s: %2$s</string>
+    <string name="server_repository_error_validate_node_info">fallo ao validar nodeinfo de %1$s: %2$s</string>
+    <string name="server_repository_error_get_instance_info">fallo a obtención de /api/v1/instance: %1$s</string>
+    <string name="server_repository_error_capabilities">fallou o procesamento das características do servidor: %1$s</string>
+</resources>
