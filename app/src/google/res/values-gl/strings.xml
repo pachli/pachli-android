@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="update_dialog_message">Abrir Google Play para ver os detalles?</string>
+    <string name="update_dialog_positive">Abrir Google Play</string>
+</resources>
