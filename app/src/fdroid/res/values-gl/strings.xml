@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="update_dialog_message">Abrir F-Droid para ver os detalles?</string>
+    <string name="update_dialog_positive">Abrir F-Droid</string>
+</resources>
