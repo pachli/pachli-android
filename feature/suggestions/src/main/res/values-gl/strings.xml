@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Contas suxeridas</string>
+    <string name="source_unknown">(o servidor devolveu unha orixe non recoñecida)</string>
+    <string name="sources_featured">Seleccionadas polo teu servidor</string>
+    <string name="sources_most_followed">Unha das máis seguidas no teu servidor</string>
+    <string name="sources_most_interactions">Préstanlle moita atención no teu servidor</string>
+    <string name="sources_similar_to_recently_followed">Parécese a contas que seguiches ultimamente</string>
+    <string name="sources_friends_of_friends">Popular entre as persoas que segues</string>
+    <string name="sources_unknown">(o servidor devolveu orixes non recoñecidas)</string>
+    <string name="action_follow_account">Seguir</string>
+    <string name="action_dismiss_follow_suggestion">Desbotar</string>
+    <string name="ui_error_delete_suggestion_fmt">Fallou o rexeitamento da suxestión %1$s: %2$s</string>
+    <string name="ui_error_follow_account_fmt">Fallou o seguimento de %1$s: %2$s</string>
+    <string name="follower_count_fmt"><b>%1$s</b> seguidoras</string>
+    <string name="follows_count_fmt"><b>%1$s</b> seguimentos</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> publicacións</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> publicacións (<b>%2$d</b> por semana, última o <b>%3$s</b>)</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> publicacións (<b>%2$d</b> por semana)</string>
+</resources>
