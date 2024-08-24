@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hint_list_name">Nome da lista</string>
     <string name="list_exclusive_label">Agochar na cronoloxía de inicio</string>
@@ -17,4 +17,8 @@
     <string name="no_lists">Non tes listas.</string>
     <string name="hint_search_people_list">Atopar persoas ás que segues</string>
     <string name="action_add_or_remove_from_list">Engadir ou quitar da lista</string>
+    <string name="replies_policy_title">Mostrar respostas a:</string>
+    <string name="replies_policy_name_followed">Calquera usuaria seguida</string>
+    <string name="replies_policy_name_list">Membros da lista</string>
+    <string name="replies_policy_name_none">Ninguén</string>
 </resources>
