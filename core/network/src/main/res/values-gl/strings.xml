@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_429_rate_limit_fmt">o teu servidor está a limitar as solicitudes: %1$s</string>
+    <string name="error_json_data_fmt">O teu servidor devolveu unha resposta non válida: %1$s</string>
+    <string name="error_network_fmt">Algo fallou na rede: %s</string>
+    <string name="error_wrong_content_type_fmt">o teu servidor non está ben configurado e devolveu «%2$s» co content-type incorrecto, «%1$s»</string>
+    <string name="error_missing_content_type_fmt">o teu servidor non está ben configurado, a resposta non ten content-type: %1$s</string>
+    <string name="node_info_error_no_software">non contén un apartado de software</string>
+    <string name="node_info_error_no_software_name">falta o nome do software, baleiro, ou en branco</string>
+    <string name="node_info_error_no_software_version">falta a versión do software, baleiro ou en branco</string>
+    <string name="server_error_unparseable_version">non se puido procesar «%1$s» como versión: %2$s</string>
+    <string name="error_generic_fmt">Algo fallou: %s</string>
+    <string name="error_404_not_found_fmt">O teu servidor non é compatible con isto: %1$s</string>
+</resources>
