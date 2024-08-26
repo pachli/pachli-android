@@ -224,7 +224,7 @@
     <string name="send_post_link_to">Jaa julkaisun URL…</string>
     <string name="notification_update_format">%s muokkasi julkaisua</string>
     <string name="notification_update_name">Julkaisujen muokkaukset</string>
-    <string name="title_migration_relogin">Kirjaudu uudestaan sisään ottaaksesi vastaan push-ilmoituksia</string>
+    <string name="title_migration_relogin">Kirjaudu uudestaan sisään ottaaksesi vastaan puskuilmoituksia</string>
     <string name="error_image_edit_failed">Kuvaa ei voitu muokata.</string>
     <string name="description_visibility_unlisted">Listaamaton</string>
     <string name="dialog_delete_conversation_warning">Poista tämä keskustelu\?</string>
@@ -458,7 +458,7 @@
     <string name="load_newest_statuses">Lataa uusimmat julkaisut</string>
     <string name="dialog_save_profile_changes_message">Haluatko tallentaa profiilisi muutokset?</string>
     <string name="ui_error_favourite_fmt">Julkaisun tykkääminen epäonnistui: %1$s</string>
-    <string name="pachli_compose_post_quicksetting_label">Kirjoita julkaisu</string>
+    <string name="pachli_compose_post_quicksetting_label">Kirjoita Julkaisu</string>
     <string name="ui_error_bookmark_fmt">Kirjamerkin liittäminen julkaisuun epäonnistui: %1$s</string>
     <string name="no_scheduled_posts">Sinulla ei ole ajastettuja julkaisuja.</string>
     <string name="report_category_spam">Roskapostia</string>
@@ -510,7 +510,7 @@
 \nTykkäysten/Tehostusten laskurit julkaisuissa
 \nSeuraaja/Julkaisumäärät profiileissa
 \n
-\nTämä ei veikuta push-ilmoituksiin, mutta voit muuttaa ilmoitusasetukset erikseen.</string>
+\nTämä ei veikuta puskuilmoituksiin, mutta voit muuttaa ilmoitusasetukset erikseen.</string>
     <string name="wellbeing_hide_stats_posts">Piilota julkaisujen laskurit</string>
     <string name="status_created_info">Luotu: %1$s</string>
     <string name="action_add">Lisää</string>
@@ -761,4 +761,26 @@
     <string name="pref_labs_reverse_home_timeline_title">Aikajana käänteisessä järjestyksessä</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Uusimmat julkaisut ensin</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Vanhimmat julkaisut ensin</string>
+    <string name="pref_notification_method_pull">Ilmoitusten haku</string>
+    <string name="pref_notification_fetch_method_title">Ilmoitustapa</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔%1$s sitten @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s sitten @ %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s ei hyväksynyt puskuilmoitusten rekisteröintiä</string>
+    <string name="pref_title_change_unified_push_distributor">Vaihda Unified Push -puskuilmoitusten jakelijaa</string>
+    <string name="pref_change_unified_push_distributor_msg">Tämä tyhjentää Unified Push -ilmoitusten jakelijan valinnan ja käynnistää Pachlin uudestaan.
+\n
+\nJos useita Unified Push -jakelijoita on asennettu, sinua pyydetään valitsemaan niistä yksi.</string>
+    <string name="pref_notification_fetch_needs_push">Tililtä puuttuu puskuilmoitusten valtuutus (scope). Ulos ja takaisin kirjautuminen voi ratkaista ongelman.</string>
+    <string name="pref_title_notification_up_distributor">Unified push -ilmoitusten jakelija</string>
+    <string name="pref_notification_up_distributor_none">Ei ole</string>
+    <string name="pref_notification_up_distributor_name_fmt">%1$s. Napauta avataksesi</string>
+    <string name="pref_notification_method_mixed">Jotkut tilit käyttävät Unified Push -puskuilmoituksia, jotkut hakevat 15 minuutin välein. Napauta nähdäksesi tarkemmin</string>
+    <string name="pref_title_notification_method">Ilmoitustapa</string>
+    <string name="pref_notification_method_all_pull">Haetaan noin kerran 15 minuutissa. Napauta nähdäksesi tarkemmin.</string>
+    <string name="pref_notification_method_all_push">Kaikki tilit käyttävät Unified Push -puskuilmoituksia. Napauta nähdäksesi tarkemmin.</string>
+    <string name="pref_title_notification_battery_optimisation">Virrankäytön optimointi</string>
+    <string name="pref_notification_battery_optimisation_should_ignore">Virrankäytön optimoinnnin tulisi olla pois käytöstä. Napauta avataksesi.</string>
+    <string name="pref_notification_battery_optimisation_remove">Virrankäytön optimointi on</string>
+    <string name="pref_notification_battery_optimisation_ok">Virrankäytön optimointia ei tarvitse poistaa käytöstä.</string>
+    <string name="pref_notification_method_push">Puskuilmoitus</string>
 </resources>
