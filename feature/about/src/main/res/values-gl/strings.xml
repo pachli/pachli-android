@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Acerca de</string>
     <string name="about_device_info_title">O teu dispositivo</string>
@@ -18,4 +18,7 @@
     <string name="about_account_info">\@%s@%s
 \nVersión: %s</string>
     <string name="license_description">Pachli ten código e ferramentas dos seguintes proxectos de código aberto:</string>
+    <string name="notification_details_title">Detalles</string>
+    <string name="notification_details_android_notifications_enabled">Están activadas as notificacións android?</string>
+    <string name="about_privacy_policy">Política de privacidade</string>
 </resources>
