@@ -29,6 +29,7 @@ import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import app.pachli.core.activity.EmojiSpan
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status.Mention
 import com.mikepenz.iconics.IconicsColor
@@ -142,7 +143,11 @@ fun setClickableText(
     val start = getSpanStart(span)
     val end = getSpanEnd(span)
     val flags = getSpanFlags(span)
+
     val text = subSequence(start, end)
+    // Wrap the text so that "@foo" or "#foo" is rendered that way in RTL text, and
+    // not "foo@" or "foo#".
+    val wrappedText = text.unicodeWrap()
 
     val customSpan = when (text[0]) {
         '#' -> getCustomSpanForTag(text, tags, span, listener)
@@ -153,7 +158,8 @@ fun setClickableText(
     }
 
     removeSpan(span)
-    setSpan(customSpan, start, end, flags)
+    replace(start, end, wrappedText)
+    setSpan(customSpan, start, end + 1, flags)
 }
 
 @VisibleForTesting
