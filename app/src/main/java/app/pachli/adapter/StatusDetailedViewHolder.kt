@@ -65,10 +65,9 @@ class StatusDetailedViewHolder(
             }
         }
 
-        app?.also { application ->
-            val (name, website) = application
+        app?.also { (name, website) ->
             sb.append(metadataJoiner)
-            website?.also { sb.append(createClickableText(name, it)) ?: sb.append(name) }
+            website?.also { sb.append(createClickableText(name, it)) } ?: sb.append(name)
         }
 
         metaInfo.movementMethod = LinkMovementMethod.getInstance()
