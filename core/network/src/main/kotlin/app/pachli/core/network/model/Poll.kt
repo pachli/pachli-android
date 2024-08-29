@@ -16,7 +16,7 @@ data class Poll(
     val options: List<PollOption>,
     // Friendica can incorrectly return null for `voted`. Default to false.
     // https://github.com/friendica/friendica/issues/13922
-    @BooleanIfNull(false) val voted: Boolean,
+    @BooleanIfNull(false) val voted: Boolean = false,
     @Json(name = "own_votes") val ownVotes: List<Int>?,
 ) {
 
