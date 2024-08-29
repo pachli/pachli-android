@@ -8,8 +8,7 @@
     android:layout_height="wrap_content"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:focusable="true"
-    android:textDirection="anyRtl">
+    android:focusable="true">
 
     <TextView
         android:id="@+id/status_info"

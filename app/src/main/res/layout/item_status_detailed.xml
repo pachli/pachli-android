@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
-    android:clipToPadding="false"
-    android:textDirection="anyRtl">
+    android:clipToPadding="false">
 
     <ImageView
         android:id="@+id/status_avatar"
