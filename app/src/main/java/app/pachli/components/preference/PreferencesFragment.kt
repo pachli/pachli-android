@@ -410,7 +410,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setSummaryProvider {
                         when {
                             shouldIgnore -> context.getString(R.string.pref_notification_battery_optimisation_should_ignore)
-                            isIgnoringBatteryOptimisations -> context.getString(R.string.pref_notification_battery_optimisation_remove)
+                            isIgnoringBatteryOptimisations -> context.getString(R.string.pref_notification_battery_optimisation_is_disabled)
                             else -> context.getString(R.string.pref_notification_battery_optimisation_ok)
                         }
                     }

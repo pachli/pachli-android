@@ -693,7 +693,7 @@
 
     <string name="pref_title_notification_battery_optimisation">Battery optimization</string>
     <string name="pref_notification_battery_optimisation_should_ignore">Battery optimisation should be disabled. Tap to open.</string>
-    <string name="pref_notification_battery_optimisation_remove">Battery optimisation is </string>
+    <string name="pref_notification_battery_optimisation_is_disabled">Battery optimisation is disabled</string>
     <string name="pref_notification_battery_optimisation_ok">Battery optimisation does not need to be disabled.</string>
 
     <string name="pref_notification_method_push">Push</string>
