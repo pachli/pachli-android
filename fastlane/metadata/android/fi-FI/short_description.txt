@@ -1,0 +1,1 @@
+Täydellinen Android-asiakas Mastodonille ja vastaaville palvelimille.
