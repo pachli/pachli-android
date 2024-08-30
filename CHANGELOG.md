@@ -1,5 +1,28 @@
 # Pachli changelog
 
+## v2.8.0
+
+### New features and other improvements
+
+- Experimental preference to reverse home timeline (#[867](https://github.com/pachli/pachli-android/pull/867), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve push and pull notification reliability (#[880](https://github.com/pachli/pachli-android/pull/880), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Show posting app name if app link is missing (#[912](https://github.com/pachli/pachli-android/pull/912), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Tolerate missing status fields on veganism.social (#[911](https://github.com/pachli/pachli-android/pull/911), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Render hashtags, mentions, and initial paras correctly in RTL (#[906](https://github.com/pachli/pachli-android/pull/906), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Search filters use correct colours in dark and black mode (#[881](https://github.com/pachli/pachli-android/pull/881), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Galician translations ([josé m](https://github.com/pachli/pachli-android/commits?author=correoxm@disroot.org))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Norwegian Bokmål translations ([sunniva](https://github.com/pachli/pachli-android/commits?author=schildkroteskoldpadda@gmail.com))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Spanish translations ([Miles Krell](https://github.com/pachli/pachli-android/commits?author=noreply@mileskrell.com))
+
 ## v2.7.1
 
 ### Significant bug fixes

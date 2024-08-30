@@ -1,0 +1,14 @@
+Pachli 2.8.0
+
+New features:
+
+- Experimental preference to reverse home timeline
+- Improve push and pull notification reliability
+
+Fixes:
+
+- Show posting app name if app link is missing
+- Tolerate missing status fields on veganism.social
+- Render hashtags, mentions, and initial paras correctly in RTL
+- Search filters use correct colours in dark and black mode
+- Update Finnish, Galician, Irish, Norwegian, and Spanish translations
