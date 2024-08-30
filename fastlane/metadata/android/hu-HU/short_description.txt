@@ -1,0 +1,1 @@
+Egy teljes körű Android kliens Mastodon és hasonló szerverek számára.
