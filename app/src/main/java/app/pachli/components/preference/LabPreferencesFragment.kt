@@ -65,6 +65,12 @@ class LabPreferencesFragment : PreferenceFragmentCompat() {
                 key = PrefKeys.TAB_TAP_BEHAVIOUR
                 isIconSpaceReserved = false
             }
+
+            switchPreference {
+                key = PrefKeys.LAB_RENDER_MARKDOWN
+                setTitle(app.pachli.core.preferences.R.string.pref_title_render_markdown)
+                isIconSpaceReserved = false
+            }
         }
     }
 

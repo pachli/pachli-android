@@ -12,6 +12,7 @@ import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.activity.openLink
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.NotificationViewData
@@ -83,13 +84,15 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 )
             }
 
+            val parsedContent = status.content.parseAsMastodonHtml()
+
             info.addAction(openProfileAction)
-            if (status.content.getLinks().any()) info.addAction(linksAction)
+            if (parsedContent.getLinks().any()) info.addAction(linksAction)
 
             val mentions = actionable.mentions
             if (mentions.isNotEmpty()) info.addAction(mentionsAction)
 
-            if (status.content.getHashtags().any()) info.addAction(hashtagsAction)
+            if (parsedContent.getHashtags().any()) info.addAction(hashtagsAction)
             if (!status.status.reblog?.account?.username.isNullOrEmpty()) {
                 info.addAction(openRebloggerAction)
             }
@@ -157,7 +160,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 }
 
                 app.pachli.core.ui.R.id.action_links -> {
-                    val links = status.content.getLinks()
+                    val links = status.content.parseAsMastodonHtml().getLinks()
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_links_dialog,
                         links.map { it.url },
@@ -173,7 +176,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 }
 
                 app.pachli.core.ui.R.id.action_hashtags -> {
-                    val hashtags = status.content.getHashtags()
+                    val hashtags = status.content.parseAsMastodonHtml().getHashtags()
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_hashtags_dialog,
                         hashtags.map { "#$it" },

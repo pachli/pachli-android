@@ -22,6 +22,7 @@ import android.graphics.Paint
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.text.style.ReplacementSpan
 import android.view.View
 import app.pachli.core.network.model.Emoji
@@ -39,13 +40,16 @@ import java.util.regex.Pattern
  * @param view a reference to the a view the emojis will be shown in (should be the TextView, but parents of the TextView are also acceptable)
  * @return the text with the shortcodes replaced by EmojiSpans
 */
-fun CharSequence.emojify(emojis: List<Emoji>?, view: View, animate: Boolean): CharSequence {
+fun CharSequence.emojify(emojis: List<Emoji>?, view: View, animate: Boolean): Spanned {
     if (emojis.isNullOrEmpty()) {
-        return this
+        return SpannableStringBuilder.valueOf(this)
     }
 
     val builder = SpannableStringBuilder.valueOf(this)
 
+    // TODO: This is O(len(emojis)) x O(len(input)). Would be better to parse the string
+    // once, looking up each emoji shortcode as it's found (and accept a
+    // Map<shortcode: String, (url: String, staticUrl: String)>
     emojis.forEach { (shortcode, url, staticUrl) ->
         val matcher = Pattern.compile(":$shortcode:", Pattern.LITERAL)
             .matcher(this)

@@ -137,6 +137,9 @@ object PrefKeys {
     /** Tab contents. See [TabContents]. */
     const val TAB_CONTENTS = "tabContents"
 
+    /** True if experimental support for rendering markdown is enabled. */
+    const val LAB_RENDER_MARKDOWN = "labRenderMarkdown"
+
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         const val WELLBEING_LIMITED_NOTIFICATIONS = "wellbeingModeLimitedNotifications"

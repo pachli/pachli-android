@@ -28,13 +28,15 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.ConversationAccount
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemConversationBinding
 import app.pachli.interfaces.StatusActionListener
 
 class ConversationViewHolder internal constructor(
     private val binding: ItemConversationBinding,
+    setStatusContent: SetStatusContent,
     private val listener: StatusActionListener<ConversationViewData>,
-) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root) {
+) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root, setStatusContent) {
     private val avatars: Array<ImageView> = arrayOf(
         avatar,
         binding.statusAvatar1,

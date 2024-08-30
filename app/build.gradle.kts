@@ -109,6 +109,10 @@ configurations {
     testImplementation {
         exclude(group = "org.conscrypt", module = "conscrypt-android")
     }
+
+    implementation {
+        exclude(group = "org.jetbrains", module = "annotations")
+    }
 }
 
 dependencies {

@@ -48,4 +48,5 @@ data class StatusDisplayOptions(
     val openSpoiler: Boolean = false,
     @get:JvmName("canTranslate")
     val canTranslate: Boolean = false,
+    val renderMarkdown: Boolean = false,
 )

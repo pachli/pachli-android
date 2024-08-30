@@ -39,7 +39,7 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.setClickableText
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.getRelativeTimeSpanString
@@ -60,6 +60,7 @@ import java.util.Date
  */
 internal class StatusNotificationViewHolder(
     private val binding: ItemStatusNotificationBinding,
+    private val setStatusContent: SetStatusContent,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val notificationActionListener: NotificationActionListener,
     private val absoluteTimeFormatter: AbsoluteTimeFormatter,
@@ -118,7 +119,7 @@ internal class StatusNotificationViewHolder(
                     notificationActionListener.onViewAccount(viewData.account.id)
                 }
             }
-            setMessage(viewData, statusActionListener, statusDisplayOptions.animateEmojis)
+            setMessage(viewData, statusActionListener, statusDisplayOptions)
         } else {
             for (item in payloads) {
                 if (StatusBaseViewHolder.Key.KEY_CREATED == item && statusViewData != null) {
@@ -224,7 +225,7 @@ internal class StatusNotificationViewHolder(
     fun setMessage(
         viewData: NotificationViewData,
         listener: LinkListener,
-        animateEmojis: Boolean,
+        statusDisplayOptions: StatusDisplayOptions,
     ) {
         val statusViewData = viewData.statusViewData
         val displayName = viewData.account.name.unicodeWrap()
@@ -270,7 +271,7 @@ internal class StatusNotificationViewHolder(
         val emojifiedText = str.emojify(
             viewData.account.emojis,
             binding.notificationTopText,
-            animateEmojis,
+            statusDisplayOptions.animateEmojis,
         )
         binding.notificationTopText.text = emojifiedText
 
@@ -300,14 +301,15 @@ internal class StatusNotificationViewHolder(
             binding.notificationContent.visibility =
                 if (statusViewData.isExpanded) View.GONE else View.VISIBLE
         }
-        setupContentAndSpoiler(listener, viewData, statusViewData, animateEmojis)
+        setupContentAndSpoiler(listener, viewData, statusViewData, statusDisplayOptions)
     }
 
     private fun setupContentAndSpoiler(
         listener: LinkListener,
         viewData: NotificationViewData,
         statusViewData: StatusViewData,
-        animateEmojis: Boolean,
+        statusDisplayOptions: StatusDisplayOptions,
+        // animateEmojis: Boolean,
     ) {
         val shouldShowContentIfSpoiler = statusViewData.isExpanded
         val hasSpoiler = !TextUtils.isEmpty(statusViewData.status.spoilerText)
@@ -344,23 +346,20 @@ internal class StatusNotificationViewHolder(
             binding.buttonToggleNotificationContent.visibility = View.GONE
             binding.notificationContent.filters = NO_INPUT_FILTER
         }
-        val emojifiedText =
-            content.emojify(
-                emojis,
-                binding.notificationContent,
-                animateEmojis,
-            )
-        setClickableText(
+        setStatusContent(
             binding.notificationContent,
-            emojifiedText,
+            content,
+            statusDisplayOptions,
+            emojis,
             statusViewData.actionable.mentions,
             statusViewData.actionable.tags,
             listener,
         )
+
         val emojifiedContentWarning: CharSequence = statusViewData.spoilerText.emojify(
             statusViewData.actionable.emojis,
             binding.notificationContentWarningDescription,
-            animateEmojis,
+            statusDisplayOptions.animateEmojis,
         )
         binding.notificationContentWarningDescription.text = emojifiedContentWarning
     }

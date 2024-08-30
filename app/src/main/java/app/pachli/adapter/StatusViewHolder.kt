@@ -31,14 +31,16 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Emoji
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.interfaces.StatusActionListener
 import at.connyduck.sparkbutton.helpers.Utils
 
 open class StatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusBinding,
+    setStatusContent: SetStatusContent,
     root: View? = null,
-) : StatusBaseViewHolder<T>(root ?: binding.root) {
+) : StatusBaseViewHolder<T>(root ?: binding.root, setStatusContent) {
 
     override fun setupWithStatus(
         viewData: T,

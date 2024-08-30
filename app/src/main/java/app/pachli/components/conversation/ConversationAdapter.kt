@@ -29,6 +29,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemConversationBinding
 import app.pachli.databinding.ItemConversationFilteredBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
@@ -36,6 +37,7 @@ import app.pachli.interfaces.StatusActionListener
 
 internal class ConversationAdapter(
     private var statusDisplayOptions: StatusDisplayOptions,
+    private val setStatusContent: SetStatusContent,
     private val listener: StatusActionListener<ConversationViewData>,
     private val accept: (UiAction) -> Unit,
 ) : PagingDataAdapter<ConversationViewData, RecyclerView.ViewHolder>(CONVERSATION_COMPARATOR) {
@@ -78,11 +80,13 @@ internal class ConversationAdapter(
             ConversationViewKind.STATUS ->
                 ConversationViewHolder(
                     ItemConversationBinding.inflate(inflater, parent, false),
+                    setStatusContent,
                     listener,
                 )
             ConversationViewKind.STATUS_FILTERED ->
                 FilterableConversationStatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
+                    setStatusContent,
                     listener,
                 )
             ConversationViewKind.ACCOUNT_FILTERED ->
@@ -153,8 +157,9 @@ enum class ConversationViewKind {
  */
 class FilterableConversationStatusViewHolder internal constructor(
     binding: ItemStatusWrapperBinding,
+    setStatusContent: SetStatusContent,
     private val listener: StatusActionListener<ConversationViewData>,
-) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding) {
+) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding, setStatusContent) {
     override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
         if (payloads.isNullOrEmpty()) {
             showStatusContent(true)

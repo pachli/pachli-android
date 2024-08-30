@@ -48,4 +48,6 @@
     <string name="pref_tab_contents_text_only">Text only</string>
     <string name="pref_tab_contents_icon_text_inline">Icon with text beside</string>
     <string name="pref_tab_contents_icon_text_below">Icon with text below</string>
+
+    <string name="pref_title_render_markdown">Render Markdown</string>
 </resources>

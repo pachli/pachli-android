@@ -38,9 +38,9 @@ import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.PreviewCardKind
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
-import app.pachli.core.ui.setClickableText
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.CompositeWithOpaqueBackground
 import app.pachli.util.aspectRatios
@@ -65,6 +65,7 @@ import java.util.Date
 
 abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     itemView: View,
+    protected val setStatusContent: SetStatusContent,
 ) : RecyclerView.ViewHolder(itemView) {
     object Key {
         const val KEY_CREATED = "created"
@@ -160,7 +161,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             contentWarningDescription.text = emojiSpoiler
             contentWarningDescription.visibility = View.VISIBLE
             contentWarningButton.visibility = View.VISIBLE
-            setContentWarningButtonText(expanded)
+            setContentWarningButtonText(viewData.isExpanded)
             contentWarningButton.setOnClickListener {
                 toggleExpandedState(
                     viewData,
@@ -170,7 +171,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                     listener,
                 )
             }
-            setTextVisible(true, expanded, viewData, statusDisplayOptions, listener)
+            setTextVisible(true, viewData, statusDisplayOptions, listener)
             return
         }
 
@@ -178,7 +179,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         contentWarningButton.visibility = View.GONE
         setTextVisible(
             sensitive = false,
-            expanded = true,
             viewData = viewData,
             statusDisplayOptions = statusDisplayOptions,
             listener = listener,
@@ -203,7 +203,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         contentWarningDescription.invalidate()
         listener.onExpandedChange(viewData, expanded)
         setContentWarningButtonText(expanded)
-        setTextVisible(sensitive, expanded, viewData, statusDisplayOptions, listener)
+        setTextVisible(sensitive, viewData, statusDisplayOptions, listener)
         setupCard(
             viewData,
             expanded,
@@ -215,7 +215,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
     private fun setTextVisible(
         sensitive: Boolean,
-        expanded: Boolean,
         viewData: T,
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<T>,
@@ -239,11 +238,17 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             }
         }
 
-        val content = viewData.content
-        if (expanded) {
-            val emojifiedText =
-                content.emojify(emojis, this.content, statusDisplayOptions.animateEmojis)
-            setClickableText(this.content, emojifiedText, mentions, tags, listener)
+        if (!sensitive || viewData.isExpanded) {
+            setStatusContent(
+                this.content,
+                viewData.content,
+                statusDisplayOptions,
+                emojis,
+                mentions,
+                tags,
+                listener,
+            )
+
             for (i in mediaLabels.indices) {
                 updateMediaLabel(i, sensitive, true)
             }

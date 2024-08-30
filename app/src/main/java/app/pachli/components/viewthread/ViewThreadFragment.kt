@@ -47,6 +47,8 @@ import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
@@ -91,9 +93,13 @@ class ViewThreadFragment :
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
         thisThreadsStatusId = requireArguments().getString(ARG_ID)!!
 
-        lifecycleScope.launch {
-            adapter = ThreadAdapter(viewModel.statusDisplayOptions.value, this@ViewThreadFragment)
+        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+            SetMarkdownContent(requireContext())
+        } else {
+            SetMastodonHtmlContent
         }
+
+        adapter = ThreadAdapter(viewModel.statusDisplayOptions.value, this, setStatusContent)
     }
 
     override fun onCreateView(

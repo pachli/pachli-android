@@ -73,6 +73,8 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
@@ -185,8 +187,6 @@ class TimelineFragment :
         timeline = arguments.getParcelable(ARG_KIND)!!
 
         isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
-
-        adapter = TimelinePagingAdapter(this, viewModel.statusDisplayOptions.value)
     }
 
     override fun onCreateView(
@@ -200,6 +200,14 @@ class TimelineFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+            SetMarkdownContent(requireContext())
+        } else {
+            SetMastodonHtmlContent
+        }
+
+        adapter = TimelinePagingAdapter(setStatusContent, this, viewModel.statusDisplayOptions.value)
 
         layoutManager = LinearLayoutManager(context)
 
