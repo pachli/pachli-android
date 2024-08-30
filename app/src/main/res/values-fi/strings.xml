@@ -780,7 +780,7 @@
     <string name="pref_notification_method_all_push">Kaikki tilit käyttävät Unified Push -puskuilmoituksia. Napauta nähdäksesi tarkemmin.</string>
     <string name="pref_title_notification_battery_optimisation">Virrankäytön optimointi</string>
     <string name="pref_notification_battery_optimisation_should_ignore">Virrankäytön optimoinnnin tulisi olla pois käytöstä. Napauta avataksesi.</string>
-    <string name="pref_notification_battery_optimisation_remove">Virrankäytön optimointi on</string>
+    <string name="pref_notification_battery_optimisation_is_disabled">Virrankäytön optimointi on poistettu käytöstä</string>
     <string name="pref_notification_battery_optimisation_ok">Virrankäytön optimointia ei tarvitse poistaa käytöstä.</string>
     <string name="pref_notification_method_push">Puskuilmoitus</string>
 </resources>
