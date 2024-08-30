@@ -1,0 +1,1 @@
+Mastodon ve benzer sunucular için tam özellikli bir Android müşteri.
