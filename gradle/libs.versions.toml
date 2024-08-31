@@ -51,7 +51,7 @@ kotlin-result = "1.1.20"
 ksp = "2.0.20-1.0.24"
 image-cropper = "4.3.2"
 leakcanary = "2.14"
-lint = "31.5.2" # = agp + 23.0.0 (= 8.5.2), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
+lint = "31.6.0" # = agp + 23.0.0 (= 8.6.0), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
 material = "1.12.0"
 material-drawer = "9.0.2"
 material-iconics = "5.5.0-compose01"
