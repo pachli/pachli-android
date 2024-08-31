@@ -1,0 +1,14 @@
+Pacli 2.8.0
+
+Gnéithe nua:
+
+- Rogha thurgnamhach chun amlíne baile a fhreaschur
+- Feabhas a chur ar iontaofacht fógraí brú agus tarraingt
+
+Ceartúcháin:
+
+- Taispeáin ainm aipe postála má tá nasc app in easnamh
+- Réimsí stádais ar iarraidh a fhulaingt ar veganism.social
+- Rindreáil hashtags, luann, agus paraisí tosaigh i gceart in RTL
+- Úsáideann scagairí cuardaigh dathanna cearta i mód dorcha agus dubh
+- Aistriúcháin Fhionlainnis, Gailísis, Gaeilge, Ioruais agus Spáinnise a nuashonrú
