@@ -1,0 +1,14 @@
+Pachli 2.8.0
+
+Nuevas características:
+
+- Preferencia experimental para revertir el cronograma de inicio
+- Mejorar la fiabilidad de la notificación de empuje y tire
+
+Arreglos:
+
+- Mostrar el nombre de la aplicación si falta el enlace de la aplicación
+- Erradicar campos de estado perdidos en el veganismo.social
+- Render hashtags, menciones y pares iniciales correctamente en RTL
+- Los filtros de búsqueda usan colores correctos en modo oscuro y negro
+- Actualizar traducciones al finlandés, gallego, irlandés, noruego y español
