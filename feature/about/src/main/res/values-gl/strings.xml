@@ -21,4 +21,20 @@
     <string name="notification_details_title">Detalles</string>
     <string name="notification_details_android_notifications_enabled">Están activadas as notificacións android?</string>
     <string name="about_privacy_policy">Política de privacidade</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Notificacións Push con UnifiedPush</string>
+    <string name="notification_details_notifications_enabled_help">Non están activadas as notificacións para ningunha das túas contas. Cambia o axuste en Preferencias da Conta &gt; Notificacións. Ata entón estarán todas desactivadas.</string>
+    <string name="notification_details_unifiedpush_available">Está UnifiedPush dispoñible?</string>
+    <string name="notification_details_any_account_needs_migration_help">Unha ou máis contas non teñen o ámbito OAuth \'push\', as notificacións push están desactivadas.</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) non está dispoñible, as notificacións comprobaranse de xeito periódico. O resto desta sección explica a razón de que non se estea a usar UnifiedPush, pero non é relevante para como se obteñen as notificacións actualmente.</string>
+    <string name="notification_details_accounts_unified_push_url">Teñen todas as contas un URL UnifiedPush?</string>
+    <string name="notification_details_accounts_unified_push_url_help">Unha ou máis contas non están configuradas cun URL UnifiedPush, as notificacións desas contas están desactivadas.</string>
+    <string name="notification_details_accounts_unified_push_subscription">Están subscritas todas as contas?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Unha ou máis contas non actualizaron a súa subscrición UnifiedPush e non recibirán notificacións.</string>
+    <string name="notification_details_ntfy_exempt">Está NTFY exenta das optimizacións da batería?</string>
+    <string name="notification_details_ntfy_exempt_help">NTFY non está exenta das optimizacións da batería. Android podería retrasar as notificacións cando a pantalla estea apagada.</string>
+    <string name="notification_details_pull_section">Traer as notificacións con tarefas recurrentes</string>
+    <string name="notification_details_pachli_exempt">Está Pachli exenta das optimizacións da batería?</string>
+    <string name="notification_details_pachli_exempt_help">Pachli non está exenta das optimizacións da batería. Android podería retrasar as notificacións cando a pantalla está apagada.</string>
+    <string name="notification_details_workers_help">Esta é a lista de tarefas que obteñen novas notificacións. Debería haber unha, cuxo estado debe ser RUNNING ou ENQUEUED, e debería estar programada para realizarse en menos de 15 desde agora.</string>
+    <string name="notification_details_last_fetch_label">Última solicitude /api/v1/notifications</string>
 </resources>

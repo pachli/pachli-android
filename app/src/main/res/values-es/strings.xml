@@ -780,4 +780,25 @@
     <string name="pref_labs_reverse_home_timeline_title">Orden inverso en línea de tiempo</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Publicaciones más recientes primero</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Publicaciones más antiguas primero</string>
+    <string name="pref_title_notification_up_distributor">Distribuidor Unified Push</string>
+    <string name="pref_notification_up_distributor_name_fmt">%1$s. Toca para abrir</string>
+    <string name="pref_notification_up_distributor_none">Ninguno</string>
+    <string name="pref_title_notification_method">Método de notificación</string>
+    <string name="pref_notification_method_all_pull">Obtenidas cada 15 minutos aproximadamente. Toca para más detalles.</string>
+    <string name="pref_notification_method_all_push">Todas las cuentas usan UnifiedPush. Toca para más detalles.</string>
+    <string name="pref_notification_method_mixed">Algunas cuentas usan UnifiedPush, otras solicitan cada 15 minutos. Toca para más detalles</string>
+    <string name="pref_title_notification_battery_optimisation">Optimización de la batería</string>
+    <string name="pref_notification_battery_optimisation_should_ignore">La optimización de la batería debería ser deshabilitada. Toca para abrir.</string>
+    <string name="pref_notification_battery_optimisation_ok">La optimización de la batería no necesita deshabilitarse.</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="pref_notification_fetch_method_title">Método de notificación</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ Hace %1$s: %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ Hace %1$s: %2$s</string>
+    <string name="pref_notification_fetch_needs_push">La cuenta no tiene alcance \"push\". Cerrar sesión y volver a iniciar podría solucionarlo.</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s rechazó el registro push</string>
+    <string name="pref_title_change_unified_push_distributor">Cambiar distribuidor Unified Push</string>
+    <string name="pref_change_unified_push_distributor_msg">Esto borrará la elección de distribuidor Unified Push y reiniciará Pachli.
+\n
+\nSi hay varios distribuidores Unified Push instalados, se te pedirá que elijas uno.</string>
 </resources>
