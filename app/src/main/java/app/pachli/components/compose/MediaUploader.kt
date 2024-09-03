@@ -42,6 +42,7 @@ import app.pachli.util.getMediaSize
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
 import com.github.michaelbull.result.mapEither
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
@@ -56,7 +57,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
@@ -233,8 +233,12 @@ class MediaUploader @Inject constructor(
 
     suspend fun getMediaUploadState(localId: Int): Result<UploadEvent.FinishedEvent, MediaUploaderError> {
         return uploads[localId]?.flow
-            ?.filterIsInstance<Ok<UploadEvent.FinishedEvent>>()
-            ?.first()
+            // Can't use filterIsInstance<Ok<UploadEvent.FinishedEvent>> here because the type
+            // inside Ok<...> is erased, so the first Ok<_> result is returned, crashing with a
+            // class cast error if it's a ProgressEvent.
+            // Kotlin doesn't warn about this, see
+            // https://discuss.kotlinlang.org/t/is-as-operators-are-unsafe-for-reified-types/22470
+            ?.first { it.get() is UploadEvent.FinishedEvent } as? Ok<UploadEvent.FinishedEvent>
             ?: Err(MediaUploaderError.UploadIdNotFoundError(localId))
     }
 
