@@ -1,0 +1,1 @@
+Cliente Android con todas as funcións para Mastodon e servidores do Fediverso.
