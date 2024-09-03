@@ -23,7 +23,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import app.pachli.R
@@ -97,7 +96,6 @@ class PreviewCardView @JvmOverloads constructor(
     init {
         val inflater = context.getSystemService(LayoutInflater::class.java)
         binding = PreviewCardBinding.inflate(inflater, this)
-        orientation = VERTICAL
 
         bylineAvatarTarget = object : CustomTarget<Drawable>(bylineAvatarDimen, bylineAvatarDimen) {
             override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
@@ -157,8 +155,6 @@ class PreviewCardView @JvmOverloads constructor(
                 setStartEndLayout()
             }.build()
 
-            cardImage.scaleType = ImageView.ScaleType.CENTER_CROP
-
             val builder = Glide.with(cardImage.context)
                 .load(card.image)
                 .dontTransform()
@@ -172,7 +168,6 @@ class PreviewCardView @JvmOverloads constructor(
         } else if (statusDisplayOptions.useBlurhash && !card.blurhash.isNullOrBlank()) {
             cardImage.show()
             cardImage.shapeAppearanceModel = setStartEndLayout().build()
-            cardImage.scaleType = ImageView.ScaleType.CENTER_CROP
 
             Glide.with(cardImage.context)
                 .load(decodeBlurHash(cardImage.context, card.blurhash!!))
@@ -193,57 +188,55 @@ class PreviewCardView @JvmOverloads constructor(
     }
 
     /** Adjusts the layout parameters to place the image above the information views */
+    // Note: Don't try and use with(x.layoutParams) { ... } here, it can fail, see
+    // https://issuetracker.google.com/issues/364179209
     private fun setTopBottomLayout() = with(binding) {
-        val cardImageShape = ShapeAppearanceModel.Builder()
-
         // Move image to top.
-        with(cardImage.layoutParams as ConstraintLayout.LayoutParams) {
-            height = cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_vertical_height)
-            width = ViewGroup.LayoutParams.MATCH_PARENT
-
-            bottomToBottom = ConstraintLayout.LayoutParams.UNSET
-        }
+        val lpCardImage = cardImage.layoutParams as ConstraintLayout.LayoutParams
+        lpCardImage.height = cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_vertical_height)
+        lpCardImage.width = ViewGroup.LayoutParams.MATCH_PARENT
+        lpCardImage.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
+        cardImage.layoutParams = lpCardImage
 
         // Move cardInfo below image
-        with(cardInfo.layoutParams as ConstraintLayout.LayoutParams) {
-            startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-            topToBottom = cardImage.id
+        val lpCardInfo = cardInfo.layoutParams as ConstraintLayout.LayoutParams
+        lpCardInfo.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+        lpCardInfo.topToBottom = cardImage.id
+        lpCardInfo.startToEnd = ConstraintLayout.LayoutParams.UNSET
+        lpCardInfo.topToTop = ConstraintLayout.LayoutParams.UNSET
+        cardInfo.layoutParams = lpCardInfo
 
-            startToEnd = ConstraintLayout.LayoutParams.UNSET
-            topToTop = ConstraintLayout.LayoutParams.UNSET
-        }
-
-        cardInfo.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-        cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
-        cardImageShape.setTopRightCorner(CornerFamily.ROUNDED, cardCornerRadius)
-        return@with cardImageShape
+        // Image top corners should be rounded.
+        return@with ShapeAppearanceModel.Builder()
+            .setTopLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
+            .setTopRightCorner(CornerFamily.ROUNDED, cardCornerRadius)
     }
 
     /**
      * Adjusts the layout parameters to place the image at the start, the information at
      * the end.
      */
+    // Note: Don't try and use with(x.layoutParams) { ... } here, it can fail, see
+    // https://issuetracker.google.com/issues/364179209
     private fun setStartEndLayout() = with(binding) {
-        val cardImageShape = ShapeAppearanceModel.Builder()
-
         // Move image to start with fixed width to allow space for cardInfo.
-        with(cardImage.layoutParams as ConstraintLayout.LayoutParams) {
-            height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-            width = cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_horizontal_width)
-            bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        }
+        val lpCardImage = cardImage.layoutParams as ConstraintLayout.LayoutParams
+        lpCardImage.height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        lpCardImage.width = cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_horizontal_width)
+        lpCardImage.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+        cardImage.layoutParams = lpCardImage
 
         // Move cardInfo to end of image
-        with(cardInfo.layoutParams as ConstraintLayout.LayoutParams) {
-            startToEnd = binding.cardImage.id
-            topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+        val lpCardInfo = cardInfo.layoutParams as ConstraintLayout.LayoutParams
+        lpCardInfo.startToEnd = cardImage.id
+        lpCardInfo.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+        lpCardInfo.startToStart = ConstraintLayout.LayoutParams.UNSET
+        lpCardInfo.topToBottom = ConstraintLayout.LayoutParams.UNSET
+        cardInfo.layoutParams = lpCardInfo
 
-            startToStart = ConstraintLayout.LayoutParams.UNSET
-            topToBottom = ConstraintLayout.LayoutParams.UNSET
-        }
-
-        cardImageShape.setTopLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
-        cardImageShape.setBottomLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
-        return@with cardImageShape
+        // Image left corners should be rounded.
+        return@with ShapeAppearanceModel.Builder()
+            .setTopLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
+            .setBottomLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
     }
 }
