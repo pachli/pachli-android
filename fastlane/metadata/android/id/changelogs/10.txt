@@ -1,5 +1,5 @@
-FileZilla 3.2.1
+Pachli 2.1.1
 
-Login
+Fixes:
 
 - Mencegah kecelakaan jika tab tren hadir
