@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Aquí podètz picar l\'adreça o domini de quina que siá instància,
-        coma mastodont.cat, mastodon.social, icosahedron.website o
-        <a href="https://instances.social">fòrca mai !</a>
-        \n\nSi encara non avètz cap de compte, podètz picar lo nom de l’instància ont vos agradariá
-        anar e crear un compte enlà.\n\n
-        \n\nAvètz mas d’informacins a <a href="https://joinmastodon.org">joinmastodon.org</a>.
-    </string>
+    <string name="dialog_whats_an_instance">Aquí podètz picar l\'adreça o domini de quina que siá instància, \u0020coma mastodont.cat, mastodon.social, icosahedron.website o \u0020<a href="https://instances.social">fòrca mai !</a> 
+\n
+\nSi encara non avètz cap de compte, podètz picar lo nom de l’instància ont vos agradariá \u0020anar e crear un compte enlà.
+\n
+\n 
+\n
+\nAvètz mas d’informacins a <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
     <string name="action_close">Tampar</string>
     <string name="action_browser_login">Connexion via Navigador</string>
     <string name="error_invalid_domain">Lo domeni picat es pas valid</string>
