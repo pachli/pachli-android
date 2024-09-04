@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Indiquer ici l’adresse ou le domaine d’une instance,
-        comme mastodon.social, icosahedron.website, social.tchncs.de,
-        <a href="https://instances.social">et bien d’autres encore</a> (en anglais) !
-        \n\nSi vous ne disposez d’aucun compte, vous pouvez renseigner le nom de l’instance que vous souhaitez rejoindre
-        et y créer un compte.\n\nUne instance est l’endroit où votre compte est
-        hébergé, mais vous pouvez facilement suivre des personnes d’autres instances et communiquer avec elles
-        comme si vous étiez sur le même site.
-        \n\nPour plus d’informations, consultez <a href="https://joinmastodon.org">joinmastodon.org</a>.
-    </string>
+    <string name="dialog_whats_an_instance">Indiquer ici l’adresse ou le domaine d’une instance, \u0020comme mastodon.social, icosahedron.website, social.tchncs.de, \u0020<a href="https://instances.social">et bien d’autres encore</a> (en anglais) ! 
+\n
+\nSi vous ne disposez d’aucun compte, vous pouvez renseigner le nom de l’instance que vous souhaitez rejoindre \u0020et y créer un compte.
+\n
+\nUne instance est l’endroit où votre compte est \u0020hébergé, mais vous pouvez facilement suivre des personnes d’autres instances et communiquer avec elles \u0020comme si vous étiez sur le même site. 
+\n
+\nPour plus d’informations, consultez <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
     <string name="action_close">Fermer</string>
     <string name="action_browser_login">Se connecter avec le navigateur</string>
     <string name="error_invalid_domain">Le domaine saisi est invalide</string>
