@@ -1,0 +1,7 @@
+Pachli 2.8.1
+
+Fixes:
+
+- Timpiste a chosc agus post á sheoladh agus na meáin ag uaslódáil
+- Athchóirigh trasdul físeán ar androidx. meáin3 1.4.0 agus 1.4.1
+- Stop réamhamharc téacs cárta
