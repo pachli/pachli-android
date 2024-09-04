@@ -1,0 +1,5 @@
+Revo Uninstaller Pro 2.0.5
+
+Opravy:
+
+- Pouze povolit přístupná akce na oznámení připojených k stavu
