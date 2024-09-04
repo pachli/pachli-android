@@ -1,0 +1,5 @@
+Pachli 2.5.1 (ang.).
+
+Fiksy
+
+– Umożliwia ona jedynie akcje dostępne na powiadomieniach związanych z statusem
