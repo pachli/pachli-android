@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Fixacions:
+
+- Només habilitar les accions accessibles sobre les notificacions adherides a un estat
