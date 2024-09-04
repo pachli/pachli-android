@@ -19,7 +19,7 @@ package app.pachli.core.data.repository.filtersRepository
 
 import android.app.Application
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.HiltTestApplication_Application
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.network.Server
@@ -52,7 +52,7 @@ interface HiltTestApplication
 @HiltAndroidTest
 @Config(application = HiltTestApplication_Application::class)
 @RunWith(AndroidJUnit4::class)
-abstract class BaseFiltersRepositoryTest {
+abstract class BaseContentFiltersRepositoryTest {
     @get:Rule(order = 0)
     var hilt = HiltAndroidRule(this)
 
@@ -62,7 +62,7 @@ abstract class BaseFiltersRepositoryTest {
     @Inject
     lateinit var mastodonApi: MastodonApi
 
-    protected lateinit var filtersRepository: FiltersRepository
+    protected lateinit var contentFiltersRepository: ContentFiltersRepository
 
     val serverFlow = MutableStateFlow(Ok(SERVER_V2))
 
@@ -76,7 +76,7 @@ abstract class BaseFiltersRepositoryTest {
 
         reset(mastodonApi)
 
-        filtersRepository = FiltersRepository(
+        contentFiltersRepository = ContentFiltersRepository(
             TestScope(),
             mastodonApi,
             serverRepository,

@@ -255,7 +255,8 @@
     <string name="pref_title_app_theme">App theme</string>
     <string name="pref_title_timelines">Timelines</string>
     <string name="pref_title_timeline_filters">Filters</string>
-    <string name="pref_summary_timeline_filters">Your server does not support filters</string>
+    <string name="pref_title_content_filters">Content filters</string>
+    <string name="pref_summary_content_filters">Your server does not support content filters</string>
     <string name="app_them_dark">Dark</string>
     <string name="app_theme_light">Light</string>
     <string name="app_theme_black">Black</string>

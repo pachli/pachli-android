@@ -25,7 +25,7 @@ import java.util.Date
 import kotlinx.parcelize.Parcelize
 
 /** Reasons why a filter might be invalid */
-enum class FilterValidationError {
+enum class ContentFilterValidationError {
     /** Filter title is empty or blank */
     NO_TITLE,
 
@@ -39,6 +39,9 @@ enum class FilterValidationError {
 /**
  * Internal representation of a Mastodon filter, whether v1 or v2.
  *
+ * This is a *content* filter, to distinguish it from filters that operate on
+ * accounts, domains, or other data.
+ *
  * @param id The server's ID for this filter
  * @param title Filter's title (label to use in the UI)
  * @param contexts One or more [FilterContext] the filter is applied to
@@ -47,7 +50,7 @@ enum class FilterValidationError {
  * @param keywords One or more [FilterKeyword] the filter matches against a status
  */
 @Parcelize
-data class Filter(
+data class ContentFilter(
     val id: String,
     val title: String,
     val contexts: Set<FilterContext> = emptySet(),
@@ -56,21 +59,21 @@ data class Filter(
     val keywords: List<FilterKeyword> = emptyList(),
 ) : Parcelable {
     /**
-     * @return Set of [FilterValidationError] given the current state of the
+     * @return Set of [ContentFilterValidationError] given the current state of the
      * filter. Empty if there are no validation errors.
      */
     fun validate() = buildSet {
-        if (title.isBlank()) add(FilterValidationError.NO_TITLE)
-        if (keywords.isEmpty()) add(FilterValidationError.NO_KEYWORDS)
-        if (contexts.isEmpty()) add(FilterValidationError.NO_CONTEXT)
+        if (title.isBlank()) add(ContentFilterValidationError.NO_TITLE)
+        if (keywords.isEmpty()) add(ContentFilterValidationError.NO_KEYWORDS)
+        if (contexts.isEmpty()) add(ContentFilterValidationError.NO_CONTEXT)
     }
 
     companion object {
         /**
-         * Returns a [Filter] from a
+         * Returns a [ContentFilter] from a
          * [v2 Mastodon filter][app.pachli.core.network.model.Filter].
          */
-        fun from(filter: app.pachli.core.network.model.Filter) = Filter(
+        fun from(filter: app.pachli.core.network.model.Filter) = ContentFilter(
             id = filter.id,
             title = filter.title,
             contexts = filter.contexts,
@@ -80,14 +83,14 @@ data class Filter(
         )
 
         /**
-         * Returns a [Filter] from a
+         * Returns a [ContentFilter] from a
          * [v1 Mastodon filter][app.pachli.core.network.model.Filter].
          *
          * There are some restrictions imposed by the v1 filter;
          * - it can only have a single entry in the [keywords] list
          * - the [title] is identical to the keyword
          */
-        fun from(filter: app.pachli.core.network.model.FilterV1) = Filter(
+        fun from(filter: app.pachli.core.network.model.FilterV1) = ContentFilter(
             id = filter.id,
             title = filter.phrase,
             contexts = filter.contexts,
@@ -105,7 +108,7 @@ data class Filter(
 }
 
 /** A new filter keyword; has no ID as it has not been saved to the server. */
-data class NewFilterKeyword(
+data class NewContentFilterKeyword(
     val keyword: String,
     val wholeWord: Boolean,
 )

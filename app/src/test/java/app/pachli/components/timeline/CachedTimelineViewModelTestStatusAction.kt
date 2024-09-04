@@ -18,7 +18,7 @@
 package app.pachli.components.timeline
 
 import app.cash.turbine.test
-import app.pachli.FilterV1Test.Companion.mockStatus
+import app.pachli.ContentFilterV1Test.Companion.mockStatus
 import app.pachli.components.timeline.viewmodel.StatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.UiError

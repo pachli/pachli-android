@@ -17,16 +17,16 @@
 
 package app.pachli.components.filters
 
-import app.pachli.core.data.model.Filter
-import app.pachli.core.data.repository.FilterEdit
+import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.network.model.Filter.Action
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
-class FilterViewDataTest {
-    private val originalFilter = Filter(
+class ContentContentFilterViewDataTest {
+    private val originalContentFilter = ContentFilter(
         id = "1",
         title = "original filter",
         contexts = setOf(FilterContext.HOME),
@@ -40,17 +40,17 @@ class FilterViewDataTest {
         ),
     )
 
-    private val originalFilterViewData = FilterViewData.from(originalFilter)
+    private val originalContentFilterViewData = ContentFilterViewData.from(originalContentFilter)
 
     @Test
     fun `diff title only affects title`() {
         val newTitle = "new title"
 
-        val update = originalFilterViewData
+        val update = originalContentFilterViewData
             .copy(title = newTitle)
-            .diff(originalFilter)
+            .diff(originalContentFilter)
 
-        val expectedUpdate = FilterEdit(id = originalFilter.id, title = newTitle)
+        val expectedUpdate = ContentFilterEdit(id = originalContentFilter.id, title = newTitle)
 
         assertThat(update).isEqualTo(expectedUpdate)
     }
@@ -59,11 +59,11 @@ class FilterViewDataTest {
     fun `diff contexts only affects contexts`() {
         val newContexts = setOf(FilterContext.HOME, FilterContext.THREAD)
 
-        val update = originalFilterViewData
+        val update = originalContentFilterViewData
             .copy(contexts = newContexts)
-            .diff(originalFilter)
+            .diff(originalContentFilter)
 
-        val expectedUpdate = FilterEdit(id = originalFilter.id, contexts = newContexts)
+        val expectedUpdate = ContentFilterEdit(id = originalContentFilter.id, contexts = newContexts)
 
         assertThat(update).isEqualTo(expectedUpdate)
     }
@@ -72,11 +72,11 @@ class FilterViewDataTest {
     fun `diff expiresIn only affects expiresIn`() {
         val newExpiresIn = 300
 
-        val update = originalFilterViewData
+        val update = originalContentFilterViewData
             .copy(expiresIn = newExpiresIn)
-            .diff(originalFilter)
+            .diff(originalContentFilter)
 
-        val expectedUpdate = FilterEdit(id = originalFilter.id, expiresIn = newExpiresIn)
+        val expectedUpdate = ContentFilterEdit(id = originalContentFilter.id, expiresIn = newExpiresIn)
 
         assertThat(update).isEqualTo(expectedUpdate)
     }
@@ -85,11 +85,11 @@ class FilterViewDataTest {
     fun `diff action only affects action`() {
         val newAction = Action.HIDE
 
-        val update = originalFilterViewData
+        val update = originalContentFilterViewData
             .copy(action = newAction)
-            .diff(originalFilter)
+            .diff(originalContentFilter)
 
-        val expectedUpdate = FilterEdit(id = originalFilter.id, action = newAction)
+        val expectedUpdate = ContentFilterEdit(id = originalContentFilter.id, action = newAction)
 
         assertThat(update).isEqualTo(expectedUpdate)
     }
@@ -98,45 +98,45 @@ class FilterViewDataTest {
     fun `adding a keyword updates keywordsToAdd`() {
         val newKeyword = FilterKeyword(id = "", keyword = "new keyword", wholeWord = false)
 
-        val update = originalFilterViewData
-            .copy(keywords = originalFilterViewData.keywords + newKeyword)
-            .diff(originalFilter)
+        val update = originalContentFilterViewData
+            .copy(keywords = originalContentFilterViewData.keywords + newKeyword)
+            .diff(originalContentFilter)
 
-        val expectedUpdate = FilterEdit(id = originalFilter.id, keywordsToAdd = listOf(newKeyword))
+        val expectedUpdate = ContentFilterEdit(id = originalContentFilter.id, keywordsToAdd = listOf(newKeyword))
 
         assertThat(update).isEqualTo(expectedUpdate)
     }
 
     @Test
     fun `deleting a keyword updates keywordsToDelete`() {
-        val (keywordsToDelete, updatedKeywords) = originalFilterViewData.keywords.partition {
+        val (keywordsToDelete, updatedKeywords) = originalContentFilterViewData.keywords.partition {
             it.id == "2"
         }
 
-        val update = originalFilterViewData
+        val update = originalContentFilterViewData
             .copy(keywords = updatedKeywords)
-            .diff(originalFilter)
+            .diff(originalContentFilter)
 
-        val expectedUpdate = FilterEdit(id = originalFilter.id, keywordsToDelete = keywordsToDelete)
+        val expectedUpdate = ContentFilterEdit(id = originalContentFilter.id, keywordsToDelete = keywordsToDelete)
 
         assertThat(update).isEqualTo(expectedUpdate)
     }
 
     @Test
     fun `modifying a keyword updates keywordsToModify`() {
-        val modifiedKeyword = originalFilter.keywords[1].copy(keyword = "modified keyword")
+        val modifiedKeyword = originalContentFilter.keywords[1].copy(keyword = "modified keyword")
 
-        val newKeywords = originalFilter.keywords.map {
+        val newKeywords = originalContentFilter.keywords.map {
             if (it.id == modifiedKeyword.id) modifiedKeyword else it
         }
 
-        val update = originalFilterViewData
+        val update = originalContentFilterViewData
             .copy(keywords = newKeywords)
-            .diff(originalFilter)
+            .diff(originalContentFilter)
 
         // The fact the keywords are in a different order now should have no effect.
         // Only the change to the key
-        val expectedUpdate = FilterEdit(id = originalFilter.id, keywordsToModify = listOf(modifiedKeyword))
+        val expectedUpdate = ContentFilterEdit(id = originalContentFilter.id, keywordsToModify = listOf(modifiedKeyword))
 
         assertThat(update).isEqualTo(expectedUpdate)
     }
@@ -146,20 +146,20 @@ class FilterViewDataTest {
         // Add a new keyword, delete keyword with id == "2", and modify the keyword with
         // id == "3".
         val keywordToAdd = FilterKeyword(id = "", keyword = "new keyword", wholeWord = false)
-        val keywordToDelete = originalFilter.keywords.find { it.id == "2" }!!
-        val modifiedKeyword = originalFilter.keywords.find { it.id == "3" }?.copy(keyword = "modified keyword")!!
+        val keywordToDelete = originalContentFilter.keywords.find { it.id == "2" }!!
+        val modifiedKeyword = originalContentFilter.keywords.find { it.id == "3" }?.copy(keyword = "modified keyword")!!
 
-        val newKeywords = originalFilter.keywords
+        val newKeywords = originalContentFilter.keywords
             .filterNot { it.id == keywordToDelete.id }
             .map { if (it.id == modifiedKeyword.id) modifiedKeyword else it }
             .plus(keywordToAdd)
 
-        val update = originalFilterViewData
+        val update = originalContentFilterViewData
             .copy(keywords = newKeywords)
-            .diff(originalFilter)
+            .diff(originalContentFilter)
 
-        val expectedUpdate = FilterEdit(
-            id = originalFilter.id,
+        val expectedUpdate = ContentFilterEdit(
+            id = originalContentFilter.id,
             keywordsToAdd = listOf(keywordToAdd),
             keywordsToDelete = listOf(keywordToDelete),
             keywordsToModify = listOf(modifiedKeyword),

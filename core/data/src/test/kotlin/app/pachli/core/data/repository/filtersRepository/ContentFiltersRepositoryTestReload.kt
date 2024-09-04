@@ -33,23 +33,23 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
 @HiltAndroidTest
-class FiltersRepositoryTestReload : BaseFiltersRepositoryTest() {
+class ContentFiltersRepositoryTestReload : BaseContentFiltersRepositoryTest() {
     @Test
     fun `reload should trigger a network request`() = runTest {
         mastodonApi.stub {
-            onBlocking { getFiltersV1() } doReturn failure(body = "v1 should not be called")
-            onBlocking { getFilters() } doReturn success(emptyList())
+            onBlocking { getContentFiltersV1() } doReturn failure(body = "v1 should not be called")
+            onBlocking { getContentFilters() } doReturn success(emptyList())
         }
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
-            verify(mastodonApi).getFilters()
+            verify(mastodonApi).getContentFilters()
 
-            filtersRepository.reload()
+            contentFiltersRepository.reload()
             advanceUntilIdle()
 
-            verify(mastodonApi, times(2)).getFilters()
-            verify(mastodonApi, never()).getFiltersV1()
+            verify(mastodonApi, times(2)).getContentFilters()
+            verify(mastodonApi, never()).getContentFiltersV1()
 
             cancelAndConsumeRemainingEvents()
         }
@@ -58,20 +58,20 @@ class FiltersRepositoryTestReload : BaseFiltersRepositoryTest() {
     @Test
     fun `changing server should trigger a network request`() = runTest {
         mastodonApi.stub {
-            onBlocking { getFiltersV1() } doReturn success(emptyList())
-            onBlocking { getFilters() } doReturn success(emptyList())
+            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
+            onBlocking { getContentFilters() } doReturn success(emptyList())
         }
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
-            verify(mastodonApi, times(1)).getFilters()
-            verify(mastodonApi, never()).getFiltersV1()
+            verify(mastodonApi, times(1)).getContentFilters()
+            verify(mastodonApi, never()).getContentFiltersV1()
 
             serverFlow.update { Ok(SERVER_V1) }
             advanceUntilIdle()
 
-            verify(mastodonApi, times(1)).getFilters()
-            verify(mastodonApi, times(1)).getFiltersV1()
+            verify(mastodonApi, times(1)).getContentFilters()
+            verify(mastodonApi, times(1)).getContentFiltersV1()
 
             cancelAndConsumeRemainingEvents()
         }

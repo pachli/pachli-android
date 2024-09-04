@@ -32,8 +32,8 @@ import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.extensions.throttleFirst
-import app.pachli.core.data.repository.FilterVersion
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFilterVersion
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterContext
@@ -310,7 +310,7 @@ class NotificationsViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
-    private val filtersRepository: FiltersRepository,
+    private val contentFiltersRepository: ContentFiltersRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
@@ -474,11 +474,11 @@ class NotificationsViewModel @Inject constructor(
 
         // Fetch the status filters
         viewModelScope.launch {
-            filtersRepository.filters.collect { filters ->
+            contentFiltersRepository.contentFilters.collect { filters ->
                 filters.onSuccess {
                     filterModel = when (it?.version) {
-                        FilterVersion.V2 -> FilterModel(FilterContext.NOTIFICATIONS)
-                        FilterVersion.V1 -> FilterModel(FilterContext.NOTIFICATIONS, it.filters)
+                        ContentFilterVersion.V2 -> FilterModel(FilterContext.NOTIFICATIONS)
+                        ContentFilterVersion.V1 -> FilterModel(FilterContext.NOTIFICATIONS, it.contentFilters)
                         else -> null
                     }
                     reload.getAndUpdate { it + 1 }

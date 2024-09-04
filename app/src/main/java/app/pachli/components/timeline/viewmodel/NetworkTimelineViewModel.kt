@@ -31,7 +31,7 @@ import app.pachli.appstore.PinEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.core.accounts.AccountManager
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.Poll
@@ -59,7 +59,7 @@ class NetworkTimelineViewModel @Inject constructor(
     private val repository: NetworkTimelineRepository,
     timelineCases: TimelineCases,
     eventHub: EventHub,
-    filtersRepository: FiltersRepository,
+    contentFiltersRepository: ContentFiltersRepository,
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
@@ -68,7 +68,7 @@ class NetworkTimelineViewModel @Inject constructor(
     savedStateHandle,
     timelineCases,
     eventHub,
-    filtersRepository,
+    contentFiltersRepository,
     accountManager,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,

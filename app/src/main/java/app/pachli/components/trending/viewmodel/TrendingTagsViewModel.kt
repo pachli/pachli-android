@@ -18,7 +18,7 @@ package app.pachli.components.trending.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.TrendingTag
 import app.pachli.core.network.model.end
@@ -38,7 +38,7 @@ import timber.log.Timber
 @HiltViewModel
 class TrendingTagsViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val filtersRepository: FiltersRepository,
+    private val contentFiltersRepository: ContentFiltersRepository,
 ) : ViewModel() {
     enum class LoadingState {
         INITIAL,
@@ -59,7 +59,7 @@ class TrendingTagsViewModel @Inject constructor(
 
     init {
         invalidate()
-        viewModelScope.launch { filtersRepository.filters.collect { invalidate() } }
+        viewModelScope.launch { contentFiltersRepository.contentFilters.collect { invalidate() } }
     }
 
     /**
@@ -81,7 +81,7 @@ class TrendingTagsViewModel @Inject constructor(
                 _uiState.value = if (firstTag == null) {
                     TrendingTagsUiState(emptyList(), LoadingState.LOADED)
                 } else {
-                    val homeFilters = filtersRepository.filters.value.get()?.filters?.filter { filter ->
+                    val homeFilters = contentFiltersRepository.contentFilters.value.get()?.contentFilters?.filter { filter ->
                         filter.contexts.contains(FilterContext.HOME)
                     }
                     val tags = tagResponse

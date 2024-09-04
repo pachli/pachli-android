@@ -606,7 +606,7 @@
     <string name="notification_severed_relationships_user_domain_block_body">Du blokkerte instansen</string>
     <string name="action_translate">Oversett</string>
     <string name="action_translate_undo">Angre oversetting</string>
-    <string name="pref_summary_timeline_filters">Serveren din støtter ikke filtere</string>
+    <string name="pref_summary_content_filters">Serveren din støtter ikke filtere</string>
     <string name="notification_severed_relationships_description">Varslinger om brutte forhold</string>
     <string name="announcement_date_updated">(Oppdatert: %1$s)</string>
     <string name="error_media_playback">Avspilling mislyktes: %s</string>

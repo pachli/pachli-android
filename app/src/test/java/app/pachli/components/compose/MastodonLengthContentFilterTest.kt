@@ -42,7 +42,7 @@ data class TestData(
 )
 
 @RunWith(Parameterized::class)
-class MastodonLengthFilterTest(private val testData: TestData) {
+class MastodonLengthContentFilterTest(private val testData: TestData) {
     companion object {
         @Parameters(name = "{0}")
         @JvmStatic

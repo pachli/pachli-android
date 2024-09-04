@@ -606,7 +606,7 @@
     <string name="translation_provider_fmt">%1$s</string>
     <string name="confirmation_hashtag_muted">#%s caché</string>
     <string name="label_image">Image</string>
-    <string name="pref_summary_timeline_filters">Votre serveur ne supporte pas les filtres</string>
+    <string name="pref_summary_content_filters">Votre serveur ne supporte pas les filtres</string>
     <string name="compose_delete_draft">Supprimer le brouillon ?</string>
     <string name="announcement_date_updated">(Mis à jour : %1$s)</string>
     <string name="load_newest_notifications">Charger les nouvelles notifications</string>

@@ -21,19 +21,22 @@ import androidx.annotation.VisibleForTesting
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
-import app.pachli.core.data.model.Filter
-import app.pachli.core.data.model.NewFilterKeyword
-import app.pachli.core.data.repository.FiltersError.DeleteFilterError
-import app.pachli.core.data.repository.FiltersError.GetFiltersError
-import app.pachli.core.data.repository.FiltersError.ServerDoesNotFilter
-import app.pachli.core.data.repository.FiltersError.ServerRepositoryError
+import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.data.model.NewContentFilterKeyword
+import app.pachli.core.data.repository.ContentFiltersError.CreateContentFilterError
+import app.pachli.core.data.repository.ContentFiltersError.DeleteContentFilterError
+import app.pachli.core.data.repository.ContentFiltersError.GetContentFilterError
+import app.pachli.core.data.repository.ContentFiltersError.GetContentFiltersError
+import app.pachli.core.data.repository.ContentFiltersError.ServerDoesNotFilter
+import app.pachli.core.data.repository.ContentFiltersError.ServerRepositoryError
+import app.pachli.core.data.repository.ContentFiltersError.UpdateContentFilterError
 import app.pachli.core.network.Server
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
-import app.pachli.core.network.model.NewFilterV1
+import app.pachli.core.network.model.NewContentFilterV1
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -54,20 +57,20 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 /**
- * A filter to be created or updated.
+ * A content filter to be created or updated.
  *
- * Same as [Filter] except a [NewFilter] does not have an [id][Filter.id], as it
+ * Same as [ContentFilter] except a [NewContentFilter] does not have an [id][ContentFilter.id], as it
  * has not been created on the server.
  */
-data class NewFilter(
+data class NewContentFilter(
     val title: String,
     val contexts: Set<FilterContext>,
     val expiresIn: Int,
     val action: app.pachli.core.network.model.Filter.Action,
-    val keywords: List<NewFilterKeyword>,
+    val keywords: List<NewContentFilterKeyword>,
 ) {
-    fun toNewFilterV1() = this.keywords.map { keyword ->
-        NewFilterV1(
+    fun toNewContentFilterV1() = this.keywords.map { keyword ->
+        NewContentFilterV1(
             phrase = keyword.keyword,
             contexts = this.contexts,
             expiresIn = this.expiresIn,
@@ -77,13 +80,13 @@ data class NewFilter(
     }
 
     companion object {
-        fun from(filter: Filter) = NewFilter(
-            title = filter.title,
-            contexts = filter.contexts,
+        fun from(contentFilter: ContentFilter) = NewContentFilter(
+            title = contentFilter.title,
+            contexts = contentFilter.contexts,
             expiresIn = -1,
-            action = filter.action,
-            keywords = filter.keywords.map {
-                NewFilterKeyword(
+            action = contentFilter.action,
+            keywords = contentFilter.keywords.map {
+                NewContentFilterKeyword(
                     keyword = it.keyword,
                     wholeWord = it.wholeWord,
                 )
@@ -93,18 +96,18 @@ data class NewFilter(
 }
 
 /**
- * Represents a collection of edits to make to an existing filter.
+ * Represents a collection of edits to make to an existing content filter.
  *
- * @param id ID of the filter to be changed
+ * @param id ID of the content filter to be changed
  * @param title New title, null if the title should not be changed
  * @param contexts New contexts, null if the contexts should not be changed
  * @param expiresIn New expiresIn, -1 if the expiry time should not be changed
  * @param action New action, null if the action should not be changed
- * @param keywordsToAdd One or more keywords to add to the filter, null if none to add
- * @param keywordsToDelete One or more keywords to delete from the filter, null if none to delete
- * @param keywordsToModify One or more keywords to modify in the filter, null if none to modify
+ * @param keywordsToAdd One or more keywords to add to the content filter, null if none to add
+ * @param keywordsToDelete One or more keywords to delete from the content filter, null if none to delete
+ * @param keywordsToModify One or more keywords to modify in the content filter, null if none to modify
  */
-data class FilterEdit(
+data class ContentFilterEdit(
     val id: String,
     val title: String? = null,
     val contexts: Collection<FilterContext>? = null,
@@ -116,14 +119,14 @@ data class FilterEdit(
 )
 
 /** Errors that can be returned from this repository. */
-sealed interface FiltersError : PachliError {
+sealed interface ContentFiltersError : PachliError {
     /** Wraps errors from actions on the [ServerRepository]. */
     @JvmInline
     value class ServerRepositoryError(private val error: ServerRepository.Error) :
-        FiltersError, PachliError by error
+        ContentFiltersError, PachliError by error
 
     /** The user's server does not support filters. */
-    data object ServerDoesNotFilter : FiltersError {
+    data object ServerDoesNotFilter : ContentFiltersError {
         override val resourceId: Int = R.string.error_filter_server_does_not_filter
         override val formatArgs: Array<out Any>? = null
         override val cause: PachliError? = null
@@ -131,43 +134,43 @@ sealed interface FiltersError : PachliError {
 
     /** API error fetching a filter by ID. */
     @JvmInline
-    value class GetFilterError(private val error: PachliError) : FiltersError, PachliError by error
+    value class GetContentFilterError(private val error: PachliError) : ContentFiltersError, PachliError by error
 
     /** API error fetching all filters. */
     @JvmInline
-    value class GetFiltersError(@get:VisibleForTesting val error: PachliError) : FiltersError, PachliError by error
+    value class GetContentFiltersError(@get:VisibleForTesting val error: PachliError) : ContentFiltersError, PachliError by error
 
     /** API error creating a filter. */
     @JvmInline
-    value class CreateFilterError(private val error: PachliError) : FiltersError, PachliError by error
+    value class CreateContentFilterError(private val error: PachliError) : ContentFiltersError, PachliError by error
 
     /** API error updating a filter. */
     @JvmInline
-    value class UpdateFilterError(private val error: PachliError) : FiltersError, PachliError by error
+    value class UpdateContentFilterError(private val error: PachliError) : ContentFiltersError, PachliError by error
 
     /** API error deleting a filter. */
     @JvmInline
-    value class DeleteFilterError(private val error: PachliError) : FiltersError, PachliError by error
+    value class DeleteContentFilterError(private val error: PachliError) : ContentFiltersError, PachliError by error
 }
 
-enum class FilterVersion {
+enum class ContentFilterVersion {
     V1,
     V2,
 }
 
-// Hack, so that FilterModel can know whether this is V1 or V2 filters.
+// Hack, so that FilterModel can know whether this is V1 or V2 content filters.
 // See usage in:
 // - TimelineViewModel.getFilters()
 // - NotificationsViewModel.getFilters()
 // Need to think about a better way to do this.
-data class Filters(
-    val filters: List<Filter>,
-    val version: FilterVersion,
+data class ContentFilters(
+    val contentFilters: List<ContentFilter>,
+    val version: ContentFilterVersion,
 )
 
 /** Repository for filter information */
 @Singleton
-class FiltersRepository @Inject constructor(
+class ContentFiltersRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
     serverRepository: ServerRepository,
@@ -186,44 +189,45 @@ class FiltersRepository @Inject constructor(
      * The [Ok] value is either `null` if the filters have not yet been loaded, or
      * the most recent loaded filters.
      */
-    val filters = reload.combine(serverRepository.flow) { _, server ->
+    val contentFilters = reload.combine(serverRepository.flow) { _, server ->
         this.server = server.mapError { ServerRepositoryError(it) }
         server
-            .mapError { GetFiltersError(it) }
-            .andThen { getFilters(it) }
+            .mapError { GetContentFiltersError(it) }
+            .andThen { getContentFilters(it) }
     }
         .stateIn(externalScope, SharingStarted.Lazily, Ok(null))
 
     suspend fun reload() = reload.emit(Unit)
 
-    /** Get a specific filter from the server, by [filterId]. */
-    suspend fun getFilter(filterId: String): Result<Filter, FiltersError> = binding {
+    /** Get a specific content filter from the server, by [filterId]. */
+    suspend fun getContentFilter(filterId: String): Result<ContentFilter, ContentFiltersError> = binding {
         val server = server.bind()
 
         when {
-            server.canFilterV2() -> mastodonApi.getFilter(filterId).map { Filter.from(it.body) }
-            server.canFilterV1() -> mastodonApi.getFilterV1(filterId).map { Filter.from(it.body) }
+            server.canFilterV2() -> mastodonApi.getFilter(filterId).map { ContentFilter.from(it.body) }
+            server.canFilterV1() -> mastodonApi.getFilterV1(filterId).map { ContentFilter.from(it.body) }
             else -> Err(ServerDoesNotFilter)
-        }.mapError { FiltersError.GetFilterError(it) }.bind()
+        }.mapError { GetContentFilterError(it) }.bind()
     }
 
-    /** Get the current set of filters. */
-    private suspend fun getFilters(server: Server): Result<Filters, FiltersError> = binding {
+    /** Get the current set of content filters. */
+    private suspend fun getContentFilters(server: Server): Result<ContentFilters, ContentFiltersError> = binding {
         when {
-            server.canFilterV2() -> mastodonApi.getFilters().map {
-                Filters(
-                    filters = it.body.map { Filter.from(it) },
-                    version = FilterVersion.V2,
+            server.canFilterV2() -> mastodonApi.getContentFilters().map {
+                ContentFilters(
+                    contentFilters = it.body.map { ContentFilter.from(it) },
+                    version = ContentFilterVersion.V2,
                 )
             }
-            server.canFilterV1() -> mastodonApi.getFiltersV1().map {
-                Filters(
-                    filters = it.body.map { Filter.from(it) },
-                    version = FilterVersion.V1,
+
+            server.canFilterV1() -> mastodonApi.getContentFiltersV1().map {
+                ContentFilters(
+                    contentFilters = it.body.map { ContentFilter.from(it) },
+                    version = ContentFilterVersion.V1,
                 )
             }
             else -> Err(ServerDoesNotFilter)
-        }.mapError { GetFiltersError(it) }.bind()
+        }.mapError { GetContentFiltersError(it) }.bind()
     }
 
     /**
@@ -231,9 +235,9 @@ class FiltersRepository @Inject constructor(
      *
      * Reloads filters whether or not an error occured.
      *
-     * @return The newly created [Filter], or a [FiltersError].
+     * @return The newly created [ContentFilter], or a [ContentFiltersError].
      */
-    suspend fun createFilter(filter: NewFilter): Result<Filter, FiltersError> = binding {
+    suspend fun createContentFilter(filter: NewContentFilter): Result<ContentFilter, ContentFiltersError> = binding {
         val server = server.bind()
 
         val expiresInSeconds = when (val expiresIn = filter.expiresIn) {
@@ -257,12 +261,12 @@ class FiltersRepository @Inject constructor(
                                 keyword = it.keyword,
                                 wholeWord = it.wholeWord,
                             )
-                        }.map { Filter.from(response.body) }
+                        }.map { ContentFilter.from(response.body) }
                     }
                 }
 
                 server.canFilterV1() -> {
-                    filter.toNewFilterV1().mapResult {
+                    filter.toNewContentFilterV1().mapResult {
                         mastodonApi.createFilterV1(
                             phrase = it.phrase,
                             context = it.contexts,
@@ -271,27 +275,27 @@ class FiltersRepository @Inject constructor(
                             expiresInSeconds = expiresInSeconds,
                         )
                     }.map {
-                        Filter.from(it.last().body)
+                        ContentFilter.from(it.last().body)
                     }
                 }
 
                 else -> Err(ServerDoesNotFilter)
-            }.mapError { FiltersError.CreateFilterError(it) }
+            }.mapError { CreateContentFilterError(it) }
                 .also { reload.emit(Unit) }
         }.await().bind()
     }
 
     /**
-     * Updates [originalFilter] on the server by applying the changes in
-     * [filterEdit].
+     * Updates [originalContentFilter] on the server by applying the changes in
+     * [contentFilterEdit].
      *
-     * Reloads filters whether or not an error occured.*
+     * Reloads filters whether or not an error occured.
      */
-    suspend fun updateFilter(originalFilter: Filter, filterEdit: FilterEdit): Result<Filter, FiltersError> = binding {
+    suspend fun updateContentFilter(originalContentFilter: ContentFilter, contentFilterEdit: ContentFilterEdit): Result<ContentFilter, ContentFiltersError> = binding {
         val server = server.bind()
 
         // Modify
-        val expiresInSeconds = when (val expiresIn = filterEdit.expiresIn) {
+        val expiresInSeconds = when (val expiresIn = contentFilterEdit.expiresIn) {
             -1 -> null
             0 -> ""
             else -> expiresIn.toString()
@@ -304,28 +308,28 @@ class FiltersRepository @Inject constructor(
                     // with the same ID (https://github.com/square/retrofit/issues/1324)
                     // so it's not possible to update keywords
 
-                    if (filterEdit.title != null ||
-                        filterEdit.contexts != null ||
-                        filterEdit.action != null ||
+                    if (contentFilterEdit.title != null ||
+                        contentFilterEdit.contexts != null ||
+                        contentFilterEdit.action != null ||
                         expiresInSeconds != null
                     ) {
                         mastodonApi.updateFilter(
-                            id = filterEdit.id,
-                            title = filterEdit.title,
-                            contexts = filterEdit.contexts,
-                            filterAction = filterEdit.action,
+                            id = contentFilterEdit.id,
+                            title = contentFilterEdit.title,
+                            contexts = contentFilterEdit.contexts,
+                            filterAction = contentFilterEdit.action,
                             expiresInSeconds = expiresInSeconds,
                         )
                     } else {
-                        Ok(originalFilter)
+                        Ok(originalContentFilter)
                     }
                         .andThen {
-                            filterEdit.keywordsToDelete.orEmpty().mapResult {
+                            contentFilterEdit.keywordsToDelete.orEmpty().mapResult {
                                 mastodonApi.deleteFilterKeyword(it.id)
                             }
                         }
                         .andThen {
-                            filterEdit.keywordsToModify.orEmpty().mapResult {
+                            contentFilterEdit.keywordsToModify.orEmpty().mapResult {
                                 mastodonApi.updateFilterKeyword(
                                     it.id,
                                     it.keyword,
@@ -334,43 +338,43 @@ class FiltersRepository @Inject constructor(
                             }
                         }
                         .andThen {
-                            filterEdit.keywordsToAdd.orEmpty().mapResult {
+                            contentFilterEdit.keywordsToAdd.orEmpty().mapResult {
                                 mastodonApi.addFilterKeyword(
-                                    filterEdit.id,
+                                    contentFilterEdit.id,
                                     it.keyword,
                                     it.wholeWord,
                                 )
                             }
                         }
                         .andThen {
-                            mastodonApi.getFilter(originalFilter.id)
+                            mastodonApi.getFilter(originalContentFilter.id)
                         }
-                        .map { Filter.from(it.body) }
+                        .map { ContentFilter.from(it.body) }
                 }
                 server.canFilterV1() -> {
                     mastodonApi.updateFilterV1(
-                        id = filterEdit.id,
-                        phrase = filterEdit.keywordsToModify?.firstOrNull()?.keyword ?: originalFilter.keywords.first().keyword,
-                        wholeWord = filterEdit.keywordsToModify?.firstOrNull()?.wholeWord,
-                        contexts = filterEdit.contexts ?: originalFilter.contexts,
+                        id = contentFilterEdit.id,
+                        phrase = contentFilterEdit.keywordsToModify?.firstOrNull()?.keyword ?: originalContentFilter.keywords.first().keyword,
+                        wholeWord = contentFilterEdit.keywordsToModify?.firstOrNull()?.wholeWord,
+                        contexts = contentFilterEdit.contexts ?: originalContentFilter.contexts,
                         irreversible = false,
                         expiresInSeconds = expiresInSeconds,
-                    ).map { Filter.from(it.body) }
+                    ).map { ContentFilter.from(it.body) }
                 }
                 else -> {
                     Err(ServerDoesNotFilter)
                 }
-            }.mapError { FiltersError.UpdateFilterError(it) }
+            }.mapError { UpdateContentFilterError(it) }
                 .also { reload() }
         }.await().bind()
     }
 
     /**
-     * Deletes the filter identified by [filterId] from the server.
+     * Deletes the content filter identified by [filterId] from the server.
      *
-     * Reloads filters whether or not an error occured.
+     * Reloads content filters whether or not an error occured.
      */
-    suspend fun deleteFilter(filterId: String): Result<Unit, FiltersError> = binding {
+    suspend fun deleteContentFilter(filterId: String): Result<Unit, ContentFiltersError> = binding {
         val server = server.bind()
 
         externalScope.async {
@@ -378,7 +382,7 @@ class FiltersRepository @Inject constructor(
                 server.canFilterV2() -> mastodonApi.deleteFilter(filterId)
                 server.canFilterV1() -> mastodonApi.deleteFilterV1(filterId)
                 else -> Err(ServerDoesNotFilter)
-            }.mapError { DeleteFilterError(it) }
+            }.mapError { DeleteContentFilterError(it) }
                 .also { reload() }
         }.await().bind()
     }

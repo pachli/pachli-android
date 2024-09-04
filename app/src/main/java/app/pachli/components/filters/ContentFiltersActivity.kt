@@ -12,19 +12,19 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
-import app.pachli.core.data.model.Filter
-import app.pachli.core.navigation.EditFilterActivityIntent
+import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.ui.BackgroundMessage
-import app.pachli.databinding.ActivityFiltersBinding
+import app.pachli.databinding.ActivityContentFiltersBinding
 import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FiltersActivity : BaseActivity(), FiltersListener {
+class ContentFiltersActivity : BaseActivity(), ContentFiltersListener {
 
-    private val binding by viewBinding(ActivityFiltersBinding::inflate)
-    private val viewModel: FiltersViewModel by viewModels()
+    private val binding by viewBinding(ActivityContentFiltersBinding::inflate)
+    private val viewModel: ContentFiltersViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +38,14 @@ class FiltersActivity : BaseActivity(), FiltersListener {
         }
 
         binding.addFilterButton.setOnClickListener {
-            launchEditFilterActivity()
+            launchEditContentFilterActivity()
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener { loadFilters() }
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
         binding.includedToolbar.appbar.setLiftOnScrollTargetView(binding.filtersList)
 
-        setTitle(R.string.pref_title_timeline_filters)
+        setTitle(R.string.pref_title_content_filters)
     }
 
     override fun onResume() {
@@ -57,27 +57,29 @@ class FiltersActivity : BaseActivity(), FiltersListener {
     private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.state.collect { state ->
-                binding.progressBar.visible(state.loadingState == FiltersViewModel.LoadingState.LOADING)
-                binding.swipeRefreshLayout.isRefreshing = state.loadingState == FiltersViewModel.LoadingState.LOADING
-                binding.addFilterButton.visible(state.loadingState == FiltersViewModel.LoadingState.LOADED)
+                binding.progressBar.visible(state.loadingState == ContentFiltersViewModel.LoadingState.LOADING)
+                binding.swipeRefreshLayout.isRefreshing = state.loadingState == ContentFiltersViewModel.LoadingState.LOADING
+                binding.addFilterButton.visible(state.loadingState == ContentFiltersViewModel.LoadingState.LOADED)
 
                 when (state.loadingState) {
-                    FiltersViewModel.LoadingState.INITIAL, FiltersViewModel.LoadingState.LOADING -> binding.messageView.hide()
-                    FiltersViewModel.LoadingState.ERROR_NETWORK -> {
+                    ContentFiltersViewModel.LoadingState.INITIAL, ContentFiltersViewModel.LoadingState.LOADING -> binding.messageView.hide()
+                    ContentFiltersViewModel.LoadingState.ERROR_NETWORK -> {
                         binding.messageView.setup(BackgroundMessage.Network()) {
                             loadFilters()
                         }
                         binding.messageView.show()
                     }
-                    FiltersViewModel.LoadingState.ERROR_OTHER -> {
+
+                    ContentFiltersViewModel.LoadingState.ERROR_OTHER -> {
                         binding.messageView.setup(BackgroundMessage.GenericError()) {
                             loadFilters()
                         }
                         binding.messageView.show()
                     }
-                    FiltersViewModel.LoadingState.LOADED -> {
-                        binding.filtersList.adapter = FiltersAdapter(this@FiltersActivity, state.filters)
-                        if (state.filters.isEmpty()) {
+
+                    ContentFiltersViewModel.LoadingState.LOADED -> {
+                        binding.filtersList.adapter = FiltersAdapter(this@ContentFiltersActivity, state.contentFilters)
+                        if (state.contentFilters.isEmpty()) {
                             binding.messageView.setup(BackgroundMessage.Empty())
                             binding.messageView.show()
                         } else {
@@ -93,22 +95,22 @@ class FiltersActivity : BaseActivity(), FiltersListener {
         viewModel.load()
     }
 
-    private fun launchEditFilterActivity(filter: Filter? = null) {
-        val intent = filter?.let {
-            EditFilterActivityIntent.edit(this, filter)
-        } ?: EditFilterActivityIntent(this)
+    private fun launchEditContentFilterActivity(contentFilter: ContentFilter? = null) {
+        val intent = contentFilter?.let {
+            EditContentFilterActivityIntent.edit(this, contentFilter)
+        } ?: EditContentFilterActivityIntent(this)
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
-    override fun deleteFilter(filter: Filter) {
+    override fun deleteContentFilter(contentFilter: ContentFilter) {
         lifecycleScope.launch {
-            if (showDeleteFilterDialog(filter.title) == BUTTON_POSITIVE) {
-                viewModel.deleteFilter(filter, binding.root)
+            if (showDeleteFilterDialog(contentFilter.title) == BUTTON_POSITIVE) {
+                viewModel.deleteContentFilter(contentFilter, binding.root)
             }
         }
     }
 
-    override fun updateFilter(updatedFilter: Filter) {
-        launchEditFilterActivity(updatedFilter)
+    override fun updateContentFilter(updatedContentFilter: ContentFilter) {
+        launchEditContentFilterActivity(updatedContentFilter)
     }
 }

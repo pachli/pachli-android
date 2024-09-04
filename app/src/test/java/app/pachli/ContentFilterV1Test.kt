@@ -18,8 +18,8 @@
 package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.components.filters.EditFilterViewModel.Companion.getSecondsForDurationIndex
-import app.pachli.core.data.model.Filter
+import app.pachli.components.filters.EditContentFilterViewModel.Companion.getSecondsForDurationIndex
+import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterContext
@@ -37,13 +37,13 @@ import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
 
 @RunWith(AndroidJUnit4::class)
-class FilterV1Test {
+class ContentFilterV1Test {
 
     private lateinit var filterModel: FilterModel
 
     @Before
     fun setup() {
-        val filters = listOf(
+        val contentFilters = listOf(
             FilterV1(
                 id = "123",
                 phrase = "badWord",
@@ -100,9 +100,9 @@ class FilterV1Test {
                 irreversible = false,
                 wholeWord = false,
             ),
-        ).map { Filter.from(it) }
+        ).map { ContentFilter.from(it) }
 
-        filterModel = FilterModel(FilterContext.HOME, filters)
+        filterModel = FilterModel(FilterContext.HOME, contentFilters)
     }
 
     @Test

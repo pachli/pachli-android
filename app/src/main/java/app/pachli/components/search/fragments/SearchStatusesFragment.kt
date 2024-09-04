@@ -49,7 +49,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.EditFilterActivityIntent
+import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
@@ -167,7 +167,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     override fun onEditFilterById(filterId: String) {
         requireActivity().startActivityWithTransition(
-            EditFilterActivityIntent.edit(requireContext(), filterId),
+            EditContentFilterActivityIntent.edit(requireContext(), filterId),
             TransitionKind.SLIDE_FROM_END,
         )
     }

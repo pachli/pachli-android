@@ -30,8 +30,8 @@ import app.pachli.appstore.StatusEditedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.accounts.AccountManager
-import app.pachli.core.data.repository.FilterVersion
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFilterVersion
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
@@ -74,7 +74,7 @@ class ViewThreadViewModel @Inject constructor(
     private val moshi: Moshi,
     private val repository: CachedTimelineRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
-    private val filtersRepository: FiltersRepository,
+    private val contentFiltersRepository: ContentFiltersRepository,
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<ThreadUiState> = MutableStateFlow(ThreadUiState.Loading)
@@ -113,11 +113,11 @@ class ViewThreadViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            filtersRepository.filters.collect { filters ->
+            contentFiltersRepository.contentFilters.collect { filters ->
                 filters.onSuccess {
                     filterModel = when (it?.version) {
-                        FilterVersion.V2 -> FilterModel(FilterContext.THREAD)
-                        FilterVersion.V1 -> FilterModel(FilterContext.THREAD, it.filters)
+                        ContentFilterVersion.V2 -> FilterModel(FilterContext.THREAD)
+                        ContentFilterVersion.V1 -> FilterModel(FilterContext.THREAD, it.contentFilters)
                         else -> null
                     }
                     updateStatuses()

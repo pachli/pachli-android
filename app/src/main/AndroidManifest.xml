@@ -147,7 +147,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".feature.lists.ListsActivity" />
-        <activity android:name=".components.filters.FiltersActivity" />
+        <activity android:name=".components.filters.ContentFiltersActivity" />
         <activity android:name=".components.trending.TrendingActivity" />
         <activity android:name=".components.followedtags.FollowedTagsActivity" />
         <activity
@@ -157,7 +157,8 @@
         <activity android:name=".components.scheduled.ScheduledStatusActivity" />
         <activity android:name=".components.announcements.AnnouncementsActivity" />
         <activity android:name=".components.drafts.DraftsActivity" />
-        <activity android:name=".components.filters.EditFilterActivity"
+        <activity
+            android:name=".components.filters.EditContentFilterActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".feature.suggestions.SuggestionsActivity" />
 

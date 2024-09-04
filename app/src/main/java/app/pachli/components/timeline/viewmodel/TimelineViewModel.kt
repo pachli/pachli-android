@@ -43,8 +43,8 @@ import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.extensions.throttleFirst
-import app.pachli.core.data.repository.FilterVersion
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFilterVersion
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Filter
@@ -270,7 +270,7 @@ abstract class TimelineViewModel(
     savedStateHandle: SavedStateHandle,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
-    private val filtersRepository: FiltersRepository,
+    private val contentFiltersRepository: ContentFiltersRepository,
     protected val accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
@@ -330,11 +330,11 @@ abstract class TimelineViewModel(
     init {
         viewModelScope.launch {
             FilterContext.from(timeline)?.let { filterContext ->
-                filtersRepository.filters.fold(false) { reload, filters ->
+                contentFiltersRepository.contentFilters.fold(false) { reload, filters ->
                     filters.onSuccess {
                         filterModel = when (it?.version) {
-                            FilterVersion.V2 -> FilterModel(filterContext)
-                            FilterVersion.V1 -> FilterModel(filterContext, it.filters)
+                            ContentFilterVersion.V2 -> FilterModel(filterContext)
+                            ContentFilterVersion.V1 -> FilterModel(filterContext, it.contentFilters)
                             else -> null
                         }
                         if (reload) {

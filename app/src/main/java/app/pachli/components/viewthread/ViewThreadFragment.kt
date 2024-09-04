@@ -43,7 +43,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
-import app.pachli.core.navigation.EditFilterActivityIntent
+import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.ui.extensions.getErrorString
@@ -328,7 +328,7 @@ class ViewThreadFragment :
 
     override fun onEditFilterById(filterId: String) {
         requireActivity().startActivityWithTransition(
-            EditFilterActivityIntent.edit(requireContext(), filterId),
+            EditContentFilterActivityIntent.edit(requireContext(), filterId),
             TransitionKind.SLIDE_FROM_END,
         )
     }

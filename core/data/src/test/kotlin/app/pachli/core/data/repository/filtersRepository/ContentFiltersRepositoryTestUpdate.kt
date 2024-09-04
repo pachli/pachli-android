@@ -18,8 +18,8 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
-import app.pachli.core.data.model.Filter
-import app.pachli.core.data.repository.FilterEdit
+import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.Filter.Action
 import app.pachli.core.network.model.FilterContext
@@ -40,11 +40,11 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
 /**
- * Test that ensures the correct API calls are made given an [FilterEdit]. The correct
- * creation of the [FilterEdit] is tested in FilterViewDataTest.kt
+ * Test that ensures the correct API calls are made given an [ContentFilterEdit]. The correct
+ * creation of the [ContentFilterEdit] is tested in FilterViewDataTest.kt
  */
 @HiltAndroidTest
-class FiltersRepositoryTestUpdate : BaseFiltersRepositoryTest() {
+class ContentFiltersRepositoryTestUpdate : BaseContentFiltersRepositoryTest() {
     private val originalNetworkFilter = NetworkFilter(
         id = "1",
         title = "original filter",
@@ -59,18 +59,18 @@ class FiltersRepositoryTestUpdate : BaseFiltersRepositoryTest() {
         ),
     )
 
-    private val originalFilter = Filter.from(originalNetworkFilter)
+    private val originalContentFilter = ContentFilter.from(originalNetworkFilter)
 
     @Test
     fun `v2 update with no keyword changes should only call updateFilter once`() = runTest {
         mastodonApi.stub {
-            onBlocking { getFilters() } doReturn success(emptyList())
+            onBlocking { getContentFilters() } doReturn success(emptyList())
             onBlocking { updateFilter(any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doAnswer { call ->
                 success(
                     originalNetworkFilter.copy(
-                        title = call.getArgument(1) ?: originalFilter.title,
-                        contexts = call.getArgument(2) ?: originalFilter.contexts,
-                        action = call.getArgument(3) ?: originalFilter.action,
+                        title = call.getArgument(1) ?: originalContentFilter.title,
+                        contexts = call.getArgument(2) ?: originalContentFilter.contexts,
+                        action = call.getArgument(3) ?: originalContentFilter.action,
                         expiresAt = call.getArgument<String?>(4)?.let {
                             when (it) {
                                 "" -> null
@@ -83,13 +83,13 @@ class FiltersRepositoryTestUpdate : BaseFiltersRepositoryTest() {
             onBlocking { getFilter(originalNetworkFilter.id) } doReturn success(originalNetworkFilter)
         }
 
-        val update = FilterEdit(id = originalFilter.id, title = "new title")
+        val update = ContentFilterEdit(id = originalContentFilter.id, title = "new title")
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
-            verify(mastodonApi, times(1)).getFilters()
+            verify(mastodonApi, times(1)).getContentFilters()
 
-            filtersRepository.updateFilter(originalFilter, update)
+            contentFiltersRepository.updateContentFilter(originalContentFilter, update)
             advanceUntilIdle()
 
             verify(mastodonApi, times(1)).updateFilter(
@@ -100,9 +100,9 @@ class FiltersRepositoryTestUpdate : BaseFiltersRepositoryTest() {
                 expiresInSeconds = null,
             )
 
-            verify(mastodonApi, times(1)).getFilter(originalFilter.id)
-            verify(mastodonApi, times(2)).getFilters()
-            verify(mastodonApi, never()).getFiltersV1()
+            verify(mastodonApi, times(1)).getFilter(originalContentFilter.id)
+            verify(mastodonApi, times(2)).getContentFilters()
+            verify(mastodonApi, never()).getContentFiltersV1()
 
             cancelAndConsumeRemainingEvents()
         }
@@ -111,7 +111,7 @@ class FiltersRepositoryTestUpdate : BaseFiltersRepositoryTest() {
     @Test
     fun `v2 update with keyword changes should call updateFilter and the keyword methods`() = runTest {
         mastodonApi.stub {
-            onBlocking { getFilters() } doReturn success(emptyList())
+            onBlocking { getContentFilters() } doReturn success(emptyList())
             onBlocking { deleteFilterKeyword(any()) } doReturn success(Unit)
             onBlocking { updateFilterKeyword(any(), any(), any()) } doAnswer { call ->
                 success(FilterKeyword(call.getArgument(0), call.getArgument(1), call.getArgument(2)))
@@ -123,28 +123,28 @@ class FiltersRepositoryTestUpdate : BaseFiltersRepositoryTest() {
         }
 
         val keywordToAdd = FilterKeyword(id = "", keyword = "new keyword", wholeWord = false)
-        val keywordToDelete = originalFilter.keywords[1]
-        val keywordToModify = originalFilter.keywords[0].copy(keyword = "new keyword")
+        val keywordToDelete = originalContentFilter.keywords[1]
+        val keywordToModify = originalContentFilter.keywords[0].copy(keyword = "new keyword")
 
-        val update = FilterEdit(
-            id = originalFilter.id,
+        val update = ContentFilterEdit(
+            id = originalContentFilter.id,
             keywordsToAdd = listOf(keywordToAdd),
             keywordsToDelete = listOf(keywordToDelete),
             keywordsToModify = listOf(keywordToModify),
         )
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
-            verify(mastodonApi, times(1)).getFilters()
+            verify(mastodonApi, times(1)).getContentFilters()
 
-            filtersRepository.updateFilter(originalFilter, update)
+            contentFiltersRepository.updateContentFilter(originalContentFilter, update)
             advanceUntilIdle()
 
             // updateFilter() call should be skipped, as only the keywords have changed.
             verify(mastodonApi, never()).updateFilter(any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
 
             verify(mastodonApi, times(1)).addFilterKeyword(
-                originalFilter.id,
+                originalContentFilter.id,
                 keywordToAdd.keyword,
                 keywordToAdd.wholeWord,
             )
@@ -157,9 +157,9 @@ class FiltersRepositoryTestUpdate : BaseFiltersRepositoryTest() {
                 keywordToModify.wholeWord,
             )
 
-            verify(mastodonApi, times(1)).getFilter(originalFilter.id)
-            verify(mastodonApi, times(2)).getFilters()
-            verify(mastodonApi, never()).getFiltersV1()
+            verify(mastodonApi, times(1)).getFilter(originalContentFilter.id)
+            verify(mastodonApi, times(2)).getContentFilters()
+            verify(mastodonApi, never()).getContentFiltersV1()
 
             cancelAndConsumeRemainingEvents()
         }

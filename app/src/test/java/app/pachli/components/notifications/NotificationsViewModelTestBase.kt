@@ -22,9 +22,9 @@ import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.appstore.EventHub
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
-import app.pachli.core.data.repository.Filters
-import app.pachli.core.data.repository.FiltersError
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFilters
+import app.pachli.core.data.repository.ContentFiltersError
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
@@ -62,7 +62,7 @@ abstract class NotificationsViewModelTestBase {
     protected lateinit var timelineCases: TimelineCases
     protected lateinit var viewModel: NotificationsViewModel
     private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
-    private lateinit var filtersRepository: FiltersRepository
+    private lateinit var contentFiltersRepository: ContentFiltersRepository
 
     private val eventHub = EventHub()
 
@@ -108,8 +108,8 @@ abstract class NotificationsViewModelTestBase {
 
         timelineCases = mock()
 
-        filtersRepository = mock {
-            whenever(it.filters).thenReturn(MutableStateFlow<Result<Filters?, FiltersError.GetFiltersError>>(Ok(null)))
+        contentFiltersRepository = mock {
+            whenever(it.contentFilters).thenReturn(MutableStateFlow<Result<ContentFilters?, ContentFiltersError.GetContentFiltersError>>(Ok(null)))
         }
 
         sharedPreferencesRepository = SharedPreferencesRepository(
@@ -159,7 +159,7 @@ abstract class NotificationsViewModelTestBase {
             accountManager,
             timelineCases,
             eventHub,
-            filtersRepository,
+            contentFiltersRepository,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
         )
