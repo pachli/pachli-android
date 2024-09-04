@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">L\'indirizzo o il dominio di qualsiasi istanza può essere inserito qui, come mastodon.social, icosahedron.website, social.tchncs.de, e <a href="https://instances.social">altri!</a>
-\n
-\nSe non hai ancora un account, puoi inserire il nome di un\'istanza alla quale vuoi iscriverti e creare un account.
-\n
-\nUn\'istanza è il luogo dove l\'account è custodito, ma puoi facilmente comunicare e seguire persone su altre istanze come se fossero sullo stesso sito.
-\n
+    <string name="dialog_whats_an_instance">L\'indirizzo o il dominio di qualsiasi istanza può essere inserito qui, come mastodon.social, icosahedron.website, social.tchncs.de, e <a href="https://instances.social">altri!</a> 
+\n 
+\nSe non hai ancora un account, puoi inserire il nome di un\'istanza alla quale vuoi iscriverti e creare un account. 
+\n 
+\nUn\'istanza è il luogo dove l\'account è custodito, ma puoi facilmente comunicare e seguire persone su altre istanze come se fossero sullo stesso sito. 
+\n 
 \nPiù informazioni possono essere trovate a questo indirizzo <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
     <string name="action_close">Chiudi</string>
     <string name="action_browser_login">Accedi dal browser</string>
