@@ -1,5 +1,13 @@
 # Pachli changelog
 
+## v2.8.1
+
+### Significant bug fixes
+
+- Prevent crash when sending a post while media is uploading (#[923](https://github.com/pachli/pachli-android/pull/923), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Restore video transitions on androidx.media3 1.4.0 and 1.4.1 (#[922](https://github.com/pachli/pachli-android/pull/922), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Stop preview card text overlapping images (#[924](https://github.com/pachli/pachli-android/pull/924), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
 ## v2.8.0
 
 ### New features and other improvements
