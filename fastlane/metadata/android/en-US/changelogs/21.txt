@@ -1,0 +1,7 @@
+Pachli 2.8.1
+
+Fixes:
+
+- Prevent crash when sending a post while media is uploading 
+- Restore video transitions on androidx.media3 1.4.0 and 1.4.1 
+- Stop preview card text overlapping images 
