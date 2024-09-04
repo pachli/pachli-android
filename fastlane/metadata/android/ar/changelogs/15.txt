@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+فليكس:
+
+- Only enable accessible actions on notifications attached to a status
