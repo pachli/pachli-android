@@ -1,5 +1,3 @@
 Pachli 2.1.1
 
-Fixes:
-
 - Mencegah kecelakaan jika tab tren hadir
