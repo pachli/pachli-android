@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Fixes:
+
+- Sadece bir statüye eklenen bildirimler üzerinde erişilebilir eylemler etkinleştirin
