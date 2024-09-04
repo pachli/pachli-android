@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Fiksoj:
+
+- Nur ebligas alireblajn agojn sur sciigoj ligitaj al statuso
