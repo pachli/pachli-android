@@ -41,7 +41,7 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.network.FilterModel
+import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
@@ -353,7 +353,7 @@ class NotificationsViewModel @Inject constructor(
         viewModelScope.launch { uiAction.emit(action) }
     }
 
-    private var filterModel: FilterModel? = null
+    private var contentFilterModel: ContentFilterModel? = null
 
     init {
         // Handle changes to notification filters
@@ -476,9 +476,9 @@ class NotificationsViewModel @Inject constructor(
         viewModelScope.launch {
             contentFiltersRepository.contentFilters.collect { filters ->
                 filters.onSuccess {
-                    filterModel = when (it?.version) {
-                        ContentFilterVersion.V2 -> FilterModel(FilterContext.NOTIFICATIONS)
-                        ContentFilterVersion.V1 -> FilterModel(FilterContext.NOTIFICATIONS, it.contentFilters)
+                    contentFilterModel = when (it?.version) {
+                        ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.NOTIFICATIONS)
+                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.NOTIFICATIONS, it.contentFilters)
                         else -> null
                     }
                     reload.getAndUpdate { it + 1 }
@@ -526,7 +526,7 @@ class NotificationsViewModel @Inject constructor(
         return repository.getNotificationsStream(filter = filters, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map { notification ->
-                    val filterAction = notification.status?.actionableStatus?.let { filterModel?.filterActionFor(it) } ?: FilterAction.NONE
+                    val filterAction = notification.status?.actionableStatus?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
                     NotificationViewData.from(
                         notification,
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||

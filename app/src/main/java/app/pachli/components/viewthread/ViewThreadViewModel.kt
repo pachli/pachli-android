@@ -42,7 +42,7 @@ import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.network.FilterModel
+import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
@@ -93,7 +93,7 @@ class ViewThreadViewModel @Inject constructor(
     private val alwaysShowSensitiveMedia: Boolean = activeAccount.alwaysShowSensitiveMedia
     private val alwaysOpenSpoiler: Boolean = activeAccount.alwaysOpenSpoiler
 
-    private var filterModel: FilterModel? = null
+    private var contentFilterModel: ContentFilterModel? = null
 
     init {
         viewModelScope.launch {
@@ -115,9 +115,9 @@ class ViewThreadViewModel @Inject constructor(
         viewModelScope.launch {
             contentFiltersRepository.contentFilters.collect { filters ->
                 filters.onSuccess {
-                    filterModel = when (it?.version) {
-                        ContentFilterVersion.V2 -> FilterModel(FilterContext.THREAD)
-                        ContentFilterVersion.V1 -> FilterModel(FilterContext.THREAD, it.contentFilters)
+                    contentFilterModel = when (it?.version) {
+                        ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.THREAD)
+                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.THREAD, it.contentFilters)
                         else -> null
                     }
                     updateStatuses()
@@ -545,7 +545,7 @@ class ViewThreadViewModel @Inject constructor(
             if (status.isDetailed) {
                 true
             } else {
-                status.filterAction = filterModel?.filterActionFor(status.status) ?: FilterAction.NONE
+                status.filterAction = contentFilterModel?.filterActionFor(status.status) ?: FilterAction.NONE
                 status.filterAction != FilterAction.HIDE
             }
         }

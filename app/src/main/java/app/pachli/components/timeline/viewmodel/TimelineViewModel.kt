@@ -53,7 +53,7 @@ import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.network.FilterModel
+import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
@@ -325,16 +325,16 @@ abstract class TimelineViewModel(
     open var readingPositionId: String? = null
         protected set
 
-    private var filterModel: FilterModel? = null
+    private var contentFilterModel: ContentFilterModel? = null
 
     init {
         viewModelScope.launch {
             FilterContext.from(timeline)?.let { filterContext ->
                 contentFiltersRepository.contentFilters.fold(false) { reload, filters ->
                     filters.onSuccess {
-                        filterModel = when (it?.version) {
-                            ContentFilterVersion.V2 -> FilterModel(filterContext)
-                            ContentFilterVersion.V1 -> FilterModel(filterContext, it.contentFilters)
+                        contentFilterModel = when (it?.version) {
+                            ContentFilterVersion.V2 -> ContentFilterModel(filterContext)
+                            ContentFilterVersion.V1 -> ContentFilterModel(filterContext, it.contentFilters)
                             else -> null
                         }
                         if (reload) {
@@ -540,7 +540,7 @@ abstract class TimelineViewModel(
         ) {
             return FilterAction.HIDE
         } else {
-            statusViewData.filterAction = filterModel?.filterActionFor(status.actionableStatus) ?: FilterAction.NONE
+            statusViewData.filterAction = contentFilterModel?.filterActionFor(status.actionableStatus) ?: FilterAction.NONE
             statusViewData.filterAction
         }
     }

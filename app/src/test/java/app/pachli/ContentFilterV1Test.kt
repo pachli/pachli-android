@@ -27,7 +27,7 @@ import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.PollOption
 import app.pachli.core.network.model.Status
-import app.pachli.network.FilterModel
+import app.pachli.network.ContentFilterModel
 import java.time.Instant
 import java.util.Date
 import org.junit.Assert.assertEquals
@@ -39,7 +39,7 @@ import org.mockito.kotlin.mock
 @RunWith(AndroidJUnit4::class)
 class ContentFilterV1Test {
 
-    private lateinit var filterModel: FilterModel
+    private lateinit var contentFilterModel: ContentFilterModel
 
     @Before
     fun setup() {
@@ -102,14 +102,14 @@ class ContentFilterV1Test {
             ),
         ).map { ContentFilter.from(it) }
 
-        filterModel = FilterModel(FilterContext.HOME, contentFilters)
+        contentFilterModel = ContentFilterModel(FilterContext.HOME, contentFilters)
     }
 
     @Test
     fun shouldNotFilter() {
         assertEquals(
             FilterAction.NONE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "should not be filtered"),
             ),
         )
@@ -119,7 +119,7 @@ class ContentFilterV1Test {
     fun shouldFilter_whenContentMatchesBadWord() {
         assertEquals(
             FilterAction.HIDE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "one two badWord three"),
             ),
         )
@@ -129,7 +129,7 @@ class ContentFilterV1Test {
     fun shouldFilter_whenContentMatchesBadWordPart() {
         assertEquals(
             FilterAction.HIDE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "one two badWordPart three"),
             ),
         )
@@ -139,7 +139,7 @@ class ContentFilterV1Test {
     fun shouldFilter_whenContentMatchesBadWholeWord() {
         assertEquals(
             FilterAction.HIDE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "one two badWholeWord three"),
             ),
         )
@@ -149,7 +149,7 @@ class ContentFilterV1Test {
     fun shouldNotFilter_whenContentDoesNotMatchWholeWord() {
         assertEquals(
             FilterAction.NONE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "one two badWholeWordTest three"),
             ),
         )
@@ -159,7 +159,7 @@ class ContentFilterV1Test {
     fun shouldFilter_whenSpoilerTextDoesMatch() {
         assertEquals(
             FilterAction.HIDE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(
                     content = "should not be filtered",
                     spoilerText = "badWord should be filtered",
@@ -172,7 +172,7 @@ class ContentFilterV1Test {
     fun shouldFilter_whenPollTextDoesMatch() {
         assertEquals(
             FilterAction.HIDE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(
                     content = "should not be filtered",
                     spoilerText = "should not be filtered",
@@ -186,7 +186,7 @@ class ContentFilterV1Test {
     fun shouldFilter_whenMediaDescriptionDoesMatch() {
         assertEquals(
             FilterAction.HIDE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(
                     content = "should not be filtered",
                     spoilerText = "should not be filtered",
@@ -200,7 +200,7 @@ class ContentFilterV1Test {
     fun shouldFilterPartialWord_whenWholeWordFilterContainsNonAlphanumericCharacters() {
         assertEquals(
             FilterAction.HIDE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "one two someone@twitter.com three"),
             ),
         )
@@ -210,7 +210,7 @@ class ContentFilterV1Test {
     fun shouldFilterHashtags() {
         assertEquals(
             FilterAction.HIDE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "#hashtag one two three"),
             ),
         )
@@ -220,7 +220,7 @@ class ContentFilterV1Test {
     fun shouldFilterHashtags_whenContentIsMarkedUp() {
         assertEquals(
             FilterAction.HIDE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "<p><a href=\"https://foo.bar/tags/hashtag\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>hashtag</span></a>one two three</p>"),
             ),
         )
@@ -230,7 +230,7 @@ class ContentFilterV1Test {
     fun shouldNotFilterHtmlAttributes() {
         assertEquals(
             FilterAction.NONE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "<p><a href=\"https://foo.bar/\">https://foo.bar/</a> one two three</p>"),
             ),
         )
@@ -240,7 +240,7 @@ class ContentFilterV1Test {
     fun shouldNotFilter_whenFilterIsExpired() {
         assertEquals(
             FilterAction.NONE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "content matching expired filter should not be filtered"),
             ),
         )
@@ -250,7 +250,7 @@ class ContentFilterV1Test {
     fun shouldFilter_whenFilterIsUnexpired() {
         assertEquals(
             FilterAction.HIDE,
-            filterModel.filterActionFor(
+            contentFilterModel.filterActionFor(
                 mockStatus(content = "content matching unexpired filter should be filtered"),
             ),
         )

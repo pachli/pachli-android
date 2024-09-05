@@ -14,7 +14,7 @@ import java.util.regex.Pattern
  * Construct with [filterContext] that corresponds to the kind of timeline, and optionally the set
  * of v1 filters that should be applied.
  */
-class FilterModel(private val filterContext: FilterContext, v1ContentFilters: List<ContentFilter>? = null) {
+class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilters: List<ContentFilter>? = null) {
     /** Pattern to use when matching v1 filters against a status. Null if these are v2 filters */
     private var pattern: Pattern? = null
 
@@ -24,7 +24,7 @@ class FilterModel(private val filterContext: FilterContext, v1ContentFilters: Li
         }
     }
 
-    /** @return the [ContentFilter.Action] that should be applied to this status */
+    /** @return the [FilterAction] that should be applied to this status */
     fun filterActionFor(status: Status): FilterAction {
         pattern?.let { pat ->
             // Patterns are expensive and thread-safe, matchers are neither.
