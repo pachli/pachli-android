@@ -37,4 +37,33 @@
     <string name="notification_details_pachli_exempt_help">Pachli non está exenta das optimizacións da batería. Android podería retrasar as notificacións cando a pantalla está apagada.</string>
     <string name="notification_details_workers_help">Esta é a lista de tarefas que obteñen novas notificacións. Debería haber unha, cuxo estado debe ser RUNNING ou ENQUEUED, e debería estar programada para realizarse en menos de 15 desde agora.</string>
     <string name="notification_details_last_fetch_label">Última solicitude /api/v1/notifications</string>
+    <string name="notification_details_any_account_needs_migration">Teñen todas as contas o ámbito «push» OAuth?</string>
+    <string name="notification_details_last_fetch_help">Independentemente do método de notificación, isto mostra, para cada conta, cando se obtiveron as últimas e se foi correcta así como a mensaxe do erro se non o foi.</string>
+    <string name="notification_details_usage_event">Restricións da xestión de enerxía</string>
+    <string name="notification_details_ago">hai %1$s @ %2$s</string>
+    <string name="notification_details_standby_bucket_exempted">Exenta</string>
+    <string name="notification_details_standby_bucket_active">Activa. Tarefas en segundo plano sen restricións</string>
+    <string name="notification_details_standby_bucket_working_set">Establecida. Limitada a 10 minutos cada 2 horas</string>
+    <string name="notification_details_standby_bucket_frequent">Frecuente. Limitada a 10 minutos cada 2 horas</string>
+    <string name="notification_details_standby_bucket_rare">Ocasional. Limitada a 10 minutos cada 24 horas</string>
+    <string name="notification_details_standby_bucket_never">Nunca</string>
+    <string name="notification_details_standby_bucket_unknown">Descoñecida</string>
+    <string name="notification_log_title">Rexistro</string>
+    <string name="notification_log_filter_content_description">Filtrar rexistro por etiqueta</string>
+    <string name="notification_log_filter">Filtrar</string>
+    <string name="notification_log_download_content_description">Descargar rexistros</string>
+    <string name="notification_log_download">Descargar</string>
+    <string name="notification_log_sort">Recentes primeiro</string>
+    <string name="notification_log_previous_attempts">Intentos anteriores: %1$d</string>
+    <string name="notification_log_scheduled_in">Programado en %1$s @ %2$s</string>
+    <string name="notification_log_method_push">As notificacións recíbense usando UnifiedPush, e deberían ser inmediatas</string>
+    <string name="notification_log_method_pull">As notificacións recíbense periodicamente, aproximadamente cada 15 minutos</string>
+    <string name="notification_log_method_unknown">Non se determinou o mecanismo das notificacións</string>
+    <string name="notification_log_method_pusherror">UnifiedPush está activado pero tivo un erro: %1$s</string>
+    <string name="notification_log_download_failed">Fallou a descarga: %1$s</string>
+    <string name="notitication_log_filter_dialog_title">Mostrar prioridade no rexistro</string>
+    <string name="action_refresh">Actualizar</string>
+    <string name="notification_details_usage_event_label">Android pode limitar a actividade en segundo plano das aplicacións. Esta lista mostra o xeito en que Pachli estivo limitada nos últimos 3 días, con orde cronolóxica.</string>
+    <string name="notification_details_standby_bucket_restricted">Restrinxida. Unha vez ao día</string>
+    <string name="about_nivenly_foundation">Pachli é un proxecto da <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
 </resources>
