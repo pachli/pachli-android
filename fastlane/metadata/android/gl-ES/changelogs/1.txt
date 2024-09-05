@@ -1,0 +1,20 @@
+As novas características inclúen:
+
+- Xa non aparece «Cargar máis» ao desprazarte na cronoloxía
+- Ligazóns e Publicacións populares
+- Máis de 5 pestanas
+- Escolle entre varios tipos de letra accesibles
+- Novo reprodutor multimedia
+- Filtros nas notificacións
+- Marcar listas como «excluíntes»
+- Engadir «marcadores» ás pestanas
+
+Arranxos:
+
+- As imaxes non quedan «pegadas» ao facer zoom ou cambiar entre elas
+
+Cambios na interface:
+
+- Novo esquema de cores, anovación da aparencia
+- Determinar o decorado por defecto en función dos axustes de Android
+- «Limpar notificacións» agora é un elemento do menú

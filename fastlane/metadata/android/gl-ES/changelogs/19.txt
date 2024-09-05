@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Arranxos:
+
+- Posición correcta da imaxe da tarxeta de vista previa, mostrar descrición da tarxeta
