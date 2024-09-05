@@ -35,7 +35,7 @@ import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.ContentFilterVersion
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
@@ -526,7 +526,7 @@ class NotificationsViewModel @Inject constructor(
         return repository.getNotificationsStream(filter = filters, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map { notification ->
-                    val filterAction = notification.status?.actionableStatus?.let { filterModel?.filterActionFor(it) } ?: Filter.Action.NONE
+                    val filterAction = notification.status?.actionableStatus?.let { filterModel?.filterActionFor(it) } ?: FilterAction.NONE
                     NotificationViewData.from(
                         notification,
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
@@ -536,7 +536,7 @@ class NotificationsViewModel @Inject constructor(
                         filterAction = filterAction,
                     )
                 }.filter {
-                    it.statusViewData?.filterAction != Filter.Action.HIDE
+                    it.statusViewData?.filterAction != FilterAction.HIDE
                 }
             }
     }

@@ -24,7 +24,7 @@ import app.pachli.core.data.repository.ContentFilterVersion.V2
 import app.pachli.core.data.repository.ContentFilters
 import app.pachli.core.data.repository.ContentFiltersError
 import app.pachli.core.network.model.Filter as NetworkFilter
-import app.pachli.core.network.model.Filter.Action
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
@@ -73,7 +73,7 @@ class ContentFiltersRepositoryTestFlow : BaseContentFiltersRepositoryTest() {
                         id = "1",
                         title = "test filter",
                         contexts = setOf(FilterContext.HOME),
-                        action = Action.WARN,
+                        filterAction = FilterAction.WARN,
                         expiresAt = expiresAt,
                         keywords = listOf(FilterKeyword(id = "1", keyword = "foo", wholeWord = true)),
                     ),
@@ -93,7 +93,7 @@ class ContentFiltersRepositoryTestFlow : BaseContentFiltersRepositoryTest() {
                             id = "1",
                             title = "test filter",
                             contexts = setOf(FilterContext.HOME),
-                            action = Action.WARN,
+                            filterAction = FilterAction.WARN,
                             expiresAt = expiresAt,
                             keywords = listOf(
                                 FilterKeyword(id = "1", keyword = "foo", wholeWord = true),
@@ -155,7 +155,7 @@ class ContentFiltersRepositoryTestFlow : BaseContentFiltersRepositoryTest() {
                             id = "1",
                             title = "some_phrase",
                             contexts = setOf(FilterContext.HOME),
-                            action = Action.WARN,
+                            filterAction = FilterAction.WARN,
                             expiresAt = expiresAt,
                             keywords = listOf(
                                 FilterKeyword(id = "1", keyword = "some_phrase", wholeWord = true),

@@ -20,7 +20,7 @@ package app.pachli.viewdata
 import android.text.Spanned
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report
@@ -49,7 +49,7 @@ data class NotificationViewData(
             isShowingContent: Boolean,
             isExpanded: Boolean,
             isCollapsed: Boolean,
-            filterAction: Filter.Action,
+            filterAction: FilterAction,
         ) = NotificationViewData(
             notification.type,
             notification.id,
@@ -103,7 +103,7 @@ data class NotificationViewData(
         get() = statusViewData?.actionableId ?: throw IllegalStateException()
     override val rebloggingStatus: Status?
         get() = statusViewData?.rebloggingStatus
-    override var filterAction: Filter.Action
+    override var filterAction: FilterAction
         get() = statusViewData?.filterAction ?: throw IllegalStateException()
         set(value) {
             statusViewData?.filterAction = value

@@ -47,7 +47,7 @@ import app.pachli.core.data.repository.ContentFilterVersion
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
@@ -530,7 +530,7 @@ abstract class TimelineViewModel(
     /** Triggered when currently displayed data must be reloaded. */
     protected abstract suspend fun invalidate()
 
-    protected fun shouldFilterStatus(statusViewData: StatusViewData): Filter.Action {
+    protected fun shouldFilterStatus(statusViewData: StatusViewData): FilterAction {
         val status = statusViewData.status
         return if (
             (status.inReplyToId != null && filterRemoveReplies) ||
@@ -538,9 +538,9 @@ abstract class TimelineViewModel(
             // To determine if the boost is boosting your own toot
             ((status.account.id == status.reblog?.account?.id) && filterRemoveSelfReblogs)
         ) {
-            return Filter.Action.HIDE
+            return FilterAction.HIDE
         } else {
-            statusViewData.filterAction = filterModel?.filterActionFor(status.actionableStatus) ?: Filter.Action.NONE
+            statusViewData.filterAction = filterModel?.filterActionFor(status.actionableStatus) ?: FilterAction.NONE
             statusViewData.filterAction
         }
     }

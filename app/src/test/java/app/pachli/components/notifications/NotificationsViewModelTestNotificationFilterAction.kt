@@ -38,7 +38,7 @@ import org.mockito.kotlin.verify
  *   This is only tested in the success case; if it passed there it must also
  *   have passed in the error case.
  */
-class NotificationsViewModelTestNotificationAction : NotificationsViewModelTestBase() {
+class NotificationsViewModelTestNotificationFilterAction : NotificationsViewModelTestBase() {
     /** Dummy relationship */
     private val relationship = Relationship(
         // Nothing special about these values, it's just to have something to return

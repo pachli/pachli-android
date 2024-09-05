@@ -38,6 +38,7 @@ import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.NewContentFilter
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.TimelineActivityIntent
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.databinding.ActivityTimelineBinding
 import app.pachli.interfaces.ActionButtonActivity
@@ -280,7 +281,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
             val newContentFilter = NewContentFilter(
                 title = tagWithHash,
                 contexts = setOf(FilterContext.HOME),
-                action = app.pachli.core.network.model.Filter.Action.WARN,
+                filterAction = FilterAction.WARN,
                 expiresIn = 0,
                 keywords = listOf(
                     NewContentFilterKeyword(

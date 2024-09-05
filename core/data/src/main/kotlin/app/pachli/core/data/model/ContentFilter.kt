@@ -18,7 +18,7 @@
 package app.pachli.core.data.model
 
 import android.os.Parcelable
-import app.pachli.core.network.model.Filter.Action
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import java.util.Date
@@ -46,7 +46,7 @@ enum class ContentFilterValidationError {
  * @param title Filter's title (label to use in the UI)
  * @param contexts One or more [FilterContext] the filter is applied to
  * @param expiresAt Date the filter expires, null if the filter does not expire
- * @param action Action to take if the filter matches a status
+ * @param filterAction Action to take if the filter matches a status
  * @param keywords One or more [FilterKeyword] the filter matches against a status
  */
 @Parcelize
@@ -55,7 +55,7 @@ data class ContentFilter(
     val title: String,
     val contexts: Set<FilterContext> = emptySet(),
     val expiresAt: Date? = null,
-    val action: Action,
+    val filterAction: FilterAction,
     val keywords: List<FilterKeyword> = emptyList(),
 ) : Parcelable {
     /**
@@ -78,7 +78,7 @@ data class ContentFilter(
             title = filter.title,
             contexts = filter.contexts,
             expiresAt = filter.expiresAt,
-            action = filter.action,
+            filterAction = filter.filterAction,
             keywords = filter.keywords,
         )
 
@@ -95,7 +95,7 @@ data class ContentFilter(
             title = filter.phrase,
             contexts = filter.contexts,
             expiresAt = filter.expiresAt,
-            action = Action.WARN,
+            filterAction = FilterAction.WARN,
             keywords = listOf(
                 FilterKeyword(
                     id = filter.id,

@@ -45,7 +45,7 @@ class FiltersAdapter(val listener: ContentFiltersListener, val contentFilters: L
         if (errors.isEmpty()) {
             secondaryText = context.getString(
                 R.string.filter_description_format,
-                actions.getOrNull(filter.action.ordinal - 1),
+                actions.getOrNull(filter.filterAction.ordinal - 1),
                 filter.contexts.map { filterContextNames.getOrNull(it.ordinal) }.joinToString("/"),
             )
             secondaryTextColor = android.R.attr.textColorTertiary

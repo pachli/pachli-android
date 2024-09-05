@@ -24,7 +24,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.model.ContentFilterValidationError
 import app.pachli.core.navigation.EditContentFilterActivityIntent
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.ui.extensions.await
@@ -144,7 +144,7 @@ class EditContentFilterActivity : BaseActivity() {
             viewModel.setTitle(editable.toString())
         }
         binding.filterActionWarn.setOnCheckedChangeListener { _, checked ->
-            viewModel.setAction(if (checked) Filter.Action.WARN else Filter.Action.HIDE)
+            viewModel.setAction(if (checked) FilterAction.WARN else FilterAction.HIDE)
         }
 
         bind()
@@ -246,8 +246,8 @@ class EditContentFilterActivity : BaseActivity() {
                 key.isChecked = filterViewData.contexts.contains(value)
             }
 
-            when (filterViewData.action) {
-                Filter.Action.HIDE -> binding.filterActionHide.isChecked = true
+            when (filterViewData.filterAction) {
+                FilterAction.HIDE -> binding.filterActionHide.isChecked = true
                 else -> binding.filterActionWarn.isChecked = true
             }
         }

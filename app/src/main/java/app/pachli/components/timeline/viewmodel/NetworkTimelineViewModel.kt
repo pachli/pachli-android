@@ -33,7 +33,7 @@ import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
@@ -99,7 +99,7 @@ class NetworkTimelineViewModel @Inject constructor(
                         isCollapsed = true,
                     )
                 }.filter {
-                    shouldFilterStatus(it) != Filter.Action.HIDE
+                    shouldFilterStatus(it) != FilterAction.HIDE
                 }
             }
     }

@@ -19,7 +19,7 @@ package app.pachli.components.filters
 
 import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.data.repository.ContentFilterEdit
-import app.pachli.core.network.model.Filter.Action
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import com.google.common.truth.Truth.assertThat
@@ -31,7 +31,7 @@ class ContentContentFilterViewDataTest {
         title = "original filter",
         contexts = setOf(FilterContext.HOME),
         expiresAt = null,
-        action = Action.WARN,
+        filterAction = FilterAction.WARN,
         keywords = listOf(
             FilterKeyword(id = "1", keyword = "first", wholeWord = false),
             FilterKeyword(id = "2", keyword = "second", wholeWord = true),
@@ -83,13 +83,13 @@ class ContentContentFilterViewDataTest {
 
     @Test
     fun `diff action only affects action`() {
-        val newAction = Action.HIDE
+        val newFilterAction = FilterAction.HIDE
 
         val update = originalContentFilterViewData
-            .copy(action = newAction)
+            .copy(filterAction = newFilterAction)
             .diff(originalContentFilter)
 
-        val expectedUpdate = ContentFilterEdit(id = originalContentFilter.id, action = newAction)
+        val expectedUpdate = ContentFilterEdit(id = originalContentFilter.id, filterAction = newFilterAction)
 
         assertThat(update).isEqualTo(expectedUpdate)
     }

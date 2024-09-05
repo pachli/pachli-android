@@ -1,7 +1,7 @@
 package app.pachli.network
 
 import app.pachli.core.data.model.ContentFilter
-import app.pachli.core.network.model.Filter as NetworkFilter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
@@ -25,13 +25,13 @@ class FilterModel(private val filterContext: FilterContext, v1ContentFilters: Li
     }
 
     /** @return the [ContentFilter.Action] that should be applied to this status */
-    fun filterActionFor(status: Status): NetworkFilter.Action {
+    fun filterActionFor(status: Status): FilterAction {
         pattern?.let { pat ->
             // Patterns are expensive and thread-safe, matchers are neither.
-            val matcher = pat.matcher("") ?: return NetworkFilter.Action.NONE
+            val matcher = pat.matcher("") ?: return FilterAction.NONE
 
             if (status.poll?.options?.any { matcher.reset(it.title).find() } == true) {
-                return NetworkFilter.Action.HIDE
+                return FilterAction.HIDE
             }
 
             val spoilerText = status.actionableStatus.spoilerText
@@ -42,9 +42,9 @@ class FilterModel(private val filterContext: FilterContext, v1ContentFilters: Li
                 (spoilerText.isNotEmpty() && matcher.reset(spoilerText).find()) ||
                 (attachmentsDescriptions.isNotEmpty() && matcher.reset(attachmentsDescriptions.joinToString("\n")).find())
             ) {
-                NetworkFilter.Action.HIDE
+                FilterAction.HIDE
             } else {
-                NetworkFilter.Action.NONE
+                FilterAction.NONE
             }
         }
 
@@ -53,9 +53,9 @@ class FilterModel(private val filterContext: FilterContext, v1ContentFilters: Li
         }
 
         return if (matchingKind.isNullOrEmpty()) {
-            NetworkFilter.Action.NONE
+            FilterAction.NONE
         } else {
-            matchingKind.maxOf { it.filter.action }
+            matchingKind.maxOf { it.filter.filterAction }
         }
     }
 

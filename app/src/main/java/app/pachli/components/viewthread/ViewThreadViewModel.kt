@@ -37,7 +37,7 @@ import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
@@ -545,8 +545,8 @@ class ViewThreadViewModel @Inject constructor(
             if (status.isDetailed) {
                 true
             } else {
-                status.filterAction = filterModel?.filterActionFor(status.status) ?: Filter.Action.NONE
-                status.filterAction != Filter.Action.HIDE
+                status.filterAction = filterModel?.filterActionFor(status.status) ?: FilterAction.NONE
+                status.filterAction != FilterAction.HIDE
             }
         }
     }

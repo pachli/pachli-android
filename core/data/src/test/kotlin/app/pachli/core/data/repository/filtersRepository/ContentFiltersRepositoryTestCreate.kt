@@ -21,7 +21,7 @@ import app.cash.turbine.test
 import app.pachli.core.data.model.NewContentFilterKeyword
 import app.pachli.core.data.repository.NewContentFilter
 import app.pachli.core.network.model.Filter as NetworkFilter
-import app.pachli.core.network.model.Filter.Action
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
@@ -46,7 +46,7 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
         title = "new filter",
         contexts = setOf(FilterContext.HOME),
         expiresIn = 300,
-        action = Action.WARN,
+        filterAction = FilterAction.WARN,
         keywords = listOf(
             NewContentFilterKeyword(keyword = "first", wholeWord = false),
             NewContentFilterKeyword(keyword = "second", wholeWord = true),
@@ -63,7 +63,7 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
                         id = "1",
                         title = call.getArgument(0),
                         contexts = call.getArgument(1),
-                        action = call.getArgument(2),
+                        filterAction = call.getArgument(2),
                         expiresAt = Date(System.currentTimeMillis() + (call.getArgument<String>(3).toInt() * 1000)),
                         keywords = emptyList(),
                     ),
@@ -90,7 +90,7 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
             verify(mastodonApi, times(1)).createFilter(
                 title = filterWithTwoKeywords.title,
                 contexts = filterWithTwoKeywords.contexts,
-                filterAction = filterWithTwoKeywords.action,
+                filterAction = filterWithTwoKeywords.filterAction,
                 expiresInSeconds = filterWithTwoKeywords.expiresIn.toString(),
             )
 
@@ -116,7 +116,7 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
                         id = "1",
                         title = call.getArgument(0),
                         contexts = call.getArgument(1),
-                        action = call.getArgument(2),
+                        filterAction = call.getArgument(2),
                         expiresAt = null,
                         keywords = emptyList(),
                     ),
@@ -146,7 +146,7 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
             verify(mastodonApi, times(1)).createFilter(
                 title = filterWithZeroExpiry.title,
                 contexts = filterWithZeroExpiry.contexts,
-                filterAction = filterWithZeroExpiry.action,
+                filterAction = filterWithZeroExpiry.filterAction,
                 expiresInSeconds = "",
             )
 

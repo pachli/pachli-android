@@ -47,7 +47,7 @@ import org.mockito.kotlin.verify
 // TODO: With the exception of the types, this is identical to
 // NotificationsViewModelTestStatusAction.
 @HiltAndroidTest
-class NetworkTimelineViewModelTestStatusAction : NetworkTimelineViewModelTestBase() {
+class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTestBase() {
     private val status = mockStatus(pollOptions = listOf("Choice 1", "Choice 2", "Choice 3"))
     private val statusViewData = StatusViewData(
         status = status,

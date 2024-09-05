@@ -30,7 +30,7 @@ import app.pachli.core.data.model.NewContentFilterKeyword
 import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.NewContentFilter
-import app.pachli.core.network.model.Filter as NetworkFilter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import com.github.michaelbull.result.Err
@@ -73,7 +73,7 @@ data class ContentFilterViewData(
      * "0" means "filter never expires".
      */
     val expiresIn: Int = 0,
-    val action: NetworkFilter.Action = NetworkFilter.Action.WARN,
+    val filterAction: FilterAction = FilterAction.WARN,
     val keywords: List<FilterKeyword> = emptyList(),
 ) {
     /**
@@ -93,7 +93,7 @@ data class ContentFilterViewData(
     fun diff(contentFilter: ContentFilter): ContentFilterEdit {
         val title: String? = if (title != contentFilter.title) title else null
         val contexts = if (contexts != contentFilter.contexts) contexts else null
-        val action = if (action != contentFilter.action) action else null
+        val action = if (filterAction != contentFilter.filterAction) filterAction else null
 
         // Keywords to delete
         val (keywordsToAdd, existingKeywords) = keywords.partition { it.id == "" }
@@ -121,7 +121,7 @@ data class ContentFilterViewData(
             title = title,
             contexts = contexts,
             expiresIn = this.expiresIn,
-            action = action,
+            filterAction = action,
             keywordsToDelete = keywordsToDelete.ifEmpty { null },
             keywordsToModify = keywordsToModify.ifEmpty { null },
             keywordsToAdd = keywordsToAdd.ifEmpty { null },
@@ -134,7 +134,7 @@ data class ContentFilterViewData(
             title = contentFilter.title,
             contexts = contentFilter.contexts,
             expiresIn = -1,
-            action = contentFilter.action,
+            filterAction = contentFilter.filterAction,
             keywords = contentFilter.keywords,
         )
     }
@@ -144,7 +144,7 @@ fun NewContentFilter.Companion.from(contentFilterViewData: ContentFilterViewData
     title = contentFilterViewData.title,
     contexts = contentFilterViewData.contexts,
     expiresIn = contentFilterViewData.expiresIn,
-    action = contentFilterViewData.action,
+    filterAction = contentFilterViewData.filterAction,
     keywords = contentFilterViewData.keywords.map {
         NewContentFilterKeyword(
             keyword = it.keyword,
@@ -322,11 +322,11 @@ class EditContentFilterViewModel @AssistedInject constructor(
         )
     }
 
-    /** Replaces [contentFilterViewData]'s [action][ContentFilterViewData.action] with [action]. */
-    fun setAction(action: NetworkFilter.Action) = viewModelScope.launch {
+    /** Replaces [contentFilterViewData]'s [action][ContentFilterViewData.filterAction] with [filterAction]. */
+    fun setAction(filterAction: FilterAction) = viewModelScope.launch {
         _contentFilterViewData.emit(
             contentFilterViewData.value.mapIfNotNull {
-                it.copy(action = action)
+                it.copy(filterAction = filterAction)
             },
         )
     }
@@ -361,7 +361,7 @@ class EditContentFilterViewModel @AssistedInject constructor(
         _isDirty.value = when {
             originalContentFilter?.title != contentFilterViewData.title -> true
             originalContentFilter?.contexts != contentFilterViewData.contexts -> true
-            originalContentFilter?.action != contentFilterViewData.action -> true
+            originalContentFilter?.filterAction != contentFilterViewData.filterAction -> true
             originalContentFilter?.keywords?.toSet() != contentFilterViewData.keywords.toSet() -> true
             else -> false
         }

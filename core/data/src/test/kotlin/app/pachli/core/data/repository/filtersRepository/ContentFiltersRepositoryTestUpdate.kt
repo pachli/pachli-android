@@ -21,7 +21,7 @@ import app.cash.turbine.test
 import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.network.model.Filter as NetworkFilter
-import app.pachli.core.network.model.Filter.Action
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.testing.success
@@ -50,7 +50,7 @@ class ContentFiltersRepositoryTestUpdate : BaseContentFiltersRepositoryTest() {
         title = "original filter",
         contexts = setOf(FilterContext.HOME),
         expiresAt = null,
-        action = Action.WARN,
+        filterAction = FilterAction.WARN,
         keywords = listOf(
             FilterKeyword(id = "1", keyword = "first", wholeWord = false),
             FilterKeyword(id = "2", keyword = "second", wholeWord = true),
@@ -70,7 +70,7 @@ class ContentFiltersRepositoryTestUpdate : BaseContentFiltersRepositoryTest() {
                     originalNetworkFilter.copy(
                         title = call.getArgument(1) ?: originalContentFilter.title,
                         contexts = call.getArgument(2) ?: originalContentFilter.contexts,
-                        action = call.getArgument(3) ?: originalContentFilter.action,
+                        filterAction = call.getArgument(3) ?: originalContentFilter.filterAction,
                         expiresAt = call.getArgument<String?>(4)?.let {
                             when (it) {
                                 "" -> null
@@ -96,7 +96,7 @@ class ContentFiltersRepositoryTestUpdate : BaseContentFiltersRepositoryTest() {
                 id = update.id,
                 title = update.title,
                 contexts = update.contexts,
-                filterAction = update.action,
+                filterAction = update.filterAction,
                 expiresInSeconds = null,
             )
 

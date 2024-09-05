@@ -23,7 +23,7 @@ import app.pachli.core.database.model.ConversationStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.replaceCrashingCharacters
@@ -108,7 +108,7 @@ interface IStatusViewData {
     // if the Filter.Action class subtypes carried the FilterResult information with them,
     // and it's impossible to construct them with an empty list.
     /** Whether this status should be filtered, and if so, how */
-    var filterAction: Filter.Action
+    var filterAction: FilterAction
 
     /** The current translation state */
     val translationState: TranslationState
@@ -123,7 +123,7 @@ data class StatusViewData(
     override val isExpanded: Boolean,
     override val isShowingContent: Boolean,
     override val isCollapsed: Boolean,
-    override var filterAction: Filter.Action = Filter.Action.NONE,
+    override var filterAction: FilterAction = FilterAction.NONE,
     override val translationState: TranslationState,
 
     /**
@@ -202,7 +202,7 @@ data class StatusViewData(
             isExpanded: Boolean,
             isCollapsed: Boolean,
             isDetailed: Boolean = false,
-            filterAction: Filter.Action = Filter.Action.NONE,
+            filterAction: FilterAction = FilterAction.NONE,
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
             translation: TranslatedStatusEntity? = null,
         ): StatusViewData {

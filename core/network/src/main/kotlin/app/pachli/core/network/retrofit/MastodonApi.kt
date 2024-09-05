@@ -25,6 +25,7 @@ import app.pachli.core.network.model.Conversation
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.model.FilterV1
@@ -653,7 +654,7 @@ interface MastodonApi {
     suspend fun createFilter(
         @Field("title") title: String,
         @Field("context[]") contexts: Set<FilterContext>,
-        @Field("filter_action") filterAction: Filter.Action,
+        @Field("filter_action") filterAction: FilterAction,
         // String not Int because the empty string is used to represent "indefinite",
         // see https://github.com/mastodon/documentation/issues/1216#issuecomment-2030222940
         @Field("expires_in") expiresInSeconds: String?,
@@ -665,7 +666,7 @@ interface MastodonApi {
         @Path("id") id: String,
         @Field("title") title: String? = null,
         @Field("context[]") contexts: Collection<FilterContext>? = null,
-        @Field("filter_action") filterAction: Filter.Action? = null,
+        @Field("filter_action") filterAction: FilterAction? = null,
         // String not Int because the empty string is used to represent "indefinite",
         // see https://github.com/mastodon/documentation/issues/1216#issuecomment-2030222940
         @Field("expires_in") expiresInSeconds: String? = null,

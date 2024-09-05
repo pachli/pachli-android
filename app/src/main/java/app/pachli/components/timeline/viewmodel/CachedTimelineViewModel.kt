@@ -33,7 +33,7 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
@@ -102,7 +102,7 @@ class CachedTimelineViewModel @Inject constructor(
                             isShowingContent = activeAccount.alwaysShowSensitiveMedia,
                         )
                     }
-                    .filter { shouldFilterStatus(it) != Filter.Action.HIDE }
+                    .filter { shouldFilterStatus(it) != FilterAction.HIDE }
             }
     }
 

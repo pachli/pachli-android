@@ -28,7 +28,7 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.SmartLengthInputFilter
@@ -51,7 +51,7 @@ open class StatusViewHolder<T : IStatusViewData>(
             val expanded = viewData.isExpanded
             setupCollapsedState(viewData, sensitive, expanded, listener)
             val reblogging = viewData.rebloggingStatus
-            if (reblogging == null || viewData.filterAction === Filter.Action.WARN) {
+            if (reblogging == null || viewData.filterAction === FilterAction.WARN) {
                 statusInfo.hide()
             } else {
                 val rebloggedByDisplayName = reblogging.account.name

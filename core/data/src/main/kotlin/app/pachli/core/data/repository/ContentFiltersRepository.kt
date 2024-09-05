@@ -33,7 +33,7 @@ import app.pachli.core.data.repository.ContentFiltersError.UpdateContentFilterEr
 import app.pachli.core.network.Server
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
-import app.pachli.core.network.model.Filter as NetworkFilter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.model.NewContentFilterV1
@@ -66,7 +66,7 @@ data class NewContentFilter(
     val title: String,
     val contexts: Set<FilterContext>,
     val expiresIn: Int,
-    val action: app.pachli.core.network.model.Filter.Action,
+    val filterAction: FilterAction,
     val keywords: List<NewContentFilterKeyword>,
 ) {
     fun toNewContentFilterV1() = this.keywords.map { keyword ->
@@ -84,7 +84,7 @@ data class NewContentFilter(
             title = contentFilter.title,
             contexts = contentFilter.contexts,
             expiresIn = -1,
-            action = contentFilter.action,
+            filterAction = contentFilter.filterAction,
             keywords = contentFilter.keywords.map {
                 NewContentFilterKeyword(
                     keyword = it.keyword,
@@ -102,7 +102,7 @@ data class NewContentFilter(
  * @param title New title, null if the title should not be changed
  * @param contexts New contexts, null if the contexts should not be changed
  * @param expiresIn New expiresIn, -1 if the expiry time should not be changed
- * @param action New action, null if the action should not be changed
+ * @param filterAction New action, null if the action should not be changed
  * @param keywordsToAdd One or more keywords to add to the content filter, null if none to add
  * @param keywordsToDelete One or more keywords to delete from the content filter, null if none to delete
  * @param keywordsToModify One or more keywords to modify in the content filter, null if none to modify
@@ -112,7 +112,7 @@ data class ContentFilterEdit(
     val title: String? = null,
     val contexts: Collection<FilterContext>? = null,
     val expiresIn: Int = -1,
-    val action: NetworkFilter.Action? = null,
+    val filterAction: FilterAction? = null,
     val keywordsToAdd: List<FilterKeyword>? = null,
     val keywordsToDelete: List<FilterKeyword>? = null,
     val keywordsToModify: List<FilterKeyword>? = null,
@@ -251,7 +251,7 @@ class ContentFiltersRepository @Inject constructor(
                     mastodonApi.createFilter(
                         title = filter.title,
                         contexts = filter.contexts,
-                        filterAction = filter.action,
+                        filterAction = filter.filterAction,
                         expiresInSeconds = expiresInSeconds,
                     ).andThen { response ->
                         val filterId = response.body.id
@@ -310,14 +310,14 @@ class ContentFiltersRepository @Inject constructor(
 
                     if (contentFilterEdit.title != null ||
                         contentFilterEdit.contexts != null ||
-                        contentFilterEdit.action != null ||
+                        contentFilterEdit.filterAction != null ||
                         expiresInSeconds != null
                     ) {
                         mastodonApi.updateFilter(
                             id = contentFilterEdit.id,
                             title = contentFilterEdit.title,
                             contexts = contentFilterEdit.contexts,
-                            filterAction = contentFilterEdit.action,
+                            filterAction = contentFilterEdit.filterAction,
                             expiresInSeconds = expiresInSeconds,
                         )
                     } else {
