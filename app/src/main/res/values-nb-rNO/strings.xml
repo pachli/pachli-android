@@ -648,4 +648,13 @@
     <string name="error_filter_missing_title">Tittel kreves</string>
     <string name="load_newest_statuses">Last inn de nyeste innleggene</string>
     <string name="action_filter_search">Filtrér søket</string>
+    <string name="pref_title_notification_up_distributor">UP-utgiveren</string>
+    <string name="pref_notification_up_distributor_name_fmt">%1$s. Trykk for å åpne</string>
+    <string name="pref_notification_up_distributor_none">Ingen</string>
+    <string name="pref_title_notification_method">Varslingsmetod</string>
+    <string name="pref_title_labs">Labbeksperimenter</string>
+    <string name="pref_labs_warning">Disse er eksperimentelle funksjoner. Det er ingen garanti at de skal fungere, eller at de skal brukes i fremtidige utgaver. Bruk på egen risiko.</string>
+    <string name="pref_labs_reverse_home_timeline_title">Omvendt rekkefølge på tidslinjene</string>
+    <string name="pref_labs_reverse_home_timeline_off_summary">Innlegg skal listes opp nyeste først</string>
+    <string name="pref_labs_reverse_home_timeline_on_summary">Innlegg skal listes opp eldste først</string>
 </resources>
