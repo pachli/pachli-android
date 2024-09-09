@@ -52,6 +52,7 @@ import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiResult
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
@@ -61,14 +62,13 @@ import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.view.EndlessOnScrollListener
 import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.getOrElse
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -286,7 +286,7 @@ class AccountListFragment :
         followRequestsAdapter.removeItem(position)
     }
 
-    private suspend fun getFetchCallByListType(fromId: String?): Response<List<TimelineAccount>> {
+    private suspend fun getFetchCallByListType(fromId: String?): ApiResult<List<TimelineAccount>> {
         return when (kind) {
             FOLLOWS -> {
                 val accountId = requireId(kind, id)
@@ -326,26 +326,15 @@ class AccountListFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                val response = getFetchCallByListType(fromId)
-
-                if (!response.isSuccessful) {
-                    onFetchAccountsFailure(Exception(response.message()))
+            val response = getFetchCallByListType(fromId)
+                .getOrElse {
+                    onFetchAccountsFailure(it.throwable)
                     return@launch
                 }
 
-                val accountList = response.body()
-
-                if (accountList == null) {
-                    onFetchAccountsFailure(Exception(response.message()))
-                    return@launch
-                }
-
-                val linkHeader = response.headers()["Link"]
-                onFetchAccountsSuccess(accountList, linkHeader)
-            } catch (exception: IOException) {
-                onFetchAccountsFailure(exception)
-            }
+            val accountList = response.body
+            val linkHeader = response.headers["Link"]
+            onFetchAccountsSuccess(accountList, linkHeader)
         }
     }
 
