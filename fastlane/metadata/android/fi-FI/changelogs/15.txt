@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Korjaukset:
+
+- mahdollistaa vain saavutettavissa olevat toimet statukseen liitetyistä ilmoituksista

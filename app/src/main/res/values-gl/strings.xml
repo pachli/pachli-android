@@ -761,4 +761,26 @@
     <string name="search_operator_replies_replies_only">Só con respostas</string>
     <string name="search_operator_replies_no_replies">Excluír respostas</string>
     <string name="search_operator_replies_dialog_title">Incluír respostas?</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s rexeitou o rexistro push</string>
+    <string name="pref_title_change_unified_push_distributor">Cambiar de distribuidora UnifiedPush</string>
+    <string name="pref_change_unified_push_distributor_msg">Isto limpará a elección de distribuidor UnifiedPush e reiniciará Pachli.
+\n
+\nSe hai varios distribuidores UnifiedPush instalados terás que elexir un.</string>
+    <string name="pref_title_notification_up_distributor">Distribuidor UnifiedPush</string>
+    <string name="pref_notification_method_all_pull">Obtidas cada 15 minutos aproximadamente. Toca para detalles.</string>
+    <string name="pref_notification_method_all_push">Todas as contas usan UnifiedPush. Toca para detalles.</string>
+    <string name="pref_notification_up_distributor_name_fmt">%1$s. Toca para abrir</string>
+    <string name="pref_notification_up_distributor_none">Ningún</string>
+    <string name="pref_title_notification_method">Método de notificación</string>
+    <string name="pref_notification_method_mixed">Algunhas contas usan UnifiedPush, algunhas comproban cada 15 min. Toca para detalles</string>
+    <string name="pref_title_notification_battery_optimisation">Optimización da batería</string>
+    <string name="pref_notification_battery_optimisation_is_disabled">A optimización da batería está desactivada</string>
+    <string name="pref_notification_battery_optimisation_should_ignore">Deberías desactivar a optimización da batería. Toca para abrir.</string>
+    <string name="pref_notification_battery_optimisation_ok">Non é preciso desactivar a optimización da batería.</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="pref_notification_fetch_method_title">Método de notificación</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ hai %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ hai %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_needs_push">A conta non ten o método «push». Pechar a sesión e volver acceder podería arranxalo.</string>
 </resources>

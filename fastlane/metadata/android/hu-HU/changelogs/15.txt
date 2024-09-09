@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Fixok:
+
+- Csak lehetővé teszi a státuszhoz csatolt értesítésekre vonatkozó hozzáférhető intézkedéseket

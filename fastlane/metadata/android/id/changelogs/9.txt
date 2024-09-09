@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Fitur baru:
+
+- Tampilkan peran pada profil
+- Tampilkan tombol compose saat melihat daftar
+- Tampilkan tombol compose saat melihat daftar bookmark
+
+Login
+
+- Tampilkan konten diterjemahkan dalam benang
+- Menghitung panjang posting dan polutan dengan emoji dengan benar
+- Mencegah kecelakaan
+- Jika kartu pratinjau tidak memiliki penulis
+- Jika kesalahan terjadi dalam timeline tanpa FAB
+- Pada profil jika akun memiliki bidang yang dibuat
+- Update terjemahan

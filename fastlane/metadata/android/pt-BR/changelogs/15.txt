@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Correções:
+
+- Não. Apenas permitir ações acessíveis em notificações anexadas a um status

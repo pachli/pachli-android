@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Behebungen:
+
+- Ja. Nur barrierefreie Maßnahmen bei Meldungen, die an einen Status gebunden sind

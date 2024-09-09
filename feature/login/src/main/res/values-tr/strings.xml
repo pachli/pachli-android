@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Mastodon gibi herhangi bir örneğin adresi veya etki alanı buraya girilebilirsiniz. örneğin: mastodon.social, mastodon.online, vb. <a href="https://instances.social">daha fazlası!</a>
-\n
-\nHenüz hesabınız yoksa, katılmak istediğiniz sunucunun adını girebilir ve orada bir hesap oluşturabilirsiniz.
-\n
-\nSunucu, hesabınızın barındırıldığı tek yerdir, ancak aynı sitedeymişsiniz gibi diğer sunuculardaki kişilerle kolayca iletişim kurabilir ve onları takip edebilirsiniz.
-\n
+    <string name="dialog_whats_an_instance">Mastodon gibi herhangi bir örneğin adresi veya etki alanı buraya girilebilirsiniz. örneğin: mastodon.social, mastodon.online, vb. <a href="https://instances.social">daha fazlası!</a> 
+\n 
+\nHenüz hesabınız yoksa, katılmak istediğiniz sunucunun adını girebilir ve orada bir hesap oluşturabilirsiniz. 
+\n 
+\nSunucu, hesabınızın barındırıldığı tek yerdir, ancak aynı sitedeymişsiniz gibi diğer sunuculardaki kişilerle kolayca iletişim kurabilir ve onları takip edebilirsiniz. 
+\n 
 \n Daha fazla bilgiyi <a href="https://joinmastodon.org">joinmastodon.org</a> adresinde bulabilirsiniz. </string>
     <string name="action_close">Kapat</string>
     <string name="action_browser_login">Tarayıcı ile Giriş Yap</string>

@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Adressen eller domänen för varje instans kan anges
-		här, till exempel mastodon.social, icosahedron.website, social.tchncs.de och
-        <a href="https://instances.social"> mer! </a>
-        \n\nOm du inte har något konto kan du ange namnet på instansen du vill ansluta till och skapa ett konto där.
-        \n\nEn instans är en plats där ditt konto finns, men du kan enkelt kommunicera med och följa andra personer på andra instanser,
-        som om du var på samma sajt.
-        \n\nMer information finns på <a href="https://joinmastodon.org">joinmastodon.org</a>.
-    </string>
+    <string name="dialog_whats_an_instance">Adressen eller domänen för varje instans kan anges \u0020här, till exempel mastodon.social, icosahedron.website, social.tchncs.de och \u0020<a href="https://instances.social"> mer! </a> 
+\n
+\nOm du inte har något konto kan du ange namnet på instansen du vill ansluta till och skapa ett konto där. 
+\n
+\nEn instans är en plats där ditt konto finns, men du kan enkelt kommunicera med och följa andra personer på andra instanser, \u0020som om du var på samma sajt. 
+\n
+\nMer information finns på <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
     <string name="action_close">Stäng</string>
     <string name="action_browser_login">Inloggning via webbläsaren</string>
     <string name="error_invalid_domain">Ogiltig domän angiven</string>
