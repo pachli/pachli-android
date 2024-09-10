@@ -88,7 +88,8 @@ class LoginActivity : BaseActivity() {
 
         if (savedInstanceState == null &&
             BuildConfig.CUSTOM_INSTANCE.isNotBlank() &&
-            !isAdditionalLogin() && !isAccountMigration()
+            !isAdditionalLogin() &&
+            !isAccountMigration()
         ) {
             binding.domainEditText.setText(BuildConfig.CUSTOM_INSTANCE)
             binding.domainEditText.setSelection(BuildConfig.CUSTOM_INSTANCE.length)
@@ -309,27 +310,30 @@ class LoginActivity : BaseActivity() {
         mastodonApi.accountVerifyCredentials(
             domain = domain,
             auth = "Bearer ${accessToken.accessToken}",
-        ).fold({ newAccount ->
-            accountManager.addAccount(
-                accessToken = accessToken.accessToken,
-                domain = domain,
-                clientId = clientId,
-                clientSecret = clientSecret,
-                oauthScopes = OAUTH_SCOPES,
-                newAccount = newAccount,
-            )
+        ).fold(
+            { newAccount ->
+                accountManager.addAccount(
+                    accessToken = accessToken.accessToken,
+                    domain = domain,
+                    clientId = clientId,
+                    clientSecret = clientSecret,
+                    oauthScopes = OAUTH_SCOPES,
+                    newAccount = newAccount,
+                )
 
-            val intent = MainActivityIntent(this)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivityWithTransition(intent, TransitionKind.EXPLODE)
-            finishAffinity()
-            setCloseTransition(TransitionKind.EXPLODE)
-        }, { e ->
-            setLoading(false)
-            binding.domainTextInputLayout.error =
-                getString(R.string.error_loading_account_details)
-            Timber.e(e, getString(R.string.error_loading_account_details))
-        })
+                val intent = MainActivityIntent.withAccount(this, -1L)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivityWithTransition(intent, TransitionKind.EXPLODE)
+                finishAffinity()
+                setCloseTransition(TransitionKind.EXPLODE)
+            },
+            { e ->
+                setLoading(false)
+                binding.domainTextInputLayout.error =
+                    getString(R.string.error_loading_account_details)
+                Timber.e(e, getString(R.string.error_loading_account_details))
+            },
+        )
     }
 
     private fun setLoading(loadingState: Boolean) {

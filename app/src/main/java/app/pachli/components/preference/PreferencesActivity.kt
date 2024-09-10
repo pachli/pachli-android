@@ -61,7 +61,7 @@ class PreferencesActivity :
              * Either the back stack activities need to all be recreated, or do the easier thing, which
              * is hijack the back button press and use it to launch a new MainActivity and clear the
              * back stack. */
-            val intent = MainActivityIntent(this@PreferencesActivity)
+            val intent = MainActivityIntent.withAccount(this@PreferencesActivity, -1L)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivityWithDefaultTransition(intent)
         }

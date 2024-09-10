@@ -271,7 +271,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         }
 
     fun openAsAccount(url: String, account: AccountEntity) {
-        accountManager.setActiveAccount(account.id)
+        // accountManager.setActiveAccount(account.id)
         val intent = MainActivityIntent.redirect(this, account.id, url)
         startActivity(intent)
         finish()

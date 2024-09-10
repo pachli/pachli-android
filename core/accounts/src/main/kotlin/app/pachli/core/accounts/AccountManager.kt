@@ -21,6 +21,7 @@ import android.content.Context
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Status
@@ -38,6 +39,7 @@ import timber.log.Timber
 
 @Singleton
 class AccountManager @Inject constructor(
+    private val transactionProvider: TransactionProvider,
     private val accountDao: AccountDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
@@ -181,8 +183,8 @@ class AccountManager @Inject constructor(
      * and saves it in the database
      * @param account the [Account] object returned from the api
      */
-    fun updateActiveAccount(account: Account) {
-        activeAccount?.let {
+    fun updateActiveAccount(account: Account): AccountEntity? {
+        return activeAccount?.let {
             it.accountId = account.id
             it.username = account.username
             it.displayName = account.name
@@ -195,11 +197,13 @@ class AccountManager @Inject constructor(
 
             Timber.d("updateActiveAccount: saving account with id %d", it.id)
             accountDao.insertOrReplace(it)
+            it
         }
     }
 
     /**
-     * changes the active account
+     * Changes the active account.
+     *
      * @param accountId the database id of the new active account
      */
     fun setActiveAccount(accountId: Long) {
@@ -207,17 +211,21 @@ class AccountManager @Inject constructor(
             id == accountId
         } ?: return // invalid accountId passed, do nothing
 
-        activeAccount?.let {
-            Timber.d("setActiveAccount: saving account with id %d", it.id)
-            it.isActive = false
-            saveAccount(it)
-        }
+        externalScope.launch {
+            transactionProvider {
+                activeAccount?.let {
+                    Timber.d("setActiveAccount: saving account with id %d", it.id)
+                    it.isActive = false
+                    saveAccount(it)
+                }
 
-        activeAccount = newActiveAccount
+                activeAccount = newActiveAccount
 
-        activeAccount?.let {
-            it.isActive = true
-            accountDao.insertOrReplace(it)
+                activeAccount?.let {
+                    it.isActive = true
+                    accountDao.insertOrReplace(it)
+                }
+            }
         }
     }
 

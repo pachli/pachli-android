@@ -8,8 +8,9 @@ import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.util.removeShortcut
+import app.pachli.util.ShareShortcutHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import timber.log.Timber
@@ -22,13 +23,16 @@ class LogoutUsecase @Inject constructor(
     private val conversationsDao: ConversationsDao,
     private val accountManager: AccountManager,
     private val draftHelper: DraftHelper,
+    private val shareShortcutHelper: ShareShortcutHelper,
 ) {
 
     /**
      * Logs the current account out and clears all caches associated with it
-     * @return true if the user is logged in with other accounts, false if it was the only one
+     *
+     * @return The [AccountEntity] that should be logged in next, null if there are no
+     * other accounts to log in to.
      */
-    suspend fun logout(): Boolean {
+    suspend fun logout(): AccountEntity? {
         accountManager.activeAccount?.let { activeAccount ->
 
             // invalidate the oauth token, if we have the client id & secret
@@ -54,7 +58,7 @@ class LogoutUsecase @Inject constructor(
             deleteNotificationChannelsForAccount(activeAccount, context)
 
             // remove account from local AccountManager
-            val otherAccountAvailable = accountManager.logActiveAccountOut() != null
+            val otherAccountAvailable = accountManager.logActiveAccountOut()
 
             // clear the database - this could trigger network calls so do it last when all tokens are gone
             timelineDao.removeAll(activeAccount.id)
@@ -64,10 +68,10 @@ class LogoutUsecase @Inject constructor(
             draftHelper.deleteAllDraftsAndAttachmentsForAccount(activeAccount.id)
 
             // remove shortcut associated with the account
-            removeShortcut(context, activeAccount)
+            shareShortcutHelper.removeShortcut(context, activeAccount)
 
             return otherAccountAvailable
         }
-        return false
+        return null
     }
 }

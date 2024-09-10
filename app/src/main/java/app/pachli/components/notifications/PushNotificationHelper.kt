@@ -31,6 +31,7 @@ import app.pachli.core.ui.extensions.awaitSingleChoiceItem
 import app.pachli.util.CryptoUtil
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -109,6 +110,56 @@ fun notificationMethod(context: Context, accountManager: AccountManager): AppNot
 
 /** @return True if the active account does not have the `push` Oauth scope, false otherwise. */
 fun activeAccountNeedsPushScope(accountManager: AccountManager) = accountManager.activeAccount?.hasPushScope == false
+
+class EnableAllNotificationsUseCase @Inject constructor(
+    private val api: MastodonApi,
+    private val accountManager: AccountManager,
+) {
+    suspend operator fun invoke(context: Context) {
+        // Start from a clean slate.
+        disableAllNotifications(context, api, accountManager)
+
+        // Launch a single pull worker to periodically get notifications from all accounts,
+        // irrespective of whether or not UnifiedPush is configured.
+        enablePullNotifications(context)
+
+        // If no accounts have push scope there's nothing to do.
+        val accountsWithPushScope = accountManager.accounts.filter { it.hasPushScope }
+        if (accountsWithPushScope.isEmpty()) {
+            Timber.d("No accounts have push scope, skipping UnifiedPush reconfiguration")
+            return
+        }
+
+        // If no UnifiedPush distributors are installed then there's nothing more to do.
+        NotificationConfig.unifiedPushAvailable = false
+
+        // Get the UnifiedPush distributor to use, possibly falling back to the user's previous
+        // choice if it's still on the device.
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val usePreviousDistributor = prefs.getBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, true)
+        if (!usePreviousDistributor) {
+            prefs.edit().apply {
+                putBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, true)
+            }.apply()
+        }
+
+        val distributor = chooseUnifiedPushDistributor(context, usePreviousDistributor)
+        if (distributor == null) {
+            Timber.d("No UnifiedPush distributor installed, skipping UnifiedPush reconfiguration")
+
+            UnifiedPush.safeRemoveDistributor(context)
+            return
+        }
+        Timber.d("Chose %s as UnifiedPush distributor", distributor)
+        NotificationConfig.unifiedPushAvailable = true
+
+        UnifiedPush.saveDistributor(context, distributor)
+        accountsWithPushScope.forEach {
+            Timber.d("Registering %s with %s", it.fullName, distributor)
+            UnifiedPush.registerApp(context, it.unifiedPushInstance, messageForDistributor = it.fullName)
+        }
+    }
+}
 
 /**
  * Attempts to enable notifications for all accounts.

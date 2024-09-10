@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
+import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.model.Timeline
@@ -264,7 +265,7 @@ class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEF
     }
 }
 
-class MainActivityIntent(context: Context) : Intent() {
+class MainActivityIntent private constructor(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.MAIN_ACTIVITY)
     }
@@ -295,18 +296,28 @@ class MainActivityIntent(context: Context) : Intent() {
         /**
          * Switches the active account to the provided accountId and then stays on MainActivity
          */
-        private fun switchAccount(context: Context, pachliAccountId: Long) = MainActivityIntent(context).apply {
+        fun withAccount(context: Context, pachliAccountId: Long) = MainActivityIntent(context).apply {
             putExtra(EXTRA_PACHLI_ACCOUNT_ID, pachliAccountId)
         }
 
         /**
-         * Switches the active account to the accountId and takes the user to the correct place according to the notification they clicked
+         *
+         */
+        fun withShortCut(context: Context, pachliAccountId: Long) = MainActivityIntent(context).apply {
+            action = Intent.ACTION_SEND
+            type = "text/plain"
+            putExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID, pachliAccountId.toString())
+        }
+
+        /**
+         * Switches the active account to the accountId and takes the user to the correct place
+         * according to the notification they clicked
          */
         fun openNotification(
             context: Context,
             pachliAccountId: Long,
             type: Notification.Type,
-        ) = switchAccount(context, pachliAccountId).apply {
+        ) = withAccount(context, pachliAccountId).apply {
             putExtra(EXTRA_NOTIFICATION_TYPE, type)
         }
 
@@ -322,7 +333,7 @@ class MainActivityIntent(context: Context) : Intent() {
             pachliAccountId: Long = -1,
             notificationTag: String? = null,
             notificationId: Int = -1,
-        ) = switchAccount(context, pachliAccountId).apply {
+        ) = withAccount(context, pachliAccountId).apply {
             action = ACTION_SEND
             putExtra(EXTRA_COMPOSE_OPTIONS, options)
             putExtra(EXTRA_NOTIFICATION_TAG, notificationTag)
@@ -337,7 +348,7 @@ class MainActivityIntent(context: Context) : Intent() {
             context: Context,
             pachliAccountId: Long,
             url: String,
-        ) = switchAccount(context, pachliAccountId).apply {
+        ) = withAccount(context, pachliAccountId).apply {
             putExtra(EXTRA_REDIRECT_URL, url)
             flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -345,7 +356,7 @@ class MainActivityIntent(context: Context) : Intent() {
         /**
          * switches the active account to the provided accountId and then opens drafts
          */
-        fun openDrafts(context: Context, pachliAccountId: Long) = switchAccount(context, pachliAccountId).apply {
+        fun openDrafts(context: Context, pachliAccountId: Long) = withAccount(context, pachliAccountId).apply {
             putExtra(EXTRA_OPEN_DRAFTS, true)
         }
     }
