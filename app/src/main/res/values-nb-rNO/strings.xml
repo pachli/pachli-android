@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_empty">Denne kan ikke være tom.</string>
+    <string name="error_empty">Dettee kan ikke være tom.</string>
     <string name="error_no_web_browser_found">Fant ingen nettleser som kunne brukes.</string>
     <string name="error_compose_character_limit">Innlegget er for langt!</string>
     <string name="error_media_upload_type">Den filtypen kan ikke lastes opp.</string>
@@ -457,7 +457,7 @@
     <string name="action_edit_image">Rediger bilde</string>
     <string name="error_image_edit_failed">Bildet kunne ikke redigeres.</string>
     <string name="error_following_hashtag_format">Det oppsto en feil under følging av #%s</string>
-    <string name="error_unfollowing_hashtag_format">Klarte ikke slutte å følge #%s</string>
+    <string name="error_unfollowing_hashtag_format">Avfølging av #%s mislyktes</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="duration_no_change">(Ingen endring)</string>
     <string name="description_post_language">Innleggspråk</string>
@@ -519,7 +519,7 @@
     <string name="filter_edit_keyword_title">Endre nøkkelord</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="pref_title_http_proxy_port_message">Portnummer burde være mellom %d og %d</string>
-    <string name="action_post_failed">Opplastningen mislykkets</string>
+    <string name="action_post_failed">Opplastningen mislyktes</string>
     <string name="action_post_failed_detail_plural">Opplasting av innleggene dine mislyktes og innleggene har blitt lagret som utkast.
 \n
 \nDette skjedde fordi serveren kunne ikke bli nådd, eller fordi serveren nektet å ta imot innleggene.</string>
@@ -532,7 +532,7 @@
     <string name="ui_error_reject_follow_request">Avvisning av følgeforespørselen misslyktes: %s</string>
     <string name="ui_error_accept_follow_request">Godtagelse av følgeforespørsel mislykktes: %s</string>
     <string name="error_muting_hashtag_format">Klarte ikke dempe #%s</string>
-    <string name="error_unmuting_hashtag_format">Klarte ikke slutte å dempe #%s</string>
+    <string name="error_unmuting_hashtag_format">Klarte ikke oppheve dempingen av #%s</string>
     <string name="description_browser_login">Kan støtte flere autentiseringsmetoder, men trenger en støttet nettleser.</string>
     <string name="description_login">Virker som oftest. Ingen informasjon deles med andre apper.</string>
     <string name="action_post_failed_detail">Opplasting av innlegget ditt mislyktes og innlegget ditt har blitt lagret som et utkast.
