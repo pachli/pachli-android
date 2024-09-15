@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network_fmt">En nettverksfeil oppsto: %s</string>
+    <string name="error_429_rate_limit_fmt">serveren din hastighetsbegrenser forespørslene dine: %1$s</string>
+    <string name="error_json_data_fmt">Serveren din returnerte et ugyldig svar: %1$s</string>
+    <string name="error_missing_content_type_fmt">serveren din er feil konfigurert, svaret har ingen content-type: %1$s</string>
+    <string name="error_wrong_content_type_fmt">serveren din er feil konfigurert og returnerte «%2$s» med feil content-type «%1$s»</string>
+    <string name="node_info_error_no_software">inneholdt ikke programvareblokkering</string>
+    <string name="node_info_error_no_software_version">programvareversjon mangler eller er tom</string>
+    <string name="node_info_error_no_software_name">programvarenavn mangler eller er tomt</string>
+    <string name="server_error_unparseable_version">kunne ikke tolke «%1$s» som en versjon: %2$s</string>
+    <string name="error_generic_fmt">En feil oppsto: %s</string>
+    <string name="error_404_not_found_fmt">Serveren din støtter ikke denne funksjonen: %1$s</string>
 </resources>
