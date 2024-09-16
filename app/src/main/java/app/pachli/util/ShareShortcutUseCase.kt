@@ -25,26 +25,26 @@ import androidx.core.app.Person
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.MainActivityIntent
 import com.bumptech.glide.Glide
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.ExecutionException
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ShareShortcutHelper @Inject constructor(
-    val accountManager: AccountManager,
+class ShareShortcutUseCase @Inject constructor(
+    @ApplicationContext val context: Context,
 ) {
-    suspend fun updateShortcuts(context: Context) = withContext(Dispatchers.IO) {
+    suspend fun updateShortcuts(accounts: List<AccountEntity>) = withContext(Dispatchers.IO) {
         val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
         val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
 
         val maxShortcuts = ShortcutManagerCompat.getMaxShortcutCountPerActivity(context)
 
-        val shortcuts = accountManager.getAllAccountsOrderedByActive().take(maxShortcuts).mapNotNull { account ->
+        val shortcuts = accounts.take(maxShortcuts).mapNotNull { account ->
             val drawable = try {
                 if (TextUtils.isEmpty(account.profilePictureUrl)) {
                     AppCompatResources.getDrawable(context, DR.drawable.avatar_default)
@@ -86,7 +86,7 @@ class ShareShortcutHelper @Inject constructor(
             ShortcutInfoCompat.Builder(context, account.id.toString())
                 .setIntent(intent)
                 .setCategories(setOf("app.pachli.Share"))
-                .setShortLabel(account.displayName)
+                .setShortLabel(account.displayName.ifBlank { account.fullName })
                 .setPerson(person)
                 .setLongLived(true)
                 .setIcon(icon)

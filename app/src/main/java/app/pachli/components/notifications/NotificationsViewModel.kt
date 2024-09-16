@@ -363,8 +363,7 @@ class NotificationsViewModel @Inject constructor(
             // Save each change back to the active account
             .onEach { action ->
                 Timber.d("notificationFilter: %s", action)
-                account.notificationsFilter = serialize(action.filter)
-                accountManager.saveAccount(account)
+                accountManager.setNotificationsFilter(account.id, serialize(action.filter))
             }
             // Load the initial filter from the active account
             .onStart {
@@ -381,8 +380,7 @@ class NotificationsViewModel @Inject constructor(
             uiAction
                 .filterIsInstance<InfallibleUiAction.LoadNewest>()
                 .collectLatest {
-                    account.lastNotificationId = "0"
-                    accountManager.saveAccount(account)
+                    accountManager.setLastNotificationId(account.id, "0")
                     reload.getAndUpdate { it + 1 }
                 }
         }
@@ -394,8 +392,7 @@ class NotificationsViewModel @Inject constructor(
                 .distinctUntilChanged()
                 .collectLatest { action ->
                     Timber.d("Saving visible ID: %s, active account = %d", action.visibleId, account.id)
-                    account.lastNotificationId = action.visibleId
-                    accountManager.saveAccount(account)
+                    accountManager.setLastNotificationId(account.id, action.visibleId)
                 }
         }
 

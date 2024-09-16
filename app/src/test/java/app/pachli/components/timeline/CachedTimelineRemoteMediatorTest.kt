@@ -12,7 +12,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.TIMELINE_ID
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
 import app.pachli.core.database.di.TransactionProvider
@@ -49,16 +48,14 @@ import retrofit2.Response
 @RunWith(AndroidJUnit4::class)
 class CachedTimelineRemoteMediatorTest {
 
-    private val accountManager: AccountManager = mock {
-        on { activeAccount } doReturn AccountEntity(
-            id = 1,
-            domain = "mastodon.example",
-            accessToken = "token",
-            clientId = "id",
-            clientSecret = "secret",
-            isActive = true,
-        )
-    }
+    private val activeAccount = AccountEntity(
+        id = 1,
+        domain = "mastodon.example",
+        accessToken = "token",
+        clientId = "id",
+        clientSecret = "secret",
+        isActive = true,
+    )
 
     private lateinit var db: AppDatabase
     private lateinit var transactionProvider: TransactionProvider
@@ -95,7 +92,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should return error when network call returns error code`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            accountManager = accountManager,
+            activeAccount = activeAccount,
             api = mock {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(500, "".toResponseBody())
             },
@@ -118,7 +115,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should return error when network call fails`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            accountManager = accountManager,
+            activeAccount = activeAccount,
             api = mock {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doThrow IOException()
             },
@@ -140,7 +137,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should not prepend statuses`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            accountManager = accountManager,
+            activeAccount = activeAccount,
             api = mock(),
             factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
@@ -172,7 +169,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should not try to refresh already cached statuses when db is empty`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            accountManager = accountManager,
+            activeAccount = activeAccount,
             api = mock {
                 onBlocking { homeTimeline(limit = 20) } doReturn Response.success(
                     listOf(
@@ -227,7 +224,7 @@ class CachedTimelineRemoteMediatorTest {
 
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            accountManager = accountManager,
+            activeAccount = activeAccount,
             api = mock {
                 onBlocking { homeTimeline(limit = 20) } doReturn Response.success(
                     listOf(
@@ -284,7 +281,7 @@ class CachedTimelineRemoteMediatorTest {
 
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            accountManager = accountManager,
+            activeAccount = activeAccount,
             api = mock {
                 onBlocking { homeTimeline(maxId = "5", limit = 20) } doReturn Response.success(
                     listOf(

@@ -18,12 +18,14 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.accounts.Loadable
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.ListsError.Create
 import app.pachli.core.data.repository.ListsError.Delete
 import app.pachli.core.data.repository.ListsError.GetListsWithAccount
 import app.pachli.core.data.repository.ListsError.Retrieve
 import app.pachli.core.data.repository.ListsError.Update
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.TimelineAccount
@@ -41,6 +43,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
 
 @Singleton
@@ -53,7 +57,12 @@ class NetworkListsRepository @Inject constructor(
     override val lists: StateFlow<Result<Lists, Retrieve>> get() = _lists.asStateFlow()
 
     init {
-        externalScope.launch { accountManager.activeAccountFlow.collect { refresh() } }
+        externalScope.launch {
+            accountManager.activeAccountFlow
+                .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+                .distinctUntilChangedBy { it.data?.id }
+                .collect { refresh() }
+        }
     }
 
     override fun refresh() {
@@ -117,8 +126,9 @@ class NetworkListsRepository @Inject constructor(
             }
         }
         if (changed) {
-            account.tabPreferences = newTabPreferences
-            accountManager.saveAccount(account)
+            externalScope.launch {
+                accountManager.setTabPreferences(account.id, newTabPreferences)
+            }
         }
     }
 

@@ -34,10 +34,12 @@ class AccountPreferenceDataStore @Inject constructor(
     val changes = MutableSharedFlow<Pair<String, Boolean>>()
 
     override fun getBoolean(key: String, defValue: Boolean): Boolean {
+        val account = accountManager.activeAccount ?: return defValue
+
         return when (key) {
-            PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> accountManager.activeAccount!!.alwaysShowSensitiveMedia
-            PrefKeys.ALWAYS_OPEN_SPOILER -> accountManager.activeAccount!!.alwaysOpenSpoiler
-            PrefKeys.MEDIA_PREVIEW_ENABLED -> accountManager.activeAccount!!.mediaPreviewEnabled
+            PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> account.alwaysShowSensitiveMedia
+            PrefKeys.ALWAYS_OPEN_SPOILER -> account.alwaysOpenSpoiler
+            PrefKeys.MEDIA_PREVIEW_ENABLED -> account.mediaPreviewEnabled
             else -> defValue
         }
     }
@@ -45,15 +47,13 @@ class AccountPreferenceDataStore @Inject constructor(
     override fun putBoolean(key: String, value: Boolean) {
         val account = accountManager.activeAccount!!
 
-        when (key) {
-            PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> account.alwaysShowSensitiveMedia = value
-            PrefKeys.ALWAYS_OPEN_SPOILER -> account.alwaysOpenSpoiler = value
-            PrefKeys.MEDIA_PREVIEW_ENABLED -> account.mediaPreviewEnabled = value
-        }
-
-        accountManager.saveAccount(account)
-
         externalScope.launch {
+            when (key) {
+                PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> accountManager.setAlwaysShowSensitiveMedia(account.id, value)
+                PrefKeys.ALWAYS_OPEN_SPOILER -> accountManager.setAlwaysOpenSpoiler(account.id, value)
+                PrefKeys.MEDIA_PREVIEW_ENABLED -> accountManager.setMediaPreviewEnabled(account.id, value)
+            }
+
             changes.emit(Pair(key, value))
         }
     }

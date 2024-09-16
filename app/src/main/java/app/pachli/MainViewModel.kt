@@ -24,7 +24,6 @@ import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Account
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import dagger.assisted.Assisted
@@ -33,7 +32,6 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 // Probably stuff to include in UiState
 //
@@ -53,9 +51,13 @@ internal class MainViewModel @AssistedInject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     @Assisted val activeAccountId: Long,
 ) : ViewModel() {
-    var activeAccount: AccountEntity
-
-    val accountsOrderedByActive: List<AccountEntity>
+    val activeAccountFlow = accountManager.activeAccountFlow
+    val activeAccount: AccountEntity?
+        get() {
+            return accountManager.activeAccount
+        }
+    private val accountsFlow = accountManager.accountsFlow
+    val accountsOrderedByActiveFlow = accountManager.accountsOrderedByActiveFlow
 
     val displaySelfUsername: Boolean
         get() {
@@ -67,7 +69,7 @@ internal class MainViewModel @AssistedInject constructor(
                 return false
             }
 
-            return accountManager.accounts.size > 1
+            return accountsFlow.value.size > 1
         }
 
     private val uiAction = MutableSharedFlow<UiAction>()
@@ -77,15 +79,9 @@ internal class MainViewModel @AssistedInject constructor(
     init {
         viewModelScope.launch { uiAction.collect { launch { onUiAction(it) } } }
 
-        Timber.d("init: new account ID: %s", activeAccountId)
-        activeAccount = if (activeAccountId == -1L) {
-            accountManager.activeAccount!!
-        } else {
+        viewModelScope.launch {
             accountManager.setActiveAccount(activeAccountId)
-            accountManager.getAccountById(activeAccountId)!!
         }
-
-        accountsOrderedByActive = accountManager.getAllAccountsOrderedByActive()
     }
 
     private suspend fun onUiAction(uiAction: UiAction) {
@@ -97,20 +93,10 @@ internal class MainViewModel @AssistedInject constructor(
     }
 
     private suspend fun onTabRemoveTimeline(timeline: Timeline) {
-        activeAccount.copy(tabPreferences = activeAccount.tabPreferences.filterNot { it == timeline })
-            .also {
-                accountManager.saveAccount(it)
-                eventHub.dispatch(MainTabsChangedEvent(it.tabPreferences))
-            }
-    }
-
-    fun setActiveAccount(accountId: Long) = viewModelScope.launch {
-        accountManager.setActiveAccount(accountId)
-        activeAccount = accountManager.getAccountById(accountId)!!
-    }
-
-    fun updateActiveAccount(account: Account) = viewModelScope.launch {
-        activeAccount = accountManager.updateActiveAccount(account)!!
+        val active = activeAccount ?: return
+        val tabPreferences = active.tabPreferences.filterNot { it == timeline }
+        accountManager.setTabPreferences(active.id, tabPreferences)
+        eventHub.dispatch(MainTabsChangedEvent(tabPreferences))
     }
 
     @AssistedFactory

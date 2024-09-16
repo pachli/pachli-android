@@ -18,7 +18,6 @@
 package app.pachli.components.notifications
 
 import app.cash.turbine.test
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.Notification
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
@@ -50,10 +49,8 @@ class NotificationsViewModelTestContentFilter : NotificationsViewModelTestBase()
 
             // Then
             // - filter saved to active account
-            argumentCaptor<AccountEntity>().apply {
-                verify(accountManager).saveAccount(capture())
-                assertThat(this.lastValue.notificationsFilter)
-                    .isEqualTo("[\"reblog\"]")
+            argumentCaptor<Pair<Long, String>>().apply {
+                verify(accountManager).setNotificationsFilter(capture().first, capture().second)
             }
 
             // - filter updated in uiState

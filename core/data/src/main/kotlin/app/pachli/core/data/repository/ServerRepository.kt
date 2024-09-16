@@ -19,6 +19,7 @@ package app.pachli.core.data.repository
 
 import androidx.annotation.StringRes
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.accounts.Loadable
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
@@ -28,6 +29,7 @@ import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.Server
 import app.pachli.core.network.model.nodeinfo.NodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
@@ -44,6 +46,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -64,14 +68,18 @@ private val SCHEMAS = listOf(
 class ServerRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val nodeInfoApi: NodeInfoApi,
-    private val accountManager: AccountManager,
+    accountManager: AccountManager,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     private val reload = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
 
     // SharedFlow, **not** StateFlow, to ensure a new value is emitted even if the
     // user switches between accounts that are on the same server.
-    val flow = reload.combine(accountManager.activeAccountFlow) { _, _ -> getServer() }
+    val flow = reload.combine(
+        accountManager.activeAccountFlow
+            .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+            .distinctUntilChangedBy { it.data?.id },
+    ) { _, _ -> getServer() }
         .shareIn(externalScope, SharingStarted.Lazily, replay = 1)
 
     fun reload() = externalScope.launch { reload.emit(Unit) }

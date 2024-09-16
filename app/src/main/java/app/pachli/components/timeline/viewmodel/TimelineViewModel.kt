@@ -46,6 +46,7 @@ import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.ContentFilterVersion
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
@@ -317,7 +318,10 @@ abstract class TimelineViewModel(
     private var filterRemoveReblogs = false
     private var filterRemoveSelfReblogs = false
 
-    protected val activeAccount = accountManager.activeAccount!!
+    protected val activeAccount: AccountEntity
+        get() {
+            return accountManager.activeAccount!!
+        }
 
     /** The ID of the status to which the user's reading position should be restored */
     // Not part of the UiState as it's only used once in the lifespan of the fragment.
@@ -440,9 +444,8 @@ abstract class TimelineViewModel(
                     .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                     .distinctUntilChanged()
                     .collectLatest { action ->
-                        Timber.d("Saving Home timeline position at: %s", action.visibleId)
-                        activeAccount.lastVisibleHomeTimelineStatusId = action.visibleId
-                        accountManager.saveAccount(activeAccount)
+                        Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", activeAccount.id, action.visibleId)
+                        accountManager.setLastVisibleHomeTimelineStatusId(activeAccount.id, action.visibleId)
                         readingPositionId = action.visibleId
                     }
             }
@@ -454,8 +457,7 @@ abstract class TimelineViewModel(
                 .filterIsInstance<InfallibleUiAction.LoadNewest>()
                 .collectLatest {
                     if (timeline == Timeline.Home) {
-                        activeAccount.lastVisibleHomeTimelineStatusId = null
-                        accountManager.saveAccount(activeAccount)
+                        accountManager.setLastVisibleHomeTimelineStatusId(activeAccount.id, null)
                     }
                     Timber.d("Reload because InfallibleUiAction.LoadNewest")
                     reloadFromNewest()

@@ -10,12 +10,12 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.util.ShareShortcutHelper
+import app.pachli.util.ShareShortcutUseCase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import timber.log.Timber
 
-class LogoutUsecase @Inject constructor(
+class LogoutUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
     private val api: MastodonApi,
     private val timelineDao: TimelineDao,
@@ -23,7 +23,7 @@ class LogoutUsecase @Inject constructor(
     private val conversationsDao: ConversationsDao,
     private val accountManager: AccountManager,
     private val draftHelper: DraftHelper,
-    private val shareShortcutHelper: ShareShortcutHelper,
+    private val shareShortcutUseCase: ShareShortcutUseCase,
 ) {
 
     /**
@@ -68,7 +68,7 @@ class LogoutUsecase @Inject constructor(
             draftHelper.deleteAllDraftsAndAttachmentsForAccount(activeAccount.id)
 
             // remove shortcut associated with the account
-            shareShortcutHelper.removeShortcut(context, activeAccount)
+            shareShortcutUseCase.removeShortcut(context, activeAccount)
 
             return otherAccountAvailable
         }

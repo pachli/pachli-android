@@ -34,6 +34,8 @@ import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
 import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import javax.inject.Inject
@@ -81,15 +83,12 @@ class EditProfileViewModel @Inject constructor(
         if (profileData.value == null || profileData.value is Error) {
             profileData.postValue(Loading())
 
-            mastodonApi.accountVerifyCredentials().fold(
-                { profile ->
-                    apiProfileAccount = profile
-                    profileData.postValue(Success(profile))
-                },
-                {
-                    profileData.postValue(Error())
-                },
-            )
+            mastodonApi.accountVerifyCredentials()
+                .onSuccess { profile ->
+                    apiProfileAccount = profile.body
+                    profileData.postValue(Success(profile.body))
+                }
+                .onFailure { profileData.postValue(Error()) }
         }
     }
 
@@ -242,8 +241,14 @@ class EditProfileViewModel @Inject constructor(
         val headerFile: File?,
         val avatarFile: File?,
     ) {
-        fun hasChanges() = displayName != null || note != null || locked != null ||
-            avatarFile != null || headerFile != null || field1 != null || field2 != null ||
-            field3 != null || field4 != null
+        fun hasChanges() = displayName != null ||
+            note != null ||
+            locked != null ||
+            avatarFile != null ||
+            headerFile != null ||
+            field1 != null ||
+            field2 != null ||
+            field3 != null ||
+            field4 != null
     }
 }

@@ -61,11 +61,11 @@ import app.pachli.appstore.AnnouncementReadEvent
 import app.pachli.appstore.CacheUpdater
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
-import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
 import app.pachli.components.notifications.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.EnableAllNotificationsUseCase
 import app.pachli.components.notifications.createNotificationChannelsForAccount
+import app.pachli.core.accounts.Loadable
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
@@ -106,7 +106,6 @@ import app.pachli.core.navigation.SuggestionsActivityIntent
 import app.pachli.core.navigation.TabPreferenceActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.TrendingActivityIntent
-import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
@@ -117,8 +116,8 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
-import app.pachli.usecase.LogoutUsecase
-import app.pachli.util.ShareShortcutHelper
+import app.pachli.usecase.LogoutUseCase
+import app.pachli.util.ShareShortcutUseCase
 import app.pachli.util.getDimension
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
@@ -169,6 +168,8 @@ import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import javax.inject.Inject
 import kotlin.math.max
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -185,7 +186,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     lateinit var cacheUpdater: CacheUpdater
 
     @Inject
-    lateinit var logoutUsecase: LogoutUsecase
+    lateinit var logoutUseCase: LogoutUseCase
 
     @Inject
     lateinit var draftsAlert: DraftsAlert
@@ -205,7 +206,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     lateinit var androidNotificationsAreEnabledUseCase: AndroidNotificationsAreEnabledUseCase
 
     @Inject
-    lateinit var shareShortcutHelper: ShareShortcutHelper
+    lateinit var shareShortcutUseCase: ShareShortcutUseCase
 
     private val viewModel: MainViewModel by viewModels(
         extrasProducer = {
@@ -254,9 +255,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
         super.onCreate(savedInstanceState)
 
-        // will be redirected to LoginActivity by BaseActivity
-//        val activeAccount = accountManager.activeAccount ?: return
-
         var showNotificationTab = false
 
         // check for savedInstanceState in order to not handle intent events more than once
@@ -283,7 +281,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             if (canHandleMimeType(intent.type) || MainActivityIntent.hasComposeOptions(intent)) {
                 if (accountSwitchRequested) {
                     // The correct account is already active
-                    forwardToComposeActivity(intent)
+                    forwardToComposeActivityAndExit(intent)
                 } else {
                     // No account was provided, show the chooser
                     showAccountChooserDialog(
@@ -292,14 +290,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         object : AccountSelectionListener {
                             override fun onAccountSelected(account: AccountEntity) {
                                 val requestedId = account.id
-                                if (requestedId == viewModel.activeAccount.id) {
+                                if (requestedId == viewModel.activeAccountId) {
                                     // The correct account is already active
-                                    forwardToComposeActivity(intent)
+                                    forwardToComposeActivityAndExit(intent)
                                 } else {
                                     // A different account was requested, restart the activity,
                                     // forwarding this intent to the restarted activity.
-                                    MainActivityIntent.setPachliAccountId(intent, requestedId)
-                                    changeAccount(requestedId, intent)
+                                    changeAccountAndRestart(requestedId, intent)
                                 }
                             }
                         },
@@ -340,8 +337,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             binding.mainToolbar.show()
         }
 
-        loadDrawerAvatar(viewModel.activeAccount.profilePictureUrl, true)
-
         addMenuProvider(this)
 
         binding.viewPager.reduceSwipeSensitivity()
@@ -351,12 +346,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             addSearchButton = hideTopToolbar,
         )
 
-        /* Fetch user info while we're doing other things. This has to be done after setting up the
-         * drawer, though, because its callback touches the header in the drawer. */
-        fetchUserInfo()
-
-        fetchAnnouncements()
-
         // Initialise the tab adapter and set to viewpager. Fragments appear to be leaked if the
         // adapter changes over the life of the viewPager (the adapter, not its contents), so set
         // the initial list of tabs to empty, and set the full list later in setupTabs(). See
@@ -364,18 +353,58 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         tabAdapter = MainPagerAdapter(emptyList(), this)
         binding.viewPager.adapter = tabAdapter
 
-        setupTabs(showNotificationTab)
+        lifecycleScope.launch {
+            val account = viewModel.activeAccountFlow
+                .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+                .first().data ?: return@launch
+            createNotificationChannelsForAccount(account, this@MainActivity)
+
+            // Setup notifications
+            // TODO: Continue to call this, as it sets properties in NotificationConfig
+            androidNotificationsAreEnabledUseCase(this@MainActivity)
+            enableAllNotificationsUseCase(this@MainActivity)
+        }
+
+        // Fetch user info while we're doing other things. This has to be done after
+        // setting up the drawer, though, because its callback touches the header in
+        // the drawer.
+        lifecycleScope.launch {
+            viewModel.activeAccountFlow.collect { loadable ->
+                // TODO: This should handle the error case. Previous code just logged an
+                // error. Possible, activeAccountFlow should be a Result<AccountEntity, ...>?
+                Timber.d("activeAccountFlow changed: %s", loadable)
+                if (loadable !is Loadable.Loaded) return@collect
+
+                // TODO: Do something if there are no active accounts? Probably already
+                // handled as part of the final logout process. Maybe that should move
+                // here?
+                val account = loadable.data ?: return@collect
+
+                loadDrawerAvatar(account.profilePictureUrl, false)
+                header.headerBackground = ImageHolder(account.profileHeaderPictureUrl)
+                setupTabs(account, showNotificationTab)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.accountsOrderedByActiveFlow.collect { accounts ->
+                updateDrawerProfileHeader(accounts)
+                shareShortcutUseCase.updateShortcuts(accounts)
+            }
+        }
+
+        fetchAnnouncements()
 
         lifecycleScope.launch {
             eventHub.events.collect { event ->
                 when (event) {
-                    is ProfileEditedEvent -> onFetchUserInfoSuccess(event.newProfileData)
                     is MainTabsChangedEvent -> {
                         refreshMainDrawerItems(
                             addSearchButton = hideTopToolbar,
                         )
 
-                        setupTabs(false)
+                        Timber.d("MainTabsChangedEvent: %d, %s", viewModel.activeAccount?.id, viewModel.activeAccount?.tabPreferences)
+                        setupTabs(viewModel.activeAccount!!, false)
                     }
 
                     is AnnouncementReadEvent -> {
@@ -394,7 +423,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
                     // Any lists in tabs might have changed titles, update those
                     if (lists is Lists.Loaded && tabAdapter.tabs.any { it.timeline is Timeline.UserList }) {
-                        setupTabs(false)
+                        setupTabs(viewModel.activeAccount!!, false)
                     }
                 }
 
@@ -451,7 +480,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     override fun onPrepareMenu(menu: Menu) {
         super<BottomSheetActivity>.onPrepareMenu(menu)
 
-        menu.findItem(R.id.action_remove_tab).isVisible = tabAdapter.tabs[binding.viewPager.currentItem].timeline != Timeline.Home
+        menu.findItem(R.id.action_remove_tab).isVisible = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.timeline != Timeline.Home
 
         // If the main toolbar is hidden then there's no space in the top/bottomNav to show
         // the menu items as icons, so forceably disable them
@@ -541,7 +570,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
     }
 
-    private fun forwardToComposeActivity(intent: Intent) {
+    private fun forwardToComposeActivityAndExit(intent: Intent) {
         val composeOptions = ComposeActivityIntent.getOptions(intent)
 
         val composeIntent = if (composeOptions != null) {
@@ -576,7 +605,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             headerBackgroundScaleType = ImageView.ScaleType.CENTER_CROP
             currentHiddenInList = true
             onAccountHeaderListener = { _: View?, profile: IProfile, current: Boolean ->
-                handleProfileClick(profile, current)
+                onAccountHeaderClick(profile, current)
                 false
             }
             addProfile(
@@ -868,17 +897,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     0 -> {
                         Timber.d("Clearing home timeline cache")
                         lifecycleScope.launch {
-//                            accountManager.activeAccount?.let {
-//                                developerToolsUseCase.clearHomeTimelineCache(it.id)
-//                            }
+                            developerToolsUseCase.clearHomeTimelineCache(viewModel.activeAccount!!.id)
                         }
                     }
                     1 -> {
                         Timber.d("Removing most recent 40 statuses")
                         lifecycleScope.launch {
-//                            accountManager.activeAccount?.let {
-//                                developerToolsUseCase.deleteFirstKStatuses(it.id, 40)
-//                            }
+                            developerToolsUseCase.deleteFirstKStatuses(viewModel.activeAccount!!.id, 40)
                         }
                     }
                 }
@@ -905,7 +930,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         super.onSaveInstanceState(binding.mainDrawer.saveInstanceState(outState))
     }
 
-    private fun setupTabs(selectNotificationTab: Boolean) {
+    private fun setupTabs(account: AccountEntity, selectNotificationTab: Boolean) {
         val activeTabLayout = if (sharedPreferencesRepository.getString(PrefKeys.MAIN_NAV_POSITION, "top") == "bottom") {
             val actionBarSize = getDimension(this, androidx.appcompat.R.attr.actionBarSize)
             val fabMargin = resources.getDimensionPixelSize(DR.dimen.fabMargin)
@@ -924,7 +949,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val previousTabIndex = binding.viewPager.currentItem
         val previousTab = tabAdapter.tabs.getOrNull(previousTabIndex)
 
-        val tabs = viewModel.activeAccount.tabPreferences.map { TabViewData.from(it) }
+        val tabs = account.tabPreferences.map { TabViewData.from(it) }
 
         // Detach any existing mediator before changing tab contents and attaching a new mediator
         tabLayoutMediator?.detach()
@@ -932,7 +957,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         tabAdapter.tabs = tabs
         tabAdapter.notifyItemRangeChanged(0, tabs.size)
 
-        tabLayoutMediator = TabLayoutMediator(activeTabLayout, binding.viewPager, true) { tab: TabLayout.Tab, position: Int ->
+        tabLayoutMediator = TabLayoutMediator(activeTabLayout, binding.viewPager, true, false) { tab: TabLayout.Tab, position: Int ->
             tab.icon = AppCompatResources.getDrawable(this@MainActivity, tabs[position].icon)
             tab.contentDescription = tabs[position].title(this@MainActivity)
         }.also { it.attach() }
@@ -996,8 +1021,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         refreshComposeButtonState(tabs[position])
-
-        updateProfiles()
     }
 
     private fun refreshComposeButtonState(tabViewData: TabViewData) {
@@ -1009,8 +1032,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         } ?: binding.composeButton.hide()
     }
 
-    private fun handleProfileClick(profile: IProfile, current: Boolean) {
-        val activeAccount = viewModel.activeAccount
+    private fun onAccountHeaderClick(profile: IProfile, current: Boolean) {
+        val activeAccount = viewModel.activeAccount ?: return
 
         // open profile when active image was clicked
         if (current) {
@@ -1026,14 +1049,14 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             return
         }
         // change Account
-        changeAccount(profile.identifier)
+        changeAccountAndRestart(profile.identifier)
         return
     }
 
     /**
      * Relaunches MainActivity, switched to the account identified by [accountId].
      */
-    private fun changeAccount(accountId: Long, forward: Intent? = null) {
+    private fun changeAccountAndRestart(accountId: Long, forward: Intent? = null) {
         Timber.d("changeAccount: new account ID: %s", accountId)
         cacheUpdater.stop()
         val intent = MainActivityIntent.withAccount(this, accountId)
@@ -1048,7 +1071,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun logout() {
-        val activeAccount = viewModel.activeAccount
+        val activeAccount = viewModel.activeAccount ?: return
         AlertDialog.Builder(this)
             .setTitle(R.string.action_logout)
             .setMessage(getString(R.string.action_logout_confirm, activeAccount.fullName))
@@ -1060,7 +1083,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 binding.composeButton.hide()
 
                 lifecycleScope.launch {
-                    val nextAccount = logoutUsecase.logout()
+                    val nextAccount = logoutUseCase.logout()
+                    Timber.d("logout: Got next active account as: %d", nextAccount?.id)
                     val intent = if (nextAccount != null) {
                         MainActivityIntent.withAccount(this@MainActivity, nextAccount.id)
                     } else {
@@ -1072,37 +1096,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
-    }
-
-    private fun fetchUserInfo() = lifecycleScope.launch {
-        mastodonApi.accountVerifyCredentials().fold(
-            { userInfo ->
-                onFetchUserInfoSuccess(userInfo)
-            },
-            { throwable ->
-                Timber.e(throwable, "Failed to fetch user info.")
-            },
-        )
-    }
-
-    private fun onFetchUserInfoSuccess(me: Account) {
-        header.headerBackground = ImageHolder(me.header)
-
-        loadDrawerAvatar(me.avatar, false)
-
-        viewModel.updateActiveAccount(me)
-        createNotificationChannelsForAccount(viewModel.activeAccount, this)
-
-        // Setup notifications
-        // TODO: Continue to call this, as it sets properties in NotificationConfig
-        androidNotificationsAreEnabledUseCase(this)
-        lifecycleScope.launch { enableAllNotificationsUseCase(this@MainActivity) }
-
-        updateProfiles()
-
-        externalScope.launch {
-            shareShortcutHelper.updateShortcuts(applicationContext)
-        }
     }
 
     @SuppressLint("CheckResult")
@@ -1213,19 +1206,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         binding.mainDrawer.updateBadge(DRAWER_ITEM_ANNOUNCEMENTS, StringHolder(if (unreadAnnouncementsCount <= 0) null else unreadAnnouncementsCount.toString()))
     }
 
-    private fun updateProfiles() {
+    private fun updateDrawerProfileHeader(accounts: List<AccountEntity>) {
         val animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
-        val profiles: MutableList<IProfile> =
-            viewModel.accountsOrderedByActive.map { acc ->
-                ProfileDrawerItem().apply {
-                    isSelected = acc.isActive
-                    nameText = acc.displayName.emojify(acc.emojis, header, animateEmojis)
-                    iconUrl = acc.profilePictureUrl
-                    isNameShown = true
-                    identifier = acc.id
-                    descriptionText = acc.fullName
-                }
-            }.toMutableList()
+        val profiles: MutableList<IProfile> = accounts.map { acc ->
+            ProfileDrawerItem().apply {
+                isSelected = acc.isActive
+                nameText = acc.displayName.emojify(acc.emojis, header, animateEmojis)
+                iconUrl = acc.profilePictureUrl
+                isNameShown = true
+                identifier = acc.id
+                descriptionText = acc.fullName
+            }
+        }.toMutableList()
 
         // reuse the already existing "add account" item
         for (profile in header.profiles.orEmpty()) {
@@ -1236,9 +1228,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
         header.clear()
         header.profiles = profiles
-        header.setActiveProfile(viewModel.activeAccount.id)
+        val activeAccount = accounts.firstOrNull { it.isActive } ?: return
+        header.setActiveProfile(activeAccount.id)
         binding.mainToolbar.subtitle = if (viewModel.displaySelfUsername) {
-            viewModel.activeAccount.fullName
+            activeAccount.fullName
         } else {
             null
         }

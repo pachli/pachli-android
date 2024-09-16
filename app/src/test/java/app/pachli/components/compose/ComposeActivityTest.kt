@@ -34,7 +34,9 @@ import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.SearchResult
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.lazyActivityScenarioRule
+import app.pachli.core.testing.success
 import at.connyduck.calladapter.networkresult.NetworkResult
+import com.github.michaelbull.result.andThen
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -87,13 +89,26 @@ class ComposeActivityTest {
     @Inject
     lateinit var instanceInfoRepository: InstanceInfoRepository
 
+    val account = Account(
+        id = "1",
+        localUsername = "username",
+        username = "username@domain.example",
+        displayName = "Display Name",
+        createdAt = Date.from(Instant.now()),
+        note = "",
+        url = "",
+        avatar = "",
+        header = "",
+    )
+
     @Before
-    fun setup() {
+    fun setup() = runTest {
         hilt.inject()
 
         getInstanceCallback = null
         reset(mastodonApi)
         mastodonApi.stub {
+            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
             onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
             onBlocking { getInstanceV1() } doAnswer {
                 getInstanceCallback?.invoke().let { instance ->
@@ -109,24 +124,13 @@ class ComposeActivityTest {
             )
         }
 
-        accountManager.addAccount(
+        accountManager.verifyAndAddAccount(
             accessToken = "token",
             domain = "domain.example",
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-            newAccount = Account(
-                id = "1",
-                localUsername = "username",
-                username = "username@domain.example",
-                displayName = "Display Name",
-                createdAt = Date.from(Instant.now()),
-                note = "",
-                url = "",
-                avatar = "",
-                header = "",
-            ),
-        )
+        ).andThen { accountManager.setActiveAccount(it) }
     }
 
     @Test

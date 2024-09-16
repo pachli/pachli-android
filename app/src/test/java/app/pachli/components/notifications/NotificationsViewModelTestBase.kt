@@ -21,6 +21,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.appstore.EventHub
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.accounts.Loadable
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFilters
 import app.pachli.core.data.repository.ContentFiltersError
@@ -40,6 +41,7 @@ import at.connyduck.calladapter.networkresult.NetworkResult
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.test.TestScope
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -94,11 +96,11 @@ abstract class NotificationsViewModelTestBase {
             notificationsFilter = "['follow']",
         )
 
-        val activeAccountFlow = MutableStateFlow(defaultAccount)
+        val activeAccountFlow: MutableStateFlow<Loadable<AccountEntity?>> = MutableStateFlow(Loadable.Loaded(defaultAccount))
 
         accountManager = mock {
             on { activeAccount } doReturn defaultAccount
-            whenever(it.activeAccountFlow).thenReturn(activeAccountFlow)
+            whenever(it.activeAccountFlow).thenReturn(activeAccountFlow.asStateFlow())
         }
 
         accountPreferenceDataStore = AccountPreferenceDataStore(

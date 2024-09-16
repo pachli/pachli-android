@@ -402,8 +402,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private fun saveTabs() {
         accountManager.activeAccount?.let {
             lifecycleScope.launch(Dispatchers.IO) {
-                it.tabPreferences = currentTabs.map { it.timeline }
-                accountManager.saveAccount(it)
+                accountManager.setTabPreferences(it.id, currentTabs.map { it.timeline })
             }
         }
         tabsChanged = true

@@ -308,7 +308,8 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
     }
 
     private fun syncWithServer(visibility: String? = null, sensitive: Boolean? = null, language: String? = null) {
-        // TODO these could also be "datastore backed" preferences (a ServerPreferenceDataStore); follow-up of issue #3204
+        // TODO these could also be "datastore backed" preferences (a ServerPreferenceDataStore);
+        //  follow-up of issue #3204
 
         mastodonApi.accountUpdateSource(visibility, sensitive, language)
             .enqueue(
@@ -317,11 +318,13 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                         val account = response.body()
                         if (response.isSuccessful && account != null) {
                             accountManager.activeAccount?.let {
-                                it.defaultPostPrivacy = account.source?.privacy
-                                    ?: Status.Visibility.PUBLIC
-                                it.defaultMediaSensitivity = account.source?.sensitive ?: false
-                                it.defaultPostLanguage = language.orEmpty()
-                                accountManager.saveAccount(it)
+                                accountManager.setDefaultPostPrivacy(
+                                    it.id,
+                                    account.source?.privacy
+                                        ?: Status.Visibility.PUBLIC,
+                                )
+                                accountManager.setDefaultMediaSensitivity(it.id, account.source?.sensitive ?: false)
+                                accountManager.setDefaultPostLanguage(it.id, language.orEmpty())
                             }
                         } else {
                             Timber.e("failed updating settings on server")

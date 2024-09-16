@@ -133,8 +133,7 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
             val timeline = tabViewData.timeline
             accountManager.activeAccount?.let {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    it.tabPreferences += timeline
-                    accountManager.saveAccount(it)
+                    accountManager.setTabPreferences(it.id, it.tabPreferences + timeline)
                     eventHub.dispatch(MainTabsChangedEvent(it.tabPreferences))
                 }
             }

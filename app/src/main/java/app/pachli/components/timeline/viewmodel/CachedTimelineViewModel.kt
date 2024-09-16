@@ -33,6 +33,7 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -75,23 +76,23 @@ class CachedTimelineViewModel @Inject constructor(
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
 ) {
-
     override var statuses: Flow<PagingData<StatusViewData>>
 
     init {
         readingPositionId = activeAccount.lastVisibleHomeTimelineStatusId
 
         statuses = reload.flatMapLatest {
-            getStatuses(initialKey = getInitialKey())
+            getStatuses(activeAccount, initialKey = getInitialKey())
         }.cachedIn(viewModelScope)
     }
 
-    /** @return Flow of statuses that make up the timeline of [timeline] */
+    /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
     private fun getStatuses(
+        account: AccountEntity,
         initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
         Timber.d("getStatuses: kind: %s, initialKey: %s", timeline, initialKey)
-        return repository.getStatusStream(kind = timeline, initialKey = initialKey)
+        return repository.getStatusStream(account, kind = timeline, initialKey = initialKey)
             .map { pagingData ->
                 pagingData
                     .map {

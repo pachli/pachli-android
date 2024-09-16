@@ -19,6 +19,7 @@ package app.pachli.core.data.repository
 
 import androidx.annotation.VisibleForTesting
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.accounts.Loadable
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
@@ -47,6 +48,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -85,9 +88,12 @@ class InstanceInfoRepository @Inject constructor(
 
     init {
         externalScope.launch {
-            accountManager.activeAccountFlow.collect { account ->
-                reload(account)
-            }
+            accountManager.activeAccountFlow
+                .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+                .distinctUntilChangedBy { it.data?.id }
+                .collect { loadable ->
+                    reload(loadable.data)
+                }
         }
     }
 

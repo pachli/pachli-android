@@ -24,10 +24,10 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.Transaction
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyKind
 import app.pachli.core.database.model.TimelineAccountEntity
@@ -48,15 +48,13 @@ import timber.log.Timber
 class CachedTimelineRemoteMediator(
     private val initialKey: String?,
     private val api: MastodonApi,
-    accountManager: AccountManager,
+    private val activeAccount: AccountEntity,
     private val factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>,
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val moshi: Moshi,
 ) : RemoteMediator<Int, TimelineStatusWithAccount>() {
-    private val activeAccount = accountManager.activeAccount!!
-
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, TimelineStatusWithAccount>,
@@ -165,7 +163,7 @@ class CachedTimelineRemoteMediator(
                         )
                     }
                 }
-                insertStatuses(statuses)
+                insertStatuses(activeAccount, statuses)
             }
 
             return MediatorResult.Success(endOfPaginationReached = false)
@@ -252,18 +250,18 @@ class CachedTimelineRemoteMediator(
      * Inserts `statuses` and the accounts referenced by those statuses in to the cache.
      */
     @Transaction
-    private suspend fun insertStatuses(statuses: List<Status>) {
+    private suspend fun insertStatuses(accountEntity: AccountEntity, statuses: List<Status>) {
         for (status in statuses) {
-            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, activeAccount.id, moshi))
+            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, accountEntity.id, moshi))
             status.reblog?.account?.let {
-                val account = TimelineAccountEntity.from(it, activeAccount.id, moshi)
+                val account = TimelineAccountEntity.from(it, accountEntity.id, moshi)
                 timelineDao.insertAccount(account)
             }
 
             timelineDao.insertStatus(
                 TimelineStatusEntity.from(
                     status,
-                    timelineUserId = activeAccount.id,
+                    timelineUserId = accountEntity.id,
                     moshi = moshi,
                 ),
             )

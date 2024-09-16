@@ -184,8 +184,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
     private fun addToTab() {
         accountManager.activeAccount?.let {
             lifecycleScope.launch(Dispatchers.IO) {
-                it.tabPreferences += timeline
-                accountManager.saveAccount(it)
+                accountManager.setTabPreferences(it.id, it.tabPreferences + timeline)
                 eventHub.dispatch(MainTabsChangedEvent(it.tabPreferences))
             }
         }

@@ -462,8 +462,9 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                                 notificationFilter.remove(Notification.Type.REBLOG)
                             }
 
-                            account.notificationsFilter = serialize(notificationFilter)
-                            accountManager.saveAccount(account)
+                            lifecycleScope.launch {
+                                accountManager.setNotificationsFilter(account.id, serialize(notificationFilter))
+                            }
                         }
                         true
                     }

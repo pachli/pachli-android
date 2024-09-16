@@ -25,9 +25,12 @@ import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.setCloseTransition
@@ -36,13 +39,16 @@ import app.pachli.core.activity.openLinkInCustomTab
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.MainActivityIntent
-import app.pachli.core.network.model.AccessToken
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.getNonNullString
 import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.feature.login.databinding.ActivityLoginBinding
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
@@ -59,6 +65,8 @@ class LoginActivity : BaseActivity() {
 
     @Inject
     lateinit var mastodonApi: MastodonApi
+
+    private val viewModel: LoginViewModel by viewModels()
 
     private val binding by viewBinding(ActivityLoginBinding::inflate)
 
@@ -126,6 +134,42 @@ class LoginActivity : BaseActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(isAdditionalLogin() || isAccountMigration())
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        bind()
+    }
+
+    /** Binds data to the UI. */
+    private fun bind() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch { viewModel.uiResult.collect(::bindUiResult) }
+            }
+        }
+    }
+
+    /** Act on the result of UI actions. */
+    private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+        uiResult.onFailure { uiError ->
+            when (uiError) {
+                is UiError.VerifyAndAddAccount -> {
+                    setLoading(false)
+                    binding.domainTextInputLayout.error = uiError.fmt(this)
+                    Timber.e(uiError.fmt(this))
+                }
+            }
+        }
+
+        uiResult.onSuccess { uiSuccess ->
+            when (uiSuccess) {
+                is UiSuccess.VerifyAndAddAccount -> {
+                    val intent = MainActivityIntent.withAccount(this, uiSuccess.accountId)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivityWithTransition(intent, TransitionKind.EXPLODE)
+                    finishAffinity()
+                    setCloseTransition(TransitionKind.EXPLODE)
+                }
+            }
+        }
     }
 
     override fun requiresLogin(): Boolean {
@@ -290,48 +334,21 @@ class LoginActivity : BaseActivity() {
             "authorization_code",
         ).fold(
             { accessToken ->
-                fetchAccountDetails(accessToken, domain, clientId, clientSecret)
+                viewModel.accept(
+                    FallibleUiAction.VerifyAndAddAccount(
+                        accessToken,
+                        domain,
+                        clientId,
+                        clientSecret,
+                        OAUTH_SCOPES,
+                    ),
+                )
             },
             { e ->
                 setLoading(false)
                 binding.domainTextInputLayout.error =
                     getString(R.string.error_retrieving_oauth_token)
                 Timber.e(e, getString(R.string.error_retrieving_oauth_token))
-            },
-        )
-    }
-
-    private suspend fun fetchAccountDetails(
-        accessToken: AccessToken,
-        domain: String,
-        clientId: String,
-        clientSecret: String,
-    ) {
-        mastodonApi.accountVerifyCredentials(
-            domain = domain,
-            auth = "Bearer ${accessToken.accessToken}",
-        ).fold(
-            { newAccount ->
-                accountManager.addAccount(
-                    accessToken = accessToken.accessToken,
-                    domain = domain,
-                    clientId = clientId,
-                    clientSecret = clientSecret,
-                    oauthScopes = OAUTH_SCOPES,
-                    newAccount = newAccount,
-                )
-
-                val intent = MainActivityIntent.withAccount(this, -1L)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivityWithTransition(intent, TransitionKind.EXPLODE)
-                finishAffinity()
-                setCloseTransition(TransitionKind.EXPLODE)
-            },
-            { e ->
-                setLoading(false)
-                binding.domainTextInputLayout.error =
-                    getString(R.string.error_loading_account_details)
-                Timber.e(e, getString(R.string.error_loading_account_details))
             },
         )
     }
