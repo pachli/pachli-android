@@ -22,11 +22,14 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Update
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.MastodonListEntity
+import app.pachli.core.database.model.PachliAccount
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import kotlinx.coroutines.flow.Flow
@@ -34,6 +37,38 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 @TypeConverters(Converters::class)
 interface AccountDao {
+    @Transaction
+    @Query(
+        """
+        SELECT *
+          FROM AccountEntity
+         WHERE id = :accountId
+    """,
+    )
+    suspend fun getPachliAccount(accountId: Long): PachliAccount?
+
+    @Transaction
+    @Query(
+        """
+        SELECT *
+         FROM AccountEntity
+        WHERE isActive = 1
+        """,
+    )
+    fun getActivePachliAccountFlow(): Flow<PachliAccount?>
+
+    @Query(
+        """
+        DELETE
+          FROM MastodonListEntity
+         WHERE accountId = :accountId
+    """,
+    )
+    suspend fun deleteMastodonListsForAccount(accountId: Long)
+
+    @Upsert
+    fun upsertMastodonList(list: MastodonListEntity)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrReplace(account: AccountEntity): Long
 

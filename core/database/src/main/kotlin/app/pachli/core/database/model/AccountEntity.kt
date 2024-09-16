@@ -18,14 +18,51 @@
 package app.pachli.core.database.model
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.UserListRepliesPolicy
+
+data class PachliAccount(
+    @Embedded val account: AccountEntity,
+    @Relation(
+        parentColumn = "domain",
+        entityColumn = "instance",
+    )
+    val instanceInfo: InstanceEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "accountId",
+    )
+    val lists: List<MastodonListEntity>,
+)
+
+@Entity(
+    primaryKeys = ["accountId", "listId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("accountId"),
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+)
+data class MastodonListEntity(
+    val accountId: Long,
+    val listId: String,
+    val title: String,
+    val repliesPolicy: UserListRepliesPolicy,
+    val exclusive: Boolean,
+)
 
 @Entity(
     indices = [

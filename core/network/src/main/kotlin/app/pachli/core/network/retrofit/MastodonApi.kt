@@ -92,10 +92,10 @@ interface MastodonApi {
     suspend fun getCustomEmojis(): NetworkResult<List<Emoji>>
 
     @GET("api/v1/instance")
-    suspend fun getInstanceV1(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV1>
+    suspend fun getInstanceV1(@Header(DOMAIN_HEADER) domain: String? = null): ApiResult<InstanceV1>
 
     @GET("api/v2/instance")
-    suspend fun getInstanceV2(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV2>
+    suspend fun getInstanceV2(@Header(DOMAIN_HEADER) domain: String? = null): ApiResult<InstanceV2>
 
     @GET("api/v1/filters")
     suspend fun getContentFiltersV1(): ApiResult<List<FilterV1>>

@@ -34,11 +34,11 @@ import app.pachli.core.network.Server
 import app.pachli.core.network.model.nodeinfo.NodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
-import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
+import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -90,10 +90,8 @@ class ServerRepository @Inject constructor(
      */
     private suspend fun getServer(): Result<Server, Error> = binding {
         // Fetch the /.well-known/nodeinfo document
-        val nodeInfoJrd = nodeInfoApi.nodeInfoJrd().fold(
-            { Ok(it) },
-            { Err(GetWellKnownNodeInfo(it)) },
-        ).bind()
+        val nodeInfoJrd = nodeInfoApi.nodeInfoJrd()
+            .mapError { GetWellKnownNodeInfo(it) }.bind().body
 
         // Find a link to a schema we can parse, prefering newer schema versions
         var nodeInfoUrlResult: Result<String, Error> = Err(UnsupportedSchema)
@@ -107,17 +105,17 @@ class ServerRepository @Inject constructor(
         val nodeInfoUrl = nodeInfoUrlResult.bind()
 
         Timber.d("Loading node info from %s", nodeInfoUrl)
-        val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).fold(
-            { NodeInfo.from(it).mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
+        val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).mapBoth(
+            { NodeInfo.from(it.body).mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
             { Err(GetNodeInfo(nodeInfoUrl, it)) },
         ).bind()
 
-        mastodonApi.getInstanceV2().fold(
-            { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
-            { throwable ->
-                Timber.e(throwable, "Couldn't process /api/v2/instance result")
-                mastodonApi.getInstanceV1().fold(
-                    { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
+        mastodonApi.getInstanceV2().mapBoth(
+            { Server.from(nodeInfo.software, it.body).mapError(::Capabilities) },
+            { error ->
+                Timber.e(error.throwable, "Couldn't process /api/v2/instance result")
+                mastodonApi.getInstanceV1().mapBoth(
+                    { Server.from(nodeInfo.software, it.body).mapError(::Capabilities) },
                     { Err(GetInstanceInfoV1(it)) },
                 )
             },
@@ -130,34 +128,29 @@ class ServerRepository @Inject constructor(
         override val cause: PachliError? = null,
     ) : PachliError {
 
-        data class GetWellKnownNodeInfo(val throwable: Throwable) : Error(
+        data class GetWellKnownNodeInfo(override val cause: PachliError) : Error(
             R.string.server_repository_error_get_well_known_node_info,
-            throwable.localizedMessage?.let { arrayOf(it) },
         )
 
         data object UnsupportedSchema : Error(
             R.string.server_repository_error_unsupported_schema,
         )
 
-        data class GetNodeInfo(val url: String, val throwable: Throwable) : Error(
+        data class GetNodeInfo(val url: String, override val cause: PachliError) : Error(
             R.string.server_repository_error_get_node_info,
-            arrayOf(url, throwable.localizedMessage ?: ""),
         )
 
-        data class ValidateNodeInfo(val url: String, val error: NodeInfo.Error) : Error(
+        data class ValidateNodeInfo(val url: String, override val cause: NodeInfo.Error) : Error(
             R.string.server_repository_error_validate_node_info,
             arrayOf(url),
-            cause = error,
         )
 
-        data class GetInstanceInfoV1(val throwable: Throwable) : Error(
+        data class GetInstanceInfoV1(override val cause: PachliError) : Error(
             R.string.server_repository_error_get_instance_info,
-            throwable.localizedMessage?.let { arrayOf(it) },
         )
 
-        data class Capabilities(val error: Server.Error) : Error(
+        data class Capabilities(override val cause: Server.Error) : Error(
             R.string.server_repository_error_capabilities,
-            cause = error,
         )
     }
 }

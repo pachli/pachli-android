@@ -22,6 +22,7 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.accounts.AccountManager
+import app.pachli.core.accounts.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.PrefKeys
@@ -31,7 +32,10 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 // Probably stuff to include in UiState
 //
@@ -81,6 +85,14 @@ internal class MainViewModel @AssistedInject constructor(
 
         viewModelScope.launch {
             accountManager.setActiveAccount(activeAccountId)
+
+            accountManager.activeAccountFlow
+                .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+                .filter { it.data != null }
+                .collect {
+                    val pachliAccount = accountManager.getPachliAccount(it.data!!.id)!!
+                    Timber.d("PachliAccount: %s", pachliAccount)
+                }
         }
     }
 

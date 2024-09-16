@@ -18,19 +18,26 @@
 package app.pachli.core.accounts
 
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.common.extensions.MiB
 import app.pachli.core.database.dao.AccountDao
+import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.InstanceInfoEntity
+import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.mapBoth
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -48,12 +55,46 @@ sealed interface Loadable<T> {
     data class Loaded<T>(val data: T) : Loadable<T>
 }
 
+data class PachliAccount(
+    val id: Long,
+//    val instanceInfo: InstanceInfo,
+    val lists: List<MastodonList>,
+) {
+    companion object {
+        fun make(
+            account: app.pachli.core.database.model.PachliAccount,
+        ): PachliAccount {
+            return PachliAccount(
+                id = account.account.id,
+                lists = account.lists.map { MastodonList.from(it) },
+            )
+        }
+    }
+}
+
+data class MastodonList(
+    val id: String,
+    val title: String,
+    val repliesPolicy: UserListRepliesPolicy,
+    val exclusive: Boolean,
+) {
+    companion object {
+        fun from(entity: MastodonListEntity) = MastodonList(
+            id = entity.listId,
+            title = entity.title,
+            repliesPolicy = entity.repliesPolicy,
+            exclusive = entity.exclusive,
+        )
+    }
+}
+
 @Singleton
 class AccountManager @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val mastodonApi: MastodonApi,
     private val accountDao: AccountDao,
     private val remoteKeyDao: RemoteKeyDao,
+    private val instanceDao: InstanceDao,
     private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
@@ -84,6 +125,12 @@ class AccountManager @Inject constructor(
         .stateIn(externalScope, SharingStarted.Eagerly, emptyList())
     val accountsOrderedByActive: List<AccountEntity>
         get() = accountsOrderedByActiveFlow.value
+
+    suspend fun getPachliAccount(accountId: Long): PachliAccount? {
+        return accountDao.getPachliAccount(accountId)?.let {
+            PachliAccount.make(it)
+        }
+    }
 
     /**
      * Verifies the account has valid credentials according to the remote server
@@ -227,11 +274,79 @@ class AccountManager @Inject constructor(
                         accessToken = newActiveAccount.accessToken,
                         domain = newActiveAccount.domain,
                     )
+
+                // To load:
+                // - instance info
+                // - server info
+                // - filters
+                // - lists
+                //
+                // InstanceInfoEntity will need to be a merger of whatever you get from
+                // instancev1 and instance2.
+                val instanceInfo = fetchInstanceInfo(finalAccount.domain)
+                instanceDao.upsert(instanceInfo)
+
+                val lists = mastodonApi.getLists().get()?.body.orEmpty().map {
+                    MastodonListEntity(
+                        finalAccount.id,
+                        it.id,
+                        it.title,
+                        it.repliesPolicy,
+                        it.exclusive ?: false,
+                    )
+                }
+                accountDao.deleteMastodonListsForAccount(finalAccount.id)
+                lists.forEach { accountDao.upsertMastodonList(it) }
             }
+
             return Ok(Unit)
         } catch (e: ApiErrorException) {
             return Err(e.apiError)
         }
+    }
+
+    private suspend fun fetchInstanceInfo(domain: String): InstanceInfoEntity {
+        return mastodonApi.getInstanceV1().mapBoth(
+            { result ->
+                val instance = result.body
+                InstanceInfoEntity(
+                    instance = domain,
+                    maximumTootCharacters = instance.configuration.statuses.maxCharacters ?: instance.maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
+                    maxPollOptions = instance.configuration.polls.maxOptions,
+                    maxPollOptionLength = instance.configuration.polls.maxCharactersPerOption,
+                    minPollDuration = instance.configuration.polls.minExpiration,
+                    maxPollDuration = instance.configuration.polls.maxExpiration,
+                    charactersReservedPerUrl = instance.configuration.statuses.charactersReservedPerUrl,
+                    version = instance.version,
+                    videoSizeLimit = instance.configuration.mediaAttachments.videoSizeLimit,
+                    imageSizeLimit = instance.configuration.mediaAttachments.imageSizeLimit,
+                    imageMatrixLimit = instance.configuration.mediaAttachments.imageMatrixLimit,
+                    maxMediaAttachments = instance.configuration.statuses.maxMediaAttachments,
+                    maxFields = instance.pleroma?.metadata?.fieldLimits?.maxFields,
+                    maxFieldNameLength = instance.pleroma?.metadata?.fieldLimits?.nameLength,
+                    maxFieldValueLength = instance.pleroma?.metadata?.fieldLimits?.valueLength,
+                )
+            },
+            {
+                InstanceInfoEntity(
+                    instance = domain,
+                    maximumTootCharacters = DEFAULT_CHARACTER_LIMIT,
+                    maxPollOptions = DEFAULT_MAX_OPTION_COUNT,
+                    maxPollOptionLength = DEFAULT_MAX_OPTION_LENGTH,
+                    minPollDuration = DEFAULT_MIN_POLL_DURATION,
+                    maxPollDuration = DEFAULT_MAX_POLL_DURATION,
+                    charactersReservedPerUrl = DEFAULT_CHARACTERS_RESERVED_PER_URL,
+                    videoSizeLimit = DEFAULT_VIDEO_SIZE_LIMIT,
+                    imageSizeLimit = DEFAULT_IMAGE_SIZE_LIMIT,
+                    imageMatrixLimit = DEFAULT_IMAGE_MATRIX_LIMIT,
+                    maxMediaAttachments = DEFAULT_MAX_MEDIA_ATTACHMENTS,
+                    maxFields = DEFAULT_MAX_ACCOUNT_FIELDS,
+                    maxFieldNameLength = null,
+                    maxFieldValueLength = null,
+                    version = "(Pachli defaults)",
+                )
+            },
+        )
     }
 
     /**
@@ -370,5 +485,23 @@ class AccountManager @Inject constructor(
     suspend fun setLastVisibleHomeTimelineStatusId(accountId: Long, value: String?) {
         Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", accountId, value)
         accountDao.setLastVisibleHomeTimelineStatusId(accountId, value)
+    }
+
+    companion object {
+        const val DEFAULT_CHARACTER_LIMIT = 500
+        const val DEFAULT_MAX_OPTION_COUNT = 4
+        const val DEFAULT_MAX_OPTION_LENGTH = 50
+        const val DEFAULT_MIN_POLL_DURATION = 300
+        const val DEFAULT_MAX_POLL_DURATION = 604800
+
+        val DEFAULT_VIDEO_SIZE_LIMIT = 40L.MiB
+        val DEFAULT_IMAGE_SIZE_LIMIT = 10L.MiB
+        const val DEFAULT_IMAGE_MATRIX_LIMIT = 4096 * 4096
+
+        // Mastodon only counts URLs as this long in terms of status character limits
+        const val DEFAULT_CHARACTERS_RESERVED_PER_URL = 23
+
+        const val DEFAULT_MAX_MEDIA_ATTACHMENTS = 4
+        const val DEFAULT_MAX_ACCOUNT_FIELDS = 4
     }
 }

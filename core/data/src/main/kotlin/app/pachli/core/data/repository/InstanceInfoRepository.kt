@@ -39,9 +39,9 @@ import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.onSuccess
+import com.github.michaelbull.result.mapBoth
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -136,8 +136,9 @@ class InstanceInfoRepository @Inject constructor(
      */
     private suspend fun getInstanceInfo(domain: String): InstanceInfo {
         return api.getInstanceV1()
-            .fold(
-                { instance ->
+            .mapBoth(
+                { result ->
+                    val instance = result.body
                     val instanceEntity = InstanceInfoEntity(
                         instance = domain,
                         maximumTootCharacters = instance.configuration.statuses.maxCharacters ?: instance.maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
@@ -160,8 +161,8 @@ class InstanceInfoRepository @Inject constructor(
                     } catch (_: Exception) { }
                     instanceEntity
                 },
-                { throwable ->
-                    Timber.w(throwable, "failed to instance, falling back to cache and default values")
+                { error ->
+                    Timber.w(error.throwable, "failed to instance, falling back to cache and default values")
                     try {
                         instanceDao.getInstanceInfo(domain)
                     } catch (_: Exception) {

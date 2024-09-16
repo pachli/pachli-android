@@ -19,7 +19,7 @@ package app.pachli.core.network.retrofit
 
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
-import at.connyduck.calladapter.networkresult.NetworkResult
+import app.pachli.core.network.retrofit.apiresult.ApiResult
 import retrofit2.http.GET
 import retrofit2.http.Url
 
@@ -28,11 +28,11 @@ interface NodeInfoApi {
      * Instance info from the Nodeinfo .well_known (https://nodeinfo.diaspora.software/protocol.html) endpoint
      */
     @GET("/.well-known/nodeinfo")
-    suspend fun nodeInfoJrd(): NetworkResult<UnvalidatedJrd>
+    suspend fun nodeInfoJrd(): ApiResult<UnvalidatedJrd>
 
     /**
      * Instance info from NodeInfo (https://nodeinfo.diaspora.software/schema.html) endpoint
      */
     @GET
-    suspend fun nodeInfo(@Url nodeInfoUrl: String): NetworkResult<UnvalidatedNodeInfo>
+    suspend fun nodeInfo(@Url nodeInfoUrl: String): ApiResult<UnvalidatedNodeInfo>
 }

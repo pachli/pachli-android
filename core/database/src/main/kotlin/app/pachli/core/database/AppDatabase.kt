@@ -35,6 +35,7 @@ import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.InstanceEntity
 import app.pachli.core.database.model.LogEntryEntity
+import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
@@ -54,6 +55,7 @@ import app.pachli.core.database.model.TranslatedStatusEntity
         StatusViewDataEntity::class,
         TranslatedStatusEntity::class,
         LogEntryEntity::class,
+        MastodonListEntity::class,
     ],
     version = 6,
     autoMigrations = [

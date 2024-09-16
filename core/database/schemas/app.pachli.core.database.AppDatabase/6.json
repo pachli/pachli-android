@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "d879fcd64a4bf1ab716f8bab0b82c7fc",
+    "identityHash": "47b841a33812ac6badf50319c82a6306",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -1193,12 +1193,69 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "MastodonListEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `listId` TEXT NOT NULL, `title` TEXT NOT NULL, `repliesPolicy` TEXT NOT NULL, `exclusive` INTEGER NOT NULL, PRIMARY KEY(`accountId`, `listId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "listId",
+            "columnName": "listId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repliesPolicy",
+            "columnName": "repliesPolicy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exclusive",
+            "columnName": "exclusive",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountId",
+            "listId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "AccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "accountId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd879fcd64a4bf1ab716f8bab0b82c7fc')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '47b841a33812ac6badf50319c82a6306')"
     ]
   }
 }
