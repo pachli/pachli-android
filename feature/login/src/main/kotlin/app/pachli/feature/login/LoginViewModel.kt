@@ -19,7 +19,7 @@ package app.pachli.feature.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
 import dagger.hilt.android.lifecycle.HiltViewModel

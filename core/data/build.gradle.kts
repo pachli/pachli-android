@@ -30,9 +30,10 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.accounts)
+    // TODO: AccountManager currently exposes AccountEntity which must be re-exported.
+    api(projects.core.database)
+
     implementation(projects.core.common)
-    implementation(projects.core.database)
     implementation(projects.core.model)
     implementation(projects.core.network)
     implementation(projects.core.preferences)

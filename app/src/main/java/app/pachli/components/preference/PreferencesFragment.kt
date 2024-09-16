@@ -42,11 +42,11 @@ import app.pachli.components.notifications.AppNotificationMethod
 import app.pachli.components.notifications.getApplicationLabel
 import app.pachli.components.notifications.hasPushScope
 import app.pachli.components.notifications.notificationMethod
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification

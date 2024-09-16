@@ -30,8 +30,8 @@ import app.pachli.appstore.BlockEvent
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFilterVersion
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository

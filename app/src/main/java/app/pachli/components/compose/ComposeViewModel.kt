@@ -30,10 +30,10 @@ import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.components.compose.ComposeAutoCompleteAdapter.AutocompleteResult
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.search.SearchType
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.randomAlphanumericString
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind

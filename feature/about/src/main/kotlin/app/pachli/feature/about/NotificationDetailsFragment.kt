@@ -40,13 +40,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.feature.about.databinding.FragmentNotificationDetailsBinding
 import app.pachli.feature.about.databinding.ItemUsageEventBinding
 import app.pachli.feature.about.databinding.ItemWorkInfoBinding

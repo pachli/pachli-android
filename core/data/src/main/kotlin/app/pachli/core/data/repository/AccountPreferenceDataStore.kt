@@ -18,7 +18,6 @@
 package app.pachli.core.data.repository
 
 import androidx.preference.PreferenceDataStore
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.preferences.PrefKeys
 import javax.inject.Inject

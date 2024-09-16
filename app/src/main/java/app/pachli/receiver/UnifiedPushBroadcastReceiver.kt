@@ -24,7 +24,7 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import app.pachli.components.notifications.disablePushNotificationsForAccount
 import app.pachli.components.notifications.registerUnifiedPushEndpoint
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.worker.NotificationWorker
 import dagger.hilt.android.AndroidEntryPoint

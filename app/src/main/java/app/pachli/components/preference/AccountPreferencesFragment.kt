@@ -30,10 +30,10 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.appstore.EventHub
 import app.pachli.components.notifications.activeAccountNeedsPushScope
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.designsystem.R as DR

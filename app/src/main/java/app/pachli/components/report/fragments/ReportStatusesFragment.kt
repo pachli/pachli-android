@@ -37,9 +37,9 @@ import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
 import app.pachli.components.report.adapter.AdapterHandler
 import app.pachli.components.report.adapter.StatusesAdapter
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.TimelineActivityIntent

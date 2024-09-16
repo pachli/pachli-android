@@ -65,7 +65,6 @@ import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
 import app.pachli.components.notifications.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.EnableAllNotificationsUseCase
 import app.pachli.components.notifications.createNotificationChannelsForAccount
-import app.pachli.core.accounts.Loadable
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
@@ -82,6 +81,7 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR

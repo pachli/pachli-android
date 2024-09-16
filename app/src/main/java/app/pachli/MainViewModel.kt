@@ -21,8 +21,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
-import app.pachli.core.accounts.AccountManager
-import app.pachli.core.accounts.Loadable
+import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.PrefKeys

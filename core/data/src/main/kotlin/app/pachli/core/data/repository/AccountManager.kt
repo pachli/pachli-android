@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Conny Duck
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.accounts
+package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.extensions.MiB

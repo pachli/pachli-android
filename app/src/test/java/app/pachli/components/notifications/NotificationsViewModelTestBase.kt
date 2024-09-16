@@ -20,12 +20,12 @@ package app.pachli.components.notifications
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.appstore.EventHub
-import app.pachli.core.accounts.AccountManager
-import app.pachli.core.accounts.Loadable
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFilters
 import app.pachli.core.data.repository.ContentFiltersError
 import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity

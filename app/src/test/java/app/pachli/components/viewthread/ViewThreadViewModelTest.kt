@@ -11,7 +11,7 @@ import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.mockStatus
 import app.pachli.components.timeline.mockStatusViewData
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFilters
 import app.pachli.core.data.repository.ContentFiltersError
 import app.pachli.core.data.repository.ContentFiltersRepository

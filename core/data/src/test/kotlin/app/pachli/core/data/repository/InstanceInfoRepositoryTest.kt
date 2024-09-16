@@ -20,7 +20,6 @@ package app.pachli.core.data.repository
 import android.app.Application
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration

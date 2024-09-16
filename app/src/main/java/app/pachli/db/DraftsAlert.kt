@@ -23,7 +23,7 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import app.pachli.R
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.navigation.DraftsActivityIntent
 import javax.inject.Inject

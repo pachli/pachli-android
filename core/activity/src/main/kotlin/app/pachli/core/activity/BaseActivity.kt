@@ -37,11 +37,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.lifecycleScope
-import app.pachli.core.accounts.AccountManager
-import app.pachli.core.accounts.Loadable
 import app.pachli.core.activity.extensions.canOverrideActivityTransitions
 import app.pachli.core.activity.extensions.getTransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR

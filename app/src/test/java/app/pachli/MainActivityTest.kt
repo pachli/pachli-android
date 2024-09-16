@@ -29,7 +29,7 @@ import app.pachli.components.accountlist.AccountListActivity
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.makeNotification
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.defaultTabs
 import app.pachli.core.model.Timeline
