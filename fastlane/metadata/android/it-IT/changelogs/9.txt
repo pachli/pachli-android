@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Fissi:
+
+- No. Attivare solo le azioni accessibili sulle notifiche allegate a uno stato
