@@ -33,6 +33,7 @@ import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.SearchResult
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.lazyActivityScenarioRule
 import app.pachli.core.testing.success
 import at.connyduck.calladapter.networkresult.NetworkResult
@@ -109,13 +110,13 @@ class ComposeActivityTest {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
+            onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { getInstanceV1() } doAnswer {
                 getInstanceCallback?.invoke().let { instance ->
                     if (instance == null) {
-                        NetworkResult.failure(Throwable())
+                        failure()
                     } else {
-                        NetworkResult.success(instance)
+                        success(instance)
                     }
                 }
             }

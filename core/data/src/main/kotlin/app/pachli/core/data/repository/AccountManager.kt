@@ -19,14 +19,17 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.extensions.MiB
+import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.model.Timeline
+import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
@@ -38,6 +41,7 @@ import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.onSuccess
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -57,8 +61,9 @@ sealed interface Loadable<T> {
 
 data class PachliAccount(
     val id: Long,
-//    val instanceInfo: InstanceInfo,
+    val instanceInfo: InstanceInfo,
     val lists: List<MastodonList>,
+    val emojis: List<Emoji>,
 ) {
     companion object {
         fun make(
@@ -66,7 +71,9 @@ data class PachliAccount(
         ): PachliAccount {
             return PachliAccount(
                 id = account.account.id,
+                instanceInfo = InstanceInfo.from(account.instanceInfo),
                 lists = account.lists.map { MastodonList.from(it) },
+                emojis = account.emojis.emojiList,
             )
         }
     }
@@ -286,6 +293,10 @@ class AccountManager @Inject constructor(
                 val instanceInfo = fetchInstanceInfo(finalAccount.domain)
                 instanceDao.upsert(instanceInfo)
 
+                mastodonApi.getCustomEmojis().onSuccess {
+                    instanceDao.upsert(EmojisEntity(accountId = finalAccount.id, emojiList = it.body))
+                }
+
                 val lists = mastodonApi.getLists().get()?.body.orEmpty().map {
                     MastodonListEntity(
                         finalAccount.id,
@@ -311,7 +322,7 @@ class AccountManager @Inject constructor(
                 val instance = result.body
                 InstanceInfoEntity(
                     instance = domain,
-                    maximumTootCharacters = instance.configuration.statuses.maxCharacters ?: instance.maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
+                    maxPostCharacters = instance.configuration.statuses.maxCharacters ?: instance.maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
                     maxPollOptions = instance.configuration.polls.maxOptions,
                     maxPollOptionLength = instance.configuration.polls.maxCharactersPerOption,
                     minPollDuration = instance.configuration.polls.minExpiration,
@@ -330,7 +341,7 @@ class AccountManager @Inject constructor(
             {
                 InstanceInfoEntity(
                     instance = domain,
-                    maximumTootCharacters = DEFAULT_CHARACTER_LIMIT,
+                    maxPostCharacters = DEFAULT_CHARACTER_LIMIT,
                     maxPollOptions = DEFAULT_MAX_OPTION_COUNT,
                     maxPollOptionLength = DEFAULT_MAX_OPTION_LENGTH,
                     minPollDuration = DEFAULT_MIN_POLL_DURATION,

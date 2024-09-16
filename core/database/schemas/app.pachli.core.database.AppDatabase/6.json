@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "47b841a33812ac6badf50319c82a6306",
+    "identityHash": "9d6f9e5db8ad8e6457e40ad7e300cf17",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -402,8 +402,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "InstanceEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`instance` TEXT NOT NULL, `emojiList` TEXT, `maximumTootCharacters` INTEGER, `maxPollOptions` INTEGER, `maxPollOptionLength` INTEGER, `minPollDuration` INTEGER, `maxPollDuration` INTEGER, `charactersReservedPerUrl` INTEGER, `version` TEXT, `videoSizeLimit` INTEGER, `imageSizeLimit` INTEGER, `imageMatrixLimit` INTEGER, `maxMediaAttachments` INTEGER, `maxFields` INTEGER, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, PRIMARY KEY(`instance`))",
+        "tableName": "InstanceInfoEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`instance` TEXT NOT NULL, `maxPostCharacters` INTEGER, `maxPollOptions` INTEGER, `maxPollOptionLength` INTEGER, `minPollDuration` INTEGER, `maxPollDuration` INTEGER, `charactersReservedPerUrl` INTEGER, `version` TEXT, `videoSizeLimit` INTEGER, `imageSizeLimit` INTEGER, `imageMatrixLimit` INTEGER, `maxMediaAttachments` INTEGER, `maxFields` INTEGER, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, PRIMARY KEY(`instance`))",
         "fields": [
           {
             "fieldPath": "instance",
@@ -412,14 +412,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "emojiList",
-            "columnName": "emojiList",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "maximumTootCharacters",
-            "columnName": "maximumTootCharacters",
+            "fieldPath": "maxPostCharacters",
+            "columnName": "maxPostCharacters",
             "affinity": "INTEGER",
             "notNull": false
           },
@@ -510,6 +504,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "EmojisEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `emojiList` TEXT NOT NULL, PRIMARY KEY(`accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emojiList",
+            "columnName": "emojiList",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "AccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "accountId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "TimelineStatusEntity",
@@ -1255,7 +1287,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '47b841a33812ac6badf50319c82a6306')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9d6f9e5db8ad8e6457e40ad7e300cf17')"
     ]
   }
 }

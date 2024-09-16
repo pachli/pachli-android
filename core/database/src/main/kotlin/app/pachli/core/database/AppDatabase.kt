@@ -20,6 +20,8 @@ package app.pachli.core.database
 import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.DeleteColumn
+import androidx.room.RenameColumn
+import androidx.room.RenameTable
 import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
 import app.pachli.core.database.dao.AccountDao
@@ -33,7 +35,8 @@ import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.DraftEntity
-import app.pachli.core.database.model.InstanceEntity
+import app.pachli.core.database.model.EmojisEntity
+import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.RemoteKeyEntity
@@ -47,7 +50,8 @@ import app.pachli.core.database.model.TranslatedStatusEntity
     entities = [
         DraftEntity::class,
         AccountEntity::class,
-        InstanceEntity::class,
+        InstanceInfoEntity::class,
+        EmojisEntity::class,
         TimelineStatusEntity::class,
         TimelineAccountEntity::class,
         ConversationEntity::class,
@@ -63,7 +67,7 @@ import app.pachli.core.database.model.TranslatedStatusEntity
         AutoMigration(from = 2, to = 3),
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
-        AutoMigration(from = 5, to = 6),
+        AutoMigration(from = 5, to = 6, spec = AppDatabase.MIGRATE_5_6::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -80,4 +84,13 @@ abstract class AppDatabase : RoomDatabase() {
     @DeleteColumn("TimelineStatusEntity", "contentCollapsed")
     @DeleteColumn("TimelineStatusEntity", "contentShowing")
     class MIGRATE_1_2 : AutoMigrationSpec
+
+    @DeleteColumn("InstanceEntity", "emojiList")
+    @RenameColumn(
+        "InstanceEntity",
+        fromColumnName = "maximumTootCharacters",
+        toColumnName = "maxPostCharacters",
+    )
+    @RenameTable(fromTableName = "InstanceEntity", toTableName = "InstanceInfoEntity")
+    class MIGRATE_5_6 : AutoMigrationSpec
 }

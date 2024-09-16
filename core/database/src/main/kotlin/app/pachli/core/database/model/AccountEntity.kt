@@ -31,18 +31,24 @@ import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.UserListRepliesPolicy
 
+// Joins the different tables that make up an account.
 data class PachliAccount(
     @Embedded val account: AccountEntity,
     @Relation(
         parentColumn = "domain",
         entityColumn = "instance",
     )
-    val instanceInfo: InstanceEntity,
+    val instanceInfo: InstanceInfoEntity,
     @Relation(
         parentColumn = "id",
         entityColumn = "accountId",
     )
     val lists: List<MastodonListEntity>,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "accountId",
+    )
+    val emojis: EmojisEntity,
 )
 
 @Entity(

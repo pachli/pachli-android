@@ -25,9 +25,9 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
-import at.connyduck.calladapter.networkresult.NetworkResult
 import com.github.michaelbull.result.andThen
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -102,13 +102,13 @@ class InstanceInfoRepositoryTest {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
+            onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { getInstanceV1() } doAnswer {
                 instanceResponseCallback?.invoke().let { instance ->
                     if (instance == null) {
-                        NetworkResult.failure(Throwable())
+                        failure()
                     } else {
-                        NetworkResult.success(instance)
+                        success(instance)
                     }
                 }
             }

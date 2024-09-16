@@ -18,17 +18,26 @@
 package app.pachli.core.database.model
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.network.model.Emoji
 
+// data class InstanceInfo(
+//    @Embedded val instanceInfo: InstanceInfoEntity,
+// //    @Relation(
+// //        parentColumn = "instance",
+// //        entityColumn = "instance",
+// //    )
+//    val emojis: EmojisEntity,
+// )
+
 @Entity
 @TypeConverters(Converters::class)
-data class InstanceEntity(
+data class InstanceInfoEntity(
     @PrimaryKey val instance: String,
-    val emojiList: List<Emoji>?,
-    val maximumTootCharacters: Int?,
+    val maxPostCharacters: Int?,
     val maxPollOptions: Int?,
     val maxPollOptionLength: Int?,
     val minPollDuration: Int?,
@@ -44,26 +53,39 @@ data class InstanceEntity(
     val maxFieldValueLength: Int?,
 )
 
+@Entity(
+    primaryKeys = ["accountId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("accountId"),
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+)
 @TypeConverters(Converters::class)
 data class EmojisEntity(
-    @PrimaryKey val instance: String,
-    val emojiList: List<Emoji>?,
+    val accountId: Long,
+    val emojiList: List<Emoji>,
 )
 
-data class InstanceInfoEntity(
-    @PrimaryKey val instance: String,
-    val maximumTootCharacters: Int,
-    val maxPollOptions: Int,
-    val maxPollOptionLength: Int,
-    val minPollDuration: Int,
-    val maxPollDuration: Int,
-    val charactersReservedPerUrl: Int,
-    val version: String,
-    val videoSizeLimit: Long,
-    val imageSizeLimit: Long,
-    val imageMatrixLimit: Int,
-    val maxMediaAttachments: Int,
-    val maxFields: Int?,
-    val maxFieldNameLength: Int?,
-    val maxFieldValueLength: Int?,
-)
+// // Version of InstanceEntity without emojiList for partial updates and fetches
+// // (obsolete)
+// data class InstanceInfoEntity(
+//    @PrimaryKey val instance: String,
+//    val maximumTootCharacters: Int,
+//    val maxPollOptions: Int,
+//    val maxPollOptionLength: Int,
+//    val minPollDuration: Int,
+//    val maxPollDuration: Int,
+//    val charactersReservedPerUrl: Int,
+//    val version: String,
+//    val videoSizeLimit: Long,
+//    val imageSizeLimit: Long,
+//    val imageMatrixLimit: Int,
+//    val maxMediaAttachments: Int,
+//    val maxFields: Int?,
+//    val maxFieldNameLength: Int?,
+//    val maxFieldValueLength: Int?,
+// )
