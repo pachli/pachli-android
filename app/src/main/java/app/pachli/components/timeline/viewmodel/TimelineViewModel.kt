@@ -45,6 +45,7 @@ import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFilterVersion
 import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
@@ -58,6 +59,7 @@ import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
+import com.github.michaelbull.result.combine
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -68,7 +70,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
@@ -322,6 +326,13 @@ abstract class TimelineViewModel(
         get() {
             return accountManager.activeAccount!!
         }
+
+    protected val refreshFlow = reload.combine(
+        accountManager.activeAccountFlow
+            .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+            .filter { it.data != null }
+            .distinctUntilChangedBy { it.data?.id!! },
+    ) { refresh, account -> Pair(refresh, account.data!!) }
 
     /** The ID of the status to which the user's reading position should be restored */
     // Not part of the UiState as it's only used once in the lifespan of the fragment.

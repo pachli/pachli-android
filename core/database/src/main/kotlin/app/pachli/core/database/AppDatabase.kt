@@ -17,6 +17,8 @@
 
 package app.pachli.core.database
 
+import android.content.ContentValues
+import android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE
 import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.DeleteColumn
@@ -24,6 +26,7 @@ import androidx.room.RenameColumn
 import androidx.room.RenameTable
 import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
+import androidx.sqlite.db.SupportSQLiteDatabase
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.DraftDao
@@ -40,6 +43,7 @@ import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.RemoteKeyEntity
+import app.pachli.core.database.model.ServerCapabilitiesEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
@@ -60,6 +64,7 @@ import app.pachli.core.database.model.TranslatedStatusEntity
         TranslatedStatusEntity::class,
         LogEntryEntity::class,
         MastodonListEntity::class,
+        ServerCapabilitiesEntity::class,
     ],
     version = 6,
     autoMigrations = [
@@ -92,5 +97,32 @@ abstract class AppDatabase : RoomDatabase() {
         toColumnName = "maxPostCharacters",
     )
     @RenameTable(fromTableName = "InstanceEntity", toTableName = "InstanceInfoEntity")
-    class MIGRATE_5_6 : AutoMigrationSpec
+    class MIGRATE_5_6 : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            db.beginTransaction()
+
+            // Create InstanceInfoEntity and ServerCapabilitiesEntity for each account.
+            val accountCursor = db.query("SELECT id, domain FROM AccountEntity")
+            with(accountCursor) {
+                while (moveToNext()) {
+                    val accountId = getLong(0)
+                    val domain = getString(1)
+
+                    val instanceInfoEntityValues = ContentValues().apply {
+                        put("instance", domain)
+                        put("enabledTranslation", 0)
+                    }
+                    db.insert("InstanceInfoEntity", CONFLICT_IGNORE, instanceInfoEntityValues)
+
+                    val serverCapabilitiesEntityValues = ContentValues().apply {
+                        put("accountId", accountId)
+                        put("capabilities", "{}")
+                    }
+                    db.insert("ServerCapabilitiesEntity", CONFLICT_IGNORE, serverCapabilitiesEntityValues)
+                }
+            }
+            db.setTransactionSuccessful()
+            db.endTransaction()
+        }
+    }
 }

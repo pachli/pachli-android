@@ -26,10 +26,12 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.UserListRepliesPolicy
+import io.github.z4kn4fein.semver.Version
 
 // Joins the different tables that make up an account.
 data class PachliAccount(
@@ -49,6 +51,11 @@ data class PachliAccount(
         entityColumn = "accountId",
     )
     val emojis: EmojisEntity?,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "accountId",
+    )
+    val serverCapabilities: ServerCapabilitiesEntity,
 )
 
 @Entity(
@@ -68,6 +75,23 @@ data class MastodonListEntity(
     val title: String,
     val repliesPolicy: UserListRepliesPolicy,
     val exclusive: Boolean,
+)
+
+@Entity(
+    primaryKeys = ["accountId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("accountId"),
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+)
+@TypeConverters(Converters::class)
+data class ServerCapabilitiesEntity(
+    val accountId: Long,
+    val capabilities: Map<ServerOperation, Version>,
 )
 
 @Entity(

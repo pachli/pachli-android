@@ -79,9 +79,9 @@ class NetworkTimelineViewModel @Inject constructor(
     override var statuses: Flow<PagingData<StatusViewData>>
 
     init {
-        statuses = reload
+        statuses = refreshFlow
             .flatMapLatest {
-                getStatuses(activeAccount, initialKey = getInitialKey())
+                getStatuses(it.second, initialKey = getInitialKey())
             }.cachedIn(viewModelScope)
     }
 

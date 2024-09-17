@@ -18,8 +18,16 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.data.model.InstanceInfo
-import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.data.model.Server
+import app.pachli.core.data.repository.ContentFiltersError.GetContentFiltersError
+import app.pachli.core.data.repository.ContentFiltersError.ServerDoesNotFilter
+import app.pachli.core.data.repository.ServerRepository.Error
+import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
+import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
+import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
+import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -28,20 +36,31 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.MastodonListEntity
+import app.pachli.core.database.model.ServerCapabilitiesEntity
+import app.pachli.core.model.ContentFilterVersion
+import app.pachli.core.model.ContentFilters
+import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.UserListRepliesPolicy
+import app.pachli.core.network.model.nodeinfo.NodeInfo
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.coroutines.binding.binding
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
+import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.mapOr
 import com.github.michaelbull.result.onSuccess
+import io.github.z4kn4fein.semver.Version
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -65,6 +84,7 @@ data class PachliAccount(
     val instanceInfo: InstanceInfo,
     val lists: List<MastodonList>,
     val emojis: List<Emoji>,
+    val capabilities: Map<ServerOperation, Version>,
 ) {
     companion object {
         fun make(
@@ -75,6 +95,7 @@ data class PachliAccount(
                 instanceInfo = InstanceInfo.from(account.instanceInfo),
                 lists = account.lists.map { MastodonList.from(it) },
                 emojis = account.emojis?.emojiList.orEmpty(),
+                capabilities = account.serverCapabilities.capabilities,
             )
         }
     }
@@ -100,6 +121,7 @@ data class MastodonList(
 class AccountManager @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val mastodonApi: MastodonApi,
+    private val nodeInfoApi: NodeInfoApi,
     private val accountDao: AccountDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val instanceDao: InstanceDao,
@@ -114,7 +136,7 @@ class AccountManager @Inject constructor(
             .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
     val activeAccount: AccountEntity?
         get() {
-            Timber.d("get() activeAccount: %s", activeAccountFlow.value)
+//            Timber.d("get() activeAccount: %s", activeAccountFlow.value)
             return when (val loadable = activeAccountFlow.value) {
                 is Loadable.Loading -> null
                 is Loadable.Loaded -> loadable.data
@@ -136,7 +158,7 @@ class AccountManager @Inject constructor(
 
     val activePachliAccountFlow = accountDao.getActivePachliAccountFlow()
         .distinctUntilChanged()
-        .onEach { Timber.d("AM PachliAccount: %s", it) }
+//        .onEach { Timber.d("AM PachliAccount: %s", it) }
         .map { it?.let { PachliAccount.make(it) } }
         .map { Loadable.Loaded(it) }
         .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
@@ -292,9 +314,9 @@ class AccountManager @Inject constructor(
 
                 // To load:
                 // - instance info
-                // - server info
-                // - filters
                 // - lists
+                // - server info
+                // - filters (depends on server info)
                 //
                 // InstanceInfoEntity will need to be a merger of whatever you get from
                 // instancev1 and instance2.
@@ -302,6 +324,9 @@ class AccountManager @Inject constructor(
                 // Caution here -- doing database operations in any of the externalScope blocks
                 // appears not to release database connections properly, resulting in starvation.
 
+                val deferNodeInfo = externalScope.async {
+                    fetchNodeInfo()
+                }
                 val deferInstanceInfo = externalScope.async {
                     fetchInstanceInfo(finalAccount.domain)
                 }
@@ -320,7 +345,22 @@ class AccountManager @Inject constructor(
                     }
                 }
 
-                deferInstanceInfo.await().also { instanceInfo -> instanceDao.upsert(instanceInfo) }
+                val nodeInfo = deferNodeInfo.await()
+
+                deferInstanceInfo.await().also { instanceInfoEntity ->
+                    instanceDao.upsert(instanceInfoEntity)
+                }
+
+                // Create the server info so it can used for both server capabilities and filters.
+                val server = deferInstanceInfo.await().let { instanceInfoEntity ->
+                    nodeInfo.map { Server.from(it.software, instanceInfoEntity).get() }
+                }.get()
+
+                server?.let {
+                    ServerCapabilitiesEntity(accountId = finalAccount.id, capabilities = it.capabilities).also {
+                        instanceDao.upsert(it)
+                    }
+                }
 
                 deferEmojis.await().also { result ->
                     result.onSuccess {
@@ -340,26 +380,51 @@ class AccountManager @Inject constructor(
         }
     }
 
+    private suspend fun fetchNodeInfo(): Result<NodeInfo, Error> = binding {
+        /**
+         * NodeInfo schema versions we can parse.
+         *
+         * See https://nodeinfo.diaspora.software/schema.html.
+         */
+        val SCHEMAS = listOf(
+            "http://nodeinfo.diaspora.software/ns/schema/2.1",
+            "http://nodeinfo.diaspora.software/ns/schema/2.0",
+            "http://nodeinfo.diaspora.software/ns/schema/1.1",
+            "http://nodeinfo.diaspora.software/ns/schema/1.0",
+        )
+
+        // Fetch the /.well-known/nodeinfo document
+        val nodeInfoJrd = nodeInfoApi.nodeInfoJrd()
+            .mapError { GetWellKnownNodeInfo(it) }.bind().body
+
+        // Find a link to a schema we can parse, prefering newer schema versions
+        var nodeInfoUrlResult: Result<String, Error> = Err(UnsupportedSchema)
+        for (link in nodeInfoJrd.links.sortedByDescending { it.rel }) {
+            if (SCHEMAS.contains(link.rel)) {
+                nodeInfoUrlResult = Ok(link.href)
+                break
+            }
+        }
+
+        val nodeInfoUrl = nodeInfoUrlResult.bind()
+
+        Timber.d("Loading node info from %s", nodeInfoUrl)
+        val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).mapBoth(
+            { NodeInfo.from(it.body).mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
+            { Err(GetNodeInfo(nodeInfoUrl, it)) },
+        ).bind()
+
+        return@binding nodeInfo
+    }
+
+    // TODO: Maybe rename InstanceInfoEntity to ServerLimits or something like that, since that's
+    // what it records.
     private suspend fun fetchInstanceInfo(domain: String): InstanceInfoEntity {
+        // This needs to start with v2, and fall back to v1
+        // InstanceInfoEntity needs to gain support for recording translation
+
         return mastodonApi.getInstanceV1().mapOr(InstanceInfoEntity.defaultForDomain(domain)) { result ->
-            val instance = result.body
-            InstanceInfoEntity(
-                instance = domain,
-                maxPostCharacters = instance.configuration.statuses.maxCharacters ?: instance.maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
-                maxPollOptions = instance.configuration.polls.maxOptions,
-                maxPollOptionLength = instance.configuration.polls.maxCharactersPerOption,
-                minPollDuration = instance.configuration.polls.minExpiration,
-                maxPollDuration = instance.configuration.polls.maxExpiration,
-                charactersReservedPerUrl = instance.configuration.statuses.charactersReservedPerUrl,
-                version = instance.version,
-                videoSizeLimit = instance.configuration.mediaAttachments.videoSizeLimit,
-                imageSizeLimit = instance.configuration.mediaAttachments.imageSizeLimit,
-                imageMatrixLimit = instance.configuration.mediaAttachments.imageMatrixLimit,
-                maxMediaAttachments = instance.configuration.statuses.maxMediaAttachments,
-                maxFields = instance.pleroma?.metadata?.fieldLimits?.maxFields,
-                maxFieldNameLength = instance.pleroma?.metadata?.fieldLimits?.nameLength,
-                maxFieldValueLength = instance.pleroma?.metadata?.fieldLimits?.valueLength,
-            )
+            InstanceInfoEntity.make(domain, result.body)
         }
     }
 

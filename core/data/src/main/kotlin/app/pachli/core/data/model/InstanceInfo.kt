@@ -27,7 +27,7 @@ data class InstanceInfo(
     val pollMaxOptions: Int = DEFAULT_MAX_OPTION_COUNT,
     val pollMaxLength: Int = DEFAULT_MAX_OPTION_LENGTH,
     val pollMinDuration: Int = DEFAULT_MIN_POLL_DURATION,
-    val pollMaxDuration: Int = DEFAULT_MAX_POLL_DURATION,
+    val pollMaxDuration: Long = DEFAULT_MAX_POLL_DURATION,
     val charactersReservedPerUrl: Int = DEFAULT_CHARACTERS_RESERVED_PER_URL,
     val videoSizeLimit: Long = DEFAULT_VIDEO_SIZE_LIMIT,
     val imageSizeLimit: Long = DEFAULT_IMAGE_SIZE_LIMIT,
@@ -43,7 +43,7 @@ data class InstanceInfo(
         const val DEFAULT_MAX_OPTION_COUNT = 4
         const val DEFAULT_MAX_OPTION_LENGTH = 50
         const val DEFAULT_MIN_POLL_DURATION = 300
-        const val DEFAULT_MAX_POLL_DURATION = 604800
+        const val DEFAULT_MAX_POLL_DURATION = 604800L
 
         val DEFAULT_VIDEO_SIZE_LIMIT = 40L.MiB
         val DEFAULT_IMAGE_SIZE_LIMIT = 10L.MiB

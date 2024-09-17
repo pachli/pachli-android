@@ -36,4 +36,7 @@ dependencies {
 
     implementation(libs.moshix.sealed.runtime)
     ksp(libs.moshix.sealed.codegen)
+
+    // ServerRepository
+    implementation(libs.semver)
 }

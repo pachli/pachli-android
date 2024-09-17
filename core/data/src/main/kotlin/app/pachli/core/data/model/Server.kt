@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,42 +15,46 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.network
+package app.pachli.core.data.model
 
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.common.PachliError
-import app.pachli.core.network.Server.Error.UnparseableVersion
-import app.pachli.core.network.ServerKind.AKKOMA
-import app.pachli.core.network.ServerKind.FEDIBIRD
-import app.pachli.core.network.ServerKind.FIREFISH
-import app.pachli.core.network.ServerKind.FRIENDICA
-import app.pachli.core.network.ServerKind.GLITCH
-import app.pachli.core.network.ServerKind.GOTOSOCIAL
-import app.pachli.core.network.ServerKind.HOMETOWN
-import app.pachli.core.network.ServerKind.ICESHRIMP
-import app.pachli.core.network.ServerKind.MASTODON
-import app.pachli.core.network.ServerKind.PIXELFED
-import app.pachli.core.network.ServerKind.PLEROMA
-import app.pachli.core.network.ServerKind.SHARKEY
-import app.pachli.core.network.ServerKind.UNKNOWN
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
+import app.pachli.core.data.model.Server.Error.UnparseableVersion
+import app.pachli.core.data.model.ServerKind.AKKOMA
+import app.pachli.core.data.model.ServerKind.FEDIBIRD
+import app.pachli.core.data.model.ServerKind.FIREFISH
+import app.pachli.core.data.model.ServerKind.FRIENDICA
+import app.pachli.core.data.model.ServerKind.GLITCH
+import app.pachli.core.data.model.ServerKind.GOTOSOCIAL
+import app.pachli.core.data.model.ServerKind.HOMETOWN
+import app.pachli.core.data.model.ServerKind.ICESHRIMP
+import app.pachli.core.data.model.ServerKind.MASTODON
+import app.pachli.core.data.model.ServerKind.PIXELFED
+import app.pachli.core.data.model.ServerKind.PLEROMA
+import app.pachli.core.data.model.ServerKind.SHARKEY
+import app.pachli.core.data.model.ServerKind.UNKNOWN
+import app.pachli.core.database.model.InstanceInfoEntity
+import app.pachli.core.model.ServerCapabilities
+import app.pachli.core.model.ServerOperation
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
+import app.pachli.core.network.R
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
 import app.pachli.core.network.model.nodeinfo.NodeInfo
@@ -69,77 +73,16 @@ import io.github.z4kn4fein.semver.toVersion
 import java.text.ParseException
 import kotlin.collections.set
 
-/**
- * Identifiers for operations that the server may or may not support.
- */
-enum class ServerOperation(id: String, versions: List<Version>) {
-    /** Client-side filters */
-    ORG_JOINMASTODON_FILTERS_CLIENT(
-        "org.joinmastodon.filters.client",
-        listOf(
-            // Initial introduction in Mastodon 2.4.3
-            Version(major = 1),
-            // "account" context available in filter views in Mastodon 3.1.0
-            Version(major = 1, minor = 1),
-        ),
-    ),
-
-    /** Server-side filters */
-    ORG_JOINMASTODON_FILTERS_SERVER(
-        "org.joinmastodon.filters.server",
-        listOf(
-            // Intitial introduction in Mastodon 4.0.0
-            Version(major = 1),
-        ),
-    ),
-
-    /** Translate a status */
-    ORG_JOINMASTODON_STATUSES_TRANSLATE(
-        "org.joinmastodon.statuses.translate",
-        listOf(
-            // Initial introduction in Mastodon 4.0.0
-            Version(major = 1),
-            // Spoiler warnings, polls, and media descriptions are also translated in Mastodon 4.2.0
-            Version(major = 1, minor = 1),
-        ),
-    ),
-
-    /** Search for posts from a particular account */
-    ORG_JOINMASTODON_SEARCH_QUERY_FROM(
-        "org.joinmastodon.search.query:from",
-        listOf(
-            // Initial introduction in Mastodon 3.5.0
-            Version(major = 1),
-            // Support for `from:me` in Mastodon 4.2.0
-            Version(major = 1, minor = 1),
-        ),
-    ),
-    ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE("org.joinmastodon.search.query:language", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA("org.joinmastodon.search.query:has:media", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE("org.joinmastodon.search.query:has:image", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO("org.joinmastodon.search.query:has:video", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO("org.joinmastodon.search.query:has:audio", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL("org.joinmastodon.search.query:has:poll", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK("org.joinmastodon.search.query:has:link", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED("org.joinmastodon.search.query:has:embed", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY("org.joinmastodon.search.query:is:reply", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE("org.joinmastodon.search.query:is:sensitive", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY("org.joinmastodon.search.query:in:library", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC("org.joinmastodon.search.query:in:public", listOf(Version(major = 1))),
-    ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE("org.joinmastodon.search.query:in:public", listOf(Version(major = 1))),
-}
-
 data class Server(
     val kind: ServerKind,
     val version: Version,
-    private val capabilities: Map<ServerOperation, Version> = emptyMap(),
+    val capabilities: ServerCapabilities = emptyMap(),
 ) {
     /**
      * @return true if the server supports the given operation at the given minimum version
      * level, false otherwise.
      */
-    fun can(operation: ServerOperation, constraint: Constraint) = capabilities[operation]?.let {
-            version ->
+    fun can(operation: ServerOperation, constraint: Constraint) = capabilities[operation]?.let { version ->
         version satisfies constraint
     } ?: false
 
@@ -174,6 +117,32 @@ data class Server(
             val serverKind = ServerKind.from(software)
             val version = parseVersionString(serverKind, software.version).bind()
             val capabilities = capabilitiesFromServerVersion(serverKind, version)
+
+            Server(serverKind, version, capabilities)
+        }
+
+        /**
+         * Constructs a capabilities map from its [NodeInfo] and [InstanceInfoEntity] details.
+         */
+        fun from(software: NodeInfo.Software, instanceInfoEntity: InstanceInfoEntity): Result<Server, Error> = binding {
+            val serverKind = ServerKind.from(software)
+            val version = parseVersionString(serverKind, software.version).bind()
+            val capabilities = capabilitiesFromServerVersion(serverKind, version)
+
+            when (serverKind) {
+                GLITCH, HOMETOWN, MASTODON -> {
+                    if (instanceInfoEntity.enabledTranslation) {
+                        capabilities[ORG_JOINMASTODON_STATUSES_TRANSLATE] = when {
+                            version >= "4.2.0".toVersion() -> "1.1.0".toVersion()
+                            else -> "1.0.0".toVersion()
+                        }
+                    }
+                }
+
+                else -> {
+                    /* Nothing to do */
+                }
+            }
 
             Server(serverKind, version, capabilities)
         }

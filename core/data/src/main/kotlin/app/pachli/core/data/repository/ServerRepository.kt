@@ -21,6 +21,7 @@ import androidx.annotation.StringRes
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
+import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.ServerRepository.Error.Capabilities
 import app.pachli.core.data.repository.ServerRepository.Error.GetInstanceInfoV1
 import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
@@ -28,7 +29,6 @@ import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeIn
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.network.Server
 import app.pachli.core.network.model.nodeinfo.NodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi

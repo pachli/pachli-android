@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,31 +15,31 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.network
+package app.pachli.core.data.model
 
-import app.pachli.core.network.ServerKind.AKKOMA
-import app.pachli.core.network.ServerKind.FIREFISH
-import app.pachli.core.network.ServerKind.FRIENDICA
-import app.pachli.core.network.ServerKind.GOTOSOCIAL
-import app.pachli.core.network.ServerKind.MASTODON
-import app.pachli.core.network.ServerKind.PLEROMA
-import app.pachli.core.network.ServerKind.UNKNOWN
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
+import app.pachli.core.data.model.ServerKind.AKKOMA
+import app.pachli.core.data.model.ServerKind.FIREFISH
+import app.pachli.core.data.model.ServerKind.FRIENDICA
+import app.pachli.core.data.model.ServerKind.GOTOSOCIAL
+import app.pachli.core.data.model.ServerKind.MASTODON
+import app.pachli.core.data.model.ServerKind.PLEROMA
+import app.pachli.core.data.model.ServerKind.UNKNOWN
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
+import app.pachli.core.data.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Configuration
 import app.pachli.core.network.model.Contact

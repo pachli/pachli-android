@@ -20,6 +20,7 @@ package app.pachli.core.network.di
 import android.content.Context
 import android.os.Build
 import app.pachli.core.common.util.versionName
+import app.pachli.core.model.VersionAdapter
 import app.pachli.core.network.BuildConfig
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
@@ -68,6 +69,7 @@ object NetworkModule {
     @Singleton
     fun providesMoshi(): Moshi = Moshi.Builder()
         .add(Date::class.java, Rfc3339DateJsonAdapter())
+        .add(VersionAdapter())
         .add(Guarded.Factory())
         .add(HasDefault.Factory())
         .add(DefaultIfNull.Factory())

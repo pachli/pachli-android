@@ -40,6 +40,7 @@ object FakeNetworkModule {
     @Provides
     @Singleton
     fun providesMoshi(): Moshi = Moshi.Builder()
+        .add(VersionAdapter())
         .add(Date::class.java, Rfc3339DateJsonAdapter())
         .add(Guarded.Factory())
         .build()

@@ -50,13 +50,13 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml

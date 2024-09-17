@@ -20,6 +20,7 @@ import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.DraftAttachment
+import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
@@ -32,6 +33,7 @@ import app.pachli.core.network.model.TranslatedAttachment
 import app.pachli.core.network.model.TranslatedPoll
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
+import io.github.z4kn4fein.semver.Version
 import java.net.URLDecoder
 import java.time.Instant
 import java.util.Date
@@ -241,4 +243,14 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun stringToThrowable(s: String) = Throwable(message = s)
+
+    @TypeConverter
+    fun capabilitiesMapToJson(capabilities: Map<ServerOperation, Version>): String {
+        return moshi.adapter<Map<ServerOperation, Version>>().toJson(capabilities)
+    }
+
+    @TypeConverter
+    fun jsonToCapabiltiesMap(capabilitiesJson: String?): Map<ServerOperation, Version>? {
+        return capabilitiesJson?.let { moshi.adapter<Map<ServerOperation, Version>>().fromJson(it) }
+    }
 }

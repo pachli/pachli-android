@@ -46,4 +46,8 @@ dependencies {
 
     testImplementation(projects.core.networkTest)
     testImplementation(libs.bundles.mockito)
+
+    testImplementation(libs.moshi)
+    testImplementation(libs.moshi.adapters)
+    ksp(libs.moshi.codegen)
 }

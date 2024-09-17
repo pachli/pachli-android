@@ -542,9 +542,9 @@ class TimelineFragment :
             ?.let { adapter.snapshot().getOrNull(it)?.id }
 
         id?.let {
-            Timber.d("Saving ID: %s", it)
+            Timber.d("saveVisibleId: Saving ID: %s", it)
             viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = it))
-        }
+        } ?: Timber.d("saveVisibleId: Not saving, as no ID was visible")
     }
 
     private fun setupSwipeRefreshLayout() {
@@ -580,6 +580,7 @@ class TimelineFragment :
         binding.recyclerView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    Timber.d("onScrollStateChanged: %s", newState)
                     if (newState == SCROLL_STATE_IDLE) saveVisibleId()
                 }
             },

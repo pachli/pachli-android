@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "9d6f9e5db8ad8e6457e40ad7e300cf17",
+    "identityHash": "6538f5011fc12efe2feed283c8819ad7",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -403,7 +403,7 @@
       },
       {
         "tableName": "InstanceInfoEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`instance` TEXT NOT NULL, `maxPostCharacters` INTEGER, `maxPollOptions` INTEGER, `maxPollOptionLength` INTEGER, `minPollDuration` INTEGER, `maxPollDuration` INTEGER, `charactersReservedPerUrl` INTEGER, `version` TEXT, `videoSizeLimit` INTEGER, `imageSizeLimit` INTEGER, `imageMatrixLimit` INTEGER, `maxMediaAttachments` INTEGER, `maxFields` INTEGER, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, PRIMARY KEY(`instance`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`instance` TEXT NOT NULL, `maxPostCharacters` INTEGER, `maxPollOptions` INTEGER, `maxPollOptionLength` INTEGER, `minPollDuration` INTEGER, `maxPollDuration` INTEGER, `charactersReservedPerUrl` INTEGER, `version` TEXT, `videoSizeLimit` INTEGER, `imageSizeLimit` INTEGER, `imageMatrixLimit` INTEGER, `maxMediaAttachments` INTEGER, `maxFields` INTEGER, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, `enabledTranslation` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`instance`))",
         "fields": [
           {
             "fieldPath": "instance",
@@ -494,6 +494,13 @@
             "columnName": "maxFieldValueLength",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "enabledTranslation",
+            "columnName": "enabledTranslation",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
           }
         ],
         "primaryKey": {
@@ -1282,12 +1289,50 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "ServerCapabilitiesEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `capabilities` TEXT NOT NULL, PRIMARY KEY(`accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capabilities",
+            "columnName": "capabilities",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "AccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "accountId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9d6f9e5db8ad8e6457e40ad7e300cf17')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6538f5011fc12efe2feed283c8819ad7')"
     ]
   }
 }

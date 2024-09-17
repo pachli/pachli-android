@@ -23,6 +23,7 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
 import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.data.model.NewContentFilterKeyword
+import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.ContentFiltersError.CreateContentFilterError
 import app.pachli.core.data.repository.ContentFiltersError.DeleteContentFilterError
 import app.pachli.core.data.repository.ContentFiltersError.GetContentFilterError
@@ -30,9 +31,8 @@ import app.pachli.core.data.repository.ContentFiltersError.GetContentFiltersErro
 import app.pachli.core.data.repository.ContentFiltersError.ServerDoesNotFilter
 import app.pachli.core.data.repository.ContentFiltersError.ServerRepositoryError
 import app.pachli.core.data.repository.ContentFiltersError.UpdateContentFilterError
-import app.pachli.core.network.Server
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
@@ -388,5 +388,5 @@ class ContentFiltersRepository @Inject constructor(
     }
 }
 
-private fun Server.canFilterV1() = this.can(ORG_JOINMASTODON_FILTERS_CLIENT, ">=1.0.0".toConstraint())
-private fun Server.canFilterV2() = this.can(ORG_JOINMASTODON_FILTERS_SERVER, ">=1.0.0".toConstraint())
+fun Server.canFilterV1() = this.can(ORG_JOINMASTODON_FILTERS_CLIENT, ">=1.0.0".toConstraint())
+fun Server.canFilterV2() = this.can(ORG_JOINMASTODON_FILTERS_SERVER, ">=1.0.0".toConstraint())
