@@ -19,8 +19,6 @@ package app.pachli.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.TypeConverters
@@ -69,17 +67,14 @@ interface AccountDao {
     @Upsert
     fun upsertMastodonList(list: MastodonListEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrReplace(account: AccountEntity): Long
-
     @Update
-    fun update(account: AccountEntity)
+    suspend fun update(account: AccountEntity)
 
     @Upsert
     suspend fun upsert(account: AccountEntity): Long
 
     @Delete
-    fun delete(account: AccountEntity)
+    suspend fun delete(account: AccountEntity)
 
     @Query("SELECT * FROM AccountEntity ORDER BY id ASC")
     fun loadAllFlow(): Flow<List<AccountEntity>>

@@ -23,6 +23,7 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.PrefKeys
@@ -84,15 +85,17 @@ internal class MainViewModel @AssistedInject constructor(
         viewModelScope.launch { uiAction.collect { launch { onUiAction(it) } } }
 
         viewModelScope.launch {
-            accountManager.setActiveAccount(activeAccountId)
-
-            accountManager.activeAccountFlow
-                .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+            accountManager.activePachliAccountFlow
+                .filterIsInstance<Loadable.Loaded<PachliAccount?>>()
                 .filter { it.data != null }
                 .collect {
-                    val pachliAccount = accountManager.getPachliAccount(it.data!!.id)!!
+//                    val pachliAccount = accountManager.getPachliAccount(it.data!!.id)!!
+                    val pachliAccount = it.data
                     Timber.d("PachliAccount: %s", pachliAccount)
                 }
+        }
+        viewModelScope.launch {
+            accountManager.setActiveAccount(activeAccountId)
         }
     }
 

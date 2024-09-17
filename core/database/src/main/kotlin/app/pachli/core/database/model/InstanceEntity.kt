@@ -21,6 +21,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import app.pachli.core.common.extensions.MiB
 import app.pachli.core.database.Converters
 import app.pachli.core.network.model.Emoji
 
@@ -51,7 +52,43 @@ data class InstanceInfoEntity(
     val maxFields: Int?,
     val maxFieldNameLength: Int?,
     val maxFieldValueLength: Int?,
-)
+) {
+    companion object {
+        private const val DEFAULT_CHARACTER_LIMIT = 500
+        private const val DEFAULT_MAX_OPTION_COUNT = 4
+        private const val DEFAULT_MAX_OPTION_LENGTH = 50
+        private const val DEFAULT_MIN_POLL_DURATION = 300
+        private const val DEFAULT_MAX_POLL_DURATION = 604800
+
+        private val DEFAULT_VIDEO_SIZE_LIMIT = 40L.MiB
+        private val DEFAULT_IMAGE_SIZE_LIMIT = 10L.MiB
+        private const val DEFAULT_IMAGE_MATRIX_LIMIT = 4096 * 4096
+
+        // Mastodon only counts URLs as this long in terms of status character limits
+        private const val DEFAULT_CHARACTERS_RESERVED_PER_URL = 23
+
+        private const val DEFAULT_MAX_MEDIA_ATTACHMENTS = 4
+        private const val DEFAULT_MAX_ACCOUNT_FIELDS = 4
+
+        fun defaultForDomain(domain: String) = InstanceInfoEntity(
+            instance = domain,
+            maxPostCharacters = DEFAULT_CHARACTER_LIMIT,
+            maxPollOptions = DEFAULT_MAX_OPTION_COUNT,
+            maxPollOptionLength = DEFAULT_MAX_OPTION_LENGTH,
+            minPollDuration = DEFAULT_MIN_POLL_DURATION,
+            maxPollDuration = DEFAULT_MAX_POLL_DURATION,
+            charactersReservedPerUrl = DEFAULT_CHARACTERS_RESERVED_PER_URL,
+            videoSizeLimit = DEFAULT_VIDEO_SIZE_LIMIT,
+            imageSizeLimit = DEFAULT_IMAGE_SIZE_LIMIT,
+            imageMatrixLimit = DEFAULT_IMAGE_MATRIX_LIMIT,
+            maxMediaAttachments = DEFAULT_MAX_MEDIA_ATTACHMENTS,
+            maxFields = DEFAULT_MAX_ACCOUNT_FIELDS,
+            maxFieldNameLength = null,
+            maxFieldValueLength = null,
+            version = "(Pachli defaults)",
+        )
+    }
+}
 
 @Entity(
     primaryKeys = ["accountId"],

@@ -63,7 +63,7 @@ class CachedTimelineRemoteMediator(
             return MediatorResult.Success(endOfPaginationReached = true)
         }
 
-        Timber.d("load(), LoadType = %s", loadType)
+        Timber.d("load(), account ID: %d, LoadType = %s", activeAccount.id, loadType)
 
         return try {
             val response = when (loadType) {

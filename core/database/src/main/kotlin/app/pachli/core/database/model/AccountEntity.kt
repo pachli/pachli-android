@@ -48,7 +48,7 @@ data class PachliAccount(
         parentColumn = "id",
         entityColumn = "accountId",
     )
-    val emojis: EmojisEntity,
+    val emojis: EmojisEntity?,
 )
 
 @Entity(
