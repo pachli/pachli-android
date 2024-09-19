@@ -20,7 +20,7 @@ package app.pachli.viewdata
 import android.text.Spanned
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.network.model.FilterAction
+import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report

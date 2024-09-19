@@ -182,7 +182,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
                 binding.nameText.text.toString(),
                 list?.id,
                 binding.exclusiveCheckbox.isChecked,
-                UserListRepliesPolicy.Companion.from(binding.repliesPolicyGroup.checkedRadioButtonId),
+                UserListRepliesPolicy.from(binding.repliesPolicyGroup.checkedRadioButtonId),
             )
         }
     }

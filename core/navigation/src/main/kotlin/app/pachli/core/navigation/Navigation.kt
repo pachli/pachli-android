@@ -22,8 +22,8 @@ import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
 import androidx.core.content.pm.ShortcutManagerCompat
-import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.database.model.DraftAttachment
+import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.bookmarks

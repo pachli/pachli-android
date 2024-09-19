@@ -18,9 +18,9 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.data.model.Server
+import app.pachli.core.data.model.from
 import app.pachli.core.data.repository.ContentFiltersError.GetContentFiltersError
 import app.pachli.core.data.repository.ContentFiltersError.ServerDoesNotFilter
 import app.pachli.core.data.repository.ServerRepository.Error
@@ -29,16 +29,18 @@ import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeIn
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.dao.AccountDao
+import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.ServerCapabilitiesEntity
+import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
-import app.pachli.core.model.ContentFilters
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Emoji
@@ -85,6 +87,7 @@ data class PachliAccount(
     val lists: List<MastodonList>,
     val emojis: List<Emoji>,
     val capabilities: Map<ServerOperation, Version>,
+    val contentFilters: ContentFilters,
 ) {
     companion object {
         fun make(
@@ -96,6 +99,10 @@ data class PachliAccount(
                 lists = account.lists.map { MastodonList.from(it) },
                 emojis = account.emojis?.emojiList.orEmpty(),
                 capabilities = account.serverCapabilities.capabilities,
+                contentFilters = ContentFilters(
+                    version = account.contentFilters.version,
+                    contentFilters = account.contentFilters.contentFilters,
+                ),
             )
         }
     }
@@ -125,6 +132,7 @@ class AccountManager @Inject constructor(
     private val accountDao: AccountDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val instanceDao: InstanceDao,
+    private val contentFiltersDao: ContentFiltersDao,
     private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
@@ -362,6 +370,24 @@ class AccountManager @Inject constructor(
                     }
                 }
 
+                val deferContentFilters = server?.let {
+                    externalScope.async {
+                        getContentFilters(server)
+                    }
+                }
+
+                deferContentFilters?.await()?.let { result ->
+                    result.onSuccess { contentFilters ->
+                        contentFiltersDao.upsert(
+                            ContentFiltersEntity(
+                                accountId = finalAccount.id,
+                                version = contentFilters.version,
+                                contentFilters = contentFilters.contentFilters,
+                            ),
+                        )
+                    }
+                }
+
                 deferEmojis.await().also { result ->
                     result.onSuccess {
                         instanceDao.upsert(EmojisEntity(accountId = finalAccount.id, emojiList = it.body))
@@ -426,6 +452,28 @@ class AccountManager @Inject constructor(
         return mastodonApi.getInstanceV1().mapOr(InstanceInfoEntity.defaultForDomain(domain)) { result ->
             InstanceInfoEntity.make(domain, result.body)
         }
+    }
+
+    /** Get the current set of content filters. */
+    // Copied from ContentFiltersRepository
+    private suspend fun getContentFilters(server: Server): Result<ContentFilters, ContentFiltersError> = binding {
+        when {
+            server.canFilterV2() -> mastodonApi.getContentFilters().map {
+                ContentFilters(
+                    contentFilters = it.body.map { ContentFilter.from(it) },
+                    version = ContentFilterVersion.V2,
+                )
+            }
+
+            server.canFilterV1() -> mastodonApi.getContentFiltersV1().map {
+                ContentFilters(
+                    contentFilters = it.body.map { ContentFilter.from(it) },
+                    version = ContentFilterVersion.V1,
+                )
+            }
+
+            else -> Err(ServerDoesNotFilter)
+        }.mapError { GetContentFiltersError(it) }.bind()
     }
 
     /**

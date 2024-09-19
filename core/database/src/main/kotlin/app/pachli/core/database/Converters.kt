@@ -20,6 +20,7 @@ import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.DraftAttachment
+import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Attachment
@@ -253,4 +254,11 @@ class Converters @Inject constructor(
     fun jsonToCapabiltiesMap(capabilitiesJson: String?): Map<ServerOperation, Version>? {
         return capabilitiesJson?.let { moshi.adapter<Map<ServerOperation, Version>>().fromJson(it) }
     }
+
+    @TypeConverter
+    fun contentFiltersToJson(contentFilters: List<ContentFilter>) =
+        moshi.adapter<List<ContentFilter>>().toJson(contentFilters)
+
+    @TypeConverter
+    fun jsonToContentFilters(s: String?) = s?.let { moshi.adapter<List<ContentFilter>>().fromJson(it) }
 }

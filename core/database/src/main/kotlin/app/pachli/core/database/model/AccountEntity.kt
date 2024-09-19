@@ -56,6 +56,11 @@ data class PachliAccount(
         entityColumn = "accountId",
     )
     val serverCapabilities: ServerCapabilitiesEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "accountId",
+    )
+    val contentFilters: ContentFiltersEntity,
 )
 
 @Entity(

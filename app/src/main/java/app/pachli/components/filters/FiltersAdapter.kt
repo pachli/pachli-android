@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.data.model.ContentFilter
-import app.pachli.core.data.model.ContentFilterValidationError
+import app.pachli.core.model.ContentFilter
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemRemovableBinding
 import app.pachli.util.getRelativeTimeSpanString
@@ -67,6 +66,18 @@ class FiltersAdapter(val listener: ContentFiltersListener, val contentFilters: L
     }
 }
 
+/** Reasons why a filter might be invalid */
+enum class ContentFilterValidationError {
+    /** Filter title is empty or blank */
+    NO_TITLE,
+
+    /** Filter has no keywords */
+    NO_KEYWORDS,
+
+    /** Filter has no contexts */
+    NO_CONTEXT,
+}
+
 /**
  * @return String resource containing an error message for this
  *   validation error.
@@ -76,4 +87,14 @@ fun ContentFilterValidationError.stringResource() = when (this) {
     ContentFilterValidationError.NO_TITLE -> R.string.error_filter_missing_title
     ContentFilterValidationError.NO_KEYWORDS -> R.string.error_filter_missing_keyword
     ContentFilterValidationError.NO_CONTEXT -> R.string.error_filter_missing_context
+}
+
+/**
+ * @return Set of [ContentFilterValidationError] given the current state of the
+ * filter. Empty if there are no validation errors.
+ */
+fun ContentFilter.validate() = buildSet {
+    if (title.isBlank()) add(ContentFilterValidationError.NO_TITLE)
+    if (keywords.isEmpty()) add(ContentFilterValidationError.NO_KEYWORDS)
+    if (contexts.isEmpty()) add(ContentFilterValidationError.NO_CONTEXT)
 }

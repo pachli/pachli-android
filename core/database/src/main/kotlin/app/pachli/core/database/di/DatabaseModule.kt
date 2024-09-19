@@ -71,6 +71,9 @@ object DatabaseModule {
 
     @Provides
     fun providesLogEntryDao(appDatabase: AppDatabase) = appDatabase.logEntryDao()
+
+    @Provides
+    fun providesContentFiltersDao(appDatabase: AppDatabase) = appDatabase.contentFiltersDao()
 }
 
 /**

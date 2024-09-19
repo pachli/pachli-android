@@ -18,8 +18,8 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
-import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.data.repository.ContentFilterEdit
+import app.pachli.core.model.ContentFilter
 import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext

@@ -17,8 +17,8 @@
 
 package app.pachli.components.filters
 
-import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.data.repository.ContentFilterEdit
+import app.pachli.core.model.ContentFilter
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword

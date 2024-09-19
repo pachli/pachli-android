@@ -28,6 +28,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
 import androidx.sqlite.db.SupportSQLiteDatabase
 import app.pachli.core.database.dao.AccountDao
+import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.database.dao.InstanceDao
@@ -36,6 +37,7 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
@@ -48,6 +50,7 @@ import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
+import app.pachli.core.model.ContentFilterVersion
 
 @Suppress("ClassName")
 @Database(
@@ -65,6 +68,7 @@ import app.pachli.core.database.model.TranslatedStatusEntity
         LogEntryEntity::class,
         MastodonListEntity::class,
         ServerCapabilitiesEntity::class,
+        ContentFiltersEntity::class,
     ],
     version = 6,
     autoMigrations = [
@@ -84,6 +88,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun remoteKeyDao(): RemoteKeyDao
     abstract fun translatedStatusDao(): TranslatedStatusDao
     abstract fun logEntryDao(): LogEntryDao
+    abstract fun contentFiltersDao(): ContentFiltersDao
 
     @DeleteColumn("TimelineStatusEntity", "expanded")
     @DeleteColumn("TimelineStatusEntity", "contentCollapsed")
@@ -119,6 +124,13 @@ abstract class AppDatabase : RoomDatabase() {
                         put("capabilities", "{}")
                     }
                     db.insert("ServerCapabilitiesEntity", CONFLICT_IGNORE, serverCapabilitiesEntityValues)
+
+                    val contentFiltersEntityValues = ContentValues().apply {
+                        put("accountId", accountId)
+                        put("version", ContentFilterVersion.V1.name)
+                        put("contentFilters", "[]")
+                    }
+                    db.insert("ContentFiltersEntity", CONFLICT_IGNORE, contentFiltersEntityValues)
                 }
             }
             db.setTransactionSuccessful()

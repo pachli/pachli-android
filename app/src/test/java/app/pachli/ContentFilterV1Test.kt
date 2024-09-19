@@ -19,7 +19,7 @@ package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.filters.EditContentFilterViewModel.Companion.getSecondsForDurationIndex
-import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.model.ContentFilter
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
