@@ -49,6 +49,16 @@ interface AccountDao {
     @Query(
         """
         SELECT *
+          FROM AccountEntity
+         WHERE id = :accountId
+        """,
+    )
+    fun getPachliAccountFlow(accountId: Long): Flow<PachliAccount?>
+
+    @Transaction
+    @Query(
+        """
+        SELECT *
          FROM AccountEntity
         WHERE isActive = 1
         """,

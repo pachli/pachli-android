@@ -78,10 +78,8 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.repository.Lists
-import app.pachli.core.data.repository.ListsRepository
-import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.MastodonList
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
@@ -126,11 +124,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.FixedSizeDrawable
 import com.bumptech.glide.request.transition.Transition
-import com.github.michaelbull.result.get
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
@@ -160,6 +154,8 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.addItems
 import com.mikepenz.materialdrawer.util.addItemsAtPosition
+import com.mikepenz.materialdrawer.util.getPosition
+import com.mikepenz.materialdrawer.util.removeItems
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import dagger.hilt.android.AndroidEntryPoint
@@ -169,6 +165,7 @@ import javax.inject.Inject
 import kotlin.math.max
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -193,8 +190,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var updateCheck: UpdateCheck
-
-    @Inject lateinit var listsRepository: ListsRepository
 
     @Inject
     lateinit var developerToolsUseCase: DeveloperToolsUseCase
@@ -369,20 +364,21 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // setting up the drawer, though, because its callback touches the header in
         // the drawer.
         lifecycleScope.launch {
-            viewModel.activeAccountFlow.collect { loadable ->
+            viewModel.pachliAccountFlow.filterNotNull().collect { account ->
                 // TODO: This should handle the error case. Previous code just logged an
                 // error. Possible, activeAccountFlow should be a Result<AccountEntity, ...>?
-                Timber.d("activeAccountFlow changed: %s", loadable)
-                if (loadable !is Loadable.Loaded) return@collect
-
+                Timber.d("PachliAccount activeAccountFlow changed: %s", account)
+                // if (loadable !is Loadable.Loaded) return@collect
                 // TODO: Do something if there are no active accounts? Probably already
                 // handled as part of the final logout process. Maybe that should move
                 // here?
-                val account = loadable.data ?: return@collect
+                // val account = loadable.data ?: return@collect
 
-                loadDrawerAvatar(account.profilePictureUrl, false)
-                header.headerBackground = ImageHolder(account.profileHeaderPictureUrl)
-                setupTabs(account, showNotificationTab)
+                // TODO: Maybe do this asynchronously?
+                loadDrawerAvatar(account.entity.profilePictureUrl, false)
+                header.headerBackground = ImageHolder(account.entity.profileHeaderPictureUrl)
+                setupTabs(account.entity, showNotificationTab)
+                refreshMainDrawerLists(account.lists)
             }
         }
 
@@ -411,26 +407,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         unreadAnnouncementsCount--
                         updateAnnouncementsBadge()
                     }
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            listsRepository.lists.collect { result ->
-                result.onSuccess { lists ->
-                    // Update the list of lists in the main drawer
-                    refreshMainDrawerItems(addSearchButton = hideTopToolbar)
-
-                    // Any lists in tabs might have changed titles, update those
-                    if (lists is Lists.Loaded && tabAdapter.tabs.any { it.timeline is Timeline.UserList }) {
-                        setupTabs(viewModel.activeAccount!!, false)
-                    }
-                }
-
-                result.onFailure {
-                    Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(app.pachli.core.ui.R.string.action_retry) { listsRepository.refresh() }
-                        .show()
                 }
             }
         }
@@ -660,28 +636,34 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         })
     }
 
-    private fun refreshMainDrawerItems(addSearchButton: Boolean) {
-        val (listsDrawerItems, listsSectionTitle) = listsRepository.lists.value.get()?.let { result ->
-            when (result) {
-                Lists.Loading -> Pair(emptyList(), R.string.title_lists_loading)
-                is Lists.Loaded -> Pair(
-                    result.lists.sortedWith(compareByListTitle)
-                        .map { list ->
-                            primaryDrawerItem {
-                                nameText = list.title
-                                iconicsIcon = GoogleMaterial.Icon.gmd_list
-                                onClick = {
-                                    startActivityWithDefaultTransition(
-                                        TimelineActivityIntent.list(this@MainActivity, list.id, list.title),
-                                    )
-                                }
-                            }
-                        },
-                    app.pachli.feature.lists.R.string.title_lists,
-                )
-            }
-        } ?: Pair(emptyList(), R.string.title_lists_failed)
+    val listDrawerItems = mutableListOf<PrimaryDrawerItem>()
 
+    /**
+     * Refreshes the "Lists" section in the main drawer with [lists].
+     */
+    // TODO: This should receive the account, so the ID can be passed to TimelineActivityIntent
+    private fun refreshMainDrawerLists(lists: List<MastodonList>) {
+        binding.mainDrawer.removeItems(*listDrawerItems.toTypedArray())
+
+        listDrawerItems.clear()
+        lists.forEach { list ->
+            listDrawerItems.add(
+                primaryDrawerItem {
+                    nameText = list.title
+                    iconicsIcon = GoogleMaterial.Icon.gmd_list
+                    onClick = {
+                        startActivityWithDefaultTransition(
+                            TimelineActivityIntent.list(this@MainActivity, list.id, list.title),
+                        )
+                    }
+                },
+            )
+        }
+        val headerPosition = binding.mainDrawer.getPosition(DRAWER_ITEM_LISTS)
+        binding.mainDrawer.addItemsAtPosition(headerPosition + 1, *listDrawerItems.toTypedArray())
+    }
+
+    private fun refreshMainDrawerItems(addSearchButton: Boolean) {
         binding.mainDrawer.apply {
             itemAdapter.clear()
             tintStatusBar = true
@@ -769,9 +751,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     }
                 },
                 SectionDrawerItem().apply {
-                    nameRes = listsSectionTitle
+                    identifier = DRAWER_ITEM_LISTS
+                    nameRes = app.pachli.feature.lists.R.string.title_lists
                 },
-                *listsDrawerItems.toTypedArray(),
                 primaryDrawerItem {
                     nameRes = R.string.manage_lists
                     iconicsIcon = GoogleMaterial.Icon.gmd_settings
@@ -1099,7 +1081,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     @SuppressLint("CheckResult")
-    private fun loadDrawerAvatar(avatarUrl: String, showPlaceholder: Boolean) {
+    private suspend fun loadDrawerAvatar(avatarUrl: String, showPlaceholder: Boolean) {
         val hideTopToolbar = sharedPreferencesRepository.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
         val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
 
@@ -1240,6 +1222,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     companion object {
         private const val DRAWER_ITEM_ADD_ACCOUNT: Long = -13
         private const val DRAWER_ITEM_ANNOUNCEMENTS: Long = 14
+
+        /** Drawer identifier for the "Lists" section header. */
+        private const val DRAWER_ITEM_LISTS: Long = 15
     }
 }
 

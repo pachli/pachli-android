@@ -66,11 +66,15 @@ import io.github.z4kn4fein.semver.Version
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.time.TimeSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
@@ -81,8 +85,13 @@ sealed interface Loadable<T> {
     data class Loaded<T>(val data: T) : Loadable<T>
 }
 
+// TODO: Still not sure if it's better to have one class that contains everything,
+// or provide dedicated functions that return specific flows for the different
+// things, parameterised by the account ID.
 data class PachliAccount(
     val id: Long,
+    // TODO: Should be a core.data type
+    val entity: AccountEntity,
     val instanceInfo: InstanceInfo,
     val lists: List<MastodonList>,
     val emojis: List<Emoji>,
@@ -95,6 +104,7 @@ data class PachliAccount(
         ): PachliAccount {
             return PachliAccount(
                 id = account.account.id,
+                entity = account.account,
                 instanceInfo = InstanceInfo.from(account.instanceInfo),
                 lists = account.lists.map { MastodonList.from(it) },
                 emojis = account.emojis?.emojiList.orEmpty(),
@@ -165,16 +175,31 @@ class AccountManager @Inject constructor(
         get() = accountsOrderedByActiveFlow.value
 
     val activePachliAccountFlow = accountDao.getActivePachliAccountFlow()
-        .distinctUntilChanged()
+        .filterNotNull()
+//        .distinctUntilChanged()
 //        .onEach { Timber.d("AM PachliAccount: %s", it) }
-        .map { it?.let { PachliAccount.make(it) } }
-        .map { Loadable.Loaded(it) }
-        .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
+        .map { PachliAccount.make(it) }
+    // .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
 
     suspend fun getPachliAccount(accountId: Long): PachliAccount? {
-        return accountDao.getPachliAccount(accountId)?.let {
+        val id = accountId.takeIf { it != -1L } ?: accountDao.getActiveAccount()?.id
+        id ?: return null
+
+        return accountDao.getPachliAccount(id)?.let {
             PachliAccount.make(it)
         }
+    }
+
+    suspend fun getPachliAccountFlow(accountId: Long): Flow<PachliAccount?> {
+        val id = accountId.takeIf { it != -1L } ?: accountDao.getActiveAccount()?.id
+        Timber.d("PachliAccount id: %d", id)
+        id ?: return flowOf(null)
+
+        return accountDao.getPachliAccountFlow(id)
+//        .distinctUntilChanged()
+//            .onEach { Timber.d("AM PachliAccount: %s", it) }
+            .map { it?.let { PachliAccount.make(it) } }
+            .stateIn(externalScope, SharingStarted.Eagerly, null)
     }
 
     /**
@@ -270,6 +295,8 @@ class AccountManager @Inject constructor(
 
         try {
             transactionProvider {
+                val now = TimeSource.Monotonic.markNow()
+
                 Timber.d("setActiveAcccount(%d)", accountId)
                 val newActiveAccount = if (accountId == -1L) {
                     accountDao.getActiveAccount()
@@ -398,6 +425,8 @@ class AccountManager @Inject constructor(
                     accountDao.deleteMastodonListsForAccount(finalAccount.id)
                     lists.forEach { accountDao.upsertMastodonList(it) }
                 }
+
+                Timber.d("Switched accounts took %d ms", now.elapsedNow().inWholeMilliseconds)
             }
 
             return Ok(Unit)
@@ -613,4 +642,11 @@ class AccountManager @Inject constructor(
         Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", accountId, value)
         accountDao.setLastVisibleHomeTimelineStatusId(accountId, value)
     }
+
+//    suspend fun createList(
+//        accountId: Long, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) {
+//        listsRepository.createList(title, exclusive, repliesPolicy).onSuccess {
+//
+//        }
+//    }
 }

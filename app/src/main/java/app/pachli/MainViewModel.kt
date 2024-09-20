@@ -33,8 +33,11 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -63,6 +66,11 @@ internal class MainViewModel @AssistedInject constructor(
         }
     private val accountsFlow = accountManager.accountsFlow
     val accountsOrderedByActiveFlow = accountManager.accountsOrderedByActiveFlow
+
+    val pachliAccountFlow = flow {
+        accountManager.getPachliAccountFlow(activeAccountId).collect { emit(it) }
+    }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     val displaySelfUsername: Boolean
         get() {
@@ -95,6 +103,12 @@ internal class MainViewModel @AssistedInject constructor(
                 }
         }
         viewModelScope.launch {
+            // TODO: Emit the error(s), possibly wrapped. Need to explain to the user
+            // what happened.
+            //
+            // Possibly allow the switch if some info is missing (filters, lists), but
+            // explain to the user what that will mean. Need's a "refreshAccountInfo"
+            // operation.
             accountManager.setActiveAccount(activeAccountId)
         }
     }
