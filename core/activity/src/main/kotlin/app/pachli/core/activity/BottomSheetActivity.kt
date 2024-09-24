@@ -113,7 +113,9 @@ abstract class BottomSheetActivity : BaseActivity() {
     }
 
     open fun viewAccount(id: String) {
-        val intent = AccountActivityIntent(this, id)
+        // TODO: -1L in the next line is just to get this to compile while working on
+        // this code. In the final code this activity should have the active account.
+        val intent = AccountActivityIntent(this, -1L, id)
         startActivityWithDefaultTransition(intent)
     }
 

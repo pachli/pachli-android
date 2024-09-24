@@ -1043,7 +1043,7 @@ class AccountActivity :
                 return true
             }
             R.id.action_add_or_remove_from_list -> {
-                ListsForAccountFragment.newInstance(viewModel.accountId).show(supportFragmentManager, null)
+                ListsForAccountFragment.newInstance(-1L, viewModel.accountId).show(supportFragmentManager, null)
                 return true
             }
             R.id.action_mute_domain -> {

@@ -65,6 +65,16 @@ interface AccountDao {
     )
     fun getActivePachliAccountFlow(): Flow<PachliAccount?>
 
+    // --- List stuff
+
+    @Query(
+        """
+            SELECT *
+              FROM MastodonListEntity
+        """,
+    )
+    fun getMastodonLists(): Flow<List<MastodonListEntity>>
+
     @Query(
         """
         DELETE
@@ -74,8 +84,37 @@ interface AccountDao {
     )
     suspend fun deleteMastodonListsForAccount(accountId: Long)
 
+    @Query(
+        """
+            SELECT *
+              FROM MastodonListEntity
+             WHERE accountId = :accountId
+        """,
+    )
+    fun getMastodonListsForAccountFlow(accountId: Long): Flow<List<MastodonListEntity>>
+
+    @Query(
+        """
+            SELECT *
+              FROM MastodonListEntity
+             WHERE accountId = :accountId
+        """,
+    )
+    suspend fun getMastodonListsForAccount(accountId: Long): List<MastodonListEntity>
+
     @Upsert
-    fun upsertMastodonList(list: MastodonListEntity)
+    suspend fun upsertMastodonList(list: MastodonListEntity)
+
+    @Query(
+        """
+            DELETE
+              FROM MastodonListEntity
+             WHERE accountId = :accountId AND listId = :listId
+        """,
+    )
+    suspend fun deleteMastodonListForAccount(accountId: Long, listId: String)
+
+    // ---
 
     @Update
     suspend fun update(account: AccountEntity)

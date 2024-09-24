@@ -20,14 +20,16 @@ package app.pachli.feature.lists
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.HasListId
-import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
+import app.pachli.core.data.repository.MastodonList
+import app.pachli.core.domain.ListsUseCase
 import app.pachli.core.network.model.MastoList
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -54,14 +56,16 @@ sealed interface ListsWithMembership {
  * @property isMember True if this list contains [ListsForAccountViewModel.accountId]
  */
 data class ListWithMembership(
-    val list: MastoList,
+    val list: MastodonList,
     val isMember: Boolean,
 )
 
 @HiltViewModel(assistedFactory = ListsForAccountViewModel.Factory::class)
 class ListsForAccountViewModel @AssistedInject constructor(
     private val listsRepository: ListsRepository,
+    private val listsUseCase: ListsUseCase,
     @Assisted val accountId: String,
+    @Assisted val activeAccountId: Long,
 ) : ViewModel() {
     private val _listsWithMembership = MutableStateFlow<Result<ListsWithMembership, FlowError>>(Ok(ListsWithMembership.Loading))
     val listsWithMembership = _listsWithMembership.asStateFlow()
@@ -81,26 +85,30 @@ class ListsForAccountViewModel @AssistedInject constructor(
      */
     fun refresh() = viewModelScope.launch {
         _listsWithMembership.value = Ok(ListsWithMembership.Loading)
-        listsRepository.lists.collect { result ->
-            val lists = result.getOrElse {
-                _listsWithMembership.value = Err(Error.Retrieve(it))
-                return@collect
-            }
-
-            if (lists !is Lists.Loaded) return@collect
-
+        listsUseCase.getLists(activeAccountId).collect { lists ->
             _listsWithMembership.value = with(listsWithMembershipMap) {
                 val memberLists = listsRepository.getListsWithAccount(accountId)
+                    .map {
+                        it.map {
+                            MastodonList(
+                                activeAccountId,
+                                it.id,
+                                it.title,
+                                it.repliesPolicy,
+                                it.exclusive ?: false,
+                            )
+                        }
+                    }
                     .getOrElse { return@with Err(Error.GetListsWithAccount(it)) }
 
                 clear()
 
                 memberLists.forEach { list ->
-                    put(list.id, ListWithMembership(list, true))
+                    put(list.listId, ListWithMembership(list, true))
                 }
 
-                lists.lists.forEach { list ->
-                    putIfAbsent(list.id, ListWithMembership(list, false))
+                lists.forEach { list ->
+                    putIfAbsent(list.listId, ListWithMembership(list, false))
                 }
 
                 Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
@@ -156,7 +164,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
     /** Create [ListsForAccountViewModel] injecting [accountId] */
     @AssistedFactory
     interface Factory {
-        fun create(accountId: String): ListsForAccountViewModel
+        fun create(activeAccountId: Long, accountId: String): ListsForAccountViewModel
     }
 
     /**

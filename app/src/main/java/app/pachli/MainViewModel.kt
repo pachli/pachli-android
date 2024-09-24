@@ -20,7 +20,6 @@ package app.pachli
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.PachliAccount
@@ -125,7 +124,6 @@ internal class MainViewModel @AssistedInject constructor(
         val active = activeAccount ?: return
         val tabPreferences = active.tabPreferences.filterNot { it == timeline }
         accountManager.setTabPreferences(active.id, tabPreferences)
-        eventHub.dispatch(MainTabsChangedEvent(tabPreferences))
     }
 
     @AssistedFactory

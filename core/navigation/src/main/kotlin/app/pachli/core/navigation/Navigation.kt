@@ -45,11 +45,15 @@ import kotlinx.parcelize.Parcelize
  * @param accountId Server ID of the account to view
  * @see [app.pachli.components.account.AccountActivity]
  */
-class AccountActivityIntent(context: Context, accountId: String) : Intent() {
+class AccountActivityIntent(context: Context, activeAccountId: Long, accountId: String) : Intent() {
     init {
         setClassName(context, QuadrantConstants.ACCOUNT_ACTIVITY)
+        pachliAccountId = activeAccountId
         putExtra(EXTRA_KEY_ACCOUNT_ID, accountId)
     }
+
+    // TODO: Hack to get things to compile, callers should be mod
+    constructor(context: Context, accountId: String) : this(context, -1L, accountId)
 
     companion object {
         private const val EXTRA_KEY_ACCOUNT_ID = "id"
@@ -265,13 +269,21 @@ class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEF
     }
 }
 
+private const val EXTRA_PACHLI_ACCOUNT_ID = "pachliAccountId"
+
+var Intent.pachliAccountId: Long
+    get() = getLongExtra(EXTRA_PACHLI_ACCOUNT_ID, -1L)
+    set(value) {
+        putExtra(EXTRA_PACHLI_ACCOUNT_ID, value)
+        return
+    }
+
 class MainActivityIntent private constructor(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.MAIN_ACTIVITY)
     }
 
     companion object {
-        private const val EXTRA_PACHLI_ACCOUNT_ID = "pachliAccountId"
         private const val EXTRA_NOTIFICATION_TYPE = "notificationType"
         private const val EXTRA_COMPOSE_OPTIONS = "composeOptions"
         private const val EXTRA_NOTIFICATION_TAG = "notificationTag"
@@ -625,9 +637,16 @@ class InstanceListActivityIntent(context: Context) : Intent() {
     }
 }
 
-class ListActivityIntent(context: Context) : Intent() {
+class ListActivityIntent private constructor(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.LISTS_ACTIVITY)
+    }
+
+    companion object {
+        fun withAccount(context: Context, accountId: Long) = ListActivityIntent(context).apply {
+            // TODO: Should crash in debug builds if accountId is -1
+            pachliAccountId = accountId
+        }
     }
 }
 

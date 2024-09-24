@@ -57,7 +57,10 @@ class ListsForAccountFragment : DialogFragment() {
     private val viewModel: ListsForAccountViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<ListsForAccountViewModel.Factory> { factory ->
-                factory.create(requireArguments().getString(ARG_ACCOUNT_ID)!!)
+                factory.create(
+                    requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID),
+                    requireArguments().getString(ARG_ACCOUNT_ID)!!,
+                )
             }
         },
     )
@@ -168,7 +171,7 @@ class ListsForAccountFragment : DialogFragment() {
             oldItem: ListWithMembership,
             newItem: ListWithMembership,
         ): Boolean {
-            return oldItem.list.id == newItem.list.id
+            return oldItem.list.listId == newItem.list.listId
         }
 
         override fun areContentsTheSame(
@@ -196,24 +199,27 @@ class ListsForAccountFragment : DialogFragment() {
             holder.binding.addButton.apply {
                 visible(!item.isMember)
                 setOnClickListener {
-                    viewModel.addAccountToList(item.list.id)
+                    viewModel.addAccountToList(item.list.listId)
                 }
             }
             holder.binding.removeButton.apply {
                 visible(item.isMember)
                 setOnClickListener {
-                    viewModel.deleteAccountFromList(item.list.id)
+                    viewModel.deleteAccountFromList(item.list.listId)
                 }
             }
         }
     }
 
     companion object {
+        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
+
         /** The ID of the account to add/remove the lists */
         private const val ARG_ACCOUNT_ID = "accountId"
 
-        fun newInstance(accountId: String): ListsForAccountFragment {
+        fun newInstance(activeAccountId: Long, accountId: String): ListsForAccountFragment {
             val args = Bundle().apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, activeAccountId)
                 putString(ARG_ACCOUNT_ID, accountId)
             }
             return ListsForAccountFragment().apply { arguments = args }

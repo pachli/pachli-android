@@ -28,7 +28,6 @@ import androidx.lifecycle.lifecycleScope
 import app.pachli.R
 import app.pachli.TabViewData
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.common.extensions.viewBinding
@@ -134,7 +133,6 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
             accountManager.activeAccount?.let {
                 lifecycleScope.launch(Dispatchers.IO) {
                     accountManager.setTabPreferences(it.id, it.tabPreferences + timeline)
-                    eventHub.dispatch(MainTabsChangedEvent(it.tabPreferences))
                 }
             }
             Toast.makeText(this, getString(R.string.action_add_to_tab_success, tabViewData.title(this)), Toast.LENGTH_LONG).show()

@@ -24,7 +24,6 @@ import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 import java.text.Collator
-import kotlinx.coroutines.flow.StateFlow
 
 sealed interface Lists {
     data object Loading : Lists
@@ -60,10 +59,8 @@ interface ListsError : PachliError {
 }
 
 interface ListsRepository {
-    val lists: StateFlow<Result<Lists, ListsError.Retrieve>>
-
     /** Make an API call to refresh [lists] */
-    fun refresh()
+    suspend fun getLists(): Result<List<MastoList>, ListsError.Retrieve>
 
     /**
      * Create a new list
@@ -87,10 +84,10 @@ interface ListsRepository {
     /**
      * Delete an existing list
      *
-     * @param listId ID of the list to delete
+     * @param list The list to delete
      * @return A successful result, or an error
      */
-    suspend fun deleteList(listId: String): Result<Unit, ListsError.Delete>
+    suspend fun deleteList(list: MastodonList): Result<Unit, ListsError.Delete>
 
     /**
      * Fetch the lists with [accountId] as a member
@@ -131,7 +128,7 @@ interface ListsRepository {
          * Locale-aware comparator for lists. Case-insenstive comparison by
          * the list's title.
          */
-        val compareByListTitle: Comparator<MastoList> = compareBy(
+        val compareByListTitle: Comparator<MastodonList> = compareBy(
             Collator.getInstance().apply { strength = Collator.SECONDARY },
         ) { it.title }
     }

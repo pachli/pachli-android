@@ -26,7 +26,6 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
@@ -185,7 +184,6 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         accountManager.activeAccount?.let {
             lifecycleScope.launch(Dispatchers.IO) {
                 accountManager.setTabPreferences(it.id, it.tabPreferences + timeline)
-                eventHub.dispatch(MainTabsChangedEvent(it.tabPreferences))
             }
         }
     }

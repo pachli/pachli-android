@@ -44,6 +44,7 @@ import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.model.nodeinfo.NodeInfo
@@ -119,20 +120,32 @@ data class PachliAccount(
 }
 
 data class MastodonList(
-    val id: String,
+    val accountId: Long,
+    val listId: String,
     val title: String,
     val repliesPolicy: UserListRepliesPolicy,
     val exclusive: Boolean,
 ) {
+    fun entity() = MastodonListEntity(
+        accountId = accountId,
+        listId = listId,
+        title = title,
+        repliesPolicy = repliesPolicy,
+        exclusive = exclusive,
+    )
     companion object {
         fun from(entity: MastodonListEntity) = MastodonList(
-            id = entity.listId,
+            accountId = entity.accountId,
+            listId = entity.listId,
             title = entity.title,
             repliesPolicy = entity.repliesPolicy,
             exclusive = entity.exclusive,
         )
     }
 }
+
+// Note to self: This is doing dual duty as a repository and as a collection of
+// use cases, and should be refactored along those lines.
 
 @Singleton
 class AccountManager @Inject constructor(
@@ -424,6 +437,9 @@ class AccountManager @Inject constructor(
                 deferLists.await().also { lists ->
                     accountDao.deleteMastodonListsForAccount(finalAccount.id)
                     lists.forEach { accountDao.upsertMastodonList(it) }
+                    newTabPreferences(finalAccount.id, lists)?.let {
+                        setTabPreferences(finalAccount.id, it)
+                    }
                 }
 
                 Timber.d("Switched accounts took %d ms", now.elapsedNow().inWholeMilliseconds)
@@ -433,6 +449,54 @@ class AccountManager @Inject constructor(
         } catch (e: ApiErrorException) {
             return Err(e.apiError)
         }
+    }
+
+    /**
+     * Determines the user's tab preferences when lists are loaded.
+     *
+     * The user may have added one or more lists to tabs. If they have then:
+     *
+     * - A list-in-a-tab might have been deleted
+     * - A list-in-a-tab might have been renamed
+     *
+     * Handle both of those scenarios.
+     *
+     * @param account The account to check
+     * @param lists The account's latest lists
+     * @return A list of new tab preferences for [account], or null if there are no changes.
+     */
+    private suspend fun newTabPreferences(accountId: Long, lists: List<MastodonListEntity>): List<Timeline>? {
+        val map = lists.associateBy { it.listId }
+        val account = accountDao.getAccountById(accountId) ?: return null
+        val oldTabPreferences = account.tabPreferences
+        var changed = false
+        val newTabPreferences = buildList {
+            for (oldPref in oldTabPreferences) {
+                if (oldPref !is Timeline.UserList) {
+                    add(oldPref)
+                    continue
+                }
+
+                // List has been deleted? Don't add this pref,
+                // record there's been a change, and move on to the
+                // next one.
+                if (oldPref.listId !in map) {
+                    changed = true
+                    continue
+                }
+
+                // Title changed? Update the title in the pref and
+                // add it.
+                if (oldPref.title != map[oldPref.listId]?.title) {
+                    changed = true
+                    add(oldPref.copy(title = map[oldPref.listId]?.title!!))
+                    continue
+                }
+
+                add(oldPref)
+            }
+        }
+        return if (changed) newTabPreferences else null
     }
 
     private suspend fun fetchNodeInfo(): Result<NodeInfo, Error> = binding {
@@ -643,10 +707,50 @@ class AccountManager @Inject constructor(
         accountDao.setLastVisibleHomeTimelineStatusId(accountId, value)
     }
 
-//    suspend fun createList(
-//        accountId: Long, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) {
-//        listsRepository.createList(title, exclusive, repliesPolicy).onSuccess {
-//
-//        }
-//    }
+    // -- Lists
+
+    fun getLists(accountId: Long) = accountDao.getMastodonListsForAccountFlow(accountId).map {
+        it.map { MastodonList.from(it) }
+    }
+
+    suspend fun refreshLists(accountId: Long, lists: List<MastoList>) {
+        transactionProvider {
+            accountDao.deleteMastodonListsForAccount(accountId)
+            val entities = lists.map {
+                MastodonListEntity(
+                    accountId,
+                    it.id,
+                    it.title,
+                    it.repliesPolicy,
+                    it.exclusive ?: false,
+                )
+            }
+            entities.forEach { accountDao.upsertMastodonList(it) }
+            newTabPreferences(accountId, entities)?.let {
+                setTabPreferences(accountId, it)
+            }
+        }
+    }
+
+    suspend fun createList(list: MastodonList) = accountDao.upsertMastodonList(list.entity())
+
+    suspend fun deleteList(list: MastodonList) {
+        transactionProvider {
+            accountDao.deleteMastodonListForAccount(list.accountId, list.listId)
+            val lists = accountDao.getMastodonListsForAccount(list.accountId)
+            newTabPreferences(list.accountId, lists)?.let {
+                setTabPreferences(list.accountId, it)
+            }
+        }
+    }
+
+    suspend fun editList(list: MastodonList) {
+        transactionProvider {
+            accountDao.upsertMastodonList(list.entity())
+            val lists = accountDao.getMastodonListsForAccount(list.accountId)
+            newTabPreferences(list.accountId, lists)?.let {
+                setTabPreferences(list.accountId, it)
+            }
+        }
+    }
 }

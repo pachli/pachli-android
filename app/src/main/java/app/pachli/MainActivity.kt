@@ -60,7 +60,6 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.appstore.AnnouncementReadEvent
 import app.pachli.appstore.CacheUpdater
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
 import app.pachli.components.notifications.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.EnableAllNotificationsUseCase
@@ -104,6 +103,7 @@ import app.pachli.core.navigation.SuggestionsActivityIntent
 import app.pachli.core.navigation.TabPreferenceActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.TrendingActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
@@ -336,11 +336,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         binding.viewPager.reduceSwipeSensitivity()
 
-        setupDrawer(
-            savedInstanceState,
-            addSearchButton = hideTopToolbar,
-        )
-
         // Initialise the tab adapter and set to viewpager. Fragments appear to be leaked if the
         // adapter changes over the life of the viewPager (the adapter, not its contents), so set
         // the initial list of tabs to empty, and set the full list later in setupTabs(). See
@@ -348,6 +343,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         tabAdapter = MainPagerAdapter(emptyList(), this)
         binding.viewPager.adapter = tabAdapter
 
+        // Done once, when the active account is loaded
         lifecycleScope.launch {
             val account = viewModel.activeAccountFlow
                 .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
@@ -358,11 +354,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             // TODO: Continue to call this, as it sets properties in NotificationConfig
             androidNotificationsAreEnabledUseCase(this@MainActivity)
             enableAllNotificationsUseCase(this@MainActivity)
+
+            setupDrawer(
+                account.id,
+                savedInstanceState,
+                addSearchButton = hideTopToolbar,
+            )
         }
 
         // Fetch user info while we're doing other things. This has to be done after
         // setting up the drawer, though, because its callback touches the header in
         // the drawer.
+        // Repeats whenever details about the active account changes.
         lifecycleScope.launch {
             viewModel.pachliAccountFlow.filterNotNull().collect { account ->
                 // TODO: This should handle the error case. Previous code just logged an
@@ -394,15 +397,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         lifecycleScope.launch {
             eventHub.events.collect { event ->
                 when (event) {
-                    is MainTabsChangedEvent -> {
-                        refreshMainDrawerItems(
-                            addSearchButton = hideTopToolbar,
-                        )
-
-                        Timber.d("MainTabsChangedEvent: %d, %s", viewModel.activeAccount?.id, viewModel.activeAccount?.tabPreferences)
-                        setupTabs(viewModel.activeAccount!!, false)
-                    }
-
                     is AnnouncementReadEvent -> {
                         unreadAnnouncementsCount--
                         updateAnnouncementsBadge()
@@ -434,7 +428,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // - from our code as Long Intent Extra PACHLI_ACCOUNT_ID
         // - from share shortcuts as String 'android.intent.extra.shortcut.ID'
         // Extract the accountId from PACHLI_ACCOUNT_ID, falling back to the share shortcut.
-        var pachliAccountId = MainActivityIntent.getPachliAccountId(intent)
+        var pachliAccountId = intent.pachliAccountId
         if (pachliAccountId == -1L) {
             val accountIdString = intent.getStringExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID)
             if (accountIdString != null) {
@@ -568,6 +562,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun setupDrawer(
+        activeAccountId: Long,
         savedInstanceState: Bundle?,
         addSearchButton: Boolean,
     ) {
@@ -617,7 +612,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         DrawerImageLoader.init(MainDrawerImageLoader(glide, animateAvatars))
 
         binding.mainDrawer.apply {
-            refreshMainDrawerItems(addSearchButton)
+            refreshMainDrawerItems(activeAccountId, addSearchButton)
             setSavedInstance(savedInstanceState)
         }
 
@@ -653,7 +648,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     iconicsIcon = GoogleMaterial.Icon.gmd_list
                     onClick = {
                         startActivityWithDefaultTransition(
-                            TimelineActivityIntent.list(this@MainActivity, list.id, list.title),
+                            TimelineActivityIntent.list(this@MainActivity, list.listId, list.title),
                         )
                     }
                 },
@@ -663,7 +658,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         binding.mainDrawer.addItemsAtPosition(headerPosition + 1, *listDrawerItems.toTypedArray())
     }
 
-    private fun refreshMainDrawerItems(addSearchButton: Boolean) {
+    private fun refreshMainDrawerItems(accountId: Long, addSearchButton: Boolean) {
         binding.mainDrawer.apply {
             itemAdapter.clear()
             tintStatusBar = true
@@ -758,7 +753,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.manage_lists
                     iconicsIcon = GoogleMaterial.Icon.gmd_settings
                     onClick = {
-                        startActivityWithDefaultTransition(ListActivityIntent(context))
+                        startActivityWithDefaultTransition(
+                            ListActivityIntent.withAccount(context, accountId),
+                        )
                     }
                 },
                 DividerDrawerItem(),
@@ -1019,7 +1016,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // open profile when active image was clicked
         if (current) {
-            val intent = AccountActivityIntent(this, activeAccount.accountId)
+            val intent = AccountActivityIntent(this, activeAccount.id, activeAccount.accountId)
             startActivityWithDefaultTransition(intent)
             return
         }

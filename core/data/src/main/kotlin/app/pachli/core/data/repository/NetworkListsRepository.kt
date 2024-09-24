@@ -23,13 +23,10 @@ import app.pachli.core.data.repository.ListsError.Delete
 import app.pachli.core.data.repository.ListsError.GetListsWithAccount
 import app.pachli.core.data.repository.ListsError.Retrieve
 import app.pachli.core.data.repository.ListsError.Update
-import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.MastodonApi
-import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
 import com.github.michaelbull.result.mapEither
@@ -38,102 +35,24 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.launch
 
 @Singleton
 class NetworkListsRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val api: MastodonApi,
-    private val accountManager: AccountManager,
 ) : ListsRepository {
-    private val _lists = MutableStateFlow<Result<Lists, Retrieve>>(Ok(Lists.Loading))
-    override val lists: StateFlow<Result<Lists, Retrieve>> get() = _lists.asStateFlow()
-
-    init {
-        externalScope.launch {
-            accountManager.activeAccountFlow
-                .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
-                .distinctUntilChangedBy { it.data?.id }
-                .collect { refresh() }
-        }
-    }
-
-    override fun refresh() {
-        externalScope.launch {
-            _lists.value = Ok(Lists.Loading)
-            _lists.value = api.getLists()
-                .mapEither(
-                    {
-                        updateTabPreferences(it.body.associateBy { it.id })
-                        Lists.Loaded(it.body)
-                    },
-                    { Retrieve(it) },
-                )
-        }
-    }
-
-    /**
-     * Updates the user's tab preferences when lists are loaded.
-     *
-     * The user may have added one or more lists to tabs. If they have then:
-     *
-     * - A list-in-a-tab might have been deleted
-     * - A list-in-a-tab might have been renamed
-     *
-     * Handle both of those scenarios.
-     *
-     * @param lists Map of listId -> [MastoList]
-     */
-    private fun updateTabPreferences(lists: Map<String, MastoList>) {
-        val account = accountManager.activeAccount ?: return
-        val oldTabPreferences = account.tabPreferences
-        var changed = false
-        val newTabPreferences = buildList {
-            for (oldPref in oldTabPreferences) {
-                if (oldPref !is Timeline.UserList) {
-                    add(oldPref)
-                    continue
-                }
-
-                // List has been deleted? Don't add this pref,
-                // record there's been a change, and move on to the
-                // next one.
-                if (oldPref.listId !in lists) {
-                    changed = true
-                    continue
-                }
-
-                // Title changed? Update the title in the pref and
-                // add it.
-                if (oldPref.title != lists[oldPref.listId]?.title) {
-                    changed = true
-                    add(
-                        oldPref.copy(
-                            title = lists[oldPref.listId]?.title!!,
-                        ),
-                    )
-                    continue
-                }
-
-                add(oldPref)
-            }
-        }
-        if (changed) {
-            externalScope.launch {
-                accountManager.setTabPreferences(account.id, newTabPreferences)
-            }
-        }
+    override suspend fun getLists(): Result<List<MastoList>, ListsError.Retrieve> = binding {
+        externalScope.async {
+            api.getLists().mapEither(
+                { it.body },
+                { Retrieve(it) },
+            ).bind()
+        }.await()
     }
 
     override suspend fun createList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, Create> = binding {
         externalScope.async {
             api.createList(title, exclusive, repliesPolicy).mapError { Create(it) }.bind().run {
-                refresh()
                 body
             }
         }.await()
@@ -142,15 +61,14 @@ class NetworkListsRepository @Inject constructor(
     override suspend fun editList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, Update> = binding {
         externalScope.async {
             api.updateList(listId, title, exclusive, repliesPolicy).mapError { Update(it) }.bind().run {
-                refresh()
                 body
             }
         }.await()
     }
 
-    override suspend fun deleteList(listId: String): Result<Unit, Delete> = binding {
+    override suspend fun deleteList(list: MastodonList): Result<Unit, Delete> = binding {
         externalScope.async {
-            api.deleteList(listId).mapError { Delete(it) }.bind().run { refresh() }
+            api.deleteList(list.listId).mapError { Delete(it) }.bind()
         }.await()
     }
 

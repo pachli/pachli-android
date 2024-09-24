@@ -22,16 +22,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.ListsError
-import app.pachli.core.data.repository.ListsRepository
+import app.pachli.core.data.repository.MastodonList
+import app.pachli.core.domain.ListsUseCase
 import app.pachli.core.network.model.UserListRepliesPolicy
 import com.github.michaelbull.result.onFailure
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 sealed class Error(
@@ -50,9 +55,10 @@ sealed class Error(
         Error(R.string.error_rename_list_fmt, arrayOf(title.unicodeWrap()), cause)
 }
 
-@HiltViewModel
-internal class ListsViewModel @Inject constructor(
-    private val listsRepository: ListsRepository,
+@HiltViewModel(assistedFactory = ListsViewModel.Factory::class)
+internal class ListsViewModel @AssistedInject constructor(
+    private val listsUseCase: ListsUseCase,
+    @Assisted val activeAccountId: Long,
 ) : ViewModel() {
     private val _errors = Channel<Error>()
     val errors = _errors.receiveAsFlow()
@@ -60,37 +66,40 @@ internal class ListsViewModel @Inject constructor(
     private val _operationCount = MutableStateFlow(0)
     val operationCount = _operationCount.asStateFlow()
 
-    val lists = listsRepository.lists
+    // Not a stateflow, as that makes updates distinct. A refresh that returns
+    // no changes is not distinct, and that prevents the refresh spinner from
+    // disappearing when the user refreshes.
+    val lists = listsUseCase.getLists(activeAccountId)
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
-    init {
-        listsRepository.refresh()
-    }
-
-    fun refresh() = viewModelScope.launch {
-        listsRepository.refresh()
-    }
+    fun refresh() = viewModelScope.launch { listsUseCase.refresh(activeAccountId) }
 
     fun createNewList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
         _operationCount.getAndUpdate { it + 1 }
 
-        listsRepository.createList(title, exclusive, repliesPolicy).onFailure {
-            _errors.send(Error.Create(title, it))
-        }
+        listsUseCase.createList(activeAccountId, title, exclusive, repliesPolicy)
+            .onFailure { _errors.send(Error.Create(title, it)) }
     }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
 
     fun updateList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
         _operationCount.getAndUpdate { it + 1 }
 
-        listsRepository.editList(listId, title, exclusive, repliesPolicy).onFailure {
-            _errors.send(Error.Update(title, it))
-        }
+        listsUseCase.updateList(activeAccountId, listId, title, exclusive, repliesPolicy)
+            .onFailure { _errors.send(Error.Update(title, it)) }
     }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
 
-    fun deleteList(listId: String, title: String) = viewModelScope.launch {
+    fun deleteList(list: MastodonList) = viewModelScope.launch {
         _operationCount.getAndUpdate { it + 1 }
 
-        listsRepository.deleteList(listId).onFailure {
-            _errors.send(Error.Delete(title, it))
-        }
+        listsUseCase.deleteList(list)
+            .onFailure { _errors.send(Error.Delete(list.title, it)) }
     }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
+
+    @AssistedFactory
+    interface Factory {
+        /**
+         * Creates [ListsViewModel] with [accountId] as the active account.
+         */
+        fun create(accountId: Long): ListsViewModel
+    }
 }

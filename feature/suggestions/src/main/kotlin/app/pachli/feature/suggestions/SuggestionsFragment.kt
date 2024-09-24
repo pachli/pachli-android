@@ -169,7 +169,8 @@ class SuggestionsFragment :
         when (uiAction) {
             is NavigationAction -> {
                 when (uiAction) {
-                    is NavigationAction.ViewAccount -> requireActivity().startActivityWithTransition(AccountActivityIntent(requireContext(), uiAction.accountId), TransitionKind.SLIDE_FROM_END)
+                    // TODO: -1L in the next line is stop gap until the active account is hooked up
+                    is NavigationAction.ViewAccount -> requireActivity().startActivityWithTransition(AccountActivityIntent(requireContext(), -1L, uiAction.accountId), TransitionKind.SLIDE_FROM_END)
                     is NavigationAction.ViewHashtag -> requireActivity().startActivityWithTransition(TimelineActivityIntent.hashtag(requireContext(), uiAction.hashtag), TransitionKind.SLIDE_FROM_END)
                     is NavigationAction.ViewUrl -> bottomSheetActivity.viewUrl(uiAction.url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
                 }
