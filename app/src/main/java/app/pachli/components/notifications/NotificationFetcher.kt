@@ -211,7 +211,7 @@ class NotificationFetcher @Inject constructor(
                     .onFailure {
                         val error = it.fmt(context)
                         Timber.e("Fetching notifications from server failed: %s", error)
-                        NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Err(error ?: "Unknown error"))
+                        NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Err(error))
                         return@buildList
                     }
             }
