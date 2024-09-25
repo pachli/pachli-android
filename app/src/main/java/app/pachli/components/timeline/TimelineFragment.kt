@@ -25,6 +25,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
+import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -39,6 +41,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.timeline.util.isExpected
@@ -522,7 +525,7 @@ class TimelineFragment :
                 }
             }
             R.id.action_load_newest -> {
-                Timber.d("Reload because user choose load newest menu item")
+                Timber.d("Reload because user chose load newest menu item")
                 viewModel.accept(InfallibleUiAction.LoadNewest)
                 refreshContent()
                 true
@@ -532,14 +535,30 @@ class TimelineFragment :
     }
 
     /**
-     * Save [statusId] as the reading position. If null then the ID of the first completely visible
-     * status is used. It is the first status so that when performing a pull-refresh the
-     * previous first status always remains visible.
+     * Save [statusId] as the reading position. If null then the ID of the best status is used.
+     *
+     * The best status is the first completely visible status, if available. We assume the user
+     * has read this far, or will recognise it on return.
+     *
+     * However, there may not be a completely visible status. E.g., the user is viewing one
+     * status that is longer the the height of the screen, or the user is at the midpoint of
+     * two statuses that are each longer than half the height of the screen.
+     *
+     * In this case the best status is the last partially visible status, as we can assume the
+     * user has read this far.
      */
     fun saveVisibleId(statusId: String? = null) {
-        val id = statusId ?: layoutManager.findFirstCompletelyVisibleItemPosition()
-            .takeIf { it != RecyclerView.NO_POSITION }
+        val id = statusId ?: (
+            layoutManager.findFirstCompletelyVisibleItemPosition()
+                .takeIf { it != RecyclerView.NO_POSITION }
+                ?: layoutManager.findLastVisibleItemPosition()
+                    .takeIf { it != RecyclerView.NO_POSITION }
+            )
             ?.let { adapter.snapshot().getOrNull(it)?.id }
+
+        if (BuildConfig.DEBUG && id == null) {
+            Toast.makeText(requireActivity(), "Could not find ID of item to save", LENGTH_LONG).show()
+        }
 
         id?.let {
             Timber.d("Saving ID: %s", it)
