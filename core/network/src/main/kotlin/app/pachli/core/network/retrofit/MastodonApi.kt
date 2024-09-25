@@ -190,7 +190,7 @@ interface MastodonApi {
         @Header(DOMAIN_HEADER) domain: String,
         /** Return results immediately newer than this ID */
         @Query("min_id") minId: String?,
-    ): Response<List<Notification>>
+    ): ApiResult<List<Notification>>
 
     @POST("api/v1/notifications/clear")
     suspend fun clearNotifications(): Response<ResponseBody>

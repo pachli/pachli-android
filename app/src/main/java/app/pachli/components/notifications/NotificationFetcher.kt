@@ -31,9 +31,12 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.worker.NotificationWorker
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Instant
 import javax.inject.Inject
+import kotlin.collections.set
 import kotlin.math.min
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.delay
@@ -182,33 +185,35 @@ class NotificationFetcher @Inject constructor(
             while (minId != null) {
                 val now = Instant.now()
                 Timber.d("Fetching notifications from server")
-                val response = mastodonApi.notificationsWithAuth(
+                mastodonApi.notificationsWithAuth(
                     authHeader,
                     account.domain,
                     minId = minId,
-                )
-                if (!response.isSuccessful) {
-                    val error = response.errorBody()?.string()
-                    Timber.e("Fetching notifications from server failed: %s", error)
-                    NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Err(error ?: "Unknown error"))
-                    break
+                ).onSuccess { response ->
+                    val notifications = response.body
+                    NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Ok(Unit))
+                    Timber.i(
+                        "Fetching notifications from server succeeded, returned %d notifications",
+                        notifications.size,
+                    )
+
+                    // Notifications are returned in the page in order, newest first,
+                    // (https://github.com/mastodon/documentation/issues/1226), insert the
+                    // new page at the head of the list.
+                    addAll(0, notifications)
+
+                    // Get the previous page, which will be chronologically newer
+                    // notifications. If it doesn't exist this is null and the loop
+                    // will exit.
+                    val links = Links.from(response.headers["link"])
+                    minId = links.prev
                 }
-                NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Ok(Unit))
-                Timber.i(
-                    "Fetching notifications from server succeeded, returned %d notifications",
-                    response.body()?.size,
-                )
-
-                // Notifications are returned in the page in order, newest first,
-                // (https://github.com/mastodon/documentation/issues/1226), insert the
-                // new page at the head of the list.
-                response.body()?.let { addAll(0, it) }
-
-                // Get the previous page, which will be chronologically newer
-                // notifications. If it doesn't exist this is null and the loop
-                // will exit.
-                val links = Links.from(response.headers()["link"])
-                minId = links.prev
+                    .onFailure {
+                        val error = it.fmt(context)
+                        Timber.e("Fetching notifications from server failed: %s", error)
+                        NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Err(error))
+                        return@buildList
+                    }
             }
         }
 
