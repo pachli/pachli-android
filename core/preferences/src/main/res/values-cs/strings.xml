@@ -7,4 +7,6 @@
     <string name="app_theme_system">Použít systémový design</string>
     <string name="pref_category_downloads">Stažené soubory</string>
     <string name="pref_title_downloads">Složka pro stahování</string>
+    <string name="download_location_downloads">Soubory ke stažení</string>
+    <string name="download_location_per_account">Per-account složky, ve složce Ke stažení</string>
 </resources>
