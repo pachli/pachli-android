@@ -7,4 +7,6 @@
     <string name="app_theme_system">Systeemthema gebruiken</string>
     <string name="pref_category_downloads">Downloads</string>
     <string name="pref_title_downloads">Downloadlocatie</string>
+    <string name="download_location_downloads">Downloads map</string>
+    <string name="download_location_per_account">Per-account folders, in Downloads map</string>
 </resources>
