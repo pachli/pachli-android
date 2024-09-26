@@ -102,7 +102,7 @@
         errorLine2="                           ^">
         <location
             file="src/main/java/app/pachli/components/compose/MediaUploader.kt"
-            line="388"
+            line="392"
             column="28"/>
         <location
             file="${:core:activity*buildDir}/generated/res/resValues/blueFdroid/debug/values/gradleResValues.xml"
@@ -714,6 +714,28 @@
             file="src/main/res/values-nb-rNO/strings.xml"
             line="644"
             column="43"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
+        errorLine1="    &lt;string name=&quot;search_operator_attachment_all&quot;>Media ▾&lt;/string>"
+        errorLine2="                                                  ^">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="736"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
+        errorLine1="    &lt;string name=&quot;search_operator_attachment_no_media_label&quot;>Ingen media&lt;/string>"
+        errorLine2="                                                                   ^">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="760"
+            column="68"/>
     </issue>
 
     <issue

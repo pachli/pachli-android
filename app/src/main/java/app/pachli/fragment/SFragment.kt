@@ -16,7 +16,6 @@
 package app.pachli.fragment
 
 import android.Manifest
-import android.app.DownloadManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -26,7 +25,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -50,6 +48,7 @@ import app.pachli.core.activity.openLink
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -92,6 +91,9 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     @Inject
     lateinit var serverRepository: ServerRepository
+
+    @Inject
+    lateinit var downloadUrlUseCase: DownloadUrlUseCase
 
     private var serverCanTranslate = false
 
@@ -542,16 +544,8 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     private fun downloadAllMedia(status: Status) {
         Toast.makeText(context, R.string.downloading_media, Toast.LENGTH_SHORT).show()
-        val downloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
-        for ((_, url) in status.attachments) {
-            val uri = Uri.parse(url)
-            downloadManager.enqueue(
-                DownloadManager.Request(uri).apply {
-                    setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, uri.lastPathSegment)
-                },
-            )
-        }
+        status.attachments.forEach { downloadUrlUseCase(it.url) }
     }
 
     private fun requestDownloadAllMedia(status: Status) {

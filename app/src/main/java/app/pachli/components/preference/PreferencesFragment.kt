@@ -52,6 +52,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.AppTheme.Companion.APP_THEME_DEFAULT
+import app.pachli.core.preferences.DownloadLocation
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.extensions.await
@@ -60,6 +61,7 @@ import app.pachli.databinding.AccountNotificationDetailsListItemBinding
 import app.pachli.feature.about.asDdHhMmSs
 import app.pachli.feature.about.instantFormatter
 import app.pachli.settings.emojiPreference
+import app.pachli.settings.enumListPreference
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preference
@@ -299,6 +301,15 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.SHOW_STATS_INLINE
                     setTitle(R.string.pref_title_show_stat_inline)
                     isSingleLineTitle = false
+                }
+            }
+
+            preferenceCategory(app.pachli.core.preferences.R.string.pref_category_downloads) {
+                enumListPreference<DownloadLocation> {
+                    setDefaultValue(DownloadLocation.DOWNLOADS)
+                    setTitle(app.pachli.core.preferences.R.string.pref_title_downloads)
+                    key = PrefKeys.DOWNLOAD_LOCATION
+                    icon = makeIcon(GoogleMaterial.Icon.gmd_file_download)
                 }
             }
 

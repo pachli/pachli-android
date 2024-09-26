@@ -137,6 +137,8 @@ object PrefKeys {
      */
     const val USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR = "usePreviousUnifiedPushDistributor"
 
+    const val DOWNLOAD_LOCATION = "downloadLocation"
+
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         // Empty at this time
