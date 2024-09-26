@@ -7,4 +7,6 @@
     <string name="app_theme_system">Utiliser le thème système</string>
     <string name="pref_category_downloads">Téléchargements</string>
     <string name="pref_title_downloads">Lieu de téléchargement</string>
+    <string name="download_location_downloads">Téléchargements dossier</string>
+    <string name="download_location_per_account">Les dossiers Per-account, dans le dossier Téléchargements</string>
 </resources>
