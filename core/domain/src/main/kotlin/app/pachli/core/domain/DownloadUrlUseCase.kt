@@ -39,7 +39,7 @@ class DownloadUrlUseCase @Inject constructor(
     private val accountManager: AccountManager,
 ) {
     /**
-     * Enques a [DownloadManager] request to download [url].
+     * Enqueues a [DownloadManager] request to download [url].
      *
      * The downloaded file is named after the URL's last path segment, and is
      * either saved to the "Downloads" directory, or a subdirectory named after
