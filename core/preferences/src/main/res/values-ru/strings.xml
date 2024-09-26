@@ -7,4 +7,6 @@
     <string name="app_theme_system">Как в системе</string>
     <string name="pref_category_downloads">Загрузки</string>
     <string name="pref_title_downloads">Путь загрузок</string>
+    <string name="download_location_downloads">Скачать папку</string>
+    <string name="download_location_per_account">В папках Загрузок</string>
 </resources>
