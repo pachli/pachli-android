@@ -7,4 +7,6 @@
     <string name="app_theme_system">Seuraa laitteen teemaa</string>
     <string name="pref_category_downloads">Lataukset</string>
     <string name="pref_title_downloads">Lataus kansio</string>
+    <string name="download_location_downloads">Lataa kansio</string>
+    <string name="download_location_per_account">Per-account-kansiot, Downloads-kansiossa</string>
 </resources>
