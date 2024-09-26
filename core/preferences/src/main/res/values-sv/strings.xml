@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_theme_light">Ljust</string>
     <string name="app_theme_black">Svart</string>
     <string name="app_theme_auto">Automatiskt vid solnedgång</string>
     <string name="app_theme_dark">Mörkt</string>
     <string name="app_theme_system">Använd system-tema</string>
+    <string name="pref_category_downloads">Nedladdningar</string>
+    <string name="pref_title_downloads">Nedladdningsplats</string>
 </resources>
