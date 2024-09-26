@@ -7,4 +7,6 @@
     <string name="app_theme_system">Använd system-tema</string>
     <string name="pref_category_downloads">Nedladdningar</string>
     <string name="pref_title_downloads">Nedladdningsplats</string>
+    <string name="download_location_downloads">Ladda ner mappen</string>
+    <string name="download_location_per_account">Per-konto mappar, i Downloads mapp</string>
 </resources>
