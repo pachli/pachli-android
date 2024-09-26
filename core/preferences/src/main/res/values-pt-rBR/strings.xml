@@ -7,4 +7,6 @@
     <string name="app_theme_system">Usar o tema do sistema</string>
     <string name="pref_category_downloads">Downloads</string>
     <string name="pref_title_downloads">Local de download</string>
+    <string name="download_location_downloads">Pasta de downloads</string>
+    <string name="download_location_per_account">Pastas por conta, na pasta Downloads</string>
 </resources>
