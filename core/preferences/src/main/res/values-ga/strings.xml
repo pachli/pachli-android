@@ -6,4 +6,7 @@
     <string name="app_theme_dark">Dorcha</string>
     <string name="app_theme_system">Úsáid Dearadh Córais</string>
     <string name="pref_category_downloads">Íoslódálacha</string>
+    <string name="pref_title_downloads">Taiseachas aeir: fliuch</string>
+    <string name="download_location_downloads">Íoslódáil fillteán</string>
+    <string name="download_location_per_account">Per-cuntas fillteáin, i Downloads fillteán</string>
 </resources>
