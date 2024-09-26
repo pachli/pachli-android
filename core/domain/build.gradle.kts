@@ -21,31 +21,14 @@ plugins {
 }
 
 android {
-    namespace = "app.pachli.core.ui"
+    namespace = "app.pachli.core.domain"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
     }
 }
 
 dependencies {
-    // Calls "openLink" from projects.core.activity
-    implementation(projects.core.activity)
-    implementation(projects.core.common)
-    implementation(projects.core.designsystem)
+    implementation(projects.core.accounts)
     implementation(projects.core.preferences)
-        ?.because("PreferenceEnum types in EnumListPreference")
-
-    // Uses HttpException from Retrofit
-    implementation(projects.core.network)
-
-    // Uses JsonDataException from Moshi
-    implementation(libs.moshi)
-
-    // Some views inherit from AndroidX views
-    implementation(libs.bundles.androidx)
-
-    api(libs.material.iconics)
-    api(libs.material.typeface)
 }
