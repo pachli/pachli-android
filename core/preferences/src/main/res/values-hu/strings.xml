@@ -7,4 +7,6 @@
     <string name="app_theme_system">Rendszer téma használata</string>
     <string name="pref_category_downloads">Letöltések</string>
     <string name="pref_title_downloads">Letöltések helye</string>
+    <string name="download_location_downloads">Letöltések mappa</string>
+    <string name="download_location_per_account">Per-account mappák, a Downloads mappában</string>
 </resources>
