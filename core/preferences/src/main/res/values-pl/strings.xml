@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_theme_light">Jasny</string>
     <string name="app_theme_black">Czarny</string>
     <string name="app_theme_auto">Zmieniaj automatycznie po zachodzie słońca</string>
     <string name="app_theme_dark">Ciemny</string>
     <string name="app_theme_system">Użyj motywu systemu</string>
+    <string name="download_location_downloads">Folder</string>
+    <string name="download_location_per_account">Per-account folders in Downloads folder (ang.)</string>
 </resources>
