@@ -6,4 +6,7 @@
     <string name="app_theme_dark">黑夜</string>
     <string name="app_theme_system">跟隨系統</string>
     <string name="pref_category_downloads">下載</string>
+    <string name="pref_title_downloads">下载地点</string>
+    <string name="download_location_downloads">下载夹</string>
+    <string name="download_location_per_account">缩略语</string>
 </resources>
