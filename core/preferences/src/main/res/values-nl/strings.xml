@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_theme_light">Licht</string>
     <string name="app_theme_black">Zwart</string>
     <string name="app_theme_auto">Automatisch tijdens zonsop- en ondergang</string>
     <string name="app_theme_dark">Donker</string>
     <string name="app_theme_system">Systeemthema gebruiken</string>
+    <string name="pref_category_downloads">Downloads</string>
+    <string name="pref_title_downloads">Downloadlocatie</string>
 </resources>
