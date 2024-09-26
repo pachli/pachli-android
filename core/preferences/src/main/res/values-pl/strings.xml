@@ -7,4 +7,6 @@
     <string name="app_theme_system">Użyj motywu systemu</string>
     <string name="download_location_downloads">Folder</string>
     <string name="download_location_per_account">Per-account folders in Downloads folder (ang.)</string>
+    <string name="pref_category_downloads">Pobieranie</string>
+    <string name="pref_title_downloads">Lokalizacja pobierania</string>
 </resources>
