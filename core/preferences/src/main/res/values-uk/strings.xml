@@ -7,4 +7,6 @@
     <string name="app_theme_system">Тема системи</string>
     <string name="pref_category_downloads">Завантаження</string>
     <string name="pref_title_downloads">Розташування завантаження</string>
+    <string name="download_location_downloads">Завантаження папки</string>
+    <string name="download_location_per_account">Папки Per-account, у папці завантаження</string>
 </resources>
