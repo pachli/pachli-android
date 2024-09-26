@@ -8,4 +8,5 @@
     <string name="download_location_downloads">Elŝutu faldojn</string>
     <string name="download_location_per_account">Per-akcentaj faldoj, en Downloads faldas</string>
     <string name="pref_title_downloads">Elŝutu lokon</string>
+    <string name="pref_category_downloads">Elŝutoj</string>
 </resources>
