@@ -28,7 +28,6 @@ import app.pachli.components.notifications.createWorkerNotificationChannel
 import app.pachli.core.activity.LogEntryTree
 import app.pachli.core.activity.TreeRing
 import app.pachli.core.activity.initCrashReporter
-import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.NEW_INSTALL_SCHEMA_VERSION
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SCHEMA_VERSION
@@ -101,8 +100,7 @@ class PachliApplication : Application() {
         EmojiPackHelper.init(this, DefaultEmojiPackList.get(this), allowPackImports = false)
 
         // init night mode
-        val theme = AppTheme.from(sharedPreferencesRepository)
-        setAppNightMode(theme)
+        setAppNightMode(sharedPreferencesRepository.appTheme)
 
         localeManager.setLocale()
 

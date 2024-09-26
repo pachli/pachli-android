@@ -99,7 +99,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         }
 
         // Set the theme from preferences
-        val theme = AppTheme.from(sharedPreferencesRepository)
+        val theme = sharedPreferencesRepository.appTheme
         Timber.d("activeTheme: %s", theme)
         if (theme == AppTheme.BLACK) {
             setTheme(DR.style.Theme_Pachli_Black)

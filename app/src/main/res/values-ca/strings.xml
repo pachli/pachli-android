@@ -195,11 +195,6 @@
     <string name="pref_title_app_theme">Tema</string>
     <string name="pref_title_timelines">Cronologia</string>
     <string name="pref_title_timeline_filters">Filtres</string>
-    <string name="app_them_dark">Fosc</string>
-    <string name="app_theme_light">Clar</string>
-    <string name="app_theme_black">Negre</string>
-    <string name="app_theme_auto">Brillantor automàtica</string>
-    <string name="app_theme_system">Utilitzar el tema del sistema</string>
     <string name="pref_title_language">Idioma</string>
     <string name="pref_title_proxy_settings">Proxy</string>
     <string name="pref_title_http_proxy_settings">HTTP proxy</string>

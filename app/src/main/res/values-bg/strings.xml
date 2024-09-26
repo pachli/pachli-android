@@ -184,11 +184,6 @@
     <string name="pref_title_hide_follow_button">Скриване на бутона за композиране, при превъртане</string>
     <string name="pref_title_custom_tabs">Използване на персонализирани раздели чрез Chrome</string>
     <string name="pref_title_browser_settings">Браузър</string>
-    <string name="app_theme_system">Използване на системния дизайн</string>
-    <string name="app_theme_auto">Автоматично при залез</string>
-    <string name="app_theme_black">Черно</string>
-    <string name="app_theme_light">Светло</string>
-    <string name="app_them_dark">Тъмно</string>
     <string name="pref_title_timeline_filters">Филтри</string>
     <string name="pref_title_timelines">Емисии</string>
     <string name="pref_title_app_theme">Тема на приложение</string>

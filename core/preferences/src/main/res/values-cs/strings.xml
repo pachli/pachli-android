@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Světlý</string>
+    <string name="app_theme_black">Černý</string>
+    <string name="app_theme_auto">Automaticky při západu slunce</string>
+    <string name="app_theme_dark">Tmavý</string>
+    <string name="app_theme_system">Použít systémový design</string>
+</resources>

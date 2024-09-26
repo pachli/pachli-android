@@ -143,11 +143,6 @@
     <string name="pref_title_app_theme">Тема</string>
     <string name="pref_title_timelines">Ленты</string>
     <string name="pref_title_timeline_filters">Фильтры</string>
-    <string name="app_them_dark">Тёмная</string>
-    <string name="app_theme_light">Светлая</string>
-    <string name="app_theme_black">Чёрная</string>
-    <string name="app_theme_auto">Автоматическая (от заката до восхода солнца)</string>
-    <string name="app_theme_system">Как в системе</string>
     <string name="pref_title_browser_settings">Браузер</string>
     <string name="pref_title_custom_tabs">Используйте пользовательские вкладки Chrome</string>
     <string name="pref_title_hide_follow_button">Скрывать кнопку композиционирования гудка при прокрутке ленты</string>

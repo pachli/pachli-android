@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">ڕووناکی</string>
+    <string name="app_theme_black">ڕەش</string>
+    <string name="app_theme_auto">خۆکار لە کاتی خۆرئاوابووندا</string>
+    <string name="app_theme_dark">تاریک</string>
+    <string name="app_theme_system">دیزاینی سیستەم بەکاربهێنە</string>
+</resources>

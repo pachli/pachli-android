@@ -131,10 +131,6 @@
     <string name="pref_title_appearance_settings">Görünüş</string>
     <string name="pref_title_app_theme">Uygulama teması</string>
     <string name="pref_title_timelines">Ağ akışı</string>
-    <string name="app_them_dark">Koyu</string>
-    <string name="app_theme_light">Açık</string>
-    <string name="app_theme_black">Siyah</string>
-    <string name="app_theme_auto">Gün batımında otomatik</string>
     <string name="pref_title_browser_settings">Tarayıcı</string>
     <string name="pref_title_custom_tabs">Chrome Özel Sekmelerini Kullan</string>
     <string name="pref_title_hide_follow_button">Kaydırırken gönderi oluşturma düğmesi gizlensin</string>
@@ -267,7 +263,6 @@
     <string name="mute_domain_warning">%s\? alan adından gelen her şeyi engellemek istediğinden emin misin\? Bu alan adından gelen içeriği herhangi bir genel zaman tünelinde veya bildirimlerinde göremezsiniz. Bu alan adındaki takipçilerin de kaldırılacak.</string>
     <string name="pref_title_notification_filter_poll">anketler sona erdiğinde</string>
     <string name="pref_title_timeline_filters">Süzgeçler</string>
-    <string name="app_theme_system">Sistem tasarımını kullan</string>
     <string name="pref_title_language">Dil</string>
     <string name="pref_title_animate_gif_avatars">Hareketli GIF görsellerini oynat</string>
     <string name="notification_poll_name">Anketler</string>

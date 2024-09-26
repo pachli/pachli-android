@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Светлая</string>
+    <string name="app_theme_black">Чорная</string>
+    <string name="app_theme_auto">Аўтаматычна па захадзе сонца</string>
+    <string name="app_theme_dark">Цёмная</string>
+    <string name="app_theme_system">Выкарыстоўваць сістэмную тэму</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Açık</string>
+    <string name="app_theme_black">Siyah</string>
+    <string name="app_theme_auto">Gün batımında otomatik</string>
+    <string name="app_theme_dark">Koyu</string>
+    <string name="app_theme_system">Sistem tasarımını kullan</string>
+</resources>

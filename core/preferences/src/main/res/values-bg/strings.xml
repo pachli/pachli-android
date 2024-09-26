@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Светло</string>
+    <string name="app_theme_black">Черно</string>
+    <string name="app_theme_auto">Автоматично при залез</string>
+    <string name="app_theme_dark">Тъмно</string>
+    <string name="app_theme_system">Използване на системния дизайн</string>
+</resources>

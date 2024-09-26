@@ -20,4 +20,9 @@
     <string name="pref_title_downloads">Download location</string>
     <string name="download_location_downloads">Downloads folder</string>
     <string name="download_location_per_account">Per-account folders, in Downloads folder</string>
+    <string name="app_theme_light">Light</string>
+    <string name="app_theme_black">Black</string>
+    <string name="app_theme_auto">Automatic at sunset</string>
+    <string name="app_theme_dark">Dark</string>
+    <string name="app_theme_system">Use system design</string>
 </resources>

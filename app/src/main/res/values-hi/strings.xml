@@ -76,10 +76,6 @@
     <string name="pref_title_hide_follow_button">स्क्रॉल करते समय कंपोज बटन को छिपाएं</string>
     <string name="pref_title_custom_tabs">क्रोम कस्टम टैब का उपयोग करें</string>
     <string name="pref_title_browser_settings">ब्राउज़र</string>
-    <string name="app_theme_system">सिस्टम डिज़ाइन का उपयोग करें</string>
-    <string name="app_theme_auto">सूर्यास्त के समय स्वचालित</string>
-    <string name="app_theme_black">Black</string>
-    <string name="app_them_dark">अंधकार</string>
     <string name="pref_title_timeline_filters">फिल्टर</string>
     <string name="pref_title_appearance_settings">दिखावट</string>
     <string name="pref_title_notification_filter_mentions">उल्लेख किया</string>
@@ -296,7 +292,6 @@
     <string name="pref_title_http_proxy_settings">एच टी टी पी प्रॉक्सी</string>
     <string name="pref_title_proxy_settings">प्रॉक्सी</string>
     <string name="pref_title_post_filter">टाइमलाइन छानने का काम</string>
-    <string name="app_theme_light">प्रकाश</string>
     <string name="pref_title_timelines">टाइमलाइन</string>
     <string name="pref_title_app_theme">एप्लिकेशन थीम</string>
     <string name="pref_title_notification_filter_favourites">मेरे पोस्ट पसंद किए गए</string>

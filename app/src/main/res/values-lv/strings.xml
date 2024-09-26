@@ -244,9 +244,6 @@
     <string name="pref_title_notification_filter_mentions">pieminēja</string>
     <string name="pref_title_notification_filter_follows">sāka sekot</string>
     <string name="pref_title_notification_filter_sign_ups">kāds ir reģistrējies</string>
-    <string name="app_theme_black">Melna</string>
-    <string name="app_theme_auto">Automātiski saulrietā</string>
-    <string name="app_theme_system">Izmantot sistēmas dizainu</string>
     <string name="notification_mention_name">Jauni pieminējumi</string>
     <string name="notification_follow_name">Jauni sekotāji</string>
     <string name="notification_boost_name">Pastiprinājumi</string>
@@ -277,8 +274,6 @@
     <string name="dialog_unfollow_warning">Vai pārtraukt sekot šim kontam\?</string>
     <string name="pref_title_appearance_settings">Izskats</string>
     <string name="pref_title_timelines">Laika līnijas</string>
-    <string name="app_them_dark">Tumša</string>
-    <string name="app_theme_light">Gaiša</string>
     <string name="pref_title_app_theme">Lietotnes tēma</string>
     <string name="pref_title_notification_filter_poll">aptaujas ir noslēgušās</string>
     <string name="pref_main_nav_position_option_top">Augšā</string>

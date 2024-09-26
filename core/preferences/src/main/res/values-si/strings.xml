@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">දීප්ත</string>
+    <string name="app_theme_black">කළු</string>
+    <string name="app_theme_auto">ස්වයංක්‍රීව ඉර බැසීමේදී</string>
+    <string name="app_theme_dark">අඳුරු</string>
+</resources>

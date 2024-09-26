@@ -244,11 +244,6 @@
     <string name="pref_title_hide_follow_button">सारणक्रमे लेखनगण्डः छाद्यताम्</string>
     <string name="pref_title_custom_tabs">क्रोमस्वीयानुकूलपीठिकाः प्रयुज्यन्ताम्</string>
     <string name="pref_title_browser_settings">जालसञ्चारकम्</string>
-    <string name="app_theme_system">प्रणाल्याः परिकल्पना प्रयुज्यताम्</string>
-    <string name="app_theme_auto">सूर्यास्तसमये स्वचालितम्</string>
-    <string name="app_theme_black">कृष्णः</string>
-    <string name="app_theme_light">ज्योतिपूर्णः</string>
-    <string name="app_them_dark">अन्धकारः</string>
     <string name="pref_title_timeline_filters">शोधकम्</string>
     <string name="pref_title_timelines">समयतालिकाः</string>
     <string name="pref_title_app_theme">अनुप्रयोगप्रबन्धाः</string>

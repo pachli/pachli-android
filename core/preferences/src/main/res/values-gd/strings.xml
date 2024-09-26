@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Soilleir</string>
+    <string name="app_theme_black">Dubh</string>
+    <string name="app_theme_auto">Gu fèin-obrachail aig beul na h-oidhche</string>
+    <string name="app_theme_dark">Dorcha</string>
+    <string name="app_theme_system">Cleachd co-dhealbhachd an t-siostaim</string>
+</resources>

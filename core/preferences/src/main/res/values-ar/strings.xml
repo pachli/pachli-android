@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">فاتحة</string>
+    <string name="app_theme_black">سوداء</string>
+    <string name="app_theme_auto">تلقائي عند غروب الشمس</string>
+    <string name="app_theme_dark">داكنة</string>
+    <string name="app_theme_system">استخدم مظهر النظام</string>
+</resources>

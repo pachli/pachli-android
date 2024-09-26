@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">வெளிச்சம்</string>
+    <string name="app_theme_black">பிளாக்</string>
+    <string name="app_theme_auto">தானியங்கி</string>
+    <string name="app_theme_dark">கருமை</string>
+</resources>

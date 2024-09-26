@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Hela</string>
+    <string name="app_theme_black">Nigra</string>
+    <string name="app_theme_auto">Aŭtomata laŭ la horo</string>
+    <string name="app_theme_dark">Malhela</string>
+    <string name="app_theme_system">Uzi sisteman etoson</string>
+</resources>
