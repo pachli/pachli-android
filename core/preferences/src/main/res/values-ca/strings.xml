@@ -7,4 +7,6 @@
     <string name="app_theme_system">Utilitzar el tema del sistema</string>
     <string name="pref_category_downloads">Baixades</string>
     <string name="pref_title_downloads">Ubicació de les baixades</string>
+    <string name="download_location_downloads">Carpeta Descàrregues</string>
+    <string name="download_location_per_account">Carpetes de comptes, a la carpeta Descàrregues</string>
 </resources>
