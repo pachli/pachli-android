@@ -7,4 +7,6 @@
     <string name="app_theme_system">Usar tema del sistema</string>
     <string name="pref_category_downloads">Descargas</string>
     <string name="pref_title_downloads">Ubicación de descarga</string>
+    <string name="download_location_downloads">Carpeta de Descargas</string>
+    <string name="download_location_per_account">Carpetas de cuenta, en carpeta Descargas</string>
 </resources>
