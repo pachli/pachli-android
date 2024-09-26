@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Lys</string>
+    <string name="app_theme_black">Svart</string>
+    <string name="app_theme_auto">Automatisk ved solnedgang</string>
+    <string name="app_theme_dark">Mørk</string>
+    <string name="app_theme_system">Bruk systeminnstillinger</string>
+</resources>

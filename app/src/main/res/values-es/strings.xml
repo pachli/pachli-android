@@ -130,10 +130,6 @@
     <string name="pref_title_appearance_settings">Apariencia</string>
     <string name="pref_title_app_theme">Tema de la app</string>
     <string name="pref_title_timelines">Cronologia</string>
-    <string name="app_them_dark">Oscuro</string>
-    <string name="app_theme_light">Claro</string>
-    <string name="app_theme_black">Negro</string>
-    <string name="app_theme_auto">Automático</string>
     <string name="pref_title_browser_settings">Navegador</string>
     <string name="pref_title_custom_tabs">Usar pestañas de Chrome</string>
     <string name="pref_title_hide_follow_button">Ocultar botón de redacción al bajar</string>
@@ -265,7 +261,6 @@
     <string name="action_open_faved_by">Mostrar favoritos</string>
     <string name="title_mentions_dialog">Menciones</string>
     <string name="download_media">Descargar multimedia</string>
-    <string name="app_theme_system">Usar tema del sistema</string>
     <string name="pref_title_language">Idioma</string>
     <string name="action_unreblog">Dejar de impulsar</string>
     <string name="action_unfavourite">Eliminar favorito</string>

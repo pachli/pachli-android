@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Modifications to this list or order must be kept in sync with
-         SettingsConstants.AppTheme -->
-    <string-array name="app_theme_names">
-        <item>@string/app_them_dark</item>
-        <item>@string/app_theme_light</item>
-        <item>@string/app_theme_black</item>
-        <item>@string/app_theme_auto</item>
-        <item>@string/app_theme_system</item>
-    </string-array>
-
     <string-array name="post_privacy_names">
         <item>@string/post_privacy_public</item>
         <item>@string/post_privacy_unlisted</item>

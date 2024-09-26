@@ -159,11 +159,6 @@
     <string name="pref_title_app_theme">Þema forrits</string>
     <string name="pref_title_timelines">Tímalínur</string>
     <string name="pref_title_timeline_filters">Síur</string>
-    <string name="app_them_dark">Dökkt</string>
-    <string name="app_theme_light">Ljóst</string>
-    <string name="app_theme_black">Svart</string>
-    <string name="app_theme_auto">Sjálfvirkt við sólarlag</string>
-    <string name="app_theme_system">Nota kerfishönnun</string>
     <string name="pref_title_browser_settings">Vafri</string>
     <string name="pref_title_custom_tabs">Nota sérsniðna flipa Chrome</string>
     <string name="pref_title_hide_follow_button">Fela \'Semja skilaboð\" hnapp sjálfvirkt við skrun</string>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">प्रकाश</string>
+    <string name="app_theme_black">Black</string>
+    <string name="app_theme_auto">सूर्यास्त के समय स्वचालित</string>
+    <string name="app_theme_dark">अंधकार</string>
+    <string name="app_theme_system">सिस्टम डिज़ाइन का उपयोग करें</string>
+</resources>

@@ -45,6 +45,10 @@ class SharedPreferencesRepository @Inject constructor(
      */
     val changes = MutableSharedFlow<String?>()
 
+    /** Application theme. */
+    val appTheme: AppTheme
+        get() = getEnum(PrefKeys.APP_THEME, AppTheme.AUTO_SYSTEM)
+
     /** Location of downloaded files. */
     val downloadLocation: DownloadLocation
         get() = getEnum(PrefKeys.DOWNLOAD_LOCATION, DownloadLocation.DOWNLOADS)

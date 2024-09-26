@@ -33,7 +33,6 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
-import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.PrefKeys.APP_THEME
 import app.pachli.databinding.ActivityPreferencesBinding
@@ -104,7 +103,7 @@ class PreferencesActivity :
             sharedPreferencesRepository.changes.filterNotNull().collect { key ->
                 when (key) {
                     APP_THEME -> {
-                        val theme = AppTheme.from(sharedPreferencesRepository)
+                        val theme = sharedPreferencesRepository.appTheme
                         Timber.d("activeTheme: %s", theme)
                         setAppNightMode(theme)
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">白天</string>
+    <string name="app_theme_black">暗色</string>
+    <string name="app_theme_auto">自动切换</string>
+    <string name="app_theme_dark">黑夜</string>
+    <string name="app_theme_system">跟随系统设定</string>
+</resources>

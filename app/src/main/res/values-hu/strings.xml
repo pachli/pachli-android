@@ -131,10 +131,6 @@
     <string name="pref_title_notification_filter_favourites">bejegyzésemet kedvencnek jelölték</string>
     <string name="pref_title_appearance_settings">Megjelenés</string>
     <string name="pref_title_timelines">Idővonalak</string>
-    <string name="app_them_dark">Sötét</string>
-    <string name="app_theme_light">Világos</string>
-    <string name="app_theme_black">Fekete</string>
-    <string name="app_theme_auto">Automatikus naplementekor</string>
     <string name="pref_title_browser_settings">Böngésző</string>
     <string name="pref_title_custom_tabs">Linkek megnyitása applikáción belül</string>
     <string name="pref_title_hide_follow_button">Szerkesztés gomb elrejtése görgetés közben</string>
@@ -236,7 +232,6 @@
     <string name="dialog_redraft_post_warning">Törlöd és újraírod ezt a bejegyzést\?</string>
     <string name="pref_title_notification_filter_poll">befejeződött egy szavazás</string>
     <string name="pref_title_timeline_filters">Szűrők</string>
-    <string name="app_theme_system">Rendszer téma használata</string>
     <string name="pref_title_language">Nyelv</string>
     <string name="pref_publishing">Közzététel (szerverrel szinkronizált)</string>
     <string name="notification_poll_name">Szavazások</string>

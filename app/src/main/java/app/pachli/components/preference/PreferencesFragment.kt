@@ -51,7 +51,6 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
-import app.pachli.core.preferences.AppTheme.Companion.APP_THEME_DEFAULT
 import app.pachli.core.preferences.DownloadLocation
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -140,13 +139,10 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         makePreferenceScreen {
             preferenceCategory(R.string.pref_title_appearance_settings) {
-                listPreference {
-                    setDefaultValue(APP_THEME_DEFAULT.value)
-                    setEntries(R.array.app_theme_names)
-                    entryValues = AppTheme.stringValues()
-                    key = PrefKeys.APP_THEME
-                    setSummaryProvider { entry }
+                enumListPreference<AppTheme> {
+                    setDefaultValue(AppTheme.AUTO_SYSTEM)
                     setTitle(R.string.pref_title_app_theme)
+                    key = PrefKeys.APP_THEME
                     icon = makeIcon(GoogleMaterial.Icon.gmd_palette)
                 }
 

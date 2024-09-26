@@ -68,11 +68,9 @@
     <string name="report_comment_hint">අතිරේක අදහස්\?</string>
     <string name="pref_title_notification_filter_mentions">සඳහන් කළ</string>
     <string name="send_post_link_to">වෙත ටූට් ඒ.ස.නි. බෙදාගන්න…</string>
-    <string name="app_theme_light">දීප්ත</string>
     <string name="compose_save_draft">කටුපිටපත සුරකින්නද\?</string>
     <string name="post_sensitive_media_title">සංවේදී අන්තර්ගතයකි</string>
     <string name="action_bookmark">පොත්යොමුව</string>
-    <string name="app_theme_auto">ස්වයංක්‍රීව ඉර බැසීමේදී</string>
     <string name="failed_report">වාර්තා කිරීමට අසමත් විය</string>
     <string name="abbreviated_years_ago">අවු. %d</string>
     <string name="action_open_faved_by">ප්‍රියතමයන් පෙන්වන්න</string>
@@ -135,7 +133,6 @@
     <string name="pref_default_media_sensitivity">සැමවිටම මාධ්‍ය සංවේදී ලෙස සලකුණු කරන්න</string>
     <string name="restart_required">යෙදුම යළි ඇරඹීම ඇවැසිය</string>
     <string name="restart">යළි අරඹන්න</string>
-    <string name="app_theme_black">කළු</string>
     <string name="abbreviated_in_years">වර්. %d කින්</string>
     <string name="restart_emoji">මෙම වෙනස්කම් යෙදීමට ඔබ ටුස්කි නැවත ඇරඹිය යුතුය</string>
     <string name="action_edit">සංස්කරණය</string>
@@ -230,7 +227,6 @@
     <string name="post_media_video">දෘශ්‍යකය</string>
     <string name="later">පසුව</string>
     <string name="action_edit_own_profile">සංස්කරණය</string>
-    <string name="app_them_dark">අඳුරු</string>
     <string name="send_post_notification_title">ටූට් යැවෙමින්…</string>
     <string name="system_default">පද්ධති පෙරනිමිය</string>
     <string name="action_mention">සඳැහුම</string>

@@ -1,34 +1,6 @@
 package app.pachli.core.preferences
 
 /**
- * Possible themes.
- *
- * The order of the values is important, and must be kept in sync with
- * R.array.app_theme_names.
- */
-enum class AppTheme(val value: String) {
-    NIGHT("night"),
-    DAY("day"),
-    BLACK("black"),
-    AUTO("auto"),
-    AUTO_SYSTEM("auto_system"),
-    ;
-
-    companion object {
-        val APP_THEME_DEFAULT = AUTO_SYSTEM
-
-        fun stringValues() = entries.map { it.value }.toTypedArray()
-
-        fun from(sharedPreferencesRepository: SharedPreferencesRepository): AppTheme {
-            val pref = sharedPreferencesRepository.getString(PrefKeys.APP_THEME, null)
-                ?: return APP_THEME_DEFAULT
-
-            return enumValueOf(pref.uppercase())
-        }
-    }
-}
-
-/**
  * Current preferences schema version. Format is 4-digit year + 2 digit month (zero padded) + 2
  * digit day (zero padded) + 2 digit counter (zero padded).
  *

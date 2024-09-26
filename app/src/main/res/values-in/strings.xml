@@ -82,9 +82,6 @@
     <string name="pref_title_notification_alert_sound">Beri tahu dengan suara</string>
     <string name="pref_title_notification_alert_vibrate">Beri tahu dengan getaran</string>
     <string name="pref_title_notification_alert_light">Beri tahu dengan lampu</string>
-    <string name="app_them_dark">Gelap</string>
-    <string name="app_theme_light">Terang</string>
-    <string name="app_theme_black">Hitam</string>
     <string name="pref_title_timelines">Linimasa</string>
     <string name="pref_title_app_theme">Tema Aplikasi</string>
     <string name="pref_title_browser_settings">Peramban</string>

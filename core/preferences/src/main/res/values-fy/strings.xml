@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Ljocht</string>
+    <string name="app_theme_black">Swart</string>
+    <string name="app_theme_auto">Automatysk as de sinne ûnder giet</string>
+    <string name="app_theme_dark">Tsjuster</string>
+    <string name="app_theme_system">Systeem Opmaak Brûke</string>
+</resources>

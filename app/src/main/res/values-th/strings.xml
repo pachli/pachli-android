@@ -198,11 +198,6 @@
     <string name="pref_title_hide_follow_button">ซ่อนปุ่มเขียนเมื่อกำลังเลื่อนจอ</string>
     <string name="pref_title_custom_tabs">ใช้ Chrome Custom Tabs</string>
     <string name="pref_title_browser_settings">เบราว์เซอร์</string>
-    <string name="app_theme_system">ใช้ตามแบบระบบ</string>
-    <string name="app_theme_auto">ปรับตามเวลา</string>
-    <string name="app_theme_black">ดำ</string>
-    <string name="app_theme_light">สว่าง</string>
-    <string name="app_them_dark">มืด</string>
     <string name="pref_title_timeline_filters">คัดกรอง</string>
     <string name="pref_title_timelines">ไทม์ไลน์</string>
     <string name="pref_title_app_theme">ธีมแอป</string>

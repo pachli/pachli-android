@@ -65,11 +65,6 @@
     <string name="pref_title_post_tabs">Ljepblêden</string>
     <string name="pref_title_language">Taal</string>
     <string name="pref_title_browser_settings">Webblêder</string>
-    <string name="app_theme_system">Systeem Opmaak Brûke</string>
-    <string name="app_theme_auto">Automatysk as de sinne ûnder giet</string>
-    <string name="app_theme_black">Swart</string>
-    <string name="app_theme_light">Ljocht</string>
-    <string name="app_them_dark">Tsjuster</string>
     <string name="pref_title_timeline_filters">Filters</string>
     <string name="pref_title_app_theme">Applikaasje Tema</string>
     <string name="pref_title_appearance_settings">Uterlik</string>

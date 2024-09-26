@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Terang</string>
+    <string name="app_theme_black">Hitam</string>
+    <string name="app_theme_dark">Gelap</string>
+</resources>

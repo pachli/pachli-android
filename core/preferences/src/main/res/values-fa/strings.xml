@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">روشن</string>
+    <string name="app_theme_black">سیاه</string>
+    <string name="app_theme_auto">خودکار در غروب</string>
+    <string name="app_theme_dark">تاریک</string>
+    <string name="app_theme_system">استفاده از طراحی سامانه</string>
+</resources>

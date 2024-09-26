@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Claro</string>
+    <string name="app_theme_black">AMOLED</string>
+    <string name="app_theme_auto">Automático ao pôr-do-sol</string>
+    <string name="app_theme_dark">Escuro</string>
+    <string name="app_theme_system">Usar o Tema do Sistema</string>
+</resources>

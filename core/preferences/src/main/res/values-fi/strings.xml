@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Vaalea</string>
+    <string name="app_theme_black">Musta</string>
+    <string name="app_theme_auto">Automaattisesti auringonlaskun aikaan</string>
+    <string name="app_theme_dark">Tumma</string>
+    <string name="app_theme_system">Seuraa laitteen teemaa</string>
+</resources>

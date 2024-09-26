@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">สว่าง</string>
+    <string name="app_theme_black">ดำ</string>
+    <string name="app_theme_auto">ปรับตามเวลา</string>
+    <string name="app_theme_dark">มืด</string>
+    <string name="app_theme_system">ใช้ตามแบบระบบ</string>
+</resources>

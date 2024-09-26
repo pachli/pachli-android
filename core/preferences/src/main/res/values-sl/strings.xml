@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Svetla</string>
+    <string name="app_theme_black">Črna</string>
+    <string name="app_theme_auto">Samodejno ob sončnem zahodu</string>
+    <string name="app_theme_dark">Temna</string>
+    <string name="app_theme_system">Uporabi sistemsko temo</string>
+</resources>

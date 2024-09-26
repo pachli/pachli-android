@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Clair</string>
+    <string name="app_theme_black">Noir</string>
+    <string name="app_theme_auto">Basé sur le coucher du soleil</string>
+    <string name="app_theme_dark">Sombre</string>
+    <string name="app_theme_system">Utiliser le thème système</string>
+</resources>

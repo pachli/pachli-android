@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_theme_light">Golau</string>
+    <string name="app_theme_black">Du</string>
+    <string name="app_theme_auto">Awtomatig wrth iddi nosi</string>
+    <string name="app_theme_dark">Tywyll</string>
+    <string name="app_theme_system">Defnyddio arddull y system</string>
+</resources>

@@ -18,6 +18,7 @@
 package app.pachli.core.preferences
 
 import androidx.annotation.StringRes
+import kotlin.enums.enumEntries
 
 /**
  * Interface for enums that can be saved/restored from [SharedPreferencesRepository].
@@ -39,13 +40,15 @@ interface PreferenceEnum {
          * @return The enum identified by [s], or null if the enum does not have [s] as
          * a string representation.
          */
-        inline fun <reified T : Enum<T>> from(s: String?): T? {
-            s ?: return null
-
-            return try {
-                enumValueOf<T>(s)
-            } catch (_: IllegalArgumentException) {
-                null
+        inline fun <reified E> from(
+            s: String?,
+        ): E?
+            where E : Enum<E>,
+                  E : PreferenceEnum {
+            // Can't use enumValueOf as the stored value might be the `value`
+            // property, not the enum name.
+            return s?.let {
+                enumEntries<E>().associateBy { it.value ?: it.name }[s]
             }
         }
     }
