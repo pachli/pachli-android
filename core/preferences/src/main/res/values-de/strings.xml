@@ -7,4 +7,6 @@
     <string name="app_theme_system">Systemdesign verwenden</string>
     <string name="pref_category_downloads">Downloads</string>
     <string name="pref_title_downloads">Speicherort</string>
+    <string name="download_location_downloads">Ordner herunterladen</string>
+    <string name="download_location_per_account">Pro-Account-Ordner, in Downloads-Ordner</string>
 </resources>
