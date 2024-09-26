@@ -7,4 +7,6 @@
     <string name="app_theme_system">Sistem tasarımını kullan</string>
     <string name="pref_category_downloads">İndirilenler</string>
     <string name="pref_title_downloads">İndirme konumu</string>
+    <string name="download_location_downloads">Downloads klasörü</string>
+    <string name="download_location_per_account">Per-account klasörleri, Downloads klasörü</string>
 </resources>
