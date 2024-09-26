@@ -7,4 +7,6 @@
     <string name="download_location_downloads">Download folder</string>
     <string name="download_location_per_account">Folder Per-account, di folder Unduhan</string>
     <string name="app_theme_system">Gunakan desain sistem</string>
+    <string name="pref_category_downloads">Unduhan</string>
+    <string name="pref_title_downloads">Tempat unduhan</string>
 </resources>
