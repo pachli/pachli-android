@@ -9,4 +9,8 @@
     <string name="pref_title_downloads">Ubicación de descarga</string>
     <string name="download_location_downloads">Carpeta de Descargas</string>
     <string name="download_location_per_account">Carpetas de cuenta, en carpeta Descargas</string>
+    <string name="download_location_per_sender">Carpetas Per-sender, en carpeta Descargas</string>
+    <string name="pref_title_tab_tap">Acción al tocar una pestaña</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Saltar a la siguiente página</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Saltar al contenido más nuevo</string>
 </resources>
