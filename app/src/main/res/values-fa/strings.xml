@@ -125,10 +125,6 @@
     <string name="pref_title_appearance_settings">ظاهر</string>
     <string name="pref_title_app_theme">زمینهٔ کاره</string>
     <string name="pref_title_timelines">خط‌ زمانی‌ها</string>
-    <string name="app_them_dark">تاریک</string>
-    <string name="app_theme_light">روشن</string>
-    <string name="app_theme_black">سیاه</string>
-    <string name="app_theme_auto">خودکار در غروب</string>
     <string name="pref_title_browser_settings">مرورگر</string>
     <string name="pref_title_custom_tabs">استفاده از زبانه‌های سفارشی کروم</string>
     <string name="pref_title_hide_follow_button">نهفتن دکمهٔ ایجاد، هنگام پیمایش</string>
@@ -257,7 +253,6 @@
     <string name="mute_domain_warning_dialog_ok">نهفتن تمام دامنه</string>
     <string name="pref_title_notification_filter_poll">پایان نظرسنجی‌ها</string>
     <string name="pref_title_timeline_filters">پالایه‌ها</string>
-    <string name="app_theme_system">استفاده از طراحی سامانه</string>
     <string name="pref_title_language">زبان</string>
     <string name="pref_title_bot_overlay">نمایش نشانگر برای بات‌ها</string>
     <string name="pref_title_animate_gif_avatars">پویانمایی آواتارهای جیف</string>

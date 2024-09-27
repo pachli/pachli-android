@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">فاتحة</string>
+    <string name="app_theme_black">سوداء</string>
+    <string name="app_theme_auto">تلقائي عند غروب الشمس</string>
+    <string name="app_theme_dark">داكنة</string>
+    <string name="app_theme_system">استخدم مظهر النظام</string>
+    <string name="pref_category_downloads">التنزيلات</string>
+    <string name="pref_title_downloads">مسار التحميلات</string>
+    <string name="download_location_downloads">تحميل الملفات</string>
+    <string name="download_location_per_account">ملفات لكل حساب، في مجلدات تحميل</string>
+</resources>

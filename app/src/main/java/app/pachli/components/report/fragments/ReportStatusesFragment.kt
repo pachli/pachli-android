@@ -82,7 +82,7 @@ class ReportStatusesFragment :
             when (actionable.attachments[idx].type) {
                 Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
                     val attachments = AttachmentViewData.list(actionable)
-                    val intent = ViewMediaActivityIntent(requireContext(), attachments, idx)
+                    val intent = ViewMediaActivityIntent(requireContext(), actionable.account.username, attachments, idx)
                     if (v != null) {
                         val url = actionable.attachments[idx].url
                         ViewCompat.setTransitionName(v, url)

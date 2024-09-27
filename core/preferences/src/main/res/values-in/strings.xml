@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Terang</string>
+    <string name="app_theme_black">Hitam</string>
+    <string name="app_theme_dark">Gelap</string>
+    <string name="app_theme_auto">Otomatis saat matahari terbenam</string>
+    <string name="download_location_downloads">Download folder</string>
+    <string name="download_location_per_account">Folder Per-account, di folder Unduhan</string>
+    <string name="app_theme_system">Gunakan desain sistem</string>
+    <string name="pref_category_downloads">Unduhan</string>
+    <string name="pref_title_downloads">Tempat unduhan</string>
+</resources>

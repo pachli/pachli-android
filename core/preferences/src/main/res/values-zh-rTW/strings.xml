@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">白天</string>
+    <string name="app_theme_black">暗色</string>
+    <string name="app_theme_auto">自動切換</string>
+    <string name="app_theme_dark">黑夜</string>
+    <string name="app_theme_system">跟隨系統</string>
+    <string name="pref_category_downloads">下載</string>
+    <string name="pref_title_downloads">下載位置</string>
+    <string name="download_location_downloads">下载夹</string>
+    <string name="download_location_per_account">缩略语</string>
+</resources>

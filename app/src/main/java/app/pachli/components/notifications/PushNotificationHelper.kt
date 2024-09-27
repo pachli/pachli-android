@@ -38,8 +38,6 @@ import kotlinx.coroutines.withContext
 import org.unifiedpush.android.connector.PREF_MASTER
 import org.unifiedpush.android.connector.PREF_MASTER_DISTRIBUTOR
 import org.unifiedpush.android.connector.PREF_MASTER_DISTRIBUTOR_ACK
-import org.unifiedpush.android.connector.PREF_MASTER_INSTANCE
-import org.unifiedpush.android.connector.PREF_MASTER_TOKEN
 import org.unifiedpush.android.connector.UnifiedPush
 import timber.log.Timber
 
@@ -300,24 +298,10 @@ suspend fun disableAllNotifications(context: Context, api: MastodonApi, accountM
 }
 
 /**
- * Disables all push notifications.
- *
- * Disables push notifications for each account, and clears the relevant UnifiedPush preferences
- * to work around a bug.
+ * Disables push push notifications for each account.
  */
 private suspend fun disablePushNotifications(context: Context, api: MastodonApi, accountManager: AccountManager) {
     accountManager.accounts.forEach { disablePushNotificationsForAccount(context, api, accountManager, it) }
-
-    // Clear UnifiedPush preferences, to work around
-    // https://github.com/UnifiedPush/android-connector/issues/85
-    val prefs = context.getSharedPreferences(PREF_MASTER, Context.MODE_PRIVATE)
-    prefs.edit().apply {
-        // Remove the set of instances.
-        remove(PREF_MASTER_INSTANCE)
-
-        // Remove the entry for each instance that points to the instance's token.
-        prefs.all.filter { it.key.endsWith("/$PREF_MASTER_TOKEN") }.forEach { remove(it.key) }
-    }.apply()
 }
 
 /**

@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Fixes:
+
+- Seules les actions accessibles sur les notifications attachées à un statut

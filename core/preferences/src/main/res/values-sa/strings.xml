@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">ज्योतिपूर्णः</string>
+    <string name="app_theme_black">कृष्णः</string>
+    <string name="app_theme_auto">सूर्यास्तसमये स्वचालितम्</string>
+    <string name="app_theme_dark">अन्धकारः</string>
+    <string name="app_theme_system">प्रणाल्याः परिकल्पना प्रयुज्यताम्</string>
+    <string name="pref_category_downloads">अवारोपितानि</string>
+    <string name="pref_title_downloads">अवारोपणस्थलम्</string>
+</resources>

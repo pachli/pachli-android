@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Sáng</string>
+    <string name="app_theme_black">Đen</string>
+    <string name="app_theme_auto">Tự động khi trời tối</string>
+    <string name="app_theme_dark">Tối</string>
+    <string name="app_theme_system">Mặc định của thiết bị</string>
+    <string name="pref_category_downloads">Tải xuống</string>
+    <string name="pref_title_downloads">Thư mục tải xuống</string>
+</resources>

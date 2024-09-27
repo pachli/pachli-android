@@ -335,11 +335,6 @@
     <string name="pref_title_hide_follow_button">Ховати кнопку написати під час прокручування</string>
     <string name="pref_title_custom_tabs">Вкладки вбудованого браузера Chrome</string>
     <string name="pref_title_browser_settings">Браузер</string>
-    <string name="app_theme_system">Тема системи</string>
-    <string name="app_theme_auto">Автоматична від заходу сонця</string>
-    <string name="app_theme_black">Чорна</string>
-    <string name="app_theme_light">Світла</string>
-    <string name="app_them_dark">Темна</string>
     <string name="pref_title_timeline_filters">Фільтри</string>
     <string name="pref_title_timelines">Стрічки</string>
     <string name="pref_title_app_theme">Тема застосунку</string>

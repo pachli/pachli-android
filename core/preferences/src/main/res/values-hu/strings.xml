@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Világos</string>
+    <string name="app_theme_black">Fekete</string>
+    <string name="app_theme_auto">Automatikus naplementekor</string>
+    <string name="app_theme_dark">Sötét</string>
+    <string name="app_theme_system">Rendszer téma használata</string>
+    <string name="pref_category_downloads">Letöltések</string>
+    <string name="pref_title_downloads">Letöltések helye</string>
+    <string name="download_location_downloads">Letöltések mappa</string>
+    <string name="download_location_per_account">Per-account mappák, a Downloads mappában</string>
+</resources>

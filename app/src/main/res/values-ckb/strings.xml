@@ -145,11 +145,6 @@
     <string name="pref_title_hide_follow_button">دوگمەی ئاوازدانان بشارەوە لەکاتی خشاندن</string>
     <string name="pref_title_custom_tabs">بەکارهێنانی خشتەبەندەکانی دڵخواز</string>
     <string name="pref_title_browser_settings">وێبگەڕ</string>
-    <string name="app_theme_system">دیزاینی سیستەم بەکاربهێنە</string>
-    <string name="app_theme_auto">خۆکار لە کاتی خۆرئاوابووندا</string>
-    <string name="app_theme_black">ڕەش</string>
-    <string name="app_theme_light">ڕووناکی</string>
-    <string name="app_them_dark">تاریک</string>
     <string name="pref_title_timeline_filters">فلتەرەکان</string>
     <string name="pref_title_app_theme">ڕووکاری ئەپ</string>
     <string name="pref_title_timelines">تایملاین</string>

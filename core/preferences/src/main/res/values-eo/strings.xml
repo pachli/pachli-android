@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Hela</string>
+    <string name="app_theme_black">Nigra</string>
+    <string name="app_theme_auto">Aŭtomata laŭ la horo</string>
+    <string name="app_theme_dark">Malhela</string>
+    <string name="app_theme_system">Uzi sisteman etoson</string>
+    <string name="download_location_downloads">Elŝutu faldojn</string>
+    <string name="download_location_per_account">Per-akcentaj faldoj, en Downloads faldas</string>
+    <string name="pref_title_downloads">Elŝutu lokon</string>
+    <string name="pref_category_downloads">Elŝutoj</string>
+</resources>

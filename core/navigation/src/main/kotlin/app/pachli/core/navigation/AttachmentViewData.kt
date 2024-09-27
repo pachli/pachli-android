@@ -25,6 +25,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AttachmentViewData(
+    /** Username of the sender. With domain if remote, without domain if local. */
+    val username: String,
     val attachment: Attachment,
     val statusId: String,
     val statusUrl: String,
@@ -41,6 +43,7 @@ data class AttachmentViewData(
             val actionable = status.actionableStatus
             return actionable.attachments.map { attachment ->
                 AttachmentViewData(
+                    username = actionable.account.username,
                     attachment = attachment,
                     statusId = actionable.id,
                     statusUrl = actionable.url!!,

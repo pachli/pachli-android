@@ -13,6 +13,8 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceScreen
 import androidx.preference.SwitchPreferenceCompat
+import app.pachli.core.preferences.PreferenceEnum
+import app.pachli.core.ui.EnumListPreference
 import app.pachli.view.SliderPreference
 import de.c1710.filemojicompat_ui.views.picker.preference.EmojiPickerPreference
 
@@ -30,6 +32,17 @@ inline fun PreferenceParent.preference(builder: Preference.() -> Unit): Preferen
 
 inline fun PreferenceParent.listPreference(builder: ListPreference.() -> Unit): ListPreference {
     val pref = ListPreference(context)
+    builder(pref)
+    addPref(pref)
+    return pref
+}
+
+inline fun <reified T> PreferenceParent.enumListPreference(
+    builder: EnumListPreference<T>.() -> Unit,
+): EnumListPreference<T>
+    where T : Enum<T>,
+          T : PreferenceEnum {
+    val pref = EnumListPreference<T>(context)
     builder(pref)
     addPref(pref)
     return pref

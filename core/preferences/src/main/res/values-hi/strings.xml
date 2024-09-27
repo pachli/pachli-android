@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">प्रकाश</string>
+    <string name="app_theme_black">Black</string>
+    <string name="app_theme_auto">सूर्यास्त के समय स्वचालित</string>
+    <string name="app_theme_dark">अंधकार</string>
+    <string name="app_theme_system">सिस्टम डिज़ाइन का उपयोग करें</string>
+    <string name="pref_category_downloads">डाउनलोड</string>
+    <string name="pref_title_downloads">डाउनलोड स्थान</string>
+    <string name="download_location_downloads">डाउनलोड फ़ोल्डर</string>
+    <string name="download_location_per_account">प्रति खाता फ़ोल्डर, डाउनलोड फ़ोल्डर में</string>
+</resources>

@@ -17,7 +17,6 @@
 package app.pachli.components.search.fragments
 
 import android.Manifest
-import android.app.DownloadManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -25,7 +24,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -46,6 +44,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.activity.openLink
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -73,11 +72,11 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
+    @Inject
+    lateinit var downloadUrlUseCase: DownloadUrlUseCase
+
     override val data: Flow<PagingData<StatusViewData>>
         get() = viewModel.statusesFlow
-
-    private val searchAdapter
-        get() = super.adapter as SearchStatusesAdapter
 
     override fun createAdapter(): PagingDataAdapter<StatusViewData, *> {
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
@@ -116,6 +115,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 val attachments = AttachmentViewData.list(actionable)
                 val intent = ViewMediaActivityIntent(
                     requireContext(),
+                    actionable.account.username,
                     attachments,
                     attachmentIndex,
                 )
@@ -379,13 +379,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     private fun downloadAllMedia(status: Status) {
         Toast.makeText(context, R.string.downloading_media, Toast.LENGTH_SHORT).show()
         for ((_, url) in status.attachments) {
-            val uri = Uri.parse(url)
-            val filename = uri.lastPathSegment
-
-            val downloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-            val request = DownloadManager.Request(uri)
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename)
-            downloadManager.enqueue(request)
+            downloadUrlUseCase(url, viewModel.activeAccount!!.fullName, status.actionableStatus.account.username)
         }
     }
 

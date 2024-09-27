@@ -25,7 +25,6 @@ import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * An implementation of [SharedPreferences] that exposes all changes to the
@@ -46,6 +45,17 @@ class SharedPreferencesRepository @Inject constructor(
      */
     val changes = MutableSharedFlow<String?>()
 
+    /** Application theme. */
+    val appTheme: AppTheme
+        get() = getEnum(PrefKeys.APP_THEME, AppTheme.AUTO_SYSTEM)
+
+    /** Location of downloaded files. */
+    val downloadLocation: DownloadLocation
+        get() = getEnum(PrefKeys.DOWNLOAD_LOCATION, DownloadLocation.DOWNLOADS)
+
+    val tabTapBehaviour: TabTapBehaviour
+        get() = getEnum(PrefKeys.TAB_TAP_BEHAVIOUR, TabTapBehaviour.JUMP_TO_NEXT_PAGE)
+
     // Ensure the listener is retained during minification. If you do not do this the
     // field is removed and eventually garbage collected (because registering it as a
     // change listener does not create a strong reference to it) and then no more
@@ -57,7 +67,6 @@ class SharedPreferencesRepository @Inject constructor(
         }
 
     init {
-        Timber.d("Being created")
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
     }
 }

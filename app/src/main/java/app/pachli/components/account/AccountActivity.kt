@@ -568,18 +568,18 @@ class AccountActivity :
                 .into(binding.accountHeaderImageView)
 
             binding.accountAvatarImageView.setOnClickListener { view ->
-                viewImage(view, account.avatar)
+                viewImage(view, account.username, account.avatar)
             }
             binding.accountHeaderImageView.setOnClickListener { view ->
-                viewImage(view, account.header)
+                viewImage(view, account.username, account.header)
             }
         }
     }
 
-    private fun viewImage(view: View, uri: String) {
+    private fun viewImage(view: View, owningUsername: String, uri: String) {
         ViewCompat.setTransitionName(view, uri)
         startActivity(
-            ViewMediaActivityIntent(view.context, uri),
+            ViewMediaActivityIntent(view.context, owningUsername, uri),
             ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, uri).toBundle(),
         )
     }
@@ -690,7 +690,8 @@ class AccountActivity :
 
         // because subscribing is Pleroma extension, enable it __only__ when we have non-null subscribing field
         // it's also now supported in Mastodon 3.3.0rc but called notifying and use different API call
-        if (!viewModel.isSelf && followState == FollowState.FOLLOWING &&
+        if (!viewModel.isSelf &&
+            followState == FollowState.FOLLOWING &&
             (relation.subscribing != null || relation.notifying != null)
         ) {
             binding.accountSubscribeButton.show()
@@ -788,7 +789,7 @@ class AccountActivity :
     private fun updateBadges() {
         binding.accountBadgeContainer.removeAllViews()
 
-        val isLight = when (AppTheme.from(sharedPreferencesRepository)) {
+        val isLight = when (sharedPreferencesRepository.appTheme) {
             AppTheme.DAY -> true
             AppTheme.NIGHT, AppTheme.BLACK -> false
             AppTheme.AUTO, AppTheme.AUTO_SYSTEM -> {

@@ -132,11 +132,6 @@
     <string name="pref_title_appearance_settings">Aparência</string>
     <string name="pref_title_app_theme">Tema do aplicativo</string>
     <string name="pref_title_timelines">Linhas do tempo</string>
-    <string name="app_them_dark">Escuro</string>
-    <string name="app_theme_light">Claro</string>
-    <string name="app_theme_black">AMOLED</string>
-    <string name="app_theme_auto">Automático no ocaso</string>
-    <string name="app_theme_system">Usar o tema do sistema</string>
     <string name="pref_title_browser_settings">Navegador</string>
     <string name="pref_title_custom_tabs">Usar abas personalizadas do Chrome</string>
     <string name="pref_title_hide_follow_button">Ocultar botão de compor ao rolar a tela</string>

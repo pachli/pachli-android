@@ -17,6 +17,7 @@
 
 package app.pachli.core.network.di.test
 
+import app.pachli.core.model.VersionAdapter
 import app.pachli.core.network.di.NetworkModule
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.model.MediaUploadApi

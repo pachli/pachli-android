@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Claro</string>
+    <string name="app_theme_black">Negro</string>
+    <string name="app_theme_auto">Automático ao solpor</string>
+    <string name="app_theme_dark">Escuro</string>
+    <string name="app_theme_system">Usar deseño do sistema</string>
+    <string name="pref_category_downloads">Baixadas</string>
+    <string name="pref_title_downloads">Localización das baixadas</string>
+    <string name="download_location_per_account">Cartafoles por conta, no cartafol Descargas</string>
+    <string name="download_location_downloads">Cartafol para descargas</string>
+</resources>

@@ -124,10 +124,6 @@
     <string name="pref_title_notification_filter_favourites">mae fy negeseuon yn cael eu hoffi</string>
     <string name="pref_title_appearance_settings">Gwedd</string>
     <string name="pref_title_app_theme">Thema\'r ap</string>
-    <string name="app_them_dark">Tywyll</string>
-    <string name="app_theme_light">Golau</string>
-    <string name="app_theme_black">Du</string>
-    <string name="app_theme_auto">Awtomatig wrth iddi nosi</string>
     <string name="pref_title_browser_settings">Porwr</string>
     <string name="pref_title_custom_tabs">Defnyddio Tabiau Cyfaddas Chrome</string>
     <string name="pref_title_hide_follow_button">Cuddio\'r botwm creu wrth sgrolio </string>
@@ -379,7 +375,6 @@
     <string name="button_continue">Parhau</string>
     <string name="button_back">Nôl</string>
     <string name="hint_additional_info">Sylwadau ychwanegol</string>
-    <string name="app_theme_system">Defnyddio arddull y system</string>
     <string name="pref_main_nav_position">Prif lleoliad y panel llywio</string>
     <string name="pref_title_animate_gif_avatars">Animeiddio lluniau proffil GIF</string>
     <string name="pref_default_media_sensitivity">Nodi cyfryngau yn sensitif bob tro</string>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Chiaro</string>
+    <string name="app_theme_black">Nero</string>
+    <string name="app_theme_auto">Automatico al tramonto</string>
+    <string name="app_theme_dark">Scuro</string>
+    <string name="app_theme_system">Usa tema di sistema</string>
+    <string name="pref_category_downloads">Scaricamenti</string>
+    <string name="pref_title_downloads">Posizione del download</string>
+    <string name="download_location_downloads">Scarica la cartella</string>
+    <string name="download_location_per_account">Per-account cartelle, nella cartella Download</string>
+</resources>

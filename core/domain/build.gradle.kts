@@ -18,7 +18,6 @@
 plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
-    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -35,4 +34,5 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.network)
         ?.because("Depends on UserListRepliesPolicy type")
+    implementation(projects.core.preferences)
 }
