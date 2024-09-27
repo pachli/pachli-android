@@ -110,6 +110,7 @@ object PrefKeys {
     const val USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR = "usePreviousUnifiedPushDistributor"
 
     const val DOWNLOAD_LOCATION = "downloadLocation"
+    const val TAB_TAP_BEHAVIOUR = "tabTapBehaviour"
 
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {

@@ -67,6 +67,7 @@ import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditFilterActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
+import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.getErrorString
@@ -799,9 +800,15 @@ class TimelineFragment :
 
     override fun onReselect() {
         if (isAdded) {
-            binding.recyclerView.scrollToPosition(0)
-            binding.recyclerView.stopScroll()
-            saveVisibleId()
+            when (viewModel.uiState.value.tabTapBehaviour) {
+                TabTapBehaviour.JUMP_TO_NEXT_PAGE -> {
+                    binding.recyclerView.scrollToPosition(0)
+                    binding.recyclerView.stopScroll()
+                    saveVisibleId()
+                }
+
+                TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest)
+            }
         }
     }
 

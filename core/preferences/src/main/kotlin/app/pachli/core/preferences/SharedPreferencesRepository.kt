@@ -53,6 +53,9 @@ class SharedPreferencesRepository @Inject constructor(
     val downloadLocation: DownloadLocation
         get() = getEnum(PrefKeys.DOWNLOAD_LOCATION, DownloadLocation.DOWNLOADS)
 
+    val tabTapBehaviour: TabTapBehaviour
+        get() = getEnum(PrefKeys.TAB_TAP_BEHAVIOUR, TabTapBehaviour.JUMP_TO_NEXT_PAGE)
+
     // Ensure the listener is retained during minification. If you do not do this the
     // field is removed and eventually garbage collected (because registering it as a
     // change listener does not create a strong reference to it) and then no more

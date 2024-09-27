@@ -21,6 +21,7 @@ import androidx.core.content.edit
 import app.cash.turbine.test
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.TabTapBehaviour
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -36,6 +37,7 @@ class NotificationsViewModelTestUiState : NotificationsViewModelTestBase() {
     private val initialUiState = UiState(
         activeFilter = setOf(Notification.Type.FOLLOW),
         showFabWhileScrolling = true,
+        tabTapBehaviour = TabTapBehaviour.JUMP_TO_NEXT_PAGE,
     )
 
     @Test

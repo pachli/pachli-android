@@ -41,6 +41,7 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.network.FilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.deserialize
@@ -82,6 +83,9 @@ data class UiState(
 
     /** True if the FAB should be shown while scrolling */
     val showFabWhileScrolling: Boolean = true,
+
+    /** User's preference for behaviour when tapping a tab. */
+    val tabTapBehaviour: TabTapBehaviour = TabTapBehaviour.JUMP_TO_NEXT_PAGE,
 )
 
 /** Preferences the UI reacts to */
@@ -92,6 +96,7 @@ data class UiPrefs(
         /** Relevant preference keys. Changes to any of these trigger a display update */
         val prefKeys = setOf(
             PrefKeys.FAB_HIDE,
+            PrefKeys.TAB_TAP_BEHAVIOUR,
         )
     }
 }
@@ -384,6 +389,7 @@ class NotificationsViewModel @Inject constructor(
                     account.lastNotificationId = "0"
                     accountManager.saveAccount(account)
                     reload.getAndUpdate { it + 1 }
+                    repository.invalidate()
                 }
         }
 
@@ -506,10 +512,11 @@ class NotificationsViewModel @Inject constructor(
                 getNotifications(filters = action.filter, initialKey = getInitialKey())
             }.cachedIn(viewModelScope)
 
-        uiState = combine(notificationFilter, getUiPrefs()) { filter, prefs ->
+        uiState = combine(notificationFilter, getUiPrefs()) { filter, _ ->
             UiState(
                 activeFilter = filter.filter,
-                showFabWhileScrolling = prefs.showFabWhileScrolling,
+                showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
+                tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
             )
         }.stateIn(
             scope = viewModelScope,
@@ -557,10 +564,5 @@ class NotificationsViewModel @Inject constructor(
      */
     private fun getUiPrefs() = sharedPreferencesRepository.changes
         .filter { UiPrefs.prefKeys.contains(it) }
-        .map { toPrefs() }
-        .onStart { emit(toPrefs()) }
-
-    private fun toPrefs() = UiPrefs(
-        showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
-    )
+        .onStart { emit(null) }
 }
