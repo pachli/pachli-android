@@ -5,4 +5,8 @@
     <string name="app_theme_light">בהירה</string>
     <string name="app_theme_black">שחורה</string>
     <string name="app_theme_dark">כהה</string>
+    <string name="download_location_downloads">הורד תיקיה</string>
+    <string name="download_location_per_account">תיקיות Per-account, בהורדת התיקיה</string>
+    <string name="app_theme_auto">אוטומטי בשקיעה</string>
+    <string name="app_theme_system">שימוש בעיצוב מערכת</string>
 </resources>
