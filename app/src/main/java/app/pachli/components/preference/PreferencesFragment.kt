@@ -54,6 +54,7 @@ import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.DownloadLocation
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.AccountNotificationDetailsListItemBinding
@@ -196,15 +197,6 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                 }
 
                 listPreference {
-                    setDefaultValue("top")
-                    setEntries(R.array.pref_main_nav_position_options)
-                    setEntryValues(R.array.pref_main_nav_position_values)
-                    key = PrefKeys.MAIN_NAV_POSITION
-                    setSummaryProvider { entry }
-                    setTitle(R.string.pref_main_nav_position)
-                }
-
-                listPreference {
                     setDefaultValue("disambiguate")
                     setEntries(R.array.pref_show_self_username_names)
                     setEntryValues(R.array.pref_show_self_username_values)
@@ -286,17 +278,34 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                 }
 
                 switchPreference {
+                    setDefaultValue(false)
+                    key = PrefKeys.SHOW_STATS_INLINE
+                    setTitle(R.string.pref_title_show_stat_inline)
+                    isSingleLineTitle = false
+                }
+            }
+
+            preferenceCategory(app.pachli.core.preferences.R.string.pref_category_tabs) {
+                listPreference {
+                    setDefaultValue("top")
+                    setEntries(R.array.pref_main_nav_position_options)
+                    setEntryValues(R.array.pref_main_nav_position_values)
+                    key = PrefKeys.MAIN_NAV_POSITION
+                    setSummaryProvider { entry }
+                    setTitle(R.string.pref_main_nav_position)
+                }
+
+                switchPreference {
                     setDefaultValue(true)
                     key = PrefKeys.ENABLE_SWIPE_FOR_TABS
                     setTitle(R.string.pref_title_enable_swipe_for_tabs)
                     isSingleLineTitle = false
                 }
 
-                switchPreference {
-                    setDefaultValue(false)
-                    key = PrefKeys.SHOW_STATS_INLINE
-                    setTitle(R.string.pref_title_show_stat_inline)
-                    isSingleLineTitle = false
+                enumListPreference<TabTapBehaviour> {
+                    setDefaultValue(TabTapBehaviour.JUMP_TO_NEXT_PAGE)
+                    setTitle(app.pachli.core.preferences.R.string.pref_title_tab_tap)
+                    key = PrefKeys.TAB_TAP_BEHAVIOUR
                 }
             }
 
