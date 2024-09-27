@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_theme_light">Claro</string>
     <string name="app_theme_black">Negro</string>
     <string name="app_theme_auto">Automático</string>
     <string name="app_theme_dark">Oscuro</string>
     <string name="app_theme_system">Usar tema del sistema</string>
+    <string name="pref_category_downloads">Descargas</string>
+    <string name="pref_title_downloads">Ubicación de descarga</string>
+    <string name="download_location_downloads">Carpeta de Descargas</string>
+    <string name="download_location_per_account">Carpetas de cuenta, en carpeta Descargas</string>
 </resources>

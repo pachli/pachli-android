@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_category_downloads">Λήψεις</string>
+    <string name="pref_title_downloads">Φάκελος λήψεων</string>
+    <string name="app_theme_light">Φωτεινό</string>
+    <string name="app_theme_black">Μαύρο</string>
+    <string name="app_theme_dark">Σκοτεινό</string>
+    <string name="download_location_downloads">Downloads φάκελο</string>
+    <string name="download_location_per_account">Φάκελοι Per-account, στο φάκελο Downloads</string>
+    <string name="app_theme_auto">Automatic στο ηλιοβασίλεμα</string>
+    <string name="app_theme_system">Χρησιμοποιήστε το σχεδιασμό συστήματος</string>
+</resources>

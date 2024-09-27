@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_theme_light">روشن</string>
     <string name="app_theme_black">سیاه</string>
     <string name="app_theme_auto">خودکار در غروب</string>
     <string name="app_theme_dark">تاریک</string>
     <string name="app_theme_system">استفاده از طراحی سامانه</string>
+    <string name="pref_category_downloads">دانلودها</string>
+    <string name="pref_title_downloads">محل دانلود</string>
+    <string name="download_location_downloads">بایگانی برچسب ها</string>
+    <string name="download_location_per_account">پوشه های Per-account، در پوشه Download</string>
 </resources>

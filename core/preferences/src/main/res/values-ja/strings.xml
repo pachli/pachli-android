@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_theme_light">ライト</string>
     <string name="app_theme_black">ブラック</string>
     <string name="app_theme_auto">日没による自動設定</string>
     <string name="app_theme_dark">ダーク</string>
     <string name="app_theme_system">システムの設定を利用</string>
+    <string name="pref_category_downloads">ダウンロード</string>
+    <string name="pref_title_downloads">ダウンロードフォルダ</string>
+    <string name="download_location_downloads">ダウンロードフォルダ</string>
+    <string name="download_location_per_account">ダウンロードフォルダ内のアカウントフォルダ</string>
 </resources>

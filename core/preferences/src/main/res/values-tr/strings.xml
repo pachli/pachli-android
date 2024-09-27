@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_theme_light">Açık</string>
     <string name="app_theme_black">Siyah</string>
     <string name="app_theme_auto">Gün batımında otomatik</string>
     <string name="app_theme_dark">Koyu</string>
     <string name="app_theme_system">Sistem tasarımını kullan</string>
+    <string name="pref_category_downloads">İndirilenler</string>
+    <string name="pref_title_downloads">İndirme konumu</string>
+    <string name="download_location_downloads">Downloads klasörü</string>
+    <string name="download_location_per_account">Per-account klasörleri, Downloads klasörü</string>
 </resources>
