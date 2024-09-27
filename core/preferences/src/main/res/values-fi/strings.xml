@@ -13,4 +13,5 @@
     <string name="pref_title_tab_tap">Toiminta, kun napautat välilehtiä</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Hyppää seuraavalle sivulle</string>
     <string name="tab_tap_behaviour_jump_to_newest">Hyppää uusimpaan sisältöön</string>
+    <string name="pref_category_tabs">Välilehdet</string>
 </resources>
