@@ -9,4 +9,8 @@
     <string name="pref_title_downloads">ตําแหน่งที่ดาวน์โหลด</string>
     <string name="download_location_downloads">ดาวน์โหลดโฟลเดอร์</string>
     <string name="download_location_per_account">โฟลเดอร์บัญชี, ดาวน์โหลดในโฟลเดอร์</string>
+    <string name="download_location_per_sender">โฟลเดอร์ของโฟลเดอร์ดาวน์โหลดในโฟลเดอร์</string>
+    <string name="pref_title_tab_tap">การกระทําเมื่อแตะแท็บ</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">ขี่หน้าถัดไป</string>
+    <string name="tab_tap_behaviour_jump_to_newest">ขี่เนื้อหาล่าสุด</string>
 </resources>
