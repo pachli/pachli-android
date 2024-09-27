@@ -9,4 +9,8 @@
     <string name="pref_title_downloads">下載位置</string>
     <string name="download_location_downloads">下载夹</string>
     <string name="download_location_per_account">缩略语</string>
+    <string name="download_location_per_sender">Per-sender 夹,下载夹</string>
+    <string name="pref_title_tab_tap">A. 伪造表格时的行动</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Jump to next page</string>
+    <string name="tab_tap_behaviour_jump_to_newest">缩略语</string>
 </resources>
