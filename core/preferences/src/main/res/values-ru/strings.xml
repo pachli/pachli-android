@@ -13,4 +13,5 @@
     <string name="pref_title_tab_tap">Действия при нажатии на вкладку</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Перейти на следующую страницу</string>
     <string name="tab_tap_behaviour_jump_to_newest">Переход на новейший контент</string>
+    <string name="pref_category_tabs">Вкладки</string>
 </resources>
