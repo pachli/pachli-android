@@ -13,4 +13,5 @@
     <string name="pref_title_tab_tap">Ação ao tocar uma guia</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Ir para a próxima página</string>
     <string name="tab_tap_behaviour_jump_to_newest">Ir para o conteúdo mais recente</string>
+    <string name="pref_category_tabs">Guias</string>
 </resources>
