@@ -13,4 +13,5 @@
     <string name="pref_title_tab_tap">Azione quando si tocca una scheda</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Vai alla pagina successiva</string>
     <string name="tab_tap_behaviour_jump_to_newest">Vai al contenuto più recente</string>
+    <string name="pref_category_tabs">Schede</string>
 </resources>
