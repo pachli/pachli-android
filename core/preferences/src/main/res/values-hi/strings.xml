@@ -13,4 +13,5 @@
     <string name="pref_title_tab_tap">एक टैब टैप करते समय कार्रवाई</string>
     <string name="tab_tap_behaviour_jump_to_next_page">अगले पृष्ठ पर जाएं</string>
     <string name="tab_tap_behaviour_jump_to_newest">नवीनतम सामग्री पर जाएं</string>
+    <string name="pref_category_tabs">टैब्स</string>
 </resources>
