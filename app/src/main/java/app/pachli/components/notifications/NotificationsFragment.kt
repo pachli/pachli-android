@@ -546,6 +546,7 @@ class NotificationsFragment :
 
     override fun onViewMedia(viewData: NotificationViewData, attachmentIndex: Int, view: View?) {
         super.viewMedia(
+            viewData.statusViewData!!.status.account.username,
             attachmentIndex,
             list(viewData.statusViewData!!.status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
             view,

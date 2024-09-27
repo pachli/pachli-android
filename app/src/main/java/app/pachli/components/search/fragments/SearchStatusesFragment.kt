@@ -78,9 +78,6 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     override val data: Flow<PagingData<StatusViewData>>
         get() = viewModel.statusesFlow
 
-    private val searchAdapter
-        get() = super.adapter as SearchStatusesAdapter
-
     override fun createAdapter(): PagingDataAdapter<StatusViewData, *> {
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
@@ -118,6 +115,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 val attachments = AttachmentViewData.list(actionable)
                 val intent = ViewMediaActivityIntent(
                     requireContext(),
+                    actionable.account.username,
                     attachments,
                     attachmentIndex,
                 )
@@ -381,7 +379,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     private fun downloadAllMedia(status: Status) {
         Toast.makeText(context, R.string.downloading_media, Toast.LENGTH_SHORT).show()
         for ((_, url) in status.attachments) {
-            downloadUrlUseCase(url)
+            downloadUrlUseCase(url, viewModel.activeAccount!!.fullName, status.actionableStatus.account.username)
         }
     }
 

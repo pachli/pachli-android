@@ -707,7 +707,7 @@ class TimelineFragment :
             viewData.actionable
         }
 
-        super.viewMedia(attachmentIndex, AttachmentViewData.list(actionable), view)
+        super.viewMedia(actionable.account.username, attachmentIndex, AttachmentViewData.list(actionable), view)
     }
 
     override fun onViewThread(status: Status) {

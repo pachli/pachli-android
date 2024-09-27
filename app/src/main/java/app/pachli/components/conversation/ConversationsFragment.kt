@@ -298,7 +298,12 @@ class ConversationsFragment :
     }
 
     override fun onViewMedia(viewData: ConversationViewData, attachmentIndex: Int, view: View?) {
-        viewMedia(attachmentIndex, AttachmentViewData.list(viewData.lastStatus.status), view)
+        viewMedia(
+            viewData.lastStatus.actionable.account.username,
+            attachmentIndex,
+            AttachmentViewData.list(viewData.lastStatus.status),
+            view,
+        )
     }
 
     override fun onViewThread(status: Status) {

@@ -23,6 +23,9 @@ enum class DownloadLocation(override val displayResource: Int, override val valu
     /** Save to the root of the "Downloads" directory. */
     DOWNLOADS(R.string.download_location_downloads),
 
-    /** Save in per-account folders in the "Downloads" directory. */
+    /** Save in per-account directories in the "Downloads" directory. */
     DOWNLOADS_PER_ACCOUNT(R.string.download_location_per_account),
+
+    /** Save in per-sender-account directories in the "Downloads" directory. */
+    DOWNLOADS_PER_SENDER(R.string.download_location_per_sender),
 }
