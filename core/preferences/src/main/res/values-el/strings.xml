@@ -5,4 +5,8 @@
     <string name="app_theme_light">Φωτεινό</string>
     <string name="app_theme_black">Μαύρο</string>
     <string name="app_theme_dark">Σκοτεινό</string>
+    <string name="download_location_downloads">Downloads φάκελο</string>
+    <string name="download_location_per_account">Φάκελοι Per-account, στο φάκελο Downloads</string>
+    <string name="app_theme_auto">Automatic στο ηλιοβασίλεμα</string>
+    <string name="app_theme_system">Χρησιμοποιήστε το σχεδιασμό συστήματος</string>
 </resources>
