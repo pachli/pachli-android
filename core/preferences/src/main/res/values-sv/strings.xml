@@ -13,4 +13,5 @@
     <string name="pref_title_tab_tap">Åtgärd när man trycker på en flik</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Hoppa till nästa sida</string>
     <string name="tab_tap_behaviour_jump_to_newest">Hoppa till nytt innehåll</string>
+    <string name="pref_category_tabs">Flikar</string>
 </resources>
