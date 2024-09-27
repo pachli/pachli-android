@@ -5,4 +5,8 @@
     <string name="app_theme_light">Svetlo</string>
     <string name="app_theme_black">Černá</string>
     <string name="app_theme_dark">Tmavý motív</string>
+    <string name="download_location_downloads">Súbory na stiahnutie</string>
+    <string name="download_location_per_account">Per-account priečinky, v priečinku na stiahnutie</string>
+    <string name="app_theme_auto">Automatické pri západe slnka</string>
+    <string name="app_theme_system">Použite dizajn systému</string>
 </resources>
