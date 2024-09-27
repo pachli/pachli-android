@@ -89,6 +89,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     val toolbar: View
         get() = binding.toolbar
 
+    private lateinit var owningUsername: String
     private var attachmentViewData: List<AttachmentViewData>? = null
     private var imageUrl: String? = null
 
@@ -106,6 +107,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         supportPostponeEnterTransition()
 
         // Gather the parameters.
+        owningUsername = ViewMediaActivityIntent.getOwningUsername(intent)
         attachmentViewData = ViewMediaActivityIntent.getAttachments(intent)
         val initialPosition = ViewMediaActivityIntent.getAttachmentIndex(intent)
 
@@ -227,7 +229,11 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     private fun downloadMedia() {
         val url = imageUrl ?: attachmentViewData!![binding.viewPager.currentItem].attachment.url
         Toast.makeText(applicationContext, resources.getString(R.string.download_image, url), Toast.LENGTH_SHORT).show()
-        downloadUrlUseCase(url)
+        downloadUrlUseCase(
+            url,
+            accountManager.activeAccount!!.fullName,
+            owningUsername,
+        )
     }
 
     private fun requestDownloadMedia() {

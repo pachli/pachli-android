@@ -889,7 +889,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
                 }
 
                 if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
-                    context.startActivity(ViewMediaActivityIntent(context, card.embedUrl))
+                    context.startActivity(ViewMediaActivityIntent(context, viewData.actionable.account.username, card.embedUrl))
                     return@bind
                 }
 

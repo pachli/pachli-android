@@ -568,18 +568,18 @@ class AccountActivity :
                 .into(binding.accountHeaderImageView)
 
             binding.accountAvatarImageView.setOnClickListener { view ->
-                viewImage(view, account.avatar)
+                viewImage(view, account.username, account.avatar)
             }
             binding.accountHeaderImageView.setOnClickListener { view ->
-                viewImage(view, account.header)
+                viewImage(view, account.username, account.header)
             }
         }
     }
 
-    private fun viewImage(view: View, uri: String) {
+    private fun viewImage(view: View, owningUsername: String, uri: String) {
         ViewCompat.setTransitionName(view, uri)
         startActivity(
-            ViewMediaActivityIntent(view.context, uri),
+            ViewMediaActivityIntent(view.context, owningUsername, uri),
             ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, uri).toBundle(),
         )
     }
