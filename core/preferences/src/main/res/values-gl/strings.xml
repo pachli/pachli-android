@@ -7,4 +7,6 @@
     <string name="app_theme_system">Usar deseño do sistema</string>
     <string name="pref_category_downloads">Baixadas</string>
     <string name="pref_title_downloads">Localización das baixadas</string>
+    <string name="download_location_per_account">Cartafoles por conta, no cartafol Descargas</string>
+    <string name="download_location_downloads">Cartafol para descargas</string>
 </resources>
