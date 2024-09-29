@@ -23,7 +23,7 @@ import app.pachli.core.data.repository.HasListId
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.MastodonList
-import app.pachli.core.domain.ListsUseCase
+import app.pachli.core.domain.lists.GetListsUseCase
 import app.pachli.core.network.model.MastoList
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -63,7 +63,7 @@ data class ListWithMembership(
 @HiltViewModel(assistedFactory = ListsForAccountViewModel.Factory::class)
 class ListsForAccountViewModel @AssistedInject constructor(
     private val listsRepository: ListsRepository,
-    private val listsUseCase: ListsUseCase,
+    private val getLists: GetListsUseCase,
     @Assisted val accountId: String,
     @Assisted val activeAccountId: Long,
 ) : ViewModel() {
@@ -85,7 +85,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
      */
     fun refresh() = viewModelScope.launch {
         _listsWithMembership.value = Ok(ListsWithMembership.Loading)
-        listsUseCase.getLists(activeAccountId).collect { lists ->
+        getLists(activeAccountId).collect { lists ->
             _listsWithMembership.value = with(listsWithMembershipMap) {
                 val memberLists = listsRepository.getListsWithAccount(accountId)
                     .map {

@@ -42,14 +42,12 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.data.repository.MastodonList
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.domain.ListsUseCase
+import app.pachli.core.domain.lists.GetListsUseCase
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ListActivityIntent
-import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.databinding.DialogSelectListBinding
 import at.connyduck.sparkbutton.helpers.Utils
@@ -65,18 +63,11 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
-
-    @Inject
-    lateinit var mastodonApi: MastodonApi
-
     @Inject
     lateinit var eventHub: EventHub
 
     @Inject
-    lateinit var listsRepository: ListsRepository
-
-    @Inject
-    lateinit var listsUseCase: ListsUseCase
+    lateinit var getLists: GetListsUseCase
 
     private val binding by viewBinding(ActivityTabPreferenceBinding::inflate)
 
@@ -316,7 +307,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         dialog.show()
 
         lifecycleScope.launch {
-            listsUseCase.getLists(-1L).collectLatest { lists ->
+            getLists(accountManager.activeAccount!!.id).collectLatest { lists ->
                 selectListBinding.progressBar.hide()
                 adapter.clear()
                 adapter.addAll(lists.sortedWith(compareByListTitle))

@@ -23,7 +23,11 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.MastodonList
-import app.pachli.core.domain.ListsUseCase
+import app.pachli.core.domain.lists.CreateListUseCase
+import app.pachli.core.domain.lists.DeleteListUseCase
+import app.pachli.core.domain.lists.GetListsUseCase
+import app.pachli.core.domain.lists.RefreshListsUseCase
+import app.pachli.core.domain.lists.UpdateListUseCase
 import app.pachli.core.network.model.UserListRepliesPolicy
 import com.github.michaelbull.result.onFailure
 import dagger.assisted.Assisted
@@ -57,7 +61,11 @@ sealed class Error(
 
 @HiltViewModel(assistedFactory = ListsViewModel.Factory::class)
 internal class ListsViewModel @AssistedInject constructor(
-    private val listsUseCase: ListsUseCase,
+    getLists: GetListsUseCase,
+    private val createList: CreateListUseCase,
+    private val updateList: UpdateListUseCase,
+    private val deleteListUseCase: DeleteListUseCase,
+    private val refreshLists: RefreshListsUseCase,
     @Assisted val activeAccountId: Long,
 ) : ViewModel() {
     private val _errors = Channel<Error>()
@@ -69,30 +77,29 @@ internal class ListsViewModel @AssistedInject constructor(
     // Not a stateflow, as that makes updates distinct. A refresh that returns
     // no changes is not distinct, and that prevents the refresh spinner from
     // disappearing when the user refreshes.
-    val lists = listsUseCase.getLists(activeAccountId)
+    val lists = getLists(activeAccountId)
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
-    fun refresh() = viewModelScope.launch { listsUseCase.refresh(activeAccountId) }
+    fun refresh() = viewModelScope.launch { refreshLists(activeAccountId) }
 
     fun createNewList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
         _operationCount.getAndUpdate { it + 1 }
 
-        listsUseCase.createList(activeAccountId, title, exclusive, repliesPolicy)
+        createList(activeAccountId, title, exclusive, repliesPolicy)
             .onFailure { _errors.send(Error.Create(title, it)) }
     }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
 
     fun updateList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
         _operationCount.getAndUpdate { it + 1 }
 
-        listsUseCase.updateList(activeAccountId, listId, title, exclusive, repliesPolicy)
+        updateList(activeAccountId, listId, title, exclusive, repliesPolicy)
             .onFailure { _errors.send(Error.Update(title, it)) }
     }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
 
     fun deleteList(list: MastodonList) = viewModelScope.launch {
         _operationCount.getAndUpdate { it + 1 }
 
-        listsUseCase.deleteList(list)
-            .onFailure { _errors.send(Error.Delete(list.title, it)) }
+        deleteListUseCase(list).onFailure { _errors.send(Error.Delete(list.title, it)) }
     }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
 
     @AssistedFactory

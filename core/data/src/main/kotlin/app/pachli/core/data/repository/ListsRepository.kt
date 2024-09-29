@@ -65,8 +65,8 @@ interface ListsRepository {
     /**
      * Create a new list
      *
-     * @param title The new lists title
-     * @param exclusive True if the list is exclusive
+     * @param title Title for the new list
+     * @param exclusive True if the new list is exclusive
      * @return Details of the new list if successfuly, or an error
      */
     suspend fun createList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, ListsError.Create>
