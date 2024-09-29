@@ -9,4 +9,9 @@
     <string name="pref_title_downloads">ダウンロードフォルダ</string>
     <string name="download_location_downloads">ダウンロードフォルダ</string>
     <string name="download_location_per_account">ダウンロードフォルダ内のアカウントフォルダ</string>
+    <string name="download_location_per_sender">パーベンダーフォルダ、ダウンロードフォルダ</string>
+    <string name="pref_title_tab_tap">タブをタップするときのアクション</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">次のページへジャンプ</string>
+    <string name="tab_tap_behaviour_jump_to_newest">最新コンテンツへジャンプ</string>
+    <string name="pref_category_tabs">タブ</string>
 </resources>

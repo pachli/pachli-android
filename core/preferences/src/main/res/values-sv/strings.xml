@@ -9,4 +9,9 @@
     <string name="pref_title_downloads">Nedladdningsplats</string>
     <string name="download_location_downloads">Ladda ner mappen</string>
     <string name="download_location_per_account">Per-konto mappar, i Downloads mapp</string>
+    <string name="download_location_per_sender">Per-sender mappar, i Downloads mapp</string>
+    <string name="pref_title_tab_tap">Åtgärd när man trycker på en flik</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Hoppa till nästa sida</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Hoppa till nytt innehåll</string>
+    <string name="pref_category_tabs">Flikar</string>
 </resources>

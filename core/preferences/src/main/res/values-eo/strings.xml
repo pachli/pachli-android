@@ -9,4 +9,9 @@
     <string name="download_location_per_account">Per-akcentaj faldoj, en Downloads faldas</string>
     <string name="pref_title_downloads">Elŝutu lokon</string>
     <string name="pref_category_downloads">Elŝutoj</string>
+    <string name="download_location_per_sender">Per-sender-falintoj, en Downloads faldinto</string>
+    <string name="pref_title_tab_tap">Ago kiam gustumante klakon</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Saltu al la sekva paĝo</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Plej nova enhavo</string>
+    <string name="pref_category_tabs">Langetoj</string>
 </resources>
