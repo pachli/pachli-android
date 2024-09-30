@@ -1,0 +1,14 @@
+ESET NOD32 Antivirus 12.0.31
+
+Nové funkce:
+
+- Umožňuje uživateli zvolit chování při poklepání karty
+- Přidat možnost stáhnout média na adresáře per-sender
+- Přidat možnost uložit přílohy do složky pro účty
+
+Opravy:
+
+- Zobrazit upozornění načtení chyb namísto JSON
+- Uložte pozici čtení, pokud není žádný příspěvek plně viditelný
+- Aktualizace Galician překladů
+- Aktualizace irské překlady
