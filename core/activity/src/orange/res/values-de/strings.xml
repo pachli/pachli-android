@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">%1$s Fehlerbericht</string>
+    <string name="acra_dialog_text">Klicken OK, um eine E-Mail mit Details an die Entwickler vorzubereiten</string>
+    <string name="acra_email_body">Folgende Daten werden an die Entwickler geschickt.
+\n
+\nBitte überprüfe, dass nichts enthalten ist, was du nicht teilen möchtest, und beschreibe bitte, was du gerade gemacht hast, als der Absturz passiert ist.
+\n
+\n ----
+\n Deine Beschreibung::
+\n
+\n ----
+\n</string>
+</resources>
