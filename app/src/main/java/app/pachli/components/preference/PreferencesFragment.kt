@@ -54,7 +54,6 @@ import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.DownloadLocation
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.AccountNotificationDetailsListItemBinding
@@ -300,12 +299,6 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.ENABLE_SWIPE_FOR_TABS
                     setTitle(R.string.pref_title_enable_swipe_for_tabs)
                     isSingleLineTitle = false
-                }
-
-                enumListPreference<TabTapBehaviour> {
-                    setDefaultValue(TabTapBehaviour.JUMP_TO_NEXT_PAGE)
-                    setTitle(app.pachli.core.preferences.R.string.pref_title_tab_tap)
-                    key = PrefKeys.TAB_TAP_BEHAVIOUR
                 }
             }
 
