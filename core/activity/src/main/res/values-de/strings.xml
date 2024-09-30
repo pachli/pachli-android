@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">Als %s öffnen</string>
     <string name="post_lookup_error_format">Fehler beim Nachschlagen von %s</string>
     <string name="performing_lookup_title">Wird nachgeschlagen …</string>
+    <string name="send_error_report">Fehlerbericht senden</string>
 </resources>
