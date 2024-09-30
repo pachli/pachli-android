@@ -25,7 +25,9 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import app.pachli.R
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.databinding.FragmentLabPreferencesWarningBinding
+import app.pachli.settings.enumListPreference
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.switchPreference
 
@@ -54,6 +56,13 @@ class LabPreferencesFragment : PreferenceFragmentCompat() {
                         context.getString(R.string.pref_labs_reverse_home_timeline_off_summary)
                     }
                 }
+                isIconSpaceReserved = false
+            }
+
+            enumListPreference<TabTapBehaviour> {
+                setDefaultValue(TabTapBehaviour.JUMP_TO_NEXT_PAGE)
+                setTitle(app.pachli.core.preferences.R.string.pref_title_tab_tap)
+                key = PrefKeys.TAB_TAP_BEHAVIOUR
                 isIconSpaceReserved = false
             }
         }
