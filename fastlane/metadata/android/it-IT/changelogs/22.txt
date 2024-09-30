@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+Nuove funzionalità:
+
+- Permettere all'utente di scegliere il comportamento quando si tocca una scheda
+- Aggiungi l'opzione per scaricare i media in directory per-sender
+- Aggiungi l'opzione per salvare gli allegati alle cartelle per account
+
+Fissi:
+
+- Mostra errori di acquisizione di notifica invece di JSON
+- Salvare la posizione di lettura se nessun post è completamente visibile
+- Aggiornare le traduzioni galiziane
+- Aggiornare le traduzioni irlandesi
