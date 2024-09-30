@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+New features:
+
+- Allow the user to chose behaviour when tapping a tab 
+- Add option to download media to per-sender directories 
+- Add option to save attachments to per-account folders 
+
+Fixes:
+
+- Show notification fetch errors instead of JSON 
+- Save the reading position if no post is fully visible 
+- Update Galician translations 
+- Update Irish translations 
