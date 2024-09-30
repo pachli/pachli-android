@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+Új funkciók:
+
+- Engedélyezze a felhasználót, hogy válasszon viselkedést, amikor egy lapot
+- Adjon lehetőséget a média letöltésére a nemek közötti könyvtárak számára
+- Adjon hozzá lehetőséget, hogy megmentse a mellékleteket az adott pontszám mappákhoz
+
+Fixok:
+
+- Mutasd meg a JSON helyett az értesítési fetch hibákat
+- Mentse el az olvasási pozíciót, ha nincs poszt teljesen látható
+Frissítse a galíciai fordításokat
+Frissítés ír fordítások
