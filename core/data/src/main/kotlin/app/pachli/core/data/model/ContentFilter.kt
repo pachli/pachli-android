@@ -85,9 +85,3 @@ fun ContentFilter.Companion.from(filter: app.pachli.core.network.model.FilterV1)
         ),
     ),
 )
-
-/** A new filter keyword; has no ID as it has not been saved to the server. */
-data class NewContentFilterKeyword(
-    val keyword: String,
-    val wholeWord: Boolean,
-)

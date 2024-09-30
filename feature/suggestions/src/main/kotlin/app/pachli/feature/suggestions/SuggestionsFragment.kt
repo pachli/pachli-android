@@ -67,6 +67,7 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -103,9 +104,16 @@ class SuggestionsFragment :
     /** The active snackbar */
     private var snackbar: Snackbar? = null
 
+    private var pachliAccountId by Delegates.notNull<Long>()
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         bottomSheetActivity = (context as? BottomSheetActivity) ?: throw IllegalStateException("Fragment must be attached to a BottomSheetActivity")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -169,10 +177,25 @@ class SuggestionsFragment :
         when (uiAction) {
             is NavigationAction -> {
                 when (uiAction) {
-                    // TODO: -1L in the next line is stop gap until the active account is hooked up
-                    is NavigationAction.ViewAccount -> requireActivity().startActivityWithTransition(AccountActivityIntent(requireContext(), -1L, uiAction.accountId), TransitionKind.SLIDE_FROM_END)
-                    is NavigationAction.ViewHashtag -> requireActivity().startActivityWithTransition(TimelineActivityIntent.hashtag(requireContext(), uiAction.hashtag), TransitionKind.SLIDE_FROM_END)
-                    is NavigationAction.ViewUrl -> bottomSheetActivity.viewUrl(uiAction.url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
+                    is NavigationAction.ViewAccount -> requireActivity().startActivityWithTransition(
+                        AccountActivityIntent(requireContext(), pachliAccountId, uiAction.accountId),
+                        TransitionKind.SLIDE_FROM_END,
+                    )
+
+                    is NavigationAction.ViewHashtag -> requireActivity().startActivityWithTransition(
+                        TimelineActivityIntent.hashtag(
+                            requireContext(),
+                            pachliAccountId,
+                            uiAction.hashtag,
+                        ),
+                        TransitionKind.SLIDE_FROM_END,
+                    )
+
+                    is NavigationAction.ViewUrl -> bottomSheetActivity.viewUrl(
+                        pachliAccountId,
+                        uiAction.url,
+                        PostLookupFallbackBehavior.OPEN_IN_BROWSER,
+                    )
                 }
             }
             else -> {
@@ -272,7 +295,15 @@ class SuggestionsFragment :
     }
 
     companion object {
-        fun newInstance() = SuggestionsFragment()
+        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
+
+        fun newInstance(pachliAccountId: Long): SuggestionsFragment {
+            val fragment = SuggestionsFragment()
+            fragment.arguments = Bundle(1).apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+            }
+            return fragment
+        }
     }
 }
 

@@ -45,7 +45,7 @@ import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.RemoteKeyEntity
-import app.pachli.core.database.model.ServerCapabilitiesEntity
+import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
@@ -67,7 +67,7 @@ import app.pachli.core.model.ContentFilterVersion
         TranslatedStatusEntity::class,
         LogEntryEntity::class,
         MastodonListEntity::class,
-        ServerCapabilitiesEntity::class,
+        ServerEntity::class,
         ContentFiltersEntity::class,
     ],
     version = 6,
@@ -119,11 +119,13 @@ abstract class AppDatabase : RoomDatabase() {
                     }
                     db.insert("InstanceInfoEntity", CONFLICT_IGNORE, instanceInfoEntityValues)
 
-                    val serverCapabilitiesEntityValues = ContentValues().apply {
+                    val serverEntityValues = ContentValues().apply {
                         put("accountId", accountId)
+                        put("serverKind", "UNKNOWN")
+                        put("version", "0.0.1")
                         put("capabilities", "{}")
                     }
-                    db.insert("ServerCapabilitiesEntity", CONFLICT_IGNORE, serverCapabilitiesEntityValues)
+                    db.insert("ServerEntity", CONFLICT_IGNORE, serverEntityValues)
 
                     val contentFiltersEntityValues = ContentValues().apply {
                         put("accountId", accountId)

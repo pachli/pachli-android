@@ -49,8 +49,6 @@ import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.getOrThrow
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -60,6 +58,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
@@ -117,21 +116,15 @@ class ViewThreadViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            contentFiltersRepository.contentFilters.collect { filters ->
-                filters.onSuccess {
-                    contentFilterModel = when (it?.version) {
-                        ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.THREAD)
-                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.THREAD, it.contentFilters)
-                        else -> null
+            accountManager.activePachliAccountFlow
+                .distinctUntilChangedBy { it.contentFilters }
+                .collect { account ->
+                    contentFilterModel = when (account.contentFilters.version) {
+                        ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.NOTIFICATIONS)
+                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.NOTIFICATIONS, account.contentFilters.contentFilters)
                     }
                     updateStatuses()
                 }
-                    .onFailure {
-                        // TODO: Deliberately don't emit to _errors here -- at the moment
-                        // ViewThreadFragment shows a generic error to the user, and that
-                        // would confuse them when the rest of the thread is loading OK.
-                    }
-            }
         }
     }
 

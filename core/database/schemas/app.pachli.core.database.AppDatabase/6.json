@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "f97d61e21ecd5d180e6d391485a4661b",
+    "identityHash": "0c2023ba02f1c8679514a278ff0fdd44",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -1291,13 +1291,25 @@
         ]
       },
       {
-        "tableName": "ServerCapabilitiesEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `capabilities` TEXT NOT NULL, PRIMARY KEY(`accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "tableName": "ServerEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `serverKind` TEXT NOT NULL, `version` TEXT NOT NULL, `capabilities` TEXT NOT NULL, PRIMARY KEY(`accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "accountId",
             "columnName": "accountId",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serverKind",
+            "columnName": "serverKind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -1376,7 +1388,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f97d61e21ecd5d180e6d391485a4661b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0c2023ba02f1c8679514a278ff0fdd44')"
     ]
   }
 }

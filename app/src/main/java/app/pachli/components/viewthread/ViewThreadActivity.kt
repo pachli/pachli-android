@@ -22,6 +22,7 @@ import app.pachli.R
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ViewThreadActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.databinding.ActivityViewThreadBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,7 +46,7 @@ class ViewThreadActivity : BottomSheetActivity() {
         val url = ViewThreadActivityIntent.getUrl(intent)
         val fragment =
             supportFragmentManager.findFragmentByTag(FRAGMENT_TAG + id) as ViewThreadFragment?
-                ?: ViewThreadFragment.newInstance(id, url)
+                ?: ViewThreadFragment.newInstance(intent.pachliAccountId, id, url)
 
         supportFragmentManager.commit {
             replace(R.id.fragment_container, fragment, FRAGMENT_TAG + id)

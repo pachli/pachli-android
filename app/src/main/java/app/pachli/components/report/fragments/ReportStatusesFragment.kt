@@ -56,6 +56,7 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -77,12 +78,19 @@ class ReportStatusesFragment :
 
     private var snackbarErrorRetry: Snackbar? = null
 
+    private var pachliAccountId by Delegates.notNull<Long>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+    }
+
     override fun showMedia(v: View?, status: Status?, idx: Int) {
         status?.actionableStatus?.let { actionable ->
             when (actionable.attachments[idx].type) {
                 Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
                     val attachments = AttachmentViewData.list(actionable)
-                    val intent = ViewMediaActivityIntent(requireContext(), actionable.account.username, attachments, idx)
+                    val intent = ViewMediaActivityIntent(requireContext(), pachliAccountId, actionable.account.username, attachments, idx)
                     if (v != null) {
                         val url = actionable.attachments[idx].url
                         ViewCompat.setTransitionName(v, url)
@@ -209,13 +217,25 @@ class ReportStatusesFragment :
         return viewModel.isStatusChecked(id)
     }
 
-    override fun onViewAccount(id: String) = startActivity(AccountActivityIntent(requireContext(), id))
+    override fun onViewAccount(id: String) = startActivity(
+        AccountActivityIntent(requireContext(), pachliAccountId, id),
+    )
 
-    override fun onViewTag(tag: String) = startActivity(TimelineActivityIntent.hashtag(requireContext(), tag))
+    override fun onViewTag(tag: String) = startActivity(
+        TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
+    )
 
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
 
     companion object {
-        fun newInstance() = ReportStatusesFragment()
+        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
+
+        fun newInstance(pachliAccountId: Long): ReportStatusesFragment {
+            val fragment = ReportStatusesFragment()
+            fragment.arguments = Bundle(1).apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+            }
+            return fragment
+        }
     }
 }

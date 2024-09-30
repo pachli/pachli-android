@@ -26,6 +26,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Emoji
@@ -55,7 +56,7 @@ data class PachliAccount(
         parentColumn = "id",
         entityColumn = "accountId",
     )
-    val serverCapabilities: ServerCapabilitiesEntity,
+    val server: ServerEntity,
     @Relation(
         parentColumn = "id",
         entityColumn = "accountId",
@@ -94,8 +95,10 @@ data class MastodonListEntity(
     ],
 )
 @TypeConverters(Converters::class)
-data class ServerCapabilitiesEntity(
+data class ServerEntity(
     val accountId: Long,
+    val serverKind: ServerKind,
+    val version: Version,
     val capabilities: Map<ServerOperation, Version>,
 )
 

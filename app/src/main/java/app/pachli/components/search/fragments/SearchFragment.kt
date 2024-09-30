@@ -34,6 +34,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -59,6 +60,13 @@ abstract class SearchFragment<T : Any> :
     protected lateinit var adapter: PagingDataAdapter<T, *>
 
     private var currentQuery: String = ""
+
+    protected var pachliAccountId by Delegates.notNull<Long>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initAdapter()
@@ -145,15 +153,19 @@ abstract class SearchFragment<T : Any> :
     }
 
     override fun onViewAccount(id: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(AccountActivityIntent(requireContext(), id))
+        bottomSheetActivity?.startActivityWithDefaultTransition(
+            AccountActivityIntent(requireContext(), pachliAccountId, id),
+        )
     }
 
     override fun onViewTag(tag: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(requireContext(), tag))
+        bottomSheetActivity?.startActivityWithDefaultTransition(
+            TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
+        )
     }
 
     override fun onViewUrl(url: String) {
-        bottomSheetActivity?.viewUrl(url)
+        bottomSheetActivity?.viewUrl(pachliAccountId, url)
     }
 
     protected val bottomSheetActivity
@@ -161,5 +173,17 @@ abstract class SearchFragment<T : Any> :
 
     override fun onRefresh() {
         adapter.refresh()
+    }
+
+    companion object {
+        const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
+
+        inline fun <reified T : SearchFragment<*>> newInstance(pachliAccountId: Long): T {
+            val fragment = T::class.java.getDeclaredConstructor().newInstance()
+            fragment.arguments = Bundle(1).apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+            }
+            return fragment
+        }
     }
 }

@@ -21,21 +21,23 @@ import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.Server.Error.UnparseableVersion
-import app.pachli.core.data.model.ServerKind.AKKOMA
-import app.pachli.core.data.model.ServerKind.FEDIBIRD
-import app.pachli.core.data.model.ServerKind.FIREFISH
-import app.pachli.core.data.model.ServerKind.FRIENDICA
-import app.pachli.core.data.model.ServerKind.GLITCH
-import app.pachli.core.data.model.ServerKind.GOTOSOCIAL
-import app.pachli.core.data.model.ServerKind.HOMETOWN
-import app.pachli.core.data.model.ServerKind.ICESHRIMP
-import app.pachli.core.data.model.ServerKind.MASTODON
-import app.pachli.core.data.model.ServerKind.PIXELFED
-import app.pachli.core.data.model.ServerKind.PLEROMA
-import app.pachli.core.data.model.ServerKind.SHARKEY
-import app.pachli.core.data.model.ServerKind.UNKNOWN
 import app.pachli.core.database.model.InstanceInfoEntity
+import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.ServerCapabilities
+import app.pachli.core.model.ServerKind
+import app.pachli.core.model.ServerKind.AKKOMA
+import app.pachli.core.model.ServerKind.FEDIBIRD
+import app.pachli.core.model.ServerKind.FIREFISH
+import app.pachli.core.model.ServerKind.FRIENDICA
+import app.pachli.core.model.ServerKind.GLITCH
+import app.pachli.core.model.ServerKind.GOTOSOCIAL
+import app.pachli.core.model.ServerKind.HOMETOWN
+import app.pachli.core.model.ServerKind.ICESHRIMP
+import app.pachli.core.model.ServerKind.MASTODON
+import app.pachli.core.model.ServerKind.PIXELFED
+import app.pachli.core.model.ServerKind.PLEROMA
+import app.pachli.core.model.ServerKind.SHARKEY
+import app.pachli.core.model.ServerKind.UNKNOWN
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
@@ -57,7 +59,6 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.network.R
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
-import app.pachli.core.network.model.nodeinfo.NodeInfo
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.andThen
@@ -367,52 +368,6 @@ data class Server(
             override val resourceId = R.string.server_error_unparseable_version
             override val formatArgs: Array<String> = arrayOf(version, throwable.localizedMessage ?: "")
             override val cause: PachliError? = null
-        }
-    }
-}
-
-/**
- * Servers that are known to implement the Mastodon client API
- */
-enum class ServerKind {
-    AKKOMA,
-    FEDIBIRD,
-    FIREFISH,
-    FRIENDICA,
-    GLITCH,
-    GOTOSOCIAL,
-    HOMETOWN,
-    ICESHRIMP,
-    MASTODON,
-    PLEROMA,
-    PIXELFED,
-    SHARKEY,
-
-    /**
-     * Catch-all for servers we don't recognise but that responded to either
-     * /api/v1/instance or /api/v2/instance
-     */
-    UNKNOWN,
-    ;
-
-    companion object {
-        fun from(s: NodeInfo.Software) = when (s.name.lowercase()) {
-            "akkoma" -> AKKOMA
-            "fedibird" -> FEDIBIRD
-            "firefish" -> FIREFISH
-            "friendica" -> FRIENDICA
-            "gotosocial" -> GOTOSOCIAL
-            "hometown" -> HOMETOWN
-            "iceshrimp" -> ICESHRIMP
-            "mastodon" -> {
-                // Glitch doesn't report a different software name it stuffs it
-                // in the version (https://github.com/glitch-soc/mastodon/issues/2582).
-                if (s.version.contains("+glitch")) GLITCH else MASTODON
-            }
-            "pixelfed" -> PIXELFED
-            "pleroma" -> PLEROMA
-            "sharkey" -> SHARKEY
-            else -> UNKNOWN
         }
     }
 }

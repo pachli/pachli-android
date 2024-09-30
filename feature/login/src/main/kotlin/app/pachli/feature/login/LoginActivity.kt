@@ -162,7 +162,7 @@ class LoginActivity : BaseActivity() {
         uiResult.onSuccess { uiSuccess ->
             when (uiSuccess) {
                 is UiSuccess.VerifyAndAddAccount -> {
-                    val intent = MainActivityIntent.withAccount(this, uiSuccess.accountId)
+                    val intent = MainActivityIntent(this, uiSuccess.accountId)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivityWithTransition(intent, TransitionKind.EXPLODE)
                     finishAffinity()

@@ -66,7 +66,7 @@ internal class ListsViewModel @AssistedInject constructor(
     private val updateList: UpdateListUseCase,
     private val deleteListUseCase: DeleteListUseCase,
     private val refreshLists: RefreshListsUseCase,
-    @Assisted val activeAccountId: Long,
+    @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val _errors = Channel<Error>()
     val errors = _errors.receiveAsFlow()
@@ -77,22 +77,22 @@ internal class ListsViewModel @AssistedInject constructor(
     // Not a stateflow, as that makes updates distinct. A refresh that returns
     // no changes is not distinct, and that prevents the refresh spinner from
     // disappearing when the user refreshes.
-    val lists = getLists(activeAccountId)
+    val lists = getLists(pachliAccountId)
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
-    fun refresh() = viewModelScope.launch { refreshLists(activeAccountId) }
+    fun refresh() = viewModelScope.launch { refreshLists(pachliAccountId) }
 
     fun createNewList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
         _operationCount.getAndUpdate { it + 1 }
 
-        createList(activeAccountId, title, exclusive, repliesPolicy)
+        createList(pachliAccountId, title, exclusive, repliesPolicy)
             .onFailure { _errors.send(Error.Create(title, it)) }
     }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
 
     fun updateList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
         _operationCount.getAndUpdate { it + 1 }
 
-        updateList(activeAccountId, listId, title, exclusive, repliesPolicy)
+        updateList(pachliAccountId, listId, title, exclusive, repliesPolicy)
             .onFailure { _errors.send(Error.Update(title, it)) }
     }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
 
@@ -105,8 +105,8 @@ internal class ListsViewModel @AssistedInject constructor(
     @AssistedFactory
     interface Factory {
         /**
-         * Creates [ListsViewModel] with [accountId] as the active account.
+         * Creates [ListsViewModel] with [pachliAccountId] as the active account.
          */
-        fun create(accountId: Long): ListsViewModel
+        fun create(pachliAccountId: Long): ListsViewModel
     }
 }

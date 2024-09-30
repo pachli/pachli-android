@@ -23,7 +23,7 @@ import androidx.room.Transaction
 import androidx.room.Upsert
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
-import app.pachli.core.database.model.ServerCapabilitiesEntity
+import app.pachli.core.database.model.ServerEntity
 
 @Dao
 interface InstanceDao {
@@ -35,7 +35,7 @@ interface InstanceDao {
     suspend fun upsert(emojis: EmojisEntity)
 
     @Upsert
-    suspend fun upsert(capabilities: ServerCapabilitiesEntity)
+    suspend fun upsert(capabilities: ServerEntity)
 
     @Transaction
     @Query("SELECT * FROM InstanceInfoEntity WHERE instance = :instance LIMIT 1")

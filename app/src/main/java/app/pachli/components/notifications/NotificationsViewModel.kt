@@ -49,8 +49,6 @@ import app.pachli.util.serialize
 import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -64,6 +62,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flatMapLatest
@@ -477,18 +476,14 @@ class NotificationsViewModel @Inject constructor(
 
         // Fetch the status filters
         viewModelScope.launch {
-            contentFiltersRepository.contentFilters.collect { filters ->
-                filters.onSuccess {
-                    contentFilterModel = when (it?.version) {
+            accountManager.activePachliAccountFlow
+                .distinctUntilChangedBy { it.contentFilters }
+                .collect { account ->
+                    contentFilterModel = when (account.contentFilters.version) {
                         ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.NOTIFICATIONS)
-                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.NOTIFICATIONS, it.contentFilters)
-                        else -> null
+                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.NOTIFICATIONS, account.contentFilters.contentFilters)
                     }
-                    reload.getAndUpdate { it + 1 }
-                }.onFailure {
-                    _uiErrorChannel.send(UiError.GetFilters(RuntimeException(it.fmt(context))))
                 }
-            }
         }
 
         // Handle events that should refresh the list

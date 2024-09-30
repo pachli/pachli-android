@@ -41,6 +41,7 @@ enum class ContentFilterVersion {
  * @param filterAction Action to take if the filter matches a status
  * @param keywords One or more [FilterKeyword] the filter matches against a status
  */
+// The @JsonClass annotations are used when this is serialized to the database.
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class ContentFilter(
@@ -55,6 +56,7 @@ data class ContentFilter(
 }
 
 /** A filter choice, either content filter or account filter. */
+// The @Json annotations are used when this is serialized by NewContentFilterConverterFactory.
 enum class FilterAction {
     /** No filtering, show item as normal. */
     @Json(name = "none")
@@ -73,6 +75,7 @@ enum class FilterAction {
     companion object
 }
 
+// The @JsonClass annotations are used when this is serialized to the database.
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class FilterKeyword(
@@ -89,6 +92,7 @@ data class FilterKeyword(
  * [v1](https://docs.joinmastodon.org/entities/V1_Filter/#context) Mastodon
  * filter. The API versions have identical contexts.
  */
+// The @Json annotations are used when this is serialized by NewContentFilterConverterFactory
 enum class FilterContext {
     /** Filter applies to home timeline and lists */
     @Json(name = "home")

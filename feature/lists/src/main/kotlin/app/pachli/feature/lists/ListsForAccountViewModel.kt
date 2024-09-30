@@ -65,7 +65,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
     private val listsRepository: ListsRepository,
     private val getLists: GetListsUseCase,
     @Assisted val accountId: String,
-    @Assisted val activeAccountId: Long,
+    @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val _listsWithMembership = MutableStateFlow<Result<ListsWithMembership, FlowError>>(Ok(ListsWithMembership.Loading))
     val listsWithMembership = _listsWithMembership.asStateFlow()
@@ -85,13 +85,13 @@ class ListsForAccountViewModel @AssistedInject constructor(
      */
     fun refresh() = viewModelScope.launch {
         _listsWithMembership.value = Ok(ListsWithMembership.Loading)
-        getLists(activeAccountId).collect { lists ->
+        getLists(pachliAccountId).collect { lists ->
             _listsWithMembership.value = with(listsWithMembershipMap) {
                 val memberLists = listsRepository.getListsWithAccount(accountId)
                     .map {
                         it.map {
                             MastodonList(
-                                activeAccountId,
+                                pachliAccountId,
                                 it.id,
                                 it.title,
                                 it.repliesPolicy,

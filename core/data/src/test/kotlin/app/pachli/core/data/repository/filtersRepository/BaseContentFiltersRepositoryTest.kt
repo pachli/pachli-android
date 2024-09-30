@@ -79,7 +79,6 @@ abstract class BaseContentFiltersRepositoryTest {
         contentFiltersRepository = ContentFiltersRepository(
             TestScope(),
             mastodonApi,
-            serverRepository,
         )
     }
 

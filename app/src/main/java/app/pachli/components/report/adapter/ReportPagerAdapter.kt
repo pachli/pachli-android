@@ -23,10 +23,10 @@ import app.pachli.components.report.fragments.ReportDoneFragment
 import app.pachli.components.report.fragments.ReportNoteFragment
 import app.pachli.components.report.fragments.ReportStatusesFragment
 
-class ReportPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
+class ReportPagerAdapter(activity: FragmentActivity, private val pachliAccountId: Long) : FragmentStateAdapter(activity) {
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ReportStatusesFragment.newInstance()
+            0 -> ReportStatusesFragment.newInstance(pachliAccountId)
             1 -> ReportNoteFragment.newInstance()
             2 -> ReportDoneFragment.newInstance()
             else -> throw IllegalArgumentException("Unknown page index: $position")

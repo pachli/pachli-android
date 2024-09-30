@@ -30,6 +30,7 @@ import app.pachli.core.network.json.HasDefault
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.NewContentFilterConverterFactory
 import app.pachli.core.network.retrofit.apiresult.ApiResultCallAdapterFactory
 import app.pachli.core.network.util.localHandshakeCertificates
 import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_ENABLED
@@ -139,6 +140,7 @@ object NetworkModule {
     ): Retrofit {
         return Retrofit.Builder().baseUrl("https://" + MastodonApi.PLACEHOLDER_DOMAIN)
             .client(httpClient)
+            .addConverterFactory(NewContentFilterConverterFactory)
             .addConverterFactory(EnumConstantConverterFactory)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(ApiResultCallAdapterFactory.create())

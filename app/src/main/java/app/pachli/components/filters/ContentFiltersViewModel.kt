@@ -3,64 +3,68 @@ package app.pachli.components.filters
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.ContentFilters
+import app.pachli.core.domain.contentFilters.DeleteContentFilterUseCase
+import app.pachli.core.domain.contentFilters.RefreshContentFiltersUseCase
 import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.ContentFilterVersion
+import app.pachli.core.ui.OperationCounter
 import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-@HiltViewModel
-class ContentFiltersViewModel @Inject constructor(
-    private val contentFiltersRepository: ContentFiltersRepository,
+@HiltViewModel(assistedFactory = ContentFiltersViewModel.Factory::class)
+class ContentFiltersViewModel @AssistedInject constructor(
+    private val accountManager: AccountManager,
+    private val deleteContentFilter: DeleteContentFilterUseCase,
+    private val refreshContentFilters: RefreshContentFiltersUseCase,
+    @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
 
-    enum class LoadingState {
-        INITIAL,
-        LOADING,
-        LOADED,
-        ERROR_NETWORK,
-        ERROR_OTHER,
+    val contentFilters = flow {
+        accountManager.getPachliAccountFlow(pachliAccountId).filterNotNull()
+            .distinctUntilChangedBy { it.contentFilters }
+            .collect { emit(it.contentFilters) }
     }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            ContentFilters(contentFilters = emptyList(), version = ContentFilterVersion.V1),
+        )
 
-    data class State(val contentFilters: List<ContentFilter>, val loadingState: LoadingState)
+    private val operationCounter = OperationCounter()
+    val operationCount = operationCounter.count
 
-    val state: Flow<State> get() = _state
-    private val _state = MutableStateFlow(State(emptyList(), LoadingState.INITIAL))
-
-    fun load() {
-        this@ContentFiltersViewModel._state.value = _state.value.copy(loadingState = LoadingState.LOADING)
-
-        viewModelScope.launch {
-            contentFiltersRepository.contentFilters.collect { result ->
-                result.onSuccess { filters ->
-                    this@ContentFiltersViewModel._state.update { State(filters?.contentFilters.orEmpty(), LoadingState.LOADED) }
-                }
-                    .onFailure {
-                        // TODO: There's an ERROR_NETWORK state to maybe consider here. Or get rid of
-                        // that and do proper error handling.
-                        this@ContentFiltersViewModel._state.update {
-                            it.copy(loadingState = LoadingState.ERROR_OTHER)
-                        }
-                    }
-            }
+    fun refreshContentFilters() = viewModelScope.launch {
+        operationCounter {
+            refreshContentFilters(pachliAccountId)
         }
     }
 
     fun deleteContentFilter(contentFilter: ContentFilter, parent: View) {
         viewModelScope.launch {
-            contentFiltersRepository.deleteContentFilter(contentFilter.id)
-                .onSuccess {
-                    this@ContentFiltersViewModel._state.value = State(this@ContentFiltersViewModel._state.value.contentFilters.filter { it.id != contentFilter.id }, LoadingState.LOADED)
-                }
-                .onFailure {
-                    Snackbar.make(parent, "Error deleting filter '${contentFilter.title}'", Snackbar.LENGTH_SHORT).show()
-                }
+            operationCounter {
+                deleteContentFilter(pachliAccountId, contentFilter.id)
+                    .onFailure {
+                        Snackbar.make(parent, "Error deleting filter '${contentFilter.title}'", Snackbar.LENGTH_SHORT).show()
+                    }
+            }
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        /** Creates [ContentFiltersViewModel] with [pachliAccountId] as the active account. */
+        fun create(pachliAccountId: Long): ContentFiltersViewModel
     }
 }

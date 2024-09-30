@@ -32,6 +32,7 @@ import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.model.Timeline
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityTrendingBinding
 import app.pachli.interfaces.AppBarLayoutHost
@@ -76,11 +77,13 @@ class TrendingActivity : BottomSheetActivity(), AppBarLayoutHost, MenuProvider {
             setDisplayShowHomeEnabled(true)
         }
 
+        val pachliAccountId = intent.pachliAccountId
+
         adapter = MainPagerAdapter(
             listOf(
-                TabViewData.from(Timeline.TrendingHashtags),
-                TabViewData.from(Timeline.TrendingLinks),
-                TabViewData.from(Timeline.TrendingStatuses),
+                TabViewData.from(pachliAccountId, Timeline.TrendingHashtags),
+                TabViewData.from(pachliAccountId, Timeline.TrendingLinks),
+                TabViewData.from(pachliAccountId, Timeline.TrendingStatuses),
             ),
             this,
         )

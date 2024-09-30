@@ -20,8 +20,18 @@ package app.pachli.core.model
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 import io.github.z4kn4fein.semver.Version
+import io.github.z4kn4fein.semver.constraints.Constraint
+import io.github.z4kn4fein.semver.satisfies
 
 typealias ServerCapabilities = Map<ServerOperation, Version>
+
+/**
+ * @return true if the server supports the given operation at the given minimum version
+ * level, false otherwise.
+ */
+fun ServerCapabilities.can(operation: ServerOperation, constraint: Constraint) = this[operation]?.let { version ->
+    version satisfies constraint
+} ?: false
 
 /**
  * Serializes [Version] to/from JSON using its String form.

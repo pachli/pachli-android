@@ -16,6 +16,7 @@
 
 package app.pachli.core.network.retrofit
 
+import app.pachli.core.model.NewContentFilter
 import app.pachli.core.network.model.AccessToken
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Announcement
@@ -649,16 +650,8 @@ interface MastodonApi {
         @Path("id") id: String,
     ): ApiResult<Unit>
 
-    @FormUrlEncoded
     @POST("api/v2/filters")
-    suspend fun createFilter(
-        @Field("title") title: String,
-        @Field("context[]") contexts: Set<FilterContext>,
-        @Field("filter_action") filterAction: FilterAction,
-        // String not Int because the empty string is used to represent "indefinite",
-        // see https://github.com/mastodon/documentation/issues/1216#issuecomment-2030222940
-        @Field("expires_in") expiresInSeconds: String?,
-    ): ApiResult<Filter>
+    suspend fun createFilter(@Body newContentFilter: NewContentFilter): ApiResult<Filter>
 
     @FormUrlEncoded
     @PUT("api/v2/filters/{id}")

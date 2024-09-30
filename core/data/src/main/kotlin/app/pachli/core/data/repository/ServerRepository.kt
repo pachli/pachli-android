@@ -29,7 +29,6 @@ import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeIn
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.network.model.nodeinfo.NodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import com.github.michaelbull.result.Err
@@ -104,7 +103,7 @@ class ServerRepository @Inject constructor(
 
         Timber.d("Loading node info from %s", nodeInfoUrl)
         val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).mapBoth(
-            { NodeInfo.from(it.body).mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
+            { it.body.validate().mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
             { Err(GetNodeInfo(nodeInfoUrl, it)) },
         ).bind()
 
@@ -138,7 +137,7 @@ class ServerRepository @Inject constructor(
             R.string.server_repository_error_get_node_info,
         )
 
-        data class ValidateNodeInfo(val url: String, override val cause: NodeInfo.Error) : Error(
+        data class ValidateNodeInfo(val url: String, override val cause: PachliError) : Error(
             R.string.server_repository_error_validate_node_info,
             arrayOf(url),
         )

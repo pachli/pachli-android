@@ -50,6 +50,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -69,8 +70,11 @@ class AccountMediaFragment :
 
     private lateinit var adapter: AccountMediaGridAdapter
 
+    private var pachliAccountId by Delegates.notNull<Long>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pachliAccountId = requireArguments().getLong(PACHLI_ACCOUNT_ID_ARG)
         viewModel.accountId = arguments?.getString(ACCOUNT_ID_ARG)!!
     }
 
@@ -165,7 +169,7 @@ class AccountMediaFragment :
             Attachment.Type.VIDEO,
             Attachment.Type.AUDIO,
             -> {
-                val intent = ViewMediaActivityIntent(requireContext(), selected.username, attachmentsFromSameStatus, currentIndex)
+                val intent = ViewMediaActivityIntent(requireContext(), pachliAccountId, selected.username, attachmentsFromSameStatus, currentIndex)
                 if (activity != null) {
                     val url = selected.attachment.url
                     ViewCompat.setTransitionName(view, url)
@@ -197,14 +201,16 @@ class AccountMediaFragment :
     }
 
     companion object {
-        fun newInstance(accountId: String): AccountMediaFragment {
+        private const val PACHLI_ACCOUNT_ID_ARG = "pachliAccountId"
+        private const val ACCOUNT_ID_ARG = "account_id"
+
+        fun newInstance(pachliAccountId: Long, accountId: String): AccountMediaFragment {
             val fragment = AccountMediaFragment()
-            val args = Bundle(1)
-            args.putString(ACCOUNT_ID_ARG, accountId)
-            fragment.arguments = args
+            fragment.arguments = Bundle(2).apply {
+                putLong(PACHLI_ACCOUNT_ID_ARG, pachliAccountId)
+                putString(ACCOUNT_ID_ARG, accountId)
+            }
             return fragment
         }
-
-        private const val ACCOUNT_ID_ARG = "account_id"
     }
 }

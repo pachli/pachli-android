@@ -60,6 +60,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -80,6 +81,13 @@ class TrendingLinksFragment :
     private lateinit var trendingLinksAdapter: TrendingLinksAdapter
 
     private var talkBackWasEnabled = false
+
+    private var pachliAccountId by Delegates.notNull<Long>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+    }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -232,7 +240,7 @@ class TrendingLinksFragment :
     private fun onOpenLink(card: PreviewCard, target: Target) {
         if (target == Target.BYLINE) {
             card.authors?.firstOrNull()?.account?.id?.let {
-                startActivity(AccountActivityIntent(requireContext(), it))
+                startActivity(AccountActivityIntent(requireContext(), pachliAccountId, it))
             }
             return
         }
@@ -256,6 +264,14 @@ class TrendingLinksFragment :
     }
 
     companion object {
-        fun newInstance() = TrendingLinksFragment()
+        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
+
+        fun newInstance(pachliAccountId: Long): TrendingLinksFragment {
+            val fragment = TrendingLinksFragment()
+            fragment.arguments = Bundle(1).apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+            }
+            return fragment
+        }
     }
 }

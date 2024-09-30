@@ -222,7 +222,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
 
     private fun onListSelected(listId: String, listTitle: String) {
         startActivityWithDefaultTransition(
-            TimelineActivityIntent.list(this, listId, listTitle),
+            TimelineActivityIntent.list(this, intent.pachliAccountId, listId, listTitle),
         )
     }
 

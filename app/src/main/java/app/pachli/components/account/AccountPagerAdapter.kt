@@ -26,6 +26,7 @@ import app.pachli.core.model.Timeline
 
 class AccountPagerAdapter(
     activity: FragmentActivity,
+    private val pachliAccountId: Long,
     private val accountId: String,
 ) : CustomFragmentStateAdapter(activity) {
 
@@ -33,10 +34,10 @@ class AccountPagerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> TimelineFragment.newInstance(Timeline.User.Posts(accountId), false)
-            1 -> TimelineFragment.newInstance(Timeline.User.Replies(accountId), false)
-            2 -> TimelineFragment.newInstance(Timeline.User.Pinned(accountId), false)
-            3 -> AccountMediaFragment.newInstance(accountId)
+            0 -> TimelineFragment.newInstance(pachliAccountId, Timeline.User.Posts(accountId), false)
+            1 -> TimelineFragment.newInstance(pachliAccountId, Timeline.User.Replies(accountId), false)
+            2 -> TimelineFragment.newInstance(pachliAccountId, Timeline.User.Pinned(accountId), false)
+            3 -> AccountMediaFragment.newInstance(pachliAccountId, accountId)
             else -> throw AssertionError("Page $position is out of AccountPagerAdapter bounds")
         }
     }

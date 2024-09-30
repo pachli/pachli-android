@@ -413,7 +413,7 @@ class ComposeViewModel @Inject constructor(
 
         draftHelper.saveDraft(
             draftId = draftId,
-            accountId = accountManager.activeAccount?.id!!,
+            pachliAccountId = accountManager.activeAccount?.id!!,
             inReplyToId = inReplyToId,
             content = content,
             contentWarning = contentWarning,
@@ -438,7 +438,7 @@ class ComposeViewModel @Inject constructor(
     suspend fun sendStatus(
         content: String,
         spoilerText: String,
-        accountId: Long,
+        pachliAccountId: Long,
     ) {
         if (!scheduledTootId.isNullOrEmpty()) {
             api.deleteScheduledStatus(scheduledTootId!!)
@@ -465,7 +465,7 @@ class ComposeViewModel @Inject constructor(
             poll = poll.value,
             replyingStatusContent = null,
             replyingStatusAuthorUsername = null,
-            accountId = accountId,
+            pachliAccountId = pachliAccountId,
             draftId = draftId,
             idempotencyKey = randomAlphanumericString(16),
             retries = 0,

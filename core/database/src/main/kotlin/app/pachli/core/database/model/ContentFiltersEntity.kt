@@ -24,6 +24,8 @@ import app.pachli.core.database.Converters
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
 
+// TODO: Redo this. Would be better as one ContentFilter per row,
+
 @Entity(
     primaryKeys = ["accountId"],
     foreignKeys = [

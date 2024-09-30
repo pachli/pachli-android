@@ -54,6 +54,7 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -73,6 +74,13 @@ class ViewEditsFragment :
 
     private lateinit var statusId: String
 
+    private var pachliAccountId by Delegates.notNull<Long>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
@@ -87,7 +95,7 @@ class ViewEditsFragment :
         )
         (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
-        statusId = requireArguments().getString(STATUS_ID_EXTRA)!!
+        statusId = requireArguments().getString(ARG_STATUS_ID)!!
 
         val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
         val animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
@@ -183,28 +191,34 @@ class ViewEditsFragment :
     }
 
     override fun onViewAccount(id: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(AccountActivityIntent(requireContext(), id))
+        bottomSheetActivity?.startActivityWithDefaultTransition(
+            AccountActivityIntent(requireContext(), pachliAccountId, id),
+        )
     }
 
     override fun onViewTag(tag: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(requireContext(), tag))
+        bottomSheetActivity?.startActivityWithDefaultTransition(
+            TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
+        )
     }
 
     override fun onViewUrl(url: String) {
-        bottomSheetActivity?.viewUrl(url)
+        bottomSheetActivity?.viewUrl(pachliAccountId, url)
     }
 
     private val bottomSheetActivity
         get() = (activity as? BottomSheetActivity)
 
     companion object {
-        private const val STATUS_ID_EXTRA = "id"
+        private const val ARG_PACHLI_ACCOUNT_ID = "accountId"
+        private const val ARG_STATUS_ID = "id"
 
-        fun newInstance(statusId: String): ViewEditsFragment {
-            val arguments = Bundle(1)
+        fun newInstance(pachliAccountId: Long, statusId: String): ViewEditsFragment {
             val fragment = ViewEditsFragment()
-            arguments.putString(STATUS_ID_EXTRA, statusId)
-            fragment.arguments = arguments
+            fragment.arguments = Bundle(2).apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+                putString(ARG_STATUS_ID, statusId)
+            }
             return fragment
         }
     }

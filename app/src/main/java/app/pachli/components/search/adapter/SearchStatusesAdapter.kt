@@ -27,12 +27,14 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.StatusViewData
 
 class SearchStatusesAdapter(
+    private val pachliAccountId: Long,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusListener: StatusActionListener<StatusViewData>,
 ) : PagingDataAdapter<StatusViewData, StatusViewHolder<StatusViewData>>(STATUS_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder<StatusViewData> {
         return StatusViewHolder(
+            pachliAccountId,
             ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }

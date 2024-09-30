@@ -89,6 +89,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_PU
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.awaitSingleChoiceItem
@@ -151,7 +152,7 @@ class SearchActivity :
 
     private fun setupPages() {
         binding.pages.reduceSwipeSensitivity()
-        binding.pages.adapter = SearchPagerAdapter(this)
+        binding.pages.adapter = SearchPagerAdapter(this, intent.pachliAccountId)
 
         val enableSwipeForTabs = sharedPreferencesRepository.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
         binding.pages.isUserInputEnabled = enableSwipeForTabs

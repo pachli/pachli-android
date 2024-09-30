@@ -38,16 +38,15 @@ import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.MastodonListEntity
-import app.pachli.core.database.model.ServerCapabilitiesEntity
+import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
-import app.pachli.core.model.ServerOperation
+import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.UserListRepliesPolicy
-import app.pachli.core.network.model.nodeinfo.NodeInfo
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
@@ -63,7 +62,6 @@ import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.mapOr
 import com.github.michaelbull.result.onSuccess
-import io.github.z4kn4fein.semver.Version
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -96,7 +94,7 @@ data class PachliAccount(
     val instanceInfo: InstanceInfo,
     val lists: List<MastodonList>,
     val emojis: List<Emoji>,
-    val capabilities: Map<ServerOperation, Version>,
+    val server: Server,
     val contentFilters: ContentFilters,
 ) {
     companion object {
@@ -109,7 +107,11 @@ data class PachliAccount(
                 instanceInfo = InstanceInfo.from(account.instanceInfo),
                 lists = account.lists.map { MastodonList.from(it) },
                 emojis = account.emojis?.emojiList.orEmpty(),
-                capabilities = account.serverCapabilities.capabilities,
+                server = Server(
+                    kind = account.server.serverKind,
+                    version = account.server.version,
+                    capabilities = account.server.capabilities,
+                ),
                 contentFilters = ContentFilters(
                     version = account.contentFilters.version,
                     contentFilters = account.contentFilters.contentFilters,
@@ -405,7 +407,12 @@ class AccountManager @Inject constructor(
                 }.get()
 
                 server?.let {
-                    ServerCapabilitiesEntity(accountId = finalAccount.id, capabilities = it.capabilities).also {
+                    ServerEntity(
+                        accountId = finalAccount.id,
+                        serverKind = it.kind,
+                        version = it.version,
+                        capabilities = it.capabilities,
+                    ).also {
                         instanceDao.upsert(it)
                     }
                 }
@@ -529,7 +536,7 @@ class AccountManager @Inject constructor(
 
         Timber.d("Loading node info from %s", nodeInfoUrl)
         val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).mapBoth(
-            { NodeInfo.from(it.body).mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
+            { it.body.validate().mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
             { Err(GetNodeInfo(nodeInfoUrl, it)) },
         ).bind()
 
@@ -751,6 +758,59 @@ class AccountManager @Inject constructor(
             newTabPreferences(list.accountId, lists)?.let {
                 setTabPreferences(list.accountId, it)
             }
+        }
+    }
+
+    // -- Content filters
+
+    fun getContentFilters(accountId: Long) = contentFiltersDao.getForAccountFlow(accountId)
+        .filterNotNull()
+        .map {
+            ContentFilters(
+                contentFilters = it.contentFilters,
+                version = it.version,
+            )
+        }
+
+    suspend fun refreshContentFilters(accountId: Long, contentFilters: ContentFilters) {
+        contentFiltersDao.upsert(
+            ContentFiltersEntity(
+                accountId = accountId,
+                contentFilters = contentFilters.contentFilters,
+                version = contentFilters.version,
+            ),
+        )
+    }
+
+    suspend fun createContentFilter(accountId: Long, contentFilter: ContentFilter) {
+        transactionProvider {
+            val contentFilters = contentFiltersDao.get(accountId) ?: return@transactionProvider
+            val newContentFilters = contentFilters.copy(
+                contentFilters = contentFilters.contentFilters + contentFilter,
+            )
+            contentFiltersDao.upsert(newContentFilters)
+        }
+    }
+
+    suspend fun deleteContentFilter(accountId: Long, contentFilterId: String) {
+        transactionProvider {
+            val contentFilters = contentFiltersDao.get(accountId) ?: return@transactionProvider
+            val newContentFilters = contentFilters.copy(
+                contentFilters = contentFilters.contentFilters.filterNot { it.id == contentFilterId },
+            )
+            contentFiltersDao.upsert(newContentFilters)
+        }
+    }
+
+    suspend fun updateContentFilter(accountId: Long, contentFilter: ContentFilter) {
+        transactionProvider {
+            val contentFilters = contentFiltersDao.get(accountId) ?: return@transactionProvider
+            val newContentFilters = contentFilters.copy(
+                contentFilters = contentFilters.contentFilters.map {
+                    if (it.id != contentFilter.id) it else contentFilter
+                },
+            )
+            contentFiltersDao.upsert(newContentFilters)
         }
     }
 }

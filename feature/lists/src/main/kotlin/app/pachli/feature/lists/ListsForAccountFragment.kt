@@ -217,9 +217,9 @@ class ListsForAccountFragment : DialogFragment() {
         /** The ID of the account to add/remove the lists */
         private const val ARG_ACCOUNT_ID = "accountId"
 
-        fun newInstance(activeAccountId: Long, accountId: String): ListsForAccountFragment {
+        fun newInstance(pachliAccountId: Long, accountId: String): ListsForAccountFragment {
             val args = Bundle().apply {
-                putLong(ARG_PACHLI_ACCOUNT_ID, activeAccountId)
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
                 putString(ARG_ACCOUNT_ID, accountId)
             }
             return ListsForAccountFragment().apply { arguments = args }

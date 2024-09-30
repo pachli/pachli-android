@@ -27,10 +27,11 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.NotificationViewData
 
 internal class StatusViewHolder(
+    pachliAccountId: Long,
     binding: ItemStatusBinding,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val accountId: String,
-) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder<NotificationViewData>(binding) {
+) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder<NotificationViewData>(pachliAccountId, binding) {
 
     override fun bind(
         viewData: NotificationViewData,
@@ -62,10 +63,11 @@ internal class StatusViewHolder(
 }
 
 class FilterableStatusViewHolder(
+    private val pachliAccountId: Long,
     binding: ItemStatusWrapperBinding,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val accountId: String,
-) : NotificationsPagingAdapter.ViewHolder, FilterableStatusViewHolder<NotificationViewData>(binding) {
+) : NotificationsPagingAdapter.ViewHolder, FilterableStatusViewHolder<NotificationViewData>(pachliAccountId, binding) {
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
         viewData: NotificationViewData,

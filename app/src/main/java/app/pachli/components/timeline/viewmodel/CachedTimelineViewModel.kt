@@ -67,11 +67,9 @@ class CachedTimelineViewModel @Inject constructor(
     sharedPreferencesRepository: SharedPreferencesRepository,
     private val moshi: Moshi,
 ) : TimelineViewModel(
-    context,
     savedStateHandle,
     timelineCases,
     eventHub,
-    contentFiltersRepository,
     accountManager,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,

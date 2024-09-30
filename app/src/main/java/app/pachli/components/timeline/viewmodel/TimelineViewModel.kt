@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.content.Context
 import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
@@ -43,7 +42,6 @@ import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
@@ -60,9 +58,6 @@ import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -272,13 +267,9 @@ sealed interface UiError {
 }
 
 abstract class TimelineViewModel(
-    // TODO: Context is required because handling filter errors needs to
-    // format a resource string. As soon as that is removed this can be removed.
-    @ApplicationContext private val context: Context,
     savedStateHandle: SavedStateHandle,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
-    private val contentFiltersRepository: ContentFiltersRepository,
     protected val accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
@@ -348,21 +339,18 @@ abstract class TimelineViewModel(
     init {
         viewModelScope.launch {
             FilterContext.from(timeline)?.let { filterContext ->
-                contentFiltersRepository.contentFilters.fold(false) { reload, filters ->
-                    filters.onSuccess {
-                        contentFilterModel = when (it?.version) {
+                accountManager.activePachliAccountFlow
+                    .distinctUntilChangedBy { it.contentFilters }
+                    .fold(false) { reload, account ->
+                        contentFilterModel = when (account.contentFilters.version) {
                             ContentFilterVersion.V2 -> ContentFilterModel(filterContext)
-                            ContentFilterVersion.V1 -> ContentFilterModel(filterContext, it.contentFilters)
-                            else -> null
+                            ContentFilterVersion.V1 -> ContentFilterModel(filterContext, account.contentFilters.contentFilters)
                         }
                         if (reload) {
                             reloadKeepingReadingPosition()
                         }
-                    }.onFailure {
-                        _uiErrorChannel.send(UiError.GetFilters(RuntimeException(it.fmt(context))))
+                        true
                     }
-                    true
-                }
             }
         }
 

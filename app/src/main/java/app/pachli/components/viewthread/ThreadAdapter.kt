@@ -33,6 +33,7 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.StatusViewData
 
 class ThreadAdapter(
+    private val pachliAccountId: Long,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusActionListener: StatusActionListener<StatusViewData>,
 ) : ListAdapter<StatusViewData, StatusBaseViewHolder<StatusViewData>>(ThreadDifferCallback) {
@@ -41,13 +42,13 @@ class ThreadAdapter(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             VIEW_TYPE_STATUS -> {
-                StatusViewHolder(ItemStatusBinding.inflate(inflater, parent, false))
+                StatusViewHolder(pachliAccountId, ItemStatusBinding.inflate(inflater, parent, false))
             }
             VIEW_TYPE_STATUS_FILTERED -> {
-                FilterableStatusViewHolder(ItemStatusWrapperBinding.inflate(inflater, parent, false))
+                FilterableStatusViewHolder(pachliAccountId, ItemStatusWrapperBinding.inflate(inflater, parent, false))
             }
             VIEW_TYPE_STATUS_DETAILED -> {
-                StatusDetailedViewHolder(ItemStatusDetailedBinding.inflate(inflater, parent, false))
+                StatusDetailedViewHolder(pachliAccountId, ItemStatusDetailedBinding.inflate(inflater, parent, false))
             }
             else -> error("Unknown item type: $viewType")
         }

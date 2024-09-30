@@ -28,8 +28,9 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.IStatusViewData
 
 open class FilterableStatusViewHolder<T : IStatusViewData>(
+    private val pachliAccountId: Long,
     private val binding: ItemStatusWrapperBinding,
-) : StatusViewHolder<T>(binding.statusContainer, binding.root) {
+) : StatusViewHolder<T>(pachliAccountId, binding.statusContainer, binding.root) {
     /** The filter that matched the status, null if the status is not being filtered. */
     var matchedFilter: Filter? = null
 
@@ -71,7 +72,7 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
                 listener.clearWarningAction(status)
             }
             binding.statusFilteredPlaceholder.statusFilterEditFilter.setOnClickListener {
-                listener.onEditFilterById(result.filter.id)
+                listener.onEditFilterById(pachliAccountId, result.filter.id)
             }
         } ?: {
             matchedFilter = null

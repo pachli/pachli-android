@@ -18,14 +18,34 @@
 package app.pachli.core.database.dao
 
 import androidx.room.Dao
+import androidx.room.Query
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.ContentFiltersEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 @TypeConverters(Converters::class)
 interface ContentFiltersDao {
+    @Query(
+        """
+        SELECT *
+          FROM ContentFiltersEntity
+         WHERE accountId = :accountId
+    """,
+    )
+    suspend fun get(accountId: Long): ContentFiltersEntity?
+
+    @Query(
+        """
+        SELECT *
+          FROM ContentFiltersEntity
+         WHERE accountId = :accountId
+        """,
+    )
+    fun getForAccountFlow(accountId: Long): Flow<ContentFiltersEntity?>
+
     @Upsert
     suspend fun upsert(contentFiltersEntity: ContentFiltersEntity)
 }

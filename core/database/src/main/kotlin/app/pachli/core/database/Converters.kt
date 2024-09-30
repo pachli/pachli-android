@@ -256,9 +256,15 @@ class Converters @Inject constructor(
     }
 
     @TypeConverter
-    fun contentFiltersToJson(contentFilters: List<ContentFilter>) =
+    fun contentFiltersToJson(contentFilters: List<ContentFilter>): String =
         moshi.adapter<List<ContentFilter>>().toJson(contentFilters)
 
     @TypeConverter
     fun jsonToContentFilters(s: String?) = s?.let { moshi.adapter<List<ContentFilter>>().fromJson(it) }
+
+    @TypeConverter
+    fun versionToString(version: Version): String = version.toString()
+
+    @TypeConverter
+    fun stringToVersion(s: String?) = s?.let { Version.parse(it) }
 }
