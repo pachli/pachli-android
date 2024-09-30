@@ -1,0 +1,14 @@
+2.8.2
+
+Novaj ecoj:
+
+Lasu la uzanton elekti konduton dum frapado de klako
+Aldoni opcion por elŝuti amaskomunikilaron al per-sender adresaroj
+Aldonu opcion por ŝpari aldonojn al per-akcentfalintoj
+
+Fiksoj:
+
+Montri sciigon fetiĉerarojn anstataŭe de JSON
+Konservu la legadpozicion se neniu poŝto estas plene videbla
+Ĝisdatigu galicajn tradukojn
+Ĝisdatigante irlandajn tradukojn
