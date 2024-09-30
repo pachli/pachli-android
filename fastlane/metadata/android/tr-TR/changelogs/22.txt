@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+Yeni özellikler:
+
+- Kullanıcının bir sekmeye dokunduğunda davranışı seçmesine izin verin
+- Medyayı per-sender yönetmenlere indirme seçeneği ekleyin
+- Ekletleri per-accounts'lara kurtarma seçeneği ekleyin
+
+Fixes:
+
+- Show notification JSON yerine hataları getiriyor
+- Yazının tamamen görünür olup olmadığını okuma pozisyonunu kurtar
+Güncelleme Galician çevirileri
+Güncelleme İrlandalı çeviriler
