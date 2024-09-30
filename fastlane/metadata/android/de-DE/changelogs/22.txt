@@ -1,0 +1,14 @@
+Pachli 2,8.2
+
+Neue Features:
+
+- Erlauben Sie dem Benutzer, das Verhalten bei einem Tab auszuwählen
+- Hinzufügen von Option zum Download von Medien zu per-sender Verzeichnissen
+- Hinzufügen von Option zum Speichern von Anhängen zu Per-Account-Ordnern
+
+Behebungen:
+
+- Anzeige Benachrichtigung Fetch Fehler statt JSON
+- Speichern Sie die Leseposition, wenn kein Beitrag vollständig sichtbar ist
+- Galicische Übersetzungen aktualisieren
+- Irische Übersetzungen aktualisieren
