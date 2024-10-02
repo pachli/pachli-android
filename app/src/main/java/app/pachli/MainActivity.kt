@@ -636,7 +636,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     /**
      * Refreshes the "Lists" section in the main drawer with [lists].
      */
-    // TODO: This should receive the account, so the ID can be passed to TimelineActivityIntent
     private fun refreshMainDrawerLists(pachliAccountId: Long, lists: List<MastodonList>) {
         binding.mainDrawer.removeItems(*listDrawerItems.toTypedArray())
 
