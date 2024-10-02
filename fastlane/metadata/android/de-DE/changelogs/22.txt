@@ -1,4 +1,4 @@
-Pachli 2,8.2
+Pachli 2.8.2
 
 Neue Features:
 
