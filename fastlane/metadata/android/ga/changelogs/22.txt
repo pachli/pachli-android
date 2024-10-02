@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+Gnéithe nua:
+
+- Ceadaigh an t-úsáideoir iompar a roghnú agus cluaisín á chnagadh
+- Cuir rogha leis na meáin a íoslódáil chuig eolairí in aghaidh an-tairiscint
+- Cuir rogha le ceangaltáin a shábháil le fillteáin in aghaidh an chuntais
+
+Fixes:
+
+- Taispeáin earráidí a rachadh fógra in ionad JSON
+- Sábháil an seasamh léitheoireachta mura bhfuil aon phost le feiceáil go hiomlán
+- Nuashonraigh aistriúcháin Galician
+- Nuashonraigh aistriúcháin na hÉireann
