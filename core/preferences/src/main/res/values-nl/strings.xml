@@ -9,4 +9,9 @@
     <string name="pref_title_downloads">Downloadlocatie</string>
     <string name="download_location_downloads">Downloads map</string>
     <string name="download_location_per_account">Per-account folders, in Downloads map</string>
+    <string name="download_location_per_sender">Persender folders, in Downloads map</string>
+    <string name="pref_title_tab_tap">Actie als het opnemen van een rekening</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Spring volgende pagina</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Spring naar Newest</string>
+    <string name="pref_category_tabs">Tabs</string>
 </resources>

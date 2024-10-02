@@ -8,4 +8,5 @@
     <string name="pref_category_downloads">Ieladētas</string>
     <string name="pref_title_downloads">Lejuplādes vieta</string>
     <string name="download_location_downloads">Lejupielādes mape:</string>
+    <string name="pref_category_tabs">Cilnes</string>
 </resources>

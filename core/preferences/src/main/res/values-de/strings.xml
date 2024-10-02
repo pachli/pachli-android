@@ -9,4 +9,9 @@
     <string name="pref_title_downloads">Speicherort</string>
     <string name="download_location_downloads">Ordner herunterladen</string>
     <string name="download_location_per_account">Pro-Account-Ordner, in Downloads-Ordner</string>
+    <string name="download_location_per_sender">Per-Sender-Ordner, in Downloads-Ordner</string>
+    <string name="pref_title_tab_tap">Aktion beim Tippen eines Tabs</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Zur nächsten Seite springen</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Zu den neuesten Inhalten springen</string>
+    <string name="pref_category_tabs">Tabs</string>
 </resources>

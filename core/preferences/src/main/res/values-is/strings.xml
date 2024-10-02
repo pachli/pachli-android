@@ -6,4 +6,5 @@
     <string name="app_theme_dark">Dökkt</string>
     <string name="app_theme_system">Nota kerfishönnun</string>
     <string name="pref_category_downloads">Sótt gögn</string>
+    <string name="pref_category_tabs">Flipar</string>
 </resources>

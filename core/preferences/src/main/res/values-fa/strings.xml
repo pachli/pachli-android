@@ -9,4 +9,9 @@
     <string name="pref_title_downloads">محل دانلود</string>
     <string name="download_location_downloads">بایگانی برچسب ها</string>
     <string name="download_location_per_account">پوشه های Per-account، در پوشه Download</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">پرش به صفحه بعدی</string>
+    <string name="tab_tap_behaviour_jump_to_newest">پرش به جدیدترین محتوا</string>
+    <string name="download_location_per_sender">پوشه های Per-sender، در پوشه دانلود</string>
+    <string name="pref_title_tab_tap">اقدام در هنگام استفاده از یک برگه</string>
+    <string name="pref_category_tabs">زبانه‌ها</string>
 </resources>

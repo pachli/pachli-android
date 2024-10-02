@@ -9,4 +9,9 @@
     <string name="download_location_per_account">Φάκελοι Per-account, στο φάκελο Downloads</string>
     <string name="app_theme_auto">Automatic στο ηλιοβασίλεμα</string>
     <string name="app_theme_system">Χρησιμοποιήστε το σχεδιασμό συστήματος</string>
+    <string name="download_location_per_sender">Φάκελοι Per-sender, στο φάκελο Downloads</string>
+    <string name="pref_title_tab_tap">Δράση όταν αξιοποιήσει μια καρτέλα</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Μετάβαση στην επόμενη σελίδα</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Μετάβαση στο νεότερο περιεχόμενο</string>
+    <string name="pref_category_tabs">Καρτέλες</string>
 </resources>

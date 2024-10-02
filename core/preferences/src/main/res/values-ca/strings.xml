@@ -9,4 +9,9 @@
     <string name="pref_title_downloads">Ubicació de les baixades</string>
     <string name="download_location_downloads">Carpeta Descàrregues</string>
     <string name="download_location_per_account">Carpetes de comptes, a la carpeta Descàrregues</string>
+    <string name="download_location_per_sender">Carpetes Per-sender, a Carpeta Descàrregues</string>
+    <string name="pref_title_tab_tap">Acció en tocar una pestanya</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Inici &gt; Productes turístics</string>
+    <string name="tab_tap_behaviour_jump_to_newest">L\'Hospitalet de Llobregat</string>
+    <string name="pref_category_tabs">Pestanyes</string>
 </resources>
