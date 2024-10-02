@@ -141,11 +141,6 @@
     <string name="pref_title_app_theme">Thème de l’application</string>
     <string name="pref_title_timelines">Fils chronologiques</string>
     <string name="pref_title_timeline_filters">Filtres</string>
-    <string name="app_them_dark">Sombre</string>
-    <string name="app_theme_light">Clair</string>
-    <string name="app_theme_black">Noir</string>
-    <string name="app_theme_auto">Basé sur le coucher du soleil</string>
-    <string name="app_theme_system">Utiliser le thème système</string>
     <string name="pref_title_browser_settings">Navigateur</string>
     <string name="pref_title_custom_tabs">Utiliser le navigateur intégré</string>
     <string name="pref_title_hide_follow_button">Masquer le bouton de composition lors du défilement</string>

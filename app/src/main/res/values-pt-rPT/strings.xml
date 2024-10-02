@@ -190,11 +190,6 @@
     <string name="pref_title_app_theme">Tema da Aplicação</string>
     <string name="pref_title_timelines">Timelines</string>
     <string name="pref_title_timeline_filters">Filtros</string>
-    <string name="app_them_dark">Escuro</string>
-    <string name="app_theme_light">Claro</string>
-    <string name="app_theme_black">AMOLED</string>
-    <string name="app_theme_auto">Automático ao pôr-do-sol</string>
-    <string name="app_theme_system">Usar o Tema do Sistema</string>
     <string name="pref_title_browser_settings">Navegador</string>
     <string name="pref_title_custom_tabs">Usar Separadores Personalizados do Chrome</string>
     <string name="pref_title_hide_follow_button">Esconder o botão de criação de toots ao fazer scroll</string>

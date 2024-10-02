@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">%1$s feilrapport</string>
+    <string name="acra_dialog_text">Trykk på OK for å forberede en e-post til utviklerne med feilopplysninger</string>
+    <string name="acra_email_body">Disse opplysningene skal sendes til utviklerne.
+\n
+\n · Sørg for at opplysningene ikke inneholder noe som du ikke bil dele, og vennligst beskriv hva som du holdt på med mens feilen oppsto.
+\n
+\n · ----
+\n · Din beskrivelse her:
+\n
+\n · ----
+\n</string>
+</resources>

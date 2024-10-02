@@ -141,11 +141,6 @@
     <string name="pref_title_app_theme">Temo de la apo</string>
     <string name="pref_title_timelines">Tempolinioj</string>
     <string name="pref_title_timeline_filters">Filtriloj</string>
-    <string name="app_them_dark">Malhela</string>
-    <string name="app_theme_light">Hela</string>
-    <string name="app_theme_black">Nigra</string>
-    <string name="app_theme_auto">Aŭtomata laŭ la horo</string>
-    <string name="app_theme_system">Uzi sisteman etoson</string>
     <string name="pref_title_browser_settings">Retumilo</string>
     <string name="pref_title_custom_tabs">Uzi la integritan retumilon</string>
     <string name="pref_title_hide_follow_button">Kaŝi butonon de verko dum rulumado</string>

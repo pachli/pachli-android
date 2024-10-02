@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Ljóst</string>
+    <string name="app_theme_black">Svart</string>
+    <string name="app_theme_auto">Sjálfvirkt við sólarlag</string>
+    <string name="app_theme_dark">Dökkt</string>
+    <string name="app_theme_system">Nota kerfishönnun</string>
+    <string name="pref_category_downloads">Sótt gögn</string>
+    <string name="pref_category_tabs">Flipar</string>
+</resources>

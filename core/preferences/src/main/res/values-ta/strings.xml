@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">வெளிச்சம்</string>
+    <string name="app_theme_black">பிளாக்</string>
+    <string name="app_theme_auto">தானியங்கி</string>
+    <string name="app_theme_dark">கருமை</string>
+    <string name="pref_category_downloads">பதிவிறக்கங்கள்</string>
+    <string name="pref_category_tabs">பட்டைகள்</string>
+</resources>

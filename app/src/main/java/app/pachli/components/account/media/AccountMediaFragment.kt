@@ -165,7 +165,7 @@ class AccountMediaFragment :
             Attachment.Type.VIDEO,
             Attachment.Type.AUDIO,
             -> {
-                val intent = ViewMediaActivityIntent(requireContext(), attachmentsFromSameStatus, currentIndex)
+                val intent = ViewMediaActivityIntent(requireContext(), selected.username, attachmentsFromSameStatus, currentIndex)
                 if (activity != null) {
                     val url = selected.attachment.url
                     ViewCompat.setTransitionName(view, url)

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Lys</string>
+    <string name="app_theme_black">Svart</string>
+    <string name="app_theme_auto">Automatisk ved solnedgang</string>
+    <string name="app_theme_dark">Mørk</string>
+    <string name="app_theme_system">Bruk systeminnstillinger</string>
+    <string name="pref_category_downloads">Nedlastinger</string>
+    <string name="pref_title_downloads">Nedlastingsmappe</string>
+    <string name="download_location_downloads">Nedlastningsmappe:</string>
+    <string name="pref_category_tabs">Faner</string>
+</resources>

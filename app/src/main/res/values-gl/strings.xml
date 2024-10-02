@@ -318,11 +318,6 @@
     <string name="pref_title_hide_follow_button">Agochar o botón redactar ao desprazar</string>
     <string name="pref_title_custom_tabs">Usar lapelas personalizadas de Chrome</string>
     <string name="pref_title_browser_settings">Navegador</string>
-    <string name="app_theme_system">Usar deseño do sistema</string>
-    <string name="app_theme_auto">Automático ao solpor</string>
-    <string name="app_theme_black">Negro</string>
-    <string name="app_theme_light">Claro</string>
-    <string name="app_them_dark">Escuro</string>
     <string name="pref_title_timeline_filters">Filtros</string>
     <string name="pref_title_timelines">Cronoloxías</string>
     <string name="pref_title_app_theme">Decorado da app</string>

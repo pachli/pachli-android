@@ -33,11 +33,6 @@
     <string name="pref_title_hide_follow_button">Folaigh an cnaipe cum agus tú ag scrollaigh</string>
     <string name="pref_title_custom_tabs">Úsáid Chrome Custom Tabs</string>
     <string name="pref_title_browser_settings">Brabhsálaí</string>
-    <string name="app_theme_system">Úsáid Dearadh Córais</string>
-    <string name="app_theme_auto">Uathoibríoch ag luí na gréine</string>
-    <string name="app_theme_black">Dubh</string>
-    <string name="app_theme_light">Éadrom</string>
-    <string name="app_them_dark">Dorcha</string>
     <string name="pref_title_timeline_filters">Scagairí</string>
     <string name="pref_title_timelines">Amlínte</string>
     <string name="pref_title_app_theme">Téama an Aip</string>

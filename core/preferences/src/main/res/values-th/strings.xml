@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">สว่าง</string>
+    <string name="app_theme_black">ดำ</string>
+    <string name="app_theme_auto">ปรับตามเวลา</string>
+    <string name="app_theme_dark">มืด</string>
+    <string name="app_theme_system">ใช้ตามแบบระบบ</string>
+    <string name="pref_category_downloads">ดาวน์โหลด</string>
+    <string name="pref_title_downloads">ตําแหน่งที่ดาวน์โหลด</string>
+    <string name="download_location_downloads">ดาวน์โหลดโฟลเดอร์</string>
+    <string name="download_location_per_account">โฟลเดอร์บัญชี, ดาวน์โหลดในโฟลเดอร์</string>
+    <string name="download_location_per_sender">โฟลเดอร์ของโฟลเดอร์ดาวน์โหลดในโฟลเดอร์</string>
+    <string name="pref_title_tab_tap">การกระทําเมื่อแตะแท็บ</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">ขี่หน้าถัดไป</string>
+    <string name="tab_tap_behaviour_jump_to_newest">ขี่เนื้อหาล่าสุด</string>
+    <string name="pref_category_tabs">แท็บ</string>
+</resources>

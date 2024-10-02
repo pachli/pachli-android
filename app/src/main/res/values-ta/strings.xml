@@ -116,10 +116,6 @@
     <string name="pref_title_notification_filter_favourites">என் பதிவுகள் பிடித்தவையானால்</string>
     <string name="pref_title_appearance_settings">தோற்றம்</string>
     <string name="pref_title_app_theme">செயலியின் தீம்</string>
-    <string name="app_them_dark">கருமை</string>
-    <string name="app_theme_light">வெளிச்சம்</string>
-    <string name="app_theme_black">பிளாக்</string>
-    <string name="app_theme_auto">தானியங்கி</string>
     <string name="pref_title_browser_settings">உலாவி</string>
     <string name="pref_title_custom_tabs">Chrome தனிப்பயன் கீற்றை பயன்படுத்து</string>
     <string name="pref_title_hide_follow_button">உருளலின் போது எழுது பொத்தானை மறை</string>

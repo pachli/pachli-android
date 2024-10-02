@@ -53,6 +53,7 @@ import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
@@ -85,6 +86,9 @@ data class UiState(
 
     /** True if the timeline should be shown in reverse order (oldest first) */
     val reverseTimeline: Boolean,
+
+    /** User's preference for behaviour when tapping a tab. */
+    val tabTapBehaviour: TabTapBehaviour = TabTapBehaviour.JUMP_TO_NEXT_PAGE,
 )
 
 // TODO: Ui* classes are copied from NotificationsViewModel. Not yet sure whether these actions
@@ -406,13 +410,18 @@ abstract class TimelineViewModel(
             }
         }
 
-        val watchedPrefs = setOf(PrefKeys.FAB_HIDE, PrefKeys.LAB_REVERSE_TIMELINE)
+        val watchedPrefs = setOf(
+            PrefKeys.FAB_HIDE,
+            PrefKeys.LAB_REVERSE_TIMELINE,
+            PrefKeys.TAB_TAP_BEHAVIOUR,
+        )
         uiState = sharedPreferencesRepository.changes
             .filter { watchedPrefs.contains(it) }
             .map {
                 UiState(
                     showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
                     reverseTimeline = sharedPreferencesRepository.getBoolean(PrefKeys.LAB_REVERSE_TIMELINE, false),
+                    tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
                 )
             }.stateIn(
                 scope = viewModelScope,
@@ -420,6 +429,7 @@ abstract class TimelineViewModel(
                 initialValue = UiState(
                     showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
                     reverseTimeline = sharedPreferencesRepository.getBoolean(PrefKeys.LAB_REVERSE_TIMELINE, false),
+                    tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
                 ),
             )
 

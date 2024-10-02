@@ -1,5 +1,23 @@
 # Pachli changelog
 
+## v2.8.2
+
+### New features and other improvements
+
+- Allow the user to chose behaviour when tapping a tab (#[955](https://github.com/pachli/pachli-android/pull/955), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Add option to download media to per-sender directories (#[954](https://github.com/pachli/pachli-android/pull/954), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Add option to save attachments to per-account folders (#[945](https://github.com/pachli/pachli-android/pull/945), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Show notification fetch errors instead of JSON (#[942](https://github.com/pachli/pachli-android/pull/942), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Save the reading position if no post is fully visible (#[941](https://github.com/pachli/pachli-android/pull/941), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Galician translations ([josé m](https://github.com/pachli/pachli-android/commits?author=correoxm@disroot.org))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+
 ## v2.8.1
 
 ### Significant bug fixes

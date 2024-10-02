@@ -61,6 +61,7 @@ import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
+import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.getErrorString
@@ -546,6 +547,7 @@ class NotificationsFragment :
 
     override fun onViewMedia(viewData: NotificationViewData, attachmentIndex: Int, view: View?) {
         super.viewMedia(
+            viewData.statusViewData!!.status.account.username,
             attachmentIndex,
             list(viewData.statusViewData!!.status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
             view,
@@ -670,7 +672,10 @@ class NotificationsFragment :
 
     override fun onReselect() {
         if (isAdded) {
-            layoutManager.scrollToPosition(0)
+            when (viewModel.uiState.value.tabTapBehaviour) {
+                TabTapBehaviour.JUMP_TO_NEXT_PAGE -> layoutManager.scrollToPosition(0)
+                TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest)
+            }
         }
     }
 

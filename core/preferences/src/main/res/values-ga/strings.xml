@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Éadrom</string>
+    <string name="app_theme_black">Dubh</string>
+    <string name="app_theme_auto">Uathoibríoch ag luí na gréine</string>
+    <string name="app_theme_dark">Dorcha</string>
+    <string name="app_theme_system">Úsáid Dearadh Córais</string>
+    <string name="pref_category_downloads">Íoslódálacha</string>
+    <string name="pref_title_downloads">Taiseachas aeir: fliuch</string>
+    <string name="download_location_downloads">Íoslódáil fillteán</string>
+    <string name="download_location_per_account">Per-cuntas fillteáin, i Downloads fillteán</string>
+    <string name="pref_title_tab_tap">Gníomh nuair a cnagadh cluaisín</string>
+    <string name="download_location_per_sender">Per-sender fillteáin, i Downloads fillteán</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Léim chuig an chéad leathanach eile</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Léim chuig an ábhar is nuaí</string>
+    <string name="pref_category_tabs">Cluaisíní</string>
+</resources>

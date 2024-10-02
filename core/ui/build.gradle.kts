@@ -34,6 +34,8 @@ dependencies {
     implementation(projects.core.activity)
     implementation(projects.core.common)
     implementation(projects.core.designsystem)
+    implementation(projects.core.preferences)
+        ?.because("PreferenceEnum types in EnumListPreference")
 
     // Uses HttpException from Retrofit
     implementation(projects.core.network)

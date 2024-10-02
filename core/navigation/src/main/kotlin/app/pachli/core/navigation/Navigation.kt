@@ -513,10 +513,13 @@ class ViewMediaActivityIntent private constructor(context: Context) : Intent() {
      * Show a collection of media attachments.
      *
      * @param context
+     * @param owningUsername The username that owns the media. See
+     * [SFragment.viewMedia][app.pachli.fragment.SFragment.viewMedia].
      * @param attachments The attachments to show
      * @param index The index of the attachment in [attachments] to focus on
      */
-    constructor(context: Context, attachments: List<AttachmentViewData>, index: Int) : this(context) {
+    constructor(context: Context, owningUsername: String, attachments: List<AttachmentViewData>, index: Int) : this(context) {
+        putExtra(EXTRA_OWNING_USERNAME, owningUsername)
         putParcelableArrayListExtra(EXTRA_ATTACHMENTS, ArrayList(attachments))
         putExtra(EXTRA_ATTACHMENT_INDEX, index)
     }
@@ -525,16 +528,23 @@ class ViewMediaActivityIntent private constructor(context: Context) : Intent() {
      * Show a single image identified by a URL
      *
      * @param context
+     * @param owningUsername The username that owns the media. See
+     * [SFragment.viewMedia][app.pachli.fragment.SFragment.viewMedia].
      * @param url The URL of the image
      */
-    constructor(context: Context, url: String) : this(context) {
+    constructor(context: Context, owningUsername: String, url: String) : this(context) {
+        putExtra(EXTRA_OWNING_USERNAME, owningUsername)
         putExtra(EXTRA_SINGLE_IMAGE_URL, url)
     }
 
     companion object {
+        private const val EXTRA_OWNING_USERNAME = "owningUsername"
         private const val EXTRA_ATTACHMENTS = "attachments"
         private const val EXTRA_ATTACHMENT_INDEX = "index"
         private const val EXTRA_SINGLE_IMAGE_URL = "singleImage"
+
+        /** @return the owningUsername passed in this intent. */
+        fun getOwningUsername(intent: Intent): String = intent.getStringExtra(EXTRA_OWNING_USERNAME)!!
 
         /** @return the list of [AttachmentViewData] passed in this intent, or null */
         fun getAttachments(intent: Intent): List<AttachmentViewData>? = IntentCompat.getParcelableArrayListExtra(intent, EXTRA_ATTACHMENTS, AttachmentViewData::class.java)

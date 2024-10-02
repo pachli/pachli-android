@@ -26,10 +26,8 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.transition.Transition
 import android.view.Menu
 import android.view.MenuInflater
@@ -50,6 +48,7 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
@@ -80,6 +79,9 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     @Inject
     lateinit var okHttpClient: OkHttpClient
 
+    @Inject
+    lateinit var downloadUrlUseCase: DownloadUrlUseCase
+
     private val viewModel: ViewMediaViewModel by viewModels()
 
     private val binding by viewBinding(ActivityViewMediaBinding::inflate)
@@ -87,6 +89,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     val toolbar: View
         get() = binding.toolbar
 
+    private lateinit var owningUsername: String
     private var attachmentViewData: List<AttachmentViewData>? = null
     private var imageUrl: String? = null
 
@@ -104,6 +107,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         supportPostponeEnterTransition()
 
         // Gather the parameters.
+        owningUsername = ViewMediaActivityIntent.getOwningUsername(intent)
         attachmentViewData = ViewMediaActivityIntent.getAttachments(intent)
         val initialPosition = ViewMediaActivityIntent.getAttachmentIndex(intent)
 
@@ -224,13 +228,12 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
 
     private fun downloadMedia() {
         val url = imageUrl ?: attachmentViewData!![binding.viewPager.currentItem].attachment.url
-        val filename = Uri.parse(url).lastPathSegment
-        Toast.makeText(applicationContext, resources.getString(R.string.download_image, filename), Toast.LENGTH_SHORT).show()
-
-        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val request = DownloadManager.Request(Uri.parse(url))
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename)
-        downloadManager.enqueue(request)
+        Toast.makeText(applicationContext, resources.getString(R.string.download_image, url), Toast.LENGTH_SHORT).show()
+        downloadUrlUseCase(
+            url,
+            accountManager.activeAccount!!.fullName,
+            owningUsername,
+        )
     }
 
     private fun requestDownloadMedia() {

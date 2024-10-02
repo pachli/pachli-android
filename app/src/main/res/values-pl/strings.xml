@@ -120,10 +120,6 @@
     <string name="pref_title_notification_filter_favourites">moje posty zostaną dodane do ulubionych</string>
     <string name="pref_title_appearance_settings">Wygląd</string>
     <string name="pref_title_app_theme">Motyw</string>
-    <string name="app_them_dark">Ciemny</string>
-    <string name="app_theme_light">Jasny</string>
-    <string name="app_theme_black">Czarny</string>
-    <string name="app_theme_auto">Zmieniaj automatycznie po zachodzie słońca</string>
     <string name="pref_title_browser_settings">Przeglądarka</string>
     <string name="pref_title_custom_tabs">Używaj niestandardowych kart Chrome</string>
     <string name="pref_title_hide_follow_button">Ukryj przycisk nowego wpisu podczas przewijania</string>
@@ -255,7 +251,6 @@
     <string name="pref_title_notification_filter_poll">głosowania zostały zakończone</string>
     <string name="pref_title_timelines">Osi czasu</string>
     <string name="pref_title_timeline_filters">Filtry</string>
-    <string name="app_theme_system">Użyj motywu systemu</string>
     <string name="pref_title_language">Język</string>
     <string name="pref_title_bot_overlay">Pokaż oznaczenie dla botów</string>
     <string name="pref_title_animate_gif_avatars">Animuj avatary GIF</string>

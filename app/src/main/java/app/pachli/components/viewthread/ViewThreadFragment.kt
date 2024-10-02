@@ -296,6 +296,7 @@ class ViewThreadFragment :
 
     override fun onViewMedia(viewData: StatusViewData, attachmentIndex: Int, view: View?) {
         super.viewMedia(
+            viewData.username,
             attachmentIndex,
             list(viewData.actionable, alwaysShowSensitiveMedia),
             view,

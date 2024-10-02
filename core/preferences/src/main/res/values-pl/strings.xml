@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Jasny</string>
+    <string name="app_theme_black">Czarny</string>
+    <string name="app_theme_auto">Zmieniaj automatycznie po zachodzie słońca</string>
+    <string name="app_theme_dark">Ciemny</string>
+    <string name="app_theme_system">Użyj motywu systemu</string>
+    <string name="download_location_downloads">Folder</string>
+    <string name="download_location_per_account">Per-account folders in Downloads folder (ang.)</string>
+    <string name="pref_category_downloads">Pobieranie</string>
+    <string name="pref_title_downloads">Lokalizacja pobierania</string>
+    <string name="pref_title_tab_tap">Akcję, gdy skonfiskuje tabela</string>
+    <string name="download_location_per_sender">Płaszczyzna w folderach Downloads</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Jump to next page</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Jump to Newest</string>
+    <string name="pref_category_tabs">Karty</string>
+</resources>

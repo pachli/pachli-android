@@ -19,7 +19,7 @@ package app.pachli.core.network.model
 
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
-import app.pachli.core.common.extensions.getOrNull
+import app.pachli.core.common.extensions.getOrElse
 import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.HasDefault
 import app.pachli.core.network.parseAsMastodonHtml
@@ -101,7 +101,7 @@ data class Status(
 
         companion object {
             @JvmStatic
-            fun getOrUnknown(index: Int) = Enum.getOrNull<Visibility>(index) ?: UNKNOWN
+            fun getOrUnknown(index: Int) = Enum.getOrElse<Visibility>(index) { UNKNOWN }
 
             @JvmStatic
             fun byString(s: String): Visibility {

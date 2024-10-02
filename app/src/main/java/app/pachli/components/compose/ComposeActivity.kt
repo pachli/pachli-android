@@ -241,8 +241,7 @@ class ComposeActivity :
 
         activeAccount = accountManager.activeAccount ?: return
 
-        val theme = AppTheme.from(sharedPreferencesRepository)
-        if (theme == AppTheme.BLACK) {
+        if (sharedPreferencesRepository.appTheme == AppTheme.BLACK) {
             setTheme(DR.style.AppDialogActivityBlackTheme)
         }
         setContentView(binding.root)

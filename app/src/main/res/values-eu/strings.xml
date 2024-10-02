@@ -126,10 +126,6 @@
     <string name="pref_title_appearance_settings">Interfazea</string>
     <string name="pref_title_app_theme">Gaia</string>
     <string name="pref_title_timelines">Denbora-lerroak</string>
-    <string name="app_them_dark">Iluna</string>
-    <string name="app_theme_light">Argia</string>
-    <string name="app_theme_black">Beltza</string>
-    <string name="app_theme_auto">Automatikoa</string>
     <string name="pref_title_browser_settings">Nabigatzailea</string>
     <string name="pref_title_custom_tabs">Chromeko fitxak erabili</string>
     <string name="pref_title_hide_follow_button">Tut berria idazteko botoia ezkutatu beherantz joan einean</string>
@@ -264,7 +260,6 @@
     <string name="mute_domain_warning_dialog_ok">Domeinu osoa ezkutatu</string>
     <string name="pref_title_notification_filter_poll">Galdeketak bukatu dira</string>
     <string name="pref_title_timeline_filters">Iragazkiak</string>
-    <string name="app_theme_system">Erabili sistemaren diseinua</string>
     <string name="pref_title_language">Hizkuntza</string>
     <string name="pref_title_bot_overlay">Botentzako erakuslea erakutsi</string>
     <string name="pref_title_animate_gif_avatars">GIF abatarrak animatu</string>

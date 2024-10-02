@@ -17,6 +17,8 @@
 
 package app.pachli.core.common.extensions
 
+import kotlin.enums.enumEntries
+
 // Note: Technically these don't have to be extension methods on
 // Enum.Companion. You could remove that and write:
 //
@@ -38,17 +40,17 @@ package app.pachli.core.common.extensions
  *
  * @see [kotlin.Array.get]
  */
-inline fun <reified E : Enum<E>> Enum.Companion.get(ordinal: Int) = enumValues<E>()[ordinal]
+inline fun <reified E : Enum<E>> Enum.Companion.get(ordinal: Int) = enumEntries<E>()[ordinal]
 
 /**
  * Returns the enum constant with the given [ordinal] value or the result
  * of calling the [defaultValue] function if the [ordinal] is out of bounds of
  * this enum.
  */
-inline fun <reified E : Enum<E>> Enum.Companion.getOrElse(ordinal: Int, defaultValue: (Int) -> E) = enumValues<E>().getOrElse(ordinal, defaultValue)
+inline fun <reified E : Enum<E>> Enum.Companion.getOrElse(ordinal: Int, defaultValue: (Int) -> E) = enumEntries<E>().getOrElse(ordinal, defaultValue)
 
 /**
  * Returns the enum constant with the given [ordinal] value or `null` if the
  * [ordinal] is out of bounds of this enum
  */
-inline fun <reified E : Enum<E>> Enum.Companion.getOrNull(ordinal: Int) = enumValues<E>().getOrNull(ordinal)
+inline fun <reified E : Enum<E>> Enum.Companion.getOrNull(ordinal: Int) = enumEntries<E>().getOrNull(ordinal)

@@ -328,11 +328,6 @@
     <string name="pref_title_hide_follow_button">Falaich am putan sgrìobhaidh fhad ’s a bhios mi ri sgroladh</string>
     <string name="pref_title_custom_tabs">Cleachd tabaichean Chrome gnàthaichte</string>
     <string name="pref_title_browser_settings">Brabhsair</string>
-    <string name="app_theme_system">Cleachd co-dhealbhachd an t-siostaim</string>
-    <string name="app_theme_auto">Gu fèin-obrachail aig beul na h-oidhche</string>
-    <string name="app_theme_black">Dubh</string>
-    <string name="app_theme_light">Soilleir</string>
-    <string name="app_them_dark">Dorcha</string>
     <string name="pref_title_timeline_filters">Criathragan</string>
     <string name="pref_title_timelines">Loidhnichean-ama</string>
     <string name="pref_title_app_theme">Ùrlar na h-aplacaid</string>

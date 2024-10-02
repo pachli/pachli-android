@@ -51,7 +51,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
-import app.pachli.core.preferences.AppTheme.Companion.APP_THEME_DEFAULT
+import app.pachli.core.preferences.DownloadLocation
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.extensions.await
@@ -60,6 +60,7 @@ import app.pachli.databinding.AccountNotificationDetailsListItemBinding
 import app.pachli.feature.about.asDdHhMmSs
 import app.pachli.feature.about.instantFormatter
 import app.pachli.settings.emojiPreference
+import app.pachli.settings.enumListPreference
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preference
@@ -138,13 +139,10 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         makePreferenceScreen {
             preferenceCategory(R.string.pref_title_appearance_settings) {
-                listPreference {
-                    setDefaultValue(APP_THEME_DEFAULT.value)
-                    setEntries(R.array.app_theme_names)
-                    entryValues = AppTheme.stringValues()
-                    key = PrefKeys.APP_THEME
-                    setSummaryProvider { entry }
+                enumListPreference<AppTheme> {
+                    setDefaultValue(AppTheme.AUTO_SYSTEM)
                     setTitle(R.string.pref_title_app_theme)
+                    key = PrefKeys.APP_THEME
                     icon = makeIcon(GoogleMaterial.Icon.gmd_palette)
                 }
 
@@ -195,15 +193,6 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setSummaryProvider { entry }
                     setTitle(R.string.pref_post_text_size)
                     icon = makeIcon(GoogleMaterial.Icon.gmd_format_size)
-                }
-
-                listPreference {
-                    setDefaultValue("top")
-                    setEntries(R.array.pref_main_nav_position_options)
-                    setEntryValues(R.array.pref_main_nav_position_values)
-                    key = PrefKeys.MAIN_NAV_POSITION
-                    setSummaryProvider { entry }
-                    setTitle(R.string.pref_main_nav_position)
                 }
 
                 listPreference {
@@ -288,17 +277,37 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                 }
 
                 switchPreference {
+                    setDefaultValue(false)
+                    key = PrefKeys.SHOW_STATS_INLINE
+                    setTitle(R.string.pref_title_show_stat_inline)
+                    isSingleLineTitle = false
+                }
+            }
+
+            preferenceCategory(app.pachli.core.preferences.R.string.pref_category_tabs) {
+                listPreference {
+                    setDefaultValue("top")
+                    setEntries(R.array.pref_main_nav_position_options)
+                    setEntryValues(R.array.pref_main_nav_position_values)
+                    key = PrefKeys.MAIN_NAV_POSITION
+                    setSummaryProvider { entry }
+                    setTitle(R.string.pref_main_nav_position)
+                }
+
+                switchPreference {
                     setDefaultValue(true)
                     key = PrefKeys.ENABLE_SWIPE_FOR_TABS
                     setTitle(R.string.pref_title_enable_swipe_for_tabs)
                     isSingleLineTitle = false
                 }
+            }
 
-                switchPreference {
-                    setDefaultValue(false)
-                    key = PrefKeys.SHOW_STATS_INLINE
-                    setTitle(R.string.pref_title_show_stat_inline)
-                    isSingleLineTitle = false
+            preferenceCategory(app.pachli.core.preferences.R.string.pref_category_downloads) {
+                enumListPreference<DownloadLocation> {
+                    setDefaultValue(DownloadLocation.DOWNLOADS)
+                    setTitle(app.pachli.core.preferences.R.string.pref_title_downloads)
+                    key = PrefKeys.DOWNLOAD_LOCATION
+                    icon = makeIcon(GoogleMaterial.Icon.gmd_file_download)
                 }
             }
 

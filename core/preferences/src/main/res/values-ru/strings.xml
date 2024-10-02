@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Светлая</string>
+    <string name="app_theme_black">Чёрная</string>
+    <string name="app_theme_auto">Автоматическая (от заката до восхода солнца)</string>
+    <string name="app_theme_dark">Тёмная</string>
+    <string name="app_theme_system">Как в системе</string>
+    <string name="pref_category_downloads">Загрузки</string>
+    <string name="pref_title_downloads">Путь загрузок</string>
+    <string name="download_location_downloads">Скачать папку</string>
+    <string name="download_location_per_account">В папках Загрузок</string>
+    <string name="download_location_per_sender">Папки для доставки, в папке Загрузок</string>
+    <string name="pref_title_tab_tap">Действия при нажатии на вкладку</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Перейти на следующую страницу</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Переход на новейший контент</string>
+    <string name="pref_category_tabs">Вкладки</string>
+</resources>

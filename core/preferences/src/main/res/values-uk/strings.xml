@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_theme_light">Світла</string>
+    <string name="app_theme_black">Чорна</string>
+    <string name="app_theme_auto">Автоматична від заходу сонця</string>
+    <string name="app_theme_dark">Темна</string>
+    <string name="app_theme_system">Тема системи</string>
+    <string name="pref_category_downloads">Завантаження</string>
+    <string name="pref_title_downloads">Розташування завантаження</string>
+    <string name="download_location_downloads">Завантаження папки</string>
+    <string name="download_location_per_account">Папки Per-account, у папці завантаження</string>
+    <string name="download_location_per_sender">Надсувні папки, у папці завантаження</string>
+    <string name="pref_title_tab_tap">Дія при натисканні вкладки</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Перейти на сторінку</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Перейти до вмісту</string>
+    <string name="pref_category_tabs">Вкладки</string>
+</resources>
