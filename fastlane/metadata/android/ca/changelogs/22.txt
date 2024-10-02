@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+Novetats:
+
+- Permet que l'usuari triï el comportament a la pestanya
+- Afegir l'opció de descarregar els mitjans als directoris per-sender
+- Afegir l'opció de guardar els fitxers adjunts a les carpetes per compte
+
+Fixacions:
+
+- Mostra els errors de cerca de notificacions en lloc de JSON
+- Desa la posició de la lectura si no hi ha lloc
+- Actualització de traduccions gallegues
+- Actualització de la traducció irlandesa

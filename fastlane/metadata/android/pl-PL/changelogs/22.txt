@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+Nowe cechy:
+
+- Allow użytkownik wybrał zachowanie, gdy tapping taba.
+- Addd opcja do pobrania mediów dla reżyserów.
+- Addd option to ratowanie przywiązań do folderów.
+
+Fiksy
+
+- Show notification fetch error
+- Ocalenie pozycji czytania, jeśli nie jest już w pełni widoczne, nie jest w pełni widoczne.
+- Update Galician translation
+- Update Irish translations (ang.)

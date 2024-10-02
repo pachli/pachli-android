@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+Fitur baru:
+
+- Memungkinkan pengguna untuk memilih perilaku ketika mengetuk tab
+- Tambahkan opsi untuk mengunduh media ke direktori per-sender
+- Tambahkan opsi untuk menyimpan lampiran ke folder per rekening
+
+Login
+
+- Tampilkan kesalahan pengambilan pemberitahuan bukan JSON
+- Simpan posisi membaca jika tidak ada posting yang sepenuhnya terlihat
+- Update terjemahan Galician
+- Update terjemahan Irlandia
