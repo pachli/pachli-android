@@ -22,13 +22,13 @@ import app.pachli.R
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
-import app.pachli.core.data.model.FilterValidationError
-import app.pachli.core.navigation.EditFilterActivityIntent
-import app.pachli.core.network.model.Filter
+import app.pachli.core.data.model.ContentFilterValidationError
+import app.pachli.core.navigation.EditContentFilterActivityIntent
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.ui.extensions.await
-import app.pachli.databinding.ActivityEditFilterBinding
+import app.pachli.databinding.ActivityEditContentFilterBinding
 import app.pachli.databinding.DialogFilterBinding
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
@@ -44,20 +44,20 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 /**
- * Edit a single server-side filter.
+ * Edit a single server-side content filter.
  */
 @AndroidEntryPoint
-class EditFilterActivity : BaseActivity() {
-    private val binding by viewBinding(ActivityEditFilterBinding::inflate)
+class EditContentFilterActivity : BaseActivity() {
+    private val binding by viewBinding(ActivityEditContentFilterBinding::inflate)
 
     // Pass the optional filter and filterId values from the intent to
-    // EditFilterViewModel.
-    private val viewModel: EditFilterViewModel by viewModels(
+    // EditContentFilterViewModel.
+    private val viewModel: EditContentFilterViewModel by viewModels(
         extrasProducer = {
-            defaultViewModelCreationExtras.withCreationCallback<EditFilterViewModel.Factory> { factory ->
+            defaultViewModelCreationExtras.withCreationCallback<EditContentFilterViewModel.Factory> { factory ->
                 factory.create(
-                    EditFilterActivityIntent.getFilter(intent),
-                    EditFilterActivityIntent.getFilterId(intent),
+                    EditContentFilterActivityIntent.getContentFilter(intent),
+                    EditContentFilterActivityIntent.getContentFilterId(intent),
                 )
             }
         },
@@ -123,7 +123,7 @@ class EditFilterActivity : BaseActivity() {
         binding.filterSaveButton.setOnClickListener { saveChanges() }
         binding.filterDeleteButton.setOnClickListener {
             lifecycleScope.launch {
-                viewModel.filterViewData.value.get()?.let {
+                viewModel.contentFilterViewData.value.get()?.let {
                     if (showDeleteFilterDialog(it.title) == BUTTON_POSITIVE) deleteFilter()
                 }
             }
@@ -144,7 +144,7 @@ class EditFilterActivity : BaseActivity() {
             viewModel.setTitle(editable.toString())
         }
         binding.filterActionWarn.setOnCheckedChangeListener { _, checked ->
-            viewModel.setAction(if (checked) Filter.Action.WARN else Filter.Action.HIDE)
+            viewModel.setAction(if (checked) FilterAction.WARN else FilterAction.HIDE)
         }
 
         bind()
@@ -155,20 +155,20 @@ class EditFilterActivity : BaseActivity() {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
-                launch { viewModel.filterViewData.collect(::bindFilter) }
+                launch { viewModel.contentFilterViewData.collect(::bindFilter) }
 
                 launch { viewModel.isDirty.collectLatest { onBackPressedCallback.isEnabled = it } }
 
                 launch {
                     viewModel.validationErrors.collectLatest { errors ->
-                        binding.filterTitleWrapper.error = if (errors.contains(FilterValidationError.NO_TITLE)) {
+                        binding.filterTitleWrapper.error = if (errors.contains(ContentFilterValidationError.NO_TITLE)) {
                             getString(R.string.error_filter_missing_title)
                         } else {
                             null
                         }
 
-                        binding.keywordChipsError.isVisible = errors.contains(FilterValidationError.NO_KEYWORDS)
-                        binding.filterContextError.isVisible = errors.contains(FilterValidationError.NO_CONTEXT)
+                        binding.keywordChipsError.isVisible = errors.contains(ContentFilterValidationError.NO_KEYWORDS)
+                        binding.filterContextError.isVisible = errors.contains(ContentFilterValidationError.NO_CONTEXT)
                     }
                 }
 
@@ -199,9 +199,9 @@ class EditFilterActivity : BaseActivity() {
             Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).apply {
                 setAction(app.pachli.core.ui.R.string.action_retry) {
                     when (uiError) {
-                        is UiError.DeleteFilterError -> viewModel.deleteFilter()
-                        is UiError.GetFilterError -> viewModel.reload()
-                        is UiError.SaveFilterError -> viewModel.saveChanges()
+                        is UiError.DeleteContentFilterError -> viewModel.deleteContentFilter()
+                        is UiError.GetContentFilterError -> viewModel.reload()
+                        is UiError.SaveContentFilterError -> viewModel.saveChanges()
                     }
                 }
                 show()
@@ -215,7 +215,7 @@ class EditFilterActivity : BaseActivity() {
         }
     }
 
-    private fun bindFilter(result: Result<FilterViewData?, UiError.GetFilterError>) {
+    private fun bindFilter(result: Result<ContentFilterViewData?, UiError.GetContentFilterError>) {
         result.onFailure(::bindUiError)
 
         result.onSuccess { filterViewData ->
@@ -246,8 +246,8 @@ class EditFilterActivity : BaseActivity() {
                 key.isChecked = filterViewData.contexts.contains(value)
             }
 
-            when (filterViewData.action) {
-                Filter.Action.HIDE -> binding.filterActionHide.isChecked = true
+            when (filterViewData.filterAction) {
+                FilterAction.HIDE -> binding.filterActionHide.isChecked = true
                 else -> binding.filterActionWarn.isChecked = true
             }
         }
@@ -341,7 +341,7 @@ class EditFilterActivity : BaseActivity() {
     // TODO use a progress bar here (see EditProfileActivity/activity_edit_profile.xml for example)?
     private fun saveChanges() = viewModel.saveChanges()
 
-    private fun deleteFilter() = viewModel.deleteFilter()
+    private fun deleteFilter() = viewModel.deleteContentFilter()
 }
 
 data class FilterDuration(

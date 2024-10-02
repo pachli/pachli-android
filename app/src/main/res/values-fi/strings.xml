@@ -604,7 +604,7 @@
     <string name="description_poll">Kysely jossa vaihtoehdot: %1$s, %2$s, %3$s, %4$s, %5$s</string>
     <string name="duration_no_change">(Ei muutosta)</string>
     <string name="description_post_media">Media: %s</string>
-    <string name="pref_summary_timeline_filters">Palvelimesi ei tue suodattimia</string>
+    <string name="pref_summary_content_filters">Palvelimesi ei tue suodattimia</string>
     <string name="server_repository_error">Palvelintietoja ei voitu hakea osoitteelle %1$s:%2$s</string>
     <string name="pref_title_update_check_now">Etsi päivitystä nyt</string>
     <string name="pref_update_next_scheduled_check">Seuraava ajoitettu tarkistus: %1$s</string>

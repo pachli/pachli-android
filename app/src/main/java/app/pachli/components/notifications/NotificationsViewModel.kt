@@ -32,17 +32,17 @@ import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.extensions.throttleFirst
-import app.pachli.core.data.repository.FilterVersion
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFilterVersion
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
-import app.pachli.network.FilterModel
+import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
@@ -315,7 +315,7 @@ class NotificationsViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
-    private val filtersRepository: FiltersRepository,
+    private val contentFiltersRepository: ContentFiltersRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
@@ -358,7 +358,7 @@ class NotificationsViewModel @Inject constructor(
         viewModelScope.launch { uiAction.emit(action) }
     }
 
-    private var filterModel: FilterModel? = null
+    private var contentFilterModel: ContentFilterModel? = null
 
     init {
         // Handle changes to notification filters
@@ -480,11 +480,11 @@ class NotificationsViewModel @Inject constructor(
 
         // Fetch the status filters
         viewModelScope.launch {
-            filtersRepository.filters.collect { filters ->
+            contentFiltersRepository.contentFilters.collect { filters ->
                 filters.onSuccess {
-                    filterModel = when (it?.version) {
-                        FilterVersion.V2 -> FilterModel(FilterContext.NOTIFICATIONS)
-                        FilterVersion.V1 -> FilterModel(FilterContext.NOTIFICATIONS, it.filters)
+                    contentFilterModel = when (it?.version) {
+                        ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.NOTIFICATIONS)
+                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.NOTIFICATIONS, it.contentFilters)
                         else -> null
                     }
                     reload.getAndUpdate { it + 1 }
@@ -533,7 +533,7 @@ class NotificationsViewModel @Inject constructor(
         return repository.getNotificationsStream(filter = filters, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map { notification ->
-                    val filterAction = notification.status?.actionableStatus?.let { filterModel?.filterActionFor(it) } ?: Filter.Action.NONE
+                    val filterAction = notification.status?.actionableStatus?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
                     NotificationViewData.from(
                         notification,
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
@@ -543,7 +543,7 @@ class NotificationsViewModel @Inject constructor(
                         filterAction = filterAction,
                     )
                 }.filter {
-                    it.statusViewData?.filterAction != Filter.Action.HIDE
+                    it.statusViewData?.filterAction != FilterAction.HIDE
                 }
             }
     }

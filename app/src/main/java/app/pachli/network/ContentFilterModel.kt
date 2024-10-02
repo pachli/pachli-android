@@ -1,7 +1,7 @@
 package app.pachli.network
 
-import app.pachli.core.data.model.Filter
-import app.pachli.core.network.model.Filter as NetworkFilter
+import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
@@ -14,24 +14,24 @@ import java.util.regex.Pattern
  * Construct with [filterContext] that corresponds to the kind of timeline, and optionally the set
  * of v1 filters that should be applied.
  */
-class FilterModel(private val filterContext: FilterContext, v1filters: List<Filter>? = null) {
+class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilters: List<ContentFilter>? = null) {
     /** Pattern to use when matching v1 filters against a status. Null if these are v2 filters */
     private var pattern: Pattern? = null
 
     init {
-        pattern = v1filters?.let { list ->
+        pattern = v1ContentFilters?.let { list ->
             makeFilter(list.filter { it.contexts.contains(filterContext) })
         }
     }
 
-    /** @return the [Filter.Action] that should be applied to this status */
-    fun filterActionFor(status: Status): NetworkFilter.Action {
+    /** @return the [FilterAction] that should be applied to this status */
+    fun filterActionFor(status: Status): FilterAction {
         pattern?.let { pat ->
             // Patterns are expensive and thread-safe, matchers are neither.
-            val matcher = pat.matcher("") ?: return NetworkFilter.Action.NONE
+            val matcher = pat.matcher("") ?: return FilterAction.NONE
 
             if (status.poll?.options?.any { matcher.reset(it.title).find() } == true) {
-                return NetworkFilter.Action.HIDE
+                return FilterAction.HIDE
             }
 
             val spoilerText = status.actionableStatus.spoilerText
@@ -42,9 +42,9 @@ class FilterModel(private val filterContext: FilterContext, v1filters: List<Filt
                 (spoilerText.isNotEmpty() && matcher.reset(spoilerText).find()) ||
                 (attachmentsDescriptions.isNotEmpty() && matcher.reset(attachmentsDescriptions.joinToString("\n")).find())
             ) {
-                NetworkFilter.Action.HIDE
+                FilterAction.HIDE
             } else {
-                NetworkFilter.Action.NONE
+                FilterAction.NONE
             }
         }
 
@@ -53,14 +53,14 @@ class FilterModel(private val filterContext: FilterContext, v1filters: List<Filt
         }
 
         return if (matchingKind.isNullOrEmpty()) {
-            NetworkFilter.Action.NONE
+            FilterAction.NONE
         } else {
-            matchingKind.maxOf { it.filter.action }
+            matchingKind.maxOf { it.filter.filterAction }
         }
     }
 
-    private fun filterToRegexToken(filter: Filter): String? {
-        val keyword = filter.keywords.first()
+    private fun filterToRegexToken(contentFilter: ContentFilter): String? {
+        val keyword = contentFilter.keywords.first()
         val phrase = keyword.keyword
         val quotedPhrase = Pattern.quote(phrase)
         return if (keyword.wholeWord && ALPHANUMERIC.matcher(phrase).matches()) {
@@ -70,9 +70,9 @@ class FilterModel(private val filterContext: FilterContext, v1filters: List<Filt
         }
     }
 
-    private fun makeFilter(filters: List<Filter>): Pattern? {
+    private fun makeFilter(contentFilters: List<ContentFilter>): Pattern? {
         val now = Date()
-        val nonExpiredFilters = filters.filter { it.expiresAt?.before(now) != true }
+        val nonExpiredFilters = contentFilters.filter { it.expiresAt?.before(now) != true }
         if (nonExpiredFilters.isEmpty()) return null
         val tokens = nonExpiredFilters
             .asSequence()

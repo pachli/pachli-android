@@ -25,7 +25,7 @@ import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.accounts.AccountManager
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Account
@@ -87,7 +87,7 @@ abstract class CachedTimelineViewModelTestBase {
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     @Inject
-    lateinit var filtersRepository: FiltersRepository
+    lateinit var contentFiltersRepository: ContentFiltersRepository
 
     @Inject
     lateinit var cachedTimelineRepository: CachedTimelineRepository
@@ -116,7 +116,7 @@ abstract class CachedTimelineViewModelTestBase {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
-            onBlocking { getFilters() } doReturn success(emptyList())
+            onBlocking { getContentFilters() } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
@@ -163,7 +163,7 @@ abstract class CachedTimelineViewModelTestBase {
             cachedTimelineRepository,
             timelineCases,
             eventHub,
-            filtersRepository,
+            contentFiltersRepository,
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,

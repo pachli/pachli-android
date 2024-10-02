@@ -56,8 +56,8 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
-import app.pachli.core.navigation.EditFilterActivityIntent
-import app.pachli.core.network.model.Filter
+import app.pachli.core.navigation.EditContentFilterActivityIntent
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
@@ -596,7 +596,7 @@ class NotificationsFragment :
 
     override fun onEditFilterById(filterId: String) {
         requireActivity().startActivityWithTransition(
-            EditFilterActivityIntent.edit(requireContext(), filterId),
+            EditContentFilterActivityIntent.edit(requireContext(), filterId),
             TransitionKind.SLIDE_FROM_END,
         )
     }
@@ -612,7 +612,7 @@ class NotificationsFragment :
         adapter.snapshot().withIndex().filter { it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId }
             .map {
                 it.value?.statusViewData = it.value?.statusViewData?.copy(
-                    filterAction = Filter.Action.NONE,
+                    filterAction = FilterAction.NONE,
                 )
                 adapter.notifyItemChanged(it.index)
             }

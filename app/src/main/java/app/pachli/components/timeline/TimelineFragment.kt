@@ -64,7 +64,7 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
-import app.pachli.core.navigation.EditFilterActivityIntent
+import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.TabTapBehaviour
@@ -650,7 +650,7 @@ class TimelineFragment :
 
     override fun onEditFilterById(filterId: String) {
         requireActivity().startActivityWithTransition(
-            EditFilterActivityIntent.edit(requireContext(), filterId),
+            EditContentFilterActivityIntent.edit(requireContext(), filterId),
             TransitionKind.SLIDE_FROM_END,
         )
     }

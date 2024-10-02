@@ -25,7 +25,7 @@ import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.adapter.StatusDetailedViewHolder
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusDetailedBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
@@ -62,7 +62,7 @@ class ThreadAdapter(
         val viewData = getItem(position)
         return if (viewData.isDetailed) {
             VIEW_TYPE_STATUS_DETAILED
-        } else if (viewData.filterAction == Filter.Action.WARN) {
+        } else if (viewData.filterAction == FilterAction.WARN) {
             VIEW_TYPE_STATUS_FILTERED
         } else {
             VIEW_TYPE_STATUS

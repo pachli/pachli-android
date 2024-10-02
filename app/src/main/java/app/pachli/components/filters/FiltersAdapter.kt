@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.data.model.Filter
-import app.pachli.core.data.model.FilterValidationError
+import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.data.model.ContentFilterValidationError
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemRemovableBinding
 import app.pachli.util.getRelativeTimeSpanString
 import com.google.android.material.color.MaterialColors
 
-class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
+class FiltersAdapter(val listener: ContentFiltersListener, val contentFilters: List<ContentFilter>) :
     RecyclerView.Adapter<BindingHolder<ItemRemovableBinding>>() {
 
-    override fun getItemCount(): Int = filters.size
+    override fun getItemCount(): Int = contentFilters.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemRemovableBinding> {
         return BindingHolder(ItemRemovableBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -27,7 +27,7 @@ class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
         val actions = resources.getStringArray(R.array.filter_actions)
         val filterContextNames = resources.getStringArray(R.array.filter_contexts)
 
-        val filter = filters[position]
+        val filter = contentFilters[position]
         val context = binding.root.context
         binding.textPrimary.text = filter.expiresAt?.let {
             context.getString(
@@ -45,7 +45,7 @@ class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
         if (errors.isEmpty()) {
             secondaryText = context.getString(
                 R.string.filter_description_format,
-                actions.getOrNull(filter.action.ordinal - 1),
+                actions.getOrNull(filter.filterAction.ordinal - 1),
                 filter.contexts.map { filterContextNames.getOrNull(it.ordinal) }.joinToString("/"),
             )
             secondaryTextColor = android.R.attr.textColorTertiary
@@ -58,11 +58,11 @@ class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
         binding.textSecondary.setTextColor(MaterialColors.getColor(binding.textSecondary, secondaryTextColor))
 
         binding.delete.setOnClickListener {
-            listener.deleteFilter(filter)
+            listener.deleteContentFilter(filter)
         }
 
         binding.root.setOnClickListener {
-            listener.updateFilter(filter)
+            listener.updateContentFilter(filter)
         }
     }
 }
@@ -72,8 +72,8 @@ class FiltersAdapter(val listener: FiltersListener, val filters: List<Filter>) :
  *   validation error.
  */
 @StringRes
-fun FilterValidationError.stringResource() = when (this) {
-    FilterValidationError.NO_TITLE -> R.string.error_filter_missing_title
-    FilterValidationError.NO_KEYWORDS -> R.string.error_filter_missing_keyword
-    FilterValidationError.NO_CONTEXT -> R.string.error_filter_missing_context
+fun ContentFilterValidationError.stringResource() = when (this) {
+    ContentFilterValidationError.NO_TITLE -> R.string.error_filter_missing_title
+    ContentFilterValidationError.NO_KEYWORDS -> R.string.error_filter_missing_keyword
+    ContentFilterValidationError.NO_CONTEXT -> R.string.error_filter_missing_context
 }

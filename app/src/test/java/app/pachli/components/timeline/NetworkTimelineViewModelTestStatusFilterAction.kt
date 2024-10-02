@@ -18,7 +18,7 @@
 package app.pachli.components.timeline
 
 import app.cash.turbine.test
-import app.pachli.FilterV1Test.Companion.mockStatus
+import app.pachli.ContentFilterV1Test.Companion.mockStatus
 import app.pachli.components.timeline.viewmodel.StatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.UiError
@@ -47,7 +47,7 @@ import org.mockito.kotlin.verify
 // TODO: With the exception of the types, this is identical to
 // NotificationsViewModelTestStatusAction.
 @HiltAndroidTest
-class CachedTimelineViewModelTestStatusAction : CachedTimelineViewModelTestBase() {
+class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelTestBase() {
     private val status = mockStatus(pollOptions = listOf("Choice 1", "Choice 2", "Choice 3"))
     private val statusViewData = StatusViewData(
         status = status,

@@ -32,7 +32,7 @@ import org.mockito.kotlin.verify
  * - Is the [UiState] updated correctly?
  * - Are the correct [AccountManager] functions called, with the correct arguments?
  */
-class NotificationsViewModelTestFilter : NotificationsViewModelTestBase() {
+class NotificationsViewModelTestContentFilter : NotificationsViewModelTestBase() {
 
     @Test
     fun `should load initial filter from active account`() = runTest {

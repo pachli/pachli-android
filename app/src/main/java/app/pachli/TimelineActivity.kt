@@ -30,14 +30,15 @@ import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.model.Filter
-import app.pachli.core.data.model.NewFilterKeyword
-import app.pachli.core.data.repository.FilterEdit
-import app.pachli.core.data.repository.FiltersError
-import app.pachli.core.data.repository.FiltersRepository
-import app.pachli.core.data.repository.NewFilter
+import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.data.model.NewContentFilterKeyword
+import app.pachli.core.data.repository.ContentFilterEdit
+import app.pachli.core.data.repository.ContentFiltersError
+import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.NewContentFilter
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.TimelineActivityIntent
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.databinding.ActivityTimelineBinding
 import app.pachli.interfaces.ActionButtonActivity
@@ -63,7 +64,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
     lateinit var eventHub: EventHub
 
     @Inject
-    lateinit var filtersRepository: FiltersRepository
+    lateinit var contentFiltersRepository: ContentFiltersRepository
 
     private val binding: ActivityTimelineBinding by viewBinding(ActivityTimelineBinding::inflate)
     private lateinit var timeline: Timeline
@@ -84,7 +85,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
     private var unmuteTagItem: MenuItem? = null
 
     /** The filter muting hashtag, null if unknown or hashtag is not filtered */
-    private var mutedFilter: Filter? = null
+    private var mutedContentFilter: ContentFilter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")
@@ -241,18 +242,18 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         unmuteTagItem?.isVisible = false
 
         lifecycleScope.launch {
-            filtersRepository.filters.collect { result ->
+            contentFiltersRepository.contentFilters.collect { result ->
                 result.onSuccess { filters ->
-                    mutedFilter = filters?.filters?.firstOrNull { filter ->
+                    mutedContentFilter = filters?.contentFilters?.firstOrNull { filter ->
                         filter.contexts.contains(FilterContext.HOME) &&
                             filter.keywords.any { it.keyword == tagWithHash }
                     }
-                    updateTagMuteState(mutedFilter != null)
+                    updateTagMuteState(mutedContentFilter != null)
                 }
                 result.onFailure { error ->
                     // If the server can't filter then it's impossible to mute hashtags,
                     // so disable the functionality.
-                    if (error is FiltersError.ServerDoesNotFilter) {
+                    if (error is ContentFiltersError.ServerDoesNotFilter) {
                         muteTagItem?.isVisible = false
                         unmuteTagItem?.isVisible = false
                     }
@@ -277,22 +278,22 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         val tagWithHash = hashtag?.let { "#$it" } ?: return
 
         lifecycleScope.launch {
-            val newFilter = NewFilter(
+            val newContentFilter = NewContentFilter(
                 title = tagWithHash,
                 contexts = setOf(FilterContext.HOME),
-                action = app.pachli.core.network.model.Filter.Action.WARN,
+                filterAction = FilterAction.WARN,
                 expiresIn = 0,
                 keywords = listOf(
-                    NewFilterKeyword(
+                    NewContentFilterKeyword(
                         keyword = tagWithHash,
                         wholeWord = true,
                     ),
                 ),
             )
 
-            filtersRepository.createFilter(newFilter)
+            contentFiltersRepository.createContentFilter(newContentFilter)
                 .onSuccess {
-                    mutedFilter = it
+                    mutedContentFilter = it
                     updateTagMuteState(true)
                     Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_muted, hashtag), Snackbar.LENGTH_SHORT).show()
                 }
@@ -307,19 +308,19 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         lifecycleScope.launch {
             val tagWithHash = hashtag?.let { "#$it" } ?: return@launch
 
-            val result = mutedFilter?.let { filter ->
+            val result = mutedContentFilter?.let { filter ->
                 val newContexts = filter.contexts.filter { it != FilterContext.HOME }
                 if (newContexts.isEmpty()) {
-                    filtersRepository.deleteFilter(filter.id)
+                    contentFiltersRepository.deleteContentFilter(filter.id)
                 } else {
-                    filtersRepository.updateFilter(filter, FilterEdit(filter.id, contexts = newContexts))
+                    contentFiltersRepository.updateContentFilter(filter, ContentFilterEdit(filter.id, contexts = newContexts))
                 }
             }
 
             result?.onSuccess {
                 updateTagMuteState(false)
                 Snackbar.make(binding.root, getString(R.string.confirmation_hashtag_unmuted, hashtag), Snackbar.LENGTH_SHORT).show()
-                mutedFilter = null
+                mutedContentFilter = null
             }?.onFailure { e ->
                 Snackbar.make(binding.root, getString(R.string.error_unmuting_hashtag_format, hashtag), Snackbar.LENGTH_SHORT).show()
                 Timber.e("Failed to unmute %s: %s", tagWithHash, e.fmt(this@TimelineActivity))

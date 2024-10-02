@@ -32,23 +32,23 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
 @HiltAndroidTest
-class FiltersRepositoryTestDelete : BaseFiltersRepositoryTest() {
+class ContentFiltersRepositoryTestDelete : BaseContentFiltersRepositoryTest() {
     @Test
     fun `delete on v2 server should call delete and refresh`() = runTest {
         mastodonApi.stub {
-            onBlocking { getFilters() } doReturn success(emptyList())
+            onBlocking { getContentFilters() } doReturn success(emptyList())
             onBlocking { deleteFilter(any()) } doReturn success(Unit)
         }
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
-            verify(mastodonApi).getFilters()
+            verify(mastodonApi).getContentFilters()
 
-            filtersRepository.deleteFilter("1")
+            contentFiltersRepository.deleteContentFilter("1")
             advanceUntilIdle()
 
             verify(mastodonApi, times(1)).deleteFilter("1")
-            verify(mastodonApi, times(2)).getFilters()
+            verify(mastodonApi, times(2)).getContentFilters()
 
             cancelAndConsumeRemainingEvents()
         }
@@ -57,21 +57,21 @@ class FiltersRepositoryTestDelete : BaseFiltersRepositoryTest() {
     @Test
     fun `delete on v1 server should call delete and refresh`() = runTest {
         mastodonApi.stub {
-            onBlocking { getFiltersV1() } doReturn success(emptyList())
+            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
             onBlocking { deleteFilterV1(any()) } doReturn success(Unit)
         }
 
         serverFlow.update { Ok(SERVER_V1) }
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
-            verify(mastodonApi).getFiltersV1()
+            verify(mastodonApi).getContentFiltersV1()
 
-            filtersRepository.deleteFilter("1")
+            contentFiltersRepository.deleteContentFilter("1")
             advanceUntilIdle()
 
             verify(mastodonApi, times(1)).deleteFilterV1("1")
-            verify(mastodonApi, times(2)).getFiltersV1()
+            verify(mastodonApi, times(2)).getContentFiltersV1()
 
             cancelAndConsumeRemainingEvents()
         }

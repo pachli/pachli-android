@@ -26,7 +26,7 @@ import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.adapter.ReportNotificationViewHolder
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
 import app.pachli.databinding.ItemFollowBinding
@@ -132,7 +132,7 @@ class NotificationsPagingAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        if (item?.statusViewData?.filterAction == Filter.Action.WARN) {
+        if (item?.statusViewData?.filterAction == FilterAction.WARN) {
             return NotificationViewKind.STATUS_FILTERED.ordinal
         }
 

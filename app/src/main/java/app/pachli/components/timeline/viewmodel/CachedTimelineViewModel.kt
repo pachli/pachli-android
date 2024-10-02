@@ -31,9 +31,9 @@ import app.pachli.appstore.PinEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.accounts.AccountManager
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
@@ -60,7 +60,7 @@ class CachedTimelineViewModel @Inject constructor(
     private val repository: CachedTimelineRepository,
     timelineCases: TimelineCases,
     eventHub: EventHub,
-    filtersRepository: FiltersRepository,
+    contentFiltersRepository: ContentFiltersRepository,
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
@@ -70,7 +70,7 @@ class CachedTimelineViewModel @Inject constructor(
     savedStateHandle,
     timelineCases,
     eventHub,
-    filtersRepository,
+    contentFiltersRepository,
     accountManager,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
@@ -102,7 +102,7 @@ class CachedTimelineViewModel @Inject constructor(
                             isShowingContent = activeAccount.alwaysShowSensitiveMedia,
                         )
                     }
-                    .filter { shouldFilterStatus(it) != Filter.Action.HIDE }
+                    .filter { shouldFilterStatus(it) != FilterAction.HIDE }
             }
     }
 

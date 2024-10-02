@@ -18,7 +18,7 @@
 package app.pachli.components.notifications
 
 import app.cash.turbine.test
-import app.pachli.FilterV1Test.Companion.mockStatus
+import app.pachli.ContentFilterV1Test.Companion.mockStatus
 import app.pachli.core.database.model.TranslationState
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
@@ -40,7 +40,7 @@ import org.mockito.kotlin.verify
  *   This is only tested in the success case; if it passed there it must also
  *   have passed in the error case.
  */
-class NotificationsViewModelTestStatusAction : NotificationsViewModelTestBase() {
+class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestBase() {
     private val status = mockStatus(pollOptions = listOf("Choice 1", "Choice 2", "Choice 3"))
     private val statusViewData = StatusViewData(
         status = status,

@@ -43,18 +43,18 @@ import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
 import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.extensions.throttleFirst
-import app.pachli.core.data.repository.FilterVersion
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFilterVersion
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Filter
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
-import app.pachli.network.FilterModel
+import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
@@ -274,7 +274,7 @@ abstract class TimelineViewModel(
     savedStateHandle: SavedStateHandle,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
-    private val filtersRepository: FiltersRepository,
+    private val contentFiltersRepository: ContentFiltersRepository,
     protected val accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
@@ -329,16 +329,16 @@ abstract class TimelineViewModel(
     open var readingPositionId: String? = null
         protected set
 
-    private var filterModel: FilterModel? = null
+    private var contentFilterModel: ContentFilterModel? = null
 
     init {
         viewModelScope.launch {
             FilterContext.from(timeline)?.let { filterContext ->
-                filtersRepository.filters.fold(false) { reload, filters ->
+                contentFiltersRepository.contentFilters.fold(false) { reload, filters ->
                     filters.onSuccess {
-                        filterModel = when (it?.version) {
-                            FilterVersion.V2 -> FilterModel(filterContext)
-                            FilterVersion.V1 -> FilterModel(filterContext, it.filters)
+                        contentFilterModel = when (it?.version) {
+                            ContentFilterVersion.V2 -> ContentFilterModel(filterContext)
+                            ContentFilterVersion.V1 -> ContentFilterModel(filterContext, it.contentFilters)
                             else -> null
                         }
                         if (reload) {
@@ -540,7 +540,7 @@ abstract class TimelineViewModel(
     /** Triggered when currently displayed data must be reloaded. */
     protected abstract suspend fun invalidate()
 
-    protected fun shouldFilterStatus(statusViewData: StatusViewData): Filter.Action {
+    protected fun shouldFilterStatus(statusViewData: StatusViewData): FilterAction {
         val status = statusViewData.status
         return if (
             (status.inReplyToId != null && filterRemoveReplies) ||
@@ -548,9 +548,9 @@ abstract class TimelineViewModel(
             // To determine if the boost is boosting your own toot
             ((status.account.id == status.reblog?.account?.id) && filterRemoveSelfReblogs)
         ) {
-            return Filter.Action.HIDE
+            return FilterAction.HIDE
         } else {
-            statusViewData.filterAction = filterModel?.filterActionFor(status.actionableStatus) ?: Filter.Action.NONE
+            statusViewData.filterAction = contentFilterModel?.filterActionFor(status.actionableStatus) ?: FilterAction.NONE
             statusViewData.filterAction
         }
     }

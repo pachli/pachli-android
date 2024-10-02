@@ -18,13 +18,13 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
-import app.pachli.core.data.model.Filter
-import app.pachli.core.data.repository.FilterVersion.V1
-import app.pachli.core.data.repository.FilterVersion.V2
-import app.pachli.core.data.repository.Filters
-import app.pachli.core.data.repository.FiltersError
+import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.data.repository.ContentFilterVersion.V1
+import app.pachli.core.data.repository.ContentFilterVersion.V2
+import app.pachli.core.data.repository.ContentFilters
+import app.pachli.core.data.repository.ContentFiltersError
 import app.pachli.core.network.model.Filter as NetworkFilter
-import app.pachli.core.network.model.Filter.Action
+import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
@@ -45,19 +45,19 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.stub
 
 @HiltAndroidTest
-class FiltersRepositoryTestFlow : BaseFiltersRepositoryTest() {
+class ContentFiltersRepositoryTestFlow : BaseContentFiltersRepositoryTest() {
     @Test
     fun `filters flow returns empty list when there are no v2 filters`() = runTest {
         mastodonApi.stub {
-            onBlocking { getFiltersV1() } doReturn failure(body = "v1 should not be called")
-            onBlocking { getFilters() } doReturn success(emptyList())
+            onBlocking { getContentFiltersV1() } doReturn failure(body = "v1 should not be called")
+            onBlocking { getContentFilters() } doReturn success(emptyList())
         }
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
             val item = expectMostRecentItem()
             val filters = item.get()
-            assertThat(filters).isEqualTo(Filters(version = V2, filters = emptyList()))
+            assertThat(filters).isEqualTo(ContentFilters(version = V2, contentFilters = emptyList()))
         }
     }
 
@@ -66,14 +66,14 @@ class FiltersRepositoryTestFlow : BaseFiltersRepositoryTest() {
         val expiresAt = Date()
 
         mastodonApi.stub {
-            onBlocking { getFiltersV1() } doReturn failure(body = "v1 should not be called")
-            onBlocking { getFilters() } doReturn success(
+            onBlocking { getContentFiltersV1() } doReturn failure(body = "v1 should not be called")
+            onBlocking { getContentFilters() } doReturn success(
                 listOf(
                     NetworkFilter(
                         id = "1",
                         title = "test filter",
                         contexts = setOf(FilterContext.HOME),
-                        action = Action.WARN,
+                        filterAction = FilterAction.WARN,
                         expiresAt = expiresAt,
                         keywords = listOf(FilterKeyword(id = "1", keyword = "foo", wholeWord = true)),
                     ),
@@ -81,19 +81,19 @@ class FiltersRepositoryTestFlow : BaseFiltersRepositoryTest() {
             )
         }
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
             val item = expectMostRecentItem()
             val filters = item.get()
             assertThat(filters).isEqualTo(
-                Filters(
+                ContentFilters(
                     version = V2,
-                    filters = listOf(
-                        Filter(
+                    contentFilters = listOf(
+                        ContentFilter(
                             id = "1",
                             title = "test filter",
                             contexts = setOf(FilterContext.HOME),
-                            action = Action.WARN,
+                            filterAction = FilterAction.WARN,
                             expiresAt = expiresAt,
                             keywords = listOf(
                                 FilterKeyword(id = "1", keyword = "foo", wholeWord = true),
@@ -108,16 +108,16 @@ class FiltersRepositoryTestFlow : BaseFiltersRepositoryTest() {
     @Test
     fun `filters flow returns empty list when there are no v1 filters`() = runTest {
         mastodonApi.stub {
-            onBlocking { getFilters() } doReturn failure(body = "v2 should not be called")
-            onBlocking { getFiltersV1() } doReturn success(emptyList())
+            onBlocking { getContentFilters() } doReturn failure(body = "v2 should not be called")
+            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
         }
         serverFlow.update { Ok(SERVER_V1) }
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
             val item = expectMostRecentItem()
             val filters = item.get()
-            assertThat(filters).isEqualTo(Filters(version = V1, filters = emptyList()))
+            assertThat(filters).isEqualTo(ContentFilters(version = V1, contentFilters = emptyList()))
         }
     }
 
@@ -126,8 +126,8 @@ class FiltersRepositoryTestFlow : BaseFiltersRepositoryTest() {
         val expiresAt = Date()
 
         mastodonApi.stub {
-            onBlocking { getFilters() } doReturn failure(body = "v2 should not be called")
-            onBlocking { getFiltersV1() } doReturn success(
+            onBlocking { getContentFilters() } doReturn failure(body = "v2 should not be called")
+            onBlocking { getContentFiltersV1() } doReturn success(
                 listOf(
                     NetworkFilterV1(
                         id = "1",
@@ -143,19 +143,19 @@ class FiltersRepositoryTestFlow : BaseFiltersRepositoryTest() {
 
         serverFlow.update { Ok(SERVER_V1) }
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
             val item = expectMostRecentItem()
             val filters = item.get()
             assertThat(filters).isEqualTo(
-                Filters(
+                ContentFilters(
                     version = V1,
-                    filters = listOf(
-                        Filter(
+                    contentFilters = listOf(
+                        ContentFilter(
                             id = "1",
                             title = "some_phrase",
                             contexts = setOf(FilterContext.HOME),
-                            action = Action.WARN,
+                            filterAction = FilterAction.WARN,
                             expiresAt = expiresAt,
                             keywords = listOf(
                                 FilterKeyword(id = "1", keyword = "some_phrase", wholeWord = true),
@@ -170,13 +170,13 @@ class FiltersRepositoryTestFlow : BaseFiltersRepositoryTest() {
     @Test
     fun `HTTP 404 for v2 filters returns correct error type`() = runTest {
         mastodonApi.stub {
-            onBlocking { getFilters() } doReturn failure(body = "{\"error\": \"error message\"}")
+            onBlocking { getContentFilters() } doReturn failure(body = "{\"error\": \"error message\"}")
         }
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
             val item = expectMostRecentItem()
-            val error = item.getError() as? FiltersError.GetFiltersError
+            val error = item.getError() as? ContentFiltersError.GetContentFiltersError
             assertThat(error?.error).isInstanceOf(ClientError.NotFound::class.java)
             assertThat(error?.error?.formatArgs).isEqualTo(arrayOf("error message"))
         }
@@ -185,15 +185,15 @@ class FiltersRepositoryTestFlow : BaseFiltersRepositoryTest() {
     @Test
     fun `HTTP 404 for v1 filters returns correct error type`() = runTest {
         mastodonApi.stub {
-            onBlocking { getFiltersV1() } doReturn failure(body = "{\"error\": \"error message\"}")
+            onBlocking { getContentFiltersV1() } doReturn failure(body = "{\"error\": \"error message\"}")
         }
 
         serverFlow.update { Ok(SERVER_V1) }
 
-        filtersRepository.filters.test {
+        contentFiltersRepository.contentFilters.test {
             advanceUntilIdle()
             val item = expectMostRecentItem()
-            val error = item.getError() as? FiltersError.GetFiltersError
+            val error = item.getError() as? ContentFiltersError.GetContentFiltersError
             assertThat(error?.error).isInstanceOf(ClientError.NotFound::class.java)
             assertThat(error?.error?.formatArgs).isEqualTo(arrayOf("error message"))
         }

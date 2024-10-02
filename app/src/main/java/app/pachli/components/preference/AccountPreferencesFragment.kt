@@ -35,10 +35,10 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountPreferenceDataStore
-import app.pachli.core.data.repository.FiltersRepository
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
-import app.pachli.core.navigation.FiltersActivityIntent
+import app.pachli.core.navigation.ContentFiltersActivityIntent
 import app.pachli.core.navigation.FollowedTagsActivityIntent
 import app.pachli.core.navigation.InstanceListActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
@@ -81,7 +81,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
     lateinit var mastodonApi: MastodonApi
 
     @Inject
-    lateinit var filtersRepository: FiltersRepository
+    lateinit var contentFiltersRepository: ContentFiltersRepository
 
     @Inject
     lateinit var eventHub: EventHub
@@ -105,7 +105,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 // FiltersRespository. filterPreferences is safe to access here,
                 // it was populated in onCreatePreferences, called by onCreate
                 // before onViewCreated is called.
-                filtersRepository.filters.collect { filters ->
+                contentFiltersRepository.contentFilters.collect { filters ->
                     filterPreference.isEnabled = filters is Ok
                 }
             }
@@ -187,16 +187,19 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 }
             }
 
-            filterPreference = preference {
-                setTitle(R.string.pref_title_timeline_filters)
-                setIcon(R.drawable.ic_filter_24dp)
-                setOnPreferenceClickListener {
-                    val intent = FiltersActivityIntent(requireContext())
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
-                    true
-                }
-                setSummaryProvider {
-                    if (it.isEnabled) "" else context.getString(R.string.pref_summary_timeline_filters)
+            preferenceCategory(R.string.pref_title_timeline_filters) {
+                it.icon = makeIcon(GoogleMaterial.Icon.gmd_filter_alt)
+
+                filterPreference = preference {
+                    setTitle(R.string.pref_title_content_filters)
+                    setOnPreferenceClickListener {
+                        val intent = ContentFiltersActivityIntent(requireContext())
+                        activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                        true
+                    }
+                    setSummaryProvider {
+                        if (it.isEnabled) "" else context.getString(R.string.pref_summary_content_filters)
+                    }
                 }
             }
 

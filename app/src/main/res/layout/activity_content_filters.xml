@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.pachli.components.filters.FiltersActivity">
+    tools:context="app.pachli.components.filters.ContentFiltersActivity">
 
     <include
         android:id="@+id/includedToolbar"

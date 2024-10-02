@@ -42,7 +42,7 @@ data class FilterV1(
     }
 }
 
-data class NewFilterV1(
+data class NewContentFilterV1(
     val phrase: String,
     val contexts: Set<FilterContext>,
     val expiresIn: Int,
