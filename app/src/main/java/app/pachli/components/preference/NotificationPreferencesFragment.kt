@@ -19,8 +19,8 @@ package app.pachli.components.preference
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
-import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.disablePullNotifications
+import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.enablePullNotifications
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.preferences.PrefKeys
@@ -36,7 +36,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
     lateinit var accountManager: AccountManager
 
     @Inject
-    lateinit var androidNotificationsAreEnabledUseCase: AndroidNotificationsAreEnabledUseCase
+    lateinit var androidNotificationsAreEnabled: AndroidNotificationsAreEnabledUseCase
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         val activeAccount = accountManager.activeAccount ?: return
@@ -49,7 +49,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                 isChecked = activeAccount.notificationsEnabled
                 setOnPreferenceChangeListener { _, newValue ->
                     accountManager.setNotificationsEnabled(activeAccount.id, newValue as Boolean)
-                    if (androidNotificationsAreEnabledUseCase(context)) {
+                    if (androidNotificationsAreEnabled(context)) {
                         enablePullNotifications(context)
                     } else {
                         disablePullNotifications(context)
