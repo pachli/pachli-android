@@ -16,7 +16,6 @@
  */
 package app.pachli.components.notifications
 
-import app.pachli.core.designsystem.R as DR
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationChannelGroup
@@ -44,10 +43,10 @@ import androidx.work.WorkRequest
 import app.pachli.BuildConfig
 import app.pachli.MainActivity
 import app.pachli.R
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.model.Notification
