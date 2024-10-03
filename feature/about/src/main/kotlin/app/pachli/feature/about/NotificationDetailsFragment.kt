@@ -17,6 +17,7 @@
 
 package app.pachli.feature.about
 
+import android.annotation.SuppressLint
 import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager.STANDBY_BUCKET_ACTIVE
 import android.app.usage.UsageStatsManager.STANDBY_BUCKET_FREQUENT
@@ -200,6 +201,7 @@ class WorkInfoAdapter : ListAdapter<WorkInfo, WorkInfoAdapter.ViewHolder>(diffCa
 
             if (runAttemptCount > 0 && state == WorkInfo.State.ENQUEUED) {
                 binding.stopReason.show()
+                @SuppressLint("SetTextI18n")
                 binding.stopReason.text = stopReason.toString()
             } else {
                 binding.stopReason.hide()
