@@ -35,10 +35,16 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ShareShortcutUseCase @Inject constructor(
+class UpdateShortCutsUseCase @Inject constructor(
     @ApplicationContext val context: Context,
 ) {
-    suspend fun updateShortcuts(accounts: List<AccountEntity>) = withContext(Dispatchers.IO) {
+    /**
+     * Updates shortcuts to reflect [accounts].
+     *
+     * The first [N][ShortcutManagerCompat.getMaxShortcutCountPerActivity] accounts
+     * are converted to shortcuts which launch [app.pachli.MainActivity].
+     */
+    suspend operator fun invoke(accounts: List<AccountEntity>) = withContext(Dispatchers.IO) {
         val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
         val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
 
@@ -94,9 +100,5 @@ class ShareShortcutUseCase @Inject constructor(
         }
 
         ShortcutManagerCompat.setDynamicShortcuts(context, shortcuts)
-    }
-
-    fun removeShortcut(context: Context, account: AccountEntity) {
-        ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(account.id.toString()))
     }
 }

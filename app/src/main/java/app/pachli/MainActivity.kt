@@ -115,7 +115,7 @@ import app.pachli.pager.MainPagerAdapter
 import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.usecase.LogoutUseCase
-import app.pachli.util.ShareShortcutUseCase
+import app.pachli.util.UpdateShortCutsUseCase
 import app.pachli.util.getDimension
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
@@ -201,7 +201,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     lateinit var androidNotificationsAreEnabled: AndroidNotificationsAreEnabledUseCase
 
     @Inject
-    lateinit var shareShortcutUseCase: ShareShortcutUseCase
+    lateinit var updateShortCuts: UpdateShortCutsUseCase
 
     private val viewModel: MainViewModel by viewModels(
         extrasProducer = {
@@ -388,7 +388,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         lifecycleScope.launch {
             viewModel.accountsOrderedByActiveFlow.collect { accounts ->
                 updateDrawerProfileHeader(accounts)
-                shareShortcutUseCase.updateShortcuts(accounts)
+                updateShortCuts(accounts)
             }
         }
 
