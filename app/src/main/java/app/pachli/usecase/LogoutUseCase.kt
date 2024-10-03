@@ -26,14 +26,13 @@ class LogoutUseCase @Inject constructor(
     private val draftHelper: DraftHelper,
     private val shareShortcutUseCase: UpdateShortCutsUseCase,
 ) {
-
     /**
      * Logs the current account out and clears all caches associated with it
      *
      * @return The [AccountEntity] that should be logged in next, null if there are no
      * other accounts to log in to.
      */
-    suspend fun logout(): AccountEntity? {
+    suspend operator fun invoke(): AccountEntity? {
         accountManager.activeAccount?.let { activeAccount ->
 
             // invalidate the oauth token, if we have the client id & secret

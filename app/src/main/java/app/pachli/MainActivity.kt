@@ -183,7 +183,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     lateinit var cacheUpdater: CacheUpdater
 
     @Inject
-    lateinit var logoutUseCase: LogoutUseCase
+    lateinit var logout: LogoutUseCase
 
     @Inject
     lateinit var draftsAlert: DraftsAlert
@@ -1066,7 +1066,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 binding.composeButton.hide()
 
                 lifecycleScope.launch {
-                    val nextAccount = logoutUseCase.logout()
+                    val nextAccount = logout.invoke()
                     Timber.d("logout: Got next active account as: %d", nextAccount?.id)
                     val intent = if (nextAccount != null) {
                         MainActivityIntent(this@MainActivity, nextAccount.id)
