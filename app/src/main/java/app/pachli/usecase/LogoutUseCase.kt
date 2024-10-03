@@ -14,7 +14,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import timber.log.Timber
 
-class LogoutUsecase @Inject constructor(
+class LogoutUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
     private val api: MastodonApi,
     private val timelineDao: TimelineDao,
@@ -23,12 +23,12 @@ class LogoutUsecase @Inject constructor(
     private val accountManager: AccountManager,
     private val draftHelper: DraftHelper,
 ) {
-
     /**
      * Logs the current account out and clears all caches associated with it
+     *
      * @return true if the user is logged in with other accounts, false if it was the only one
      */
-    suspend fun logout(): Boolean {
+    suspend operator fun invoke(): Boolean {
         accountManager.activeAccount?.let { activeAccount ->
 
             // invalidate the oauth token, if we have the client id & secret
