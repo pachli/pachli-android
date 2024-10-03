@@ -62,9 +62,9 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
-import app.pachli.components.notifications.androidNotificationsAreEnabled
 import app.pachli.components.notifications.createNotificationChannelsForAccount
-import app.pachli.components.notifications.enableAllNotifications
+import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
+import app.pachli.components.notifications.domain.EnableAllNotificationsUseCase
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
@@ -196,6 +196,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var developerToolsUseCase: DeveloperToolsUseCase
+
+    @Inject
+    lateinit var enableAllNotifications: EnableAllNotificationsUseCase
+
+    @Inject
+    lateinit var androidNotificationsAreEnabled: AndroidNotificationsAreEnabledUseCase
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
@@ -1069,8 +1075,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // Setup notifications
         // TODO: Continue to call this, as it sets properties in NotificationConfig
-        androidNotificationsAreEnabled(this, accountManager)
-        lifecycleScope.launch { enableAllNotifications(this@MainActivity, mastodonApi, accountManager) }
+        androidNotificationsAreEnabled(this)
+        lifecycleScope.launch { enableAllNotifications(this@MainActivity) }
 
         updateProfiles()
 
