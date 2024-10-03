@@ -17,7 +17,6 @@
 
 package app.pachli.core.data.repository
 
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.ListsError.Create
 import app.pachli.core.data.repository.ListsError.Delete

@@ -4,7 +4,7 @@ import android.content.Context
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.deleteNotificationChannelsForAccount
 import app.pachli.components.notifications.disablePushNotificationsForAccount
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao

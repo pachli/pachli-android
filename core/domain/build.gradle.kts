@@ -29,6 +29,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.accounts)
+    implementation(projects.core.data)
     implementation(projects.core.preferences)
 }

@@ -20,8 +20,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.NotificationConfig
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi

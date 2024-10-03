@@ -1,6 +1,6 @@
 package app.pachli.appstore
 
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.network.model.Poll
 import com.squareup.moshi.Moshi

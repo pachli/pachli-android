@@ -21,7 +21,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.network.model.Status

@@ -121,7 +121,6 @@ dependencies {
     implementation(libs.androidx.hilt.work)
     ksp(libs.androidx.hilt.compiler)
 
-    implementation(projects.core.accounts)
     implementation(projects.core.activity)
     implementation(projects.core.common)
     implementation(projects.core.data)

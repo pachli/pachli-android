@@ -41,8 +41,8 @@ import app.pachli.appstore.StatusComposedEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFilterVersion
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
