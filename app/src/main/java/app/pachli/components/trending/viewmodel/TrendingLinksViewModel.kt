@@ -20,8 +20,8 @@ package app.pachli.components.trending.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.trending.TrendingLinksRepository
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.TrendsLink
 import app.pachli.core.preferences.PrefKeys

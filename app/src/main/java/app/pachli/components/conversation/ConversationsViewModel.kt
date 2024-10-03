@@ -23,7 +23,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.di.TransactionProvider

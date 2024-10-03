@@ -26,8 +26,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.NotificationConfig
+import app.pachli.core.data.repository.AccountManager
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import dagger.hilt.android.lifecycle.HiltViewModel

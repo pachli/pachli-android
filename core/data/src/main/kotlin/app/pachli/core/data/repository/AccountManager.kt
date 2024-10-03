@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.accounts
+package app.pachli.core.data.repository
 
 import android.content.Context
 import app.pachli.core.common.di.ApplicationScope

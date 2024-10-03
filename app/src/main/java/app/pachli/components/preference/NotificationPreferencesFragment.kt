@@ -22,7 +22,7 @@ import app.pachli.R
 import app.pachli.components.notifications.disablePullNotifications
 import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.enablePullNotifications
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.settings.makePreferenceScreen

@@ -23,8 +23,8 @@ import app.pachli.components.notifications.chooseUnifiedPushDistributor
 import app.pachli.components.notifications.disableAllNotifications
 import app.pachli.components.notifications.enablePullNotifications
 import app.pachli.components.notifications.hasPushScope
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.activity.NotificationConfig
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import javax.inject.Inject

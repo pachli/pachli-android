@@ -19,7 +19,6 @@ package app.pachli.core.data.repository
 
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.AccountEntity

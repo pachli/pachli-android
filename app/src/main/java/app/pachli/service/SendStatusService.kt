@@ -26,8 +26,8 @@ import app.pachli.appstore.StatusScheduledEvent
 import app.pachli.components.compose.MediaUploader
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.pendingIntentFlags
-import app.pachli.core.accounts.AccountManager
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.model.Attachment

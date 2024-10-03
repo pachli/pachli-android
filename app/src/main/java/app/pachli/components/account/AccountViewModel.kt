@@ -9,7 +9,7 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MuteEvent
 import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.appstore.UnfollowEvent
-import app.pachli.core.accounts.AccountManager
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.retrofit.MastodonApi
@@ -137,7 +137,8 @@ class AccountViewModel @Inject constructor(
 
     fun changeSubscribingState() {
         val relationship = relationshipData.value?.data
-        if (relationship?.notifying == true || // Mastodon 3.3.0rc1
+        if (relationship?.notifying == true ||
+            // Mastodon 3.3.0rc1
             relationship?.subscribing == true // Pleroma
         ) {
             changeRelationship(RelationShipAction.UNSUBSCRIBE)
