@@ -30,9 +30,9 @@ import app.pachli.core.data.repository.ContentFiltersError.GetContentFiltersErro
 import app.pachli.core.data.repository.ContentFiltersError.ServerDoesNotFilter
 import app.pachli.core.data.repository.ContentFiltersError.ServerRepositoryError
 import app.pachli.core.data.repository.ContentFiltersError.UpdateContentFilterError
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.Server
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
-import app.pachli.core.network.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword

@@ -62,9 +62,9 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
-import app.pachli.components.notifications.androidNotificationsAreEnabled
 import app.pachli.components.notifications.createNotificationChannelsForAccount
-import app.pachli.components.notifications.enableAllNotifications
+import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
+import app.pachli.components.notifications.domain.EnableAllNotificationsUseCase
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
@@ -116,7 +116,7 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
-import app.pachli.usecase.LogoutUsecase
+import app.pachli.usecase.LogoutUseCase
 import app.pachli.util.getDimension
 import app.pachli.util.updateShortcuts
 import at.connyduck.calladapter.networkresult.fold
@@ -184,7 +184,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     lateinit var cacheUpdater: CacheUpdater
 
     @Inject
-    lateinit var logoutUsecase: LogoutUsecase
+    lateinit var logout: LogoutUseCase
 
     @Inject
     lateinit var draftsAlert: DraftsAlert
@@ -196,6 +196,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var developerToolsUseCase: DeveloperToolsUseCase
+
+    @Inject
+    lateinit var enableAllNotifications: EnableAllNotificationsUseCase
+
+    @Inject
+    lateinit var androidNotificationsAreEnabled: AndroidNotificationsAreEnabledUseCase
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
@@ -259,18 +265,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     pachliAccountId = accountIdString.toLong()
                 }
             }
-            val accountRequested = pachliAccountId != -1L
-            if (accountRequested && pachliAccountId != activeAccount.id) {
+            val accountSwitchRequested = pachliAccountId != -1L
+            if (accountSwitchRequested && pachliAccountId != activeAccount.id) {
                 accountManager.setActiveAccount(pachliAccountId)
             }
 
             val openDrafts = MainActivityIntent.getOpenDrafts(intent)
 
+            // Sharing to Pachli from an external app.
             if (canHandleMimeType(intent.type) || MainActivityIntent.hasComposeOptions(intent)) {
-                // Sharing to Tusky from an external app
-                if (accountRequested) {
+                if (accountSwitchRequested) {
                     // The correct account is already active
-                    forwardToComposeActivity(intent)
+                    forwardToComposeActivityAndExit(intent)
                 } else {
                     // No account was provided, show the chooser
                     showAccountChooserDialog(
@@ -281,11 +287,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                                 val requestedId = account.id
                                 if (requestedId == activeAccount.id) {
                                     // The correct account is already active
-                                    forwardToComposeActivity(intent)
+                                    forwardToComposeActivityAndExit(intent)
                                 } else {
-                                    // A different account was requested, restart the activity
+                                    // A different account was requested, restart the activity,
+                                    // forwarding this intent to the restarted activity.
                                     MainActivityIntent.setPachliAccountId(intent, requestedId)
-                                    changeAccount(requestedId, intent)
+                                    changeAccountAndRestart(requestedId, intent)
                                 }
                             }
                         },
@@ -294,7 +301,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             } else if (openDrafts) {
                 val intent = DraftsActivityIntent(this)
                 startActivity(intent)
-            } else if (accountRequested && MainActivityIntent.hasNotificationType(intent)) {
+            } else if (accountSwitchRequested && MainActivityIntent.hasNotificationType(intent)) {
                 // user clicked a notification, show follow requests for type FOLLOW_REQUEST,
                 // otherwise show notification tab
                 if (MainActivityIntent.getNotificationType(intent) == Notification.Type.FOLLOW_REQUEST) {
@@ -512,7 +519,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
     }
 
-    private fun forwardToComposeActivity(intent: Intent) {
+    private fun forwardToComposeActivityAndExit(intent: Intent) {
         val composeOptions = ComposeActivityIntent.getOptions(intent)
 
         val composeIntent = if (composeOptions != null) {
@@ -547,7 +554,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             headerBackgroundScaleType = ImageView.ScaleType.CENTER_CROP
             currentHiddenInList = true
             onAccountHeaderListener = { _: View?, profile: IProfile, current: Boolean ->
-                handleProfileClick(profile, current)
+                onAccountHeaderClick(profile, current)
                 false
             }
             addProfile(
@@ -981,7 +988,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         } ?: binding.composeButton.hide()
     }
 
-    private fun handleProfileClick(profile: IProfile, current: Boolean) {
+    private fun onAccountHeaderClick(profile: IProfile, current: Boolean) {
         val activeAccount = accountManager.activeAccount
 
         // open profile when active image was clicked
@@ -998,13 +1005,16 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             return
         }
         // change Account
-        changeAccount(profile.identifier, null)
+        changeAccountAndRestart(profile.identifier, null)
         return
     }
 
-    private fun changeAccount(newSelectedId: Long, forward: Intent?) {
+    /**
+     * Relaunches MainActivity, switched to the account identified by [accountId].
+     */
+    private fun changeAccountAndRestart(accountId: Long, forward: Intent?) {
         cacheUpdater.stop()
-        accountManager.setActiveAccount(newSelectedId)
+        accountManager.setActiveAccount(accountId)
         val intent = MainActivityIntent(this)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         if (forward != null) {
@@ -1029,7 +1039,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     binding.composeButton.hide()
 
                     lifecycleScope.launch {
-                        val otherAccountAvailable = logoutUsecase.logout()
+                        val otherAccountAvailable = logout.invoke()
                         val intent = if (otherAccountAvailable) {
                             MainActivityIntent(this@MainActivity)
                         } else {
@@ -1065,8 +1075,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // Setup notifications
         // TODO: Continue to call this, as it sets properties in NotificationConfig
-        androidNotificationsAreEnabled(this, accountManager)
-        lifecycleScope.launch { enableAllNotifications(this@MainActivity, mastodonApi, accountManager) }
+        androidNotificationsAreEnabled(this)
+        lifecycleScope.launch { enableAllNotifications(this@MainActivity) }
 
         updateProfiles()
 
