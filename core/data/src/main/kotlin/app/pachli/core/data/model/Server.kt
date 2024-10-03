@@ -83,9 +83,10 @@ data class Server(
      * @return true if the server supports the given operation at the given minimum version
      * level, false otherwise.
      */
-    fun can(operation: ServerOperation, constraint: Constraint) = capabilities[operation]?.let { version ->
-        version satisfies constraint
-    } ?: false
+    fun can(operation: ServerOperation, constraint: Constraint) =
+        capabilities[operation]?.let { version ->
+            version satisfies constraint
+        } ?: false
 
     companion object {
         /**

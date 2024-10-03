@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+Novos recursos:
+
+- Permitir que o usuário escolheu o comportamento ao tocar em uma guia
+- Adicionar opção para baixar mídia para diretórios por-sender
+- Adicionar opção para salvar anexos em pastas por conta
+
+Correções:
+
+- Mostrar erros de busca de notificação em vez de JSON
+- Salve a posição de leitura se nenhum post estiver totalmente visível
+- Atualizar traduções galego
+- Atualizar traduções irlandesas

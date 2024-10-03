@@ -54,7 +54,6 @@ import app.pachli.core.network.model.Registrations
 import app.pachli.core.network.model.Thumbnail
 import app.pachli.core.network.model.Usage
 import app.pachli.core.network.model.Users
-import app.pachli.core.network.model.nodeinfo.NodeInfo
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.google.common.truth.Truth.assertWithMessage

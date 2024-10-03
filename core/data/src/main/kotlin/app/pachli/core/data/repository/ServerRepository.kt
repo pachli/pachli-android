@@ -29,6 +29,7 @@ import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeIn
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import com.github.michaelbull.result.Err
@@ -137,7 +138,7 @@ class ServerRepository @Inject constructor(
             R.string.server_repository_error_get_node_info,
         )
 
-        data class ValidateNodeInfo(val url: String, override val cause: PachliError) : Error(
+        data class ValidateNodeInfo(val url: String, val error: UnvalidatedNodeInfo.Error) : Error(
             R.string.server_repository_error_validate_node_info,
             arrayOf(url),
         )
