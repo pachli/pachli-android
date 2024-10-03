@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+Nové funkcie:
+
+- Umožnite užívateľovi zvoliť správanie pri prerezaní karty
+- Pridať možnosť stiahnuť médiá na per-sender adresárov
+- Pridať možnosť uložiť prílohy na per-account priečinky
+
+Opravy:
+
+- Zobraziť oznámenia fetch chýb namiesto JSON
+- Uložiť pozíciu na čítanie, ak nie je úplne viditeľný
+- Aktualizácia preklady Galician
+- Aktualizácia írskych prekladov

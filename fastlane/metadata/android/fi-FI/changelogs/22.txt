@@ -1,0 +1,14 @@
+Pachli 2.8.2
+
+Uudet ominaisuudet:
+
+- Salli käyttäjän valita käyttäytyminen napauttamalla välilehti
+Lisää vaihtoehtoja median lataamiseen per-sender-hakemistoihin
+Lisää vaihtoehto säästää liitteitä tilikansioihin
+
+Korjaukset:
+
+Näytä hakuvirheet JSONin sijaan
+Säästä lukemisasentoa, jos viesti ei ole täysin näkyvissä
+Galician käännökset päivitetty
+Irlanninkielisiä käännöksiä päivitetään
