@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.5.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.5.2)" variant="all" version="8.5.2">
+<issues format="6" by="lint 8.7.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.7.0)" variant="all" version="8.7.0">
 
     <issue
         id="InvalidPackage"
@@ -2577,8 +2577,8 @@
         errorLine1="        ShortcutManagerCompat.setDynamicShortcuts(context, shortcuts)"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/app/pachli/util/ShareShortcutUseCase.kt"
-            line="96"
+            file="src/main/java/app/pachli/util/UpdateShortCutsUseCase.kt"
+            line="102"
             column="9"/>
     </issue>
 
