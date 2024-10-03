@@ -27,6 +27,7 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
 import app.pachli.core.data.repository.SuggestionsRepository
+import app.pachli.core.ui.OperationCounter
 import app.pachli.feature.suggestions.UiAction.GetSuggestions
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
 import app.pachli.feature.suggestions.UiAction.SuggestionAction.AcceptSuggestion
@@ -42,10 +43,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -128,8 +127,8 @@ internal class SuggestionsViewModel @Inject constructor(
     private val _uiResult = Channel<Result<UiSuccess, UiError>>()
     override val uiResult = _uiResult.receiveAsFlow()
 
-    private val _operationCount = MutableStateFlow(0)
-    override val operationCount = _operationCount.asStateFlow()
+    private val operationCounter = OperationCounter()
+    override val operationCount = operationCounter.count
 
     private val reload = MutableSharedFlow<Unit>(replay = 1)
 
@@ -212,44 +211,28 @@ internal class SuggestionsViewModel @Inject constructor(
     }
 
     /** Get fresh suggestions from the repository. */
-    private suspend fun getSuggestions(): Result<Suggestions.Loaded, GetSuggestionsError> = operation {
-        // Note: disabledSuggestions is *not* cleared here. Suppose the user has
-        // dismissed a suggestion and the network operation has not completed yet.
-        // They reload, and get a list of suggestions that includes the suggestion
-        // they have just dismissed. In that case the suggestion should still be
-        // disabled.
-        suggestionsRepository.getSuggestions().mapEither(
-            { Suggestions.Loaded(it.map { SuggestionViewData(suggestion = it) }) },
-            { GetSuggestionsError(it) },
-        )
-    }
+    private suspend fun getSuggestions(): Result<Suggestions.Loaded, GetSuggestionsError> =
+        operationCounter {
+            // Note: disabledSuggestions is *not* cleared here. Suppose the user has
+            // dismissed a suggestion and the network operation has not completed yet.
+            // They reload, and get a list of suggestions that includes the suggestion
+            // they have just dismissed. In that case the suggestion should still be
+            // disabled.
+            suggestionsRepository.getSuggestions().mapEither(
+                { Suggestions.Loaded(it.map { SuggestionViewData(suggestion = it) }) },
+                { GetSuggestionsError(it) },
+            )
+        }
 
     /** Delete a suggestion from the repository. */
-    private suspend fun deleteSuggestion(suggestion: Suggestion): Result<Unit, DeleteSuggestionError> = operation {
-        suggestionsRepository.deleteSuggestion(suggestion.account.id)
-    }
+    private suspend fun deleteSuggestion(suggestion: Suggestion): Result<Unit, DeleteSuggestionError> =
+        operationCounter {
+            suggestionsRepository.deleteSuggestion(suggestion.account.id)
+        }
 
     /** Accept the suggestion and follow the account. */
-    private suspend fun acceptSuggestion(suggestion: Suggestion): Result<Unit, FollowAccountError> = operation {
-        suggestionsRepository.followAccount(suggestion.account.id)
-    }
-
-    /**
-     * Runs [block] incrementing the network operation count before [block]
-     * starts, decrementing it when [block] ends.
-     *
-     * ```kotlin
-     * suspend fun foo(): SomeType = operation {
-     *     some_network_operation()
-     * }
-     * ```
-     *
-     * @return Whatever [block] returned
-     */
-    private suspend fun <R> operation(block: suspend () -> R): R {
-        _operationCount.getAndUpdate { it + 1 }
-        val result = block.invoke()
-        _operationCount.getAndUpdate { it - 1 }
-        return result
-    }
+    private suspend fun acceptSuggestion(suggestion: Suggestion): Result<Unit, FollowAccountError> =
+        operationCounter {
+            suggestionsRepository.followAccount(suggestion.account.id)
+        }
 }
