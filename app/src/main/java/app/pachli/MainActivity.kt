@@ -116,7 +116,7 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
-import app.pachli.usecase.LogoutUsecase
+import app.pachli.usecase.LogoutUseCase
 import app.pachli.util.getDimension
 import app.pachli.util.updateShortcuts
 import at.connyduck.calladapter.networkresult.fold
@@ -184,7 +184,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     lateinit var cacheUpdater: CacheUpdater
 
     @Inject
-    lateinit var logoutUsecase: LogoutUsecase
+    lateinit var logout: LogoutUseCase
 
     @Inject
     lateinit var draftsAlert: DraftsAlert
@@ -1039,7 +1039,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     binding.composeButton.hide()
 
                     lifecycleScope.launch {
-                        val otherAccountAvailable = logoutUsecase.logout()
+                        val otherAccountAvailable = logout.invoke()
                         val intent = if (otherAccountAvailable) {
                             MainActivityIntent(this@MainActivity)
                         } else {
