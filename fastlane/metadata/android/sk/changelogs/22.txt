@@ -1,4 +1,4 @@
-Kóreai2
+Pachli 2.8.2
 
 Nové funkcie:
 
