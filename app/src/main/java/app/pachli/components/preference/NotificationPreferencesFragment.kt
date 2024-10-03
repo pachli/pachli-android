@@ -19,7 +19,7 @@ package app.pachli.components.preference
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
-import app.pachli.components.notifications.AndroidNotificationsAreEnabledUseCase
+import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.disablePullNotifications
 import app.pachli.components.notifications.enablePullNotifications
 import app.pachli.core.data.repository.AccountManager

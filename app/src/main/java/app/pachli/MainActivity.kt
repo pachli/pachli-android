@@ -17,6 +17,7 @@
 
 package app.pachli
 
+import app.pachli.core.designsystem.R as DR
 import android.Manifest.permission.POST_NOTIFICATIONS
 import android.annotation.SuppressLint
 import android.app.NotificationManager
@@ -61,9 +62,9 @@ import app.pachli.appstore.AnnouncementReadEvent
 import app.pachli.appstore.CacheUpdater
 import app.pachli.appstore.EventHub
 import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
-import app.pachli.components.notifications.AndroidNotificationsAreEnabledUseCase
-import app.pachli.components.notifications.EnableAllNotificationsUseCase
 import app.pachli.components.notifications.createNotificationChannelsForAccount
+import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
+import app.pachli.components.notifications.domain.EnableAllNotificationsUseCase
 import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
@@ -81,7 +82,6 @@ import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.MastodonList
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AboutActivityIntent
 import app.pachli.core.navigation.AccountActivityIntent
@@ -195,10 +195,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     lateinit var developerToolsUseCase: DeveloperToolsUseCase
 
     @Inject
-    lateinit var enableAllNotificationsUseCase: EnableAllNotificationsUseCase
+    lateinit var enableAllNotifications: EnableAllNotificationsUseCase
 
     @Inject
-    lateinit var androidNotificationsAreEnabledUseCase: AndroidNotificationsAreEnabledUseCase
+    lateinit var androidNotificationsAreEnabled: AndroidNotificationsAreEnabledUseCase
 
     @Inject
     lateinit var shareShortcutUseCase: ShareShortcutUseCase
@@ -352,8 +352,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
             // Setup notifications
             // TODO: Continue to call this, as it sets properties in NotificationConfig
-            androidNotificationsAreEnabledUseCase(this@MainActivity)
-            enableAllNotificationsUseCase(this@MainActivity)
+            androidNotificationsAreEnabled(this@MainActivity)
+            enableAllNotifications(this@MainActivity)
 
             setupDrawer(
                 account.id,
