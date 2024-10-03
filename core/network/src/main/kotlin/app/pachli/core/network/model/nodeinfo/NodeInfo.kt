@@ -19,10 +19,9 @@ package app.pachli.core.network.model.nodeinfo
 
 import androidx.annotation.StringRes
 import app.pachli.core.common.PachliError
+import app.pachli.core.model.NodeInfo
+import app.pachli.core.model.NodeInfo.Software
 import app.pachli.core.network.R
-import app.pachli.core.network.model.nodeinfo.NodeInfo.Error.NoSoftwareBlock
-import app.pachli.core.network.model.nodeinfo.NodeInfo.Error.NoSoftwareName
-import app.pachli.core.network.model.nodeinfo.NodeInfo.Error.NoSoftwareVersion
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -49,30 +48,20 @@ data class UnvalidatedJrd(val links: List<Link>) {
 data class UnvalidatedNodeInfo(val software: Software?) {
     @JsonClass(generateAdapter = true)
     data class Software(val name: String?, val version: String?)
-}
 
-/**
- * A validated NodeInfo.
- *
- * See https://nodeinfo.diaspora.software/protocol.html and
- * https://nodeinfo.diaspora.software/schema.html.
- */
-data class NodeInfo(val software: Software) {
-    data class Software(
-        /** Software name, won't be null, empty, or blank */
-        val name: String,
-        /** Software version, won't be null, empty, or blank */
-        val version: String,
-    )
-
-    companion object {
-        fun from(nodeInfo: UnvalidatedNodeInfo): Result<NodeInfo, Error> {
-            return when {
-                nodeInfo.software == null -> Err(NoSoftwareBlock)
-                nodeInfo.software.name.isNullOrBlank() -> Err(NoSoftwareName)
-                nodeInfo.software.version.isNullOrBlank() -> Err(NoSoftwareVersion)
-                else -> Ok(NodeInfo(Software(nodeInfo.software.name, nodeInfo.software.version)))
-            }
+    fun validate(): Result<NodeInfo, Error> {
+        return when {
+            software == null -> Err(Error.NoSoftwareBlock)
+            software.name.isNullOrBlank() -> Err(Error.NoSoftwareName)
+            software.version.isNullOrBlank() -> Err(Error.NoSoftwareVersion)
+            else -> Ok(
+                NodeInfo(
+                    NodeInfo.Software(
+                        software.name,
+                        software.version,
+                    ),
+                ),
+            )
         }
     }
 

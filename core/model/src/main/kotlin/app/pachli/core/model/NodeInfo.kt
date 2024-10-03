@@ -15,28 +15,19 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-plugins {
-    alias(libs.plugins.pachli.android.library)
-    alias(libs.plugins.pachli.android.hilt)
-    alias(libs.plugins.kotlin.parcelize)
-}
+package app.pachli.core.model
 
-android {
-    namespace = "app.pachli.core.model"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-}
-
-dependencies {
-    implementation(libs.moshi)
-    implementation(libs.moshi.adapters)
-    ksp(libs.moshi.codegen)
-
-    implementation(libs.moshix.sealed.runtime)
-    ksp(libs.moshix.sealed.codegen)
-
-    implementation(libs.semver)
-        ?.because("ServerOperation uses Version")
+/**
+ * A validated NodeInfo.
+ *
+ * See https://nodeinfo.diaspora.software/protocol.html and
+ * https://nodeinfo.diaspora.software/schema.html.
+ */
+data class NodeInfo(val software: Software) {
+    data class Software(
+        /** Software name, won't be null, empty, or blank */
+        val name: String,
+        /** Software version, won't be null, empty, or blank */
+        val version: String,
+    )
 }
