@@ -102,6 +102,7 @@ class ConversationViewHolder internal constructor(
 
     private fun setConversationName(accounts: List<ConversationAccountEntity>) {
         conversationNameTextView.text = when (accounts.size) {
+            0 -> context.getString(R.string.conversation_0_recipients)
             1 -> context.getString(
                 R.string.conversation_1_recipients,
                 accounts[0].username,
