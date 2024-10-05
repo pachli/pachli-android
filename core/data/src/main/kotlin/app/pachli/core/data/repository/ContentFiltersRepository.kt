@@ -37,6 +37,8 @@ import app.pachli.core.model.FilterKeyword
 import app.pachli.core.model.NewContentFilter
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
+import app.pachli.core.network.model.FilterAction as NetworkFilterAction
+import app.pachli.core.network.model.FilterContext as NetworkFilterContext
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -177,7 +179,8 @@ class ContentFiltersRepository @Inject constructor(
                 }
 
                 server.canFilterV1() -> {
-                    val networkContexts = filter.contexts.map { app.pachli.core.network.model.FilterContext.from(it) }.toSet()
+                    val networkContexts =
+                        filter.contexts.map { NetworkFilterContext.from(it) }.toSet()
                     filter.toNewContentFilterV1().mapResult {
                         mastodonApi.createFilterV1(
                             phrase = it.phrase,
@@ -222,8 +225,12 @@ class ContentFiltersRepository @Inject constructor(
                         contentFilterEdit.filterAction != null ||
                         expiresInSeconds != null
                     ) {
-                        val networkContexts = contentFilterEdit.contexts?.map { app.pachli.core.network.model.FilterContext.from(it) }?.toSet()
-                        val networkAction = contentFilterEdit.filterAction?.let { app.pachli.core.network.model.FilterAction.from(it) }
+                        val networkContexts = contentFilterEdit.contexts?.map {
+                            NetworkFilterContext.from(it)
+                        }?.toSet()
+                        val networkAction = contentFilterEdit.filterAction?.let {
+                            NetworkFilterAction.from(it)
+                        }
 
                         mastodonApi.updateFilter(
                             id = contentFilterEdit.id,
@@ -264,8 +271,13 @@ class ContentFiltersRepository @Inject constructor(
                         .map { ContentFilter.from(it.body) }
                 }
                 server.canFilterV1() -> {
-                    val networkContexts = contentFilterEdit.contexts?.map { app.pachli.core.network.model.FilterContext.from(it) }?.toSet() ?: originalContentFilter.contexts.map { app.pachli.core.network.model.FilterContext.from(it) }
-
+                    val networkContexts = contentFilterEdit.contexts?.map {
+                        NetworkFilterContext.from(it)
+                    }?.toSet() ?: originalContentFilter.contexts.map {
+                        NetworkFilterContext.from(
+                            it,
+                        )
+                    }
                     mastodonApi.updateFilterV1(
                         id = contentFilterEdit.id,
                         phrase = contentFilterEdit.keywordsToModify?.firstOrNull()?.keyword ?: originalContentFilter.keywords.first().keyword,

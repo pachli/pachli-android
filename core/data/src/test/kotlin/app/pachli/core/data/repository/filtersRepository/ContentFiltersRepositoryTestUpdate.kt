@@ -18,12 +18,14 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
+import app.pachli.core.data.model.from
 import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.FilterKeyword
 import app.pachli.core.network.model.Filter as NetworkFilter
-import app.pachli.core.network.model.FilterAction
-import app.pachli.core.network.model.FilterContext
-import app.pachli.core.network.model.FilterKeyword
+import app.pachli.core.network.model.FilterAction as NetworkFilterAction
+import app.pachli.core.network.model.FilterContext as NetworkFilterContext
+import app.pachli.core.network.model.FilterKeyword as NetworkFilterKeyword
 import app.pachli.core.testing.success
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.util.Date
@@ -48,14 +50,14 @@ class ContentFiltersRepositoryTestUpdate : BaseContentFiltersRepositoryTest() {
     private val originalNetworkFilter = NetworkFilter(
         id = "1",
         title = "original filter",
-        contexts = setOf(FilterContext.HOME),
+        contexts = setOf(NetworkFilterContext.HOME),
         expiresAt = null,
-        filterAction = FilterAction.WARN,
+        filterAction = NetworkFilterAction.WARN,
         keywords = listOf(
-            FilterKeyword(id = "1", keyword = "first", wholeWord = false),
-            FilterKeyword(id = "2", keyword = "second", wholeWord = true),
-            FilterKeyword(id = "3", keyword = "three", wholeWord = true),
-            FilterKeyword(id = "4", keyword = "four", wholeWord = true),
+            NetworkFilterKeyword(id = "1", keyword = "first", wholeWord = false),
+            NetworkFilterKeyword(id = "2", keyword = "second", wholeWord = true),
+            NetworkFilterKeyword(id = "3", keyword = "three", wholeWord = true),
+            NetworkFilterKeyword(id = "4", keyword = "four", wholeWord = true),
         ),
     )
 
@@ -69,8 +71,8 @@ class ContentFiltersRepositoryTestUpdate : BaseContentFiltersRepositoryTest() {
                 success(
                     originalNetworkFilter.copy(
                         title = call.getArgument(1) ?: originalContentFilter.title,
-                        contexts = call.getArgument(2) ?: originalContentFilter.contexts,
-                        filterAction = call.getArgument(3) ?: originalContentFilter.filterAction,
+                        contexts = call.getArgument(2) ?: originalContentFilter.contexts.map { NetworkFilterContext.from(it) }.toSet(),
+                        filterAction = call.getArgument(3) ?: NetworkFilterAction.from(originalContentFilter.filterAction),
                         expiresAt = call.getArgument<String?>(4)?.let {
                             when (it) {
                                 "" -> null
@@ -95,8 +97,8 @@ class ContentFiltersRepositoryTestUpdate : BaseContentFiltersRepositoryTest() {
             verify(mastodonApi, times(1)).updateFilter(
                 id = update.id,
                 title = update.title,
-                contexts = update.contexts,
-                filterAction = update.filterAction,
+                contexts = update.contexts?.map { NetworkFilterContext.from(it) }?.toSet(),
+                filterAction = update.filterAction?.let { NetworkFilterAction.from(it) },
                 expiresInSeconds = null,
             )
 
@@ -114,10 +116,10 @@ class ContentFiltersRepositoryTestUpdate : BaseContentFiltersRepositoryTest() {
             onBlocking { getContentFilters() } doReturn success(emptyList())
             onBlocking { deleteFilterKeyword(any()) } doReturn success(Unit)
             onBlocking { updateFilterKeyword(any(), any(), any()) } doAnswer { call ->
-                success(FilterKeyword(call.getArgument(0), call.getArgument(1), call.getArgument(2)))
+                success(NetworkFilterKeyword(call.getArgument(0), call.getArgument(1), call.getArgument(2)))
             }
             onBlocking { addFilterKeyword(any(), any(), any()) } doAnswer { call ->
-                success(FilterKeyword("x", call.getArgument(1), call.getArgument(2)))
+                success(NetworkFilterKeyword("x", call.getArgument(1), call.getArgument(2)))
             }
             onBlocking { getFilter(any()) } doReturn success(originalNetworkFilter)
         }

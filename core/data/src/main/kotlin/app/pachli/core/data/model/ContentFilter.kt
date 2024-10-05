@@ -29,12 +29,16 @@ import app.pachli.core.model.FilterContext.NOTIFICATIONS
 import app.pachli.core.model.FilterContext.PUBLIC
 import app.pachli.core.model.FilterContext.THREAD
 import app.pachli.core.model.FilterKeyword
+import app.pachli.core.network.model.Filter as NetworkFilter
+import app.pachli.core.network.model.FilterAction as NetworkFilterAction
+import app.pachli.core.network.model.FilterContext as NetworkFilterContext
+import app.pachli.core.network.model.FilterKeyword as NetworkFilterKeyword
+import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
 
 /**
- * Returns a [ContentFilter] from a
- * [v2 Mastodon filter][app.pachli.core.network.model.Filter].
+ * Returns a [ContentFilter] from a [v2 Mastodon filter][NetworkFilter].
  */
-fun ContentFilter.Companion.from(filter: app.pachli.core.network.model.Filter) = ContentFilter(
+fun ContentFilter.Companion.from(filter: NetworkFilter) = ContentFilter(
     id = filter.id,
     title = filter.title,
     contexts = filter.contexts.map { FilterContext.from(it) }.toSet(),
@@ -43,25 +47,28 @@ fun ContentFilter.Companion.from(filter: app.pachli.core.network.model.Filter) =
     keywords = filter.keywords.map { FilterKeyword.from(it) },
 )
 
-fun FilterContext.Companion.from(networkFilter: app.pachli.core.network.model.FilterContext) = when (networkFilter) {
-    app.pachli.core.network.model.FilterContext.HOME -> HOME
-    app.pachli.core.network.model.FilterContext.NOTIFICATIONS -> NOTIFICATIONS
-    app.pachli.core.network.model.FilterContext.PUBLIC -> PUBLIC
-    app.pachli.core.network.model.FilterContext.THREAD -> THREAD
-    app.pachli.core.network.model.FilterContext.ACCOUNT -> ACCOUNT
-}
+fun FilterContext.Companion.from(networkFilter: NetworkFilterContext) =
+    when (networkFilter) {
+        NetworkFilterContext.HOME -> HOME
+        NetworkFilterContext.NOTIFICATIONS -> NOTIFICATIONS
+        NetworkFilterContext.PUBLIC -> PUBLIC
+        NetworkFilterContext.THREAD -> THREAD
+        NetworkFilterContext.ACCOUNT -> ACCOUNT
+    }
 
-fun FilterAction.Companion.from(networkAction: app.pachli.core.network.model.FilterAction) = when (networkAction) {
-    app.pachli.core.network.model.FilterAction.NONE -> NONE
-    app.pachli.core.network.model.FilterAction.WARN -> WARN
-    app.pachli.core.network.model.FilterAction.HIDE -> HIDE
-}
+fun FilterAction.Companion.from(networkAction: NetworkFilterAction) =
+    when (networkAction) {
+        NetworkFilterAction.NONE -> NONE
+        NetworkFilterAction.WARN -> WARN
+        NetworkFilterAction.HIDE -> HIDE
+    }
 
-fun FilterKeyword.Companion.from(networkKeyword: app.pachli.core.network.model.FilterKeyword) = FilterKeyword(
-    id = networkKeyword.id,
-    keyword = networkKeyword.keyword,
-    wholeWord = networkKeyword.wholeWord,
-)
+fun FilterKeyword.Companion.from(networkKeyword: NetworkFilterKeyword) =
+    FilterKeyword(
+        id = networkKeyword.id,
+        keyword = networkKeyword.keyword,
+        wholeWord = networkKeyword.wholeWord,
+    )
 
 /**
  * Returns a [ContentFilter] from a
@@ -71,7 +78,7 @@ fun FilterKeyword.Companion.from(networkKeyword: app.pachli.core.network.model.F
  * - it can only have a single entry in the [keywords] list
  * - the [title] is identical to the keyword
  */
-fun ContentFilter.Companion.from(filter: app.pachli.core.network.model.FilterV1) = ContentFilter(
+fun ContentFilter.Companion.from(filter: NetworkFilterV1) = ContentFilter(
     id = filter.id,
     title = filter.phrase,
     contexts = filter.contexts.map { FilterContext.from(it) }.toSet(),

@@ -20,6 +20,8 @@ package app.pachli.core.network.retrofit
 import app.pachli.core.model.NewContentFilter
 import app.pachli.core.network.json.EnumConstantConverterFactory
 import java.lang.reflect.Type
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Converter
@@ -35,30 +37,39 @@ import retrofit2.Retrofit
 object NewContentFilterConverterFactory : Converter.Factory() {
     object NewContentFilterConverter : Converter<NewContentFilter, RequestBody> {
         private val enumConverter = EnumConstantConverterFactory.EnumConstantConverter
+        private val utf8 = StandardCharsets.UTF_8.toString()
 
         override fun convert(newContentFilter: NewContentFilter): RequestBody {
             return buildList {
-                add("title=${newContentFilter.title}")
+                add("title=${encode(newContentFilter.title)}")
 
                 newContentFilter.contexts.forEach {
-                    add("context[]=${enumConverter.convert(it)}")
+                    add("context[]=${encode(enumConverter.convert(it))}")
                 }
 
-                add("filter_action=${enumConverter.convert(newContentFilter.filterAction)}")
+                add("filter_action=${encode(enumConverter.convert(newContentFilter.filterAction))}")
 
                 if (newContentFilter.expiresIn != 0) {
                     add("expires_in=${newContentFilter.expiresIn}")
                 }
 
                 newContentFilter.keywords.forEach {
-                    add("keywords_attributes[][keyword]=${it.keyword}")
+                    add("keywords_attributes[][keyword]=${encode(it.keyword)}")
                     add("keywords_attributes[][whole_word]=${it.wholeWord}")
                 }
             }.joinToString("&").toRequestBody()
         }
+
+        /** @return URL encoded [s] using UTF8 as the character encoding. */
+        private fun encode(s: String) = URLEncoder.encode(s, utf8)
     }
 
-    override fun requestBodyConverter(type: Type, parameterAnnotations: Array<out Annotation>, methodAnnotations: Array<out Annotation>, retrofit: Retrofit): Converter<*, RequestBody>? {
+    override fun requestBodyConverter(
+        type: Type,
+        parameterAnnotations: Array<out Annotation>,
+        methodAnnotations: Array<out Annotation>,
+        retrofit: Retrofit,
+    ): Converter<*, RequestBody>? {
         return if (type == NewContentFilter::class.java) NewContentFilterConverter else null
     }
 }

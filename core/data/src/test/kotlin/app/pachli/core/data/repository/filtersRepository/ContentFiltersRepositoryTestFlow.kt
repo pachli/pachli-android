@@ -21,12 +21,14 @@ import app.cash.turbine.test
 import app.pachli.core.data.repository.ContentFilters
 import app.pachli.core.data.repository.ContentFiltersError
 import app.pachli.core.model.ContentFilter
-import app.pachli.core.model.ContentFilterVersion.V1
-import app.pachli.core.model.ContentFilterVersion.V2
+import app.pachli.core.model.ContentFilterVersion
+import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
+import app.pachli.core.model.FilterKeyword
 import app.pachli.core.network.model.Filter as NetworkFilter
-import app.pachli.core.network.model.FilterAction
-import app.pachli.core.network.model.FilterContext
-import app.pachli.core.network.model.FilterKeyword
+import app.pachli.core.network.model.FilterAction as NetworkFilterAction
+import app.pachli.core.network.model.FilterContext as NetworkFilterContext
+import app.pachli.core.network.model.FilterKeyword as NetworkFilterKeyword
 import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.testing.failure
@@ -57,7 +59,12 @@ class ContentFiltersRepositoryTestFlow : BaseContentFiltersRepositoryTest() {
             advanceUntilIdle()
             val item = expectMostRecentItem()
             val filters = item.get()
-            assertThat(filters).isEqualTo(ContentFilters(version = V2, contentFilters = emptyList()))
+            assertThat(filters).isEqualTo(
+                ContentFilters(
+                    version = ContentFilterVersion.V2,
+                    contentFilters = emptyList(),
+                ),
+            )
         }
     }
 
@@ -72,10 +79,16 @@ class ContentFiltersRepositoryTestFlow : BaseContentFiltersRepositoryTest() {
                     NetworkFilter(
                         id = "1",
                         title = "test filter",
-                        contexts = setOf(FilterContext.HOME),
-                        filterAction = FilterAction.WARN,
+                        contexts = setOf(NetworkFilterContext.HOME),
+                        filterAction = NetworkFilterAction.WARN,
                         expiresAt = expiresAt,
-                        keywords = listOf(FilterKeyword(id = "1", keyword = "foo", wholeWord = true)),
+                        keywords = listOf(
+                            NetworkFilterKeyword(
+                                id = "1",
+                                keyword = "foo",
+                                wholeWord = true,
+                            ),
+                        ),
                     ),
                 ),
             )
@@ -87,7 +100,7 @@ class ContentFiltersRepositoryTestFlow : BaseContentFiltersRepositoryTest() {
             val filters = item.get()
             assertThat(filters).isEqualTo(
                 ContentFilters(
-                    version = V2,
+                    version = ContentFilterVersion.V2,
                     contentFilters = listOf(
                         ContentFilter(
                             id = "1",
@@ -117,7 +130,12 @@ class ContentFiltersRepositoryTestFlow : BaseContentFiltersRepositoryTest() {
             advanceUntilIdle()
             val item = expectMostRecentItem()
             val filters = item.get()
-            assertThat(filters).isEqualTo(ContentFilters(version = V1, contentFilters = emptyList()))
+            assertThat(filters).isEqualTo(
+                ContentFilters(
+                    version = ContentFilterVersion.V1,
+                    contentFilters = emptyList(),
+                ),
+            )
         }
     }
 
@@ -132,7 +150,7 @@ class ContentFiltersRepositoryTestFlow : BaseContentFiltersRepositoryTest() {
                     NetworkFilterV1(
                         id = "1",
                         phrase = "some_phrase",
-                        contexts = setOf(FilterContext.HOME),
+                        contexts = setOf(NetworkFilterContext.HOME),
                         expiresAt = expiresAt,
                         irreversible = true,
                         wholeWord = true,
@@ -149,7 +167,7 @@ class ContentFiltersRepositoryTestFlow : BaseContentFiltersRepositoryTest() {
             val filters = item.get()
             assertThat(filters).isEqualTo(
                 ContentFilters(
-                    version = V1,
+                    version = ContentFilterVersion.V1,
                     contentFilters = listOf(
                         ContentFilter(
                             id = "1",

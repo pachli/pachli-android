@@ -140,8 +140,8 @@ object NetworkModule {
     ): Retrofit {
         return Retrofit.Builder().baseUrl("https://" + MastodonApi.PLACEHOLDER_DOMAIN)
             .client(httpClient)
-            .addConverterFactory(NewContentFilterConverterFactory)
             .addConverterFactory(EnumConstantConverterFactory)
+            .addConverterFactory(NewContentFilterConverterFactory)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(ApiResultCallAdapterFactory.create())
             .addCallAdapterFactory(NetworkResultCallAdapterFactory.create())

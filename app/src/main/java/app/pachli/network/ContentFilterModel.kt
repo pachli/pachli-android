@@ -4,6 +4,7 @@ import app.pachli.core.data.model.from
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
+import app.pachli.core.network.model.FilterContext as NetworkFilterContext
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import java.util.Date
@@ -50,7 +51,7 @@ class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilt
         }
 
         val matchingKind = status.filtered?.filter { result ->
-            result.filter.contexts.contains(app.pachli.core.network.model.FilterContext.from(filterContext))
+            result.filter.contexts.contains(NetworkFilterContext.from(filterContext))
         }
 
         return if (matchingKind.isNullOrEmpty()) {

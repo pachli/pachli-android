@@ -19,9 +19,9 @@ package app.pachli.components.filters
 
 import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.model.ContentFilter
-import app.pachli.core.network.model.FilterAction
-import app.pachli.core.network.model.FilterContext
-import app.pachli.core.network.model.FilterKeyword
+import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
+import app.pachli.core.model.FilterKeyword
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
