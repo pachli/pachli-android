@@ -21,8 +21,9 @@ import android.view.View
 import androidx.core.text.HtmlCompat
 import app.pachli.R
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Filter
-import app.pachli.core.network.model.FilterAction
+import app.pachli.core.network.model.FilterAction as NetworkFilterAction
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.IStatusViewData
@@ -53,7 +54,7 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
             return
         }
 
-        status.actionable.filtered?.find { it.filter.filterAction === FilterAction.WARN }?.let { result ->
+        status.actionable.filtered?.find { it.filter.filterAction === NetworkFilterAction.WARN }?.let { result ->
             this.matchedFilter = result.filter
             setPlaceholderVisibility(true)
 

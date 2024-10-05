@@ -19,10 +19,12 @@ package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.filters.EditContentFilterViewModel.Companion.getSecondsForDurationIndex
-import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.data.model.from
+import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
 import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.FilterAction
-import app.pachli.core.network.model.FilterContext
+import app.pachli.core.network.model.FilterContext as NetworkFilterContext
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.PollOption
@@ -47,7 +49,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "badWord",
-                contexts = setOf(FilterContext.HOME),
+                contexts = setOf(NetworkFilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = false,
@@ -55,7 +57,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "badWholeWord",
-                contexts = setOf(FilterContext.HOME, FilterContext.PUBLIC),
+                contexts = setOf(NetworkFilterContext.HOME, NetworkFilterContext.PUBLIC),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -63,7 +65,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "@twitter.com",
-                contexts = setOf(FilterContext.HOME),
+                contexts = setOf(NetworkFilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -71,7 +73,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "#hashtag",
-                contexts = setOf(FilterContext.HOME),
+                contexts = setOf(NetworkFilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -79,7 +81,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "expired",
-                contexts = setOf(FilterContext.HOME),
+                contexts = setOf(NetworkFilterContext.HOME),
                 expiresAt = Date.from(Instant.now().minusSeconds(10)),
                 irreversible = false,
                 wholeWord = true,
@@ -87,7 +89,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "unexpired",
-                contexts = setOf(FilterContext.HOME),
+                contexts = setOf(NetworkFilterContext.HOME),
                 expiresAt = Date.from(Instant.now().plusSeconds(3600)),
                 irreversible = false,
                 wholeWord = true,
@@ -95,7 +97,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "href",
-                contexts = setOf(FilterContext.HOME),
+                contexts = setOf(NetworkFilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = false,

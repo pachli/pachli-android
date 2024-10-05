@@ -3,8 +3,8 @@ package app.pachli.components.filters
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.core.data.model.ContentFilter
 import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.model.ContentFilter
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar

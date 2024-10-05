@@ -19,7 +19,7 @@ package app.pachli.components.trending.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.ContentFiltersRepository
-import app.pachli.core.network.model.FilterContext
+import app.pachli.core.model.FilterContext
 import app.pachli.core.network.model.TrendingTag
 import app.pachli.core.network.model.end
 import app.pachli.core.network.model.start

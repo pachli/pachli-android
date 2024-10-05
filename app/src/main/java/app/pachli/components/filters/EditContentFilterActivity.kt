@@ -22,11 +22,10 @@ import app.pachli.R
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
-import app.pachli.core.data.model.ContentFilterValidationError
+import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
+import app.pachli.core.model.FilterKeyword
 import app.pachli.core.navigation.EditContentFilterActivityIntent
-import app.pachli.core.network.model.FilterAction
-import app.pachli.core.network.model.FilterContext
-import app.pachli.core.network.model.FilterKeyword
 import app.pachli.core.ui.extensions.await
 import app.pachli.databinding.ActivityEditContentFilterBinding
 import app.pachli.databinding.DialogFilterBinding

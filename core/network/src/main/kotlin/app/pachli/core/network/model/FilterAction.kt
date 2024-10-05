@@ -17,6 +17,7 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.model.FilterAction
 import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
@@ -36,4 +37,14 @@ enum class FilterAction {
     /** Remove the item, with no indication to the user it was present. */
     @Json(name = "hide")
     HIDE,
+
+    ;
+
+    companion object {
+        fun from(filterAction: app.pachli.core.model.FilterAction) = when (filterAction) {
+            FilterAction.NONE -> NONE
+            FilterAction.WARN -> WARN
+            FilterAction.HIDE -> HIDE
+        }
+    }
 }
