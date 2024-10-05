@@ -18,12 +18,13 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
-import app.pachli.core.data.model.NewContentFilterKeyword
-import app.pachli.core.data.repository.NewContentFilter
+import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
+import app.pachli.core.model.NewContentFilter
+import app.pachli.core.model.NewContentFilterKeyword
 import app.pachli.core.network.model.Filter as NetworkFilter
-import app.pachli.core.network.model.FilterAction
-import app.pachli.core.network.model.FilterContext
-import app.pachli.core.network.model.FilterKeyword
+import app.pachli.core.network.model.FilterAction as NetworkFilterAction
+import app.pachli.core.network.model.FilterContext as NetworkFilterContext
 import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
 import app.pachli.core.testing.success
 import com.github.michaelbull.result.Ok
@@ -57,24 +58,27 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
     fun `creating v2 filter should send correct requests`() = runTest {
         mastodonApi.stub {
             onBlocking { getContentFilters() } doReturn success(emptyList())
-            onBlocking { createFilter(any(), any(), any(), any()) } doAnswer { call ->
+            onBlocking { createFilter(any<NewContentFilter>()) } doAnswer { call ->
                 success(
                     NetworkFilter(
                         id = "1",
-                        title = call.getArgument(0),
-                        contexts = call.getArgument(1),
-                        filterAction = call.getArgument(2),
-                        expiresAt = Date(System.currentTimeMillis() + (call.getArgument<String>(3).toInt() * 1000)),
+                        title = call.getArgument<NewContentFilter>(0).title,
+                        contexts = call.getArgument<NewContentFilter>(0).contexts.map {
+                            NetworkFilterContext.from(it)
+                        }.toSet(),
+                        filterAction = NetworkFilterAction.from(
+                            call.getArgument<NewContentFilter>(
+                                0,
+                            ).filterAction,
+                        ),
+                        expiresAt = Date(
+                            System.currentTimeMillis() + (
+                                call.getArgument<NewContentFilter>(
+                                    0,
+                                ).expiresIn * 1000
+                                ),
+                        ),
                         keywords = emptyList(),
-                    ),
-                )
-            }
-            onBlocking { addFilterKeyword(any(), any(), any()) } doAnswer { call ->
-                success(
-                    FilterKeyword(
-                        id = "1",
-                        keyword = call.getArgument(1),
-                        wholeWord = call.getArgument(2),
                     ),
                 )
             }
@@ -87,16 +91,7 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
             advanceUntilIdle()
 
             // createFilter should have been called once, with the correct arguments.
-            verify(mastodonApi, times(1)).createFilter(
-                title = filterWithTwoKeywords.title,
-                contexts = filterWithTwoKeywords.contexts,
-                filterAction = filterWithTwoKeywords.filterAction,
-                expiresInSeconds = filterWithTwoKeywords.expiresIn.toString(),
-            )
-
-            // To create the keywords addFilterKeyword should have been called twice.
-            verify(mastodonApi, times(1)).addFilterKeyword("1", "first", false)
-            verify(mastodonApi, times(1)).addFilterKeyword("1", "second", true)
+            verify(mastodonApi, times(1)).createFilter(filterWithTwoKeywords)
 
             // Filters should have been refreshed
             verify(mastodonApi, times(2)).getContentFilters()
@@ -110,24 +105,21 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
     fun `expiresIn of 0 is converted to empty string`() = runTest {
         mastodonApi.stub {
             onBlocking { getContentFilters() } doReturn success(emptyList())
-            onBlocking { createFilter(any(), any(), any(), any()) } doAnswer { call ->
+            onBlocking { createFilter(any()) } doAnswer { call ->
                 success(
                     NetworkFilter(
                         id = "1",
-                        title = call.getArgument(0),
-                        contexts = call.getArgument(1),
-                        filterAction = call.getArgument(2),
+                        title = call.getArgument<NewContentFilter>(0).title,
+                        contexts = call.getArgument<NewContentFilter>(0).contexts.map {
+                            NetworkFilterContext.from(it)
+                        }.toSet(),
+                        filterAction = NetworkFilterAction.from(
+                            call.getArgument<NewContentFilter>(
+                                0,
+                            ).filterAction,
+                        ),
                         expiresAt = null,
                         keywords = emptyList(),
-                    ),
-                )
-            }
-            onBlocking { addFilterKeyword(any(), any(), any()) } doAnswer { call ->
-                success(
-                    FilterKeyword(
-                        id = "1",
-                        keyword = call.getArgument(1),
-                        wholeWord = call.getArgument(2),
                     ),
                 )
             }
@@ -143,12 +135,7 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
             contentFiltersRepository.createContentFilter(filterWithZeroExpiry)
             advanceUntilIdle()
 
-            verify(mastodonApi, times(1)).createFilter(
-                title = filterWithZeroExpiry.title,
-                contexts = filterWithZeroExpiry.contexts,
-                filterAction = filterWithZeroExpiry.filterAction,
-                expiresInSeconds = "",
-            )
+            verify(mastodonApi, times(1)).createFilter(filterWithZeroExpiry)
 
             cancelAndConsumeRemainingEvents()
         }
@@ -185,7 +172,9 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
             filterWithTwoKeywords.keywords.forEach { keyword ->
                 verify(mastodonApi, times(1)).createFilterV1(
                     phrase = keyword.keyword,
-                    context = filterWithTwoKeywords.contexts,
+                    context = filterWithTwoKeywords.contexts.map {
+                        NetworkFilterContext.from(it)
+                    }.toSet(),
                     irreversible = false,
                     wholeWord = keyword.wholeWord,
                     expiresInSeconds = filterWithTwoKeywords.expiresIn.toString(),

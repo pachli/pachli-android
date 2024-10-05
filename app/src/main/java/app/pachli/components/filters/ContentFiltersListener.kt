@@ -1,6 +1,6 @@
 package app.pachli.components.filters
 
-import app.pachli.core.data.model.ContentFilter
+import app.pachli.core.model.ContentFilter
 
 interface ContentFiltersListener {
     fun deleteContentFilter(contentFilter: ContentFilter)

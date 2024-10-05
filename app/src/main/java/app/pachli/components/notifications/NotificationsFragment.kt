@@ -55,9 +55,9 @@ import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.model.FilterAction
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.core.navigation.EditContentFilterActivityIntent
-import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status

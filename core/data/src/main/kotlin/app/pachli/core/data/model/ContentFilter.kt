@@ -17,98 +17,78 @@
 
 package app.pachli.core.data.model
 
-import android.os.Parcelable
-import app.pachli.core.network.model.FilterAction
-import app.pachli.core.network.model.FilterContext
-import app.pachli.core.network.model.FilterKeyword
-import java.util.Date
-import kotlinx.parcelize.Parcelize
-
-/** Reasons why a filter might be invalid */
-enum class ContentFilterValidationError {
-    /** Filter title is empty or blank */
-    NO_TITLE,
-
-    /** Filter has no keywords */
-    NO_KEYWORDS,
-
-    /** Filter has no contexts */
-    NO_CONTEXT,
-}
+import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterAction.HIDE
+import app.pachli.core.model.FilterAction.NONE
+import app.pachli.core.model.FilterAction.WARN
+import app.pachli.core.model.FilterContext
+import app.pachli.core.model.FilterContext.ACCOUNT
+import app.pachli.core.model.FilterContext.HOME
+import app.pachli.core.model.FilterContext.NOTIFICATIONS
+import app.pachli.core.model.FilterContext.PUBLIC
+import app.pachli.core.model.FilterContext.THREAD
+import app.pachli.core.model.FilterKeyword
+import app.pachli.core.network.model.Filter as NetworkFilter
+import app.pachli.core.network.model.FilterAction as NetworkFilterAction
+import app.pachli.core.network.model.FilterContext as NetworkFilterContext
+import app.pachli.core.network.model.FilterKeyword as NetworkFilterKeyword
+import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
 
 /**
- * Internal representation of a Mastodon filter, whether v1 or v2.
- *
- * This is a *content* filter, to distinguish it from filters that operate on
- * accounts, domains, or other data.
- *
- * @param id The server's ID for this filter
- * @param title Filter's title (label to use in the UI)
- * @param contexts One or more [FilterContext] the filter is applied to
- * @param expiresAt Date the filter expires, null if the filter does not expire
- * @param filterAction Action to take if the filter matches a status
- * @param keywords One or more [FilterKeyword] the filter matches against a status
+ * Returns a [ContentFilter] from a [v2 Mastodon filter][NetworkFilter].
  */
-@Parcelize
-data class ContentFilter(
-    val id: String,
-    val title: String,
-    val contexts: Set<FilterContext> = emptySet(),
-    val expiresAt: Date? = null,
-    val filterAction: FilterAction,
-    val keywords: List<FilterKeyword> = emptyList(),
-) : Parcelable {
-    /**
-     * @return Set of [ContentFilterValidationError] given the current state of the
-     * filter. Empty if there are no validation errors.
-     */
-    fun validate() = buildSet {
-        if (title.isBlank()) add(ContentFilterValidationError.NO_TITLE)
-        if (keywords.isEmpty()) add(ContentFilterValidationError.NO_KEYWORDS)
-        if (contexts.isEmpty()) add(ContentFilterValidationError.NO_CONTEXT)
+fun ContentFilter.Companion.from(filter: NetworkFilter) = ContentFilter(
+    id = filter.id,
+    title = filter.title,
+    contexts = filter.contexts.map { FilterContext.from(it) }.toSet(),
+    expiresAt = filter.expiresAt,
+    filterAction = FilterAction.from(filter.filterAction),
+    keywords = filter.keywords.map { FilterKeyword.from(it) },
+)
+
+fun FilterContext.Companion.from(networkFilter: NetworkFilterContext) =
+    when (networkFilter) {
+        NetworkFilterContext.HOME -> HOME
+        NetworkFilterContext.NOTIFICATIONS -> NOTIFICATIONS
+        NetworkFilterContext.PUBLIC -> PUBLIC
+        NetworkFilterContext.THREAD -> THREAD
+        NetworkFilterContext.ACCOUNT -> ACCOUNT
     }
 
-    companion object {
-        /**
-         * Returns a [ContentFilter] from a
-         * [v2 Mastodon filter][app.pachli.core.network.model.Filter].
-         */
-        fun from(filter: app.pachli.core.network.model.Filter) = ContentFilter(
-            id = filter.id,
-            title = filter.title,
-            contexts = filter.contexts,
-            expiresAt = filter.expiresAt,
-            filterAction = filter.filterAction,
-            keywords = filter.keywords,
-        )
-
-        /**
-         * Returns a [ContentFilter] from a
-         * [v1 Mastodon filter][app.pachli.core.network.model.Filter].
-         *
-         * There are some restrictions imposed by the v1 filter;
-         * - it can only have a single entry in the [keywords] list
-         * - the [title] is identical to the keyword
-         */
-        fun from(filter: app.pachli.core.network.model.FilterV1) = ContentFilter(
-            id = filter.id,
-            title = filter.phrase,
-            contexts = filter.contexts,
-            expiresAt = filter.expiresAt,
-            filterAction = FilterAction.WARN,
-            keywords = listOf(
-                FilterKeyword(
-                    id = filter.id,
-                    keyword = filter.phrase,
-                    wholeWord = filter.wholeWord,
-                ),
-            ),
-        )
+fun FilterAction.Companion.from(networkAction: NetworkFilterAction) =
+    when (networkAction) {
+        NetworkFilterAction.NONE -> NONE
+        NetworkFilterAction.WARN -> WARN
+        NetworkFilterAction.HIDE -> HIDE
     }
-}
 
-/** A new filter keyword; has no ID as it has not been saved to the server. */
-data class NewContentFilterKeyword(
-    val keyword: String,
-    val wholeWord: Boolean,
+fun FilterKeyword.Companion.from(networkKeyword: NetworkFilterKeyword) =
+    FilterKeyword(
+        id = networkKeyword.id,
+        keyword = networkKeyword.keyword,
+        wholeWord = networkKeyword.wholeWord,
+    )
+
+/**
+ * Returns a [ContentFilter] from a
+ * [v1 Mastodon filter][app.pachli.core.network.model.Filter].
+ *
+ * There are some restrictions imposed by the v1 filter;
+ * - it can only have a single entry in the [keywords] list
+ * - the [title] is identical to the keyword
+ */
+fun ContentFilter.Companion.from(filter: NetworkFilterV1) = ContentFilter(
+    id = filter.id,
+    title = filter.phrase,
+    contexts = filter.contexts.map { FilterContext.from(it) }.toSet(),
+    expiresAt = filter.expiresAt,
+    filterAction = WARN,
+    keywords = listOf(
+        FilterKeyword(
+            id = filter.id,
+            keyword = filter.phrase,
+            wholeWord = filter.wholeWord,
+        ),
+    ),
 )

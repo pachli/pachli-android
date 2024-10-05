@@ -21,8 +21,7 @@ import androidx.annotation.VisibleForTesting
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
-import app.pachli.core.data.model.ContentFilter
-import app.pachli.core.data.model.NewContentFilterKeyword
+import app.pachli.core.data.model.from
 import app.pachli.core.data.repository.ContentFiltersError.CreateContentFilterError
 import app.pachli.core.data.repository.ContentFiltersError.DeleteContentFilterError
 import app.pachli.core.data.repository.ContentFiltersError.GetContentFilterError
@@ -30,13 +29,17 @@ import app.pachli.core.data.repository.ContentFiltersError.GetContentFiltersErro
 import app.pachli.core.data.repository.ContentFiltersError.ServerDoesNotFilter
 import app.pachli.core.data.repository.ContentFiltersError.ServerRepositoryError
 import app.pachli.core.data.repository.ContentFiltersError.UpdateContentFilterError
+import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.ContentFilterVersion
+import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
+import app.pachli.core.model.FilterKeyword
+import app.pachli.core.model.NewContentFilter
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.Server
-import app.pachli.core.network.model.FilterAction
-import app.pachli.core.network.model.FilterContext
-import app.pachli.core.network.model.FilterKeyword
-import app.pachli.core.network.model.NewContentFilterV1
+import app.pachli.core.network.model.FilterAction as NetworkFilterAction
+import app.pachli.core.network.model.FilterContext as NetworkFilterContext
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -55,45 +58,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-
-/**
- * A content filter to be created or updated.
- *
- * Same as [ContentFilter] except a [NewContentFilter] does not have an [id][ContentFilter.id], as it
- * has not been created on the server.
- */
-data class NewContentFilter(
-    val title: String,
-    val contexts: Set<FilterContext>,
-    val expiresIn: Int,
-    val filterAction: FilterAction,
-    val keywords: List<NewContentFilterKeyword>,
-) {
-    fun toNewContentFilterV1() = this.keywords.map { keyword ->
-        NewContentFilterV1(
-            phrase = keyword.keyword,
-            contexts = this.contexts,
-            expiresIn = this.expiresIn,
-            irreversible = false,
-            wholeWord = keyword.wholeWord,
-        )
-    }
-
-    companion object {
-        fun from(contentFilter: ContentFilter) = NewContentFilter(
-            title = contentFilter.title,
-            contexts = contentFilter.contexts,
-            expiresIn = -1,
-            filterAction = contentFilter.filterAction,
-            keywords = contentFilter.keywords.map {
-                NewContentFilterKeyword(
-                    keyword = it.keyword,
-                    wholeWord = it.wholeWord,
-                )
-            },
-        )
-    }
-}
 
 /**
  * Represents a collection of edits to make to an existing content filter.
@@ -151,11 +115,6 @@ sealed interface ContentFiltersError : PachliError {
     /** API error deleting a filter. */
     @JvmInline
     value class DeleteContentFilterError(private val error: PachliError) : ContentFiltersError, PachliError by error
-}
-
-enum class ContentFilterVersion {
-    V1,
-    V2,
 }
 
 // Hack, so that FilterModel can know whether this is V1 or V2 content filters.
@@ -248,28 +207,18 @@ class ContentFiltersRepository @Inject constructor(
         externalScope.async {
             when {
                 server.canFilterV2() -> {
-                    mastodonApi.createFilter(
-                        title = filter.title,
-                        contexts = filter.contexts,
-                        filterAction = filter.filterAction,
-                        expiresInSeconds = expiresInSeconds,
-                    ).andThen { response ->
-                        val filterId = response.body.id
-                        filter.keywords.mapResult {
-                            mastodonApi.addFilterKeyword(
-                                filterId,
-                                keyword = it.keyword,
-                                wholeWord = it.wholeWord,
-                            )
-                        }.map { ContentFilter.from(response.body) }
+                    mastodonApi.createFilter(filter).map {
+                        ContentFilter.from(it.body)
                     }
                 }
 
                 server.canFilterV1() -> {
+                    val networkContexts =
+                        filter.contexts.map { NetworkFilterContext.from(it) }.toSet()
                     filter.toNewContentFilterV1().mapResult {
                         mastodonApi.createFilterV1(
                             phrase = it.phrase,
-                            context = it.contexts,
+                            context = networkContexts,
                             irreversible = it.irreversible,
                             wholeWord = it.wholeWord,
                             expiresInSeconds = expiresInSeconds,
@@ -313,11 +262,18 @@ class ContentFiltersRepository @Inject constructor(
                         contentFilterEdit.filterAction != null ||
                         expiresInSeconds != null
                     ) {
+                        val networkContexts = contentFilterEdit.contexts?.map {
+                            NetworkFilterContext.from(it)
+                        }?.toSet()
+                        val networkAction = contentFilterEdit.filterAction?.let {
+                            NetworkFilterAction.from(it)
+                        }
+
                         mastodonApi.updateFilter(
                             id = contentFilterEdit.id,
                             title = contentFilterEdit.title,
-                            contexts = contentFilterEdit.contexts,
-                            filterAction = contentFilterEdit.filterAction,
+                            contexts = networkContexts,
+                            filterAction = networkAction,
                             expiresInSeconds = expiresInSeconds,
                         )
                     } else {
@@ -352,11 +308,18 @@ class ContentFiltersRepository @Inject constructor(
                         .map { ContentFilter.from(it.body) }
                 }
                 server.canFilterV1() -> {
+                    val networkContexts = contentFilterEdit.contexts?.map {
+                        NetworkFilterContext.from(it)
+                    }?.toSet() ?: originalContentFilter.contexts.map {
+                        NetworkFilterContext.from(
+                            it,
+                        )
+                    }
                     mastodonApi.updateFilterV1(
                         id = contentFilterEdit.id,
                         phrase = contentFilterEdit.keywordsToModify?.firstOrNull()?.keyword ?: originalContentFilter.keywords.first().keyword,
                         wholeWord = contentFilterEdit.keywordsToModify?.firstOrNull()?.wholeWord,
-                        contexts = contentFilterEdit.contexts ?: originalContentFilter.contexts,
+                        contexts = networkContexts,
                         irreversible = false,
                         expiresInSeconds = expiresInSeconds,
                     ).map { ContentFilter.from(it.body) }
