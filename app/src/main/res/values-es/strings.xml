@@ -267,7 +267,7 @@
     <string name="pref_title_timeline_filters">Filtros</string>
     <string name="notification_poll_name">Encuestas</string>
     <string name="filter_dialog_remove_button">Eliminar</string>
-    <string name="description_post_favourited">1Favoritos</string>
+    <string name="description_post_favourited">Marcado como favorito</string>
     <string name="description_visibility_private">Seguidores</string>
     <string name="filter_apply">Aplicar</string>
     <string name="pref_title_bot_overlay">Mostrar indicador de bots</string>
@@ -373,7 +373,7 @@
     <string name="title_bookmarks">Marcadores</string>
     <string name="action_bookmark">Marcador</string>
     <string name="action_view_bookmarks">Marcadores</string>
-    <string name="description_post_bookmarked">Marcado como favorito</string>
+    <string name="description_post_bookmarked">Añadido a marcadores</string>
     <string name="select_list_title">Seleccionar lista</string>
     <string name="list">Lista</string>
     <string name="no_drafts">No tienes ningún borrador.</string>
@@ -581,7 +581,7 @@
     <string name="load_newest_notifications">Cargar notificaciones más nuevas</string>
     <string name="compose_delete_draft">¿Eliminar borrador\?</string>
     <string name="ui_error_translate_status_fmt">La traducción falló: %1$s</string>
-    <string name="update_dialog_negative">Nunca me recuerdas</string>
+    <string name="update_dialog_negative">Nunca me lo recuerdes</string>
     <string name="translating">Traduciendo…</string>
     <string name="dialog_delete_filter_positive_action">Borrar</string>
     <string name="notification_listenable_worker_name">Actividad de fondo</string>
@@ -796,4 +796,7 @@
     <string name="pref_change_unified_push_distributor_msg">Esto borrará la elección de distribuidor Unified Push y reiniciará Pachli.
 \n
 \nSi hay varios distribuidores Unified Push instalados, se te pedirá que elijas uno.</string>
+    <string name="pref_notification_battery_optimisation_is_disabled">La optimización de la batería está deshabilitada</string>
+    <string name="pref_title_content_filters">Filtros de contenido</string>
+    <string name="conversation_0_recipients">Ningún participante más</string>
 </resources>
