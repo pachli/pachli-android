@@ -2,5 +2,5 @@
 <resources>
     <string name="error_empty">ဗလာထား၍မရပါ။</string>
     <string name="error_no_web_browser_found">ဝဘ်ဘရောက်ဇာမတွေ့ပါ။</string>
-    <string name="error_compose_character_limit">ပို့စ်ရှည်လွန်းသည်။</string>
+    <string name="error_compose_character_limit">ပို့စ်ရှည်လွန်းသည်။!</string>
 </resources>
