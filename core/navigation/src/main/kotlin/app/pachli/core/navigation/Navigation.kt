@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
+import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.Timeline
@@ -39,33 +40,50 @@ import app.pachli.core.network.model.Status
 import com.gaelmarhic.quadrant.QuadrantConstants
 import kotlinx.parcelize.Parcelize
 
+private const val EXTRA_PACHLI_ACCOUNT_ID = "app.pachli.EXTRA_PACHLI_ACCOUNT_ID"
+
+/**
+ * The Pachli Account ID passed to this intent. This is the
+ * [id][app.pachli.core.database.model.AccountEntity.id] of the account that is
+ * "active" for the purposes of this activity.
+ */
+var Intent.pachliAccountId: Long
+    get() = getLongExtra(EXTRA_PACHLI_ACCOUNT_ID, -1L)
+    set(value) {
+        putExtra(EXTRA_PACHLI_ACCOUNT_ID, value)
+        return
+    }
+
 /**
  * @param context
- * @param accountId Server ID of the account to view
+ * @param pachliAccountId See [pachliAccountId][Intent.pachliAccountId].
+ * @param accountId Server ID of the account to view.
  * @see [app.pachli.components.account.AccountActivity]
  */
-class AccountActivityIntent(context: Context, accountId: String) : Intent() {
+class AccountActivityIntent(context: Context, pachliAccountId: Long, accountId: String) : Intent() {
     init {
         setClassName(context, QuadrantConstants.ACCOUNT_ACTIVITY)
-        putExtra(EXTRA_KEY_ACCOUNT_ID, accountId)
+        this.pachliAccountId = pachliAccountId
+        putExtra(EXTRA_ACCOUNT_ID, accountId)
     }
 
     companion object {
-        private const val EXTRA_KEY_ACCOUNT_ID = "id"
+        private const val EXTRA_ACCOUNT_ID = "app.pachli.EXTRA_KEY_ACCOUNT_ID"
 
         /** @return the account ID passed in this intent */
-        fun getAccountId(intent: Intent) = intent.getStringExtra(EXTRA_KEY_ACCOUNT_ID)!!
+        fun getAccountId(intent: Intent) = intent.getStringExtra(EXTRA_ACCOUNT_ID)!!
     }
 }
 
 /**
  * @param context
+ * @param pachliAccountId
  * @param kind The kind of accounts to show
  * @param id Optional ID. Sometimes an account ID, sometimes a status ID, and
  *     sometimes ignored. See [Kind] for details of how `id` is interpreted.
  * @see [app.pachli.components.accountlist.AccountListActivity]
  */
-class AccountListActivityIntent(context: Context, kind: Kind, id: String? = null) : Intent() {
+class AccountListActivityIntent(context: Context, pachliAccountId: Long, kind: Kind, id: String? = null) : Intent() {
     enum class Kind {
         /** Show the accounts the account with `id` is following */
         FOLLOWS,
@@ -91,13 +109,14 @@ class AccountListActivityIntent(context: Context, kind: Kind, id: String? = null
 
     init {
         setClassName(context, QuadrantConstants.ACCOUNT_LIST_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_KIND, kind)
         putExtra(EXTRA_ID, id)
     }
 
     companion object {
-        private const val EXTRA_KIND = "kind"
-        private const val EXTRA_ID = "id"
+        private const val EXTRA_KIND = "app.pachli.EXTRA_KIND"
+        private const val EXTRA_ID = "app.pachli.EXTRA_ID"
 
         /** @return The [Kind] passed in this intent */
         fun getKind(intent: Intent) = intent.getSerializableExtra(EXTRA_KIND) as Kind
@@ -182,7 +201,7 @@ class ComposeActivityIntent(context: Context) : Intent() {
     }
 
     companion object {
-        private const val EXTRA_COMPOSE_OPTIONS = "composeOptions"
+        private const val EXTRA_COMPOSE_OPTIONS = "app.pachli.EXTRA_COMPOSE_OPTIONS"
 
         /** @return the [ComposeOptions] passed in this intent, or null */
         fun getOptions(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_COMPOSE_OPTIONS, ComposeOptions::class.java)
@@ -193,38 +212,44 @@ class ComposeActivityIntent(context: Context) : Intent() {
  * Launch with an empty content filter to edit.
  *
  * @param context
+ * @param pachliAccountId The account that will own the filter
  * @see [app.pachli.components.filters.EditContentFilterActivity]
  */
-class EditContentFilterActivityIntent(context: Context) : Intent() {
+class EditContentFilterActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.EDIT_CONTENT_FILTER_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 
     companion object {
-        private const val EXTRA_CONTENT_FILTER_TO_EDIT = "contentFilterToEdit"
-        private const val EXTRA_CONTENT_FILTER_ID_TO_LOAD = "contentFilterIdToLoad"
+        private const val EXTRA_CONTENT_FILTER_TO_EDIT = "app.pachli.EXTRA_CONTENT_FILTER_TO_EDIT"
+        private const val EXTRA_CONTENT_FILTER_ID_TO_LOAD =
+            "app.pachli.EXTRA_CONTENT_FILTER_ID_TO_LOAD"
 
         /**
          * Launch with [contentFilter] displayed, ready to edit.
          *
          * @param context
          * @param contentFilter Content filter to edit
+         * @param accountId The account that owns the filter
          * @see [app.pachli.components.filters.EditContentFilterActivity]
          */
-        fun edit(context: Context, contentFilter: ContentFilter) = EditContentFilterActivityIntent(context).apply {
+        fun edit(context: Context, accountId: Long, contentFilter: ContentFilter) = EditContentFilterActivityIntent(context, accountId).apply {
             putExtra(EXTRA_CONTENT_FILTER_TO_EDIT, contentFilter)
         }
 
         /**
-         * Launch and load [filterId], display it ready to edit.
+         * Launch and load [contentFilterId], display it ready to edit.
          *
          * @param context
-         * @param filterId ID of the content filter to load
+         * @param accountId The account that owns the filter
+         * @param contentFilterId ID of the content filter to load
          * @see [app.pachli.components.filters.EditContentFilterActivity]
          */
-        fun edit(context: Context, filterId: String) = EditContentFilterActivityIntent(context).apply {
-            putExtra(EXTRA_CONTENT_FILTER_ID_TO_LOAD, filterId)
-        }
+        fun edit(context: Context, accountId: Long, contentFilterId: String) =
+            EditContentFilterActivityIntent(context, accountId).apply {
+                putExtra(EXTRA_CONTENT_FILTER_ID_TO_LOAD, contentFilterId)
+            }
 
         /** @return the [ContentFilter] passed in this intent, or null */
         fun getContentFilter(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_CONTENT_FILTER_TO_EDIT, ContentFilter::class.java)
@@ -257,72 +282,70 @@ class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEF
     }
 
     companion object {
-        private const val EXTRA_LOGIN_MODE = "loginMode"
+        private const val EXTRA_LOGIN_MODE = "app.pachli.EXTRA_LOGIN_MODE"
 
         /** @return the `loginMode` passed to this intent */
         fun getLoginMode(intent: Intent) = intent.getSerializableExtra(EXTRA_LOGIN_MODE)!! as LoginMode
     }
 }
 
-class MainActivityIntent(context: Context) : Intent() {
+class MainActivityIntent constructor(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.MAIN_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 
     companion object {
-        private const val EXTRA_PACHLI_ACCOUNT_ID = "pachliAccountId"
-        private const val EXTRA_NOTIFICATION_TYPE = "notificationType"
-        private const val EXTRA_COMPOSE_OPTIONS = "composeOptions"
-        private const val EXTRA_NOTIFICATION_TAG = "notificationTag"
-        private const val EXTRA_NOTIFICATION_ID = "notificationId"
-        private const val EXTRA_REDIRECT_URL = "redirectUrl"
-        private const val EXTRA_OPEN_DRAFTS = "openDrafts"
+        private const val EXTRA_NOTIFICATION_TYPE = "app.pachli.EXTRA_NOTIFICATION_TYPE"
+        private const val EXTRA_COMPOSE_OPTIONS = "app.pachli.EXTRA_COMPOSE_OPTIONS"
+        private const val EXTRA_NOTIFICATION_TAG = "app.pachli.EXTRA_NOTIFICATION_TAG"
+        private const val EXTRA_NOTIFICATION_ID = "app.pachli.EXTRA_NOTIFICATION_ID"
+        private const val EXTRA_REDIRECT_URL = "app.pachli.EXTRA_REDIRECT_URL"
+        private const val EXTRA_OPEN_DRAFTS = "app.pachli.EXTRA_OPEN_DRAFTS"
 
         fun hasComposeOptions(intent: Intent) = intent.hasExtra(EXTRA_COMPOSE_OPTIONS)
         fun hasNotificationType(intent: Intent) = intent.hasExtra(EXTRA_NOTIFICATION_TYPE)
 
-        fun getPachliAccountId(intent: Intent) = intent.getLongExtra(EXTRA_PACHLI_ACCOUNT_ID, -1)
         fun getNotificationType(intent: Intent) = intent.getSerializableExtra(EXTRA_NOTIFICATION_TYPE) as Notification.Type
         fun getNotificationTag(intent: Intent) = intent.getStringExtra(EXTRA_NOTIFICATION_TAG)
         fun getNotificationId(intent: Intent) = intent.getIntExtra(EXTRA_NOTIFICATION_ID, -1)
         fun getRedirectUrl(intent: Intent) = intent.getStringExtra(EXTRA_REDIRECT_URL)
         fun getOpenDrafts(intent: Intent) = intent.getBooleanExtra(EXTRA_OPEN_DRAFTS, false)
 
-        fun setPachliAccountId(intent: Intent, pachliAccountId: Long) {
-            intent.putExtra(EXTRA_PACHLI_ACCOUNT_ID, pachliAccountId)
-        }
-
         /**
-         * Switches the active account to the provided accountId and then stays on MainActivity
+         *
          */
-        private fun switchAccount(context: Context, pachliAccountId: Long) = MainActivityIntent(context).apply {
-            putExtra(EXTRA_PACHLI_ACCOUNT_ID, pachliAccountId)
+        fun withShortCut(context: Context, pachliAccountId: Long) = MainActivityIntent(context, pachliAccountId).apply {
+            action = ACTION_SEND
+            type = "text/plain"
+            putExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID, pachliAccountId.toString())
         }
 
         /**
-         * Switches the active account to the accountId and takes the user to the correct place according to the notification they clicked
+         * Switches the active account to the accountId and takes the user to the correct place
+         * according to the notification they clicked
          */
         fun openNotification(
             context: Context,
             pachliAccountId: Long,
             type: Notification.Type,
-        ) = switchAccount(context, pachliAccountId).apply {
+        ) = MainActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_NOTIFICATION_TYPE, type)
         }
 
         /**
          * Switches the active account to the accountId and then opens ComposeActivity with the provided options
-         * @param pachliAccountId the id of the Pachli account to open the screen with. Set to -1 for current account.
+         * @param pachliAccountId the id of the Pachli account to open the screen with.
          * @param notificationId optional id of the notification that should be cancelled when this intent is opened
          * @param notificationTag optional tag of the notification that should be cancelled when this intent is opened
          */
         fun openCompose(
             context: Context,
             options: ComposeActivityIntent.ComposeOptions,
-            pachliAccountId: Long = -1,
+            pachliAccountId: Long,
             notificationTag: String? = null,
             notificationId: Int = -1,
-        ) = switchAccount(context, pachliAccountId).apply {
+        ) = MainActivityIntent(context, pachliAccountId).apply {
             action = ACTION_SEND
             putExtra(EXTRA_COMPOSE_OPTIONS, options)
             putExtra(EXTRA_NOTIFICATION_TAG, notificationTag)
@@ -331,13 +354,14 @@ class MainActivityIntent(context: Context) : Intent() {
         }
 
         /**
-         * switches the active account to the accountId and then tries to resolve and show the provided url
+         * Switches the active account to [pachliAccountId] and then tries to resolve and
+         * show the provided url
          */
         fun redirect(
             context: Context,
             pachliAccountId: Long,
             url: String,
-        ) = switchAccount(context, pachliAccountId).apply {
+        ) = MainActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_REDIRECT_URL, url)
             flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -345,7 +369,7 @@ class MainActivityIntent(context: Context) : Intent() {
         /**
          * switches the active account to the provided accountId and then opens drafts
          */
-        fun openDrafts(context: Context, pachliAccountId: Long) = switchAccount(context, pachliAccountId).apply {
+        fun openDrafts(context: Context, pachliAccountId: Long) = MainActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_OPEN_DRAFTS, true)
         }
     }
@@ -356,7 +380,7 @@ class MainActivityIntent(context: Context) : Intent() {
  * @param screen The preference screen to show
  * @see [app.pachli.components.preference.PreferencesActivity]
  */
-class PreferencesActivityIntent(context: Context, screen: PreferenceScreen) : Intent() {
+class PreferencesActivityIntent(context: Context, pachliAccountId: Long, screen: PreferenceScreen) : Intent() {
     /** A specific preference screen */
     enum class PreferenceScreen {
         /** General preferences */
@@ -368,13 +392,15 @@ class PreferencesActivityIntent(context: Context, screen: PreferenceScreen) : In
         /** Notification preferences */
         NOTIFICATION,
     }
+
     init {
         setClassName(context, QuadrantConstants.PREFERENCES_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_PREFERENCE_SCREEN, screen)
     }
 
     companion object {
-        private const val EXTRA_PREFERENCE_SCREEN = "preferenceScreen"
+        private const val EXTRA_PREFERENCE_SCREEN = "app.pachli.EXTRA_PREFERENCE_SCREEN"
 
         /** @return the `screen` passed to this intent */
         fun getPreferenceType(intent: Intent) = intent.getSerializableExtra(EXTRA_PREFERENCE_SCREEN)!! as PreferenceScreen
@@ -388,18 +414,19 @@ class PreferencesActivityIntent(context: Context, screen: PreferenceScreen) : In
  * @param statusId Optional ID of a status to include in the report
  * @see [app.pachli.components.report.ReportActivity]
  */
-class ReportActivityIntent(context: Context, accountId: String, userName: String, statusId: String? = null) : Intent() {
+class ReportActivityIntent(context: Context, pachliAccountId: Long, accountId: String, userName: String, statusId: String? = null) : Intent() {
     init {
         setClassName(context, QuadrantConstants.REPORT_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_ACCOUNT_ID, accountId)
         putExtra(EXTRA_ACCOUNT_USERNAME, userName)
         putExtra(EXTRA_STATUS_ID, statusId)
     }
 
     companion object {
-        private const val EXTRA_ACCOUNT_ID = "accountId"
-        private const val EXTRA_ACCOUNT_USERNAME = "accountUsername"
-        private const val EXTRA_STATUS_ID = "statusId"
+        private const val EXTRA_ACCOUNT_ID = "app.pachli.EXTRA_ACCOUNT_ID"
+        private const val EXTRA_ACCOUNT_USERNAME = "app.pachli.EXTRA_ACCOUNT_USERNAME"
+        private const val EXTRA_STATUS_ID = "app.pachli.EXTRA_STATUS_ID"
 
         /** @return the `accountId` passed to this intent */
         fun getAccountId(intent: Intent) = intent.getStringExtra(EXTRA_ACCOUNT_ID)!!
@@ -416,20 +443,21 @@ class ReportActivityIntent(context: Context, accountId: String, userName: String
  * Use one of [bookmarks], [conversations], [favourites], [hashtag], [list], [publicFederated],
  * or [publicLocal] to construct.
  */
-class TimelineActivityIntent private constructor(context: Context) : Intent() {
+class TimelineActivityIntent private constructor(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.TIMELINE_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 
     companion object {
-        private const val EXTRA_TIMELINE = "timeline"
+        private const val EXTRA_TIMELINE = "app.pachli.EXTRA_TIMELINE"
 
         /**
          * Show the user's bookmarks.
          *
          * @param context
          */
-        fun bookmarks(context: Context) = TimelineActivityIntent(context).apply {
+        fun bookmarks(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_TIMELINE, Timeline.Bookmarks)
         }
 
@@ -438,7 +466,7 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
          *
          * @param context
          */
-        fun conversations(context: Context) = TimelineActivityIntent(context).apply {
+        fun conversations(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_TIMELINE, Timeline.Conversations)
         }
 
@@ -447,7 +475,7 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
          *
          * @param context
          */
-        fun favourites(context: Context) = TimelineActivityIntent(context).apply {
+        fun favourites(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_TIMELINE, Timeline.Favourites)
         }
 
@@ -457,7 +485,7 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
          * @param context
          * @param hashtag The hashtag to show, without the leading "`#`"
          */
-        fun hashtag(context: Context, hashtag: String) = TimelineActivityIntent(context).apply {
+        fun hashtag(context: Context, pachliAccountId: Long, hashtag: String) = TimelineActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_TIMELINE, Timeline.Hashtags(listOf(hashtag)))
         }
 
@@ -468,7 +496,7 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
          * @param listId ID of the list to show
          * @param title The title to display
          */
-        fun list(context: Context, listId: String, title: String) = TimelineActivityIntent(context).apply {
+        fun list(context: Context, pachliAccountId: Long, listId: String, title: String) = TimelineActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_TIMELINE, Timeline.UserList(listId, title))
         }
 
@@ -477,7 +505,7 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
          *
          * @param context
          */
-        fun publicFederated(context: Context) = TimelineActivityIntent(context).apply {
+        fun publicFederated(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_TIMELINE, Timeline.PublicFederated)
         }
 
@@ -486,7 +514,7 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
          *
          * @param context
          */
-        fun publicLocal(context: Context) = TimelineActivityIntent(context).apply {
+        fun publicLocal(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_TIMELINE, Timeline.PublicLocal)
         }
 
@@ -495,7 +523,7 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
          *
          * @param context
          */
-        fun notifications(context: Context) = TimelineActivityIntent(context).apply {
+        fun notifications(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_TIMELINE, Timeline.Notifications)
         }
 
@@ -504,21 +532,23 @@ class TimelineActivityIntent private constructor(context: Context) : Intent() {
     }
 }
 
-class ViewMediaActivityIntent private constructor(context: Context) : Intent() {
+class ViewMediaActivityIntent private constructor(context: Context, accountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.VIEW_MEDIA_ACTIVITY)
+        pachliAccountId = accountId
     }
 
     /**
      * Show a collection of media attachments.
      *
      * @param context
+     * @param accountId ID of the Pachli account viewing the media
      * @param owningUsername The username that owns the media. See
      * [SFragment.viewMedia][app.pachli.fragment.SFragment.viewMedia].
      * @param attachments The attachments to show
      * @param index The index of the attachment in [attachments] to focus on
      */
-    constructor(context: Context, owningUsername: String, attachments: List<AttachmentViewData>, index: Int) : this(context) {
+    constructor(context: Context, accountId: Long, owningUsername: String, attachments: List<AttachmentViewData>, index: Int) : this(context, accountId) {
         putExtra(EXTRA_OWNING_USERNAME, owningUsername)
         putParcelableArrayListExtra(EXTRA_ATTACHMENTS, ArrayList(attachments))
         putExtra(EXTRA_ATTACHMENT_INDEX, index)
@@ -528,20 +558,21 @@ class ViewMediaActivityIntent private constructor(context: Context) : Intent() {
      * Show a single image identified by a URL
      *
      * @param context
+     * @param accountId ID of the Pachli account viewing the media
      * @param owningUsername The username that owns the media. See
      * [SFragment.viewMedia][app.pachli.fragment.SFragment.viewMedia].
      * @param url The URL of the image
      */
-    constructor(context: Context, owningUsername: String, url: String) : this(context) {
+    constructor(context: Context, accountId: Long, owningUsername: String, url: String) : this(context, accountId) {
         putExtra(EXTRA_OWNING_USERNAME, owningUsername)
         putExtra(EXTRA_SINGLE_IMAGE_URL, url)
     }
 
     companion object {
-        private const val EXTRA_OWNING_USERNAME = "owningUsername"
-        private const val EXTRA_ATTACHMENTS = "attachments"
-        private const val EXTRA_ATTACHMENT_INDEX = "index"
-        private const val EXTRA_SINGLE_IMAGE_URL = "singleImage"
+        private const val EXTRA_OWNING_USERNAME = "app.pachli.EXTRA_OWNING_USERNAME"
+        private const val EXTRA_ATTACHMENTS = "app.pachli.EXTRA_ATTACHMENTS"
+        private const val EXTRA_ATTACHMENT_INDEX = "app.pachli.EXTRA_ATTACHMENT_INDEX"
+        private const val EXTRA_SINGLE_IMAGE_URL = "app.pachli.EXTRA_SINGLE_IMAGE_URL"
 
         /** @return the owningUsername passed in this intent. */
         fun getOwningUsername(intent: Intent): String = intent.getStringExtra(EXTRA_OWNING_USERNAME)!!
@@ -559,20 +590,22 @@ class ViewMediaActivityIntent private constructor(context: Context) : Intent() {
 
 /**
  * @param context
+ * @param accountId ID of the Pachli account viewing the thread
  * @param statusId ID of the status to start from (may be in the middle of the thread)
  * @param statusUrl Optional URL of the status in `statusId`
  * @see [app.pachli.components.viewthread.ViewThreadActivity]
  */
-class ViewThreadActivityIntent(context: Context, statusId: String, statusUrl: String? = null) : Intent() {
+class ViewThreadActivityIntent(context: Context, accountId: Long, statusId: String, statusUrl: String? = null) : Intent() {
     init {
         setClassName(context, QuadrantConstants.VIEW_THREAD_ACTIVITY)
+        pachliAccountId = accountId
         putExtra(EXTRA_STATUS_ID, statusId)
         putExtra(EXTRA_STATUS_URL, statusUrl)
     }
 
     companion object {
-        private const val EXTRA_STATUS_ID = "id"
-        private const val EXTRA_STATUS_URL = "url"
+        private const val EXTRA_STATUS_ID = "app.pachli.EXTRA_STATUS_ID"
+        private const val EXTRA_STATUS_URL = "app.pachli.EXTRA_STATUS_URL"
 
         /** @return the `statusId` passed to this intent */
         fun getStatusId(intent: Intent) = intent.getStringExtra(EXTRA_STATUS_ID)!!
@@ -588,33 +621,38 @@ class AboutActivityIntent(context: Context) : Intent() {
     }
 }
 
-class AnnouncementsActivityIntent(context: Context) : Intent() {
+class AnnouncementsActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.ANNOUNCEMENTS_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
-class DraftsActivityIntent(context: Context) : Intent() {
+class DraftsActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.DRAFTS_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
-class EditProfileActivityIntent(context: Context) : Intent() {
+class EditProfileActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.EDIT_PROFILE_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
-class ContentFiltersActivityIntent(context: Context) : Intent() {
+class ContentFiltersActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.CONTENT_FILTERS_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
-class FollowedTagsActivityIntent(context: Context) : Intent() {
+class FollowedTagsActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.FOLLOWED_TAGS_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
@@ -624,9 +662,10 @@ class InstanceListActivityIntent(context: Context) : Intent() {
     }
 }
 
-class ListActivityIntent(context: Context) : Intent() {
+class ListActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.LISTS_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
@@ -636,32 +675,37 @@ class LoginWebViewActivityIntent(context: Context) : Intent() {
     }
 }
 
-class ScheduledStatusActivityIntent(context: Context) : Intent() {
+class ScheduledStatusActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.SCHEDULED_STATUS_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
-class SearchActivityIntent(context: Context) : Intent() {
+class SearchActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.SEARCH_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
-class SuggestionsActivityIntent(context: Context) : Intent() {
+class SuggestionsActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.SUGGESTIONS_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
-class TabPreferenceActivityIntent(context: Context) : Intent() {
+class TabPreferenceActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.TAB_PREFERENCE_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
-class TrendingActivityIntent(context: Context) : Intent() {
+class TrendingActivityIntent(context: Context, accountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.TRENDING_ACTIVITY)
+        pachliAccountId = accountId
     }
 }
