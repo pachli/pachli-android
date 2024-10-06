@@ -77,7 +77,7 @@ suspend fun updateShortcuts(context: Context, accountManager: AccountManager) = 
             .build()
 
         // This intent will be sent when the user clicks on one of the launcher shortcuts. Intent from share sheet will be different
-        val intent = MainActivityIntent(context).apply {
+        val intent = MainActivityIntent(context, account.id).apply {
             action = Intent.ACTION_SEND
             type = "text/plain"
             putExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID, account.id.toString())

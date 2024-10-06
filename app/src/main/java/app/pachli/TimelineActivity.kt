@@ -40,6 +40,7 @@ import app.pachli.core.model.NewContentFilter
 import app.pachli.core.model.NewContentFilterKeyword
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.TimelineActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.databinding.ActivityTimelineBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
@@ -52,6 +53,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -98,7 +100,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         timeline = TimelineActivityIntent.getTimeline(intent)
         hashtag = (timeline as? Timeline.Hashtags)?.tags?.firstOrNull()
 
-        val viewData = TabViewData.from(timeline)
+        val viewData = TabViewData.from(intent.pachliAccountId, timeline)
 
         supportActionBar?.run {
             title = viewData.title(this@TimelineActivity)

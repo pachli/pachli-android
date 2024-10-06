@@ -26,6 +26,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.interfaces.StatusActionListener
 
 class ConversationAdapter(
+    private val pachliAccountId: Long,
     private var statusDisplayOptions: StatusDisplayOptions,
     private val listener: StatusActionListener<ConversationViewData>,
 ) : PagingDataAdapter<ConversationViewData, ConversationViewHolder>(CONVERSATION_COMPARATOR) {
@@ -40,7 +41,7 @@ class ConversationAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConversationViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_conversation, parent, false)
-        return ConversationViewHolder(view, statusDisplayOptions, listener)
+        return ConversationViewHolder(pachliAccountId, view, statusDisplayOptions, listener)
     }
 
     override fun onBindViewHolder(holder: ConversationViewHolder, position: Int) {

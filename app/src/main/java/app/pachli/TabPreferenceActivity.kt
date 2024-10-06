@@ -48,7 +48,8 @@ import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Timeline
-import app.pachli.core.navigation.ListActivityIntent
+import app.pachli.core.navigation.ListsActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityTabPreferenceBinding
@@ -110,7 +111,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             setDisplayShowHomeEnabled(true)
         }
 
-        currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty().map { TabViewData.from(it) }.toMutableList()
+        currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty().map { TabViewData.from(accountManager.activeAccount!!.id, it) }.toMutableList()
         currentTabsAdapter = TabAdapter(currentTabs, false, this)
         binding.currentTabsRecyclerView.adapter = currentTabsAdapter
         binding.currentTabsRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -118,7 +119,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
 
-        addTabAdapter = TabAdapter(listOf(TabViewData.from(Timeline.Conversations)), true, this)
+        addTabAdapter = TabAdapter(listOf(TabViewData.from(intent.pachliAccountId, Timeline.Conversations)), true, this)
         binding.addTabRecyclerView.adapter = addTabAdapter
         binding.addTabRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -251,7 +252,10 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setPositiveButton(R.string.action_save) { _, _ ->
                 val input = editText.text.toString().trim()
                 if (timeline == null) {
-                    val newTab = TabViewData.from(Timeline.Hashtags(listOf(input)))
+                    val newTab = TabViewData.from(
+                        intent.pachliAccountId,
+                        Timeline.Hashtags(listOf(input)),
+                    )
                     currentTabs.add(newTab)
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
                 } else {
@@ -294,7 +298,10 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setView(selectListBinding.root)
             .setAdapter(adapter) { _, position ->
                 adapter.getItem(position)?.let { item ->
-                    val newTab = TabViewData.from(Timeline.UserList(item.id, item.title))
+                    val newTab = TabViewData.from(
+                        intent.pachliAccountId,
+                        Timeline.UserList(item.id, item.title),
+                    )
                     currentTabs.add(newTab)
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
                     updateAvailableTabs()
@@ -310,7 +317,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         dialog.setOnShowListener {
             val button = dialog.getButton(AlertDialog.BUTTON_NEUTRAL)
             button.setOnClickListener {
-                startActivity(ListActivityIntent(applicationContext))
+                startActivity(ListsActivityIntent(applicationContext, intent.pachliAccountId))
             }
         }
 
@@ -342,51 +349,52 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     }
 
     private fun updateAvailableTabs() {
+        val activeAccountId = intent.pachliAccountId
         val addableTabs: MutableList<TabViewData> = mutableListOf()
 
-        val homeTab = TabViewData.from(Timeline.Home)
+        val homeTab = TabViewData.from(activeAccountId, Timeline.Home)
         if (!currentTabs.contains(homeTab)) {
             addableTabs.add(homeTab)
         }
-        val notificationTab = TabViewData.from(Timeline.Notifications)
+        val notificationTab = TabViewData.from(activeAccountId, Timeline.Notifications)
         if (!currentTabs.contains(notificationTab)) {
             addableTabs.add(notificationTab)
         }
-        val localTab = TabViewData.from(Timeline.PublicLocal)
+        val localTab = TabViewData.from(activeAccountId, Timeline.PublicLocal)
         if (!currentTabs.contains(localTab)) {
             addableTabs.add(localTab)
         }
-        val federatedTab = TabViewData.from(Timeline.PublicFederated)
+        val federatedTab = TabViewData.from(activeAccountId, Timeline.PublicFederated)
         if (!currentTabs.contains(federatedTab)) {
             addableTabs.add(federatedTab)
         }
-        val directMessagesTab = TabViewData.from(Timeline.Conversations)
+        val directMessagesTab = TabViewData.from(activeAccountId, Timeline.Conversations)
         if (!currentTabs.contains(directMessagesTab)) {
             addableTabs.add(directMessagesTab)
         }
-        val bookmarksTab = TabViewData.from(Timeline.Bookmarks)
+        val bookmarksTab = TabViewData.from(activeAccountId, Timeline.Bookmarks)
         if (!currentTabs.contains(bookmarksTab)) {
             addableTabs.add(bookmarksTab)
         }
-        val favouritesTab = TabViewData.from(Timeline.Favourites)
+        val favouritesTab = TabViewData.from(activeAccountId, Timeline.Favourites)
         if (!currentTabs.contains(favouritesTab)) {
             addableTabs.add(favouritesTab)
         }
-        val trendingTagsTab = TabViewData.from(Timeline.TrendingHashtags)
+        val trendingTagsTab = TabViewData.from(activeAccountId, Timeline.TrendingHashtags)
         if (!currentTabs.contains(trendingTagsTab)) {
             addableTabs.add(trendingTagsTab)
         }
-        val trendingLinksTab = TabViewData.from(Timeline.TrendingLinks)
+        val trendingLinksTab = TabViewData.from(activeAccountId, Timeline.TrendingLinks)
         if (!currentTabs.contains(trendingLinksTab)) {
             addableTabs.add(trendingLinksTab)
         }
-        val trendingStatusesTab = TabViewData.from(Timeline.TrendingStatuses)
+        val trendingStatusesTab = TabViewData.from(activeAccountId, Timeline.TrendingStatuses)
         if (!currentTabs.contains(trendingStatusesTab)) {
             addableTabs.add(trendingStatusesTab)
         }
 
-        addableTabs.add(TabViewData.from(Timeline.Hashtags(emptyList())))
-        addableTabs.add(TabViewData.from(Timeline.UserList("", "")))
+        addableTabs.add(TabViewData.from(activeAccountId, Timeline.Hashtags(emptyList())))
+        addableTabs.add(TabViewData.from(activeAccountId, Timeline.UserList("", "")))
 
         addTabAdapter.updateData(addableTabs)
     }

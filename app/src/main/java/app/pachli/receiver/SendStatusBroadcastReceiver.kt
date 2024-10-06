@@ -108,7 +108,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                         poll = null,
                         replyingStatusContent = null,
                         replyingStatusAuthorUsername = null,
-                        accountId = account.id,
+                        pachliAccountId = account.id,
                         draftId = -1,
                         idempotencyKey = randomAlphanumericString(16),
                         retries = 0,

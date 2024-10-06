@@ -68,6 +68,7 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -96,8 +97,11 @@ class AccountListFragment :
     private var fetching = false
     private var bottomId: String? = null
 
+    private var pachliAccountId by Delegates.notNull<Long>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
         kind = requireArguments().getSerializable(ARG_KIND) as Kind
         id = requireArguments().getString(ARG_ID)
     }
@@ -158,15 +162,19 @@ class AccountListFragment :
     }
 
     override fun onViewTag(tag: String) {
-        activity?.startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(requireContext(), tag))
+        activity?.startActivityWithDefaultTransition(
+            TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
+        )
     }
 
     override fun onViewAccount(id: String) {
-        activity?.startActivityWithDefaultTransition(AccountActivityIntent(requireContext(), id))
+        activity?.startActivityWithDefaultTransition(
+            AccountActivityIntent(requireContext(), pachliAccountId, id),
+        )
     }
 
     override fun onViewUrl(url: String) {
-        (activity as? BottomSheetActivity)?.viewUrl(url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
+        (activity as? BottomSheetActivity)?.viewUrl(pachliAccountId, url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
@@ -399,12 +407,14 @@ class AccountListFragment :
     }
 
     companion object {
-        private const val ARG_KIND = "kind"
-        private const val ARG_ID = "id"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+        private const val ARG_KIND = "app.pachli.ARG_KIND"
+        private const val ARG_ID = "app.pachli.ARG_ID"
 
-        fun newInstance(kind: Kind, id: String? = null): AccountListFragment {
+        fun newInstance(pachliAccountId: Long, kind: Kind, id: String? = null): AccountListFragment {
             return AccountListFragment().apply {
                 arguments = Bundle(3).apply {
+                    putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
                     putSerializable(ARG_KIND, kind)
                     putString(ARG_ID, id)
                 }

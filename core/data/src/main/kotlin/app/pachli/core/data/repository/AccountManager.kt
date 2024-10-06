@@ -86,7 +86,7 @@ class AccountManager @Inject constructor(
         clientSecret: String,
         oauthScopes: String,
         newAccount: Account,
-    ) {
+    ): Long {
         activeAccount?.let {
             it.isActive = false
             Timber.d("addAccount: saving account with id %d", it.id)
@@ -122,6 +122,7 @@ class AccountManager @Inject constructor(
 
         activeAccount = newAccountEntity
         updateActiveAccount(newAccount)
+        return newAccountEntity.id
     }
 
     /**

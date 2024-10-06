@@ -76,6 +76,7 @@ import app.pachli.core.navigation.EditProfileActivityIntent
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.parseAsMastodonHtml
@@ -252,7 +253,7 @@ class AccountActivity :
                 R.id.accountFollowing -> AccountListActivityIntent.Kind.FOLLOWS
                 else -> throw AssertionError()
             }
-            val accountListIntent = AccountListActivityIntent(this, kind, viewModel.accountId)
+            val accountListIntent = AccountListActivityIntent(this, intent.pachliAccountId, kind, viewModel.accountId)
             startActivityWithDefaultTransition(accountListIntent)
         }
         binding.accountFollowers.setOnClickListener(accountListClickListener)
@@ -281,7 +282,11 @@ class AccountActivity :
      */
     private fun setupTabs() {
         // Setup the tabs and timeline pager.
-        adapter = AccountPagerAdapter(this, viewModel.accountId)
+        adapter = AccountPagerAdapter(
+            this,
+            accountManager.activeAccount!!.id,
+            viewModel.accountId,
+        )
 
         binding.accountFragmentViewPager.reduceSwipeSensitivity()
         binding.accountFragmentViewPager.adapter = adapter
@@ -579,7 +584,7 @@ class AccountActivity :
     private fun viewImage(view: View, owningUsername: String, uri: String) {
         ViewCompat.setTransitionName(view, uri)
         startActivity(
-            ViewMediaActivityIntent(view.context, owningUsername, uri),
+            ViewMediaActivityIntent(view.context, intent.pachliAccountId, owningUsername, uri),
             ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, uri).toBundle(),
         )
     }
@@ -645,7 +650,7 @@ class AccountActivity :
 
             binding.accountFollowButton.setOnClickListener {
                 if (viewModel.isSelf) {
-                    val intent = EditProfileActivityIntent(this@AccountActivity)
+                    val intent = EditProfileActivityIntent(this@AccountActivity, intent.pachliAccountId)
                     startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     return@setOnClickListener
                 }
@@ -975,17 +980,17 @@ class AccountActivity :
     }
 
     override fun onViewTag(tag: String) {
-        val intent = TimelineActivityIntent.hashtag(this, tag)
+        val intent = TimelineActivityIntent.hashtag(this, intent.pachliAccountId, tag)
         startActivityWithDefaultTransition(intent)
     }
 
     override fun onViewAccount(id: String) {
-        val intent = AccountActivityIntent(this, id)
+        val intent = AccountActivityIntent(this, intent.pachliAccountId, id)
         startActivityWithDefaultTransition(intent)
     }
 
     override fun onViewUrl(url: String) {
-        viewUrl(url)
+        viewUrl(intent.pachliAccountId, url)
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
@@ -1044,7 +1049,7 @@ class AccountActivity :
                 return true
             }
             R.id.action_add_or_remove_from_list -> {
-                ListsForAccountFragment.newInstance(viewModel.accountId).show(supportFragmentManager, null)
+                ListsForAccountFragment.newInstance(intent.pachliAccountId, viewModel.accountId).show(supportFragmentManager, null)
                 return true
             }
             R.id.action_mute_domain -> {
@@ -1062,7 +1067,7 @@ class AccountActivity :
             }
             R.id.action_report -> {
                 loadedAccount?.let { loadedAccount ->
-                    startActivity(ReportActivityIntent(this, viewModel.accountId, loadedAccount.username))
+                    startActivity(ReportActivityIntent(this, intent.pachliAccountId, viewModel.accountId, loadedAccount.username))
                 }
                 return true
             }

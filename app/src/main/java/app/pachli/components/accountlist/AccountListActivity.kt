@@ -29,6 +29,7 @@ import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOWS
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOW_REQUESTS
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.MUTES
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.REBLOGGED
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.databinding.ActivityAccountListBinding
 import app.pachli.interfaces.AppBarLayoutHost
 import com.google.android.material.appbar.AppBarLayout
@@ -67,7 +68,7 @@ class AccountListActivity : BottomSheetActivity(), AppBarLayoutHost {
         }
 
         supportFragmentManager.commit {
-            replace(R.id.fragment_container, AccountListFragment.newInstance(kind, id))
+            replace(R.id.fragment_container, AccountListFragment.newInstance(intent.pachliAccountId, kind, id))
         }
     }
 }

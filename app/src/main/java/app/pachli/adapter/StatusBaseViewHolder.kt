@@ -63,7 +63,10 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import java.text.NumberFormat
 import java.util.Date
 
-abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(itemView: View) :
+abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
+    private val pachliAccountId: Long,
+    itemView: View,
+) :
     RecyclerView.ViewHolder(itemView) {
     object Key {
         const val KEY_CREATED = "created"
@@ -883,13 +886,13 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(i
             cardView.bind(card, viewData.actionable.sensitive, statusDisplayOptions) { card, target ->
                 if (target == PreviewCardView.Target.BYLINE) {
                     card.authors?.firstOrNull()?.account?.id?.let {
-                        context.startActivity(AccountActivityIntent(context, it))
+                        context.startActivity(AccountActivityIntent(context, pachliAccountId, it))
                     }
                     return@bind
                 }
 
                 if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
-                    context.startActivity(ViewMediaActivityIntent(context, viewData.actionable.account.username, card.embedUrl))
+                    context.startActivity(ViewMediaActivityIntent(context, pachliAccountId, viewData.actionable.account.username, card.embedUrl))
                     return@bind
                 }
 

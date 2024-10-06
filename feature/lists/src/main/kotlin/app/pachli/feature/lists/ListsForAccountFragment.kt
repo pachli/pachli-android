@@ -57,7 +57,9 @@ class ListsForAccountFragment : DialogFragment() {
     private val viewModel: ListsForAccountViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<ListsForAccountViewModel.Factory> { factory ->
-                factory.create(requireArguments().getString(ARG_ACCOUNT_ID)!!)
+                factory.create(
+                    requireArguments().getString(ARG_ACCOUNT_ID)!!,
+                )
             }
         },
     )
@@ -209,11 +211,14 @@ class ListsForAccountFragment : DialogFragment() {
     }
 
     companion object {
-        /** The ID of the account to add/remove the lists */
-        private const val ARG_ACCOUNT_ID = "accountId"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
 
-        fun newInstance(accountId: String): ListsForAccountFragment {
+        /** The ID of the account to add/remove the lists */
+        private const val ARG_ACCOUNT_ID = "app.pachli.ARG_ACCOUNT_ID"
+
+        fun newInstance(pachliAccountId: Long, accountId: String): ListsForAccountFragment {
             val args = Bundle().apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
                 putString(ARG_ACCOUNT_ID, accountId)
             }
             return ListsForAccountFragment().apply { arguments = args }

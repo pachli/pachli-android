@@ -23,6 +23,7 @@ import app.pachli.components.report.adapter.ReportPagerAdapter
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ReportActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.databinding.ActivityReportBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -70,7 +71,7 @@ class ReportActivity : BottomSheetActivity() {
         //   (unfixed old bug: https://github.com/material-components/material-components-android/issues/500)
         binding.wizard.offscreenPageLimit = 1
 
-        binding.wizard.adapter = ReportPagerAdapter(this)
+        binding.wizard.adapter = ReportPagerAdapter(this, intent.pachliAccountId)
     }
 
     private fun subscribeObservables() {
@@ -90,7 +91,7 @@ class ReportActivity : BottomSheetActivity() {
         viewModel.checkUrl.observe(this) {
             if (!it.isNullOrBlank()) {
                 viewModel.urlChecked()
-                viewUrl(it)
+                viewUrl(intent.pachliAccountId, it)
             }
         }
     }

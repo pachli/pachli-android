@@ -57,6 +57,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -74,6 +75,13 @@ class TrendingTagsFragment :
     private val binding by viewBinding(FragmentTrendingTagsBinding::bind)
 
     private val adapter = TrendingTagsAdapter(::onViewTag)
+
+    private var pachliAccountId by Delegates.notNull<Long>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+    }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -176,6 +184,7 @@ class TrendingTagsFragment :
         activity?.startActivityWithDefaultTransition(
             TimelineActivityIntent.hashtag(
                 requireContext(),
+                pachliAccountId,
                 tag,
             ),
         )
@@ -281,6 +290,14 @@ class TrendingTagsFragment :
     }
 
     companion object {
-        fun newInstance() = TrendingTagsFragment()
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+
+        fun newInstance(pachliAccountId: Long): TrendingTagsFragment {
+            val fragment = TrendingTagsFragment()
+            fragment.arguments = Bundle(1).apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+            }
+            return fragment
+        }
     }
 }

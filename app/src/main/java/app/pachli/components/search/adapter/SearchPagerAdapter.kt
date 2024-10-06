@@ -23,13 +23,16 @@ import app.pachli.components.search.fragments.SearchAccountsFragment
 import app.pachli.components.search.fragments.SearchHashtagsFragment
 import app.pachli.components.search.fragments.SearchStatusesFragment
 
-class SearchPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
+class SearchPagerAdapter(
+    activity: FragmentActivity,
+    private val pachliAccountId: Long,
+) : FragmentStateAdapter(activity) {
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> SearchStatusesFragment.newInstance()
-            1 -> SearchAccountsFragment.newInstance()
-            2 -> SearchHashtagsFragment.newInstance()
+            0 -> SearchStatusesFragment.newInstance(pachliAccountId)
+            1 -> SearchAccountsFragment.newInstance(pachliAccountId)
+            2 -> SearchHashtagsFragment.newInstance(pachliAccountId)
             else -> throw IllegalArgumentException("Unknown page index: $position")
         }
     }

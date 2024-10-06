@@ -33,6 +33,7 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.PrefKeys.APP_THEME
 import app.pachli.databinding.ActivityPreferencesBinding
@@ -60,7 +61,7 @@ class PreferencesActivity :
              * Either the back stack activities need to all be recreated, or do the easier thing, which
              * is hijack the back button press and use it to launch a new MainActivity and clear the
              * back stack. */
-            val intent = MainActivityIntent(this@PreferencesActivity)
+            val intent = MainActivityIntent(this@PreferencesActivity, intent.pachliAccountId)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivityWithDefaultTransition(intent)
         }
@@ -85,7 +86,7 @@ class PreferencesActivity :
         val fragment: Fragment = supportFragmentManager.findFragmentByTag(fragmentTag)
             ?: when (preferenceType) {
                 PreferenceScreen.GENERAL -> PreferencesFragment.newInstance()
-                PreferenceScreen.ACCOUNT -> AccountPreferencesFragment.newInstance()
+                PreferenceScreen.ACCOUNT -> AccountPreferencesFragment.newInstance(intent.pachliAccountId)
                 PreferenceScreen.NOTIFICATION -> NotificationPreferencesFragment.newInstance()
                 else -> throw IllegalArgumentException("preferenceType not known")
             }

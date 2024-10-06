@@ -110,6 +110,7 @@ interface NotificationActionListener {
 
 class NotificationsPagingAdapter(
     diffCallback: DiffUtil.ItemCallback<NotificationViewData>,
+    private val pachliAccountId: Long,
     /** ID of the the account that notifications are being displayed for */
     private val accountId: String,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
@@ -145,6 +146,7 @@ class NotificationsPagingAdapter(
         return when (NotificationViewKind.entries[viewType]) {
             NotificationViewKind.STATUS -> {
                 StatusViewHolder(
+                    pachliAccountId,
                     ItemStatusBinding.inflate(inflater, parent, false),
                     statusActionListener,
                     accountId,
@@ -152,6 +154,7 @@ class NotificationsPagingAdapter(
             }
             NotificationViewKind.STATUS_FILTERED -> {
                 FilterableStatusViewHolder(
+                    pachliAccountId,
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
                     statusActionListener,
                     accountId,

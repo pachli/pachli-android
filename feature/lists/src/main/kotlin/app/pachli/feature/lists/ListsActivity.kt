@@ -47,6 +47,7 @@ import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.navigation.TimelineActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.ui.BackgroundMessage
@@ -238,7 +239,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
 
     private fun onListSelected(listId: String, listTitle: String) {
         startActivityWithDefaultTransition(
-            TimelineActivityIntent.list(this, listId, listTitle),
+            TimelineActivityIntent.list(this, intent.pachliAccountId, listId, listTitle),
         )
     }
 

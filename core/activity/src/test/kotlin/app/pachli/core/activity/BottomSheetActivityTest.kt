@@ -58,6 +58,8 @@ class BottomSheetActivityTest {
         SearchResult(emptyList(), emptyList(), emptyList()),
     )
 
+    private val pachliAccountId = 0L
+
     private val account = TimelineAccount(
         id = "1",
         localUsername = "admin",
@@ -166,21 +168,23 @@ class BottomSheetActivityTest {
 
     @Test
     fun search_inIdealConditions_returnsRequestedResults_forAccount() = runTest {
-        activity.viewUrl(accountQuery)
+        activity.viewUrl(pachliAccountId, accountQuery)
         advanceUntilIdle()
+        assertEquals(pachliAccountId, activity.pachliAccountId)
         assertEquals(account.id, activity.accountId)
     }
 
     @Test
     fun search_inIdealConditions_returnsRequestedResults_forStatus() = runTest {
-        activity.viewUrl(statusQuery)
+        activity.viewUrl(pachliAccountId, statusQuery)
         advanceUntilIdle()
+        assertEquals(pachliAccountId, activity.pachliAccountId)
         assertEquals(status.id, activity.statusId)
     }
 
     @Test
     fun search_inIdealConditions_returnsRequestedResults_forNonMastodonURL() = runTest {
-        activity.viewUrl(nonMastodonQuery)
+        activity.viewUrl(pachliAccountId, nonMastodonQuery)
         advanceUntilIdle()
         assertEquals(nonMastodonQuery, activity.link)
     }
@@ -188,7 +192,7 @@ class BottomSheetActivityTest {
     @Test
     fun search_withNoResults_appliesRequestedFallbackBehavior() = runTest {
         for (fallbackBehavior in listOf(PostLookupFallbackBehavior.OPEN_IN_BROWSER, PostLookupFallbackBehavior.DISPLAY_ERROR)) {
-            activity.viewUrl(nonMastodonQuery, fallbackBehavior)
+            activity.viewUrl(pachliAccountId, nonMastodonQuery, fallbackBehavior)
             advanceUntilIdle()
             assertEquals(nonMastodonQuery, activity.link)
             assertEquals(fallbackBehavior, activity.fallbackBehavior)
@@ -197,15 +201,14 @@ class BottomSheetActivityTest {
 
     @Test
     fun search_doesNotRespectUnrelatedResult() = runTest {
-        activity.viewUrl(nonexistentStatusQuery)
+        activity.viewUrl(pachliAccountId, nonexistentStatusQuery)
         advanceUntilIdle()
-        assertEquals(nonexistentStatusQuery, activity.link)
         assertEquals(null, activity.accountId)
     }
 
     @Test
     fun search_withCancellation_doesNotLoadUrl_forAccount() = runTest {
-        activity.viewUrl(accountQuery)
+        activity.viewUrl(pachliAccountId, accountQuery)
         assertTrue(activity.isSearching())
         activity.cancelActiveSearch()
         assertFalse(activity.isSearching())
@@ -214,14 +217,14 @@ class BottomSheetActivityTest {
 
     @Test
     fun search_withCancellation_doesNotLoadUrl_forStatus() = runTest {
-        activity.viewUrl(accountQuery)
+        activity.viewUrl(pachliAccountId, accountQuery)
         activity.cancelActiveSearch()
         assertEquals(null, activity.accountId)
     }
 
     @Test
     fun search_withCancellation_doesNotLoadUrl_forNonMastodonURL() = runTest {
-        activity.viewUrl(nonMastodonQuery)
+        activity.viewUrl(pachliAccountId, nonMastodonQuery)
         activity.cancelActiveSearch()
         assertEquals(null, activity.searchUrl)
     }
@@ -229,11 +232,11 @@ class BottomSheetActivityTest {
     @Test
     fun search_withPreviousCancellation_completes() = runTest {
         // begin/cancel account search
-        activity.viewUrl(accountQuery)
+        activity.viewUrl(pachliAccountId, accountQuery)
         activity.cancelActiveSearch()
 
         // begin status search
-        activity.viewUrl(statusQuery)
+        activity.viewUrl(pachliAccountId, statusQuery)
 
         // ensure that search is still ongoing
         assertTrue(activity.isSearching())
@@ -243,12 +246,14 @@ class BottomSheetActivityTest {
 
         // ensure that the result of the status search was recorded
         // and the account search wasn't
+        assertEquals(pachliAccountId, activity.pachliAccountId)
         assertEquals(status.id, activity.statusId)
         assertEquals(null, activity.accountId)
     }
 
     class FakeBottomSheetActivity(api: MastodonApi) : BottomSheetActivity() {
 
+        var pachliAccountId: Long? = null
         var statusId: String? = null
         var accountId: String? = null
         var link: String? = null
@@ -263,11 +268,13 @@ class BottomSheetActivityTest {
             this.link = url
         }
 
-        override fun viewAccount(id: String) {
+        override fun viewAccount(pachliAccountId: Long, id: String) {
+            this.pachliAccountId = pachliAccountId
             this.accountId = id
         }
 
-        override fun viewThread(statusId: String, url: String?) {
+        override fun viewThread(pachliAccountId: Long, statusId: String, url: String?) {
+            this.pachliAccountId = pachliAccountId
             this.statusId = statusId
         }
 

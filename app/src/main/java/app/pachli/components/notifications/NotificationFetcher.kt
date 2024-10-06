@@ -56,14 +56,14 @@ class NotificationFetcher @Inject constructor(
     private val accountManager: AccountManager,
     @ApplicationContext private val context: Context,
 ) {
-    suspend fun fetchAndShow(accountId: Long) {
+    suspend fun fetchAndShow(pachliAccountId: Long) {
         Timber.d("NotificationFetcher.fetchAndShow() started")
 
         val accounts = buildList {
-            if (accountId == NotificationWorker.ALL_ACCOUNTS) {
+            if (pachliAccountId == NotificationWorker.ALL_ACCOUNTS) {
                 addAll(accountManager.getAllAccountsOrderedByActive())
             } else {
-                accountManager.getAccountById(accountId)?.let { add(it) }
+                accountManager.getAccountById(pachliAccountId)?.let { add(it) }
             }
         }
 

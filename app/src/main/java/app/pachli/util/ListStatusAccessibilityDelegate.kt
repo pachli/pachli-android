@@ -31,6 +31,7 @@ fun interface StatusProvider<T> {
 }
 
 class ListStatusAccessibilityDelegate<T : IStatusViewData>(
+    private val pachliAccountId: Long,
     private val recyclerView: RecyclerView,
     private val statusActionListener: StatusActionListener<T>,
     private val statusProvider: StatusProvider<T>,
@@ -194,7 +195,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearWarningAction(status)
                 app.pachli.core.ui.R.id.action_edit_filter -> {
                     (recyclerView.findContainingViewHolder(host) as? FilterableStatusViewHolder<*>)?.matchedFilter?.let {
-                        statusActionListener.onEditFilterById(it.id)
+                        statusActionListener.onEditFilterById(pachliAccountId, it.id)
                         return@let true
                     } ?: false
                 }

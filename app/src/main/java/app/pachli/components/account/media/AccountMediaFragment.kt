@@ -50,6 +50,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -69,9 +70,12 @@ class AccountMediaFragment :
 
     private lateinit var adapter: AccountMediaGridAdapter
 
+    private var pachliAccountId by Delegates.notNull<Long>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.accountId = arguments?.getString(ACCOUNT_ID_ARG)!!
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+        viewModel.accountId = arguments?.getString(ARG_ACCOUNT_ID)!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -165,7 +169,7 @@ class AccountMediaFragment :
             Attachment.Type.VIDEO,
             Attachment.Type.AUDIO,
             -> {
-                val intent = ViewMediaActivityIntent(requireContext(), selected.username, attachmentsFromSameStatus, currentIndex)
+                val intent = ViewMediaActivityIntent(requireContext(), pachliAccountId, selected.username, attachmentsFromSameStatus, currentIndex)
                 if (activity != null) {
                     val url = selected.attachment.url
                     ViewCompat.setTransitionName(view, url)
@@ -197,14 +201,16 @@ class AccountMediaFragment :
     }
 
     companion object {
-        fun newInstance(accountId: String): AccountMediaFragment {
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+        private const val ARG_ACCOUNT_ID = "app.pachli.ARG_ACCOUNT_ID"
+
+        fun newInstance(pachliAccountId: Long, accountId: String): AccountMediaFragment {
             val fragment = AccountMediaFragment()
-            val args = Bundle(1)
-            args.putString(ACCOUNT_ID_ARG, accountId)
-            fragment.arguments = args
+            fragment.arguments = Bundle(2).apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+                putString(ARG_ACCOUNT_ID, accountId)
+            }
             return fragment
         }
-
-        private const val ACCOUNT_ID_ARG = "account_id"
     }
 }

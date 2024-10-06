@@ -85,7 +85,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
-        return SearchStatusesAdapter(statusDisplayOptions, this)
+        return SearchStatusesAdapter(viewModel.activeAccount!!.id, statusDisplayOptions, this)
     }
 
     override fun onContentHiddenChange(viewData: StatusViewData, isShowing: Boolean) {
@@ -115,6 +115,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 val attachments = AttachmentViewData.list(actionable)
                 val intent = ViewMediaActivityIntent(
                     requireContext(),
+                    pachliAccountId,
                     actionable.account.username,
                     attachments,
                     attachmentIndex,
@@ -140,11 +141,11 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     override fun onViewThread(status: Status) {
         val actionableStatus = status.actionableStatus
-        bottomSheetActivity?.viewThread(actionableStatus.id, actionableStatus.url)
+        bottomSheetActivity?.viewThread(pachliAccountId, actionableStatus.id, actionableStatus.url)
     }
 
     override fun onOpenReblog(status: Status) {
-        bottomSheetActivity?.viewAccount(status.account.id)
+        bottomSheetActivity?.viewAccount(pachliAccountId, status.account.id)
     }
 
     override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
@@ -165,15 +166,11 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         viewModel.reblog(viewData, reblog)
     }
 
-    override fun onEditFilterById(filterId: String) {
+    override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
         requireActivity().startActivityWithTransition(
-            EditContentFilterActivityIntent.edit(requireContext(), filterId),
+            EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
-    }
-
-    companion object {
-        fun newInstance() = SearchStatusesFragment()
     }
 
     private fun reply(status: StatusViewData) {
@@ -399,7 +396,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
-        startActivity(ReportActivityIntent(requireContext(), accountId, accountUsername, statusId))
+        startActivity(ReportActivityIntent(requireContext(), this.pachliAccountId, accountUsername, statusId))
     }
 
     // TODO: Identical to the same function in SFragment.kt
@@ -487,6 +484,12 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     ).show()
                 },
             )
+        }
+    }
+
+    companion object {
+        fun newInstance(pachliAccountId: Long): SearchStatusesFragment {
+            return SearchFragment.newInstance(pachliAccountId)
         }
     }
 }
