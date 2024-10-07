@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -25,9 +25,9 @@ subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "application")
 
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
+    tasks.named<KotlinCompilationTask<*>>("compileKotlin").configure {
+        compilerOptions {
+            freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
         }
     }
 
