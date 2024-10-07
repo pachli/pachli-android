@@ -304,17 +304,17 @@ class ComposeActivity :
 
         /* Finally, overwrite state with data from saved instance state. */
         savedInstanceState?.let {
-            photoUploadUri = BundleCompat.getParcelable(it, PHOTO_UPLOAD_URI_KEY, Uri::class.java)
+            photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
 
-            (it.getSerializable(VISIBILITY_KEY) as Status.Visibility).apply {
+            (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
                 setStatusVisibility(this)
             }
 
-            it.getBoolean(CONTENT_WARNING_VISIBLE_KEY).apply {
+            it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
                 viewModel.showContentWarningChanged(this)
             }
 
-            it.getString(SCHEDULED_TIME_KEY)?.let { time ->
+            it.getString(KEY_SCHEDULED_TIME)?.let { time ->
                 viewModel.updateScheduledAt(time)
             }
         }
@@ -706,10 +706,10 @@ class ComposeActivity :
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putParcelable(PHOTO_UPLOAD_URI_KEY, photoUploadUri)
-        outState.putSerializable(VISIBILITY_KEY, viewModel.statusVisibility.value)
-        outState.putBoolean(CONTENT_WARNING_VISIBLE_KEY, viewModel.showContentWarning.value)
-        outState.putString(SCHEDULED_TIME_KEY, viewModel.scheduledAt.value)
+        outState.putParcelable(KEY_PHOTO_UPLOAD_URI, photoUploadUri)
+        outState.putSerializable(KEY_VISIBILITY, viewModel.statusVisibility.value)
+        outState.putBoolean(KEY_CONTENT_WARNING_VISIBLE, viewModel.showContentWarning.value)
+        outState.putString(KEY_SCHEDULED_TIME, viewModel.scheduledAt.value)
         super.onSaveInstanceState(outState)
     }
 
@@ -1420,11 +1420,10 @@ class ComposeActivity :
     companion object {
         private const val PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
 
-        internal const val COMPOSE_OPTIONS_EXTRA = "COMPOSE_OPTIONS"
-        private const val PHOTO_UPLOAD_URI_KEY = "PHOTO_UPLOAD_URI"
-        private const val VISIBILITY_KEY = "VISIBILITY"
-        private const val SCHEDULED_TIME_KEY = "SCHEDULE"
-        private const val CONTENT_WARNING_VISIBLE_KEY = "CONTENT_WARNING_VISIBLE"
+        private const val KEY_PHOTO_UPLOAD_URI = "app.pachli.KEY_PHOTO_UPLOAD_URI"
+        private const val KEY_VISIBILITY = "app.pachli.KEY_VISIBILITY"
+        private const val KEY_SCHEDULED_TIME = "app.pachli.KEY_SCHEDULED_TIME"
+        private const val KEY_CONTENT_WARNING_VISIBLE = "app.pachli.KEY_CONTENT_WARNING_VISIBLE"
 
         fun canHandleMimeType(mimeType: String?): Boolean {
             return mimeType != null && (mimeType.startsWith("image/") || mimeType.startsWith("video/") || mimeType.startsWith("audio/") || mimeType == "text/plain")

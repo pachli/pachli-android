@@ -396,7 +396,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
-        startActivity(ReportActivityIntent(requireContext(), this.pachliAccountId, accountUsername, statusId))
+        startActivity(ReportActivityIntent(requireContext(), this.pachliAccountId, accountId, accountUsername, statusId))
     }
 
     // TODO: Identical to the same function in SFragment.kt

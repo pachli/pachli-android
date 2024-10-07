@@ -282,11 +282,7 @@ class AccountActivity :
      */
     private fun setupTabs() {
         // Setup the tabs and timeline pager.
-        adapter = AccountPagerAdapter(
-            this,
-            accountManager.activeAccount!!.id,
-            viewModel.accountId,
-        )
+        adapter = AccountPagerAdapter(this, intent.pachliAccountId, viewModel.accountId)
 
         binding.accountFragmentViewPager.reduceSwipeSensitivity()
         binding.accountFragmentViewPager.adapter = adapter

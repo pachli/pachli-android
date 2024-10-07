@@ -493,10 +493,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
             KeyEvent.KEYCODE_SEARCH -> {
                 startActivityWithDefaultTransition(
-                    SearchActivityIntent(
-                        this,
-                        intent.pachliAccountId,
-                    ),
+                    SearchActivityIntent(this, intent.pachliAccountId),
                 )
                 return true
             }
