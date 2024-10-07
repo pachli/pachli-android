@@ -58,9 +58,7 @@ data class TabViewData(
 
         other as TabViewData
 
-        if (timeline != other.timeline) return false
-
-        return true
+        return timeline == other.timeline
     }
 
     override fun hashCode() = timeline.hashCode()

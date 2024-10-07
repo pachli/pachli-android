@@ -122,10 +122,10 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 serverRepository.flow.collect { result ->
                     result.onSuccess {
-                        serverCanTranslate = it?.can(
+                        serverCanTranslate = it.can(
                             operation = ORG_JOINMASTODON_STATUSES_TRANSLATE,
                             constraint = ">=1.0".toConstraint(),
-                        ) ?: false
+                        )
                     }
                     result.onFailure {
                         val msg = getString(
