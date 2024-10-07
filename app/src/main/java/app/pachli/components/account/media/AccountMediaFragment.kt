@@ -74,8 +74,8 @@ class AccountMediaFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(PACHLI_ACCOUNT_ID_ARG)
-        viewModel.accountId = arguments?.getString(ACCOUNT_ID_ARG)!!
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+        viewModel.accountId = arguments?.getString(ARG_ACCOUNT_ID)!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -201,14 +201,14 @@ class AccountMediaFragment :
     }
 
     companion object {
-        private const val PACHLI_ACCOUNT_ID_ARG = "pachliAccountId"
-        private const val ACCOUNT_ID_ARG = "account_id"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+        private const val ARG_ACCOUNT_ID = "app.pachli.ARG_ACCOUNT_ID"
 
         fun newInstance(pachliAccountId: Long, accountId: String): AccountMediaFragment {
             val fragment = AccountMediaFragment()
             fragment.arguments = Bundle(2).apply {
-                putLong(PACHLI_ACCOUNT_ID_ARG, pachliAccountId)
-                putString(ACCOUNT_ID_ARG, accountId)
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+                putString(ARG_ACCOUNT_ID, accountId)
             }
             return fragment
         }

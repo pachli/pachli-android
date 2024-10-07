@@ -264,7 +264,7 @@ class TrendingLinksFragment :
     }
 
     companion object {
-        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
 
         fun newInstance(pachliAccountId: Long): TrendingLinksFragment {
             val fragment = TrendingLinksFragment()

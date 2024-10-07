@@ -38,7 +38,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 /**
- * This is the base class for all activities that open links
+ * Base class for all activities that open links
  *
  * Links are checked against the api if they are mastodon links so they can be opened in Pachli
  *
@@ -94,7 +94,7 @@ abstract class BottomSheetActivity : BaseActivity() {
                     // Some servers return (unrelated) accounts for url searches (#2804)
                     // Verify that the account's url matches the query
                     accounts.firstOrNull { it.url.equals(url, ignoreCase = true) }?.let {
-                        viewAccount(it.id)
+                        viewAccount(pachliAccountId, it.id)
                         return@fold
                     }
 
@@ -117,10 +117,8 @@ abstract class BottomSheetActivity : BaseActivity() {
         }
     }
 
-    open fun viewAccount(id: String) {
-        // XXX: -1L in the next line is just to get this to compile while working on
-        // this code. In the final code this activity should have the active account.
-        val intent = AccountActivityIntent(this, -1L, id)
+    open fun viewAccount(pachliAccountId: Long, id: String) {
+        val intent = AccountActivityIntent(this, pachliAccountId, id)
         startActivityWithDefaultTransition(intent)
     }
 

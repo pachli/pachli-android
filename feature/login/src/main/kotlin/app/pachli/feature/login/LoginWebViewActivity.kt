@@ -58,7 +58,7 @@ import timber.log.Timber
 class OauthLogin : ActivityResultContract<LoginData, LoginResult>() {
     override fun createIntent(context: Context, input: LoginData): Intent {
         val intent = LoginWebViewActivityIntent(context)
-        intent.putExtra(DATA_EXTRA, input)
+        intent.putExtra(EXTRA_DATA, input)
         return intent
     }
 
@@ -68,22 +68,22 @@ class OauthLogin : ActivityResultContract<LoginData, LoginResult>() {
             LoginResult.Cancel
         } else {
             intent?.let {
-                IntentCompat.getParcelableExtra(it, RESULT_EXTRA, LoginResult::class.java)
+                IntentCompat.getParcelableExtra(it, EXTRA_RESULT, LoginResult::class.java)
             } ?: LoginResult.Err("failed parsing LoginWebViewActivity result")
         }
     }
 
     companion object {
-        private const val RESULT_EXTRA = "result"
-        private const val DATA_EXTRA = "data"
+        private const val EXTRA_RESULT = "app.pachli.EXTRA_RESULT"
+        private const val EXTRA_DATA = "app.pachli.EXTRA_DATA"
 
         fun parseData(intent: Intent): LoginData {
-            return IntentCompat.getParcelableExtra(intent, DATA_EXTRA, LoginData::class.java)!!
+            return IntentCompat.getParcelableExtra(intent, EXTRA_DATA, LoginData::class.java)!!
         }
 
         fun makeResultIntent(result: LoginResult): Intent {
             val intent = Intent()
-            intent.putExtra(RESULT_EXTRA, result)
+            intent.putExtra(EXTRA_RESULT, result)
             return intent
         }
     }

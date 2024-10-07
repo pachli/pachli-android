@@ -193,7 +193,7 @@ class AnnouncementsActivity :
     }
 
     override fun onViewAccount(id: String) {
-        viewAccount(id)
+        viewAccount(intent.pachliAccountId, id)
     }
 
     override fun onViewUrl(url: String) {

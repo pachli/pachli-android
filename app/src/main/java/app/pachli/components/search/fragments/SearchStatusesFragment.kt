@@ -145,7 +145,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     override fun onOpenReblog(status: Status) {
-        bottomSheetActivity?.viewAccount(status.account.id)
+        bottomSheetActivity?.viewAccount(pachliAccountId, status.account.id)
     }
 
     override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
@@ -396,7 +396,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
-        startActivity(ReportActivityIntent(requireContext(), this.pachliAccountId, accountUsername, statusId))
+        startActivity(ReportActivityIntent(requireContext(), this.pachliAccountId, accountId, accountUsername, statusId))
     }
 
     // TODO: Identical to the same function in SFragment.kt
@@ -488,8 +488,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     companion object {
-        fun newInstance(accountId: Long): SearchStatusesFragment {
-            return SearchFragment.newInstance(accountId)
+        fun newInstance(pachliAccountId: Long): SearchStatusesFragment {
+            return SearchFragment.newInstance(pachliAccountId)
         }
     }
 }

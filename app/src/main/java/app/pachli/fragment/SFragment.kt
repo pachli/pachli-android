@@ -127,7 +127,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         serverCanTranslate = it.can(
                             operation = ORG_JOINMASTODON_STATUSES_TRANSLATE,
                             constraint = ">=1.0".toConstraint(),
-                        ) ?: false
+                        )
                     }
                     result.onFailure {
                         val msg = getString(
@@ -155,7 +155,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     protected fun openReblog(status: Status?) {
         if (status == null) return
-        bottomSheetActivity.viewAccount(status.account.id)
+        bottomSheetActivity.viewAccount(pachliAccountId, status.account.id)
     }
 
     protected fun viewThread(statusId: String?, statusUrl: String?) {
@@ -163,7 +163,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     protected fun viewAccount(accountId: String?) {
-        bottomSheetActivity.viewAccount(accountId!!)
+        bottomSheetActivity.viewAccount(pachliAccountId, accountId!!)
     }
 
     override fun onViewUrl(url: String) {
@@ -436,7 +436,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
-        startActivity(ReportActivityIntent(requireContext(), this.pachliAccountId, accountId, accountUsername, statusId))
+        startActivity(ReportActivityIntent(requireContext(), pachliAccountId, accountId, accountUsername, statusId))
     }
 
     private fun showConfirmDeleteDialog(viewData: T) {

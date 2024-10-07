@@ -167,7 +167,7 @@ class TimelineFragment :
 
         pachliAccountId = arguments.getLong(ARG_PACHLI_ACCOUNT_ID)
 
-        timeline = arguments.getParcelable(KIND_ARG)!!
+        timeline = arguments.getParcelable(ARG_KIND)!!
 
         isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
 
@@ -819,9 +819,9 @@ class TimelineFragment :
     }
 
     companion object {
-        private const val KIND_ARG = "kind"
-        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
-        private const val ARG_ENABLE_SWIPE_TO_REFRESH = "enableSwipeToRefresh"
+        private const val ARG_KIND = "app.pachli.ARG_KIND"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+        private const val ARG_ENABLE_SWIPE_TO_REFRESH = "app.pachli.ARG_ENABLE_SWIPE_TO_REFRESH"
 
         fun newInstance(
             pachliAccountId: Long,
@@ -831,7 +831,7 @@ class TimelineFragment :
             val fragment = TimelineFragment()
             val arguments = Bundle(3)
             arguments.putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
-            arguments.putParcelable(KIND_ARG, timeline)
+            arguments.putParcelable(ARG_KIND, timeline)
             arguments.putBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, enableSwipeToRefresh)
             fragment.arguments = arguments
             return fragment

@@ -165,7 +165,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
                 result.onSuccess { server ->
                     _flow.update {
                         it.copy(
-                            canTranslate = server?.can(ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()) ?: false,
+                            canTranslate = server.can(ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()),
                         )
                     }
                 }

@@ -402,9 +402,9 @@ class ViewThreadFragment :
     }
 
     companion object {
-        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
-        private const val ARG_ID = "id"
-        private const val ARG_URL = "url"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+        private const val ARG_ID = "app.pachli.ARG_ID"
+        private const val ARG_URL = "app.pachli.ARG_URL"
 
         fun newInstance(pachliAccountId: Long, id: String, url: String?): ViewThreadFragment {
             val fragment = ViewThreadFragment()

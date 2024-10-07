@@ -58,7 +58,7 @@ class LogoutUseCase @Inject constructor(
             deleteNotificationChannelsForAccount(activeAccount, context)
 
             // remove account from local AccountManager
-            val otherAccountAvailable = accountManager.logActiveAccountOut()
+            val nextAccount = accountManager.logActiveAccountOut()
 
             // clear the database - this could trigger network calls so do it last when all tokens are gone
             timelineDao.removeAll(activeAccount.id)
@@ -70,7 +70,7 @@ class LogoutUseCase @Inject constructor(
             // remove shortcut associated with the account
             ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(activeAccount.id.toString()))
 
-            return otherAccountAvailable
+            return nextAccount
         }
         return null
     }

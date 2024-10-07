@@ -210,8 +210,8 @@ class ViewEditsFragment :
         get() = (activity as? BottomSheetActivity)
 
     companion object {
-        private const val ARG_PACHLI_ACCOUNT_ID = "accountId"
-        private const val ARG_STATUS_ID = "id"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+        private const val ARG_STATUS_ID = "app.pachli.ARG_STATUS_ID"
 
         fun newInstance(pachliAccountId: Long, statusId: String): ViewEditsFragment {
             val fragment = ViewEditsFragment()

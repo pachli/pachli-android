@@ -47,7 +47,7 @@ import app.pachli.core.data.repository.MastodonList
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.domain.lists.GetListsUseCase
 import app.pachli.core.model.Timeline
-import app.pachli.core.navigation.ListActivityIntent
+import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.databinding.DialogSelectListBinding
@@ -108,7 +108,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
 
-        addTabAdapter = TabAdapter(listOf(TabViewData.from(accountManager.activeAccount!!.id, Timeline.Conversations)), true, this)
+        addTabAdapter = TabAdapter(listOf(TabViewData.from(intent.pachliAccountId, Timeline.Conversations)), true, this)
         binding.addTabRecyclerView.adapter = addTabAdapter
         binding.addTabRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -242,7 +242,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 val input = editText.text.toString().trim()
                 if (timeline == null) {
                     val newTab = TabViewData.from(
-                        accountManager.activeAccount!!.id,
+                        intent.pachliAccountId,
                         Timeline.Hashtags(listOf(input)),
                     )
                     currentTabs.add(newTab)
@@ -288,7 +288,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setAdapter(adapter) { _, position ->
                 adapter.getItem(position)?.let { item ->
                     val newTab = TabViewData.from(
-                        accountManager.activeAccount!!.id,
+                        intent.pachliAccountId,
                         Timeline.UserList(item.listId, item.title),
                     )
                     currentTabs.add(newTab)
@@ -306,7 +306,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         dialog.setOnShowListener {
             val button = dialog.getButton(AlertDialog.BUTTON_NEUTRAL)
             button.setOnClickListener {
-                startActivity(ListActivityIntent(applicationContext, intent.pachliAccountId))
+                startActivity(ListsActivityIntent(applicationContext, intent.pachliAccountId))
             }
         }
 
@@ -328,7 +328,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     }
 
     private fun updateAvailableTabs() {
-        val activeAccountId = accountManager.activeAccount!!.id
+        val activeAccountId = intent.pachliAccountId
         val addableTabs: MutableList<TabViewData> = mutableListOf()
 
         val homeTab = TabViewData.from(activeAccountId, Timeline.Home)

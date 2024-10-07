@@ -92,7 +92,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should return error when network call returns error code`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            activeAccount = activeAccount,
+            pachliAccountId = activeAccount.id,
             api = mock {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(500, "".toResponseBody())
             },
@@ -115,7 +115,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should return error when network call fails`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            activeAccount = activeAccount,
+            pachliAccountId = activeAccount.id,
             api = mock {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doThrow IOException()
             },
@@ -137,7 +137,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should not prepend statuses`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            activeAccount = activeAccount,
+            pachliAccountId = activeAccount.id,
             api = mock(),
             factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
@@ -169,7 +169,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should not try to refresh already cached statuses when db is empty`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            activeAccount = activeAccount,
+            pachliAccountId = activeAccount.id,
             api = mock {
                 onBlocking { homeTimeline(limit = 20) } doReturn Response.success(
                     listOf(
@@ -224,7 +224,7 @@ class CachedTimelineRemoteMediatorTest {
 
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            activeAccount = activeAccount,
+            pachliAccountId = activeAccount.id,
             api = mock {
                 onBlocking { homeTimeline(limit = 20) } doReturn Response.success(
                     listOf(
@@ -281,7 +281,7 @@ class CachedTimelineRemoteMediatorTest {
 
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,
-            activeAccount = activeAccount,
+            pachliAccountId = activeAccount.id,
             api = mock {
                 onBlocking { homeTimeline(maxId = "5", limit = 20) } doReturn Response.success(
                     listOf(

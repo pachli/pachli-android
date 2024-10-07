@@ -212,10 +212,10 @@ class ListsForAccountFragment : DialogFragment() {
     }
 
     companion object {
-        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
 
         /** The ID of the account to add/remove the lists */
-        private const val ARG_ACCOUNT_ID = "accountId"
+        private const val ARG_ACCOUNT_ID = "app.pachli.ARG_ACCOUNT_ID"
 
         fun newInstance(pachliAccountId: Long, accountId: String): ListsForAccountFragment {
             val args = Bundle().apply {

@@ -282,11 +282,7 @@ class AccountActivity :
      */
     private fun setupTabs() {
         // Setup the tabs and timeline pager.
-        adapter = AccountPagerAdapter(
-            this,
-            accountManager.activeAccount!!.id,
-            viewModel.accountId,
-        )
+        adapter = AccountPagerAdapter(this, intent.pachliAccountId, viewModel.accountId)
 
         binding.accountFragmentViewPager.reduceSwipeSensitivity()
         binding.accountFragmentViewPager.adapter = adapter
@@ -1049,7 +1045,7 @@ class AccountActivity :
                 return true
             }
             R.id.action_add_or_remove_from_list -> {
-                ListsForAccountFragment.newInstance(-1L, viewModel.accountId).show(supportFragmentManager, null)
+                ListsForAccountFragment.newInstance(intent.pachliAccountId, viewModel.accountId).show(supportFragmentManager, null)
                 return true
             }
             R.id.action_mute_domain -> {

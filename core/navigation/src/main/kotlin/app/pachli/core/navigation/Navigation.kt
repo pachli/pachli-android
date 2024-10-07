@@ -662,7 +662,7 @@ class InstanceListActivityIntent(context: Context) : Intent() {
     }
 }
 
-class ListActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
+class ListsActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.LISTS_ACTIVITY)
         this.pachliAccountId = pachliAccountId

@@ -42,8 +42,8 @@ class SearchHashtagsFragment : SearchFragment<HashTag>() {
     override fun createAdapter(): PagingDataAdapter<HashTag, *> = SearchHashtagsAdapter(this)
 
     companion object {
-        fun newInstance(accountId: Long): SearchHashtagsFragment {
-            return SearchFragment.newInstance(accountId)
+        fun newInstance(pachliAccountId: Long): SearchHashtagsFragment {
+            return SearchFragment.newInstance(pachliAccountId)
         }
     }
 }

@@ -407,9 +407,9 @@ class AccountListFragment :
     }
 
     companion object {
-        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
-        private const val ARG_KIND = "kind"
-        private const val ARG_ID = "id"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+        private const val ARG_KIND = "app.pachli.ARG_KIND"
+        private const val ARG_ID = "app.pachli.ARG_ID"
 
         fun newInstance(pachliAccountId: Long, kind: Kind, id: String? = null): AccountListFragment {
             return AccountListFragment().apply {

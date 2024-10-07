@@ -176,7 +176,7 @@ abstract class SearchFragment<T : Any> :
     }
 
     companion object {
-        const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
+        const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
 
         inline fun <reified T : SearchFragment<*>> newInstance(pachliAccountId: Long): T {
             val fragment = T::class.java.getDeclaredConstructor().newInstance()

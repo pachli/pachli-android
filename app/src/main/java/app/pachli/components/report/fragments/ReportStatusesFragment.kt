@@ -90,7 +90,13 @@ class ReportStatusesFragment :
             when (actionable.attachments[idx].type) {
                 Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
                     val attachments = AttachmentViewData.list(actionable)
-                    val intent = ViewMediaActivityIntent(requireContext(), pachliAccountId, actionable.account.username, attachments, idx)
+                    val intent = ViewMediaActivityIntent(
+                        requireContext(),
+                        pachliAccountId,
+                        actionable.account.username,
+                        attachments,
+                        idx,
+                    )
                     if (v != null) {
                         val url = actionable.attachments[idx].url
                         ViewCompat.setTransitionName(v, url)
@@ -228,7 +234,7 @@ class ReportStatusesFragment :
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
 
     companion object {
-        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
 
         fun newInstance(pachliAccountId: Long): ReportStatusesFragment {
             val fragment = ReportStatusesFragment()

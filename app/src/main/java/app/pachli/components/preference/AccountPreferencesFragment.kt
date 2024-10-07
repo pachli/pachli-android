@@ -205,7 +205,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 filterPreference = preference {
                     setTitle(R.string.pref_title_content_filters)
                     setOnPreferenceClickListener {
-                        val intent = ContentFiltersActivityIntent(requireContext(), accountManager.activeAccount!!.id)
+                        val intent = ContentFiltersActivityIntent(requireContext(), pachliAccountId)
                         activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                         true
                     }
@@ -370,7 +370,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
     }
 
     companion object {
-        private const val ARG_PACHLI_ACCOUNT_ID = "pachliAccountId"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
 
         fun newInstance(pachliAccountId: Long): AccountPreferencesFragment {
             val fragment = AccountPreferencesFragment()

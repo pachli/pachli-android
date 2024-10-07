@@ -48,7 +48,7 @@ import timber.log.Timber
 class CachedTimelineRemoteMediator(
     private val initialKey: String?,
     private val api: MastodonApi,
-    private val activeAccount: AccountEntity,
+    private val pachliAccountId: Long,
     private val factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>,
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
@@ -59,11 +59,7 @@ class CachedTimelineRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, TimelineStatusWithAccount>,
     ): MediatorResult {
-        if (!activeAccount.isLoggedIn()) {
-            return MediatorResult.Success(endOfPaginationReached = true)
-        }
-
-        Timber.d("load(), account ID: %d, LoadType = %s", activeAccount.id, loadType)
+        Timber.d("load(), account ID: %d, LoadType = %s", pachliAccountId, loadType)
 
         return try {
             val response = when (loadType) {
@@ -78,7 +74,7 @@ class CachedTimelineRemoteMediator(
 
                 LoadType.APPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
-                        activeAccount.id,
+                        pachliAccountId,
                         TIMELINE_ID,
                         RemoteKeyKind.NEXT,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
@@ -88,7 +84,7 @@ class CachedTimelineRemoteMediator(
 
                 LoadType.PREPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
-                        activeAccount.id,
+                        pachliAccountId,
                         TIMELINE_ID,
                         RemoteKeyKind.PREV,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
@@ -118,12 +114,12 @@ class CachedTimelineRemoteMediator(
             transactionProvider {
                 when (loadType) {
                     LoadType.REFRESH -> {
-                        remoteKeyDao.delete(activeAccount.id)
-                        timelineDao.removeAllStatuses(activeAccount.id)
+                        remoteKeyDao.delete(pachliAccountId)
+                        timelineDao.removeAllStatuses(pachliAccountId)
 
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
-                                activeAccount.id,
+                                pachliAccountId,
                                 TIMELINE_ID,
                                 RemoteKeyKind.NEXT,
                                 links.next,
@@ -131,7 +127,7 @@ class CachedTimelineRemoteMediator(
                         )
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
-                                activeAccount.id,
+                                pachliAccountId,
                                 TIMELINE_ID,
                                 RemoteKeyKind.PREV,
                                 links.prev,
@@ -143,7 +139,7 @@ class CachedTimelineRemoteMediator(
                     LoadType.PREPEND -> links.prev?.let { prev ->
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
-                                activeAccount.id,
+                                pachliAccountId,
                                 TIMELINE_ID,
                                 RemoteKeyKind.PREV,
                                 prev,
@@ -155,7 +151,7 @@ class CachedTimelineRemoteMediator(
                     LoadType.APPEND -> links.next?.let { next ->
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
-                                activeAccount.id,
+                                pachliAccountId,
                                 TIMELINE_ID,
                                 RemoteKeyKind.NEXT,
                                 next,
@@ -163,7 +159,7 @@ class CachedTimelineRemoteMediator(
                         )
                     }
                 }
-                insertStatuses(activeAccount, statuses)
+                insertStatuses(pachliAccountId, statuses)
             }
 
             return MediatorResult.Success(endOfPaginationReached = false)
@@ -250,18 +246,18 @@ class CachedTimelineRemoteMediator(
      * Inserts `statuses` and the accounts referenced by those statuses in to the cache.
      */
     @Transaction
-    private suspend fun insertStatuses(accountEntity: AccountEntity, statuses: List<Status>) {
+    private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
         for (status in statuses) {
-            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, accountEntity.id, moshi))
+            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, pachliAccountId, moshi))
             status.reblog?.account?.let {
-                val account = TimelineAccountEntity.from(it, accountEntity.id, moshi)
+                val account = TimelineAccountEntity.from(it, pachliAccountId, moshi)
                 timelineDao.insertAccount(account)
             }
 
             timelineDao.insertStatus(
                 TimelineStatusEntity.from(
                     status,
-                    timelineUserId = accountEntity.id,
+                    timelineUserId = pachliAccountId,
                     moshi = moshi,
                 ),
             )
