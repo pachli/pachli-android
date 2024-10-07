@@ -61,5 +61,5 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
     fun clearWarningAction(viewData: T)
 
     /** Edit the filter that matched this status. */
-    fun onEditFilterById(filterId: String)
+    fun onEditFilterById(pachliAccountId: Long, filterId: String)
 }

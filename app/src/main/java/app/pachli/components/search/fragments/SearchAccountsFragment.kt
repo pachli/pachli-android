@@ -54,6 +54,8 @@ class SearchAccountsFragment : SearchFragment<TimelineAccount>() {
         get() = viewModel.accountsFlow
 
     companion object {
-        fun newInstance() = SearchAccountsFragment()
+        fun newInstance(pachliAccountId: Long): SearchAccountsFragment {
+            return SearchFragment.newInstance(pachliAccountId)
+        }
     }
 }

@@ -129,7 +129,7 @@ class SendStatusService : Service() {
         val statusToSend = statusesToSend[statusId] ?: return
 
         // when account == null, user has logged out, cancel sending
-        val account = accountManager.getAccountById(statusToSend.accountId)
+        val account = accountManager.getAccountById(statusToSend.pachliAccountId)
 
         if (account == null) {
             statusesToSend.remove(statusId)
@@ -326,7 +326,7 @@ class SendStatusService : Service() {
             val notification = buildDraftNotification(
                 R.string.send_post_notification_error_title,
                 R.string.send_post_notification_saved_content,
-                failedStatus.accountId,
+                failedStatus.pachliAccountId,
                 statusId,
             )
 
@@ -351,7 +351,7 @@ class SendStatusService : Service() {
             val notification = buildDraftNotification(
                 R.string.send_post_notification_cancel_title,
                 R.string.send_post_notification_saved_content,
-                statusToCancel.accountId,
+                statusToCancel.pachliAccountId,
                 statusId,
             )
 
@@ -366,7 +366,7 @@ class SendStatusService : Service() {
     private suspend fun saveStatusToDrafts(status: StatusToSend, failedToSendAlert: Boolean) {
         draftHelper.saveDraft(
             draftId = status.draftId,
-            accountId = status.accountId,
+            pachliAccountId = status.pachliAccountId,
             inReplyToId = status.inReplyToId,
             content = status.text,
             contentWarning = status.warningText,
@@ -480,7 +480,7 @@ data class StatusToSend(
     val poll: NewPoll?,
     val replyingStatusContent: String?,
     val replyingStatusAuthorUsername: String?,
-    val accountId: Long,
+    val pachliAccountId: Long,
     val draftId: Int,
     val idempotencyKey: String,
     var retries: Int,

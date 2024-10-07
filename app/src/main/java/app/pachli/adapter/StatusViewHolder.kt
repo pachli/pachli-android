@@ -36,9 +36,10 @@ import app.pachli.viewdata.IStatusViewData
 import at.connyduck.sparkbutton.helpers.Utils
 
 open class StatusViewHolder<T : IStatusViewData>(
+    pachliAccountId: Long,
     private val binding: ItemStatusBinding,
     root: View? = null,
-) : StatusBaseViewHolder<T>(root ?: binding.root) {
+) : StatusBaseViewHolder<T>(pachliAccountId, root ?: binding.root) {
 
     override fun setupWithStatus(
         viewData: T,

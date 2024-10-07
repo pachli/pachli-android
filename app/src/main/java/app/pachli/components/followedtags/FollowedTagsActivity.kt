@@ -22,6 +22,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.navigation.TimelineActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.databinding.ActivityFollowedTagsBinding
@@ -173,7 +174,7 @@ class FollowedTagsActivity :
     }
 
     override fun onViewTag(tag: String) {
-        startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(this, tag))
+        startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(this, intent.pachliAccountId, tag))
     }
 
     override suspend fun search(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {

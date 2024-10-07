@@ -34,7 +34,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -95,7 +95,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         binding.aboutBugsFeaturesInfoTextView.setClickableTextWithoutUnderlines(R.string.about_bug_feature_request_site)
 
         binding.appProfileButton.setOnClickListener {
-            (activity as? BottomSheetActivity)?.viewUrl(BuildConfig.SUPPORT_ACCOUNT_URL)
+            requireActivity().openLink(BuildConfig.SUPPORT_ACCOUNT_URL)
         }
 
         binding.copyDeviceInfo.setOnClickListener {

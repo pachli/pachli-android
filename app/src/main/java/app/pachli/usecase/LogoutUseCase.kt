@@ -8,6 +8,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.removeShortcut
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -26,9 +27,10 @@ class LogoutUseCase @Inject constructor(
     /**
      * Logs the current account out and clears all caches associated with it
      *
-     * @return true if the user is logged in with other accounts, false if it was the only one
+     * @return The [AccountEntity] that should be logged in next, null if there are no
+     * other accounts to log in to.
      */
-    suspend operator fun invoke(): Boolean {
+    suspend operator fun invoke(): AccountEntity? {
         accountManager.activeAccount?.let { activeAccount ->
 
             // invalidate the oauth token, if we have the client id & secret
@@ -54,7 +56,7 @@ class LogoutUseCase @Inject constructor(
             deleteNotificationChannelsForAccount(activeAccount, context)
 
             // remove account from local AccountManager
-            val otherAccountAvailable = accountManager.logActiveAccountOut() != null
+            val nextAccount = accountManager.logActiveAccountOut()
 
             // clear the database - this could trigger network calls so do it last when all tokens are gone
             timelineDao.removeAll(activeAccount.id)
@@ -66,8 +68,8 @@ class LogoutUseCase @Inject constructor(
             // remove shortcut associated with the account
             removeShortcut(context, activeAccount)
 
-            return otherAccountAvailable
+            return nextAccount
         }
-        return false
+        return null
     }
 }

@@ -33,10 +33,11 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.SmartLengthInputFilter
 
 class ConversationViewHolder internal constructor(
+    pachliAccountId: Long,
     itemView: View,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val listener: StatusActionListener<ConversationViewData>,
-) : StatusBaseViewHolder<ConversationViewData>(itemView) {
+) : StatusBaseViewHolder<ConversationViewData>(pachliAccountId, itemView) {
     private val conversationNameTextView: TextView = itemView.findViewById(R.id.conversation_name)
     private val contentCollapseButton: Button = itemView.findViewById(R.id.button_toggle_content)
     private val avatars: Array<ImageView> = arrayOf(

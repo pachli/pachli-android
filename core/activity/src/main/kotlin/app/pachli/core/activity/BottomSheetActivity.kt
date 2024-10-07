@@ -37,11 +37,13 @@ import java.net.URISyntaxException
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
-/** this is the base class for all activities that open links
- *  links are checked against the api if they are mastodon links so they can be opened in Tusky
- *  Subclasses must have a bottom sheet with Id item_status_bottom_sheet in their layout hierarchy
+/**
+ * Base class for all activities that open links
+ *
+ * Links are checked against the api if they are mastodon links so they can be opened in Pachli
+ *
+ * Subclasses must have a bottom sheet with Id item_status_bottom_sheet in their layout hierarchy
  */
-
 abstract class BottomSheetActivity : BaseActivity() {
 
     lateinit var bottomSheet: BottomSheetBehavior<LinearLayout>
@@ -69,7 +71,7 @@ abstract class BottomSheetActivity : BaseActivity() {
         )
     }
 
-    open fun viewUrl(url: String, lookupFallbackBehavior: PostLookupFallbackBehavior = PostLookupFallbackBehavior.OPEN_IN_BROWSER) {
+    open fun viewUrl(pachliAccountId: Long, url: String, lookupFallbackBehavior: PostLookupFallbackBehavior = PostLookupFallbackBehavior.OPEN_IN_BROWSER) {
         if (!looksLikeMastodonUrl(url)) {
             openLink(url)
             return
@@ -78,42 +80,45 @@ abstract class BottomSheetActivity : BaseActivity() {
         onBeginSearch(url)
 
         lifecycleScope.launch {
-            mastodonApi.search(query = url, resolve = true).fold({ searchResult ->
-                val (accounts, statuses) = searchResult
-                if (getCancelSearchRequested(url)) return@fold
-                onEndSearch(url)
-
-                statuses.firstOrNull()?.let {
-                    viewThread(it.id, it.url)
-                    return@fold
-                }
-
-                // Some servers return (unrelated) accounts for url searches (#2804)
-                // Verify that the account's url matches the query
-                accounts.firstOrNull { it.url.equals(url, ignoreCase = true) }?.let {
-                    viewAccount(it.id)
-                    return@fold
-                }
-
-                performUrlFallbackAction(url, lookupFallbackBehavior)
-            }, {
-                if (!getCancelSearchRequested(url)) {
+            mastodonApi.search(query = url, resolve = true).fold(
+                { searchResult ->
+                    val (accounts, statuses) = searchResult
+                    if (getCancelSearchRequested(url)) return@fold
                     onEndSearch(url)
+
+                    statuses.firstOrNull()?.let {
+                        viewThread(pachliAccountId, it.id, it.url)
+                        return@fold
+                    }
+
+                    // Some servers return (unrelated) accounts for url searches (#2804)
+                    // Verify that the account's url matches the query
+                    accounts.firstOrNull { it.url.equals(url, ignoreCase = true) }?.let {
+                        viewAccount(pachliAccountId, it.id)
+                        return@fold
+                    }
+
                     performUrlFallbackAction(url, lookupFallbackBehavior)
-                }
-            })
+                },
+                {
+                    if (!getCancelSearchRequested(url)) {
+                        onEndSearch(url)
+                        performUrlFallbackAction(url, lookupFallbackBehavior)
+                    }
+                },
+            )
         }
     }
 
-    open fun viewThread(statusId: String, url: String?) {
+    open fun viewThread(pachliAccountId: Long, statusId: String, url: String?) {
         if (!isSearching()) {
-            val intent = ViewThreadActivityIntent(this, statusId, url)
+            val intent = ViewThreadActivityIntent(this, pachliAccountId, statusId, url)
             startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
         }
     }
 
-    open fun viewAccount(id: String) {
-        val intent = AccountActivityIntent(this, id)
+    open fun viewAccount(pachliAccountId: Long, id: String) {
+        val intent = AccountActivityIntent(this, pachliAccountId, id)
         startActivityWithDefaultTransition(intent)
     }
 

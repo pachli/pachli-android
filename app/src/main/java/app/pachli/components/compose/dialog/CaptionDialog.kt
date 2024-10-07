@@ -60,9 +60,9 @@ class CaptionDialog : DialogFragment() {
             MEDIA_DESCRIPTION_CHARACTER_LIMIT,
         )
         input.filters = arrayOf(InputFilter.LengthFilter(MEDIA_DESCRIPTION_CHARACTER_LIMIT))
-        input.setText(arguments?.getString(EXISTING_DESCRIPTION_ARG))
+        input.setText(arguments?.getString(ARG_EXISTING_DESCRIPTION))
 
-        val localId = arguments?.getInt(LOCAL_ID_ARG) ?: error("Missing localId")
+        val localId = arguments?.getInt(ARG_LOCAL_ID) ?: error("Missing localId")
         val dialog = AlertDialog.Builder(context)
             .setView(binding.root)
             .setPositiveButton(android.R.string.ok) { _, _ ->
@@ -75,7 +75,7 @@ class CaptionDialog : DialogFragment() {
         val window = dialog.window
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
-        val previewUri = BundleCompat.getParcelable(requireArguments(), PREVIEW_URI_ARG, Uri::class.java) ?: error("Preview Uri is null")
+        val previewUri = BundleCompat.getParcelable(requireArguments(), ARG_PREVIEW_URI, Uri::class.java) ?: error("Preview Uri is null")
         // Load the image and manually set it into the ImageView because it doesn't have a fixed size.
         Glide.with(this)
             .load(previewUri)
@@ -99,7 +99,7 @@ class CaptionDialog : DialogFragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(DESCRIPTION_KEY, input.text.toString())
+        outState.putString(KEY_DESCRIPTION, input.text.toString())
         super.onSaveInstanceState(outState)
     }
 
@@ -108,7 +108,7 @@ class CaptionDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        savedInstanceState?.getString(DESCRIPTION_KEY)?.let {
+        savedInstanceState?.getString(KEY_DESCRIPTION)?.let {
             input.setText(it)
         }
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -124,21 +124,21 @@ class CaptionDialog : DialogFragment() {
     }
 
     companion object {
+        private const val KEY_DESCRIPTION = "app.pachli.KEY_DESCRIPTION"
+        private const val ARG_EXISTING_DESCRIPTION = "app.pachli.ARG_EXISTING_DESCRIPTION"
+        private const val ARG_PREVIEW_URI = "app.pachli.ARG_PREVIEW_URI"
+        private const val ARG_LOCAL_ID = "app.pachli.ARG_LOCAL_ID"
+
         fun newInstance(
             localId: Int,
             existingDescription: String?,
             previewUri: Uri,
         ) = CaptionDialog().apply {
             arguments = bundleOf(
-                LOCAL_ID_ARG to localId,
-                EXISTING_DESCRIPTION_ARG to existingDescription,
-                PREVIEW_URI_ARG to previewUri,
+                ARG_LOCAL_ID to localId,
+                ARG_EXISTING_DESCRIPTION to existingDescription,
+                ARG_PREVIEW_URI to previewUri,
             )
         }
-
-        private const val DESCRIPTION_KEY = "description"
-        private const val EXISTING_DESCRIPTION_ARG = "existing_description"
-        private const val PREVIEW_URI_ARG = "preview_uri"
-        private const val LOCAL_ID_ARG = "local_id"
     }
 }

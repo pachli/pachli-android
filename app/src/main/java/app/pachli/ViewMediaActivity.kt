@@ -52,6 +52,7 @@ import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.databinding.ActivityViewMediaBinding
 import app.pachli.fragment.MediaActionsListener
 import app.pachli.pager.ImagePagerAdapter
@@ -254,7 +255,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
 
     private fun onOpenStatus() {
         val attach = attachmentViewData!![binding.viewPager.currentItem]
-        startActivityWithDefaultTransition(ViewThreadActivityIntent(this, attach.statusId, attach.statusUrl))
+        startActivityWithDefaultTransition(ViewThreadActivityIntent(this, intent.pachliAccountId, attach.statusId, attach.statusUrl))
     }
 
     private fun copyLink() {

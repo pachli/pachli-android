@@ -105,6 +105,7 @@ import app.pachli.core.navigation.SuggestionsActivityIntent
 import app.pachli.core.navigation.TabPreferenceActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.TrendingActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
@@ -247,9 +248,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // check for savedInstanceState in order to not handle intent events more than once
         if (intent != null && savedInstanceState == null) {
+            // Cancel the notification that opened this activity (if opened from a notification).
             val notificationId = MainActivityIntent.getNotificationId(intent)
             if (notificationId != -1) {
-                // opened from a notification action, cancel the notification
                 val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.cancel(MainActivityIntent.getNotificationTag(intent), notificationId)
             }
@@ -258,7 +259,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
              * - from our code as Long Intent Extra PACHLI_ACCOUNT_ID
              * - from share shortcuts as String 'android.intent.extra.shortcut.ID'
              */
-            var pachliAccountId = MainActivityIntent.getPachliAccountId(intent)
+            var pachliAccountId = intent.pachliAccountId
             if (pachliAccountId == -1L) {
                 val accountIdString = intent.getStringExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID)
                 if (accountIdString != null) {
@@ -291,7 +292,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                                 } else {
                                     // A different account was requested, restart the activity,
                                     // forwarding this intent to the restarted activity.
-                                    MainActivityIntent.setPachliAccountId(intent, requestedId)
                                     changeAccountAndRestart(requestedId, intent)
                                 }
                             }
@@ -299,13 +299,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     )
                 }
             } else if (openDrafts) {
-                val intent = DraftsActivityIntent(this)
+                val intent = DraftsActivityIntent(this, intent.pachliAccountId)
                 startActivity(intent)
             } else if (accountSwitchRequested && MainActivityIntent.hasNotificationType(intent)) {
                 // user clicked a notification, show follow requests for type FOLLOW_REQUEST,
                 // otherwise show notification tab
                 if (MainActivityIntent.getNotificationType(intent) == Notification.Type.FOLLOW_REQUEST) {
-                    val intent = AccountListActivityIntent(this, AccountListActivityIntent.Kind.FOLLOW_REQUESTS)
+                    val intent = AccountListActivityIntent(this, intent.pachliAccountId, AccountListActivityIntent.Kind.FOLLOW_REQUESTS)
                     startActivityWithDefaultTransition(intent)
                 } else {
                     showNotificationTab = true
@@ -340,6 +340,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         binding.viewPager.reduceSwipeSensitivity()
 
         setupDrawer(
+            intent.pachliAccountId,
             savedInstanceState,
             addSearchButton = hideTopToolbar,
         )
@@ -365,6 +366,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     is ProfileEditedEvent -> onFetchUserInfoSuccess(event.newProfileData)
                     is MainTabsChangedEvent -> {
                         refreshMainDrawerItems(
+                            intent.pachliAccountId,
                             addSearchButton = hideTopToolbar,
                         )
 
@@ -383,7 +385,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             listsRepository.lists.collect { result ->
                 result.onSuccess { lists ->
                     // Update the list of lists in the main drawer
-                    refreshMainDrawerItems(addSearchButton = hideTopToolbar)
+                    refreshMainDrawerItems(intent.pachliAccountId, addSearchButton = hideTopToolbar)
 
                     // Any lists in tabs might have changed titles, update those
                     if (lists is Lists.Loaded && tabAdapter.tabs.any { it.timeline is Timeline.UserList }) {
@@ -434,7 +436,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         super.onMenuItemSelected(menuItem)
         return when (menuItem.itemId) {
             R.id.action_search -> {
-                startActivity(SearchActivityIntent(this@MainActivity))
+                startActivity(SearchActivityIntent(this@MainActivity, intent.pachliAccountId))
                 true
             }
             R.id.action_remove_tab -> {
@@ -449,7 +451,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 true
             }
             R.id.action_tab_preferences -> {
-                startActivity(TabPreferenceActivityIntent(this))
+                startActivity(TabPreferenceActivityIntent(this, intent.pachliAccountId))
                 true
             }
             else -> super.onOptionsItemSelected(menuItem)
@@ -490,7 +492,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 return true
             }
             KeyEvent.KEYCODE_SEARCH -> {
-                startActivityWithDefaultTransition(SearchActivityIntent(this))
+                startActivityWithDefaultTransition(
+                    SearchActivityIntent(this, intent.pachliAccountId),
+                )
                 return true
             }
         }
@@ -514,7 +518,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         if (intent != null) {
             val redirectUrl = MainActivityIntent.getRedirectUrl(intent)
             if (redirectUrl != null) {
-                viewUrl(redirectUrl, PostLookupFallbackBehavior.DISPLAY_ERROR)
+                viewUrl(intent.pachliAccountId, redirectUrl, PostLookupFallbackBehavior.DISPLAY_ERROR)
             }
         }
     }
@@ -541,6 +545,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun setupDrawer(
+        activeAccountId: Long,
         savedInstanceState: Bundle?,
         addSearchButton: Boolean,
     ) {
@@ -590,7 +595,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         DrawerImageLoader.init(MainDrawerImageLoader(glide, animateAvatars))
 
         binding.mainDrawer.apply {
-            refreshMainDrawerItems(addSearchButton)
+            refreshMainDrawerItems(activeAccountId, addSearchButton)
             setSavedInstance(savedInstanceState)
         }
 
@@ -609,7 +614,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         })
     }
 
-    private fun refreshMainDrawerItems(addSearchButton: Boolean) {
+    private fun refreshMainDrawerItems(pachliAccountId: Long, addSearchButton: Boolean) {
         val (listsDrawerItems, listsSectionTitle) = listsRepository.lists.value.get()?.let { result ->
             when (result) {
                 Lists.Loading -> Pair(emptyList(), R.string.title_lists_loading)
@@ -621,7 +626,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                                 iconicsIcon = GoogleMaterial.Icon.gmd_list
                                 onClick = {
                                     startActivityWithDefaultTransition(
-                                        TimelineActivityIntent.list(this@MainActivity, list.id, list.title),
+                                        TimelineActivityIntent.list(
+                                            this@MainActivity,
+                                            pachliAccountId,
+                                            list.id,
+                                            list.title,
+                                        ),
                                     )
                                 }
                             }
@@ -640,7 +650,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     iconicsIcon = GoogleMaterial.Icon.gmd_notifications
                     onClick = {
                         startActivityWithDefaultTransition(
-                            TimelineActivityIntent.notifications(context),
+                            TimelineActivityIntent.notifications(context, pachliAccountId),
                         )
                     }
                 },
@@ -649,7 +659,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     iconRes = R.drawable.ic_local_24dp
                     onClick = {
                         startActivityWithDefaultTransition(
-                            TimelineActivityIntent.publicLocal(context),
+                            TimelineActivityIntent.publicLocal(context, pachliAccountId),
                         )
                     }
                 },
@@ -658,7 +668,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     iconRes = R.drawable.ic_public_24dp
                     onClick = {
                         startActivityWithDefaultTransition(
-                            TimelineActivityIntent.publicFederated(context),
+                            TimelineActivityIntent.publicFederated(context, pachliAccountId),
                         )
                     }
                 },
@@ -667,7 +677,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     iconRes = R.drawable.ic_reblog_direct_24dp
                     onClick = {
                         startActivityWithDefaultTransition(
-                            TimelineActivityIntent.conversations(context),
+                            TimelineActivityIntent.conversations(context, pachliAccountId),
                         )
                     }
                 },
@@ -675,8 +685,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.action_view_bookmarks
                     iconicsIcon = GoogleMaterial.Icon.gmd_bookmark
                     onClick = {
-                        val intent = TimelineActivityIntent.bookmarks(context)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            TimelineActivityIntent.bookmarks(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
@@ -684,40 +695,47 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     isSelectable = false
                     iconicsIcon = GoogleMaterial.Icon.gmd_star
                     onClick = {
-                        val intent = TimelineActivityIntent.favourites(context)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            TimelineActivityIntent.favourites(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.title_public_trending
                     iconicsIcon = GoogleMaterial.Icon.gmd_trending_up
                     onClick = {
-                        startActivityWithDefaultTransition(TrendingActivityIntent(context))
+                        startActivityWithDefaultTransition(
+                            TrendingActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.title_followed_hashtags
                     iconRes = R.drawable.ic_hashtag
                     onClick = {
-                        startActivityWithDefaultTransition(FollowedTagsActivityIntent(context))
+                        startActivityWithDefaultTransition(
+                            FollowedTagsActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.action_view_follow_requests
                     iconicsIcon = GoogleMaterial.Icon.gmd_person_add
                     onClick = {
-                        val intent = AccountListActivityIntent(context, AccountListActivityIntent.Kind.FOLLOW_REQUESTS)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            AccountListActivityIntent(context, pachliAccountId, AccountListActivityIntent.Kind.FOLLOW_REQUESTS),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.action_suggestions
                     iconicsIcon = GoogleMaterial.Icon.gmd_explore
                     onClick = {
-                        startActivityWithDefaultTransition(SuggestionsActivityIntent(context))
+                        startActivityWithDefaultTransition(SuggestionsActivityIntent(context, pachliAccountId))
                     }
                 },
                 SectionDrawerItem().apply {
+                    identifier = DRAWER_ITEM_LISTS
                     nameRes = listsSectionTitle
                 },
                 *listsDrawerItems.toTypedArray(),
@@ -725,7 +743,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.manage_lists
                     iconicsIcon = GoogleMaterial.Icon.gmd_settings
                     onClick = {
-                        startActivityWithDefaultTransition(ListsActivityIntent(context))
+                        startActivityWithDefaultTransition(
+                            ListsActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 DividerDrawerItem(),
@@ -733,15 +753,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.action_access_drafts
                     iconRes = R.drawable.ic_notebook
                     onClick = {
-                        val intent = DraftsActivityIntent(context)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            DraftsActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.action_access_scheduled_posts
                     iconRes = R.drawable.ic_access_time
                     onClick = {
-                        startActivityWithDefaultTransition(ScheduledStatusActivityIntent(context))
+                        startActivityWithDefaultTransition(
+                            ScheduledStatusActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
@@ -749,7 +772,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.title_announcements
                     iconRes = R.drawable.ic_bullhorn_24dp
                     onClick = {
-                        startActivityWithDefaultTransition(AnnouncementsActivityIntent(context))
+                        startActivityWithDefaultTransition(
+                            AnnouncementsActivityIntent(context, pachliAccountId),
+                        )
                     }
                     badgeStyle = BadgeStyle().apply {
                         textColor = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, com.google.android.material.R.attr.colorOnPrimary))
@@ -761,32 +786,36 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.action_view_account_preferences
                     iconRes = R.drawable.ic_account_settings
                     onClick = {
-                        val intent = PreferencesActivityIntent(context, PreferenceScreen.ACCOUNT)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            PreferencesActivityIntent(context, pachliAccountId, PreferenceScreen.ACCOUNT),
+                        )
                     }
                 },
                 secondaryDrawerItem {
                     nameRes = R.string.action_view_preferences
                     iconicsIcon = GoogleMaterial.Icon.gmd_settings
                     onClick = {
-                        val intent = PreferencesActivityIntent(context, PreferenceScreen.GENERAL)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            PreferencesActivityIntent(context, pachliAccountId, PreferenceScreen.GENERAL),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.action_edit_profile
                     iconicsIcon = GoogleMaterial.Icon.gmd_person
                     onClick = {
-                        val intent = EditProfileActivityIntent(context)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            EditProfileActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 secondaryDrawerItem {
                     nameRes = app.pachli.feature.about.R.string.about_title_activity
                     iconicsIcon = GoogleMaterial.Icon.gmd_info
                     onClick = {
-                        val intent = AboutActivityIntent(context)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            AboutActivityIntent(context),
+                        )
                     }
                 },
                 secondaryDrawerItem {
@@ -803,7 +832,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         nameRes = R.string.action_search
                         iconicsIcon = GoogleMaterial.Icon.gmd_search
                         onClick = {
-                            startActivityWithDefaultTransition(SearchActivityIntent(context))
+                            startActivityWithDefaultTransition(
+                                SearchActivityIntent(context, pachliAccountId),
+                            )
                         }
                     },
                 )
@@ -846,17 +877,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     0 -> {
                         Timber.d("Clearing home timeline cache")
                         lifecycleScope.launch {
-                            accountManager.activeAccount?.let {
-                                developerToolsUseCase.clearHomeTimelineCache(it.id)
-                            }
+                            developerToolsUseCase.clearHomeTimelineCache(intent.pachliAccountId)
                         }
                     }
                     1 -> {
                         Timber.d("Removing most recent 40 statuses")
                         lifecycleScope.launch {
-                            accountManager.activeAccount?.let {
-                                developerToolsUseCase.deleteFirstKStatuses(it.id, 40)
-                            }
+                            developerToolsUseCase.deleteFirstKStatuses(intent.pachliAccountId, 40)
                         }
                     }
                 }
@@ -902,7 +929,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val previousTabIndex = binding.viewPager.currentItem
         val previousTab = tabAdapter.tabs.getOrNull(previousTabIndex)
 
-        val tabs = accountManager.activeAccount!!.tabPreferences.map { TabViewData.from(it) }
+        val tabs = accountManager.activeAccount?.let { account ->
+            account.tabPreferences.map { TabViewData.from(account.id, it) }
+        }.orEmpty()
 
         // Detach any existing mediator before changing tab contents and attaching a new mediator
         tabLayoutMediator?.detach()
@@ -910,7 +939,11 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         tabAdapter.tabs = tabs
         tabAdapter.notifyItemRangeChanged(0, tabs.size)
 
-        tabLayoutMediator = TabLayoutMediator(activeTabLayout, binding.viewPager, true) { tab: TabLayout.Tab, position: Int ->
+        tabLayoutMediator = TabLayoutMediator(
+            activeTabLayout,
+            binding.viewPager,
+            true,
+        ) { tab: TabLayout.Tab, position: Int ->
             tab.icon = AppCompatResources.getDrawable(this@MainActivity, tabs[position].icon)
             tab.contentDescription = tabs[position].title(this@MainActivity)
         }.also { it.attach() }
@@ -992,7 +1025,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // open profile when active image was clicked
         if (current && activeAccount != null) {
-            val intent = AccountActivityIntent(this, activeAccount.accountId)
+            val intent = AccountActivityIntent(this, activeAccount.id, activeAccount.accountId)
             startActivityWithDefaultTransition(intent)
             return
         }
@@ -1014,7 +1047,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     private fun changeAccountAndRestart(accountId: Long, forward: Intent?) {
         cacheUpdater.stop()
         accountManager.setActiveAccount(accountId)
-        val intent = MainActivityIntent(this)
+        val intent = MainActivityIntent(this, accountId)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         if (forward != null) {
             intent.type = forward.type
@@ -1038,12 +1071,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     binding.composeButton.hide()
 
                     lifecycleScope.launch {
-                        val otherAccountAvailable = logout.invoke()
-                        val intent = if (otherAccountAvailable) {
-                            MainActivityIntent(this@MainActivity)
-                        } else {
-                            LoginActivityIntent(this@MainActivity, LoginMode.DEFAULT)
-                        }
+                        val nextAccount = logout.invoke()
+                        val intent = nextAccount?.let {
+                            MainActivityIntent(this@MainActivity, it.id)
+                        } ?: LoginActivityIntent(this@MainActivity, LoginMode.DEFAULT)
                         startActivity(intent)
                         finish()
                     }
@@ -1226,6 +1257,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     companion object {
         private const val DRAWER_ITEM_ADD_ACCOUNT: Long = -13
         private const val DRAWER_ITEM_ANNOUNCEMENTS: Long = 14
+
+        /** Drawer identifier for the "Lists" section header. */
+        private const val DRAWER_ITEM_LISTS: Long = 15
     }
 }
 

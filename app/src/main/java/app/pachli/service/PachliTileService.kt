@@ -30,7 +30,8 @@ import app.pachli.core.navigation.MainActivityIntent
 @TargetApi(24)
 class PachliTileService : TileService() {
     override fun onClick() {
-        val intent = MainActivityIntent.openCompose(this, ComposeOptions())
+        // XXX: -1L here needs handling properly.
+        val intent = MainActivityIntent.openCompose(this, ComposeOptions(), -1L)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
             startActivityAndCollapse(pendingIntent)

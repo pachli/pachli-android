@@ -82,6 +82,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -113,11 +114,16 @@ class NotificationsFragment :
 
     private var talkBackWasEnabled = false
 
+    override var pachliAccountId by Delegates.notNull<Long>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+
         adapter = NotificationsPagingAdapter(
             notificationDiffCallback,
+            pachliAccountId,
             accountId = viewModel.account.accountId,
             statusActionListener = this,
             notificationActionListener = this,
@@ -155,7 +161,7 @@ class NotificationsFragment :
         layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.setAccessibilityDelegateCompat(
-            ListStatusAccessibilityDelegate(binding.recyclerView, this) { pos: Int ->
+            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this) { pos: Int ->
                 if (pos in 0 until adapter.itemCount) {
                     adapter.peek(pos)
                 } else {
@@ -594,9 +600,9 @@ class NotificationsFragment :
             }
     }
 
-    override fun onEditFilterById(filterId: String) {
+    override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
         requireActivity().startActivityWithTransition(
-            EditContentFilterActivityIntent.edit(requireContext(), filterId),
+            EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
     }
@@ -680,7 +686,15 @@ class NotificationsFragment :
     }
 
     companion object {
-        fun newInstance() = NotificationsFragment()
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+
+        fun newInstance(pachliAccountId: Long): NotificationsFragment {
+            val fragment = NotificationsFragment()
+            fragment.arguments = Bundle(1).apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+            }
+            return fragment
+        }
 
         private val notificationDiffCallback: DiffUtil.ItemCallback<NotificationViewData> =
             object : DiffUtil.ItemCallback<NotificationViewData>() {

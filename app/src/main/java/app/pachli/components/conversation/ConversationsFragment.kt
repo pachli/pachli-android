@@ -66,6 +66,7 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlin.time.Duration.Companion.minutes
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -95,6 +96,13 @@ class ConversationsFragment :
 
     private lateinit var adapter: ConversationAdapter
 
+    override var pachliAccountId by Delegates.notNull<Long>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_timeline, container, false)
     }
@@ -106,7 +114,7 @@ class ConversationsFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-            adapter = ConversationAdapter(statusDisplayOptions, this@ConversationsFragment)
+            adapter = ConversationAdapter(pachliAccountId, statusDisplayOptions, this@ConversationsFragment)
 
             setupRecyclerView()
 
@@ -222,7 +230,7 @@ class ConversationsFragment :
 
     private fun setupRecyclerView() {
         binding.recyclerView.setAccessibilityDelegateCompat(
-            ListStatusAccessibilityDelegate(binding.recyclerView, this) { pos ->
+            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this) { pos ->
                 if (pos in 0 until adapter.itemCount) {
                     adapter.peek(pos)
                 } else {
@@ -327,12 +335,12 @@ class ConversationsFragment :
     }
 
     override fun onViewAccount(id: String) {
-        val intent = AccountActivityIntent(requireContext(), id)
+        val intent = AccountActivityIntent(requireContext(), pachliAccountId, id)
         startActivity(intent)
     }
 
     override fun onViewTag(tag: String) {
-        val intent = TimelineActivityIntent.hashtag(requireContext(), tag)
+        val intent = TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag)
         startActivity(intent)
     }
 
@@ -352,7 +360,7 @@ class ConversationsFragment :
     }
 
     // Filters don't apply in conversations
-    override fun onEditFilterById(filterId: String) {}
+    override fun onEditFilterById(pachliAccountId: Long, filterId: String) {}
 
     override fun onReselect() {
         if (isAdded) {
@@ -385,6 +393,14 @@ class ConversationsFragment :
     }
 
     companion object {
-        fun newInstance() = ConversationsFragment()
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+
+        fun newInstance(pachliAccountId: Long): ConversationsFragment {
+            return ConversationsFragment().apply {
+                arguments = Bundle(1).apply {
+                    putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+                }
+            }
+        }
     }
 }

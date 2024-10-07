@@ -14,6 +14,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.navigation.EditContentFilterActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityContentFiltersBinding
 import com.google.android.material.color.MaterialColors
@@ -97,8 +98,8 @@ class ContentFiltersActivity : BaseActivity(), ContentFiltersListener {
 
     private fun launchEditContentFilterActivity(contentFilter: ContentFilter? = null) {
         val intent = contentFilter?.let {
-            EditContentFilterActivityIntent.edit(this, contentFilter)
-        } ?: EditContentFilterActivityIntent(this)
+            EditContentFilterActivityIntent.edit(this, intent.pachliAccountId, contentFilter)
+        } ?: EditContentFilterActivityIntent(this, intent.pachliAccountId)
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 

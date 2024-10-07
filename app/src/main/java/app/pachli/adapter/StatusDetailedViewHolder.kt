@@ -23,8 +23,9 @@ import java.text.DateFormat
 import java.util.Locale
 
 class StatusDetailedViewHolder(
+    pachliAccountId: Long,
     private val binding: ItemStatusDetailedBinding,
-) : StatusBaseViewHolder<StatusViewData>(binding.root) {
+) : StatusBaseViewHolder<StatusViewData>(pachliAccountId, binding.root) {
 
     override fun setMetaData(
         viewData: StatusViewData,

@@ -20,7 +20,6 @@ package app.pachli.core.network.model.nodeinfo
 import androidx.annotation.StringRes
 import app.pachli.core.common.PachliError
 import app.pachli.core.model.NodeInfo
-import app.pachli.core.model.NodeInfo.Software
 import app.pachli.core.network.R
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok

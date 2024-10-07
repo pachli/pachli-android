@@ -91,6 +91,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -157,16 +158,20 @@ class TimelineFragment :
 
     private var isSwipeToRefreshEnabled = true
 
+    override var pachliAccountId by Delegates.notNull<Long>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val arguments = requireArguments()
 
-        timeline = arguments.getParcelable(KIND_ARG)!!
+        pachliAccountId = arguments.getLong(ARG_PACHLI_ACCOUNT_ID)
+
+        timeline = arguments.getParcelable(ARG_KIND)!!
 
         isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
 
-        adapter = TimelinePagingAdapter(this, viewModel.statusDisplayOptions.value)
+        adapter = TimelinePagingAdapter(pachliAccountId, this, viewModel.statusDisplayOptions.value)
     }
 
     override fun onCreateView(
@@ -575,7 +580,7 @@ class TimelineFragment :
 
     private fun setupRecyclerView() {
         binding.recyclerView.setAccessibilityDelegateCompat(
-            ListStatusAccessibilityDelegate(binding.recyclerView, this) { pos ->
+            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this) { pos ->
                 if (pos in 0 until adapter.itemCount) {
                     adapter.peek(pos)
                 } else {
@@ -648,9 +653,9 @@ class TimelineFragment :
         viewModel.clearWarning(viewData)
     }
 
-    override fun onEditFilterById(filterId: String) {
+    override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
         requireActivity().startActivityWithTransition(
-            EditContentFilterActivityIntent.edit(requireContext(), filterId),
+            EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
     }
@@ -672,12 +677,12 @@ class TimelineFragment :
     }
 
     override fun onShowReblogs(statusId: String) {
-        val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.REBLOGGED, statusId)
+        val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.REBLOGGED, statusId)
         activity?.startActivityWithDefaultTransition(intent)
     }
 
     override fun onShowFavs(statusId: String) {
-        val intent = AccountListActivityIntent(requireContext(), AccountListActivityIntent.Kind.FAVOURITED, statusId)
+        val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.FAVOURITED, statusId)
         activity?.startActivityWithDefaultTransition(intent)
     }
 
@@ -813,16 +818,19 @@ class TimelineFragment :
     }
 
     companion object {
-        private const val KIND_ARG = "kind"
-        private const val ARG_ENABLE_SWIPE_TO_REFRESH = "enableSwipeToRefresh"
+        private const val ARG_KIND = "app.pachli.ARG_KIND"
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+        private const val ARG_ENABLE_SWIPE_TO_REFRESH = "app.pachli.ARG_ENABLE_SWIPE_TO_REFRESH"
 
         fun newInstance(
+            pachliAccountId: Long,
             timeline: Timeline,
             enableSwipeToRefresh: Boolean = true,
         ): TimelineFragment {
             val fragment = TimelineFragment()
-            val arguments = Bundle(2)
-            arguments.putParcelable(KIND_ARG, timeline)
+            val arguments = Bundle(3)
+            arguments.putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+            arguments.putParcelable(ARG_KIND, timeline)
             arguments.putBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, enableSwipeToRefresh)
             fragment.arguments = arguments
             return fragment
