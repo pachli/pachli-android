@@ -732,8 +732,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 },
                 SectionDrawerItem().apply {
                     identifier = DRAWER_ITEM_LISTS
-                    nameRes = app.pachli.feature.lists.R.string.title_lists
+                    nameRes = listsSectionTitle
                 },
+                *listsDrawerItems.toTypedArray(),
                 primaryDrawerItem {
                     nameRes = R.string.manage_lists
                     iconicsIcon = GoogleMaterial.Icon.gmd_settings
