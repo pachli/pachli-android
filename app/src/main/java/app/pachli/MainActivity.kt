@@ -688,8 +688,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.action_view_bookmarks
                     iconicsIcon = GoogleMaterial.Icon.gmd_bookmark
                     onClick = {
-                        val intent = TimelineActivityIntent.bookmarks(context, pachliAccountId)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            TimelineActivityIntent.bookmarks(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
@@ -697,30 +698,36 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     isSelectable = false
                     iconicsIcon = GoogleMaterial.Icon.gmd_star
                     onClick = {
-                        val intent = TimelineActivityIntent.favourites(context, pachliAccountId)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            TimelineActivityIntent.favourites(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.title_public_trending
                     iconicsIcon = GoogleMaterial.Icon.gmd_trending_up
                     onClick = {
-                        startActivityWithDefaultTransition(TrendingActivityIntent(context, pachliAccountId))
+                        startActivityWithDefaultTransition(
+                            TrendingActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.title_followed_hashtags
                     iconRes = R.drawable.ic_hashtag
                     onClick = {
-                        startActivityWithDefaultTransition(FollowedTagsActivityIntent(context, pachliAccountId))
+                        startActivityWithDefaultTransition(
+                            FollowedTagsActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.action_view_follow_requests
                     iconicsIcon = GoogleMaterial.Icon.gmd_person_add
                     onClick = {
-                        val intent = AccountListActivityIntent(context, pachliAccountId, AccountListActivityIntent.Kind.FOLLOW_REQUESTS)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            AccountListActivityIntent(context, pachliAccountId, AccountListActivityIntent.Kind.FOLLOW_REQUESTS),
+                        )
                     }
                 },
                 primaryDrawerItem {
@@ -749,15 +756,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.action_access_drafts
                     iconRes = R.drawable.ic_notebook
                     onClick = {
-                        val intent = DraftsActivityIntent(context, pachliAccountId)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            DraftsActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.action_access_scheduled_posts
                     iconRes = R.drawable.ic_access_time
                     onClick = {
-                        startActivityWithDefaultTransition(ScheduledStatusActivityIntent(context, pachliAccountId))
+                        startActivityWithDefaultTransition(
+                            ScheduledStatusActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 primaryDrawerItem {
@@ -765,7 +775,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.title_announcements
                     iconRes = R.drawable.ic_bullhorn_24dp
                     onClick = {
-                        startActivityWithDefaultTransition(AnnouncementsActivityIntent(context, pachliAccountId))
+                        startActivityWithDefaultTransition(
+                            AnnouncementsActivityIntent(context, pachliAccountId),
+                        )
                     }
                     badgeStyle = BadgeStyle().apply {
                         textColor = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, com.google.android.material.R.attr.colorOnPrimary))
@@ -777,32 +789,36 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     nameRes = R.string.action_view_account_preferences
                     iconRes = R.drawable.ic_account_settings
                     onClick = {
-                        val intent = PreferencesActivityIntent(context, pachliAccountId, PreferenceScreen.ACCOUNT)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            PreferencesActivityIntent(context, pachliAccountId, PreferenceScreen.ACCOUNT),
+                        )
                     }
                 },
                 secondaryDrawerItem {
                     nameRes = R.string.action_view_preferences
                     iconicsIcon = GoogleMaterial.Icon.gmd_settings
                     onClick = {
-                        val intent = PreferencesActivityIntent(context, pachliAccountId, PreferenceScreen.GENERAL)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            PreferencesActivityIntent(context, pachliAccountId, PreferenceScreen.GENERAL),
+                        )
                     }
                 },
                 primaryDrawerItem {
                     nameRes = R.string.action_edit_profile
                     iconicsIcon = GoogleMaterial.Icon.gmd_person
                     onClick = {
-                        val intent = EditProfileActivityIntent(context, pachliAccountId)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            EditProfileActivityIntent(context, pachliAccountId),
+                        )
                     }
                 },
                 secondaryDrawerItem {
                     nameRes = app.pachli.feature.about.R.string.about_title_activity
                     iconicsIcon = GoogleMaterial.Icon.gmd_info
                     onClick = {
-                        val intent = AboutActivityIntent(context)
-                        startActivityWithDefaultTransition(intent)
+                        startActivityWithDefaultTransition(
+                            AboutActivityIntent(context),
+                        )
                     }
                 },
                 secondaryDrawerItem {
@@ -819,7 +835,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         nameRes = R.string.action_search
                         iconicsIcon = GoogleMaterial.Icon.gmd_search
                         onClick = {
-                            startActivityWithDefaultTransition(SearchActivityIntent(context, pachliAccountId))
+                            startActivityWithDefaultTransition(
+                                SearchActivityIntent(context, pachliAccountId),
+                            )
                         }
                     },
                 )
@@ -915,12 +933,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val previousTab = tabAdapter.tabs.getOrNull(previousTabIndex)
 
         val tabs = accountManager.activeAccount?.let { account ->
-            account.tabPreferences.map {
-                TabViewData.from(
-                    account.id,
-                    it,
-                )
-            }
+            account.tabPreferences.map { TabViewData.from(account.id, it) }
         }.orEmpty()
 
         // Detach any existing mediator before changing tab contents and attaching a new mediator
