@@ -624,7 +624,7 @@ class InstanceListActivityIntent(context: Context) : Intent() {
     }
 }
 
-class ListActivityIntent(context: Context) : Intent() {
+class ListsActivityIntent(context: Context) : Intent() {
     init {
         setClassName(context, QuadrantConstants.LISTS_ACTIVITY)
     }

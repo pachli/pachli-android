@@ -48,7 +48,7 @@ import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Timeline
-import app.pachli.core.navigation.ListActivityIntent
+import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityTabPreferenceBinding
@@ -310,7 +310,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         dialog.setOnShowListener {
             val button = dialog.getButton(AlertDialog.BUTTON_NEUTRAL)
             button.setOnClickListener {
-                startActivity(ListActivityIntent(applicationContext))
+                startActivity(ListsActivityIntent(applicationContext))
             }
         }
 
