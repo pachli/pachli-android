@@ -52,7 +52,7 @@ data class ContentFilter(
     val filterAction: FilterAction,
     val keywords: List<FilterKeyword> = emptyList(),
 ) : Parcelable {
-    companion object {}
+    companion object
 }
 
 /** A filter choice, either content filter or account filter. */

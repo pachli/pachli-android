@@ -127,7 +127,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         serverCanTranslate = it.can(
                             operation = ORG_JOINMASTODON_STATUSES_TRANSLATE,
                             constraint = ">=1.0".toConstraint(),
-                        ) ?: false
+                        )
                     }
                     result.onFailure {
                         val msg = getString(

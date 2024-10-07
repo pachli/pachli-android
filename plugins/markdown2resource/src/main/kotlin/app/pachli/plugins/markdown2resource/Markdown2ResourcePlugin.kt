@@ -35,7 +35,6 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
-import org.gradle.configurationcache.extensions.capitalized
 import org.intellij.markdown.flavours.gfm.GFMFlavourDescriptor
 import org.intellij.markdown.html.HtmlGenerator
 import org.intellij.markdown.parser.MarkdownParser
@@ -136,7 +135,7 @@ class Markdown2ResourcePlugin : Plugin<Project> {
             appExtension.libraryVariants.all { variant ->
                 val outputDir =
                     target.layout.buildDirectory.dir("generated/source/${variant.name}")
-                val taskName = "markdown2resource${variant.name.capitalized()}"
+                val taskName = "markdown2resource${variant.name.toString().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }}"
 
                 extension.packageName.convention(variant.mergeResourcesProvider.get().namespace)
 

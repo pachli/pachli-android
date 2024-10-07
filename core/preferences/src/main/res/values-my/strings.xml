@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_category_downloads">ဒေါင်းလုဒ်များ</string>
+    <string name="pref_title_downloads">တည်နေရာကို ‌ဒေါင်းလုပ်ဒ်လုပ်မည်</string>
+    <string name="app_theme_light">အလင္း</string>
+    <string name="app_theme_dark">အေမွာင္</string>
+    <string name="pref_category_tabs">တဘ်များ</string>
+</resources>
