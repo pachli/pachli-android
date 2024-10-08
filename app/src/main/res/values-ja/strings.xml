@@ -350,8 +350,6 @@
     <string name="filter_add_description">フィルターする語句</string>
     <string name="filter_dialog_whole_word_description">キーワードまたは語句が英数字のみである時、単語全体と一致する場合のみ適用されます</string>
     <string name="notification_follow_request_description">フォローリクエストについての通知</string>
-    <string name="pref_main_nav_position_option_bottom">下部</string>
-    <string name="pref_main_nav_position_option_top">上部</string>
     <string name="pref_main_nav_position">メインナビゲーションの位置</string>
     <string name="pref_title_gradient_for_media">非表示のメディアを色付きのぼかしで表示する</string>
     <string name="pref_title_notification_filter_follow_requests">フォローリクエスト</string>

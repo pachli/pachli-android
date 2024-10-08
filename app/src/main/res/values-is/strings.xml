@@ -378,8 +378,6 @@
     </plurals>
     <string name="add_hashtag_title">Bæta við myllumerki</string>
     <string name="notification_follow_request_description">Tilkynningar um fylgjendabeiðnir</string>
-    <string name="pref_main_nav_position_option_bottom">Neðst</string>
-    <string name="pref_main_nav_position_option_top">Efst</string>
     <string name="pref_main_nav_position">Aðalstaða leiðsagnar</string>
     <string name="pref_title_gradient_for_media">Birta litstigla í stað falins myndefnis</string>
     <string name="pref_title_notification_filter_follow_requests">beiðni um að fylgja</string>

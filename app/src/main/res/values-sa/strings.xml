@@ -220,8 +220,6 @@
     <string name="post_privacy_followers_only">केवलमनुसर्तृभ्यः</string>
     <string name="post_privacy_unlisted">अनिर्दिष्टम्</string>
     <string name="post_privacy_public">सार्वजनिकम्</string>
-    <string name="pref_main_nav_position_option_bottom">नितलम्</string>
-    <string name="pref_main_nav_position_option_top">शिखरम्</string>
     <string name="pref_main_nav_position">मुख्यमार्गणस्थितिः</string>
     <string name="pref_failed_to_sync">विन्यासं समसामयिकं कर्तुं विफलता</string>
     <string name="pref_publishing">प्रकाशनम् (जालवितरकेण सह सामयिकम्)</string>

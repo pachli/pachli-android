@@ -276,8 +276,6 @@
     <string name="pref_title_timelines">Laika līnijas</string>
     <string name="pref_title_app_theme">Lietotnes tēma</string>
     <string name="pref_title_notification_filter_poll">aptaujas ir noslēgušās</string>
-    <string name="pref_main_nav_position_option_top">Augšā</string>
-    <string name="pref_main_nav_position_option_bottom">Apakšā</string>
     <string name="pref_title_show_boosts">Parādīt pastiprinājumus</string>
     <string name="status_count_one_plus">1+</string>
     <string name="status_created_at_now">tikko</string>

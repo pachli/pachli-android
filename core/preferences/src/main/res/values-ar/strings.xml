@@ -14,4 +14,6 @@
     <string name="tab_tap_behaviour_jump_to_next_page">اقفز إلى الصفحة التالية</string>
     <string name="tab_tap_behaviour_jump_to_newest">القفز إلى المحتوى الجديد</string>
     <string name="pref_category_tabs">الألسنة</string>
+    <string name="pref_main_nav_position_option_top">الأعلى</string>
+    <string name="pref_main_nav_position_option_bottom">الأسفل</string>
 </resources>

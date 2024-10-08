@@ -374,8 +374,6 @@
     <string name="compose_preview_image_description">处理图片 %s</string>
     <string name="add_hashtag_title">添加话题名</string>
     <string name="notification_follow_request_description">关注请求的通知</string>
-    <string name="pref_main_nav_position_option_bottom">底部</string>
-    <string name="pref_main_nav_position_option_top">顶部</string>
     <string name="pref_title_gradient_for_media">为隐藏的媒体文件显示彩色模糊预览</string>
     <string name="pref_title_notification_filter_follow_requests">有关注申请</string>
     <string name="dialog_mute_hide_notifications">隐藏通知</string>

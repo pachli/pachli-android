@@ -381,8 +381,6 @@
     <string name="hashtags">Hashtagek</string>
     <string name="add_hashtag_title">Hashtag hozzáadása</string>
     <string name="notification_follow_request_description">Értesítések követési kérelmekről</string>
-    <string name="pref_main_nav_position_option_bottom">Lent</string>
-    <string name="pref_main_nav_position_option_top">Fent</string>
     <string name="pref_main_nav_position">Fő navigálási pozíció</string>
     <string name="pref_title_gradient_for_media">Színes homály mutatása rejtett médiánál</string>
     <string name="pref_title_notification_filter_follow_requests">követni szeretnének</string>

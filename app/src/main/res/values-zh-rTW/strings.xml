@@ -401,8 +401,6 @@
     <string name="dialog_mute_hide_notifications">隱藏通知</string>
     <string name="action_unmute_desc">取消靜音 %s</string>
     <string name="action_unmute_domain">取消靜音 %s</string>
-    <string name="pref_main_nav_position_option_bottom">底端</string>
-    <string name="pref_main_nav_position_option_top">頂端</string>
     <string name="pref_main_nav_position">主要導覽列的位置</string>
     <string name="pref_title_gradient_for_media">在隱藏的媒體上使用漸變色彩</string>
     <string name="add_hashtag_title">加上話題標籤</string>

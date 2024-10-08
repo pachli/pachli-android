@@ -380,8 +380,6 @@
     <string name="add_hashtag_title">Etiket ekle</string>
     <string name="notification_follow_request_description">Takip istekleri ile ilgili bildirimler</string>
     <string name="notification_follow_request_name">Takip istekleri</string>
-    <string name="pref_main_nav_position_option_bottom">Alt</string>
-    <string name="pref_main_nav_position_option_top">Üst</string>
     <string name="dialog_mute_hide_notifications">Bildirimleri gizle</string>
     <string name="dialog_mute_warning">\@%s sessize al\?</string>
     <string name="dialog_block_warning">\@%s engellensin mi\?</string>

@@ -14,4 +14,6 @@
     <string name="tab_tap_behaviour_jump_to_next_page">Inici &gt; Productes turístics</string>
     <string name="tab_tap_behaviour_jump_to_newest">L\'Hospitalet de Llobregat</string>
     <string name="pref_category_tabs">Pestanyes</string>
+    <string name="pref_main_nav_position_option_top">A dalt</string>
+    <string name="pref_main_nav_position_option_bottom">A baix</string>
 </resources>

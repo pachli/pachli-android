@@ -86,8 +86,6 @@
     <string name="pref_title_app_theme">Tema Aplikasi</string>
     <string name="pref_title_browser_settings">Peramban</string>
     <string name="pref_title_show_replies">Tampilkan balasan</string>
-    <string name="pref_main_nav_position_option_top">Atas</string>
-    <string name="pref_main_nav_position_option_bottom">Bawah</string>
     <string name="post_privacy_public">Publik</string>
     <string name="post_text_size_small">Kecil</string>
     <string name="post_text_size_medium">Sedang</string>

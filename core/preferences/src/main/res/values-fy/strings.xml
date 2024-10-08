@@ -7,4 +7,6 @@
     <string name="app_theme_system">Systeem Opmaak Brûke</string>
     <string name="pref_category_downloads">Delhelje</string>
     <string name="pref_category_tabs">Ljepblêden</string>
+    <string name="pref_main_nav_position_option_top">Boppe</string>
+    <string name="pref_main_nav_position_option_bottom">Ûnder</string>
 </resources>
