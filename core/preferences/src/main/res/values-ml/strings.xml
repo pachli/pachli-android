@@ -5,4 +5,6 @@
     <string name="app_theme_light">വെളിച്ചം</string>
     <string name="app_theme_dark">ഇരുട്ട്</string>
     <string name="pref_category_tabs">ടാബുകൾ</string>
+    <string name="pref_main_nav_position_option_top">മുകളില്‍</string>
+    <string name="pref_main_nav_position_option_bottom">താഴെ</string>
 </resources>
