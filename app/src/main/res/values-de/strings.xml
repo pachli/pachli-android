@@ -380,8 +380,6 @@
         <item quantity="other">%s Personen</item>
     </plurals>
     <string name="pref_title_gradient_for_media">Farbverlauf für verborgene Medien anzeigen</string>
-    <string name="pref_main_nav_position_option_bottom">Unten</string>
-    <string name="pref_main_nav_position_option_top">Oben</string>
     <string name="action_unmute_domain">%s nicht mehr stummschalten</string>
     <plurals name="reblogs">
         <item quantity="one"><b>%s</b>-mal geteilt</item>

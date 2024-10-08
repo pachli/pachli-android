@@ -182,8 +182,6 @@
     <string name="post_privacy_followers_only">Do leantóirí amháin</string>
     <string name="post_privacy_unlisted">Neamhliostaithe</string>
     <string name="post_privacy_public">Poiblí</string>
-    <string name="pref_main_nav_position_option_bottom">Bun</string>
-    <string name="pref_main_nav_position_option_top">Barr</string>
     <string name="pref_main_nav_position">Príomhshuíomh nascleanúna</string>
     <string name="pref_failed_to_sync">Theip ar shocruithe a sync</string>
     <string name="pref_publishing">Foilsitheoireacht (synced leis an bhfreastalaí)</string>

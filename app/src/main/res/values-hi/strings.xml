@@ -61,8 +61,6 @@
     <string name="post_text_size_smallest">सबसे छोटा</string>
     <string name="post_privacy_unlisted">असूचीबद्ध</string>
     <string name="post_privacy_public">सार्वजनिक</string>
-    <string name="pref_main_nav_position_option_bottom">सबसे नीचे</string>
-    <string name="pref_main_nav_position_option_top">ऊपर</string>
     <string name="pref_main_nav_position">मुख्य नेविगेशन स्थिति</string>
     <string name="pref_failed_to_sync">सेटिंग्स सिंक करने में विफल</string>
     <string name="pref_default_media_sensitivity">हमेशा मीडिया को संवेदनशील के रूप में चिह्नित करें</string>

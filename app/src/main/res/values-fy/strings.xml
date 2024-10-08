@@ -51,8 +51,6 @@
     <string name="post_text_size_smallest">Lytst</string>
     <string name="post_privacy_followers_only">Allinnich folgers</string>
     <string name="post_privacy_public">Iepenbier</string>
-    <string name="pref_main_nav_position_option_bottom">Ûnder</string>
-    <string name="pref_main_nav_position_option_top">Boppe</string>
     <string name="pref_failed_to_sync">Koe ynstellingen net syngronisearje</string>
     <string name="pref_default_media_sensitivity">Media altyd as gefoelich oanmerke</string>
     <string name="pref_title_http_proxy_port">HTTP proksje poarte</string>

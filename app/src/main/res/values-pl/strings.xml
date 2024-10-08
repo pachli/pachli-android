@@ -411,8 +411,6 @@
     <string name="action_unmute_domain">Cofnij wyciszenie %s</string>
     <string name="action_unmute_desc">Cofnij wyciszenie %s</string>
     <string name="pref_title_hide_top_toolbar">Ukryj tytuł górnego paska narzędzi</string>
-    <string name="pref_main_nav_position_option_bottom">Dół</string>
-    <string name="pref_main_nav_position_option_top">Góra</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Nie możesz przesłać więcej niż %1$d załącznik.</item>
         <item quantity="few">Nie możesz przesłać więcej niż %1$d załączniki.</item>

@@ -397,8 +397,6 @@
     </plurals>
     <string name="pref_main_nav_position">Pozicio de la ĉefa naviga breto</string>
     <string name="pref_title_notification_filter_follow_requests">iu petas sekvi min</string>
-    <string name="pref_main_nav_position_option_bottom">Malsupro</string>
-    <string name="pref_main_nav_position_option_top">Supro</string>
     <string name="account_note_saved">Konservita!</string>
     <string name="account_note_hint">Via privata noto pri ĉi tiu konto</string>
     <string name="pref_title_hide_top_toolbar">Kaŝi la titolon de la supra ilobreto</string>

@@ -402,8 +402,6 @@
     <string name="notification_subscription_description">Meldingen wanneer iemand waar je op bent geabonneerd een nieuw bericht plaatst</string>
     <string name="notification_subscription_name">Nieuwe berichten</string>
     <string name="notification_follow_request_description">Meldingen over volgverzoeken</string>
-    <string name="pref_main_nav_position_option_bottom">Onder</string>
-    <string name="pref_main_nav_position_option_top">Boven</string>
     <string name="pref_title_animate_custom_emojis">Lokale emojis animeren</string>
     <string name="pref_title_gradient_for_media">Kleurverloop weergeven voor verborgen media</string>
     <string name="pref_title_notification_filter_subscriptions">iemand waar ik op ben geabonneerd heeft een nieuw bericht geplaatst</string>
