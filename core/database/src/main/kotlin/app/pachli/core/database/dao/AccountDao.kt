@@ -26,8 +26,6 @@ import androidx.room.Update
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.AnnouncementEntity
-import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.PachliAccount
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
@@ -66,84 +64,6 @@ interface AccountDao {
     )
     fun getActivePachliAccountFlow(): Flow<PachliAccount?>
 
-    // --- List stuff
-
-    @Query(
-        """
-            SELECT *
-              FROM MastodonListEntity
-        """,
-    )
-    fun getMastodonLists(): Flow<List<MastodonListEntity>>
-
-    @Query(
-        """
-        DELETE
-          FROM MastodonListEntity
-         WHERE accountId = :accountId
-    """,
-    )
-    suspend fun deleteMastodonListsForAccount(accountId: Long)
-
-    @Query(
-        """
-            SELECT *
-              FROM MastodonListEntity
-             WHERE accountId = :accountId
-        """,
-    )
-    fun getMastodonListsForAccountFlow(accountId: Long): Flow<List<MastodonListEntity>>
-
-    @Query(
-        """
-            SELECT *
-              FROM MastodonListEntity
-             WHERE accountId = :accountId
-        """,
-    )
-    suspend fun getMastodonListsForAccount(accountId: Long): List<MastodonListEntity>
-
-    @Upsert
-    suspend fun upsertMastodonList(list: MastodonListEntity)
-
-    @Upsert
-    suspend fun upsertMastodonLists(lists: List<MastodonListEntity>)
-
-    @Query(
-        """
-            DELETE
-              FROM MastodonListEntity
-             WHERE accountId = :accountId AND listId = :listId
-        """,
-    )
-    suspend fun deleteMastodonListForAccount(accountId: Long, listId: String)
-
-    // --- Announcement stuff
-    @Query(
-        """
-        DELETE
-          FROM AnnouncementEntity
-         WHERE accountId = :accountId
-    """,
-    )
-    suspend fun deleteAnnouncementsForAccount(accountId: Long)
-
-    @Upsert
-    suspend fun upsertAnnouncement(announcement: AnnouncementEntity)
-
-    @Upsert
-    suspend fun upsertAnnouncements(announcements: List<AnnouncementEntity>)
-
-    @Query(
-        """
-        DELETE
-          FROM AnnouncementEntity
-         WHERE accountId = :accountId AND announcementId = :announcementId
-    """,
-    )
-    suspend fun deleteAnnouncement(accountId: Long, announcementId: String)
-
-    // ---
     @Update
     suspend fun update(account: AccountEntity)
 

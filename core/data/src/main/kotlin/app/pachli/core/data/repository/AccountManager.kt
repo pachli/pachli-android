@@ -29,8 +29,10 @@ import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeIn
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.dao.AccountDao
+import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.InstanceDao
+import app.pachli.core.database.dao.ListsDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
@@ -163,6 +165,8 @@ class AccountManager @Inject constructor(
     private val remoteKeyDao: RemoteKeyDao,
     private val instanceDao: InstanceDao,
     private val contentFiltersDao: ContentFiltersDao,
+    private val listsDao: ListsDao,
+    private val announcementsDao: AnnouncementsDao,
     private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
@@ -458,16 +462,16 @@ class AccountManager @Inject constructor(
                 }
 
                 deferLists.await().also { lists ->
-                    accountDao.deleteMastodonListsForAccount(finalAccount.id)
-                    accountDao.upsertMastodonLists(lists)
+                    listsDao.deleteAllForAccount(finalAccount.id)
+                    listsDao.upsert(lists)
                     newTabPreferences(finalAccount.id, lists)?.let {
                         setTabPreferences(finalAccount.id, it)
                     }
                 }
 
                 deferAnnouncements.await().also { announcements ->
-                    accountDao.deleteAnnouncementsForAccount(finalAccount.id)
-                    accountDao.upsertAnnouncements(announcements)
+                    announcementsDao.deleteAllForAccount(finalAccount.id)
+                    announcementsDao.upsert(announcements)
                 }
 
                 Timber.d("Switched accounts took %d ms", now.elapsedNow().inWholeMilliseconds)
@@ -760,13 +764,13 @@ class AccountManager @Inject constructor(
 
     // -- Lists
 
-    fun getLists(accountId: Long) = accountDao.getMastodonListsForAccountFlow(accountId).map {
+    fun getLists(accountId: Long) = listsDao.flowByAccount(accountId).map {
         it.map { MastodonList.from(it) }
     }
 
     suspend fun refreshLists(accountId: Long, lists: List<MastoList>) {
         transactionProvider {
-            accountDao.deleteMastodonListsForAccount(accountId)
+            listsDao.deleteAllForAccount(accountId)
             val entities = lists.map {
                 MastodonListEntity(
                     accountId,
@@ -776,19 +780,19 @@ class AccountManager @Inject constructor(
                     it.exclusive ?: false,
                 )
             }
-            entities.forEach { accountDao.upsertMastodonList(it) }
+            entities.forEach { listsDao.upsert(it) }
             newTabPreferences(accountId, entities)?.let {
                 setTabPreferences(accountId, it)
             }
         }
     }
 
-    suspend fun createList(list: MastodonList) = accountDao.upsertMastodonList(list.entity())
+    suspend fun createList(list: MastodonList) = listsDao.upsert(list.entity())
 
     suspend fun deleteList(list: MastodonList) {
         transactionProvider {
-            accountDao.deleteMastodonListForAccount(list.accountId, list.listId)
-            val lists = accountDao.getMastodonListsForAccount(list.accountId)
+            listsDao.deleteForAccount(list.accountId, list.listId)
+            val lists = listsDao.get(list.accountId)
             newTabPreferences(list.accountId, lists)?.let {
                 setTabPreferences(list.accountId, it)
             }
@@ -797,8 +801,8 @@ class AccountManager @Inject constructor(
 
     suspend fun editList(list: MastodonList) {
         transactionProvider {
-            accountDao.upsertMastodonList(list.entity())
-            val lists = accountDao.getMastodonListsForAccount(list.accountId)
+            listsDao.upsert(list.entity())
+            val lists = listsDao.get(list.accountId)
             newTabPreferences(list.accountId, lists)?.let {
                 setTabPreferences(list.accountId, it)
             }
@@ -860,6 +864,6 @@ class AccountManager @Inject constructor(
 
     // -- Announcements
     suspend fun deleteAnnouncement(accountId: Long, announcementId: String) {
-        accountDao.deleteAnnouncement(accountId, announcementId)
+        announcementsDao.deleteForAccount(accountId, announcementId)
     }
 }

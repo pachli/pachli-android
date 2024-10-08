@@ -28,10 +28,12 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
 import androidx.sqlite.db.SupportSQLiteDatabase
 import app.pachli.core.database.dao.AccountDao
+import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.database.dao.InstanceDao
+import app.pachli.core.database.dao.ListsDao
 import app.pachli.core.database.dao.LogEntryDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
@@ -91,6 +93,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun translatedStatusDao(): TranslatedStatusDao
     abstract fun logEntryDao(): LogEntryDao
     abstract fun contentFiltersDao(): ContentFiltersDao
+    abstract fun listsDao(): ListsDao
+    abstract fun announcementsDao(): AnnouncementsDao
 
     @DeleteColumn("TimelineStatusEntity", "expanded")
     @DeleteColumn("TimelineStatusEntity", "contentCollapsed")
