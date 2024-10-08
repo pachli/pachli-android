@@ -701,12 +701,12 @@ interface MastodonApi {
     @GET("api/v1/announcements")
     suspend fun listAnnouncements(
         @Query("with_dismissed") withDismissed: Boolean = true,
-    ): NetworkResult<List<Announcement>>
+    ): ApiResult<List<Announcement>>
 
     @POST("api/v1/announcements/{id}/dismiss")
     suspend fun dismissAnnouncement(
         @Path("id") announcementId: String,
-    ): NetworkResult<ResponseBody>
+    ): ApiResult<ResponseBody>
 
     @PUT("api/v1/announcements/{id}/reactions/{name}")
     suspend fun addAnnouncementReaction(

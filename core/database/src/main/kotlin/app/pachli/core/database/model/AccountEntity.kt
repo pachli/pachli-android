@@ -29,6 +29,7 @@ import app.pachli.core.database.Converters
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
+import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.UserListRepliesPolicy
@@ -62,6 +63,11 @@ data class PachliAccount(
         entityColumn = "accountId",
     )
     val contentFilters: ContentFiltersEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "accountId",
+    )
+    val announcements: List<AnnouncementEntity>,
 )
 
 @Entity(
@@ -100,6 +106,24 @@ data class ServerEntity(
     val serverKind: ServerKind,
     val version: Version,
     val capabilities: Map<ServerOperation, Version>,
+)
+
+@Entity(
+    primaryKeys = ["accountId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("accountId"),
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+)
+@TypeConverters(Converters::class)
+data class AnnouncementEntity(
+    val accountId: Long,
+    val announcementId: String,
+    val announcement: Announcement,
 )
 
 @Entity(

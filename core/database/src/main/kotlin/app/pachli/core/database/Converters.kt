@@ -23,6 +23,7 @@ import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
+import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.FilterResult
@@ -267,4 +268,10 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun stringToVersion(s: String?) = s?.let { Version.parse(it) }
+
+    @TypeConverter
+    fun announcementToJson(announcement: Announcement) = moshi.adapter<Announcement>().toJson(announcement)
+
+    @TypeConverter
+    fun jsonToAnnouncement(s: String?) = s?.let { moshi.adapter<Announcement>().fromJson(it) }
 }

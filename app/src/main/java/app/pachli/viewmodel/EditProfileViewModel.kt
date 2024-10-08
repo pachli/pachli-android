@@ -25,6 +25,7 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.appstore.EventHub
 import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.core.common.string.randomAlphanumericString
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.StringField
@@ -39,6 +40,7 @@ import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -62,6 +64,7 @@ class EditProfileViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
     private val application: Application,
+    private val accountManager: AccountManager,
     instanceInfoRepo: InstanceInfoRepository,
 ) : ViewModel() {
 
@@ -79,7 +82,11 @@ class EditProfileViewModel @Inject constructor(
     /** True if the user has made unsaved changes to the profile */
     val isDirty = _isDirty.asStateFlow()
 
-    fun obtainProfile() = viewModelScope.launch {
+    var pachliAccountId by Delegates.notNull<Long>()
+
+    fun obtainProfile(pachliAccountId: Long) = viewModelScope.launch {
+        this@EditProfileViewModel.pachliAccountId = pachliAccountId
+
         if (profileData.value == null || profileData.value is Error) {
             profileData.postValue(Loading())
 
@@ -145,6 +152,7 @@ class EditProfileViewModel @Inject constructor(
                 diff.field4?.second?.toRequestBody(MultipartBody.FORM),
             ).fold(
                 { newAccountData ->
+                    accountManager.updateAccount(pachliAccountId, newAccountData)
                     saveData.postValue(Success())
                     eventHub.dispatch(ProfileEditedEvent(newAccountData))
                 },

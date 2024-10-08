@@ -37,6 +37,7 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.DraftEntity
@@ -69,6 +70,7 @@ import app.pachli.core.model.ContentFilterVersion
         MastodonListEntity::class,
         ServerEntity::class,
         ContentFiltersEntity::class,
+        AnnouncementEntity::class,
     ],
     version = 6,
     autoMigrations = [

@@ -26,6 +26,7 @@ import androidx.room.Update
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.PachliAccount
 import app.pachli.core.model.Timeline
@@ -105,6 +106,9 @@ interface AccountDao {
     @Upsert
     suspend fun upsertMastodonList(list: MastodonListEntity)
 
+    @Upsert
+    suspend fun upsertMastodonLists(lists: List<MastodonListEntity>)
+
     @Query(
         """
             DELETE
@@ -114,8 +118,32 @@ interface AccountDao {
     )
     suspend fun deleteMastodonListForAccount(accountId: Long, listId: String)
 
-    // ---
+    // --- Announcement stuff
+    @Query(
+        """
+        DELETE
+          FROM AnnouncementEntity
+         WHERE accountId = :accountId
+    """,
+    )
+    suspend fun deleteAnnouncementsForAccount(accountId: Long)
 
+    @Upsert
+    suspend fun upsertAnnouncement(announcement: AnnouncementEntity)
+
+    @Upsert
+    suspend fun upsertAnnouncements(announcements: List<AnnouncementEntity>)
+
+    @Query(
+        """
+        DELETE
+          FROM AnnouncementEntity
+         WHERE accountId = :accountId AND announcementId = :announcementId
+    """,
+    )
+    suspend fun deleteAnnouncement(accountId: Long, announcementId: String)
+
+    // ---
     @Update
     suspend fun update(account: AccountEntity)
 

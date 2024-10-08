@@ -19,10 +19,7 @@ package app.pachli
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.appstore.EventHub
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.Loadable
-import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.PrefKeys
@@ -33,12 +30,9 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 // Probably stuff to include in UiState
 //
@@ -54,12 +48,10 @@ internal sealed interface InfallibleUiAction : UiAction {
 @HiltViewModel(assistedFactory = MainViewModel.Factory::class)
 internal class MainViewModel @AssistedInject constructor(
     private val accountManager: AccountManager,
-    private val eventHub: EventHub,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     @Assisted val activeAccountId: Long,
 ) : ViewModel() {
-    val activeAccountFlow = accountManager.activeAccountFlow
-    val activeAccount: AccountEntity?
+    private val activeAccount: AccountEntity?
         get() {
             return accountManager.activeAccount
         }
@@ -91,16 +83,6 @@ internal class MainViewModel @AssistedInject constructor(
     init {
         viewModelScope.launch { uiAction.collect { launch { onUiAction(it) } } }
 
-        viewModelScope.launch {
-            accountManager.activePachliAccountFlow
-                .filterIsInstance<Loadable.Loaded<PachliAccount?>>()
-                .filter { it.data != null }
-                .collect {
-//                    val pachliAccount = accountManager.getPachliAccount(it.data!!.id)!!
-                    val pachliAccount = it.data
-                    Timber.d("PachliAccount: %s", pachliAccount)
-                }
-        }
         viewModelScope.launch {
             // TODO: Emit the error(s), possibly wrapped. Need to explain to the user
             // what happened.

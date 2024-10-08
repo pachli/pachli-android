@@ -34,6 +34,7 @@ import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
@@ -43,6 +44,8 @@ import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.Timeline
+import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.Status
@@ -96,6 +99,7 @@ data class PachliAccount(
     val emojis: List<Emoji>,
     val server: Server,
     val contentFilters: ContentFilters,
+    val announcements: List<Announcement>,
 ) {
     companion object {
         fun make(
@@ -116,6 +120,7 @@ data class PachliAccount(
                     version = account.contentFilters.version,
                     contentFilters = account.contentFilters.contentFilters,
                 ),
+                announcements = account.announcements.map { it.announcement },
             )
         }
     }
@@ -164,12 +169,11 @@ class AccountManager @Inject constructor(
     val activeAccountFlow: StateFlow<Loadable<AccountEntity?>> =
         accountDao.getActiveAccountFlow()
             .distinctUntilChanged()
-            .onEach { Timber.d("activeAccountFlow update: id: %d, isActive: %s", it?.id, it?.isActive) }
+//            .onEach { Timber.d("activeAccountFlow update: id: %d, isActive: %s", it?.id, it?.isActive) }
             .map { Loadable.Loaded(it) }
             .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
     val activeAccount: AccountEntity?
         get() {
-//            Timber.d("get() activeAccount: %s", activeAccountFlow.value)
             return when (val loadable = activeAccountFlow.value) {
                 is Loadable.Loading -> null
                 is Loadable.Loaded -> loadable.data
@@ -214,7 +218,7 @@ class AccountManager @Inject constructor(
 //        .distinctUntilChanged()
 //            .onEach { Timber.d("AM PachliAccount: %s", it) }
             .map { it?.let { PachliAccount.make(it) } }
-            .stateIn(externalScope, SharingStarted.Eagerly, null)
+//            .stateIn(externalScope, SharingStarted.Eagerly, null)
     }
 
     /**
@@ -367,6 +371,7 @@ class AccountManager @Inject constructor(
                 // - lists
                 // - server info
                 // - filters (depends on server info)
+                // - announcements
                 //
                 // InstanceInfoEntity will need to be a merger of whatever you get from
                 // instancev1 and instance2.
@@ -393,6 +398,17 @@ class AccountManager @Inject constructor(
                             it.exclusive ?: false,
                         )
                     }
+                }
+
+                val deferAnnouncements = externalScope.async {
+                    mastodonApi.listAnnouncements(false).get()?.body.orEmpty()
+                        .map {
+                            AnnouncementEntity(
+                                accountId = finalAccount.id,
+                                announcementId = it.id,
+                                announcement = it,
+                            )
+                        }
                 }
 
                 val nodeInfo = deferNodeInfo.await()
@@ -443,10 +459,15 @@ class AccountManager @Inject constructor(
 
                 deferLists.await().also { lists ->
                     accountDao.deleteMastodonListsForAccount(finalAccount.id)
-                    lists.forEach { accountDao.upsertMastodonList(it) }
+                    accountDao.upsertMastodonLists(lists)
                     newTabPreferences(finalAccount.id, lists)?.let {
                         setTabPreferences(finalAccount.id, it)
                     }
+                }
+
+                deferAnnouncements.await().also { announcements ->
+                    accountDao.deleteAnnouncementsForAccount(finalAccount.id)
+                    accountDao.upsertAnnouncements(announcements)
                 }
 
                 Timber.d("Switched accounts took %d ms", now.elapsedNow().inWholeMilliseconds)
@@ -455,6 +476,29 @@ class AccountManager @Inject constructor(
             return Ok(Unit)
         } catch (e: ApiErrorException) {
             return Err(e.apiError)
+        }
+    }
+
+    /**
+     * Updates [pachliAccountId] with data from [newAccount].
+     *
+     * Updates the values:
+     *
+     * - [displayName][AccountEntity.displayName]
+     * - [profilePictureUrl][AccountEntity.profilePictureUrl]
+     * - [profileHeaderPictureUrl][AccountEntity.profileHeaderPictureUrl]
+     * - [locked][AccountEntity.locked]
+     */
+    suspend fun updateAccount(pachliAccountId: Long, newAccount: Account) {
+        transactionProvider {
+            val existingAccount = accountDao.getAccountById(pachliAccountId) ?: return@transactionProvider
+            val updatedAccount = existingAccount.copy(
+                displayName = newAccount.displayName ?: existingAccount.displayName,
+                profilePictureUrl = newAccount.avatar,
+                profileHeaderPictureUrl = newAccount.header,
+                locked = newAccount.locked,
+            )
+            accountDao.upsert(updatedAccount)
         }
     }
 
@@ -468,13 +512,13 @@ class AccountManager @Inject constructor(
      *
      * Handle both of those scenarios.
      *
-     * @param account The account to check
+     * @param pachliAccountId The account to check
      * @param lists The account's latest lists
-     * @return A list of new tab preferences for [account], or null if there are no changes.
+     * @return A list of new tab preferences for [pachliAccountId], or null if there are no changes.
      */
-    private suspend fun newTabPreferences(accountId: Long, lists: List<MastodonListEntity>): List<Timeline>? {
+    private suspend fun newTabPreferences(pachliAccountId: Long, lists: List<MastodonListEntity>): List<Timeline>? {
         val map = lists.associateBy { it.listId }
-        val account = accountDao.getAccountById(accountId) ?: return null
+        val account = accountDao.getAccountById(pachliAccountId) ?: return null
         val oldTabPreferences = account.tabPreferences
         var changed = false
         val newTabPreferences = buildList {
@@ -812,5 +856,10 @@ class AccountManager @Inject constructor(
             )
             contentFiltersDao.upsert(newContentFilters)
         }
+    }
+
+    // -- Announcements
+    suspend fun deleteAnnouncement(accountId: Long, announcementId: String) {
+        accountDao.deleteAnnouncement(accountId, announcementId)
     }
 }
