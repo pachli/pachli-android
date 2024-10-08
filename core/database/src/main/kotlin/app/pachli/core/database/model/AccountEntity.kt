@@ -31,6 +31,7 @@ import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.UserListRepliesPolicy
 import io.github.z4kn4fein.semver.Version
@@ -87,7 +88,21 @@ data class MastodonListEntity(
     val title: String,
     val repliesPolicy: UserListRepliesPolicy,
     val exclusive: Boolean,
-)
+) {
+    companion object {
+        fun make(pachliAccountId: Long, networkList: MastoList) = MastodonListEntity(
+            pachliAccountId,
+            networkList.id,
+            networkList.title,
+            networkList.repliesPolicy,
+            networkList.exclusive ?: false,
+        )
+
+        fun make(pachliAccountId: Long, networkLists: List<MastoList>) = networkLists.map {
+            make(pachliAccountId, it)
+        }
+    }
+}
 
 @Entity(
     primaryKeys = ["accountId"],

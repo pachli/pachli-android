@@ -19,17 +19,14 @@ package app.pachli.feature.lists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.HasListId
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
-import app.pachli.core.data.repository.MastodonList
-import app.pachli.core.domain.lists.GetListsUseCase
 import app.pachli.core.network.model.MastoList
-import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.getOrElse
-import com.github.michaelbull.result.map
+import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onFailure
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -63,7 +60,6 @@ data class ListWithMembership(
 @HiltViewModel(assistedFactory = ListsForAccountViewModel.Factory::class)
 class ListsForAccountViewModel @AssistedInject constructor(
     private val listsRepository: ListsRepository,
-    private val getLists: GetListsUseCase,
     @Assisted val accountId: String,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
@@ -85,33 +81,19 @@ class ListsForAccountViewModel @AssistedInject constructor(
      */
     fun refresh() = viewModelScope.launch {
         _listsWithMembership.value = Ok(ListsWithMembership.Loading)
-        getLists(pachliAccountId).collect { lists ->
+        listsRepository.getLists(pachliAccountId).collect { lists ->
             _listsWithMembership.value = with(listsWithMembershipMap) {
-                val memberLists = listsRepository.getListsWithAccount(accountId)
-                    .map {
-                        it.map {
-                            MastodonList(
-                                pachliAccountId,
-                                it.id,
-                                it.title,
-                                it.repliesPolicy,
-                                it.exclusive ?: false,
-                            )
+                listsRepository.getListsWithAccount(pachliAccountId, accountId).mapEither(
+                    { memberLists ->
+                        clear()
+                        memberLists.forEach { list -> put(list.listId, ListWithMembership(list, true)) }
+                        lists.forEach { list ->
+                            putIfAbsent(list.listId, ListWithMembership(list, false))
                         }
-                    }
-                    .getOrElse { return@with Err(Error.GetListsWithAccount(it)) }
-
-                clear()
-
-                memberLists.forEach { list ->
-                    put(list.listId, ListWithMembership(list, true))
-                }
-
-                lists.forEach { list ->
-                    putIfAbsent(list.listId, ListWithMembership(list, false))
-                }
-
-                Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
+                        ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap())
+                    },
+                    { Error.GetListsWithAccount(it) },
+                )
             }
         }
     }
@@ -127,7 +109,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
 
         _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
 
-        listsRepository.addAccountsToList(listId, listOf(accountId)).onFailure { error ->
+        listsRepository.addAccountsToList(pachliAccountId, listId, listOf(accountId)).onFailure { error ->
             // Undo the optimistic update
             listsWithMembershipMap[listId]?.let {
                 listsWithMembershipMap[listId] = it.copy(isMember = false)
@@ -149,7 +131,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
         }
         _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
 
-        listsRepository.deleteAccountsFromList(listId, listOf(accountId)).onFailure { error ->
+        listsRepository.deleteAccountsFromList(pachliAccountId, listId, listOf(accountId)).onFailure { error ->
             // Undo the optimistic update
             listsWithMembershipMap[listId]?.let {
                 listsWithMembershipMap[listId] = it.copy(isMember = true)

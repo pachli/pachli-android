@@ -43,8 +43,8 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
-import app.pachli.core.data.repository.MastodonList
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.UserListRepliesPolicy
@@ -227,7 +227,11 @@ class ListsActivity : BaseActivity(), MenuProvider {
     }
 
     private fun openListSettings(list: MastodonList) {
-        AccountsInListFragment.newInstance(list.listId, list.title).show(supportFragmentManager, null)
+        AccountsInListFragment.newInstance(
+            intent.pachliAccountId,
+            list.listId,
+            list.title,
+        ).show(supportFragmentManager, null)
     }
 
     private fun onMore(list: MastodonList, view: View) {

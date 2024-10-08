@@ -42,10 +42,10 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.model.MastodonList
+import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
-import app.pachli.core.data.repository.MastodonList
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.domain.lists.GetListsUseCase
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.navigation.pachliAccountId
@@ -68,7 +68,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     lateinit var eventHub: EventHub
 
     @Inject
-    lateinit var getLists: GetListsUseCase
+    lateinit var listsRepository: ListsRepository
 
     private val binding by viewBinding(ActivityTabPreferenceBinding::inflate)
 
@@ -313,7 +313,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         dialog.show()
 
         lifecycleScope.launch {
-            getLists(accountManager.activeAccount!!.id).collectLatest { lists ->
+            listsRepository.getLists(intent.pachliAccountId).collectLatest { lists ->
                 selectListBinding.progressBar.hide()
                 adapter.clear()
                 adapter.addAll(lists.sortedWith(compareByListTitle))

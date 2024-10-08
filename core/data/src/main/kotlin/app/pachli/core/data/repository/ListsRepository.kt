@@ -18,12 +18,14 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
+import app.pachli.core.data.model.MastodonList
 import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 import java.text.Collator
+import kotlinx.coroutines.flow.Flow
 
 sealed interface Lists {
     data object Loading : Lists
@@ -59,17 +61,27 @@ interface ListsError : PachliError {
 }
 
 interface ListsRepository {
-    /** Make an API call to refresh [lists] */
-    suspend fun getLists(): Result<List<MastoList>, ListsError.Retrieve>
+    /** Fetch known lists for [pachliAccountId]. */
+    fun getLists(pachliAccountId: Long): Flow<List<MastodonList>>
+
+    fun getAllLists(): Flow<List<MastodonList>>
+
+    suspend fun refresh(pachliAccountId: Long): Result<List<MastodonList>, ListsError.Retrieve>
 
     /**
      * Create a new list
      *
-     * @param title Title for the new list
-     * @param exclusive True if the new list is exclusive
-     * @return Details of the new list if successfuly, or an error
+     * @param pachliAccountId Account that will own the new list.
+     * @param title Title for the new list.
+     * @param exclusive True if the new list is exclusive.
+     * @return Details of the new list if successfuly, or an error.
      */
-    suspend fun createList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, ListsError.Create>
+    suspend fun createList(
+        pachliAccountId: Long,
+        title: String,
+        exclusive: Boolean,
+        repliesPolicy: UserListRepliesPolicy,
+    ): Result<MastodonList, ListsError.Create>
 
     /**
      * Edit an existing list.
@@ -79,7 +91,13 @@ interface ListsRepository {
      * @param exclusive New exclusive vale for the list
      * @return Amended list, or an error
      */
-    suspend fun editList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, ListsError.Update>
+    suspend fun updateList(
+        pachliAccountId: Long,
+        listId: String,
+        title: String,
+        exclusive: Boolean,
+        repliesPolicy: UserListRepliesPolicy,
+    ): Result<MastodonList, ListsError.Update>
 
     /**
      * Delete an existing list
@@ -95,7 +113,10 @@ interface ListsRepository {
      * @param accountId ID of the account to search for
      * @result List of Mastodon lists the account is a member of, or an error
      */
-    suspend fun getListsWithAccount(accountId: String): Result<List<MastoList>, ListsError.GetListsWithAccount>
+    suspend fun getListsWithAccount(
+        pachliAccountId: Long,
+        accountId: String,
+    ): Result<List<MastodonList>, ListsError.GetListsWithAccount>
 
     /**
      * Fetch the members of a list
@@ -103,7 +124,10 @@ interface ListsRepository {
      * @param listId ID of the list to fetch membership for
      * @return List of [TimelineAccount] that are members of the list, or an error
      */
-    suspend fun getAccountsInList(listId: String): Result<List<TimelineAccount>, ListsError.GetAccounts>
+    suspend fun getAccountsInList(
+        pachliAccountId: Long,
+        listId: String,
+    ): Result<List<TimelineAccount>, ListsError.GetAccounts>
 
     /**
      * Add one or more accounts to a list
@@ -112,7 +136,11 @@ interface ListsRepository {
      * @param accountIds IDs of the accounts to add
      * @return A successful result, or an error
      */
-    suspend fun addAccountsToList(listId: String, accountIds: List<String>): Result<Unit, ListsError.AddAccounts>
+    suspend fun addAccountsToList(
+        pachliAccountId: Long,
+        listId: String,
+        accountIds: List<String>,
+    ): Result<Unit, ListsError.AddAccounts>
 
     /**
      * Remove one or more accounts from a list
@@ -121,7 +149,11 @@ interface ListsRepository {
      * @param accountIds IDs of the accounts to remove
      * @return A successful result, or an error
      */
-    suspend fun deleteAccountsFromList(listId: String, accountIds: List<String>): Result<Unit, ListsError.DeleteAccounts>
+    suspend fun deleteAccountsFromList(
+        pachliAccountId: Long,
+        listId: String,
+        accountIds: List<String>,
+    ): Result<Unit, ListsError.DeleteAccounts>
 
     companion object {
         /**

@@ -19,6 +19,7 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.InstanceInfo
+import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
 import app.pachli.core.data.model.from
 import app.pachli.core.data.repository.ContentFiltersError.GetContentFiltersError
@@ -40,7 +41,6 @@ import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
-import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
@@ -49,9 +49,7 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
@@ -82,6 +80,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 sealed interface Loadable<T> {
@@ -128,31 +127,6 @@ data class PachliAccount(
     }
 }
 
-data class MastodonList(
-    val accountId: Long,
-    val listId: String,
-    val title: String,
-    val repliesPolicy: UserListRepliesPolicy,
-    val exclusive: Boolean,
-) {
-    fun entity() = MastodonListEntity(
-        accountId = accountId,
-        listId = listId,
-        title = title,
-        repliesPolicy = repliesPolicy,
-        exclusive = exclusive,
-    )
-    companion object {
-        fun from(entity: MastodonListEntity) = MastodonList(
-            accountId = entity.accountId,
-            listId = entity.listId,
-            title = entity.title,
-            repliesPolicy = entity.repliesPolicy,
-            exclusive = entity.exclusive,
-        )
-    }
-}
-
 // Note to self: This is doing dual duty as a repository and as a collection of
 // use cases, and should be refactored along those lines.
 
@@ -166,6 +140,7 @@ class AccountManager @Inject constructor(
     private val instanceDao: InstanceDao,
     private val contentFiltersDao: ContentFiltersDao,
     private val listsDao: ListsDao,
+    private val listsRepository: ListsRepository,
     private val announcementsDao: AnnouncementsDao,
     private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     @ApplicationScope private val externalScope: CoroutineScope,
@@ -190,6 +165,7 @@ class AccountManager @Inject constructor(
             it.forEach { Timber.d("  id: %d, isActive: %s", it.id, it.isActive) }
         }
         .stateIn(externalScope, SharingStarted.Eagerly, emptyList())
+
     val accounts: List<AccountEntity>
         get() = accountsFlow.value
     val accountsOrderedByActiveFlow = accountDao.getAccountsOrderedByActive()
@@ -203,6 +179,19 @@ class AccountManager @Inject constructor(
 //        .onEach { Timber.d("AM PachliAccount: %s", it) }
         .map { PachliAccount.make(it) }
     // .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
+
+    init {
+        externalScope.launch {
+            listsRepository.getAllLists().collect { lists ->
+                val listsById = lists.groupBy { it.accountId }
+                listsById.forEach { (pachliAccountId, group) ->
+                    newTabPreferences(pachliAccountId, group)?.let {
+                        setTabPreferences(pachliAccountId, it)
+                    }
+                }
+            }
+        }
+    }
 
     suspend fun getPachliAccount(accountId: Long): PachliAccount? {
         val id = accountId.takeIf { it != -1L } ?: accountDao.getActiveAccount()?.id
@@ -386,22 +375,13 @@ class AccountManager @Inject constructor(
                 val deferNodeInfo = externalScope.async {
                     fetchNodeInfo()
                 }
+
                 val deferInstanceInfo = externalScope.async {
                     fetchInstanceInfo(finalAccount.domain)
                 }
+
                 val deferEmojis = externalScope.async {
                     mastodonApi.getCustomEmojis()
-                }
-                val deferLists = externalScope.async {
-                    mastodonApi.getLists().get()?.body.orEmpty().map {
-                        MastodonListEntity(
-                            finalAccount.id,
-                            it.id,
-                            it.title,
-                            it.repliesPolicy,
-                            it.exclusive ?: false,
-                        )
-                    }
                 }
 
                 val deferAnnouncements = externalScope.async {
@@ -438,9 +418,7 @@ class AccountManager @Inject constructor(
                 }
 
                 val deferContentFilters = server?.let {
-                    externalScope.async {
-                        getContentFilters(server)
-                    }
+                    externalScope.async { getContentFilters(server) }
                 }
 
                 deferContentFilters?.await()?.let { result ->
@@ -461,13 +439,7 @@ class AccountManager @Inject constructor(
                     }
                 }
 
-                deferLists.await().also { lists ->
-                    listsDao.deleteAllForAccount(finalAccount.id)
-                    listsDao.upsert(lists)
-                    newTabPreferences(finalAccount.id, lists)?.let {
-                        setTabPreferences(finalAccount.id, it)
-                    }
-                }
+                listsRepository.refresh(finalAccount.id)
 
                 deferAnnouncements.await().also { announcements ->
                     announcementsDao.deleteAllForAccount(finalAccount.id)
@@ -520,7 +492,7 @@ class AccountManager @Inject constructor(
      * @param lists The account's latest lists
      * @return A list of new tab preferences for [pachliAccountId], or null if there are no changes.
      */
-    private suspend fun newTabPreferences(pachliAccountId: Long, lists: List<MastodonListEntity>): List<Timeline>? {
+    private suspend fun newTabPreferences(pachliAccountId: Long, lists: List<MastodonList>): List<Timeline>? {
         val map = lists.associateBy { it.listId }
         val account = accountDao.getAccountById(pachliAccountId) ?: return null
         val oldTabPreferences = account.tabPreferences
@@ -760,53 +732,6 @@ class AccountManager @Inject constructor(
     suspend fun setLastVisibleHomeTimelineStatusId(accountId: Long, value: String?) {
         Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", accountId, value)
         accountDao.setLastVisibleHomeTimelineStatusId(accountId, value)
-    }
-
-    // -- Lists
-
-    fun getLists(accountId: Long) = listsDao.flowByAccount(accountId).map {
-        it.map { MastodonList.from(it) }
-    }
-
-    suspend fun refreshLists(accountId: Long, lists: List<MastoList>) {
-        transactionProvider {
-            listsDao.deleteAllForAccount(accountId)
-            val entities = lists.map {
-                MastodonListEntity(
-                    accountId,
-                    it.id,
-                    it.title,
-                    it.repliesPolicy,
-                    it.exclusive ?: false,
-                )
-            }
-            entities.forEach { listsDao.upsert(it) }
-            newTabPreferences(accountId, entities)?.let {
-                setTabPreferences(accountId, it)
-            }
-        }
-    }
-
-    suspend fun createList(list: MastodonList) = listsDao.upsert(list.entity())
-
-    suspend fun deleteList(list: MastodonList) {
-        transactionProvider {
-            listsDao.deleteForAccount(list.accountId, list.listId)
-            val lists = listsDao.get(list.accountId)
-            newTabPreferences(list.accountId, lists)?.let {
-                setTabPreferences(list.accountId, it)
-            }
-        }
-    }
-
-    suspend fun editList(list: MastodonList) {
-        transactionProvider {
-            listsDao.upsert(list.entity())
-            val lists = listsDao.get(list.accountId)
-            newTabPreferences(list.accountId, lists)?.let {
-                setTabPreferences(list.accountId, it)
-            }
-        }
     }
 
     // -- Content filters

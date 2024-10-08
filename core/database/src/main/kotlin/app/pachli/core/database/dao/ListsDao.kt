@@ -32,28 +32,31 @@ interface ListsDao {
         """
         DELETE
           FROM MastodonListEntity
-         WHERE accountId = :accountId
+         WHERE accountId = :pachliAccountId
     """,
     )
-    suspend fun deleteAllForAccount(accountId: Long)
+    suspend fun deleteAllForAccount(pachliAccountId: Long)
 
     @Query(
         """
             SELECT *
               FROM MastodonListEntity
-             WHERE accountId = :accountId
+             WHERE accountId = :pachliAccountId
         """,
     )
-    fun flowByAccount(accountId: Long): Flow<List<MastodonListEntity>>
+    fun flowByAccount(pachliAccountId: Long): Flow<List<MastodonListEntity>>
 
     @Query(
         """
             SELECT *
               FROM MastodonListEntity
-             WHERE accountId = :accountId
+             WHERE accountId = :pachliAccountId
         """,
     )
-    suspend fun get(accountId: Long): List<MastodonListEntity>
+    suspend fun get(pachliAccountId: Long): List<MastodonListEntity>
+
+    @Query("SELECT * FROM MastodonListEntity")
+    fun flowAll(): Flow<List<MastodonListEntity>>
 
     @Upsert
     suspend fun upsert(list: MastodonListEntity)
