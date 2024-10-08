@@ -31,7 +31,7 @@ data class Announcement(
     @Json(name = "updated_at") val updatedAt: Date,
     val read: Boolean,
     val mentions: List<Status.Mention>,
-    val statuses: List<Status>,
+    val statuses: List<AnnouncementStatus>,
     val tags: List<HashTag>,
     val emojis: List<Emoji>,
     val reactions: List<Reaction>,
@@ -56,5 +56,11 @@ data class Announcement(
         val me: Boolean,
         val url: String?,
         @Json(name = "static_url") val staticUrl: String?,
+    )
+
+    @JsonClass(generateAdapter = true)
+    data class AnnouncementStatus(
+        val id: String,
+        val url: String,
     )
 }
