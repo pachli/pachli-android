@@ -45,6 +45,15 @@ internal sealed interface InfallibleUiAction : UiAction {
     data class TabRemoveTimeline(val timeline: Timeline) : InfallibleUiAction
 }
 
+data class UiState(
+    val hideTopToolbar: Boolean, // onCreate, bindDrawerAvatar
+    // mainNavPosition (top, bottom), onCreate, bindTabs, bindDrawerAvatar
+    // emoji preference, onCreate, onResume, updateDrawerProfileHeader
+    // animate gif avatars (animateAvatars), bindMainDrawer, bindDrawerAvatar
+    // fontFamily, bindMainDrawerItems
+    // enableSwipeForTabs, bindTabs
+)
+
 @HiltViewModel(assistedFactory = MainViewModel.Factory::class)
 internal class MainViewModel @AssistedInject constructor(
     private val accountManager: AccountManager,

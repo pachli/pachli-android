@@ -504,8 +504,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val currentEmojiPack = sharedPreferencesRepository.getString(EMOJI_PREFERENCE, "")
         if (currentEmojiPack != selectedEmojiPack) {
             Timber.d(
-                "onResume: EmojiPack has been changed from %s to %s"
-                    .format(selectedEmojiPack, currentEmojiPack),
+                "onResume: EmojiPack has been changed from %s to %s",
+                selectedEmojiPack,
+                currentEmojiPack,
             )
             selectedEmojiPack = currentEmojiPack
             recreate()
