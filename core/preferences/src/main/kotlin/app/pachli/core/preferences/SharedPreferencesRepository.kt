@@ -53,6 +53,10 @@ class SharedPreferencesRepository @Inject constructor(
     val downloadLocation: DownloadLocation
         get() = getEnum(PrefKeys.DOWNLOAD_LOCATION, DownloadLocation.DOWNLOADS)
 
+    /** Screen location of primary navigation UI (tabs, etc). */
+    val mainNavigationPosition: MainNavigationPosition
+        get() = getEnum(PrefKeys.MAIN_NAV_POSITION, MainNavigationPosition.TOP)
+
     val tabTapBehaviour: TabTapBehaviour
         get() = getEnum(PrefKeys.TAB_TAP_BEHAVIOUR, TabTapBehaviour.JUMP_TO_NEXT_PAGE)
 

@@ -107,6 +107,7 @@ import app.pachli.core.navigation.TrendingActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Notification
+import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon
@@ -322,9 +323,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // the options menu).
         val hideTopToolbar = sharedPreferencesRepository.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
         if (hideTopToolbar) {
-            when (sharedPreferencesRepository.getString(PrefKeys.MAIN_NAV_POSITION, "top")) {
-                "top" -> setSupportActionBar(binding.topNav)
-                "bottom" -> setSupportActionBar(binding.bottomNav)
+            when (sharedPreferencesRepository.mainNavigationPosition) {
+                MainNavigationPosition.TOP -> setSupportActionBar(binding.topNav)
+                MainNavigationPosition.BOTTOM -> setSupportActionBar(binding.bottomNav)
             }
             binding.mainToolbar.hide()
             // There's not enough space in the top/bottom bars to show the title as well.
@@ -966,18 +967,22 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun bindTabs(account: AccountEntity, selectNotificationTab: Boolean) {
-        val activeTabLayout = if (sharedPreferencesRepository.getString(PrefKeys.MAIN_NAV_POSITION, "top") == "bottom") {
-            val actionBarSize = getDimension(this, androidx.appcompat.R.attr.actionBarSize)
-            val fabMargin = resources.getDimensionPixelSize(DR.dimen.fabMargin)
-            (binding.composeButton.layoutParams as CoordinatorLayout.LayoutParams).bottomMargin = actionBarSize + fabMargin
-            binding.topNav.hide()
-            binding.bottomTabLayout
-        } else {
-            binding.bottomNav.hide()
-            (binding.viewPager.layoutParams as CoordinatorLayout.LayoutParams).bottomMargin = 0
-            (binding.composeButton.layoutParams as CoordinatorLayout.LayoutParams).anchorId =
-                R.id.viewPager
-            binding.tabLayout
+        val activeTabLayout = when (sharedPreferencesRepository.mainNavigationPosition) {
+            MainNavigationPosition.TOP -> {
+                binding.bottomNav.hide()
+                (binding.viewPager.layoutParams as CoordinatorLayout.LayoutParams).bottomMargin = 0
+                (binding.composeButton.layoutParams as CoordinatorLayout.LayoutParams).anchorId =
+                    R.id.viewPager
+                binding.tabLayout
+            }
+
+            MainNavigationPosition.BOTTOM -> {
+                val actionBarSize = getDimension(this, androidx.appcompat.R.attr.actionBarSize)
+                val fabMargin = resources.getDimensionPixelSize(DR.dimen.fabMargin)
+                (binding.composeButton.layoutParams as CoordinatorLayout.LayoutParams).bottomMargin = actionBarSize + fabMargin
+                binding.topNav.hide()
+                binding.bottomTabLayout
+            }
         }
 
         // Save the previous tab so it can be restored later
@@ -1136,11 +1141,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
 
         val activeToolbar = if (hideTopToolbar) {
-            val navOnBottom = sharedPreferencesRepository.getString(PrefKeys.MAIN_NAV_POSITION, "top") == "bottom"
-            if (navOnBottom) {
-                binding.bottomNav
-            } else {
-                binding.topNav
+            when (sharedPreferencesRepository.mainNavigationPosition) {
+                MainNavigationPosition.TOP -> binding.topNav
+                MainNavigationPosition.BOTTOM -> binding.bottomNav
             }
         } else {
             binding.mainToolbar

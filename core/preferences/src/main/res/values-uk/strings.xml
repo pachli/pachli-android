@@ -14,4 +14,6 @@
     <string name="tab_tap_behaviour_jump_to_next_page">Перейти на сторінку</string>
     <string name="tab_tap_behaviour_jump_to_newest">Перейти до вмісту</string>
     <string name="pref_category_tabs">Вкладки</string>
+    <string name="pref_main_nav_position_option_top">Вгорі</string>
+    <string name="pref_main_nav_position_option_bottom">Внизу</string>
 </resources>

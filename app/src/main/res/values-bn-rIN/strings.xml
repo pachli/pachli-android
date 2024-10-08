@@ -385,8 +385,6 @@
     <string name="add_hashtag_title">হ্যাশট্যাগ যোগ করো</string>
     <string name="description_post_bookmarked">বুকমার্ককৃত</string>
     <string name="notification_follow_request_description">অনুসরণ রিকোয়েস্টের বিজ্ঞপ্তি</string>
-    <string name="pref_main_nav_position_option_bottom">সবচেয়ে শেষ</string>
-    <string name="pref_main_nav_position_option_top">সর্বপ্রথম</string>
     <string name="pref_main_nav_position">মূল ন্যাভিগেশন জায়গা</string>
     <string name="pref_title_enable_swipe_for_tabs">ট্যাবের মাঝে সোয়াইপ সংকেত চালু করো</string>
     <string name="pref_title_show_cards_in_timelines">টাইমলাইনে লিঙ্ক প্রিভিউ দেখাও</string>

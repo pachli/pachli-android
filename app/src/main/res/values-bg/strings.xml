@@ -403,8 +403,6 @@
     <string name="post_privacy_followers_only">Само за последователи</string>
     <string name="post_privacy_unlisted">Скрито</string>
     <string name="post_privacy_public">Публично</string>
-    <string name="pref_main_nav_position_option_bottom">Долу</string>
-    <string name="pref_main_nav_position_option_top">Горе</string>
     <string name="pref_main_nav_position">Основна навигационна позиция</string>
     <string name="pref_failed_to_sync">Синхронизирането на настройките бе неуспешно</string>
     <string name="pref_publishing">Публикуване (синхронизирано със сървър)</string>

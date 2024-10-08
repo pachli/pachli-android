@@ -176,16 +176,6 @@
         <item>ja</item>
     </string-array>
 
-    <string-array name="pref_main_nav_position_options">
-        <item>@string/pref_main_nav_position_option_top</item>
-        <item>@string/pref_main_nav_position_option_bottom</item>
-    </string-array>
-
-    <string-array name="pref_main_nav_position_values">
-        <item>top</item>
-        <item>bottom</item>
-    </string-array>
-
     <string-array name="pref_show_self_username_values">
         <item>always</item>
         <item>disambiguate</item>

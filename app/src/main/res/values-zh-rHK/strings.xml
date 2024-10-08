@@ -418,7 +418,5 @@
     <string name="notification_subscription_description">當你關注的人發布新嘟文時通知</string>
     <string name="notification_subscription_name">新嘟文</string>
     <string name="notification_follow_request_description">關注請求的通知</string>
-    <string name="pref_main_nav_position_option_bottom">底端</string>
-    <string name="pref_main_nav_position_option_top">頂端</string>
     <string name="pref_main_nav_position">主要導覽列的位置</string>
 </resources>

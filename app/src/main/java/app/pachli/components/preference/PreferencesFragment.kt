@@ -52,6 +52,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.DownloadLocation
+import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.extensions.await
@@ -285,13 +286,10 @@ class PreferencesFragment : PreferenceFragmentCompat() {
             }
 
             preferenceCategory(app.pachli.core.preferences.R.string.pref_category_tabs) {
-                listPreference {
-                    setDefaultValue("top")
-                    setEntries(R.array.pref_main_nav_position_options)
-                    setEntryValues(R.array.pref_main_nav_position_values)
-                    key = PrefKeys.MAIN_NAV_POSITION
-                    setSummaryProvider { entry }
+                enumListPreference<MainNavigationPosition> {
+                    setDefaultValue(MainNavigationPosition.TOP)
                     setTitle(R.string.pref_main_nav_position)
+                    key = PrefKeys.MAIN_NAV_POSITION
                 }
 
                 switchPreference {

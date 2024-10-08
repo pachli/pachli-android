@@ -305,8 +305,6 @@
     <string name="post_privacy_followers_only">Luchd-leantainn a-mhàin</string>
     <string name="post_privacy_unlisted">Neo-liostaichte</string>
     <string name="post_privacy_public">Poblach</string>
-    <string name="pref_main_nav_position_option_bottom">Aig a’ bhonn</string>
-    <string name="pref_main_nav_position_option_top">Aig a’ bhàrr</string>
     <string name="pref_main_nav_position">Prìomh-ionad na seòladaireachd</string>
     <string name="pref_failed_to_sync">Dh’fhàillig le sioncronachadh nan roghainnean</string>
     <string name="pref_publishing">’Ga fhoillseachadh (ga shioncronachadh le frithealaiche)</string>

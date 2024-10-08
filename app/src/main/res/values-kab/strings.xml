@@ -274,8 +274,6 @@
     <string name="post_media_alt">ALT</string>
     <string name="action_post_failed_do_nothing">Zgel</string>
     <string name="pref_summary_http_proxy_disabled">Yensa</string>
-    <string name="pref_main_nav_position_option_top">Afella</string>
-    <string name="pref_main_nav_position_option_bottom">Adda</string>
     <string name="label_duration">Tanzagt</string>
     <string name="duration_indefinite">War talast</string>
     <string name="action_subscribe_account">Ḍfeṛ</string>

@@ -398,8 +398,6 @@
     <string name="post_media_audio">Àudio</string>
     <string name="notification_subscription_name">Publicacions novèlas</string>
     <string name="notification_follow_request_description">Notificacions de demandas de seguiment</string>
-    <string name="pref_main_nav_position_option_bottom">Enbàs</string>
-    <string name="pref_main_nav_position_option_top">Ennaut</string>
     <string name="pref_main_nav_position">Posicion de navigacion principala</string>
     <string name="pref_title_animate_custom_emojis">Emoji animats personalizats</string>
     <string name="pref_title_gradient_for_media">Afichar un degradat colorat pels mèdias amagats</string>

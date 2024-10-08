@@ -8,4 +8,6 @@
     <string name="pref_category_downloads">Спампоўванні</string>
     <string name="pref_title_downloads">Каталог загрузак</string>
     <string name="pref_category_tabs">Укладкі</string>
+    <string name="pref_main_nav_position_option_top">Зверху</string>
+    <string name="pref_main_nav_position_option_bottom">Знізу</string>
 </resources>

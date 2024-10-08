@@ -383,8 +383,6 @@
         <item quantity="other">%d minutu faltan</item>
     </plurals>
     <string name="add_hashtag_title">Traola gehitu</string>
-    <string name="pref_main_nav_position_option_bottom">Beheran</string>
-    <string name="pref_main_nav_position_option_top">Goian</string>
     <string name="pref_main_nav_position">Nabigazio nagusiaren posizioa</string>
     <string name="pref_title_gradient_for_media">Gradiente koloretsuak erakutsi ezkutuko mediaren lekuan</string>
     <string name="pref_title_notification_filter_follow_requests">jarraitzeko eskaera jasotzean</string>

@@ -316,9 +316,7 @@
     <string name="pref_title_bot_overlay">Dangos dangosydd botiau</string>
     <string name="pref_title_gradient_for_media">Dangos graddiannau lliwgar ar gyfer cyfryngau cudd</string>
     <string name="pref_failed_to_sync">Methu cydweddu gosodiadau</string>
-    <string name="pref_main_nav_position_option_top">Brig</string>
     <string name="about_pachli_version">Pachli %s</string>
-    <string name="pref_main_nav_position_option_bottom">Gwaelod</string>
     <string name="action_open_faved_by">Dangos ffefrynnau</string>
     <string name="report_description_1">Bydd yr adroddiad yn cael ei anfon at reolwr eich gweinydd. Gallwch esbonio pam rydych chi\'n adrodd ar y cyfrif hwn isod:</string>
     <string name="warning_scheduling_interval">Mae gan Mastodon egwyl amserlennu o o leiaf 5 munud.</string>
