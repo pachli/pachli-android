@@ -24,13 +24,11 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.network.model.UserListRepliesPolicy
+import app.pachli.core.ui.OperationCounter
 import com.github.michaelbull.result.onFailure
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -57,40 +55,42 @@ internal class ListsViewModel @Inject constructor(
     private val _errors = Channel<Error>()
     val errors = _errors.receiveAsFlow()
 
-    private val _operationCount = MutableStateFlow(0)
-    val operationCount = _operationCount.asStateFlow()
+    private val operationCounter = OperationCounter()
+    val operationCount = operationCounter.count
 
     val lists = listsRepository.lists
 
     init {
-        listsRepository.refresh()
+        viewModelScope.launch {
+            operationCounter { listsRepository.refresh() }
+        }
     }
 
     fun refresh() = viewModelScope.launch {
-        listsRepository.refresh()
+        operationCounter { listsRepository.refresh() }
     }
 
     fun createNewList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
-        _operationCount.getAndUpdate { it + 1 }
-
-        listsRepository.createList(title, exclusive, repliesPolicy).onFailure {
-            _errors.send(Error.Create(title, it))
+        operationCounter {
+            listsRepository.createList(title, exclusive, repliesPolicy).onFailure {
+                _errors.send(Error.Create(title, it))
+            }
         }
-    }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
+    }
 
     fun updateList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
-        _operationCount.getAndUpdate { it + 1 }
-
-        listsRepository.editList(listId, title, exclusive, repliesPolicy).onFailure {
-            _errors.send(Error.Update(title, it))
+        operationCounter {
+            listsRepository.editList(listId, title, exclusive, repliesPolicy).onFailure {
+                _errors.send(Error.Update(title, it))
+            }
         }
-    }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
+    }
 
     fun deleteList(listId: String, title: String) = viewModelScope.launch {
-        _operationCount.getAndUpdate { it + 1 }
-
-        listsRepository.deleteList(listId).onFailure {
-            _errors.send(Error.Delete(title, it))
+        operationCounter {
+            listsRepository.deleteList(listId).onFailure {
+                _errors.send(Error.Delete(title, it))
+            }
         }
-    }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
+    }
 }
