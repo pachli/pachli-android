@@ -25,16 +25,14 @@ import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.network.model.UserListRepliesPolicy
+import app.pachli.core.ui.OperationCounter
 import com.github.michaelbull.result.onFailure
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
@@ -44,7 +42,6 @@ sealed class Error(
     override val formatArgs: Array<out String>,
     override val cause: ListsError? = null,
 ) : ListsError {
-
     data class Create(val title: String, override val cause: ListsError.Create) :
         Error(R.string.error_create_list_fmt, arrayOf(title.unicodeWrap()), cause)
 
@@ -63,8 +60,8 @@ internal class ListsViewModel @AssistedInject constructor(
     private val _errors = Channel<Error>()
     val errors = _errors.receiveAsFlow()
 
-    private val _operationCount = MutableStateFlow(0)
-    val operationCount = _operationCount.asStateFlow()
+    private val operationCounter = OperationCounter()
+    val operationCount = operationCounter.count
 
     // Not a stateflow, as that makes updates distinct. A refresh that returns
     // no changes is not distinct, and that prevents the refresh spinner from
@@ -72,27 +69,29 @@ internal class ListsViewModel @AssistedInject constructor(
     val lists = listsRepository.getLists(pachliAccountId)
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
-    fun refresh() = viewModelScope.launch { listsRepository.refresh(pachliAccountId) }
+    fun refresh() = viewModelScope.launch {
+        operationCounter { listsRepository.refresh(pachliAccountId) }
+    }
 
     fun createNewList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
-        _operationCount.getAndUpdate { it + 1 }
-
-        listsRepository.createList(pachliAccountId, title, exclusive, repliesPolicy)
-            .onFailure { _errors.send(Error.Create(title, it)) }
-    }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
+        operationCounter {
+            listsRepository.createList(pachliAccountId, title, exclusive, repliesPolicy)
+                .onFailure { _errors.send(Error.Create(title, it)) }
+        }
+    }
 
     fun updateList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
-        _operationCount.getAndUpdate { it + 1 }
-
-        listsRepository.updateList(pachliAccountId, listId, title, exclusive, repliesPolicy)
-            .onFailure { _errors.send(Error.Update(title, it)) }
-    }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
+        operationCounter {
+            listsRepository.updateList(pachliAccountId, listId, title, exclusive, repliesPolicy)
+                .onFailure { _errors.send(Error.Update(title, it)) }
+        }
+    }
 
     fun deleteList(list: MastodonList) = viewModelScope.launch {
-        _operationCount.getAndUpdate { it + 1 }
-
-        listsRepository.deleteList(list).onFailure { _errors.send(Error.Delete(list.title, it)) }
-    }.invokeOnCompletion { _operationCount.getAndUpdate { it - 1 } }
+        operationCounter {
+            listsRepository.deleteList(list).onFailure { _errors.send(Error.Delete(list.title, it)) }
+        }
+    }
 
     @AssistedFactory
     interface Factory {
