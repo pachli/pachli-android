@@ -16,7 +16,6 @@
 
 package app.pachli.components.preference
 
-import app.pachli.core.designsystem.R as DR
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -39,6 +38,7 @@ import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.canFilterV1
 import app.pachli.core.data.repository.canFilterV2
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.ContentFiltersActivityIntent
 import app.pachli.core.navigation.FollowedTagsActivityIntent

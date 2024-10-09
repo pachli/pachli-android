@@ -5,8 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFilters
-import app.pachli.core.domain.contentFilters.DeleteContentFilterUseCase
-import app.pachli.core.domain.contentFilters.RefreshContentFiltersUseCase
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.ui.OperationCounter
@@ -26,8 +25,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel(assistedFactory = ContentFiltersViewModel.Factory::class)
 class ContentFiltersViewModel @AssistedInject constructor(
     private val accountManager: AccountManager,
-    private val deleteContentFilter: DeleteContentFilterUseCase,
-    private val refreshContentFilters: RefreshContentFiltersUseCase,
+    private val contentFiltersRepository: ContentFiltersRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
 
@@ -47,14 +45,14 @@ class ContentFiltersViewModel @AssistedInject constructor(
 
     fun refreshContentFilters() = viewModelScope.launch {
         operationCounter {
-            refreshContentFilters(pachliAccountId)
+            contentFiltersRepository.refresh(pachliAccountId)
         }
     }
 
     fun deleteContentFilter(contentFilter: ContentFilter, parent: View) {
         viewModelScope.launch {
             operationCounter {
-                deleteContentFilter(pachliAccountId, contentFilter.id)
+                contentFiltersRepository.deleteContentFilter(pachliAccountId, contentFilter.id)
                     .onFailure {
                         Snackbar.make(parent, "Error deleting filter '${contentFilter.title}'", Snackbar.LENGTH_SHORT).show()
                     }

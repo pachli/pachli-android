@@ -32,19 +32,19 @@ interface ContentFiltersDao {
         """
         SELECT *
           FROM ContentFiltersEntity
-         WHERE accountId = :accountId
+         WHERE accountId = :pachliAccountId
     """,
     )
-    suspend fun get(accountId: Long): ContentFiltersEntity?
+    suspend fun getByAccount(pachliAccountId: Long): ContentFiltersEntity?
 
     @Query(
         """
         SELECT *
           FROM ContentFiltersEntity
-         WHERE accountId = :accountId
+         WHERE accountId = :pachliAccountId
         """,
     )
-    fun getForAccountFlow(accountId: Long): Flow<ContentFiltersEntity?>
+    fun flowByAccount(pachliAccountId: Long): Flow<ContentFiltersEntity?>
 
     @Upsert
     suspend fun upsert(contentFiltersEntity: ContentFiltersEntity)

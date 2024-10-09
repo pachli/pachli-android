@@ -22,6 +22,7 @@ import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.Server.Error.UnparseableVersion
 import app.pachli.core.database.model.InstanceInfoEntity
+import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.ServerCapabilities
 import app.pachli.core.model.ServerKind
@@ -148,6 +149,12 @@ data class Server(
 
             Server(serverKind, version, capabilities)
         }
+
+        fun from(entity: ServerEntity) = Server(
+            kind = entity.serverKind,
+            version = entity.version,
+            capabilities = entity.capabilities,
+        )
 
         /**
          * Parse a [version] string from the given [serverKind] in to a [Version].

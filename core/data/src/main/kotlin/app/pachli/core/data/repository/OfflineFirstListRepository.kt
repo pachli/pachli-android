@@ -38,12 +38,11 @@ internal class OfflineFirstListRepository @Inject constructor(
     private val localDataSource: ListsLocalDataSource,
     private val remoteDataSource: ListsRemoteDataSource,
 ) : ListsRepository {
-    // TODO: Hangs when called in AccountManager when externalScope.async is used here.
-    override suspend fun refresh(pachliAccountId: Long): Result<List<MastodonList>, ListsError.Retrieve> { // } = externalScope.async {
-        return remoteDataSource.getLists().map { MastodonListEntity.make(pachliAccountId, it) }
+    override suspend fun refresh(pachliAccountId: Long): Result<List<MastodonList>, ListsError.Retrieve> = externalScope.async {
+        remoteDataSource.getLists().map { MastodonListEntity.make(pachliAccountId, it) }
             .onSuccess { localDataSource.replace(pachliAccountId, it) }
             .map { MastodonList.from(it) }
-    } // .await()
+    }.await()
 
     override fun getLists(pachliAccountId: Long) = localDataSource.getLists(pachliAccountId).map {
         MastodonList.from(it)
@@ -54,7 +53,7 @@ internal class OfflineFirstListRepository @Inject constructor(
     override suspend fun createList(pachliAccountId: Long, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = externalScope.async {
         remoteDataSource.createList(pachliAccountId, title, exclusive, repliesPolicy)
             .map { MastodonListEntity.make(pachliAccountId, it) }
-            .onSuccess { localDataSource.createList(it) }
+            .onSuccess { localDataSource.saveList(it) }
             .map { MastodonList.from(it) }
     }.await()
 

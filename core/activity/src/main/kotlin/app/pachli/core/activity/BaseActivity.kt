@@ -199,7 +199,6 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
     private fun redirectIfNotLoggedIn() {
         lifecycleScope.launch {
             accountManager.activeAccountFlow.collect {
-                Timber.d("logout: Collected %s", it)
                 when (it) {
                     is Loadable.Loading -> {
                         /* wait for account to become available */

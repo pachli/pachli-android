@@ -35,11 +35,14 @@ interface InstanceDao {
     suspend fun upsert(emojis: EmojisEntity)
 
     @Upsert
-    suspend fun upsert(capabilities: ServerEntity)
+    suspend fun upsert(serverEntity: ServerEntity)
 
     @Transaction
     @Query("SELECT * FROM InstanceInfoEntity WHERE instance = :instance LIMIT 1")
     suspend fun getInstanceInfo(instance: String): InstanceInfoEntity
+
+    @Query("SELECT * FROM ServerEntity WHERE accountId = :pachliAccountId")
+    suspend fun getServer(pachliAccountId: Long): ServerEntity?
 
 //    @RewriteQueriesToDropUnusedColumns
 //    @Query("SELECT * FROM InstanceEntity WHERE instance = :instance LIMIT 1")

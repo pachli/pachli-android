@@ -17,7 +17,6 @@
 
 package app.pachli.core.data.source
 
-import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsError.GetListsWithAccount
 import app.pachli.core.network.model.UserListRepliesPolicy
@@ -26,54 +25,42 @@ import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
 
 @Singleton
 class ListsRemoteDataSource @Inject constructor(
-    @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
 ) {
-    suspend fun getLists() = externalScope.async {
-        mastodonApi.getLists()
-            .mapEither({ it.body }, { ListsError.Retrieve(it) })
-    }.await()
+    suspend fun getLists() = mastodonApi.getLists()
+        .mapEither({ it.body }, { ListsError.Retrieve(it) })
 
-    suspend fun createList(pachliAccountId: Long, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = externalScope.async {
+    suspend fun createList(pachliAccountId: Long, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) =
         mastodonApi.createList(title, exclusive, repliesPolicy)
             .mapEither({ it.body }, { ListsError.Create(it) })
-    }.await()
 
-    suspend fun updateList(pachliAccountId: Long, listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = externalScope.async {
+    suspend fun updateList(pachliAccountId: Long, listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) =
         mastodonApi.updateList(listId, title, exclusive, repliesPolicy)
             .mapEither({ it.body }, { ListsError.Update(it) })
-    }.await()
 
-    suspend fun deleteList(pachliAccountId: Long, listId: String) = externalScope.async {
+    suspend fun deleteList(pachliAccountId: Long, listId: String) =
         mastodonApi.deleteList(listId)
             .mapError { ListsError.Delete(it) }
-    }.await()
 
     /**
      * @return Lists owned by [pachliAccountId] that contain [accountId].
      */
-    suspend fun getListsWithAccount(pachliAccountId: Long, accountId: String) = externalScope.async {
+    suspend fun getListsWithAccount(pachliAccountId: Long, accountId: String) =
         mastodonApi.getListsIncludesAccount(accountId)
             .mapEither({ it.body }, { GetListsWithAccount(accountId, it) })
-    }.await()
 
-    suspend fun getAccountsInList(pachliAccountId: Long, listId: String) = externalScope.async {
+    suspend fun getAccountsInList(pachliAccountId: Long, listId: String) =
         mastodonApi.getAccountsInList(listId, 0)
             .mapEither({ it.body }, { ListsError.GetAccounts(listId, it) })
-    }.await()
 
-    suspend fun addAccountsToList(pachliAccountId: Long, listId: String, accountIds: List<String>) = externalScope.async {
+    suspend fun addAccountsToList(pachliAccountId: Long, listId: String, accountIds: List<String>) =
         mastodonApi.addAccountToList(listId, accountIds)
             .mapError { ListsError.AddAccounts(listId, it) }
-    }.await()
 
-    suspend fun deleteAccountsFromList(pachliAccountId: Long, listId: String, accountIds: List<String>) = externalScope.async {
+    suspend fun deleteAccountsFromList(pachliAccountId: Long, listId: String, accountIds: List<String>) =
         mastodonApi.deleteAccountFromList(listId, accountIds)
             .mapError { ListsError.DeleteAccounts(listId, it) }
-    }.await()
 }

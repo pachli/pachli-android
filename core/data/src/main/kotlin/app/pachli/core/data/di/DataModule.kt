@@ -17,8 +17,10 @@
 
 package app.pachli.core.data.di
 
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.NetworkSuggestionsRepository
+import app.pachli.core.data.repository.OfflineFirstContentFiltersRepository
 import app.pachli.core.data.repository.OfflineFirstListRepository
 import app.pachli.core.data.repository.SuggestionsRepository
 import dagger.Binds
@@ -29,6 +31,11 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class DataModule {
+    @Binds
+    internal abstract fun bindsContentFiltersRepository(
+        contentFiltersRepository: OfflineFirstContentFiltersRepository,
+    ): ContentFiltersRepository
+
     @Binds
     internal abstract fun bindsListsRepository(
         listsRepository: OfflineFirstListRepository,

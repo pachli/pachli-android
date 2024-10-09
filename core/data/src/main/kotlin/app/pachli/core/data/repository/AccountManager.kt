@@ -31,14 +31,11 @@ import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
-import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.InstanceDao
-import app.pachli.core.database.dao.ListsDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
-import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
@@ -112,11 +109,7 @@ data class PachliAccount(
                 instanceInfo = InstanceInfo.from(account.instanceInfo),
                 lists = account.lists.map { MastodonList.from(it) },
                 emojis = account.emojis?.emojiList.orEmpty(),
-                server = Server(
-                    kind = account.server.serverKind,
-                    version = account.server.version,
-                    capabilities = account.server.capabilities,
-                ),
+                server = Server.from(account.server),
                 contentFilters = ContentFilters(
                     version = account.contentFilters.version,
                     contentFilters = account.contentFilters.contentFilters,
@@ -138,8 +131,7 @@ class AccountManager @Inject constructor(
     private val accountDao: AccountDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val instanceDao: InstanceDao,
-    private val contentFiltersDao: ContentFiltersDao,
-    private val listsDao: ListsDao,
+    private val contentFiltersRepository: ContentFiltersRepository,
     private val listsRepository: ListsRepository,
     private val announcementsDao: AnnouncementsDao,
     private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
@@ -417,21 +409,7 @@ class AccountManager @Inject constructor(
                     }
                 }
 
-                val deferContentFilters = server?.let {
-                    externalScope.async { getContentFilters(server) }
-                }
-
-                deferContentFilters?.await()?.let { result ->
-                    result.onSuccess { contentFilters ->
-                        contentFiltersDao.upsert(
-                            ContentFiltersEntity(
-                                accountId = finalAccount.id,
-                                version = contentFilters.version,
-                                contentFilters = contentFilters.contentFilters,
-                            ),
-                        )
-                    }
-                }
+                externalScope.launch { contentFiltersRepository.refresh(finalAccount.id) }
 
                 deferEmojis.await().also { result ->
                     result.onSuccess {
@@ -439,7 +417,7 @@ class AccountManager @Inject constructor(
                     }
                 }
 
-                listsRepository.refresh(finalAccount.id)
+                externalScope.launch { listsRepository.refresh(finalAccount.id) }
 
                 deferAnnouncements.await().also { announcements ->
                     announcementsDao.deleteAllForAccount(finalAccount.id)
@@ -732,59 +710,6 @@ class AccountManager @Inject constructor(
     suspend fun setLastVisibleHomeTimelineStatusId(accountId: Long, value: String?) {
         Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", accountId, value)
         accountDao.setLastVisibleHomeTimelineStatusId(accountId, value)
-    }
-
-    // -- Content filters
-
-    fun getContentFilters(accountId: Long) = contentFiltersDao.getForAccountFlow(accountId)
-        .filterNotNull()
-        .map {
-            ContentFilters(
-                contentFilters = it.contentFilters,
-                version = it.version,
-            )
-        }
-
-    suspend fun refreshContentFilters(accountId: Long, contentFilters: ContentFilters) {
-        contentFiltersDao.upsert(
-            ContentFiltersEntity(
-                accountId = accountId,
-                contentFilters = contentFilters.contentFilters,
-                version = contentFilters.version,
-            ),
-        )
-    }
-
-    suspend fun createContentFilter(accountId: Long, contentFilter: ContentFilter) {
-        transactionProvider {
-            val contentFilters = contentFiltersDao.get(accountId) ?: return@transactionProvider
-            val newContentFilters = contentFilters.copy(
-                contentFilters = contentFilters.contentFilters + contentFilter,
-            )
-            contentFiltersDao.upsert(newContentFilters)
-        }
-    }
-
-    suspend fun deleteContentFilter(accountId: Long, contentFilterId: String) {
-        transactionProvider {
-            val contentFilters = contentFiltersDao.get(accountId) ?: return@transactionProvider
-            val newContentFilters = contentFilters.copy(
-                contentFilters = contentFilters.contentFilters.filterNot { it.id == contentFilterId },
-            )
-            contentFiltersDao.upsert(newContentFilters)
-        }
-    }
-
-    suspend fun updateContentFilter(accountId: Long, contentFilter: ContentFilter) {
-        transactionProvider {
-            val contentFilters = contentFiltersDao.get(accountId) ?: return@transactionProvider
-            val newContentFilters = contentFilters.copy(
-                contentFilters = contentFilters.contentFilters.map {
-                    if (it.id != contentFilter.id) it else contentFilter
-                },
-            )
-            contentFiltersDao.upsert(newContentFilters)
-        }
     }
 
     // -- Announcements

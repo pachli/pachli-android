@@ -46,7 +46,7 @@ dependencies {
 
     // Loading avatars
     implementation(libs.bundles.glide)
-    implementation(project(":core:database"))
+    implementation(projects.core.database)
 
     // Crash reporting in orange (Pachli Current) builds only
     orangeImplementation(libs.bundles.acra)

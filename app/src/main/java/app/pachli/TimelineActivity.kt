@@ -30,12 +30,9 @@ import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.ContentFilterEdit
+import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.canFilterV1
 import app.pachli.core.data.repository.canFilterV2
-import app.pachli.core.domain.contentFilters.CreateContentFilterUseCase
-import app.pachli.core.domain.contentFilters.DeleteContentFilterUseCase
-import app.pachli.core.domain.contentFilters.GetContentFiltersUseCase
-import app.pachli.core.domain.contentFilters.UpdateContentFilterUseCase
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -69,16 +66,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
     lateinit var eventHub: EventHub
 
     @Inject
-    lateinit var createContentFilter: CreateContentFilterUseCase
-
-    @Inject
-    lateinit var getContentFilters: GetContentFiltersUseCase
-
-    @Inject
-    lateinit var deleteContentFilter: DeleteContentFilterUseCase
-
-    @Inject
-    lateinit var updateContentFilter: UpdateContentFilterUseCase
+    lateinit var contentFiltersRepository: ContentFiltersRepository
 
     private val binding: ActivityTimelineBinding by viewBinding(ActivityTimelineBinding::inflate)
     private lateinit var timeline: Timeline
@@ -302,7 +290,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
                 ),
             )
 
-            createContentFilter(intent.pachliAccountId, newContentFilter)
+            contentFiltersRepository.createContentFilter(intent.pachliAccountId, newContentFilter)
                 .onSuccess {
                     mutedContentFilter = it
                     updateTagMuteState(true)
@@ -322,9 +310,9 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
             val result = mutedContentFilter?.let { filter ->
                 val newContexts = filter.contexts.filter { it != FilterContext.HOME }
                 if (newContexts.isEmpty()) {
-                    deleteContentFilter(intent.pachliAccountId, filter.id)
+                    contentFiltersRepository.deleteContentFilter(intent.pachliAccountId, filter.id)
                 } else {
-                    updateContentFilter(intent.pachliAccountId, filter, ContentFilterEdit(filter.id, contexts = newContexts))
+                    contentFiltersRepository.updateContentFilter(intent.pachliAccountId, filter, ContentFilterEdit(filter.id, contexts = newContexts))
                 }
             }
 

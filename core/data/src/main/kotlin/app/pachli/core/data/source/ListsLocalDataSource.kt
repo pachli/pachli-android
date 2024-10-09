@@ -39,7 +39,7 @@ class ListsLocalDataSource @Inject constructor(
 
     fun getAllLists() = listsDao.flowAll()
 
-    suspend fun createList(list: MastodonListEntity) = listsDao.upsert(list)
+    suspend fun saveList(list: MastodonListEntity) = listsDao.upsert(list)
 
     suspend fun updateList(list: MastodonListEntity) = listsDao.upsert(list)
 
