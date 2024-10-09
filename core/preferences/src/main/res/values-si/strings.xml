@@ -5,4 +5,6 @@
     <string name="app_theme_auto">ස්වයංක්‍රීව ඉර බැසීමේදී</string>
     <string name="app_theme_dark">අඳුරු</string>
     <string name="pref_category_downloads">බාගැනීම්</string>
+    <string name="pref_main_nav_position_option_top">මුදුන</string>
+    <string name="pref_main_nav_position_option_bottom">පතුල</string>
 </resources>

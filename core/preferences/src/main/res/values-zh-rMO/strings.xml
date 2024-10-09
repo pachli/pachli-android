@@ -14,4 +14,6 @@
     <string name="pref_title_tab_tap">附件</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Jump to next page</string>
     <string name="tab_tap_behaviour_jump_to_newest">缩略语</string>
+    <string name="pref_main_nav_position_option_top">专题</string>
+    <string name="pref_main_nav_position_option_bottom">底层</string>
 </resources>
