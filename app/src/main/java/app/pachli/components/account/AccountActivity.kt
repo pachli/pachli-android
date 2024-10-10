@@ -66,6 +66,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountActivityIntent
@@ -151,8 +152,8 @@ class AccountActivity :
     private var subscribing: Boolean = false
     private var loadedAccount: Account? = null
 
-    private var animateAvatar: Boolean = sharedPreferencesRepository.animateAvatars
-    private var animateEmojis: Boolean = sharedPreferencesRepository.animateEmojis
+    private val animateAvatar by unsafeLazy { sharedPreferencesRepository.animateAvatars }
+    private val animateEmojis by unsafeLazy { sharedPreferencesRepository.animateEmojis }
 
     // fields for scroll animation
     private var hideFab: Boolean = false
