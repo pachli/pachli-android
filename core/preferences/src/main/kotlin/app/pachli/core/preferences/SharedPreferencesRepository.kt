@@ -61,8 +61,6 @@ class SharedPreferencesRepository @Inject constructor(
     val downloadLocation: DownloadLocation
         get() = getEnum(PrefKeys.DOWNLOAD_LOCATION, DownloadLocation.DOWNLOADS)
 
-    // val fontFamily
-
     /** True if swipe-gesture between tabs should be enabled. */
     val enableTabSwipe: Boolean
         get() = getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)

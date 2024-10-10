@@ -5,4 +5,6 @@
     <string name="app_theme_black">Black</string>
     <string name="app_theme_dark">Dark</string>
     <string name="pref_category_tabs">Tabs</string>
+    <string name="pref_main_nav_position_option_top">Top</string>
+    <string name="pref_main_nav_position_option_bottom">Bottom</string>
 </resources>
