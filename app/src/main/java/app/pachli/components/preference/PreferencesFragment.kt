@@ -201,7 +201,6 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setDefaultValue(ShowSelfUsername.DISAMBIGUATE)
                     setTitle(R.string.pref_title_show_self_username)
                     key = PrefKeys.SHOW_SELF_USERNAME
-                    icon = makeIcon(GoogleMaterial.Icon.gmd_palette)
                     isSingleLineTitle = false
                 }
 
