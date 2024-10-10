@@ -16,4 +16,7 @@
     <string name="pref_category_tabs">Panely</string>
     <string name="pref_main_nav_position_option_top">Navrchu</string>
     <string name="pref_main_nav_position_option_bottom">Spodná časť</string>
+    <string name="pref_show_self_username_always">Vždy</string>
+    <string name="pref_show_self_username_never">Nikdy</string>
+    <string name="pref_show_self_username_disambiguate">Keď sa prihlásili viaceré účty</string>
 </resources>

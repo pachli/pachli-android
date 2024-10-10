@@ -16,4 +16,7 @@
     <string name="pref_category_tabs">Вкладки</string>
     <string name="pref_main_nav_position_option_top">Сверху</string>
     <string name="pref_main_nav_position_option_bottom">Снизу</string>
+    <string name="pref_show_self_username_always">Всегда</string>
+    <string name="pref_show_self_username_never">Никогда</string>
+    <string name="pref_show_self_username_disambiguate">Когда несколько аккаунтов вошли</string>
 </resources>

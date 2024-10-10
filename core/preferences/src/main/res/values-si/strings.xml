@@ -7,4 +7,6 @@
     <string name="pref_category_downloads">බාගැනීම්</string>
     <string name="pref_main_nav_position_option_top">මුදුන</string>
     <string name="pref_main_nav_position_option_bottom">පතුල</string>
+    <string name="pref_show_self_username_always">සැමවිටම</string>
+    <string name="pref_show_self_username_never">කිසිදා නැත</string>
 </resources>
