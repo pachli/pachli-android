@@ -97,8 +97,8 @@ class ViewEditsFragment :
 
         statusId = requireArguments().getString(ARG_STATUS_ID)!!
 
-        val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
-        val animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
+        val animateAvatars = sharedPreferencesRepository.animateAvatars
+        val animateEmojis = sharedPreferencesRepository.animateEmojis
         val useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, true)
         val avatarRadius: Int = requireContext().resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
