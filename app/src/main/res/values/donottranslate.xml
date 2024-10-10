@@ -176,12 +176,6 @@
         <item>ja</item>
     </string-array>
 
-    <string-array name="pref_show_self_username_values">
-        <item>always</item>
-        <item>disambiguate</item>
-        <item>never</item>
-    </string-array>
-
     <string-array name="poll_duration_names">
         <item>@string/duration_5_min</item>
         <item>@string/duration_30_min</item>

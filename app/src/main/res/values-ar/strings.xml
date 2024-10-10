@@ -482,7 +482,6 @@
     <string name="error_image_edit_failed">لا يمكن تحرير الصورة.</string>
     <string name="title_edits">التعديلات</string>
     <string name="pref_title_notification_filter_reports">هناك شكوى جديدة</string>
-    <string name="pref_show_self_username_never">أبداً</string>
     <string name="notification_subscription_description">تشغيل الاشعارات عندما يقوم شخص انت مشترك معه بنشر منشور جديد</string>
     <string name="notification_update_description">ارسال إشعار عند تحرير المنشورات التي تفاعلت معها</string>
     <string name="notification_report_name">شكاوي</string>
@@ -529,7 +528,6 @@
     <string name="error_following_hashtags_unsupported">مثيل الخادم هذا لا يدعم متابعة الوسوم.</string>
     <string name="action_discard">تجاهل التعديلات</string>
     <string name="action_continue_edit">الاستمرار في التعديل</string>
-    <string name="pref_show_self_username_always">دائماً</string>
     <string name="post_media_alt">ALT</string>
     <string name="notification_header_report_format">%s أبلغ عن %s</string>
     <string name="notification_summary_report_format">%s · %d منشورات ملحقة</string>
@@ -544,7 +542,6 @@
     <string name="send_account_link_to">شارك رابط الحساب الى…</string>
     <string name="send_account_username_to">شارك اسم مستخدم الحساب إلى…</string>
     <string name="account_username_copied">تم نسخ اسم المستخدم</string>
-    <string name="pref_show_self_username_disambiguate">عند تسجيل الدخول إلى حسابات متعددة</string>
     <string name="status_created_at_now">الآن</string>
     <string name="action_unfollow_hashtag_format">الغاء متابعة #%s ؟</string>
     <string name="mute_notifications_switch">كتم الاشعارات</string>

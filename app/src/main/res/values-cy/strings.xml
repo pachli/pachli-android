@@ -330,8 +330,6 @@
     <string name="duration_6_hours">6 awr</string>
     <string name="duration_1_day">Diwrnod</string>
     <string name="unpin_action">Dadbinio</string>
-    <string name="pref_show_self_username_never">Byth</string>
-    <string name="pref_show_self_username_always">Bob tro</string>
     <string name="post_media_attachments">Atodiadau</string>
     <string name="action_edit_image">Golygu llun</string>
     <string name="title_reblogged_by">Hybwyd gan</string>
@@ -438,7 +436,6 @@
     </plurals>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="description_post_edited">Golygwyd</string>
-    <string name="pref_show_self_username_disambiguate">Pan fydd cyfrifon lluosog wedi\'u mewngofnodi</string>
     <string name="drafts_failed_loading_reply">Wedi methu llwytho gwybodaeth Ateb</string>
     <string name="pref_title_alway_open_spoiler">Agor negeseuon wedi\'u marcio â rhybudd cynnwys bob tro</string>
     <string name="profile_metadata_label_label">Label</string>

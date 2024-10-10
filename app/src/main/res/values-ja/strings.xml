@@ -407,9 +407,6 @@
     <string name="description_post_reblogged">リブログしました</string>
     <string name="saving_draft">下書きの保存中…</string>
     <string name="pref_default_post_language">デフォルトの投稿言語</string>
-    <string name="pref_show_self_username_always">常に表示</string>
-    <string name="pref_show_self_username_disambiguate">複数アカウントでのログイン時</string>
-    <string name="pref_show_self_username_never">表示しない</string>
     <string name="notification_subscription_name">新しい投稿</string>
     <string name="notification_subscription_description">あなたが購読した誰かが新しい投稿をしたときの通知</string>
     <string name="filter_dialog_whole_word">単語全体</string>

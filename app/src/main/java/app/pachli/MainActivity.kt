@@ -1247,7 +1247,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         header.clear()
         header.profiles = profiles
         header.setActiveProfile(accountManager.activeAccount!!.id)
-        binding.mainToolbar.subtitle = if (accountManager.shouldDisplaySelfUsername(this)) {
+        binding.mainToolbar.subtitle = if (accountManager.shouldDisplaySelfUsername()) {
             accountManager.activeAccount!!.fullName
         } else {
             null

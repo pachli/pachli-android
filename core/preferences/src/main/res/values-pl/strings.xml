@@ -16,4 +16,7 @@
     <string name="pref_category_tabs">Karty</string>
     <string name="pref_main_nav_position_option_top">Góra</string>
     <string name="pref_main_nav_position_option_bottom">Dół</string>
+    <string name="pref_show_self_username_always">Zawsze</string>
+    <string name="pref_show_self_username_disambiguate">Gdy wiele kont jest zalogowanych</string>
+    <string name="pref_show_self_username_never">Nigdy</string>
 </resources>

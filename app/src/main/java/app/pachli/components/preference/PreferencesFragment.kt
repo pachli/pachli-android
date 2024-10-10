@@ -55,6 +55,7 @@ import app.pachli.core.preferences.DownloadLocation
 import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.preferences.ShowSelfUsername
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.AccountNotificationDetailsListItemBinding
@@ -196,13 +197,10 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     icon = makeIcon(GoogleMaterial.Icon.gmd_format_size)
                 }
 
-                listPreference {
-                    setDefaultValue("disambiguate")
-                    setEntries(R.array.pref_show_self_username_names)
-                    setEntryValues(R.array.pref_show_self_username_values)
-                    key = PrefKeys.SHOW_SELF_USERNAME
-                    setSummaryProvider { entry }
+                enumListPreference<ShowSelfUsername> {
+                    setDefaultValue(ShowSelfUsername.DISAMBIGUATE)
                     setTitle(R.string.pref_title_show_self_username)
+                    key = PrefKeys.SHOW_SELF_USERNAME
                     isSingleLineTitle = false
                 }
 

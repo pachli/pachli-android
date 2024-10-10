@@ -458,10 +458,7 @@
     <string name="description_post_language">嘟文语言</string>
     <string name="action_set_focus">设置焦点</string>
     <string name="set_focus_description">轻按或拖动圆圈选择始终在缩略图中可见的焦点。</string>
-    <string name="pref_show_self_username_disambiguate">登录多个账户时</string>
     <string name="pref_title_show_self_username">在工具栏中显示用户名</string>
-    <string name="pref_show_self_username_always">始终</string>
-    <string name="pref_show_self_username_never">从不</string>
     <string name="delete_scheduled_post_warning">删除这条定时嘟文吗？</string>
     <string name="compose_save_draft_loses_media">保存草稿？（恢复草稿时附件将被再次上传）</string>
     <string name="failed_to_pin">固定失败</string>

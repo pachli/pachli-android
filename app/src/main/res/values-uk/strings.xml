@@ -475,10 +475,7 @@
     <string name="description_post_language">Мова допису</string>
     <string name="duration_no_change">(Не змінено)</string>
     <string name="action_set_focus">Налаштувати точку фокусування</string>
-    <string name="pref_show_self_username_always">Завжди</string>
     <string name="set_focus_description">Торкніться або перетягніть коло, щоб вибрати точку фокусування, яку завжди буде видно на мініатюрах.</string>
-    <string name="pref_show_self_username_disambiguate">Якщо ви ввійшли у кілька облікових записів</string>
-    <string name="pref_show_self_username_never">Ніколи</string>
     <string name="pref_title_show_self_username">Показувати ім\'я користувача на панелях інструментів</string>
     <string name="delete_scheduled_post_warning">Видалити цей запланований допис\?</string>
     <string name="failed_to_pin">Не вдалося прикріпити</string>

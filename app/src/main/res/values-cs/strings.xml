@@ -437,8 +437,6 @@
     <string name="draft_deleted">Koncept byl smazán</string>
     <string name="failed_to_pin">Připnutí se nezdařilo</string>
     <string name="failed_to_unpin">Zrušení připnutí se nezdařilo</string>
-    <string name="pref_show_self_username_always">Vždy</string>
-    <string name="pref_show_self_username_never">Nikdy</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="action_edit_image">Upravit obrázek</string>
     <string name="duration_14_days">14 dní</string>
@@ -449,7 +447,6 @@
     <string name="pref_title_notification_filter_updates">příspěvek, se kterým jsem interagoval/a, je upraven</string>
     <string name="pref_title_notification_filter_sign_ups">někdo se zaregistroval</string>
     <string name="pref_title_notification_filter_subscriptions">někdo, ke komu jsem přihlášen/a, zveřejnil nový příspěvek</string>
-    <string name="pref_show_self_username_disambiguate">Když je přihlášeno více účtů</string>
     <string name="notification_subscription_name">Nové příspěvky</string>
     <string name="notification_sign_up_name">Registrace</string>
     <string name="notification_sign_up_description">Oznámení o nových uživatelích</string>

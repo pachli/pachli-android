@@ -475,9 +475,6 @@
     <string name="pref_title_show_self_username">Seall an t-ainm-cleachdaiche air na bàraichean-inneal</string>
     <string name="set_focus_description">Thoir gogag no slaod an cearcall a thaghadh puing an fhòcais a chithear air na dealbhagan an-còmhnaidh.</string>
     <string name="description_post_language">Cànan a’ phuist</string>
-    <string name="pref_show_self_username_always">An-còmhnaidh</string>
-    <string name="pref_show_self_username_disambiguate">Nuair a bhios iomadh cunntas air an clàradh a-steach</string>
-    <string name="pref_show_self_username_never">Chan ann idir</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="action_set_focus">Suidhich puing an fhòcais</string>
     <string name="delete_scheduled_post_warning">A bheil thu airson am post sgeidealaichte seo a sguabadh às\?</string>

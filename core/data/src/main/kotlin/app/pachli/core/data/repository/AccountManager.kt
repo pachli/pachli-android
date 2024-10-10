@@ -17,7 +17,6 @@
 
 package app.pachli.core.data.repository
 
-import android.content.Context
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -25,8 +24,8 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.preferences.ShowSelfUsername
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -270,15 +269,11 @@ class AccountManager @Inject constructor(
     /**
      * @return true if the name of the currently-selected account should be displayed in UIs
      */
-    fun shouldDisplaySelfUsername(context: Context): Boolean {
-        val showUsernamePreference = sharedPreferencesRepository.getString(PrefKeys.SHOW_SELF_USERNAME, "disambiguate")
-        if (showUsernamePreference == "always") {
-            return true
+    fun shouldDisplaySelfUsername(): Boolean {
+        return when (sharedPreferencesRepository.showSelfUsername) {
+            ShowSelfUsername.ALWAYS -> true
+            ShowSelfUsername.DISAMBIGUATE -> accounts.size > 1
+            ShowSelfUsername.NEVER -> false
         }
-        if (showUsernamePreference == "never") {
-            return false
-        }
-
-        return accounts.size > 1 // "disambiguate"
     }
 }

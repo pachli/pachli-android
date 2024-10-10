@@ -458,10 +458,7 @@
     <string name="compose_save_draft_loses_media">Vista drög\? (Viðhengi verða send inn aftur þegar þú endurheimtir drögin.)</string>
     <string name="failed_to_pin">Mistókst að festa</string>
     <string name="failed_to_unpin">Mistókst að losa</string>
-    <string name="pref_show_self_username_always">Alltaf</string>
-    <string name="pref_show_self_username_disambiguate">Þegar er skráð inn á mörgum aðgöngum</string>
     <string name="action_set_focus">Setja virknistað</string>
-    <string name="pref_show_self_username_never">Aldrei</string>
     <string name="pref_title_show_self_username">Birta notandanafn á verkfærastikum</string>
     <string name="pref_default_post_language">Sjálfgefið tungumál færslna</string>
     <string name="language_display_name_format">%s (%s)</string>
