@@ -16,4 +16,7 @@
     <string name="pref_title_tab_tap">附件</string>
     <string name="pref_main_nav_position_option_top">顶部</string>
     <string name="pref_main_nav_position_option_bottom">底部</string>
+    <string name="pref_show_self_username_always">始终</string>
+    <string name="pref_show_self_username_disambiguate">登录多个账户时</string>
+    <string name="pref_show_self_username_never">从不</string>
 </resources>

@@ -445,9 +445,6 @@
     <string name="pref_title_show_self_username">在工具列顯示使用者名稱</string>
     <string name="pref_title_confirm_favourites">標註為喜歡前顯示確認對話框</string>
     <string name="account_date_joined">加入自 %1$s</string>
-    <string name="pref_show_self_username_always">總是</string>
-    <string name="pref_show_self_username_disambiguate">登入多個帳號時</string>
-    <string name="pref_show_self_username_never">從不</string>
     <string name="notification_sign_up_name">註冊</string>
     <string name="notification_sign_up_description">新使用者通知</string>
     <string name="notification_update_name">嘟文編輯</string>

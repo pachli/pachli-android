@@ -16,4 +16,7 @@
     <string name="pref_category_tabs">Flikar</string>
     <string name="pref_main_nav_position_option_top">Topp</string>
     <string name="pref_main_nav_position_option_bottom">Botten</string>
+    <string name="pref_show_self_username_always">Alltid</string>
+    <string name="pref_show_self_username_disambiguate">När flera konton är inloggade</string>
+    <string name="pref_show_self_username_never">Aldrig</string>
 </resources>

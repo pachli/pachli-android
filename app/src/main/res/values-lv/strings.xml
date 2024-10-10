@@ -90,8 +90,6 @@
     <string name="post_text_size_medium">Vidējs</string>
     <string name="post_text_size_large">Liels</string>
     <string name="post_text_size_largest">Lielākais</string>
-    <string name="pref_show_self_username_always">Vienmēr</string>
-    <string name="pref_show_self_username_never">Nekad</string>
     <string name="notification_poll_name">Aptaujas</string>
     <string name="notification_report_name">Ziņojumi</string>
     <string name="about_pachli_version">Pachli %s</string>
@@ -399,7 +397,6 @@
     <string name="add_account_description">Pievienot jaunu Mastodon kontu</string>
     <string name="pref_title_animate_custom_emojis">Animēt pielāgotās emocijzīmes</string>
     <string name="notification_sign_up_name">Jaunu dalībnieku reģistrācija</string>
-    <string name="pref_show_self_username_disambiguate">Kad pievienoti vairāki konti</string>
     <string name="restart_required">Nepieciešama lietotnes restartēšana</string>
     <string name="reblog_private">Pastiprināt sākotnējai auditorijai</string>
     <string name="description_post_reblogged">Pastiprināts</string>

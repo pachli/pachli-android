@@ -16,4 +16,7 @@
     <string name="pref_category_tabs">標籤頁</string>
     <string name="pref_main_nav_position_option_top">頂端</string>
     <string name="pref_main_nav_position_option_bottom">底端</string>
+    <string name="pref_show_self_username_always">總是</string>
+    <string name="pref_show_self_username_disambiguate">登入多個帳號時</string>
+    <string name="pref_show_self_username_never">從不</string>
 </resources>

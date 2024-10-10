@@ -453,10 +453,8 @@
     <string name="pref_summary_http_proxy_disabled">Desabilitado</string>
     <string name="pref_summary_http_proxy_missing">&lt;não definido&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;inválido&gt;</string>
-    <string name="pref_show_self_username_always">Sempre</string>
     <string name="error_image_edit_failed">A imagem não pôde ser editada.</string>
     <string name="hint_media_description_missing">A mídia deve ter uma descrição.</string>
-    <string name="pref_show_self_username_never">Nunca</string>
     <string name="post_media_alt">ALT</string>
     <string name="error_muting_hashtag_format">Erro ao silenciar #%s</string>
     <string name="account_username_copied">Nome de usuário copiado</string>
@@ -479,7 +477,6 @@
     <string name="report_category_violation">Violação de regra</string>
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Outros</string>
-    <string name="pref_show_self_username_disambiguate">Quando várias contas estão conectadas</string>
     <string name="pref_title_http_proxy_port_message">A porta deve estar entre %d e %d</string>
     <string name="status_count_one_plus">1+</string>
     <string name="status_created_at_now">agora</string>

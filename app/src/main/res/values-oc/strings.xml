@@ -427,8 +427,6 @@
     <string name="failed_to_pin">Fracàs en penjant</string>
     <string name="failed_to_unpin">Fracàs en despenjant</string>
     <string name="description_post_language">Lenga de la publicacion</string>
-    <string name="pref_show_self_username_always">Totjorn</string>
-    <string name="pref_show_self_username_never">Jamai</string>
     <string name="notification_update_name">Publicacions modificadas</string>
     <string name="status_count_one_plus">&gt;1</string>
     <string name="duration_14_days">14 jorns</string>
@@ -450,7 +448,6 @@
     <string name="duration_365_days">365 jorns</string>
     <string name="set_focus_description">Tocatz o lisatz lo cercle per causir lo punt focal que deu aparéisser sus las miniaturas.</string>
     <string name="pref_title_show_self_username">Mostrar lo nom d’utilizaire dins la barra d’aisinas</string>
-    <string name="pref_show_self_username_disambiguate">Quand mai d’un compte es connectat</string>
     <string name="action_set_focus">Posicionar lo punt focal</string>
     <string name="title_migration_relogin">Se tornar connectar per recebre las notificacions instantanèas</string>
     <string name="pref_title_confirm_favourites">Demandar confirmacion abans d’apondre en favorit</string>

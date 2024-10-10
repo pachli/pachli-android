@@ -16,4 +16,7 @@
     <string name="pref_category_tabs">الألسنة</string>
     <string name="pref_main_nav_position_option_top">الأعلى</string>
     <string name="pref_main_nav_position_option_bottom">الأسفل</string>
+    <string name="pref_show_self_username_always">دائماً</string>
+    <string name="pref_show_self_username_disambiguate">عند تسجيل الدخول إلى حسابات متعددة</string>
+    <string name="pref_show_self_username_never">أبداً</string>
 </resources>

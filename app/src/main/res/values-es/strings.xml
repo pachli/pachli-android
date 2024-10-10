@@ -446,8 +446,6 @@
     <string name="pref_title_confirm_favourites">Pedir confirmación antes de marcar como favorito</string>
     <string name="pref_title_notification_filter_updates">una publicación con la que interactué se editó</string>
     <string name="error_image_edit_failed">Esta imagen no puede ser editada.</string>
-    <string name="pref_show_self_username_always">Siempre</string>
-    <string name="pref_show_self_username_never">Nunca</string>
     <string name="action_add_reaction">añadir reacción</string>
     <string name="pref_title_notification_filter_sign_ups">alguien se registró</string>
     <string name="error_following_hashtag_format">Error al seguir #%s</string>
@@ -464,7 +462,6 @@
     <string name="duration_365_days">365 días</string>
     <string name="failed_to_pin">Fallo al fijar</string>
     <string name="failed_to_unpin">Fallo al quitarlo</string>
-    <string name="pref_show_self_username_disambiguate">Cuando hay varias cuentas ingresadas</string>
     <string name="notification_sign_up_description">Notificaciones de nuevos usuarios</string>
     <string name="notification_update_name">Ediciones de una publicación</string>
     <string name="notification_update_description">Notificaciones cuando se editan publicaciones con las que has interactuado</string>

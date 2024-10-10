@@ -493,9 +493,6 @@
     <string name="set_focus_description">Tappa o crea un cerchio per scegliere il punto focale che sarà sempre visibile nelle anteprime.</string>
     <string name="action_set_focus">Imposta punto focale</string>
     <string name="description_post_language">Lingua del post</string>
-    <string name="pref_show_self_username_always">Sempre</string>
-    <string name="pref_show_self_username_never">Mai</string>
-    <string name="pref_show_self_username_disambiguate">Quando connesso con più account</string>
     <string name="duration_no_change">(nessuna modifica)</string>
     <string name="pref_title_show_self_username">Mostra nome utente nella barra strumenti</string>
     <string name="compose_save_draft_loses_media">Salvare bozza? (gli allegati verranno ricaricati quando ripristini la bozza.)</string>

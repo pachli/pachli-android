@@ -460,9 +460,6 @@
     <string name="delete_scheduled_post_warning">Eliminar publicación programada\?</string>
     <string name="failed_to_pin">Fallo ao Fixar</string>
     <string name="failed_to_unpin">Fallo ao Desafixar</string>
-    <string name="pref_show_self_username_always">Sempre</string>
-    <string name="pref_show_self_username_disambiguate">Cando hai máis dunha conta activa</string>
-    <string name="pref_show_self_username_never">Nunca</string>
     <string name="notification_report_description">Notificacións sobre temas de moderación</string>
     <string name="report_category_spam">Spam</string>
     <string name="action_unfollow_hashtag_format">Non seguir #%s\?</string>
