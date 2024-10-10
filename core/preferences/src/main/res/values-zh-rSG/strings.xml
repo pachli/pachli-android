@@ -16,4 +16,7 @@
     <string name="pref_category_tabs">标签页</string>
     <string name="pref_main_nav_position_option_top">专题</string>
     <string name="pref_main_nav_position_option_bottom">底层</string>
+    <string name="pref_show_self_username_always">航道</string>
+    <string name="pref_show_self_username_disambiguate">当多个账户出现滞后时</string>
+    <string name="pref_show_self_username_never">永远</string>
 </resources>
