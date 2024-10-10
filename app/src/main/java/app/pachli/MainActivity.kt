@@ -166,7 +166,6 @@ import dagger.hilt.android.lifecycle.withCreationCallback
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import javax.inject.Inject
 import kotlin.math.max
-import kotlin.time.TimeSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -244,7 +243,11 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
     }
 
-//    private lateinit var activeAccount: AccountEntity
+    /**
+     * Drawer items corresponding to the account's Mastodon lists. May be empty if
+     * the account has no lists.
+     */
+    private val listDrawerItems = mutableListOf<PrimaryDrawerItem>()
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -353,19 +356,16 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // Initial setup (first item)
         // - Notification channels
         // - Drawer
-        val accountId = intent.pachliAccountId
-        val marker = TimeSource.Monotonic.markNow()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                val a = account.first()
-                createNotificationChannelsForAccount(a.entity, this@MainActivity)
+                val account = viewModel.pachliAccountFlow.filterNotNull().first()
+                createNotificationChannelsForAccount(account.entity, this@MainActivity)
                 // TODO: Continue to call this, as it sets properties in NotificationConfig
                 androidNotificationsAreEnabled(this@MainActivity)
                 enableAllNotifications(this@MainActivity)
 
-                bindMainDrawer(a)
-                bindMainDrawerItems(a, savedInstanceState)
-                Timber.d("Loaded account info in: %d ms", marker.elapsedNow().inWholeMilliseconds)
+                bindMainDrawer(account)
+                bindMainDrawerItems(account, savedInstanceState)
 
                 // The accounts in the header can't be set until the header is created, in bindMainDrawer.
                 lifecycleScope.launch {
@@ -379,14 +379,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 // this activity when the relevant preferences change.
                 lifecycleScope.launch {
                     viewModel.uiState.collect {
-                        bindMainDrawerSearch(this@MainActivity, a.id, it.hideTopToolbar)
+                        bindMainDrawerSearch(this@MainActivity, account.id, it.hideTopToolbar)
                     }
                 }
             }
         }
 
-        // Lists
-        // - Drawer
+        // Process changes to the account's lists.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
@@ -395,6 +394,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
+        // Process changes to the account's profile picture.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
@@ -403,6 +403,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
+        // Process changes to the account's header picture.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 account.distinctUntilChangedBy { it.entity.profileHeaderPictureUrl }.collectLatest {
@@ -411,12 +412,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
+        // Process changes to the account's tab preferences.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 account.distinctUntilChangedBy { it.entity.tabPreferences }.collectLatest {
-                    // TODO: showNotificationTab here is not correct, should separate out showing the
-                    // tab from binding the contents
                     bindTabs(it.entity, showNotificationTab)
+                    showNotificationTab = false
                 }
             }
         }
@@ -424,7 +425,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 account.distinctUntilChangedBy { it.announcements }.collectLatest {
-                    bindAnnouncements(it.announcements)
+                    bindMainDrawerAnnouncements(it.announcements)
                 }
             }
         }
@@ -442,7 +443,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     /**
-     * Get the Pachli account ID to use for this activity from the provided intent.
+     * @return The Pachli account ID to use for this activity from the provided intent.
      *
      * It's either the actual Pachli account ID, or -1, which means "Whatever the active
      * account is".
@@ -485,7 +486,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         super.onMenuItemSelected(menuItem)
         return when (menuItem.itemId) {
             R.id.action_search -> {
-                startActivity(SearchActivityIntent(this@MainActivity, viewModel.activeAccountId))
                 startActivity(SearchActivityIntent(this@MainActivity, intent.pachliAccountId))
                 true
             }
@@ -495,7 +495,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 true
             }
             R.id.action_tab_preferences -> {
-                startActivity(TabPreferenceActivityIntent(this, viewModel.activeAccountId))
                 startActivity(TabPreferenceActivityIntent(this, intent.pachliAccountId))
                 true
             }
@@ -590,13 +589,17 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         recreate()
     }
 
+    /**
+     * Initialises the main drawer and sets the header
+     */
     private fun bindMainDrawer(pachliAccount: PachliAccount) {
+        // Clicking on navigation elements opens the drawer.
         val drawerOpenClickListener = View.OnClickListener { binding.mainDrawerLayout.open() }
-
         binding.mainToolbar.setNavigationOnClickListener(drawerOpenClickListener)
         binding.topNav.setNavigationOnClickListener(drawerOpenClickListener)
         binding.bottomNav.setNavigationOnClickListener(drawerOpenClickListener)
 
+        // Header should allow user to add new accounts.
         header = AccountHeaderView(this).apply {
             headerBackgroundScaleType = ImageView.ScaleType.CENTER_CROP
             currentHiddenInList = true
@@ -623,10 +626,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // Account header background and text colours are not styleable, so set them here
         header.accountHeaderBackground.setBackgroundColor(
-            MaterialColors.getColor(
-                header,
-                com.google.android.material.R.attr.colorSecondaryContainer,
-            ),
+            MaterialColors.getColor(header, com.google.android.material.R.attr.colorSecondaryContainer),
         )
         val headerTextColor = MaterialColors.getColor(header, com.google.android.material.R.attr.colorOnSecondaryContainer)
         header.currentProfileName.setTextColor(headerTextColor)
@@ -660,33 +660,35 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
      */
     private fun bindMainDrawerSearch(context: Context, pachliAccountId: Long, showSearchItem: Boolean) {
         val searchItemPosition = binding.mainDrawer.getPosition(DRAWER_ITEM_SEARCH)
+        val showing = searchItemPosition != -1
 
-        // Not showing, and not wanted, nothing to do.
-        if (searchItemPosition == -1 && !showSearchItem) {
+        // If it's showing state and desired showing state are the same there's nothing
+        // to do.
+        if (showing == showSearchItem) return
+
+        // Showing and not wanted, remove it.
+        if (!showSearchItem) {
+            binding.mainDrawer.removeItemByPosition(searchItemPosition)
             return
         }
 
-        if (showSearchItem) {
-            // Add item
-            binding.mainDrawer.addItemsAtPosition(
-                4,
-                primaryDrawerItem {
-                    nameRes = R.string.action_search
-                    iconicsIcon = GoogleMaterial.Icon.gmd_search
-                    onClick = {
-                        startActivityWithDefaultTransition(
-                            SearchActivityIntent(context, pachliAccountId),
-                        )
-                    }
-                },
-            )
-            return
-        }
-
-        binding.mainDrawer.removeItemByPosition(searchItemPosition)
+        // Add a "Search" menu item.
+        binding.mainDrawer.addItemsAtPosition(
+            4,
+            primaryDrawerItem {
+                nameRes = R.string.action_search
+                iconicsIcon = GoogleMaterial.Icon.gmd_search
+                onClick = {
+                    startActivityWithDefaultTransition(
+                        SearchActivityIntent(context, pachliAccountId),
+                    )
+                }
+            },
+        )
+        updateMainDrawerTypeface(
+            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(FONT_FAMILY, "default")),
+        )
     }
-
-    private val listDrawerItems = mutableListOf<PrimaryDrawerItem>()
 
     /** Binds [lists] to the "Lists" section in the main drawer. */
     private fun bindMainDrawerLists(pachliAccountId: Long, lists: List<MastodonList>) {
@@ -713,12 +715,17 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
         val headerPosition = binding.mainDrawer.getPosition(DRAWER_ITEM_LISTS)
         binding.mainDrawer.addItemsAtPosition(headerPosition + 1, *listDrawerItems.toTypedArray())
+        updateMainDrawerTypeface(
+            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(FONT_FAMILY, "default")),
+        )
     }
 
-    private fun bindMainDrawerItems(
-        pachliAccount: PachliAccount,
-        savedInstanceState: Bundle?,
-    ) {
+    /**
+     * Binds the normal drawer items.
+     *
+     * See [bindMainDrawerLists] and [bindMainDrawerSearch].
+     */
+    private fun bindMainDrawerItems(pachliAccount: PachliAccount, savedInstanceState: Bundle?) {
         val pachliAccountId = pachliAccount.id
 
         binding.mainDrawer.apply {
@@ -958,6 +965,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     /**
+     * Sets the correct typeface for everything in the drawer.
+     *
      * The drawer library forces the `android:fontFamily` attribute, overriding the value in the
      * theme. Force-ably set the typeface for everything in the drawer if using a non-default font.
      */
@@ -976,6 +985,14 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         super.onSaveInstanceState(binding.mainDrawer.saveInstanceState(outState))
     }
 
+    /**
+     * Binds the [account]'s tab preferences to the UI.
+     *
+     * Chooses the active tab based on the previously active tab and [selectNotificationTab].
+     *
+     * @param account
+     * @param selectNotificationTab True if the "Notification" tab should be made active.
+     */
     private fun bindTabs(account: AccountEntity, selectNotificationTab: Boolean) {
         val activeTabLayout = when (sharedPreferencesRepository.mainNavigationPosition) {
             MainNavigationPosition.TOP -> {
@@ -1081,25 +1098,30 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         } ?: binding.composeButton.hide()
     }
 
+    /**
+     * Handles clicks on profile avatars in the main drawer header.
+     *
+     * Either:
+     * - Opens the user's account if they clicked on their profile.
+     * - Starts LoginActivity to add a new account.
+     * - Switch account.
+     *
+     * @param pachliAccount
+     * @param profile
+     * @param current True if the clicked avatar is the currently logged in account
+     */
     private fun onAccountHeaderClick(pachliAccount: PachliAccount, profile: IProfile, current: Boolean) {
-        // open profile when active image was clicked
-        if (current) {
-            val intent = AccountActivityIntent(this, pachliAccount.id, pachliAccount.entity.accountId)
-            startActivityWithDefaultTransition(intent)
-            return
-        }
+        when {
+            current -> startActivityWithDefaultTransition(
+                AccountActivityIntent(this, pachliAccount.id, pachliAccount.entity.accountId),
+            )
 
-        // open LoginActivity to add new account
-        if (profile.identifier == DRAWER_ITEM_ADD_ACCOUNT) {
-            startActivityWithDefaultTransition(
+            profile.identifier == DRAWER_ITEM_ADD_ACCOUNT -> startActivityWithDefaultTransition(
                 LoginActivityIntent(this, LoginMode.ADDITIONAL_LOGIN),
             )
-            return
-        }
 
-        // change Account
-        changeAccountAndRestart(profile.identifier)
-        return
+            else -> changeAccountAndRestart(profile.identifier)
+        }
     }
 
     /**
@@ -1133,9 +1155,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
                 lifecycleScope.launch {
                     val nextAccount = logout.invoke()
-                    val intent = nextAccount?.let {
-                        MainActivityIntent(this@MainActivity, it.id)
-                    } ?: LoginActivityIntent(this@MainActivity, LoginMode.DEFAULT)
+                    val intent = nextAccount?.let { MainActivityIntent(this@MainActivity, it.id) }
+                        ?: LoginActivityIntent(this@MainActivity, LoginMode.DEFAULT)
                     startActivity(intent)
                     finish()
                 }
@@ -1144,6 +1165,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             .show()
     }
 
+    /**
+     * Binds the user's avatar image to the avatar view in the appropriate toolbar.
+     *
+     * @param avatarUrl URL for the image to load
+     * @param showPlaceholder True if a placeholder image should be shown while loading
+     */
     @SuppressLint("CheckResult")
     private fun bindDrawerAvatar(avatarUrl: String, showPlaceholder: Boolean) {
         val hideTopToolbar = viewModel.uiState.value.hideTopToolbar
@@ -1162,24 +1189,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         if (animateAvatars) {
             glide.asDrawable().load(avatarUrl).transform(
-                RoundedCorners(
-                    resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp),
-                ),
+                RoundedCorners(resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)),
             )
                 .apply { if (showPlaceholder) placeholder(DR.drawable.avatar_default) }
                 .into(
                     object : CustomTarget<Drawable>(navIconSize, navIconSize) {
-
                         override fun onLoadStarted(placeholder: Drawable?) {
                             placeholder?.let {
                                 activeToolbar.navigationIcon = FixedSizeDrawable(it, navIconSize, navIconSize)
                             }
                         }
 
-                        override fun onResourceReady(
-                            resource: Drawable,
-                            transition: Transition<in Drawable>?,
-                        ) {
+                        override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                             if (resource is Animatable) resource.start()
                             activeToolbar.navigationIcon = FixedSizeDrawable(resource, navIconSize, navIconSize)
                         }
@@ -1193,9 +1214,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 )
         } else {
             glide.asBitmap().load(avatarUrl).transform(
-                RoundedCorners(
-                    resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp),
-                ),
+                RoundedCorners(resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)),
             )
                 .apply { if (showPlaceholder) placeholder(DR.drawable.avatar_default) }
                 .into(
@@ -1206,10 +1225,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                             }
                         }
 
-                        override fun onResourceReady(
-                            resource: Bitmap,
-                            transition: Transition<in Bitmap>?,
-                        ) {
+                        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                             activeToolbar.navigationIcon = FixedSizeDrawable(
                                 BitmapDrawable(resources, resource),
                                 navIconSize,
@@ -1227,7 +1243,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
     }
 
-    private fun bindAnnouncements(announcements: List<Announcement>) {
+    /**
+     * Binds the server's announcements to the main drawer.
+     *
+     * Shows/clears a badge showing the number of unread announcements.
+     */
+    private fun bindMainDrawerAnnouncements(announcements: List<Announcement>) {
         val unread = announcements.count { !it.read }
         binding.mainDrawer.updateBadge(DRAWER_ITEM_ANNOUNCEMENTS, StringHolder(if (unread <= 0) null else unread.toString()))
     }

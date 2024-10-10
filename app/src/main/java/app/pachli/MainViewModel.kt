@@ -86,7 +86,8 @@ internal class MainViewModel @AssistedInject constructor(
     val accountsOrderedByActiveFlow = accountManager.accountsOrderedByActiveFlow
 
     val pachliAccountFlow = flow {
-        accountManager.getPachliAccountFlow(activeAccountId).collect { emit(it) }
+        accountManager.getPachliAccountFlow(activeAccountId)
+            .collect { emit(it) }
     }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
