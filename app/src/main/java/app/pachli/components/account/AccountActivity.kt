@@ -151,8 +151,8 @@ class AccountActivity :
     private var subscribing: Boolean = false
     private var loadedAccount: Account? = null
 
-    private var animateAvatar: Boolean = false
-    private var animateEmojis: Boolean = false
+    private var animateAvatar: Boolean = sharedPreferencesRepository.animateAvatars
+    private var animateEmojis: Boolean = sharedPreferencesRepository.animateEmojis
 
     // fields for scroll animation
     private var hideFab: Boolean = false
@@ -199,8 +199,6 @@ class AccountActivity :
         // Obtain information to fill out the profile.
         viewModel.setAccountInfo(AccountActivityIntent.getAccountId(intent))
 
-        animateAvatar = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
-        animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
         hideFab = sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
 
         handleWindowInsets()
@@ -297,8 +295,7 @@ class AccountActivity :
         val pageMargin = resources.getDimensionPixelSize(DR.dimen.tab_page_margin)
         binding.accountFragmentViewPager.setPageTransformer(MarginPageTransformer(pageMargin))
 
-        val enableSwipeForTabs = sharedPreferencesRepository.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
-        binding.accountFragmentViewPager.isUserInputEnabled = enableSwipeForTabs
+        binding.accountFragmentViewPager.isUserInputEnabled = sharedPreferencesRepository.enableTabSwipe
 
         binding.accountTabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {

@@ -44,8 +44,8 @@ class SearchAccountsFragment : SearchFragment<TimelineAccount>() {
     override fun createAdapter(): PagingDataAdapter<TimelineAccount, *> {
         return SearchAccountsAdapter(
             this,
-            sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false),
-            sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
+            sharedPreferencesRepository.animateAvatars,
+            sharedPreferencesRepository.animateEmojis,
             sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true),
         )
     }

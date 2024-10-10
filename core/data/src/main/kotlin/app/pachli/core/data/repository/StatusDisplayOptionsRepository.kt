@@ -175,8 +175,8 @@ class StatusDisplayOptionsRepository @Inject constructor(
     @VisibleForTesting(otherwise = PRIVATE)
     fun initialStatusDisplayOptions(account: AccountEntity? = null): StatusDisplayOptions {
         return StatusDisplayOptions(
-            animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, default.animateAvatars),
-            animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, default.animateEmojis),
+            animateAvatars = sharedPreferencesRepository.animateAvatars,
+            animateEmojis = sharedPreferencesRepository.animateEmojis,
             mediaPreviewEnabled = account?.mediaPreviewEnabled ?: default.mediaPreviewEnabled,
             useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, default.useAbsoluteTime),
             showBotOverlay = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, default.showBotOverlay),
