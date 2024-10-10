@@ -54,6 +54,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -242,8 +243,9 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         unmuteTagItem?.isVisible = false
 
         lifecycleScope.launch {
-            accountManager.activePachliAccountFlow
-                .distinctUntilChangedBy { it.server }
+            accountManager.getPachliAccountFlow(intent.pachliAccountId)
+                .filterNotNull()
+                .distinctUntilChangedBy { it.contentFilters }
                 .collect { account ->
                     if (account.server.canFilterV2() || account.server.canFilterV1()) {
                         mutedContentFilter = account.contentFilters.contentFilters.firstOrNull { filter ->

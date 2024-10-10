@@ -30,7 +30,6 @@ import app.pachli.appstore.StatusEditedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
@@ -77,7 +76,6 @@ class ViewThreadViewModel @Inject constructor(
     private val moshi: Moshi,
     private val repository: CachedTimelineRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
-    private val contentFiltersRepository: ContentFiltersRepository,
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<ThreadUiState> = MutableStateFlow(ThreadUiState.Loading)
     val uiState: Flow<ThreadUiState>

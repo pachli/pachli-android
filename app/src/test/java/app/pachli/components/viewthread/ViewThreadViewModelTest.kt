@@ -170,7 +170,6 @@ class ViewThreadViewModelTest {
             moshi,
             cachedTimelineRepository,
             statusDisplayOptionsRepository,
-            contentFiltersRepository,
         )
     }
 

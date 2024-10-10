@@ -39,6 +39,7 @@ import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
+import app.pachli.core.model.BuildConfig
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.NodeInfo
@@ -75,7 +76,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -137,12 +137,17 @@ class AccountManager @Inject constructor(
     private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
+    @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activeAccountFlow: StateFlow<Loadable<AccountEntity?>> =
         accountDao.getActiveAccountFlow()
             .distinctUntilChanged()
-//            .onEach { Timber.d("activeAccountFlow update: id: %d, isActive: %s", it?.id, it?.isActive) }
             .map { Loadable.Loaded(it) }
             .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
+
+    /**
+     * The active account, or null if there is no active account.
+     */
+    @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activeAccount: AccountEntity?
         get() {
             return when (val loadable = activeAccountFlow.value) {
@@ -150,27 +155,23 @@ class AccountManager @Inject constructor(
                 is Loadable.Loaded -> loadable.data
             }
         }
-    val accountsFlow = accountDao.loadAllFlow()
-        .distinctUntilChanged()
-        .onEach {
-            Timber.d("accountsFlow update:")
-            it.forEach { Timber.d("  id: %d, isActive: %s", it.id, it.isActive) }
-        }
-        .stateIn(externalScope, SharingStarted.Eagerly, emptyList())
+
+    /** All logged in accounts. */
+    val accountsFlow = accountDao.loadAllFlow().stateIn(externalScope, SharingStarted.Eagerly, emptyList())
 
     val accounts: List<AccountEntity>
         get() = accountsFlow.value
+
     private val accountsOrderedByActiveFlow = accountDao.getAccountsOrderedByActive()
         .stateIn(externalScope, SharingStarted.Eagerly, emptyList())
+
     val accountsOrderedByActive: List<AccountEntity>
         get() = accountsOrderedByActiveFlow.value
 
+    @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activePachliAccountFlow = accountDao.getActivePachliAccountFlow()
         .filterNotNull()
-//        .distinctUntilChanged()
-//        .onEach { Timber.d("AM PachliAccount: %s", it) }
         .map { PachliAccount.make(it) }
-    // .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
 
     init {
         externalScope.launch {
@@ -185,25 +186,15 @@ class AccountManager @Inject constructor(
         }
     }
 
-    suspend fun getPachliAccount(accountId: Long): PachliAccount? {
-        val id = accountId.takeIf { it != -1L } ?: accountDao.getActiveAccount()?.id
-        id ?: return null
-
-        return accountDao.getPachliAccount(id)?.let {
-            PachliAccount.make(it)
-        }
-    }
-
     suspend fun getPachliAccountFlow(accountId: Long): Flow<PachliAccount?> {
+        if (BuildConfig.DEBUG) {
+            if (accountId == -1L) Timber.e("getPachliAccountFlow with -1 as account")
+        }
         val id = accountId.takeIf { it != -1L } ?: accountDao.getActiveAccount()?.id
         Timber.d("PachliAccount id: %d", id)
         id ?: return flowOf(null)
 
-        return accountDao.getPachliAccountFlow(id)
-//        .distinctUntilChanged()
-//            .onEach { Timber.d("AM PachliAccount: %s", it) }
-            .map { it?.let { PachliAccount.make(it) } }
-//            .stateIn(externalScope, SharingStarted.Eagerly, null)
+        return accountDao.getPachliAccountFlow(id).map { it?.let { PachliAccount.make(it) } }
     }
 
     /**

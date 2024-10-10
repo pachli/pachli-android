@@ -112,7 +112,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 // Enable/disable the filter preference based on info from
-                // FiltersRespository. filterPreferences is safe to access here,
+                // the server. filterPreferences is safe to access here,
                 // it was populated in onCreatePreferences, called by onCreate
                 // before onViewCreated is called.
                 accountManager.activePachliAccountFlow

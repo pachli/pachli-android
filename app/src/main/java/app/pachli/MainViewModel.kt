@@ -44,6 +44,7 @@ import kotlinx.coroutines.launch
 internal sealed interface UiAction
 
 internal sealed interface InfallibleUiAction : UiAction {
+    /** Remove [timeline] from the active account's tabs. */
     data class TabRemoveTimeline(val timeline: Timeline) : InfallibleUiAction
 }
 
