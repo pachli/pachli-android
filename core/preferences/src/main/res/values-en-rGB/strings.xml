@@ -7,4 +7,6 @@
     <string name="pref_category_tabs">Tabs</string>
     <string name="pref_main_nav_position_option_top">Top</string>
     <string name="pref_main_nav_position_option_bottom">Bottom</string>
+    <string name="pref_show_self_username_always">Always</string>
+    <string name="pref_show_self_username_never">Never</string>
 </resources>
