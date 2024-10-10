@@ -160,7 +160,7 @@ class AccountManager @Inject constructor(
 
     val accounts: List<AccountEntity>
         get() = accountsFlow.value
-    val accountsOrderedByActiveFlow = accountDao.getAccountsOrderedByActive()
+    private val accountsOrderedByActiveFlow = accountDao.getAccountsOrderedByActive()
         .stateIn(externalScope, SharingStarted.Eagerly, emptyList())
     val accountsOrderedByActive: List<AccountEntity>
         get() = accountsOrderedByActiveFlow.value

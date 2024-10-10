@@ -80,7 +80,6 @@ class CachedTimelineViewModel @Inject constructor(
         readingPositionId = activeAccount.lastVisibleHomeTimelineStatusId
 
         statuses = refreshFlow.flatMapLatest {
-            Timber.d("refreshFlow: account ID: %d", it.second.id)
             getStatuses(it.second, initialKey = getInitialKey())
         }.cachedIn(viewModelScope)
     }

@@ -17,6 +17,8 @@
 
 package app.pachli.core.data.model
 
+import app.pachli.core.model.NodeInfo
+import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerKind.AKKOMA
 import app.pachli.core.model.ServerKind.FIREFISH
 import app.pachli.core.model.ServerKind.FRIENDICA

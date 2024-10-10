@@ -280,19 +280,18 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
                 2 -> {
                     for (account in accounts) {
                         if (account !== accountManager.activeAccount) {
-                            return String.format(getString(R.string.action_open_as), account.fullName)
+                            return getString(R.string.action_open_as, account.fullName)
                         }
                     }
                     null
                 }
-                else -> String.format(getString(R.string.action_open_as), "…")
+
+                else -> getString(R.string.action_open_as, "…")
             }
         }
 
     fun openAsAccount(url: String, account: AccountEntity) {
-        // accountManager.setActiveAccount(account.id)
-        val intent = MainActivityIntent.redirect(this, account.id, url)
-        startActivity(intent)
+        startActivity(MainActivityIntent.redirect(this, account.id, url))
         finish()
     }
 

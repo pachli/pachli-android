@@ -467,9 +467,6 @@
     <string name="delete_scheduled_post_warning">Ĉu forigi tiun planitan mesaĝon\?</string>
     <string name="duration_no_change">(Neniu ŝanĝo)</string>
     <string name="filter_expiration_format">%s (%s)</string>
-    <string name="pref_show_self_username_always">Ĉiam</string>
-    <string name="pref_show_self_username_disambiguate">Kiam vi uzas plurajn kontojn</string>
-    <string name="pref_show_self_username_never">Neniam</string>
     <string name="pref_title_show_self_username">Montri uzantnomon en ilobreto</string>
     <string name="description_post_language">Mesaĝolingvo</string>
 </resources>

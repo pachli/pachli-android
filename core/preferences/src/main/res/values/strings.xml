@@ -34,4 +34,7 @@
     <string name="tab_tap_behaviour_jump_to_newest">Jump to newest content</string>
     <string name="pref_main_nav_position_option_top">Top</string>
     <string name="pref_main_nav_position_option_bottom">Bottom</string>
+    <string name="pref_show_self_username_always">Always</string>
+    <string name="pref_show_self_username_disambiguate">When multiple accounts logged in</string>
+    <string name="pref_show_self_username_never">Never</string>
 </resources>

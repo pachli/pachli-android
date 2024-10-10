@@ -42,7 +42,8 @@ class UpdateShortCutsUseCase @Inject constructor(
      * Updates shortcuts to reflect [accounts].
      *
      * The first [N][ShortcutManagerCompat.getMaxShortcutCountPerActivity] accounts
-     * are converted to shortcuts which launch [app.pachli.MainActivity].
+     * are converted to shortcuts which launch [app.pachli.MainActivity]. The
+     * active account is always included.
      */
     suspend operator fun invoke(accounts: List<AccountEntity>) = withContext(Dispatchers.IO) {
         val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
@@ -50,54 +51,57 @@ class UpdateShortCutsUseCase @Inject constructor(
 
         val maxShortcuts = ShortcutManagerCompat.getMaxShortcutCountPerActivity(context)
 
-        val shortcuts = accounts.take(maxShortcuts).mapNotNull { account ->
-            val drawable = try {
-                if (TextUtils.isEmpty(account.profilePictureUrl)) {
+        val shortcuts = accounts
+            .sortedBy { it.isActive }
+            .take(maxShortcuts)
+            .mapNotNull { account ->
+                val drawable = try {
+                    if (TextUtils.isEmpty(account.profilePictureUrl)) {
+                        AppCompatResources.getDrawable(context, DR.drawable.avatar_default)
+                    } else {
+                        Glide.with(context)
+                            .asDrawable()
+                            .load(account.profilePictureUrl)
+                            .error(DR.drawable.avatar_default)
+                            .submit(innerSize, innerSize)
+                            .get()
+                    }
+                } catch (e: ExecutionException) {
+                    // The `.error` handler isn't always used. For example, Glide throws
+                    // ExecutionException if the URL does not point at an image. Fallback to
+                    // the default avatar (https://github.com/bumptech/glide/issues/4672).
                     AppCompatResources.getDrawable(context, DR.drawable.avatar_default)
-                } else {
-                    Glide.with(context)
-                        .asDrawable()
-                        .load(account.profilePictureUrl)
-                        .error(DR.drawable.avatar_default)
-                        .submit(innerSize, innerSize)
-                        .get()
-                }
-            } catch (e: ExecutionException) {
-                // The `.error` handler isn't always used. For example, Glide throws
-                // ExecutionException if the URL does not point at an image. Fallback to
-                // the default avatar (https://github.com/bumptech/glide/issues/4672).
-                AppCompatResources.getDrawable(context, DR.drawable.avatar_default)
-            } ?: return@mapNotNull null
+                } ?: return@mapNotNull null
 
-            // inset the loaded bitmap inside a 108dp transparent canvas so it looks good as adaptive icon
-            val outBmp = Bitmap.createBitmap(outerSize, outerSize, Bitmap.Config.ARGB_8888)
+                // inset the loaded bitmap inside a 108dp transparent canvas so it looks good as adaptive icon
+                val outBmp = Bitmap.createBitmap(outerSize, outerSize, Bitmap.Config.ARGB_8888)
 
-            val canvas = Canvas(outBmp)
-            val border = (outerSize - innerSize) / 2
-            drawable.setBounds(border, border, border + innerSize, border + innerSize)
-            drawable.draw(canvas)
+                val canvas = Canvas(outBmp)
+                val border = (outerSize - innerSize) / 2
+                drawable.setBounds(border, border, border + innerSize, border + innerSize)
+                drawable.draw(canvas)
 
-            val icon = IconCompat.createWithAdaptiveBitmap(outBmp)
+                val icon = IconCompat.createWithAdaptiveBitmap(outBmp)
 
-            val person = Person.Builder()
-                .setIcon(icon)
-                .setName(account.displayName)
-                .setKey(account.identifier)
-                .build()
+                val person = Person.Builder()
+                    .setIcon(icon)
+                    .setName(account.displayName)
+                    .setKey(account.identifier)
+                    .build()
 
-            // This intent will be sent when the user clicks on one of the launcher shortcuts.
-            // Intent from share sheet will be different
-            val intent = MainActivityIntent.withShortCut(context, account.id)
+                // This intent will be sent when the user clicks on one of the launcher shortcuts.
+                // Intent from share sheet will be different
+                val intent = MainActivityIntent.withShortCut(context, account.id)
 
-            ShortcutInfoCompat.Builder(context, account.id.toString())
-                .setIntent(intent)
-                .setCategories(setOf("app.pachli.Share"))
-                .setShortLabel(account.displayName.ifBlank { account.fullName })
-                .setPerson(person)
-                .setLongLived(true)
-                .setIcon(icon)
-                .build()
-        }
+                ShortcutInfoCompat.Builder(context, account.id.toString())
+                    .setIntent(intent)
+                    .setCategories(setOf("app.pachli.Share"))
+                    .setShortLabel(account.displayName.ifBlank { account.fullName })
+                    .setPerson(person)
+                    .setLongLived(true)
+                    .setIcon(icon)
+                    .build()
+            }
 
         ShortcutManagerCompat.setDynamicShortcuts(context, shortcuts)
     }

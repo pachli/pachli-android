@@ -456,9 +456,6 @@
     <string name="description_post_language">Innleggspråk</string>
     <string name="action_set_focus">Sett fokuspunkt</string>
     <string name="set_focus_description">Trykk eller dra sirkelen for å velge fokuspunktet som alltid skal være synlig i miniatyrbilder.</string>
-    <string name="pref_show_self_username_always">Alltid</string>
-    <string name="pref_show_self_username_disambiguate">Når flere konti er logget inn</string>
-    <string name="pref_show_self_username_never">Aldri</string>
     <string name="pref_title_show_self_username">Vis brukernavn på verktøylinjer</string>
     <string name="delete_scheduled_post_warning">Slette dette planlagte innlegget\?</string>
     <string name="compose_save_draft_loses_media">Lagre utkast\? (Vedlegg vil bli lastet opp igjen når du fortsetter å jobbe på utkastet.)</string>

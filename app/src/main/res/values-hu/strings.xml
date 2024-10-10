@@ -459,9 +459,6 @@
     <string name="set_focus_description">Koppintsd vagy húzd a kört, hogy kijelöld azt a fókuszpontot, mely mindig látható lesz az előnézetekben.</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="description_post_language">Bejegyzés nyelve</string>
-    <string name="pref_show_self_username_always">Mindig</string>
-    <string name="pref_show_self_username_disambiguate">Ha több fiók is be van jelentkezve</string>
-    <string name="pref_show_self_username_never">Soha</string>
     <string name="duration_no_change">(Nincs változás)</string>
     <string name="action_set_focus">Fókuszpont beállítása</string>
     <string name="error_following_hashtag_format">Hiba a #%s követésekor</string>

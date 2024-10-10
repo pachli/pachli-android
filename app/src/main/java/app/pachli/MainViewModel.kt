@@ -25,21 +25,20 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.preferences.ShowSelfUsername
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-
-// Probably stuff to include in UiState
-//
-// - Details for all accounts
 
 /** Actions the user can take from the UI. */
 internal sealed interface UiAction
@@ -48,26 +47,37 @@ internal sealed interface InfallibleUiAction : UiAction {
     data class TabRemoveTimeline(val timeline: Timeline) : InfallibleUiAction
 }
 
-// (r) -> changes to this pref restart activities when leaving PreferencesActivity
+/**
+ * @param animateAvatars See [SharedPreferencesRepository.animateAvatars].
+ * @param animateEmojis See [SharedPreferencesRepository.animateEmojis].
+ * @param enableTabSwipe See [SharedPreferencesRepository.enableTabSwipe].
+ * @param hideTopToolbar See [SharedPreferencesRepository.hideTopToolbar].
+ * @param mainNavigationPosition See [SharedPreferencesRepository.mainNavigationPosition].
+ * @param displaySelfUsername See [ShowSelfUsername].
+ * @param accounts Unordered list of available accounts.
+ */
 data class UiState(
-    val animateAvatars: Boolean, // (r)
+    val animateAvatars: Boolean,
     val animateEmojis: Boolean,
-    val enableTabSwipe: Boolean, // (r)
-    val hideTopToolbar: Boolean, // onCreate, bindDrawerAvatar (r)
+    val enableTabSwipe: Boolean,
+    val hideTopToolbar: Boolean,
     val mainNavigationPosition: MainNavigationPosition, // (r)
-    // mainNavPosition (top, bottom), onCreate, bindTabs, bindDrawerAvatar
-    // emoji preference, onCreate, onResume, updateDrawerProfileHeader
-    // animate gif avatars (animateAvatars), bindMainDrawer, bindDrawerAvatar (r)
-    // fontFamily, bindMainDrawerItems (r)
-    // enableSwipeForTabs, bindTabs (r) (probably doesn't need to restart)
+    val displaySelfUsername: Boolean,
+    val accounts: List<AccountEntity>,
 ) {
     companion object {
-        fun make(prefs: SharedPreferencesRepository) = UiState(
+        fun make(prefs: SharedPreferencesRepository, accounts: List<AccountEntity>) = UiState(
             animateAvatars = prefs.animateAvatars,
             animateEmojis = prefs.animateEmojis,
             enableTabSwipe = prefs.enableTabSwipe,
             hideTopToolbar = prefs.hideTopToolbar,
             mainNavigationPosition = prefs.mainNavigationPosition,
+            displaySelfUsername = when (prefs.showSelfUsername) {
+                ShowSelfUsername.ALWAYS -> true
+                ShowSelfUsername.DISAMBIGUATE -> accounts.size > 1
+                ShowSelfUsername.NEVER -> false
+            },
+            accounts = accounts,
         )
     }
 }
@@ -78,31 +88,11 @@ internal class MainViewModel @AssistedInject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     @Assisted val activeAccountId: Long,
 ) : ViewModel() {
-    private val activeAccount: AccountEntity?
-        get() {
-            return accountManager.activeAccount
-        }
-    private val accountsFlow = accountManager.accountsFlow
-    val accountsOrderedByActiveFlow = accountManager.accountsOrderedByActiveFlow
-
     val pachliAccountFlow = flow {
         accountManager.getPachliAccountFlow(activeAccountId)
+            .filterNotNull()
             .collect { emit(it) }
-    }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
-
-    val displaySelfUsername: Boolean
-        get() {
-            val showUsernamePreference = sharedPreferencesRepository.getString(PrefKeys.SHOW_SELF_USERNAME, "disambiguate")
-            if (showUsernamePreference == "always") {
-                return true
-            }
-            if (showUsernamePreference == "never") {
-                return false
-            }
-
-            return accountsFlow.value.size > 1
-        }
+    }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
     private val uiAction = MutableSharedFlow<UiAction>()
 
@@ -114,16 +104,17 @@ internal class MainViewModel @AssistedInject constructor(
         PrefKeys.ENABLE_SWIPE_FOR_TABS,
         PrefKeys.HIDE_TOP_TOOLBAR,
         PrefKeys.MAIN_NAV_POSITION,
+        PrefKeys.SHOW_SELF_USERNAME,
     )
 
     val uiState = sharedPreferencesRepository.changes
         .filter { watchedPrefs.contains(it) }
-        .map {
-            UiState.make(sharedPreferencesRepository)
+        .combine(accountManager.accountsFlow) { _, accounts ->
+            UiState.make(sharedPreferencesRepository, accounts)
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = UiState.make(sharedPreferencesRepository),
+            initialValue = UiState.make(sharedPreferencesRepository, emptyList()),
         )
 
     init {
@@ -149,7 +140,7 @@ internal class MainViewModel @AssistedInject constructor(
     }
 
     private suspend fun onTabRemoveTimeline(timeline: Timeline) {
-        val active = activeAccount ?: return
+        val active = pachliAccountFlow.replayCache.last().entity
         val tabPreferences = active.tabPreferences.filterNot { it == timeline }
         accountManager.setTabPreferences(active.id, tabPreferences)
     }

@@ -367,20 +367,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 bindMainDrawer(account)
                 bindMainDrawerItems(account, savedInstanceState)
 
-                // The accounts in the header can't be set until the header is created, in bindMainDrawer.
-                lifecycleScope.launch {
-                    viewModel.accountsOrderedByActiveFlow.collect { accounts ->
-                        updateDrawerProfileHeader(accounts)
-                        updateShortCuts(accounts)
-                    }
-                }
-
-                // Not sure this is needed right now, since PreferenceActivity will restart
-                // this activity when the relevant preferences change.
-                lifecycleScope.launch {
-                    viewModel.uiState.collect {
-                        bindMainDrawerSearch(this@MainActivity, account.id, it.hideTopToolbar)
-                    }
+                viewModel.uiState.collect { uiState ->
+                    bindMainDrawerSearch(this@MainActivity, account.id, uiState.hideTopToolbar)
+                    bindMainDrawerProfileHeader(uiState)
+                    updateShortCuts(uiState.accounts)
                 }
             }
         }
@@ -590,7 +580,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     /**
-     * Initialises the main drawer and sets the header
+     * Initialises the main drawer and header properties.
+     *
+     * See [bindMainDrawerProfileHeader] for setting the header contents.
      */
     private fun bindMainDrawer(pachliAccount: PachliAccount) {
         // Clicking on navigation elements opens the drawer.
@@ -1253,9 +1245,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         binding.mainDrawer.updateBadge(DRAWER_ITEM_ANNOUNCEMENTS, StringHolder(if (unread <= 0) null else unread.toString()))
     }
 
-    private fun updateDrawerProfileHeader(accounts: List<AccountEntity>) {
-        val animateEmojis = viewModel.uiState.value.animateEmojis
-        val profiles: MutableList<IProfile> = accounts.map { acc ->
+    /**
+     * Sets the profile information in the main drawer header.
+     */
+    private fun bindMainDrawerProfileHeader(uiState: UiState) {
+        val animateEmojis = uiState.animateEmojis
+        val profiles: MutableList<IProfile> = uiState.accounts.map { acc ->
             ProfileDrawerItem().apply {
                 isSelected = acc.isActive
                 nameText = acc.displayName.emojify(acc.emojis, header, animateEmojis)
@@ -1275,9 +1270,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
         header.clear()
         header.profiles = profiles
-        val activeAccount = accounts.firstOrNull { it.isActive } ?: return
+        val activeAccount = uiState.accounts.firstOrNull { it.isActive } ?: return
         header.setActiveProfile(activeAccount.id)
-        binding.mainToolbar.subtitle = if (viewModel.displaySelfUsername) {
+        binding.mainToolbar.subtitle = if (uiState.displaySelfUsername) {
             activeAccount.fullName
         } else {
             null

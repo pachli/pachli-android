@@ -73,6 +73,10 @@ class SharedPreferencesRepository @Inject constructor(
     val mainNavigationPosition: MainNavigationPosition
         get() = getEnum(PrefKeys.MAIN_NAV_POSITION, MainNavigationPosition.TOP)
 
+    /** When to show the account's username in the title. */
+    val showSelfUsername: ShowSelfUsername
+        get() = getEnum(PrefKeys.SHOW_SELF_USERNAME, ShowSelfUsername.DISAMBIGUATE)
+
     val tabTapBehaviour: TabTapBehaviour
         get() = getEnum(PrefKeys.TAB_TAP_BEHAVIOUR, TabTapBehaviour.JUMP_TO_NEXT_PAGE)
 

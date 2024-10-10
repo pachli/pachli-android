@@ -131,12 +131,9 @@
     <string name="post_privacy_unlisted">Схаваныя</string>
     <string name="post_privacy_followers_only">Толькі для падпісчыкаў</string>
     <string name="post_text_size_small">Маленькі</string>
-    <string name="pref_show_self_username_disambiguate">Калі вы ўвайшлі ў некалькі ўліковых запісаў</string>
-    <string name="pref_show_self_username_never">Ніколі</string>
     <string name="post_text_size_medium">Сярэдні</string>
     <string name="post_text_size_large">Вялікі</string>
     <string name="post_text_size_largest">Найбольшы</string>
-    <string name="pref_show_self_username_always">Заўсёды</string>
     <string name="notification_follow_request_name">Запыты на падпіску</string>
     <string name="notification_follow_request_description">Апавяшчаць аб запытах на падпіску</string>
     <string name="notification_boost_name">Пашырэнні</string>

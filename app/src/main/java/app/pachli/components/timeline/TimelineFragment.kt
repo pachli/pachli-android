@@ -605,7 +605,6 @@ class TimelineFragment :
         binding.recyclerView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    Timber.d("onScrollStateChanged: %s", newState)
                     if (newState == SCROLL_STATE_IDLE) saveVisibleId()
                 }
             },

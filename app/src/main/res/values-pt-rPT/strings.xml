@@ -465,9 +465,6 @@
     <string name="set_focus_description">Toca ou arrasta o círculo para escolher o ponto de focagem que estará sempre visível nas pré-visualizações.</string>
     <string name="filter_expiration_format">%s(%s)</string>
     <string name="duration_no_change">(Sem alteração)</string>
-    <string name="pref_show_self_username_always">Sempre</string>
-    <string name="pref_show_self_username_disambiguate">Quando autenticado em várias contas</string>
-    <string name="pref_show_self_username_never">Nunca</string>
     <string name="description_post_language">Idioma da publicação</string>
     <string name="pref_title_show_self_username">Mostrar o nome de utilizador nas barras de ferramentas</string>
     <string name="action_set_focus">Define o ponto de focagem</string>
