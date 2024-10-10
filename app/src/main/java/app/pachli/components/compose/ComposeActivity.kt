@@ -415,8 +415,8 @@ class ComposeActivity :
         binding.composeEditField.setAdapter(
             ComposeAutoCompleteAdapter(
                 this,
-                preferences.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false),
-                preferences.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false),
+                sharedPreferencesRepository.animateAvatars,
+                sharedPreferencesRepository.animateEmojis,
                 preferences.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true),
             ),
         )
@@ -629,12 +629,11 @@ class ComposeActivity :
             a.getDimensionPixelSize(0, 1)
         }
 
-        val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
         loadAvatar(
             activeAccount.profilePictureUrl,
             binding.composeAvatar,
             avatarSize / 8,
-            animateAvatars,
+            sharedPreferencesRepository.animateAvatars,
         )
         binding.composeAvatar.contentDescription = getString(
             R.string.compose_active_account_description,
@@ -1368,7 +1367,7 @@ class ComposeActivity :
 
     private fun setEmojiList(emojiList: List<Emoji>?) {
         if (emojiList != null) {
-            val animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
+            val animateEmojis = sharedPreferencesRepository.animateEmojis
             binding.emojiView.adapter = EmojiAdapter(emojiList, this@ComposeActivity, animateEmojis)
             enableButton(binding.composeEmojiButton, true, emojiList.isNotEmpty())
         }

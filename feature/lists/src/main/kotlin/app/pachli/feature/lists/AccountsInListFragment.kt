@@ -44,7 +44,6 @@ import app.pachli.core.data.repository.ListsError
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.apiresult.ApiError
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BindingHolder
 import app.pachli.feature.lists.databinding.FragmentAccountsInListBinding
@@ -93,8 +92,8 @@ class AccountsInListFragment : DialogFragment() {
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
-    private val animateAvatar by unsafeLazy { sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false) }
-    private val animateEmojis by unsafeLazy { sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false) }
+    private val animateAvatar by unsafeLazy { sharedPreferencesRepository.animateAvatars }
+    private val animateEmojis by unsafeLazy { sharedPreferencesRepository.animateEmojis }
 
     private var pachliAccountId by Delegates.notNull<Long>()
 

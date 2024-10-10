@@ -22,6 +22,7 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
+import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import dagger.assisted.Assisted
@@ -30,7 +31,9 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -45,14 +48,29 @@ internal sealed interface InfallibleUiAction : UiAction {
     data class TabRemoveTimeline(val timeline: Timeline) : InfallibleUiAction
 }
 
+// (r) -> changes to this pref restart activities when leaving PreferencesActivity
 data class UiState(
-    val hideTopToolbar: Boolean, // onCreate, bindDrawerAvatar
+    val animateAvatars: Boolean, // (r)
+    val animateEmojis: Boolean,
+    val enableTabSwipe: Boolean, // (r)
+    val hideTopToolbar: Boolean, // onCreate, bindDrawerAvatar (r)
+    val mainNavigationPosition: MainNavigationPosition, // (r)
     // mainNavPosition (top, bottom), onCreate, bindTabs, bindDrawerAvatar
     // emoji preference, onCreate, onResume, updateDrawerProfileHeader
-    // animate gif avatars (animateAvatars), bindMainDrawer, bindDrawerAvatar
-    // fontFamily, bindMainDrawerItems
-    // enableSwipeForTabs, bindTabs
-)
+    // animate gif avatars (animateAvatars), bindMainDrawer, bindDrawerAvatar (r)
+    // fontFamily, bindMainDrawerItems (r)
+    // enableSwipeForTabs, bindTabs (r) (probably doesn't need to restart)
+) {
+    companion object {
+        fun make(prefs: SharedPreferencesRepository) = UiState(
+            animateAvatars = prefs.animateAvatars,
+            animateEmojis = prefs.animateEmojis,
+            enableTabSwipe = prefs.enableTabSwipe,
+            hideTopToolbar = prefs.hideTopToolbar,
+            mainNavigationPosition = prefs.mainNavigationPosition,
+        )
+    }
+}
 
 @HiltViewModel(assistedFactory = MainViewModel.Factory::class)
 internal class MainViewModel @AssistedInject constructor(
@@ -88,6 +106,24 @@ internal class MainViewModel @AssistedInject constructor(
     private val uiAction = MutableSharedFlow<UiAction>()
 
     val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
+
+    private val watchedPrefs = setOf(
+        PrefKeys.ANIMATE_GIF_AVATARS,
+        PrefKeys.ANIMATE_CUSTOM_EMOJIS,
+        PrefKeys.ENABLE_SWIPE_FOR_TABS,
+        PrefKeys.HIDE_TOP_TOOLBAR,
+        PrefKeys.MAIN_NAV_POSITION,
+    )
+
+    val uiState = sharedPreferencesRepository.changes
+        .filter { watchedPrefs.contains(it) }
+        .map {
+            UiState.make(sharedPreferencesRepository)
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = UiState.make(sharedPreferencesRepository),
+        )
 
     init {
         viewModelScope.launch { uiAction.collect { launch { onUiAction(it) } } }

@@ -108,7 +108,7 @@ import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.MainNavigationPosition
-import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.PrefKeys.FONT_FAMILY
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityMainBinding
@@ -321,7 +321,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // Determine which of the three toolbars should be the supportActionBar (which hosts
         // the options menu).
-        val hideTopToolbar = sharedPreferencesRepository.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
+        val hideTopToolbar = viewModel.uiState.value.hideTopToolbar
         if (hideTopToolbar) {
             when (sharedPreferencesRepository.mainNavigationPosition) {
                 MainNavigationPosition.TOP -> setSupportActionBar(binding.topNav)
@@ -375,9 +375,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     }
                 }
 
+                // Not sure this is needed right now, since PreferenceActivity will restart
+                // this activity when the relevant preferences change.
                 lifecycleScope.launch {
-                    val showSearchItem = sharedPreferencesRepository.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
-                    bindMainDrawerSearch(this@MainActivity, a.id, showSearchItem)
+                    viewModel.uiState.collect {
+                        bindMainDrawerSearch(this@MainActivity, a.id, it.hideTopToolbar)
+                    }
                 }
             }
         }
@@ -629,9 +632,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         header.currentProfileName.setTextColor(headerTextColor)
         header.currentProfileEmail.setTextColor(headerTextColor)
 
-        val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
-
-        DrawerImageLoader.init(MainDrawerImageLoader(glide, animateAvatars))
+        DrawerImageLoader.init(MainDrawerImageLoader(glide, viewModel.uiState.value.animateAvatars))
 
         binding.mainDrawerLayout.addDrawerListener(object : DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) { }
@@ -648,6 +649,15 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         })
     }
 
+    /**
+     * Binds the "search" menu item in the main drawer.
+     *
+     * @param context
+     * @param pachliAccountId
+     * @param showSearchItem True if a "Search" menu item should be added to the list
+     * (because the top toolbar is hidden), false if any existing search item should be
+     * removed.
+     */
     private fun bindMainDrawerSearch(context: Context, pachliAccountId: Long, showSearchItem: Boolean) {
         val searchItemPosition = binding.mainDrawer.getPosition(DRAWER_ITEM_SEARCH)
 
@@ -915,7 +925,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         updateMainDrawerTypeface(
-            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(PrefKeys.FONT_FAMILY, "default")),
+            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(FONT_FAMILY, "default")),
         )
     }
 
@@ -1027,8 +1037,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val pageMargin = resources.getDimensionPixelSize(DR.dimen.tab_page_margin)
         binding.viewPager.setPageTransformer(MarginPageTransformer(pageMargin))
 
-        val enableSwipeForTabs = sharedPreferencesRepository.getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
-        binding.viewPager.isUserInputEnabled = enableSwipeForTabs
+        binding.viewPager.isUserInputEnabled = viewModel.uiState.value.enableTabSwipe
 
         onTabSelectedListener?.let {
             activeTabLayout.removeOnTabSelectedListener(it)
@@ -1137,8 +1146,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @SuppressLint("CheckResult")
     private fun bindDrawerAvatar(avatarUrl: String, showPlaceholder: Boolean) {
-        val hideTopToolbar = sharedPreferencesRepository.getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
-        val animateAvatars = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
+        val hideTopToolbar = viewModel.uiState.value.hideTopToolbar
+        val animateAvatars = viewModel.uiState.value.animateAvatars
 
         val activeToolbar = if (hideTopToolbar) {
             when (sharedPreferencesRepository.mainNavigationPosition) {
@@ -1224,7 +1233,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun updateDrawerProfileHeader(accounts: List<AccountEntity>) {
-        val animateEmojis = sharedPreferencesRepository.getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
+        val animateEmojis = viewModel.uiState.value.animateEmojis
         val profiles: MutableList<IProfile> = accounts.map { acc ->
             ProfileDrawerItem().apply {
                 isSelected = acc.isActive

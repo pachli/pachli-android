@@ -256,7 +256,11 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         if (!showActiveAccount) {
             accounts.remove(activeAccount)
         }
-        val adapter = AccountSelectionAdapter(this)
+        val adapter = AccountSelectionAdapter(
+            this,
+            sharedPreferencesRepository.animateAvatars,
+            sharedPreferencesRepository.animateEmojis,
+        )
         adapter.addAll(accounts)
         AlertDialog.Builder(this)
             .setTitle(dialogTitle)

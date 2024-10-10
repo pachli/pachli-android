@@ -49,9 +49,27 @@ class SharedPreferencesRepository @Inject constructor(
     val appTheme: AppTheme
         get() = getEnum(PrefKeys.APP_THEME, AppTheme.AUTO_SYSTEM)
 
+    /** True if avatars should be animated. */
+    val animateAvatars: Boolean
+        get() = getBoolean(PrefKeys.ANIMATE_GIF_AVATARS, false)
+
+    /** True if emojis should be animated. */
+    val animateEmojis: Boolean
+        get() = getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
+
     /** Location of downloaded files. */
     val downloadLocation: DownloadLocation
         get() = getEnum(PrefKeys.DOWNLOAD_LOCATION, DownloadLocation.DOWNLOADS)
+
+    // val fontFamily
+
+    /** True if swipe-gesture between tabs should be enabled. */
+    val enableTabSwipe: Boolean
+        get() = getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
+
+    /** Whether to hide the top toolbar. */
+    val hideTopToolbar: Boolean
+        get() = getBoolean(PrefKeys.HIDE_TOP_TOOLBAR, false)
 
     /** Screen location of primary navigation UI (tabs, etc). */
     val mainNavigationPosition: MainNavigationPosition
