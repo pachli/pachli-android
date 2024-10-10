@@ -21,15 +21,20 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.ui.OperationCounter
 import com.github.michaelbull.result.onFailure
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 sealed class Error(
@@ -37,7 +42,6 @@ sealed class Error(
     override val formatArgs: Array<out String>,
     override val cause: ListsError? = null,
 ) : ListsError {
-
     data class Create(val title: String, override val cause: ListsError.Create) :
         Error(R.string.error_create_list_fmt, arrayOf(title.unicodeWrap()), cause)
 
@@ -48,9 +52,10 @@ sealed class Error(
         Error(R.string.error_rename_list_fmt, arrayOf(title.unicodeWrap()), cause)
 }
 
-@HiltViewModel
-internal class ListsViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = ListsViewModel.Factory::class)
+internal class ListsViewModel @AssistedInject constructor(
     private val listsRepository: ListsRepository,
+    @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val _errors = Channel<Error>()
     val errors = _errors.receiveAsFlow()
@@ -58,39 +63,41 @@ internal class ListsViewModel @Inject constructor(
     private val operationCounter = OperationCounter()
     val operationCount = operationCounter.count
 
-    val lists = listsRepository.lists
-
-    init {
-        viewModelScope.launch {
-            operationCounter { listsRepository.refresh() }
-        }
-    }
+    // Not a stateflow, as that makes updates distinct. A refresh that returns
+    // no changes is not distinct, and that prevents the refresh spinner from
+    // disappearing when the user refreshes.
+    val lists = listsRepository.getLists(pachliAccountId)
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
     fun refresh() = viewModelScope.launch {
-        operationCounter { listsRepository.refresh() }
+        operationCounter { listsRepository.refresh(pachliAccountId) }
     }
 
     fun createNewList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
         operationCounter {
-            listsRepository.createList(title, exclusive, repliesPolicy).onFailure {
-                _errors.send(Error.Create(title, it))
-            }
+            listsRepository.createList(pachliAccountId, title, exclusive, repliesPolicy)
+                .onFailure { _errors.send(Error.Create(title, it)) }
         }
     }
 
     fun updateList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = viewModelScope.launch {
         operationCounter {
-            listsRepository.editList(listId, title, exclusive, repliesPolicy).onFailure {
-                _errors.send(Error.Update(title, it))
-            }
+            listsRepository.updateList(pachliAccountId, listId, title, exclusive, repliesPolicy)
+                .onFailure { _errors.send(Error.Update(title, it)) }
         }
     }
 
-    fun deleteList(listId: String, title: String) = viewModelScope.launch {
+    fun deleteList(list: MastodonList) = viewModelScope.launch {
         operationCounter {
-            listsRepository.deleteList(listId).onFailure {
-                _errors.send(Error.Delete(title, it))
-            }
+            listsRepository.deleteList(list).onFailure { _errors.send(Error.Delete(list.title, it)) }
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        /**
+         * Creates [ListsViewModel] with [pachliAccountId] as the active account.
+         */
+        fun create(pachliAccountId: Long): ListsViewModel
     }
 }

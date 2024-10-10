@@ -17,7 +17,6 @@
 
 package app.pachli.components.notifications
 
-import app.pachli.core.database.model.AccountEntity
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -28,13 +27,13 @@ class NotificationsViewModelTestVisibleId : NotificationsViewModelTestBase() {
 
     @Test
     fun `should save notification ID to active account`() = runTest {
-        argumentCaptor<AccountEntity>().apply {
+        argumentCaptor<Pair<Long, String>>().apply {
             // When
             viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
 
             // Then
-            verify(accountManager).saveAccount(capture())
-            assertThat(this.lastValue.lastNotificationId)
+            verify(accountManager).setLastNotificationId(capture().first, capture().second)
+            assertThat(this.lastValue.second)
                 .isEqualTo("1234")
         }
     }

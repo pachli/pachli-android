@@ -33,6 +33,7 @@ import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -64,11 +65,9 @@ class NetworkTimelineViewModel @Inject constructor(
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
 ) : TimelineViewModel(
-    context,
     savedStateHandle,
     timelineCases,
     eventHub,
-    contentFiltersRepository,
     accountManager,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
@@ -78,18 +77,19 @@ class NetworkTimelineViewModel @Inject constructor(
     override var statuses: Flow<PagingData<StatusViewData>>
 
     init {
-        statuses = reload
+        statuses = refreshFlow
             .flatMapLatest {
-                getStatuses(initialKey = getInitialKey())
+                getStatuses(it.second, initialKey = getInitialKey())
             }.cachedIn(viewModelScope)
     }
 
-    /** @return Flow of statuses that make up the timeline of [timeline] */
+    /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
     private fun getStatuses(
+        account: AccountEntity,
         initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
         Timber.d("getStatuses: kind: %s, initialKey: %s", timeline, initialKey)
-        return repository.getStatusStream(viewModelScope, kind = timeline, initialKey = initialKey)
+        return repository.getStatusStream(account, kind = timeline, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map {
                     modifiedViewData[it.id] ?: StatusViewData.from(

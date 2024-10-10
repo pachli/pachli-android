@@ -25,8 +25,10 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
-import at.connyduck.calladapter.networkresult.NetworkResult
+import app.pachli.core.testing.success
+import com.github.michaelbull.result.andThen
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -41,6 +43,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.reset
@@ -80,42 +83,44 @@ class InstanceInfoRepositoryTest {
      */
     private var instanceResponseCallback: (() -> InstanceV1)? = null
 
+    private val account = Account(
+        id = "1",
+        localUsername = "username",
+        username = "username@domain.example",
+        displayName = "Display Name",
+        createdAt = Date.from(Instant.now()),
+        note = "",
+        url = "",
+        avatar = "",
+        header = "",
+    )
+
     @Before
-    fun setup() {
+    fun setup() = runTest {
         hilt.inject()
 
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
+            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { getInstanceV1() } doAnswer {
                 instanceResponseCallback?.invoke().let { instance ->
                     if (instance == null) {
-                        NetworkResult.failure(Throwable())
+                        failure()
                     } else {
-                        NetworkResult.success(instance)
+                        success(instance)
                     }
                 }
             }
         }
 
-        accountManager.addAccount(
+        accountManager.verifyAndAddAccount(
             accessToken = "token",
             domain = "domain.example",
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-            newAccount = Account(
-                id = "1",
-                localUsername = "username",
-                username = "username@domain.example",
-                displayName = "Display Name",
-                createdAt = Date.from(Instant.now()),
-                note = "",
-                url = "",
-                avatar = "",
-                header = "",
-            ),
-        )
+        ).andThen { accountManager.setActiveAccount(it) }
     }
 
     @Test

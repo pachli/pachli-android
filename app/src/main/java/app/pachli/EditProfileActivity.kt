@@ -40,6 +40,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.databinding.ActivityEditProfileBinding
@@ -155,7 +156,7 @@ class EditProfileActivity : BaseActivity() {
             }
         }
 
-        viewModel.obtainProfile()
+        viewModel.obtainProfile(intent.pachliAccountId)
 
         viewModel.profileData.observe(this) { profileRes ->
             when (profileRes) {
@@ -191,7 +192,7 @@ class EditProfileActivity : BaseActivity() {
                 is Error -> {
                     Snackbar.make(binding.avatarButton, app.pachli.core.ui.R.string.error_generic, Snackbar.LENGTH_LONG)
                         .setAction(app.pachli.core.ui.R.string.action_retry) {
-                            viewModel.obtainProfile()
+                            viewModel.obtainProfile(intent.pachliAccountId)
                         }
                         .show()
                 }

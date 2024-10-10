@@ -71,6 +71,15 @@ object DatabaseModule {
 
     @Provides
     fun providesLogEntryDao(appDatabase: AppDatabase) = appDatabase.logEntryDao()
+
+    @Provides
+    fun providesContentFiltersDao(appDatabase: AppDatabase) = appDatabase.contentFiltersDao()
+
+    @Provides
+    fun providesListsDao(appDatabase: AppDatabase) = appDatabase.listsDao()
+
+    @Provides
+    fun providesAnnouncementsDao(appDatabase: AppDatabase) = appDatabase.announcementsDao()
 }
 
 /**
@@ -95,5 +104,14 @@ class TransactionProvider(private val appDatabase: AppDatabase) {
     /** Runs the given block in a database transaction */
     suspend operator fun <R> invoke(block: suspend () -> R): R {
         return appDatabase.withTransaction(block)
+
+//        return try {
+//            appDatabase.withTransaction(block)
+//        } catch (e: Throwable) {
+//            Timber.e(e, "Exception when starting database transaction")
+//            throw (e)
+//        } finally {
+//            Timber.e("Finally block of withTransaction")
+//        }
     }
 }

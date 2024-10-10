@@ -19,12 +19,12 @@ package app.pachli.core.data.repository.filtersRepository
 
 import android.app.Application
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.HiltTestApplication_Application
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerOperation
-import app.pachli.core.network.Server
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.MainCoroutineRule
 import com.github.michaelbull.result.Ok
@@ -79,7 +79,6 @@ abstract class BaseContentFiltersRepositoryTest {
         contentFiltersRepository = ContentFiltersRepository(
             TestScope(),
             mastodonApi,
-            serverRepository,
         )
     }
 

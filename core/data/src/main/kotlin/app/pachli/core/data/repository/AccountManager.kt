@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Conny Duck
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -18,228 +18,558 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.model.InstanceInfo
+import app.pachli.core.data.model.MastodonList
+import app.pachli.core.data.model.Server
+import app.pachli.core.data.model.from
+import app.pachli.core.data.repository.ContentFiltersError.GetContentFiltersError
+import app.pachli.core.data.repository.ContentFiltersError.ServerDoesNotFilter
+import app.pachli.core.data.repository.ServerRepository.Error
+import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
+import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
+import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
+import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.dao.AccountDao
+import app.pachli.core.database.dao.AnnouncementsDao
+import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.AnnouncementEntity
+import app.pachli.core.database.model.EmojisEntity
+import app.pachli.core.database.model.InstanceInfoEntity
+import app.pachli.core.database.model.ServerEntity
+import app.pachli.core.model.BuildConfig
+import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.ContentFilterVersion
+import app.pachli.core.model.NodeInfo
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.Announcement
+import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
-import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.preferences.ShowSelfUsername
+import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.NodeInfoApi
+import app.pachli.core.network.retrofit.apiresult.ApiError
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.coroutines.binding.binding
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
+import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.mapOr
+import com.github.michaelbull.result.onSuccess
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.time.TimeSource
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+sealed interface Loadable<T> {
+    class Loading<T>() : Loadable<T>
+    data class Loaded<T>(val data: T) : Loadable<T>
+}
+
+// TODO: Still not sure if it's better to have one class that contains everything,
+// or provide dedicated functions that return specific flows for the different
+// things, parameterised by the account ID.
+data class PachliAccount(
+    val id: Long,
+    // TODO: Should be a core.data type
+    val entity: AccountEntity,
+    val instanceInfo: InstanceInfo,
+    val lists: List<MastodonList>,
+    val emojis: List<Emoji>,
+    val server: Server,
+    val contentFilters: ContentFilters,
+    val announcements: List<Announcement>,
+) {
+    companion object {
+        fun make(
+            account: app.pachli.core.database.model.PachliAccount,
+        ): PachliAccount {
+            return PachliAccount(
+                id = account.account.id,
+                entity = account.account,
+                instanceInfo = InstanceInfo.from(account.instanceInfo),
+                lists = account.lists.map { MastodonList.from(it) },
+                emojis = account.emojis?.emojiList.orEmpty(),
+                server = Server.from(account.server),
+                contentFilters = ContentFilters(
+                    version = account.contentFilters.version,
+                    contentFilters = account.contentFilters.contentFilters,
+                ),
+                announcements = account.announcements.map { it.announcement },
+            )
+        }
+    }
+}
+
+// Note to self: This is doing dual duty as a repository and as a collection of
+// use cases, and should be refactored along those lines.
+
 @Singleton
 class AccountManager @Inject constructor(
+    private val transactionProvider: TransactionProvider,
+    private val mastodonApi: MastodonApi,
+    private val nodeInfoApi: NodeInfoApi,
     private val accountDao: AccountDao,
     private val remoteKeyDao: RemoteKeyDao,
-    private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val instanceDao: InstanceDao,
+    private val contentFiltersRepository: ContentFiltersRepository,
+    private val listsRepository: ListsRepository,
+    private val announcementsDao: AnnouncementsDao,
     private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
-    private val _activeAccountFlow = MutableStateFlow<AccountEntity?>(null)
-    val activeAccountFlow = _activeAccountFlow.asStateFlow()
+    @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
+    val activeAccountFlow: StateFlow<Loadable<AccountEntity?>> =
+        accountDao.getActiveAccountFlow()
+            .distinctUntilChanged()
+            .map { Loadable.Loaded(it) }
+            .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
 
-    @Volatile
-    var activeAccount: AccountEntity? = null
-        private set(value) {
-            field = value
-            instanceSwitchAuthInterceptor.credentials = value?.let {
-                InstanceSwitchAuthInterceptor.Credentials(
-                    accessToken = it.accessToken,
-                    domain = it.domain,
-                )
+    /**
+     * The active account, or null if there is no active account.
+     */
+    @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
+    val activeAccount: AccountEntity?
+        get() {
+            return when (val loadable = activeAccountFlow.value) {
+                is Loadable.Loading -> null
+                is Loadable.Loaded -> loadable.data
             }
-            externalScope.launch { _activeAccountFlow.emit(value) }
         }
 
-    var accounts: MutableList<AccountEntity> = mutableListOf()
-        private set
+    /** All logged in accounts. */
+    val accountsFlow = accountDao.loadAllFlow().stateIn(externalScope, SharingStarted.Eagerly, emptyList())
+
+    val accounts: List<AccountEntity>
+        get() = accountsFlow.value
+
+    private val accountsOrderedByActiveFlow = accountDao.getAccountsOrderedByActive()
+        .stateIn(externalScope, SharingStarted.Eagerly, emptyList())
+
+    val accountsOrderedByActive: List<AccountEntity>
+        get() = accountsOrderedByActiveFlow.value
+
+    @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
+    val activePachliAccountFlow = accountDao.getActivePachliAccountFlow()
+        .filterNotNull()
+        .map { PachliAccount.make(it) }
 
     init {
-        accounts = accountDao.loadAll().toMutableList()
+        externalScope.launch {
+            listsRepository.getAllLists().collect { lists ->
+                val listsById = lists.groupBy { it.accountId }
+                listsById.forEach { (pachliAccountId, group) ->
+                    newTabPreferences(pachliAccountId, group)?.let {
+                        setTabPreferences(pachliAccountId, it)
+                    }
+                }
+            }
+        }
+    }
 
-        activeAccount = accounts.find { acc -> acc.isActive }
-            ?: accounts.firstOrNull()?.also { acc -> acc.isActive = true }
+    suspend fun getPachliAccountFlow(accountId: Long): Flow<PachliAccount?> {
+        if (BuildConfig.DEBUG) {
+            if (accountId == -1L) Timber.e("getPachliAccountFlow with -1 as account")
+        }
+        val id = accountId.takeIf { it != -1L } ?: accountDao.getActiveAccount()?.id
+        Timber.d("PachliAccount id: %d", id)
+        id ?: return flowOf(null)
+
+        return accountDao.getPachliAccountFlow(id).map { it?.let { PachliAccount.make(it) } }
     }
 
     /**
-     * Adds a new account and makes it the active account.
+     * Verifies the account has valid credentials according to the remote server
+     * and adds it to the local database if it does.
+     *
+     * Does not make it the active account.
+     *
      * @param accessToken the access token for the new account
      * @param domain the domain of the account's Mastodon instance
      * @param clientId the oauth client id used to sign in the account
      * @param clientSecret the oauth client secret used to sign in the account
      * @param oauthScopes the oauth scopes granted to the account
-     * @param newAccount the [Account] as returned by the Mastodon Api
      */
-    fun addAccount(
+    suspend fun verifyAndAddAccount(
         accessToken: String,
         domain: String,
         clientId: String,
         clientSecret: String,
         oauthScopes: String,
-        newAccount: Account,
-    ): Long {
-        activeAccount?.let {
-            it.isActive = false
-            Timber.d("addAccount: saving account with id %d", it.id)
+    ): Result<Long, ApiError> {
+        // TODO: Check the account doesn't already exist
 
-            accountDao.insertOrReplace(it)
-        }
-        // check if this is a relogin with an existing account, if yes update it, otherwise create a new one
-        val existingAccountIndex = accounts.indexOfFirst { account ->
-            domain == account.domain && newAccount.id == account.accountId
-        }
-        val newAccountEntity = if (existingAccountIndex != -1) {
-            accounts[existingAccountIndex].copy(
+        val networkAccount = mastodonApi.accountVerifyCredentials(
+            domain = domain,
+            auth = "Bearer $accessToken",
+        ).getOrElse { return Err(it) }.body
+
+        return transactionProvider {
+            val existingAccount = accountDao.getAccountByIdAndDomain(
+                networkAccount.id,
+                domain,
+            )
+
+            val newAccount = existingAccount?.copy(
                 accessToken = accessToken,
                 clientId = clientId,
                 clientSecret = clientSecret,
                 oauthScopes = oauthScopes,
-                isActive = true,
-            ).also { accounts[existingAccountIndex] = it }
-        } else {
-            val maxAccountId = accounts.maxByOrNull { it.id }?.id ?: 0
-            val newAccountId = maxAccountId + 1
-            AccountEntity(
-                id = newAccountId,
+            ) ?: AccountEntity(
+                id = 0L,
                 domain = domain.lowercase(Locale.ROOT),
                 accessToken = accessToken,
                 clientId = clientId,
                 clientSecret = clientSecret,
                 oauthScopes = oauthScopes,
                 isActive = true,
-                accountId = newAccount.id,
-            ).also { accounts.add(it) }
-        }
+                accountId = networkAccount.id,
+            )
 
-        activeAccount = newAccountEntity
-        updateActiveAccount(newAccount)
-        return newAccountEntity.id
+            Timber.d("addAccount: upsert account id: %d, isActive: %s", newAccount.id, newAccount.isActive)
+            val newId = accountDao.upsert(newAccount)
+            return@transactionProvider Ok(newId)
+        }
+    }
+
+    suspend fun clearPushNotificationData(accountId: Long) {
+        setPushNotificationData(accountId, "", "", "", "", "")
     }
 
     /**
-     * Saves an already known account to the database.
-     * New accounts must be created with [addAccount]
-     * @param account the account to save
+     * Logs out the active account by deleting all data of the account.
+     *
+     * Sets the next account as active.
+     *
+     * @return The new active account, or null if there are no more accounts.
      */
-    fun saveAccount(account: AccountEntity) {
-        if (account.id == 0L) {
-            Timber.e("Trying to save account with ID = 0, ignoring")
-            return
-        }
+    suspend fun logActiveAccountOut(): AccountEntity? {
+        return transactionProvider {
+            val activeAccount = accountDao.getActiveAccount() ?: return@transactionProvider null
+            Timber.d("logout: Logging out %d", activeAccount.id)
 
-        // Work around saveAccount() being called after account deletion
-        // For example:
-        // - Have two accounts, A and B, signed in with A, looking at home timeline for A
-        // - Log out of A. This triggers deletion of account A from the database
-        // - Shortly afterwards the timeline activity/fragment ends, and it tries to save
-        //   the visible ID back to the database, which creates the AccountEntity record
-        //   that was just deleted, but in a partial state.
-        if (accounts.find { it.id == account.id } == null) {
-            Timber.e("Trying to save account with ID = %d which does not exist, ignoring", account.id)
-            return
-        }
+            // Deleting credentials so they cannot be used again
+            accountDao.clearLoginCredentials(activeAccount.id)
 
-        Timber.d("saveAccount: saving account with id %d", account.id)
-        accountDao.insertOrReplace(account)
-    }
+            accountDao.delete(activeAccount)
+            remoteKeyDao.delete(activeAccount.id)
 
-    /**
-     * Logs the current account out by deleting all data of the account.
-     * @return the new active account, or null if no other account was found
-     */
-    fun logActiveAccountOut(): AccountEntity? {
-        return activeAccount?.let { account ->
-
-            account.logout()
-
-            accounts.remove(account)
-            accountDao.delete(account)
-            remoteKeyDao.delete(account.id)
-
-            if (accounts.size > 0) {
-                accounts[0].isActive = true
-                activeAccount = accounts[0]
-                Timber.d("logActiveAccountOut: saving account with id %d", accounts[0].id)
-                accountDao.insertOrReplace(accounts[0])
-            } else {
-                activeAccount = null
-            }
-            activeAccount
+            val accounts = accountDao.loadAll()
+            val newActiveAccount = accounts.firstOrNull()?.copy(isActive = true) ?: return@transactionProvider null
+            setActiveAccount(newActiveAccount.id)
+            return@transactionProvider newActiveAccount
         }
     }
 
     /**
-     * updates the current account with new information from the mastodon api
-     * and saves it in the database
-     * @param account the [Account] object returned from the api
-     */
-    fun updateActiveAccount(account: Account) {
-        activeAccount?.let {
-            it.accountId = account.id
-            it.username = account.username
-            it.displayName = account.name
-            it.profilePictureUrl = account.avatar
-            it.defaultPostPrivacy = account.source?.privacy ?: Status.Visibility.PUBLIC
-            it.defaultPostLanguage = account.source?.language.orEmpty()
-            it.defaultMediaSensitivity = account.source?.sensitive ?: false
-            it.emojis = account.emojis.orEmpty()
-            it.locked = account.locked
-
-            Timber.d("updateActiveAccount: saving account with id %d", it.id)
-            accountDao.insertOrReplace(it)
-        }
-    }
-
-    /**
-     * changes the active account
+     * Changes the active account.
+     *
      * @param accountId the database id of the new active account
      */
-    fun setActiveAccount(accountId: Long) {
-        val newActiveAccount = accounts.find { (id) ->
-            id == accountId
-        } ?: return // invalid accountId passed, do nothing
+    suspend fun setActiveAccount(accountId: Long): Result<Unit, ApiError> {
+        data class ApiErrorException(val apiError: ApiError) : Exception()
 
-        activeAccount?.let {
-            Timber.d("setActiveAccount: saving account with id %d", it.id)
-            it.isActive = false
-            saveAccount(it)
-        }
+        try {
+            transactionProvider {
+                val now = TimeSource.Monotonic.markNow()
 
-        activeAccount = newActiveAccount
+                Timber.d("setActiveAcccount(%d)", accountId)
+                val newActiveAccount = if (accountId == -1L) {
+                    accountDao.getActiveAccount()
+                } else {
+                    accountDao.getAccountById(accountId)
+                }
+                if (newActiveAccount == null) {
+                    Timber.d("Account %d not in database", accountId)
+                    return@transactionProvider
+                }
 
-        activeAccount?.let {
-            it.isActive = true
-            accountDao.insertOrReplace(it)
+                accountDao.clearActiveAccount()
+
+                // Fetch data from the API, updating the account as necessary.
+                // If this fails an exception is thrown to cancel the transaction.
+                //
+                // Note: Can't adjust InstanceSwitchAuthInterceptor before this,
+                // because if this call fails the change would need to be undone as
+                // part of cancelling the transaction. That's why it's modified at the
+                // very end of this block.
+                val account = mastodonApi.accountVerifyCredentials(
+                    domain = newActiveAccount.domain,
+                    auth = "Bearer ${newActiveAccount.accessToken}",
+                ).getOrElse { throw ApiErrorException(it) }.body
+
+                val finalAccount = newActiveAccount.copy(
+                    isActive = true,
+                    accountId = account.id,
+                    username = account.username,
+                    displayName = account.name,
+                    profilePictureUrl = account.avatar,
+                    profileHeaderPictureUrl = account.header,
+                    defaultPostPrivacy = account.source?.privacy ?: Status.Visibility.PUBLIC,
+                    defaultPostLanguage = account.source?.language.orEmpty(),
+                    defaultMediaSensitivity = account.source?.sensitive ?: false,
+                    emojis = account.emojis.orEmpty(),
+                    locked = account.locked,
+                )
+
+                Timber.d("setActiveAccount: saving id: %d, isActive: %s", finalAccount.id, finalAccount.isActive)
+                accountDao.update(finalAccount)
+
+                // Now safe to update InstanceSwitchAuthInterceptor.
+                Timber.d("Updating instanceSwitchAuthInterceptor with credentials for %s", newActiveAccount.fullName)
+                instanceSwitchAuthInterceptor.credentials =
+                    InstanceSwitchAuthInterceptor.Credentials(
+                        accessToken = newActiveAccount.accessToken,
+                        domain = newActiveAccount.domain,
+                    )
+
+                // To load:
+                // - instance info
+                // - lists
+                // - server info
+                // - filters (depends on server info)
+                // - announcements
+                //
+                // InstanceInfoEntity will need to be a merger of whatever you get from
+                // instancev1 and instance2.
+
+                // Caution here -- doing database operations in any of the externalScope blocks
+                // appears not to release database connections properly, resulting in starvation.
+
+                val deferNodeInfo = externalScope.async {
+                    fetchNodeInfo()
+                }
+
+                val deferInstanceInfo = externalScope.async {
+                    fetchInstanceInfo(finalAccount.domain)
+                }
+
+                val deferEmojis = externalScope.async {
+                    mastodonApi.getCustomEmojis()
+                }
+
+                val deferAnnouncements = externalScope.async {
+                    mastodonApi.listAnnouncements(false).get()?.body.orEmpty()
+                        .map {
+                            AnnouncementEntity(
+                                accountId = finalAccount.id,
+                                announcementId = it.id,
+                                announcement = it,
+                            )
+                        }
+                }
+
+                val nodeInfo = deferNodeInfo.await()
+
+                deferInstanceInfo.await().also { instanceInfoEntity ->
+                    instanceDao.upsert(instanceInfoEntity)
+                }
+
+                // Create the server info so it can used for both server capabilities and filters.
+                val server = deferInstanceInfo.await().let { instanceInfoEntity ->
+                    nodeInfo.map { Server.from(it.software, instanceInfoEntity).get() }
+                }.get()
+
+                server?.let {
+                    ServerEntity(
+                        accountId = finalAccount.id,
+                        serverKind = it.kind,
+                        version = it.version,
+                        capabilities = it.capabilities,
+                    ).also {
+                        instanceDao.upsert(it)
+                    }
+                }
+
+                externalScope.launch { contentFiltersRepository.refresh(finalAccount.id) }
+
+                deferEmojis.await().also { result ->
+                    result.onSuccess {
+                        instanceDao.upsert(EmojisEntity(accountId = finalAccount.id, emojiList = it.body))
+                    }
+                }
+
+                externalScope.launch { listsRepository.refresh(finalAccount.id) }
+
+                deferAnnouncements.await().also { announcements ->
+                    announcementsDao.deleteAllForAccount(finalAccount.id)
+                    announcementsDao.upsert(announcements)
+                }
+
+                Timber.d("Switched accounts took %d ms", now.elapsedNow().inWholeMilliseconds)
+            }
+
+            return Ok(Unit)
+        } catch (e: ApiErrorException) {
+            return Err(e.apiError)
         }
     }
 
     /**
-     * @return an immutable list of all accounts in the database with the active account first
+     * Updates [pachliAccountId] with data from [newAccount].
+     *
+     * Updates the values:
+     *
+     * - [displayName][AccountEntity.displayName]
+     * - [profilePictureUrl][AccountEntity.profilePictureUrl]
+     * - [profileHeaderPictureUrl][AccountEntity.profileHeaderPictureUrl]
+     * - [locked][AccountEntity.locked]
      */
-    fun getAllAccountsOrderedByActive(): List<AccountEntity> {
-        val accountsCopy = accounts.toMutableList()
-        accountsCopy.sortWith { l, r ->
-            when {
-                l.isActive && !r.isActive -> -1
-                r.isActive && !l.isActive -> 1
-                else -> 0
+    suspend fun updateAccount(pachliAccountId: Long, newAccount: Account) {
+        transactionProvider {
+            val existingAccount = accountDao.getAccountById(pachliAccountId) ?: return@transactionProvider
+            val updatedAccount = existingAccount.copy(
+                displayName = newAccount.displayName ?: existingAccount.displayName,
+                profilePictureUrl = newAccount.avatar,
+                profileHeaderPictureUrl = newAccount.header,
+                locked = newAccount.locked,
+            )
+            accountDao.upsert(updatedAccount)
+        }
+    }
+
+    /**
+     * Determines the user's tab preferences when lists are loaded.
+     *
+     * The user may have added one or more lists to tabs. If they have then:
+     *
+     * - A list-in-a-tab might have been deleted
+     * - A list-in-a-tab might have been renamed
+     *
+     * Handle both of those scenarios.
+     *
+     * @param pachliAccountId The account to check
+     * @param lists The account's latest lists
+     * @return A list of new tab preferences for [pachliAccountId], or null if there are no changes.
+     */
+    private suspend fun newTabPreferences(pachliAccountId: Long, lists: List<MastodonList>): List<Timeline>? {
+        val map = lists.associateBy { it.listId }
+        val account = accountDao.getAccountById(pachliAccountId) ?: return null
+        val oldTabPreferences = account.tabPreferences
+        var changed = false
+        val newTabPreferences = buildList {
+            for (oldPref in oldTabPreferences) {
+                if (oldPref !is Timeline.UserList) {
+                    add(oldPref)
+                    continue
+                }
+
+                // List has been deleted? Don't add this pref,
+                // record there's been a change, and move on to the
+                // next one.
+                if (oldPref.listId !in map) {
+                    changed = true
+                    continue
+                }
+
+                // Title changed? Update the title in the pref and
+                // add it.
+                if (oldPref.title != map[oldPref.listId]?.title) {
+                    changed = true
+                    add(oldPref.copy(title = map[oldPref.listId]?.title!!))
+                    continue
+                }
+
+                add(oldPref)
+            }
+        }
+        return if (changed) newTabPreferences else null
+    }
+
+    private suspend fun fetchNodeInfo(): Result<NodeInfo, Error> = binding {
+        /**
+         * NodeInfo schema versions we can parse.
+         *
+         * See https://nodeinfo.diaspora.software/schema.html.
+         */
+        val SCHEMAS = listOf(
+            "http://nodeinfo.diaspora.software/ns/schema/2.1",
+            "http://nodeinfo.diaspora.software/ns/schema/2.0",
+            "http://nodeinfo.diaspora.software/ns/schema/1.1",
+            "http://nodeinfo.diaspora.software/ns/schema/1.0",
+        )
+
+        // Fetch the /.well-known/nodeinfo document
+        val nodeInfoJrd = nodeInfoApi.nodeInfoJrd()
+            .mapError { GetWellKnownNodeInfo(it) }.bind().body
+
+        // Find a link to a schema we can parse, prefering newer schema versions
+        var nodeInfoUrlResult: Result<String, Error> = Err(UnsupportedSchema)
+        for (link in nodeInfoJrd.links.sortedByDescending { it.rel }) {
+            if (SCHEMAS.contains(link.rel)) {
+                nodeInfoUrlResult = Ok(link.href)
+                break
             }
         }
 
-        return accountsCopy
+        val nodeInfoUrl = nodeInfoUrlResult.bind()
+
+        Timber.d("Loading node info from %s", nodeInfoUrl)
+        val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).mapBoth(
+            { it.body.validate().mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
+            { Err(GetNodeInfo(nodeInfoUrl, it)) },
+        ).bind()
+
+        return@binding nodeInfo
+    }
+
+    // TODO: Maybe rename InstanceInfoEntity to ServerLimits or something like that, since that's
+    // what it records.
+    private suspend fun fetchInstanceInfo(domain: String): InstanceInfoEntity {
+        // This needs to start with v2, and fall back to v1
+        // InstanceInfoEntity needs to gain support for recording translation
+
+        return mastodonApi.getInstanceV1().mapOr(InstanceInfoEntity.defaultForDomain(domain)) { result ->
+            InstanceInfoEntity.make(domain, result.body)
+        }
+    }
+
+    /** Get the current set of content filters. */
+    // Copied from ContentFiltersRepository
+    private suspend fun getContentFilters(server: Server): Result<ContentFilters, ContentFiltersError> = binding {
+        when {
+            server.canFilterV2() -> mastodonApi.getContentFilters().map {
+                ContentFilters(
+                    contentFilters = it.body.map { ContentFilter.from(it) },
+                    version = ContentFilterVersion.V2,
+                )
+            }
+
+            server.canFilterV1() -> mastodonApi.getContentFiltersV1().map {
+                ContentFilters(
+                    contentFilters = it.body.map { ContentFilter.from(it) },
+                    version = ContentFilterVersion.V1,
+                )
+            }
+
+            else -> Err(ServerDoesNotFilter)
+        }.mapError { GetContentFiltersError(it) }.bind()
     }
 
     /**
      * @return True if at least one account has Android notifications enabled
      */
+    // TODO: Should be `suspend`, accessed through a ViewModel, but not all the
+    // calling code has been converted yet.
     fun areAndroidNotificationsEnabled(): Boolean {
         return accounts.any { it.notificationsEnabled }
     }
@@ -249,31 +579,132 @@ class AccountManager @Inject constructor(
      * @param accountId the id of the account
      * @return the requested account or null if it was not found
      */
+    // TODO: Should be `suspend`, accessed through a ViewModel, but not all the
+    // calling code has been converted yet.
     fun getAccountById(accountId: Long): AccountEntity? {
         return accounts.find { (id) ->
             id == accountId
         }
     }
 
-    /**
-     * Finds an account by its string identifier
-     * @param identifier the string identifier of the account
-     * @return the requested account or null if it was not found
-     */
-    fun getAccountByIdentifier(identifier: String): AccountEntity? {
-        return accounts.find {
-            identifier == it.identifier
-        }
+    suspend fun setAlwaysShowSensitiveMedia(accountId: Long, value: Boolean) {
+        accountDao.setAlwaysShowSensitiveMedia(accountId, value)
     }
 
-    /**
-     * @return true if the name of the currently-selected account should be displayed in UIs
-     */
-    fun shouldDisplaySelfUsername(): Boolean {
-        return when (sharedPreferencesRepository.showSelfUsername) {
-            ShowSelfUsername.ALWAYS -> true
-            ShowSelfUsername.DISAMBIGUATE -> accounts.size > 1
-            ShowSelfUsername.NEVER -> false
-        }
+    suspend fun setAlwaysOpenSpoiler(accountId: Long, value: Boolean) {
+        accountDao.setAlwaysShowSensitiveMedia(accountId, value)
+    }
+
+    suspend fun setMediaPreviewEnabled(accountId: Long, value: Boolean) {
+        accountDao.setMediaPreviewEnabled(accountId, value)
+    }
+
+    suspend fun setTabPreferences(accountId: Long, value: List<Timeline>) {
+        Timber.d("setTabPreferences: %d, %s", accountId, value)
+        accountDao.setTabPreferences(accountId, value)
+    }
+
+    suspend fun setNotificationMarkerId(accountId: Long, value: String) {
+        accountDao.setNotificationMarkerId(accountId, value)
+    }
+
+    suspend fun setNotificationsFilter(accountId: Long, value: String) {
+        accountDao.setNotificationsFilter(accountId, value)
+    }
+
+    suspend fun setLastNotificationId(accountId: Long, value: String) {
+        accountDao.setLastNotificationId(accountId, value)
+    }
+
+    suspend fun setPushNotificationData(
+        accountId: Long,
+        unifiedPushUrl: String,
+        pushServerKey: String,
+        pushAuth: String,
+        pushPrivKey: String,
+        pushPubKey: String,
+    ) {
+        accountDao.setPushNotificationData(
+            accountId,
+            unifiedPushUrl,
+            pushServerKey,
+            pushAuth,
+            pushPrivKey,
+            pushPubKey,
+        )
+    }
+
+    fun setDefaultPostPrivacy(accountId: Long, value: Status.Visibility) {
+        accountDao.setDefaultPostPrivacy(accountId, value)
+    }
+
+    fun setDefaultMediaSensitivity(accountId: Long, value: Boolean) {
+        accountDao.setDefaultMediaSensitivity(accountId, value)
+    }
+
+    fun setDefaultPostLanguage(accountId: Long, value: String) {
+        accountDao.setDefaultPostLanguage(accountId, value)
+    }
+
+    fun setNotificationsEnabled(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsEnabled(accountId, value)
+    }
+
+    fun setNotificationsFollowed(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsFollowed(accountId, value)
+    }
+
+    fun setNotificationsFollowRequested(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsFollowRequested(accountId, value)
+    }
+
+    fun setNotificationsReblogged(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsReblogged(accountId, value)
+    }
+
+    fun setNotificationsFavorited(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsFavorited(accountId, value)
+    }
+
+    fun setNotificationsPolls(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsPolls(accountId, value)
+    }
+
+    fun setNotificationsSubscriptions(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsSubscriptions(accountId, value)
+    }
+
+    fun setNotificationsSignUps(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsSignUps(accountId, value)
+    }
+
+    fun setNotificationsUpdates(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsUpdates(accountId, value)
+    }
+
+    fun setNotificationsReports(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsReports(accountId, value)
+    }
+
+    fun setNotificationSound(accountId: Long, value: Boolean) {
+        accountDao.setNotificationSound(accountId, value)
+    }
+
+    fun setNotificationVibration(accountId: Long, value: Boolean) {
+        accountDao.setNotificationVibration(accountId, value)
+    }
+
+    fun setNotificationLight(accountId: Long, value: Boolean) {
+        accountDao.setNotificationLight(accountId, value)
+    }
+
+    suspend fun setLastVisibleHomeTimelineStatusId(accountId: Long, value: String?) {
+        Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", accountId, value)
+        accountDao.setLastVisibleHomeTimelineStatusId(accountId, value)
+    }
+
+    // -- Announcements
+    suspend fun deleteAnnouncement(accountId: Long, announcementId: String) {
+        announcementsDao.deleteForAccount(accountId, announcementId)
     }
 }

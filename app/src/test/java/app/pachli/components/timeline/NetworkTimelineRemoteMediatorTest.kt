@@ -28,7 +28,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.Page
 import app.pachli.components.timeline.viewmodel.PageCache
-import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
@@ -51,16 +50,14 @@ import retrofit2.Response
 @Config(sdk = [29])
 @RunWith(AndroidJUnit4::class)
 class NetworkTimelineRemoteMediatorTest {
-    private val accountManager: AccountManager = mock {
-        on { activeAccount } doReturn AccountEntity(
-            id = 1,
-            domain = "mastodon.example",
-            accessToken = "token",
-            clientId = "id",
-            clientSecret = "secret",
-            isActive = true,
-        )
-    }
+    private val activeAccount = AccountEntity(
+        id = 1,
+        domain = "mastodon.example",
+        accessToken = "token",
+        clientId = "id",
+        clientSecret = "secret",
+        isActive = true,
+    )
 
     private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<String, Status>
 
@@ -74,9 +71,8 @@ class NetworkTimelineRemoteMediatorTest {
     fun `should return error when network call returns error code`() = runTest {
         // Given
         val remoteMediator = NetworkTimelineRemoteMediator(
-            viewModelScope = this,
             api = mock(defaultAnswer = { Response.error<String>(500, "".toResponseBody()) }),
-            accountManager = accountManager,
+            activeAccount = activeAccount,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
             timeline = Timeline.Home,
@@ -96,9 +92,8 @@ class NetworkTimelineRemoteMediatorTest {
     fun `should return error when network call fails`() = runTest {
         // Given
         val remoteMediator = NetworkTimelineRemoteMediator(
-            viewModelScope = this,
             api = mock(defaultAnswer = { throw IOException() }),
-            accountManager,
+            activeAccount = activeAccount,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
             timeline = Timeline.Home,
@@ -118,7 +113,6 @@ class NetworkTimelineRemoteMediatorTest {
         // Given
         val pages = PageCache()
         val remoteMediator = NetworkTimelineRemoteMediator(
-            viewModelScope = this,
             api = mock {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn Response.success(
                     listOf(mockStatus("7"), mockStatus("6"), mockStatus("5")),
@@ -128,7 +122,7 @@ class NetworkTimelineRemoteMediatorTest {
                     ),
                 )
             },
-            accountManager = accountManager,
+            activeAccount = activeAccount,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
@@ -183,7 +177,6 @@ class NetworkTimelineRemoteMediatorTest {
         }
 
         val remoteMediator = NetworkTimelineRemoteMediator(
-            viewModelScope = this,
             api = mock {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn Response.success(
                     listOf(mockStatus("10"), mockStatus("9"), mockStatus("8")),
@@ -193,7 +186,7 @@ class NetworkTimelineRemoteMediatorTest {
                     ),
                 )
             },
-            accountManager = accountManager,
+            activeAccount = activeAccount,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
@@ -256,7 +249,6 @@ class NetworkTimelineRemoteMediatorTest {
         }
 
         val remoteMediator = NetworkTimelineRemoteMediator(
-            viewModelScope = this,
             api = mock {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn Response.success(
                     listOf(mockStatus("4"), mockStatus("3"), mockStatus("2")),
@@ -266,7 +258,7 @@ class NetworkTimelineRemoteMediatorTest {
                     ),
                 )
             },
-            accountManager = accountManager,
+            activeAccount = activeAccount,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,

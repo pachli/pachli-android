@@ -38,6 +38,7 @@ import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import at.connyduck.calladapter.networkresult.NetworkResult
+import com.github.michaelbull.result.andThen
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -45,12 +46,14 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
+import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.mockito.kotlin.any
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
@@ -109,12 +112,25 @@ abstract class CachedTimelineViewModelTestBase {
     /** Exception to throw when testing errors */
     protected val httpException = HttpException(emptyError)
 
+    val account = Account(
+        id = "1",
+        localUsername = "username",
+        username = "username@domain.example",
+        displayName = "Display Name",
+        createdAt = Date.from(Instant.now()),
+        note = "",
+        url = "",
+        avatar = "",
+        header = "",
+    )
+
     @Before
-    fun setup() {
+    fun setup() = runTest {
         hilt.inject()
 
         reset(mastodonApi)
         mastodonApi.stub {
+            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
             onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
             onBlocking { getContentFilters() } doReturn success(emptyList())
         }
@@ -136,24 +152,13 @@ abstract class CachedTimelineViewModelTestBase {
             )
         }
 
-        accountManager.addAccount(
+        accountManager.verifyAndAddAccount(
             accessToken = "token",
             domain = "domain.example",
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-            newAccount = Account(
-                id = "1",
-                localUsername = "username",
-                username = "username@domain.example",
-                displayName = "Display Name",
-                createdAt = Date.from(Instant.now()),
-                note = "",
-                url = "",
-                avatar = "",
-                header = "",
-            ),
-        )
+        ).andThen { accountManager.setActiveAccount(it) }
 
         timelineCases = mock()
 

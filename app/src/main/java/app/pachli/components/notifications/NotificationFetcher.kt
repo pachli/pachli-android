@@ -61,7 +61,7 @@ class NotificationFetcher @Inject constructor(
 
         val accounts = buildList {
             if (pachliAccountId == NotificationWorker.ALL_ACCOUNTS) {
-                addAll(accountManager.getAllAccountsOrderedByActive())
+                addAll(accountManager.accountsOrderedByActive)
             } else {
                 accountManager.getAccountById(pachliAccountId)?.let { add(it) }
             }
@@ -131,8 +131,6 @@ class NotificationFetcher @Inject constructor(
                         notificationManager,
                         account,
                     )
-
-                    accountManager.saveAccount(account)
                 } catch (e: Exception) {
                     Timber.e(e, "Error while fetching notifications")
                 }
@@ -226,8 +224,7 @@ class NotificationFetcher @Inject constructor(
                 domain = account.domain,
                 notificationsLastReadId = newMarkerId,
             )
-            account.notificationMarkerId = newMarkerId
-            accountManager.saveAccount(account)
+            accountManager.setNotificationMarkerId(account.id, newMarkerId)
         }
 
         return notifications

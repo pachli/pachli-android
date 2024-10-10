@@ -18,14 +18,128 @@
 package app.pachli.core.database.model
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.ServerKind
+import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
+import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.UserListRepliesPolicy
+import io.github.z4kn4fein.semver.Version
+
+// Joins the different tables that make up an account.
+data class PachliAccount(
+    @Embedded val account: AccountEntity,
+    @Relation(
+        parentColumn = "domain",
+        entityColumn = "instance",
+    )
+    val instanceInfo: InstanceInfoEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "accountId",
+    )
+    val lists: List<MastodonListEntity>,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "accountId",
+    )
+    val emojis: EmojisEntity?,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "accountId",
+    )
+    val server: ServerEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "accountId",
+    )
+    val contentFilters: ContentFiltersEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "accountId",
+    )
+    val announcements: List<AnnouncementEntity>,
+)
+
+@Entity(
+    primaryKeys = ["accountId", "listId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("accountId"),
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+)
+data class MastodonListEntity(
+    val accountId: Long,
+    val listId: String,
+    val title: String,
+    val repliesPolicy: UserListRepliesPolicy,
+    val exclusive: Boolean,
+) {
+    companion object {
+        fun make(pachliAccountId: Long, networkList: MastoList) = MastodonListEntity(
+            pachliAccountId,
+            networkList.id,
+            networkList.title,
+            networkList.repliesPolicy,
+            networkList.exclusive ?: false,
+        )
+
+        fun make(pachliAccountId: Long, networkLists: List<MastoList>) = networkLists.map {
+            make(pachliAccountId, it)
+        }
+    }
+}
+
+@Entity(
+    primaryKeys = ["accountId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("accountId"),
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+)
+@TypeConverters(Converters::class)
+data class ServerEntity(
+    val accountId: Long,
+    val serverKind: ServerKind,
+    val version: Version,
+    val capabilities: Map<ServerOperation, Version>,
+)
+
+@Entity(
+    primaryKeys = ["accountId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("accountId"),
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+)
+@TypeConverters(Converters::class)
+data class AnnouncementEntity(
+    val accountId: Long,
+    val announcementId: String,
+    val announcement: Announcement,
+)
 
 @Entity(
     indices = [
@@ -39,81 +153,83 @@ import app.pachli.core.network.model.Status
 data class AccountEntity(
     @field:PrimaryKey(autoGenerate = true) var id: Long,
     val domain: String,
-    var accessToken: String,
+    val accessToken: String,
     // nullable for backward compatibility
-    var clientId: String?,
+    val clientId: String?,
     // nullable for backward compatibility
-    var clientSecret: String?,
-    var isActive: Boolean,
+    val clientSecret: String?,
+    val isActive: Boolean,
     /** Account's remote (server) ID. */
-    var accountId: String = "",
+    val accountId: String = "",
     /** User's local name, without the leading `@` or the `@domain` portion */
-    var username: String = "",
-    var displayName: String = "",
-    var profilePictureUrl: String = "",
+    val username: String = "",
+    val displayName: String = "",
+    val profilePictureUrl: String = "",
+    @ColumnInfo(defaultValue = "")
+    val profileHeaderPictureUrl: String = "",
     /** User wants Android notifications enabled for this account */
-    var notificationsEnabled: Boolean = true,
-    var notificationsMentioned: Boolean = true,
-    var notificationsFollowed: Boolean = true,
-    var notificationsFollowRequested: Boolean = false,
-    var notificationsReblogged: Boolean = true,
-    var notificationsFavorited: Boolean = true,
-    var notificationsPolls: Boolean = true,
-    var notificationsSubscriptions: Boolean = true,
-    var notificationsSignUps: Boolean = true,
-    var notificationsUpdates: Boolean = true,
-    var notificationsReports: Boolean = true,
+    val notificationsEnabled: Boolean = true,
+    val notificationsMentioned: Boolean = true,
+    val notificationsFollowed: Boolean = true,
+    val notificationsFollowRequested: Boolean = false,
+    val notificationsReblogged: Boolean = true,
+    val notificationsFavorited: Boolean = true,
+    val notificationsPolls: Boolean = true,
+    val notificationsSubscriptions: Boolean = true,
+    val notificationsSignUps: Boolean = true,
+    val notificationsUpdates: Boolean = true,
+    val notificationsReports: Boolean = true,
     @ColumnInfo(defaultValue = "true")
-    var notificationsSeveredRelationships: Boolean = true,
-    var notificationSound: Boolean = true,
-    var notificationVibration: Boolean = true,
-    var notificationLight: Boolean = true,
-    var defaultPostPrivacy: Status.Visibility = Status.Visibility.PUBLIC,
-    var defaultMediaSensitivity: Boolean = false,
-    var defaultPostLanguage: String = "",
-    var alwaysShowSensitiveMedia: Boolean = false,
+    val notificationsSeveredRelationships: Boolean = true,
+    val notificationSound: Boolean = true,
+    val notificationVibration: Boolean = true,
+    val notificationLight: Boolean = true,
+    val defaultPostPrivacy: Status.Visibility = Status.Visibility.PUBLIC,
+    val defaultMediaSensitivity: Boolean = false,
+    val defaultPostLanguage: String = "",
+    val alwaysShowSensitiveMedia: Boolean = false,
     /** True if content behind a content warning is shown by default */
-    var alwaysOpenSpoiler: Boolean = false,
+    val alwaysOpenSpoiler: Boolean = false,
 
     /**
      * True if the "Download media previews" preference is true. This implies
      * that media previews are shown as well as downloaded.
      */
-    var mediaPreviewEnabled: Boolean = true,
+    val mediaPreviewEnabled: Boolean = true,
     /**
      * ID of the last notification the user read on the Notification list, and should be restored
      * to view when the user returns to the list.
      *
      * May not be the ID of the most recent notification if the user has scrolled down the list.
      */
-    var lastNotificationId: String = "0",
+    val lastNotificationId: String = "0",
     /**
      *  ID of the most recent Mastodon notification that Tusky has fetched to show as an
      *  Android notification.
      */
     @ColumnInfo(defaultValue = "0")
-    var notificationMarkerId: String = "0",
-    var emojis: List<Emoji> = emptyList(),
-    var tabPreferences: List<Timeline> = defaultTabs(),
-    var notificationsFilter: String = "[\"follow_request\"]",
+    val notificationMarkerId: String = "0",
+    val emojis: List<Emoji> = emptyList(),
+    val tabPreferences: List<Timeline> = defaultTabs(),
+    val notificationsFilter: String = "[\"follow_request\"]",
     // Scope cannot be changed without re-login, so store it in case
     // the scope needs to be changed in the future
-    var oauthScopes: String = "",
-    var unifiedPushUrl: String = "",
-    var pushPubKey: String = "",
-    var pushPrivKey: String = "",
-    var pushAuth: String = "",
-    var pushServerKey: String = "",
+    val oauthScopes: String = "",
+    val unifiedPushUrl: String = "",
+    val pushPubKey: String = "",
+    val pushPrivKey: String = "",
+    val pushAuth: String = "",
+    val pushServerKey: String = "",
 
     /**
      * ID of the status at the top of the visible list in the home timeline when the
      * user navigated away.
      */
-    var lastVisibleHomeTimelineStatusId: String? = null,
+    val lastVisibleHomeTimelineStatusId: String? = null,
 
     /** true if the connected Mastodon account is locked (has to manually approve all follow requests **/
     @ColumnInfo(defaultValue = "0")
-    var locked: Boolean = false,
+    val locked: Boolean = false,
 ) {
 
     val identifier: String
@@ -127,31 +243,7 @@ data class AccountEntity(
     val unifiedPushInstance: String
         get() = id.toString()
 
-    fun logout() {
-        // deleting credentials so they cannot be used again
-        accessToken = ""
-        clientId = null
-        clientSecret = null
-    }
-
     fun isLoggedIn() = accessToken.isNotEmpty()
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as AccountEntity
-
-        if (id == other.id) return true
-        return domain == other.domain && accountId == other.accountId
-    }
-
-    override fun hashCode(): Int {
-        var result = id.hashCode()
-        result = 31 * result + domain.hashCode()
-        result = 31 * result + accountId.hashCode()
-        return result
-    }
 }
 
 fun defaultTabs() = listOf(

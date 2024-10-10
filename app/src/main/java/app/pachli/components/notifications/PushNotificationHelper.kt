@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
+import androidx.preference.PreferenceManager
 import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
@@ -208,12 +209,7 @@ suspend fun disablePushNotificationsForAccount(context: Context, api: MastodonAp
     if (account.notificationMethod != AccountNotificationMethod.PUSH) return
 
     // Clear the push notification from the account.
-    account.unifiedPushUrl = ""
-    account.pushServerKey = ""
-    account.pushAuth = ""
-    account.pushPrivKey = ""
-    account.pushPubKey = ""
-    accountManager.saveAccount(account)
+    accountManager.clearPushNotificationData(account.id)
     NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Pull
 
     // Try and unregister the endpoint from the server. Nothing we can do if this fails, and no
@@ -286,12 +282,14 @@ suspend fun registerUnifiedPushEndpoint(
     }.onSuccess {
         Timber.d("UnifiedPush registration succeeded for account %d", account.id)
 
-        account.pushPubKey = keyPair.pubkey
-        account.pushPrivKey = keyPair.privKey
-        account.pushAuth = auth
-        account.pushServerKey = it.body.serverKey
-        account.unifiedPushUrl = endpoint
-        accountManager.saveAccount(account)
+        accountManager.setPushNotificationData(
+            account.id,
+            unifiedPushUrl = endpoint,
+            pushServerKey = it.body.serverKey,
+            pushAuth = auth,
+            pushPrivKey = keyPair.privKey,
+            pushPubKey = keyPair.pubkey,
+        )
 
         NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Push
     }

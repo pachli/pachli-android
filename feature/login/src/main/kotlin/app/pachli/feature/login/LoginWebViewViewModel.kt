@@ -20,7 +20,7 @@ package app.pachli.feature.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.mapBoth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,11 +40,14 @@ class LoginWebViewViewModel @Inject constructor(
         if (this.domain == null) {
             this.domain = domain
             viewModelScope.launch {
-                api.getInstanceV1(domain).fold({ instance ->
-                    instanceRules.value = instance.rules.map { rule -> rule.text }
-                }, { throwable ->
-                    Timber.w(throwable, "failed to load instance info")
-                })
+                api.getInstanceV1(domain).mapBoth(
+                    { result ->
+                        instanceRules.value = result.body.rules.map { rule -> rule.text }
+                    },
+                    { error ->
+                        Timber.w(error.throwable, "failed to load instance info")
+                    },
+                )
             }
         }
     }

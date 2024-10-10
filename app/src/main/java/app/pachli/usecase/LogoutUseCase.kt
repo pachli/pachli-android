@@ -1,6 +1,7 @@
 package app.pachli.usecase
 
 import android.content.Context
+import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.deleteNotificationChannelsForAccount
 import app.pachli.components.notifications.disablePushNotificationsForAccount
@@ -10,7 +11,7 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.util.removeShortcut
+import app.pachli.util.UpdateShortCutsUseCase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import timber.log.Timber
@@ -23,6 +24,7 @@ class LogoutUseCase @Inject constructor(
     private val conversationsDao: ConversationsDao,
     private val accountManager: AccountManager,
     private val draftHelper: DraftHelper,
+    private val shareShortcutUseCase: UpdateShortCutsUseCase,
 ) {
     /**
      * Logs the current account out and clears all caches associated with it
@@ -66,7 +68,7 @@ class LogoutUseCase @Inject constructor(
             draftHelper.deleteAllDraftsAndAttachmentsForAccount(activeAccount.id)
 
             // remove shortcut associated with the account
-            removeShortcut(context, activeAccount)
+            ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(activeAccount.id.toString()))
 
             return nextAccount
         }
