@@ -7,4 +7,6 @@
     <string name="pref_category_tabs">ടാബുകൾ</string>
     <string name="pref_main_nav_position_option_top">മുകളില്‍</string>
     <string name="pref_main_nav_position_option_bottom">താഴെ</string>
+    <string name="pref_show_self_username_always">എല്ലായിപ്പോഴും</string>
+    <string name="pref_show_self_username_never">ഒരിയ്ക്കലുമില്ല</string>
 </resources>
