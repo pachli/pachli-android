@@ -8,4 +8,6 @@
     <string name="pref_category_tabs">பட்டைகள்</string>
     <string name="pref_main_nav_position_option_top">மேல்</string>
     <string name="pref_main_nav_position_option_bottom">கீழே</string>
+    <string name="pref_show_self_username_always">எப்போதும்</string>
+    <string name="pref_show_self_username_never">ஒருபோதும் இல்லை</string>
 </resources>
