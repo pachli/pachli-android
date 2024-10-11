@@ -21,6 +21,7 @@ import android.content.Context
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.runSuspendCatching
+import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapError
 import com.google.android.gms.common.moduleinstall.ModuleInstall
 import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
@@ -75,11 +76,15 @@ class MlKitLanguageIdentifier private constructor() : LanguageIdentifier {
 
         init {
             LanguageIdentification.getClient().use { langIdClient ->
-                val moduleInstallRequest = ModuleInstallRequest.newBuilder()
-                    .addApi(langIdClient)
-                    .build()
+                try {
+                    val moduleInstallRequest = ModuleInstallRequest.newBuilder()
+                        .addApi(langIdClient)
+                        .build()
 
-                moduleInstallClient.installModules(moduleInstallRequest)
+                    moduleInstallClient.installModules(moduleInstallRequest)
+                } catch (e: Exception) {
+                    Timber.e(e, "error installing language identification modules")
+                }
             }
         }
 
@@ -88,20 +93,25 @@ class MlKitLanguageIdentifier private constructor() : LanguageIdentifier {
          * installed, defers to [DefaultLanguageIdentifierFactory] if not.
          */
         override suspend fun newInstance(): LanguageIdentifier {
-            LanguageIdentification.getClient().use { langIdClient ->
-                val modulesAreAvailable = moduleInstallClient
-                    .areModulesAvailable(langIdClient)
-                    .await()
-                    .areModulesAvailable()
+            return runSuspendCatching {
+                LanguageIdentification.getClient().use { langIdClient ->
+                    val modulesAreAvailable = moduleInstallClient
+                        .areModulesAvailable(langIdClient)
+                        .await()
+                        .areModulesAvailable()
 
-                return if (modulesAreAvailable) {
-                    Timber.d("mlkit langid module available")
-                    MlKitLanguageIdentifier()
-                } else {
-                    Timber.d("mlkit langid module *not* available")
-                    DefaultLanguageIdentifierFactory(externalScope, context)
-                        .newInstance()
+                    if (modulesAreAvailable) {
+                        Timber.d("mlkit langid module available")
+                        MlKitLanguageIdentifier()
+                    } else {
+                        Timber.d("mlkit langid module *not* available")
+                        DefaultLanguageIdentifierFactory(externalScope, context)
+                            .newInstance()
+                    }
                 }
+            }.getOrElse {
+                Timber.e(it, "error checking for module availability")
+                DefaultLanguageIdentifierFactory(externalScope, context).newInstance()
             }
         }
     }

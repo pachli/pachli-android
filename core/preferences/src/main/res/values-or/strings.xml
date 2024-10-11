@@ -5,4 +5,6 @@
     <string name="app_theme_black">କଳା</string>
     <string name="app_theme_dark">ଗାଢ଼</string>
     <string name="pref_main_nav_position_option_top">ଶ୍ରେଷ୍ଠ</string>
+    <string name="pref_show_self_username_always">ସର୍ବଦା</string>
+    <string name="pref_show_self_username_never">କେବେନୁହେଁ</string>
 </resources>

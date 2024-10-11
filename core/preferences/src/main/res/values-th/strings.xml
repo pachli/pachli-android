@@ -16,4 +16,7 @@
     <string name="pref_category_tabs">แท็บ</string>
     <string name="pref_main_nav_position_option_top">บน</string>
     <string name="pref_main_nav_position_option_bottom">ล่าง</string>
+    <string name="pref_show_self_username_always">เสมอ</string>
+    <string name="pref_show_self_username_never">ไม่เคย</string>
+    <string name="pref_show_self_username_disambiguate">เมื่อบัญชีหลายบัญชี</string>
 </resources>

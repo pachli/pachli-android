@@ -6,4 +6,6 @@
     <string name="app_theme_dark">အေမွာင္</string>
     <string name="pref_category_tabs">တဘ်များ</string>
     <string name="pref_main_nav_position_option_top">အပေါ်ဘက်</string>
+    <string name="pref_show_self_username_always">အမြဲတမ်း</string>
+    <string name="pref_show_self_username_never">Never</string>
 </resources>

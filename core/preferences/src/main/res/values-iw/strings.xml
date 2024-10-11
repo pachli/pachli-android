@@ -16,4 +16,7 @@
     <string name="pref_category_tabs">טאבים</string>
     <string name="pref_main_nav_position_option_top">למעלה</string>
     <string name="pref_main_nav_position_option_bottom">למטה</string>
+    <string name="pref_show_self_username_always">תמיד</string>
+    <string name="pref_show_self_username_never">אף פעם</string>
+    <string name="pref_show_self_username_disambiguate">כאשר מספר חשבונות מחוברים</string>
 </resources>
