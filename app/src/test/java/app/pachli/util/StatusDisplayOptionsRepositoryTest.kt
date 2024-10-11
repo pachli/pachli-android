@@ -34,7 +34,6 @@ import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
-import at.connyduck.calladapter.networkresult.NetworkResult
 import com.github.michaelbull.result.andThen
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.CustomTestApplication
@@ -116,7 +115,7 @@ class StatusDisplayOptionsRepositoryTest {
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn NetworkResult.success(
+            onBlocking { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -126,7 +125,7 @@ class StatusDisplayOptionsRepositoryTest {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn NetworkResult.success(
+            onBlocking { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }

@@ -20,27 +20,58 @@ package app.pachli.core.data.repository.filtersRepository
 import android.app.Application
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.data.model.Server
-import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.HiltTestApplication_Application
+import app.pachli.core.data.repository.OfflineFirstContentFiltersRepository
 import app.pachli.core.data.repository.ServerRepository
+import app.pachli.core.data.source.ContentFiltersLocalDataSource
+import app.pachli.core.data.source.ContentFiltersRemoteDataSource
+import app.pachli.core.database.AppDatabase
+import app.pachli.core.database.dao.ContentFiltersDao
+import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerOperation
+import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.Configuration
+import app.pachli.core.network.model.Contact
+import app.pachli.core.network.model.InstanceV1
+import app.pachli.core.network.model.InstanceV2
+import app.pachli.core.network.model.InstanceV2Polls
+import app.pachli.core.network.model.InstanceV2Statuses
+import app.pachli.core.network.model.MediaAttachments
+import app.pachli.core.network.model.Registrations
+import app.pachli.core.network.model.Thumbnail
+import app.pachli.core.network.model.Usage
+import app.pachli.core.network.model.Users
+import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
+import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.NodeInfoApi
+import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
+import app.pachli.core.testing.success
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.andThen
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.z4kn4fein.semver.Version
 import io.github.z4kn4fein.semver.toVersion
+import java.time.Instant
+import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
+import org.mockito.kotlin.any
+import org.mockito.kotlin.anyOrNull
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
+import org.mockito.kotlin.stub
 import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
@@ -62,7 +93,28 @@ abstract class BaseContentFiltersRepositoryTest {
     @Inject
     lateinit var mastodonApi: MastodonApi
 
-    protected lateinit var contentFiltersRepository: ContentFiltersRepository
+    @Inject
+    lateinit var nodeInfoApi: NodeInfoApi
+
+    @Inject
+    lateinit var appDatabase: AppDatabase
+
+    @Inject
+    lateinit var localDataSource: ContentFiltersLocalDataSource
+
+    @Inject
+    lateinit var remoteDataSource: ContentFiltersRemoteDataSource
+
+    @Inject
+    lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var instanceDao: InstanceDao
+
+    @Inject
+    lateinit var contentFiltersDao: ContentFiltersDao
+
+    protected lateinit var contentFiltersRepository: OfflineFirstContentFiltersRepository
 
     val serverFlow = MutableStateFlow(Ok(SERVER_V2))
 
@@ -70,17 +122,19 @@ abstract class BaseContentFiltersRepositoryTest {
         whenever(it.flow).thenReturn(serverFlow)
     }
 
-    @Before
-    fun setup() {
-        hilt.inject()
+    protected var pachliAccountId = 0L
 
-        reset(mastodonApi)
-
-        contentFiltersRepository = ContentFiltersRepository(
-            TestScope(),
-            mastodonApi,
-        )
-    }
+    val account = Account(
+        id = "1",
+        localUsername = "username",
+        username = "username@domain.example",
+        displayName = "Display Name",
+        createdAt = Date.from(Instant.now()),
+        note = "",
+        url = "",
+        avatar = "",
+        header = "",
+    )
 
     companion object {
         val SERVER_V2 = Server(
@@ -96,6 +150,139 @@ abstract class BaseContentFiltersRepositoryTest {
             capabilities = mapOf(
                 Pair(ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT, "1.1.0".toVersion(true)),
             ),
+        )
+    }
+}
+
+abstract class V2Test : BaseContentFiltersRepositoryTest() {
+    val instanceV2 = InstanceV2(
+        domain = "domain.example",
+        title = "Test server",
+        version = "4.3.0",
+        description = "Test description",
+        usage = Usage(users = Users()),
+        thumbnail = Thumbnail(
+            url = "https://example.com/thumbnail",
+            blurhash = null,
+            versions = null,
+        ),
+        languages = emptyList(),
+        configuration = Configuration(
+            statuses = InstanceV2Statuses(),
+            mediaAttachments = MediaAttachments(),
+            polls = InstanceV2Polls(),
+        ),
+        registrations = Registrations(
+            enabled = false,
+            approvalRequired = false,
+            message = null,
+        ),
+        contact = Contact(),
+    )
+
+    @Before
+    fun setup() = runTest {
+        hilt.inject()
+
+        reset(mastodonApi)
+        mastodonApi.stub {
+            // API calls when registering an account
+            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            onBlocking { getInstanceV2() } doReturn success(instanceV2)
+            onBlocking { getLists() } doReturn success(emptyList())
+            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
+        }
+
+        reset(nodeInfoApi)
+        nodeInfoApi.stub {
+            onBlocking { nodeInfoJrd() } doReturn success(
+                UnvalidatedJrd(
+                    listOf(
+                        UnvalidatedJrd.Link(
+                            "http://nodeinfo.diaspora.software/ns/schema/2.1",
+                            "https://example.com",
+                        ),
+                    ),
+                ),
+            )
+            onBlocking { nodeInfo(any()) } doReturn success(
+                UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
+            )
+        }
+
+        accountManager.verifyAndAddAccount(
+            accessToken = "token",
+            domain = "domain.example",
+            clientId = "id",
+            clientSecret = "secret",
+            oauthScopes = "scopes",
+        ).andThen {
+            pachliAccountId = it
+            accountManager.setActiveAccount(it)
+        }
+
+        contentFiltersRepository = OfflineFirstContentFiltersRepository(
+            TestScope(),
+            localDataSource,
+            remoteDataSource,
+            instanceDao,
+        )
+    }
+}
+
+abstract class V1Test : BaseContentFiltersRepositoryTest() {
+    val instanceV1 = InstanceV1(
+        uri = "https://example.com",
+        version = "4.3.0",
+    )
+
+    @Before
+    fun setup() = runTest {
+        hilt.inject()
+
+        reset(mastodonApi)
+        mastodonApi.stub {
+            // API calls when registering an account
+            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            onBlocking { getInstanceV2() } doReturn failure()
+            onBlocking { getInstanceV1() } doReturn success(instanceV1)
+            onBlocking { getLists() } doReturn success(emptyList())
+            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
+        }
+
+        reset(nodeInfoApi)
+        nodeInfoApi.stub {
+            onBlocking { nodeInfoJrd() } doReturn success(
+                UnvalidatedJrd(
+                    listOf(
+                        UnvalidatedJrd.Link(
+                            "http://nodeinfo.diaspora.software/ns/schema/2.1",
+                            "https://example.com",
+                        ),
+                    ),
+                ),
+            )
+            onBlocking { nodeInfo(any()) } doReturn success(
+                UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "3.9.0")),
+            )
+        }
+
+        accountManager.verifyAndAddAccount(
+            accessToken = "token",
+            domain = "domain.example",
+            clientId = "id",
+            clientSecret = "secret",
+            oauthScopes = "scopes",
+        ).andThen {
+            pachliAccountId = it
+            accountManager.setActiveAccount(it)
+        }
+
+        contentFiltersRepository = OfflineFirstContentFiltersRepository(
+            TestScope(),
+            localDataSource,
+            remoteDataSource,
+            instanceDao,
         )
     }
 }

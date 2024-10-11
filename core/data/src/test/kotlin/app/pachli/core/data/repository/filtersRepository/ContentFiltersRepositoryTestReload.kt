@@ -41,11 +41,11 @@ class ContentFiltersRepositoryTestReload : BaseContentFiltersRepositoryTest() {
             onBlocking { getContentFilters() } doReturn success(emptyList())
         }
 
-        contentFiltersRepository.contentFilters.test {
+        contentFiltersRepository.getContentFiltersFlow(pachliAccountId).test {
             advanceUntilIdle()
             verify(mastodonApi).getContentFilters()
 
-            contentFiltersRepository.reload()
+            contentFiltersRepository.refresh(pachliAccountId)
             advanceUntilIdle()
 
             verify(mastodonApi, times(2)).getContentFilters()
@@ -62,7 +62,7 @@ class ContentFiltersRepositoryTestReload : BaseContentFiltersRepositoryTest() {
             onBlocking { getContentFilters() } doReturn success(emptyList())
         }
 
-        contentFiltersRepository.contentFilters.test {
+        contentFiltersRepository.getContentFiltersFlow(pachliAccountId).test {
             advanceUntilIdle()
             verify(mastodonApi, times(1)).getContentFilters()
             verify(mastodonApi, never()).getContentFiltersV1()

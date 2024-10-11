@@ -46,4 +46,6 @@ dependencies {
 
     // ServerRepository
     implementation(libs.semver)?.because("Converters has to convert Version")
+
+    testImplementation(projects.core.testing)
 }

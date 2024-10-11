@@ -64,6 +64,12 @@ class ContentFiltersRemoteDataSource @Inject constructor(
         else -> Err(ServerDoesNotFilter)
     }.mapError { GetContentFiltersError(it) }
 
+    /**
+     * @return Depends on whether the server supports V1 or V2 filters. If it supports
+     * V2 filters the return value is the entire content filter. If it supports V1
+     * filters then multiple content filters may have been created (one per keyword)
+     * and the return value is the last content filter created.
+     */
     suspend fun createContentFilter(pachliAccountId: Long, server: Server, filter: NewContentFilter) = binding {
         val expiresInSeconds = when (val expiresIn = filter.expiresIn) {
             0 -> ""

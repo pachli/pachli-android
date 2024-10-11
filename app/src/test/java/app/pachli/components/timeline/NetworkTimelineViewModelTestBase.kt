@@ -33,11 +33,11 @@ import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.HiltTestApplication_Application
-import at.connyduck.calladapter.networkresult.NetworkResult
 import com.github.michaelbull.result.andThen
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -121,13 +121,13 @@ abstract class NetworkTimelineViewModelTestBase {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
+            onBlocking { getCustomEmojis() } doReturn failure()
             onBlocking { getContentFilters() } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn NetworkResult.success(
+            onBlocking { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -137,7 +137,7 @@ abstract class NetworkTimelineViewModelTestBase {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn NetworkResult.success(
+            onBlocking { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }

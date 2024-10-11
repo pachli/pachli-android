@@ -41,7 +41,6 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.lazyActivityScenarioRule
 import app.pachli.core.testing.success
 import app.pachli.db.DraftsAlert
-import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -120,7 +119,7 @@ class MainActivityTest {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { accountVerifyCredentials() } doReturn success(account)
-            onBlocking { listAnnouncements(false) } doReturn NetworkResult.success(emptyList())
+            onBlocking { listAnnouncements(false) } doReturn success(emptyList())
         }
 
         accountManager.verifyAndAddAccount(

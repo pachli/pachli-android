@@ -18,6 +18,7 @@
 plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
+    alias(libs.plugins.pachli.android.room)
 }
 
 android {
@@ -30,7 +31,13 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.database)
     implementation(projects.core.network)
+
+    implementation(libs.hilt.android.testing)
+
+    implementation(libs.moshi)
+    implementation(libs.moshi.adapters)
 
     api(libs.kotlinx.coroutines.test)
     api(libs.androidx.test.junit)

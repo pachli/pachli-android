@@ -31,7 +31,6 @@ import app.pachli.appstore.PinEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.FilterAction
@@ -61,7 +60,6 @@ class CachedTimelineViewModel @Inject constructor(
     private val repository: CachedTimelineRepository,
     timelineCases: TimelineCases,
     eventHub: EventHub,
-    contentFiltersRepository: ContentFiltersRepository,
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,

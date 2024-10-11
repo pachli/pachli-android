@@ -21,9 +21,6 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
-import app.pachli.core.data.model.from
-import app.pachli.core.data.repository.ContentFiltersError.GetContentFiltersError
-import app.pachli.core.data.repository.ContentFiltersError.ServerDoesNotFilter
 import app.pachli.core.data.repository.ServerRepository.Error
 import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
@@ -40,8 +37,6 @@ import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.model.BuildConfig
-import app.pachli.core.model.ContentFilter
-import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Account
@@ -61,8 +56,8 @@ import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
-import com.github.michaelbull.result.mapOr
 import com.github.michaelbull.result.onSuccess
+import com.github.michaelbull.result.orElse
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -195,6 +190,19 @@ class AccountManager @Inject constructor(
         id ?: return flowOf(null)
 
         return accountDao.getPachliAccountFlow(id).map { it?.let { PachliAccount.make(it) } }
+    }
+
+    /**
+     * Finds an account by its database id
+     * @param accountId the id of the account
+     * @return the requested account or null if it was not found
+     */
+    // TODO: Should be `suspend`, accessed through a ViewModel, but not all the
+    // calling code has been converted yet.
+    fun getAccountById(accountId: Long): AccountEntity? {
+        return accounts.find { (id) ->
+            id == accountId
+        }
     }
 
     /**
@@ -535,34 +543,21 @@ class AccountManager @Inject constructor(
     // TODO: Maybe rename InstanceInfoEntity to ServerLimits or something like that, since that's
     // what it records.
     private suspend fun fetchInstanceInfo(domain: String): InstanceInfoEntity {
-        // This needs to start with v2, and fall back to v1
+        // TODO: This needs to start with v2, and fall back to v1
         // InstanceInfoEntity needs to gain support for recording translation
+        return mastodonApi.getInstanceV2()
+            .map { InstanceInfoEntity.make(domain, it.body) }
+            .orElse {
+                mastodonApi.getInstanceV1().map { InstanceInfoEntity.make(domain, it.body) }
+            }.getOrElse { InstanceInfoEntity.defaultForDomain(domain) }
 
-        return mastodonApi.getInstanceV1().mapOr(InstanceInfoEntity.defaultForDomain(domain)) { result ->
-            InstanceInfoEntity.make(domain, result.body)
-        }
-    }
+//            .mapOr(InstanceInfoEntity.defaultForDomain(domain) { result ->
+//            InstanceInfoEntity.make(domain, result.body)
+//        }
 
-    /** Get the current set of content filters. */
-    // Copied from ContentFiltersRepository
-    private suspend fun getContentFilters(server: Server): Result<ContentFilters, ContentFiltersError> = binding {
-        when {
-            server.canFilterV2() -> mastodonApi.getContentFilters().map {
-                ContentFilters(
-                    contentFilters = it.body.map { ContentFilter.from(it) },
-                    version = ContentFilterVersion.V2,
-                )
-            }
-
-            server.canFilterV1() -> mastodonApi.getContentFiltersV1().map {
-                ContentFilters(
-                    contentFilters = it.body.map { ContentFilter.from(it) },
-                    version = ContentFilterVersion.V1,
-                )
-            }
-
-            else -> Err(ServerDoesNotFilter)
-        }.mapError { GetContentFiltersError(it) }.bind()
+//        return mastodonApi.getInstanceV1().mapOr(InstanceInfoEntity.defaultForDomain(domain)) { result ->
+//            InstanceInfoEntity.make(domain, result.body)
+//        }
     }
 
     /**
@@ -572,19 +567,6 @@ class AccountManager @Inject constructor(
     // calling code has been converted yet.
     fun areAndroidNotificationsEnabled(): Boolean {
         return accounts.any { it.notificationsEnabled }
-    }
-
-    /**
-     * Finds an account by its database id
-     * @param accountId the id of the account
-     * @return the requested account or null if it was not found
-     */
-    // TODO: Should be `suspend`, accessed through a ViewModel, but not all the
-    // calling code has been converted yet.
-    fun getAccountById(accountId: Long): AccountEntity? {
-        return accounts.find { (id) ->
-            id == accountId
-        }
     }
 
     suspend fun setAlwaysShowSensitiveMedia(accountId: Long, value: Boolean) {

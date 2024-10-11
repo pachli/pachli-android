@@ -87,11 +87,11 @@ class ContentFiltersRepositoryTestUpdate : BaseContentFiltersRepositoryTest() {
 
         val update = ContentFilterEdit(id = originalContentFilter.id, title = "new title")
 
-        contentFiltersRepository.contentFilters.test {
+        contentFiltersRepository.getContentFiltersFlow(pachliAccountId).test {
             advanceUntilIdle()
             verify(mastodonApi, times(1)).getContentFilters()
 
-            contentFiltersRepository.updateContentFilter(originalContentFilter, update)
+            contentFiltersRepository.updateContentFilter(pachliAccountId, originalContentFilter, update)
             advanceUntilIdle()
 
             verify(mastodonApi, times(1)).updateFilter(
@@ -135,11 +135,11 @@ class ContentFiltersRepositoryTestUpdate : BaseContentFiltersRepositoryTest() {
             keywordsToModify = listOf(keywordToModify),
         )
 
-        contentFiltersRepository.contentFilters.test {
+        contentFiltersRepository.getContentFiltersFlow(pachliAccountId).test {
             advanceUntilIdle()
             verify(mastodonApi, times(1)).getContentFilters()
 
-            contentFiltersRepository.updateContentFilter(originalContentFilter, update)
+            contentFiltersRepository.updateContentFilter(pachliAccountId, originalContentFilter, update)
             advanceUntilIdle()
 
             // updateFilter() call should be skipped, as only the keywords have changed.

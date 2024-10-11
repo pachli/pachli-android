@@ -12,9 +12,6 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.mockStatus
 import app.pachli.components.timeline.mockStatusViewData
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.ContentFilters
-import app.pachli.core.data.repository.ContentFiltersError
-import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.network.model.Account
@@ -28,11 +25,8 @@ import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import at.connyduck.calladapter.networkresult.NetworkResult
-import com.github.michaelbull.result.Ok
-import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.andThen
 import com.squareup.moshi.Moshi
-import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -40,7 +34,6 @@ import java.io.IOException
 import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -53,7 +46,6 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
-import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 open class PachliHiltApplication : PachliApplication()
@@ -95,9 +87,6 @@ class ViewThreadViewModelTest {
     @Inject
     lateinit var moshi: Moshi
 
-    @BindValue @JvmField
-    val contentFiltersRepository: ContentFiltersRepository = mock()
-
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
@@ -126,14 +115,9 @@ class ViewThreadViewModelTest {
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
         }
 
-        reset(contentFiltersRepository)
-        contentFiltersRepository.stub {
-            whenever(it.contentFilters).thenReturn(MutableStateFlow<Result<ContentFilters?, ContentFiltersError.GetContentFiltersError>>(Ok(null)))
-        }
-
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn NetworkResult.success(
+            onBlocking { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -143,7 +127,7 @@ class ViewThreadViewModelTest {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn NetworkResult.success(
+            onBlocking { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }

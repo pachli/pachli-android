@@ -40,11 +40,11 @@ class ContentFiltersRepositoryTestDelete : BaseContentFiltersRepositoryTest() {
             onBlocking { deleteFilter(any()) } doReturn success(Unit)
         }
 
-        contentFiltersRepository.contentFilters.test {
+        contentFiltersRepository.getContentFiltersFlow(pachliAccountId).test {
             advanceUntilIdle()
             verify(mastodonApi).getContentFilters()
 
-            contentFiltersRepository.deleteContentFilter("1")
+            contentFiltersRepository.deleteContentFilter(pachliAccountId, "1")
             advanceUntilIdle()
 
             verify(mastodonApi, times(1)).deleteFilter("1")
@@ -63,11 +63,11 @@ class ContentFiltersRepositoryTestDelete : BaseContentFiltersRepositoryTest() {
 
         serverFlow.update { Ok(SERVER_V1) }
 
-        contentFiltersRepository.contentFilters.test {
+        contentFiltersRepository.getContentFiltersFlow(pachliAccountId).test {
             advanceUntilIdle()
             verify(mastodonApi).getContentFiltersV1()
 
-            contentFiltersRepository.deleteContentFilter("1")
+            contentFiltersRepository.deleteContentFilter(pachliAccountId, "1")
             advanceUntilIdle()
 
             verify(mastodonApi, times(1)).deleteFilterV1("1")

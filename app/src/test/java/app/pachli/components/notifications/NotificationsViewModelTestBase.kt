@@ -23,12 +23,12 @@ import app.pachli.appstore.EventHub
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFilters
-import app.pachli.core.data.repository.ContentFiltersError
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
@@ -36,10 +36,8 @@ import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.fakes.InMemorySharedPreferences
 import app.pachli.core.testing.rules.MainCoroutineRule
+import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
-import at.connyduck.calladapter.networkresult.NetworkResult
-import com.github.michaelbull.result.Ok
-import com.github.michaelbull.result.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.test.TestScope
@@ -111,7 +109,10 @@ abstract class NotificationsViewModelTestBase {
         timelineCases = mock()
 
         contentFiltersRepository = mock {
-            whenever(it.contentFilters).thenReturn(MutableStateFlow<Result<ContentFilters?, ContentFiltersError.GetContentFiltersError>>(Ok(null)))
+            onBlocking { getContentFilters(any()) } doReturn ContentFilters(
+                contentFilters = emptyList(),
+                version = ContentFilterVersion.V2,
+            )
         }
 
         sharedPreferencesRepository = SharedPreferencesRepository(
@@ -125,7 +126,7 @@ abstract class NotificationsViewModelTestBase {
         }
 
         val nodeInfoApi: NodeInfoApi = mock {
-            onBlocking { nodeInfoJrd() } doReturn NetworkResult.success(
+            onBlocking { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -135,7 +136,7 @@ abstract class NotificationsViewModelTestBase {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn NetworkResult.success(
+            onBlocking { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }

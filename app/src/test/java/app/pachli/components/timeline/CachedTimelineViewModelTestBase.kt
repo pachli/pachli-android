@@ -34,10 +34,10 @@ import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
-import at.connyduck.calladapter.networkresult.NetworkResult
 import com.github.michaelbull.result.andThen
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.CustomTestApplication
@@ -131,13 +131,13 @@ abstract class CachedTimelineViewModelTestBase {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getCustomEmojis() } doReturn NetworkResult.failure(Exception())
+            onBlocking { getCustomEmojis() } doReturn failure()
             onBlocking { getContentFilters() } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn NetworkResult.success(
+            onBlocking { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -147,7 +147,7 @@ abstract class CachedTimelineViewModelTestBase {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn NetworkResult.success(
+            onBlocking { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }
@@ -168,7 +168,6 @@ abstract class CachedTimelineViewModelTestBase {
             cachedTimelineRepository,
             timelineCases,
             eventHub,
-            contentFiltersRepository,
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,

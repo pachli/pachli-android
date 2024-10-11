@@ -50,4 +50,6 @@ dependencies {
     testImplementation(libs.moshi)
     testImplementation(libs.moshi.adapters)
     ksp(libs.moshi.codegen)
+
+    testImplementation(projects.core.networkTest)
 }

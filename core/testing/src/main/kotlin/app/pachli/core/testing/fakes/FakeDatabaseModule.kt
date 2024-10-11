@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,12 +15,14 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.database.di
+package app.pachli.core.testing.fakes
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
+import app.pachli.core.database.di.DatabaseModule
+import app.pachli.core.database.di.TransactionProvider
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -68,4 +70,16 @@ object FakeDatabaseModule {
 
     @Provides
     fun providesTranslatedStatusDao(appDatabase: AppDatabase) = appDatabase.translatedStatusDao()
+
+    @Provides
+    fun providesLogEntryDao(appDatabase: AppDatabase) = appDatabase.logEntryDao()
+
+    @Provides
+    fun providesContentFiltersDao(appDatabase: AppDatabase) = appDatabase.contentFiltersDao()
+
+    @Provides
+    fun providesListsDao(appDatabase: AppDatabase) = appDatabase.listsDao()
+
+    @Provides
+    fun providesAnnouncementsDao(appDatabase: AppDatabase) = appDatabase.announcementsDao()
 }
