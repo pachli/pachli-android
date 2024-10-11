@@ -10,4 +10,9 @@
     <string name="pref_main_nav_position_option_bottom">Apačia</string>
     <string name="pref_show_self_username_always">Visada</string>
     <string name="pref_show_self_username_never">Niekada</string>
+    <string name="download_location_downloads">Atsisiuntimų aplankas</string>
+    <string name="download_location_per_account">Kiekvienos paskyros aplankai, atsisiuntimų aplanke</string>
+    <string name="app_theme_auto">Automatinis saulėlydžio metu</string>
+    <string name="download_location_per_sender">Kiekvieno siuntėjo aplankai, atsisiuntimų aplanke</string>
+    <string name="app_theme_system">Naudoti sistemos dizainą</string>
 </resources>
