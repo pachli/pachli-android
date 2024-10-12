@@ -79,6 +79,7 @@ data class PachliAccount(
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("accountId"),
             onDelete = ForeignKey.CASCADE,
+            deferred = true,
         ),
     ],
 )
@@ -112,6 +113,7 @@ data class MastodonListEntity(
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("accountId"),
             onDelete = ForeignKey.CASCADE,
+            deferred = true,
         ),
     ],
 )
@@ -131,6 +133,7 @@ data class ServerEntity(
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("accountId"),
             onDelete = ForeignKey.CASCADE,
+            deferred = true,
         ),
     ],
 )

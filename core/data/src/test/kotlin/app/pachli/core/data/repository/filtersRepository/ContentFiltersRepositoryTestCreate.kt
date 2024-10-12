@@ -188,8 +188,7 @@ class ContentFiltersRepositoryTestCreateV1 : V1Test() {
             // Confirm there are no filters
             advanceUntilIdle()
             assertThat(awaitItem()).isEqualTo(
-                ContentFilters(
-                    contentFilters = emptyList(),
+                ContentFilters.EMPTY.copy(
                     version = ContentFilterVersion.V1,
                 ),
             )

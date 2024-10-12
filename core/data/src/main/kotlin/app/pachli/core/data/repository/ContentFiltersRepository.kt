@@ -67,11 +67,11 @@ interface ContentFiltersRepository {
      */
     suspend fun getContentFilters(
         pachliAccountId: Long,
-    ): ContentFilters?
+    ): ContentFilters
 
     fun getContentFiltersFlow(
         pachliAccountId: Long,
-    ): Flow<ContentFilters?>
+    ): Flow<ContentFilters>
 
     /**
      * @return The content filter with [contentFilterId] in [pachliAccountId] or

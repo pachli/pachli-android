@@ -34,6 +34,7 @@ import app.pachli.core.model.ContentFilterVersion
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("accountId"),
             onDelete = ForeignKey.CASCADE,
+            deferred = true,
         ),
     ],
 )

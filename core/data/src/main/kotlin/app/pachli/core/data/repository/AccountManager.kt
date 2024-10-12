@@ -398,14 +398,14 @@ class AccountManager @Inject constructor(
                 }.get()
 
                 server?.let {
-                    ServerEntity(
-                        accountId = finalAccount.id,
-                        serverKind = it.kind,
-                        version = it.version,
-                        capabilities = it.capabilities,
-                    ).also {
-                        instanceDao.upsert(it)
-                    }
+                    instanceDao.upsert(
+                        ServerEntity(
+                            accountId = finalAccount.id,
+                            serverKind = it.kind,
+                            version = it.version,
+                            capabilities = it.capabilities,
+                        ),
+                    )
                 }
 
                 externalScope.launch { contentFiltersRepository.refresh(finalAccount.id) }

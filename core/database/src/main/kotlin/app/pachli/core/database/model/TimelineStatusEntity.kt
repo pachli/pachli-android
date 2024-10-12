@@ -55,6 +55,7 @@ import java.util.Date
                 entity = TimelineAccountEntity::class,
                 parentColumns = ["serverId", "timelineUserId"],
                 childColumns = ["authorServerId", "timelineUserId"],
+                deferred = true,
             ),
         ]
         ),

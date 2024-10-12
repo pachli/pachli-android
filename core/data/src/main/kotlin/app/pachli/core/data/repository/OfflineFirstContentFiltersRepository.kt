@@ -35,6 +35,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
@@ -76,12 +77,17 @@ data class ContentFilters(
     val version: ContentFilterVersion,
 ) {
     companion object {
+        val EMPTY = ContentFilters(
+            contentFilters = emptyList(),
+            version = ContentFilterVersion.V2,
+        )
+
         fun from(entity: ContentFiltersEntity?) = entity?.let {
             ContentFilters(
                 contentFilters = it.contentFilters,
                 version = it.version,
             )
-        }
+        } ?: EMPTY
     }
 }
 
@@ -112,7 +118,7 @@ class OfflineFirstContentFiltersRepository @Inject constructor(
     }.await()
 
     override suspend fun getContentFilters(pachliAccountId: Long) =
-        localDataSource.getContentFilters(pachliAccountId)?.let { ContentFilters.from(it) }
+        ContentFilters.from(localDataSource.getContentFilters(pachliAccountId))
 
     /** Get the current set of content filters. */
     override fun getContentFiltersFlow(pachliAccountId: Long) =

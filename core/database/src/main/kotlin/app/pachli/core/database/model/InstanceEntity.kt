@@ -144,6 +144,7 @@ data class InstanceInfoEntity(
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("accountId"),
             onDelete = ForeignKey.CASCADE,
+            deferred = true,
         ),
     ],
 )

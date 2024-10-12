@@ -24,7 +24,10 @@ import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
+import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
+import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
@@ -43,6 +46,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
@@ -71,6 +75,9 @@ class InstanceInfoRepositoryTest {
 
     @Inject
     lateinit var mastodonApi: MastodonApi
+
+    @Inject
+    lateinit var nodeInfoApi: NodeInfoApi
 
     @Inject
     lateinit var instanceInfoRepository: InstanceInfoRepository
@@ -103,7 +110,8 @@ class InstanceInfoRepositoryTest {
         mastodonApi.stub {
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
             onBlocking { getCustomEmojis() } doReturn success(emptyList())
-            onBlocking { getInstanceV1() } doAnswer {
+            onBlocking { getInstanceV2() } doReturn failure()
+            onBlocking { getInstanceV1(anyOrNull()) } doAnswer {
                 instanceResponseCallback?.invoke().let { instance ->
                     if (instance == null) {
                         failure()
@@ -112,6 +120,27 @@ class InstanceInfoRepositoryTest {
                     }
                 }
             }
+            onBlocking { getLists() } doReturn success(emptyList())
+            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
+            onBlocking { getContentFilters() } doReturn success(emptyList())
+            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
+        }
+
+        reset(nodeInfoApi)
+        nodeInfoApi.stub {
+            onBlocking { nodeInfoJrd() } doReturn success(
+                UnvalidatedJrd(
+                    listOf(
+                        UnvalidatedJrd.Link(
+                            "http://nodeinfo.diaspora.software/ns/schema/2.1",
+                            "https://example.com",
+                        ),
+                    ),
+                ),
+            )
+            onBlocking { nodeInfo(any()) } doReturn success(
+                UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
+            )
         }
 
         accountManager.verifyAndAddAccount(
