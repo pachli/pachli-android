@@ -169,6 +169,7 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
             onBlocking { getInstanceV2() } doReturn success(instanceV2)
             onBlocking { getLists() } doReturn success(emptyList())
+            onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
             onBlocking { getContentFilters() } doAnswer {
                 success(networkFilters)
