@@ -24,7 +24,9 @@ import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import javax.inject.Singleton
+import org.mockito.invocation.InvocationOnMock
 import org.mockito.kotlin.mock
+import org.mockito.stubbing.Answer
 
 /**
  * Provides an empty mock. Use like:
@@ -57,5 +59,57 @@ import org.mockito.kotlin.mock
 object FakeMastodonApiModule {
     @Provides
     @Singleton
-    fun providesApi(): MastodonApi = mock()
+    fun providesApi(): MastodonApi = mock(defaultAnswer = ThrowingAnswer)
+}
+
+/**
+ * Mockito [Answer] that throws if the method is called.
+ *
+ * The exception message includes information about the method that was called,
+ * the call site, and tries to show the specific entry in the call stack for the
+ * call.
+ *
+ * Attach this as the default answer to any mocks where you expect all relevant
+ * methods to be stubbed during the test. Any methods that are not stubbed will
+ * throw an [AssertionError].
+ */
+object ThrowingAnswer : Answer<Any> {
+    override fun answer(invocation: InvocationOnMock): Any {
+        // The method is called as part of the stubbing process. E.g., if you have code
+        // like:
+        //
+        // mastodonApi.stub {
+        //   onBlocking { someFunction() } doReturn success(emptyList())
+        // }
+        //
+        // then `someFunction()` will be called.
+        //
+        // That has to be handled specially here, otherwise the exception is thrown
+        // as part of the stubbing process.
+        //
+        // To determine whether this call is during the stubbing process get the
+        // current call stack and look for a call to org.mockito.kotlin.KStubbing.onBlocking.
+        // If that's somewhere in the call stack then this is a call during the stubbing
+        // process and Unit should be returned.
+        val callstack = Thread.currentThread().getStackTrace()
+        val isDuringStubbing = callstack.firstOrNull {
+            it.className == "org.mockito.kotlin.KStubbing" && it.methodName == "onBlocking"
+        } != null
+        if (isDuringStubbing) return Unit
+
+        val methodName = invocation.method.name
+        val className = invocation.method.declaringClass.getSimpleName()
+        val stackIndexOfCall = callstack.indexOfFirst { it.methodName == methodName }
+
+        val message = buildString {
+            append("$className.$methodName was not stubbed, but was called.\n\nCall looks like:\n\n$invocation")
+
+            if (stackIndexOfCall != -1) {
+                append("\n\nProbable call site: ")
+                append(callstack[stackIndexOfCall + 1])
+            }
+        }
+
+        throw AssertionError(message)
+    }
 }
