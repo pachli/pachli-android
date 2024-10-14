@@ -37,6 +37,7 @@ import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -77,7 +78,11 @@ class EditProfileViewModel @Inject constructor(
     /** True if the user has made unsaved changes to the profile */
     val isDirty = _isDirty.asStateFlow()
 
-    fun obtainProfile() = viewModelScope.launch {
+    var pachliAccountId by Delegates.notNull<Long>()
+
+    fun obtainProfile(pachliAccountId: Long) = viewModelScope.launch {
+        this@EditProfileViewModel.pachliAccountId = pachliAccountId
+
         if (profileData.value == null || profileData.value is Error) {
             profileData.postValue(Loading())
 
@@ -86,9 +91,7 @@ class EditProfileViewModel @Inject constructor(
                     apiProfileAccount = profile
                     profileData.postValue(Success(profile))
                 },
-                {
-                    profileData.postValue(Error())
-                },
+                { profileData.postValue(Error()) },
             )
         }
     }
@@ -242,8 +245,14 @@ class EditProfileViewModel @Inject constructor(
         val headerFile: File?,
         val avatarFile: File?,
     ) {
-        fun hasChanges() = displayName != null || note != null || locked != null ||
-            avatarFile != null || headerFile != null || field1 != null || field2 != null ||
-            field3 != null || field4 != null
+        fun hasChanges() = displayName != null ||
+            note != null ||
+            locked != null ||
+            avatarFile != null ||
+            headerFile != null ||
+            field1 != null ||
+            field2 != null ||
+            field3 != null ||
+            field4 != null
     }
 }
