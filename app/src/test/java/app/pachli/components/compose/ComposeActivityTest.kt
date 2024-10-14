@@ -136,9 +136,7 @@ class ComposeActivityTest {
             )
             onBlocking { getLists() } doReturn success(emptyList())
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
-            onBlocking { getContentFiltersV1() } doAnswer { call ->
-                success(emptyList())
-            }
+            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
