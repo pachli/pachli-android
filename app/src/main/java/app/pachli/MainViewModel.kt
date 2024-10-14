@@ -87,10 +87,10 @@ data class UiState(
 internal class MainViewModel @AssistedInject constructor(
     private val accountManager: AccountManager,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    @Assisted val activeAccountId: Long,
+    @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     val pachliAccountFlow = flow {
-        accountManager.getPachliAccountFlow(activeAccountId)
+        accountManager.getPachliAccountFlow(pachliAccountId)
             .filterNotNull()
             .collect { emit(it) }
     }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
@@ -128,7 +128,7 @@ internal class MainViewModel @AssistedInject constructor(
             // Possibly allow the switch if some info is missing (filters, lists), but
             // explain to the user what that will mean. Need's a "refreshAccountInfo"
             // operation.
-            accountManager.setActiveAccount(activeAccountId)
+            accountManager.setActiveAccount(pachliAccountId)
         }
     }
 
@@ -149,8 +149,8 @@ internal class MainViewModel @AssistedInject constructor(
     @AssistedFactory
     interface Factory {
         /**
-         * Creates [MainViewModel] with [accountId] as the active account.
+         * Creates [MainViewModel] with [pachliAccountId] as the active account.
          */
-        fun create(accountId: Long): MainViewModel
+        fun create(pachliAccountId: Long): MainViewModel
     }
 }

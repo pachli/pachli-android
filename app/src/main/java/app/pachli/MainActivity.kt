@@ -274,7 +274,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             // if (accountRequested && pachliAccountId != activeAccount.id) {
             //     accountManager.setActiveAccount(pachliAccountId)
             // }
-            val accountSwitchRequested = viewModel.activeAccountId != -1L
+            val accountSwitchRequested = viewModel.pachliAccountId != -1L
 
             val openDrafts = MainActivityIntent.getOpenDrafts(intent)
 
@@ -291,7 +291,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         object : AccountSelectionListener {
                             override fun onAccountSelected(account: AccountEntity) {
                                 val requestedId = account.id
-                                if (requestedId == viewModel.activeAccountId) {
+                                if (requestedId == viewModel.pachliAccountId) {
                                     // The correct account is already active
                                     forwardToComposeActivityAndExit(intent)
                                 } else {
