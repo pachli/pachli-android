@@ -17,24 +17,45 @@
 
 package app.pachli.components.notifications
 
+import app.cash.turbine.test
+import app.pachli.core.data.repository.Loadable
+import app.pachli.core.database.model.AccountEntity
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import org.mockito.kotlin.argumentCaptor
-import org.mockito.kotlin.verify
 
+@HiltAndroidTest
 class NotificationsViewModelTestVisibleId : NotificationsViewModelTestBase() {
 
     @Test
     fun `should save notification ID to active account`() = runTest {
-        argumentCaptor<Pair<Long, String>>().apply {
-            // When
-            viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
+        accountManager
+            .activeAccountFlow.filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+            .filter { it.data != null }
+            .map { it.data }
+            .test {
+                // Given
+                assertThat(awaitItem()!!.lastNotificationId).isEqualTo("0")
 
-            // Then
-            verify(accountManager).setLastNotificationId(capture().first, capture().second)
-            assertThat(this.lastValue.second)
-                .isEqualTo("1234")
-        }
+                // When
+                viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
+
+                // Then
+                assertThat(awaitItem()!!.lastNotificationId).isEqualTo("1234")
+            }
+
+//        argumentCaptor<Pair<Long, String>>().apply {
+//            // When
+//            viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
+//
+//            // Then
+//            verify(accountManager).setLastNotificationId(capture().first, capture().second)
+//            assertThat(this.lastValue.second)
+//                .isEqualTo("1234")
+//        }
     }
 }

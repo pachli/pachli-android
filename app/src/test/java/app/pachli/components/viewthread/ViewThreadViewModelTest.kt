@@ -14,6 +14,7 @@ import app.pachli.components.timeline.mockStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.StatusContext
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
@@ -21,6 +22,7 @@ import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
@@ -113,6 +115,10 @@ class ViewThreadViewModelTest {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            onBlocking { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
+            onBlocking { getCustomEmojis() } doReturn failure()
+            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
+            onBlocking { getContentFilters() } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)

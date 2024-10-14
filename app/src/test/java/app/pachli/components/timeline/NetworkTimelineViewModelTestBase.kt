@@ -27,6 +27,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
+import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
@@ -121,8 +122,10 @@ abstract class NetworkTimelineViewModelTestBase {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            onBlocking { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
             onBlocking { getCustomEmojis() } doReturn failure()
             onBlocking { getContentFilters() } doReturn success(emptyList())
+            onBlocking { listAnnouncements(anyOrNull()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)

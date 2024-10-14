@@ -39,7 +39,7 @@ interface InstanceDao {
 
     @Transaction
     @Query("SELECT * FROM InstanceInfoEntity WHERE instance = :instance LIMIT 1")
-    suspend fun getInstanceInfo(instance: String): InstanceInfoEntity
+    suspend fun getInstanceInfo(instance: String): InstanceInfoEntity?
 
     @Query("SELECT * FROM ServerEntity WHERE accountId = :pachliAccountId")
     suspend fun getServer(pachliAccountId: Long): ServerEntity?

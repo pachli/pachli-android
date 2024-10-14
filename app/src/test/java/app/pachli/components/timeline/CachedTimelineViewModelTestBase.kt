@@ -19,7 +19,6 @@ package app.pachli.components.timeline
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.PachliApplication
 import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
@@ -28,6 +27,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Timeline
+import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
@@ -131,8 +131,12 @@ abstract class CachedTimelineViewModelTestBase {
         reset(mastodonApi)
         mastodonApi.stub {
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            onBlocking { getInstanceV2() } doReturn success(DEFAULT_INSTANCE_V2)
+            onBlocking { getLists() } doReturn success(emptyList())
             onBlocking { getCustomEmojis() } doReturn failure()
             onBlocking { getContentFilters() } doReturn success(emptyList())
+            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
+            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
@@ -163,7 +167,6 @@ abstract class CachedTimelineViewModelTestBase {
         timelineCases = mock()
 
         viewModel = CachedTimelineViewModel(
-            InstrumentationRegistry.getInstrumentation().targetContext,
             SavedStateHandle(mapOf(TimelineViewModel.TIMELINE_TAG to Timeline.Home)),
             cachedTimelineRepository,
             timelineCases,

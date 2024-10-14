@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -40,7 +39,6 @@ import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -55,7 +53,6 @@ import timber.log.Timber
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class CachedTimelineViewModel @Inject constructor(
-    @ApplicationContext context: Context,
     savedStateHandle: SavedStateHandle,
     private val repository: CachedTimelineRepository,
     timelineCases: TimelineCases,

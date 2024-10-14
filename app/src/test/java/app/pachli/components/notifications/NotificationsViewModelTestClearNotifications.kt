@@ -19,6 +19,7 @@ package app.pachli.components.notifications
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.doReturn
@@ -33,6 +34,7 @@ import org.mockito.kotlin.verify
  *   This is only tested in the success case; if it passed there it must also
  *   have passed in the error case.
  */
+@HiltAndroidTest
 class NotificationsViewModelTestClearNotifications : NotificationsViewModelTestBase() {
     @Test
     fun `clearing notifications succeeds && invalidate the repository`() = runTest {

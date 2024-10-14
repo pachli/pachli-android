@@ -27,23 +27,14 @@ import app.pachli.core.data.source.ContentFiltersRemoteDataSource
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.InstanceDao
+import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.Account
-import app.pachli.core.network.model.Configuration
-import app.pachli.core.network.model.Contact
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterKeyword as NetworkFilterKeyword
 import app.pachli.core.network.model.FilterV1
 import app.pachli.core.network.model.InstanceV1
-import app.pachli.core.network.model.InstanceV2
-import app.pachli.core.network.model.InstanceV2Polls
-import app.pachli.core.network.model.InstanceV2Statuses
-import app.pachli.core.network.model.MediaAttachments
-import app.pachli.core.network.model.Registrations
-import app.pachli.core.network.model.Thumbnail
-import app.pachli.core.network.model.Usage
-import app.pachli.core.network.model.Users
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
@@ -134,31 +125,6 @@ abstract class BaseContentFiltersRepositoryTest {
 }
 
 abstract class V2Test : BaseContentFiltersRepositoryTest() {
-    private val instanceV2 = InstanceV2(
-        domain = "domain.example",
-        title = "Test server",
-        version = "4.3.0",
-        description = "Test description",
-        usage = Usage(users = Users()),
-        thumbnail = Thumbnail(
-            url = "https://example.com/thumbnail",
-            blurhash = null,
-            versions = null,
-        ),
-        languages = emptyList(),
-        configuration = Configuration(
-            statuses = InstanceV2Statuses(),
-            mediaAttachments = MediaAttachments(),
-            polls = InstanceV2Polls(),
-        ),
-        registrations = Registrations(
-            enabled = false,
-            approvalRequired = false,
-            message = null,
-        ),
-        contact = Contact(),
-    )
-
     @Before
     fun setup() = runTest {
         hilt.inject()
@@ -167,7 +133,7 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
         mastodonApi.stub {
             // API calls when registering an account
             onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getInstanceV2() } doReturn success(instanceV2)
+            onBlocking { getInstanceV2() } doReturn success(DEFAULT_INSTANCE_V2)
             onBlocking { getLists() } doReturn success(emptyList())
             onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
@@ -232,6 +198,7 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
             onBlocking { getInstanceV2() } doReturn failure()
             onBlocking { getInstanceV1() } doReturn success(instanceV1)
             onBlocking { getLists() } doReturn success(emptyList())
+            onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
             onBlocking { getContentFiltersV1() } doAnswer { call ->
                 success(networkFiltersV1)

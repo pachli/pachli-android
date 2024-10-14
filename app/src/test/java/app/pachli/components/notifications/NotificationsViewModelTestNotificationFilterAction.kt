@@ -21,6 +21,7 @@ import app.cash.turbine.test
 import app.pachli.core.network.model.Relationship
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.any
@@ -38,6 +39,7 @@ import org.mockito.kotlin.verify
  *   This is only tested in the success case; if it passed there it must also
  *   have passed in the error case.
  */
+@HiltAndroidTest
 class NotificationsViewModelTestNotificationFilterAction : NotificationsViewModelTestBase() {
     /** Dummy relationship */
     private val relationship = Relationship(

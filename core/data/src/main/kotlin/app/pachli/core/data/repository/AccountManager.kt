@@ -67,7 +67,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -135,8 +134,10 @@ class AccountManager @Inject constructor(
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activeAccountFlow: StateFlow<Loadable<AccountEntity?>> =
         accountDao.getActiveAccountFlow()
-            .distinctUntilChanged()
+//            .onEach { println("L: $it") }
+//            .distinctUntilChanged()
             .map { Loadable.Loaded(it) }
+//            .onEach { println("Loaded $it") }
             .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
 
     /**
@@ -297,7 +298,7 @@ class AccountManager @Inject constructor(
         data class ApiErrorException(val apiError: ApiError) : Exception()
 
         try {
-            transactionProvider {
+            val finalAccount = transactionProvider {
                 val now = TimeSource.Monotonic.markNow()
 
                 Timber.d("setActiveAcccount(%d)", accountId)
@@ -308,7 +309,7 @@ class AccountManager @Inject constructor(
                 }
                 if (newActiveAccount == null) {
                     Timber.d("Account %d not in database", accountId)
-                    return@transactionProvider
+                    return@transactionProvider null
                 }
 
                 accountDao.clearActiveAccount()
@@ -350,85 +351,79 @@ class AccountManager @Inject constructor(
                         domain = newActiveAccount.domain,
                     )
 
-                // To load:
-                // - instance info
-                // - lists
-                // - server info
-                // - filters (depends on server info)
-                // - announcements
-                //
-                // InstanceInfoEntity will need to be a merger of whatever you get from
-                // instancev1 and instance2.
-
-                // Caution here -- doing database operations in any of the externalScope blocks
-                // appears not to release database connections properly, resulting in starvation.
-
-                val deferNodeInfo = externalScope.async {
-                    fetchNodeInfo()
-                }
-
-                val deferInstanceInfo = externalScope.async {
-                    fetchInstanceInfo(finalAccount.domain)
-                }
-
-                val deferEmojis = externalScope.async {
-                    mastodonApi.getCustomEmojis()
-                }
-
-                val deferAnnouncements = externalScope.async {
-                    mastodonApi.listAnnouncements(false).get()?.body.orEmpty()
-                        .map {
-                            AnnouncementEntity(
-                                accountId = finalAccount.id,
-                                announcementId = it.id,
-                                announcement = it,
-                            )
-                        }
-                }
-
-                val nodeInfo = deferNodeInfo.await()
-
-                deferInstanceInfo.await().also { instanceInfoEntity ->
-                    instanceDao.upsert(instanceInfoEntity)
-                }
-
-                // Create the server info so it can used for both server capabilities and filters.
-                val server = deferInstanceInfo.await().let { instanceInfoEntity ->
-                    nodeInfo.map { Server.from(it.software, instanceInfoEntity).get() }
-                }.get()
-
-                server?.let {
-                    instanceDao.upsert(
-                        ServerEntity(
-                            accountId = finalAccount.id,
-                            serverKind = it.kind,
-                            version = it.version,
-                            capabilities = it.capabilities,
-                        ),
-                    )
-                }
-
-                externalScope.launch { contentFiltersRepository.refresh(finalAccount.id) }
-
-                deferEmojis.await().also { result ->
-                    result.onSuccess {
-                        instanceDao.upsert(EmojisEntity(accountId = finalAccount.id, emojiList = it.body))
-                    }
-                }
-
-                externalScope.launch { listsRepository.refresh(finalAccount.id) }
-
-                deferAnnouncements.await().also { announcements ->
-                    announcementsDao.deleteAllForAccount(finalAccount.id)
-                    announcementsDao.upsert(announcements)
-                }
-
-                Timber.d("Switched accounts took %d ms", now.elapsedNow().inWholeMilliseconds)
+                return@transactionProvider finalAccount
             }
 
-            return Ok(Unit)
+            // TODO: Wrong type, this should return a specific error indicating the account
+            // was not in the database.
+            finalAccount ?: return Ok(Unit)
+            refresh(finalAccount)
         } catch (e: ApiErrorException) {
             return Err(e.apiError)
+        }
+
+        return Ok(Unit)
+    }
+
+    /**
+     * Refreshes the local data for [account] from remote sources.
+     */
+    // TODO: Protect this with a mutex?
+    suspend fun refresh(account: AccountEntity) {
+        // Kick off network fetches that can happen in parallel because they do not
+        // depend on one another.
+        val deferNodeInfo = externalScope.async { fetchNodeInfo() }
+
+        val deferInstanceInfo = externalScope.async { fetchInstanceInfo(account.domain) }
+
+        val deferEmojis = externalScope.async { mastodonApi.getCustomEmojis() }
+
+        val deferAnnouncements = externalScope.async {
+            mastodonApi.listAnnouncements(false).get()?.body.orEmpty()
+                .map {
+                    AnnouncementEntity(
+                        accountId = account.id,
+                        announcementId = it.id,
+                        announcement = it,
+                    )
+                }
+        }
+
+        val nodeInfo = deferNodeInfo.await()
+
+        deferInstanceInfo.await().also { instanceInfoEntity ->
+            instanceDao.upsert(instanceInfoEntity)
+        }
+
+        // Create the server info so it can used for both server capabilities and filters.
+        val server = deferInstanceInfo.await().let { instanceInfoEntity ->
+            nodeInfo.map { Server.from(it.software, instanceInfoEntity).get() }
+        }.get()
+
+        server?.let {
+            instanceDao.upsert(
+                ServerEntity(
+                    accountId = account.id,
+                    serverKind = it.kind,
+                    version = it.version,
+                    capabilities = it.capabilities,
+                ),
+            )
+        }
+
+        externalScope.launch { contentFiltersRepository.refresh(account.id) }.join()
+
+        deferEmojis.await().also { result ->
+            result.onSuccess {
+                instanceDao.upsert(EmojisEntity(accountId = account.id, emojiList = it.body))
+            }
+        }
+
+        externalScope.launch { listsRepository.refresh(account.id) }.join()
+
+        deferAnnouncements.await().also { announcements ->
+            announcementsDao.deleteAllForAccount(account.id)
+            announcementsDao.upsert(announcements)
         }
     }
 
@@ -543,21 +538,12 @@ class AccountManager @Inject constructor(
     // TODO: Maybe rename InstanceInfoEntity to ServerLimits or something like that, since that's
     // what it records.
     private suspend fun fetchInstanceInfo(domain: String): InstanceInfoEntity {
-        // TODO: This needs to start with v2, and fall back to v1
-        // InstanceInfoEntity needs to gain support for recording translation
+        // TODO: InstanceInfoEntity needs to gain support for recording translation
         return mastodonApi.getInstanceV2()
             .map { InstanceInfoEntity.make(domain, it.body) }
             .orElse {
                 mastodonApi.getInstanceV1().map { InstanceInfoEntity.make(domain, it.body) }
             }.getOrElse { InstanceInfoEntity.defaultForDomain(domain) }
-
-//            .mapOr(InstanceInfoEntity.defaultForDomain(domain) { result ->
-//            InstanceInfoEntity.make(domain, result.body)
-//        }
-
-//        return mastodonApi.getInstanceV1().mapOr(InstanceInfoEntity.defaultForDomain(domain)) { result ->
-//            InstanceInfoEntity.make(domain, result.body)
-//        }
     }
 
     /**

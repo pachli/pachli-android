@@ -207,7 +207,7 @@ data class AccountEntity(
      */
     val lastNotificationId: String = "0",
     /**
-     *  ID of the most recent Mastodon notification that Tusky has fetched to show as an
+     *  ID of the most recent Mastodon notification that Pachli has fetched to show as an
      *  Android notification.
      */
     @ColumnInfo(defaultValue = "0")

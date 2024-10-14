@@ -148,6 +148,6 @@ class InstanceInfoRepository @Inject constructor(
             )
             instanceDao.upsert(instanceEntity)
         }
-        return InstanceInfo.from(instanceDao.getInstanceInfo(domain))
+        return instanceDao.getInstanceInfo(domain)?.let { InstanceInfo.from(it) } ?: InstanceInfo()
     }
 }
