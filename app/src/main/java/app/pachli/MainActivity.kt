@@ -326,7 +326,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // the options menu).
         val hideTopToolbar = viewModel.uiState.value.hideTopToolbar
         if (hideTopToolbar) {
-            when (sharedPreferencesRepository.mainNavigationPosition) {
+            when (viewModel.uiState.value.mainNavigationPosition) {
                 MainNavigationPosition.TOP -> setSupportActionBar(binding.topNav)
                 MainNavigationPosition.BOTTOM -> setSupportActionBar(binding.bottomNav)
             }
