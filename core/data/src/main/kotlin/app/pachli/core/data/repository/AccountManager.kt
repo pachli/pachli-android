@@ -67,6 +67,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -134,10 +135,8 @@ class AccountManager @Inject constructor(
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activeAccountFlow: StateFlow<Loadable<AccountEntity?>> =
         accountDao.getActiveAccountFlow()
-//            .onEach { println("L: $it") }
-//            .distinctUntilChanged()
+            .distinctUntilChanged()
             .map { Loadable.Loaded(it) }
-//            .onEach { println("Loaded $it") }
             .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
 
     /**
@@ -171,7 +170,7 @@ class AccountManager @Inject constructor(
 
     init {
         externalScope.launch {
-            listsRepository.getAllLists().collect { lists ->
+            listsRepository.getListsFlow().collect { lists ->
                 val listsById = lists.groupBy { it.accountId }
                 listsById.forEach { (pachliAccountId, group) ->
                     newTabPreferences(pachliAccountId, group)?.let {
@@ -369,7 +368,7 @@ class AccountManager @Inject constructor(
      * Refreshes the local data for [account] from remote sources.
      */
     // TODO: Protect this with a mutex?
-    suspend fun refresh(account: AccountEntity) {
+    private suspend fun refresh(account: AccountEntity) {
         // Kick off network fetches that can happen in parallel because they do not
         // depend on one another.
         val deferNodeInfo = externalScope.async { fetchNodeInfo() }
@@ -396,6 +395,9 @@ class AccountManager @Inject constructor(
         }
 
         // Create the server info so it can used for both server capabilities and filters.
+        //
+        // Can't use ServerRespository here because it depends on AccountManager.
+        // TODO: Break that dependency, re-write ServerRepository to be offline-first.
         val server = deferInstanceInfo.await().let { instanceInfoEntity ->
             nodeInfo.map { Server.from(it.software, instanceInfoEntity).get() }
         }.get()
@@ -498,19 +500,9 @@ class AccountManager @Inject constructor(
         return if (changed) newTabPreferences else null
     }
 
+    // Based on ServerRepository.getServer(). This can be removed when AccountManager
+    // can use ServerRepository directly.
     private suspend fun fetchNodeInfo(): Result<NodeInfo, Error> = binding {
-        /**
-         * NodeInfo schema versions we can parse.
-         *
-         * See https://nodeinfo.diaspora.software/schema.html.
-         */
-        val SCHEMAS = listOf(
-            "http://nodeinfo.diaspora.software/ns/schema/2.1",
-            "http://nodeinfo.diaspora.software/ns/schema/2.0",
-            "http://nodeinfo.diaspora.software/ns/schema/1.1",
-            "http://nodeinfo.diaspora.software/ns/schema/1.0",
-        )
-
         // Fetch the /.well-known/nodeinfo document
         val nodeInfoJrd = nodeInfoApi.nodeInfoJrd()
             .mapError { GetWellKnownNodeInfo(it) }.bind().body

@@ -94,9 +94,6 @@ abstract class NotificationsViewModelTestBase {
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
-//    @Inject
-//    lateinit var notificationsRepository: NotificationsRepository
-
     @Inject
     lateinit var accountDao: AccountDao
 

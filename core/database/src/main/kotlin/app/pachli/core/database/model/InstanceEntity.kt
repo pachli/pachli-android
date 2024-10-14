@@ -28,15 +28,6 @@ import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
 
-// data class InstanceInfo(
-//    @Embedded val instanceInfo: InstanceInfoEntity,
-// //    @Relation(
-// //        parentColumn = "instance",
-// //        entityColumn = "instance",
-// //    )
-//    val emojis: EmojisEntity,
-// )
-
 @Entity
 @TypeConverters(Converters::class)
 data class InstanceInfoEntity(
@@ -153,23 +144,3 @@ data class EmojisEntity(
     val accountId: Long,
     val emojiList: List<Emoji>,
 )
-
-// // Version of InstanceEntity without emojiList for partial updates and fetches
-// // (obsolete)
-// data class InstanceInfoEntity(
-//    @PrimaryKey val instance: String,
-//    val maximumTootCharacters: Int,
-//    val maxPollOptions: Int,
-//    val maxPollOptionLength: Int,
-//    val minPollDuration: Int,
-//    val maxPollDuration: Int,
-//    val charactersReservedPerUrl: Int,
-//    val version: String,
-//    val videoSizeLimit: Long,
-//    val imageSizeLimit: Long,
-//    val imageMatrixLimit: Int,
-//    val maxMediaAttachments: Int,
-//    val maxFields: Int?,
-//    val maxFieldNameLength: Int?,
-//    val maxFieldValueLength: Int?,
-// )

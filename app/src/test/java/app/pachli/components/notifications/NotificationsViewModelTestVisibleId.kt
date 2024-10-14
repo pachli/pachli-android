@@ -47,15 +47,5 @@ class NotificationsViewModelTestVisibleId : NotificationsViewModelTestBase() {
                 // Then
                 assertThat(awaitItem()!!.lastNotificationId).isEqualTo("1234")
             }
-
-//        argumentCaptor<Pair<Long, String>>().apply {
-//            // When
-//            viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
-//
-//            // Then
-//            verify(accountManager).setLastNotificationId(capture().first, capture().second)
-//            assertThat(this.lastValue.second)
-//                .isEqualTo("1234")
-//        }
     }
 }

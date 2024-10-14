@@ -46,7 +46,6 @@ import app.pachli.feature.login.databinding.ActivityLoginBinding
 import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.fold
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint

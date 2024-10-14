@@ -56,7 +56,6 @@ import org.junit.Rule
 import org.junit.runner.RunWith
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
-import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
@@ -137,9 +136,7 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
             onBlocking { getLists() } doReturn success(emptyList())
             onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
-            onBlocking { getContentFilters() } doAnswer {
-                success(networkFilters)
-            }
+            onBlocking { getContentFilters() } doReturn success(networkFilters)
         }
 
         networkFilters.clear()
@@ -200,9 +197,7 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
             onBlocking { getLists() } doReturn success(emptyList())
             onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
-            onBlocking { getContentFiltersV1() } doAnswer { call ->
-                success(networkFiltersV1)
-            }
+            onBlocking { getContentFiltersV1() } doReturn success(networkFiltersV1)
         }
 
         reset(nodeInfoApi)

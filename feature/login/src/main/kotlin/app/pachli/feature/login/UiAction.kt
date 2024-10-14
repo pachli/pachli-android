@@ -26,7 +26,7 @@ import app.pachli.core.network.retrofit.apiresult.ApiError
 internal sealed interface UiAction
 
 internal sealed interface FallibleUiAction : UiAction {
-    /** Verify the account has worked credentials and add to local database. */
+    /** Verify the account has working credentials and add to local database. */
     data class VerifyAndAddAccount(
         val accessToken: AccessToken,
         val domain: String,

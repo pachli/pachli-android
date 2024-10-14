@@ -270,7 +270,7 @@ class Converters @Inject constructor(
     fun stringToVersion(s: String?) = s?.let { Version.parse(it) }
 
     @TypeConverter
-    fun announcementToJson(announcement: Announcement) = moshi.adapter<Announcement>().toJson(announcement)
+    fun announcementToJson(announcement: Announcement): String = moshi.adapter<Announcement>().toJson(announcement)
 
     @TypeConverter
     fun jsonToAnnouncement(s: String?) = s?.let { moshi.adapter<Announcement>().fromJson(it) }

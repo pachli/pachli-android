@@ -90,7 +90,14 @@ data class ContentFilters(
     }
 }
 
-/** Repository for filter information */
+/**
+ * Repository for filters that caches information locally.
+ *
+ * - Methods that query data always return from the cache.
+ * - Methods that update data update the remote server first, and cache
+ * successful responses.
+ * - Call [refresh] to update the local cache.
+ */
 @Singleton
 class OfflineFirstContentFiltersRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
@@ -98,7 +105,6 @@ class OfflineFirstContentFiltersRepository @Inject constructor(
     private val remoteDataSource: ContentFiltersRemoteDataSource,
     private val instanceDao: InstanceDao,
 ) : ContentFiltersRepository {
-    /** Get a specific content filter from the server, by [contentFilterId]. */
     override suspend fun getContentFilter(pachliAccountId: Long, contentFilterId: String) =
         localDataSource.getContentFilter(pachliAccountId, contentFilterId)
 
@@ -119,15 +125,9 @@ class OfflineFirstContentFiltersRepository @Inject constructor(
     override suspend fun getContentFilters(pachliAccountId: Long) =
         ContentFilters.from(localDataSource.getContentFilters(pachliAccountId))
 
-    /** Get the current set of content filters. */
     override fun getContentFiltersFlow(pachliAccountId: Long) =
         localDataSource.getContentFiltersFlow(pachliAccountId).map { ContentFilters.from(it) }
 
-    /**
-     * Creates the filter in [filter].
-     *
-     * @return The newly created [ContentFilter], or a [ContentFiltersError].
-     */
     override suspend fun createContentFilter(pachliAccountId: Long, filter: NewContentFilter): Result<ContentFilter, ContentFiltersError> = externalScope.async {
         // TODO: Return better error if server data not cached
         val server = instanceDao.getServer(pachliAccountId)?.let { Server.from(it) }
@@ -136,10 +136,6 @@ class OfflineFirstContentFiltersRepository @Inject constructor(
             .onSuccess { localDataSource.saveContentFilter(pachliAccountId, it) }
     }.await()
 
-    /**
-     * Updates [originalContentFilter] on the server by applying the changes in
-     * [contentFilterEdit].
-     */
     override suspend fun updateContentFilter(pachliAccountId: Long, originalContentFilter: ContentFilter, contentFilterEdit: ContentFilterEdit): Result<ContentFilter, ContentFiltersError> = externalScope.async {
         val server = instanceDao.getServer(pachliAccountId)?.let { Server.from(it) }
             ?: return@async Err(ServerDoesNotFilter)
@@ -147,9 +143,6 @@ class OfflineFirstContentFiltersRepository @Inject constructor(
             .onSuccess { localDataSource.updateContentFilter(pachliAccountId, it) }
     }.await()
 
-    /**
-     * Deletes the content filter identified by [contentFilterId] from the server.
-     */
     override suspend fun deleteContentFilter(pachliAccountId: Long, contentFilterId: String): Result<ApiResponse<Unit>, ContentFiltersError> = externalScope.async {
         // TODO: Return better error if server data not cached
         val server = instanceDao.getServer(pachliAccountId)?.let { Server.from(it) }

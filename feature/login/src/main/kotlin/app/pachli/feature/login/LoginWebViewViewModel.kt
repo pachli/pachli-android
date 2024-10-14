@@ -41,12 +41,8 @@ class LoginWebViewViewModel @Inject constructor(
             this.domain = domain
             viewModelScope.launch {
                 api.getInstanceV1(domain).mapBoth(
-                    { result ->
-                        instanceRules.value = result.body.rules.map { rule -> rule.text }
-                    },
-                    { error ->
-                        Timber.w(error.throwable, "failed to load instance info")
-                    },
+                    { instanceRules.value = it.body.rules.map { rule -> rule.text } },
+                    { Timber.w(it.throwable, "failed to load instance info") },
                 )
             }
         }

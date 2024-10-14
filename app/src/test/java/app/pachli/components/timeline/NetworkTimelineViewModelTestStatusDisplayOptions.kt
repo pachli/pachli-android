@@ -59,7 +59,6 @@ class NetworkTimelineViewModelTestStatusDisplayOptions : NetworkTimelineViewMode
             }
 
             // Then, should be true
-//            advanceUntilIdle()
             assertThat(awaitItem().animateAvatars).isTrue()
         }
     }

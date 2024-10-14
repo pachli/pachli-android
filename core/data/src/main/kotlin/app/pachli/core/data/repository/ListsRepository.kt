@@ -55,11 +55,17 @@ interface ListsError : PachliError {
 }
 
 interface ListsRepository {
-    /** Fetch known lists for [pachliAccountId]. */
+    /** @return Known lists for [pachliAccountId]. */
     fun getLists(pachliAccountId: Long): Flow<List<MastodonList>>
 
-    fun getAllLists(): Flow<List<MastodonList>>
+    /** @return All known lists for all accounts. */
+    fun getListsFlow(): Flow<List<MastodonList>>
 
+    /**
+     * Refresh lists for [pachliAccountId].
+     *
+     * @return Latests lists, or an error.
+     */
     suspend fun refresh(pachliAccountId: Long): Result<List<MastodonList>, ListsError.Retrieve>
 
     /**

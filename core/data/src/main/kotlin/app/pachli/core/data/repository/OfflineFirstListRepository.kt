@@ -32,6 +32,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.map
 
+/**
+ * Repository for lists that caches information locally.
+ *
+ * - Methods that query list data always return from the cache.
+ * - Methods that query list membership always query the remote server.
+ * - Methods that update data update the remote server first, and cache
+ * successful responses.
+ * - Call [refresh] to update the local cache.
+ */
 @Singleton
 internal class OfflineFirstListRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
@@ -48,7 +57,7 @@ internal class OfflineFirstListRepository @Inject constructor(
         MastodonList.from(it)
     }
 
-    override fun getAllLists() = localDataSource.getAllLists().map { MastodonList.from(it) }
+    override fun getListsFlow() = localDataSource.getAllLists().map { MastodonList.from(it) }
 
     override suspend fun createList(pachliAccountId: Long, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = externalScope.async {
         remoteDataSource.createList(pachliAccountId, title, exclusive, repliesPolicy)

@@ -289,7 +289,7 @@ class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEF
     }
 }
 
-class MainActivityIntent constructor(context: Context, pachliAccountId: Long) : Intent() {
+class MainActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.MAIN_ACTIVITY)
         this.pachliAccountId = pachliAccountId

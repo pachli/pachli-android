@@ -55,7 +55,7 @@ import timber.log.Timber
  *
  * See https://nodeinfo.diaspora.software/schema.html.
  */
-private val SCHEMAS = listOf(
+val SCHEMAS = listOf(
     "http://nodeinfo.diaspora.software/ns/schema/2.1",
     "http://nodeinfo.diaspora.software/ns/schema/2.0",
     "http://nodeinfo.diaspora.software/ns/schema/1.1",

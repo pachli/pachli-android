@@ -62,13 +62,10 @@ sealed interface ContentFiltersError : PachliError {
 }
 
 interface ContentFiltersRepository {
-    /**
-     * @return Known content filters for [pachliAccountId].
-     */
-    suspend fun getContentFilters(
-        pachliAccountId: Long,
-    ): ContentFilters
+    /** @return Known content filters for [pachliAccountId]. */
+    suspend fun getContentFilters(pachliAccountId: Long): ContentFilters
 
+    /** @return Flow of known content filters for [pachliAccountId]. */
     fun getContentFiltersFlow(
         pachliAccountId: Long,
     ): Flow<ContentFilters>

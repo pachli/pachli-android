@@ -115,8 +115,7 @@ class InstanceInfoRepository @Inject constructor(
             },
             { error ->
                 Timber.w(error.throwable, "failed to load custom emojis, falling back to cache")
-//                instanceDao.getEmojiInfo(domain)?.emojiList.orEmpty()
-                emptyList()
+                instanceDao.getEmojiInfo(accountId)?.emojiList.orEmpty()
             },
         )
     }

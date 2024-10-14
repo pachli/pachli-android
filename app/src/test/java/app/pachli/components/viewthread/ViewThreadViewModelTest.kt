@@ -118,6 +118,7 @@ class ViewThreadViewModelTest {
             onBlocking { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
             onBlocking { getCustomEmojis() } doReturn failure()
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
+            onBlocking { getLists() } doReturn success(emptyList())
             onBlocking { getContentFilters() } doReturn success(emptyList())
         }
 

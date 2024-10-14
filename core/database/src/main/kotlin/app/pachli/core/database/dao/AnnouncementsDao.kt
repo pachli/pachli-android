@@ -27,7 +27,6 @@ import app.pachli.core.database.model.AnnouncementEntity
 @Dao
 @TypeConverters(Converters::class)
 interface AnnouncementsDao {
-    // --- Announcement stuff
     @Query(
         """
         DELETE
