@@ -560,7 +560,7 @@ class AccountManager @Inject constructor(
     }
 
     suspend fun setAlwaysOpenSpoiler(accountId: Long, value: Boolean) {
-        accountDao.setAlwaysShowSensitiveMedia(accountId, value)
+        accountDao.setAlwaysOpenSpoiler(accountId, value)
     }
 
     suspend fun setMediaPreviewEnabled(accountId: Long, value: Boolean) {

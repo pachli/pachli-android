@@ -165,67 +165,59 @@ class StatusDisplayOptionsRepositoryTest {
         }
     }
 
-    // TODO: These fail in interesting ways with the new code, although the underlying
-    // functionality works.
-    //
-    // These are also going to be obsolete when account preferences are managed by
-    // AccountManager instead of the nest of separate repositories at the moment. So
-    // comment these out for the moment, instead of spending more time fixing them.
-//    @Test
-//    fun `changing account preference emits correct value`() = runTest {
-//        // Given - openSpoiler is an account-level preference
-//        val initial = statusDisplayOptionsRepository.flow.value.openSpoiler
-//        println("Initial value: $initial")
-//
-//        // When
-//        accountPreferenceDataStore.putBoolean(PrefKeys.ALWAYS_OPEN_SPOILER, !initial)
-//
-//        // Then
-//        statusDisplayOptionsRepository.flow.test {
-//            advanceUntilIdle()
-//            assertThat(expectMostRecentItem().openSpoiler).isEqualTo(!initial)
-//        }
-//    }
-//
-//    @Test
-//    fun `changing an account emits correct value`() = runTest {
-//        // Given -- openSpoiler is an account-level preference, confirm it's changed
-//        val initial = statusDisplayOptionsRepository.flow.value.openSpoiler
-//        statusDisplayOptionsRepository.flow.test {
-//            assertThat(awaitItem().openSpoiler).isEqualTo(initial)
-//            accountPreferenceDataStore.putBoolean(PrefKeys.ALWAYS_OPEN_SPOILER, !initial)
-//            assertThat(awaitItem().openSpoiler).isEqualTo(!initial)
-//        }
-//
-//        val account = Account(
-//            id = "2",
-//            localUsername = "username2",
-//            username = "username2@domain2.example",
-//            displayName = "Display Name",
-//            createdAt = Date.from(Instant.now()),
-//            note = "",
-//            url = "",
-//            avatar = "",
-//            header = "",
-//        )
-//
-//        mastodonApi.stub {
-//            onBlocking { accountVerifyCredentials() } doReturn success(account)
-//        }
-//
-//        // When -- addAccount changes the active account
-//        accountManager.verifyAndAddAccount(
-//            accessToken = "token",
-//            domain = "domain2.example",
-//            clientId = "id",
-//            clientSecret = "secret",
-//            oauthScopes = "scopes",
-//        )
-//
-//        // Then -- openSpoiler should be reset to the default
-//        statusDisplayOptionsRepository.flow.test {
-//            advanceUntilIdle()
-//            assertThat(expectMostRecentItem().openSpoiler).isEqualTo(initial)
-//        }
-//    }
+    @Test
+    fun `changing account preference emits correct value`() = runTest {
+        statusDisplayOptionsRepository.flow.test {
+            // Given - openSpoiler is an account-level preference
+            val initial = awaitItem().openSpoiler
+
+            // When
+            accountPreferenceDataStore.putBoolean(PrefKeys.ALWAYS_OPEN_SPOILER, !initial)
+
+            // Then
+            assertThat(awaitItem().openSpoiler).isEqualTo(!initial)
+        }
+    }
+
+    @Test
+    fun `changing an account emits correct value`() = runTest {
+        // Given -- openSpoiler is an account-level preference, confirm it's changed
+        val initial = statusDisplayOptionsRepository.flow.value.openSpoiler
+        statusDisplayOptionsRepository.flow.test {
+            assertThat(awaitItem().openSpoiler).isEqualTo(initial)
+            accountPreferenceDataStore.putBoolean(PrefKeys.ALWAYS_OPEN_SPOILER, !initial)
+            assertThat(awaitItem().openSpoiler).isEqualTo(!initial)
+        }
+
+        val account = Account(
+            id = "2",
+            localUsername = "username2",
+            username = "username2@domain2.example",
+            displayName = "Display Name",
+            createdAt = Date.from(Instant.now()),
+            note = "",
+            url = "",
+            avatar = "",
+            header = "",
+        )
+
+        mastodonApi.stub {
+            onBlocking { accountVerifyCredentials() } doReturn success(account)
+        }
+
+        // When -- addAccount changes the active account
+        accountManager.verifyAndAddAccount(
+            accessToken = "token",
+            domain = "domain2.example",
+            clientId = "id",
+            clientSecret = "secret",
+            oauthScopes = "scopes",
+        ).andThen { accountManager.setActiveAccount(it) }
+
+        // Then -- openSpoiler should be reset to the default
+        statusDisplayOptionsRepository.flow.test {
+            advanceUntilIdle()
+            assertThat(expectMostRecentItem().openSpoiler).isEqualTo(initial)
+        }
+    }
 }
