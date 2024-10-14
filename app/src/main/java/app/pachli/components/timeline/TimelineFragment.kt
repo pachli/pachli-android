@@ -567,9 +567,9 @@ class TimelineFragment :
         }
 
         id?.let {
-            Timber.d("Saving ID: %s", it)
+            Timber.d("saveVisibleId: Saving ID: %s", it)
             viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = it))
-        }
+        } ?: Timber.d("saveVisibleId: Not saving, as no ID was visible")
     }
 
     private fun setupSwipeRefreshLayout() {
