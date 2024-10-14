@@ -62,7 +62,7 @@ data class UiState(
     val animateEmojis: Boolean,
     val enableTabSwipe: Boolean,
     val hideTopToolbar: Boolean,
-    val mainNavigationPosition: MainNavigationPosition, // (r)
+    val mainNavigationPosition: MainNavigationPosition,
     val displaySelfUsername: Boolean,
     val accounts: List<AccountEntity>,
 ) {
