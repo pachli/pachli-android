@@ -18,7 +18,6 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.ServerRepository.Error
@@ -40,8 +39,6 @@ import app.pachli.core.model.BuildConfig
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Account
-import app.pachli.core.network.model.Announcement
-import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
@@ -74,46 +71,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
-
-sealed interface Loadable<T> {
-    class Loading<T>() : Loadable<T>
-    data class Loaded<T>(val data: T) : Loadable<T>
-}
-
-// TODO: Still not sure if it's better to have one class that contains everything,
-// or provide dedicated functions that return specific flows for the different
-// things, parameterised by the account ID.
-data class PachliAccount(
-    val id: Long,
-    // TODO: Should be a core.data type
-    val entity: AccountEntity,
-    val instanceInfo: InstanceInfo,
-    val lists: List<MastodonList>,
-    val emojis: List<Emoji>,
-    val server: Server,
-    val contentFilters: ContentFilters,
-    val announcements: List<Announcement>,
-) {
-    companion object {
-        fun make(
-            account: app.pachli.core.database.model.PachliAccount,
-        ): PachliAccount {
-            return PachliAccount(
-                id = account.account.id,
-                entity = account.account,
-                instanceInfo = InstanceInfo.from(account.instanceInfo),
-                lists = account.lists.map { MastodonList.from(it) },
-                emojis = account.emojis?.emojiList.orEmpty(),
-                server = Server.from(account.server),
-                contentFilters = ContentFilters(
-                    version = account.contentFilters.version,
-                    contentFilters = account.contentFilters.contentFilters,
-                ),
-                announcements = account.announcements.map { it.announcement },
-            )
-        }
-    }
-}
 
 // Note to self: This is doing dual duty as a repository and as a collection of
 // use cases, and should be refactored along those lines.
