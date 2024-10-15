@@ -74,13 +74,14 @@ import app.pachli.core.model.ContentFilterVersion
         ContentFiltersEntity::class,
         AnnouncementEntity::class,
     ],
-    version = 6,
+    version = 7,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
-        AutoMigration(from = 5, to = 6, spec = AppDatabase.MIGRATE_5_6::class),
+        AutoMigration(from = 5, to = 6),
+        AutoMigration(from = 6, to = 7, spec = AppDatabase.MIGRATE_6_7::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -108,7 +109,7 @@ abstract class AppDatabase : RoomDatabase() {
         toColumnName = "maxPostCharacters",
     )
     @RenameTable(fromTableName = "InstanceEntity", toTableName = "InstanceInfoEntity")
-    class MIGRATE_5_6 : AutoMigrationSpec {
+    class MIGRATE_6_7 : AutoMigrationSpec {
         override fun onPostMigrate(db: SupportSQLiteDatabase) {
             db.beginTransaction()
 
