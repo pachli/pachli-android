@@ -42,7 +42,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doAnswer
-import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.stub
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
@@ -71,7 +70,6 @@ class ContentFiltersRepositoryTestCreate : V2Test() {
         var expiresAt = Date()
 
         mastodonApi.stub {
-            onBlocking { getContentFilters() } doReturn success(emptyList())
             onBlocking { createFilter(any<NewContentFilter>()) } doAnswer { call ->
                 val newContentFilter = call.getArgument<NewContentFilter>(0)
                 val expiresIn = newContentFilter.expiresIn
@@ -141,7 +139,7 @@ class ContentFiltersRepositoryTestCreate : V2Test() {
             )
 
             // The flow should have emitted a new set of filters that includes the one just added.
-            val filters = expectMostRecentItem()
+            val filters = awaitItem()
             assertThat(filters).isEqualTo(
                 ContentFilters(
                     contentFilters = listOf(expected),
@@ -166,7 +164,6 @@ class ContentFiltersRepositoryTestCreateV1 : V1Test() {
 
         // Initialise with no existing filters, and API stubs for creating V1 filters.
         mastodonApi.stub {
-            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
             onBlocking { createFilterV1(any(), any(), any(), any(), any()) } doAnswer { call ->
                 val expiresIn = call.getArgument<String>(4).toInt()
                 expiresAt = Date(System.currentTimeMillis() + (expiresIn * 1000))
@@ -238,7 +235,7 @@ class ContentFiltersRepositoryTestCreateV1 : V1Test() {
             )
 
             // The flow should have emitted a new set of filters that includes the one just added.
-            val filters = expectMostRecentItem()
+            val filters = awaitItem()
             assertThat(filters).isEqualTo(
                 ContentFilters(
                     contentFilters = listOf(expected),
