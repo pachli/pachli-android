@@ -18,131 +18,14 @@
 package app.pachli.core.database.model
 
 import androidx.room.ColumnInfo
-import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import androidx.room.Relation
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
-import app.pachli.core.model.ServerKind
-import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.UserListRepliesPolicy
-import io.github.z4kn4fein.semver.Version
-
-// Joins the different tables that make up an account.
-data class PachliAccount(
-    @Embedded val account: AccountEntity,
-    @Relation(
-        parentColumn = "domain",
-        entityColumn = "instance",
-    )
-    val instanceInfo: InstanceInfoEntity,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId",
-    )
-    val lists: List<MastodonListEntity>,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId",
-    )
-    val emojis: EmojisEntity?,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId",
-    )
-    val server: ServerEntity,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId",
-    )
-    val contentFilters: ContentFiltersEntity,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId",
-    )
-    val announcements: List<AnnouncementEntity>,
-)
-
-@Entity(
-    primaryKeys = ["accountId", "listId"],
-    foreignKeys = [
-        ForeignKey(
-            entity = AccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
-            onDelete = ForeignKey.CASCADE,
-            deferred = true,
-        ),
-    ],
-)
-data class MastodonListEntity(
-    val accountId: Long,
-    val listId: String,
-    val title: String,
-    val repliesPolicy: UserListRepliesPolicy,
-    val exclusive: Boolean,
-) {
-    companion object {
-        fun make(pachliAccountId: Long, networkList: MastoList) = MastodonListEntity(
-            pachliAccountId,
-            networkList.id,
-            networkList.title,
-            networkList.repliesPolicy,
-            networkList.exclusive ?: false,
-        )
-
-        fun make(pachliAccountId: Long, networkLists: List<MastoList>) = networkLists.map {
-            make(pachliAccountId, it)
-        }
-    }
-}
-
-@Entity(
-    primaryKeys = ["accountId"],
-    foreignKeys = [
-        ForeignKey(
-            entity = AccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
-            onDelete = ForeignKey.CASCADE,
-            deferred = true,
-        ),
-    ],
-)
-@TypeConverters(Converters::class)
-data class ServerEntity(
-    val accountId: Long,
-    val serverKind: ServerKind,
-    val version: Version,
-    val capabilities: Map<ServerOperation, Version>,
-)
-
-@Entity(
-    primaryKeys = ["accountId"],
-    foreignKeys = [
-        ForeignKey(
-            entity = AccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
-            onDelete = ForeignKey.CASCADE,
-            deferred = true,
-        ),
-    ],
-)
-@TypeConverters(Converters::class)
-data class AnnouncementEntity(
-    val accountId: Long,
-    val announcementId: String,
-    val announcement: Announcement,
-)
 
 @Entity(
     indices = [
