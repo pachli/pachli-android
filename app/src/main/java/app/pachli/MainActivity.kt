@@ -21,7 +21,6 @@ import android.Manifest.permission.POST_NOTIFICATIONS
 import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Bitmap
@@ -80,6 +79,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.PachliAccount
+import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
@@ -107,8 +107,10 @@ import app.pachli.core.navigation.TrendingActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Notification
+import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys.FONT_FAMILY
+import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityMainBinding
@@ -126,6 +128,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.FixedSizeDrawable
 import com.bumptech.glide.request.transition.Transition
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.onFailure
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -162,7 +167,6 @@ import com.mikepenz.materialdrawer.util.removeItems
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.withCreationCallback
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import javax.inject.Inject
 import kotlin.math.max
@@ -207,13 +211,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     @Inject
     lateinit var updateShortCuts: UpdateShortCutsUseCase
 
-    private val viewModel: MainViewModel by viewModels(
-        extrasProducer = {
-            defaultViewModelCreationExtras.withCreationCallback<MainViewModel.Factory> { factory ->
-                factory.create(accountIdFromIntent(intent))
-            }
-        },
-    )
+    private val viewModel: MainViewModel by viewModels()
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
@@ -274,7 +272,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             // if (accountRequested && pachliAccountId != activeAccount.id) {
             //     accountManager.setActiveAccount(pachliAccountId)
             // }
-            val accountSwitchRequested = viewModel.pachliAccountId != -1L
+            val accountSwitchRequested = intent.pachliAccountId != -1L
 
             val openDrafts = MainActivityIntent.getOpenDrafts(intent)
 
@@ -291,7 +289,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         object : AccountSelectionListener {
                             override fun onAccountSelected(account: AccountEntity) {
                                 val requestedId = account.id
-                                if (requestedId == viewModel.pachliAccountId) {
+                                if (requestedId == intent.pachliAccountId) {
                                     // The correct account is already active
                                     forwardToComposeActivityAndExit(intent)
                                 } else {
@@ -349,15 +347,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         tabAdapter = MainPagerAdapter(emptyList(), this)
         binding.viewPager.adapter = tabAdapter
 
-        // Get the account
         // Process different parts of the account flow depending on what's changed
         val account = viewModel.pachliAccountFlow.filterNotNull()
 
-        // Initial setup (first item)
-        // - Notification channels
-        // - Drawer
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                // One-off setup independent of the UI state.
                 val account = viewModel.pachliAccountFlow.filterNotNull().first()
                 createNotificationChannelsForAccount(account.entity, this@MainActivity)
                 // TODO: Continue to call this, as it sets properties in NotificationConfig
@@ -367,6 +362,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 bindMainDrawer(account)
                 bindMainDrawerItems(account, savedInstanceState)
 
+                // Process the UI state. This has to happen *after* the main drawer has
+                // been configured.
                 viewModel.uiState.collect { uiState ->
                     bindMainDrawerSearch(this@MainActivity, account.id, uiState.hideTopToolbar)
                     bindMainDrawerProfileHeader(uiState)
@@ -420,6 +417,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.uiResult.collect(::bindUiResult)
+            }
+        }
+
         selectedEmojiPack = sharedPreferencesRepository.getString(EMOJI_PREFERENCE, "")
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -430,6 +433,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // "Post failed" dialog should display in this activity
         draftsAlert.observeInContext(this, true)
+
+        viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
     }
 
     /**
@@ -577,6 +582,88 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // (which may have changed while processing the compose intent) and so
         // the user returns to the timeline when they finish ComposeActivity.
         recreate()
+    }
+
+    /** Act on the result of UI actions. */
+    private suspend fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+        uiResult.onFailure { uiError ->
+            when (uiError) {
+                is UiError.SetActiveAccount -> {
+                    // Logging in failed. Show a dialog explaining what's happened.
+                    val builder = AlertDialog.Builder(this@MainActivity)
+                        .setMessage(uiError.fmt(this))
+                        .create()
+
+                    when (uiError.cause) {
+                        is SetActiveAccountError.AccountDoesNotExist -> {
+                            // Special case AccountDoesNotExist, as that should never happen. If it does
+                            // there's nothing to do except try and switch back to the previous account.
+                            val button = builder.await(android.R.string.ok)
+                            if (button == AlertDialog.BUTTON_POSITIVE && uiError.cause.fallbackAccount != null) {
+                                viewModel.accept(FallibleUiAction.SetActiveAccount(uiError.cause.fallbackAccount!!.id))
+                            }
+                            return
+                        }
+
+                        is SetActiveAccountError.Api -> when (uiError.cause.apiError) {
+                            // Special case invalid tokens. The user can be prompted to relogin. Cancelling
+                            // switches to the fallback account, or finishes if there is none.
+                            is ClientError.Unauthorized -> {
+                                builder.setTitle(uiError.cause.wantedAccount.fullName)
+
+                                val button = builder.await("Relogin", "Cancel")
+                                when (button) {
+                                    AlertDialog.BUTTON_POSITIVE -> {
+                                        startActivityWithTransition(
+                                            LoginActivityIntent(
+                                                this@MainActivity,
+                                                LoginMode.Reauthenticate(uiError.cause.wantedAccount.domain),
+                                            ),
+                                            TransitionKind.EXPLODE,
+                                        )
+                                        finish()
+                                    }
+
+                                    AlertDialog.BUTTON_NEGATIVE -> {
+                                        uiError.cause.fallbackAccount?.run {
+                                            viewModel.accept(FallibleUiAction.SetActiveAccount(id))
+                                        } ?: finish()
+                                    }
+                                }
+                            }
+
+                            // Other API errors are retryable.
+                            else -> {
+                                builder.setTitle(uiError.cause.wantedAccount.fullName)
+                                val button = builder.await(app.pachli.core.ui.R.string.action_retry, android.R.string.cancel)
+                                when (button) {
+                                    AlertDialog.BUTTON_POSITIVE -> viewModel.accept(uiError.action)
+                                    else -> {
+                                        uiError.cause.fallbackAccount?.run {
+                                            viewModel.accept(FallibleUiAction.SetActiveAccount(id))
+                                        } ?: finish()
+                                    }
+                                }
+                            }
+                        }
+
+                        // Other errors are retryable.
+                        is SetActiveAccountError.Unexpected -> {
+                            builder.setTitle(uiError.cause.wantedAccount.fullName)
+                            val button = builder.await(app.pachli.core.ui.R.string.action_retry, android.R.string.cancel)
+                            when (button) {
+                                AlertDialog.BUTTON_POSITIVE -> viewModel.accept(uiError.action)
+                                else -> {
+                                    uiError.cause.fallbackAccount?.run {
+                                        viewModel.accept(FallibleUiAction.SetActiveAccount(id))
+                                    } ?: finish()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -1109,7 +1196,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             )
 
             profile.identifier == DRAWER_ITEM_ADD_ACCOUNT -> startActivityWithDefaultTransition(
-                LoginActivityIntent(this, LoginMode.ADDITIONAL_LOGIN),
+                LoginActivityIntent(this, LoginMode.AdditionalLogin),
             )
 
             else -> changeAccountAndRestart(profile.identifier)
@@ -1134,27 +1221,27 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun logout(pachliAccount: PachliAccount) {
-        AlertDialog.Builder(this)
-            .setTitle(R.string.action_logout)
-            .setMessage(getString(R.string.action_logout_confirm, pachliAccount.entity.fullName))
-            .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
+        lifecycleScope.launch {
+            val button = AlertDialog.Builder(this@MainActivity)
+                .setTitle(R.string.action_logout)
+                .setMessage(getString(R.string.action_logout_confirm, pachliAccount.entity.fullName))
+                .create()
+                .await(android.R.string.ok, android.R.string.cancel)
+
+            if (button == AlertDialog.BUTTON_POSITIVE) {
                 binding.mainDrawerLayout.close()
                 binding.appBar.hide()
                 binding.viewPager.hide()
                 binding.progressBar.show()
                 binding.bottomNav.hide()
                 binding.composeButton.hide()
-
-                lifecycleScope.launch {
-                    val nextAccount = logout.invoke()
-                    val intent = nextAccount?.let { MainActivityIntent(this@MainActivity, it.id) }
-                        ?: LoginActivityIntent(this@MainActivity, LoginMode.DEFAULT)
-                    startActivity(intent)
-                    finish()
-                }
+                val nextAccount = logout.invoke().get()
+                val intent = nextAccount?.let { MainActivityIntent(this@MainActivity, it.id) }
+                    ?: LoginActivityIntent(this@MainActivity, LoginMode.Default)
+                startActivity(intent)
+                finish()
             }
-            .setNegativeButton(android.R.string.cancel, null)
-            .show()
+        }
     }
 
     /**
@@ -1180,9 +1267,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val navIconSize = resources.getDimensionPixelSize(DR.dimen.avatar_toolbar_nav_icon_size)
 
         if (animateAvatars) {
-            glide.asDrawable().load(avatarUrl).transform(
-                RoundedCorners(resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)),
-            )
+            glide.asDrawable().load(avatarUrl).transform(RoundedCorners(resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)))
                 .apply { if (showPlaceholder) placeholder(DR.drawable.avatar_default) }
                 .into(
                     object : CustomTarget<Drawable>(navIconSize, navIconSize) {

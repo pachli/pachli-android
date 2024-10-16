@@ -32,13 +32,13 @@ data class PachliAccount(
         parentColumn = "domain",
         entityColumn = "instance",
     )
-    val instanceInfo: InstanceInfoEntity,
+    val instanceInfo: InstanceInfoEntity?,
 
     @Relation(
         parentColumn = "id",
         entityColumn = "accountId",
     )
-    val lists: List<MastodonListEntity>,
+    val lists: List<MastodonListEntity>?,
 
     @Relation(
         parentColumn = "id",
@@ -50,17 +50,17 @@ data class PachliAccount(
         parentColumn = "id",
         entityColumn = "accountId",
     )
-    val server: ServerEntity,
+    val server: ServerEntity?,
 
     @Relation(
         parentColumn = "id",
         entityColumn = "accountId",
     )
-    val contentFilters: ContentFiltersEntity,
+    val contentFilters: ContentFiltersEntity?,
 
     @Relation(
         parentColumn = "id",
         entityColumn = "accountId",
     )
-    val announcements: List<AnnouncementEntity>,
+    val announcements: List<AnnouncementEntity>?,
 )

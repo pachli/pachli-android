@@ -40,10 +40,8 @@ data class AccountEntity(
     @field:PrimaryKey(autoGenerate = true) var id: Long,
     val domain: String,
     val accessToken: String,
-    // nullable for backward compatibility
-    val clientId: String?,
-    // nullable for backward compatibility
-    val clientSecret: String?,
+    val clientId: String,
+    val clientSecret: String,
     val isActive: Boolean,
     /** Account's remote (server) ID. */
     val accountId: String = "",

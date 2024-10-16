@@ -93,17 +93,19 @@ class LoginActivity : BaseActivity() {
 
         setContentView(binding.root)
 
+        val authenticationDomain = authenticationDomain()
+
         if (savedInstanceState == null &&
             BuildConfig.CUSTOM_INSTANCE.isNotBlank() &&
             !isAdditionalLogin() &&
-            !isAccountMigration()
+            authenticationDomain == null
         ) {
             binding.domainEditText.setText(BuildConfig.CUSTOM_INSTANCE)
             binding.domainEditText.setSelection(BuildConfig.CUSTOM_INSTANCE.length)
         }
 
-        if (isAccountMigration()) {
-            binding.domainEditText.setText(accountManager.activeAccount!!.domain)
+        authenticationDomain?.let { domain ->
+            binding.domainEditText.setText(domain)
             binding.domainEditText.isEnabled = false
         }
 
@@ -131,7 +133,7 @@ class LoginActivity : BaseActivity() {
         }
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(isAdditionalLogin() || isAccountMigration())
+        supportActionBar?.setDisplayHomeAsUpEnabled(isAdditionalLogin() || authenticationDomain != null)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         bind()
@@ -364,11 +366,11 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun isAdditionalLogin(): Boolean {
-        return LoginActivityIntent.getLoginMode(intent) == LoginActivityIntent.LoginMode.ADDITIONAL_LOGIN
+        return LoginActivityIntent.getLoginMode(intent) is LoginActivityIntent.LoginMode.AdditionalLogin
     }
 
-    private fun isAccountMigration(): Boolean {
-        return LoginActivityIntent.getLoginMode(intent) == LoginActivityIntent.LoginMode.MIGRATION
+    private fun authenticationDomain(): String? {
+        return (LoginActivityIntent.getLoginMode(intent) as? LoginActivityIntent.LoginMode.Reauthenticate)?.domain
     }
 
     companion object {

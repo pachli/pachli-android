@@ -165,8 +165,8 @@ interface AccountDao {
         """
             UPDATE AccountEntity
                SET accessToken = "",
-                   clientId = NULL,
-                   clientSecret = NULL
+                   clientId = "",
+                   clientSecret = ""
              WHERE id = :accountId
         """,
     )

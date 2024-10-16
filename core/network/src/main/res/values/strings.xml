@@ -21,7 +21,7 @@
     <string name="node_info_error_no_software_version">software version is missing, empty, or blank</string>
 
     <string name="server_error_unparseable_version">could not parse \"%1$s\" as a version: %2$s</string>
-    <string name="error_generic_fmt">An error occurred: %s</string>
+    <string name="error_generic_fmt">%1$s</string>
     <string name="error_404_not_found_fmt">Your server does not support this feature: %1$s</string>
     <string name="error_429_rate_limit_fmt">your server is rate-limiting your requests: %1$s</string>
     <string name="error_json_data_fmt">Your server returned an invalid response: %1$s</string>

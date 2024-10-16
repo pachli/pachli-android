@@ -849,4 +849,7 @@
     <string name="search_operator_where_dialog_library_hint">Your own posts, boosts, favorites, bookmarks, and posts that @mention you</string>
     <string name="search_operator_where_dialog_public">Public posts</string>
     <string name="search_operator_where_dialog_public_hint">Public, searchable posts known by server</string>
+
+    <string name="main_viewmodel_error_set_active_account">Trying to log in failed with the following error:\n\n%1$s</string>
+    <string name="main_activity_error_set_active_account_does_not_exist_dialog_title">Cannot log in to account</string>
 </resources>

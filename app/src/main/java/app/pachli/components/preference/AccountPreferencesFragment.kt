@@ -192,7 +192,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(R.string.title_migration_relogin)
                     setIcon(R.drawable.ic_logout)
                     setOnPreferenceClickListener {
-                        val intent = LoginActivityIntent(context, LoginMode.MIGRATION)
+                        val intent = LoginActivityIntent(context, LoginMode.Reauthenticate(accountManager.activeAccount!!.domain))
                         activity?.startActivityWithTransition(intent, TransitionKind.EXPLODE)
                         true
                     }

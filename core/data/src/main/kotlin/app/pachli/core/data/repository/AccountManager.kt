@@ -17,10 +17,12 @@
 
 package app.pachli.core.data.repository
 
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.R
 import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
-import app.pachli.core.data.repository.ServerRepository.Error
+import app.pachli.core.data.repository.LogoutError.NoActiveAccount
 import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
@@ -28,7 +30,6 @@ import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.InstanceDao
-import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
@@ -58,9 +59,10 @@ import com.github.michaelbull.result.orElse
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.time.TimeSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -75,13 +77,83 @@ import timber.log.Timber
 // Note to self: This is doing dual duty as a repository and as a collection of
 // use cases, and should be refactored along those lines.
 
+/** Errors that can occur when setting the active account. */
+sealed interface SetActiveAccountError : PachliError {
+    /**
+     * Suggested account to fallback to on failure.
+     *
+     * The caller may want to present this as an option to the user if logging
+     * in fails.
+     *
+     * May be null if there was no previous active account.
+     */
+    val fallbackAccount: AccountEntity?
+
+    /**
+     * The requested account could not be found in the local database. Should
+     * never happen.
+     *
+     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
+     * @param accountId ID of the account that could not be found.
+     */
+    data class AccountDoesNotExist(
+        override val fallbackAccount: AccountEntity?,
+        val accountId: Long,
+    ) : SetActiveAccountError {
+        override val resourceId = R.string.account_manager_error_account_does_not_exist
+        override val formatArgs = null
+        override val cause = null
+    }
+
+    /**
+     * An API error occurred while logging in.
+     *
+     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
+     * @param wantedAccount The account entity that could not be made active.
+     */
+    data class Api(
+        override val fallbackAccount: AccountEntity?,
+        val wantedAccount: AccountEntity,
+        val apiError: ApiError,
+    ) : SetActiveAccountError, PachliError by apiError
+
+    /**
+     * Catch-all for unexpected exceptions when logging in.
+     *
+     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
+     * @param wantedAccount The account entity that could not be made active.
+     * @param throwable Throwable that caused the error
+     */
+    data class Unexpected(
+        override val fallbackAccount: AccountEntity?,
+        val wantedAccount: AccountEntity,
+        val throwable: Throwable,
+    ) : SetActiveAccountError {
+        override val resourceId = R.string.account_manager_error_unexpected
+        override val formatArgs = arrayOf(throwable.localizedMessage)
+        override val cause = null
+    }
+}
+
+/** Errors that can occur logging out. */
+sealed interface LogoutError : PachliError {
+    data object NoActiveAccount : LogoutError {
+        override val resourceId = R.string.account_manager_error_no_active_account
+        override val formatArgs = null
+        override val cause = null
+    }
+
+    /** An API call failed during the logout process. */
+    @JvmInline
+    value class Api(val apiError: ApiError) : LogoutError, PachliError by apiError
+}
+
 @Singleton
 class AccountManager @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val mastodonApi: MastodonApi,
     private val nodeInfoApi: NodeInfoApi,
     private val accountDao: AccountDao,
-    private val remoteKeyDao: RemoteKeyDao,
     private val instanceDao: InstanceDao,
     private val contentFiltersRepository: ContentFiltersRepository,
     private val listsRepository: ListsRepository,
@@ -96,9 +168,7 @@ class AccountManager @Inject constructor(
             .map { Loadable.Loaded(it) }
             .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
 
-    /**
-     * The active account, or null if there is no active account.
-     */
+    /** The active account, or null if there is no active account. */
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activeAccount: AccountEntity?
         get() {
@@ -181,8 +251,6 @@ class AccountManager @Inject constructor(
         clientSecret: String,
         oauthScopes: String,
     ): Result<Long, ApiError> {
-        // TODO: Check the account doesn't already exist
-
         val networkAccount = mastodonApi.accountVerifyCredentials(
             domain = domain,
             auth = "Bearer $accessToken",
@@ -223,52 +291,68 @@ class AccountManager @Inject constructor(
     /**
      * Logs out the active account by deleting all data of the account.
      *
-     * Sets the next account as active.
-     *
-     * @return The new active account, or null if there are no more accounts.
+     * @return The next account to make active, or null if there are no more accounts.
      */
-    suspend fun logActiveAccountOut(): AccountEntity? {
+    suspend fun logActiveAccountOut(): Result<AccountEntity?, LogoutError> {
         return transactionProvider {
-            val activeAccount = accountDao.getActiveAccount() ?: return@transactionProvider null
+            val activeAccount = accountDao.getActiveAccount() ?: return@transactionProvider Err(NoActiveAccount)
             Timber.d("logout: Logging out %d", activeAccount.id)
 
             // Deleting credentials so they cannot be used again
             accountDao.clearLoginCredentials(activeAccount.id)
 
             accountDao.delete(activeAccount)
-            remoteKeyDao.delete(activeAccount.id)
 
             val accounts = accountDao.loadAll()
-            val newActiveAccount = accounts.firstOrNull()?.copy(isActive = true) ?: return@transactionProvider null
-            setActiveAccount(newActiveAccount.id)
-            return@transactionProvider newActiveAccount
+            val newActiveAccount = accounts.firstOrNull()?.copy(isActive = true) ?: return@transactionProvider Ok(null)
+            return@transactionProvider Ok(newActiveAccount)
         }
     }
 
     /**
-     * Changes the active account.
+     * Changes the active account, and refreshes it.
      *
      * @param accountId the database id of the new active account
+     * @return The account entity for the new active account, or an error.
      */
-    suspend fun setActiveAccount(accountId: Long): Result<Unit, ApiError> {
+    suspend fun setActiveAccount(accountId: Long): Result<AccountEntity, SetActiveAccountError> {
+        /** Wrapper to pass an API error out of the transaction. */
         data class ApiErrorException(val apiError: ApiError) : Exception()
 
-        try {
-            val finalAccount = transactionProvider {
-                val now = TimeSource.Monotonic.markNow()
+        /** Account to fallback to if switching fails. */
+        var fallbackAccount: AccountEntity? = null
 
+        /** Account we're trying to switch to. */
+        var accountEntity: AccountEntity? = null
+
+        return try {
+            transactionProvider {
                 Timber.d("setActiveAcccount(%d)", accountId)
+
+                // Handle "-1" as the accountId.
+                val previousActiveAccount = accountDao.getActiveAccount()
                 val newActiveAccount = if (accountId == -1L) {
-                    accountDao.getActiveAccount()
+                    previousActiveAccount
                 } else {
                     accountDao.getAccountById(accountId)
                 }
+
+                // Fall back to either the previous account (if known), or the first account
+                // that isn't this one.
+                fallbackAccount = previousActiveAccount
+                    ?: accountDao.loadAll().firstOrNull { it.id != accountId }
+
                 if (newActiveAccount == null) {
                     Timber.d("Account %d not in database", accountId)
-                    return@transactionProvider null
+                    return@transactionProvider Err(
+                        SetActiveAccountError.AccountDoesNotExist(
+                            fallbackAccount,
+                            accountId,
+                        ),
+                    )
                 }
 
-                accountDao.clearActiveAccount()
+                accountEntity = newActiveAccount
 
                 // Fetch data from the API, updating the account as necessary.
                 // If this fails an exception is thrown to cancel the transaction.
@@ -281,6 +365,8 @@ class AccountManager @Inject constructor(
                     domain = newActiveAccount.domain,
                     auth = "Bearer ${newActiveAccount.accessToken}",
                 ).getOrElse { throw ApiErrorException(it) }.body
+
+                accountDao.clearActiveAccount()
 
                 val finalAccount = newActiveAccount.copy(
                     isActive = true,
@@ -307,18 +393,16 @@ class AccountManager @Inject constructor(
                         domain = newActiveAccount.domain,
                     )
 
-                return@transactionProvider finalAccount
+                return@transactionProvider Ok(finalAccount)
+            }.onSuccess {
+                refresh(it)
             }
-
-            // TODO: Wrong type, this should return a specific error indicating the account
-            // was not in the database.
-            finalAccount ?: return Ok(Unit)
-            refresh(finalAccount)
         } catch (e: ApiErrorException) {
-            return Err(e.apiError)
+            Err(SetActiveAccountError.Api(fallbackAccount, accountEntity!!, e.apiError))
+        } catch (e: Throwable) {
+            currentCoroutineContext().ensureActive()
+            Err(SetActiveAccountError.Unexpected(fallbackAccount, accountEntity!!, e))
         }
-
-        return Ok(Unit)
     }
 
     /**
@@ -459,13 +543,13 @@ class AccountManager @Inject constructor(
 
     // Based on ServerRepository.getServer(). This can be removed when AccountManager
     // can use ServerRepository directly.
-    private suspend fun fetchNodeInfo(): Result<NodeInfo, Error> = binding {
+    private suspend fun fetchNodeInfo(): Result<NodeInfo, ServerRepository.Error> = binding {
         // Fetch the /.well-known/nodeinfo document
         val nodeInfoJrd = nodeInfoApi.nodeInfoJrd()
             .mapError { GetWellKnownNodeInfo(it) }.bind().body
 
         // Find a link to a schema we can parse, prefering newer schema versions
-        var nodeInfoUrlResult: Result<String, Error> = Err(UnsupportedSchema)
+        var nodeInfoUrlResult: Result<String, ServerRepository.Error> = Err(UnsupportedSchema)
         for (link in nodeInfoJrd.links.sortedByDescending { it.rel }) {
             if (SCHEMAS.contains(link.rel)) {
                 nodeInfoUrlResult = Ok(link.href)

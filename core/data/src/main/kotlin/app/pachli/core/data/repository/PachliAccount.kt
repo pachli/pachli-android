@@ -21,8 +21,10 @@ import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.ServerKind
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Emoji
+import io.github.z4kn4fein.semver.Version
 
 /**
  * A single Pachli account with all the information associated with it.
@@ -57,15 +59,12 @@ data class PachliAccount(
             return PachliAccount(
                 id = account.account.id,
                 entity = account.account,
-                instanceInfo = InstanceInfo.from(account.instanceInfo),
-                lists = account.lists.map { MastodonList.from(it) },
+                instanceInfo = account.instanceInfo?.let { InstanceInfo.from(it) } ?: InstanceInfo(),
+                lists = account.lists.orEmpty().map { MastodonList.from(it) },
                 emojis = account.emojis?.emojiList.orEmpty(),
-                server = Server.from(account.server),
-                contentFilters = ContentFilters(
-                    version = account.contentFilters.version,
-                    contentFilters = account.contentFilters.contentFilters,
-                ),
-                announcements = account.announcements.map { it.announcement },
+                server = account.server?.let { Server.from(it) } ?: Server(ServerKind.MASTODON, Version(4, 0, 0)),
+                contentFilters = account.contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,
+                announcements = account.announcements.orEmpty().map { it.announcement },
             )
         }
     }

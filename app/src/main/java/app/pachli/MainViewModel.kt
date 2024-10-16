@@ -17,25 +17,33 @@
 
 package app.pachli
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.core.common.PachliError
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.mapEither
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -43,9 +51,36 @@ import kotlinx.coroutines.launch
 /** Actions the user can take from the UI. */
 internal sealed interface UiAction
 
+internal sealed interface FallibleUiAction : UiAction {
+    data class SetActiveAccount(val pachliAccountId: Long) : FallibleUiAction
+}
+
 internal sealed interface InfallibleUiAction : UiAction {
     /** Remove [timeline] from the active account's tabs. */
     data class TabRemoveTimeline(val timeline: Timeline) : InfallibleUiAction
+}
+
+/** Actions that succeeded. */
+internal sealed interface UiSuccess {
+    val action: FallibleUiAction
+
+    data class SetActiveAccount(
+        override val action: FallibleUiAction.SetActiveAccount,
+        val accountEntity: AccountEntity,
+    ) : UiSuccess
+}
+
+/** Actions that failed. */
+internal sealed class UiError(
+    @StringRes override val resourceId: Int,
+    open val action: UiAction,
+    override val cause: PachliError,
+    override val formatArgs: Array<out String>? = null,
+) : PachliError {
+    data class SetActiveAccount(
+        override val action: FallibleUiAction.SetActiveAccount,
+        override val cause: SetActiveAccountError,
+    ) : UiError(R.string.main_viewmodel_error_set_active_account, action, cause)
 }
 
 /**
@@ -83,21 +118,29 @@ data class UiState(
     }
 }
 
-@HiltViewModel(assistedFactory = MainViewModel.Factory::class)
-internal class MainViewModel @AssistedInject constructor(
+@HiltViewModel()
+internal class MainViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
-    val pachliAccountFlow = flow {
-        accountManager.getPachliAccountFlow(pachliAccountId)
+    /**
+     * Flow of Pachli Account IDs, the most recent entry in the flow is the active account.
+     *
+     * Initially null, the activity sets this by sending [FallibleUiAction.SetActiveAccount].
+     */
+    private val pachliAccountIdFlow = MutableStateFlow<Long?>(null)
+
+    val pachliAccountFlow = pachliAccountIdFlow.filterNotNull().flatMapLatest { accountId ->
+        accountManager.getPachliAccountFlow(accountId)
             .filterNotNull()
-            .collect { emit(it) }
     }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
     private val uiAction = MutableSharedFlow<UiAction>()
 
     val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
+
+    private val _uiResult = Channel<Result<UiSuccess, UiError>>()
+    val uiResult = _uiResult.receiveAsFlow()
 
     private val watchedPrefs = setOf(
         PrefKeys.ANIMATE_GIF_AVATARS,
@@ -108,28 +151,18 @@ internal class MainViewModel @AssistedInject constructor(
         PrefKeys.SHOW_SELF_USERNAME,
     )
 
-    val uiState = sharedPreferencesRepository.changes
-        .filter { watchedPrefs.contains(it) }
+    val uiState = sharedPreferencesRepository.changes.filter { watchedPrefs.contains(it) }.onStart { emit(null) }
         .combine(accountManager.accountsFlow) { _, accounts ->
             UiState.make(sharedPreferencesRepository, accounts)
-        }.stateIn(
+        }
+        .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = UiState.make(sharedPreferencesRepository, emptyList()),
+            initialValue = UiState.make(sharedPreferencesRepository, accountManager.accounts),
         )
 
     init {
         viewModelScope.launch { uiAction.collect { launch { onUiAction(it) } } }
-
-        viewModelScope.launch {
-            // TODO: Emit the error(s), possibly wrapped. Need to explain to the user
-            // what happened.
-            //
-            // Possibly allow the switch if some info is missing (filters, lists), but
-            // explain to the user what that will mean. Need's a "refreshAccountInfo"
-            // operation.
-            accountManager.setActiveAccount(pachliAccountId)
-        }
     }
 
     private suspend fun onUiAction(uiAction: UiAction) {
@@ -138,19 +171,27 @@ internal class MainViewModel @AssistedInject constructor(
                 is InfallibleUiAction.TabRemoveTimeline -> onTabRemoveTimeline(uiAction.timeline)
             }
         }
+
+        if (uiAction is FallibleUiAction) {
+            val result = when (uiAction) {
+                is FallibleUiAction.SetActiveAccount -> onSetActiveAccount(uiAction)
+            }
+            _uiResult.send(result)
+        }
+    }
+
+    private suspend fun onSetActiveAccount(action: FallibleUiAction.SetActiveAccount): Result<UiSuccess.SetActiveAccount, UiError.SetActiveAccount> {
+        return accountManager.setActiveAccount(action.pachliAccountId)
+            .mapEither(
+                { UiSuccess.SetActiveAccount(action, it) },
+                { UiError.SetActiveAccount(action, it) },
+            )
+            .onSuccess { pachliAccountIdFlow.value = it.accountEntity.id }
     }
 
     private suspend fun onTabRemoveTimeline(timeline: Timeline) {
         val active = pachliAccountFlow.replayCache.last().entity
         val tabPreferences = active.tabPreferences.filterNot { it == timeline }
         accountManager.setTabPreferences(active.id, tabPreferences)
-    }
-
-    @AssistedFactory
-    interface Factory {
-        /**
-         * Creates [MainViewModel] with [pachliAccountId] as the active account.
-         */
-        fun create(pachliAccountId: Long): MainViewModel
     }
 }
