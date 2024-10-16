@@ -21,6 +21,7 @@ import android.app.Application
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.database.AppDatabase
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
@@ -32,6 +33,7 @@ import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -41,6 +43,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -82,13 +85,16 @@ class InstanceInfoRepositoryTest {
     @Inject
     lateinit var instanceInfoRepository: InstanceInfoRepository
 
+    @Inject
+    lateinit var appDatabase: AppDatabase
+
     /**
      * Tests set this to return a customised fake [InstanceV1].
      *
      * After setting this tests must call [InstanceInfoRepository.reload] so
      * the repository re-fetches the data.
      */
-    private var instanceResponseCallback: (() -> InstanceV1)? = null
+    private var instanceResponseCallback: (() -> InstanceV1) = { getInstanceWithCustomConfiguration() }
 
     private val account = Account(
         id = "1",
@@ -112,13 +118,7 @@ class InstanceInfoRepositoryTest {
             onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { getInstanceV2() } doReturn failure()
             onBlocking { getInstanceV1(anyOrNull()) } doAnswer {
-                instanceResponseCallback?.invoke().let { instance ->
-                    if (instance == null) {
-                        failure()
-                    } else {
-                        success(instance)
-                    }
-                }
+                instanceResponseCallback.invoke().let { success(it) }
             }
             onBlocking { getLists() } doReturn success(emptyList())
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
@@ -149,7 +149,14 @@ class InstanceInfoRepositoryTest {
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-        ).andThen { accountManager.setActiveAccount(it) }
+        )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
+    }
+
+    @After
+    fun tearDown() {
+        appDatabase.close()
     }
 
     @Test

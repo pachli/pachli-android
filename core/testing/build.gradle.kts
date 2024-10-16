@@ -43,6 +43,7 @@ dependencies {
     api(libs.androidx.test.junit)
     api(libs.androidx.core.testing)
     api(libs.androidx.test.core.ktx)
+    api(libs.bundles.room)?.because("Allows calls to RoomDatabase.close() in tests.")
     api(libs.robolectric)
     api(libs.truth)
     api(libs.turbine)

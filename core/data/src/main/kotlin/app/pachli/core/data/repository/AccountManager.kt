@@ -49,7 +49,6 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
-import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapBoth
@@ -133,6 +132,11 @@ sealed interface SetActiveAccountError : PachliError {
         override val formatArgs = arrayOf(throwable.localizedMessage)
         override val cause = null
     }
+}
+
+sealed interface RefreshAccountError : PachliError {
+    @JvmInline
+    value class General(private val pachliError: PachliError) : RefreshAccountError, PachliError by pachliError
 }
 
 /** Errors that can occur logging out. */
@@ -310,7 +314,9 @@ class AccountManager @Inject constructor(
     }
 
     /**
-     * Changes the active account, and refreshes it.
+     * Changes the active account.
+     *
+     * Does not refresh the account, call [refresh] for that.
      *
      * @param accountId the database id of the new active account
      * @return The account entity for the new active account, or an error.
@@ -394,8 +400,6 @@ class AccountManager @Inject constructor(
                     )
 
                 return@transactionProvider Ok(finalAccount)
-            }.onSuccess {
-                refresh(it)
             }
         } catch (e: ApiErrorException) {
             Err(SetActiveAccountError.Api(fallbackAccount, accountEntity!!, e.apiError))
@@ -407,67 +411,79 @@ class AccountManager @Inject constructor(
 
     /**
      * Refreshes the local data for [account] from remote sources.
+     *
+     * @return Unit if the refresh completed successfully, or the error.
      */
     // TODO: Protect this with a mutex?
-    private suspend fun refresh(account: AccountEntity) {
+    suspend fun refresh(account: AccountEntity): Result<Unit, RefreshAccountError> = binding {
         // Kick off network fetches that can happen in parallel because they do not
         // depend on one another.
-        val deferNodeInfo = externalScope.async { fetchNodeInfo() }
+        val deferNodeInfo = externalScope.async {
+            fetchNodeInfo().mapError { RefreshAccountError.General(it) }
+        }
 
-        val deferInstanceInfo = externalScope.async { fetchInstanceInfo(account.domain) }
+        val deferInstanceInfo = externalScope.async {
+            fetchInstanceInfo(account.domain)
+                .mapError { RefreshAccountError.General(it) }
+                .onSuccess { instanceDao.upsert(it) }
+        }
 
-        val deferEmojis = externalScope.async { mastodonApi.getCustomEmojis() }
+        val deferEmojis = externalScope.async {
+            mastodonApi.getCustomEmojis()
+                .mapError { RefreshAccountError.General(it) }
+                .onSuccess { instanceDao.upsert(EmojisEntity(accountId = account.id, emojiList = it.body)) }
+        }
 
         val deferAnnouncements = externalScope.async {
-            mastodonApi.listAnnouncements(false).get()?.body.orEmpty()
+            mastodonApi.listAnnouncements(false)
+                .mapError { RefreshAccountError.General(it) }
                 .map {
-                    AnnouncementEntity(
-                        accountId = account.id,
-                        announcementId = it.id,
-                        announcement = it,
-                    )
+                    it.body.map {
+                        AnnouncementEntity(
+                            accountId = account.id,
+                            announcementId = it.id,
+                            announcement = it,
+                        )
+                    }
+                }
+                .onSuccess {
+                    transactionProvider {
+                        announcementsDao.deleteAllForAccount(account.id)
+                        announcementsDao.upsert(it)
+                    }
                 }
         }
 
-        val nodeInfo = deferNodeInfo.await()
-
-        deferInstanceInfo.await().also { instanceInfoEntity ->
-            instanceDao.upsert(instanceInfoEntity)
-        }
+        val nodeInfo = deferNodeInfo.await().bind()
+        val instanceInfo = deferInstanceInfo.await().bind()
 
         // Create the server info so it can used for both server capabilities and filters.
         //
         // Can't use ServerRespository here because it depends on AccountManager.
         // TODO: Break that dependency, re-write ServerRepository to be offline-first.
-        val server = deferInstanceInfo.await().let { instanceInfoEntity ->
-            nodeInfo.map { Server.from(it.software, instanceInfoEntity).get() }
-        }.get()
-
-        server?.let {
-            instanceDao.upsert(
-                ServerEntity(
-                    accountId = account.id,
-                    serverKind = it.kind,
-                    version = it.version,
-                    capabilities = it.capabilities,
-                ),
-            )
-        }
-
-        externalScope.launch { contentFiltersRepository.refresh(account.id) }.join()
-
-        deferEmojis.await().also { result ->
-            result.onSuccess {
-                instanceDao.upsert(EmojisEntity(accountId = account.id, emojiList = it.body))
+        Server.from(nodeInfo.software, instanceInfo)
+            .mapError { RefreshAccountError.General(it) }
+            .onSuccess {
+                instanceDao.upsert(
+                    ServerEntity(
+                        accountId = account.id,
+                        serverKind = it.kind,
+                        version = it.version,
+                        capabilities = it.capabilities,
+                    ),
+                )
             }
-        }
+            .bind()
 
-        externalScope.launch { listsRepository.refresh(account.id) }.join()
+        externalScope.async { contentFiltersRepository.refresh(account.id) }.await()
+            .mapError { RefreshAccountError.General(it) }.bind()
 
-        deferAnnouncements.await().also { announcements ->
-            announcementsDao.deleteAllForAccount(account.id)
-            announcementsDao.upsert(announcements)
-        }
+        deferEmojis.await().bind()
+
+        externalScope.async { listsRepository.refresh(account.id) }.await()
+            .mapError { RefreshAccountError.General(it) }.bind()
+
+        deferAnnouncements.await().bind()
     }
 
     /**
@@ -570,13 +586,13 @@ class AccountManager @Inject constructor(
 
     // TODO: Maybe rename InstanceInfoEntity to ServerLimits or something like that, since that's
     // what it records.
-    private suspend fun fetchInstanceInfo(domain: String): InstanceInfoEntity {
+    private suspend fun fetchInstanceInfo(domain: String): Result<InstanceInfoEntity, ApiError> {
         // TODO: InstanceInfoEntity needs to gain support for recording translation
         return mastodonApi.getInstanceV2()
             .map { InstanceInfoEntity.make(domain, it.body) }
             .orElse {
                 mastodonApi.getInstanceV1().map { InstanceInfoEntity.make(domain, it.body) }
-            }.getOrElse { InstanceInfoEntity.defaultForDomain(domain) }
+            }
     }
 
     /**

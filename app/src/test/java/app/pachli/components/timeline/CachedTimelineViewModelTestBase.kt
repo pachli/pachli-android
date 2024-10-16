@@ -39,6 +39,7 @@ import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.onSuccess
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -162,7 +163,9 @@ abstract class CachedTimelineViewModelTestBase {
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-        ).andThen { accountManager.setActiveAccount(it) }
+        )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
 
         timelineCases = mock()
 

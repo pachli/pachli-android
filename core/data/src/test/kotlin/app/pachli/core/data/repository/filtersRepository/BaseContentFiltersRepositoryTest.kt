@@ -43,6 +43,7 @@ import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -51,6 +52,7 @@ import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -164,10 +166,12 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-        ).andThen {
-            pachliAccountId = it
-            accountManager.setActiveAccount(it)
-        }
+        )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess {
+                pachliAccountId = it.id
+                accountManager.refresh(it)
+            }
 
         contentFiltersRepository = OfflineFirstContentFiltersRepository(
             TestScope(),
@@ -175,6 +179,11 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
             remoteDataSource,
             instanceDao,
         )
+    }
+
+    @After
+    fun tearDown() {
+        appDatabase.close()
     }
 }
 
@@ -223,10 +232,12 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-        ).andThen {
-            pachliAccountId = it
-            accountManager.setActiveAccount(it)
-        }
+        )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess {
+                pachliAccountId = it.id
+                accountManager.refresh(it)
+            }
 
         contentFiltersRepository = OfflineFirstContentFiltersRepository(
             TestScope(),
@@ -234,6 +245,11 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
             remoteDataSource,
             instanceDao,
         )
+    }
+
+    @After
+    fun tearDown() {
+        appDatabase.close()
     }
 }
 

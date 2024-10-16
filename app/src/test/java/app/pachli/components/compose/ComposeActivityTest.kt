@@ -42,6 +42,7 @@ import app.pachli.core.testing.rules.lazyActivityScenarioRule
 import app.pachli.core.testing.success
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -162,7 +163,9 @@ class ComposeActivityTest {
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-        ).andThen { accountManager.setActiveAccount(it) }
+        )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
     }
 
     @Test

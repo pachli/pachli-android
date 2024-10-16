@@ -611,7 +611,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                             is ClientError.Unauthorized -> {
                                 builder.setTitle(uiError.cause.wantedAccount.fullName)
 
-                                val button = builder.await("Relogin", "Cancel")
+                                val button = builder.await(R.string.action_relogin, android.R.string.cancel)
                                 when (button) {
                                     AlertDialog.BUTTON_POSITIVE -> {
                                         startActivityWithTransition(
@@ -661,6 +661,16 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                             }
                         }
                     }
+                }
+
+                is UiError.RefreshAccount -> {
+                    // Dialog that explains refreshing failed, with retry option.
+                    val button = AlertDialog.Builder(this@MainActivity)
+                        .setTitle(uiError.action.accountEntity.fullName)
+                        .setMessage(uiError.fmt(this))
+                        .create()
+                        .await(app.pachli.core.ui.R.string.action_retry, android.R.string.cancel)
+                    if (button == AlertDialog.BUTTON_POSITIVE) viewModel.accept(uiError.action)
                 }
             }
         }

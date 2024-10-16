@@ -40,6 +40,7 @@ import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.HiltTestApplication_Application
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
@@ -151,7 +152,9 @@ abstract class NetworkTimelineViewModelTestBase {
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-        ).andThen { accountManager.setActiveAccount(it) }
+        )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
 
         timelineCases = mock()
 

@@ -37,6 +37,7 @@ import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.onSuccess
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -143,7 +144,9 @@ class StatusDisplayOptionsRepositoryTest {
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-        ).andThen { accountManager.setActiveAccount(it) }
+        )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
     }
 
     @Test
@@ -212,7 +215,9 @@ class StatusDisplayOptionsRepositoryTest {
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-        ).andThen { accountManager.setActiveAccount(it) }
+        )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
 
         // Then -- openSpoiler should be reset to the default
         statusDisplayOptionsRepository.flow.test {

@@ -37,6 +37,7 @@ import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.HiltTestApplication_Application
+import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -165,10 +166,12 @@ abstract class NotificationsViewModelTestBase {
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-        ).onSuccess {
-            accountManager.setNotificationsFilter(it, "['follow']")
-            accountManager.setActiveAccount(it)
-        }
+        )
+            .andThen {
+                accountManager.setNotificationsFilter(it, "['follow']")
+                accountManager.setActiveAccount(it)
+            }
+            .onSuccess { accountManager.refresh(it) }
 
         accountPreferenceDataStore = AccountPreferenceDataStore(
             accountManager,

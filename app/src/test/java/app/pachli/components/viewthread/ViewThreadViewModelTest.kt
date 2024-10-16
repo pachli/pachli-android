@@ -28,6 +28,7 @@ import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.onSuccess
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -145,7 +146,9 @@ class ViewThreadViewModelTest {
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-        ).andThen { accountManager.setActiveAccount(it) }
+        )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
 
         val cachedTimelineRepository: CachedTimelineRepository = mock {
             onBlocking { getStatusViewData(any()) } doReturn emptyMap()

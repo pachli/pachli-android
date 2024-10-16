@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.RefreshAccountError
 import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
@@ -53,6 +54,7 @@ internal sealed interface UiAction
 
 internal sealed interface FallibleUiAction : UiAction {
     data class SetActiveAccount(val pachliAccountId: Long) : FallibleUiAction
+    data class RefreshAccount(val accountEntity: AccountEntity) : FallibleUiAction
 }
 
 internal sealed interface InfallibleUiAction : UiAction {
@@ -68,6 +70,10 @@ internal sealed interface UiSuccess {
         override val action: FallibleUiAction.SetActiveAccount,
         val accountEntity: AccountEntity,
     ) : UiSuccess
+
+    data class RefreshAccount(
+        override val action: FallibleUiAction.RefreshAccount,
+    ) : UiSuccess
 }
 
 /** Actions that failed. */
@@ -81,6 +87,11 @@ internal sealed class UiError(
         override val action: FallibleUiAction.SetActiveAccount,
         override val cause: SetActiveAccountError,
     ) : UiError(R.string.main_viewmodel_error_set_active_account, action, cause)
+
+    data class RefreshAccount(
+        override val action: FallibleUiAction.RefreshAccount,
+        override val cause: RefreshAccountError,
+    ) : UiError(R.string.main_viewmodel_error_refresh_account, action, cause)
 }
 
 /**
@@ -175,6 +186,7 @@ internal class MainViewModel @Inject constructor(
         if (uiAction is FallibleUiAction) {
             val result = when (uiAction) {
                 is FallibleUiAction.SetActiveAccount -> onSetActiveAccount(uiAction)
+                is FallibleUiAction.RefreshAccount -> onRefreshAccount(uiAction)
             }
             _uiResult.send(result)
         }
@@ -186,7 +198,18 @@ internal class MainViewModel @Inject constructor(
                 { UiSuccess.SetActiveAccount(action, it) },
                 { UiError.SetActiveAccount(action, it) },
             )
-            .onSuccess { pachliAccountIdFlow.value = it.accountEntity.id }
+            .onSuccess {
+                pachliAccountIdFlow.value = it.accountEntity.id
+                uiAction.emit(FallibleUiAction.RefreshAccount(it.accountEntity))
+            }
+    }
+
+    private suspend fun onRefreshAccount(action: FallibleUiAction.RefreshAccount): Result<UiSuccess.RefreshAccount, UiError.RefreshAccount> {
+        return accountManager.refresh(action.accountEntity)
+            .mapEither(
+                { UiSuccess.RefreshAccount(action) },
+                { UiError.RefreshAccount(action, it) },
+            )
     }
 
     private suspend fun onTabRemoveTimeline(timeline: Timeline) {
