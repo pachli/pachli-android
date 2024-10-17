@@ -563,9 +563,7 @@
     <string name="duration_14_days">14 päivää</string>
     <string name="conversation_more_recipients">%1$s, %2$s ja vielä %3$d</string>
     <string name="filter_apply">Käytä</string>
-    <string name="help_empty_home">Tämä on sinun <b>kotiaikajanasi</b>. Se näyttää seuraamiesi tilien uusimmat julkaisut.
-\n
-\nJos haluat tutkia muita tilejä, voit löytää niitä toisesta aikajanasta, esimerkiksi oman instanssisi paikallisesta aikajanasta [iconics gmd_group]. Voit myös etsiä niitä nimeltä [iconics gmd_search]; etsi esimerkiksi sanalla ”Pachli” löytääksesi Mastodon-tilimme.</string>
+    <string name="help_empty_home">Tämä on sinun <b>kotiaikajanasi</b>. Se näyttää seuraamiesi tilien uusimmat julkaisut. \n \nJos haluat tutkia muita tilejä, voit löytää niitä toisesta aikajanasta, esimerkiksi oman instanssisi paikallisesta aikajanasta [iconics gmd_group]. Voit myös etsiä niitä nimeltä [iconics gmd_search]; etsi esimerkiksi sanalla ”Pachli” löytääksesi Mastodon-tilimme.</string>
     <string name="notifications_clear">Poista ilmoitukset</string>
     <string name="expand_collapse_all_posts">Avaa/Sulje kaikki julkasut</string>
     <string name="select_list_title">Valitse lista</string>
