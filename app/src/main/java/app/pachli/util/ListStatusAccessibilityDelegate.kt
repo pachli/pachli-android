@@ -165,7 +165,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                     forceFocus(host)
                 }
                 app.pachli.core.ui.R.id.action_collapse_cw -> {
-                    statusActionListener.onExpandedChange(status, false)
+                    statusActionListener.onExpandedChange(pachliAccountId, status, false)
                     interrupt()
                 }
                 app.pachli.core.ui.R.id.action_links -> showLinksDialog(host)
@@ -192,7 +192,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 app.pachli.core.ui.R.id.action_more -> {
                     statusActionListener.onMore(host, status)
                 }
-                app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearWarningAction(status)
+                app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearWarningAction(pachliAccountId, status)
                 app.pachli.core.ui.R.id.action_edit_filter -> {
                     (recyclerView.findContainingViewHolder(host) as? FilterableStatusViewHolder<*>)?.matchedFilter?.let {
                         statusActionListener.onEditFilterById(pachliAccountId, it.id)

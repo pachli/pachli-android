@@ -43,6 +43,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
@@ -151,8 +152,8 @@ class ViewThreadViewModelTest {
             .onSuccess { accountManager.refresh(it) }
 
         val cachedTimelineRepository: CachedTimelineRepository = mock {
-            onBlocking { getStatusViewData(any()) } doReturn emptyMap()
-            onBlocking { getStatusTranslations(any()) } doReturn emptyMap()
+            onBlocking { getStatusViewData(anyLong(), any()) } doReturn emptyMap()
+            onBlocking { getStatusTranslations(anyLong(), any()) } doReturn emptyMap()
         }
 
         viewModel = ViewThreadViewModel(

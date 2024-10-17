@@ -34,14 +34,13 @@ class SearchStatusesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder<StatusViewData> {
         return StatusViewHolder(
-            pachliAccountId,
             ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }
 
     override fun onBindViewHolder(holder: StatusViewHolder<StatusViewData>, position: Int) {
         getItem(position)?.let { item ->
-            holder.setupWithStatus(item, statusListener, statusDisplayOptions)
+            holder.setupWithStatus(pachliAccountId, item, statusListener, statusDisplayOptions)
         }
     }
 

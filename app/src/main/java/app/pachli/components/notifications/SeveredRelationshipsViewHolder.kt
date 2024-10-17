@@ -30,7 +30,12 @@ import app.pachli.viewdata.NotificationViewData
 class SeveredRelationshipsViewHolder(
     private val binding: ItemSeveredRelationshipsBinding,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
-    override fun bind(viewData: NotificationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
+    override fun bind(
+        pachliAccountId: Long,
+        viewData: NotificationViewData,
+        payloads: List<*>?,
+        statusDisplayOptions: StatusDisplayOptions,
+    ) {
         val event = viewData.relationshipSeveranceEvent!!
         if (payloads.isNullOrEmpty()) {
             binding.notificationTopText.text = HtmlCompat.fromHtml(

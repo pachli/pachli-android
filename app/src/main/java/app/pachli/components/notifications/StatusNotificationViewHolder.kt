@@ -81,6 +81,7 @@ internal class StatusNotificationViewHolder(
     )
 
     override fun bind(
+        pachliAccountId: Long,
         viewData: NotificationViewData,
         payloads: List<*>?,
         statusDisplayOptions: StatusDisplayOptions,
@@ -124,7 +125,7 @@ internal class StatusNotificationViewHolder(
                     notificationActionListener.onViewAccount(viewData.account.id)
                 }
             }
-            setMessage(viewData, statusActionListener, statusDisplayOptions.animateEmojis)
+            setMessage(pachliAccountId, viewData, statusActionListener, statusDisplayOptions.animateEmojis)
         } else {
             for (item in payloads) {
                 if (StatusBaseViewHolder.Key.KEY_CREATED == item && statusViewData != null) {
@@ -238,6 +239,7 @@ internal class StatusNotificationViewHolder(
     }
 
     fun setMessage(
+        pachliAccountId: Long,
         viewData: NotificationViewData,
         listener: LinkListener,
         animateEmojis: Boolean,
@@ -311,6 +313,7 @@ internal class StatusNotificationViewHolder(
         binding.notificationContentWarningButton.setOnClickListener {
             if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                 notificationActionListener.onExpandedChange(
+                    pachliAccountId,
                     viewData,
                     !statusViewData.isExpanded,
                 )
@@ -318,10 +321,11 @@ internal class StatusNotificationViewHolder(
             binding.notificationContent.visibility =
                 if (statusViewData.isExpanded) View.GONE else View.VISIBLE
         }
-        setupContentAndSpoiler(listener, viewData, statusViewData, animateEmojis)
+        setupContentAndSpoiler(pachliAccountId, listener, viewData, statusViewData, animateEmojis)
     }
 
     private fun setupContentAndSpoiler(
+        pachliAccountId: Long,
         listener: LinkListener,
         viewData: NotificationViewData,
         statusViewData: StatusViewData,
@@ -341,6 +345,7 @@ internal class StatusNotificationViewHolder(
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     notificationActionListener.onNotificationContentCollapsedChange(
+                        pachliAccountId,
                         !statusViewData.isCollapsed,
                         viewData,
                     )

@@ -104,39 +104,39 @@ class CachedTimelineViewModel @Inject constructor(
         // handled by CacheUpdater
     }
 
-    override fun changeExpanded(expanded: Boolean, status: StatusViewData) {
+    override fun changeExpanded(pachliAccountId: Long, expanded: Boolean, status: StatusViewData) {
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isExpanded = expanded))
+            repository.saveStatusViewData(pachliAccountId, status.copy(isExpanded = expanded))
         }
     }
 
-    override fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
+    override fun changeContentShowing(pachliAccountId: Long, isShowing: Boolean, status: StatusViewData) {
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isShowingContent = isShowing))
+            repository.saveStatusViewData(pachliAccountId, status.copy(isShowingContent = isShowing))
         }
     }
 
-    override fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
+    override fun changeContentCollapsed(pachliAccountId: Long, isCollapsed: Boolean, status: StatusViewData) {
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isCollapsed = isCollapsed))
+            repository.saveStatusViewData(pachliAccountId, status.copy(isCollapsed = isCollapsed))
         }
     }
 
-    override fun removeAllByAccountId(accountId: String) {
+    override fun removeAllByAccountId(pachliAccountId: Long, accountId: String) {
         viewModelScope.launch {
-            repository.removeAllByAccountId(accountId)
+            repository.removeAllByAccountId(pachliAccountId, accountId)
         }
     }
 
-    override fun removeAllByInstance(instance: String) {
+    override fun removeAllByInstance(pachliAccountId: Long, instance: String) {
         viewModelScope.launch {
-            repository.removeAllByInstance(instance)
+            repository.removeAllByInstance(pachliAccountId, instance)
         }
     }
 
-    override fun clearWarning(statusViewData: StatusViewData) {
+    override fun clearWarning(pachliAccountId: Long, statusViewData: StatusViewData) {
         viewModelScope.launch {
-            repository.clearStatusWarning(statusViewData.actionableId)
+            repository.clearStatusWarning(pachliAccountId, statusViewData.actionableId)
         }
     }
 
@@ -160,21 +160,21 @@ class CachedTimelineViewModel @Inject constructor(
         // handled by CacheUpdater
     }
 
-    override fun reloadKeepingReadingPosition() {
-        super.reloadKeepingReadingPosition()
+    override fun reloadKeepingReadingPosition(pachliAccountId: Long) {
+        super.reloadKeepingReadingPosition(pachliAccountId)
         viewModelScope.launch {
-            repository.clearAndReload()
+            repository.clearAndReload(pachliAccountId)
         }
     }
 
-    override fun reloadFromNewest() {
-        super.reloadFromNewest()
+    override fun reloadFromNewest(pachliAccountId: Long) {
+        super.reloadFromNewest(pachliAccountId)
         viewModelScope.launch {
-            repository.clearAndReloadFromNewest()
+            repository.clearAndReloadFromNewest(pachliAccountId)
         }
     }
 
-    override suspend fun invalidate() {
-        repository.invalidate()
+    override suspend fun invalidate(pachliAccountId: Long) {
+        repository.invalidate(pachliAccountId)
     }
 }

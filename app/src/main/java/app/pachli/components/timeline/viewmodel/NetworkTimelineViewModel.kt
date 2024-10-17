@@ -106,21 +106,21 @@ class NetworkTimelineViewModel @Inject constructor(
         repository.invalidate()
     }
 
-    override fun changeExpanded(expanded: Boolean, status: StatusViewData) {
+    override fun changeExpanded(pachliAccountId: Long, expanded: Boolean, status: StatusViewData) {
         modifiedViewData[status.id] = status.copy(
             isExpanded = expanded,
         )
         repository.invalidate()
     }
 
-    override fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
+    override fun changeContentShowing(pachliAccountId: Long, isShowing: Boolean, status: StatusViewData) {
         modifiedViewData[status.id] = status.copy(
             isShowingContent = isShowing,
         )
         repository.invalidate()
     }
 
-    override fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
+    override fun changeContentCollapsed(pachliAccountId: Long, isCollapsed: Boolean, status: StatusViewData) {
         Timber.d("changeContentCollapsed: %s", isCollapsed)
         Timber.d("   %s", status.content)
         modifiedViewData[status.id] = status.copy(
@@ -129,13 +129,13 @@ class NetworkTimelineViewModel @Inject constructor(
         repository.invalidate()
     }
 
-    override fun removeAllByAccountId(accountId: String) {
+    override fun removeAllByAccountId(pachliAccountId: Long, accountId: String) {
         viewModelScope.launch {
             repository.removeAllByAccountId(accountId)
         }
     }
 
-    override fun removeAllByInstance(instance: String) {
+    override fun removeAllByInstance(pachliAccountId: Long, instance: String) {
         viewModelScope.launch {
             repository.removeAllByInstance(instance)
         }
@@ -182,19 +182,19 @@ class NetworkTimelineViewModel @Inject constructor(
         repository.invalidate()
     }
 
-    override fun reloadKeepingReadingPosition() {
-        super.reloadKeepingReadingPosition()
+    override fun reloadKeepingReadingPosition(pachliAccountId: Long) {
+        super.reloadKeepingReadingPosition(pachliAccountId)
         viewModelScope.launch {
             repository.reload()
         }
     }
 
-    override fun reloadFromNewest() {
-        super.reloadFromNewest()
-        reloadKeepingReadingPosition()
+    override fun reloadFromNewest(pachliAccountId: Long) {
+        super.reloadFromNewest(pachliAccountId)
+        reloadKeepingReadingPosition(pachliAccountId)
     }
 
-    override fun clearWarning(statusViewData: StatusViewData) {
+    override fun clearWarning(pachliAccountId: Long, statusViewData: StatusViewData) {
         viewModelScope.launch {
             repository.updateActionableStatusById(statusViewData.actionableId) {
                 it.copy(filtered = null)
@@ -202,7 +202,7 @@ class NetworkTimelineViewModel @Inject constructor(
         }
     }
 
-    override suspend fun invalidate() {
+    override suspend fun invalidate(pachliAccountId: Long) {
         repository.invalidate()
     }
 }

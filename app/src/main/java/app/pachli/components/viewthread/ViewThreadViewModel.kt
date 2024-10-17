@@ -204,8 +204,8 @@ class ViewThreadViewModel @Inject constructor(
             contextResult.fold(
                 { statusContext ->
                     val ids = statusContext.ancestors.map { it.id } + statusContext.descendants.map { it.id }
-                    val cachedViewData = repository.getStatusViewData(ids)
-                    val cachedTranslations = repository.getStatusTranslations(ids)
+                    val cachedViewData = repository.getStatusViewData(activeAccount.id, ids)
+                    val cachedTranslations = repository.getStatusTranslations(activeAccount.id, ids)
                     val ancestors = statusContext.ancestors.map { status ->
                         val svd = cachedViewData[status.id]
                         StatusViewData.from(
@@ -338,7 +338,7 @@ class ViewThreadViewModel @Inject constructor(
             )
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isExpanded = expanded))
+            repository.saveStatusViewData(activeAccount.id, status.copy(isExpanded = expanded))
         }
     }
 
@@ -347,7 +347,7 @@ class ViewThreadViewModel @Inject constructor(
             viewData.copy(isShowingContent = isShowing)
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isShowingContent = isShowing))
+            repository.saveStatusViewData(activeAccount.id, status.copy(isShowingContent = isShowing))
         }
     }
 
@@ -356,7 +356,7 @@ class ViewThreadViewModel @Inject constructor(
             viewData.copy(isCollapsed = isCollapsed)
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isCollapsed = isCollapsed))
+            repository.saveStatusViewData(activeAccount.id, status.copy(isCollapsed = isCollapsed))
         }
     }
 
@@ -458,28 +458,31 @@ class ViewThreadViewModel @Inject constructor(
 
     fun translate(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            repository.translate(statusViewData).fold({
-                val translatedEntity = TranslatedStatusEntity(
-                    serverId = statusViewData.actionableId,
-                    timelineUserId = activeAccount.id,
-                    content = it.content,
-                    spoilerText = it.spoilerText,
-                    poll = it.poll,
-                    attachments = it.attachments,
-                    provider = it.provider,
-                )
-                updateStatusViewData(statusViewData.status.id) { viewData ->
-                    viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
-                }
-            }, {
-                // Mastodon returns 403 if it thinks the original status language is the
-                // same as the user's language, ignoring the actual content of the status
-                // (https://github.com/mastodon/documentation/issues/1330). Nothing useful
-                // to do here so swallow the error
-                if (it is HttpException && it.code() == 403) return@fold
+            repository.translate(activeAccount.id, statusViewData).fold(
+                {
+                    val translatedEntity = TranslatedStatusEntity(
+                        serverId = statusViewData.actionableId,
+                        timelineUserId = activeAccount.id,
+                        content = it.content,
+                        spoilerText = it.spoilerText,
+                        poll = it.poll,
+                        attachments = it.attachments,
+                        provider = it.provider,
+                    )
+                    updateStatusViewData(statusViewData.status.id) { viewData ->
+                        viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
+                    }
+                },
+                {
+                    // Mastodon returns 403 if it thinks the original status language is the
+                    // same as the user's language, ignoring the actual content of the status
+                    // (https://github.com/mastodon/documentation/issues/1330). Nothing useful
+                    // to do here so swallow the error
+                    if (it is HttpException && it.code() == 403) return@fold
 
-                _errors.emit(it)
-            })
+                    _errors.emit(it)
+                },
+            )
         }
     }
 
@@ -489,6 +492,7 @@ class ViewThreadViewModel @Inject constructor(
         }
         viewModelScope.launch {
             repository.saveStatusViewData(
+                activeAccount.id,
                 statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL),
             )
         }
