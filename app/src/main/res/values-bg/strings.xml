@@ -360,7 +360,6 @@
     </plurals>
     <string name="wellbeing_hide_stats_profile">Скриване на количествена статистика на профили</string>
     <string name="wellbeing_hide_stats_posts">Скриване на количествена статистика на публикации</string>
-    <string name="limit_notifications">Ограничаване на известия от емисия</string>
     <string name="review_notifications">Преглед на известията</string>
     <string name="wellbeing_mode_notice">Част от информацията, която може да повлияе на вашето психично състояние, ще бъде скрита. Това включва:
 \n

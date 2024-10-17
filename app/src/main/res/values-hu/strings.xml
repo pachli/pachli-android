@@ -407,7 +407,6 @@
     </plurals>
     <string name="wellbeing_hide_stats_profile">Profilok mérőszámainak elrejtése</string>
     <string name="wellbeing_hide_stats_posts">Bejegyzések mérőszámainak elrejtése</string>
-    <string name="limit_notifications">Idővonali értesítések korlátozása</string>
     <string name="review_notifications">Értesítések Áttekintése</string>
     <string name="wellbeing_mode_notice">Pár információ, ami befolyásolhatja a mentális jóllétedet rejtve marad. Ilyenek pl.:
 \n

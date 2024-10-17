@@ -417,7 +417,6 @@
     </plurals>
     <string name="wellbeing_hide_stats_profile">Amagar las estatisticas dels perfils</string>
     <string name="wellbeing_hide_stats_posts">Amagar las estatisticas dels tuts</string>
-    <string name="limit_notifications">Limitar las notificacions de la cronologia</string>
     <string name="pref_title_hide_top_toolbar">Amagar lo títol ennaut de la barra</string>
     <string name="pref_title_confirm_reblogs">Afichar una confirmacion abans de partejar</string>
     <string name="action_unbookmark">Tirar dels marcapaginas</string>

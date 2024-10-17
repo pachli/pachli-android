@@ -441,7 +441,6 @@
     <string name="draft_deleted">Черновик удалён</string>
     <string name="drafts_post_failed_to_send">Этот гудок не удалось отправить!</string>
     <string name="wellbeing_hide_stats_profile">Скрыть количественную статистику по профилям пользователей</string>
-    <string name="limit_notifications">Ограничение уведомлений в ленте</string>
     <string name="review_notifications">Просмотр уведомлений</string>
     <string name="notification_subscription_description">Уведомления, когда кто-то, на кого вы подписаны, опубликовал новую запись</string>
     <string name="notification_subscription_name">Новые гудки</string>

@@ -427,7 +427,6 @@
     </plurals>
     <string name="pref_title_wellbeing_mode">Bien-être</string>
     <string name="notification_subscription_description">Notifications quand quelqu’un que vous suivez publie un nouveau message</string>
-    <string name="limit_notifications">Limiter les notifications du fil</string>
     <string name="wellbeing_hide_stats_profile">Cacher les statistiques quantitatives sur les profils</string>
     <string name="wellbeing_hide_stats_posts">Cacher les statistiques quantitatives sur les messages</string>
     <string name="action_unbookmark">Supprimer le signet</string>

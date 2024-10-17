@@ -426,7 +426,6 @@
     <string name="follow_requests_info">Auch wenn dein Konto öffentlich bzw. nicht geschützt ist, haben die Admins von %1$s gedacht, dass du diesen Follower lieber manuell bestätigen solltest.</string>
     <string name="wellbeing_hide_stats_profile">Statistiken auf Profilen ausblenden</string>
     <string name="wellbeing_hide_stats_posts">Statistiken in Beiträgen ausblenden</string>
-    <string name="limit_notifications">Timeline-Benachrichtigungen einschränken</string>
     <string name="action_subscribe_account">Abonnieren</string>
     <string name="action_unsubscribe_account">Deabonnieren</string>
     <string name="abbreviated_in_minutes">in %d Min.</string>

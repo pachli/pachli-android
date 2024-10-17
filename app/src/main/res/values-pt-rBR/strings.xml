@@ -416,7 +416,6 @@
     </plurals>
     <string name="wellbeing_hide_stats_profile">Ocultar estatísticas numéricas dos perfis</string>
     <string name="wellbeing_hide_stats_posts">Ocultar estatísticas numéricas dos Toots</string>
-    <string name="limit_notifications">Limitar notificações da linha do tempo</string>
     <string name="review_notifications">Revisar notificações</string>
     <string name="wellbeing_mode_notice">Algumas informações que podem afetar teu bem-estar serão ocultadas. Isso inclui:
 \n

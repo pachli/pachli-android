@@ -368,7 +368,6 @@
     </plurals>
     <string name="wellbeing_hide_stats_profile">Agochar estatísticas cuantitativas nos perfís</string>
     <string name="wellbeing_hide_stats_posts">Agochar estatísticas cuantitativas nas publicacións</string>
-    <string name="limit_notifications">Limitar notificacións da cronoloxía</string>
     <string name="review_notifications">Revisar Notificacións</string>
     <string name="wellbeing_mode_notice">Agocharemos algunha información que podería afectar ao teu benestar mental. Esto inclúe:
 \n

@@ -460,7 +460,6 @@
     <string name="failed_to_pin">Sabitleme Başarısız</string>
     <string name="failed_to_unpin">Açılamadı</string>
     <string name="drafts_post_failed_to_send">Bu yayın gönderilemedi!</string>
-    <string name="limit_notifications">Ağ akışı bildirimlerini sınırla</string>
     <string name="wellbeing_hide_stats_posts">Yayınların niceliksel istatistikleri gizle</string>
     <string name="status_created_at_now">şimdi</string>
     <string name="drafts_post_reply_removed">Yanıt yazdığınız yayın kaldırıldı</string>

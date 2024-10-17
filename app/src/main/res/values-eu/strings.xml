@@ -406,7 +406,6 @@
         <item quantity="one">Ezin duzu multimedia eranskin %1$d baino gehiago kargatu.</item>
         <item quantity="other">Ezin dituzu %1$d multimedia eranskin baino gehiago kargatu.</item>
     </plurals>
-    <string name="limit_notifications">Denbora-lerroaren jakinarazpenak mugatu</string>
     <string name="label_duration">Iraupena</string>
     <string name="duration_indefinite">Zehaztugabea</string>
     <string name="action_unsubscribe_account">Harpidetza kendu</string>
