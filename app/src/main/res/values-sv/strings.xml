@@ -409,7 +409,6 @@
     <string name="notification_subscription_format">%s skrev precis</string>
     <string name="wellbeing_hide_stats_profile">Dölj kvantitativ information på profiler</string>
     <string name="wellbeing_hide_stats_posts">Dölj kvantitativ information på inlägg</string>
-    <string name="limit_notifications">Begränsa tidslinje aviseringar</string>
     <string name="review_notifications">Revidera aviseringar</string>
     <string name="wellbeing_mode_notice">Information som kan påverka ditt välmående kommer att döljas. Detta inkluderar:
 \n

@@ -404,7 +404,6 @@
     <string name="wellbeing_hide_stats_profile">隐藏账号的统计信息</string>
     <string name="review_notifications">反馈通知</string>
     <string name="wellbeing_hide_stats_posts">隐藏嘟文的统计信息</string>
-    <string name="limit_notifications">限制时间线通知</string>
     <string name="wellbeing_mode_notice">一些可能影响你精神状态的信息将被隐藏，包括：
 \n
 \n - 喜欢、转发、关注通知

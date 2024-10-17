@@ -414,7 +414,6 @@
     </plurals>
     <string name="wellbeing_hide_stats_profile">Fela magntölfræði notendasniða</string>
     <string name="wellbeing_hide_stats_posts">Fela magntölfræði færslna</string>
-    <string name="limit_notifications">Takmarka tilkynningar á tímalínu</string>
     <string name="review_notifications">Yfirfara tilkynningar</string>
     <string name="pref_title_wellbeing_mode">Vellíðan</string>
     <string name="notification_subscription_description">Tilkynningar þegar einhver sem þú ert áskrifandi að hefur birt nýja færslu</string>

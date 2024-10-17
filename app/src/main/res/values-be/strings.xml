@@ -509,7 +509,6 @@
         <item quantity="many">Вы не можаце запампаваць больш за %1$d медыя далучэнняў.</item>
         <item quantity="other">Вы не можаце запампаваць больш за %1$d медыя далучэнняў.</item>
     </plurals>
-    <string name="limit_notifications">Абмежаванне апавяшчэнняў у стужцы</string>
     <string name="wellbeing_hide_stats_posts">Схаваць колькасную статыстыку допісаў</string>
     <string name="wellbeing_hide_stats_profile">Схаваць колькасную статыстыку профіляў</string>
     <string name="report_category_violation">Парушэнне правіла</string>

@@ -382,7 +382,6 @@
         <item quantity="one">Je kan niet meer dan %1$d mediabijlage uploaden.</item>
         <item quantity="other">Je kan niet meer dan %1$d mediabijlagen uploaden.</item>
     </plurals>
-    <string name="limit_notifications">Meldingen op tijdlijn beperken</string>
     <string name="account_note_saved">Opgeslagen!</string>
     <string name="account_note_hint">Jouw eigen opmerking over dit account</string>
     <string name="pref_title_wellbeing_mode">Welzijn</string>

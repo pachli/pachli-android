@@ -465,7 +465,6 @@
     <string name="report_category_violation">Sääntörikkomus</string>
     <string name="label_filter_keywords">Avainsanat tai jonot jotka suodatetaan</string>
     <string name="drafts_post_reply_removed">Julkaisu, johon olit kirjoittanut vastausluonnoksen, on poistettu</string>
-    <string name="limit_notifications">Rajoita aikajanan ilmoituksia</string>
     <string name="account_date_joined">Liittyi %1$s</string>
     <string name="ui_error_filter_v1_load_fmt">Suodattimien lataaminen epäonnistui: %1$s</string>
     <string name="announcement_date_updated">(Päivitetty: %1$s)</string>

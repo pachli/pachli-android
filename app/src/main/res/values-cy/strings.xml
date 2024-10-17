@@ -413,7 +413,6 @@
     <string name="description_post_bookmarked">Tudalnodiwyd</string>
     <string name="select_list_title">Dewiswch restr</string>
     <string name="report_sent_success">Wedi adrodd ar @%s yn llwyddiannus</string>
-    <string name="limit_notifications">Cyfyngu ar hysbysiadau ffrydiau</string>
     <string name="pref_title_show_self_username">Dangos enw defnyddiwr mewn bariau offer</string>
     <string name="pref_title_confirm_favourites">Dangos cadarnhad cyn hoffi</string>
     <string name="pref_title_hide_top_toolbar">Cuddio teitl y bar offer uchaf</string>

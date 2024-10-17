@@ -428,7 +428,6 @@
 \n
 \nNotificações push não serão afetadas, mas é possível rever as configurações das notificações manualmente.</string>
     <string name="review_notifications">Rever Notificações</string>
-    <string name="limit_notifications">Limitar notificações da timeline</string>
     <string name="no_announcements">Sem anúncios.</string>
     <string name="warning_scheduling_interval">O Mastodon tem um intervalo mínimo de agendamento de 5 minutos.</string>
     <string name="pref_title_show_cards_in_timelines">Mostrar pré-visualização de hiperligações nas timelines</string>

@@ -385,7 +385,6 @@
 \n- สถิติ ผู้ติดตาม/โพสต์ ในโปรไฟล์
 \n
 \n การแจ้งเตือนแบบพุชจะไม่ได้รับผลกระทบ แต่คุณสามารถตรวจสอบการตั้งค่าการแจ้งเตือนได้ด้วยตนเอง</string>
-    <string name="limit_notifications">แจ้งเตือน Limit timeline</string>
     <string name="review_notifications">แจ้งเตือน Review</string>
     <string name="pref_title_notification_filter_subscriptions">ใครบางคนที่ฉันได้ติดตาม ได้เผยแพร่โพสต์ใหม่</string>
     <string name="wellbeing_hide_stats_profile">ซ่อนสถิติเชิงปริมาณในโปรไฟล์</string>

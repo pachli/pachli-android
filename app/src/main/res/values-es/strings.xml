@@ -435,7 +435,6 @@
     <string name="label_duration">Duración</string>
     <string name="post_media_attachments">Adjuntos</string>
     <string name="post_media_audio">Audio</string>
-    <string name="limit_notifications">Limitar cronología de notificaciones</string>
     <string name="action_unbookmark">Quitar marcador</string>
     <string name="follow_requests_info">Aunque tu cuenta no está bloqueada, el personal de %1$s pensó que podrías querer revisar las solicitudes de seguimiento de estas cuentas manualmente.</string>
     <string name="action_subscribe_account">Suscribir</string>

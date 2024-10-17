@@ -420,7 +420,6 @@
     <string name="drafts_failed_loading_reply">Nie udało się załadować informacji o odpowiedzi</string>
     <string name="drafts_post_failed_to_send">Przesłanie wpisu nie powiodło się!</string>
     <string name="no_announcements">Nie ma ogłoszeń.</string>
-    <string name="limit_notifications">Ogranicz liczbę powiadomień o zmianach na osi czasu</string>
     <string name="label_duration">Czas trwania</string>
     <string name="notification_subscription_name">Nowe wpisy</string>
     <string name="wellbeing_mode_notice">Niektóre informacje, które mogą wpływać na Twój dobrostan psychiczny zostaną ukryte. W ich skład wchodzą:

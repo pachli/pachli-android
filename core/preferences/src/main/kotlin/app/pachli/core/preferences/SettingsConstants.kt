@@ -29,7 +29,7 @@ package app.pachli.core.preferences
  *
  * - Adding a new preference that does not change the interpretation of an existing preference
  */
-const val SCHEMA_VERSION = 2023090201
+const val SCHEMA_VERSION = 2024101701
 
 /** The schema version for fresh installs */
 const val NEW_INSTALL_SCHEMA_VERSION = 0
@@ -59,7 +59,6 @@ object PrefKeys {
     const val SHOW_STATS_INLINE = "showStatsInline"
 
     const val CUSTOM_TABS = "customTabs"
-    const val WELLBEING_LIMITED_NOTIFICATIONS = "wellbeingModeLimitedNotifications"
     const val WELLBEING_HIDE_STATS_POSTS = "wellbeingHideStatsPosts"
     const val WELLBEING_HIDE_STATS_PROFILE = "wellbeingHideStatsProfile"
 
@@ -114,6 +113,6 @@ object PrefKeys {
 
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
-        // Empty at this time
+        const val WELLBEING_LIMITED_NOTIFICATIONS = "wellbeingModeLimitedNotifications"
     }
 }

@@ -150,8 +150,12 @@ class PachliApplication : Application() {
         // General usage is:
         //
         // if (oldVersion < ...) {
-        //     ... use editor modify the preferences ...
+        //     ... use `editor` to modify the preferences ...
         // }
+
+        if (oldVersion < 2024101701) {
+            editor.remove(PrefKeys.Deprecated.WELLBEING_LIMITED_NOTIFICATIONS)
+        }
 
         editor.putInt(PrefKeys.SCHEMA_VERSION, newVersion)
         editor.apply()

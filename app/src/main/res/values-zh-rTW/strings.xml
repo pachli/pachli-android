@@ -356,7 +356,6 @@
     <string name="title_bookmarks">書籤</string>
     <string name="wellbeing_hide_stats_profile">隱藏個人頁面中的狀態數量資訊</string>
     <string name="wellbeing_hide_stats_posts">隱藏貼文上的狀態數量資訊</string>
-    <string name="limit_notifications">限制時間軸通知</string>
     <string name="review_notifications">檢查通知設定</string>
     <string name="wellbeing_mode_notice">有些資訊可能會影響你的心理健康將會被隱藏。包括：
 \n
