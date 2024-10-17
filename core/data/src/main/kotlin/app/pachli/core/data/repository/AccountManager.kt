@@ -200,6 +200,19 @@ class AccountManager @Inject constructor(
         .map { PachliAccount.make(it) }
 
     init {
+        // Ensure InstanceSwitchAuthInterceptor is initially set with the credentials of
+        // the active account, otherwise network requests that happen after a resume
+        // (if setActiveAccount is not called) have no credentials.
+        externalScope.launch {
+            accountDao.loadAll().firstOrNull { it.isActive }?.let {
+                instanceSwitchAuthInterceptor.credentials =
+                    InstanceSwitchAuthInterceptor.Credentials(
+                        accessToken = it.accessToken,
+                        domain = it.domain,
+                    )
+            }
+        }
+
         externalScope.launch {
             listsRepository.getListsFlow().collect { lists ->
                 val listsById = lists.groupBy { it.accountId }
