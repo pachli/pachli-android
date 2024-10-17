@@ -150,6 +150,8 @@ sealed interface UiSuccess {
 
 /** Actions the user can trigger on an individual status */
 sealed interface StatusAction : FallibleUiAction {
+    // TODO: Include a property for the PachliAccountId the action is being performed as.
+
     val statusViewData: StatusViewData
 
     /** Set the bookmark state for a status */
@@ -342,7 +344,7 @@ abstract class TimelineViewModel(
                             else -> null
                         }
                         if (reload) {
-                            reloadKeepingReadingPosition()
+                            reloadKeepingReadingPosition(activeAccount.id)
                         }
                     }.onFailure {
                         _uiErrorChannel.send(UiError.GetFilters(RuntimeException(it.fmt(context))))
@@ -381,7 +383,7 @@ abstract class TimelineViewModel(
                                     action.choices,
                                 )
                             is StatusAction.Translate -> {
-                                timelineCases.translate(action.statusViewData)
+                                timelineCases.translate(activeAccount.id, action.statusViewData)
                             }
                         }.getOrThrow()
                         uiSuccess.emit(StatusActionSuccess.from(action))
@@ -468,14 +470,14 @@ abstract class TimelineViewModel(
                         accountManager.saveAccount(activeAccount)
                     }
                     Timber.d("Reload because InfallibleUiAction.LoadNewest")
-                    reloadFromNewest()
+                    reloadFromNewest(activeAccount.id)
                 }
         }
 
         // Undo status translations
         viewModelScope.launch {
             uiAction.filterIsInstance<InfallibleUiAction.TranslateUndo>().collectLatest {
-                timelineCases.translateUndo(it.statusViewData)
+                timelineCases.translateUndo(activeAccount.id, it.statusViewData)
             }
         }
 
@@ -495,15 +497,15 @@ abstract class TimelineViewModel(
 
     abstract fun updatePoll(newPoll: Poll, status: StatusViewData)
 
-    abstract fun changeExpanded(expanded: Boolean, status: StatusViewData)
+    abstract fun changeExpanded(pachliAccountId: Long, expanded: Boolean, status: StatusViewData)
 
-    abstract fun changeContentShowing(isShowing: Boolean, status: StatusViewData)
+    abstract fun changeContentShowing(pachliAccountId: Long, isShowing: Boolean, status: StatusViewData)
 
-    abstract fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData)
+    abstract fun changeContentCollapsed(pachliAccountId: Long, isCollapsed: Boolean, status: StatusViewData)
 
-    abstract fun removeAllByAccountId(accountId: String)
+    abstract fun removeAllByAccountId(pachliAccountId: Long, accountId: String)
 
-    abstract fun removeAllByInstance(instance: String)
+    abstract fun removeAllByInstance(pachliAccountId: Long, instance: String)
 
     abstract fun removeStatusWithId(id: String)
 
@@ -521,7 +523,7 @@ abstract class TimelineViewModel(
      * Subclasses should call this, then start loading data.
      */
     @CallSuper
-    open fun reloadKeepingReadingPosition() {
+    open fun reloadKeepingReadingPosition(pachliAccountId: Long) {
         reload.getAndUpdate { it + 1 }
     }
 
@@ -531,14 +533,14 @@ abstract class TimelineViewModel(
      * Subclasses should call this, then start loading data.
      */
     @CallSuper
-    open fun reloadFromNewest() {
+    open fun reloadFromNewest(pachliAccountId: Long) {
         reload.getAndUpdate { it + 1 }
     }
 
-    abstract fun clearWarning(statusViewData: StatusViewData)
+    abstract fun clearWarning(pachliAccountId: Long, statusViewData: StatusViewData)
 
     /** Triggered when currently displayed data must be reloaded. */
-    protected abstract suspend fun invalidate()
+    protected abstract suspend fun invalidate(pachliAccountId: Long)
 
     protected fun shouldFilterStatus(statusViewData: StatusViewData): FilterAction {
         val status = statusViewData.status
@@ -564,7 +566,7 @@ abstract class TimelineViewModel(
                 filterRemoveReplies = timeline is Timeline.Home && !filter
                 if (oldRemoveReplies != filterRemoveReplies) {
                     Timber.d("Reload because TAB_FILTER_HOME_REPLIES changed")
-                    reloadKeepingReadingPosition()
+                    reloadKeepingReadingPosition(activeAccount.id)
                 }
             }
             PrefKeys.TAB_FILTER_HOME_BOOSTS -> {
@@ -573,7 +575,7 @@ abstract class TimelineViewModel(
                 filterRemoveReblogs = timeline is Timeline.Home && !filter
                 if (oldRemoveReblogs != filterRemoveReblogs) {
                     Timber.d("Reload because TAB_FILTER_HOME_BOOSTS changed")
-                    reloadKeepingReadingPosition()
+                    reloadKeepingReadingPosition(activeAccount.id)
                 }
             }
             PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS -> {
@@ -582,7 +584,7 @@ abstract class TimelineViewModel(
                 filterRemoveSelfReblogs = timeline is Timeline.Home && !filter
                 if (oldRemoveSelfReblogs != filterRemoveSelfReblogs) {
                     Timber.d("Reload because TAB_SHOW_SOME_SELF_BOOSTS changed")
-                    reloadKeepingReadingPosition()
+                    reloadKeepingReadingPosition(activeAccount.id)
                 }
             }
         }
@@ -596,30 +598,30 @@ abstract class TimelineViewModel(
             is PinEvent -> handlePinEvent(event)
             is MuteConversationEvent -> {
                 Timber.d("Reload because MuteConversationEvent")
-                reloadKeepingReadingPosition()
+                reloadKeepingReadingPosition(activeAccount.id)
             }
             is UnfollowEvent -> {
                 if (timeline is Timeline.Home) {
                     val id = event.accountId
-                    removeAllByAccountId(id)
+                    removeAllByAccountId(activeAccount.id, id)
                 }
             }
             is BlockEvent -> {
                 if (timeline !is Timeline.User) {
                     val id = event.accountId
-                    removeAllByAccountId(id)
+                    removeAllByAccountId(activeAccount.id, id)
                 }
             }
             is MuteEvent -> {
                 if (timeline !is Timeline.User) {
                     val id = event.accountId
-                    removeAllByAccountId(id)
+                    removeAllByAccountId(activeAccount.id, id)
                 }
             }
             is DomainMuteEvent -> {
                 if (timeline !is Timeline.User) {
                     val instance = event.instance
-                    removeAllByInstance(instance)
+                    removeAllByInstance(activeAccount.id, instance)
                 }
             }
             is StatusDeletedEvent -> {

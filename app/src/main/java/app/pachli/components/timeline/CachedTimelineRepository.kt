@@ -126,21 +126,21 @@ class CachedTimelineRepository @Inject constructor(
     }
 
     /** Invalidate the active paging source, see [androidx.paging.PagingSource.invalidate] */
-    suspend fun invalidate() {
+    suspend fun invalidate(pachliAccountId: Long) {
         // Invalidating when no statuses have been loaded can cause empty timelines because it
         // cancels the network load.
-        if (timelineDao.getStatusCount(activeAccount!!.id) < 1) {
+        if (timelineDao.getStatusCount(pachliAccountId) < 1) {
             return
         }
 
         factory?.invalidate()
     }
 
-    suspend fun saveStatusViewData(statusViewData: StatusViewData) = externalScope.launch {
+    suspend fun saveStatusViewData(pachliAccountId: Long, statusViewData: StatusViewData) = externalScope.launch {
         timelineDao.upsertStatusViewData(
             StatusViewDataEntity(
                 serverId = statusViewData.actionableId,
-                timelineUserId = activeAccount!!.id,
+                timelineUserId = pachliAccountId,
                 expanded = statusViewData.isExpanded,
                 contentShowing = statusViewData.isShowingContent,
                 contentCollapsed = statusViewData.isCollapsed,
@@ -152,74 +152,75 @@ class CachedTimelineRepository @Inject constructor(
     /**
      * @return Map between statusIDs and any viewdata for them cached in the repository.
      */
-    suspend fun getStatusViewData(statusId: List<String>): Map<String, StatusViewDataEntity> {
-        return timelineDao.getStatusViewData(activeAccount!!.id, statusId)
+    suspend fun getStatusViewData(pachliAccountId: Long, statusId: List<String>): Map<String, StatusViewDataEntity> {
+        return timelineDao.getStatusViewData(pachliAccountId, statusId)
     }
 
     /**
      * @return Map between statusIDs and any translations for them cached in the repository.
      */
-    suspend fun getStatusTranslations(statusIds: List<String>): Map<String, TranslatedStatusEntity> {
-        return translatedStatusDao.getTranslations(activeAccount!!.id, statusIds)
+    suspend fun getStatusTranslations(pachliAccountId: Long, statusIds: List<String>): Map<String, TranslatedStatusEntity> {
+        return translatedStatusDao.getTranslations(pachliAccountId, statusIds)
     }
 
     /** Remove all statuses authored/boosted by the given account, for the active account */
-    suspend fun removeAllByAccountId(accountId: String) = externalScope.launch {
-        timelineDao.removeAllByUser(activeAccount!!.id, accountId)
+    suspend fun removeAllByAccountId(pachliAccountId: Long, accountId: String) = externalScope.launch {
+        timelineDao.removeAllByUser(pachliAccountId, accountId)
     }.join()
 
     /** Remove all statuses from the given instance, for the active account */
-    suspend fun removeAllByInstance(instance: String) = externalScope.launch {
-        timelineDao.deleteAllFromInstance(activeAccount!!.id, instance)
+    suspend fun removeAllByInstance(pachliAccountId: Long, instance: String) = externalScope.launch {
+        timelineDao.deleteAllFromInstance(pachliAccountId, instance)
     }.join()
 
     /** Clear the warning (remove the "filtered" setting) for the given status, for the active account */
-    suspend fun clearStatusWarning(statusId: String) = externalScope.launch {
-        timelineDao.clearWarning(activeAccount!!.id, statusId)
+    suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String) = externalScope.launch {
+        timelineDao.clearWarning(pachliAccountId, statusId)
     }.join()
 
     /** Remove all statuses and invalidate the pager, for the active account */
-    suspend fun clearAndReload() = externalScope.launch {
+    suspend fun clearAndReload(pachliAccountId: Long) = externalScope.launch {
         Timber.d("clearAndReload()")
-        timelineDao.removeAll(activeAccount!!.id)
+        timelineDao.removeAll(pachliAccountId)
         factory?.invalidate()
     }.join()
 
-    suspend fun clearAndReloadFromNewest() = externalScope.launch {
-        activeAccount?.let {
-            timelineDao.removeAll(it.id)
-            remoteKeyDao.delete(it.id)
-            invalidate()
-        }
+    suspend fun clearAndReloadFromNewest(pachliAccountId: Long) = externalScope.launch {
+        timelineDao.removeAll(pachliAccountId)
+        remoteKeyDao.delete(pachliAccountId)
+        invalidate(pachliAccountId)
     }
 
-    suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
-        saveStatusViewData(statusViewData.copy(translationState = TranslationState.TRANSLATING))
+    suspend fun translate(pachliAccountId: Long, statusViewData: StatusViewData): NetworkResult<Translation> {
+        saveStatusViewData(pachliAccountId, statusViewData.copy(translationState = TranslationState.TRANSLATING))
         val translation = mastodonApi.translate(statusViewData.actionableId)
-        translation.fold({
-            translatedStatusDao.upsert(
-                TranslatedStatusEntity(
-                    serverId = statusViewData.actionableId,
-                    timelineUserId = activeAccount!!.id,
-                    // TODO: Should this embed the network type instead of copying data
-                    // from one type to another?
-                    content = it.content,
-                    spoilerText = it.spoilerText,
-                    poll = it.poll,
-                    attachments = it.attachments,
-                    provider = it.provider,
-                ),
-            )
-            saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
-        }, {
-            // Reset the translation state
-            saveStatusViewData(statusViewData)
-        })
+        translation.fold(
+            {
+                translatedStatusDao.upsert(
+                    TranslatedStatusEntity(
+                        serverId = statusViewData.actionableId,
+                        timelineUserId = pachliAccountId,
+                        // TODO: Should this embed the network type instead of copying data
+                        // from one type to another?
+                        content = it.content,
+                        spoilerText = it.spoilerText,
+                        poll = it.poll,
+                        attachments = it.attachments,
+                        provider = it.provider,
+                    ),
+                )
+                saveStatusViewData(pachliAccountId, statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
+            },
+            {
+                // Reset the translation state
+                saveStatusViewData(pachliAccountId, statusViewData)
+            },
+        )
         return translation
     }
 
-    suspend fun translateUndo(statusViewData: StatusViewData) {
-        saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL))
+    suspend fun translateUndo(pachliAccountId: Long, statusViewData: StatusViewData) {
+        saveStatusViewData(pachliAccountId, statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL))
     }
 
     companion object {

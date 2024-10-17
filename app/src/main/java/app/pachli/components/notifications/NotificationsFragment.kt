@@ -568,7 +568,7 @@ class NotificationsFragment :
         onViewAccount(status.account.id)
     }
 
-    override fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean) {
+    override fun onExpandedChange(pachliAccountId: Long, viewData: NotificationViewData, expanded: Boolean) {
         adapter.snapshot().withIndex()
             .filter {
                 it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
@@ -579,7 +579,7 @@ class NotificationsFragment :
             }
     }
 
-    override fun onContentHiddenChange(viewData: NotificationViewData, isShowing: Boolean) {
+    override fun onContentHiddenChange(pachliAccountId: Long, viewData: NotificationViewData, isShowing: Boolean) {
         adapter.snapshot().withIndex()
             .filter {
                 it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
@@ -590,7 +590,7 @@ class NotificationsFragment :
             }
     }
 
-    override fun onContentCollapsedChange(viewData: NotificationViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(pachliAccountId: Long, viewData: NotificationViewData, isCollapsed: Boolean) {
         adapter.snapshot().withIndex().filter {
             it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
         }
@@ -608,13 +608,14 @@ class NotificationsFragment :
     }
 
     override fun onNotificationContentCollapsedChange(
+        pachliAccountId: Long,
         isCollapsed: Boolean,
         viewData: NotificationViewData,
     ) {
-        onContentCollapsedChange(viewData, isCollapsed)
+        onContentCollapsedChange(pachliAccountId, viewData, isCollapsed)
     }
 
-    override fun clearWarningAction(viewData: NotificationViewData) {
+    override fun clearWarningAction(pachliAccountId: Long, viewData: NotificationViewData) {
         adapter.snapshot().withIndex().filter { it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId }
             .map {
                 it.value?.statusViewData = it.value?.statusViewData?.copy(

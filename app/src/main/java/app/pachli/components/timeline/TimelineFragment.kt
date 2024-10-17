@@ -649,8 +649,8 @@ class TimelineFragment :
         viewModel.accept(StatusAction.VoteInPoll(poll, choices, viewData))
     }
 
-    override fun clearWarningAction(viewData: StatusViewData) {
-        viewModel.clearWarning(viewData)
+    override fun clearWarningAction(pachliAccountId: Long, viewData: StatusViewData) {
+        viewModel.clearWarning(pachliAccountId, viewData)
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
@@ -668,12 +668,12 @@ class TimelineFragment :
         super.openReblog(status)
     }
 
-    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
-        viewModel.changeExpanded(expanded, viewData)
+    override fun onExpandedChange(pachliAccountId: Long, viewData: StatusViewData, expanded: Boolean) {
+        viewModel.changeExpanded(pachliAccountId, expanded, viewData)
     }
 
-    override fun onContentHiddenChange(viewData: StatusViewData, isShowing: Boolean) {
-        viewModel.changeContentShowing(isShowing, viewData)
+    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowing: Boolean) {
+        viewModel.changeContentShowing(pachliAccountId, isShowing, viewData)
     }
 
     override fun onShowReblogs(statusId: String) {
@@ -686,8 +686,8 @@ class TimelineFragment :
         activity?.startActivityWithDefaultTransition(intent)
     }
 
-    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
-        viewModel.changeContentCollapsed(isCollapsed, viewData)
+    override fun onContentCollapsedChange(pachliAccountId: Long, viewData: StatusViewData, isCollapsed: Boolean) {
+        viewModel.changeContentCollapsed(pachliAccountId, isCollapsed, viewData)
     }
 
     // Can only translate the home timeline at the moment

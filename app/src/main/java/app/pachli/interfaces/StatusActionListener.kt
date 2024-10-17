@@ -36,8 +36,8 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
      * Open reblog author for the status.
      */
     fun onOpenReblog(status: Status)
-    fun onExpandedChange(viewData: T, expanded: Boolean)
-    fun onContentHiddenChange(viewData: T, isShowing: Boolean)
+    fun onExpandedChange(pachliAccountId: Long, viewData: T, expanded: Boolean)
+    fun onContentHiddenChange(pachliAccountId: Long, viewData: T, isShowing: Boolean)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long
@@ -45,7 +45,7 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
      *
      * @param isCollapsed Whether the status content is shown in a collapsed state or fully.
      */
-    fun onContentCollapsedChange(viewData: T, isCollapsed: Boolean)
+    fun onContentCollapsedChange(pachliAccountId: Long, viewData: T, isCollapsed: Boolean)
 
     /**
      * called when the reblog count has been clicked
@@ -58,7 +58,7 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
     fun onShowFavs(statusId: String) {}
     fun onVoteInPoll(viewData: T, poll: Poll, choices: List<Int>)
     fun onShowEdits(statusId: String) {}
-    fun clearWarningAction(viewData: T)
+    fun clearWarningAction(pachliAccountId: Long, viewData: T)
 
     /** Edit the filter that matched this status. */
     fun onEditFilterById(pachliAccountId: Long, filterId: String)

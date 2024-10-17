@@ -94,7 +94,7 @@ interface NotificationActionListener {
      * @param expanded the desired state of the content behind the content warning
      *
      */
-    fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean)
+    fun onExpandedChange(pachliAccountId: Long, viewData: NotificationViewData, expanded: Boolean)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long
@@ -103,6 +103,7 @@ interface NotificationActionListener {
      * @param isCollapsed Whether the status content is shown in a collapsed state or fully.
      */
     fun onNotificationContentCollapsedChange(
+        pachliAccountId: Long,
         isCollapsed: Boolean,
         viewData: NotificationViewData,
     )
@@ -125,6 +126,7 @@ class NotificationsPagingAdapter(
     interface ViewHolder {
         /** Bind the data from the notification and payloads to the view */
         fun bind(
+            pachliAccountId: Long,
             viewData: NotificationViewData,
             payloads: List<*>?,
             statusDisplayOptions: StatusDisplayOptions,
@@ -146,7 +148,6 @@ class NotificationsPagingAdapter(
         return when (NotificationViewKind.entries[viewType]) {
             NotificationViewKind.STATUS -> {
                 StatusViewHolder(
-                    pachliAccountId,
                     ItemStatusBinding.inflate(inflater, parent, false),
                     statusActionListener,
                     accountId,
@@ -154,7 +155,6 @@ class NotificationsPagingAdapter(
             }
             NotificationViewKind.STATUS_FILTERED -> {
                 FilterableStatusViewHolder(
-                    pachliAccountId,
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
                     statusActionListener,
                     accountId,
@@ -203,7 +203,7 @@ class NotificationsPagingAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        bindViewHolder(holder, position, null)
+        bindViewHolder(pachliAccountId, holder, position, null)
     }
 
     override fun onBindViewHolder(
@@ -211,15 +211,16 @@ class NotificationsPagingAdapter(
         position: Int,
         payloads: MutableList<Any>,
     ) {
-        bindViewHolder(holder, position, payloads)
+        bindViewHolder(pachliAccountId, holder, position, payloads)
     }
 
     private fun bindViewHolder(
+        pachliAccountId: Long,
         holder: RecyclerView.ViewHolder,
         position: Int,
         payloads: List<*>?,
     ) {
-        getItem(position)?.let { (holder as ViewHolder).bind(it, payloads, statusDisplayOptions) }
+        getItem(position)?.let { (holder as ViewHolder).bind(pachliAccountId, it, payloads, statusDisplayOptions) }
     }
 
     /**
@@ -230,6 +231,7 @@ class NotificationsPagingAdapter(
         val binding: SimpleListItem1Binding,
     ) : ViewHolder, RecyclerView.ViewHolder(binding.root) {
         override fun bind(
+            pachliAccountId: Long,
             viewData: NotificationViewData,
             payloads: List<*>?,
             statusDisplayOptions: StatusDisplayOptions,

@@ -29,23 +29,24 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.IStatusViewData
 
 open class FilterableStatusViewHolder<T : IStatusViewData>(
-    private val pachliAccountId: Long,
     private val binding: ItemStatusWrapperBinding,
-) : StatusViewHolder<T>(pachliAccountId, binding.statusContainer, binding.root) {
+) : StatusViewHolder<T>(binding.statusContainer, binding.root) {
     /** The filter that matched the status, null if the status is not being filtered. */
     var matchedFilter: Filter? = null
 
     override fun setupWithStatus(
+        pachliAccountId: Long,
         viewData: T,
         listener: StatusActionListener<T>,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: Any?,
     ) {
-        super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
-        setupFilterPlaceholder(viewData, listener)
+        super.setupWithStatus(pachliAccountId, viewData, listener, statusDisplayOptions, payloads)
+        setupFilterPlaceholder(pachliAccountId, viewData, listener)
     }
 
     private fun setupFilterPlaceholder(
+        pachliAccountId: Long,
         status: T,
         listener: StatusActionListener<T>,
     ) {
@@ -70,7 +71,7 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
             binding.statusFilteredPlaceholder.statusFilterLabel.text = label
 
             binding.statusFilteredPlaceholder.statusFilterShowAnyway.setOnClickListener {
-                listener.clearWarningAction(status)
+                listener.clearWarningAction(pachliAccountId, status)
             }
             binding.statusFilteredPlaceholder.statusFilterEditFilter.setOnClickListener {
                 listener.onEditFilterById(pachliAccountId, result.filter.id)

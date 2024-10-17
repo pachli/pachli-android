@@ -322,16 +322,16 @@ class ConversationsFragment :
         // there are no reblogs in conversations
     }
 
-    override fun onExpandedChange(viewData: ConversationViewData, expanded: Boolean) {
-        viewModel.expandHiddenStatus(expanded, viewData.lastStatus.id)
+    override fun onExpandedChange(pachliAccountId: Long, viewData: ConversationViewData, expanded: Boolean) {
+        viewModel.expandHiddenStatus(pachliAccountId, expanded, viewData.lastStatus.id)
     }
 
-    override fun onContentHiddenChange(viewData: ConversationViewData, isShowing: Boolean) {
-        viewModel.showContent(isShowing, viewData.lastStatus.id)
+    override fun onContentHiddenChange(pachliAccountId: Long, viewData: ConversationViewData, isShowing: Boolean) {
+        viewModel.showContent(pachliAccountId, isShowing, viewData.lastStatus.id)
     }
 
-    override fun onContentCollapsedChange(viewData: ConversationViewData, isCollapsed: Boolean) {
-        viewModel.collapseLongStatus(isCollapsed, viewData.lastStatus.id)
+    override fun onContentCollapsedChange(pachliAccountId: Long, viewData: ConversationViewData, isCollapsed: Boolean) {
+        viewModel.collapseLongStatus(pachliAccountId, isCollapsed, viewData.lastStatus.id)
     }
 
     override fun onViewAccount(id: String) {
@@ -356,7 +356,7 @@ class ConversationsFragment :
         viewModel.voteInPoll(choices, viewData.lastStatus.actionableId, poll.id)
     }
 
-    override fun clearWarningAction(viewData: ConversationViewData) {
+    override fun clearWarningAction(pachliAccountId: Long, viewData: ConversationViewData) {
     }
 
     // Filters don't apply in conversations
