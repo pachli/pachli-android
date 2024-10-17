@@ -33,7 +33,6 @@ interface RemoteKeyDao {
     @Query("SELECT * FROM RemoteKeyEntity WHERE accountId = :accountId AND timelineId = :timelineId AND kind = :kind")
     suspend fun remoteKeyForKind(accountId: Long, timelineId: String, kind: RemoteKeyKind): RemoteKeyEntity?
 
-    // TODO: This can be marked suspend when AccountManager.logActiveAccountOut() has a coroutine scope
     @Query("DELETE FROM RemoteKeyEntity WHERE accountId = :accountId")
-    fun delete(accountId: Long)
+    suspend fun delete(accountId: Long)
 }

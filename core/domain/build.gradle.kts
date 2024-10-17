@@ -29,6 +29,10 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.common)
     implementation(projects.core.data)
+    implementation(projects.core.model)
+    implementation(projects.core.network)
+        ?.because("Depends on UserListRepliesPolicy type")
     implementation(projects.core.preferences)
 }

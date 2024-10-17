@@ -30,8 +30,10 @@ android {
 }
 
 dependencies {
+    // TODO: AccountManager currently exposes AccountEntity which must be re-exported.
+    api(projects.core.database)
+
     implementation(projects.core.common)
-    implementation(projects.core.database)
     implementation(projects.core.model)
     implementation(projects.core.network)
     implementation(projects.core.preferences)
@@ -44,4 +46,10 @@ dependencies {
 
     testImplementation(projects.core.networkTest)
     testImplementation(libs.bundles.mockito)
+
+    testImplementation(libs.moshi)
+    testImplementation(libs.moshi.adapters)
+    ksp(libs.moshi.codegen)
+
+    testImplementation(projects.core.networkTest)
 }

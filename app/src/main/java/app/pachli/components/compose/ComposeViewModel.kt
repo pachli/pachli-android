@@ -41,6 +41,8 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.preferences.ShowSelfUsername
 import app.pachli.core.ui.MentionSpan
 import app.pachli.service.MediaToSend
 import app.pachli.service.ServiceClient
@@ -73,6 +75,7 @@ class ComposeViewModel @Inject constructor(
     private val serviceClient: ServiceClient,
     private val draftHelper: DraftHelper,
     instanceInfoRepo: InstanceInfoRepository,
+    private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
 
     /** The current content */
@@ -144,6 +147,14 @@ class ComposeViewModel @Inject constructor(
 
     // Used in ComposeActivity to pass state to result function when cropImage contract inflight
     var cropImageItemOld: QueuedMedia? = null
+
+    // TODO: Copied from MainViewModel. Probably belongs back in AccountManager
+    val displaySelfUsername: Boolean
+        get() = when (sharedPreferencesRepository.showSelfUsername) {
+            ShowSelfUsername.ALWAYS -> true
+            ShowSelfUsername.DISAMBIGUATE -> accountManager.accountsFlow.value.size > 1
+            ShowSelfUsername.NEVER -> false
+        }
 
     private var setupComplete = false
 

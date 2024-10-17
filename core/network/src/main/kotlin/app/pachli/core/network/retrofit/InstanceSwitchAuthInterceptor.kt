@@ -70,7 +70,7 @@ class InstanceSwitchAuthInterceptor @Inject constructor() : Interceptor {
                     .code(400)
                     .message("Bad Request")
                     .protocol(Protocol.HTTP_2)
-                    .body("".toResponseBody("text/plain".toMediaType()))
+                    .body("InstanceSwitchAuthInterceptor failure".toResponseBody("text/plain".toMediaType()))
                     .request(chain.request())
                     .build()
             }

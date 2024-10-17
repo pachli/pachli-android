@@ -17,10 +17,16 @@
 
 package app.pachli.components.timeline
 
+import app.cash.turbine.test
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
+import app.pachli.core.data.repository.Loadable
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -29,16 +35,21 @@ class CachedTimelineViewModelTestVisibleId : CachedTimelineViewModelTestBase() {
 
     @Test
     fun `should save status ID to active account`() = runTest {
-        // Given
-        assertThat(accountManager.activeAccount?.lastVisibleHomeTimelineStatusId)
-            .isNull()
         assertThat(viewModel.timeline).isEqualTo(Timeline.Home)
 
-        // When
-        viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
+        accountManager
+            .activeAccountFlow.filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+            .filter { it.data != null }
+            .map { it.data }
+            .test {
+                // Given
+                assertThat(expectMostRecentItem()!!.lastVisibleHomeTimelineStatusId).isNull()
 
-        // Then
-        assertThat(accountManager.activeAccount?.lastVisibleHomeTimelineStatusId)
-            .isEqualTo("1234")
+                // When
+                viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
+
+                // Then
+                assertThat(awaitItem()!!.lastVisibleHomeTimelineStatusId).isEqualTo("1234")
+            }
     }
 }

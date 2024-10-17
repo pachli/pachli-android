@@ -18,8 +18,11 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
     implementation(projects.core.navigation)
     implementation(projects.core.network)
+        ?.because("AccountsInListFragment uses network.model.TimelineAccount and ApiError")
+
     implementation(projects.core.ui)
 
     // TODO: These dependencies are required by BottomSheetActivity,

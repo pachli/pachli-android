@@ -276,7 +276,7 @@ class ComposeActivity :
         setupButtons()
         subscribeToUpdates(mediaAdapter)
 
-        if (accountManager.shouldDisplaySelfUsername()) {
+        if (viewModel.displaySelfUsername) {
             binding.composeUsernameView.text = getString(
                 R.string.compose_active_account_description,
                 activeAccount.fullName,

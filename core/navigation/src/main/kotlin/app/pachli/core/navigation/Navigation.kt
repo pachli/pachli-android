@@ -264,16 +264,19 @@ class EditContentFilterActivityIntent(context: Context, pachliAccountId: Long) :
  * @param loginMode See [LoginMode]
  * @see [app.pachli.feature.login.LoginActivity]
  */
-class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEFAULT) : Intent() {
+class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.Default) : Intent() {
     /** How to log in */
-    enum class LoginMode {
-        DEFAULT,
+    sealed interface LoginMode : Parcelable {
+        @Parcelize
+        data object Default : LoginMode
 
         /** Already logged in, log in with an additional account */
-        ADDITIONAL_LOGIN,
+        @Parcelize
+        data object AdditionalLogin : LoginMode
 
-        /** Update the OAuth scope granted to the client */
-        MIGRATION,
+        /** Allow the user to reauthenticate the account (at [domain]). */
+        @Parcelize
+        data class Reauthenticate(val domain: String) : LoginMode
     }
 
     init {
@@ -285,7 +288,7 @@ class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.DEF
         private const val EXTRA_LOGIN_MODE = "app.pachli.EXTRA_LOGIN_MODE"
 
         /** @return the `loginMode` passed to this intent */
-        fun getLoginMode(intent: Intent) = intent.getSerializableExtra(EXTRA_LOGIN_MODE)!! as LoginMode
+        fun getLoginMode(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_LOGIN_MODE, LoginMode::class.java)
     }
 }
 

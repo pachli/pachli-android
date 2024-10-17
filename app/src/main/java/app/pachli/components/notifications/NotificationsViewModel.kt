@@ -17,7 +17,6 @@
 
 package app.pachli.components.notifications
 
-import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,7 +31,6 @@ import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
@@ -49,10 +47,7 @@ import app.pachli.util.serialize
 import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
@@ -64,6 +59,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flatMapLatest
@@ -308,14 +304,10 @@ sealed interface UiError {
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class NotificationsViewModel @Inject constructor(
-    // TODO: Context is required because handling filter errors needs to
-    // format a resource string. As soon as that is removed this can be removed.
-    @ApplicationContext private val context: Context,
     private val repository: NotificationsRepository,
     private val accountManager: AccountManager,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
-    private val contentFiltersRepository: ContentFiltersRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
@@ -368,8 +360,7 @@ class NotificationsViewModel @Inject constructor(
             // Save each change back to the active account
             .onEach { action ->
                 Timber.d("notificationFilter: %s", action)
-                account.notificationsFilter = serialize(action.filter)
-                accountManager.saveAccount(account)
+                accountManager.setNotificationsFilter(account.id, serialize(action.filter))
             }
             // Load the initial filter from the active account
             .onStart {
@@ -386,8 +377,7 @@ class NotificationsViewModel @Inject constructor(
             uiAction
                 .filterIsInstance<InfallibleUiAction.LoadNewest>()
                 .collectLatest {
-                    account.lastNotificationId = "0"
-                    accountManager.saveAccount(account)
+                    accountManager.setLastNotificationId(account.id, "0")
                     reload.getAndUpdate { it + 1 }
                     repository.invalidate()
                 }
@@ -400,8 +390,7 @@ class NotificationsViewModel @Inject constructor(
                 .distinctUntilChanged()
                 .collectLatest { action ->
                     Timber.d("Saving visible ID: %s, active account = %d", action.visibleId, account.id)
-                    account.lastNotificationId = action.visibleId
-                    accountManager.saveAccount(account)
+                    accountManager.setLastNotificationId(account.id, action.visibleId)
                 }
         }
 
@@ -480,18 +469,14 @@ class NotificationsViewModel @Inject constructor(
 
         // Fetch the status filters
         viewModelScope.launch {
-            contentFiltersRepository.contentFilters.collect { filters ->
-                filters.onSuccess {
-                    contentFilterModel = when (it?.version) {
+            accountManager.activePachliAccountFlow
+                .distinctUntilChangedBy { it.contentFilters }
+                .collect { account ->
+                    contentFilterModel = when (account.contentFilters.version) {
                         ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.NOTIFICATIONS)
-                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.NOTIFICATIONS, it.contentFilters)
-                        else -> null
+                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.NOTIFICATIONS, account.contentFilters.contentFilters)
                     }
-                    reload.getAndUpdate { it + 1 }
-                }.onFailure {
-                    _uiErrorChannel.send(UiError.GetFilters(RuntimeException(it.fmt(context))))
                 }
-            }
         }
 
         // Handle events that should refresh the list

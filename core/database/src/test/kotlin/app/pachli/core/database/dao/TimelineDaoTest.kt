@@ -28,6 +28,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -83,7 +84,7 @@ class TimelineDaoTest {
     }
 
     @Test
-    fun cleanup() = runBlocking {
+    fun cleanup() = runTest {
         val statusesBeforeCleanup = listOf(
             makeStatus(statusId = 100),
             makeStatus(statusId = 10, authorServerId = "3"),

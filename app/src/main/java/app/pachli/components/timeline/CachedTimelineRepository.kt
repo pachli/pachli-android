@@ -24,11 +24,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
@@ -36,7 +36,6 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.util.EmptyPagingSource
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
@@ -46,7 +45,6 @@ import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -61,7 +59,6 @@ import timber.log.Timber
 @Singleton
 class CachedTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val accountManager: AccountManager,
     private val transactionProvider: TransactionProvider,
     val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
@@ -71,58 +68,51 @@ class CachedTimelineRepository @Inject constructor(
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
 
-    private var activeAccount = accountManager.activeAccount
-
     /** @return flow of Mastodon [TimelineStatusWithAccount], loaded in [pageSize] increments */
     @OptIn(ExperimentalPagingApi::class, ExperimentalCoroutinesApi::class)
     fun getStatusStream(
+        account: AccountEntity,
         kind: Timeline,
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
     ): Flow<PagingData<TimelineStatusWithAccount>> {
         Timber.d("getStatusStream(): key: %s", initialKey)
 
-        return accountManager.activeAccountFlow.flatMapLatest {
-            activeAccount = it
+        Timber.d("getStatusStream, account is %s", account.fullName)
 
-            factory = InvalidatingPagingSourceFactory {
-                activeAccount?.let { timelineDao.getStatuses(it.id) } ?: EmptyPagingSource()
-            }
+        factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(account.id) }
 
-            val row = initialKey?.let { key ->
-                // Room is row-keyed (by Int), not item-keyed, so the status ID string that was
-                // passed as `initialKey` won't work.
-                //
-                // Instead, get all the status IDs for this account, in timeline order, and find the
-                // row index that contains the status. The row index is the correct initialKey.
-                activeAccount?.let { account ->
-                    timelineDao.getStatusRowNumber(account.id)
-                        .indexOfFirst { it == key }.takeIf { it != -1 }
-                }
-            }
-
-            Timber.d("initialKey: %s is row: %d", initialKey, row)
-
-            Pager(
-                config = PagingConfig(
-                    pageSize = pageSize,
-                    jumpThreshold = PAGE_SIZE * 3,
-                    enablePlaceholders = true,
-                ),
-                initialKey = row,
-                remoteMediator = CachedTimelineRemoteMediator(
-                    initialKey,
-                    mastodonApi,
-                    activeAccount!!.id,
-                    factory!!,
-                    transactionProvider,
-                    timelineDao,
-                    remoteKeyDao,
-                    moshi,
-                ),
-                pagingSourceFactory = factory!!,
-            ).flow
+        val row = initialKey?.let { key ->
+            // Room is row-keyed (by Int), not item-keyed, so the status ID string that was
+            // passed as `initialKey` won't work.
+            //
+            // Instead, get all the status IDs for this account, in timeline order, and find the
+            // row index that contains the status. The row index is the correct initialKey.
+            timelineDao.getStatusRowNumber(account.id)
+                .indexOfFirst { it == key }.takeIf { it != -1 }
         }
+
+        Timber.d("initialKey: %s is row: %d", initialKey, row)
+
+        return Pager(
+            config = PagingConfig(
+                pageSize = pageSize,
+                jumpThreshold = PAGE_SIZE * 3,
+                enablePlaceholders = true,
+            ),
+            initialKey = row,
+            remoteMediator = CachedTimelineRemoteMediator(
+                initialKey,
+                mastodonApi,
+                account.id,
+                factory!!,
+                transactionProvider,
+                timelineDao,
+                remoteKeyDao,
+                moshi,
+            ),
+            pagingSourceFactory = factory!!,
+        ).flow
     }
 
     /** Invalidate the active paging source, see [androidx.paging.PagingSource.invalidate] */

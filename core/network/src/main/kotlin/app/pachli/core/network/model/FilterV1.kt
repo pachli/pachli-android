@@ -41,11 +41,3 @@ data class FilterV1(
         return filter?.id.equals(id)
     }
 }
-
-data class NewContentFilterV1(
-    val phrase: String,
-    val contexts: Set<FilterContext>,
-    val expiresIn: Int,
-    val irreversible: Boolean,
-    val wholeWord: Boolean,
-)
