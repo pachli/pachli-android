@@ -353,21 +353,30 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 // One-off setup independent of the UI state.
-                val account = viewModel.pachliAccountFlow.filterNotNull().first()
-                createNotificationChannelsForAccount(account.entity, this@MainActivity)
+                val initialAccount = viewModel.pachliAccountFlow.filterNotNull().first()
+                createNotificationChannelsForAccount(initialAccount.entity, this@MainActivity)
                 // TODO: Continue to call this, as it sets properties in NotificationConfig
                 androidNotificationsAreEnabled(this@MainActivity)
                 enableAllNotifications(this@MainActivity)
 
-                bindMainDrawer(account)
-                bindMainDrawerItems(account, savedInstanceState)
+                bindMainDrawer(initialAccount)
+                bindMainDrawerItems(initialAccount, savedInstanceState)
 
                 // Process the UI state. This has to happen *after* the main drawer has
                 // been configured.
-                viewModel.uiState.collect { uiState ->
-                    bindMainDrawerSearch(this@MainActivity, account.id, uiState.hideTopToolbar)
-                    bindMainDrawerProfileHeader(uiState)
-                    updateShortCuts(uiState.accounts)
+                launch {
+                    viewModel.uiState.collect { uiState ->
+                        bindMainDrawerSearch(this@MainActivity, initialAccount.id, uiState.hideTopToolbar)
+                        bindMainDrawerProfileHeader(uiState)
+                        updateShortCuts(uiState.accounts)
+                    }
+                }
+
+                // Process changes to the account's header picture.
+                launch {
+                    account.distinctUntilChangedBy { it.entity.profileHeaderPictureUrl }.collectLatest {
+                        header.headerBackground = ImageHolder(it.entity.profileHeaderPictureUrl)
+                    }
                 }
             }
         }
@@ -386,15 +395,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
                     bindDrawerAvatar(it.entity.profilePictureUrl, false)
-                }
-            }
-        }
-
-        // Process changes to the account's header picture.
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.entity.profileHeaderPictureUrl }.collectLatest {
-                    header.headerBackground = ImageHolder(it.entity.profileHeaderPictureUrl)
                 }
             }
         }
