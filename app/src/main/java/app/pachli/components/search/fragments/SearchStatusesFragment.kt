@@ -88,7 +88,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         return SearchStatusesAdapter(viewModel.activeAccount!!.id, statusDisplayOptions, this)
     }
 
-    override fun onContentHiddenChange(viewData: StatusViewData, isShowing: Boolean) {
+    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowing: Boolean) {
         viewModel.contentHiddenChange(viewData, isShowing)
     }
 
@@ -148,11 +148,11 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         bottomSheetActivity?.viewAccount(pachliAccountId, status.account.id)
     }
 
-    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+    override fun onExpandedChange(pachliAccountId: Long, viewData: StatusViewData, expanded: Boolean) {
         viewModel.expandedChange(viewData, expanded)
     }
 
-    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(pachliAccountId: Long, viewData: StatusViewData, isCollapsed: Boolean) {
         viewModel.collapsedChange(viewData, isCollapsed)
     }
 
@@ -160,7 +160,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         viewModel.voteInPoll(viewData, poll, choices)
     }
 
-    override fun clearWarningAction(viewData: StatusViewData) {}
+    override fun clearWarningAction(pachliAccountId: Long, viewData: StatusViewData) {}
 
     override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
         viewModel.reblog(viewData, reblog)

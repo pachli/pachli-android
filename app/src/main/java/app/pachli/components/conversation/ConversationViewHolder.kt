@@ -33,11 +33,10 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.SmartLengthInputFilter
 
 class ConversationViewHolder internal constructor(
-    pachliAccountId: Long,
     itemView: View,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val listener: StatusActionListener<ConversationViewData>,
-) : StatusBaseViewHolder<ConversationViewData>(pachliAccountId, itemView) {
+) : StatusBaseViewHolder<ConversationViewData>(itemView) {
     private val conversationNameTextView: TextView = itemView.findViewById(R.id.conversation_name)
     private val contentCollapseButton: Button = itemView.findViewById(R.id.button_toggle_content)
     private val avatars: Array<ImageView> = arrayOf(
@@ -47,12 +46,13 @@ class ConversationViewHolder internal constructor(
     )
 
     fun setupWithConversation(
+        pachliAccountId: Long,
         viewData: ConversationViewData,
         payloads: Any?,
     ) {
         val (_, _, account, inReplyToId, _, _, _, _, _, _, _, _, _, _, favourited, bookmarked, sensitive, _, _, attachments) = viewData.status
         if (payloads == null) {
-            setupCollapsedState(viewData, listener)
+            setupCollapsedState(pachliAccountId, viewData, listener)
             setDisplayName(account.name, account.emojis, statusDisplayOptions)
             setUsername(account.username)
             setMetaData(viewData, statusDisplayOptions, listener)
@@ -61,6 +61,7 @@ class ConversationViewHolder internal constructor(
             setBookmarked(bookmarked)
             if (statusDisplayOptions.mediaPreviewEnabled && hasPreviewableAttachment(attachments)) {
                 setMediaPreviews(
+                    pachliAccountId,
                     viewData,
                     attachments,
                     sensitive,
@@ -76,7 +77,7 @@ class ConversationViewHolder internal constructor(
                     mediaLabel.visibility = View.GONE
                 }
             } else {
-                setMediaLabel(viewData, attachments, sensitive, listener, viewData.isShowingContent)
+                setMediaLabel(pachliAccountId, viewData, attachments, sensitive, listener, viewData.isShowingContent)
                 // Hide all unused views.
                 mediaPreview.visibility = View.GONE
                 hideSensitiveMediaWarning()
@@ -87,7 +88,7 @@ class ConversationViewHolder internal constructor(
                 account.id,
                 statusDisplayOptions,
             )
-            setSpoilerAndContent(viewData, statusDisplayOptions, listener)
+            setSpoilerAndContent(pachliAccountId, viewData, statusDisplayOptions, listener)
             setConversationName(viewData.accounts)
             setAvatars(viewData.accounts)
         } else {
@@ -137,13 +138,14 @@ class ConversationViewHolder internal constructor(
     }
 
     private fun setupCollapsedState(
+        pachliAccountId: Long,
         viewData: ConversationViewData,
         listener: StatusActionListener<ConversationViewData>,
     ) {
         /* input filter for TextViews have to be set before text */
         if (viewData.isCollapsible && (viewData.isExpanded || TextUtils.isEmpty(viewData.spoilerText))) {
             contentCollapseButton.setOnClickListener {
-                listener.onContentCollapsedChange(viewData, !viewData.isCollapsed)
+                listener.onContentCollapsedChange(pachliAccountId, viewData, !viewData.isCollapsed)
             }
             contentCollapseButton.show()
             if (viewData.isCollapsed) {

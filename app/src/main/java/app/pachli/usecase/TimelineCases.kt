@@ -143,11 +143,11 @@ class TimelineCases @Inject constructor(
         return mastodonApi.rejectFollowRequest(accountId)
     }
 
-    suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
-        return cachedTimelineRepository.translate(statusViewData)
+    suspend fun translate(pachliAccountId: Long, statusViewData: StatusViewData): NetworkResult<Translation> {
+        return cachedTimelineRepository.translate(pachliAccountId, statusViewData)
     }
 
-    suspend fun translateUndo(statusViewData: StatusViewData) {
-        cachedTimelineRepository.translateUndo(statusViewData)
+    suspend fun translateUndo(pachliAccountId: Long, statusViewData: StatusViewData) {
+        cachedTimelineRepository.translateUndo(pachliAccountId, statusViewData)
     }
 }

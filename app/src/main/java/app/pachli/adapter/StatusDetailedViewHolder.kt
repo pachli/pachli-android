@@ -23,9 +23,8 @@ import java.text.DateFormat
 import java.util.Locale
 
 class StatusDetailedViewHolder(
-    pachliAccountId: Long,
     private val binding: ItemStatusDetailedBinding,
-) : StatusBaseViewHolder<StatusViewData>(pachliAccountId, binding.root) {
+) : StatusBaseViewHolder<StatusViewData>(binding.root) {
 
     override fun setMetaData(
         viewData: StatusViewData,
@@ -107,6 +106,7 @@ class StatusDetailedViewHolder(
     }
 
     override fun setupWithStatus(
+        pachliAccountId: Long,
         viewData: StatusViewData,
         listener: StatusActionListener<StatusViewData>,
         statusDisplayOptions: StatusDisplayOptions,
@@ -115,8 +115,9 @@ class StatusDetailedViewHolder(
         // We never collapse statuses in the detail view
         val uncollapsedStatus =
             if (viewData.isCollapsible && viewData.isCollapsed) viewData.copy(isCollapsed = false) else viewData
-        super.setupWithStatus(uncollapsedStatus, listener, statusDisplayOptions, payloads)
+        super.setupWithStatus(pachliAccountId, uncollapsedStatus, listener, statusDisplayOptions, payloads)
         setupCard(
+            pachliAccountId,
             uncollapsedStatus,
             viewData.isExpanded,
             CardViewMode.FULL_WIDTH,

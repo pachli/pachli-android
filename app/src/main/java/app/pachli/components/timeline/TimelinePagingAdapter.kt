@@ -41,10 +41,10 @@ class TimelinePagingAdapter(
         val inflater = LayoutInflater.from(viewGroup.context)
         return when (viewType) {
             VIEW_TYPE_STATUS_FILTERED -> {
-                FilterableStatusViewHolder<StatusViewData>(pachliAccountId, ItemStatusWrapperBinding.inflate(inflater, viewGroup, false))
+                FilterableStatusViewHolder<StatusViewData>(ItemStatusWrapperBinding.inflate(inflater, viewGroup, false))
             }
             VIEW_TYPE_STATUS -> {
-                StatusViewHolder<StatusViewData>(pachliAccountId, ItemStatusBinding.inflate(inflater, viewGroup, false))
+                StatusViewHolder<StatusViewData>(ItemStatusBinding.inflate(inflater, viewGroup, false))
             }
             else -> return object : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_placeholder, viewGroup, false)) {}
         }
@@ -69,6 +69,7 @@ class TimelinePagingAdapter(
     ) {
         getItem(position)?.let {
             (viewHolder as StatusViewHolder<StatusViewData>).setupWithStatus(
+                pachliAccountId,
                 it,
                 statusListener,
                 statusDisplayOptions,

@@ -42,13 +42,13 @@ class ThreadAdapter(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             VIEW_TYPE_STATUS -> {
-                StatusViewHolder(pachliAccountId, ItemStatusBinding.inflate(inflater, parent, false))
+                StatusViewHolder(ItemStatusBinding.inflate(inflater, parent, false))
             }
             VIEW_TYPE_STATUS_FILTERED -> {
-                FilterableStatusViewHolder(pachliAccountId, ItemStatusWrapperBinding.inflate(inflater, parent, false))
+                FilterableStatusViewHolder(ItemStatusWrapperBinding.inflate(inflater, parent, false))
             }
             VIEW_TYPE_STATUS_DETAILED -> {
-                StatusDetailedViewHolder(pachliAccountId, ItemStatusDetailedBinding.inflate(inflater, parent, false))
+                StatusDetailedViewHolder(ItemStatusDetailedBinding.inflate(inflater, parent, false))
             }
             else -> error("Unknown item type: $viewType")
         }
@@ -56,7 +56,7 @@ class ThreadAdapter(
 
     override fun onBindViewHolder(viewHolder: StatusBaseViewHolder<StatusViewData>, position: Int) {
         val status = getItem(position)
-        viewHolder.setupWithStatus(status, statusActionListener, statusDisplayOptions)
+        viewHolder.setupWithStatus(pachliAccountId, status, statusActionListener, statusDisplayOptions)
     }
 
     override fun getItemViewType(position: Int): Int {

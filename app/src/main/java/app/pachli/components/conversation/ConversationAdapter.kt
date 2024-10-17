@@ -41,7 +41,7 @@ class ConversationAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConversationViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_conversation, parent, false)
-        return ConversationViewHolder(pachliAccountId, view, statusDisplayOptions, listener)
+        return ConversationViewHolder(view, statusDisplayOptions, listener)
     }
 
     override fun onBindViewHolder(holder: ConversationViewHolder, position: Int) {
@@ -54,7 +54,7 @@ class ConversationAdapter(
         payloads: List<Any>,
     ) {
         getItem(position)?.let { conversationViewData ->
-            holder.setupWithConversation(conversationViewData, payloads.firstOrNull())
+            holder.setupWithConversation(pachliAccountId, conversationViewData, payloads.firstOrNull())
         }
     }
 
