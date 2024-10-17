@@ -573,13 +573,11 @@
     <string name="ui_error_filter_v1_load_fmt">フィルターの読み込みに失敗しました: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s を非表示にしました</string>
     <string name="announcement_date_updated">(更新済み: %1$s)</string>
-    <string name="help_empty_home">これはあなたの<b>ホームタイムライン</b>です。あなたがフォローしているアカウントの最新のポストが表示されます。
-\n
-\nあなたのインスタンスのローカルタイムラインや他のタイムラインから、他のアカウントを見つけることができます（[iconics gmd_group]）。また、名前で検索することもできます（[iconics gmd_search]）；例えば、Pachliを検索すると、当社のMastodonアカウントを見つけることができます。</string>
+    <string name="help_empty_home">これはあなたの<b>ホームタイムライン</b>です。あなたがフォローしているアカウントの最新のポストが表示されます。 \n \nあなたのインスタンスのローカルタイムラインや他のタイムラインから、他のアカウントを見つけることができます（[iconics gmd_group]）。また、名前で検索することもできます（[iconics gmd_search]）；例えば、Pachliを検索すると、当社のMastodonアカウントを見つけることができます。</string>
     <string name="pref_title_font_family">フォント</string>
     <string name="description_poll">選択肢付きの投票: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="label_image">画像</string>
-    <string name="status_filter_placeholder_label_format">フィルタ済み: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">フィルタ済み: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_show_self_boosts_description">自分の投稿をブーストすること</string>
     <string name="confirmation_hashtag_unmuted">%s を非表示にしました</string>
     <string name="pref_title_show_self_boosts">セルフブーストを表示</string>
