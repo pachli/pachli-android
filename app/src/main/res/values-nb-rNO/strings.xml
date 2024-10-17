@@ -480,9 +480,7 @@
     <string name="action_unfollow_hashtag_format">Slutte å følge #%s\?</string>
     <string name="confirmation_hashtag_unfollowed">Sluttet å følge #%s</string>
     <string name="a11y_label_loading_thread">Laster tråd</string>
-    <string name="help_empty_home">Dette er <b>Hjemmetidslinjen</b>din. Den viser de nyeste innleggene av kontoer du følger.
-\n
-\nFor å utforske kontoer kan du enten oppdage dem i en av tidslinjene dine, for eksempel den lokale tidslinjen for instansen din [iconics gmd_group], eller du kan søke etter navnet deres [iconics gmd_search]; søk for eksempel etter Pachli før å finne Mastodonkonten vår.</string>
+    <string name="help_empty_home">Dette er <b>Hjemmetidslinjen</b>din. Den viser de nyeste innleggene av kontoer du følger. \n \nFor å utforske kontoer kan du enten oppdage dem i en av tidslinjene dine, for eksempel den lokale tidslinjen for instansen din [iconics gmd_group], eller du kan søke etter navnet deres [iconics gmd_search]; søk for eksempel etter Pachli før å finne Mastodonkonten vår.</string>
     <string name="pref_ui_text_size">Skriftstørrelse for brukergrensesnitt</string>
     <string name="dialog_follow_hashtag_title">Følg emneknagger</string>
     <string name="dialog_follow_hashtag_hint">#emneknagg</string>
