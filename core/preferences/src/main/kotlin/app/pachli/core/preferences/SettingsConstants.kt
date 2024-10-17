@@ -59,7 +59,21 @@ object PrefKeys {
     const val SHOW_STATS_INLINE = "showStatsInline"
 
     const val CUSTOM_TABS = "customTabs"
+
+    /**
+     * True if post stats (# boosts, # favourites) are hidden in a
+     * status' detailed view. False to show them.
+     */
     const val WELLBEING_HIDE_STATS_POSTS = "wellbeingHideStatsPosts"
+
+    /**
+     * True if the following should be hidden on profile pages:
+     *
+     * - Whether or not the account follows you
+     * - # statuses posted by this account
+     * - # followers this account has
+     * - # accounts this account is following
+     */
     const val WELLBEING_HIDE_STATS_PROFILE = "wellbeingHideStatsProfile"
 
     const val HTTP_PROXY_ENABLED = "httpProxyEnabled"
