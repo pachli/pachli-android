@@ -553,9 +553,7 @@
     <string name="total_usage">Utilizzo totale</string>
     <string name="total_accounts">Account totali</string>
     <string name="title_public_trending_hashtags">Hashtag di tendenza</string>
-    <string name="help_empty_home">Questa è la tua <b>Timeline principale</b>. Mostra i post più recenti degli account che segui.
-\n
-\nPer esplorare gli account puoi scoprirli in una delle altre timeline. Per esempio la timeline locale della tua istanza [iconica gmd_group]. O puoi cercarli per nome [iconica gmd_search]; per esempio cerca “Pachli” per trovare il nostro account Mastodon.</string>
+    <string name="help_empty_home">Questa è la tua <b>Timeline principale</b>. Mostra i post più recenti degli account che segui. \n \nPer esplorare gli account puoi scoprirli in una delle altre timeline. Per esempio la timeline locale della tua istanza [iconica gmd_group]. O puoi cercarli per nome [iconica gmd_search]; per esempio cerca “Pachli” per trovare il nostro account Mastodon.</string>
     <string name="hint_description">Descrizione</string>
     <string name="notification_unknown_name">Sconosciuto</string>
     <string name="post_media_image">Immagine</string>
@@ -577,7 +575,7 @@
     <string name="select_list_manage">Gestisci liste</string>
     <string name="error_list_load">Errore nel caricamento delle liste</string>
     <string name="status_filtered_show_anyway">Mostra comunque</string>
-    <string name="status_filter_placeholder_label_format">Filtrato: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Filtrato: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Profili</string>
     <string name="hint_filter_title">I miei filtri</string>
     <string name="action_add">Aggiungi</string>
