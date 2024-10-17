@@ -529,7 +529,7 @@
     <string name="ui_error_vote_fmt">Szavazat leadása a szavazásba sikertelen: %1$s</string>
     <string name="ui_error_accept_follow_request">Követési kérelem elfogadása sikertelen: %s</string>
     <string name="status_filtered_show_anyway">Mutatás mindenképpen</string>
-    <string name="status_filter_placeholder_label_format">Szűrve: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Szűrve: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Profil</string>
     <string name="socket_timeout_exception">A kapcsolatfelvétel a kiszolgálóddal túl sokáig tartott</string>
     <string name="ui_error_bookmark_fmt">Bejegyzés könyvjelzőzése sikertelen: %1$s</string>
@@ -552,9 +552,7 @@
     <string name="filter_keyword_addition_title">Kulcsszó hozzáadása</string>
     <string name="filter_edit_keyword_title">Kulcsszó szerkesztése</string>
     <string name="filter_description_format">%s: %s</string>
-    <string name="help_empty_home">Ez a <b>kezdő idővonalad</b>. Megjeleníti a követett fiókok legfrissebb bejegyzéseit.
-\n
-\nMás fiókokat másik idővonalakon fedezhetsz fel. Például a példányod helyi idővonalán [iconics gmd_group]. Vagy megkeresheted őket név szerint [iconics gmd_search]; például keress rá a Pachlira, hogy megtaláld a Mastodon-fiókunkat.</string>
+    <string name="help_empty_home">Ez a <b>kezdő idővonalad</b>. Megjeleníti a követett fiókok legfrissebb bejegyzéseit. \n \nMás fiókokat másik idővonalakon fedezhetsz fel. Például a példányod helyi idővonalán [iconics gmd_group]. Vagy megkeresheted őket név szerint [iconics gmd_search]; például keress rá a Pachlira, hogy megtaláld a Mastodon-fiókunkat.</string>
     <string name="hint_description">Leírás</string>
     <string name="post_media_image">Kép</string>
     <string name="select_list_empty">Még nincsenek listáid</string>
