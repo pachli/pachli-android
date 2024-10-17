@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -31,7 +30,6 @@ import app.pachli.appstore.PinEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.FilterAction
@@ -40,7 +38,6 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
 import app.pachli.viewdata.StatusViewData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -55,12 +52,10 @@ import timber.log.Timber
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class NetworkTimelineViewModel @Inject constructor(
-    @ApplicationContext context: Context,
     savedStateHandle: SavedStateHandle,
     private val repository: NetworkTimelineRepository,
     timelineCases: TimelineCases,
     eventHub: EventHub,
-    contentFiltersRepository: ContentFiltersRepository,
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,

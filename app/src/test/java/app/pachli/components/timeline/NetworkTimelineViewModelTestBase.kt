@@ -19,7 +19,6 @@ package app.pachli.components.timeline
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
@@ -159,12 +158,10 @@ abstract class NetworkTimelineViewModelTestBase {
         timelineCases = mock()
 
         viewModel = NetworkTimelineViewModel(
-            InstrumentationRegistry.getInstrumentation().targetContext,
             SavedStateHandle(mapOf(TimelineViewModel.TIMELINE_TAG to Timeline.Bookmarks)),
             networkTimelineRepository,
             timelineCases,
             eventHub,
-            contentFiltersRepository,
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
