@@ -19,11 +19,15 @@ package app.pachli.components.compose.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import app.pachli.R
 import app.pachli.databinding.ViewComposeScheduleBinding
+import com.google.android.material.R as MaterialR
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -158,6 +162,30 @@ class ComposeScheduleView
         pickerBuilder.setTimeFormat(getTimeFormat(context))
 
         val picker = pickerBuilder.build()
+
+        // Work around https://github.com/material-components/material-components-android/issues/3584
+        // where the buttons get cut off because of incorrect constraints. Force the
+        // constraints when the dialog resumes.
+        picker.lifecycle.addObserver(
+            object : DefaultLifecycleObserver {
+                fun Button.constrainToBottomOfParent() {
+                    (layoutParams as? LayoutParams)?.let { lp ->
+                        lp.bottomToBottom = LayoutParams.PARENT_ID
+                        layoutParams = lp
+                    }
+                }
+
+                override fun onResume(owner: LifecycleOwner) {
+                    picker.dialog
+                        ?.findViewById<Button>(MaterialR.id.material_timepicker_cancel_button)
+                        ?.constrainToBottomOfParent()
+                    picker.dialog
+                        ?.findViewById<Button>(MaterialR.id.material_timepicker_ok_button)
+                        ?.constrainToBottomOfParent()
+                }
+            },
+        )
+
         picker.addOnPositiveButtonClickListener { onTimeSet(picker.hour, picker.minute) }
         picker.show((context as AppCompatActivity).supportFragmentManager, "time_picker")
     }
