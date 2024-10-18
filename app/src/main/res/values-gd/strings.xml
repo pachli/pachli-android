@@ -553,7 +553,7 @@
     <string name="select_list_empty">Chan eil liosta agad fhathast</string>
     <string name="error_list_load">Mearachd a’ luchdadh nan liostaichean</string>
     <string name="status_filtered_show_anyway">Seall e co-dhiù</string>
-    <string name="status_filter_placeholder_label_format">Criathraichte: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Criathraichte: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Pròifilean</string>
     <string name="hint_filter_title">A’ chriathrag agam</string>
     <string name="filter_description_warn">Falaich le rabhadh</string>
@@ -572,9 +572,7 @@
     <string name="filter_keyword_addition_title">Cuir facal-luirg ris</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="label_filter_title">Tiotal</string>
-    <string name="help_empty_home">Seo <b>loidhne-ama do dhachaigh</b>. Seallaidh i na postaichean o chionn goirid aig na cunntasan a leanas tu.
-\n
-\nAirson cunntasan a rùrachadh, lorg iad air tè dhe na loidhnichean-ama eile; mar eisimpleir, loidhne-ama ionadail an ionstans agad [iconics gmd_group]. Air neo lorg cunntasan a-rèir ainm [iconics gmd_search]; mar eisimpleir, lorg “Pachli” ach am faigh thu grèim air a’ chunntas againne air Mastodon.</string>
+    <string name="help_empty_home">Seo <b>loidhne-ama do dhachaigh</b>. Seallaidh i na postaichean o chionn goirid aig na cunntasan a leanas tu. \n \nAirson cunntasan a rùrachadh, lorg iad air tè dhe na loidhnichean-ama eile; mar eisimpleir, loidhne-ama ionadail an ionstans agad [iconics gmd_group]. Air neo lorg cunntasan a-rèir ainm [iconics gmd_search]; mar eisimpleir, lorg “Pachli” ach am faigh thu grèim air a’ chunntas againne air Mastodon.</string>
     <string name="compose_delete_draft">A bheil thu airson an dreachd a sguabadh às\?</string>
     <string name="load_newest_notifications">Luchdaich na brathan as ùire</string>
     <string name="error_missing_edits">Tha fios aig an fhrithealaiche gun deach am post seo a dheasachadh ach chan eil lethbhreac dhen deasachadh aige-san is chan urrainn dhuinn a shealltainn dhut.

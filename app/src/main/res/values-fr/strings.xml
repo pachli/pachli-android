@@ -512,7 +512,7 @@
     <string name="pref_title_notification_filter_reports">il y a un nouveau signalement</string>
     <string name="pref_title_account_filter_keywords">Profils</string>
     <string name="status_filtered_show_anyway">Montrer quand même</string>
-    <string name="status_filter_placeholder_label_format">Caché : &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Caché : &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="title_public_trending_hashtags">Hashtags tendance</string>
     <string name="send_account_username_to">Partager le nom du compte avec…</string>
     <string name="status_created_at_now">maintenant</string>
@@ -558,9 +558,7 @@
     <string name="pref_title_show_stat_inline">Montrer les statistiques des statuts dans les fils</string>
     <string name="accessibility_talking_about_tag">%1$d personnes parlent du hashtag %2$s</string>
     <string name="total_usage">utilisations</string>
-    <string name="help_empty_home">Ceci est votre <b>fil d\'accueil</b>. Il affiche les publications récentes des comptes que vous suivez.
-\n
-\nPour trouver des comptes vous pouvez soit les découvrir dans l\'un des autres fils, par exemple le fil local de votre instance [iconics gmd_group] ; soit les chercher par leur nom [iconics gmd_search], par exemple cherchez « Pachli » pour trouver notre compte Mastodon.</string>
+    <string name="help_empty_home">Ceci est votre <b>fil d\'accueil</b>. Il affiche les publications récentes des comptes que vous suivez. \n \nPour trouver des comptes vous pouvez soit les découvrir dans l\'un des autres fils, par exemple le fil local de votre instance [iconics gmd_group] ; soit les chercher par leur nom [iconics gmd_search], par exemple cherchez « Pachli » pour trouver notre compte Mastodon.</string>
     <string name="action_add">Ajouter</string>
     <string name="label_filter_keywords">Mots-clés ou phrases à filtrer</string>
     <string name="filter_description_warn">Cacher derrière un avertissement</string>

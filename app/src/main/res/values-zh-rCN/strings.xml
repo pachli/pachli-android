@@ -532,7 +532,7 @@
     <string name="ui_success_accepted_follow_request">关注请求被接受</string>
     <string name="ui_success_rejected_follow_request">关注请求被拦截</string>
     <string name="status_filtered_show_anyway">仍要显示</string>
-    <string name="status_filter_placeholder_label_format">已过滤：&lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">已过滤：&lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">个人资料</string>
     <string name="hint_filter_title">我的筛选器</string>
     <string name="label_filter_title">标题</string>
@@ -549,9 +549,7 @@
     <string name="filter_description_hide">完全隐藏</string>
     <string name="label_filter_keywords">关键词或短语过滤</string>
     <string name="pref_title_show_stat_inline">在时间线中显示嘟文统计数字</string>
-    <string name="help_empty_home">这是你的 <b>主时间线</b>。它展示你所关注账户最近发表的嘟文。
-\n
-\n要探索账户， 你可以浏览其他时间线。比如，你的账户所在实例服务器的本地时间线 [iconics gmd_group]。你也可以按名称 [iconics gmd_search]进行搜索；比如，搜索Pachli 来寻找我们的 Mastodon 账户。</string>
+    <string name="help_empty_home">这是你的 <b>主时间线</b>。它展示你所关注账户最近发表的嘟文。 \n \n要探索账户， 你可以浏览其他时间线。比如，你的账户所在实例服务器的本地时间线 [iconics gmd_group]。你也可以按名称 [iconics gmd_search]进行搜索；比如，搜索Pachli 来寻找我们的 Mastodon 账户。</string>
     <string name="post_media_image">图片</string>
     <string name="hint_description">描述</string>
     <string name="select_list_manage">管理列表</string>
