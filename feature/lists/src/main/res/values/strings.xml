@@ -12,7 +12,7 @@
     <string name="error_rename_list_fmt">Could not update list \"%1$s\": %2$s</string>
     <string name="action_rename_list">Update the list</string>
     <string name="action_create_list">Create a list</string>
-    <string name="dialog_delete_list_warning">Do you really want to delete the list %s?</string>
+    <string name="dialog_delete_list_warning">Delete the list \"%s\"?</string>
     <string name="action_remove_from_list">Remove account from the list</string>
     <string name="action_add_to_list">Add account to the list</string>
     <string name="action_delete_list">Delete the list</string>

@@ -23,6 +23,7 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.TabTapBehaviour
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -32,6 +33,7 @@ import org.junit.Test
  * - Is the initial value taken from values in sharedPreferences and account?
  * - Is the correct update emitted when a relevant preference changes?
  */
+@HiltAndroidTest
 class NotificationsViewModelTestUiState : NotificationsViewModelTestBase() {
 
     private val initialUiState = UiState(

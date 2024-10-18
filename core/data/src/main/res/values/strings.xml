@@ -7,4 +7,8 @@
     <string name="server_repository_error_get_instance_info">fetching /api/v1/instance failed: %1$s</string>
     <string name="server_repository_error_capabilities">parsing server capabilities failed: %1$s</string>
     <string name="error_filter_server_does_not_filter">Server does not support filters</string>
+
+    <string name="account_manager_error_account_does_not_exist">Account does not exist in local database. This should never happen. If you see this message please send a bug report.</string>
+    <string name="account_manager_error_no_active_account">no account is marked active</string>
+    <string name="account_manager_error_unexpected">unexpected error: %1$s</string>
 </resources>

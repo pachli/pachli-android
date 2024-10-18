@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,12 +15,16 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.network
+package app.pachli.core.data.model
 
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.common.PachliError
+import app.pachli.core.data.model.Server.Error.UnparseableVersion
+import app.pachli.core.database.model.InstanceInfoEntity
+import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.model.NodeInfo
+import app.pachli.core.model.ServerCapabilities
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerKind.AKKOMA
 import app.pachli.core.model.ServerKind.FEDIBIRD
@@ -54,7 +58,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
-import app.pachli.core.network.Server.Error.UnparseableVersion
+import app.pachli.core.network.R
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
 import com.github.michaelbull.result.Ok
@@ -75,7 +79,7 @@ import kotlin.collections.set
 data class Server(
     val kind: ServerKind,
     val version: Version,
-    private val capabilities: Map<ServerOperation, Version> = emptyMap(),
+    val capabilities: ServerCapabilities = emptyMap(),
 ) {
     /**
      * @return true if the server supports the given operation at the given minimum version
@@ -120,6 +124,38 @@ data class Server(
 
             Server(serverKind, version, capabilities)
         }
+
+        /**
+         * Constructs a capabilities map from its [NodeInfo] and [InstanceInfoEntity] details.
+         */
+        fun from(software: NodeInfo.Software, instanceInfoEntity: InstanceInfoEntity): Result<Server, Error> = binding {
+            val serverKind = ServerKind.from(software)
+            val version = parseVersionString(serverKind, software.version).bind()
+            val capabilities = capabilitiesFromServerVersion(serverKind, version)
+
+            when (serverKind) {
+                GLITCH, HOMETOWN, MASTODON -> {
+                    if (instanceInfoEntity.enabledTranslation) {
+                        capabilities[ORG_JOINMASTODON_STATUSES_TRANSLATE] = when {
+                            version >= "4.2.0".toVersion() -> "1.1.0".toVersion()
+                            else -> "1.0.0".toVersion()
+                        }
+                    }
+                }
+
+                else -> {
+                    /* Nothing to do */
+                }
+            }
+
+            Server(serverKind, version, capabilities)
+        }
+
+        fun from(entity: ServerEntity) = Server(
+            kind = entity.serverKind,
+            version = entity.version,
+            capabilities = entity.capabilities,
+        )
 
         /**
          * Parse a [version] string from the given [serverKind] in to a [Version].

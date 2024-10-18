@@ -53,14 +53,7 @@ data class UnvalidatedNodeInfo(val software: Software?) {
             software == null -> Err(Error.NoSoftwareBlock)
             software.name.isNullOrBlank() -> Err(Error.NoSoftwareName)
             software.version.isNullOrBlank() -> Err(Error.NoSoftwareVersion)
-            else -> Ok(
-                NodeInfo(
-                    NodeInfo.Software(
-                        software.name,
-                        software.version,
-                    ),
-                ),
-            )
+            else -> Ok(NodeInfo(NodeInfo.Software(software.name, software.version)))
         }
     }
 

@@ -33,7 +33,7 @@ fun showAddPollDialog(
     maxOptionCount: Int,
     maxOptionLength: Int,
     minDuration: Int,
-    maxDuration: Int,
+    maxDuration: Long,
     onUpdatePoll: (NewPoll) -> Unit,
 ) {
     val binding = DialogAddPollBinding.inflate(LayoutInflater.from(context))

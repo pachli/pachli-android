@@ -32,9 +32,17 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.SearchResult
+import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
+import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.NodeInfoApi
+import app.pachli.core.testing.failure
+import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.rules.lazyActivityScenarioRule
+import app.pachli.core.testing.success
 import at.connyduck.calladapter.networkresult.NetworkResult
+import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -72,6 +80,9 @@ class ComposeActivityTest {
     var hilt = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
+    val mainCoroutineRule = MainCoroutineRule()
+
+    @get:Rule(order = 2)
     var rule = lazyActivityScenarioRule<ComposeActivity>(
         launchActivity = false,
     )
@@ -82,51 +93,79 @@ class ComposeActivityTest {
     lateinit var mastodonApi: MastodonApi
 
     @Inject
+    lateinit var nodeInfoApi: NodeInfoApi
+
+    @Inject
     lateinit var accountManager: AccountManager
 
     @Inject
     lateinit var instanceInfoRepository: InstanceInfoRepository
 
+    val account = Account(
+        id = "1",
+        localUsername = "username",
+        username = "username@domain.example",
+        displayName = "Display Name",
+        createdAt = Date.from(Instant.now()),
+        note = "",
+        url = "",
+        avatar = "",
+        header = "",
+    )
+
     @Before
-    fun setup() {
+    fun setup() = runTest {
         hilt.inject()
 
         getInstanceCallback = null
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
+            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            onBlocking { getCustomEmojis() } doReturn success(emptyList())
+            onBlocking { getInstanceV2() } doReturn failure()
             onBlocking { getInstanceV1() } doAnswer {
                 getInstanceCallback?.invoke().let { instance ->
                     if (instance == null) {
-                        NetworkResult.failure(Throwable())
+                        failure()
                     } else {
-                        NetworkResult.success(instance)
+                        success(instance)
                     }
                 }
             }
             onBlocking { search(any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn NetworkResult.success(
                 SearchResult(emptyList(), emptyList(), emptyList()),
             )
+            onBlocking { getLists() } doReturn success(emptyList())
+            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
+            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
         }
 
-        accountManager.addAccount(
+        reset(nodeInfoApi)
+        nodeInfoApi.stub {
+            onBlocking { nodeInfoJrd() } doReturn success(
+                UnvalidatedJrd(
+                    listOf(
+                        UnvalidatedJrd.Link(
+                            "http://nodeinfo.diaspora.software/ns/schema/2.1",
+                            "https://example.com",
+                        ),
+                    ),
+                ),
+            )
+            onBlocking { nodeInfo(any()) } doReturn success(
+                UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
+            )
+        }
+
+        accountManager.verifyAndAddAccount(
             accessToken = "token",
             domain = "domain.example",
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-            newAccount = Account(
-                id = "1",
-                localUsername = "username",
-                username = "username@domain.example",
-                displayName = "Display Name",
-                createdAt = Date.from(Instant.now()),
-                note = "",
-                url = "",
-                avatar = "",
-                header = "",
-            ),
         )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
     }
 
     @Test

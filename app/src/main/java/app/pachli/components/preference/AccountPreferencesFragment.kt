@@ -36,6 +36,8 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.canFilterV1
+import app.pachli.core.data.repository.canFilterV2
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.ContentFiltersActivityIntent
@@ -60,13 +62,13 @@ import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getPachliDisplayName
 import app.pachli.util.iconRes
-import com.github.michaelbull.result.Ok
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlin.properties.Delegates
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -110,12 +112,14 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 // Enable/disable the filter preference based on info from
-                // FiltersRespository. filterPreferences is safe to access here,
+                // the server. filterPreferences is safe to access here,
                 // it was populated in onCreatePreferences, called by onCreate
                 // before onViewCreated is called.
-                contentFiltersRepository.contentFilters.collect { filters ->
-                    filterPreference.isEnabled = filters is Ok
-                }
+                accountManager.activePachliAccountFlow
+                    .distinctUntilChangedBy { it.server }
+                    .collect { account ->
+                        filterPreference.isEnabled = account.server.canFilterV2() || account.server.canFilterV1()
+                    }
             }
         }
         return super.onViewCreated(view, savedInstanceState)
@@ -188,7 +192,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(R.string.title_migration_relogin)
                     setIcon(R.drawable.ic_logout)
                     setOnPreferenceClickListener {
-                        val intent = LoginActivityIntent(context, LoginMode.MIGRATION)
+                        val intent = LoginActivityIntent(context, LoginMode.Reauthenticate(accountManager.activeAccount!!.domain))
                         activity?.startActivityWithTransition(intent, TransitionKind.EXPLODE)
                         true
                     }
@@ -326,11 +330,13 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                         val account = response.body()
                         if (response.isSuccessful && account != null) {
                             accountManager.activeAccount?.let {
-                                it.defaultPostPrivacy = account.source?.privacy
-                                    ?: Status.Visibility.PUBLIC
-                                it.defaultMediaSensitivity = account.source?.sensitive ?: false
-                                it.defaultPostLanguage = language.orEmpty()
-                                accountManager.saveAccount(it)
+                                accountManager.setDefaultPostPrivacy(
+                                    it.id,
+                                    account.source?.privacy
+                                        ?: Status.Visibility.PUBLIC,
+                                )
+                                accountManager.setDefaultMediaSensitivity(it.id, account.source?.sensitive ?: false)
+                                accountManager.setDefaultPostLanguage(it.id, language.orEmpty())
                             }
                         } else {
                             Timber.e("failed updating settings on server")
