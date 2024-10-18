@@ -496,7 +496,9 @@ class AccountManager @Inject constructor(
         externalScope.async { listsRepository.refresh(account.id) }.await()
             .mapError { RefreshAccountError.General(it) }.bind()
 
-        deferAnnouncements.await().bind()
+        // Ignore errors when fetching announcements, they're non-fatal.
+        // TODO: Add a capability for announcements.
+        deferAnnouncements.await().orElse { Ok(emptyList()) }.bind()
     }
 
     /**
