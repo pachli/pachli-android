@@ -402,7 +402,6 @@
     <string name="drafts_post_failed_to_send">فرستادن این فرسته شکست خورد!</string>
     <string name="wellbeing_hide_stats_profile">نهفتن آمار کمی روی نمایه‌ها</string>
     <string name="wellbeing_hide_stats_posts">نهفتن آمار کمی روی فرسته‌ها</string>
-    <string name="limit_notifications">محدود کردن آگاهی‌های خط‌زمانی</string>
     <string name="review_notifications">بازبینی آگاهی‌ها</string>
     <string name="pref_title_wellbeing_mode">سلامتی</string>
     <string name="label_duration">طول</string>

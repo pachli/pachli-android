@@ -127,7 +127,6 @@
     <string name="title_public_local">ස්ථානීය</string>
     <string name="action_view_favourites">ප්‍රියතමයන්</string>
     <string name="label_quick_reply">පිළිතුරු…</string>
-    <string name="limit_notifications">කාලරේඛා දැනුම්දීම් සීමාකරන්න</string>
     <string name="send_post_notification_error_title">ටූට් යැවීමේ දෝෂයකි</string>
     <string name="filter_addition_title">පෙරහන එකතු කරන්න</string>
     <string name="pref_default_media_sensitivity">සැමවිටම මාධ්‍ය සංවේදී ලෙස සලකුණු කරන්න</string>

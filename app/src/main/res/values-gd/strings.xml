@@ -69,7 +69,6 @@
     </plurals>
     <string name="wellbeing_hide_stats_profile">Falaich an stadastaireachd àireamhail air pròifilean</string>
     <string name="wellbeing_hide_stats_posts">Falaich an stadastaireachd àireamhail air postaichean</string>
-    <string name="limit_notifications">Cuingich na brathan mun loidhne-ama</string>
     <string name="review_notifications">Thoir sùil air na brathan</string>
     <string name="wellbeing_mode_notice">Thèid cuid a dh’fhiosrachadh a dh’fhaodadh droch-bhuaidh a thoirt air d’ shlàinte-inntinn fhalach. Tha seo a’ gabhail a-staigh:
 \n

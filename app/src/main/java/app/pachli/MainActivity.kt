@@ -159,6 +159,7 @@ import com.mikepenz.materialdrawer.model.interfaces.nameRes
 import com.mikepenz.materialdrawer.model.interfaces.nameText
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
+import com.mikepenz.materialdrawer.util.addItemAtPosition
 import com.mikepenz.materialdrawer.util.addItems
 import com.mikepenz.materialdrawer.util.addItemsAtPosition
 import com.mikepenz.materialdrawer.util.getPosition
@@ -368,6 +369,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     viewModel.uiState.collect { uiState ->
                         bindMainDrawerSearch(this@MainActivity, initialAccount.id, uiState.hideTopToolbar)
                         bindMainDrawerProfileHeader(uiState)
+                        bindMainDrawerScheduledPosts(this@MainActivity, initialAccount.id, uiState.canSchedulePost)
                         updateShortCuts(uiState.accounts)
                     }
                 }
@@ -762,9 +764,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         // Add a "Search" menu item.
-        binding.mainDrawer.addItemsAtPosition(
+        binding.mainDrawer.addItemAtPosition(
             4,
             primaryDrawerItem {
+                identifier = DRAWER_ITEM_SEARCH
                 nameRes = R.string.action_search
                 iconicsIcon = GoogleMaterial.Icon.gmd_search
                 onClick = {
@@ -774,6 +777,45 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 }
             },
         )
+        updateMainDrawerTypeface(
+            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(FONT_FAMILY, "default")),
+        )
+    }
+
+    /**
+     * Binds the "Scheduled posts" menu item in the main drawer.
+     *
+     * @param context
+     * @param pachliAccountId
+     * @param showSchedulePosts True if a "Scheduled posts" menu item should be added
+     * to the list, false if any existing item should be removed.
+     */
+    private fun bindMainDrawerScheduledPosts(context: Context, pachliAccountId: Long, showSchedulePosts: Boolean) {
+        val existingPosition = binding.mainDrawer.getPosition(DRAWER_ITEM_SCHEDULED_POSTS)
+        val showing = existingPosition != -1
+
+        if (showing == showSchedulePosts) return
+
+        if (!showSchedulePosts) {
+            binding.mainDrawer.removeItemByPosition(existingPosition)
+            return
+        }
+
+        // Add the "Scheduled posts" item immediately after "Drafts"
+        binding.mainDrawer.addItemAtPosition(
+            binding.mainDrawer.getPosition(DRAWER_ITEM_DRAFTS) + 1,
+            primaryDrawerItem {
+                identifier = DRAWER_ITEM_SCHEDULED_POSTS
+                nameRes = R.string.action_access_scheduled_posts
+                iconRes = R.drawable.ic_access_time
+                onClick = {
+                    startActivityWithDefaultTransition(
+                        ScheduledStatusActivityIntent(context, pachliAccountId),
+                    )
+                }
+            },
+        )
+
         updateMainDrawerTypeface(
             EmbeddedFontFamily.from(sharedPreferencesRepository.getString(FONT_FAMILY, "default")),
         )
@@ -925,20 +967,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 },
                 DividerDrawerItem(),
                 primaryDrawerItem {
+                    identifier = DRAWER_ITEM_DRAFTS
                     nameRes = R.string.action_access_drafts
                     iconRes = R.drawable.ic_notebook
                     onClick = {
                         startActivityWithDefaultTransition(
                             DraftsActivityIntent(context, pachliAccountId),
-                        )
-                    }
-                },
-                primaryDrawerItem {
-                    nameRes = R.string.action_access_scheduled_posts
-                    iconRes = R.drawable.ic_access_time
-                    onClick = {
-                        startActivityWithDefaultTransition(
-                            ScheduledStatusActivityIntent(context, pachliAccountId),
                         )
                     }
                 },
@@ -1375,14 +1409,20 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     companion object {
-        private const val DRAWER_ITEM_ADD_ACCOUNT: Long = -13
-        private const val DRAWER_ITEM_ANNOUNCEMENTS: Long = 14
+        private const val DRAWER_ITEM_ADD_ACCOUNT = -13L
+        private const val DRAWER_ITEM_ANNOUNCEMENTS = 14L
 
         /** Drawer identifier for the "Lists" section header. */
-        private const val DRAWER_ITEM_LISTS: Long = 15
+        private const val DRAWER_ITEM_LISTS = 15L
+
+        /** Drawer identifier for the "Drafts" item. */
+        private const val DRAWER_ITEM_DRAFTS = 16L
 
         /** Drawer identifier for the "Search" item. */
-        private const val DRAWER_ITEM_SEARCH: Long = 16
+        private const val DRAWER_ITEM_SEARCH = 17L
+
+        /** Drawer identifier for the "Scheduled posts" item. */
+        private const val DRAWER_ITEM_SCHEDULED_POSTS = 18L
     }
 }
 

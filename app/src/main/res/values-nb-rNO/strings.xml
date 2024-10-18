@@ -394,7 +394,6 @@
     <string name="title_announcements">Kunngjøringer</string>
     <string name="wellbeing_hide_stats_profile">Skjul kvantitativ informasjon på profiler</string>
     <string name="wellbeing_hide_stats_posts">Skjul kvantitativ statistikk på innleggene</string>
-    <string name="limit_notifications">Begrens tidslinjevarsler</string>
     <string name="review_notifications">Se over varsler</string>
     <string name="wellbeing_mode_notice">Informasjon som kan påvirke ditt mentale velvære vil bli skjult. Dette inkluderer:
 \n

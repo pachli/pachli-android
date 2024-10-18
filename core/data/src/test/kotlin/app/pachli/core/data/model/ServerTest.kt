@@ -41,6 +41,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LI
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Configuration
@@ -148,6 +149,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
                                 ORG_JOINMASTODON_SEARCH_QUERY_FROM to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                             ),
                         ),
                     ),
@@ -170,6 +172,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
                                 ORG_JOINMASTODON_SEARCH_QUERY_FROM to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                                 ORG_JOINMASTODON_STATUSES_TRANSLATE to "1.0.0".toVersion(),
                             ),
                         ),
@@ -205,6 +208,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE to "1.0.0".toVersion(),
                                 ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY to "1.0.0".toVersion(),
                                 ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                                 ORG_JOINMASTODON_STATUSES_TRANSLATE to "1.1.0".toVersion(),
                             ),
                         ),
@@ -212,7 +216,7 @@ class ServerTest(
                 ),
                 arrayOf(
                     Triple(
-                        "GoToSocial has no translation or filtering",
+                        "GoToSocial has no translation, filtering, or scheduling",
                         NodeInfo.Software("gotosocial", "0.13.1 git-ccecf5a"),
                         defaultInstance,
                     ),
@@ -260,7 +264,7 @@ class ServerTest(
                 ),
                 arrayOf(
                     Triple(
-                        "Pleroma can filter",
+                        "Pleroma can filter, schedule",
                         NodeInfo.Software("pleroma", "2.6.50-875-g2eb5c453.service-origin+soapbox"),
                         defaultInstance,
                     ),
@@ -270,13 +274,14 @@ class ServerTest(
                             version = "2.6.50-875-g2eb5c453.service-origin+soapbox".toVersion(),
                             capabilities = mapOf(
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                             ),
                         ),
                     ),
                 ),
                 arrayOf(
                     Triple(
-                        "Akkoma can filter",
+                        "Akkoma can filter, schedule",
                         NodeInfo.Software("akkoma", "3.9.3-0-gd83f5f66f-blob"),
                         defaultInstance,
                     ),
@@ -286,6 +291,7 @@ class ServerTest(
                             version = "3.9.3-0-gd83f5f66f-blob".toVersion(),
                             capabilities = mapOf(
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                             ),
                         ),
                     ),
@@ -306,7 +312,7 @@ class ServerTest(
                 ),
                 arrayOf(
                     Triple(
-                        "Friendica can filter",
+                        "Friendica can filter, schedule",
                         NodeInfo.Software("friendica", "2023.05-1542"),
                         defaultInstance,
                     ),
@@ -316,6 +322,7 @@ class ServerTest(
                             version = "2023.5.0".toVersion(),
                             capabilities = mapOf(
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                             ),
                         ),
                     ),

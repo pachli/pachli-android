@@ -415,7 +415,6 @@
     </plurals>
     <string name="wellbeing_hide_stats_profile">Amaga les estadístiques quantitatives dels perfils</string>
     <string name="wellbeing_hide_stats_posts">Amaga les estadístiques quantitatives de les publicacions</string>
-    <string name="limit_notifications">Limita les notificacions de la cronologia</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="dialog_delete_conversation_warning">Vols suprimir aquesta conversa\?</string>
     <string name="error_image_edit_failed">La imatge no s\'ha pogut editar.</string>

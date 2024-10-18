@@ -438,7 +438,6 @@
 \n
 \n Sciigoj ne estos influitaj, sed vi povas kontroli viajn agordojn pri sciigojn permane.</string>
     <string name="review_notifications">Kontroli la sciigojn</string>
-    <string name="limit_notifications">Limigi sciigojn pri tempolinio</string>
     <string name="drafts_post_reply_removed">La mesaĝo, al kiu tiu ĉi malneto respondas, estis forigita</string>
     <string name="notification_sign_up_format">%s registriĝis</string>
     <string name="pref_title_notification_filter_sign_ups">iu registriĝis</string>

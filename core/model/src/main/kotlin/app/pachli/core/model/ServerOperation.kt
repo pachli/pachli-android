@@ -102,4 +102,13 @@ enum class ServerOperation(id: String, versions: List<Version>) {
     ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY("org.joinmastodon.search.query:in:library", listOf(Version(major = 1))),
     ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC("org.joinmastodon.search.query:in:public", listOf(Version(major = 1))),
     ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE("org.joinmastodon.search.query:in:public", listOf(Version(major = 1))),
+
+    /** Post a status with a `scheduled_at` property, and edit scheduled statuses. */
+    ORG_JOINMASTODON_STATUSES_SCHEDULED(
+        "org.joinmastodon.statuses.scheduled",
+        listOf(
+            // Initial introduction in Mastodon 2.7.0.
+            Version(major = 1),
+        ),
+    ),
 }
