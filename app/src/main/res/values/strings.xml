@@ -572,6 +572,7 @@
     <string name="pref_title_show_cards_in_timelines">Show link previews in timelines</string>
     <string name="pref_title_confirm_reblogs">Show confirmation before boosting</string>
     <string name="pref_title_confirm_favourites">Show confirmation before favoriting</string>
+    <string name="pref_title_confirm_status_language">Check post\'s language setting before posting</string>
     <string name="pref_title_hide_top_toolbar">Hide the title of the top toolbar</string>
     <string name="pref_title_wellbeing_mode">Wellbeing</string>
     <string name="account_note_hint">Your private note about this account</string>
@@ -717,6 +718,7 @@
     <string name="compose_warn_language_dialog_fmt">The post\'s language is set to %1$s but you might have written it in %2$s.</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Change language to "%1$s" and post</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Post as-is (%1$s)</string>
+    <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Post as-is (%1$s) and don\'t ask again</string>
 
     <string name="error_media_uploader_upload_not_found_fmt">media upload with ID %1$s not found</string>
     <string name="error_media_uploader_throwable_fmt">%1$s</string>

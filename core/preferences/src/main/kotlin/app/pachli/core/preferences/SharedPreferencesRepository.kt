@@ -19,6 +19,7 @@ package app.pachli.core.preferences
 
 import android.content.SharedPreferences
 import androidx.annotation.Keep
+import androidx.core.content.edit
 import app.pachli.core.common.di.ApplicationScope
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -56,6 +57,13 @@ class SharedPreferencesRepository @Inject constructor(
     /** True if emojis should be animated. */
     val animateEmojis: Boolean
         get() = getBoolean(PrefKeys.ANIMATE_CUSTOM_EMOJIS, false)
+
+    /** True if the status' language should be checked before sending. */
+    var confirmStatusLanguage: Boolean
+        get() = getBoolean(PrefKeys.CONFIRM_STATUS_LANGUAGE, true)
+        set(value) {
+            edit { putBoolean(PrefKeys.CONFIRM_STATUS_LANGUAGE, value) }
+        }
 
     /** Location of downloaded files. */
     val downloadLocation: DownloadLocation

@@ -974,7 +974,7 @@ class ComposeActivity :
     }
 
     private fun onSendClicked() = lifecycleScope.launch {
-        confirmStatusLanguage()
+        if (viewModel.confirmStatusLanguage) confirmStatusLanguage()
 
         if (verifyScheduledTime()) {
             sendStatus()
@@ -1049,6 +1049,7 @@ class ComposeActivity :
             .await(
                 getString(R.string.compose_warn_language_dialog_change_language_fmt, detectedDisplayLang),
                 getString(R.string.compose_warn_language_dialog_accept_language_fmt, currentDisplayLang),
+                getString(R.string.compose_warn_language_dialog_accept_and_dont_ask_fmt, currentDisplayLang),
             )
 
         if (dialog == AlertDialog.BUTTON_POSITIVE) {
@@ -1057,6 +1058,8 @@ class ComposeActivity :
                 binding.composePostLanguageButton.setSelection(it)
             }
         }
+
+        if (dialog == AlertDialog.BUTTON_NEUTRAL) viewModel.confirmStatusLanguage = false
     }
 
     /** This is for the fancy keyboards which can insert images and stuff, and drag&drop etc */

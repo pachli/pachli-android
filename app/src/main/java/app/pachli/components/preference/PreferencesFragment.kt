@@ -278,6 +278,13 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(R.string.pref_title_show_stat_inline)
                     isSingleLineTitle = false
                 }
+
+                switchPreference {
+                    setDefaultValue(true)
+                    key = PrefKeys.CONFIRM_STATUS_LANGUAGE
+                    setTitle(R.string.pref_title_confirm_status_language)
+                    isSingleLineTitle = false
+                }
             }
 
             preferenceCategory(app.pachli.core.preferences.R.string.pref_category_tabs) {
