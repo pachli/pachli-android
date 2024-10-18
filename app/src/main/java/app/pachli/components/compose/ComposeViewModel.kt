@@ -43,6 +43,7 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.MentionSpan
 import app.pachli.service.MediaToSend
 import app.pachli.service.ServiceClient
@@ -80,7 +81,8 @@ class ComposeViewModel @Inject constructor(
     private val serviceClient: ServiceClient,
     private val draftHelper: DraftHelper,
     instanceInfoRepo: InstanceInfoRepository,
-    private val serverRepository: ServerRepository,
+    serverRepository: ServerRepository,
+    private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
 
     /** The current content */
@@ -152,6 +154,17 @@ class ComposeViewModel @Inject constructor(
     val serverCanSchedule = serverRepository.flow.map {
         it.get()?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED, ">= 1.0.0".toConstraint()) == true
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    /**
+     * True if the post's language should be checked before posting.
+     *
+     * Modifications are persisted back to shared preferences.
+     */
+    var confirmStatusLanguage: Boolean
+        get() = sharedPreferencesRepository.confirmStatusLanguage
+        set(value) {
+            sharedPreferencesRepository.confirmStatusLanguage = value
+        }
 
     private lateinit var composeKind: ComposeKind
 
