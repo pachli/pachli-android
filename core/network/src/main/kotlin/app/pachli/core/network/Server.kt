@@ -52,6 +52,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_PU
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.network.Server.Error.UnparseableVersion
 import app.pachli.core.network.model.InstanceV1
@@ -241,6 +242,11 @@ data class Server(
             when (kind) {
                 // Glitch has the same version number as upstream Mastodon
                 GLITCH, MASTODON -> {
+                    // Scheduled statuses
+                    when {
+                        v >= "2.7.0".toVersion() -> c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
+                    }
+
                     // Client filtering
                     when {
                         v >= "3.1.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
@@ -281,6 +287,8 @@ data class Server(
                 }
 
                 GOTOSOCIAL -> {
+                    // Can't do scheduled posts, https://github.com/superseriousbusiness/gotosocial/issues/1006
+
                     // Filters
                     when {
                         // Implemented in https://github.com/superseriousbusiness/gotosocial/pull/2936
@@ -305,11 +313,17 @@ data class Server(
                 FIREFISH -> { }
 
                 // Sharkey can't filter, https://activitypub.software/TransFem-org/Sharkey/-/issues/492
-                SHARKEY -> { }
+                SHARKEY -> {
+                    // Assume scheduled support (may be wrong).
+                    c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
+                }
 
                 FRIENDICA -> {
-                    // Assume filter support (may be wrong)
+                    // Assume filter support (may be wrong).
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
+
+                    // Assume scheduled support (may be wrong).
+                    c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
 
                     // Search
                     when {
@@ -323,10 +337,16 @@ data class Server(
                     }
                 }
 
-                // Everything else. Assume server side filtering and no translation. This may be an
-                // incorrect assumption.
+                // Everything else. Assume:
+                //
+                // - server side filtering
+                // - scheduled status support
+                // - no translation
+                //
+                // This may be an incorrect assumption.
                 AKKOMA, FEDIBIRD, HOMETOWN, ICESHRIMP, PIXELFED, PLEROMA, UNKNOWN -> {
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
+                    c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
                 }
             }
             return c

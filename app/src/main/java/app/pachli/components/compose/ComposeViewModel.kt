@@ -35,6 +35,8 @@ import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
+import app.pachli.core.data.repository.ServerRepository
+import app.pachli.core.model.ServerOperation
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
 import app.pachli.core.network.model.Attachment
@@ -49,17 +51,22 @@ import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -73,6 +80,7 @@ class ComposeViewModel @Inject constructor(
     private val serviceClient: ServiceClient,
     private val draftHelper: DraftHelper,
     instanceInfoRepo: InstanceInfoRepository,
+    private val serverRepository: ServerRepository,
 ) : ViewModel() {
 
     /** The current content */
@@ -139,6 +147,11 @@ class ComposeViewModel @Inject constructor(
     val closeConfirmation = _closeConfirmation.asStateFlow()
     private val _statusLength = MutableStateFlow(0)
     val statusLength = _statusLength.asStateFlow()
+
+    /** Flow of whether or not the server can schedule posts. */
+    val serverCanSchedule = serverRepository.flow.map {
+        it.get()?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED, ">= 1.0.0".toConstraint()) == true
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     private lateinit var composeKind: ComposeKind
 
