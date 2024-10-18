@@ -81,9 +81,11 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Lists
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
+import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AboutActivityIntent
 import app.pachli.core.navigation.AccountActivityIntent
@@ -160,12 +162,15 @@ import com.mikepenz.materialdrawer.model.interfaces.nameRes
 import com.mikepenz.materialdrawer.model.interfaces.nameText
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
+import com.mikepenz.materialdrawer.util.addItemAtPosition
 import com.mikepenz.materialdrawer.util.addItems
 import com.mikepenz.materialdrawer.util.addItemsAtPosition
+import com.mikepenz.materialdrawer.util.getPosition
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import kotlin.math.max
 import kotlinx.coroutines.CoroutineScope
@@ -204,6 +209,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var androidNotificationsAreEnabled: AndroidNotificationsAreEnabledUseCase
+
+    @Inject
+    lateinit var serverRepository: ServerRepository
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
@@ -399,6 +407,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         .setAction(app.pachli.core.ui.R.string.action_retry) { listsRepository.refresh() }
                         .show()
                 }
+            }
+        }
+
+        lifecycleScope.launch {
+            serverRepository.flow.collect {
+                refreshMainDrawerItems(intent.pachliAccountId, addSearchButton = hideTopToolbar)
             }
         }
 
@@ -749,20 +763,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 },
                 DividerDrawerItem(),
                 primaryDrawerItem {
+                    identifier = DRAWER_ITEM_DRAFTS
                     nameRes = R.string.action_access_drafts
                     iconRes = R.drawable.ic_notebook
                     onClick = {
                         startActivityWithDefaultTransition(
                             DraftsActivityIntent(context, pachliAccountId),
-                        )
-                    }
-                },
-                primaryDrawerItem {
-                    nameRes = R.string.action_access_scheduled_posts
-                    iconRes = R.drawable.ic_access_time
-                    onClick = {
-                        startActivityWithDefaultTransition(
-                            ScheduledStatusActivityIntent(context, pachliAccountId),
                         )
                     }
                 },
@@ -838,6 +844,23 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     },
                 )
             }
+        }
+
+        // If the server supports scheduled posts then add a "Scheduled posts" item
+        // after the "Drafts" item.
+        if (serverRepository.flow.replayCache.lastOrNull()?.get()?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED, ">= 1.0.0".toConstraint()) == true) {
+            binding.mainDrawer.addItemAtPosition(
+                binding.mainDrawer.getPosition(DRAWER_ITEM_DRAFTS) + 1,
+                primaryDrawerItem {
+                    nameRes = R.string.action_access_scheduled_posts
+                    iconRes = R.drawable.ic_access_time
+                    onClick = {
+                        startActivityWithDefaultTransition(
+                            ScheduledStatusActivityIntent(binding.mainDrawer.context, pachliAccountId),
+                        )
+                    }
+                },
+            )
         }
 
         if (BuildConfig.DEBUG) {
@@ -1260,6 +1283,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         /** Drawer identifier for the "Lists" section header. */
         private const val DRAWER_ITEM_LISTS: Long = 15
+
+        /** Drawer identifier for the "Drafts" item. */
+        private const val DRAWER_ITEM_DRAFTS = 16L
     }
 }
 

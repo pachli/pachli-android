@@ -505,6 +505,15 @@ class ComposeActivity :
             }
         }
 
+        // Hide the "Schedule" button if the server can't schedule. Simply
+        // disabling it could be confusing to users wondering why they can't
+        // use it.
+        lifecycleScope.launch {
+            viewModel.serverCanSchedule.collect {
+                binding.composeScheduleButton.visible(it)
+            }
+        }
+
         lifecycleScope.launch {
             viewModel.media.combine(viewModel.poll) { media, poll ->
                 val active = poll == null &&
