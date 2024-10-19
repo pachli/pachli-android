@@ -27,6 +27,8 @@ import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapError
+import java.time.Duration
+import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -38,8 +40,18 @@ class NetworkSuggestionsRepository @Inject constructor(
     private val api: MastodonApi,
 ) : SuggestionsRepository {
     override suspend fun getSuggestions(): Result<List<Suggestion>, GetSuggestionsError> = binding {
+        val now = Instant.now()
         api.getSuggestions(limit = 80)
-            .map { response -> response.body.map { Suggestion.from(it) } }
+            .map { response ->
+                response.body
+                    // Filter out accounts that haven't posted in the last LAST_STATUS_CUTOFF_DURATION.
+                    .filter {
+                        it.account.lastStatusAt?.let { lastStatusAt ->
+                            Duration.between(lastStatusAt.toInstant(), now) < LAST_STATUS_CUTOFF_DURATION
+                        } == true
+                    }
+                    .map { Suggestion.from(it) }
+            }
             .mapError { GetSuggestionsError(it) }
             .bind()
     }
@@ -54,5 +66,13 @@ class NetworkSuggestionsRepository @Inject constructor(
         externalScope.async {
             api.followSuggestedAccount(accountId).mapError { FollowAccountError(it) }.bind()
         }.await()
+    }
+
+    companion object {
+        /**
+         * Duration that specifies the maximum time in the past the account must have
+         * posted a status for inclusion.
+         */
+        private val LAST_STATUS_CUTOFF_DURATION = Duration.ofDays(28)
     }
 }
