@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.DiffUtil
 import app.pachli.core.network.model.ScheduledStatus
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemScheduledStatusBinding
+import java.text.DateFormat
 
 interface ScheduledStatusActionListener {
     fun edit(item: ScheduledStatus)
@@ -50,15 +51,18 @@ class ScheduledStatusAdapter(
 
     override fun onBindViewHolder(holder: BindingHolder<ItemScheduledStatusBinding>, position: Int) {
         getItem(position)?.let { item ->
+            holder.binding.timestamp.text = dateFormat.format(item.scheduledAt)
             holder.binding.edit.isEnabled = true
             holder.binding.delete.isEnabled = true
             holder.binding.text.text = item.params.text
-            holder.binding.edit.setOnClickListener {
-                listener.edit(item)
-            }
-            holder.binding.delete.setOnClickListener {
-                listener.delete(item)
-            }
+            holder.binding.edit.setOnClickListener { listener.edit(item) }
+            holder.binding.delete.setOnClickListener { listener.delete(item) }
+            holder.binding.root.setOnClickListener { listener.edit(item) }
         }
+    }
+
+    companion object {
+        private val dateFormat =
+            DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT)
     }
 }
