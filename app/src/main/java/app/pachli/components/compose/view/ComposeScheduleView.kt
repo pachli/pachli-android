@@ -33,11 +33,9 @@ import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
-import java.util.Locale
 import java.util.TimeZone
 
 class ComposeScheduleView
@@ -47,7 +45,7 @@ class ComposeScheduleView
     defStyleAttr: Int = 0,
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     interface OnTimeSetListener {
-        fun onTimeSet(time: String?)
+        fun onTimeSet(time: Date?)
     }
 
     private var binding = ViewComposeScheduleBinding.inflate(
@@ -57,12 +55,6 @@ class ComposeScheduleView
     private var listener: OnTimeSetListener? = null
     private var dateFormat = SimpleDateFormat.getDateInstance()
     private var timeFormat = SimpleDateFormat.getTimeInstance()
-    private var iso8601 = SimpleDateFormat(
-        "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-        Locale.getDefault(),
-    ).apply {
-        timeZone = TimeZone.getTimeZone("UTC")
-    }
 
     /** The date/time the user has chosen to schedule the status, in UTC */
     private var scheduleDateTimeUtc: Calendar? = null
@@ -190,20 +182,9 @@ class ComposeScheduleView
         picker.show((context as AppCompatActivity).supportFragmentManager, "time_picker")
     }
 
-    fun getDateTime(scheduledAt: String?): Date? {
-        scheduledAt?.let {
-            try {
-                return iso8601.parse(it)
-            } catch (_: ParseException) {
-            }
-        }
-        return null
-    }
-
-    fun setDateTime(scheduledAt: String?) {
-        val date = getDateTime(scheduledAt) ?: return
+    fun setDateTime(scheduledAt: Date) {
         initializeSuggestedTime()
-        scheduleDateTimeUtc!!.time = date
+        scheduleDateTimeUtc!!.time = scheduledAt
         updateScheduleUi()
     }
 
@@ -238,11 +219,8 @@ class ComposeScheduleView
         scheduleDateTimeUtc?.set(Calendar.HOUR_OF_DAY, hourOfDay)
         scheduleDateTimeUtc?.set(Calendar.MINUTE, minute)
         updateScheduleUi()
-        listener?.onTimeSet(time)
+        listener?.onTimeSet(scheduleDateTimeUtc?.time)
     }
-
-    val time: String?
-        get() = scheduleDateTimeUtc?.time?.let { iso8601.format(it) }
 
     private fun initializeSuggestedTime() {
         if (scheduleDateTimeUtc == null) {

@@ -38,6 +38,7 @@ import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
 import com.gaelmarhic.quadrant.QuadrantConstants
+import java.util.Date
 import kotlinx.parcelize.Parcelize
 
 private const val EXTRA_PACHLI_ACCOUNT_ID = "app.pachli.EXTRA_PACHLI_ACCOUNT_ID"
@@ -147,7 +148,7 @@ class ComposeActivityIntent(context: Context) : Intent() {
         val replyingStatusContent: String? = null,
         val mediaAttachments: List<Attachment>? = null,
         val draftAttachments: List<DraftAttachment>? = null,
-        val scheduledAt: String? = null,
+        val scheduledAt: Date? = null,
         val sensitive: Boolean? = null,
         val poll: NewPoll? = null,
         val modifiedInitialState: Boolean? = null,
