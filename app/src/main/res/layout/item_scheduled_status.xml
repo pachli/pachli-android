@@ -18,20 +18,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:autoText="false"
-        tools:text="@tools:sample/lorem/random" />
+        tools:text="@tools:sample/lorem[10]" />
 
     <TextView
         android:id="@+id/timestamp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:drawablePadding="10dp"
-        android:drawableTint="?colorPrimary"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
         app:drawableStartCompat="@drawable/ic_access_time"
+        app:drawableTint="?colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/edit"
         app:layout_constraintEnd_toStartOf="@id/edit"
         app:layout_constraintStart_toStartOf="parent"
