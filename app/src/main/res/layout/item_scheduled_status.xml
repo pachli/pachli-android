@@ -18,7 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:autoText="false"
-        tools:text="@tools:sample/lorem[10]" />
+        tools:text="@tools:sample/lorem[10]"
+        tools:ignore="SelectableText" />
 
     <TextView
         android:id="@+id/timestamp"
