@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Introduce aquí la dirección o dominio de cualquier instancia, como mastodon.social, icosahedron.website, social.tchncs.de y <a href="https://instances.social">más!</a> 
-\n 
-\nSi todavía no tienes una cuenta, puedes indicar el nombre de la instancia a la que quieres unirte y crear una cuenta allí. 
-\n 
-\nUna instancia es un sitio único donde tu cuenta está alojada, pero puedes comunicarte y seguir usuarios de otras instancias como si estuvieran en la misma. 
-\n 
-\nPuedes consultar más información en <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
+    <string name="dialog_whats_an_instance">Puedes ingresar la dirección o dominio de cualquier instancia, como mastodon.social, icosahedron.website, social.tchncs.de y <a href="https://instances.social">más!</a>\n\nUna instancia es un lugar único donde tu cuenta está alojada, pero puedes comunicarte y seguir usuarios de otras instancias como si estuvieran en el mismo sitio.\n\nPuedes consultar más información en <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
     <string name="action_close">Cerrar</string>
     <string name="action_browser_login">Iniciar sesión con el navegador</string>
     <string name="error_invalid_domain">Nombre de dominio incorrecto</string>

@@ -518,7 +518,7 @@
     <string name="ui_success_accepted_follow_request">Đã chấp nhận yêu cầu theo dõi</string>
     <string name="ui_success_rejected_follow_request">Đã từ chối yêu cầu theo dõi</string>
     <string name="status_filtered_show_anyway">Vẫn hiện</string>
-    <string name="status_filter_placeholder_label_format">Đã lọc: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Đã lọc: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Người</string>
     <string name="hint_filter_title">Bộ lọc của tôi</string>
     <string name="label_filter_title">Tên bộ lọc</string>
@@ -535,9 +535,7 @@
     <string name="filter_edit_keyword_title">Sửa từ</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="pref_title_show_stat_inline">Hiện số tương tác trên tút</string>
-    <string name="help_empty_home">Đây là <b>bảng tin của bạn</b>. Nó sẽ hiện những tút gần đây từ những người bạn theo dõi.
-\n
-\nĐể khám phá mọi người, bạn có thể xem qua ở các bảng tin khác. Ví dụ: [iconics gmd_group] Bảng tin máy chủ của bạn. Hoặc bạn cũng có thể [iconics gmd_search] tìm theo tên người dùng; ví dụ như Pachli.</string>
+    <string name="help_empty_home">Đây là <b>bảng tin của bạn</b>. Nó sẽ hiện những tút gần đây từ những người bạn theo dõi. \n \nĐể khám phá mọi người, bạn có thể xem qua ở các bảng tin khác. Ví dụ: [iconics gmd_group] Bảng tin máy chủ của bạn. Hoặc bạn cũng có thể [iconics gmd_search] tìm theo tên người dùng; ví dụ như Pachli.</string>
     <string name="hint_description">Mô tả</string>
     <string name="post_media_image">Hình ảnh</string>
     <string name="select_list_manage">Quản lý danh sách</string>
