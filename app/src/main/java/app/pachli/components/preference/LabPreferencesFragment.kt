@@ -25,6 +25,8 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import app.pachli.R
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.TabAlignment
+import app.pachli.core.preferences.TabContents
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.databinding.FragmentLabPreferencesWarningBinding
 import app.pachli.settings.enumListPreference
@@ -63,6 +65,20 @@ class LabPreferencesFragment : PreferenceFragmentCompat() {
                 setDefaultValue(TabTapBehaviour.JUMP_TO_NEXT_PAGE)
                 setTitle(app.pachli.core.preferences.R.string.pref_title_tab_tap)
                 key = PrefKeys.TAB_TAP_BEHAVIOUR
+                isIconSpaceReserved = false
+            }
+
+            enumListPreference<TabAlignment> {
+                setDefaultValue(TabAlignment.START)
+                setTitle(app.pachli.core.preferences.R.string.pref_title_tab_alignment)
+                key = PrefKeys.TAB_ALIGNMENT
+                isIconSpaceReserved = false
+            }
+
+            enumListPreference<TabContents> {
+                setDefaultValue(TabContents.ICON_ONLY)
+                setTitle(app.pachli.core.preferences.R.string.pref_title_tab_contents)
+                key = PrefKeys.TAB_CONTENTS
                 isIconSpaceReserved = false
             }
         }

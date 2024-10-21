@@ -37,4 +37,15 @@
     <string name="pref_show_self_username_always">Always</string>
     <string name="pref_show_self_username_disambiguate">When multiple accounts logged in</string>
     <string name="pref_show_self_username_never">Never</string>
+
+    <string name="pref_title_tab_alignment">Align main navigation tabs</string>
+    <string name="pref_tab_alignment_start">Start of text direction</string>
+    <string name="pref_tab_alignment_justify_if_possible">Expand to full width</string>
+    <string name="pref_tab_alignment_end">End of text direction</string>
+
+    <string name="pref_title_tab_contents">Content of main navigation tabs</string>
+    <string name="pref_tab_contents_icon_only">Icon only</string>
+    <string name="pref_tab_contents_text_only">Text only</string>
+    <string name="pref_tab_contents_icon_text_inline">Icon with text beside</string>
+    <string name="pref_tab_contents_icon_text_below">Icon with text below</string>
 </resources>

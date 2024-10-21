@@ -131,6 +131,12 @@ object PrefKeys {
      */
     const val CONFIRM_STATUS_LANGUAGE = "confirmStatusLanguage"
 
+    /** Tab alignment. See [TabAlignment]. */
+    const val TAB_ALIGNMENT = "tabAlignment"
+
+    /** Tab contents. See [TabContents]. */
+    const val TAB_CONTENTS = "tabContents"
+
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         const val WELLBEING_LIMITED_NOTIFICATIONS = "wellbeingModeLimitedNotifications"
