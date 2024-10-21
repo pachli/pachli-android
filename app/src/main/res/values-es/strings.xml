@@ -112,8 +112,8 @@
     <string name="dialog_message_cancel_follow_request">¿Cancelar petición de amistad?</string>
     <string name="dialog_unfollow_warning">¿Dejar de seguir esta cuenta?</string>
     <string name="dialog_delete_post_warning">¿Eliminar esta publicación?</string>
-    <string name="visibility_public">Público: Mostrar en historias públicas</string>
-    <string name="visibility_unlisted">Oculto: No mostrar en historias públicas</string>
+    <string name="visibility_public">Público: Mostrar en cronologías públicas</string>
+    <string name="visibility_unlisted">Silencioso: No mostrar en cronologías públicas</string>
     <string name="visibility_private">Privado: Sólo visible para seguidores</string>
     <string name="visibility_direct">Directo: Sólo visible para cuentas mencionadas</string>
     <string name="pref_title_edit_notification_settings">Notificaciones</string>
@@ -129,7 +129,7 @@
     <string name="pref_title_notification_filter_favourites">me dan favorito</string>
     <string name="pref_title_appearance_settings">Apariencia</string>
     <string name="pref_title_app_theme">Tema de la app</string>
-    <string name="pref_title_timelines">Cronologia</string>
+    <string name="pref_title_timelines">Cronologías</string>
     <string name="pref_title_browser_settings">Navegador</string>
     <string name="pref_title_custom_tabs">Usar pestañas de Chrome</string>
     <string name="pref_title_hide_follow_button">Ocultar botón de redacción al bajar</string>
@@ -334,7 +334,7 @@
     <string name="action_view_domain_mutes">Dominios ocultos</string>
     <string name="action_mute_domain">Silenciar %s</string>
     <string name="confirmation_domain_unmuted">%s visible</string>
-    <string name="mute_domain_warning">¿Estás seguro de que quieres bloquear todo sobre %s\? No verás contenido de ese dominio ni en la cronología ni en tus notificaciones. Tus seguidores de ese dominio serán eliminados.</string>
+    <string name="mute_domain_warning">¿Confirmas que quieres bloquear todo %s? No verás contenido de ese dominio en ninguna cronología pública ni en tus notificaciones. Tus seguidores de ese dominio serán eliminados.</string>
     <string name="mute_domain_warning_dialog_ok">Ocultar dominio completo</string>
     <string name="pref_title_animate_gif_avatars">Animar avatares GIF</string>
     <string name="filter_dialog_whole_word">Toda palabra</string>
@@ -387,7 +387,7 @@
     <string name="notification_follow_request_description">Notificaciones de solicitudes</string>
     <string name="pref_title_notification_filter_follow_requests">solicitud de seguimiento</string>
     <string name="pref_title_confirm_reblogs">Pedir confirmación antes de impulsar</string>
-    <string name="pref_title_show_cards_in_timelines">Mostrar previsualización de enlaces en la cronología</string>
+    <string name="pref_title_show_cards_in_timelines">Mostrar previsualizaciones de enlaces en las cronologías</string>
     <string name="pref_title_enable_swipe_for_tabs">Habilitar gesto de deslizar para alternar entre pestañas</string>
     <plurals name="poll_info_people">
         <item quantity="one">%s persona</item>
@@ -539,10 +539,10 @@
     <string name="notification_unknown_name">Desconocido</string>
     <string name="status_filtered_show_anyway">Mostrar de todas formas</string>
     <string name="status_filter_placeholder_label_format">Filtrado: &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="pref_title_show_stat_inline">Mostrar estadísticas de la entrada en la línea de tiempo</string>
+    <string name="pref_title_show_stat_inline">Mostrar estadísticas de la publicación en la cronología</string>
     <string name="socket_timeout_exception">Contactar con tu servidor ha tardado demasiado tiempo</string>
     <string name="select_list_empty">Todavía no tienes listas</string>
-    <string name="help_empty_home">Esta es tu <b> cronología de inicio</b>. Muestra las publicaciones recientes de las cuentas que sigues. \n \nPara encontrar cuentas, puedes mirar en alguna de las otras cronologías. Por ejemplo, la cronología local de tu instancia [iconics gmd_group]. O puedes buscarlas por nombre [iconics gmd_search]; por ejemplo, busca Pachli para encontrar nuestra cuenta de Mastodon.</string>
+    <string name="help_empty_home">Esta es tu <b> cronología de inicio</b>. Muestra las publicaciones recientes de las cuentas que sigues. \n \nPara encontrar cuentas, puedes mirar en alguna de las otras cronologías; por ejemplo, la cronología local de tu instancia [iconics gmd_group]. O puedes buscarlas por nombre [iconics gmd_search]; por ejemplo, busca Pachli para encontrar nuestra cuenta de Mastodon.</string>
     <string name="ui_error_bookmark_fmt">Fallo al añadir a marcadores: %1$s</string>
     <string name="select_list_manage">Gestionar listas</string>
     <string name="error_list_load">Error al cargar listas</string>
@@ -605,9 +605,7 @@
     <string name="pref_title_font_family">Familia de fuente</string>
     <string name="notification_listenable_worker_description">Notificaciones cuando Pachli está trabajando en el fondo</string>
     <string name="action_translate">Traducir</string>
-    <string name="error_missing_edits">Tu servidor sabe que esta publicación fue editada, pero no tiene una copia de las ediciones, así que no pueden ser asomados a ti.
-\n
-\nEsto es <a href="https://github.com/mastodon/mastodon/issues/25398">problema de Mastodon #25398</a>.</string>
+    <string name="error_missing_edits">Tu servidor sabe que esta publicación fue editada, pero no tiene una copia de las ediciones, así que no pueden ser mostradas. \n \nEsto es la <a href="https://github.com/mastodon/mastodon/issues/25398">incidencia núm. 25398</a> de Mastodon.</string>
     <string name="update_dialog_title">Una actualización está disponible</string>
     <string name="title_tab_public_trending_hashtags">Etiquetas</string>
     <string name="label_image">Imagen</string>
@@ -764,7 +762,7 @@
     <string name="search_operator_where_dialog_library_hint">Tus propias publicaciones, impulsos, favoritos, marcadores y publicaciones en las que te hayan @mencionado</string>
     <string name="pref_title_labs">Experimentos de laboratorio</string>
     <string name="pref_labs_warning">Características experimentales. No hay garantías de que funcionen o de que sean incluidas en futuras versiones. Su uso queda bajo tu entera responsabilidad.</string>
-    <string name="pref_labs_reverse_home_timeline_title">Orden inverso en línea de tiempo</string>
+    <string name="pref_labs_reverse_home_timeline_title">Invertir el orden de la cronología</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Publicaciones más recientes primero</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Publicaciones más antiguas primero</string>
     <string name="pref_title_notification_up_distributor">Distribuidor Unified Push</string>
@@ -791,4 +789,6 @@
     <string name="pref_notification_battery_optimisation_is_disabled">La optimización de la batería está deshabilitada</string>
     <string name="pref_title_content_filters">Filtros de contenido</string>
     <string name="conversation_0_recipients">Ningún participante más</string>
+    <string name="pref_title_confirm_status_language">Revisar idioma de la publicación antes de publicar</string>
+    <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Publicar como está (%1$s) y no volver a preguntar</string>
 </resources>
