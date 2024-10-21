@@ -1,4 +1,5 @@
-/* Copyright 2019 kyori19
+/*
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -14,16 +15,14 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.network.model
+package app.pachli.core.preferences
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-import java.util.Date
-
-@JsonClass(generateAdapter = true)
-data class ScheduledStatus(
-    val id: String,
-    @Json(name = "scheduled_at") val scheduledAt: Date,
-    val params: StatusParams,
-    @Json(name = "media_attachments") val mediaAttachments: List<Attachment>,
-)
+enum class TabContents(
+    override val displayResource: Int,
+    override val value: String? = null,
+) : PreferenceEnum {
+    ICON_ONLY(R.string.pref_tab_contents_icon_only),
+    TEXT_ONLY(R.string.pref_tab_contents_text_only),
+    ICON_TEXT_INLINE(R.string.pref_tab_contents_icon_text_inline),
+    ICON_TEXT_BELOW(R.string.pref_tab_contents_icon_text_below),
+}

@@ -1,40 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_marginTop="16dp"
+    android:minHeight="?listPreferredItemHeight"
+    android:paddingStart="?listPreferredItemPaddingStart"
+    android:paddingEnd="?listPreferredItemPaddingEnd">
 
     <TextView
         android:id="@+id/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.91"
-        android:padding="8dp"
-        android:textSize="?attr/status_text_medium" />
+        android:textSize="?attr/status_text_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:autoText="false"
+        tools:text="@tools:sample/lorem[10]"
+        tools:ignore="SelectableText" />
+
+    <TextView
+        android:id="@+id/timestamp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:textColor="?android:textColorSecondary"
+        android:textSize="?attr/status_text_medium"
+        app:drawableStartCompat="@drawable/ic_access_time"
+        app:drawableTint="?colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/edit"
+        app:layout_constraintEnd_toStartOf="@id/edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edit"
+        tools:text="2024-10-20 18:00:00" />
 
     <ImageButton
         android:id="@+id/edit"
         style="@style/AppImageButton"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="12dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/action_edit"
-        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/delete"
+        app:layout_constraintStart_toEndOf="@id/timestamp"
+        app:layout_constraintTop_toBottomOf="@+id/text"
         app:srcCompat="@drawable/ic_create_24dp" />
 
     <ImageButton
         android:id="@+id/delete"
         style="@style/AppImageButton"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="12dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/action_delete"
-        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_clear_24dp" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,7 +63,7 @@ class DraftHelper @Inject constructor(
         poll: NewPoll?,
         failedToSend: Boolean,
         failedToSendAlert: Boolean,
-        scheduledAt: String?,
+        scheduledAt: Date?,
         language: String?,
         statusId: String?,
     ) = withContext(Dispatchers.IO) {

@@ -125,6 +125,18 @@ object PrefKeys {
     const val DOWNLOAD_LOCATION = "downloadLocation"
     const val TAB_TAP_BEHAVIOUR = "tabTapBehaviour"
 
+    /**
+     * True if the status' language should be checked before posting and the user
+     * should be prompted to confirm if it doesn't match the set language.
+     */
+    const val CONFIRM_STATUS_LANGUAGE = "confirmStatusLanguage"
+
+    /** Tab alignment. See [TabAlignment]. */
+    const val TAB_ALIGNMENT = "tabAlignment"
+
+    /** Tab contents. See [TabContents]. */
+    const val TAB_CONTENTS = "tabContents"
+
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         const val WELLBEING_LIMITED_NOTIFICATIONS = "wellbeingModeLimitedNotifications"

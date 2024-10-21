@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 7,
-    "identityHash": "9bd0152140e6ac1212339704a33cce20",
+    "version": 9,
+    "identityHash": "0ebc4ca3fcd13edd0458661de5686960",
     "entities": [
       {
         "tableName": "DraftEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountId` INTEGER NOT NULL, `inReplyToId` TEXT, `content` TEXT, `contentWarning` TEXT, `sensitive` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `attachments` TEXT NOT NULL, `poll` TEXT, `failedToSend` INTEGER NOT NULL, `failedToSendNew` INTEGER NOT NULL, `scheduledAt` TEXT, `scheduledAtLong` INTEGER, `language` TEXT, `statusId` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountId` INTEGER NOT NULL, `inReplyToId` TEXT, `content` TEXT, `contentWarning` TEXT, `sensitive` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `attachments` TEXT NOT NULL, `poll` TEXT, `failedToSend` INTEGER NOT NULL, `failedToSendNew` INTEGER NOT NULL, `scheduledAt` INTEGER, `language` TEXT, `statusId` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -77,12 +77,6 @@
           {
             "fieldPath": "scheduledAt",
             "columnName": "scheduledAt",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "scheduledAtLong",
-            "columnName": "scheduledAtLong",
             "affinity": "INTEGER",
             "notNull": false
           },
@@ -110,7 +104,7 @@
       },
       {
         "tableName": "AccountEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `domain` TEXT NOT NULL, `accessToken` TEXT NOT NULL, `clientId` TEXT, `clientSecret` TEXT, `isActive` INTEGER NOT NULL, `accountId` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `profilePictureUrl` TEXT NOT NULL, `notificationsEnabled` INTEGER NOT NULL, `notificationsMentioned` INTEGER NOT NULL, `notificationsFollowed` INTEGER NOT NULL, `notificationsFollowRequested` INTEGER NOT NULL, `notificationsReblogged` INTEGER NOT NULL, `notificationsFavorited` INTEGER NOT NULL, `notificationsPolls` INTEGER NOT NULL, `notificationsSubscriptions` INTEGER NOT NULL, `notificationsSignUps` INTEGER NOT NULL, `notificationsUpdates` INTEGER NOT NULL, `notificationsReports` INTEGER NOT NULL, `notificationsSeveredRelationships` INTEGER NOT NULL DEFAULT true, `notificationSound` INTEGER NOT NULL, `notificationVibration` INTEGER NOT NULL, `notificationLight` INTEGER NOT NULL, `defaultPostPrivacy` INTEGER NOT NULL, `defaultMediaSensitivity` INTEGER NOT NULL, `defaultPostLanguage` TEXT NOT NULL, `alwaysShowSensitiveMedia` INTEGER NOT NULL, `alwaysOpenSpoiler` INTEGER NOT NULL, `mediaPreviewEnabled` INTEGER NOT NULL, `lastNotificationId` TEXT NOT NULL, `notificationMarkerId` TEXT NOT NULL DEFAULT '0', `emojis` TEXT NOT NULL, `tabPreferences` TEXT NOT NULL, `notificationsFilter` TEXT NOT NULL, `oauthScopes` TEXT NOT NULL, `unifiedPushUrl` TEXT NOT NULL, `pushPubKey` TEXT NOT NULL, `pushPrivKey` TEXT NOT NULL, `pushAuth` TEXT NOT NULL, `pushServerKey` TEXT NOT NULL, `lastVisibleHomeTimelineStatusId` TEXT, `locked` INTEGER NOT NULL DEFAULT 0)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `domain` TEXT NOT NULL, `accessToken` TEXT NOT NULL, `clientId` TEXT NOT NULL, `clientSecret` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `accountId` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `profilePictureUrl` TEXT NOT NULL, `profileHeaderPictureUrl` TEXT NOT NULL DEFAULT '', `notificationsEnabled` INTEGER NOT NULL, `notificationsMentioned` INTEGER NOT NULL, `notificationsFollowed` INTEGER NOT NULL, `notificationsFollowRequested` INTEGER NOT NULL, `notificationsReblogged` INTEGER NOT NULL, `notificationsFavorited` INTEGER NOT NULL, `notificationsPolls` INTEGER NOT NULL, `notificationsSubscriptions` INTEGER NOT NULL, `notificationsSignUps` INTEGER NOT NULL, `notificationsUpdates` INTEGER NOT NULL, `notificationsReports` INTEGER NOT NULL, `notificationsSeveredRelationships` INTEGER NOT NULL DEFAULT true, `notificationSound` INTEGER NOT NULL, `notificationVibration` INTEGER NOT NULL, `notificationLight` INTEGER NOT NULL, `defaultPostPrivacy` INTEGER NOT NULL, `defaultMediaSensitivity` INTEGER NOT NULL, `defaultPostLanguage` TEXT NOT NULL, `alwaysShowSensitiveMedia` INTEGER NOT NULL, `alwaysOpenSpoiler` INTEGER NOT NULL, `mediaPreviewEnabled` INTEGER NOT NULL, `lastNotificationId` TEXT NOT NULL, `notificationMarkerId` TEXT NOT NULL DEFAULT '0', `emojis` TEXT NOT NULL, `tabPreferences` TEXT NOT NULL, `notificationsFilter` TEXT NOT NULL, `oauthScopes` TEXT NOT NULL, `unifiedPushUrl` TEXT NOT NULL, `pushPubKey` TEXT NOT NULL, `pushPrivKey` TEXT NOT NULL, `pushAuth` TEXT NOT NULL, `pushServerKey` TEXT NOT NULL, `lastVisibleHomeTimelineStatusId` TEXT, `locked` INTEGER NOT NULL DEFAULT 0)",
         "fields": [
           {
             "fieldPath": "id",
@@ -134,13 +128,13 @@
             "fieldPath": "clientId",
             "columnName": "clientId",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "clientSecret",
             "columnName": "clientSecret",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "isActive",
@@ -171,6 +165,13 @@
             "columnName": "profilePictureUrl",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "profileHeaderPictureUrl",
+            "columnName": "profileHeaderPictureUrl",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           },
           {
             "fieldPath": "notificationsEnabled",
@@ -401,8 +402,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "InstanceEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`instance` TEXT NOT NULL, `emojiList` TEXT, `maximumTootCharacters` INTEGER, `maxPollOptions` INTEGER, `maxPollOptionLength` INTEGER, `minPollDuration` INTEGER, `maxPollDuration` INTEGER, `charactersReservedPerUrl` INTEGER, `version` TEXT, `videoSizeLimit` INTEGER, `imageSizeLimit` INTEGER, `imageMatrixLimit` INTEGER, `maxMediaAttachments` INTEGER, `maxFields` INTEGER, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, PRIMARY KEY(`instance`))",
+        "tableName": "InstanceInfoEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`instance` TEXT NOT NULL, `maxPostCharacters` INTEGER, `maxPollOptions` INTEGER, `maxPollOptionLength` INTEGER, `minPollDuration` INTEGER, `maxPollDuration` INTEGER, `charactersReservedPerUrl` INTEGER, `version` TEXT, `videoSizeLimit` INTEGER, `imageSizeLimit` INTEGER, `imageMatrixLimit` INTEGER, `maxMediaAttachments` INTEGER, `maxFields` INTEGER, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, `enabledTranslation` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`instance`))",
         "fields": [
           {
             "fieldPath": "instance",
@@ -411,14 +412,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "emojiList",
-            "columnName": "emojiList",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "maximumTootCharacters",
-            "columnName": "maximumTootCharacters",
+            "fieldPath": "maxPostCharacters",
+            "columnName": "maxPostCharacters",
             "affinity": "INTEGER",
             "notNull": false
           },
@@ -499,6 +494,13 @@
             "columnName": "maxFieldValueLength",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "enabledTranslation",
+            "columnName": "enabledTranslation",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
           }
         ],
         "primaryKey": {
@@ -509,6 +511,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "EmojisEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `emojiList` TEXT NOT NULL, PRIMARY KEY(`accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emojiList",
+            "columnName": "emojiList",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "AccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "accountId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "TimelineStatusEntity",
@@ -1192,12 +1232,207 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "MastodonListEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `listId` TEXT NOT NULL, `title` TEXT NOT NULL, `repliesPolicy` TEXT NOT NULL, `exclusive` INTEGER NOT NULL, PRIMARY KEY(`accountId`, `listId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "listId",
+            "columnName": "listId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repliesPolicy",
+            "columnName": "repliesPolicy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exclusive",
+            "columnName": "exclusive",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountId",
+            "listId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "AccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "accountId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "ServerEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `serverKind` TEXT NOT NULL, `version` TEXT NOT NULL, `capabilities` TEXT NOT NULL, PRIMARY KEY(`accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serverKind",
+            "columnName": "serverKind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capabilities",
+            "columnName": "capabilities",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "AccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "accountId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "ContentFiltersEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `version` TEXT NOT NULL, `contentFilters` TEXT NOT NULL, PRIMARY KEY(`accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contentFilters",
+            "columnName": "contentFilters",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "AccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "accountId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "AnnouncementEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `announcementId` TEXT NOT NULL, `announcement` TEXT NOT NULL, PRIMARY KEY(`accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "announcementId",
+            "columnName": "announcementId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "announcement",
+            "columnName": "announcement",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "accountId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "AccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "accountId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9bd0152140e6ac1212339704a33cce20')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0ebc4ca3fcd13edd0458661de5686960')"
     ]
   }
 }

@@ -40,6 +40,7 @@ import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.getOrElse
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
+import java.util.Date
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -247,30 +248,33 @@ class SendStatusService : Service() {
                 )
             }
 
-            sendResult.fold({ sentStatus ->
-                statusesToSend.remove(statusId)
-                // If the status was loaded from a draft, delete the draft and associated media files.
-                if (statusToSend.draftId != 0) {
-                    draftHelper.deleteDraftAndAttachments(statusToSend.draftId)
-                }
+            sendResult.fold(
+                { sentStatus ->
+                    statusesToSend.remove(statusId)
+                    // If the status was loaded from a draft, delete the draft and associated media files.
+                    if (statusToSend.draftId != 0) {
+                        draftHelper.deleteDraftAndAttachments(statusToSend.draftId)
+                    }
 
-                mediaUploader.cancelUploadScope(*statusToSend.media.map { it.localId }.toIntArray())
+                    mediaUploader.cancelUploadScope(*statusToSend.media.map { it.localId }.toIntArray())
 
-                val scheduled = !statusToSend.scheduledAt.isNullOrEmpty()
+                    val scheduled = statusToSend.scheduledAt != null
 
-                if (scheduled) {
-                    eventHub.dispatch(StatusScheduledEvent)
-                } else if (!isNew) {
-                    eventHub.dispatch(StatusEditedEvent(statusToSend.statusId!!, sentStatus as Status))
-                } else {
-                    eventHub.dispatch(StatusComposedEvent(sentStatus as Status))
-                }
+                    if (scheduled) {
+                        eventHub.dispatch(StatusScheduledEvent)
+                    } else if (!isNew) {
+                        eventHub.dispatch(StatusEditedEvent(statusToSend.statusId!!, sentStatus as Status))
+                    } else {
+                        eventHub.dispatch(StatusComposedEvent(sentStatus as Status))
+                    }
 
-                notificationManager.cancel(statusId)
-            }, { throwable ->
-                Timber.w(throwable, "failed sending status")
-                failOrRetry(throwable, statusId)
-            })
+                    notificationManager.cancel(statusId)
+                },
+                { throwable ->
+                    Timber.w(throwable, "failed sending status")
+                    failOrRetry(throwable, statusId)
+                },
+            )
             stopSelfWhenDone()
         }
     }
@@ -475,7 +479,7 @@ data class StatusToSend(
     val visibility: String,
     val sensitive: Boolean,
     val media: List<MediaToSend>,
-    val scheduledAt: String?,
+    val scheduledAt: Date?,
     val inReplyToId: String?,
     val poll: NewPoll?,
     val replyingStatusContent: String?,

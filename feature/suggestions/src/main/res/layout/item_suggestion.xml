@@ -128,23 +128,25 @@
 
     <TextView
         android:id="@+id/follows_count"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="?attr/status_text_small"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:importantForAccessibility="no"
+        android:textSize="?attr/status_text_small"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/follower_count"
         app:layout_constraintTop_toBottomOf="@id/account_note"
         tools:text="46 follows" />
 
     <TextView
         android:id="@+id/statuses_count"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textSize="?attr/status_text_small"
         android:importantForAccessibility="no"
+        android:textSize="?attr/status_text_small"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/follower_count"
         app:layout_constraintTop_toBottomOf="@id/follower_count"
         tools:text="46 posts (4.6 per week)" />

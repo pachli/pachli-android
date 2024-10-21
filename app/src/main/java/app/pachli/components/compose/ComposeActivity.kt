@@ -121,6 +121,7 @@ import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.IOException
+import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.max
@@ -292,8 +293,8 @@ class ComposeActivity :
             binding.composeEditField.setText(statusContent)
         }
 
-        if (!composeOptions?.scheduledAt.isNullOrEmpty()) {
-            binding.composeScheduleView.setDateTime(composeOptions?.scheduledAt)
+        composeOptions?.scheduledAt?.let {
+            binding.composeScheduleView.setDateTime(it)
         }
 
         setupLanguageSpinner(getInitialLanguages(composeOptions?.language, activeAccount))
@@ -314,7 +315,7 @@ class ComposeActivity :
                 viewModel.showContentWarningChanged(this)
             }
 
-            it.getString(KEY_SCHEDULED_TIME)?.let { time ->
+            (it.getSerializable(KEY_SCHEDULED_TIME) as? Date)?.let { time ->
                 viewModel.updateScheduledAt(time)
             }
         }
@@ -717,7 +718,7 @@ class ComposeActivity :
         outState.putParcelable(KEY_PHOTO_UPLOAD_URI, photoUploadUri)
         outState.putSerializable(KEY_VISIBILITY, viewModel.statusVisibility.value)
         outState.putBoolean(KEY_CONTENT_WARNING_VISIBLE, viewModel.showContentWarning.value)
-        outState.putString(KEY_SCHEDULED_TIME, viewModel.scheduledAt.value)
+        outState.putSerializable(KEY_SCHEDULED_TIME, viewModel.scheduledAt.value)
         super.onSaveInstanceState(outState)
     }
 
@@ -783,7 +784,7 @@ class ComposeActivity :
             // Can't reschedule a published status
             enableButton(binding.composeScheduleButton, clickable = false, colorActive = false)
         } else {
-            val attr = if (binding.composeScheduleView.time == null) {
+            val attr = if (viewModel.scheduledAt.value == null) {
                 android.R.attr.colorControlNormal
             } else {
                 android.R.attr.colorPrimary
@@ -970,11 +971,11 @@ class ComposeActivity :
     }
 
     private fun verifyScheduledTime(): Boolean {
-        return binding.composeScheduleView.verifyScheduledTime(binding.composeScheduleView.getDateTime(viewModel.scheduledAt.value))
+        return binding.composeScheduleView.verifyScheduledTime(viewModel.scheduledAt.value)
     }
 
     private fun onSendClicked() = lifecycleScope.launch {
-        confirmStatusLanguage()
+        if (viewModel.confirmStatusLanguage) confirmStatusLanguage()
 
         if (verifyScheduledTime()) {
             sendStatus()
@@ -1049,6 +1050,7 @@ class ComposeActivity :
             .await(
                 getString(R.string.compose_warn_language_dialog_change_language_fmt, detectedDisplayLang),
                 getString(R.string.compose_warn_language_dialog_accept_language_fmt, currentDisplayLang),
+                getString(R.string.compose_warn_language_dialog_accept_and_dont_ask_fmt, currentDisplayLang),
             )
 
         if (dialog == AlertDialog.BUTTON_POSITIVE) {
@@ -1057,6 +1059,8 @@ class ComposeActivity :
                 binding.composePostLanguageButton.setSelection(it)
             }
         }
+
+        if (dialog == AlertDialog.BUTTON_NEUTRAL) viewModel.confirmStatusLanguage = false
     }
 
     /** This is for the fancy keyboards which can insert images and stuff, and drag&drop etc */
@@ -1407,7 +1411,7 @@ class ComposeActivity :
         }
     }
 
-    override fun onTimeSet(time: String?) {
+    override fun onTimeSet(time: Date?) {
         viewModel.updateScheduledAt(time)
         if (verifyScheduledTime()) {
             scheduleBehavior.state = BottomSheetBehavior.STATE_HIDDEN

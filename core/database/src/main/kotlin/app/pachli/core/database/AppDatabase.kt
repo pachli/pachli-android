@@ -17,8 +17,11 @@
 
 package app.pachli.core.database
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.database.sqlite.SQLiteDatabase.CONFLICT_ABORT
 import android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE
+import androidx.core.database.getStringOrNull
 import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.DeleteColumn
@@ -54,6 +57,9 @@ import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.ContentFilterVersion
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 @Suppress("ClassName")
 @Database(
@@ -74,14 +80,15 @@ import app.pachli.core.model.ContentFilterVersion
         ContentFiltersEntity::class,
         AnnouncementEntity::class,
     ],
-    version = 7,
+    version = 9,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
         AutoMigration(from = 5, to = 6),
-        AutoMigration(from = 6, to = 7, spec = AppDatabase.MIGRATE_6_7::class),
+        AutoMigration(from = 7, to = 8, spec = AppDatabase.MIGRATE_7_8::class),
+        AutoMigration(from = 8, to = 9, spec = AppDatabase.MIGRATE_8_9::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -102,6 +109,65 @@ abstract class AppDatabase : RoomDatabase() {
     @DeleteColumn("TimelineStatusEntity", "contentShowing")
     class MIGRATE_1_2 : AutoMigrationSpec
 
+    /**
+     * Part one of migrating [DraftEntity.scheduledAt] from String to Long.
+     *
+     * Copies existing data from `scheduledAt` into `scheduledAtLong`.
+     */
+    class MIGRATE_6_7 : AutoMigrationSpec {
+        @SuppressLint("ConstantLocale")
+        private val iso8601 = SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            Locale.getDefault(),
+        ).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+        }
+
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            db.beginTransaction()
+
+            val draftCursor = db.query("SELECT id, scheduledAt FROM DraftEntity")
+            with(draftCursor) {
+                while (moveToNext()) {
+                    val scheduledAt = getStringOrNull(1) ?: continue
+
+                    // Parse the string representation to a Date. Ignore errors, they
+                    // shouldn't be possible.
+                    val scheduledDate = runCatching { iso8601.parse(scheduledAt) }.getOrNull()
+                        ?: continue
+
+                    // Dates are stored as Long, see Converters.dateToLong.
+                    val values = ContentValues().apply {
+                        put("scheduledAtLong", scheduledDate.time)
+                    }
+
+                    val draftId = getInt(0)
+                    db.update("DraftEntity", CONFLICT_ABORT, values, "id = ?", arrayOf(draftId))
+                }
+            }
+
+            db.setTransactionSuccessful()
+            db.endTransaction()
+        }
+    }
+
+    /**
+     * Completes the migration started in [MIGRATE_6_7]. SQLite on Android can't
+     * drop/rename columns, so use Room's annotations to generate the code to do this.
+     */
+    @DeleteColumn("DraftEntity", "scheduledAt")
+    @RenameColumn("DraftEntity", "scheduledAtLong", "scheduledAt")
+    class MIGRATE_7_8 : AutoMigrationSpec
+
+    /**
+     * Populates new tables with default data for existing accounts.
+     *
+     * Sets up:
+     *
+     * - InstanceInfoEntity
+     * - ServerEntity
+     * - ContentFiltersEntity
+     */
     @DeleteColumn("InstanceEntity", "emojiList")
     @RenameColumn(
         "InstanceEntity",
@@ -109,11 +175,10 @@ abstract class AppDatabase : RoomDatabase() {
         toColumnName = "maxPostCharacters",
     )
     @RenameTable(fromTableName = "InstanceEntity", toTableName = "InstanceInfoEntity")
-    class MIGRATE_6_7 : AutoMigrationSpec {
+    class MIGRATE_8_9 : AutoMigrationSpec {
         override fun onPostMigrate(db: SupportSQLiteDatabase) {
             db.beginTransaction()
 
-            // Create InstanceInfoEntity and ServerCapabilitiesEntity for each account.
             val accountCursor = db.query("SELECT id, domain FROM AccountEntity")
             with(accountCursor) {
                 while (moveToNext()) {
@@ -142,6 +207,7 @@ abstract class AppDatabase : RoomDatabase() {
                     db.insert("ContentFiltersEntity", CONFLICT_IGNORE, contentFiltersEntityValues)
                 }
             }
+
             db.setTransactionSuccessful()
             db.endTransaction()
         }

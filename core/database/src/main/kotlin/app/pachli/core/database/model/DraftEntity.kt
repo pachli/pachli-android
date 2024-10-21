@@ -29,6 +29,7 @@ import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.Date
 import kotlinx.parcelize.Parcelize
 
 @Entity
@@ -45,7 +46,7 @@ data class DraftEntity(
     val poll: NewPoll?,
     val failedToSend: Boolean,
     val failedToSendNew: Boolean,
-    val scheduledAt: String?,
+    val scheduledAt: Date?,
     val language: String?,
     val statusId: String?,
 )

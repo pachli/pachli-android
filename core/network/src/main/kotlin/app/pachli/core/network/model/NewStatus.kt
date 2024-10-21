@@ -19,6 +19,7 @@ package app.pachli.core.network.model
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.Date
 import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
@@ -30,7 +31,7 @@ data class NewStatus(
     val sensitive: Boolean,
     @Json(name = "media_ids") val mediaIds: List<String>?,
     @Json(name = "media_attributes") val mediaAttributes: List<MediaAttribute>?,
-    @Json(name = "scheduled_at") val scheduledAt: String?,
+    @Json(name = "scheduled_at") val scheduledAt: Date?,
     val poll: NewPoll?,
     val language: String?,
 )

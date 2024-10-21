@@ -110,6 +110,9 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys.FONT_FAMILY
+import app.pachli.core.preferences.TabAlignment
+import app.pachli.core.preferences.TabContents
+import app.pachli.core.ui.AlignableTabLayoutAlignment
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon
@@ -1135,6 +1138,14 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
+        activeTabLayout.alignment = when (sharedPreferencesRepository.tabAlignment) {
+            TabAlignment.START -> AlignableTabLayoutAlignment.START
+            TabAlignment.JUSTIFY_IF_POSSIBLE -> AlignableTabLayoutAlignment.JUSTIFY_IF_POSSIBLE
+            TabAlignment.END -> AlignableTabLayoutAlignment.END
+        }
+        val tabContents = sharedPreferencesRepository.tabContents
+        activeTabLayout.isInlineLabel = tabContents == TabContents.ICON_TEXT_INLINE
+
         // Save the previous tab so it can be restored later
         val previousTabIndex = binding.viewPager.currentItem
         val previousTab = tabAdapter.tabs.getOrNull(previousTabIndex)
@@ -1147,8 +1158,17 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         tabAdapter.tabs = tabs
         tabAdapter.notifyItemRangeChanged(0, tabs.size)
 
-        tabLayoutMediator = TabLayoutMediator(activeTabLayout, binding.viewPager, true, false) { tab: TabLayout.Tab, position: Int ->
-            tab.icon = AppCompatResources.getDrawable(this@MainActivity, tabs[position].icon)
+        tabLayoutMediator = TabLayoutMediator(
+            activeTabLayout,
+            binding.viewPager,
+            true,
+        ) { tab: TabLayout.Tab, position: Int ->
+            if (tabContents != TabContents.TEXT_ONLY) {
+                tab.icon = AppCompatResources.getDrawable(this@MainActivity, tabs[position].icon)
+            }
+            if (tabContents != TabContents.ICON_ONLY) {
+                tab.text = tabs[position].title(this@MainActivity)
+            }
             tab.contentDescription = tabs[position].title(this@MainActivity)
         }.also { it.attach() }
 

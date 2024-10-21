@@ -59,6 +59,7 @@ import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.z4kn4fein.semver.constraints.toConstraint
+import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
@@ -139,7 +140,7 @@ class ComposeViewModel @Inject constructor(
     val showContentWarning = _showContentWarning.asStateFlow()
     private val _poll: MutableStateFlow<NewPoll?> = MutableStateFlow(null)
     val poll = _poll.asStateFlow()
-    private val _scheduledAt: MutableStateFlow<String?> = MutableStateFlow(null)
+    private val _scheduledAt: MutableStateFlow<Date?> = MutableStateFlow(null)
     val scheduledAt = _scheduledAt.asStateFlow()
 
     private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
@@ -155,6 +156,17 @@ class ComposeViewModel @Inject constructor(
     val serverCanSchedule = serverRepository.flow.map {
         it.get()?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED, ">= 1.0.0".toConstraint()) == true
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    /**
+     * True if the post's language should be checked before posting.
+     *
+     * Modifications are persisted back to shared preferences.
+     */
+    var confirmStatusLanguage: Boolean
+        get() = sharedPreferencesRepository.confirmStatusLanguage
+        set(value) {
+            sharedPreferencesRepository.confirmStatusLanguage = value
+        }
 
     private lateinit var composeKind: ComposeKind
 
@@ -635,7 +647,7 @@ class ComposeViewModel @Inject constructor(
         setupComplete = true
     }
 
-    fun updateScheduledAt(newScheduledAt: String?) {
+    fun updateScheduledAt(newScheduledAt: Date?) {
         if (newScheduledAt != scheduledAt.value) {
             scheduledTimeChanged = true
         }
