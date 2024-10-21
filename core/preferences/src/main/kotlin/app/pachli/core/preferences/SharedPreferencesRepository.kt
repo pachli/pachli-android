@@ -85,6 +85,15 @@ class SharedPreferencesRepository @Inject constructor(
     val showSelfUsername: ShowSelfUsername
         get() = getEnum(PrefKeys.SHOW_SELF_USERNAME, ShowSelfUsername.DISAMBIGUATE)
 
+    /** How to align tabs. */
+    val tabAlignment: TabAlignment
+        get() = getEnum(PrefKeys.TAB_ALIGNMENT, TabAlignment.START)
+
+    /** How to display tabs. */
+    val tabContents: TabContents
+        get() = getEnum(PrefKeys.TAB_CONTENTS, TabContents.ICON_ONLY)
+
+    /** Behaviour when tapping on a tab. */
     val tabTapBehaviour: TabTapBehaviour
         get() = getEnum(PrefKeys.TAB_TAP_BEHAVIOUR, TabTapBehaviour.JUMP_TO_NEXT_PAGE)
 
