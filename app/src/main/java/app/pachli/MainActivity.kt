@@ -1138,12 +1138,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
-        activeTabLayout.alignment = when (sharedPreferencesRepository.tabAlignment) {
+        activeTabLayout.alignment = when (viewModel.uiState.value.tabAlignment) {
             TabAlignment.START -> AlignableTabLayoutAlignment.START
             TabAlignment.JUSTIFY_IF_POSSIBLE -> AlignableTabLayoutAlignment.JUSTIFY_IF_POSSIBLE
             TabAlignment.END -> AlignableTabLayoutAlignment.END
         }
-        val tabContents = sharedPreferencesRepository.tabContents
+        val tabContents = viewModel.uiState.value.tabContents
         activeTabLayout.isInlineLabel = tabContents == TabContents.ICON_TEXT_INLINE
 
         // Save the previous tab so it can be restored later

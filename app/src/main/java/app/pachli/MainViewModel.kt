@@ -32,6 +32,8 @@ import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
+import app.pachli.core.preferences.TabAlignment
+import app.pachli.core.preferences.TabContents
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onSuccess
@@ -116,6 +118,8 @@ data class UiState(
     val displaySelfUsername: Boolean,
     val accounts: List<AccountEntity>,
     val canSchedulePost: Boolean,
+    val tabAlignment: TabAlignment,
+    val tabContents: TabContents,
 ) {
     companion object {
         fun make(prefs: SharedPreferencesRepository, accounts: List<AccountEntity>, server: Server?) = UiState(
@@ -131,6 +135,8 @@ data class UiState(
             },
             accounts = accounts,
             canSchedulePost = server?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED, ">= 1.0.0".toConstraint()) == true,
+            tabAlignment = prefs.tabAlignment,
+            tabContents = prefs.tabContents,
         )
     }
 }
@@ -166,6 +172,8 @@ internal class MainViewModel @Inject constructor(
         PrefKeys.HIDE_TOP_TOOLBAR,
         PrefKeys.MAIN_NAV_POSITION,
         PrefKeys.SHOW_SELF_USERNAME,
+        PrefKeys.TAB_ALIGNMENT,
+        PrefKeys.TAB_CONTENTS,
     )
 
     val uiState =
