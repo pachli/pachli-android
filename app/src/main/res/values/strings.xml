@@ -850,4 +850,7 @@
     <string name="search_operator_where_dialog_library_hint">Your own posts, boosts, favorites, bookmarks, and posts that @mention you</string>
     <string name="search_operator_where_dialog_public">Public posts</string>
     <string name="search_operator_where_dialog_public_hint">Public, searchable posts known by server</string>
+
+    <string name="action_copy_item">Copy item</string>
+    <string name="item_copied">Text copied</string>
 </resources>
