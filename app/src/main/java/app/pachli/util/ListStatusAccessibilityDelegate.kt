@@ -22,7 +22,6 @@ import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.IStatusViewData
 import app.pachli.viewdata.NotificationViewData
-import app.pachli.viewdata.StatusViewData
 import kotlin.math.min
 
 // Not using lambdas because there's boxing of int then
@@ -206,7 +205,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
         }
 
         private fun showLinksDialog(host: View) {
-            val status = getStatus(host) as? StatusViewData ?: return
+            val status = getStatus(host) as? IStatusViewData ?: return
             val links = getLinks(status).toList()
             val textLinks = links.map { item -> item.link }
             AlertDialog.Builder(host.context)
@@ -223,7 +222,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
         }
 
         private fun showMentionsDialog(host: View) {
-            val status = getStatus(host) as? StatusViewData ?: return
+            val status = getStatus(host) as? IStatusViewData ?: return
             val mentions = status.actionable.mentions
             val stringMentions = mentions.map { it.username }
             AlertDialog.Builder(host.context)
@@ -242,7 +241,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
         }
 
         private fun showHashtagsDialog(host: View) {
-            val status = getStatus(host) as? StatusViewData ?: return
+            val status = getStatus(host) as? IStatusViewData ?: return
             val tags = getHashtags(status).map { it.subSequence(1, it.length) }.toList()
             AlertDialog.Builder(host.context)
                 .setTitle(app.pachli.core.ui.R.string.title_hashtags_dialog)
