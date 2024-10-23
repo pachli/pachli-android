@@ -10,7 +10,7 @@
     <string name="download_location_downloads">Lataukset-kansio</string>
     <string name="download_location_per_account">Tilikohtaiset kansiot Lataukset-kansiossa</string>
     <string name="download_location_per_sender">Lähettäjäkohtaiset kansiot Lataukset-kansiossa</string>
-    <string name="pref_title_tab_tap">Toiminta, kun napautat välilehtiä</string>
+    <string name="pref_title_tab_tap">Toiminto välilehteä napautattaessa</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Hyppää seuraavalle sivulle</string>
     <string name="tab_tap_behaviour_jump_to_newest">Hyppää uusimpaan sisältöön</string>
     <string name="pref_category_tabs">Välilehdet</string>
@@ -19,4 +19,13 @@
     <string name="pref_show_self_username_always">Aina</string>
     <string name="pref_show_self_username_disambiguate">Kun kirjauduttu useammalla tilille</string>
     <string name="pref_show_self_username_never">Ei koskaan</string>
+    <string name="pref_title_tab_alignment">Päävalikon välilehtien asettelu</string>
+    <string name="pref_tab_alignment_start">Tekstin alkusuunta</string>
+    <string name="pref_tab_alignment_justify_if_possible">Tasaa koko leveydelle</string>
+    <string name="pref_tab_alignment_end">Tekstin loppusuunta</string>
+    <string name="pref_tab_contents_text_only">Vain teksti</string>
+    <string name="pref_tab_contents_icon_text_below">Kuvake ja teksti sen alla</string>
+    <string name="pref_tab_contents_icon_only">Vain kuvake</string>
+    <string name="pref_title_tab_contents">Valikon välilehtien sisältö</string>
+    <string name="pref_tab_contents_icon_text_inline">Kuvake ja teksti sen vieressä</string>
 </resources>
