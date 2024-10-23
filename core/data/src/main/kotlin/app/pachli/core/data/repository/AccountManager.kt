@@ -256,17 +256,6 @@ class AccountManager @Inject constructor(
     }
 
     /**
-     * Finds an account by its string identifier
-     * @param identifier the string identifier of the account
-     * @return the requested account or null if it was not found
-     */
-    fun getAccountByIdentifier(identifier: String): AccountEntity? {
-        return accounts.find {
-            identifier == it.identifier
-        }
-    }
-
-    /**
      * @return true if the name of the currently-selected account should be displayed in UIs
      */
     fun shouldDisplaySelfUsername(): Boolean {
