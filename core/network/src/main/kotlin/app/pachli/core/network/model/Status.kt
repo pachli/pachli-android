@@ -17,6 +17,7 @@
 
 package app.pachli.core.network.model
 
+import android.app.Application
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
 import app.pachli.core.common.extensions.getOrElse
@@ -162,7 +163,9 @@ data class Status(
     data class Mention(
         val id: String,
         val url: String,
+        /** If this is remote then "[localUsername]@server", otherwise [localUsername]. */
         @Json(name = "acct") val username: String,
+        /** The username, without the server part or leading "@". */
         @Json(name = "username") val localUsername: String,
     )
 
