@@ -180,7 +180,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 app.pachli.core.ui.R.id.action_hashtags -> showHashtagsDialog(host)
                 app.pachli.core.ui.R.id.action_open_reblogger -> {
                     interrupt()
-                    statusActionListener.onOpenReblog(status.actionable)
+                    statusActionListener.onOpenReblog(status.status)
                 }
                 app.pachli.core.ui.R.id.action_open_reblogged_by -> {
                     interrupt()
