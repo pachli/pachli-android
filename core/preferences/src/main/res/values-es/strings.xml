@@ -19,4 +19,6 @@
     <string name="pref_show_self_username_always">Siempre</string>
     <string name="pref_show_self_username_disambiguate">Cuando hay varias cuentas ingresadas</string>
     <string name="pref_show_self_username_never">Nunca</string>
+    <string name="pref_tab_contents_text_only">Solo texto</string>
+    <string name="pref_tab_contents_icon_only">Solo icono</string>
 </resources>
