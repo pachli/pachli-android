@@ -15,4 +15,6 @@
     <string name="app_theme_auto">Automatinis saulėlydžio metu</string>
     <string name="download_location_per_sender">Kiekvieno siuntėjo aplankai, atsisiuntimų aplanke</string>
     <string name="app_theme_system">Naudoti sistemos dizainą</string>
+    <string name="pref_tab_contents_icon_only">Tik piktograma</string>
+    <string name="pref_tab_contents_text_only">Tik tekstas</string>
 </resources>
