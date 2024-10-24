@@ -26,4 +26,6 @@
     <string name="pref_tab_alignment_justify_if_possible">Rozšíriť celú šírku</string>
     <string name="pref_tab_alignment_end">Koniec smer textu</string>
     <string name="pref_title_tab_contents">Obsah hlavných navigačných kariet</string>
+    <string name="pref_tab_contents_icon_only">Iba ikony</string>
+    <string name="pref_tab_contents_text_only">Len text</string>
 </resources>
