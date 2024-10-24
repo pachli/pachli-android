@@ -19,4 +19,11 @@
     <string name="pref_show_self_username_always">始终</string>
     <string name="pref_show_self_username_disambiguate">登录多个账户时</string>
     <string name="pref_show_self_username_never">从不</string>
+    <string name="pref_title_tab_alignment">主权主航标</string>
+    <string name="pref_tab_alignment_start">案文方向的开始</string>
+    <string name="pref_tab_alignment_justify_if_possible">1. 扩大至全额保险</string>
+    <string name="pref_tab_alignment_end">案文方向的结束</string>
+    <string name="pref_title_tab_contents">主要导航表的内容</string>
+    <string name="pref_tab_contents_icon_text_inline">背 景</string>
+    <string name="pref_tab_contents_icon_text_below">内容提要</string>
 </resources>
