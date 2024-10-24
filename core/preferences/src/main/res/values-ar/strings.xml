@@ -26,4 +26,6 @@
     <string name="pref_tab_alignment_start">بدء توجيه النص</string>
     <string name="pref_tab_alignment_justify_if_possible">التوسع إلى الاستطلاع الكامل</string>
     <string name="pref_tab_alignment_end">نهاية النص</string>
+    <string name="pref_tab_contents_icon_only">الأيقونة فقط</string>
+    <string name="pref_tab_contents_text_only">الوصف بالكلمات فقط</string>
 </resources>
