@@ -26,4 +26,6 @@
     <string name="pref_tab_contents_icon_text_below">Icône avec texte ci-dessous</string>
     <string name="pref_title_tab_alignment">Aligner les principaux onglets de navigation</string>
     <string name="pref_tab_alignment_end">Fin de la direction du texte</string>
+    <string name="pref_tab_contents_text_only">Texte seulement</string>
+    <string name="pref_tab_contents_icon_only">Icône seule</string>
 </resources>
