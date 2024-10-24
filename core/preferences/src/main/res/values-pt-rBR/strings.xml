@@ -26,4 +26,6 @@
     <string name="pref_tab_contents_icon_text_inline">Ícone com texto ao lado</string>
     <string name="pref_tab_alignment_end">Fim da direção do texto</string>
     <string name="pref_tab_contents_icon_text_below">Ícone com texto abaixo</string>
+    <string name="pref_tab_contents_icon_only">Somente ícone</string>
+    <string name="pref_tab_contents_text_only">Somente texto</string>
 </resources>
