@@ -26,4 +26,6 @@
     <string name="pref_tab_contents_icon_text_inline">Icon met sms naast</string>
     <string name="pref_tab_contents_icon_text_below">Icon met sms beneden</string>
     <string name="pref_title_tab_alignment">Align belangrijkste navigatie tabs</string>
+    <string name="pref_tab_contents_icon_only">Alleen pictogrammen</string>
+    <string name="pref_tab_contents_text_only">Alleen tekst</string>
 </resources>
