@@ -19,4 +19,11 @@
     <string name="pref_show_self_username_always">Mindig</string>
     <string name="pref_show_self_username_disambiguate">Ha több fiók is be van jelentkezve</string>
     <string name="pref_show_self_username_never">Soha</string>
+    <string name="pref_title_tab_alignment">Align fő navigációs lapok</string>
+    <string name="pref_tab_alignment_start">Kezdőlap szöveg irány</string>
+    <string name="pref_tab_alignment_justify_if_possible">Bővítsd a teljes szélességet</string>
+    <string name="pref_title_tab_contents">A fő navigációs lapok tartalma</string>
+    <string name="pref_tab_contents_icon_text_inline">Icon a szöveg mellett</string>
+    <string name="pref_tab_alignment_end">A szöveg irányának vége</string>
+    <string name="pref_tab_contents_icon_text_below">Icon szöveg alább</string>
 </resources>
