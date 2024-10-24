@@ -19,4 +19,6 @@
     <string name="pref_show_self_username_always">Daima</string>
     <string name="pref_show_self_username_disambiguate">Birden fazla oturum açıldığında</string>
     <string name="pref_show_self_username_never">Asla</string>
+    <string name="pref_tab_contents_icon_only">Sadece simge</string>
+    <string name="pref_tab_contents_text_only">Yalnızca Metin</string>
 </resources>
