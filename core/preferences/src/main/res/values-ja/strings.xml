@@ -19,4 +19,11 @@
     <string name="pref_show_self_username_always">常に表示</string>
     <string name="pref_show_self_username_disambiguate">複数アカウントでのログイン時</string>
     <string name="pref_show_self_username_never">表示しない</string>
+    <string name="pref_tab_alignment_end">テキストの方向の終了</string>
+    <string name="pref_tab_contents_icon_text_inline">横のテキストとアイコン</string>
+    <string name="pref_tab_contents_icon_text_below">下のテキストとアイコン</string>
+    <string name="pref_title_tab_alignment">メインナビゲーションタブを並べ替える</string>
+    <string name="pref_tab_alignment_start">テキスト方向の開始</string>
+    <string name="pref_tab_alignment_justify_if_possible">全幅で拡大</string>
+    <string name="pref_title_tab_contents">メインナビゲーションタブのコンテンツ</string>
 </resources>
