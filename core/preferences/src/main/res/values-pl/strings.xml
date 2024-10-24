@@ -26,4 +26,6 @@
     <string name="pref_title_tab_contents">Strona główna nawigacji</string>
     <string name="pref_tab_contents_icon_text_inline">Tekst oprócz tekstu</string>
     <string name="pref_tab_contents_icon_text_below">Tekst poniżej</string>
+    <string name="pref_tab_contents_icon_only">Tylko ikona</string>
+    <string name="pref_tab_contents_text_only">Tylko tekst</string>
 </resources>
