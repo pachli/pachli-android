@@ -26,4 +26,6 @@
     <string name="pref_tab_contents_icon_text_inline">Icona amb text al costat</string>
     <string name="pref_tab_contents_icon_text_below">Icona amb text a sota</string>
     <string name="pref_tab_alignment_justify_if_possible">Amplieu l\'amplada completa</string>
+    <string name="pref_tab_contents_icon_only">Només la icona</string>
+    <string name="pref_tab_contents_text_only">Només text</string>
 </resources>
