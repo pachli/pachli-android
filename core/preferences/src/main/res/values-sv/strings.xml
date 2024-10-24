@@ -26,4 +26,6 @@
     <string name="pref_tab_contents_icon_text_inline">Ikon med text bredvid</string>
     <string name="pref_tab_contents_icon_text_below">Ikon med text nedan</string>
     <string name="pref_tab_alignment_end">Slut på text riktning</string>
+    <string name="pref_tab_contents_icon_only">Endast ikon</string>
+    <string name="pref_tab_contents_text_only">Endast text</string>
 </resources>
