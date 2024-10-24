@@ -26,4 +26,6 @@
     <string name="pref_title_tab_contents">主要导航表的内容</string>
     <string name="pref_tab_contents_icon_text_inline">背 景</string>
     <string name="pref_tab_contents_icon_text_below">内容提要</string>
+    <string name="pref_tab_contents_icon_only">仅图标</string>
+    <string name="pref_tab_contents_text_only">纯文本</string>
 </resources>
