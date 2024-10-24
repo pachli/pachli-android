@@ -19,4 +19,11 @@
     <string name="pref_show_self_username_always">Selalu</string>
     <string name="pref_show_self_username_never">Jangan Pernah</string>
     <string name="pref_show_self_username_disambiguate">Ketika beberapa akun masuk</string>
+    <string name="pref_tab_alignment_start">Mulai dari arah teks</string>
+    <string name="pref_tab_alignment_justify_if_possible">Perluas lebar penuh</string>
+    <string name="pref_tab_alignment_end">Akhir arah teks</string>
+    <string name="pref_title_tab_contents">Konten tab navigasi utama</string>
+    <string name="pref_tab_contents_icon_text_inline">Login</string>
+    <string name="pref_tab_contents_icon_text_below">Login</string>
+    <string name="pref_title_tab_alignment">Align tab navigasi utama</string>
 </resources>
