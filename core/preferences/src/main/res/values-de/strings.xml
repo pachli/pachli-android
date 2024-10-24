@@ -26,4 +26,6 @@
     <string name="pref_title_tab_contents">Inhalt der Hauptnavigationskarten</string>
     <string name="pref_tab_contents_icon_text_inline">Icon mit Text neben</string>
     <string name="pref_tab_contents_icon_text_below">Icon mit Text unten</string>
+    <string name="pref_tab_contents_text_only">Nur-Text</string>
+    <string name="pref_tab_contents_icon_only">Nur Icon</string>
 </resources>
