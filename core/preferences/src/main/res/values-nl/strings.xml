@@ -19,4 +19,11 @@
     <string name="pref_show_self_username_always">Altijd</string>
     <string name="pref_show_self_username_disambiguate">Wanneer meerdere accounts zijn ingelogd</string>
     <string name="pref_show_self_username_never">Nooit</string>
+    <string name="pref_tab_alignment_start">Begin met de sms</string>
+    <string name="pref_tab_alignment_justify_if_possible">Vertaling:</string>
+    <string name="pref_tab_alignment_end">Einde bericht</string>
+    <string name="pref_title_tab_contents">Contentie van hoofd navigatie tabs</string>
+    <string name="pref_tab_contents_icon_text_inline">Icon met sms naast</string>
+    <string name="pref_tab_contents_icon_text_below">Icon met sms beneden</string>
+    <string name="pref_title_tab_alignment">Align belangrijkste navigatie tabs</string>
 </resources>
