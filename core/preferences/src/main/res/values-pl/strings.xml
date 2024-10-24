@@ -19,4 +19,11 @@
     <string name="pref_show_self_username_always">Zawsze</string>
     <string name="pref_show_self_username_disambiguate">Gdy wiele kont jest zalogowanych</string>
     <string name="pref_show_self_username_never">Nigdy</string>
+    <string name="pref_title_tab_alignment">Główny tabor nawigacyjny</string>
+    <string name="pref_tab_alignment_start">Początkowy kierunek tekstu</string>
+    <string name="pref_tab_alignment_justify_if_possible">Expand to full width (ang.)</string>
+    <string name="pref_tab_alignment_end">Koniec kierunku tekstu</string>
+    <string name="pref_title_tab_contents">Strona główna nawigacji</string>
+    <string name="pref_tab_contents_icon_text_inline">Tekst oprócz tekstu</string>
+    <string name="pref_tab_contents_icon_text_below">Tekst poniżej</string>
 </resources>
