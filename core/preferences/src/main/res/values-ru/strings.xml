@@ -19,4 +19,11 @@
     <string name="pref_show_self_username_always">Всегда</string>
     <string name="pref_show_self_username_never">Никогда</string>
     <string name="pref_show_self_username_disambiguate">Когда несколько аккаунтов вошли</string>
+    <string name="pref_tab_alignment_end">Конец направления текста</string>
+    <string name="pref_title_tab_contents">Содержание основных навигационных вкладок</string>
+    <string name="pref_tab_contents_icon_text_inline">Икона с текстом рядом</string>
+    <string name="pref_tab_contents_icon_text_below">Икона с текстом ниже</string>
+    <string name="pref_title_tab_alignment">Выравнивание основных навигационных вкладок</string>
+    <string name="pref_tab_alignment_start">Начало текстового направления</string>
+    <string name="pref_tab_alignment_justify_if_possible">Расширение до полной ширины</string>
 </resources>
