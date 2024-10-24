@@ -38,7 +38,9 @@ import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 
+/** Maximum length of a media description. */
 // https://github.com/tootsuite/mastodon/blob/c6904c0d3766a2ea8a81ab025c127169ecb51373/app/models/media_attachment.rb#L32
+// https://github.com/mastodon/mastodon/issues/28338
 private const val MEDIA_DESCRIPTION_CHARACTER_LIMIT = 1500
 
 class CaptionDialog : DialogFragment() {
@@ -49,6 +51,8 @@ class CaptionDialog : DialogFragment() {
         val context = requireContext()
 
         val binding = DialogImageDescriptionBinding.inflate(layoutInflater)
+
+        binding.textInputLayout.counterMaxLength = MEDIA_DESCRIPTION_CHARACTER_LIMIT
 
         input = binding.imageDescriptionText
         val imageView = binding.imageDescriptionView
@@ -61,6 +65,7 @@ class CaptionDialog : DialogFragment() {
         )
         input.filters = arrayOf(InputFilter.LengthFilter(MEDIA_DESCRIPTION_CHARACTER_LIMIT))
         input.setText(arguments?.getString(ARG_EXISTING_DESCRIPTION))
+        input.requestFocus()
 
         val localId = arguments?.getInt(ARG_LOCAL_ID) ?: error("Missing localId")
         val dialog = AlertDialog.Builder(context)
