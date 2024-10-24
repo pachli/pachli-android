@@ -19,4 +19,11 @@
     <string name="pref_show_self_username_always">Vždy</string>
     <string name="pref_show_self_username_disambiguate">Když je přihlášeno více účtů</string>
     <string name="pref_show_self_username_never">Nikdy</string>
+    <string name="pref_title_tab_alignment">Align hlavní navigační karty</string>
+    <string name="pref_tab_alignment_start">Začněte směr textu</string>
+    <string name="pref_tab_alignment_justify_if_possible">Rozbalte do plné šířky</string>
+    <string name="pref_tab_alignment_end">Konec směru textu</string>
+    <string name="pref_title_tab_contents">Obsah hlavních navigačních záložek</string>
+    <string name="pref_tab_contents_icon_text_below">Ikona s textem níže</string>
+    <string name="pref_tab_contents_icon_text_inline">Ikona s textem vedle</string>
 </resources>
