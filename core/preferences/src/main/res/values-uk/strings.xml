@@ -19,4 +19,11 @@
     <string name="pref_show_self_username_always">Завжди</string>
     <string name="pref_show_self_username_disambiguate">Якщо ви ввійшли у кілька облікових записів</string>
     <string name="pref_show_self_username_never">Ніколи</string>
+    <string name="pref_tab_alignment_end">Кінець текстового напрямку</string>
+    <string name="pref_title_tab_contents">Зміст основних навігаційних вкладок</string>
+    <string name="pref_title_tab_alignment">Основні навігаційні вкладки</string>
+    <string name="pref_tab_alignment_start">Початок текстового напрямку</string>
+    <string name="pref_tab_alignment_justify_if_possible">Розгорнути на повну ширину</string>
+    <string name="pref_tab_contents_icon_text_inline">Ікона з текстом</string>
+    <string name="pref_tab_contents_icon_text_below">Ікона з текстом нижче</string>
 </resources>
