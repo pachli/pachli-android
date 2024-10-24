@@ -19,4 +19,13 @@
     <string name="pref_show_self_username_always">हमेशा</string>
     <string name="pref_show_self_username_never">कभी नहीं</string>
     <string name="pref_show_self_username_disambiguate">जब एकाधिक खातों में लॉग इन</string>
+    <string name="pref_tab_alignment_justify_if_possible">पूर्ण चौड़ाई का विस्तार</string>
+    <string name="pref_tab_alignment_end">पाठ दिशा का अंत</string>
+    <string name="pref_title_tab_contents">मुख्य नेविगेशन टैब की सामग्री</string>
+    <string name="pref_tab_contents_text_only">केवल पाठ</string>
+    <string name="pref_tab_contents_icon_text_inline">पाठ के बगल में आइकन</string>
+    <string name="pref_tab_contents_icon_text_below">नीचे पाठ के साथ आइकन</string>
+    <string name="pref_title_tab_alignment">मुख्य नेविगेशन टैब को संरेखित करें</string>
+    <string name="pref_tab_alignment_start">पाठ दिशा शुरू</string>
+    <string name="pref_tab_contents_icon_only">केवल आइकन</string>
 </resources>
