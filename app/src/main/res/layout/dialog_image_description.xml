@@ -10,12 +10,13 @@
         android:id="@+id/imageDescriptionView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
         android:contentDescription="@string/post_media_image"
         android:focusable="false"
+        app:layout_constraintBottom_toTopOf="@id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/textInputLayout"
         app:layout_constraintVertical_chainStyle="spread_inside"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
@@ -24,13 +25,15 @@
         style="@style/AppTextInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:paddingHorizontal="?dialogPreferredPadding"
         app:counterEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constrainedHeight="true"
-        app:layout_constraintTop_toBottomOf="@id/imageDescriptionView">
+        app:layout_constraintTop_toBottomOf="@id/imageDescriptionView"
+        app:layout_constraintVertical_weight="1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/imageDescriptionText"
@@ -38,6 +41,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:hint="@string/hint_description"
+            android:minLines="4"
             android:importantForAutofill="no"
             android:inputType="textCapSentences|textMultiLine|textAutoCorrect" />
 
