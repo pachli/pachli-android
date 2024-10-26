@@ -853,7 +853,4 @@
 
     <string name="action_copy_item">Copy item</string>
     <string name="item_copied">Text copied</string>
-
-    <string name="upload_failed_msg_fmt">The upload will be retried when you send the post. If it fails again the post will be saved in your drafts.\n\nThe error was: %1$s</string>
-    <string name="upload_failed_modify_attachment">Modify attachment</string>
 </resources>

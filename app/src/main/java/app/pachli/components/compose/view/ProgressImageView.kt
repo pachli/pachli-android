@@ -24,22 +24,12 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
 import android.util.AttributeSet
-import androidx.annotation.OptIn
 import androidx.appcompat.content.res.AppCompatResources
 import app.pachli.R
-import app.pachli.components.compose.MediaUploaderError
-import app.pachli.components.compose.UploadState
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.ui.makeIcon
 import app.pachli.view.MediaPreviewImageView
 import at.connyduck.sparkbutton.helpers.Utils
-import com.github.michaelbull.result.Ok
-import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
-import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.color.MaterialColors
-import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 
 class ProgressImageView
 @JvmOverloads constructor(
@@ -47,7 +37,7 @@ class ProgressImageView
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
 ) : MediaPreviewImageView(context, attrs, defStyleAttr) {
-    private var result: Result<UploadState, MediaUploaderError> = Ok(UploadState.Uploading(0))
+    private var progress = -1
     private val progressRect = RectF()
     private val biggerRect = RectF()
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -70,15 +60,14 @@ class ProgressImageView
     }
     private val circleRadius = Utils.dpToPx(context, 14)
     private val circleMargin = Utils.dpToPx(context, 14)
-    private val uploadErrorRadius = Utils.dpToPx(context, 24)
 
-    private val uploadErrorDrawable = makeIcon(context, GoogleMaterial.Icon.gmd_error, 48).apply {
-        setTint(Color.WHITE)
-    }
-
-    @OptIn(ExperimentalBadgeUtils::class)
-    fun setResult(result: Result<UploadState, MediaUploaderError>) {
-        this.result = result
+    fun setProgress(progress: Int) {
+        this.progress = progress
+        if (progress != -1) {
+            setColorFilter(Color.rgb(123, 123, 123), PorterDuff.Mode.MULTIPLY)
+        } else {
+            clearColorFilter()
+        }
         invalidate()
     }
 
@@ -93,24 +82,6 @@ class ProgressImageView
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
-        result.onSuccess { value ->
-            val percentage = when (value) {
-                is UploadState.Uploading -> value.percentage
-                else -> -1
-            }
-            onDrawSuccess(canvas, percentage)
-        }.onFailure { error ->
-            onDrawError(canvas)
-        }
-    }
-
-    private fun onDrawSuccess(canvas: Canvas, progress: Int) {
-        clearColorFilter()
-        if (progress != -1) {
-            setColorFilter(Color.rgb(123, 123, 123), PorterDuff.Mode.MULTIPLY)
-        }
-
         val angle = progress / 100f * 360 - 90
         val halfWidth = width / 2f
         val halfHeight = height / 2f
@@ -135,19 +106,5 @@ class ProgressImageView
             height - circleMargin,
         )
         captionDrawable.draw(canvas)
-    }
-
-    private fun onDrawError(canvas: Canvas) {
-        setColorFilter(
-            MaterialColors.getColor(this, androidx.appcompat.R.attr.colorError),
-            PorterDuff.Mode.DARKEN,
-        )
-        uploadErrorDrawable.setBounds(
-            (width / 2) - uploadErrorRadius,
-            (height / 2) - uploadErrorRadius,
-            (width / 2) + uploadErrorRadius,
-            (height / 2) + uploadErrorRadius,
-        )
-        uploadErrorDrawable.draw(canvas)
     }
 }

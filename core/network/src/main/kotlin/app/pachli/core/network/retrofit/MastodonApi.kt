@@ -201,14 +201,14 @@ interface MastodonApi {
     @PUT("api/v1/media/{mediaId}")
     suspend fun updateMedia(
         @Path("mediaId") mediaId: String,
-        @Field("description") description: String? = null,
-        @Field("focus") focus: String? = null,
-    ): ApiResult<Attachment>
+        @Field("description") description: String?,
+        @Field("focus") focus: String?,
+    ): NetworkResult<Attachment>
 
     @GET("api/v1/media/{mediaId}")
     suspend fun getMedia(
         @Path("mediaId") mediaId: String,
-    ): ApiResult<MediaUploadResult>
+    ): Response<MediaUploadResult>
 
     @POST("api/v1/statuses")
     suspend fun createStatus(

@@ -68,12 +68,10 @@ class CaptionDialog : DialogFragment() {
         input.requestFocus()
 
         val localId = arguments?.getInt(ARG_LOCAL_ID) ?: error("Missing localId")
-        val serverId = arguments?.getString(ARG_SERVER_ID)
-
         val dialog = AlertDialog.Builder(context)
             .setView(binding.root)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                listener.onUpdateDescription(localId, serverId, input.text.toString())
+                listener.onUpdateDescription(localId, input.text.toString())
             }
             .setNegativeButton(android.R.string.cancel, null)
             .create()
@@ -127,25 +125,22 @@ class CaptionDialog : DialogFragment() {
     }
 
     interface Listener {
-        fun onUpdateDescription(localId: Int, serverId: String?, description: String)
+        fun onUpdateDescription(localId: Int, description: String)
     }
 
     companion object {
         private const val KEY_DESCRIPTION = "app.pachli.KEY_DESCRIPTION"
-        private const val ARG_LOCAL_ID = "app.pachli.ARG_LOCAL_ID"
-        private const val ARG_SERVER_ID = "app.pachli.ARG_SERVER_ID"
         private const val ARG_EXISTING_DESCRIPTION = "app.pachli.ARG_EXISTING_DESCRIPTION"
         private const val ARG_PREVIEW_URI = "app.pachli.ARG_PREVIEW_URI"
+        private const val ARG_LOCAL_ID = "app.pachli.ARG_LOCAL_ID"
 
         fun newInstance(
             localId: Int,
-            serverId: String? = null,
             existingDescription: String?,
             previewUri: Uri,
         ) = CaptionDialog().apply {
             arguments = bundleOf(
                 ARG_LOCAL_ID to localId,
-                ARG_SERVER_ID to serverId,
                 ARG_EXISTING_DESCRIPTION to existingDescription,
                 ARG_PREVIEW_URI to previewUri,
             )

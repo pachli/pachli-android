@@ -28,7 +28,6 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.components.compose.ComposeAutoCompleteAdapter.AutocompleteResult
-import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.search.SearchType
 import app.pachli.core.common.PachliError
@@ -53,20 +52,20 @@ import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -145,6 +144,8 @@ class ComposeViewModel @Inject constructor(
 
     private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
     val media = _media.asStateFlow()
+    private val _uploadError = MutableSharedFlow<MediaUploaderError>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val uploadError = _uploadError.asSharedFlow()
     private val _closeConfirmation = MutableStateFlow(ConfirmationKind.NONE)
     val closeConfirmation = _closeConfirmation.asStateFlow()
     private val _statusLength = MutableStateFlow(0)
@@ -226,7 +227,7 @@ class ComposeViewModel @Inject constructor(
                 mediaSize = mediaSize,
                 description = description,
                 focus = focus,
-                uploadState = Ok(UploadState.Uploading(percentage = 0)),
+                state = QueuedMedia.State.UPLOADING,
             )
             stashMediaItem = mediaItem
 
@@ -244,8 +245,35 @@ class ComposeViewModel @Inject constructor(
         viewModelScope.launch {
             mediaUploader
                 .uploadMedia(mediaItem, instanceInfo.value)
-                .collect { uploadResult ->
-                    updateMediaItem(mediaItem.localId) { it.copy(uploadState = uploadResult) }
+                .collect { event ->
+                    val item = media.value.find { it.localId == mediaItem.localId }
+                        ?: return@collect
+                    var newMediaItem: QueuedMedia? = null
+                    val uploadEvent = event.getOrElse {
+                        _media.update { mediaList -> mediaList.filter { it.localId != mediaItem.localId } }
+                        _uploadError.emit(it)
+                        return@collect
+                    }
+
+                    newMediaItem = when (uploadEvent) {
+                        is UploadEvent.ProgressEvent -> item.copy(uploadPercent = uploadEvent.percentage)
+                        is UploadEvent.FinishedEvent -> {
+                            item.copy(
+                                id = uploadEvent.media.mediaId,
+                                uploadPercent = -1,
+                                state = if (uploadEvent.media.processed) {
+                                    QueuedMedia.State.PROCESSED
+                                } else {
+                                    QueuedMedia.State.UNPROCESSED
+                                },
+                            )
+                        }
+                    }
+                    newMediaItem.let {
+                        _media.update { mediaList ->
+                            mediaList.map { mediaItem -> if (mediaItem.localId == it.localId) it else mediaItem }
+                        }
+                    }
                 }
         }
 
@@ -260,9 +288,11 @@ class ComposeViewModel @Inject constructor(
                 uri = uri,
                 type = type,
                 mediaSize = 0,
+                uploadPercent = -1,
+                id = id,
                 description = description,
                 focus = focus,
-                uploadState = Ok(Uploaded.Published(id)),
+                state = QueuedMedia.State.PUBLISHED,
             )
             mediaList + mediaItem
         }
@@ -427,11 +457,11 @@ class ComposeViewModel @Inject constructor(
         val attachedMedia = media.value.map { item ->
             MediaToSend(
                 localId = item.localId,
-                id = item.serverId,
+                id = item.id,
                 uri = item.uri.toString(),
                 description = item.description,
                 focus = item.focus,
-                processed = item.uploadState.get() is Uploaded.Processed || item.uploadState.get() is Uploaded.Published,
+                processed = item.state == QueuedMedia.State.PROCESSED || item.state == QueuedMedia.State.PUBLISHED,
             )
         }
         val tootToSend = StatusToSend(
@@ -468,45 +498,16 @@ class ComposeViewModel @Inject constructor(
         }
     }
 
-    fun updateDescription(localId: Int, serverId: String?, description: String) {
-        // If the image hasn't been uploaded then update the state locally.
-        if (serverId == null) {
-            updateMediaItem(localId) { mediaItem -> mediaItem.copy(description = description) }
-            return
-        }
-
-        // Update the remote description and report any errors. Update the local description
-        // if there are errors so the user still has the text and can try and correct it.
-        viewModelScope.launch {
-            api.updateMedia(serverId, description = description)
-                .andThen { api.getMedia(serverId) }
-                .onSuccess { response ->
-                    val state = if (response.code == 200) {
-                        Uploaded.Processed(serverId)
-                    } else {
-                        Uploaded.Processing(serverId)
-                    }
-                    updateMediaItem(localId) {
-                        it.copy(
-                            description = description,
-                            uploadState = Ok(state),
-                        )
-                    }
-                }
-                .mapError { MediaUploaderError.UpdateMediaError(serverId, it) }
-                .onFailure { error ->
-                    updateMediaItem(localId) {
-                        it.copy(
-                            description = description,
-                            uploadState = Err(error),
-                        )
-                    }
-                }
+    fun updateDescription(localId: Int, description: String) {
+        updateMediaItem(localId) { mediaItem ->
+            mediaItem.copy(description = description)
         }
     }
 
     fun updateFocus(localId: Int, focus: Attachment.Focus) {
-        updateMediaItem(localId) { mediaItem -> mediaItem.copy(focus = focus) }
+        updateMediaItem(localId) { mediaItem ->
+            mediaItem.copy(focus = focus)
+        }
     }
 
     suspend fun searchAutocompleteSuggestions(token: String): List<AutocompleteResult> {
