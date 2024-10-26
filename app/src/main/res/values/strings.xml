@@ -397,7 +397,7 @@
     <string name="lock_account_label_description">Requires you to manually approve followers</string>
     <string name="compose_delete_draft">Delete draft?</string>
     <string name="compose_save_draft">Save draft?</string>
-    <string name="compose_save_draft_loses_media">Save draft? (Attachments will be uploaded again when you restore the draft.)</string>
+    <string name="compose_save_draft_loses_media">Attachments will be uploaded again when you restore the draft.</string>
     <string name="unsaved_changes">You have unsaved changes.</string>
     <string name="send_post_notification_title">Sending post…</string>
     <string name="send_post_notification_error_title">Error sending post</string>
@@ -853,4 +853,7 @@
 
     <string name="action_copy_item">Copy item</string>
     <string name="item_copied">Text copied</string>
+
+    <string name="upload_failed_msg_fmt">The upload will be retried when you send the post. If it fails again the post will be saved in your drafts.\n\nThe error was: %1$s</string>
+    <string name="upload_failed_modify_attachment">Modify attachment</string>
 </resources>
