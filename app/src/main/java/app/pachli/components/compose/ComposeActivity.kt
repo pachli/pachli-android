@@ -109,7 +109,9 @@ import app.pachli.util.setDrawableTint
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.options
+import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.onFailure
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.color.MaterialColors
@@ -253,7 +255,7 @@ class ComposeActivity :
         val mediaAdapter = MediaPreviewAdapter(
             this,
             onAddCaption = { item ->
-                CaptionDialog.newInstance(item.localId, item.description, item.uri).show(supportFragmentManager, "caption_dialog")
+                CaptionDialog.newInstance(item.localId, item.serverId, item.description, item.uri).show(supportFragmentManager, "caption_dialog")
             },
             onAddFocus = { item ->
                 makeFocusDialog(item.focus, item.uri) { newFocus ->
@@ -523,14 +525,6 @@ class ComposeActivity :
                 enableButton(binding.composeAddMediaButton, active, active)
                 enablePollButton(media.isEmpty())
             }.collect()
-        }
-
-        lifecycleScope.launch {
-            viewModel.uploadError.collect { mediaUploaderError ->
-                val message = mediaUploaderError.fmt(this@ComposeActivity)
-
-                displayPermamentMessage(getString(R.string.error_media_upload_sending_fmt, message))
-            }
         }
     }
 
@@ -1272,14 +1266,8 @@ class ComposeActivity :
      * User is editing a new post, and can either save the changes as a draft or discard them.
      */
     private fun getSaveAsDraftOrDiscardDialog(contentText: String, contentWarning: String): AlertDialog.Builder {
-        val warning = if (viewModel.media.value.isNotEmpty()) {
-            R.string.compose_save_draft_loses_media
-        } else {
-            R.string.compose_save_draft
-        }
-
-        return AlertDialog.Builder(this)
-            .setMessage(warning)
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.compose_save_draft)
             .setPositiveButton(R.string.action_save) { _, _ ->
                 viewModel.stopUploads()
                 saveDraftAndFinish(contentText, contentWarning)
@@ -1288,6 +1276,12 @@ class ComposeActivity :
                 viewModel.stopUploads()
                 deleteDraftAndFinish()
             }
+
+        if (viewModel.media.value.isNotEmpty()) {
+            builder.setMessage(R.string.compose_save_draft_loses_media)
+        }
+
+        return builder
     }
 
     /**
@@ -1295,14 +1289,8 @@ class ComposeActivity :
      * discard them.
      */
     private fun getUpdateDraftOrDiscardDialog(contentText: String, contentWarning: String): AlertDialog.Builder {
-        val warning = if (viewModel.media.value.isNotEmpty()) {
-            R.string.compose_save_draft_loses_media
-        } else {
-            R.string.compose_save_draft
-        }
-
-        return AlertDialog.Builder(this)
-            .setMessage(warning)
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.compose_save_draft)
             .setPositiveButton(R.string.action_save) { _, _ ->
                 viewModel.stopUploads()
                 saveDraftAndFinish(contentText, contentWarning)
@@ -1311,6 +1299,12 @@ class ComposeActivity :
                 viewModel.stopUploads()
                 finish()
             }
+
+        if (viewModel.media.value.isNotEmpty()) {
+            builder.setMessage(R.string.compose_save_draft_loses_media)
+        }
+
+        return builder
     }
 
     /**
@@ -1392,23 +1386,39 @@ class ComposeActivity :
         val uri: Uri,
         val type: Type,
         val mediaSize: Long,
-        val uploadPercent: Int = 0,
-        val id: String? = null,
         val description: String? = null,
         val focus: Attachment.Focus? = null,
-        val state: State,
+        val uploadState: Result<UploadState, MediaUploaderError>,
     ) {
         enum class Type {
             IMAGE,
             VIDEO,
             AUDIO,
         }
-        enum class State {
-            UPLOADING,
-            UNPROCESSED,
-            PROCESSED,
-            PUBLISHED,
-        }
+
+        /**
+         * Server's ID for this attachment. May be null if the media is still
+         * being uploaded, or it was uploaded and there was an error that
+         * meant it couldn't be processed. Attachments that have an error
+         * *after* processing have a non-null `serverId`.
+         */
+        val serverId: String?
+            get() = uploadState.mapBoth(
+                { state ->
+                    when (state) {
+                        is UploadState.Uploading -> null
+                        is UploadState.Uploaded.Processing -> state.serverId
+                        is UploadState.Uploaded.Processed -> state.serverId
+                        is UploadState.Uploaded.Published -> state.serverId
+                    }
+                },
+                { error ->
+                    when (error) {
+                        is MediaUploaderError.UpdateMediaError -> error.serverId
+                        else -> null
+                    }
+                },
+            )
     }
 
     override fun onTimeSet(time: Date?) {
@@ -1425,8 +1435,8 @@ class ComposeActivity :
         scheduleBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
-    override fun onUpdateDescription(localId: Int, description: String) {
-        viewModel.updateDescription(localId, description)
+    override fun onUpdateDescription(localId: Int, serverId: String?, description: String) {
+        viewModel.updateDescription(localId, serverId, description)
     }
 
     companion object {
