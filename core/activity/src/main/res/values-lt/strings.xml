@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="send_error_report">Siųsti klaidos ataskaitą</string>
+    <string name="post_lookup_error_format">Klaida ieškant įrašo %s.</string>
+    <string name="action_open_as">Atidaryti kaip „%s“</string>
+    <string name="performing_lookup_title">Atliekama paieška…</string>
+</resources>
