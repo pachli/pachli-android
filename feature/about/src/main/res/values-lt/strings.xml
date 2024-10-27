@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="about_title_activity">Apie</string>
+    <string name="about_account_info">\@%s@%s\nVersija: %s</string>
+    <string name="about_device_info_title">Jūsų įrenginys</string>
+    <string name="about_account_info_title">Jūsų paskyra</string>
+    <string name="about_copy">Kopijuoti versiją ir įrenginio informaciją</string>
+    <string name="title_licenses">Licencijos</string>
+    <string name="notification_details_android_notifications_enabled">„Android“ pranešimai yra įjungti?</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Tiesioginiai pranešimai su „UnifiedPush“</string>
+    <string name="about_copied">Nukopijuota versija ir įrenginio informacija</string>
+    <string name="about_powered_by_pachli">Veikiama su „Pachli“</string>
+    <string name="about_pachli_license">„Pachli“ – tai nemokama atvirojo kodo programinė įranga. Ji licencijuojama pagal GNU General Public License 3 versiją. Licenciją galite peržiūrėti čia: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Projekto svetainė: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Riktų ataskaitos ir funkcijų prašymai:\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_privacy_policy">Privatumo politika</string>
+    <string name="about_pachli_account">„Pachli“ profilis</string>
+    <string name="about_device_info">%s %s\n„Android“ versija: %s\nSDK lygis: %d</string>
+    <string name="license_description">„Pachli“ turi kodus ir išteklius iš šių atvirojo kodo projektų:</string>
+    <string name="notification_details_title">Išsami informacija</string>
+    <string name="notification_details_notifications_enabled_help">Pranešimai neįjungti nė vienoje jūsų paskyroje. Pakeiskite tai per Paskyros nuostatos &gt; Pranešimai. Iki tol visi pranešimai yra išjungti.</string>
+    <string name="notification_details_unifiedpush_available">„UnifiedPush“ pasiekiama?</string>
+    <string name="action_refresh">Atnaujinti</string>
+    <string name="notitication_log_filter_dialog_title">Rodyti žurnalo prioritetus</string>
+</resources>
