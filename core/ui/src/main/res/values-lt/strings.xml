@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="button_done">Atlikta</string>
+    <string name="action_links">Nuorodos</string>
+    <string name="title_links_dialog">Nuorodos</string>
+    <string name="error_network">Įvyko tinklo klaida. Patikrinkite ryšį ir bandykite dar kartą.</string>
+    <string name="error_generic">Įvyko klaida.</string>
+    <string name="message_empty">Nieko čia nėra.</string>
+    <string name="action_retry">Kartoti</string>
+    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="action_view_profile">Profilis</string>
+    <string name="action_refresh">Atnaujinti</string>
+    <string name="title_hashtags_dialog">Saitažodžiai</string>
+    <string name="action_mentions">Paminėjimai</string>
+    <string name="action_more">Daugiau</string>
+    <string name="action_hashtags">Saitažodžiai</string>
+</resources>
