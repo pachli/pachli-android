@@ -84,6 +84,16 @@ jobs:
       - name: Regular lint ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
         run: ./gradlew lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
 
+      - name: Merge SARIF files
+        run: |
+          jq -s '{ "$schema": "https://json.schemastore.org/sarif-2.1.0", "version": "2.1.0", "runs": map(.runs) | add }'  */*/build/reports/lint-results-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif */build/reports/lint-results-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif > merged-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          category: ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+          sarif_file: merged-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif
+
   # Android tests are per variant
   test:
     strategy:

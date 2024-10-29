@@ -15,14 +15,13 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.dsl.Lint
+import java.io.File
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import java.io.File
 
 class AndroidLintConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -46,4 +45,5 @@ class AndroidLintConventionPlugin : Plugin<Project> {
 private fun Lint.configure(project: Project) {
     lintConfig = File(project.findProject(":app")?.projectDir, "lint.xml")
     baseline = File("lint-baseline.xml")
+    sarifReport = true
 }
