@@ -68,8 +68,8 @@ jobs:
     strategy:
       matrix:
         color: ["orange"]
-        store: ["fdroid", "github", "google"]
-        type: ["debug", "release"]
+        store: [ "Fdroid", "Github", "Google" ]
+        type: [ "Debug", "Release" ]
     name: Android Lint
     runs-on: ubuntu-latest
 
@@ -99,8 +99,8 @@ jobs:
     strategy:
       matrix:
         color: ["orange"]
-        store: ["fdroid", "github", "google"]
-        type: ["debug", "release"]
+        store: [ "Fdroid", "Github", "Google" ]
+        type: [ "Debug", "Release" ]
     name: Android Test
     runs-on: ubuntu-latest
 
@@ -120,8 +120,8 @@ jobs:
     strategy:
       matrix:
         color: ["orange"]
-        store: ["fdroid", "github", "google"]
-        type: ["debug", "release"]
+        store: [ "Fdroid", "Github", "Google" ]
+        type: [ "Debug", "Release" ]
     name: Android Assemble
     runs-on: ubuntu-latest
 
