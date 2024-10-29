@@ -2,10 +2,10 @@
 <resources>
     <string name="pref_category_downloads">Atsiuntimai</string>
     <string name="pref_title_downloads">Atsisiuntimo vieta</string>
-    <string name="app_theme_light">Šviesus</string>
+    <string name="app_theme_light">Šviesi</string>
     <string name="app_theme_black">Juoda</string>
-    <string name="app_theme_dark">Tamsus</string>
-    <string name="pref_category_tabs">Skirtukai</string>
+    <string name="app_theme_dark">Tamsi</string>
+    <string name="pref_category_tabs">Kortelės</string>
     <string name="pref_main_nav_position_option_top">Viršus</string>
     <string name="pref_main_nav_position_option_bottom">Apačia</string>
     <string name="pref_show_self_username_always">Visada</string>
@@ -17,4 +17,15 @@
     <string name="app_theme_system">Naudoti sistemos dizainą</string>
     <string name="pref_tab_contents_icon_only">Tik piktograma</string>
     <string name="pref_tab_contents_text_only">Tik tekstas</string>
+    <string name="pref_title_tab_contents">Pagrindinių naršymo kortelių turinys</string>
+    <string name="pref_tab_contents_icon_text_inline">Piktograma su tekstu šalia</string>
+    <string name="pref_tab_contents_icon_text_below">Piktograma su tekstu žemiau</string>
+    <string name="pref_title_tab_alignment">Suderinti pagrindines naršymo korteles</string>
+    <string name="pref_tab_alignment_start">Teksto krypties pradžia</string>
+    <string name="pref_tab_alignment_justify_if_possible">Išskleisti į visą plotį</string>
+    <string name="pref_tab_alignment_end">Teksto krypties pabaiga</string>
+    <string name="pref_title_tab_tap">Veiksmas palietus kortelę</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Pereiti į sekantį puslapį</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Pereiti prie naujausio turinio</string>
+    <string name="pref_show_self_username_disambiguate">Kai prisijungę kelios paskyros</string>
 </resources>
