@@ -81,8 +81,13 @@ jobs:
         with:
           gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
+      # Run lint. Ignore a failing exit code, but save it for later.
       - name: Regular lint ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-        run: ./gradlew lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+        id: runlint
+        run: |
+          set +e
+          ./gradlew lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
 
       - name: Merge SARIF files
         run: |
@@ -93,6 +98,12 @@ jobs:
         with:
           category: ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
           sarif_file: merged-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif
+
+      # Exit with whatever exit code the original lint run exited with, to
+      # ensure this job fails if lint fails, *but* the lint reports are still
+      # uploaded.
+      - name: Fail if lint failed
+        run: exit ${{ steps.runlint.outputs.exitcode }}
 
   # Android tests are per variant
   test:

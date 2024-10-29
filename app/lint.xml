@@ -56,5 +56,5 @@
     <issue id="SyntheticAccessor" severity="ignore" />
 
     <!-- Mark all other lint issues as errors -->
-    <issue id="all" severity="warning" />
+    <issue id="all" severity="error" />
 </lint>
