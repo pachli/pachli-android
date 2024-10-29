@@ -87,7 +87,7 @@ jobs:
         run: |
           set +e
           ./gradlew lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+          echo "exitcode=$?" >> $GITHUB_OUTPUT
 
       - name: Merge SARIF files
         run: |
