@@ -32,11 +32,11 @@
 
 ### Translations
 
-- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
-- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
-- Update Lithuanian translations ([Vaclovas Intas](https://github.com/pachli/pachli-android/commits?author=Gateway_31@protonmail.com))
-- Update Ukrainian translations ([mondstern](https://github.com/pachli/pachli-android/commits?author=mondstern@monocles.de))
 - Update Burmese translations ([--//--](https://github.com/pachli/pachli-android/commits?author=htetoh2006@outlook.com))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Lithuanian translations ([Vaclovas Intas](https://github.com/pachli/pachli-android/commits?author=Gateway_31@protonmail.com))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Ukrainian translations ([mondstern](https://github.com/pachli/pachli-android/commits?author=mondstern@monocles.de))
 
 ## v2.8.2
 
