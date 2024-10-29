@@ -1,5 +1,43 @@
 # Pachli changelog
 
+## v2.8.3
+
+### New features and other improvements
+
+- Show share sheet when long clicking links/hashtags/mentions (#[1047](https://github.com/pachli/pachli-android/pull/1047), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show text counter on caption dialog, request focus (#[1045](https://github.com/pachli/pachli-android/pull/1045), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show "copy" button for links/hashtags/mentions in accessibility dialogs (#[1041](https://github.com/pachli/pachli-android/pull/1041), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Add accessibility options for tab justification and content (#[1035](https://github.com/pachli/pachli-android/pull/1035), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show each post's scheduled time in the list of scheduled posts (#[1033](https://github.com/pachli/pachli-android/pull/1033), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ignore suggested accounts that haven't posted in 28 days (#[1031](https://github.com/pachli/pachli-android/pull/1031), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Add "Don't ask again" option when confirming the posting language (#[1027](https://github.com/pachli/pachli-android/pull/1027), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Allow nullable `sensitive` and `spoiler_text` status params (#[1058](https://github.com/pachli/pachli-android/pull/1058), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Retain task state for MainActivity and ComposeActivity (#[1055](https://github.com/pachli/pachli-android/pull/1055), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Make "Open boost author" open the correct profile (#[1043](https://github.com/pachli/pachli-android/pull/1043), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show links, mentions, and hashtag accessibility actions for notifications (#[1040](https://github.com/pachli/pachli-android/pull/1040), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't prompt to discard/save unedited scheduled posts (#[1034](https://github.com/pachli/pachli-android/pull/1034), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure suggested account information is not cut off (#[1030](https://github.com/pachli/pachli-android/pull/1030), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show all search operators on 4.3.0+ servers (#[1026](https://github.com/pachli/pachli-android/pull/1026), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Disable "Scheduled post" support on GoToSocial accounts (#[1025](https://github.com/pachli/pachli-android/pull/1025), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't clip buttons when choosing scheduled post time (#[1024](https://github.com/pachli/pachli-android/pull/1024), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Remove the "Limit timeline notifications" preference (#[1009](https://github.com/pachli/pachli-android/pull/1009), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash if foreign key constraint is invalid in transaction (#[1004](https://github.com/pachli/pachli-android/pull/1004), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent crash when ModuleInstall.API is unavailable (#[997](https://github.com/pachli/pachli-android/pull/997), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Parse and restore poll when editing scheduled statuses (#[994](https://github.com/pachli/pachli-android/pull/994), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Load announcements with associated statuses correctly (#[987](https://github.com/pachli/pachli-android/pull/987), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash if a conversation has no participants (#[978](https://github.com/pachli/pachli-android/pull/978), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Lithuanian translations ([Vaclovas Intas](https://github.com/pachli/pachli-android/commits?author=Gateway_31@protonmail.com))
+- Update Ukrainian translations ([mondstern](https://github.com/pachli/pachli-android/commits?author=mondstern@monocles.de))
+- Update Burmese translations ([--//--](https://github.com/pachli/pachli-android/commits?author=htetoh2006@outlook.com))
+
 ## v2.8.2
 
 ### New features and other improvements
