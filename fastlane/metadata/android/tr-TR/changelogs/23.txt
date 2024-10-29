@@ -1,0 +1,17 @@
+Pachli 2.8.3
+
+Yeni özellikler:
+
+- Show share page on long Access Links vs
+- Bağlantılar için "copy" düğmesine, erişilebilirlik dialoglarında
+- sekmeler için erişilebilir seçenekler ekleyin
+- Planlanan bir yazının zamanını göster
+- Yazının dilini onaylarken " Tekrar sorma" ekleyin.
+
+Fixes:
+
+- GoToSocial'da "Scheduled post" desteği
+- Planlanan mesajları göster
+- Bir sohbetin katılımcısı yoksa çarpmayın
+
+Güncelleme Burmese, Finlandiya, Litvanya, İspanyolca, Ukraynalı çeviriler
