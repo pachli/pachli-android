@@ -520,7 +520,7 @@
     <string name="failed_to_pin">Échec de l\'épinglage</string>
     <string name="status_edit_info">Modification de %1$s</string>
     <string name="status_created_info">Création par %1$s</string>
-    <string name="compose_save_draft_loses_media">Enregistrer comme brouillon \? (Les pièces jointes seront à nouveau téléchargées lorsque le brouillon sera réouvert.)</string>
+    <string name="compose_save_draft_loses_media">Enregistrer comme brouillon ? (Les pièces jointes seront à nouveau téléchargées lorsque le brouillon sera réouvert.)</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Autre</string>
