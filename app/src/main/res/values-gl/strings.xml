@@ -454,7 +454,7 @@
     <string name="error_following_hashtag_format">Erro ao seguir #%s</string>
     <string name="error_unfollowing_hashtag_format">Error ao retirar seguimento de #%s</string>
     <string name="action_add_reaction">engadir reacción</string>
-    <string name="compose_save_draft_loses_media">Gardar borrador\? (Os adxuntos serán subidos outra vez cando restablezas o borrador.)</string>
+    <string name="compose_save_draft_loses_media">Gardar borrador? (Os adxuntos serán subidos outra vez cando restablezas o borrador.)</string>
     <string name="pref_title_show_self_username">Mostrar identificador na barra ferramentas</string>
     <string name="delete_scheduled_post_warning">Eliminar publicación programada\?</string>
     <string name="failed_to_pin">Fallo ao Fixar</string>
