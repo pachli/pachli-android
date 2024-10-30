@@ -571,7 +571,7 @@
     <string name="filter_action_warn">تحذير</string>
     <string name="title_public_trending_links">الروابط الشائعة</string>
     <string name="title_tab_public_trending_links">الروابط</string>
-    <string name="status_filter_placeholder_label_format">مُصفّى: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">مُصفّى: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="update_dialog_neutral">لا تذكرني بهذه النسخة</string>
     <string name="ui_error_reject_follow_request">فشل رفض طلب المتابعة: %s</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
