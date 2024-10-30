@@ -530,7 +530,7 @@
     <string name="ui_success_accepted_follow_request">Demanda d’abonament acceptada</string>
     <string name="ui_success_rejected_follow_request">Demanda d’abonament blocada</string>
     <string name="status_filtered_show_anyway">Afichar ça que la</string>
-    <string name="status_filter_placeholder_label_format">Filtrat : &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Filtrat : &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Perfils</string>
     <string name="hint_filter_title">Mon filtre</string>
     <string name="label_filter_title">Títol</string>
@@ -557,9 +557,7 @@
     <string name="ui_error_accept_follow_request">Fracàs de l’acceptacion de la demanda : %s</string>
     <string name="ui_error_reject_follow_request">Fracàs del refús de la demanda : %s</string>
     <string name="pref_title_show_stat_inline">Mostrar las estatisticas dins la cronologia</string>
-    <string name="help_empty_home">Aquò es vòstra <b>cronologia</b>. Mòstra las publicacions recentas dels comptes que seguissètz.
-\n
-\nPer explorar mai de compte podètz siá los descobrir dins d’autres fils, per exemple lo fil local de vòstra instància [iconics gmd_group], siá los trapar per lor nom [iconics gmd_search], per exemple « Pachli » per trobar nòstre compte Mastodon.</string>
+    <string name="help_empty_home">Aquò es vòstra <b>cronologia</b>. Mòstra las publicacions recentas dels comptes que seguissètz. \n \nPer explorar mai de compte podètz siá los descobrir dins d’autres fils, per exemple lo fil local de vòstra instància [iconics gmd_group], siá los trapar per lor nom [iconics gmd_search], per exemple « Pachli » per trobar nòstre compte Mastodon.</string>
     <string name="error_missing_edits">Vòstre servidor sap qu’aquesta publicacion foguèt modificada mas ten pas cap de còpia de las modificacions doncas vos las pòt afichar.
 \n
 \nAquò es un problèma de <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon #25398</a>.</string>
@@ -570,5 +568,4 @@
     <string name="notification_listenable_worker_description">Notificacions quand Tuska s’executa en rèireplan</string>
     <string name="notification_notification_worker">Recuperacion de las notificacions…</string>
     <string name="notification_prune_cache">Manteniment del cache…</string>
-    <string name="error_media_upload_sending_fmt">Fracàs del mandadís : %s</string>
 </resources>

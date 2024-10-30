@@ -22,7 +22,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.preference.PreferenceManager
 import app.pachli.core.activity.databinding.ItemAutocompleteAccountBinding
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
@@ -42,8 +41,6 @@ class AccountSelectionAdapter(
 
         val account = getItem(position)
         if (account != null) {
-            val pm = PreferenceManager.getDefaultSharedPreferences(binding.avatar.context)
-
             binding.username.text = account.fullName
             binding.displayName.text = account.displayName.emojify(account.emojis, binding.displayName, animateEmojis)
             binding.avatarBadge.visibility = View.GONE // We never want to display the bot badge here

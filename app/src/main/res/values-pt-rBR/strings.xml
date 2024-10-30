@@ -516,7 +516,7 @@
     <string name="title_public_trending_links">URL em alta</string>
     <string name="title_tab_public_trending_links">URL</string>
     <string name="title_public_trending_hashtags">Hashtags em alta</string>
-    <string name="status_filter_placeholder_label_format">Filtrado(s): &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Filtrado(s): &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="confirmation_hashtag_unfollowed">#%s deixado de seguir</string>
     <string name="ui_error_vote_fmt">Votar na enquete falhou: %1$s</string>
     <string name="update_dialog_neutral">Não me lembre desta versão</string>
@@ -557,7 +557,6 @@
     <string name="notification_unknown_name">Desconhecido</string>
     <string name="total_usage">Uso total</string>
     <string name="pref_update_notification_frequency_always">Sempre</string>
-    <string name="error_media_upload_sending_fmt">O carregamento falhou: %s</string>
     <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="filter_keyword_display_format">%s (palavra inteira)</string>
     <string name="filter_keyword_addition_title">Adicionar palavra-chave</string>
@@ -574,9 +573,7 @@
     <string name="pref_title_show_self_boosts">Mostrar auto-Boosts</string>
     <string name="announcement_date_updated">(Atualizado: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Toots</string>
-    <string name="help_empty_home">Esta é a tua <b>linha do tempo inicial</b>. Ela mostra as postagens recentes das contas que você segue.
-\n
-\nPara explorar contas, pode descobri-las em uma das outras linhas do tempo. Por exemplo, a linha do tempo local da tua instância [iconics gmd_group]. Ou pode pesquisá-las por nome [iconics gmd_search]; por exemplo, pesquise Pachli para encontrar nossa conta Mastodon.</string>
+    <string name="help_empty_home">Esta é a tua <b>linha do tempo inicial</b>. Ela mostra as postagens recentes das contas que você segue. \n \nPara explorar contas, pode descobri-las em uma das outras linhas do tempo. Por exemplo, a linha do tempo local da tua instância [iconics gmd_group]. Ou pode pesquisá-las por nome [iconics gmd_search]; por exemplo, pesquise Pachli para encontrar nossa conta Mastodon.</string>
     <string name="pref_update_notification_frequency_once_per_version">Uma vez por versão</string>
     <string name="notification_report_name">Denúncias</string>
     <string name="filter_description_hide">Ocultar completamente</string>

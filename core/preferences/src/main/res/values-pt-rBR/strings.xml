@@ -19,4 +19,13 @@
     <string name="pref_show_self_username_always">Sempre</string>
     <string name="pref_show_self_username_disambiguate">Quando várias contas estão conectadas</string>
     <string name="pref_show_self_username_never">Nunca</string>
+    <string name="pref_title_tab_alignment">Alinhar guias de navegação principais</string>
+    <string name="pref_tab_alignment_start">Início da direção do texto</string>
+    <string name="pref_tab_alignment_justify_if_possible">Expandir para a largura total</string>
+    <string name="pref_title_tab_contents">Conteúdo das principais guias de navegação</string>
+    <string name="pref_tab_contents_icon_text_inline">Ícone com texto ao lado</string>
+    <string name="pref_tab_alignment_end">Fim da direção do texto</string>
+    <string name="pref_tab_contents_icon_text_below">Ícone com texto abaixo</string>
+    <string name="pref_tab_contents_icon_only">Somente ícone</string>
+    <string name="pref_tab_contents_text_only">Somente texto</string>
 </resources>

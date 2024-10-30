@@ -19,7 +19,7 @@
         errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/login/LoginActivity.kt"
-            line="314"
+            line="316"
             column="22"/>
         <location
             file="src/main/res/values/strings.xml"
@@ -35,7 +35,7 @@
         errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/login/LoginActivity.kt"
-            line="314"
+            line="316"
             column="22"/>
         <location
             file="src/main/res/values/strings.xml"

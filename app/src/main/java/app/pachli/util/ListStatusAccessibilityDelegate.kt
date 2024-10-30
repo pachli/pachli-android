@@ -1,14 +1,21 @@
 package app.pachli.util
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
 import android.text.style.URLSpan
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
@@ -19,10 +26,10 @@ import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.activity.openLink
 import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
+import app.pachli.databinding.SimpleListItem1CopyButtonBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.IStatusViewData
 import app.pachli.viewdata.NotificationViewData
-import app.pachli.viewdata.StatusViewData
 import kotlin.math.min
 
 // Not using lambdas because there's boxing of int then
@@ -173,7 +180,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 app.pachli.core.ui.R.id.action_hashtags -> showHashtagsDialog(host)
                 app.pachli.core.ui.R.id.action_open_reblogger -> {
                     interrupt()
-                    statusActionListener.onOpenReblog(status.actionable)
+                    statusActionListener.onOpenReblog(status.status)
                 }
                 app.pachli.core.ui.R.id.action_open_reblogged_by -> {
                     interrupt()
@@ -206,15 +213,14 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
         }
 
         private fun showLinksDialog(host: View) {
-            val status = getStatus(host) as? StatusViewData ?: return
+            val status = getStatus(host) as? IStatusViewData ?: return
             val links = getLinks(status).toList()
             val textLinks = links.map { item -> item.link }
             AlertDialog.Builder(host.context)
                 .setTitle(app.pachli.core.ui.R.string.title_links_dialog)
                 .setAdapter(
-                    ArrayAdapter(
+                    ArrayAdapterWithCopyButton(
                         host.context,
-                        android.R.layout.simple_list_item_1,
                         textLinks,
                     ),
                 ) { _, which -> host.context.openLink(links[which].link) }
@@ -223,15 +229,17 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
         }
 
         private fun showMentionsDialog(host: View) {
-            val status = getStatus(host) as? StatusViewData ?: return
+            val status = getStatus(host) as? IStatusViewData ?: return
             val mentions = status.actionable.mentions
-            val stringMentions = mentions.map { it.username }
+
+            // Ensure mentions have the leading "@" to make them more useful when
+            // copied.
+            val stringMentions = mentions.map { "@${it.username}" }
             AlertDialog.Builder(host.context)
                 .setTitle(R.string.title_mentions_dialog)
                 .setAdapter(
-                    ArrayAdapter<CharSequence>(
+                    ArrayAdapterWithCopyButton(
                         host.context,
-                        android.R.layout.simple_list_item_1,
                         stringMentions,
                     ),
                 ) { _, which ->
@@ -242,14 +250,13 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
         }
 
         private fun showHashtagsDialog(host: View) {
-            val status = getStatus(host) as? StatusViewData ?: return
-            val tags = getHashtags(status).map { it.subSequence(1, it.length) }.toList()
+            val status = getStatus(host) as? IStatusViewData ?: return
+            val tags = getHashtags(status)
             AlertDialog.Builder(host.context)
                 .setTitle(app.pachli.core.ui.R.string.title_hashtags_dialog)
                 .setAdapter(
-                    ArrayAdapter(
+                    ArrayAdapterWithCopyButton(
                         host.context,
-                        android.R.layout.simple_list_item_1,
                         tags,
                     ),
                 ) { _, which ->
@@ -282,12 +289,11 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
         }
     }
 
-    private fun getHashtags(status: IStatusViewData): Sequence<CharSequence> {
+    private fun getHashtags(status: IStatusViewData): List<CharSequence> {
         val content = status.content
         return content.getSpans(0, content.length, Object::class.java)
-            .asSequence()
             .map { span ->
-                content.subSequence(content.getSpanStart(span), content.getSpanEnd(span))
+                content.subSequence(content.getSpanStart(span), content.getSpanEnd(span)).toString()
             }
             .filter(this::isHashtag)
     }
@@ -406,4 +412,41 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     )
 
     private data class LinkSpanInfo(val text: String, val link: String)
+}
+
+/**
+ * An [ArrayAdapter] that shows a "copy" button next to each item. When clicked
+ * the text of the item is copied to the clipboard and a toast is shown (if
+ * appropriate).
+ */
+private class ArrayAdapterWithCopyButton<T : CharSequence>(
+    context: Context,
+    items: List<T>,
+) : ArrayAdapter<T>(context, R.layout.simple_list_item_1_copy_button, items) {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val binding = if (convertView == null) {
+            SimpleListItem1CopyButtonBinding.inflate(LayoutInflater.from(context), parent, false)
+        } else {
+            SimpleListItem1CopyButtonBinding.bind(convertView)
+        }
+
+        getItem(position)?.let { text ->
+            binding.text1.text = text
+
+            binding.copy.setOnClickListener {
+                val clipboard = getSystemService(context, ClipboardManager::class.java) as ClipboardManager
+                val clip = ClipData.newPlainText("", text)
+                clipboard.setPrimaryClip(clip)
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.item_copied),
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            }
+        }
+
+        return binding.root
+    }
 }

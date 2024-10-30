@@ -517,9 +517,7 @@
     <string name="dialog_follow_hashtag_title">Seguir cancelo</string>
     <string name="dialog_follow_hashtag_hint">#cancelo</string>
     <string name="hint_description">Descrición</string>
-    <string name="help_empty_home">Esta é a túa <b>cronoloxía de inicio</b>. Mostra as publicacións recentes das contas que segues.
-\n
-\nPara atopar contas podes mirar nalgunha das outras cronoloxías. Por exemplo, na cronoloxía local da túa instancia [iconics gmd_group]. Ou buscalas polo seu nome [iconics gmd_search]; por exemplo busca Pachli para atopar a nosa conta en Mastodon.</string>
+    <string name="help_empty_home">Esta é a túa <b>cronoloxía de inicio</b>. Mostra as publicacións recentes das contas que segues. \n \nPara atopar contas podes mirar nalgunha das outras cronoloxías. Por exemplo, na cronoloxía local da túa instancia [iconics gmd_group]. Ou buscalas polo seu nome [iconics gmd_search]; por exemplo busca Pachli para atopar a nosa conta en Mastodon.</string>
     <string name="post_media_image">Imaxe</string>
     <string name="hint_filter_title">O meu filtro</string>
     <string name="notification_unknown_name">Descoñecido</string>
@@ -563,7 +561,6 @@
     <string name="notification_listenable_worker_description">Notificacións cando Pachli está a funcionar en segundo plano</string>
     <string name="notification_notification_worker">Obtendo as notificacións…</string>
     <string name="notification_prune_cache">Mantemento da caché…</string>
-    <string name="error_media_upload_sending_fmt">Fallou a subida: %s</string>
     <string name="dialog_delete_filter_positive_action">Eliminar</string>
     <string name="dialog_delete_filter_text">Eliminar o filtro \'%1$s\'\?</string>
     <string name="pref_title_show_self_boosts">Mostrar autopromocións</string>
@@ -630,7 +627,6 @@
     <string name="compose_warn_language_dialog_change_language_fmt">Cambiar o idioma a %1$s e publicar</string>
     <string name="error_media_uploader_upload_not_found_fmt">non se atopou o multimedia subido con ID %1$s</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Publicar tal como está (%1$s)</string>
-    <string name="error_media_uploader_throwable_fmt">%1$s</string>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">ao resolutor da URI do contido fáltalle unha ruta: %1$s</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">o resolutor da URI do cotido non é compatible co esquema: %1$s</string>

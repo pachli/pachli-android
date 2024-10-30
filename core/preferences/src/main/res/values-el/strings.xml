@@ -19,4 +19,13 @@
     <string name="pref_show_self_username_always">Πάντα</string>
     <string name="pref_show_self_username_never">Ποτέ</string>
     <string name="pref_show_self_username_disambiguate">Όταν πολλοί λογαριασμοί συνδέονται</string>
+    <string name="pref_title_tab_alignment">Align κύριες καρτέλες πλοήγησης</string>
+    <string name="pref_tab_alignment_start">Ξεκινήστε διεύθυνση κειμένου</string>
+    <string name="pref_tab_alignment_justify_if_possible">Επέκταση σε πλήρες πλάτος</string>
+    <string name="pref_tab_alignment_end">Τέλος της κατεύθυνσης κειμένου</string>
+    <string name="pref_title_tab_contents">Περιεχόμενο των κύριων καρτέλ πλοήγησης</string>
+    <string name="pref_tab_contents_icon_text_inline">Icon with text beside</string>
+    <string name="pref_tab_contents_icon_text_below">Με κείμενο παρακάτω</string>
+    <string name="pref_tab_contents_icon_only">Μόνο εικονίδιο</string>
+    <string name="pref_tab_contents_text_only">Μόνο Κείμενο</string>
 </resources>

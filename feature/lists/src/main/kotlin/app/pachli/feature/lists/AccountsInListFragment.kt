@@ -66,8 +66,8 @@ import timber.log.Timber
 private typealias AccountInfo = Pair<TimelineAccount, Boolean>
 
 /**
- * Display the members of a given list with UI to add/remove existing accounts
- * and search for followers to add them to the list.
+ * Display the members of a given list with a checkbox to add/remove existing,
+ * accounts and search for followed accounts to add them to the list.
  */
 @AndroidEntryPoint
 class AccountsInListFragment : DialogFragment() {
@@ -236,11 +236,12 @@ class AccountsInListFragment : DialogFragment() {
             val binding = ItemAccountInListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             val holder = BindingHolder(binding)
 
-            binding.addButton.hide()
-            binding.removeButton.setOnClickListener {
-                onRemoveFromList(getItem(holder.bindingAdapterPosition).id)
+            binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
+                if (!isChecked) {
+                    onRemoveFromList(getItem(holder.bindingAdapterPosition).id)
+                }
             }
-            binding.removeButton.contentDescription =
+            binding.checkBox.contentDescription =
                 binding.root.context.getString(R.string.action_remove_from_list)
 
             return holder
@@ -248,9 +249,10 @@ class AccountsInListFragment : DialogFragment() {
 
         override fun onBindViewHolder(holder: BindingHolder<ItemAccountInListBinding>, position: Int) {
             val account = getItem(position)
-            holder.binding.displayNameTextView.text = account.name.emojify(account.emojis, holder.binding.displayNameTextView, animateEmojis)
-            holder.binding.usernameTextView.text = account.username
+            holder.binding.displayName.text = account.name.emojify(account.emojis, holder.binding.displayName, animateEmojis)
+            holder.binding.username.text = binding.root.context.getString(DR.string.post_username_format, account.username)
             holder.binding.avatarBadge.visible(account.bot)
+            holder.binding.checkBox.isChecked = true
             loadAvatar(account.avatar, holder.binding.avatar, radius, animateAvatar)
         }
     }
@@ -272,13 +274,13 @@ class AccountsInListFragment : DialogFragment() {
             val binding = ItemAccountInListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             val holder = BindingHolder(binding)
 
-            binding.addButton.hide()
-            binding.removeButton.setOnClickListener {
+            binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
                 val (account, inAList) = getItem(holder.bindingAdapterPosition)
-                if (inAList) {
-                    onRemoveFromList(account.id)
-                } else {
+
+                if (isChecked) {
                     onAddToList(account)
+                } else {
+                    onRemoveFromList(account.id)
                 }
             }
 
@@ -288,19 +290,16 @@ class AccountsInListFragment : DialogFragment() {
         override fun onBindViewHolder(holder: BindingHolder<ItemAccountInListBinding>, position: Int) {
             val (account, inAList) = getItem(position)
 
-            holder.binding.displayNameTextView.text = account.name.emojify(account.emojis, holder.binding.displayNameTextView, animateEmojis)
-            holder.binding.usernameTextView.text = account.username
+            holder.binding.displayName.text = account.name.emojify(account.emojis, holder.binding.displayName, animateEmojis)
+            holder.binding.username.text = binding.root.context.getString(DR.string.post_username_format, account.username)
             loadAvatar(account.avatar, holder.binding.avatar, radius, animateAvatar)
             holder.binding.avatarBadge.visible(account.bot)
 
-            holder.binding.removeButton.apply {
-                contentDescription = if (inAList) {
-                    setImageResource(app.pachli.core.ui.R.drawable.ic_clear_24dp)
-                    getString(R.string.action_remove_from_list)
-                } else {
-                    setImageResource(app.pachli.core.ui.R.drawable.ic_plus_24dp)
-                    getString(R.string.action_add_to_list)
-                }
+            with(holder.binding.checkBox) {
+                contentDescription = getString(
+                    if (inAList) R.string.action_remove_from_list else R.string.action_add_to_list,
+                )
+                isChecked = inAList
             }
         }
     }

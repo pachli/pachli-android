@@ -19,4 +19,13 @@
     <string name="pref_show_self_username_always">Sempre</string>
     <string name="pref_show_self_username_disambiguate">Quan s\'inicien la sessió amb diversos comptes</string>
     <string name="pref_show_self_username_never">Mai</string>
+    <string name="pref_title_tab_alignment">Align principals pestanyes de navegació</string>
+    <string name="pref_tab_alignment_start">Inici de la direcció de text</string>
+    <string name="pref_tab_alignment_end">Finalització de la direcció de text</string>
+    <string name="pref_title_tab_contents">Contingut de les principals pestanyes de navegació</string>
+    <string name="pref_tab_contents_icon_text_inline">Icona amb text al costat</string>
+    <string name="pref_tab_contents_icon_text_below">Icona amb text a sota</string>
+    <string name="pref_tab_alignment_justify_if_possible">Amplieu l\'amplada completa</string>
+    <string name="pref_tab_contents_icon_only">Només la icona</string>
+    <string name="pref_tab_contents_text_only">Només text</string>
 </resources>

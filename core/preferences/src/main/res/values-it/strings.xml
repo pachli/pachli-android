@@ -19,4 +19,13 @@
     <string name="pref_show_self_username_always">Sempre</string>
     <string name="pref_show_self_username_disambiguate">Quando connesso con più account</string>
     <string name="pref_show_self_username_never">Mai</string>
+    <string name="pref_title_tab_alignment">Allineare le schede di navigazione principali</string>
+    <string name="pref_tab_alignment_justify_if_possible">Espandi a larghezza piena</string>
+    <string name="pref_tab_alignment_end">Fine della direzione del testo</string>
+    <string name="pref_title_tab_contents">Contenuto delle principali schede di navigazione</string>
+    <string name="pref_tab_alignment_start">Inizio della direzione del testo</string>
+    <string name="pref_tab_contents_icon_text_inline">Icona con testo accanto</string>
+    <string name="pref_tab_contents_icon_text_below">Icona con testo qui sotto</string>
+    <string name="pref_tab_contents_icon_only">Solo icona</string>
+    <string name="pref_tab_contents_text_only">Solo testo</string>
 </resources>

@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_email_body">Šie duomenys bus siunčiami kūrėjams.\n\n Patikrinkite, ar jame nėra nieko, kuo nenorite dalytis, ir aprašykite, ką darėte, kai įvyko strigtis.\n\n ----\n Jūsų aprašymas čia:\n\n ----\n</string>
+    <string name="acra_dialog_title">%1$s klaidos ataskaita</string>
+    <string name="acra_dialog_text">Spustelėkite Gerai, kad paruoštumėte el. laišką kūrėjams su išsamia informacija</string>
+</resources>

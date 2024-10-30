@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="0dp">
+    tools:context=".components.compose.ComposeActivity">
 
     <com.ortiz.touchview.TouchImageView
         android:id="@+id/imageDescriptionView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="@string/post_media_image"/>
+        android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
+        android:contentDescription="@string/post_media_image"
+        android:focusable="false"
+        app:layout_constraintBottom_toTopOf="@id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         style="@style/AppTextInput"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginStart="?dialogPreferredPadding"
-        android:layout_marginTop="?dialogPreferredPadding"
-        android:layout_marginEnd="?dialogPreferredPadding"
-        app:hintEnabled="false"
-        app:counterEnabled="false"
-        app:counterTextColor="?android:textColorTertiary">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="?dialogPreferredPadding"
+        app:counterEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintTop_toBottomOf="@id/imageDescriptionView"
+        app:layout_constraintVertical_weight="1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/imageDescriptionText"
-            android:inputType="textCapSentences|textMultiLine|textAutoCorrect"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:hint="@string/hint_description"
-            android:gravity="start"
-            android:importantForAutofill="no" />
+            android:minLines="4"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences|textMultiLine|textAutoCorrect" />
 
     </com.google.android.material.textfield.TextInputLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

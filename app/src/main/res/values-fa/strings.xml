@@ -535,7 +535,7 @@
     <string name="ui_error_reblog_fmt">%1$s: تقویت فرسته شکست خورد</string>
     <string name="ui_error_reject_follow_request">رد کردن درخواست پی‌گیری شکست خورد: %s</string>
     <string name="status_filtered_show_anyway">نمایش به هر روی</string>
-    <string name="status_filter_placeholder_label_format">پالوده: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">پالوده: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">نمایه‌ها</string>
     <string name="hint_filter_title">پالایه‌ام</string>
     <string name="label_filter_title">عنوان</string>
@@ -552,9 +552,7 @@
     <string name="filter_edit_keyword_title">ویرایش کلیدواژه</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="pref_title_show_stat_inline">نمایش آمار فرسته‌ها در خط زمانی</string>
-    <string name="help_empty_home">این <b>خط زمانی خانگیتان</b> است. فرسته‌های جدید را از حساب‌هایی که پی‌می‌گیرید نشان می‌دهد.
-\n
-\nبرای کاوش حساب‌ها می‌توانید آن‌ها را در دیگر خط‌های زمانی (برای نمونه خط زمانی محلّی نمونه‌تان [iconics gmd_group]) یافته یا با نام (برای نمونه Pachli برای حساب ماستودونمان) بجوییدشان [iconics gmd_search].</string>
+    <string name="help_empty_home">این <b>خط زمانی خانگیتان</b> است. فرسته‌های جدید را از حساب‌هایی که پی‌می‌گیرید نشان می‌دهد. \n \nبرای کاوش حساب‌ها می‌توانید آن‌ها را در دیگر خط‌های زمانی (برای نمونه خط زمانی محلّی نمونه‌تان [iconics gmd_group]) یافته یا با نام (برای نمونه Pachli برای حساب ماستودونمان) بجوییدشان [iconics gmd_search].</string>
     <string name="hint_description">شرح</string>
     <string name="post_media_image">تصویر</string>
     <string name="select_list_empty">هنوز هیچ سیاهه‌ای ندارید</string>
@@ -570,7 +568,6 @@
     <string name="notification_listenable_worker_description">آگاهی‌ها هنگامی که تاسکی در پس‌زمینه کار می‌کند</string>
     <string name="notification_notification_worker">واکشی آگاهی‌ها…</string>
     <string name="notification_prune_cache">نگه‌داری انباره…</string>
-    <string name="error_media_upload_sending_fmt">بارگذاری شکست خورد: %s</string>
     <string name="error_media_playback">پخش شکست خورد: %s</string>
     <string name="dialog_delete_filter_positive_action">حذف</string>
     <string name="dialog_delete_filter_text">«%1$s» حذف پالایهٔ ؟</string>

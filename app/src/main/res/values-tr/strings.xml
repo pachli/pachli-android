@@ -491,9 +491,7 @@
     <string name="pref_title_http_proxy_port_message">Bağlantı noktası %d ile %d arasında olmalıdır</string>
     <string name="post_media_alt">Alternatif metin</string>
     <string name="a11y_label_loading_thread">Konu yükleniyor</string>
-    <string name="help_empty_home">Bu senin <b>ana ağ akışın</b>. Takip ettiğin hesapların son gönderileri burada yer alacak.
-\n
-\nTakip edebileceğin hesapları diğer zaman tünellerinden keşfedebilirsin, örneğin kendi sunucunun yerel zaman tünelinden [iconics gmd_group]. Veya hesapları adlarıyla arayabilirsin [iconics gmd_search], örneğin Mastodon hesabımızı bulmak için Pachli adıyla araman yeterli.</string>
+    <string name="help_empty_home">Bu senin <b>ana ağ akışın</b>. Takip ettiğin hesapların son gönderileri burada yer alacak. \n \nTakip edebileceğin hesapları diğer zaman tünellerinden keşfedebilirsin, örneğin kendi sunucunun yerel zaman tünelinden [iconics gmd_group]. Veya hesapları adlarıyla arayabilirsin [iconics gmd_search], örneğin Mastodon hesabımızı bulmak için Pachli adıyla araman yeterli.</string>
     <string name="pref_summary_http_proxy_missing">&lt;ayarlanmadı&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;geçersiz&gt;</string>
     <string name="pref_summary_http_proxy_disabled">Etkisizleştirildi</string>
@@ -552,7 +550,7 @@
     <string name="filter_action_hide">Gizle</string>
     <string name="filter_description_warn">Bir uyarı ile gizle</string>
     <string name="status_filtered_show_anyway">Yine de göster</string>
-    <string name="status_filter_placeholder_label_format">Süzgeçlendi: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Süzgeçlendi: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="filter_edit_keyword_title">Anahtar kelimeyi düzenle</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="pref_title_show_stat_inline">Gönderi istatistiklerini sğ akışında göster</string>
@@ -570,6 +568,5 @@
     <string name="error_missing_edits">Sunucunuz bu gönderinin düzenlendiğini bilir, ancak düzenlemelerin bir kopyası yoktur, bu nedenle bunlar size gösterilemez.
 \n
 \nBu <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon sorununu #25398</a>.</string>
-    <string name="error_media_upload_sending_fmt">Yükleme başarısız oldu: %s</string>
     <string name="error_media_playback">Oynatma başarısız oldu: %s</string>
 </resources>

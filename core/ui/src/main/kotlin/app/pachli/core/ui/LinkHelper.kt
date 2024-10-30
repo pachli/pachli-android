@@ -16,18 +16,15 @@
 
 package app.pachli.core.ui
 
-import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.URLSpan
-import android.view.MotionEvent
-import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
+import androidx.core.text.method.LinkMovementMethodCompat
 import app.pachli.core.activity.EmojiSpan
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.network.model.HashTag
@@ -71,7 +68,7 @@ fun setClickableText(view: TextView, content: CharSequence, mentions: List<Menti
             setClickableText(it, this, mentions, tags, listener)
         }
     }
-    view.movementMethod = NoTrailingSpaceLinkMovementMethod.getInstance()
+    view.movementMethod = LinkMovementMethodCompat.getInstance()
 }
 
 @VisibleForTesting
@@ -230,43 +227,11 @@ fun setClickableMentions(view: TextView, mentions: List<Mention>?, listener: Lin
             start = end
         }
     }
-    view.movementMethod = NoTrailingSpaceLinkMovementMethod.getInstance()
+    view.movementMethod = LinkMovementMethodCompat.getInstance()
 }
 
 fun createClickableText(text: String, link: String): CharSequence {
     return SpannableStringBuilder(text).apply {
         setSpan(NoUnderlineURLSpan(link), 0, text.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
     }
-}
-
-/**
- * [LinkMovementMethod] that doesn't add a leading/trailing clickable area.
- *
- * [LinkMovementMethod] has a bug in its calculation of the clickable width of a span on a line. If
- * the span is the last thing on the line the clickable area extends to the end of the view. So the
- * user can tap what appears to be whitespace and open a link.
- *
- * Fix this by overriding ACTION_UP touch events and calculating the true start and end of the
- * content on the line that was tapped. Then ignore clicks that are outside this area.
- *
- * See https://github.com/tuskyapp/Tusky/issues/1567.
- */
-object NoTrailingSpaceLinkMovementMethod : LinkMovementMethod() {
-    override fun onTouchEvent(widget: TextView, buffer: Spannable, event: MotionEvent): Boolean {
-        val action = event.action
-        if (action != ACTION_UP) return super.onTouchEvent(widget, buffer, event)
-
-        val x = event.x.toInt()
-        val y = event.y.toInt() - widget.totalPaddingTop + widget.scrollY
-        val line = widget.layout.getLineForVertical(y)
-        val lineLeft = widget.layout.getLineLeft(line)
-        val lineRight = widget.layout.getLineRight(line)
-        if (x > lineRight || x >= 0 && x < lineLeft) {
-            return true
-        }
-
-        return super.onTouchEvent(widget, buffer, event)
-    }
-
-    fun getInstance() = NoTrailingSpaceLinkMovementMethod
 }

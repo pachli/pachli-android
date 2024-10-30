@@ -300,7 +300,6 @@
     <string name="confirmation_unblocked">Käyttäjän esto poistettu</string>
     <string name="title_edits">Muokkaukset</string>
     <string name="title_followed_hashtags">Seuratut aihetunnisteet</string>
-    <string name="error_media_upload_sending_fmt">Lataus epäonnistui: %s</string>
     <string name="add_account_description">Lisää uusi Mastodon-tili</string>
     <string name="dialog_title_finishing_media_upload">Mediatiedoston latausta viimeistellään</string>
     <string name="pref_title_show_self_boosts_description">Joku tehostaa omaa julkaisuaan</string>
@@ -563,9 +562,7 @@
     <string name="duration_14_days">14 päivää</string>
     <string name="conversation_more_recipients">%1$s, %2$s ja vielä %3$d</string>
     <string name="filter_apply">Käytä</string>
-    <string name="help_empty_home">Tämä on sinun <b>kotiaikajanasi</b>. Se näyttää seuraamiesi tilien uusimmat julkaisut.
-\n
-\nJos haluat tutkia muita tilejä, voit löytää niitä toisesta aikajanasta, esimerkiksi oman instanssisi paikallisesta aikajanasta [iconics gmd_group]. Voit myös etsiä niitä nimeltä [iconics gmd_search]; etsi esimerkiksi sanalla ”Pachli” löytääksesi Mastodon-tilimme.</string>
+    <string name="help_empty_home">Tämä on sinun <b>kotiaikajanasi</b>. Se näyttää seuraamiesi tilien uusimmat julkaisut. \n \nJos haluat tutkia muita tilejä, voit löytää niitä toisesta aikajanasta, esimerkiksi oman instanssisi paikallisesta aikajanasta [iconics gmd_group]. Voit myös etsiä niitä nimeltä [iconics gmd_search]; etsi esimerkiksi sanalla ”Pachli” löytääksesi Mastodon-tilimme.</string>
     <string name="notifications_clear">Poista ilmoitukset</string>
     <string name="expand_collapse_all_posts">Avaa/Sulje kaikki julkasut</string>
     <string name="select_list_title">Valitse lista</string>
@@ -633,7 +630,6 @@
     <string name="compose_warn_language_dialog_change_language_fmt">Merkitse kieleksi %1$s ja julkaise</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Julkaise muuttamattomana (%1$s)</string>
     <string name="error_media_uploader_upload_not_found_fmt">medialatausta nimeltä %1$s ei löydy</string>
-    <string name="error_media_uploader_throwable_fmt">%1$s</string>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">sisällönselvittäjä-URI:ltä puuttui polku: %1$s</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="error_prepare_media_file_is_too_large_fmt">tiedoston koko on %1$s, suurin sallittu on %2$s</string>
@@ -774,4 +770,8 @@
     <string name="pref_notification_method_push">Puskuilmoitus</string>
     <string name="pref_title_content_filters">Sisältösuodattimet</string>
     <string name="conversation_0_recipients">Ei muita osanottajia</string>
+    <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Julkaise muutoksetta (%1$s) äläkä kysy uudelleen</string>
+    <string name="pref_title_confirm_status_language">Tarkasta julkaisun kieli ennen julkaisemista</string>
+    <string name="action_copy_item">Kopioi kohde</string>
+    <string name="item_copied">Teksti kopioitu</string>
 </resources>

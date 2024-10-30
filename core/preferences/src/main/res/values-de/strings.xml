@@ -19,4 +19,13 @@
     <string name="pref_show_self_username_always">Immer</string>
     <string name="pref_show_self_username_disambiguate">Wenn mit mehreren Konten angemeldet</string>
     <string name="pref_show_self_username_never">Niemals</string>
+    <string name="pref_title_tab_alignment">Hauptnavigation Tabs ordnen</string>
+    <string name="pref_tab_alignment_start">Beginn der Textrichtung</string>
+    <string name="pref_tab_alignment_justify_if_possible">Erweitern auf volle Breite</string>
+    <string name="pref_tab_alignment_end">Ende der Textrichtung</string>
+    <string name="pref_title_tab_contents">Inhalt der Hauptnavigationskarten</string>
+    <string name="pref_tab_contents_icon_text_inline">Icon mit Text neben</string>
+    <string name="pref_tab_contents_icon_text_below">Icon mit Text unten</string>
+    <string name="pref_tab_contents_text_only">Nur-Text</string>
+    <string name="pref_tab_contents_icon_only">Nur Icon</string>
 </resources>

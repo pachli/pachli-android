@@ -480,9 +480,7 @@
     <string name="action_unfollow_hashtag_format">Slutte å følge #%s\?</string>
     <string name="confirmation_hashtag_unfollowed">Sluttet å følge #%s</string>
     <string name="a11y_label_loading_thread">Laster tråd</string>
-    <string name="help_empty_home">Dette er <b>Hjemmetidslinjen</b>din. Den viser de nyeste innleggene av kontoer du følger.
-\n
-\nFor å utforske kontoer kan du enten oppdage dem i en av tidslinjene dine, for eksempel den lokale tidslinjen for instansen din [iconics gmd_group], eller du kan søke etter navnet deres [iconics gmd_search]; søk for eksempel etter Pachli før å finne Mastodonkonten vår.</string>
+    <string name="help_empty_home">Dette er <b>Hjemmetidslinjen</b>din. Den viser de nyeste innleggene av kontoer du følger. \n \nFor å utforske kontoer kan du enten oppdage dem i en av tidslinjene dine, for eksempel den lokale tidslinjen for instansen din [iconics gmd_group], eller du kan søke etter navnet deres [iconics gmd_search]; søk for eksempel etter Pachli før å finne Mastodonkonten vår.</string>
     <string name="pref_ui_text_size">Skriftstørrelse for brukergrensesnitt</string>
     <string name="dialog_follow_hashtag_title">Følg emneknagger</string>
     <string name="dialog_follow_hashtag_hint">#emneknagg</string>
@@ -577,7 +575,6 @@
     <string name="title_lists_failed">Lister - kunne ikke lastes inn</string>
     <string name="manage_lists">Håndter lister</string>
     <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
-    <string name="error_media_upload_sending_fmt">Mislyktes ved opplasting: %s</string>
     <string name="title_public_trending_links">Trendende lenker</string>
     <string name="title_tab_public_trending_hashtags">Emneknagger</string>
     <string name="title_tab_public_trending_links">Lenker</string>
@@ -588,7 +585,6 @@
     <string name="compose_warn_language_dialog_fmt">Språket til innlegget er %1$s men det kan skje at du har skrevet innlegget på %2$s.</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Byt språk til %1$s og tut</string>
     <string name="error_media_uploader_upload_not_found_fmt">Mediaopplasting med ID %1$s finnes ikke</string>
-    <string name="error_media_uploader_throwable_fmt">%1$s</string>
     <string name="ui_error_translate_status_fmt">Oversettelse mislyktes: %1$s</string>
     <string name="ui_error_filter_v1_load_fmt">Å laste inn filtere mislyktes: %1$s</string>
     <string name="notification_severed_relationships_account_suspension_body">En moderator suspenderte kontoen</string>

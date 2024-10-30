@@ -162,7 +162,9 @@ data class Status(
     data class Mention(
         val id: String,
         val url: String,
+        /** If this is remote then "[localUsername]@server", otherwise [localUsername]. */
         @Json(name = "acct") val username: String,
+        /** The username, without the server part or leading "@". */
         @Json(name = "username") val localUsername: String,
     )
 

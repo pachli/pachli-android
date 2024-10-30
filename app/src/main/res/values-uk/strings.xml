@@ -550,7 +550,7 @@
     <string name="ui_success_accepted_follow_request">Запит на стеження погоджено</string>
     <string name="ui_success_rejected_follow_request">Запит на стеження заблоковано</string>
     <string name="status_filtered_show_anyway">Усе одно показати</string>
-    <string name="status_filter_placeholder_label_format">Відфільтровано: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Відфільтровано: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Профілі</string>
     <string name="label_filter_title">Заголовок</string>
     <string name="filter_action_warn">Попередження</string>
@@ -567,9 +567,7 @@
     <string name="filter_description_format">%s: %s</string>
     <string name="hint_filter_title">Мій фільтр</string>
     <string name="pref_title_show_stat_inline">Показувати статистику допису у стрічці</string>
-    <string name="help_empty_home">Це ваша <b>головна стрічка</b>. Вона показує останні дописи облікових записів, за якими ви стежите.
-\n
-\nЩоб переглянути облікові записи, ви можете знайти їх в одній з інших стрічок. Наприклад, на локальній стрічці вашого сервера [iconics gmd_group]. Або ви можете шукати їх за іменами [iconics gmd_search]; наприклад, шукайте Pachli, щоб знайти наш обліковий запис Mastodon.</string>
+    <string name="help_empty_home">Це ваша <b>головна стрічка</b>. Вона показує останні дописи облікових записів, за якими ви стежите. \n \nЩоб переглянути облікові записи, ви можете знайти їх в одній з інших стрічок. Наприклад, на локальній стрічці вашого сервера [iconics gmd_group]. Або ви можете шукати їх за іменами [iconics gmd_search]; наприклад, шукайте Pachli, щоб знайти наш обліковий запис Mastodon.</string>
     <string name="hint_description">Опис</string>
     <string name="post_media_image">Зображення</string>
     <string name="error_list_load">Помилка завантаження списків</string>
@@ -585,5 +583,4 @@
     <string name="error_missing_edits">Ваш сервер знає, що цей допис було змінено, але не має копії редагувань, тому вони не можуть бути вам показані.
 \n
 \nЦе <a href="https://github.com/mastodon/mastodon/issues/25398">помилка #25398 у Mastodon</a>.</string>
-    <string name="error_media_upload_sending_fmt">Не вдалося вивантажити: %s</string>
 </resources>

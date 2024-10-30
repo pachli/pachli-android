@@ -19,4 +19,13 @@
     <string name="pref_show_self_username_always">항상</string>
     <string name="pref_show_self_username_never">절대</string>
     <string name="pref_show_self_username_disambiguate">여러 계정이 로그인되면</string>
+    <string name="pref_title_tab_alignment">Align 메인 탐색 탭</string>
+    <string name="pref_tab_alignment_start">본문 바로가기</string>
+    <string name="pref_tab_alignment_justify_if_possible">전체 폭으로 확장</string>
+    <string name="pref_tab_alignment_end">텍스트 방향의 끝</string>
+    <string name="pref_title_tab_contents">주요 탐색 탭의 내용</string>
+    <string name="pref_tab_contents_icon_text_inline">본문에 아이콘</string>
+    <string name="pref_tab_contents_icon_text_below">아래 텍스트로 아이콘</string>
+    <string name="pref_tab_contents_icon_only">아이콘만</string>
+    <string name="pref_tab_contents_text_only">텍스트만</string>
 </resources>

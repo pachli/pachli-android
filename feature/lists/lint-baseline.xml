@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.3.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.3.0)" variant="all" version="8.3.0">
+<issues format="6" by="lint 8.7.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.7.0)" variant="all" version="8.7.0">
 
     <issue
         id="SelectableText"
@@ -8,7 +8,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_account_in_list.xml"
-            line="48"
+            line="50"
             column="6"/>
     </issue>
 
@@ -19,7 +19,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_account_in_list.xml"
-            line="64"
+            line="67"
             column="6"/>
     </issue>
 
@@ -30,7 +30,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_add_or_remove_from_list.xml"
-            line="12"
+            line="14"
             column="6"/>
     </issue>
 

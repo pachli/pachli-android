@@ -19,4 +19,13 @@
     <string name="pref_show_self_username_always">دائماً</string>
     <string name="pref_show_self_username_disambiguate">عند تسجيل الدخول إلى حسابات متعددة</string>
     <string name="pref_show_self_username_never">أبداً</string>
+    <string name="pref_title_tab_contents">محتوى الشرائط الرئيسية للملاحة</string>
+    <string name="pref_tab_contents_icon_text_inline">مع النص بجانب</string>
+    <string name="pref_tab_contents_icon_text_below">Icon with text below</string>
+    <string name="pref_title_tab_alignment">حبوب الملاحة الرئيسية</string>
+    <string name="pref_tab_alignment_start">بدء توجيه النص</string>
+    <string name="pref_tab_alignment_justify_if_possible">التوسع إلى الاستطلاع الكامل</string>
+    <string name="pref_tab_alignment_end">نهاية النص</string>
+    <string name="pref_tab_contents_icon_only">الأيقونة فقط</string>
+    <string name="pref_tab_contents_text_only">الوصف بالكلمات فقط</string>
 </resources>

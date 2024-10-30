@@ -68,8 +68,8 @@ jobs:
     strategy:
       matrix:
         color: ["orange"]
-        store: ["fdroid", "github", "google"]
-        type: ["debug", "release"]
+        store: [ "Fdroid", "Github", "Google" ]
+        type: [ "Debug", "Release" ]
     name: Android Lint
     runs-on: ubuntu-latest
 
@@ -81,16 +81,36 @@ jobs:
         with:
           gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
+      # Run lint. Ignore a failing exit code, but save it for later.
       - name: Regular lint ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-        run: ./gradlew lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+        id: runlint
+        run: |
+          set +e
+          ./gradlew lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+          echo "exitcode=$?" >> $GITHUB_OUTPUT
+
+      - name: Merge SARIF files
+        run: |
+          jq -s '{ "$schema": "https://json.schemastore.org/sarif-2.1.0", "version": "2.1.0", "runs": map(.runs) | add }'  */*/build/reports/lint-results-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif */build/reports/lint-results-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif > merged-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: merged-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif
+
+      # Exit with whatever exit code the original lint run exited with, to
+      # ensure this job fails if lint fails, *but* the lint reports are still
+      # uploaded.
+      - name: Fail if lint failed
+        run: exit ${{ steps.runlint.outputs.exitcode }}
 
   # Android tests are per variant
   test:
     strategy:
       matrix:
         color: ["orange"]
-        store: ["fdroid", "github", "google"]
-        type: ["debug", "release"]
+        store: [ "Fdroid", "Github", "Google" ]
+        type: [ "Debug", "Release" ]
     name: Android Test
     runs-on: ubuntu-latest
 
@@ -110,8 +130,8 @@ jobs:
     strategy:
       matrix:
         color: ["orange"]
-        store: ["fdroid", "github", "google"]
-        type: ["debug", "release"]
+        store: [ "Fdroid", "Github", "Google" ]
+        type: [ "Debug", "Release" ]
     name: Android Assemble
     runs-on: ubuntu-latest
 

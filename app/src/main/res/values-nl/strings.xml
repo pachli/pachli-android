@@ -527,7 +527,7 @@
     <string name="select_list_manage">Lijsten beheren</string>
     <string name="pref_title_account_filter_keywords">Profielen</string>
     <string name="status_filtered_show_anyway">Toch tonen</string>
-    <string name="status_filter_placeholder_label_format">Gefilterd: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Gefilterd: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="hint_filter_title">Mijn filter</string>
     <string name="label_filter_action">Filteractie</string>
     <string name="filter_action_warn">Waarschuwen</string>
@@ -549,7 +549,6 @@
     <string name="notification_notification_worker">Meldingen ophalen…</string>
     <string name="notification_listenable_worker_name">Achtergrond activiteit</string>
     <string name="notification_listenable_worker_description">Meldingen als Pachli werkt op de achtergrond</string>
-    <string name="error_media_upload_sending_fmt">De upload is mislukt: %s</string>
     <string name="socket_timeout_exception">Contact zoeken met je server duurde te lang</string>
     <string name="dialog_delete_filter_positive_action">Verwijder</string>
     <string name="dialog_delete_filter_text">Verwijder filter \'%1$s\'\?</string>
@@ -586,9 +585,7 @@
     <string name="pref_title_show_self_boosts">Toon zelf-boosts</string>
     <string name="announcement_date_updated">(Bijgewerkt: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Posts</string>
-    <string name="help_empty_home">Dit is je <b>Thuis tijdlijn</b>. Het toont de meest recente posts van accounts die je volgt.
-\n
-\nOm meer accounts te vinden, kun je ze ontdekken in een van de andere tijdlijnen. Bijvoorbeeld de lokale tijdlijn van jouw instance [iconics gmd_group]. Of je kunt zoeken op naam [iconics gmd_search]; bijvoorbeeld als je zoekt op Pachli dan vind je ons Mastodon account.</string>
+    <string name="help_empty_home">Dit is je <b>Thuis tijdlijn</b>. Het toont de meest recente posts van accounts die je volgt. \n \nOm meer accounts te vinden, kun je ze ontdekken in een van de andere tijdlijnen. Bijvoorbeeld de lokale tijdlijn van jouw instance [iconics gmd_group]. Of je kunt zoeken op naam [iconics gmd_search]; bijvoorbeeld als je zoekt op Pachli dan vind je ons Mastodon account.</string>
     <string name="pref_update_notification_frequency_once_per_version">Eenmaal per versie</string>
     <string name="pref_title_font_family">Lettertype-familie</string>
     <string name="ui_success_rejected_follow_request">Volg verzoek geblokkeerd</string>

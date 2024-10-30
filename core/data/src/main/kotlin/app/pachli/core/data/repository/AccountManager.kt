@@ -129,7 +129,7 @@ sealed interface SetActiveAccountError : PachliError {
         val throwable: Throwable,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_unexpected
-        override val formatArgs = arrayOf(throwable.localizedMessage)
+        override val formatArgs: Array<String> = arrayOf(throwable.localizedMessage ?: "unknown")
         override val cause = null
     }
 }

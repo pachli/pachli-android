@@ -538,7 +538,7 @@
     <string name="notification_unknown_name">Unbekannt</string>
     <string name="ui_error_clear_notifications">Löschen der Benachrichtigungen schlug fehl: %s</string>
     <string name="ui_error_reject_follow_request">Ablehnen der Folgeanfrage schlug fehl: %s</string>
-    <string name="status_filter_placeholder_label_format">Gefiltert: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Gefiltert: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Profile</string>
     <string name="hint_filter_title">Mein Filter</string>
     <string name="label_filter_title">Titel</string>
@@ -555,9 +555,7 @@
     <string name="filter_edit_keyword_title">Schlagwort bearbeiten</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="status_filtered_show_anyway">Trotzdem anzeigen</string>
-    <string name="help_empty_home">Dies ist deine <b>Startseite</b>. Sie zeigt die neuesten Beiträge von Konten, denen du folgst.
-\n
-\nDamit du andere Konten entdeckst, kannst du entweder andere Timelines lesen – z. B. die Lokale Timeline deiner Instanz [iconics gmd_group] – oder du suchst nach Namen [iconics gmd_search] – z. B. Pachli, um unser Mastodon-Konto zu finden.</string>
+    <string name="help_empty_home">Dies ist deine <b>Startseite</b>. Sie zeigt die neuesten Beiträge von Konten, denen du folgst. \n \nDamit du andere Konten entdeckst, kannst du entweder andere Timelines lesen – z. B. die Lokale Timeline deiner Instanz [iconics gmd_group] – oder du suchst nach Namen [iconics gmd_search] – z. B. Pachli, um unser Mastodon-Konto zu finden.</string>
     <string name="post_media_image">Bild</string>
     <string name="pref_title_show_stat_inline">Beitragsstatistiken in der Timeline anzeigen</string>
     <string name="pref_ui_text_size">Schriftgröße der Oberfläche</string>
@@ -570,7 +568,6 @@
     <string name="error_missing_edits">Deinem Server ist bekannt, dass dieser Beitrag bearbeitet wurde. Allerdings besitzt er keine Kopien der Änderungen, weshalb diese nicht angezeigt werden können.
 \n
 \nHierbei handelt es sich um <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon Issue #25398</a>.</string>
-    <string name="error_media_upload_sending_fmt">Das Hochladen ist fehlgeschlagen: %s</string>
     <string name="ui_error_translate_status_fmt">Übersetzung fehlgeschlagen: %1$s</string>
     <string name="update_dialog_negative">Erinnere mich nie</string>
     <string name="translating">Übersetze…</string>

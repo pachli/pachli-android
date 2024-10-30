@@ -569,7 +569,7 @@
     <string name="dialog_follow_hashtag_hint">#hashnod</string>
     <string name="notification_unknown_name">Anhysbys</string>
     <string name="status_filtered_show_anyway">Dangos beth bynnag</string>
-    <string name="status_filter_placeholder_label_format">Hidlwyd: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Hidlwyd: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Proffiliau</string>
     <string name="socket_timeout_exception">Cymrodd hi\'n rhy hir i gysylltu â\'ch gweinydd</string>
     <string name="ui_error_bookmark_fmt">Methodd tudalnodi\'r neges: %1$s</string>
@@ -600,9 +600,7 @@
     <string name="select_list_empty">Nid oes gennych restrau, eto</string>
     <string name="select_list_manage">Rheoli rhestrau</string>
     <string name="error_list_load">Gwall wrth lwytho rhestrau</string>
-    <string name="help_empty_home">Hwn yw\'ch <b>ffrwd cartref</b>. Mae\'n dangos negeseuon diweddar y cyfrifon rydych yn eu dilyn.
-\n
-\nI archwilio cyfrifon gallwch un ai eu darganfod o fewn un o\'r llinellau amser eraill. Er enghraifft, mae llinell amser eich enghraifft chi [iconics gmd_group]. Neu gallwch eu chwilio yn ôl eu henw [iconics gmd_search]; er enghraifft, chwilio am Pachli i ganfod ein cyfrif Mastodon.</string>
+    <string name="help_empty_home">Hwn yw\'ch <b>ffrwd cartref</b>. Mae\'n dangos negeseuon diweddar y cyfrifon rydych yn eu dilyn. \n \nI archwilio cyfrifon gallwch un ai eu darganfod o fewn un o\'r llinellau amser eraill. Er enghraifft, mae llinell amser eich enghraifft chi [iconics gmd_group]. Neu gallwch eu chwilio yn ôl eu henw [iconics gmd_search]; er enghraifft, chwilio am Pachli i ganfod ein cyfrif Mastodon.</string>
     <string name="pref_title_show_stat_inline">Dangos ystadegau negeseuon mewn llinell amser</string>
     <string name="pref_ui_text_size">Maint testun rhyngwyneb</string>
     <string name="notification_listenable_worker_name">Gweithgaredd cefndirol</string>
@@ -614,7 +612,6 @@
 \nHwn yw <a href="https://github.com/mastodon/mastodon/issues/25398">mater Mastodon #25398</a>.</string>
     <string name="load_newest_notifications">Llwytho hysbysiadau diweddaraf</string>
     <string name="compose_delete_draft">Dileu\'r drafft\?</string>
-    <string name="error_media_upload_sending_fmt">Methodd y lanlwytho: %s</string>
     <string name="error_media_playback">Methodd chwarae: %s</string>
     <string name="dialog_delete_filter_positive_action">Dileu</string>
     <string name="dialog_delete_filter_text">Dileu\'r hidlydd \'%1$s\'\?</string>
