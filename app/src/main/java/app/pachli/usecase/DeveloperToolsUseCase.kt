@@ -41,7 +41,7 @@ class DeveloperToolsUseCase @Inject constructor(
      */
     suspend fun deleteFirstKStatuses(accountId: Long, k: Int) {
         transactionProvider {
-            val ids = timelineDao.getMostRecentNStatusIds(accountId, 40)
+            val ids = timelineDao.getMostRecentNStatusIds(accountId, k)
             timelineDao.deleteRange(accountId, ids.last(), ids.first())
         }
     }
