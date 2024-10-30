@@ -107,7 +107,7 @@
     <string name="action_edit_image">Labot attēlu</string>
     <string name="send_post_notification_title">Sūta ierakstu…</string>
     <string name="send_post_notification_cancel_title">Sūtīšana atcelta</string>
-    <string name="compose_save_draft_loses_media">Vai saglabāt melnrakstu (atjaunojot melnrakstu, pielikumi tiks augšupielādēti vēlreiz)\?</string>
+    <string name="compose_save_draft_loses_media">Vai saglabāt melnrakstu (atjaunojot melnrakstu, pielikumi tiks augšupielādēti vēlreiz)?</string>
     <string name="later">Vēlāk</string>
     <string name="restart">Sākt no jauna</string>
     <string name="system_default">Sistēmas noklusējuma</string>
