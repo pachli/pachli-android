@@ -457,7 +457,7 @@
     <string name="set_focus_description">Trykk eller dra sirkelen for å velge fokuspunktet som alltid skal være synlig i miniatyrbilder.</string>
     <string name="pref_title_show_self_username">Vis brukernavn på verktøylinjer</string>
     <string name="delete_scheduled_post_warning">Slette dette planlagte innlegget\?</string>
-    <string name="compose_save_draft_loses_media">Lagre utkast\? (Vedlegg vil bli lastet opp igjen når du fortsetter å jobbe på utkastet.)</string>
+    <string name="compose_save_draft_loses_media">Lagre utkast? (Vedlegg vil bli lastet opp igjen når du fortsetter å jobbe på utkastet.)</string>
     <string name="failed_to_pin">Klarte ikke å feste</string>
     <string name="failed_to_unpin">Klarte ikke å løsne</string>
     <string name="action_add_reaction">Legg til reaksjon</string>
