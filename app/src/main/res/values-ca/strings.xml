@@ -472,7 +472,7 @@
     <string name="notification_sign_up_description">Notificacions sobre nous usuaris</string>
     <string name="title_migration_relogin">Torneu a iniciar sessió per rebre notificacions push</string>
     <string name="a11y_label_loading_thread">S\'està carregant el fil</string>
-    <string name="compose_save_draft_loses_media">Guardar l\'esborrany\? (Els fitxers adjunts es tornaran a penjar quan recupereu l\'esborrany.)</string>
+    <string name="compose_save_draft_loses_media">Guardar l\'esborrany? (Els fitxers adjunts es tornaran a penjar quan recupereu l\'esborrany.)</string>
     <string name="action_edit_image">Edita la imatge</string>
     <string name="failed_to_pin">No s\'ha pogut fixar</string>
     <string name="failed_to_unpin">No s\'ha pogut desfixar</string>
@@ -521,7 +521,7 @@
     <string name="dialog_follow_hashtag_title">Segueix hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="notification_unknown_name">Desconegut</string>
-    <string name="status_filter_placeholder_label_format">Filtrat: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Filtrat: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Perfils</string>
     <string name="status_filtered_show_anyway">Mostra de totes maneres</string>
     <string name="socket_timeout_exception">El contacte amb el teu servidor ha trigat massa</string>
