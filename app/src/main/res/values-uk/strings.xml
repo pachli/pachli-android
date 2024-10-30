@@ -479,7 +479,7 @@
     <string name="delete_scheduled_post_warning">Видалити цей запланований допис\?</string>
     <string name="failed_to_pin">Не вдалося прикріпити</string>
     <string name="failed_to_unpin">Не вдалося відкріпити</string>
-    <string name="compose_save_draft_loses_media">Зберегти чернетку\? (Вкладення будуть завантажені знову, коли ви відновите чернетку.)</string>
+    <string name="compose_save_draft_loses_media">Зберегти чернетку? (Вкладення будуть завантажені знову, коли ви відновите чернетку.)</string>
     <string name="action_add_reaction">додати реакцію</string>
     <string name="notification_report_format">Нова скарга %s</string>
     <string name="report_category_violation">Порушення правил</string>
