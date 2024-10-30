@@ -463,7 +463,7 @@
     <string name="error_following_hashtag_format">Hiba a #%s követésekor</string>
     <string name="error_unfollowing_hashtag_format">Hiba a #%s követésének befejezésekor</string>
     <string name="action_add_reaction">reakció hozzáadása</string>
-    <string name="compose_save_draft_loses_media">Elmentsük a vázlatot\? (A mellékleteket újra feltöltjük, amikor a vázlatot visszaállítod.)</string>
+    <string name="compose_save_draft_loses_media">Elmentsük a vázlatot? (A mellékleteket újra feltöltjük, amikor a vázlatot visszaállítod.)</string>
     <string name="failed_to_pin">Nem sikerült kitűzni</string>
     <string name="failed_to_unpin">Nem sikerült a kitűzés visszavonása</string>
     <string name="action_unfollow_hashtag_format">#%s követésének vége\?</string>
