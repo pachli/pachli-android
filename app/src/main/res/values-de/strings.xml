@@ -568,7 +568,6 @@
     <string name="error_missing_edits">Deinem Server ist bekannt, dass dieser Beitrag bearbeitet wurde. Allerdings besitzt er keine Kopien der Änderungen, weshalb diese nicht angezeigt werden können.
 \n
 \nHierbei handelt es sich um <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon Issue #25398</a>.</string>
-    <string name="error_media_upload_sending_fmt">Das Hochladen ist fehlgeschlagen: %s</string>
     <string name="ui_error_translate_status_fmt">Übersetzung fehlgeschlagen: %1$s</string>
     <string name="update_dialog_negative">Erinnere mich nie</string>
     <string name="translating">Übersetze…</string>

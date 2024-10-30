@@ -568,6 +568,5 @@
     <string name="error_missing_edits">Sunucunuz bu gönderinin düzenlendiğini bilir, ancak düzenlemelerin bir kopyası yoktur, bu nedenle bunlar size gösterilemez.
 \n
 \nBu <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon sorununu #25398</a>.</string>
-    <string name="error_media_upload_sending_fmt">Yükleme başarısız oldu: %s</string>
     <string name="error_media_playback">Oynatma başarısız oldu: %s</string>
 </resources>

@@ -568,5 +568,4 @@
     <string name="notification_listenable_worker_description">Notificacions quand Tuska s’executa en rèireplan</string>
     <string name="notification_notification_worker">Recuperacion de las notificacions…</string>
     <string name="notification_prune_cache">Manteniment del cache…</string>
-    <string name="error_media_upload_sending_fmt">Fracàs del mandadís : %s</string>
 </resources>

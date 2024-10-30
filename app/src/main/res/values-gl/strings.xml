@@ -561,7 +561,6 @@
     <string name="notification_listenable_worker_description">Notificacións cando Pachli está a funcionar en segundo plano</string>
     <string name="notification_notification_worker">Obtendo as notificacións…</string>
     <string name="notification_prune_cache">Mantemento da caché…</string>
-    <string name="error_media_upload_sending_fmt">Fallou a subida: %s</string>
     <string name="dialog_delete_filter_positive_action">Eliminar</string>
     <string name="dialog_delete_filter_text">Eliminar o filtro \'%1$s\'\?</string>
     <string name="pref_title_show_self_boosts">Mostrar autopromocións</string>

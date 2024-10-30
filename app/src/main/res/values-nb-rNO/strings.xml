@@ -575,7 +575,6 @@
     <string name="title_lists_failed">Lister - kunne ikke lastes inn</string>
     <string name="manage_lists">Håndter lister</string>
     <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
-    <string name="error_media_upload_sending_fmt">Mislyktes ved opplasting: %s</string>
     <string name="title_public_trending_links">Trendende lenker</string>
     <string name="title_tab_public_trending_hashtags">Emneknagger</string>
     <string name="title_tab_public_trending_links">Lenker</string>

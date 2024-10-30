@@ -612,7 +612,6 @@
 \nHwn yw <a href="https://github.com/mastodon/mastodon/issues/25398">mater Mastodon #25398</a>.</string>
     <string name="load_newest_notifications">Llwytho hysbysiadau diweddaraf</string>
     <string name="compose_delete_draft">Dileu\'r drafft\?</string>
-    <string name="error_media_upload_sending_fmt">Methodd y lanlwytho: %s</string>
     <string name="error_media_playback">Methodd chwarae: %s</string>
     <string name="dialog_delete_filter_positive_action">Dileu</string>
     <string name="dialog_delete_filter_text">Dileu\'r hidlydd \'%1$s\'\?</string>

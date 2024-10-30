@@ -549,7 +549,6 @@
     <string name="notification_notification_worker">Meldingen ophalen…</string>
     <string name="notification_listenable_worker_name">Achtergrond activiteit</string>
     <string name="notification_listenable_worker_description">Meldingen als Pachli werkt op de achtergrond</string>
-    <string name="error_media_upload_sending_fmt">De upload is mislukt: %s</string>
     <string name="socket_timeout_exception">Contact zoeken met je server duurde te lang</string>
     <string name="dialog_delete_filter_positive_action">Verwijder</string>
     <string name="dialog_delete_filter_text">Verwijder filter \'%1$s\'\?</string>

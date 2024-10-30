@@ -7,7 +7,6 @@
     <string name="error_media_upload_type">ဤဖိုင်အမျိုးအစားကိုမတင်နိုင်ပါ။</string>
     <string name="error_media_upload_opening">ဤဖိုင်ကိုမဖွင့်နိုင်ပါ။</string>
     <string name="error_media_upload_image_or_video">ရုပ်ပုံနှင့်ဗီဒီယိုများအား ပိုစ့်တစ်ခုတည်းတွင် ယှဥ်တွဲမတင်နိုင်ပါ။</string>
-    <string name="error_media_upload_sending_fmt">တင်ခြင်းမအောင်မြင်ပါ။: %s</string>
     <string name="error_sender_account_gone">ပိုစ့်တင်ရာ၌ချို့ယွင်းမှု။</string>
     <string name="error_following_hashtag_format">စောင့်ကြည့်ရာ၌ ချို့ယွင်းမှု #%s</string>
     <string name="error_muting_hashtag_format">Mute လုပ်ရာ၌ ချို့ယွင်းချက် #%s</string>

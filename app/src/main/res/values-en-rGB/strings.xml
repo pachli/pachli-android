@@ -59,7 +59,6 @@
     <string name="error_following_hashtags_unsupported">This instance does not support following hashtags.</string>
     <string name="title_edits">Edits</string>
     <string name="title_followed_hashtags">Followed hashtags</string>
-    <string name="error_media_upload_sending_fmt">The upload failed: %s</string>
     <string name="title_migration_relogin">Re-login for push notifications</string>
     <string name="title_drafts">Drafts</string>
     <string name="title_tab_public_trending_statuses">Posts</string>
