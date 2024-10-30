@@ -721,7 +721,6 @@
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Post as-is (%1$s) and don\'t ask again</string>
 
     <string name="error_media_uploader_upload_not_found_fmt">media upload with ID %1$s not found</string>
-    <string name="error_media_uploader_throwable_fmt">%1$s</string>
 
     <string name="error_prepare_media_content_resolver_missing_path_fmt">content resolver URI was missing a path: %1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">content resolver URI has unsupported scheme: %1$s</string>

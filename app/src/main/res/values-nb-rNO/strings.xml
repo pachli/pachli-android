@@ -586,7 +586,6 @@
     <string name="compose_warn_language_dialog_fmt">Språket til innlegget er %1$s men det kan skje at du har skrevet innlegget på %2$s.</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Byt språk til %1$s og tut</string>
     <string name="error_media_uploader_upload_not_found_fmt">Mediaopplasting med ID %1$s finnes ikke</string>
-    <string name="error_media_uploader_throwable_fmt">%1$s</string>
     <string name="ui_error_translate_status_fmt">Oversettelse mislyktes: %1$s</string>
     <string name="ui_error_filter_v1_load_fmt">Å laste inn filtere mislyktes: %1$s</string>
     <string name="notification_severed_relationships_account_suspension_body">En moderator suspenderte kontoen</string>

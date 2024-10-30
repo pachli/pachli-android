@@ -628,7 +628,6 @@
     <string name="compose_warn_language_dialog_change_language_fmt">Cambiar o idioma a %1$s e publicar</string>
     <string name="error_media_uploader_upload_not_found_fmt">non se atopou o multimedia subido con ID %1$s</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Publicar tal como está (%1$s)</string>
-    <string name="error_media_uploader_throwable_fmt">%1$s</string>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">ao resolutor da URI do contido fáltalle unha ruta: %1$s</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">o resolutor da URI do cotido non é compatible co esquema: %1$s</string>
