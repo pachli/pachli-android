@@ -593,7 +593,6 @@
     <string name="load_newest_statuses">Ladda de nyaste inläggen</string>
     <string name="dialog_save_profile_changes_message">Vill du spara dina profiländringar?</string>
     <string name="pref_update_notification_frequency_always">Alltid</string>
-    <string name="error_media_upload_sending_fmt">Uppladdning misslyckades: %s</string>
     <string name="pref_update_notification_frequency_never">Aldrig</string>
     <string name="pref_title_show_self_boosts_description">Någon som knuffar sin toot</string>
     <string name="ui_error_filter_v1_load_fmt">Laddning av filter misslyckades: %1$s</string>

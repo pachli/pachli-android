@@ -210,7 +210,6 @@
     <string name="title_public_trending_statuses">Postingan trending</string>
     <string name="title_edits">Sunting</string>
     <string name="title_followed_hashtags">Tagar yang diikuti</string>
-    <string name="error_media_upload_sending_fmt">Upload gagal: %s</string>
     <string name="title_tab_public_trending_statuses">Postingan</string>
     <string name="title_tab_public_trending_hashtags">Tagar</string>
     <string name="notification_header_report_format">%s dilaporkan %s</string>

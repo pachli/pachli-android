@@ -551,7 +551,6 @@
     <string name="notification_listenable_worker_description">Thông báo khi Pachli hoạt động ngầm</string>
     <string name="notification_notification_worker">Đang nạp thông báo…</string>
     <string name="notification_prune_cache">Bảo trì bộ nhớ đệm…</string>
-    <string name="error_media_upload_sending_fmt">Không thể tải lên: %s</string>
     <string name="error_media_playback">Không thể phát: %s</string>
     <string name="dialog_delete_filter_text">Xóa bộ lọc \'%1$s\'\?</string>
     <string name="dialog_delete_filter_positive_action">Xóa</string>

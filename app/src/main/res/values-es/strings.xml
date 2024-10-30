@@ -592,7 +592,6 @@
     <string name="load_newest_statuses">Cargar las publicaciones más nuevas</string>
     <string name="dialog_save_profile_changes_message">¿Quieres guardar tus cambios de perfil?</string>
     <string name="pref_update_notification_frequency_always">Siempre</string>
-    <string name="error_media_upload_sending_fmt">La carga falló: %s</string>
     <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="pref_title_show_self_boosts_description">Alguien impulsa su propia publicación</string>
     <string name="ui_error_filter_v1_load_fmt">La carga de filtros falló: %1$s</string>
@@ -655,7 +654,6 @@
     <string name="compose_warn_language_dialog_fmt">El idioma de la publicación está configurado en %1$s, pero es posible que la hayas escrito en %2$s.</string>
     <string name="error_prepare_media_unsupported_mime_type_fmt">el servidor no es compatible con el tipo de archivo: %1$s</string>
     <string name="error_pick_media_fmt">No se pudo adjuntar el archivo a la publicación: %1$s</string>
-    <string name="error_media_uploader_throwable_fmt">%1$s</string>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">al agente de resolución de contenido le faltó una ruta: %1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">el agente de resolución de contenido tiene un esquema no compatible: %1$s</string>
     <string name="error_prepare_media_file_is_too_large_fmt">el tamaño del archivo es %1$s, el máximo permitido es %2$s</string>

@@ -27,7 +27,6 @@
     <string name="error_media_download_permission">Permission to store media is required.</string>
     <string name="error_media_upload_image_or_video">images and videos cannot both be attached to the same post.</string>
     <string name="error_media_upload_sending">The upload failed.</string>
-    <string name="error_media_upload_sending_fmt">The upload failed: %s</string>
     <string name="error_sender_account_gone">Error sending post.</string>
     <string name="error_following_hashtag_format">Error following #%s</string>
     <string name="error_unfollowing_hashtag_format">Error unfollowing #%s</string>
@@ -397,7 +396,7 @@
     <string name="lock_account_label_description">Requires you to manually approve followers</string>
     <string name="compose_delete_draft">Delete draft?</string>
     <string name="compose_save_draft">Save draft?</string>
-    <string name="compose_save_draft_loses_media">Save draft? (Attachments will be uploaded again when you restore the draft.)</string>
+    <string name="compose_save_draft_loses_media">Attachments will be uploaded again when you restore the draft.</string>
     <string name="unsaved_changes">You have unsaved changes.</string>
     <string name="send_post_notification_title">Sending post…</string>
     <string name="send_post_notification_error_title">Error sending post</string>
@@ -721,7 +720,6 @@
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Post as-is (%1$s) and don\'t ask again</string>
 
     <string name="error_media_uploader_upload_not_found_fmt">media upload with ID %1$s not found</string>
-    <string name="error_media_uploader_throwable_fmt">%1$s</string>
 
     <string name="error_prepare_media_content_resolver_missing_path_fmt">content resolver URI was missing a path: %1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">content resolver URI has unsupported scheme: %1$s</string>
@@ -853,4 +851,7 @@
 
     <string name="action_copy_item">Copy item</string>
     <string name="item_copied">Text copied</string>
+
+    <string name="upload_failed_msg_fmt">The upload will be retried when you send the post. If it fails again the post will be saved in your drafts.\n\nThe error was: %1$s</string>
+    <string name="upload_failed_modify_attachment">Modify attachment</string>
 </resources>

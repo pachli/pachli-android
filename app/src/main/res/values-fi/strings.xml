@@ -300,7 +300,6 @@
     <string name="confirmation_unblocked">Käyttäjän esto poistettu</string>
     <string name="title_edits">Muokkaukset</string>
     <string name="title_followed_hashtags">Seuratut aihetunnisteet</string>
-    <string name="error_media_upload_sending_fmt">Lataus epäonnistui: %s</string>
     <string name="add_account_description">Lisää uusi Mastodon-tili</string>
     <string name="dialog_title_finishing_media_upload">Mediatiedoston latausta viimeistellään</string>
     <string name="pref_title_show_self_boosts_description">Joku tehostaa omaa julkaisuaan</string>
@@ -631,7 +630,6 @@
     <string name="compose_warn_language_dialog_change_language_fmt">Merkitse kieleksi %1$s ja julkaise</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Julkaise muuttamattomana (%1$s)</string>
     <string name="error_media_uploader_upload_not_found_fmt">medialatausta nimeltä %1$s ei löydy</string>
-    <string name="error_media_uploader_throwable_fmt">%1$s</string>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">sisällönselvittäjä-URI:ltä puuttui polku: %1$s</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="error_prepare_media_file_is_too_large_fmt">tiedoston koko on %1$s, suurin sallittu on %2$s</string>

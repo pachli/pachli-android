@@ -29,6 +29,7 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.components.compose.MediaUploaderError.PrepareMediaError
+import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.common.util.formatNumber
@@ -57,6 +58,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
@@ -67,18 +69,6 @@ import okio.buffer
 import okio.sink
 import okio.source
 import timber.log.Timber
-
-/**
- * Media that has been fully uploaded to the server and may still be being
- * processed.
- *
- * @property mediaId Server-side identifier for this media item
- * @property processed True if the server has finished processing this media item
- */
-data class UploadedMedia(
-    val mediaId: String,
-    val processed: Boolean,
-)
 
 /**
  * Media that has been prepared for uploading.
@@ -164,9 +154,20 @@ sealed interface MediaUploaderError : PachliError {
         }
     }
 
-    /** [ApiError] wrapper. */
+    /**
+     * An error occurred uploading the media, and there is no remote ID.
+     *
+     * [ApiError] wrapper.
+     */
     @JvmInline
     value class UploadMediaError(private val error: ApiError) : MediaUploaderError, PachliError by error
+
+    /**
+     * An error occurred updating media that has already been uploaded.
+     *
+     * @param serverId Server's ID for the media
+     */
+    data class UpdateMediaError(val serverId: String, val error: ApiError) : MediaUploaderError, PachliError by error
 
     /** Server did return media with ID [uploadId]. */
     data class UploadIdNotFoundError(val uploadId: Int) : MediaUploaderError {
@@ -174,34 +175,45 @@ sealed interface MediaUploaderError : PachliError {
         override val formatArgs = arrayOf(uploadId.toString())
         override val cause = null
     }
-
-    /** Catch-all for arbitrary throwables */
-    data class ThrowableError(private val throwable: Throwable) : MediaUploaderError {
-        override val resourceId = R.string.error_media_uploader_throwable_fmt
-        override val formatArgs = arrayOf(throwable.localizedMessage ?: "")
-        override val cause = null
-    }
 }
 
-/** Events that happen over the life of a media upload. */
-sealed interface UploadEvent {
+/** State of a media upload. */
+sealed interface UploadState {
     /**
-     * Upload has made progress.
+     * Upload is in progress, but incomplete.
      *
      * @property percentage What percent of the file has been uploaded.
      */
-    data class ProgressEvent(val percentage: Int) : UploadEvent
+    data class Uploading(val percentage: Int) : UploadState
 
-    /**
-     * Upload has finished.
-     *
-     * @property media The uploaded media
-     */
-    data class FinishedEvent(val media: UploadedMedia) : UploadEvent
+    sealed interface Uploaded : UploadState {
+        val serverId: String
+
+        /**
+         * Upload has completed, but the server is still processing the media.
+         *
+         * @property serverId Server-side identifier for this media item
+         */
+        data class Processing(override val serverId: String) : UploadState.Uploaded
+
+        /**
+         * Upload has completed, and the server has processed the media.
+         *
+         * @property serverId Server-side identifier for this media item
+         */
+        data class Processed(override val serverId: String) : UploadState.Uploaded
+
+        /**
+         * Post has been published, editing is impossible.
+         *
+         * @property serverId Server-side identifier for this media item
+         */
+        data class Published(override val serverId: String) : UploadState.Uploaded
+    }
 }
 
 data class UploadData(
-    val flow: Flow<Result<UploadEvent, MediaUploaderError>>,
+    val flow: Flow<Result<UploadState, MediaUploaderError>>,
     val scope: CoroutineScope,
 )
 
@@ -231,28 +243,29 @@ class MediaUploader @Inject constructor(
         return mostRecentId++
     }
 
-    suspend fun getMediaUploadState(localId: Int): Result<UploadEvent.FinishedEvent, MediaUploaderError> {
-        return uploads[localId]?.flow
-            // Can't use filterIsInstance<Ok<UploadEvent.FinishedEvent>> here because the type
-            // inside Ok<...> is erased, so the first Ok<_> result is returned, crashing with a
-            // class cast error if it's a ProgressEvent.
-            // Kotlin doesn't warn about this, see
-            // https://discuss.kotlinlang.org/t/is-as-operators-are-unsafe-for-reified-types/22470
-            ?.first { it.get() is UploadEvent.FinishedEvent } as? Ok<UploadEvent.FinishedEvent>
+    /**
+     * Waits for the upload with [localId] to finish (Ok state is one of the
+     * [Uploaded][UploadState.Uploaded] types), or return an error.
+     */
+    suspend fun waitForUploadToFinish(localId: Int): Result<Uploaded, MediaUploaderError> {
+        return uploads[localId]?.flow?.filter {
+            it.get() is Uploaded || it.get() == null
+        }?.first() as? Result<Uploaded, MediaUploaderError>
             ?: Err(MediaUploaderError.UploadIdNotFoundError(localId))
     }
 
     /**
      * Uploads media.
+     *
      * @param media the media to upload
      * @param instanceInfo info about the current media to make sure the media gets resized correctly
      * @return A Flow emitting upload events.
      * The Flow is hot, in order to cancel upload or clear resources call [cancelUploadScope].
      */
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun uploadMedia(media: QueuedMedia, instanceInfo: InstanceInfo): Flow<Result<UploadEvent, MediaUploaderError>> {
+    fun uploadMedia(media: QueuedMedia, instanceInfo: InstanceInfo): Flow<Result<UploadState, MediaUploaderError>> {
         val uploadScope = CoroutineScope(Dispatchers.IO)
-        val uploadFlow: Flow<Result<UploadEvent, MediaUploaderError>> = flow {
+        val uploadFlow: Flow<Result<UploadState, MediaUploaderError>> = flow {
             if (shouldResizeMedia(media, instanceInfo)) {
                 emit(downsize(media, instanceInfo))
             } else {
@@ -371,7 +384,7 @@ class MediaUploader @Inject constructor(
 
     private val contentResolver = context.contentResolver
 
-    private suspend fun upload(media: QueuedMedia): Flow<Result<UploadEvent, MediaUploaderError.UploadMediaError>> {
+    private suspend fun upload(media: QueuedMedia): Flow<Result<UploadState, MediaUploaderError.UploadMediaError>> {
         return callbackFlow {
             var mimeType = contentResolver.getType(media.uri)
 
@@ -405,7 +418,7 @@ class MediaUploader @Inject constructor(
                 media.mediaSize,
             ) { percentage ->
                 if (percentage != lastProgress) {
-                    trySend(Ok(UploadEvent.ProgressEvent(percentage)))
+                    trySend(Ok(UploadState.Uploading(percentage)))
                 }
                 lastProgress = percentage
             }
@@ -424,7 +437,13 @@ class MediaUploader @Inject constructor(
 
             val uploadResult = mediaUploadApi.uploadMedia(body, description, focus)
                 .mapEither(
-                    { UploadEvent.FinishedEvent(UploadedMedia(it.body.id, it.code == 200)) },
+                    {
+                        if (it.code == 200) {
+                            Uploaded.Processed(it.body.id)
+                        } else {
+                            Uploaded.Processing(it.body.id)
+                        }
+                    },
                     { MediaUploaderError.UploadMediaError(it) },
                 )
             send(uploadResult)

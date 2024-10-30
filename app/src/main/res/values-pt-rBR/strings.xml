@@ -557,7 +557,6 @@
     <string name="notification_unknown_name">Desconhecido</string>
     <string name="total_usage">Uso total</string>
     <string name="pref_update_notification_frequency_always">Sempre</string>
-    <string name="error_media_upload_sending_fmt">O carregamento falhou: %s</string>
     <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="filter_keyword_display_format">%s (palavra inteira)</string>
     <string name="filter_keyword_addition_title">Adicionar palavra-chave</string>

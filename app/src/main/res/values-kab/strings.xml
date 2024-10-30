@@ -277,7 +277,6 @@
     <string name="duration_indefinite">War talast</string>
     <string name="action_subscribe_account">Ḍfeṛ</string>
     <string name="report_category_other">Wayeḍ</string>
-    <string name="error_media_uploader_throwable_fmt">%1$s</string>
     <string name="search_operator_attachment_dialog_video_label">Tavidyutt</string>
     <string name="search_operator_language_checked_fmt">%1$s</string>
     <string name="post_media_image">Tugna</string>
