@@ -1,0 +1,17 @@
+Pacli 2.8.3
+
+Gnéithe nua:
+
+- Taispeáin bileog scaireanna ar naisc fhadachliceáil srl
+- Taispeáin an cnaipe "cóip" le haghaidh naisc srl sna dialóga inrochtaineachta
+- Cuir roghanna inrochtaineachta le haghaidh cluaisíní leis
+- Taispeáin am postála sceidealta
+- Cuir "Ná fiafraigh arís" nuair a dhearbhaítear teanga an phoist
+
+Ceartúcháin:
+
+- Díchumasaigh tacaíocht "post Sceidealta" ar GoToSocial
+- Taispeáin pobalbhreith má dhéanann tú eagarthóireacht ar phoist sceidealaithe
+- Ná tuairteála mura bhfuil rannpháirtithe i gcomhrá
+
+- Nuashonraigh aistriúcháin Burmais, Fionlainnis, Liotuáinis, Spáinnis, Úcráinis
