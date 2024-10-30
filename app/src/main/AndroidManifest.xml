@@ -51,6 +51,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|screenLayout|smallestScreenSize"
+            android:alwaysRetainTaskState="true"
             android:exported="true"
             android:theme="@style/SplashTheme">
 
@@ -114,7 +115,8 @@
         <activity
             android:name=".components.compose.ComposeActivity"
             android:theme="@style/AppDialogActivityTheme"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:alwaysRetainTaskState="true" />
         <activity
             android:name=".components.viewthread.ViewThreadActivity"
             android:configChanges="orientation|screenSize" />

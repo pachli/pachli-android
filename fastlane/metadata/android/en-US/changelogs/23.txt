@@ -1,0 +1,17 @@
+Pachli 2.8.3
+
+New features:
+
+- Show share sheet on long clicking links etc
+- Show "copy" button for links etc in accessibility dialogs
+- Add accessibility options for tabs
+- Show a scheduled post's time
+- Add "Don't ask again" when confirming the post's language
+
+Fixes:
+
+- Disable "Scheduled post" support on GoToSocial
+- Show polls if editing scheduled posts
+- Don't crash if a conversation has no participants
+
+- Update Burmese, Finnish, Lithuanian, Spanish, Ukrainian translations
