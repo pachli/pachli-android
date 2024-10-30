@@ -1,5 +1,5 @@
-WinRAR 5.60
+Pachli 2.5.1
 
-Login
+Fixes:
 
-Login Hanya mengaktifkan tindakan yang dapat diakses pada notifikasi yang melekat pada status
+- Hanya mengaktifkan tindakan yang dapat diakses pada notifikasi yang melekat pada status
