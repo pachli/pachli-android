@@ -27,7 +27,7 @@ import android.content.pm.PackageManager
  * is not available in library modules. Fetch the information from the packagemanager.
  */
 fun versionName(context: Context): String = try {
-    context.packageManager.getPackageInfo(context.packageName, 0).versionName
+    context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "unknown"
 } catch (e: PackageManager.NameNotFoundException) {
     "unknown"
 }
