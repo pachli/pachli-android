@@ -1,0 +1,17 @@
+Pachli 2.8.3
+
+Novaj ecoj:
+
+Spektaklo dividas tukon sur longaj klakaj ligiloj ktp
+Show "kopio-" butono por ligiloj ktp en alirebleco dialogoj
+Aldonu alirebleco eblojn por klakoj
+Montri planitan poŝton
+Aldonu "Ne demandu denove" dum konfirmado de la lingvo
+
+Fiksoj:
+
+Disigebla "Scheduled Post" subteno sur GoToSocial
+Spektakloj se redakti planitajn postenojn
+- Ne hezitu, se konversacio ne havas partoprenantojn
+
+Ĝisdatigante birman, finnan, litovan, hispanajn, ukrainajn tradukojn

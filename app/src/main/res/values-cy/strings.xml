@@ -393,7 +393,7 @@
         <item quantity="other"><b>%1$s</b> Ffefryn</item>
     </plurals>
     <string name="description_visibility_direct">Uniongyrchol</string>
-    <string name="compose_save_draft_loses_media">Cadw drafft\? (Bydd atodiadau\'n cael eu lanlwytho eto pan fyddwch chi\'n adfer y drafft.)</string>
+    <string name="compose_save_draft_loses_media">Cadw drafft? (Bydd atodiadau\'n cael eu lanlwytho eto pan fyddwch chi\'n adfer y drafft.)</string>
     <string name="description_post_reblogged">Ailflogiwyd</string>
     <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="hint_media_description_missing">Dylai fod gan y cyfryngau ddisgrifiad.</string>

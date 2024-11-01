@@ -570,13 +570,13 @@ fun enablePullNotifications(context: Context) {
     // practice that may not be soon enough, so create and enqueue an expedited one-time
     // request to get new notifications immediately.
     Timber.d("Enqueing immediate notification worker")
-    val fetchNotifications: WorkRequest = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
+    val fetchNotifications: WorkRequest = OneTimeWorkRequest.Builder(NotificationWorker::class)
         .setExpedited(OutOfQuotaPolicy.DROP_WORK_REQUEST)
         .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
         .build()
     workManager.enqueue(fetchNotifications)
     val workRequest: WorkRequest = PeriodicWorkRequest.Builder(
-        NotificationWorker::class.java,
+        NotificationWorker::class,
         PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
         TimeUnit.MILLISECONDS,
         PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS,

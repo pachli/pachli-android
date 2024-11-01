@@ -494,7 +494,7 @@
     <string name="notification_report_name">Zgłoszenia</string>
     <string name="notification_report_description">Powiadomienia o zgłoszeniach moderacyjnych</string>
     <string name="action_set_focus">Wybierz punkt centralny</string>
-    <string name="compose_save_draft_loses_media">Czy chcesz zapisać jako szkic\? (Załączniki zostaną załadowane ponownie po przywróceniu szkicu.)</string>
+    <string name="compose_save_draft_loses_media">Czy chcesz zapisać jako szkic? (Załączniki zostaną załadowane ponownie po przywróceniu szkicu.)</string>
     <string name="error_following_hashtags_unsupported">Ta instancja nie wspiera obserwowania hashtagów.</string>
     <string name="title_followed_hashtags">Obserwowane hashtagi</string>
     <string name="a11y_label_loading_thread">Ładowanie wątku</string>

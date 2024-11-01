@@ -480,7 +480,7 @@
     <string name="action_add_reaction">cuir freagairt ris</string>
     <string name="failed_to_pin">Dh’fhàillig leis a’ phrìneachadh</string>
     <string name="failed_to_unpin">Dh’fhàillig leis an dì-phrìneachadh</string>
-    <string name="compose_save_draft_loses_media">A bheil thu airson a shàbhaladh ’na dhreachd\? (Thèid na ceanglachain a luchdadh suas a-rithist nuair a dh’aisigeas tu an dreuchd.)</string>
+    <string name="compose_save_draft_loses_media">A bheil thu airson a shàbhaladh ’na dhreachd? (Thèid na ceanglachain a luchdadh suas a-rithist nuair a dh’aisigeas tu an dreuchd.)</string>
     <string name="a11y_label_loading_thread">A’ luchdadh an t-snàithlein</string>
     <string name="action_unfollow_hashtag_format">A bheil thu airson sgur de #%s a leantainn\?</string>
     <string name="mute_notifications_switch">Mùch na brathan</string>

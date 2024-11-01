@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Fixes:
+
+- Hanya mengaktifkan tindakan yang dapat diakses pada notifikasi yang melekat pada status

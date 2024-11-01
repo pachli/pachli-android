@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_404_not_found_fmt">Ní thacaíonn do fhreastalaí leis an ngné seo: %1$s</string>
-    <string name="error_generic_fmt">Tharla earráid: %s</string>
+    <string name="error_404_not_found_fmt">ní thacaíonn do fhreastalaí leis an ngné seo: %1$s</string>
+    <string name="error_generic_fmt">%1$s</string>
     <string name="error_missing_content_type_fmt">tá do fhreastalaí míchumraithe, níl aon chineál ábhair sa fhreagra: %1$s</string>
     <string name="error_json_data_fmt">Thug do fhreastalaí freagra neamhbhailí: %1$s</string>
     <string name="error_wrong_content_type_fmt">tá do fhreastalaí míchumraithe agus cuireadh \'%2$s\' ar ais leis an gcineál ábhair mícheart, \'%1$s\'</string>

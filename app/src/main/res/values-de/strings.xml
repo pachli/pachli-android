@@ -464,7 +464,7 @@
     <string name="error_unfollowing_hashtag_format">Fehler beim Entfolgen von #%s</string>
     <string name="delete_scheduled_post_warning">Diesen geplanten Beitrag löschen\?</string>
     <string name="set_focus_description">Tippe oder ziehe den Kreis auf die Stelle, die in Vorschaubildern immer sichtbar sein soll.</string>
-    <string name="compose_save_draft_loses_media">Entwurf speichern\? (Anhänge werden erneut hochgeladen, sobald du den Entwurf wiederherstellst.)</string>
+    <string name="compose_save_draft_loses_media">Entwurf speichern? (Anhänge werden erneut hochgeladen, sobald du den Entwurf wiederherstellst.)</string>
     <string name="duration_no_change">(Keine Änderung)</string>
     <string name="pref_title_show_self_username">Profilname in der Hauptnavigation anzeigen</string>
     <string name="failed_to_pin">Anheften fehlgeschlagen</string>

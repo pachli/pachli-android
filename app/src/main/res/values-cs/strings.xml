@@ -425,7 +425,7 @@
 \n - Statistiky sledujících a příspěvků na profilech
 \n
 \nPush oznámení nebudou ovlivněna, ale můžete si zkontrolovat jejich nastavení manuálně.</string>
-    <string name="compose_save_draft_loses_media">Uložit koncept\? (Přílohy budou znovu nahrány, když obnovíte koncept.)</string>
+    <string name="compose_save_draft_loses_media">Uložit koncept? (Přílohy budou znovu nahrány, když obnovíte koncept.)</string>
     <string name="set_focus_description">Klepnutím nebo přetažením kruhu vyberte ohnisko, které bude vždy viditelné v miniaturách.</string>
     <string name="pref_title_confirm_favourites">Před oblíbením zobrazit dialog pro potvrzení</string>
     <string name="pref_title_hide_top_toolbar">Skrýt nadpis horního panelu nástrojů</string>

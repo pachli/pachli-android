@@ -445,7 +445,7 @@
     <string name="set_focus_description">Nhấn hoặc kéo vòng tròn để chọn tiêu điểm sẽ hiển thị trong hình thu nhỏ.</string>
     <string name="pref_title_show_self_username">Hiện URL của tôi trên tab</string>
     <string name="delete_scheduled_post_warning">Bạn có chắc muốn xóa tút đã lên lịch\?</string>
-    <string name="compose_save_draft_loses_media">Lưu bản nháp\? (Bạn sẽ cần tải lên lại file đính kèm)</string>
+    <string name="compose_save_draft_loses_media">Lưu bản nháp? (Bạn sẽ cần tải lên lại file đính kèm)</string>
     <string name="failed_to_unpin">Không thể bỏ ghim</string>
     <string name="failed_to_pin">Không thể ghim</string>
     <string name="action_add_reaction">biểu cảm</string>

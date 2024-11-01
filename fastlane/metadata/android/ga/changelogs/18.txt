@@ -1,4 +1,4 @@
-Pacli 2.7.0
+Pachli 2.7.0
 
 Gnéithe nua:
 

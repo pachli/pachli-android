@@ -375,7 +375,7 @@
     <string name="pref_default_post_privacy">Julkaisun oletusnäkyvyys</string>
     <string name="notification_unknown_name">Tuntematon</string>
     <string name="pref_summary_http_proxy_invalid">&lt;väärä arvo&gt;</string>
-    <string name="compose_save_draft_loses_media">Tallenna luonnos? (Liitteet ladataan uudestaan kun palautat luonnoksen.)</string>
+    <string name="compose_save_draft_loses_media">Liitteet ladataan uudestaan kun palautat luonnoksen.</string>
     <string name="pref_title_post_filter">Aikajanan suodatus</string>
     <string name="lock_account_label_description">Seuraajat on hyväksyttävä käsin</string>
     <string name="pref_title_absolute_time">Käytä absoluuttista aikaa</string>
