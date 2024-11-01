@@ -20,7 +20,9 @@ package app.pachli.mklanguages
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.Logger
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.UsageError
+import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
@@ -82,8 +84,10 @@ data class Language(
  *
  * Run with `gradlew :tools:mklanguages:run` or `runtools mklanguages`.
  */
-class App : CliktCommand(help = """Update languages in donottranslate.xml""") {
+class App : CliktCommand() {
     private val verbose by option("-n", "--verbose", help = "show additional information").flag()
+
+    override fun help(context: Context) = "Update languages in donottranslate.xml"
 
     /**
      * Returns the full path to the Pachli `.../app/src/main/res` directory, starting from the

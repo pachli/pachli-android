@@ -20,7 +20,9 @@ package app.pachli.mvstring
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.Logger
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.UsageError
+import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.multiple
 import com.github.ajalt.clikt.parameters.options.default
@@ -50,12 +52,14 @@ private val log = KotlinLogging.logger {}
  *
  * Run with `gradlew :tools:mvstring:run` or `runtools mvstring`.
  */
-class App : CliktCommand(help = """Move string resources between modules""") {
+class App : CliktCommand() {
     private val args by argument().multiple()
 
     private val verbose by option("-v", "--verbose", help = "show additional information").flag()
     private val srcVariant by option("--srcVariant").default("main")
     private val dstVariant by option("--dstVariant").default("main")
+
+    override fun help(context: Context) = "Move string resources between modules"
 
     /**
      * Returns the full path to a module's `.../src/main/res` directory, starting from the
