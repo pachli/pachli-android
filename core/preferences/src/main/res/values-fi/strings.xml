@@ -10,7 +10,7 @@
     <string name="download_location_downloads">Lataukset-kansio</string>
     <string name="download_location_per_account">Tilikohtaiset kansiot Lataukset-kansiossa</string>
     <string name="download_location_per_sender">Lähettäjäkohtaiset kansiot Lataukset-kansiossa</string>
-    <string name="pref_title_tab_tap">Toiminto välilehteä napautattaessa</string>
+    <string name="pref_title_tab_tap">Toiminto välilehteä napautettaessa</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Hyppää seuraavalle sivulle</string>
     <string name="tab_tap_behaviour_jump_to_newest">Hyppää uusimpaan sisältöön</string>
     <string name="pref_category_tabs">Välilehdet</string>
