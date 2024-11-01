@@ -22,7 +22,9 @@ import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.Logger
 import com.apollographql.apollo3.ApolloClient
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.UsageError
+import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.squareup.moshi.Moshi
@@ -42,8 +44,10 @@ private val log = KotlinLogging.logger {}
 
 const val DEST_DIR = "core/network/src/test/resources"
 
-class App : CliktCommand(help = """Update server-versions.json5""") {
+class App : CliktCommand() {
     private val verbose by option("-n", "--verbose", help = "show additional information").flag()
+
+    override fun help(context: Context) = "Update server-versions.json5"
 
     /**
      * Returns the full path to the Pachli `.../core/network/src/test/resources` directory,
