@@ -83,7 +83,7 @@ clikt = "5.0.1"
 icu4j = "76.1"
 junit-jupiter = "5.11.3"
 kotlin-logging-jvm = "7.0.0"
-logback = "1.5.7"
+logback = "1.5.12"
 
 [plugins]
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
