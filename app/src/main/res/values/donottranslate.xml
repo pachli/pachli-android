@@ -73,6 +73,7 @@
         <item>Íslenska</item> <!-- is: Icelandic -->
         <item>Italiano</item> <!-- it: Italian -->
         <item>Latviešu</item> <!-- lv: Latvian -->
+        <item>Lietuvių</item> <!-- lt: Lithuanian -->
         <item>Magyar</item> <!-- hu: Hungarian -->
         <item>Nederlands</item> <!-- nl: Dutch -->
         <item>Norsk Bokmål (Norge)</item> <!-- nb-NO: Norwegian Bokmål (Norway) -->
@@ -105,6 +106,7 @@
         <item>മലയാളം</item> <!-- ml: Malayalam -->
         <item>සිංහල</item> <!-- si: Sinhala -->
         <item>ไทย</item> <!-- th: Thai -->
+        <item>မြန်မာ</item> <!-- my: Burmese -->
         <item>한국어</item> <!-- ko: Korean -->
         <item>中文（中国）</item> <!-- zh-CN: Chinese (China) -->
         <item>中文（中國澳門特別行政區）</item> <!-- zh-MO: Chinese (Macao SAR China) -->
@@ -135,6 +137,7 @@
         <item>is</item>
         <item>it</item>
         <item>lv</item>
+        <item>lt</item>
         <item>hu</item>
         <item>nl</item>
         <item>nb-NO</item>
@@ -167,6 +170,7 @@
         <item>ml</item>
         <item>si</item>
         <item>th</item>
+        <item>my</item>
         <item>ko</item>
         <item>zh-CN</item>
         <item>zh-MO</item>
