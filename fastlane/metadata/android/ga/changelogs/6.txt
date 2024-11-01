@@ -1,4 +1,4 @@
-Pacli 1.3.0
+Pachli 1.3.0
 
 Gnéithe nua:
 

@@ -425,7 +425,7 @@
     <string name="set_focus_description">Küçük görsellerde her zaman görülebilecek odak noktasını seçmek için daireye dokunun veya sürükleyin.</string>
     <string name="no_announcements">Hiç duyuru yok.</string>
     <string name="duration_30_days">30 gün</string>
-    <string name="compose_save_draft_loses_media">Taslağı kurtarmak mı\? (Taslağı geri yüklediğinizde ekler yeniden yüklenir.)</string>
+    <string name="compose_save_draft_loses_media">Taslağı kurtarmak mı? (Taslağı geri yüklediğinizde ekler yeniden yüklenir.)</string>
     <string name="pref_title_show_self_username">Kullanıcı adını araç çubuklarında göster</string>
     <string name="duration_180_days">180 gün</string>
     <string name="duration_60_days">60 gün</string>

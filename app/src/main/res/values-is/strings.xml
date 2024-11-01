@@ -454,7 +454,7 @@
     <string name="delete_scheduled_post_warning">Eyða þessari áætluðu færslu\?</string>
     <string name="action_add_reaction">bæta við viðbrögðum</string>
     <string name="set_focus_description">Ýttu eða dragðu hringinn til að setja virknistað sem verður ævinlega sýnilegur í smámyndum.</string>
-    <string name="compose_save_draft_loses_media">Vista drög\? (Viðhengi verða send inn aftur þegar þú endurheimtir drögin.)</string>
+    <string name="compose_save_draft_loses_media">Vista drög? (Viðhengi verða send inn aftur þegar þú endurheimtir drögin.)</string>
     <string name="failed_to_pin">Mistókst að festa</string>
     <string name="failed_to_unpin">Mistókst að losa</string>
     <string name="action_set_focus">Setja virknistað</string>

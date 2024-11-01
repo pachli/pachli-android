@@ -470,7 +470,7 @@
     <string name="notification_update_description">Notificacions quand una publicacion ont avètz reagit es modificada</string>
     <string name="follow_requests_info">Malgrat que vòstre compte siá pas verrolhat, l\'equipa de %1$s a pensat que volriatz validar manualament las demandas de d\'abonament provenent d\'aqueles comptes.</string>
     <string name="pref_title_enable_swipe_for_tabs">Activar lo limpament per se desplaçar demest los onglets</string>
-    <string name="compose_save_draft_loses_media">Enregistrar lo borrolhon \? (Las pèças juntas seràn enviadas tornamai quand restauretz lo borrolhon.)</string>
+    <string name="compose_save_draft_loses_media">Enregistrar lo borrolhon ? (Las pèças juntas seràn enviadas tornamai quand restauretz lo borrolhon.)</string>
     <string name="pref_default_post_language">Lenga de publicacion per defaut</string>
     <string name="report_category_spam">Messatge indesirable</string>
     <string name="language_display_name_format">%s (%s)</string>
