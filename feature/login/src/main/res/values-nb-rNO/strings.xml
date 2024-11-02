@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Addressen eller domenet til noen som helst instans kan legges til her, f.eks. mastodon.social, icosahedron.website, twoot.site, og <a href="https://instances.social">flere!</a>
-\n
-\nEn instans er stedet der kontoen din ligger, men du kan lett samhandle med og følge andre folk fra andre instanser som om dere brukte den samme nettside.
-\n
-\nDu kan finne mer info på <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
+    <string name="dialog_whats_an_instance">Addressen eller domenet til noen som helst instans kan legges til her, f.eks. mastodon.social, icosahedron.website, twoot.site, og <a href="https://instances.social">flere!</a> \n \nEn instans er stedet der kontoen din ligger, men du kan lett samhandle med og følge andre folk fra andre instanser som om dere brukte den samme nettside. \n \nDu kan finne mer info på <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
     <string name="action_close">Steng</string>
     <string name="action_browser_login">Logg inn med nettleseren</string>
     <string name="error_invalid_domain">Ugyldig domene</string>
