@@ -18,13 +18,8 @@
 package app.pachli.components.notifications
 
 import app.cash.turbine.test
-import app.pachli.core.data.repository.Loadable
-import app.pachli.core.database.model.AccountEntity
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -33,19 +28,15 @@ class NotificationsViewModelTestVisibleId : NotificationsViewModelTestBase() {
 
     @Test
     fun `should save notification ID to active account`() = runTest {
-        accountManager
-            .activeAccountFlow.filterIsInstance<Loadable.Loaded<AccountEntity?>>()
-            .filter { it.data != null }
-            .map { it.data }
-            .test {
-                // Given
-                assertThat(awaitItem()!!.lastNotificationId).isEqualTo("0")
+        viewModel.accountFlow.test {
+            // Given
+            assertThat(awaitItem().entity.lastNotificationId).isEqualTo("0")
 
-                // When
-                viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
+            // When
+            viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, "1234"))
 
-                // Then
-                assertThat(awaitItem()!!.lastNotificationId).isEqualTo("1234")
-            }
+            // Then
+            assertThat(awaitItem().entity.lastNotificationId).isEqualTo("1234")
+        }
     }
 }

@@ -38,6 +38,7 @@ import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.HiltTestApplication_Application
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.get
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -45,6 +46,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody
@@ -127,6 +129,8 @@ abstract class NotificationsViewModelTestBase {
         header = "",
     )
 
+    protected var pachliAccountId by Delegates.notNull<Long>()
+
     @Before
     fun setup() = runTest {
         hilt.inject()
@@ -160,7 +164,7 @@ abstract class NotificationsViewModelTestBase {
             )
         }
 
-        accountManager.verifyAndAddAccount(
+        pachliAccountId = accountManager.verifyAndAddAccount(
             accessToken = "token",
             domain = "domain.example",
             clientId = "id",
@@ -172,6 +176,7 @@ abstract class NotificationsViewModelTestBase {
                 accountManager.setActiveAccount(it)
             }
             .onSuccess { accountManager.refresh(it) }
+            .get()!!.id
 
         accountPreferenceDataStore = AccountPreferenceDataStore(
             accountManager,
@@ -187,6 +192,7 @@ abstract class NotificationsViewModelTestBase {
             eventHub,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
+            pachliAccountId,
         )
     }
 }

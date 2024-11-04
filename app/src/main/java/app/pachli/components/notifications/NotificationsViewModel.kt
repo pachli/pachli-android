@@ -32,6 +32,7 @@ import app.pachli.appstore.MuteEvent
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -47,8 +48,10 @@ import app.pachli.util.serialize
 import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -62,12 +65,13 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -115,7 +119,10 @@ sealed interface InfallibleUiAction : UiAction {
     // This saves the list to the local database, which triggers a refresh of the data.
     // Saving the data can't fail, which is why this is infallible. Refreshing the
     // data may fail, but that's handled by the paging system / adapter refresh logic.
-    data class ApplyFilter(val filter: Set<Notification.Type>) : InfallibleUiAction
+    data class ApplyFilter(
+        val pachliAccountId: Long,
+        val filter: Set<Notification.Type>,
+    ) : InfallibleUiAction
 
     /**
      * User is leaving the fragment, save the ID of the visible notification.
@@ -123,7 +130,10 @@ sealed interface InfallibleUiAction : UiAction {
      * Infallible because if it fails there's nowhere to show the error, and nothing the user
      * can do.
      */
-    data class SaveVisibleId(val visibleId: String) : InfallibleUiAction
+    data class SaveVisibleId(
+        val pachliAccountId: Long,
+        val visibleId: String,
+    ) : InfallibleUiAction
 
     /** Ignore the saved reading position, load the page with the newest items */
     // Resets the account's `lastNotificationId`, which can't fail, which is why this is
@@ -302,17 +312,23 @@ sealed interface UiError {
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-@HiltViewModel
-class NotificationsViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = NotificationsViewModel.Factory::class)
+class NotificationsViewModel @AssistedInject constructor(
     private val repository: NotificationsRepository,
     private val accountManager: AccountManager,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
+    val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
+        .filterNotNull()
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
+
     /** The account to display notifications for */
-    val account = accountManager.activeAccount!!
+    val account: AccountEntity
+        get() = accountFlow.replayCache.first().entity
 
     val uiState: StateFlow<UiState>
 
@@ -354,22 +370,17 @@ class NotificationsViewModel @Inject constructor(
 
     init {
         // Handle changes to notification filters
-        val notificationFilter = uiAction
-            .filterIsInstance<InfallibleUiAction.ApplyFilter>()
-            .distinctUntilChanged()
-            // Save each change back to the active account
-            .onEach { action ->
-                Timber.d("notificationFilter: %s", action)
-                accountManager.setNotificationsFilter(account.id, serialize(action.filter))
-            }
-            // Load the initial filter from the active account
-            .onStart {
-                emit(
-                    InfallibleUiAction.ApplyFilter(
-                        filter = deserialize(account.notificationsFilter),
-                    ),
-                )
-            }
+        viewModelScope.launch {
+            uiAction
+                .filterIsInstance<InfallibleUiAction.ApplyFilter>()
+                .distinctUntilChanged()
+                .collectLatest { action ->
+                    accountManager.setNotificationsFilter(
+                        action.pachliAccountId,
+                        serialize(action.filter),
+                    )
+                }
+        }
 
         // Reset the last notification ID to "0" to fetch the newest notifications, and
         // increment `reload` to trigger creation of a new PagingSource.
@@ -490,16 +501,16 @@ class NotificationsViewModel @Inject constructor(
             }
         }
 
-        // Re-fetch notifications if either of `notificationFilter` or `reload` flows have
+        // Re-fetch notifications if either of `notificationsFilter` or `reload` flows have
         // new items.
-        pagingData = combine(notificationFilter, reload) { action, _ -> action }
-            .flatMapLatest { action ->
-                getNotifications(filters = action.filter, initialKey = getInitialKey())
+        pagingData = combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, reload) { account, _ -> account }
+            .flatMapLatest { account ->
+                getNotifications(filters = deserialize(account.entity.notificationsFilter), initialKey = getInitialKey())
             }.cachedIn(viewModelScope)
 
-        uiState = combine(notificationFilter, getUiPrefs()) { filter, _ ->
+        uiState = combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, getUiPrefs()) { account, _ ->
             UiState(
-                activeFilter = filter.filter,
+                activeFilter = deserialize(account.entity.notificationsFilter),
                 showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
                 tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
             )
@@ -550,4 +561,10 @@ class NotificationsViewModel @Inject constructor(
     private fun getUiPrefs() = sharedPreferencesRepository.changes
         .filter { UiPrefs.prefKeys.contains(it) }
         .onStart { emit(null) }
+
+    @AssistedFactory
+    interface Factory {
+        /** Creates [NotificationsViewModel] with [pachliAccountId] as the active account. */
+        fun create(pachliAccountId: Long): NotificationsViewModel
+    }
 }

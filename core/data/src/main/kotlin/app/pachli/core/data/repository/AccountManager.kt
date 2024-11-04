@@ -36,7 +36,6 @@ import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
-import app.pachli.core.model.BuildConfig
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Account
@@ -67,7 +66,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -225,15 +223,12 @@ class AccountManager @Inject constructor(
         }
     }
 
-    suspend fun getPachliAccountFlow(accountId: Long): Flow<PachliAccount?> {
-        if (BuildConfig.DEBUG) {
-            if (accountId == -1L) Timber.e("getPachliAccountFlow with -1 as account")
+    fun getPachliAccountFlow(pachliAccountId: Long): Flow<PachliAccount?> {
+        if (pachliAccountId == -1L) {
+            throw RuntimeException("getPachliAccountFlow with -1 as accountId")
         }
-        val id = accountId.takeIf { it != -1L } ?: accountDao.getActiveAccount()?.id
-        Timber.d("PachliAccount id: %d", id)
-        id ?: return flowOf(null)
 
-        return accountDao.getPachliAccountFlow(id).map { it?.let { PachliAccount.make(it) } }
+        return accountDao.getPachliAccountFlow(pachliAccountId).map { it?.let { PachliAccount.make(it) } }
     }
 
     /**

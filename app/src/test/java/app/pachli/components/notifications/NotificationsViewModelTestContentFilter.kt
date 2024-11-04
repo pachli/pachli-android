@@ -35,12 +35,14 @@ class NotificationsViewModelTestContentFilter : NotificationsViewModelTestBase()
         viewModel.uiState.test {
             // Given
             // - Initial filter is from the active account
-            assertThat(expectMostRecentItem().activeFilter)
+            // (skip the first item, the default state)
+            awaitItem()
+            assertThat(awaitItem().activeFilter)
                 .containsExactlyElementsIn(setOf(Notification.Type.FOLLOW))
 
             // When
             // - Updating the filter
-            viewModel.accept(InfallibleUiAction.ApplyFilter(setOf(Notification.Type.REBLOG)))
+            viewModel.accept(InfallibleUiAction.ApplyFilter(pachliAccountId, setOf(Notification.Type.REBLOG)))
 
             // Then
             // - filter updated in uiState
