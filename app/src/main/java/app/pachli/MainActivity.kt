@@ -355,13 +355,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val account = viewModel.pachliAccountFlow.filterNotNull()
 
         lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                // TODO: Continue to call this, as it sets properties in NotificationConfig
+                androidNotificationsAreEnabled(this@MainActivity)
+                enableAllNotifications(this@MainActivity)
+            }
+        }
+
+        lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 // One-off setup independent of the UI state.
                 val initialAccount = viewModel.pachliAccountFlow.filterNotNull().first()
                 createNotificationChannelsForAccount(initialAccount.entity, this@MainActivity)
-                // TODO: Continue to call this, as it sets properties in NotificationConfig
-                androidNotificationsAreEnabled(this@MainActivity)
-                enableAllNotifications(this@MainActivity)
 
                 bindMainDrawer(initialAccount)
                 bindMainDrawerItems(initialAccount, savedInstanceState)
