@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_empty">Dettee kan ikke være tom.</string>
+    <string name="error_empty">Dette kan ikke være tomt.</string>
     <string name="error_no_web_browser_found">Fant ingen nettleser som kunne brukes.</string>
     <string name="error_compose_character_limit">Innlegget er for langt!</string>
     <string name="error_media_upload_type">Den filtypen kan ikke lastes opp.</string>
@@ -457,7 +457,7 @@
     <string name="set_focus_description">Trykk eller dra sirkelen for å velge fokuspunktet som alltid skal være synlig i miniatyrbilder.</string>
     <string name="pref_title_show_self_username">Vis brukernavn på verktøylinjer</string>
     <string name="delete_scheduled_post_warning">Slette dette planlagte innlegget\?</string>
-    <string name="compose_save_draft_loses_media">Lagre utkast? (Vedlegg vil bli lastet opp igjen når du fortsetter å jobbe på utkastet.)</string>
+    <string name="compose_save_draft_loses_media">Vedlegg vil bli lastet opp igjen når du fortsetter å jobbe på utkastet.</string>
     <string name="failed_to_pin">Klarte ikke å feste</string>
     <string name="failed_to_unpin">Klarte ikke å løsne</string>
     <string name="action_add_reaction">Legg til reaksjon</string>
@@ -480,7 +480,7 @@
     <string name="action_unfollow_hashtag_format">Slutte å følge #%s\?</string>
     <string name="confirmation_hashtag_unfollowed">Sluttet å følge #%s</string>
     <string name="a11y_label_loading_thread">Laster tråd</string>
-    <string name="help_empty_home">Dette er <b>Hjemmetidslinjen</b>din. Den viser de nyeste innleggene av kontoer du følger. \n \nFor å utforske kontoer kan du enten oppdage dem i en av tidslinjene dine, for eksempel den lokale tidslinjen for instansen din [iconics gmd_group], eller du kan søke etter navnet deres [iconics gmd_search]; søk for eksempel etter Pachli før å finne Mastodonkonten vår.</string>
+    <string name="help_empty_home">Dette er <b>Hjemmetidslinjen</b>din. Den viser de nyeste innleggene av kontoer du følger. \n \nFor å utforske kontoer, kan du enten oppdage dem i en av tidslinjene dine, for eksempel den lokale tidslinjen for instansen din [iconics gmd_group], eller du kan søke etter navnet deres [iconics gmd_search]; søk for eksempel etter Pachli før å finne Mastodon-kontoen vår.</string>
     <string name="pref_ui_text_size">Skriftstørrelse for brukergrensesnitt</string>
     <string name="dialog_follow_hashtag_title">Følg emneknagger</string>
     <string name="dialog_follow_hashtag_hint">#emneknagg</string>
@@ -770,4 +770,12 @@
     <string name="search_operator_where_dialog_all">Alle innlegg</string>
     <string name="search_operator_where_dialog_library_hint">Dine egne innlegg, fremhevinger, favoritmerker, bokmerker, og innlegg som @nevner deg</string>
     <string name="search_operator_where_dialog_public">Fødererte innlegg</string>
+    <string name="pref_title_confirm_status_language">Sjekk innleggets språkinnstilling før innlegget publiseres</string>
+    <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Tut slik som det er (på %1$s) og ikke spør igjen</string>
+    <string name="action_copy_item">Kopier objekt</string>
+    <string name="item_copied">Tekst kopiert</string>
+    <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du sender innlegget. Dersom det mislykkes igjen, skal innlegget lagres i utkastene dine.\n\nFeilen var: %1$s</string>
+    <string name="upload_failed_modify_attachment">Vedlegg ble modifisert</string>
+    <string name="pref_title_content_filters">Innholdsfiltre</string>
+    <string name="conversation_0_recipients">Ingen andre deltakere</string>
 </resources>
