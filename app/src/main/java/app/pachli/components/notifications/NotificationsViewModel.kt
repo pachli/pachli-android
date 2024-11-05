@@ -505,7 +505,7 @@ class NotificationsViewModel @AssistedInject constructor(
         // new items.
         pagingData = combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, reload) { account, _ -> account }
             .flatMapLatest { account ->
-                getNotifications(filters = deserialize(account.entity.notificationsFilter), initialKey = getInitialKey())
+                getNotifications(account.entity.accountId, filters = deserialize(account.entity.notificationsFilter), initialKey = getInitialKey())
             }.cachedIn(viewModelScope)
 
         uiState = combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, getUiPrefs()) { account, _ ->
@@ -522,6 +522,7 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private fun getNotifications(
+        accountId: String,
         filters: Set<Notification.Type>,
         initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
@@ -537,6 +538,7 @@ class NotificationsViewModel @AssistedInject constructor(
                         isExpanded = statusDisplayOptions.value.openSpoiler,
                         isCollapsed = true,
                         filterAction = filterAction,
+                        isAboutSelf = notification.account.id == accountId,
                     )
                 }.filter {
                     it.statusViewData?.filterAction != FilterAction.HIDE

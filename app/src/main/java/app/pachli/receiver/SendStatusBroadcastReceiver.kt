@@ -54,6 +54,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
     lateinit var accountManager: AccountManager
 
     override fun onReceive(context: Context, intent: Intent) {
+        // The user has used the "quick reply" feature on a notification.
         if (intent.action == REPLY_ACTION) {
             val notificationId = intent.getIntExtra(KEY_NOTIFICATION_ID, -1)
             val senderId = intent.getLongExtra(KEY_SENDER_ACCOUNT_ID, -1)

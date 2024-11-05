@@ -326,14 +326,16 @@ class MainActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
         }
 
         /**
-         * Switches the active account to the accountId and takes the user to the correct place
+         * Switches the active account to [pachliAccountId] and takes the user to the correct place
          * according to the notification they clicked
          */
         fun openNotification(
             context: Context,
             pachliAccountId: Long,
             type: Notification.Type,
+            notificationId: Int = -1,
         ) = MainActivityIntent(context, pachliAccountId).apply {
+            putExtra(EXTRA_NOTIFICATION_ID, notificationId)
             putExtra(EXTRA_NOTIFICATION_TYPE, type)
         }
 

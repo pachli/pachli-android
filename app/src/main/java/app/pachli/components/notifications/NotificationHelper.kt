@@ -129,8 +129,7 @@ fun makeNotification(
     account: AccountEntity,
     isFirstOfBatch: Boolean,
 ): android.app.Notification {
-    var notif = mastodonNotification
-    notif = notif.rewriteToStatusTypeIfNeeded(account.accountId)
+    val notif = mastodonNotification.rewriteToStatusTypeIfNeeded(account.accountId)
     val mastodonNotificationId = notif.id
     val accountId = account.id.toInt()
 
@@ -146,7 +145,7 @@ fun makeNotification(
     // Create the notification -- either create a new one, or use the existing one.
     val builder = existingAndroidNotification?.let {
         NotificationCompat.Builder(context, it)
-    } ?: newAndroidNotification(context, notif, account)
+    } ?: newAndroidNotification(context, notificationId, notif, account)
 
     builder
         .setContentTitle(titleForType(context, notif, account))
@@ -344,10 +343,11 @@ fun updateSummaryNotifications(
 
 private fun newAndroidNotification(
     context: Context,
+    notificationId: Int,
     body: Notification,
     account: AccountEntity,
 ): NotificationCompat.Builder {
-    val eventResultIntent = MainActivityIntent.openNotification(context, account.id, body.type)
+    val eventResultIntent = MainActivityIntent.openNotification(context, account.id, body.type, notificationId)
     val eventStackBuilder = TaskStackBuilder.create(context)
     eventStackBuilder.addParentStack(MainActivity::class.java)
     eventStackBuilder.addNextIntent(eventResultIntent)
@@ -597,8 +597,8 @@ fun disablePullNotifications(context: Context) {
     NotificationConfig.notificationMethod = NotificationConfig.Method.Unknown
 }
 
-fun clearNotificationsForAccount(context: Context, account: AccountEntity) {
-    val accountId = account.id.toInt()
+fun clearNotificationsForAccount(context: Context, pachliAccountId: Long) {
+    val accountId = pachliAccountId.toInt()
     val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     for (androidNotification in notificationManager.activeNotifications) {
