@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Is féidir seoladh nó fearann ar bith a chur isteach anseo, mar shampla mastodon.social, icosahedron.website, social.tchncs.de, agus <a href="https://instances.social">tuilleadh!</a> \n \nIs éard is sampla ann ná áit amháin ina ndéantar do chuntas a óstáil, ach is féidir leat cumarsáid a dhéanamh go héasca le daoine agus iad a leanúint ar chásanna eile amhail is dá mbeifeá ar an suíomh céanna. \n \nIs féidir tuilleadh eolais a fháil ag <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
+    <string name="dialog_whats_an_instance">Is féidir seoladh nó fearann ar bith a chur isteach anseo, mar shampla mastodon.social, icosahedron.website, social.tchncs.de, agus <a href="https://instances.social">tuilleadh!</a>\n\nIs éard is sampla ann ná áit amháin ina ndéantar do chuntas a óstáil, ach is féidir leat cumarsáid a dhéanamh go héasca le daoine agus iad a leanúint ar chásanna eile amhail is dá mbeifeá ar an suíomh céanna.\n\nIs féidir tuilleadh eolais a fháil ag <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
     <string name="action_close">Dún</string>
     <string name="error_invalid_domain">Fearann neamhbhailí iontráilte</string>
     <string name="error_failed_app_registration_fmt">Theip ar fhíordheimhniú leis an ásc sin: %1$s</string>
