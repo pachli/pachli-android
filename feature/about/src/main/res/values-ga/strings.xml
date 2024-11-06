@@ -46,7 +46,7 @@
     <string name="notification_details_push_notifications_with_unifiedpush">Brúigh fógraí le UnifiedPush</string>
     <string name="notification_details_any_account_needs_migration_help">Níl an raon feidhme OAuth \'brúigh\' ag cuntas amháin nó níos mó, díchumasaítear fógraí brú.</string>
     <string name="notification_details_standby_bucket_working_set">Sraith oibre. Teoranta do 10 nóiméad gach 2 uair an chloig</string>
-    <string name="notification_details_notifications_enabled_help">Níl fógraí cumasaithe le haghaidh aon cheann de do chuntais. Athraigh é seo i Roghanna Cuntais &gt; Fógraí. Go dtí sin tá gach fógra díchumasaithe.</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Níl fógraí cumasaithe le haghaidh aon cheann de do chuntais. Athraigh é seo i Roghanna Cuntais > Fógraí. Go dtí sin tá gach fógra díchumasaithe.]]></string>
     <string name="notification_details_any_account_needs_migration">An bhfuil raon feidhme OAuth \'brú\' ag gach cuntas?</string>
     <string name="notification_details_unifiedpush_available_help">Níl UnifiedPush (ntfy.sh) ar fáil, tarraingeofar fógraí go tréimhsiúil. Míníonn an chuid eile den alt seo cén fáth nach bhfuil UnifiedPush á úsáid, ach nach bhfuil sé ábhartha maidir le conas a tharraingítear fógraí faoi láthair.</string>
     <string name="notification_details_accounts_unified_push_url">Tá URL UnifiedPush ag gach cuntas?</string>
