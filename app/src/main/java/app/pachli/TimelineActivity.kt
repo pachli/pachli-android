@@ -118,7 +118,14 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         }
 
         viewData.composeIntent?.let { intent ->
-            binding.composeButton.setOnClickListener { startActivity(intent(this@TimelineActivity)) }
+            binding.composeButton.setOnClickListener {
+                startActivity(
+                    intent(
+                        this@TimelineActivity,
+                        this.intent.pachliAccountId,
+                    ),
+                )
+            }
             binding.composeButton.show()
         } ?: binding.composeButton.hide()
     }

@@ -170,7 +170,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         bottomSheetActivity.viewUrl(pachliAccountId, url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
     }
 
-    protected fun reply(status: Status) {
+    protected fun reply(pachliAccountId: Long, status: Status) {
         val actionableStatus = status.actionableStatus
         val account = actionableStatus.account
         var loggedInUsername: String? = null
@@ -183,6 +183,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         ).apply { remove(loggedInUsername) }
 
         val composeOptions = ComposeOptions(
+            pachliAccountId = pachliAccountId,
             inReplyToId = status.actionableId,
             replyVisibility = actionableStatus.visibility,
             contentWarning = actionableStatus.spoilerText,
@@ -193,7 +194,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             kind = ComposeOptions.ComposeKind.NEW,
         )
 
-        val intent = ComposeActivityIntent(requireContext(), composeOptions)
+        val intent = ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions)
         requireActivity().startActivity(intent)
     }
 
@@ -478,6 +479,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                                 deletedStatus
                             }
                             val composeOptions = ComposeOptions(
+                                pachliAccountId = pachliAccountId,
                                 content = sourceStatus.text,
                                 inReplyToId = sourceStatus.inReplyToId,
                                 visibility = sourceStatus.visibility,
@@ -489,7 +491,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                                 poll = sourceStatus.poll?.toNewPoll(sourceStatus.createdAt),
                                 kind = ComposeOptions.ComposeKind.NEW,
                             )
-                            startActivity(ComposeActivityIntent(requireContext(), composeOptions))
+                            startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
                         },
                         { error: Throwable? ->
                             Timber.w(error, "error deleting status")
@@ -508,6 +510,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             mastodonApi.statusSource(id).fold(
                 { source ->
                     val composeOptions = ComposeOptions(
+                        pachliAccountId = pachliAccountId,
                         content = source.text,
                         inReplyToId = status.inReplyToId,
                         visibility = status.visibility,
@@ -519,7 +522,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         poll = status.poll?.toNewPoll(status.createdAt),
                         kind = ComposeOptions.ComposeKind.EDIT_POSTED,
                     )
-                    startActivity(ComposeActivityIntent(requireContext(), composeOptions))
+                    startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
                 },
                 {
                     Snackbar.make(

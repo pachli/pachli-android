@@ -79,6 +79,9 @@ interface AccountDao {
     @Query("SELECT * FROM AccountEntity ORDER BY id ASC")
     suspend fun loadAll(): List<AccountEntity>
 
+    @Query("SELECT id FROM AccountEntity WHERE isActive = 1")
+    fun getActiveAccountId(): Flow<Long>
+
     @Query(
         """
         SELECT *

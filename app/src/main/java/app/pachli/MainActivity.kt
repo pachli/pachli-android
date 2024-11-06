@@ -134,6 +134,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -174,6 +175,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import javax.inject.Inject
 import kotlin.math.max
+import kotlin.properties.Delegates
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -251,6 +253,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
      */
     private val listDrawerItems = mutableListOf<PrimaryDrawerItem>()
 
+    private var pachliAccountId by Delegates.notNull<Long>()
+
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
@@ -259,6 +263,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         super.onCreate(savedInstanceState)
 
         var showNotificationTab = false
+        Timber.d("intent: %s", intent.pachliAccountId)
 
         // check for savedInstanceState in order to not handle intent events more than once
         if (intent != null && savedInstanceState == null) {
@@ -280,10 +285,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
             val openDrafts = MainActivityIntent.getOpenDrafts(intent)
 
-            // Sharing to Pachli from an external app.
+            // Sharing to Pachli from an external app, or this is a request from PachliTileService.
             if (canHandleMimeType(intent.type) || MainActivityIntent.hasComposeOptions(intent)) {
                 if (accountSwitchRequested) {
-                    // The correct account is already active
                     forwardToComposeActivityAndExit(intent)
                 } else {
                     // No account was provided, show the chooser
@@ -491,7 +495,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         super.onMenuItemSelected(menuItem)
         return when (menuItem.itemId) {
             R.id.action_search -> {
-                startActivity(SearchActivityIntent(this@MainActivity, intent.pachliAccountId))
+                startActivity(SearchActivityIntent(this@MainActivity, pachliAccountId))
                 true
             }
             R.id.action_remove_tab -> {
@@ -500,7 +504,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 true
             }
             R.id.action_tab_preferences -> {
-                startActivity(TabPreferenceActivityIntent(this, intent.pachliAccountId))
+                startActivity(TabPreferenceActivityIntent(this, pachliAccountId))
                 true
             }
             else -> super.onOptionsItemSelected(menuItem)
@@ -543,7 +547,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
             KeyEvent.KEYCODE_SEARCH -> {
                 startActivityWithDefaultTransition(
-                    SearchActivityIntent(this, intent.pachliAccountId),
+                    SearchActivityIntent(this, pachliAccountId),
                 )
                 return true
             }
@@ -553,7 +557,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             when (keyCode) {
                 KeyEvent.KEYCODE_N -> {
                     // open compose activity by pressing SHIFT + N (or CTRL + N)
-                    val composeIntent = ComposeActivityIntent(applicationContext)
+                    val composeIntent = ComposeActivityIntent(applicationContext, pachliAccountId)
                     startActivity(composeIntent)
                     return true
                 }
@@ -577,9 +581,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val composeOptions = ComposeActivityIntent.getOptions(intent)
 
         val composeIntent = if (composeOptions != null) {
-            ComposeActivityIntent(this, composeOptions)
+            ComposeActivityIntent(this, intent.pachliAccountId, composeOptions)
         } else {
-            ComposeActivityIntent(this).apply {
+            ComposeActivityIntent(this, intent.pachliAccountId).apply {
                 action = intent.action
                 type = intent.type
                 putExtras(intent)
@@ -682,6 +686,15 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         .await(app.pachli.core.ui.R.string.action_retry, android.R.string.cancel)
                     if (button == AlertDialog.BUTTON_POSITIVE) viewModel.accept(uiError.action)
                 }
+            }
+        }
+        uiResult.onSuccess { uiSuccess ->
+            when (uiSuccess) {
+                is UiSuccess.RefreshAccount -> {
+                    /* do nothing */
+                }
+
+                is UiSuccess.SetActiveAccount -> pachliAccountId = uiSuccess.accountEntity.id
             }
         }
     }
@@ -1081,13 +1094,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     0 -> {
                         Timber.d("Clearing home timeline cache")
                         lifecycleScope.launch {
-                            developerToolsUseCase.clearHomeTimelineCache(intent.pachliAccountId)
+                            developerToolsUseCase.clearHomeTimelineCache(pachliAccountId)
                         }
                     }
                     1 -> {
                         Timber.d("Removing most recent 40 statuses")
                         lifecycleScope.launch {
-                            developerToolsUseCase.deleteFirstKStatuses(intent.pachliAccountId, 40)
+                            developerToolsUseCase.deleteFirstKStatuses(pachliAccountId, 40)
                         }
                     }
                 }
@@ -1240,7 +1253,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     private fun refreshComposeButtonState(tabViewData: TabViewData) {
         tabViewData.composeIntent?.let { intent ->
             binding.composeButton.setOnClickListener {
-                startActivity(intent(applicationContext))
+                startActivity(intent(applicationContext, pachliAccountId))
             }
             binding.composeButton.show()
         } ?: binding.composeButton.hide()

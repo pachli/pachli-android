@@ -544,8 +544,8 @@ class NotificationsFragment :
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
-    override fun onReply(viewData: NotificationViewData) {
-        super.reply(viewData.statusViewData!!.actionable)
+    override fun onReply(pachliAccountId: Long, viewData: NotificationViewData) {
+        super.reply(pachliAccountId, viewData.statusViewData!!.actionable)
     }
 
     override fun onReblog(viewData: NotificationViewData, reblog: Boolean) {

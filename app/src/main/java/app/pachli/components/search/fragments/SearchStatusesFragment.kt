@@ -92,8 +92,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         viewModel.contentHiddenChange(viewData, isShowing)
     }
 
-    override fun onReply(viewData: StatusViewData) {
-        reply(viewData)
+    override fun onReply(pachliAccountId: Long, viewData: StatusViewData) {
+        reply(pachliAccountId, viewData)
     }
 
     override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
@@ -173,7 +173,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         )
     }
 
-    private fun reply(status: StatusViewData) {
+    private fun reply(pachliAccountId: Long, status: StatusViewData) {
         val actionableStatus = status.actionable
         val mentionedUsernames = actionableStatus.mentions.map { it.username }
             .toMutableSet()
@@ -184,7 +184,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
         val intent = ComposeActivityIntent(
             requireContext(),
+            pachliAccountId,
             ComposeOptions(
+                pachliAccountId = pachliAccountId,
                 inReplyToId = status.actionableId,
                 replyVisibility = actionableStatus.visibility,
                 contentWarning = actionableStatus.spoilerText,
@@ -321,11 +323,11 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete_and_redraft -> {
-                    showConfirmEditDialog(statusViewData)
+                    showConfirmEditDialog(pachliAccountId, statusViewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_edit -> {
-                    editStatus(id, status)
+                    editStatus(pachliAccountId, id, status)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.pin -> {
@@ -414,7 +416,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     // TODO: Identical to the same function in SFragment.kt
-    private fun showConfirmEditDialog(statusViewData: StatusViewData) {
+    private fun showConfirmEditDialog(pachliAccountId: Long, statusViewData: StatusViewData) {
         activity?.let {
             AlertDialog.Builder(it)
                 .setMessage(R.string.dialog_redraft_post_warning)
@@ -432,7 +434,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
                                 val intent = ComposeActivityIntent(
                                     requireContext(),
+                                    pachliAccountId,
                                     ComposeOptions(
+                                        pachliAccountId = pachliAccountId,
                                         content = redraftStatus.text.orEmpty(),
                                         inReplyToId = redraftStatus.inReplyToId,
                                         visibility = redraftStatus.visibility,
@@ -458,11 +462,12 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         }
     }
 
-    private fun editStatus(id: String, status: Status) {
+    private fun editStatus(pachliAccountId: Long, id: String, status: Status) {
         lifecycleScope.launch {
             mastodonApi.statusSource(id).fold(
                 { source ->
                     val composeOptions = ComposeOptions(
+                        pachliAccountId = pachliAccountId,
                         content = source.text,
                         inReplyToId = status.inReplyToId,
                         visibility = status.visibility,
@@ -474,7 +479,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                         poll = status.poll?.toNewPoll(status.createdAt),
                         kind = ComposeOptions.ComposeKind.EDIT_POSTED,
                     )
-                    startActivity(ComposeActivityIntent(requireContext(), composeOptions))
+                    startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
                 },
                 {
                     Snackbar.make(

@@ -133,7 +133,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             when (action) {
                 app.pachli.core.ui.R.id.action_reply -> {
                     interrupt()
-                    statusActionListener.onReply(status)
+                    statusActionListener.onReply(pachliAccountId, status)
                 }
                 app.pachli.core.ui.R.id.action_favourite -> statusActionListener.onFavourite(status, true)
                 app.pachli.core.ui.R.id.action_unfavourite -> statusActionListener.onFavourite(status, false)

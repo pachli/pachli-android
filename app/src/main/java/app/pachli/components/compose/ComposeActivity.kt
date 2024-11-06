@@ -59,7 +59,9 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import app.pachli.BuildConfig
@@ -87,6 +89,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
@@ -121,6 +124,7 @@ import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 import java.io.File
 import java.io.IOException
 import java.util.Date
@@ -129,6 +133,7 @@ import javax.inject.Inject
 import kotlin.math.max
 import kotlin.math.min
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -153,16 +158,19 @@ class ComposeActivity :
     private lateinit var emojiBehavior: BottomSheetBehavior<*>
     private lateinit var scheduleBehavior: BottomSheetBehavior<*>
 
-    /** The account that is being used to compose the status */
-    private lateinit var activeAccount: AccountEntity
-
     private var photoUploadUri: Uri? = null
 
     @VisibleForTesting
     var maximumTootCharacters = DEFAULT_CHARACTER_LIMIT
 
     @VisibleForTesting
-    val viewModel: ComposeViewModel by viewModels()
+    val viewModel: ComposeViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<ComposeViewModel.Factory> { factory ->
+                factory.create(intent.pachliAccountId)
+            }
+        },
+    )
 
     private val binding by viewBinding(ActivityComposeBinding::inflate)
 
@@ -242,8 +250,7 @@ class ComposeActivity :
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        activeAccount = accountManager.activeAccount ?: return
-
+        Timber.d("intent: %s", intent.pachliAccountId)
         if (sharedPreferencesRepository.appTheme == AppTheme.BLACK) {
             setTheme(DR.style.AppDialogActivityBlackTheme)
         }
@@ -251,7 +258,8 @@ class ComposeActivity :
 
         setupActionBar()
 
-        setupAvatar(activeAccount)
+        val composeOptions: ComposeOptions? = ComposeActivityIntent.getOptions(intent)
+
         val mediaAdapter = MediaPreviewAdapter(
             this,
             onAddCaption = { item ->
@@ -266,28 +274,38 @@ class ComposeActivity :
             onEditImage = this::editImageInQueue,
             onRemove = this::removeMediaFromQueue,
         )
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.accountFlow.collectLatest { account ->
+                    setupAvatar(account.entity)
+
+                    if (viewModel.displaySelfUsername) {
+                        binding.composeUsernameView.text = getString(
+                            R.string.compose_active_account_description,
+                            account.entity.fullName,
+                        )
+                        binding.composeUsernameView.show()
+                    } else {
+                        binding.composeUsernameView.hide()
+                    }
+
+                    setupLanguageSpinner(getInitialLanguages(composeOptions?.language, account.entity))
+
+                    setupButtons(account.id)
+                    /* If the composer is started up as a reply to another post, override the "starting" state
+                     * based on what the intent from the reply request passes. */
+                    viewModel.setup(account, composeOptions)
+
+                    subscribeToUpdates(mediaAdapter)
+                }
+            }
+        }
+
         binding.composeMediaPreviewBar.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.composeMediaPreviewBar.adapter = mediaAdapter
         binding.composeMediaPreviewBar.itemAnimator = null
-
-        /* If the composer is started up as a reply to another post, override the "starting" state
-         * based on what the intent from the reply request passes. */
-        val composeOptions: ComposeOptions? = ComposeActivityIntent.getOptions(intent)
-        viewModel.setup(composeOptions)
-
-        setupButtons()
-        subscribeToUpdates(mediaAdapter)
-
-        if (viewModel.displaySelfUsername) {
-            binding.composeUsernameView.text = getString(
-                R.string.compose_active_account_description,
-                activeAccount.fullName,
-            )
-            binding.composeUsernameView.show()
-        } else {
-            binding.composeUsernameView.hide()
-        }
 
         setupReplyViews(composeOptions?.replyingStatusAuthor, composeOptions?.replyingStatusContent)
         val statusContent = composeOptions?.content
@@ -299,7 +317,6 @@ class ComposeActivity :
             binding.composeScheduleView.setDateTime(it)
         }
 
-        setupLanguageSpinner(getInitialLanguages(composeOptions?.language, activeAccount))
         setupComposeField(sharedPreferencesRepository, viewModel.initialContent, composeOptions)
         setupContentWarningField(composeOptions?.contentWarning)
         setupPollView()
@@ -545,7 +562,7 @@ class ComposeActivity :
             bottomSheetStates.any { it != BottomSheetBehavior.STATE_HIDDEN }
     }
 
-    private fun setupButtons() {
+    private fun setupButtons(pachliAccountId: Long) {
         binding.composeOptionsBottomSheet.listener = this
 
         composeOptionsBehavior = BottomSheetBehavior.from(binding.composeOptionsBottomSheet)
@@ -567,7 +584,7 @@ class ComposeActivity :
         enableButton(binding.composeEmojiButton, clickable = false, colorActive = false)
 
         // Setup the interface buttons.
-        binding.composeTootButton.setOnClickListener { onSendClicked() }
+        binding.composeTootButton.setOnClickListener { onSendClicked(pachliAccountId) }
         binding.composeAddMediaButton.setOnClickListener { openPickDialog() }
         binding.composeToggleVisibilityButton.setOnClickListener { showComposeOptions() }
         binding.composeContentWarningButton.setOnClickListener { onContentWarningChanged() }
@@ -627,21 +644,21 @@ class ComposeActivity :
         }
     }
 
-    private fun setupAvatar(activeAccount: AccountEntity) {
+    private fun setupAvatar(account: AccountEntity) {
         val actionBarSizeAttr = intArrayOf(androidx.appcompat.R.attr.actionBarSize)
         val avatarSize = obtainStyledAttributes(null, actionBarSizeAttr).use { a ->
             a.getDimensionPixelSize(0, 1)
         }
 
         loadAvatar(
-            activeAccount.profilePictureUrl,
+            account.profilePictureUrl,
             binding.composeAvatar,
             avatarSize / 8,
             sharedPreferencesRepository.animateAvatars,
         )
         binding.composeAvatar.contentDescription = getString(
             R.string.compose_active_account_description,
-            activeAccount.fullName,
+            account.fullName,
         )
     }
 
@@ -968,11 +985,11 @@ class ComposeActivity :
         return binding.composeScheduleView.verifyScheduledTime(viewModel.scheduledAt.value)
     }
 
-    private fun onSendClicked() = lifecycleScope.launch {
+    private fun onSendClicked(pachliAccountId: Long) = lifecycleScope.launch {
         if (viewModel.confirmStatusLanguage) confirmStatusLanguage()
 
         if (verifyScheduledTime()) {
-            sendStatus()
+            sendStatus(pachliAccountId)
         } else {
             showScheduleView()
         }
@@ -1074,7 +1091,7 @@ class ComposeActivity :
         return contentInfo
     }
 
-    private fun sendStatus() {
+    private fun sendStatus(pachliAccountId: Long) {
         enableButtons(false, viewModel.editing)
         val contentText = binding.composeEditField.text.toString()
         var spoilerText = ""
@@ -1087,7 +1104,7 @@ class ComposeActivity :
             enableButtons(true, viewModel.editing)
         } else if (statusLength <= maximumTootCharacters) {
             lifecycleScope.launch {
-                viewModel.sendStatus(contentText, spoilerText, activeAccount.id)
+                viewModel.sendStatus(contentText, spoilerText, pachliAccountId)
                 deleteDraftAndFinish()
             }
         } else {
@@ -1230,7 +1247,7 @@ class ComposeActivity :
             if (event.isCtrlPressed) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     // send toot by pressing CTRL + ENTER
-                    this.onSendClicked()
+                    this.onSendClicked(intent.pachliAccountId)
                     return true
                 }
             }

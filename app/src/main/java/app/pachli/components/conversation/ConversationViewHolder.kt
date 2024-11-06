@@ -83,6 +83,7 @@ class ConversationViewHolder internal constructor(
                 hideSensitiveMediaWarning()
             }
             setupButtons(
+                pachliAccountId,
                 viewData,
                 listener,
                 account.id,

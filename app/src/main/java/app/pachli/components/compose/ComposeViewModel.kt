@@ -36,6 +36,7 @@ import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -61,23 +62,29 @@ import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import java.util.Date
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-@HiltViewModel
-class ComposeViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = ComposeViewModel.Factory::class)
+class ComposeViewModel @AssistedInject constructor(
+    @Assisted private val pachliAccountId: Long,
     private val api: MastodonApi,
     private val accountManager: AccountManager,
     private val mediaUploader: MediaUploader,
@@ -87,6 +94,10 @@ class ComposeViewModel @Inject constructor(
     private val serverRepository: ServerRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
+    /** The account being used to compose the status. */
+    val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
+        .filterNotNull()
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
     /** The current content */
     private var content: Editable = Editable.Factory.getInstance().newEditable("")
@@ -131,9 +142,11 @@ class ComposeViewModel @Inject constructor(
 
     val emojis = instanceInfoRepo.emojis
 
-    private val _markMediaAsSensitive: MutableStateFlow<Boolean> =
-        MutableStateFlow(accountManager.activeAccount?.defaultMediaSensitivity ?: false)
-    val markMediaAsSensitive = _markMediaAsSensitive.asStateFlow()
+    private val _markMediaAsSensitive: MutableStateFlow<Boolean?> = MutableStateFlow(null)
+    val markMediaAsSensitive = accountFlow.combine(_markMediaAsSensitive) { account, sens ->
+        sens ?: account.entity.defaultMediaSensitivity
+    }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     private val _statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
     val statusVisibility = _statusVisibility.asStateFlow()
@@ -402,11 +415,11 @@ class ComposeViewModel @Inject constructor(
 
         draftHelper.saveDraft(
             draftId = draftId,
-            pachliAccountId = accountManager.activeAccount?.id!!,
+            pachliAccountId = pachliAccountId,
             inReplyToId = inReplyToId,
             content = content,
             contentWarning = contentWarning,
-            sensitive = _markMediaAsSensitive.value,
+            sensitive = markMediaAsSensitive.value,
             visibility = statusVisibility.value,
             mediaUris = mediaUris,
             mediaDescriptions = mediaDescriptions,
@@ -447,7 +460,7 @@ class ComposeViewModel @Inject constructor(
             text = content,
             warningText = spoilerText,
             visibility = statusVisibility.value.serverString(),
-            sensitive = attachedMedia.isNotEmpty() && (_markMediaAsSensitive.value || showContentWarning.value),
+            sensitive = attachedMedia.isNotEmpty() && (markMediaAsSensitive.value || showContentWarning.value),
             media = attachedMedia,
             scheduledAt = scheduledAt.value,
             inReplyToId = inReplyToId,
@@ -561,14 +574,14 @@ class ComposeViewModel @Inject constructor(
         }
     }
 
-    fun setup(composeOptions: ComposeOptions?) {
+    fun setup(account: PachliAccount, composeOptions: ComposeOptions?) {
         if (setupComplete) {
             return
         }
 
         composeKind = composeOptions?.kind ?: ComposeKind.NEW
 
-        val preferredVisibility = accountManager.activeAccount!!.defaultPostPrivacy
+        val preferredVisibility = account.entity.defaultPostPrivacy
 
         val replyVisibility = composeOptions?.replyVisibility ?: Status.Visibility.UNKNOWN
         startingVisibility = Status.Visibility.getOrUnknown(
@@ -723,5 +736,11 @@ class ComposeViewModel @Inject constructor(
 
             return length
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        /** Creates [ComposeViewModel] with [pachliAccountId] as the active account. */
+        fun create(pachliAccountId: Long): ComposeViewModel
     }
 }

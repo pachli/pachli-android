@@ -131,9 +131,10 @@ class AccountListActivityIntent(context: Context, pachliAccountId: Long, kind: K
  * @param context
  * @see [app.pachli.components.compose.ComposeActivity]
  */
-class ComposeActivityIntent(context: Context) : Intent() {
+class ComposeActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     @Parcelize
     data class ComposeOptions(
+        val pachliAccountId: Long,
         val scheduledTootId: String? = null,
         val draftId: Int? = null,
         val content: String? = null,
@@ -190,6 +191,7 @@ class ComposeActivityIntent(context: Context) : Intent() {
 
     init {
         setClassName(context, QuadrantConstants.COMPOSE_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 
     /**
@@ -197,7 +199,7 @@ class ComposeActivityIntent(context: Context) : Intent() {
      * @param options Configure the initial state of the activity
      * @see [app.pachli.components.compose.ComposeActivity]
      */
-    constructor(context: Context, options: ComposeOptions) : this(context) {
+    constructor(context: Context, pachliAccountId: Long, options: ComposeOptions) : this(context, pachliAccountId) {
         putExtra(EXTRA_COMPOSE_OPTIONS, options)
     }
 

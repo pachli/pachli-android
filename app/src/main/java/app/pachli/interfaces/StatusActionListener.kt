@@ -24,7 +24,7 @@ import app.pachli.core.ui.LinkListener
 import app.pachli.viewdata.IStatusViewData
 
 interface StatusActionListener<T : IStatusViewData> : LinkListener {
-    fun onReply(viewData: T)
+    fun onReply(pachliAccountId: Long, viewData: T)
     fun onReblog(viewData: T, reblog: Boolean)
     fun onFavourite(viewData: T, favourite: Boolean)
     fun onBookmark(viewData: T, bookmark: Boolean)

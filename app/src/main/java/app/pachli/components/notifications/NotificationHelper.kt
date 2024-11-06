@@ -422,6 +422,7 @@ private fun getStatusComposeIntent(
         }
     }
     val composeOptions = ComposeOptions(
+        pachliAccountId = account.id,
         inReplyToId = inReplyToId,
         replyVisibility = replyVisibility,
         contentWarning = contentWarning,
