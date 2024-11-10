@@ -46,7 +46,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
-import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
@@ -97,7 +96,6 @@ import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.navigation.MainActivityIntent.Payload
-import app.pachli.core.navigation.PACHLI_ACCOUNT_ID_ACTIVE
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.ScheduledStatusActivityIntent
@@ -476,27 +474,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // "Post failed" dialog should display in this activity
         draftsAlert.observeInContext(this, true)
-    }
-
-    /**
-     * @return The Pachli account ID to use for this activity from the provided intent.
-     *
-     * It's either the actual Pachli account ID, or -1, which means "Whatever the active
-     * account is".
-     */
-    private fun accountIdFromIntent(intent: Intent): Long {
-        // There are two ways the accountId can be passed to MainActivity:
-        // - from our code as Long Intent Extra PACHLI_ACCOUNT_ID
-        // - from share shortcuts as String 'android.intent.extra.shortcut.ID'
-        // Extract the accountId from PACHLI_ACCOUNT_ID, falling back to the share shortcut.
-        var pachliAccountId = intent.pachliAccountId
-        if (pachliAccountId == PACHLI_ACCOUNT_ID_ACTIVE) {
-            val accountIdString = intent.getStringExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID)
-            if (accountIdString != null) {
-                pachliAccountId = accountIdString.toLong()
-            }
-        }
-        return pachliAccountId
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

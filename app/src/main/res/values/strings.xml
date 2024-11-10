@@ -379,8 +379,6 @@
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="add_account_name">Add Account</string>
     <string name="add_account_description">Add new Mastodon Account</string>
-    <string name="title_lists_loading">Lists - loading…</string>
-    <string name="title_lists_failed">Lists - failed to load</string>
     <string name="manage_lists">Manage lists</string>
     <string name="compose_active_account_description">Posting as %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
@@ -487,7 +485,6 @@
     <string name="select_list_title">Select list</string>
     <string name="select_list_empty">You have no lists, yet</string>
     <string name="select_list_manage">Manage lists</string>
-    <string name="error_list_load">Error loading lists</string>
     <string name="list">List</string>
     <string name="notifications_clear">Delete notifications</string>
     <string name="notifications_apply_filter">Filter notifications</string>

@@ -568,7 +568,6 @@
     <string name="select_list_title">Valitse lista</string>
     <string name="duration_indefinite">Loputon</string>
     <string name="failed_search">Haku epäonnistui</string>
-    <string name="error_list_load">Listojen lataaminen epäonnistui</string>
     <string name="report_sent_success">Raportti käyttäjästä @%s lähetetty</string>
     <string name="compose_shortcut_long_label">Kirjoita julkaisu</string>
     <plurals name="poll_info_people">
@@ -601,8 +600,6 @@
     <string name="pref_update_next_scheduled_check">Seuraava ajoitettu tarkistus: %1$s</string>
     <string name="pref_update_check_no_updates">Ei päivityksiä tarjolla</string>
     <string name="error_media_download">Lataaminen epäonnistui %1$s: %2$d%3$s</string>
-    <string name="title_lists_loading">Listat - ladataan…</string>
-    <string name="title_lists_failed">Listat - lataaminen epäonnistui</string>
     <string name="manage_lists">Hallinnoi listoja</string>
     <string name="poll_show_votes">Näytä äänet</string>
     <string name="notification_severed_relationships_name">Katkaistut yhteydet</string>

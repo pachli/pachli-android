@@ -605,7 +605,6 @@
     <string name="pref_title_font_family">عائلة الخطوط</string>
     <string name="notification_listenable_worker_description">إشعارات عندما يعمل Pachli (باكلي) في الخلفية</string>
     <string name="status_filtered_show_anyway">إظهار على أي حال</string>
-    <string name="error_list_load">خطأ في تحميل القوائم</string>
     <string name="action_translate">ترجمة</string>
     <string name="select_list_empty">ليس لديك قوائم بعد</string>
     <string name="pref_title_account_filter_keywords">الملفات التعريفية</string>
