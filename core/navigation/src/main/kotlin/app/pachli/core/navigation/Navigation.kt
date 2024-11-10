@@ -21,10 +21,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
-import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.Timeline
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.bookmarks
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.conversations
@@ -42,6 +42,7 @@ import java.util.Date
 import kotlinx.parcelize.Parcelize
 
 private const val EXTRA_PACHLI_ACCOUNT_ID = "app.pachli.EXTRA_PACHLI_ACCOUNT_ID"
+const val PACHLI_ACCOUNT_ID_ACTIVE = -1L
 
 /**
  * The Pachli Account ID passed to this intent. This is the
@@ -49,7 +50,7 @@ private const val EXTRA_PACHLI_ACCOUNT_ID = "app.pachli.EXTRA_PACHLI_ACCOUNT_ID"
  * "active" for the purposes of this activity.
  */
 var Intent.pachliAccountId: Long
-    get() = getLongExtra(EXTRA_PACHLI_ACCOUNT_ID, -1L)
+    get() = getLongExtra(EXTRA_PACHLI_ACCOUNT_ID, PACHLI_ACCOUNT_ID_ACTIVE)
     set(value) {
         putExtra(EXTRA_PACHLI_ACCOUNT_ID, value)
         return
@@ -129,12 +130,13 @@ class AccountListActivityIntent(context: Context, pachliAccountId: Long, kind: K
 
 /**
  * @param context
+ * @param pachliAccountId
+ * @param composeOptions
  * @see [app.pachli.components.compose.ComposeActivity]
  */
-class ComposeActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
+class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOptions: ComposeOptions? = null) : Intent() {
     @Parcelize
     data class ComposeOptions(
-        val pachliAccountId: Long,
         val scheduledTootId: String? = null,
         val draftId: Int? = null,
         val content: String? = null,
@@ -192,22 +194,15 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long) : Intent() 
     init {
         setClassName(context, QuadrantConstants.COMPOSE_ACTIVITY)
         this.pachliAccountId = pachliAccountId
-    }
 
-    /**
-     * @param context
-     * @param options Configure the initial state of the activity
-     * @see [app.pachli.components.compose.ComposeActivity]
-     */
-    constructor(context: Context, pachliAccountId: Long, options: ComposeOptions) : this(context, pachliAccountId) {
-        putExtra(EXTRA_COMPOSE_OPTIONS, options)
+        composeOptions?.let { putExtra(EXTRA_COMPOSE_OPTIONS, it) }
     }
 
     companion object {
         private const val EXTRA_COMPOSE_OPTIONS = "app.pachli.EXTRA_COMPOSE_OPTIONS"
 
         /** @return the [ComposeOptions] passed in this intent, or null */
-        fun getOptions(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_COMPOSE_OPTIONS, ComposeOptions::class.java)
+        fun getComposeOptions(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_COMPOSE_OPTIONS, ComposeOptions::class.java)
     }
 }
 
@@ -301,64 +296,157 @@ class MainActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
         this.pachliAccountId = pachliAccountId
     }
 
-    companion object {
-        private const val EXTRA_NOTIFICATION_TYPE = "app.pachli.EXTRA_NOTIFICATION_TYPE"
-        private const val EXTRA_COMPOSE_OPTIONS = "app.pachli.EXTRA_COMPOSE_OPTIONS"
-        private const val EXTRA_NOTIFICATION_TAG = "app.pachli.EXTRA_NOTIFICATION_TAG"
-        private const val EXTRA_NOTIFICATION_ID = "app.pachli.EXTRA_NOTIFICATION_ID"
-        private const val EXTRA_REDIRECT_URL = "app.pachli.EXTRA_REDIRECT_URL"
-        private const val EXTRA_OPEN_DRAFTS = "app.pachli.EXTRA_OPEN_DRAFTS"
-
-        fun hasComposeOptions(intent: Intent) = intent.hasExtra(EXTRA_COMPOSE_OPTIONS)
-        fun hasNotificationType(intent: Intent) = intent.hasExtra(EXTRA_NOTIFICATION_TYPE)
-
-        fun getNotificationType(intent: Intent) = intent.getSerializableExtra(EXTRA_NOTIFICATION_TYPE) as Notification.Type
-        fun getNotificationTag(intent: Intent) = intent.getStringExtra(EXTRA_NOTIFICATION_TAG)
-        fun getNotificationId(intent: Intent) = intent.getIntExtra(EXTRA_NOTIFICATION_ID, -1)
-        fun getRedirectUrl(intent: Intent) = intent.getStringExtra(EXTRA_REDIRECT_URL)
-        fun getOpenDrafts(intent: Intent) = intent.getBooleanExtra(EXTRA_OPEN_DRAFTS, false)
+    /** Describes where the activity was started from. */
+    sealed interface Payload : Parcelable {
+        /**
+         * Started from the "Compose post" quick tile. This cannot include
+         * information about the account to start with. See
+         * [PachliTileService][app.pachli.service.PachliTileService].
+         */
+        @Parcelize
+        data object QuickTile : Payload
 
         /**
+         * Started from the "Compose" button in a notification.
          *
+         * @param composeOptions
+         * @param notificationId Notification's ID
+         * @param notificationTag Notification's tag (Mastodon notification ID)
          */
-        fun withShortCut(context: Context, pachliAccountId: Long) = MainActivityIntent(context, pachliAccountId).apply {
-            action = ACTION_SEND
-            type = "text/plain"
-            putExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID, pachliAccountId.toString())
+        @Parcelize
+        data class NotificationCompose(
+            val composeOptions: ComposeOptions,
+            val notificationId: Int,
+            val notificationTag: String?,
+        ) : Payload
+
+        /**
+         * Started from a shortcut.
+         */
+        @Parcelize
+        data object Shortcut : Payload
+
+        /**
+         * Started by tapping on a notification body.
+         *
+         * @param notificationId Notification's ID
+         * @param notificationTag Notification's tag (Mastodon notification ID)
+         * @param notificationType Notification's type
+         */
+        @Parcelize
+        data class Notification(
+            val notificationId: Int,
+            val notificationTag: String?,
+            val notificationType: app.pachli.core.network.model.Notification.Type,
+        ) : Payload
+
+        /**
+         * Started to open drafts (e.g., after a post failed to send).
+         */
+        @Parcelize
+        data object OpenDrafts : Payload
+
+        /**
+         * Started to redirect to [url].
+         */
+        @Parcelize
+        data class Redirect(val url: String) : Payload
+    }
+
+    companion object {
+        private const val EXTRA_PAYLOAD = "app.pachli.EXTRA_PAYLOAD"
+
+        // Shortcuts use PersistableBundles which can't serialize a Payload. This
+        // extra is used as a marker that the payload is a shortcut.
+        private const val EXTRA_PAYLOAD_SHORTCUT = "app.pachli.EXTRA_PAYLOAD_SHORTCUT"
+
+        /** @return The [Payload] in [intent]. May be null if the intent has no payload. */
+        fun payload(intent: Intent): Payload? {
+            val payload = IntentCompat.getParcelableExtra(
+                intent,
+                EXTRA_PAYLOAD,
+                Payload::class.java,
+            )
+
+            if (payload != null) return payload
+
+            if (intent.getBooleanExtra(EXTRA_PAYLOAD_SHORTCUT, false)) return Payload.Shortcut
+
+            return null
         }
+
+        /**
+         * Open MainActivity from a tap on a quick tile. There is a single quick tile
+         * irrespective of how many accounts are logged in, so use -1L as the account ID.
+         */
+        fun fromQuickTile(context: Context) = MainActivityIntent(context, -1L).apply {
+            putExtra(EXTRA_PAYLOAD, Payload.QuickTile).apply {
+                flags = FLAG_ACTIVITY_NEW_TASK
+            }
+        }
+
+        /**
+         * Open MainActivity from a tap on a shortcut.
+         */
+        fun fromShortcut(context: Context, pachliAccountId: Long) = MainActivityIntent(context, pachliAccountId).apply {
+            action = ACTION_MAIN
+            putExtra(EXTRA_PAYLOAD_SHORTCUT, true)
+        }
+
+        /**
+         * Open MainActivity from a notification's "Compose" button.
+         *
+         * @param context
+         * @param pachliAccountId
+         * @param composeOptions
+         * @param notificationId Notification's ID
+         * @param notificationTag Notification's tag (Mastodon notification ID)
+         */
+        fun fromNotificationCompose(
+            context: Context,
+            pachliAccountId: Long,
+            composeOptions: ComposeOptions,
+            notificationId: Int,
+            notificationTag: String,
+        ) =
+            MainActivityIntent(context, pachliAccountId).apply {
+                putExtra(
+                    EXTRA_PAYLOAD,
+                    Payload.NotificationCompose(
+                        composeOptions,
+                        notificationId,
+                        notificationTag,
+                    ),
+                )
+            }
 
         /**
          * Switches the active account to [pachliAccountId] and takes the user to the correct place
-         * according to the notification they clicked
+         * according to the notification they clicked.
+         *
+         * @param context
+         * @param pachliAccountId
+         * @param notificationId Notification's ID. May be -1 if this is from a summary
+         * notification.
+         * @param notificationTag Notification's tag (Mastodon notification ID). May be null
+         * if this is from a summary notification.
+         * @param type
          */
-        fun openNotification(
+        fun fromNotification(
             context: Context,
             pachliAccountId: Long,
+            notificationId: Int,
+            notificationTag: String?,
             type: Notification.Type,
-            notificationId: Int = -1,
         ) = MainActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_NOTIFICATION_ID, notificationId)
-            putExtra(EXTRA_NOTIFICATION_TYPE, type)
-        }
-
-        /**
-         * Switches the active account to the accountId and then opens ComposeActivity with the provided options
-         * @param pachliAccountId the id of the Pachli account to open the screen with.
-         * @param notificationId optional id of the notification that should be cancelled when this intent is opened
-         * @param notificationTag optional tag of the notification that should be cancelled when this intent is opened
-         */
-        fun openCompose(
-            context: Context,
-            options: ComposeActivityIntent.ComposeOptions,
-            pachliAccountId: Long,
-            notificationTag: String? = null,
-            notificationId: Int = -1,
-        ) = MainActivityIntent(context, pachliAccountId).apply {
-            action = ACTION_SEND
-            putExtra(EXTRA_COMPOSE_OPTIONS, options)
-            putExtra(EXTRA_NOTIFICATION_TAG, notificationTag)
-            putExtra(EXTRA_NOTIFICATION_ID, notificationId)
-            flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+            putExtra(
+                EXTRA_PAYLOAD,
+                Payload.Notification(
+                    notificationId,
+                    notificationTag,
+                    type,
+                ),
+            )
         }
 
         /**
@@ -370,15 +458,15 @@ class MainActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
             pachliAccountId: Long,
             url: String,
         ) = MainActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_REDIRECT_URL, url)
+            putExtra(EXTRA_PAYLOAD, Payload.Redirect(url))
             flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         }
 
         /**
-         * switches the active account to the provided accountId and then opens drafts
+         * Switches the active account to the provided accountId and then opens drafts
          */
-        fun openDrafts(context: Context, pachliAccountId: Long) = MainActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_OPEN_DRAFTS, true)
+        fun fromDraftsNotification(context: Context, pachliAccountId: Long) = MainActivityIntent(context, pachliAccountId).apply {
+            putExtra(EXTRA_PAYLOAD, Payload.OpenDrafts)
         }
     }
 }

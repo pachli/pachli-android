@@ -91,7 +91,7 @@ class UpdateShortCutsUseCase @Inject constructor(
 
                 // This intent will be sent when the user clicks on one of the launcher shortcuts.
                 // Intent from share sheet will be different
-                val intent = MainActivityIntent.withShortCut(context, account.id)
+                val intent = MainActivityIntent.fromShortcut(context, account.id)
 
                 ShortcutInfoCompat.Builder(context, account.id.toString())
                     .setIntent(intent)

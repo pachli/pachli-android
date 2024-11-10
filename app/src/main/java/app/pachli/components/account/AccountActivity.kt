@@ -961,10 +961,9 @@ class AccountActivity :
     private fun mention() {
         loadedAccount?.let {
             val options = if (viewModel.isSelf) {
-                ComposeOptions(intent.pachliAccountId, kind = ComposeOptions.ComposeKind.NEW)
+                ComposeOptions(kind = ComposeOptions.ComposeKind.NEW)
             } else {
                 ComposeOptions(
-                    intent.pachliAccountId,
                     mentionedUsernames = setOf(it.username),
                     kind = ComposeOptions.ComposeKind.NEW,
                 )

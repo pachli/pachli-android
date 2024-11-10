@@ -226,7 +226,6 @@ class AccountManager @Inject constructor(
 
     fun getPachliAccountFlow(pachliAccountId: Long): Flow<PachliAccount?> {
         val accountFlow = if (pachliAccountId == -1L) {
-//            throw RuntimeException("getPachliAccountFlow with -1 as accountId")
             accountDao.getActiveAccountId().flatMapLatest {
                 accountDao.getPachliAccountFlow(it)
             }
@@ -235,8 +234,6 @@ class AccountManager @Inject constructor(
         }
 
         return accountFlow.map { it?.let { PachliAccount.make(it) } }
-
-        // return accountDao.getPachliAccountFlow(pachliAccountId).map { it?.let { PachliAccount.make(it) } }
     }
 
     /**
@@ -385,7 +382,7 @@ class AccountManager @Inject constructor(
                 // very end of this block.
                 val account = mastodonApi.accountVerifyCredentials(
                     domain = newActiveAccount.domain,
-                    auth = "Bearer ${newActiveAccount.accessToken}",
+                    auth = newActiveAccount.authHeader,
                 ).getOrElse { throw ApiErrorException(it) }.body
 
                 accountDao.clearActiveAccount()

@@ -98,7 +98,7 @@ data class TabViewData(
                 ComposeActivityIntent(
                     context,
                     pachliAccountId,
-                    ComposeActivityIntent.ComposeOptions(pachliAccountId, visibility = Status.Visibility.PRIVATE),
+                    ComposeActivityIntent.ComposeOptions(visibility = Status.Visibility.PRIVATE),
                 )
             }
             Timeline.TrendingHashtags -> TabViewData(
@@ -136,7 +136,6 @@ data class TabViewData(
                     context,
                     pachliAccountId,
                     ComposeActivityIntent.ComposeOptions(
-                        pachliAccountId = pachliAccountId,
                         content = getString(context, R.string.title_tag_with_initial_position).format(tag),
                         initialCursorPosition = ComposeActivityIntent.ComposeOptions.InitialCursorPosition.START,
                     ),

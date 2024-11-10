@@ -114,8 +114,8 @@ private const val EXTRA_NOTIFICATION_TYPE =
  * Takes a given Mastodon notification and creates a new Android notification or updates the
  * existing Android notification.
  *
- * The Android notification has it's tag set to the Mastodon notification ID, and it's ID set
- * to the ID of the account that received the notification.
+ * The Android notification tag is the Mastodon notification ID, and the notification ID
+ * is the ID of the account that received the notification.
  *
  * @param context to access application preferences and services
  * @param mastodonNotification    a new Mastodon notification
@@ -291,10 +291,12 @@ fun updateSummaryNotifications(
 
         // All notifications in this group have the same type, so get it from the first.
         val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
-        val summaryResultIntent = MainActivityIntent.openNotification(
+        val summaryResultIntent = MainActivityIntent.fromNotification(
             context,
             accountId.toLong(),
-            notificationType,
+            -1,
+            null,
+            type = notificationType,
         )
         val summaryStackBuilder = TaskStackBuilder.create(context)
         summaryStackBuilder.addParentStack(MainActivity::class.java)
@@ -347,7 +349,13 @@ private fun newAndroidNotification(
     body: Notification,
     account: AccountEntity,
 ): NotificationCompat.Builder {
-    val eventResultIntent = MainActivityIntent.openNotification(context, account.id, body.type, notificationId)
+    val eventResultIntent = MainActivityIntent.fromNotification(
+        context,
+        account.id,
+        notificationId,
+        body.id,
+        body.type,
+    )
     val eventStackBuilder = TaskStackBuilder.create(context)
     eventStackBuilder.addParentStack(MainActivity::class.java)
     eventStackBuilder.addNextIntent(eventResultIntent)
@@ -422,7 +430,6 @@ private fun getStatusComposeIntent(
         }
     }
     val composeOptions = ComposeOptions(
-        pachliAccountId = account.id,
         inReplyToId = inReplyToId,
         replyVisibility = replyVisibility,
         contentWarning = contentWarning,
@@ -433,12 +440,12 @@ private fun getStatusComposeIntent(
         language = language,
         kind = ComposeOptions.ComposeKind.NEW,
     )
-    val composeIntent = MainActivityIntent.openCompose(
+    val composeIntent = MainActivityIntent.fromNotificationCompose(
         context,
-        composeOptions,
         account.id,
-        body.id,
+        composeOptions,
         account.id.toInt(),
+        body.id,
     )
     return PendingIntent.getActivity(
         context.applicationContext,

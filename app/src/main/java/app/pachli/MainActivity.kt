@@ -96,6 +96,8 @@ import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.MainActivityIntent
+import app.pachli.core.navigation.MainActivityIntent.Payload
+import app.pachli.core.navigation.PACHLI_ACCOUNT_ID_ACTIVE
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.ScheduledStatusActivityIntent
@@ -263,66 +265,88 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         super.onCreate(savedInstanceState)
 
         var showNotificationTab = false
-        Timber.d("intent: %s", intent.pachliAccountId)
 
         // check for savedInstanceState in order to not handle intent events more than once
         if (intent != null && savedInstanceState == null) {
-            // Cancel the notification that opened this activity (if opened from a notification).
-            val notificationId = MainActivityIntent.getNotificationId(intent)
-            if (notificationId != -1) {
-                val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-                notificationManager.cancel(MainActivityIntent.getNotificationTag(intent), notificationId)
-            }
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            val payload = MainActivityIntent.payload(intent)
 
-            // TODO:
-            // This next line is probably wrong, original code was:
-            //
-            // val accountRequested = pachliAccountId != -1L
-            // if (accountRequested && pachliAccountId != activeAccount.id) {
-            //     accountManager.setActiveAccount(pachliAccountId)
-            // }
-            val accountSwitchRequested = intent.pachliAccountId != -1L
-
-            val openDrafts = MainActivityIntent.getOpenDrafts(intent)
-
-            // Sharing to Pachli from an external app, or this is a request from PachliTileService.
-            if (canHandleMimeType(intent.type) || MainActivityIntent.hasComposeOptions(intent)) {
-                if (accountSwitchRequested) {
-                    forwardToComposeActivityAndExit(intent)
-                } else {
-                    // No account was provided, show the chooser
+            when (payload) {
+                is Payload.QuickTile -> {
                     showAccountChooserDialog(
                         getString(R.string.action_share_as),
                         true,
                         object : AccountSelectionListener {
                             override fun onAccountSelected(account: AccountEntity) {
                                 val requestedId = account.id
-                                if (requestedId == intent.pachliAccountId) {
-                                    // The correct account is already active
-                                    forwardToComposeActivityAndExit(intent)
-                                } else {
-                                    // A different account was requested, restart the activity,
-                                    // forwarding this intent to the restarted activity.
-                                    changeAccountAndRestart(requestedId, intent)
-                                }
+                                launchComposeActivityAndExit(requestedId)
                             }
                         },
                     )
                 }
-            } else if (openDrafts) {
-                val intent = DraftsActivityIntent(this, intent.pachliAccountId)
-                startActivity(intent)
-            } else if (accountSwitchRequested && MainActivityIntent.hasNotificationType(intent)) {
-                // user clicked a notification, show follow requests for type FOLLOW_REQUEST,
-                // otherwise show notification tab
-                if (MainActivityIntent.getNotificationType(intent) == Notification.Type.FOLLOW_REQUEST) {
-                    val intent = AccountListActivityIntent(this, intent.pachliAccountId, AccountListActivityIntent.Kind.FOLLOW_REQUESTS)
-                    startActivityWithDefaultTransition(intent)
-                } else {
-                    showNotificationTab = true
+
+                is Payload.NotificationCompose -> {
+                    notificationManager.cancel(payload.notificationTag, payload.notificationId)
+                    launchComposeActivityAndExit(
+                        intent.pachliAccountId,
+                        payload.composeOptions,
+                    )
+                }
+
+                is Payload.Notification -> {
+                    notificationManager.cancel(payload.notificationTag, payload.notificationId)
+                    viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
+                    when (payload.notificationType) {
+                        Notification.Type.FOLLOW_REQUEST -> {
+                            val intent = AccountListActivityIntent(this, intent.pachliAccountId, AccountListActivityIntent.Kind.FOLLOW_REQUESTS)
+                            startActivityWithDefaultTransition(intent)
+                        }
+
+                        else -> {
+                            showNotificationTab = true
+                        }
+                    }
+                }
+
+                Payload.OpenDrafts -> {
+                    viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
+                    startActivity(DraftsActivityIntent(this, intent.pachliAccountId))
+                }
+
+                // Handled in [onPostCreate].
+                is Payload.Redirect -> {}
+
+                is Payload.Shortcut -> {
+                    startActivity(
+                        MainActivityIntent(this, intent.pachliAccountId).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        },
+                    )
+                    finish()
+                }
+
+                null -> {
+                    // If the intent contains data to share choose the account to share from
+                    // and start the composer.
+                    if (canHandleMimeType(intent.type)) {
+                        // Determine the account to use.
+                        showAccountChooserDialog(
+                            getString(R.string.action_share_as),
+                            true,
+                            object : AccountSelectionListener {
+                                override fun onAccountSelected(account: AccountEntity) {
+                                    val requestedId = account.id
+                                    forwardToComposeActivityAndExit(requestedId, intent)
+                                }
+                            },
+                        )
+                    }
                 }
             }
         }
+
+        viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
+
         window.statusBarColor = Color.TRANSPARENT // don't draw a status bar, the DrawerLayout and the MaterialDrawerLayout have their own
         setContentView(binding.root)
 
@@ -367,7 +391,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // One-off setup independent of the UI state.
                 val initialAccount = viewModel.pachliAccountFlow.filterNotNull().first()
                 createNotificationChannelsForAccount(initialAccount.entity, this@MainActivity)
@@ -382,7 +406,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         bindMainDrawerSearch(this@MainActivity, initialAccount.id, uiState.hideTopToolbar)
                         bindMainDrawerProfileHeader(uiState)
                         bindMainDrawerScheduledPosts(this@MainActivity, initialAccount.id, uiState.canSchedulePost)
-                        updateShortCuts(uiState.accounts)
+                    }
+                }
+
+                launch {
+                    viewModel.uiState.distinctUntilChangedBy { it.accounts }.collect {
+                        updateShortCuts(it.accounts)
                     }
                 }
 
@@ -447,8 +476,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // "Post failed" dialog should display in this activity
         draftsAlert.observeInContext(this, true)
-
-        viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
     }
 
     /**
@@ -463,7 +490,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // - from share shortcuts as String 'android.intent.extra.shortcut.ID'
         // Extract the accountId from PACHLI_ACCOUNT_ID, falling back to the share shortcut.
         var pachliAccountId = intent.pachliAccountId
-        if (pachliAccountId == -1L) {
+        if (pachliAccountId == PACHLI_ACCOUNT_ID_ACTIVE) {
             val accountIdString = intent.getStringExtra(ShortcutManagerCompat.EXTRA_SHORTCUT_ID)
             if (accountIdString != null) {
                 pachliAccountId = accountIdString.toLong()
@@ -569,33 +596,31 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     public override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
 
-        if (intent != null) {
-            val redirectUrl = MainActivityIntent.getRedirectUrl(intent)
-            if (redirectUrl != null) {
-                viewUrl(intent.pachliAccountId, redirectUrl, PostLookupFallbackBehavior.DISPLAY_ERROR)
-            }
+        val payload = MainActivityIntent.payload(intent)
+        if (payload is Payload.Redirect) {
+            viewUrl(intent.pachliAccountId, payload.url, PostLookupFallbackBehavior.DISPLAY_ERROR)
         }
     }
 
-    private fun forwardToComposeActivityAndExit(intent: Intent) {
-        val composeOptions = ComposeActivityIntent.getOptions(intent)
-
-        val composeIntent = if (composeOptions != null) {
-            ComposeActivityIntent(this, intent.pachliAccountId, composeOptions)
-        } else {
-            ComposeActivityIntent(this, intent.pachliAccountId).apply {
-                action = intent.action
-                type = intent.type
-                putExtras(intent)
+    private fun launchComposeActivityAndExit(pachliAccountId: Long, composeOptions: ComposeActivityIntent.ComposeOptions? = null) {
+        startActivity(
+            ComposeActivityIntent(this, pachliAccountId, composeOptions).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-        }
-        startActivity(composeIntent)
+            },
+        )
+        finish()
+    }
 
-        // Recreate the activity to ensure it is using the correct active account
-        // (which may have changed while processing the compose intent) and so
-        // the user returns to the timeline when they finish ComposeActivity.
-        recreate()
+    private fun forwardToComposeActivityAndExit(pachliAccountId: Long, intent: Intent, composeOptions: ComposeActivityIntent.ComposeOptions? = null) {
+        val composeIntent = ComposeActivityIntent(this, pachliAccountId, composeOptions).apply {
+            action = intent.action
+            type = intent.type
+            putExtras(intent)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        composeIntent.pachliAccountId = pachliAccountId
+        startActivity(composeIntent)
+        finish()
     }
 
     /** Act on the result of UI actions. */
@@ -1289,7 +1314,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
      * Relaunches MainActivity, switched to the account identified by [accountId].
      */
     private fun changeAccountAndRestart(accountId: Long, forward: Intent? = null) {
-        Timber.d("changeAccount: new account ID: %s", accountId)
         cacheUpdater.stop()
         val intent = MainActivityIntent(this, accountId)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -1298,6 +1322,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             intent.action = forward.action
             intent.putExtras(forward)
         }
+        intent.pachliAccountId = accountId
         startActivityWithTransition(intent, TransitionKind.EXPLODE)
         finish()
     }

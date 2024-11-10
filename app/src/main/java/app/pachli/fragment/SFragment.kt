@@ -183,7 +183,6 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         ).apply { remove(loggedInUsername) }
 
         val composeOptions = ComposeOptions(
-            pachliAccountId = pachliAccountId,
             inReplyToId = status.actionableId,
             replyVisibility = actionableStatus.visibility,
             contentWarning = actionableStatus.spoilerText,
@@ -479,7 +478,6 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                                 deletedStatus
                             }
                             val composeOptions = ComposeOptions(
-                                pachliAccountId = pachliAccountId,
                                 content = sourceStatus.text,
                                 inReplyToId = sourceStatus.inReplyToId,
                                 visibility = sourceStatus.visibility,
@@ -510,7 +508,6 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             mastodonApi.statusSource(id).fold(
                 { source ->
                     val composeOptions = ComposeOptions(
-                        pachliAccountId = pachliAccountId,
                         content = source.text,
                         inReplyToId = status.inReplyToId,
                         visibility = status.visibility,

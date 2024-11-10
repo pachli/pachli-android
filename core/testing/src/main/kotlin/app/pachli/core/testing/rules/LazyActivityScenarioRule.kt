@@ -51,7 +51,9 @@ class LazyActivityScenarioRule<A : Activity> : ExternalResource {
 
     private var scenarioSupplier: () -> ActivityScenario<A>
 
-    private var scenario: ActivityScenario<A>? = null
+    private var _scenario: ActivityScenario<A>? = null
+
+    val scenario get() = checkNotNull(_scenario)
 
     private var scenarioLaunched: Boolean = false
 
@@ -62,18 +64,16 @@ class LazyActivityScenarioRule<A : Activity> : ExternalResource {
     }
 
     override fun after() {
-        scenario?.close()
+        _scenario?.close()
     }
 
     fun launch(newIntent: Intent? = null) {
         if (scenarioLaunched) throw IllegalStateException("Scenario has already been launched!")
 
         newIntent?.let { scenarioSupplier = { ActivityScenario.launch(it) } }
-        scenario = scenarioSupplier()
+        _scenario = scenarioSupplier()
         scenarioLaunched = true
     }
-
-    fun getScenario(): ActivityScenario<A> = checkNotNull(scenario)
 }
 
 inline fun <reified A : Activity> lazyActivityScenarioRule(launchActivity: Boolean = true, noinline intentSupplier: () -> Intent): LazyActivityScenarioRule<A> =

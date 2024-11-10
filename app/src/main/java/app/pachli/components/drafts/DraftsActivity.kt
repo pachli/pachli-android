@@ -109,7 +109,6 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                 .fold(
                     { status ->
                         val composeOptions = ComposeOptions(
-                            pachliAccountId = intent.pachliAccountId,
                             draftId = draft.id,
                             content = draft.content,
                             contentWarning = draft.contentWarning,
@@ -151,7 +150,6 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
 
     private fun openDraftWithoutReply(draft: DraftEntity) {
         val composeOptions = ComposeOptions(
-            pachliAccountId = intent.pachliAccountId,
             draftId = draft.id,
             content = draft.content,
             contentWarning = draft.contentWarning,

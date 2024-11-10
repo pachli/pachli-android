@@ -128,6 +128,10 @@ data class AccountEntity(
         get() = id.toString()
 
     fun isLoggedIn() = accessToken.isNotEmpty()
+
+    /** Value of the "Authorization" header for this account ("Bearer $accessToken"). */
+    val authHeader: String
+        get() = "Bearer $accessToken"
 }
 
 fun defaultTabs() = listOf(

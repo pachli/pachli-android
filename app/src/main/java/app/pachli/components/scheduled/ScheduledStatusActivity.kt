@@ -158,7 +158,6 @@ class ScheduledStatusActivity :
             this,
             intent.pachliAccountId,
             ComposeOptions(
-                pachliAccountId = intent.pachliAccountId,
                 scheduledTootId = item.id,
                 content = item.params.text,
                 contentWarning = item.params.spoilerText,

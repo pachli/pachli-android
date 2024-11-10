@@ -268,7 +268,7 @@ suspend fun registerUnifiedPushEndpoint(
     val auth = CryptoUtil.secureRandomBytesEncoded(16)
 
     api.subscribePushNotifications(
-        "Bearer ${account.accessToken}",
+        account.authHeader,
         account.domain,
         endpoint,
         keyPair.pubkey,

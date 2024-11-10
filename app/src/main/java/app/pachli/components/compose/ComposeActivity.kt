@@ -133,7 +133,6 @@ import javax.inject.Inject
 import kotlin.math.max
 import kotlin.math.min
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -167,7 +166,10 @@ class ComposeActivity :
     val viewModel: ComposeViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<ComposeViewModel.Factory> { factory ->
-                factory.create(intent.pachliAccountId)
+                factory.create(
+                    intent.pachliAccountId,
+                    ComposeActivityIntent.getComposeOptions(intent),
+                )
             }
         },
     )
@@ -250,7 +252,6 @@ class ComposeActivity :
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Timber.d("intent: %s", intent.pachliAccountId)
         if (sharedPreferencesRepository.appTheme == AppTheme.BLACK) {
             setTheme(DR.style.AppDialogActivityBlackTheme)
         }
@@ -258,7 +259,7 @@ class ComposeActivity :
 
         setupActionBar()
 
-        val composeOptions: ComposeOptions? = ComposeActivityIntent.getOptions(intent)
+        val composeOptions: ComposeOptions? = ComposeActivityIntent.getComposeOptions(intent)
 
         val mediaAdapter = MediaPreviewAdapter(
             this,
@@ -277,7 +278,7 @@ class ComposeActivity :
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.accountFlow.collectLatest { account ->
+                viewModel.accountFlow.collect { account ->
                     setupAvatar(account.entity)
 
                     if (viewModel.displaySelfUsername) {
@@ -290,57 +291,56 @@ class ComposeActivity :
                         binding.composeUsernameView.hide()
                     }
 
+                    viewModel.setup(account)
+
                     setupLanguageSpinner(getInitialLanguages(composeOptions?.language, account.entity))
 
                     setupButtons(account.id)
-                    /* If the composer is started up as a reply to another post, override the "starting" state
-                     * based on what the intent from the reply request passes. */
-                    viewModel.setup(account, composeOptions)
+
+                    setupComposeField(sharedPreferencesRepository, viewModel.initialContent, composeOptions)
 
                     subscribeToUpdates(mediaAdapter)
+
+                    binding.composeMediaPreviewBar.layoutManager =
+                        LinearLayoutManager(this@ComposeActivity, LinearLayoutManager.HORIZONTAL, false)
+                    binding.composeMediaPreviewBar.adapter = mediaAdapter
+                    binding.composeMediaPreviewBar.itemAnimator = null
+
+                    setupReplyViews(viewModel.replyingStatusAuthor, viewModel.replyingStatusContent)
+                    if (viewModel.initialContent.isNotEmpty()) {
+                        binding.composeEditField.setText(viewModel.initialContent)
+                    }
+
+                    composeOptions?.scheduledAt?.let {
+                        binding.composeScheduleView.setDateTime(it)
+                    }
+
+                    setupContentWarningField(composeOptions?.contentWarning)
+                    setupPollView()
+                    applyShareIntent(intent, savedInstanceState)
+
+                    /* Finally, overwrite state with data from saved instance state. */
+                    savedInstanceState?.let {
+                        photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
+
+                        (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
+                            setStatusVisibility(this)
+                        }
+
+                        it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
+                            viewModel.showContentWarningChanged(this)
+                        }
+
+                        (it.getSerializable(KEY_SCHEDULED_TIME) as? Date)?.let { time ->
+                            viewModel.updateScheduledAt(time)
+                        }
+                    }
+
+                    binding.composeEditField.post {
+                        binding.composeEditField.requestFocus()
+                    }
                 }
             }
-        }
-
-        binding.composeMediaPreviewBar.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.composeMediaPreviewBar.adapter = mediaAdapter
-        binding.composeMediaPreviewBar.itemAnimator = null
-
-        setupReplyViews(composeOptions?.replyingStatusAuthor, composeOptions?.replyingStatusContent)
-        val statusContent = composeOptions?.content
-        if (!statusContent.isNullOrEmpty()) {
-            binding.composeEditField.setText(statusContent)
-        }
-
-        composeOptions?.scheduledAt?.let {
-            binding.composeScheduleView.setDateTime(it)
-        }
-
-        setupComposeField(sharedPreferencesRepository, viewModel.initialContent, composeOptions)
-        setupContentWarningField(composeOptions?.contentWarning)
-        setupPollView()
-        applyShareIntent(intent, savedInstanceState)
-
-        /* Finally, overwrite state with data from saved instance state. */
-        savedInstanceState?.let {
-            photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
-
-            (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
-                setStatusVisibility(this)
-            }
-
-            it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
-                viewModel.showContentWarningChanged(this)
-            }
-
-            (it.getSerializable(KEY_SCHEDULED_TIME) as? Date)?.let { time ->
-                viewModel.updateScheduledAt(time)
-            }
-        }
-
-        binding.composeEditField.post {
-            binding.composeEditField.requestFocus()
         }
     }
 
@@ -389,8 +389,8 @@ class ComposeActivity :
 
     private fun setupReplyViews(replyingStatusAuthor: String?, replyingStatusContent: String?) {
         if (replyingStatusAuthor != null) {
-            binding.composeReplyView.show()
             binding.composeReplyView.text = getString(R.string.replying_to, replyingStatusAuthor)
+            binding.composeReplyView.show()
             val arrowDownIcon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_drop_down).apply { sizeDp = 12 }
 
             setDrawableTint(this, arrowDownIcon, android.R.attr.textColorTertiary)
@@ -1217,7 +1217,16 @@ class ComposeActivity :
         }
     }
 
+    /**
+     * Shows/hides the content warning area depending on [show].
+     *
+     * Adjusts the colours of the content warning button to reflect the state.
+     */
     private fun showContentWarning(show: Boolean) {
+        // Skip any animations if the current visibility matches the intended visibility. This
+        // prevents a visual oddity where the compose editor animates in to view when first
+        // opening the activity.
+        if (binding.composeContentWarningBar.isVisible == show) return
         TransitionManager.beginDelayedTransition(binding.composeContentWarningBar.parent as ViewGroup)
         @ColorInt val color = if (show) {
             binding.composeContentWarningBar.show()
@@ -1399,6 +1408,7 @@ class ComposeActivity :
 
     /** Media queued for upload. */
     data class QueuedMedia(
+        val account: AccountEntity,
         val localId: Int,
         val uri: Uri,
         val type: Type,

@@ -186,7 +186,6 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             requireContext(),
             pachliAccountId,
             ComposeOptions(
-                pachliAccountId = pachliAccountId,
                 inReplyToId = status.actionableId,
                 replyVisibility = actionableStatus.visibility,
                 contentWarning = actionableStatus.spoilerText,
@@ -436,7 +435,6 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                                     requireContext(),
                                     pachliAccountId,
                                     ComposeOptions(
-                                        pachliAccountId = pachliAccountId,
                                         content = redraftStatus.text.orEmpty(),
                                         inReplyToId = redraftStatus.inReplyToId,
                                         visibility = redraftStatus.visibility,
@@ -467,7 +465,6 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             mastodonApi.statusSource(id).fold(
                 { source ->
                     val composeOptions = ComposeOptions(
-                        pachliAccountId = pachliAccountId,
                         content = source.text,
                         inReplyToId = status.inReplyToId,
                         visibility = status.visibility,

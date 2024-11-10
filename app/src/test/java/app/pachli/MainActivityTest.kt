@@ -152,7 +152,7 @@ class MainActivityTest {
             Notification.Type.FOLLOW,
         )
         rule.launch(intent)
-        rule.getScenario().onActivity {
+        rule.scenario.onActivity {
             val currentTab = it.findViewById<ViewPager2>(R.id.viewPager).currentItem
             val notificationTab = defaultTabs().indexOfFirst { it is Timeline.Notifications }
             assertEquals(currentTab, notificationTab)
@@ -169,7 +169,7 @@ class MainActivityTest {
         )
 
         rule.launch(intent)
-        rule.getScenario().onActivity {
+        rule.scenario.onActivity {
             val nextActivity = shadowOf(it).peekNextStartedActivity()
             assertNotNull(nextActivity)
             assertEquals(
