@@ -87,6 +87,7 @@ import java.util.TimeZone
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
         AutoMigration(from = 5, to = 6),
+        AutoMigration(from = 6, to = 7, spec = AppDatabase.MIGRATE_6_7::class),
         AutoMigration(from = 7, to = 8, spec = AppDatabase.MIGRATE_7_8::class),
         AutoMigration(from = 8, to = 9, spec = AppDatabase.MIGRATE_8_9::class),
     ],
