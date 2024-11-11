@@ -59,9 +59,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import app.pachli.BuildConfig
@@ -278,68 +276,67 @@ class ComposeActivity :
         )
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.accountFlow.distinctUntilChanged().collect { account ->
-                    setupAvatar(account.entity)
+            viewModel.accountFlow.distinctUntilChanged().collect { account ->
+                setupAvatar(account.entity)
 
-                    if (viewModel.displaySelfUsername) {
-                        binding.composeUsernameView.text = getString(
-                            R.string.compose_active_account_description,
-                            account.entity.fullName,
-                        )
-                        binding.composeUsernameView.show()
-                    } else {
-                        binding.composeUsernameView.hide()
-                    }
+                if (viewModel.displaySelfUsername) {
+                    binding.composeUsernameView.text = getString(
+                        R.string.compose_active_account_description,
+                        account.entity.fullName,
+                    )
+                    binding.composeUsernameView.show()
+                } else {
+                    binding.composeUsernameView.hide()
+                }
 
-                    viewModel.setup(account)
+                viewModel.setup(account)
 
-                    setupLanguageSpinner(getInitialLanguages(composeOptions?.language, account.entity))
+                setupLanguageSpinner(getInitialLanguages(composeOptions?.language, account.entity))
 
-                    setupButtons(account.id)
+                setupButtons(account.id)
 
+                if (savedInstanceState != null) {
+                    setupComposeField(sharedPreferencesRepository, null, composeOptions)
+                } else {
                     setupComposeField(sharedPreferencesRepository, viewModel.initialContent, composeOptions)
+                }
 
-                    subscribeToUpdates(mediaAdapter)
+                subscribeToUpdates(mediaAdapter)
 
-                    binding.composeMediaPreviewBar.layoutManager =
-                        LinearLayoutManager(this@ComposeActivity, LinearLayoutManager.HORIZONTAL, false)
-                    binding.composeMediaPreviewBar.adapter = mediaAdapter
-                    binding.composeMediaPreviewBar.itemAnimator = null
+                binding.composeMediaPreviewBar.layoutManager =
+                    LinearLayoutManager(this@ComposeActivity, LinearLayoutManager.HORIZONTAL, false)
+                binding.composeMediaPreviewBar.adapter = mediaAdapter
+                binding.composeMediaPreviewBar.itemAnimator = null
 
-                    setupReplyViews(viewModel.replyingStatusAuthor, viewModel.replyingStatusContent)
-                    if (viewModel.initialContent.isNotEmpty()) {
-                        binding.composeEditField.setText(viewModel.initialContent)
+                setupReplyViews(viewModel.replyingStatusAuthor, viewModel.replyingStatusContent)
+
+                composeOptions?.scheduledAt?.let {
+                    binding.composeScheduleView.setDateTime(it)
+                }
+
+                setupContentWarningField(composeOptions?.contentWarning)
+                setupPollView()
+                applyShareIntent(intent, savedInstanceState)
+
+                /* Finally, overwrite state with data from saved instance state. */
+                savedInstanceState?.let {
+                    photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
+
+                    (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
+                        setStatusVisibility(this)
                     }
 
-                    composeOptions?.scheduledAt?.let {
-                        binding.composeScheduleView.setDateTime(it)
+                    it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
+                        viewModel.showContentWarningChanged(this)
                     }
 
-                    setupContentWarningField(composeOptions?.contentWarning)
-                    setupPollView()
-                    applyShareIntent(intent, savedInstanceState)
-
-                    /* Finally, overwrite state with data from saved instance state. */
-                    savedInstanceState?.let {
-                        photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
-
-                        (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
-                            setStatusVisibility(this)
-                        }
-
-                        it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
-                            viewModel.showContentWarningChanged(this)
-                        }
-
-                        (it.getSerializable(KEY_SCHEDULED_TIME) as? Date)?.let { time ->
-                            viewModel.updateScheduledAt(time)
-                        }
+                    (it.getSerializable(KEY_SCHEDULED_TIME) as? Date)?.let { time ->
+                        viewModel.updateScheduledAt(time)
                     }
+                }
 
-                    binding.composeEditField.post {
-                        binding.composeEditField.requestFocus()
-                    }
+                binding.composeEditField.post {
+                    binding.composeEditField.requestFocus()
                 }
             }
         }
@@ -450,9 +447,9 @@ class ComposeActivity :
             viewModel.onContentChanged(editable)
         }
 
-        binding.composeEditField.setText(startingText)
+        startingText?.let {
+            binding.composeEditField.setText(it)
 
-        binding.composeEditField.post {
             when (composeOptions?.initialCursorPosition ?: InitialCursorPosition.END) {
                 InitialCursorPosition.START -> binding.composeEditField.setSelection(0)
                 InitialCursorPosition.END -> binding.composeEditField.setSelection(
