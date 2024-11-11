@@ -28,41 +28,38 @@ class LogoutUseCase @Inject constructor(
     private val draftHelper: DraftHelper,
 ) {
     /**
-     * Logs the current account out and clears all caches associated with it
+     * Logs the current account out and clears all caches associated with it. The next
+     * account is automatically made active.
      *
-     * @return [Result] of the [AccountEntity] that should be logged in next, null if there are no
+     * @return [Result] of the [AccountEntity] that is now active, null if there are no
      * other accounts to log in to. Or the error that occurred during logout.
      */
-    suspend operator fun invoke(): Result<AccountEntity?, LogoutError> {
-        val activeAccount = accountManager.activeAccount ?: return Err(LogoutError.NoActiveAccount)
-
-        // disable push notifications
-        disablePushNotificationsForAccount(context, api, accountManager, activeAccount)
+    suspend operator fun invoke(account: AccountEntity): Result<AccountEntity?, LogoutError> {
+        disablePushNotificationsForAccount(context, api, accountManager, account)
 
         api.revokeOAuthToken(
-            clientId = activeAccount.clientId,
-            clientSecret = activeAccount.clientSecret,
-            token = activeAccount.accessToken,
+            clientId = account.clientId,
+            clientSecret = account.clientSecret,
+            token = account.accessToken,
         )
             .onFailure { return Err(LogoutError.Api(it)) }
 
         // clear notification channels
-        deleteNotificationChannelsForAccount(activeAccount, context)
+        deleteNotificationChannelsForAccount(account, context)
 
-        // remove account from local AccountManager
         val nextAccount = accountManager.logActiveAccountOut()
             .onFailure { return Err(it) }
 
         // Clear the database.
         // TODO: This should be handled with foreign key constraints.
-        timelineDao.removeAll(activeAccount.id)
-        timelineDao.removeAllStatusViewData(activeAccount.id)
-        remoteKeyDao.delete(activeAccount.id)
-        conversationsDao.deleteForAccount(activeAccount.id)
-        draftHelper.deleteAllDraftsAndAttachmentsForAccount(activeAccount.id)
+        timelineDao.removeAll(account.id)
+        timelineDao.removeAllStatusViewData(account.id)
+        remoteKeyDao.delete(account.id)
+        conversationsDao.deleteForAccount(account.id)
+        draftHelper.deleteAllDraftsAndAttachmentsForAccount(account.id)
 
         // remove shortcut associated with the account
-        ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(activeAccount.id.toString()))
+        ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(account.id.toString()))
 
         return nextAccount
     }

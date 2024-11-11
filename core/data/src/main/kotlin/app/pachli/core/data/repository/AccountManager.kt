@@ -148,7 +148,10 @@ sealed interface LogoutError : PachliError {
 
     /** An API call failed during the logout process. */
     @JvmInline
-    value class Api(val apiError: ApiError) : LogoutError, PachliError by apiError
+    value class Api(private val apiError: ApiError) : LogoutError, PachliError by apiError
+
+    @JvmInline
+    value class SetActiveAccount(private val error: SetActiveAccountError) : LogoutError, PachliError by error
 }
 
 @Singleton
@@ -306,9 +309,11 @@ class AccountManager @Inject constructor(
     }
 
     /**
-     * Logs out the active account by deleting all data of the account.
+     * Logs out the active account by deleting all data of the account, sets the
+     * next active account, and returns the active account.
      *
-     * @return The next account to make active, or null if there are no more accounts.
+     * @return The new active account, or null if there are no more accounts (the
+     * user logged out of the last account).
      */
     suspend fun logActiveAccountOut(): Result<AccountEntity?, LogoutError> {
         return transactionProvider {
@@ -321,8 +326,14 @@ class AccountManager @Inject constructor(
             accountDao.delete(activeAccount)
 
             val accounts = accountDao.loadAll()
-            val newActiveAccount = accounts.firstOrNull()?.copy(isActive = true) ?: return@transactionProvider Ok(null)
-            return@transactionProvider Ok(newActiveAccount)
+
+            val newActiveAccount = accounts.firstOrNull() ?: return@transactionProvider Ok(null)
+
+            // Have to set the active account here. If you don't there's a brief
+            // period where there's no active account, and BaseActivity.redirectIfNotLoggedIn
+            // sends the user to the log in screen.
+            return@transactionProvider setActiveAccount(newActiveAccount.id)
+                .mapError { LogoutError.SetActiveAccount(it) }
         }
     }
 

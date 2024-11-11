@@ -267,9 +267,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // check for savedInstanceState in order to not handle intent events more than once
         if (intent != null && savedInstanceState == null) {
             val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            val payload = MainActivityIntent.payload(intent)
-
-            when (payload) {
+            when (val payload = MainActivityIntent.payload(intent)) {
                 is Payload.QuickTile -> {
                     showAccountChooserDialog(
                         getString(R.string.action_share_as),
@@ -1319,7 +1317,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 binding.progressBar.show()
                 binding.bottomNav.hide()
                 binding.composeButton.hide()
-                val nextAccount = logout.invoke().get()
+                val nextAccount = logout.invoke(pachliAccount.entity).get()
                 val intent = nextAccount?.let { MainActivityIntent(this@MainActivity, it.id) }
                     ?: LoginActivityIntent(this@MainActivity, LoginMode.Default)
                 startActivity(intent)
