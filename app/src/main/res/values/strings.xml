@@ -852,7 +852,6 @@
     <string name="upload_failed_msg_fmt">The upload will be retried when you send the post. If it fails again the post will be saved in your drafts.\n\nThe error was: %1$s</string>
     <string name="upload_failed_modify_attachment">Modify attachment</string>
     <string name="main_viewmodel_error_set_active_account">Trying to log in failed with the following error:\n\n%1$s</string>
-    <string name="main_activity_error_set_active_account_does_not_exist_dialog_title">Cannot log in to account</string>
     <string name="main_viewmodel_error_refresh_account">Refreshing account failed with the following error:\n\n%1$s\n\nYou can continue, but your lists and filters may be incomplete.</string>
     <string name="action_relogin">Re-login</string>
 </resources>

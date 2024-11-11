@@ -1575,17 +1575,6 @@
     </issue>
 
     <issue
-        id="UnusedResources"
-        message="The resource `R.string.main_activity_error_set_active_account_does_not_exist_dialog_title` appears to be unused"
-        errorLine1="    &lt;string name=&quot;main_activity_error_set_active_account_does_not_exist_dialog_title&quot;>Cannot log in to account&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="855"
-            column="13"/>
-    </issue>
-
-    <issue
         id="ConvertToWebp"
         message="One or more images in this project can be converted to the WebP format which typically results in smaller file sizes, even for lossless conversion">
         <location
