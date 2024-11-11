@@ -134,6 +134,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -278,7 +279,7 @@ class ComposeActivity :
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.accountFlow.collect { account ->
+                viewModel.accountFlow.distinctUntilChanged().collect { account ->
                     setupAvatar(account.entity)
 
                     if (viewModel.displaySelfUsername) {
@@ -451,11 +452,13 @@ class ComposeActivity :
 
         binding.composeEditField.setText(startingText)
 
-        when (composeOptions?.initialCursorPosition ?: InitialCursorPosition.END) {
-            InitialCursorPosition.START -> binding.composeEditField.setSelection(0)
-            InitialCursorPosition.END -> binding.composeEditField.setSelection(
-                binding.composeEditField.length(),
-            )
+        binding.composeEditField.post {
+            when (composeOptions?.initialCursorPosition ?: InitialCursorPosition.END) {
+                InitialCursorPosition.START -> binding.composeEditField.setSelection(0)
+                InitialCursorPosition.END -> binding.composeEditField.setSelection(
+                    binding.composeEditField.length(),
+                )
+            }
         }
 
         // work around Android platform bug -> https://issuetracker.google.com/issues/67102093
