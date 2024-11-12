@@ -2,13 +2,5 @@
 <resources>
     <string name="acra_dialog_title">Informe do erro %1$s</string>
     <string name="acra_dialog_text">Preme en OK para escribir un correo cos detalles ás desenvolvedoras</string>
-    <string name="acra_email_body">"Estes son os datos que se enviarán.
-\n
-\n Comproba que non inclúe nada que non queiras compartir, e por favor describe o que estabas a facer cando xurdiu o problema.
-\n
-\n  ----
-\n Describe aquí o problema:
-\n
-\n ----
-\n"</string>
+    <string name="acra_email_body">"Estes son os datos que se enviarán.\n\n\n\n Comproba que non inclúe nada que non queiras compartir, e por favor describe o que estabas a facer cando xurdiu o problema.\n\n\n\n  ----\n\n Describe aquí o problema:\n\n\n\n ----\n\n"</string>
 </resources>
