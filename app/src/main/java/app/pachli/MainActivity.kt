@@ -279,6 +279,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                             }
                         },
                     )
+                    return
                 }
 
                 is Payload.NotificationCompose -> {
@@ -287,6 +288,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                         intent.pachliAccountId,
                         payload.composeOptions,
                     )
+                    return
                 }
 
                 is Payload.Notification -> {
@@ -313,12 +315,14 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 is Payload.Redirect -> {}
 
                 is Payload.Shortcut -> {
-                    startActivity(
-                        MainActivityIntent(this, intent.pachliAccountId).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        },
-                    )
-                    finish()
+                    launchComposeActivityAndExit(intent.pachliAccountId)
+                    // Alternate behaviour -- switch to this account instead.
+//                    startActivity(
+//                        MainActivityIntent(this, intent.pachliAccountId).apply {
+//                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                        },
+//                    )
+                    return
                 }
 
                 null -> {
