@@ -171,7 +171,6 @@ class NotificationFetcher @Inject constructor(
         val readingPosition = account.lastNotificationId
 
         var minId: String? = if (readingPosition.isLessThan(markerId)) markerId else readingPosition
-//        minId = "334508523"
         Timber.d("  remoteMarkerId: %s", remoteMarkerId)
         Timber.d("  localMarkerId: %s", localMarkerId)
         Timber.d("  readingPosition: %s", readingPosition)

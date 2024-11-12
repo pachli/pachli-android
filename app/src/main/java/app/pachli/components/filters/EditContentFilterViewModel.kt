@@ -203,6 +203,7 @@ enum class UiMode {
  * If both [contentFilter] and [contentFilterId] are null an empty [ContentFilterViewData]
  * is initialised, and [uiMode] is [UiMode.CREATE].
  *
+ * @param contentFiltersRepository
  * @param pachliAccountId ID of the account owning the filters
  * @param contentFilter Filter to show
  * @param contentFilterId ID of filter to fetch and show
