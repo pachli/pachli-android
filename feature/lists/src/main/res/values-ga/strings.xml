@@ -16,7 +16,7 @@
     <string name="replies_policy_name_followed">Aon úsáideoir ina dhiaidh sin</string>
     <string name="replies_policy_name_list">Baill an liosta</string>
     <string name="replies_policy_name_none">Duine ar bith</string>
-    <string name="dialog_delete_list_warning">An bhfuil tú cinnte gur mhaith leat an liosta %s a scriosadh?</string>
+    <string name="dialog_delete_list_warning">An bhfuil fonn ort an liosta \\\"%s\\\" a scriosadh?</string>
     <string name="failed_to_add_to_list">Theip ar an gcuntas a chur leis an liosta</string>
     <string name="no_lists">Níl aon liostaí agat.</string>
     <string name="action_add_or_remove_from_list">Cuir leis nó bain den liosta</string>
