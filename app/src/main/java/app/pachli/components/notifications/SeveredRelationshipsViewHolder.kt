@@ -48,10 +48,16 @@ class SeveredRelationshipsViewHolder(
 
             binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.time, System.currentTimeMillis())
 
-            binding.notificationSummary.text = itemView.context.resources.getQuantityString(
-                R.plurals.notification_severed_relationships_summary_report_fmt,
-                event.relationshipsCount,
-                event.relationshipsCount,
+            binding.notificationFollowersCount.text = itemView.context.resources.getQuantityString(
+                R.plurals.notification_severed_relationships_summary_followers_fmt,
+                event.followersCount,
+                event.followersCount,
+            )
+
+            binding.notificationFollowingCount.text = itemView.context.resources.getQuantityString(
+                R.plurals.notification_severed_relationships_summary_following_fmt,
+                event.followingCount,
+                event.followingCount,
             )
 
             val resourceId = when (event.type) {

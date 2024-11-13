@@ -31,6 +31,7 @@ data class Notification(
     val account: TimelineAccount,
     val status: Status?,
     val report: Report?,
+    @Json(name = "event")
     val relationshipSeveranceEvent: RelationshipSeveranceEvent? = null,
 ) {
 

@@ -625,11 +625,6 @@
     <string name="notification_severed_relationships_account_suspension_body">Un moderador suspendió la cuenta</string>
     <string name="notification_severed_relationships_unknown_body">Motivo desconocido</string>
     <string name="notification_severed_relationships_format">Se rompió la relación con <b>%1$s</b></string>
-    <plurals name="notification_severed_relationships_summary_report_fmt">
-        <item quantity="one">Se rompió %1$d relación</item>
-        <item quantity="many">Se rompieron %1$d relaciones</item>
-        <item quantity="other">Se rompieron %1$d relaciones</item>
-    </plurals>
     <string name="notification_severed_relationships_name">Relaciones rotas</string>
     <string name="notification_severed_relationships_description">Notificaciones de relaciones rotas</string>
     <string name="poll_show_votes">Mostrar votos</string>
