@@ -9,6 +9,6 @@
     <string name="node_info_error_no_software_version">programvareversjon mangler eller er tom</string>
     <string name="node_info_error_no_software_name">programvarenavn mangler eller er tomt</string>
     <string name="server_error_unparseable_version">kunne ikke tolke «%1$s» som en versjon: %2$s</string>
-    <string name="error_generic_fmt">En feil oppsto: %s</string>
-    <string name="error_404_not_found_fmt">Serveren din støtter ikke denne funksjonen: %1$s</string>
+    <string name="error_generic_fmt">%1$s</string>
+    <string name="error_404_not_found_fmt">serveren din støtter ikke denne funksjonen: %1$s</string>
 </resources>
