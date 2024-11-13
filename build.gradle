@@ -28,10 +28,12 @@ allprojects {
 subprojects {
     ext.isCI = System.getenv("CI") != null
     if (isCI) {
-        develocity.testRetry {
-            maxRetries = 4
-            maxFailures = 5
-            failOnPassedAfterRetry = false
+        tasks.named("test", Test) {
+            develocity.testRetry {
+                maxRetries = 4
+                maxFailures = 5
+                failOnPassedAfterRetry = false
+            }
         }
     }
 }
