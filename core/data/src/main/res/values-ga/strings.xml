@@ -7,4 +7,7 @@
     <string name="server_repository_error_get_well_known_node_info">Theip ar fháil /.well-known/nodeinfo: %1$s</string>
     <string name="server_repository_error_unsupported_schema">Ní raibh scéimrí intuigthe i /.well-known/nodeinfo</string>
     <string name="error_filter_server_does_not_filter">Ní thacaíonn an freastalaí le scagairí</string>
+    <string name="account_manager_error_no_active_account">níl aon chuntas marcáilte gníomhach</string>
+    <string name="account_manager_error_account_does_not_exist">Níl an cuntas sa bhunachar sonraí áitiúil. Níor cheart go dtarlódh sé seo choíche. Má fheiceann tú an teachtaireacht seo seol tuairisc ar fhabht, le do thoil.</string>
+    <string name="account_manager_error_unexpected">earráid gan choinne: %1$s</string>
 </resources>
