@@ -178,7 +178,7 @@ class ViewThreadViewModelTest {
 
             do {
                 item = awaitItem()
-            } while (item is ThreadUiState.Loading)
+            } while (item !is ThreadUiState.Success)
 
             assertEquals(
                 ThreadUiState.Success(
@@ -219,7 +219,7 @@ class ViewThreadViewModelTest {
 
             do {
                 item = awaitItem()
-            } while (item is ThreadUiState.Loading)
+            } while (item !is ThreadUiState.Success)
 
             assertEquals(
                 ThreadUiState.Success(
@@ -252,7 +252,7 @@ class ViewThreadViewModelTest {
 
             do {
                 item = awaitItem()
-            } while (item is ThreadUiState.Loading)
+            } while (item !is ThreadUiState.Error)
 
             assertEquals(
                 ThreadUiState.Error::class.java,
@@ -279,7 +279,7 @@ class ViewThreadViewModelTest {
 
             do {
                 item = awaitItem()
-            } while (item is ThreadUiState.Loading)
+            } while (item !is ThreadUiState.Error)
 
             assertEquals(
                 ThreadUiState.Error::class.java,
