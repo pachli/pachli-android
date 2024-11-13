@@ -16,4 +16,16 @@
     <string name="pref_show_self_username_never">Aldri</string>
     <string name="pref_tab_contents_icon_only">Bare ikonet</string>
     <string name="pref_tab_contents_text_only">Kun tekst</string>
+    <string name="download_location_per_account">Per-konto mapper i Nedlastinger-mappen</string>
+    <string name="pref_tab_alignment_end">Slutt av tekstretning (høyre)</string>
+    <string name="download_location_per_sender">Per-sender mapper i Nedlastinger-mappen</string>
+    <string name="pref_title_tab_tap">Handling når en fane klikkes</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Hopp til neste side</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Hopp til nyest innhold</string>
+    <string name="pref_title_tab_alignment">Juster hovednavigasjonsfaner</string>
+    <string name="pref_tab_alignment_start">Start av tekstretning (venstre)</string>
+    <string name="pref_tab_alignment_justify_if_possible">Utvid til full bredde</string>
+    <string name="pref_title_tab_contents">Innhold av hovednavigasjonsfaner</string>
+    <string name="pref_tab_contents_icon_text_inline">Ikon med tekst like ved</string>
+    <string name="pref_tab_contents_icon_text_below">Ikon med tekst nedenfor</string>
 </resources>
