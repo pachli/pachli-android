@@ -3,4 +3,5 @@
     <string name="post_lookup_error_format">Det oppstod ein feil under henting av innlegg %s</string>
     <string name="action_open_as">Opn som %s</string>
     <string name="performing_lookup_title">Søkjer…</string>
+    <string name="send_error_report">Send feilrapport</string>
 </resources>
