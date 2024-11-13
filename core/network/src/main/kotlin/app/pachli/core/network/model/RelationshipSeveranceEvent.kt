@@ -41,9 +41,17 @@ data class RelationshipSeveranceEvent(
      */
     @Json(name = "target_name")
     val targetName: String,
-    /** Number of follow relationships (in either direction) that were severed. */
-    @Json(name = "relationships_count")
-    val relationshipsCount: Int = 0,
+
+    // Documentation is wrong: https://github.com/mastodon/documentation/issues/1556
+    /** Number of follower accounts removed. */
+    @Json(name = "followers_count")
+    val followersCount: Int = 0,
+
+    // Documentation is wrong: https://github.com/mastodon/documentation/issues/1556
+    /** Number of followed accounts removed. */
+    @Json(name = "following_count")
+    val followingCount: Int = 0,
+
     /** When the event took place. */
     @Json(name = "created_at")
     val createdAt: Date,

@@ -63,7 +63,7 @@
         tools:ignore="SelectableText" />
 
     <TextView
-        android:id="@+id/notification_summary"
+        android:id="@+id/notification_followers_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -74,7 +74,22 @@
         android:textSize="?attr/status_text_medium"
         app:layout_constraintStart_toStartOf="@+id/notification_top_text"
         app:layout_constraintTop_toBottomOf="@+id/notification_top_text"
-        tools:text="2 relationships"
+        tools:text="2 followers"
+        tools:ignore="SelectableText" />
+
+    <TextView
+        android:id="@+id/notification_following_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hyphenationFrequency="full"
+        android:importantForAccessibility="no"
+        android:lineSpacingMultiplier="1.1"
+        android:textColor="?android:textColorTertiary"
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintStart_toStartOf="@+id/notification_top_text"
+        app:layout_constraintTop_toBottomOf="@+id/notification_followers_count"
+        tools:text="2 following"
         tools:ignore="SelectableText" />
 
     <TextView
@@ -88,8 +103,8 @@
         android:paddingBottom="10dp"
         android:textColor="?android:textColorTertiary"
         android:textSize="?attr/status_text_medium"
-        app:layout_constraintStart_toStartOf="@+id/notification_summary"
-        app:layout_constraintTop_toBottomOf="@id/notification_summary"
+        app:layout_constraintStart_toStartOf="@+id/notification_top_text"
+        app:layout_constraintTop_toBottomOf="@id/notification_following_count"
         tools:text="@string/notification_severed_relationships_domain_block_body"
         tools:ignore="SelectableText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

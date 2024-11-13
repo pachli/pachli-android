@@ -607,10 +607,6 @@
     <string name="title_tab_public_trending_statuses">Innlegg</string>
     <string name="notification_severed_relationships_format">Brøt forholdet med <b>%1$s</b></string>
     <string name="notification_severed_relationships_unknown_body">Ukjent årsak</string>
-    <plurals name="notification_severed_relationships_summary_report_fmt">
-        <item quantity="one">%1$d forhold brøt</item>
-        <item quantity="other">%1$d forhold brøt</item>
-    </plurals>
     <string name="label_image">Bild</string>
     <string name="pref_title_font_family">Skriftfamilie</string>
     <string name="notification_severed_relationships_name">Brutte forhold</string>

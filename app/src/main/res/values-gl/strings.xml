@@ -604,10 +604,6 @@
     <string name="translation_provider_fmt">%1$s</string>
     <string name="update_dialog_neutral">Non avisarme para esta versión</string>
     <string name="translating">Traducindo…</string>
-    <plurals name="notification_severed_relationships_summary_report_fmt">
-        <item quantity="one">%1$d relación perdida</item>
-        <item quantity="other">%1$d relacións perdidas</item>
-    </plurals>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="load_newest_statuses">Cargar as publicacións máis recentes</string>
     <string name="pref_update_notification_frequency_never">Nunca</string>
