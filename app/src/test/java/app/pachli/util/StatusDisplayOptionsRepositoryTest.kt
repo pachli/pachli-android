@@ -25,6 +25,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
@@ -32,8 +33,11 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
-import at.connyduck.calladapter.networkresult.NetworkResult
+import app.pachli.core.testing.success
+import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.onSuccess
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -49,6 +53,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.any
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
@@ -90,13 +95,35 @@ class StatusDisplayOptionsRepositoryTest {
 
     private val defaultStatusDisplayOptions = StatusDisplayOptions()
 
+    private val account = Account(
+        id = "1",
+        localUsername = "username",
+        username = "username@domain.example",
+        displayName = "Display Name",
+        createdAt = Date.from(Instant.now()),
+        note = "",
+        url = "",
+        avatar = "",
+        header = "",
+    )
+
     @Before
-    fun setup() {
+    fun setup() = runTest {
         hilt.inject()
+
+        reset(mastodonApi)
+        mastodonApi.stub {
+            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            onBlocking { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
+            onBlocking { getLists() } doReturn success(emptyList())
+            onBlocking { getCustomEmojis() } doReturn failure()
+            onBlocking { getContentFilters() } doReturn success(emptyList())
+            onBlocking { listAnnouncements(anyOrNull()) } doReturn success(emptyList())
+        }
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn NetworkResult.success(
+            onBlocking { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -106,29 +133,20 @@ class StatusDisplayOptionsRepositoryTest {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn NetworkResult.success(
+            onBlocking { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }
 
-        accountManager.addAccount(
+        accountManager.verifyAndAddAccount(
             accessToken = "token",
             domain = "domain.example",
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-            newAccount = Account(
-                id = "1",
-                localUsername = "username",
-                username = "username@domain.example",
-                displayName = "Display Name",
-                createdAt = Date.from(Instant.now()),
-                note = "",
-                url = "",
-                avatar = "",
-                header = "",
-            ),
         )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
     }
 
     @Test
@@ -152,16 +170,15 @@ class StatusDisplayOptionsRepositoryTest {
 
     @Test
     fun `changing account preference emits correct value`() = runTest {
-        // Given - openSpoiler is an account-level preference
-        val initial = statusDisplayOptionsRepository.flow.value.openSpoiler
-
-        // When
-        accountPreferenceDataStore.putBoolean(PrefKeys.ALWAYS_OPEN_SPOILER, !initial)
-
-        // Then
         statusDisplayOptionsRepository.flow.test {
-            advanceUntilIdle()
-            assertThat(expectMostRecentItem().openSpoiler).isEqualTo(!initial)
+            // Given - openSpoiler is an account-level preference
+            val initial = awaitItem().openSpoiler
+
+            // When
+            accountPreferenceDataStore.putBoolean(PrefKeys.ALWAYS_OPEN_SPOILER, !initial)
+
+            // Then
+            assertThat(awaitItem().openSpoiler).isEqualTo(!initial)
         }
     }
 
@@ -175,25 +192,32 @@ class StatusDisplayOptionsRepositoryTest {
             assertThat(awaitItem().openSpoiler).isEqualTo(!initial)
         }
 
+        val account = Account(
+            id = "2",
+            localUsername = "username2",
+            username = "username2@domain2.example",
+            displayName = "Display Name",
+            createdAt = Date.from(Instant.now()),
+            note = "",
+            url = "",
+            avatar = "",
+            header = "",
+        )
+
+        mastodonApi.stub {
+            onBlocking { accountVerifyCredentials() } doReturn success(account)
+        }
+
         // When -- addAccount changes the active account
-        accountManager.addAccount(
+        accountManager.verifyAndAddAccount(
             accessToken = "token",
             domain = "domain2.example",
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-            newAccount = Account(
-                id = "2",
-                localUsername = "username2",
-                username = "username2@domain2.example",
-                displayName = "Display Name",
-                createdAt = Date.from(Instant.now()),
-                note = "",
-                url = "",
-                avatar = "",
-                header = "",
-            ),
         )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
 
         // Then -- openSpoiler should be reset to the default
         statusDisplayOptionsRepository.flow.test {

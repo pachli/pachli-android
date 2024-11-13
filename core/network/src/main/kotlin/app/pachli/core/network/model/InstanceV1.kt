@@ -61,7 +61,7 @@ data class PollConfiguration(
     @Json(name = "max_option_chars") val maxOptionChars: Int = 50,
     @Json(name = "max_characters_per_option") val maxCharactersPerOption: Int = 50,
     @Json(name = "min_expiration") val minExpiration: Int = 300,
-    @Json(name = "max_expiration") val maxExpiration: Int = 604800,
+    @Json(name = "max_expiration") val maxExpiration: Long = 604800,
 )
 
 @JsonClass(generateAdapter = true)

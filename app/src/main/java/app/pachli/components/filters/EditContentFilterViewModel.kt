@@ -37,7 +37,6 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.map
-import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -205,12 +204,14 @@ enum class UiMode {
  * is initialised, and [uiMode] is [UiMode.CREATE].
  *
  * @param contentFiltersRepository
+ * @param pachliAccountId ID of the account owning the filters
  * @param contentFilter Filter to show
  * @param contentFilterId ID of filter to fetch and show
  */
 @HiltViewModel(assistedFactory = EditContentFilterViewModel.Factory::class)
 class EditContentFilterViewModel @AssistedInject constructor(
-    val contentFiltersRepository: ContentFiltersRepository,
+    private val contentFiltersRepository: ContentFiltersRepository,
+    @Assisted val pachliAccountId: Long,
     @Assisted val contentFilter: ContentFilter?,
     @Assisted val contentFilterId: String?,
 ) : ViewModel() {
@@ -242,13 +243,8 @@ class EditContentFilterViewModel @AssistedInject constructor(
 
             emit(
                 contentFilterId?.let {
-                    contentFiltersRepository.getContentFilter(contentFilterId)
-                        .onSuccess {
-                            originalContentFilter = it
-                        }.mapEither(
-                            { ContentFilterViewData.from(it) },
-                            { UiError.GetContentFilterError(contentFilterId, it) },
-                        )
+                    originalContentFilter = contentFiltersRepository.getContentFilter(pachliAccountId, contentFilterId)
+                    originalContentFilter?.let { Ok(ContentFilterViewData.from(it)) } ?: Ok(ContentFilterViewData())
                 } ?: Ok(ContentFilterViewData()),
             )
         }.onEach { it.onSuccess { it?.let { onChange(it) } } }
@@ -262,13 +258,12 @@ class EditContentFilterViewModel @AssistedInject constructor(
     fun reload() = viewModelScope.launch {
         contentFilterId ?: return@launch _contentFilterViewData.emit(Ok(ContentFilterViewData()))
 
+        originalContentFilter = contentFiltersRepository.getContentFilter(pachliAccountId, contentFilterId)
+
         _contentFilterViewData.emit(
-            contentFiltersRepository.getContentFilter(contentFilterId)
-                .onSuccess { originalContentFilter = it }
-                .mapEither(
-                    { ContentFilterViewData.from(it) },
-                    { UiError.GetContentFilterError(contentFilterId, it) },
-                ),
+            originalContentFilter?.let {
+                Ok(ContentFilterViewData.from(it))
+            } ?: Ok(ContentFilterViewData()),
         )
     }
 
@@ -384,13 +379,13 @@ class EditContentFilterViewModel @AssistedInject constructor(
 
     /** Create a new filter from [contentFilterViewData]. */
     private suspend fun createContentFilter(contentFilterViewData: ContentFilterViewData): Result<ContentFilter, UiError> {
-        return contentFiltersRepository.createContentFilter(NewContentFilter.from(contentFilterViewData))
+        return contentFiltersRepository.createContentFilter(pachliAccountId, NewContentFilter.from(contentFilterViewData))
             .mapError { UiError.SaveContentFilterError(it) }
     }
 
     /** Persists the changes to [contentFilterViewData]. */
     private suspend fun updateContentFilter(contentFilterViewData: ContentFilterViewData): Result<ContentFilter, UiError> {
-        return contentFiltersRepository.updateContentFilter(originalContentFilter!!, contentFilterViewData.diff(originalContentFilter!!))
+        return contentFiltersRepository.updateContentFilter(pachliAccountId, originalContentFilter!!, contentFilterViewData.diff(originalContentFilter!!))
             .mapError { UiError.SaveContentFilterError(it) }
     }
 
@@ -399,7 +394,7 @@ class EditContentFilterViewModel @AssistedInject constructor(
         val filterViewData = contentFilterViewData.value.get() ?: return@launch
 
         // TODO: Check for non-null, or have a type that makes this impossible.
-        contentFiltersRepository.deleteContentFilter(filterViewData.id!!)
+        contentFiltersRepository.deleteContentFilter(pachliAccountId, filterViewData.id!!)
             .onSuccess { _uiResult.send(Ok(UiSuccess.DeleteFilter)) }
             .onFailure { _uiResult.send(Err(UiError.DeleteContentFilterError(it))) }
     }
@@ -407,12 +402,16 @@ class EditContentFilterViewModel @AssistedInject constructor(
     @AssistedFactory
     interface Factory {
         /**
-         * Creates [EditContentFilterViewModel], passing optional [contentFilter] and
+         * Creates [EditContentFilterViewModel] for [pachliAccountId], passing optional [contentFilter] and
          * [contentFilterId] parameters.
          *
          * @see EditContentFilterViewModel
          */
-        fun create(contentFilter: ContentFilter?, contentFilterId: String?): EditContentFilterViewModel
+        fun create(
+            pachliAccountId: Long,
+            contentFilter: ContentFilter?,
+            contentFilterId: String?,
+        ): EditContentFilterViewModel
     }
 
     companion object {

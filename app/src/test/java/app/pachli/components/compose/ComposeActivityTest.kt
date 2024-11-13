@@ -32,9 +32,18 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.SearchResult
+import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
+import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.NodeInfoApi
+import app.pachli.core.testing.failure
+import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.rules.lazyActivityScenarioRule
+import app.pachli.core.testing.success
 import at.connyduck.calladapter.networkresult.NetworkResult
+import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -42,6 +51,9 @@ import java.time.Instant
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
+import kotlin.properties.Delegates
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -71,7 +83,12 @@ class ComposeActivityTest {
     @get:Rule(order = 0)
     var hilt = HiltAndroidRule(this)
 
+    val dispatcher = StandardTestDispatcher()
+
     @get:Rule(order = 1)
+    val mainCoroutineRule = MainCoroutineRule(dispatcher)
+
+    @get:Rule(order = 2)
     var rule = lazyActivityScenarioRule<ComposeActivity>(
         launchActivity = false,
     )
@@ -82,66 +99,125 @@ class ComposeActivityTest {
     lateinit var mastodonApi: MastodonApi
 
     @Inject
+    lateinit var nodeInfoApi: NodeInfoApi
+
+    @Inject
     lateinit var accountManager: AccountManager
 
     @Inject
     lateinit var instanceInfoRepository: InstanceInfoRepository
 
+    private var pachliAccountId by Delegates.notNull<Long>()
+
+    val account = Account(
+        id = "1",
+        localUsername = "username",
+        username = "username@domain.example",
+        displayName = "Display Name",
+        createdAt = Date.from(Instant.now()),
+        note = "",
+        url = "",
+        avatar = "",
+        header = "",
+    )
+
     @Before
-    fun setup() {
+    fun setup() = runTest {
         hilt.inject()
 
         getInstanceCallback = null
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { getCustomEmojis() } doReturn NetworkResult.success(emptyList())
+            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            onBlocking { getCustomEmojis() } doReturn success(emptyList())
+            onBlocking { getInstanceV2() } doReturn failure()
             onBlocking { getInstanceV1() } doAnswer {
                 getInstanceCallback?.invoke().let { instance ->
                     if (instance == null) {
-                        NetworkResult.failure(Throwable())
+                        failure()
                     } else {
-                        NetworkResult.success(instance)
+                        success(instance)
                     }
                 }
             }
             onBlocking { search(any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn NetworkResult.success(
                 SearchResult(emptyList(), emptyList(), emptyList()),
             )
+            onBlocking { getLists() } doReturn success(emptyList())
+            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
+            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
         }
 
-        accountManager.addAccount(
+        reset(nodeInfoApi)
+        nodeInfoApi.stub {
+            onBlocking { nodeInfoJrd() } doReturn success(
+                UnvalidatedJrd(
+                    listOf(
+                        UnvalidatedJrd.Link(
+                            "http://nodeinfo.diaspora.software/ns/schema/2.1",
+                            "https://example.com",
+                        ),
+                    ),
+                ),
+            )
+            onBlocking { nodeInfo(any()) } doReturn success(
+                UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
+            )
+        }
+
+        pachliAccountId = accountManager.verifyAndAddAccount(
             accessToken = "token",
             domain = "domain.example",
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-            newAccount = Account(
-                id = "1",
-                localUsername = "username",
-                username = "username@domain.example",
-                displayName = "Display Name",
-                createdAt = Date.from(Instant.now()),
-                note = "",
-                url = "",
-                avatar = "",
-                header = "",
-            ),
         )
+            .andThen { accountManager.setActiveAccount(it) }
+            .onSuccess { accountManager.refresh(it) }
+            .get()!!.id
     }
+
+    /**
+     * When tests do something like this (lines marked "->")
+     *
+     *     fun whenBackButtonPressedNotEmpty_notFinish() = runTest {
+     *         rule.launch(intent())
+     * ->      dispatcher.scheduler.advanceUntilIdle()
+     * ->      accountManager.getPachliAccountFlow(pachliAccountId).first()
+     *
+     *         rule.scenario.onActivity {
+     * ->           dispatcher.scheduler.advanceUntilIdle()
+     *             insertSomeTextInContent(it)
+     *             clickBack(it)
+     *             assertFalse(it.isFinishing)
+     *         }
+     *     }
+     *
+     * it's because there's (currently) no easy way for the test to determine
+     * that ComposeActivity has finished setting up the UI / loading data from
+     * AccountManager and is ready to receive input.
+     *
+     * TODO: Fix this bug by rewriting ComposeViewModel to drive the UI
+     * state of ComposeActivity, and waiting for ComposeViewModel to be
+     * ready in tests.
+     */
 
     @Test
     fun whenCloseButtonPressedAndEmpty_finish() {
         rule.launch()
-        rule.getScenario().onActivity {
+        rule.scenario.onActivity {
             clickUp(it)
             assertTrue(it.isFinishing)
         }
     }
 
     @Test
-    fun whenCloseButtonPressedNotEmpty_notFinish() {
+    fun whenCloseButtonPressedNotEmpty_notFinish() = runTest {
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it)
             clickUp(it)
             assertFalse(it.isFinishing)
@@ -150,9 +226,12 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenModifiedInitialState_andCloseButtonPressed_notFinish() {
+    fun whenModifiedInitialState_andCloseButtonPressed_notFinish() = runTest {
         rule.launch(intent(ComposeOptions(modifiedInitialState = true)))
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             clickUp(it)
             assertFalse(it.isFinishing)
         }
@@ -161,27 +240,33 @@ class ComposeActivityTest {
     @Test
     fun whenBackButtonPressedAndEmpty_finish() {
         rule.launch()
-        rule.getScenario().onActivity {
+        rule.scenario.onActivity {
             clickBack(it)
             assertTrue(it.isFinishing)
         }
     }
 
     @Test
-    fun whenBackButtonPressedNotEmpty_notFinish() {
-        rule.launch()
-        rule.getScenario().onActivity {
+    fun whenBackButtonPressedNotEmpty_notFinish() = runTest {
+        rule.launch(intent())
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it)
             clickBack(it)
             assertFalse(it.isFinishing)
-            // We would like to check for dialog but Robolectric doesn't work with AppCompat v7 yet
         }
     }
 
     @Test
-    fun whenModifiedInitialState_andBackButtonPressed_notFinish() {
+    fun whenModifiedInitialState_andBackButtonPressed_notFinish() = runTest {
         rule.launch(intent(ComposeOptions(modifiedInitialState = true)))
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             clickBack(it)
             assertFalse(it.isFinishing)
         }
@@ -191,7 +276,7 @@ class ComposeActivityTest {
     fun whenMaximumTootCharsIsNull_defaultLimitIsUsed() = runTest {
         getInstanceCallback = { getInstanceWithCustomConfiguration(null) }
         rule.launch()
-        rule.getScenario().onActivity {
+        rule.scenario.onActivity {
             assertEquals(DEFAULT_CHARACTER_LIMIT, it.maximumTootCharacters)
         }
     }
@@ -203,7 +288,10 @@ class ComposeActivityTest {
         instanceInfoRepository.reload(accountManager.activeAccount)
 
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(customMaximum, it.maximumTootCharacters)
         }
     }
@@ -215,7 +303,10 @@ class ComposeActivityTest {
         instanceInfoRepository.reload(accountManager.activeAccount)
 
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(customMaximum, it.maximumTootCharacters)
         }
     }
@@ -227,7 +318,10 @@ class ComposeActivityTest {
         instanceInfoRepository.reload(accountManager.activeAccount)
 
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(customMaximum, it.maximumTootCharacters)
         }
     }
@@ -239,67 +333,88 @@ class ComposeActivityTest {
         instanceInfoRepository.reload(accountManager.activeAccount)
 
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(customMaximum * 2, it.maximumTootCharacters)
         }
     }
 
     @Test
-    fun whenTextContainsNoUrl_everyCharacterIsCounted() {
+    fun whenTextContainsNoUrl_everyCharacterIsCounted() = runTest {
         val content = "This is test content please ignore thx "
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, content)
             assertEquals(content.length, it.viewModel.statusLength.value)
         }
     }
 
     @Test
-    fun whenTextContainsEmoji_emojisAreCountedAsOneCharacter() {
+    fun whenTextContainsEmoji_emojisAreCountedAsOneCharacter() = runTest {
         val content = "Test 😜"
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, content)
             assertEquals(6, it.viewModel.statusLength.value)
         }
     }
 
     @Test
-    fun whenTextContainsConesecutiveEmoji_emojisAreCountedAsSeparateCharacters() {
+    fun whenTextContainsConesecutiveEmoji_emojisAreCountedAsSeparateCharacters() = runTest {
         val content = "Test 😜😜"
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, content)
             assertEquals(7, it.viewModel.statusLength.value)
         }
     }
 
     @Test
-    fun whenTextContainsUrlWithEmoji_ellipsizedUrlIsCountedCorrectly() {
+    fun whenTextContainsUrlWithEmoji_ellipsizedUrlIsCountedCorrectly() = runTest {
         val content = "https://🤪.com"
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, content)
             assertEquals(DEFAULT_CHARACTERS_RESERVED_PER_URL, it.viewModel.statusLength.value)
         }
     }
 
     @Test
-    fun whenTextContainsNonEnglishCharacters_lengthIsCountedCorrectly() {
+    fun whenTextContainsNonEnglishCharacters_lengthIsCountedCorrectly() = runTest {
         val content = "こんにちは. General Kenobi" // "Hello there. General Kenobi"
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, content)
             assertEquals(21, it.viewModel.statusLength.value)
         }
     }
 
     @Test
-    fun whenTextContainsUrl_onlyEllipsizedURLIsCounted() {
+    fun whenTextContainsUrl_onlyEllipsizedURLIsCounted() = runTest {
         val url = "https://www.google.dk/search?biw=1920&bih=990&tbm=isch&sa=1&ei=bmDrWuOoKMv6kwWOkIaoDQ&q=indiana+jones+i+hate+snakes+animated&oq=indiana+jones+i+hate+snakes+animated&gs_l=psy-ab.3...54174.55443.0.55553.9.7.0.0.0.0.255.333.1j0j1.2.0....0...1c.1.64.psy-ab..7.0.0....0.40G-kcDkC6A#imgdii=PSp15hQjN1JqvM:&imgrc=H0hyE2JW5wrpBM%3A"
         val additionalContent = "Check out this @image #search result: "
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, additionalContent + url)
             assertEquals(
                 additionalContent.length + DEFAULT_CHARACTERS_RESERVED_PER_URL,
@@ -309,12 +424,15 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenTextContainsShortUrls_allUrlsGetEllipsized() {
+    fun whenTextContainsShortUrls_allUrlsGetEllipsized() = runTest {
         val shortUrl = "https://pachli.app"
         val url = "https://www.google.dk/search?biw=1920&bih=990&tbm=isch&sa=1&ei=bmDrWuOoKMv6kwWOkIaoDQ&q=indiana+jones+i+hate+snakes+animated&oq=indiana+jones+i+hate+snakes+animated&gs_l=psy-ab.3...54174.55443.0.55553.9.7.0.0.0.0.255.333.1j0j1.2.0....0...1c.1.64.psy-ab..7.0.0....0.40G-kcDkC6A#imgdii=PSp15hQjN1JqvM:&imgrc=H0hyE2JW5wrpBM%3A"
         val additionalContent = " Check out this @image #search result: "
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, shortUrl + additionalContent + url)
             assertEquals(
                 additionalContent.length + (DEFAULT_CHARACTERS_RESERVED_PER_URL * 2),
@@ -324,11 +442,14 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenTextContainsMultipleURLs_allURLsGetEllipsized() {
+    fun whenTextContainsMultipleURLs_allURLsGetEllipsized() = runTest {
         val url = "https://www.google.dk/search?biw=1920&bih=990&tbm=isch&sa=1&ei=bmDrWuOoKMv6kwWOkIaoDQ&q=indiana+jones+i+hate+snakes+animated&oq=indiana+jones+i+hate+snakes+animated&gs_l=psy-ab.3...54174.55443.0.55553.9.7.0.0.0.0.255.333.1j0j1.2.0....0...1c.1.64.psy-ab..7.0.0....0.40G-kcDkC6A#imgdii=PSp15hQjN1JqvM:&imgrc=H0hyE2JW5wrpBM%3A"
         val additionalContent = " Check out this @image #search result: "
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, url + additionalContent + url)
             assertEquals(
                 additionalContent.length + (DEFAULT_CHARACTERS_RESERVED_PER_URL * 2),
@@ -346,7 +467,10 @@ class ComposeActivityTest {
         instanceInfoRepository.reload(accountManager.activeAccount)
 
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, additionalContent + url)
             assertEquals(
                 additionalContent.length + customUrlLength,
@@ -365,7 +489,10 @@ class ComposeActivityTest {
         instanceInfoRepository.reload(accountManager.activeAccount)
 
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, shortUrl + additionalContent + url)
             assertEquals(
                 additionalContent.length + (customUrlLength * 2),
@@ -383,7 +510,10 @@ class ComposeActivityTest {
         instanceInfoRepository.reload(accountManager.activeAccount)
 
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, url + additionalContent + url)
             assertEquals(
                 additionalContent.length + (customUrlLength * 2),
@@ -393,9 +523,12 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenSelectionIsEmpty_specialTextIsInsertedAtCaret() {
+    fun whenSelectionIsEmpty_specialTextIsInsertedAtCaret() = runTest {
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             val editor = it.findViewById<EditText>(R.id.composeEditField)
             val insertText = "#"
             editor.setText("Some text")
@@ -418,9 +551,12 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenSelectionDoesNotIncludeWordBreak_noSpecialTextIsInserted() {
+    fun whenSelectionDoesNotIncludeWordBreak_noSpecialTextIsInserted() = runTest {
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             val editor = it.findViewById<EditText>(R.id.composeEditField)
             val insertText = "#"
             val originalText = "Some text"
@@ -438,9 +574,12 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenSelectionIncludesWordBreaks_startsOfAllWordsArePrepended() {
+    fun whenSelectionIncludesWordBreaks_startsOfAllWordsArePrepended() = runTest {
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             val editor = it.findViewById<EditText>(R.id.composeEditField)
             val insertText = "#"
             val originalText = "one two three four"
@@ -461,9 +600,12 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenSelectionIncludesEnd_textIsNotAppended() {
+    fun whenSelectionIncludesEnd_textIsNotAppended() = runTest {
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             val editor = it.findViewById<EditText>(R.id.composeEditField)
             val insertText = "#"
             val originalText = "Some text"
@@ -481,9 +623,12 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenSelectionIncludesStartAndStartIsAWord_textIsPrepended() {
+    fun whenSelectionIncludesStartAndStartIsAWord_textIsPrepended() = runTest {
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             val editor = it.findViewById<EditText>(R.id.composeEditField)
             val insertText = "#"
             val originalText = "Some text"
@@ -503,9 +648,12 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenSelectionIncludesStartAndStartIsNotAWord_textIsNotPrepended() {
+    fun whenSelectionIncludesStartAndStartIsNotAWord_textIsNotPrepended() = runTest {
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             val editor = it.findViewById<EditText>(R.id.composeEditField)
             val insertText = "#"
             val originalText = "  Some text"
@@ -523,9 +671,12 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenSelectionBeginsAtWordStart_textIsPrepended() {
+    fun whenSelectionBeginsAtWordStart_textIsPrepended() = runTest {
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             val editor = it.findViewById<EditText>(R.id.composeEditField)
             val insertText = "#"
             val originalText = "Some text"
@@ -545,9 +696,12 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenSelectionEndsAtWordStart_textIsAppended() {
+    fun whenSelectionEndsAtWordStart_textIsAppended() = runTest {
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             val editor = it.findViewById<EditText>(R.id.composeEditField)
             val insertText = "#"
             val originalText = "Some text"
@@ -567,42 +721,55 @@ class ComposeActivityTest {
     }
 
     @Test
-    fun whenNoLanguageIsGiven_defaultLanguageIsSelected() {
+    fun whenNoLanguageIsGiven_defaultLanguageIsSelected() = runTest {
         rule.launch()
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(Locale.getDefault().language, it.selectedLanguage)
         }
     }
 
     @Test
-    fun languageGivenInComposeOptionsIsRespected() {
+    fun languageGivenInComposeOptionsIsRespected() = runTest {
         rule.launch(intent(ComposeOptions(language = "no")))
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals("no", it.selectedLanguage)
         }
     }
 
     @Test
-    fun modernLanguageCodeIsUsed() {
+    fun modernLanguageCodeIsUsed() = runTest {
         // https://github.com/tuskyapp/Tusky/issues/2903
         // "ji" was deprecated in favor of "yi"
         rule.launch(intent(ComposeOptions(language = "ji")))
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals("yi", it.selectedLanguage)
         }
     }
 
     @Test
-    fun unknownLanguageGivenInComposeOptionsIsRespected() {
+    fun unknownLanguageGivenInComposeOptionsIsRespected() = runTest {
         rule.launch(intent(ComposeOptions(language = "zzz")))
-        rule.getScenario().onActivity {
+        dispatcher.scheduler.advanceUntilIdle()
+        accountManager.getPachliAccountFlow(pachliAccountId).first()
+        rule.scenario.onActivity {
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals("zzz", it.selectedLanguage)
         }
     }
 
     /** Returns an intent to launch [ComposeActivity] with the given options */
-    private fun intent(composeOptions: ComposeOptions) = ComposeActivityIntent(
+    private fun intent(composeOptions: ComposeOptions? = null) = ComposeActivityIntent(
         ApplicationProvider.getApplicationContext(),
+        pachliAccountId,
         composeOptions,
     )
 

@@ -53,6 +53,8 @@ class NotificationWorker @AssistedInject constructor(
 
     companion object {
         private const val ACCOUNT_ID = "accountId"
+
+        /** Notifications for all accounts should be fetched. */
         const val ALL_ACCOUNTS = -1L
 
         fun data(accountId: Long) = Data.Builder().putLong(ACCOUNT_ID, accountId).build()

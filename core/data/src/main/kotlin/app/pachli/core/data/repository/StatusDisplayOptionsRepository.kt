@@ -91,7 +91,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
                             animateAvatars = sharedPreferencesRepository.getBoolean(key, default.animateAvatars),
                         )
                         PrefKeys.MEDIA_PREVIEW_ENABLED -> prev.copy(
-                            mediaPreviewEnabled = accountManager.activeAccountFlow.value?.mediaPreviewEnabled ?: default.mediaPreviewEnabled,
+                            mediaPreviewEnabled = accountManager.activeAccount?.mediaPreviewEnabled ?: default.mediaPreviewEnabled,
                         )
                         PrefKeys.ABSOLUTE_TIME_VIEW -> prev.copy(
                             useAbsoluteTime = sharedPreferencesRepository.getBoolean(key, default.useAbsoluteTime),
@@ -118,10 +118,10 @@ class StatusDisplayOptionsRepository @Inject constructor(
                             animateEmojis = sharedPreferencesRepository.getBoolean(key, default.animateEmojis),
                         )
                         PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> prev.copy(
-                            showSensitiveMedia = accountManager.activeAccountFlow.value?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
+                            showSensitiveMedia = accountManager.activeAccount?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
                         )
                         PrefKeys.ALWAYS_OPEN_SPOILER -> prev.copy(
-                            openSpoiler = accountManager.activeAccountFlow.value?.alwaysOpenSpoiler ?: default.openSpoiler,
+                            openSpoiler = accountManager.activeAccount?.alwaysOpenSpoiler ?: default.openSpoiler,
                         )
                         PrefKeys.SHOW_STATS_INLINE -> prev.copy(
                             showStatsInline = sharedPreferencesRepository.getBoolean(key, default.showStatsInline),
@@ -136,8 +136,10 @@ class StatusDisplayOptionsRepository @Inject constructor(
 
         externalScope.launch {
             accountManager.activeAccountFlow.collect {
-                Timber.d("Updating because active account changed")
-                _flow.emit(initialStatusDisplayOptions(it))
+                if (it is Loadable.Loaded) {
+                    Timber.d("Updating because active account changed")
+                    _flow.emit(initialStatusDisplayOptions(it.data))
+                }
             }
         }
 

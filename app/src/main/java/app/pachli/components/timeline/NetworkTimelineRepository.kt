@@ -26,13 +26,12 @@ import androidx.paging.PagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
-import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.getDomain
 import javax.inject.Inject
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 
@@ -71,16 +70,18 @@ import timber.log.Timber
 /** Timeline repository where the timeline information is backed by an in-memory cache. */
 class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val accountManager: AccountManager,
 ) {
     private val pageCache = PageCache()
 
     private var factory: InvalidatingPagingSourceFactory<String, Status>? = null
 
+    // TODO: This should use assisted injection, and inject the account.
+    private var activeAccount: AccountEntity? = null
+
     /** @return flow of Mastodon [Status], loaded in [pageSize] increments */
     @OptIn(ExperimentalPagingApi::class)
     fun getStatusStream(
-        viewModelScope: CoroutineScope,
+        account: AccountEntity,
         kind: Timeline,
         pageSize: Int = PAGE_SIZE,
         initialKey: String? = null,
@@ -94,9 +95,8 @@ class NetworkTimelineRepository @Inject constructor(
         return Pager(
             config = PagingConfig(pageSize = pageSize),
             remoteMediator = NetworkTimelineRemoteMediator(
-                viewModelScope,
                 mastodonApi,
-                accountManager,
+                account,
                 factory!!,
                 pageCache,
                 kind,

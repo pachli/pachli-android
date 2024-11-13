@@ -75,8 +75,8 @@ fun FilterKeyword.Companion.from(networkKeyword: NetworkFilterKeyword) =
  * [v1 Mastodon filter][app.pachli.core.network.model.Filter].
  *
  * There are some restrictions imposed by the v1 filter;
- * - it can only have a single entry in the [keywords] list
- * - the [title] is identical to the keyword
+ * - it can only have a single entry in the [ContentFilter.keywords] list
+ * - the [ContentFilter.title] is identical to the keyword
  */
 fun ContentFilter.Companion.from(filter: NetworkFilterV1) = ContentFilter(
     id = filter.id,
@@ -86,7 +86,7 @@ fun ContentFilter.Companion.from(filter: NetworkFilterV1) = ContentFilter(
     filterAction = WARN,
     keywords = listOf(
         FilterKeyword(
-            id = filter.id,
+            id = "0",
             keyword = filter.phrase,
             wholeWord = filter.wholeWord,
         ),

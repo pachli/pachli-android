@@ -31,9 +31,8 @@ android {
 
 dependencies {
     // BaseActivity exposes AccountManager as an injected property
-    api(projects.core.database)
-
     api(projects.core.data)
+
     implementation(projects.core.common)
     implementation(projects.core.designsystem)
     implementation(projects.core.navigation)
@@ -47,6 +46,7 @@ dependencies {
 
     // Loading avatars
     implementation(libs.bundles.glide)
+    implementation(projects.core.database)
 
     // Crash reporting in orange (Pachli Current) builds only
     orangeImplementation(libs.bundles.acra)

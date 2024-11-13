@@ -82,6 +82,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlin.properties.Delegates
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -104,7 +105,13 @@ class NotificationsFragment :
     MenuProvider,
     ReselectableFragment {
 
-    private val viewModel: NotificationsViewModel by viewModels()
+    private val viewModel: NotificationsViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<NotificationsViewModel.Factory> { factory ->
+                factory.create(requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID))
+            }
+        },
+    )
 
     private val binding by viewBinding(FragmentTimelineNotificationsBinding::bind)
 
@@ -116,6 +123,16 @@ class NotificationsFragment :
 
     override var pachliAccountId by Delegates.notNull<Long>()
 
+    // Update post timestamps
+    private val updateTimestampFlow = flow {
+        while (true) {
+            delay(60000)
+            emit(Unit)
+        }
+    }.onEach {
+        adapter.notifyItemRangeChanged(0, adapter.itemCount, listOf(StatusBaseViewHolder.Key.KEY_CREATED))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -124,10 +141,9 @@ class NotificationsFragment :
         adapter = NotificationsPagingAdapter(
             notificationDiffCallback,
             pachliAccountId,
-            accountId = viewModel.account.accountId,
-            statusActionListener = this,
-            notificationActionListener = this,
-            accountActionListener = this,
+            statusActionListener = this@NotificationsFragment,
+            notificationActionListener = this@NotificationsFragment,
+            accountActionListener = this@NotificationsFragment,
             statusDisplayOptions = viewModel.statusDisplayOptions.value,
         )
     }
@@ -181,7 +197,7 @@ class NotificationsFragment :
                 // reading position is always restorable.
                 layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
                     adapter.snapshot().getOrNull(position)?.id?.let { id ->
-                        viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = id))
+                        viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = id))
                     }
                 }
             }
@@ -210,16 +226,6 @@ class NotificationsFragment :
 
         (binding.recyclerView.itemAnimator as SimpleItemAnimator?)!!.supportsChangeAnimations =
             false
-
-        // Update post timestamps
-        val updateTimestampFlow = flow {
-            while (true) {
-                delay(60000)
-                emit(Unit)
-            }
-        }.onEach {
-            adapter.notifyItemRangeChanged(0, adapter.itemCount, listOf(StatusBaseViewHolder.Key.KEY_CREATED))
-        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -317,10 +323,13 @@ class NotificationsFragment :
                             val status = when (it) {
                                 is StatusActionSuccess.Bookmark ->
                                     statusViewData.status.copy(bookmarked = it.action.state)
+
                                 is StatusActionSuccess.Favourite ->
                                     statusViewData.status.copy(favourited = it.action.state)
+
                                 is StatusActionSuccess.Reblog ->
                                     statusViewData.status.copy(reblogged = it.action.state)
+
                                 is StatusActionSuccess.VoteInPoll ->
                                     statusViewData.status.copy(
                                         poll = it.action.poll.votedCopy(it.action.choices),
@@ -340,6 +349,7 @@ class NotificationsFragment :
                         when (it) {
                             is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation ->
                                 adapter.refresh()
+
                             else -> {
                                 /* nothing to do */
                             }
@@ -413,7 +423,10 @@ class NotificationsFragment :
                                 }
                                 peeked = true
                             }
-                            else -> { /* nothing to do */ }
+
+                            else -> {
+                                /* nothing to do */
+                            }
                         }
                     }
                 }
@@ -430,11 +443,15 @@ class NotificationsFragment :
                                     binding.progressBar.show()
                                 }
                             }
+
                             UserRefreshState.COMPLETE, UserRefreshState.ERROR -> {
                                 binding.progressBar.hide()
                                 binding.swipeRefreshLayout.isRefreshing = false
                             }
-                            else -> { /* nothing to do */ }
+
+                            else -> {
+                                /* nothing to do */
+                            }
                         }
                     }
                 }
@@ -499,7 +516,7 @@ class NotificationsFragment :
     override fun onRefresh() {
         binding.progressBar.isVisible = false
         adapter.refresh()
-        clearNotificationsForAccount(requireContext(), viewModel.account)
+        clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
     override fun onPause() {
@@ -509,7 +526,7 @@ class NotificationsFragment :
         val position = layoutManager.findFirstVisibleItemPosition()
         if (position >= 0) {
             adapter.snapshot().getOrNull(position)?.id?.let { id ->
-                viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = id))
+                viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = id))
             }
         }
     }
@@ -524,11 +541,11 @@ class NotificationsFragment :
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
 
-        clearNotificationsForAccount(requireContext(), viewModel.account)
+        clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
-    override fun onReply(viewData: NotificationViewData) {
-        super.reply(viewData.statusViewData!!.actionable)
+    override fun onReply(pachliAccountId: Long, viewData: NotificationViewData) {
+        super.reply(pachliAccountId, viewData.statusViewData!!.actionable)
     }
 
     override fun onReblog(viewData: NotificationViewData, reblog: Boolean) {
@@ -634,7 +651,7 @@ class NotificationsFragment :
     private fun showFilterDialog() {
         FilterDialogFragment(viewModel.uiState.value.activeFilter) { filter ->
             if (viewModel.uiState.value.activeFilter != filter) {
-                viewModel.accept(InfallibleUiAction.ApplyFilter(filter))
+                viewModel.accept(InfallibleUiAction.ApplyFilter(pachliAccountId, filter))
             }
         }.show(parentFragmentManager, "dialogFilter")
     }

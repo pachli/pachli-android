@@ -17,25 +17,26 @@
 
 package app.pachli.components.notifications
 
-import app.pachli.core.database.model.AccountEntity
+import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import org.mockito.kotlin.argumentCaptor
-import org.mockito.kotlin.verify
 
+@HiltAndroidTest
 class NotificationsViewModelTestVisibleId : NotificationsViewModelTestBase() {
 
     @Test
     fun `should save notification ID to active account`() = runTest {
-        argumentCaptor<AccountEntity>().apply {
+        viewModel.accountFlow.test {
+            // Given
+            assertThat(awaitItem().entity.lastNotificationId).isEqualTo("0")
+
             // When
-            viewModel.accept(InfallibleUiAction.SaveVisibleId("1234"))
+            viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, "1234"))
 
             // Then
-            verify(accountManager).saveAccount(capture())
-            assertThat(this.lastValue.lastNotificationId)
-                .isEqualTo("1234")
+            assertThat(awaitItem().entity.lastNotificationId).isEqualTo("1234")
         }
     }
 }

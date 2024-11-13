@@ -87,6 +87,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
@@ -121,6 +122,7 @@ import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 import java.io.File
 import java.io.IOException
 import java.util.Date
@@ -130,6 +132,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -153,16 +156,22 @@ class ComposeActivity :
     private lateinit var emojiBehavior: BottomSheetBehavior<*>
     private lateinit var scheduleBehavior: BottomSheetBehavior<*>
 
-    /** The account that is being used to compose the status */
-    private lateinit var activeAccount: AccountEntity
-
     private var photoUploadUri: Uri? = null
 
     @VisibleForTesting
     var maximumTootCharacters = DEFAULT_CHARACTER_LIMIT
 
     @VisibleForTesting
-    val viewModel: ComposeViewModel by viewModels()
+    val viewModel: ComposeViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<ComposeViewModel.Factory> { factory ->
+                factory.create(
+                    intent.pachliAccountId,
+                    ComposeActivityIntent.getComposeOptions(intent),
+                )
+            }
+        },
+    )
 
     private val binding by viewBinding(ActivityComposeBinding::inflate)
 
@@ -242,8 +251,6 @@ class ComposeActivity :
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        activeAccount = accountManager.activeAccount ?: return
-
         if (sharedPreferencesRepository.appTheme == AppTheme.BLACK) {
             setTheme(DR.style.AppDialogActivityBlackTheme)
         }
@@ -251,7 +258,8 @@ class ComposeActivity :
 
         setupActionBar()
 
-        setupAvatar(activeAccount)
+        val composeOptions: ComposeOptions? = ComposeActivityIntent.getComposeOptions(intent)
+
         val mediaAdapter = MediaPreviewAdapter(
             this,
             onAddCaption = { item ->
@@ -266,64 +274,71 @@ class ComposeActivity :
             onEditImage = this::editImageInQueue,
             onRemove = this::removeMediaFromQueue,
         )
-        binding.composeMediaPreviewBar.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.composeMediaPreviewBar.adapter = mediaAdapter
-        binding.composeMediaPreviewBar.itemAnimator = null
 
-        /* If the composer is started up as a reply to another post, override the "starting" state
-         * based on what the intent from the reply request passes. */
-        val composeOptions: ComposeOptions? = ComposeActivityIntent.getOptions(intent)
-        viewModel.setup(composeOptions)
+        lifecycleScope.launch {
+            viewModel.accountFlow.distinctUntilChanged().collect { account ->
+                setupAvatar(account.entity)
 
-        setupButtons()
-        subscribeToUpdates(mediaAdapter)
+                if (viewModel.displaySelfUsername) {
+                    binding.composeUsernameView.text = getString(
+                        R.string.compose_active_account_description,
+                        account.entity.fullName,
+                    )
+                    binding.composeUsernameView.show()
+                } else {
+                    binding.composeUsernameView.hide()
+                }
 
-        if (accountManager.shouldDisplaySelfUsername()) {
-            binding.composeUsernameView.text = getString(
-                R.string.compose_active_account_description,
-                activeAccount.fullName,
-            )
-            binding.composeUsernameView.show()
-        } else {
-            binding.composeUsernameView.hide()
-        }
+                viewModel.setup(account)
 
-        setupReplyViews(composeOptions?.replyingStatusAuthor, composeOptions?.replyingStatusContent)
-        val statusContent = composeOptions?.content
-        if (!statusContent.isNullOrEmpty()) {
-            binding.composeEditField.setText(statusContent)
-        }
+                setupLanguageSpinner(getInitialLanguages(composeOptions?.language, account.entity))
 
-        composeOptions?.scheduledAt?.let {
-            binding.composeScheduleView.setDateTime(it)
-        }
+                setupButtons(account.id)
 
-        setupLanguageSpinner(getInitialLanguages(composeOptions?.language, activeAccount))
-        setupComposeField(sharedPreferencesRepository, viewModel.initialContent, composeOptions)
-        setupContentWarningField(composeOptions?.contentWarning)
-        setupPollView()
-        applyShareIntent(intent, savedInstanceState)
+                if (savedInstanceState != null) {
+                    setupComposeField(sharedPreferencesRepository, null, composeOptions)
+                } else {
+                    setupComposeField(sharedPreferencesRepository, viewModel.initialContent, composeOptions)
+                }
 
-        /* Finally, overwrite state with data from saved instance state. */
-        savedInstanceState?.let {
-            photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
+                subscribeToUpdates(mediaAdapter)
 
-            (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
-                setStatusVisibility(this)
+                binding.composeMediaPreviewBar.layoutManager =
+                    LinearLayoutManager(this@ComposeActivity, LinearLayoutManager.HORIZONTAL, false)
+                binding.composeMediaPreviewBar.adapter = mediaAdapter
+                binding.composeMediaPreviewBar.itemAnimator = null
+
+                setupReplyViews(viewModel.replyingStatusAuthor, viewModel.replyingStatusContent)
+
+                composeOptions?.scheduledAt?.let {
+                    binding.composeScheduleView.setDateTime(it)
+                }
+
+                setupContentWarningField(composeOptions?.contentWarning)
+                setupPollView()
+                applyShareIntent(intent, savedInstanceState)
+
+                /* Finally, overwrite state with data from saved instance state. */
+                savedInstanceState?.let {
+                    photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
+
+                    (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
+                        setStatusVisibility(this)
+                    }
+
+                    it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
+                        viewModel.showContentWarningChanged(this)
+                    }
+
+                    (it.getSerializable(KEY_SCHEDULED_TIME) as? Date)?.let { time ->
+                        viewModel.updateScheduledAt(time)
+                    }
+                }
+
+                binding.composeEditField.post {
+                    binding.composeEditField.requestFocus()
+                }
             }
-
-            it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
-                viewModel.showContentWarningChanged(this)
-            }
-
-            (it.getSerializable(KEY_SCHEDULED_TIME) as? Date)?.let { time ->
-                viewModel.updateScheduledAt(time)
-            }
-        }
-
-        binding.composeEditField.post {
-            binding.composeEditField.requestFocus()
         }
     }
 
@@ -372,8 +387,8 @@ class ComposeActivity :
 
     private fun setupReplyViews(replyingStatusAuthor: String?, replyingStatusContent: String?) {
         if (replyingStatusAuthor != null) {
-            binding.composeReplyView.show()
             binding.composeReplyView.text = getString(R.string.replying_to, replyingStatusAuthor)
+            binding.composeReplyView.show()
             val arrowDownIcon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_drop_down).apply { sizeDp = 12 }
 
             setDrawableTint(this, arrowDownIcon, android.R.attr.textColorTertiary)
@@ -432,13 +447,15 @@ class ComposeActivity :
             viewModel.onContentChanged(editable)
         }
 
-        binding.composeEditField.setText(startingText)
+        startingText?.let {
+            binding.composeEditField.setText(it)
 
-        when (composeOptions?.initialCursorPosition ?: InitialCursorPosition.END) {
-            InitialCursorPosition.START -> binding.composeEditField.setSelection(0)
-            InitialCursorPosition.END -> binding.composeEditField.setSelection(
-                binding.composeEditField.length(),
-            )
+            when (composeOptions?.initialCursorPosition ?: InitialCursorPosition.END) {
+                InitialCursorPosition.START -> binding.composeEditField.setSelection(0)
+                InitialCursorPosition.END -> binding.composeEditField.setSelection(
+                    binding.composeEditField.length(),
+                )
+            }
         }
 
         // work around Android platform bug -> https://issuetracker.google.com/issues/67102093
@@ -545,7 +562,7 @@ class ComposeActivity :
             bottomSheetStates.any { it != BottomSheetBehavior.STATE_HIDDEN }
     }
 
-    private fun setupButtons() {
+    private fun setupButtons(pachliAccountId: Long) {
         binding.composeOptionsBottomSheet.listener = this
 
         composeOptionsBehavior = BottomSheetBehavior.from(binding.composeOptionsBottomSheet)
@@ -567,7 +584,7 @@ class ComposeActivity :
         enableButton(binding.composeEmojiButton, clickable = false, colorActive = false)
 
         // Setup the interface buttons.
-        binding.composeTootButton.setOnClickListener { onSendClicked() }
+        binding.composeTootButton.setOnClickListener { onSendClicked(pachliAccountId) }
         binding.composeAddMediaButton.setOnClickListener { openPickDialog() }
         binding.composeToggleVisibilityButton.setOnClickListener { showComposeOptions() }
         binding.composeContentWarningButton.setOnClickListener { onContentWarningChanged() }
@@ -627,21 +644,21 @@ class ComposeActivity :
         }
     }
 
-    private fun setupAvatar(activeAccount: AccountEntity) {
+    private fun setupAvatar(account: AccountEntity) {
         val actionBarSizeAttr = intArrayOf(androidx.appcompat.R.attr.actionBarSize)
         val avatarSize = obtainStyledAttributes(null, actionBarSizeAttr).use { a ->
             a.getDimensionPixelSize(0, 1)
         }
 
         loadAvatar(
-            activeAccount.profilePictureUrl,
+            account.profilePictureUrl,
             binding.composeAvatar,
             avatarSize / 8,
             sharedPreferencesRepository.animateAvatars,
         )
         binding.composeAvatar.contentDescription = getString(
             R.string.compose_active_account_description,
-            activeAccount.fullName,
+            account.fullName,
         )
     }
 
@@ -968,11 +985,11 @@ class ComposeActivity :
         return binding.composeScheduleView.verifyScheduledTime(viewModel.scheduledAt.value)
     }
 
-    private fun onSendClicked() = lifecycleScope.launch {
+    private fun onSendClicked(pachliAccountId: Long) = lifecycleScope.launch {
         if (viewModel.confirmStatusLanguage) confirmStatusLanguage()
 
         if (verifyScheduledTime()) {
-            sendStatus()
+            sendStatus(pachliAccountId)
         } else {
             showScheduleView()
         }
@@ -1074,7 +1091,7 @@ class ComposeActivity :
         return contentInfo
     }
 
-    private fun sendStatus() {
+    private fun sendStatus(pachliAccountId: Long) {
         enableButtons(false, viewModel.editing)
         val contentText = binding.composeEditField.text.toString()
         var spoilerText = ""
@@ -1087,7 +1104,7 @@ class ComposeActivity :
             enableButtons(true, viewModel.editing)
         } else if (statusLength <= maximumTootCharacters) {
             lifecycleScope.launch {
-                viewModel.sendStatus(contentText, spoilerText, activeAccount.id)
+                viewModel.sendStatus(contentText, spoilerText, pachliAccountId)
                 deleteDraftAndFinish()
             }
         } else {
@@ -1200,7 +1217,16 @@ class ComposeActivity :
         }
     }
 
+    /**
+     * Shows/hides the content warning area depending on [show].
+     *
+     * Adjusts the colours of the content warning button to reflect the state.
+     */
     private fun showContentWarning(show: Boolean) {
+        // Skip any animations if the current visibility matches the intended visibility. This
+        // prevents a visual oddity where the compose editor animates in to view when first
+        // opening the activity.
+        if (binding.composeContentWarningBar.isVisible == show) return
         TransitionManager.beginDelayedTransition(binding.composeContentWarningBar.parent as ViewGroup)
         @ColorInt val color = if (show) {
             binding.composeContentWarningBar.show()
@@ -1230,7 +1256,7 @@ class ComposeActivity :
             if (event.isCtrlPressed) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     // send toot by pressing CTRL + ENTER
-                    this.onSendClicked()
+                    this.onSendClicked(intent.pachliAccountId)
                     return true
                 }
             }
@@ -1382,6 +1408,7 @@ class ComposeActivity :
 
     /** Media queued for upload. */
     data class QueuedMedia(
+        val account: AccountEntity,
         val localId: Int,
         val uri: Uri,
         val type: Type,

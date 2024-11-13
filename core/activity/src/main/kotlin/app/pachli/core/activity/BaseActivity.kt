@@ -36,10 +36,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
+import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.extensions.canOverrideActivityTransitions
 import app.pachli.core.activity.extensions.getTransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
@@ -57,6 +59,7 @@ import dagger.hilt.android.EntryPointAccessors.fromApplication
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 import kotlin.properties.Delegates
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -194,12 +197,24 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
     }
 
     private fun redirectIfNotLoggedIn() {
-        val account = accountManager.activeAccount
-        if (account == null) {
-            val intent = LoginActivityIntent(this)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivityWithDefaultTransition(intent)
-            finish()
+        lifecycleScope.launch {
+            accountManager.activeAccountFlow.collect {
+                when (it) {
+                    is Loadable.Loading -> {
+                        /* wait for account to become available */
+                    }
+
+                    is Loadable.Loaded -> {
+                        val account = it.data
+                        if (account == null) {
+                            val intent = LoginActivityIntent(this@BaseActivity)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivityWithDefaultTransition(intent)
+                            finish()
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -219,8 +234,8 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         showActiveAccount: Boolean,
         listener: AccountSelectionListener,
     ) {
-        val accounts = accountManager.getAllAccountsOrderedByActive().toMutableList()
-        val activeAccount = accountManager.activeAccount!!
+        val accounts = accountManager.accountsOrderedByActive.toMutableList()
+        val activeAccount = accounts.first()
         when (accounts.size) {
             1 -> {
                 listener.onAccountSelected(activeAccount)
@@ -259,25 +274,24 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
 
     val openAsText: String?
         get() {
-            val accounts = accountManager.getAllAccountsOrderedByActive()
+            val accounts = accountManager.accountsOrderedByActive
             return when (accounts.size) {
                 0, 1 -> null
                 2 -> {
                     for (account in accounts) {
                         if (account !== accountManager.activeAccount) {
-                            return String.format(getString(R.string.action_open_as), account.fullName)
+                            return getString(R.string.action_open_as, account.fullName)
                         }
                     }
                     null
                 }
-                else -> String.format(getString(R.string.action_open_as), "…")
+
+                else -> getString(R.string.action_open_as, "…")
             }
         }
 
     fun openAsAccount(url: String, account: AccountEntity) {
-        accountManager.setActiveAccount(account.id)
-        val intent = MainActivityIntent.redirect(this, account.id, url)
-        startActivity(intent)
+        startActivity(MainActivityIntent.redirect(this, account.id, url))
         finish()
     }
 

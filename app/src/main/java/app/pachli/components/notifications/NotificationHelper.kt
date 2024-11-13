@@ -114,8 +114,8 @@ private const val EXTRA_NOTIFICATION_TYPE =
  * Takes a given Mastodon notification and creates a new Android notification or updates the
  * existing Android notification.
  *
- * The Android notification has it's tag set to the Mastodon notification ID, and it's ID set
- * to the ID of the account that received the notification.
+ * The Android notification tag is the Mastodon notification ID, and the notification ID
+ * is the ID of the account that received the notification.
  *
  * @param context to access application preferences and services
  * @param mastodonNotification    a new Mastodon notification
@@ -129,8 +129,7 @@ fun makeNotification(
     account: AccountEntity,
     isFirstOfBatch: Boolean,
 ): android.app.Notification {
-    var notif = mastodonNotification
-    notif = notif.rewriteToStatusTypeIfNeeded(account.accountId)
+    val notif = mastodonNotification.rewriteToStatusTypeIfNeeded(account.accountId)
     val mastodonNotificationId = notif.id
     val accountId = account.id.toInt()
 
@@ -146,7 +145,7 @@ fun makeNotification(
     // Create the notification -- either create a new one, or use the existing one.
     val builder = existingAndroidNotification?.let {
         NotificationCompat.Builder(context, it)
-    } ?: newAndroidNotification(context, notif, account)
+    } ?: newAndroidNotification(context, notificationId, notif, account)
 
     builder
         .setContentTitle(titleForType(context, notif, account))
@@ -292,10 +291,12 @@ fun updateSummaryNotifications(
 
         // All notifications in this group have the same type, so get it from the first.
         val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
-        val summaryResultIntent = MainActivityIntent.openNotification(
+        val summaryResultIntent = MainActivityIntent.fromNotification(
             context,
             accountId.toLong(),
-            notificationType,
+            -1,
+            null,
+            type = notificationType,
         )
         val summaryStackBuilder = TaskStackBuilder.create(context)
         summaryStackBuilder.addParentStack(MainActivity::class.java)
@@ -344,10 +345,17 @@ fun updateSummaryNotifications(
 
 private fun newAndroidNotification(
     context: Context,
+    notificationId: Int,
     body: Notification,
     account: AccountEntity,
 ): NotificationCompat.Builder {
-    val eventResultIntent = MainActivityIntent.openNotification(context, account.id, body.type)
+    val eventResultIntent = MainActivityIntent.fromNotification(
+        context,
+        account.id,
+        notificationId,
+        body.id,
+        body.type,
+    )
     val eventStackBuilder = TaskStackBuilder.create(context)
     eventStackBuilder.addParentStack(MainActivity::class.java)
     eventStackBuilder.addNextIntent(eventResultIntent)
@@ -432,12 +440,12 @@ private fun getStatusComposeIntent(
         language = language,
         kind = ComposeOptions.ComposeKind.NEW,
     )
-    val composeIntent = MainActivityIntent.openCompose(
+    val composeIntent = MainActivityIntent.fromNotificationCompose(
         context,
-        composeOptions,
         account.id,
-        body.id,
+        composeOptions,
         account.id.toInt(),
+        body.id,
     )
     return PendingIntent.getActivity(
         context.applicationContext,
@@ -597,8 +605,8 @@ fun disablePullNotifications(context: Context) {
     NotificationConfig.notificationMethod = NotificationConfig.Method.Unknown
 }
 
-fun clearNotificationsForAccount(context: Context, account: AccountEntity) {
-    val accountId = account.id.toInt()
+fun clearNotificationsForAccount(context: Context, pachliAccountId: Long) {
+    val accountId = pachliAccountId.toInt()
     val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     for (androidNotification in notificationManager.activeNotifications) {

@@ -17,6 +17,7 @@
 
 package app.pachli.core.network.di.test
 
+import app.pachli.core.model.VersionAdapter
 import app.pachli.core.network.di.NetworkModule
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.model.MediaUploadApi
@@ -40,6 +41,7 @@ object FakeNetworkModule {
     @Provides
     @Singleton
     fun providesMoshi(): Moshi = Moshi.Builder()
+        .add(VersionAdapter())
         .add(Date::class.java, Rfc3339DateJsonAdapter())
         .add(Guarded.Factory())
         .build()

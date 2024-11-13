@@ -50,7 +50,7 @@ data class TabViewData(
     @DrawableRes val icon: Int,
     val fragment: () -> Fragment,
     val title: (Context) -> String = { context -> context.getString(text) },
-    val composeIntent: ((Context) -> Intent)? = { context -> ComposeActivityIntent(context) },
+    val composeIntent: ((Context, Long) -> Intent)? = { context, pachliAccountId -> ComposeActivityIntent(context, pachliAccountId) },
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -94,9 +94,10 @@ data class TabViewData(
                 text = R.string.title_direct_messages,
                 icon = R.drawable.ic_reblog_direct_24dp,
                 fragment = { ConversationsFragment.newInstance(pachliAccountId) },
-            ) {
+            ) { context, pachliAccountId ->
                 ComposeActivityIntent(
-                    it,
+                    context,
+                    pachliAccountId,
                     ComposeActivityIntent.ComposeOptions(visibility = Status.Visibility.PRIVATE),
                 )
             }
@@ -129,10 +130,11 @@ data class TabViewData(
                         context.getString(R.string.title_tag, it)
                     }
                 },
-            ) { context ->
+            ) { context, pachliAccountId ->
                 val tag = timeline.tags.first()
                 ComposeActivityIntent(
                     context,
+                    pachliAccountId,
                     ComposeActivityIntent.ComposeOptions(
                         content = getString(context, R.string.title_tag_with_initial_position).format(tag),
                         initialCursorPosition = ComposeActivityIntent.ComposeOptions.InitialCursorPosition.START,

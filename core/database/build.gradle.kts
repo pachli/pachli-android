@@ -43,4 +43,9 @@ dependencies {
 
     implementation(libs.moshix.sealed.runtime)
     ksp(libs.moshix.sealed.codegen)
+
+    // ServerRepository
+    implementation(libs.semver)?.because("Converters has to convert Version")
+
+    testImplementation(projects.core.testing)
 }

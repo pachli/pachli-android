@@ -18,60 +18,47 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
-import app.pachli.core.testing.failure
-import app.pachli.core.testing.success
-import com.github.michaelbull.result.Ok
+import app.pachli.core.data.model.from
+import app.pachli.core.data.repository.ContentFilters
+import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.ContentFilterVersion
+import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.never
-import org.mockito.kotlin.stub
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
 @HiltAndroidTest
-class ContentFiltersRepositoryTestReload : BaseContentFiltersRepositoryTest() {
+class ContentFiltersRepositoryTestReload : V2Test() {
     @Test
-    fun `reload should trigger a network request`() = runTest {
-        mastodonApi.stub {
-            onBlocking { getContentFiltersV1() } doReturn failure(body = "v1 should not be called")
-            onBlocking { getContentFilters() } doReturn success(emptyList())
-        }
+    fun `reload should trigger a network request and update flow`() = runTest {
+        networkFilters.addNetworkFilter("Test filter")
 
-        contentFiltersRepository.contentFilters.test {
+        contentFiltersRepository.getContentFiltersFlow(pachliAccountId).test {
+            // Confirm there are no filters at start.
             advanceUntilIdle()
-            verify(mastodonApi).getContentFilters()
+            assertThat(awaitItem()).isEqualTo(ContentFilters.EMPTY)
 
-            contentFiltersRepository.reload()
+            contentFiltersRepository.refresh(pachliAccountId)
             advanceUntilIdle()
 
+            // Confirm flow now contains the new filters.
+            assertThat(awaitItem()).isEqualTo(
+                ContentFilters(
+                    contentFilters = networkFilters.map { ContentFilter.from(it) },
+                    version = ContentFilterVersion.V2,
+                ),
+            )
+
+            // getContentFilters() Should be called twice. Once when the account
+            // was added, and a second time just now when refresh() was called.
             verify(mastodonApi, times(2)).getContentFilters()
+
+            // V1 version should never be called, as this is a V2 server.
             verify(mastodonApi, never()).getContentFiltersV1()
-
-            cancelAndConsumeRemainingEvents()
-        }
-    }
-
-    @Test
-    fun `changing server should trigger a network request`() = runTest {
-        mastodonApi.stub {
-            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
-            onBlocking { getContentFilters() } doReturn success(emptyList())
-        }
-
-        contentFiltersRepository.contentFilters.test {
-            advanceUntilIdle()
-            verify(mastodonApi, times(1)).getContentFilters()
-            verify(mastodonApi, never()).getContentFiltersV1()
-
-            serverFlow.update { Ok(SERVER_V1) }
-            advanceUntilIdle()
-
-            verify(mastodonApi, times(1)).getContentFilters()
-            verify(mastodonApi, times(1)).getContentFiltersV1()
 
             cancelAndConsumeRemainingEvents()
         }

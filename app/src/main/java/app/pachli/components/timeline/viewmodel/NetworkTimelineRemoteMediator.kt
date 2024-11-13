@@ -23,12 +23,11 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import app.pachli.BuildConfig
-import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import java.io.IOException
-import kotlinx.coroutines.CoroutineScope
 import retrofit2.HttpException
 import retrofit2.Response
 import timber.log.Timber
@@ -36,16 +35,12 @@ import timber.log.Timber
 /** Remote mediator for accessing timelines that are not backed by the database. */
 @OptIn(ExperimentalPagingApi::class)
 class NetworkTimelineRemoteMediator(
-    private val viewModelScope: CoroutineScope,
     private val api: MastodonApi,
-    accountManager: AccountManager,
+    private val activeAccount: AccountEntity,
     private val factory: InvalidatingPagingSourceFactory<String, Status>,
     private val pageCache: PageCache,
     private val timeline: Timeline,
 ) : RemoteMediator<String, Status>() {
-
-    private val activeAccount = accountManager.activeAccount!!
-
     override suspend fun load(loadType: LoadType, state: PagingState<String, Status>): MediatorResult {
         if (!activeAccount.isLoggedIn()) {
             return MediatorResult.Success(endOfPaginationReached = true)

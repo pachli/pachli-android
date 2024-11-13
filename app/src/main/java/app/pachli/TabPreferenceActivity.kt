@@ -37,42 +37,33 @@ import androidx.transition.TransitionManager
 import app.pachli.adapter.ItemInteractionListener
 import app.pachli.adapter.TabAdapter
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.repository.Lists
+import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.network.model.MastoList
-import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.databinding.DialogSelectListBinding
 import at.connyduck.sparkbutton.helpers.Utils
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
-
-    @Inject
-    lateinit var mastodonApi: MastodonApi
-
     @Inject
     lateinit var eventHub: EventHub
 
@@ -85,8 +76,6 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private lateinit var currentTabsAdapter: TabAdapter
     private lateinit var touchHelper: ItemTouchHelper
     private lateinit var addTabAdapter: TabAdapter
-
-    private var tabsChanged = false
 
     private val selectedItemElevation by unsafeLazy { resources.getDimension(DR.dimen.selected_drag_item_elevation) }
 
@@ -281,7 +270,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     }
 
     private fun showSelectListDialog() {
-        val adapter = object : ArrayAdapter<MastoList>(this, android.R.layout.simple_list_item_1) {
+        val adapter = object : ArrayAdapter<MastodonList>(this, android.R.layout.simple_list_item_1) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
                 getItem(position)?.let { item -> (view as TextView).text = item.title }
@@ -300,7 +289,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 adapter.getItem(position)?.let { item ->
                     val newTab = TabViewData.from(
                         intent.pachliAccountId,
-                        Timeline.UserList(item.id, item.title),
+                        Timeline.UserList(item.listId, item.title),
                     )
                     currentTabs.add(newTab)
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
@@ -324,21 +313,11 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         dialog.show()
 
         lifecycleScope.launch {
-            listsRepository.lists.collect { result ->
-                result.onSuccess { lists ->
-                    if (lists is Lists.Loaded) {
-                        selectListBinding.progressBar.hide()
-                        adapter.clear()
-                        adapter.addAll(lists.lists.sortedWith(compareByListTitle))
-                        if (lists.lists.isEmpty()) selectListBinding.noLists.show()
-                    }
-                }
-
-                result.onFailure {
-                    selectListBinding.progressBar.hide()
-                    dialog.dismiss()
-                    Snackbar.make(binding.root, R.string.error_list_load, Snackbar.LENGTH_LONG).show()
-                }
+            listsRepository.getLists(intent.pachliAccountId).collectLatest { lists ->
+                selectListBinding.progressBar.hide()
+                adapter.clear()
+                adapter.addAll(lists.sortedWith(compareByListTitle))
+                if (lists.isEmpty()) selectListBinding.noLists.show()
             }
         }
     }
@@ -410,18 +389,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private fun saveTabs() {
         accountManager.activeAccount?.let {
             lifecycleScope.launch(Dispatchers.IO) {
-                it.tabPreferences = currentTabs.map { it.timeline }
-                accountManager.saveAccount(it)
-            }
-        }
-        tabsChanged = true
-    }
-
-    override fun onPause() {
-        super.onPause()
-        if (tabsChanged) {
-            lifecycleScope.launch {
-                eventHub.dispatch(MainTabsChangedEvent(currentTabs.map { it.timeline }))
+                accountManager.setTabPreferences(it.id, currentTabs.map { it.timeline })
             }
         }
     }

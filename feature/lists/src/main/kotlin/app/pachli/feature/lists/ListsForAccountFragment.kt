@@ -57,6 +57,7 @@ class ListsForAccountFragment : DialogFragment() {
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<ListsForAccountViewModel.Factory> { factory ->
                 factory.create(
+                    requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID),
                     requireArguments().getString(ARG_ACCOUNT_ID)!!,
                 )
             }
@@ -169,7 +170,7 @@ class ListsForAccountFragment : DialogFragment() {
             oldItem: ListWithMembership,
             newItem: ListWithMembership,
         ): Boolean {
-            return oldItem.list.id == newItem.list.id
+            return oldItem.list.listId == newItem.list.listId
         }
 
         override fun areContentsTheSame(
@@ -195,9 +196,9 @@ class ListsForAccountFragment : DialogFragment() {
                 if (isChecked == item.isMember) return@setOnCheckedChangeListener
 
                 if (isChecked) {
-                    viewModel.addAccountToList(item.list.id)
+                    viewModel.addAccountToList(item.list.listId)
                 } else {
-                    viewModel.deleteAccountFromList(item.list.id)
+                    viewModel.deleteAccountFromList(item.list.listId)
                 }
             }
             return holder

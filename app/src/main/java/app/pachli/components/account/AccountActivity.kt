@@ -968,7 +968,7 @@ class AccountActivity :
                     kind = ComposeOptions.ComposeKind.NEW,
                 )
             }
-            val intent = ComposeActivityIntent(this, options)
+            val intent = ComposeActivityIntent(this, intent.pachliAccountId, options)
             startActivity(intent)
         }
     }

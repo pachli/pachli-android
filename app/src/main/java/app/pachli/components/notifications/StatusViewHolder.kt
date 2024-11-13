@@ -29,7 +29,6 @@ import app.pachli.viewdata.NotificationViewData
 internal class StatusViewHolder(
     binding: ItemStatusBinding,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
-    private val accountId: String,
 ) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder<NotificationViewData>(binding) {
 
     override fun bind(
@@ -56,7 +55,7 @@ internal class StatusViewHolder(
             )
         }
         if (viewData.type == Notification.Type.POLL) {
-            setPollInfo(accountId == viewData.account.id)
+            setPollInfo(viewData.isAboutSelf)
         } else {
             hideStatusInfo()
         }
@@ -66,7 +65,6 @@ internal class StatusViewHolder(
 class FilterableStatusViewHolder(
     binding: ItemStatusWrapperBinding,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
-    private val accountId: String,
 ) : NotificationsPagingAdapter.ViewHolder, FilterableStatusViewHolder<NotificationViewData>(binding) {
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
@@ -93,7 +91,7 @@ class FilterableStatusViewHolder(
             )
         }
         if (viewData.type == Notification.Type.POLL) {
-            setPollInfo(accountId == viewData.account.id)
+            setPollInfo(viewData.isAboutSelf)
         } else {
             hideStatusInfo()
         }

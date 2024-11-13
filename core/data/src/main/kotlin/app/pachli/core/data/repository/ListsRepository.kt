@@ -18,18 +18,13 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
-import app.pachli.core.network.model.MastoList
+import app.pachli.core.data.model.MastodonList
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 import java.text.Collator
-import kotlinx.coroutines.flow.StateFlow
-
-sealed interface Lists {
-    data object Loading : Lists
-    data class Loaded(val lists: List<MastoList>) : Lists
-}
+import kotlinx.coroutines.flow.Flow
 
 /** Marker for errors that include the ID of the list */
 interface HasListId {
@@ -60,78 +55,113 @@ interface ListsError : PachliError {
 }
 
 interface ListsRepository {
-    val lists: StateFlow<Result<Lists, ListsError.Retrieve>>
+    /** @return Known lists for [pachliAccountId]. */
+    fun getLists(pachliAccountId: Long): Flow<List<MastodonList>>
 
-    /** Make an API call to refresh [lists] */
-    fun refresh()
+    /** @return All known lists for all accounts. */
+    fun getListsFlow(): Flow<List<MastodonList>>
 
     /**
-     * Create a new list
+     * Refresh lists for [pachliAccountId].
      *
-     * @param title The new lists title
-     * @param exclusive True if the list is exclusive
-     * @return Details of the new list if successfuly, or an error
+     * @return Latests lists, or an error.
      */
-    suspend fun createList(title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, ListsError.Create>
+    suspend fun refresh(pachliAccountId: Long): Result<List<MastodonList>, ListsError.Retrieve>
 
     /**
-     * Edit an existing list.
+     * Creates a new list
      *
-     * @param listId ID of the list to edit
-     * @param title New title of the list
-     * @param exclusive New exclusive vale for the list
-     * @return Amended list, or an error
+     * @param pachliAccountId Account that will own the new list.
+     * @param title Title for the new list.
+     * @param exclusive True if the new list is exclusive.
+     * @return Details of the new list if successfuly, or an error.
      */
-    suspend fun editList(listId: String, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy): Result<MastoList, ListsError.Update>
+    suspend fun createList(
+        pachliAccountId: Long,
+        title: String,
+        exclusive: Boolean,
+        repliesPolicy: UserListRepliesPolicy,
+    ): Result<MastodonList, ListsError.Create>
 
     /**
-     * Delete an existing list
+     * Updates an existing list.
      *
-     * @param listId ID of the list to delete
+     * @param pachliAccountId Account that owns the list to update.
+     * @param listId ID of the list to update.
+     * @param title New title of the list.
+     * @param exclusive New exclusive value for the list.
+     * @return Amended list, or an error.
+     */
+    suspend fun updateList(
+        pachliAccountId: Long,
+        listId: String,
+        title: String,
+        exclusive: Boolean,
+        repliesPolicy: UserListRepliesPolicy,
+    ): Result<MastodonList, ListsError.Update>
+
+    /**
+     * Deletes an existing list
+     *
+     * @param list The list to delete
      * @return A successful result, or an error
      */
-    suspend fun deleteList(listId: String): Result<Unit, ListsError.Delete>
+    suspend fun deleteList(list: MastodonList): Result<Unit, ListsError.Delete>
 
     /**
-     * Fetch the lists with [accountId] as a member
+     * Fetches the lists with [accountId] as a member
      *
      * @param accountId ID of the account to search for
      * @result List of Mastodon lists the account is a member of, or an error
      */
-    suspend fun getListsWithAccount(accountId: String): Result<List<MastoList>, ListsError.GetListsWithAccount>
+    suspend fun getListsWithAccount(
+        pachliAccountId: Long,
+        accountId: String,
+    ): Result<List<MastodonList>, ListsError.GetListsWithAccount>
 
     /**
-     * Fetch the members of a list
+     * Fetches the members of a list
      *
      * @param listId ID of the list to fetch membership for
      * @return List of [TimelineAccount] that are members of the list, or an error
      */
-    suspend fun getAccountsInList(listId: String): Result<List<TimelineAccount>, ListsError.GetAccounts>
+    suspend fun getAccountsInList(
+        pachliAccountId: Long,
+        listId: String,
+    ): Result<List<TimelineAccount>, ListsError.GetAccounts>
 
     /**
-     * Add one or more accounts to a list
+     * Adds one or more accounts to a list
      *
      * @param listId ID of the list to add accounts to
      * @param accountIds IDs of the accounts to add
      * @return A successful result, or an error
      */
-    suspend fun addAccountsToList(listId: String, accountIds: List<String>): Result<Unit, ListsError.AddAccounts>
+    suspend fun addAccountsToList(
+        pachliAccountId: Long,
+        listId: String,
+        accountIds: List<String>,
+    ): Result<Unit, ListsError.AddAccounts>
 
     /**
-     * Remove one or more accounts from a list
+     * Removes one or more accounts from a list
      *
      * @param listId ID of the list to remove accounts from
      * @param accountIds IDs of the accounts to remove
      * @return A successful result, or an error
      */
-    suspend fun deleteAccountsFromList(listId: String, accountIds: List<String>): Result<Unit, ListsError.DeleteAccounts>
+    suspend fun deleteAccountsFromList(
+        pachliAccountId: Long,
+        listId: String,
+        accountIds: List<String>,
+    ): Result<Unit, ListsError.DeleteAccounts>
 
     companion object {
         /**
          * Locale-aware comparator for lists. Case-insenstive comparison by
          * the list's title.
          */
-        val compareByListTitle: Comparator<MastoList> = compareBy(
+        val compareByListTitle: Comparator<MastodonList> = compareBy(
             Collator.getInstance().apply { strength = Collator.SECONDARY },
         ) { it.title }
     }

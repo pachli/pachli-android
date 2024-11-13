@@ -550,7 +550,6 @@
     <string name="filter_edit_keyword_title">Editar palabra</string>
     <string name="select_list_empty">Aínda non tes listas</string>
     <string name="select_list_manage">Xestionar listas</string>
-    <string name="error_list_load">Erro ao cargar as listas</string>
     <string name="error_missing_edits">O teu servidor sabe que a publicación foi editada, pero non ten unha copia das edición, polo que non pode mostrarchas.
 \n
 \nÉ un <a href="https://github.com/mastodon/mastodon/issues/25398">problema coñecido</a> en Mastodon.</string>
@@ -587,8 +586,6 @@
     <string name="title_tab_public_trending_hashtags">Cancelos</string>
     <string name="title_tab_public_trending_links">Ligazóns</string>
     <string name="title_tab_public_trending_statuses">Publicacións</string>
-    <string name="title_lists_loading">Listas - cargando…</string>
-    <string name="title_lists_failed">Listas - fallou a carga</string>
     <string name="manage_lists">Xestionar listas</string>
     <string name="announcement_date_updated">(Actualizada: %1$s)</string>
     <string name="pref_summary_content_filters">O servidor non é compatible cos filtros</string>

@@ -56,6 +56,7 @@ import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
@@ -73,7 +74,10 @@ class AccountsInListFragment : DialogFragment() {
     private val viewModel: AccountsInListViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<AccountsInListViewModel.Factory> { factory ->
-                factory.create(requireArguments().getString(ARG_LIST_ID)!!)
+                factory.create(
+                    requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID),
+                    requireArguments().getString(ARG_LIST_ID)!!,
+                )
             }
         },
     )
@@ -91,10 +95,13 @@ class AccountsInListFragment : DialogFragment() {
     private val animateAvatar by unsafeLazy { sharedPreferencesRepository.animateAvatars }
     private val animateEmojis by unsafeLazy { sharedPreferencesRepository.animateEmojis }
 
+    private var pachliAccountId by Delegates.notNull<Long>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, DR.style.AppDialogFragmentStyle)
         val args = requireArguments()
+        pachliAccountId = args.getLong(ARG_PACHLI_ACCOUNT_ID)
         listName = args.getString(ARG_LIST_NAME)!!
     }
 
@@ -298,12 +305,14 @@ class AccountsInListFragment : DialogFragment() {
     }
 
     companion object {
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
         private const val ARG_LIST_ID = "app.pachli.ARG_LIST_ID"
         private const val ARG_LIST_NAME = "app.pachli.ARG_LIST_NAME"
 
         @JvmStatic
-        fun newInstance(listId: String, listName: String): AccountsInListFragment {
+        fun newInstance(pachliAccountId: Long, listId: String, listName: String): AccountsInListFragment {
             val args = Bundle().apply {
+                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
                 putString(ARG_LIST_ID, listId)
                 putString(ARG_LIST_NAME, listName)
             }

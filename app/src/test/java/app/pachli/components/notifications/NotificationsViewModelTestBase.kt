@@ -18,51 +18,91 @@
 package app.pachli.components.notifications
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
+import app.pachli.PachliApplication
 import app.pachli.appstore.EventHub
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
-import app.pachli.core.data.repository.ContentFilters
-import app.pachli.core.data.repository.ContentFiltersError
 import app.pachli.core.data.repository.ContentFiltersRepository
-import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.dao.AccountDao
+import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
+import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.testing.fakes.InMemorySharedPreferences
+import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
+import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
-import at.connyduck.calladapter.networkresult.NetworkResult
-import com.github.michaelbull.result.Ok
-import com.github.michaelbull.result.Result
-import kotlinx.coroutines.flow.MutableStateFlow
+import app.pachli.util.HiltTestApplication_Application
+import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.onSuccess
+import dagger.hilt.android.testing.CustomTestApplication
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import java.time.Instant
+import java.util.Date
+import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.mockito.kotlin.any
-import org.mockito.kotlin.doAnswer
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.reset
+import org.mockito.kotlin.stub
+import org.robolectric.annotation.Config
 import retrofit2.HttpException
 import retrofit2.Response
 
+open class PachliHiltApplication : PachliApplication()
+
+@CustomTestApplication(PachliHiltApplication::class)
+interface HiltTestApplication
+
+@HiltAndroidTest
+@Config(application = HiltTestApplication_Application::class)
 @RunWith(AndroidJUnit4::class)
 abstract class NotificationsViewModelTestBase {
-    protected lateinit var notificationsRepository: NotificationsRepository
-    protected lateinit var sharedPreferencesRepository: SharedPreferencesRepository
-    protected lateinit var accountManager: AccountManager
+    @get:Rule(order = 0)
+    var hilt = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val mainCoroutineRule = MainCoroutineRule()
+
+    @Inject
+    lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var mastodonApi: MastodonApi
+
+    @Inject
+    lateinit var nodeInfoApi: NodeInfoApi
+
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
+    @Inject
+    lateinit var contentFiltersRepository: ContentFiltersRepository
+
+    @Inject
+    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+
+    @Inject
+    lateinit var accountDao: AccountDao
+
+    protected val notificationsRepository: NotificationsRepository = mock()
     protected lateinit var timelineCases: TimelineCases
     protected lateinit var viewModel: NotificationsViewModel
-    private lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
-    private lateinit var contentFiltersRepository: ContentFiltersRepository
 
     private val eventHub = EventHub()
 
@@ -77,53 +117,39 @@ abstract class NotificationsViewModelTestBase {
     /** Exception to throw when testing errors */
     protected val httpException = HttpException(emptyError)
 
-    @get:Rule
-    val mainCoroutineRule = MainCoroutineRule()
+    private val account = Account(
+        id = "1",
+        localUsername = "username",
+        username = "username@domain.example",
+        displayName = "Display Name",
+        createdAt = Date.from(Instant.now()),
+        note = "",
+        url = "",
+        avatar = "",
+        header = "",
+    )
+
+    protected var pachliAccountId by Delegates.notNull<Long>()
 
     @Before
-    fun setup() {
-        notificationsRepository = mock()
+    fun setup() = runTest {
+        hilt.inject()
 
-        val defaultAccount = AccountEntity(
-            id = 1,
-            domain = "mastodon.test",
-            accessToken = "fakeToken",
-            clientId = "fakeId",
-            clientSecret = "fakeSecret",
-            isActive = true,
-            notificationsFilter = "['follow']",
-        )
+        reset(notificationsRepository)
 
-        val activeAccountFlow = MutableStateFlow(defaultAccount)
-
-        accountManager = mock {
-            on { activeAccount } doReturn defaultAccount
-            whenever(it.activeAccountFlow).thenReturn(activeAccountFlow)
+        reset(mastodonApi)
+        mastodonApi.stub {
+            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            onBlocking { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
+            onBlocking { getLists() } doReturn success(emptyList())
+            onBlocking { getCustomEmojis() } doReturn failure()
+            onBlocking { getContentFilters() } doReturn success(emptyList())
+            onBlocking { listAnnouncements(anyOrNull()) } doReturn success(emptyList())
         }
 
-        accountPreferenceDataStore = AccountPreferenceDataStore(
-            accountManager,
-            TestScope(),
-        )
-
-        timelineCases = mock()
-
-        contentFiltersRepository = mock {
-            whenever(it.contentFilters).thenReturn(MutableStateFlow<Result<ContentFilters?, ContentFiltersError.GetContentFiltersError>>(Ok(null)))
-        }
-
-        sharedPreferencesRepository = SharedPreferencesRepository(
-            InMemorySharedPreferences(),
-            TestScope(),
-        )
-
-        val mastodonApi: MastodonApi = mock {
-            onBlocking { getInstanceV2() } doAnswer { null }
-            onBlocking { getInstanceV1() } doAnswer { null }
-        }
-
-        val nodeInfoApi: NodeInfoApi = mock {
-            onBlocking { nodeInfoJrd() } doReturn NetworkResult.success(
+        reset(nodeInfoApi)
+        nodeInfoApi.stub {
+            onBlocking { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -133,35 +159,40 @@ abstract class NotificationsViewModelTestBase {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn NetworkResult.success(
+            onBlocking { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }
 
-        val serverRepository = ServerRepository(
-            mastodonApi,
-            nodeInfoApi,
+        pachliAccountId = accountManager.verifyAndAddAccount(
+            accessToken = "token",
+            domain = "domain.example",
+            clientId = "id",
+            clientSecret = "secret",
+            oauthScopes = "scopes",
+        )
+            .andThen {
+                accountManager.setNotificationsFilter(it, "['follow']")
+                accountManager.setActiveAccount(it)
+            }
+            .onSuccess { accountManager.refresh(it) }
+            .get()!!.id
+
+        accountPreferenceDataStore = AccountPreferenceDataStore(
             accountManager,
             TestScope(),
         )
 
-        statusDisplayOptionsRepository = StatusDisplayOptionsRepository(
-            sharedPreferencesRepository,
-            serverRepository,
-            accountManager,
-            accountPreferenceDataStore,
-            TestScope(),
-        )
+        timelineCases = mock()
 
         viewModel = NotificationsViewModel(
-            InstrumentationRegistry.getInstrumentation().targetContext,
             notificationsRepository,
             accountManager,
             timelineCases,
             eventHub,
-            contentFiltersRepository,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
+            pachliAccountId,
         )
     }
 }

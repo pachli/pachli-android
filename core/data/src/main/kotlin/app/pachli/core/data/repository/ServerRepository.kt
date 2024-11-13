@@ -21,21 +21,22 @@ import androidx.annotation.StringRes
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
+import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.ServerRepository.Error.Capabilities
 import app.pachli.core.data.repository.ServerRepository.Error.GetInstanceInfoV1
 import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
-import app.pachli.core.network.Server
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
-import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
+import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -43,6 +44,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -52,7 +55,7 @@ import timber.log.Timber
  *
  * See https://nodeinfo.diaspora.software/schema.html.
  */
-private val SCHEMAS = listOf(
+val SCHEMAS = listOf(
     "http://nodeinfo.diaspora.software/ns/schema/2.1",
     "http://nodeinfo.diaspora.software/ns/schema/2.0",
     "http://nodeinfo.diaspora.software/ns/schema/1.1",
@@ -63,14 +66,18 @@ private val SCHEMAS = listOf(
 class ServerRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val nodeInfoApi: NodeInfoApi,
-    private val accountManager: AccountManager,
+    accountManager: AccountManager,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     private val reload = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
 
     // SharedFlow, **not** StateFlow, to ensure a new value is emitted even if the
     // user switches between accounts that are on the same server.
-    val flow = reload.combine(accountManager.activeAccountFlow) { _, _ -> getServer() }
+    val flow = reload.combine(
+        accountManager.activeAccountFlow
+            .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+            .distinctUntilChangedBy { it.data?.id },
+    ) { _, _ -> getServer() }
         .shareIn(externalScope, SharingStarted.Lazily, replay = 1)
 
     fun reload() = externalScope.launch { reload.emit(Unit) }
@@ -81,10 +88,8 @@ class ServerRepository @Inject constructor(
      */
     private suspend fun getServer(): Result<Server, Error> = binding {
         // Fetch the /.well-known/nodeinfo document
-        val nodeInfoJrd = nodeInfoApi.nodeInfoJrd().fold(
-            { Ok(it) },
-            { Err(GetWellKnownNodeInfo(it)) },
-        ).bind()
+        val nodeInfoJrd = nodeInfoApi.nodeInfoJrd()
+            .mapError { GetWellKnownNodeInfo(it) }.bind().body
 
         // Find a link to a schema we can parse, prefering newer schema versions
         var nodeInfoUrlResult: Result<String, Error> = Err(UnsupportedSchema)
@@ -98,17 +103,17 @@ class ServerRepository @Inject constructor(
         val nodeInfoUrl = nodeInfoUrlResult.bind()
 
         Timber.d("Loading node info from %s", nodeInfoUrl)
-        val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).fold(
-            { it.validate().mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
+        val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).mapBoth(
+            { it.body.validate().mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
             { Err(GetNodeInfo(nodeInfoUrl, it)) },
         ).bind()
 
-        mastodonApi.getInstanceV2().fold(
-            { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
-            { throwable ->
-                Timber.e(throwable, "Couldn't process /api/v2/instance result")
-                mastodonApi.getInstanceV1().fold(
-                    { Server.from(nodeInfo.software, it).mapError(::Capabilities) },
+        mastodonApi.getInstanceV2().mapBoth(
+            { Server.from(nodeInfo.software, it.body).mapError(::Capabilities) },
+            { error ->
+                Timber.e(error.throwable, "Couldn't process /api/v2/instance result")
+                mastodonApi.getInstanceV1().mapBoth(
+                    { Server.from(nodeInfo.software, it.body).mapError(::Capabilities) },
                     { Err(GetInstanceInfoV1(it)) },
                 )
             },
@@ -121,34 +126,29 @@ class ServerRepository @Inject constructor(
         override val cause: PachliError? = null,
     ) : PachliError {
 
-        data class GetWellKnownNodeInfo(val throwable: Throwable) : Error(
+        data class GetWellKnownNodeInfo(override val cause: PachliError) : Error(
             R.string.server_repository_error_get_well_known_node_info,
-            throwable.localizedMessage?.let { arrayOf(it) },
         )
 
         data object UnsupportedSchema : Error(
             R.string.server_repository_error_unsupported_schema,
         )
 
-        data class GetNodeInfo(val url: String, val throwable: Throwable) : Error(
+        data class GetNodeInfo(val url: String, override val cause: PachliError) : Error(
             R.string.server_repository_error_get_node_info,
-            arrayOf(url, throwable.localizedMessage ?: ""),
         )
 
         data class ValidateNodeInfo(val url: String, val error: UnvalidatedNodeInfo.Error) : Error(
             R.string.server_repository_error_validate_node_info,
             arrayOf(url),
-            cause = error,
         )
 
-        data class GetInstanceInfoV1(val throwable: Throwable) : Error(
+        data class GetInstanceInfoV1(override val cause: PachliError) : Error(
             R.string.server_repository_error_get_instance_info,
-            throwable.localizedMessage?.let { arrayOf(it) },
         )
 
-        data class Capabilities(val error: Server.Error) : Error(
+        data class Capabilities(override val cause: Server.Error) : Error(
             R.string.server_repository_error_capabilities,
-            cause = error,
         )
     }
 }

@@ -34,6 +34,7 @@ import app.pachli.components.search.SearchOperator.LanguageOperator
 import app.pachli.components.search.SearchOperator.WhereOperator
 import app.pachli.components.search.adapter.SearchPagingSourceFactory
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
@@ -70,6 +71,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -120,13 +122,14 @@ class SearchViewModel @Inject constructor(
      */
     val operatorViewData = _operatorViewData.asStateFlow()
 
-    val locales = accountManager.activeAccountFlow.map {
-        getLocaleList(getInitialLanguages(activeAccount = it))
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        getLocaleList(getInitialLanguages()),
-    )
+    val locales = accountManager.activeAccountFlow
+        .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+        .map { getLocaleList(getInitialLanguages(activeAccount = it.data)) }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            getLocaleList(getInitialLanguages()),
+        )
 
     val server = serverRepository.flow.stateIn(
         viewModelScope,

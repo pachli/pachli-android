@@ -223,14 +223,14 @@ class SendStatusService : Service() {
             val sendResult = if (isNew) {
                 if (newStatus.scheduledAt == null) {
                     mastodonApi.createStatus(
-                        "Bearer " + account.accessToken,
+                        account.authHeader,
                         account.domain,
                         statusToSend.idempotencyKey,
                         newStatus,
                     )
                 } else {
                     mastodonApi.createScheduledStatus(
-                        "Bearer " + account.accessToken,
+                        account.authHeader,
                         account.domain,
                         statusToSend.idempotencyKey,
                         newStatus,
@@ -239,7 +239,7 @@ class SendStatusService : Service() {
             } else {
                 mastodonApi.editStatus(
                     statusToSend.statusId!!,
-                    "Bearer " + account.accessToken,
+                    account.authHeader,
                     account.domain,
                     statusToSend.idempotencyKey,
                     newStatus,
@@ -402,10 +402,10 @@ class SendStatusService : Service() {
     private fun buildDraftNotification(
         @StringRes title: Int,
         @StringRes content: Int,
-        accountId: Long,
+        pachliAccountId: Long,
         statusId: Int,
     ): Notification {
-        val intent = MainActivityIntent.openDrafts(this, accountId)
+        val intent = MainActivityIntent.fromDraftsNotification(this, pachliAccountId)
 
         val pendingIntent = PendingIntent.getActivity(
             this,

@@ -573,7 +573,6 @@
     <string name="ui_success_rejected_follow_request">Richiesta di follow bloccata</string>
     <string name="select_list_empty">Non hai ancora alcuna lista</string>
     <string name="select_list_manage">Gestisci liste</string>
-    <string name="error_list_load">Errore nel caricamento delle liste</string>
     <string name="status_filtered_show_anyway">Mostra comunque</string>
     <string name="status_filter_placeholder_label_format">Filtrato: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Profili</string>

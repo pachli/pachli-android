@@ -18,6 +18,16 @@
 package app.pachli.core.network.di.test
 
 import app.pachli.core.network.di.MastodonApiModule
+import app.pachli.core.network.model.Configuration
+import app.pachli.core.network.model.Contact
+import app.pachli.core.network.model.InstanceV2
+import app.pachli.core.network.model.InstanceV2Polls
+import app.pachli.core.network.model.InstanceV2Statuses
+import app.pachli.core.network.model.MediaAttachments
+import app.pachli.core.network.model.Registrations
+import app.pachli.core.network.model.Thumbnail
+import app.pachli.core.network.model.Usage
+import app.pachli.core.network.model.Users
 import app.pachli.core.network.retrofit.MastodonApi
 import dagger.Module
 import dagger.Provides
@@ -113,3 +123,31 @@ object ThrowingAnswer : Answer<Any> {
         throw AssertionError(message)
     }
 }
+
+/**
+ * An [InstanceV2] tests can use as the return value from [MastodonApi.getInstanceV2].
+ */
+val DEFAULT_INSTANCE_V2 = InstanceV2(
+    domain = "domain.example",
+    title = "Test server",
+    version = "4.3.0",
+    description = "Test description",
+    usage = Usage(users = Users()),
+    thumbnail = Thumbnail(
+        url = "https://example.com/thumbnail",
+        blurhash = null,
+        versions = null,
+    ),
+    languages = emptyList(),
+    configuration = Configuration(
+        statuses = InstanceV2Statuses(),
+        mediaAttachments = MediaAttachments(),
+        polls = InstanceV2Polls(),
+    ),
+    registrations = Registrations(
+        enabled = false,
+        approvalRequired = false,
+        message = null,
+    ),
+    contact = Contact(),
+)

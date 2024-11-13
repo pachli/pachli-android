@@ -348,8 +348,8 @@ class ConversationsFragment :
         // not needed
     }
 
-    override fun onReply(viewData: ConversationViewData) {
-        reply(viewData.lastStatus.actionable)
+    override fun onReply(pachliAccountId: Long, viewData: ConversationViewData) {
+        reply(pachliAccountId, viewData.lastStatus.actionable)
     }
 
     override fun onVoteInPoll(viewData: ConversationViewData, poll: Poll, choices: List<Int>) {

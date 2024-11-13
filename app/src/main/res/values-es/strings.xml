@@ -545,7 +545,6 @@
     <string name="help_empty_home">Esta es tu <b> cronología de inicio</b>. Muestra las publicaciones recientes de las cuentas que sigues. \n \nPara encontrar cuentas, puedes mirar en alguna de las otras cronologías; por ejemplo, la cronología local de tu instancia [iconics gmd_group]. O puedes buscarlas por nombre [iconics gmd_search]; por ejemplo, busca Pachli para encontrar nuestra cuenta de Mastodon.</string>
     <string name="ui_error_bookmark_fmt">Fallo al añadir a marcadores: %1$s</string>
     <string name="select_list_manage">Gestionar listas</string>
-    <string name="error_list_load">Error al cargar listas</string>
     <string name="ui_error_favourite_fmt">Fallo al favoritear publicación: %1$s</string>
     <string name="ui_error_clear_notifications">Fallo al limpiar notificaciones: %s</string>
     <string name="ui_error_accept_follow_request">Fallo al aceptar solicitud de seguimiento: %s</string>
@@ -635,8 +634,6 @@
     <string name="notification_severed_relationships_description">Notificaciones de relaciones rotas</string>
     <string name="poll_show_votes">Mostrar votos</string>
     <string name="manage_lists">Gestionar listas</string>
-    <string name="title_lists_loading">Listas - cargando…</string>
-    <string name="title_lists_failed">Listas - falló en cargar</string>
     <string name="error_filter_missing_keyword">Por lo menos se necesita una palabra clave o frase</string>
     <string name="error_filter_missing_context">Por lo menos se necesita un contexto para el filtro</string>
     <string name="error_filter_missing_title">Se necesita el título</string>

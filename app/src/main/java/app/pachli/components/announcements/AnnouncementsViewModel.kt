@@ -20,8 +20,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.appstore.AnnouncementReadEvent
-import app.pachli.appstore.EventHub
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Emoji
@@ -31,6 +30,8 @@ import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
 import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
@@ -38,9 +39,9 @@ import timber.log.Timber
 
 @HiltViewModel
 class AnnouncementsViewModel @Inject constructor(
+    private val accountManager: AccountManager,
     private val instanceInfoRepo: InstanceInfoRepository,
     private val mastodonApi: MastodonApi,
-    private val eventHub: EventHub,
 ) : ViewModel() {
 
     private val announcementsMutable = MutableLiveData<Resource<List<Announcement>>>()
@@ -59,29 +60,20 @@ class AnnouncementsViewModel @Inject constructor(
         viewModelScope.launch {
             announcementsMutable.postValue(Loading())
             mastodonApi.listAnnouncements()
-                .fold(
-                    {
-                        announcementsMutable.postValue(Success(it))
-                        it.filter { announcement -> !announcement.read }
-                            .forEach { announcement ->
-                                mastodonApi.dismissAnnouncement(announcement.id)
-                                    .fold(
-                                        {
-                                            eventHub.dispatch(AnnouncementReadEvent(announcement.id))
-                                        },
-                                        { throwable ->
-                                            Timber.d(
-                                                "Failed to mark announcement as read.",
-                                                throwable,
-                                            )
-                                        },
-                                    )
-                            }
-                    },
-                    {
-                        announcementsMutable.postValue(Error(cause = it))
-                    },
-                )
+                .onSuccess {
+                    announcementsMutable.postValue(Success(it.body))
+                    it.body.filter { announcement -> !announcement.read }
+                        .forEach { announcement ->
+                            mastodonApi.dismissAnnouncement(announcement.id)
+                                .onSuccess {
+                                    accountManager.deleteAnnouncement(accountManager.activeAccount!!.id, announcement.id)
+                                }
+                                .onFailure { throwable ->
+                                    Timber.d("Failed to mark announcement as read.", throwable)
+                                }
+                        }
+                }
+                .onFailure { announcementsMutable.postValue(Error(cause = it.throwable)) }
         }
     }
 

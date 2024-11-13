@@ -18,155 +18,198 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
+import app.pachli.core.data.repository.ContentFilters
+import app.pachli.core.database.model.ContentFiltersEntity
+import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
+import app.pachli.core.model.FilterKeyword
 import app.pachli.core.model.NewContentFilter
 import app.pachli.core.model.NewContentFilterKeyword
 import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterAction as NetworkFilterAction
 import app.pachli.core.network.model.FilterContext as NetworkFilterContext
+import app.pachli.core.network.model.FilterKeyword as NetworkFilterKeyword
 import app.pachli.core.network.model.FilterV1 as NetworkFilterV1
 import app.pachli.core.testing.success
-import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.get
+import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.util.Date
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doAnswer
-import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.stub
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
-@HiltAndroidTest
-class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
-    private val filterWithTwoKeywords = NewContentFilter(
-        title = "new filter",
-        contexts = setOf(FilterContext.HOME),
-        expiresIn = 300,
-        filterAction = FilterAction.WARN,
-        keywords = listOf(
-            NewContentFilterKeyword(keyword = "first", wholeWord = false),
-            NewContentFilterKeyword(keyword = "second", wholeWord = true),
-        ),
-    )
+/**
+ * Filter to use for testing.
+ *
+ * Has multiple keywords to ensure they are handled correctly.
+ */
+private val filterWithTwoKeywords = NewContentFilter(
+    title = "new filter",
+    contexts = setOf(FilterContext.HOME),
+    expiresIn = 300,
+    filterAction = FilterAction.WARN,
+    keywords = listOf(
+        NewContentFilterKeyword(keyword = "first", wholeWord = false),
+        NewContentFilterKeyword(keyword = "second", wholeWord = true),
+    ),
+)
 
+@HiltAndroidTest
+class ContentFiltersRepositoryTestCreate : V2Test() {
     @Test
-    fun `creating v2 filter should send correct requests`() = runTest {
+    fun `creating v2 filter should have correct result`() = runTest {
+        /** Record the derived filter expiry time for comparison testing. */
+        var expiresAt = Date()
+
         mastodonApi.stub {
-            onBlocking { getContentFilters() } doReturn success(emptyList())
             onBlocking { createFilter(any<NewContentFilter>()) } doAnswer { call ->
+                val newContentFilter = call.getArgument<NewContentFilter>(0)
+                val expiresIn = newContentFilter.expiresIn
+                expiresAt = Date(System.currentTimeMillis() + (expiresIn * 1000))
+
                 success(
                     NetworkFilter(
                         id = "1",
-                        title = call.getArgument<NewContentFilter>(0).title,
-                        contexts = call.getArgument<NewContentFilter>(0).contexts.map {
-                            NetworkFilterContext.from(it)
-                        }.toSet(),
-                        filterAction = NetworkFilterAction.from(
-                            call.getArgument<NewContentFilter>(
-                                0,
-                            ).filterAction,
-                        ),
-                        expiresAt = Date(
-                            System.currentTimeMillis() + (
-                                call.getArgument<NewContentFilter>(
-                                    0,
-                                ).expiresIn * 1000
-                                ),
-                        ),
-                        keywords = emptyList(),
+                        title = newContentFilter.title,
+                        contexts = newContentFilter.contexts.map { NetworkFilterContext.from(it) }.toSet(),
+                        filterAction = NetworkFilterAction.from(newContentFilter.filterAction),
+                        expiresAt = expiresAt,
+                        keywords = newContentFilter.keywords.mapIndexed { index, kw ->
+                            NetworkFilterKeyword(
+                                id = index.toString(),
+                                keyword = kw.keyword,
+                                wholeWord = kw.wholeWord,
+                            )
+                        },
                     ),
                 )
             }
         }
 
-        contentFiltersRepository.contentFilters.test {
+        contentFiltersRepository.getContentFiltersFlow(pachliAccountId).test {
+            // Confirm there are no filters.
             advanceUntilIdle()
+            assertThat(awaitItem()).isEqualTo(
+                ContentFilters(
+                    contentFilters = emptyList(),
+                    version = ContentFilterVersion.V2,
+                ),
+            )
 
-            contentFiltersRepository.createContentFilter(filterWithTwoKeywords)
+            // Create a new filter.
+            val result = contentFiltersRepository.createContentFilter(pachliAccountId, filterWithTwoKeywords)
             advanceUntilIdle()
+            val expected = ContentFilter(
+                id = "1",
+                title = filterWithTwoKeywords.title,
+                contexts = filterWithTwoKeywords.contexts,
+                expiresAt = expiresAt,
+                filterAction = filterWithTwoKeywords.filterAction,
+                keywords = filterWithTwoKeywords.keywords.mapIndexed { index, newContentFilterKeyword ->
+                    FilterKeyword(
+                        id = index.toString(),
+                        keyword = newContentFilterKeyword.keyword,
+                        wholeWord = newContentFilterKeyword.wholeWord,
+                    )
+                },
+            )
+
+            // createContentFilter should return the expected new filter
+            assertThat(result.get()).isEqualTo(expected)
 
             // createFilter should have been called once, with the correct arguments.
             verify(mastodonApi, times(1)).createFilter(filterWithTwoKeywords)
 
-            // Filters should have been refreshed
-            verify(mastodonApi, times(2)).getContentFilters()
+            // Database should contain the expected filters.
+            val entity = contentFiltersDao.getByAccount(pachliAccountId)
+            assertThat(entity).isEqualTo(
+                ContentFiltersEntity(
+                    accountId = pachliAccountId,
+                    contentFilters = listOf(expected),
+                    version = ContentFilterVersion.V2,
+                ),
+            )
+
+            // The flow should have emitted a new set of filters that includes the one just added.
+            val filters = awaitItem()
+            assertThat(filters).isEqualTo(
+                ContentFilters(
+                    contentFilters = listOf(expected),
+                    version = ContentFilterVersion.V2,
+                ),
+            )
 
             cancelAndConsumeRemainingEvents()
         }
     }
+}
 
-    // Test that "expiresIn = 0" in newFilter is converted to "".
-    @Test
-    fun `expiresIn of 0 is converted to empty string`() = runTest {
-        mastodonApi.stub {
-            onBlocking { getContentFilters() } doReturn success(emptyList())
-            onBlocking { createFilter(any()) } doAnswer { call ->
-                success(
-                    NetworkFilter(
-                        id = "1",
-                        title = call.getArgument<NewContentFilter>(0).title,
-                        contexts = call.getArgument<NewContentFilter>(0).contexts.map {
-                            NetworkFilterContext.from(it)
-                        }.toSet(),
-                        filterAction = NetworkFilterAction.from(
-                            call.getArgument<NewContentFilter>(
-                                0,
-                            ).filterAction,
-                        ),
-                        expiresAt = null,
-                        keywords = emptyList(),
-                    ),
-                )
-            }
-        }
-
-        // The v2 filter creation test covers most things, this just verifies that
-        // createFilter converts a "0" expiresIn to the empty string.
-        contentFiltersRepository.contentFilters.test {
-            advanceUntilIdle()
-            verify(mastodonApi, times(1)).getContentFilters()
-
-            val filterWithZeroExpiry = filterWithTwoKeywords.copy(expiresIn = 0)
-            contentFiltersRepository.createContentFilter(filterWithZeroExpiry)
-            advanceUntilIdle()
-
-            verify(mastodonApi, times(1)).createFilter(filterWithZeroExpiry)
-
-            cancelAndConsumeRemainingEvents()
-        }
-    }
-
+@HiltAndroidTest
+class ContentFiltersRepositoryTestCreateV1 : V1Test() {
     @Test
     fun `creating v1 filter should create one filter per keyword`() = runTest {
+        /** Record the derived filter expiry time for comparison testing. */
+        var expiresAt = Date()
+
+        /** Next ID to use when creating network filters. */
+        var nextFilterId = 1
+
+        // Initialise with no existing filters, and API stubs for creating V1 filters.
         mastodonApi.stub {
-            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
             onBlocking { createFilterV1(any(), any(), any(), any(), any()) } doAnswer { call ->
+                val expiresIn = call.getArgument<String>(4).toInt()
+                expiresAt = Date(System.currentTimeMillis() + (expiresIn * 1000))
+
                 success(
                     NetworkFilterV1(
-                        id = "1",
+                        id = (nextFilterId++).toString(),
                         phrase = call.getArgument(0),
                         contexts = call.getArgument(1),
                         irreversible = call.getArgument(2),
                         wholeWord = call.getArgument(3),
-                        expiresAt = Date(System.currentTimeMillis() + (call.getArgument<String>(4).toInt() * 1000)),
+                        expiresAt = expiresAt,
                     ),
                 )
             }
         }
 
-        serverFlow.update { Ok(SERVER_V1) }
-
-        contentFiltersRepository.contentFilters.test {
+        contentFiltersRepository.getContentFiltersFlow(pachliAccountId).test {
+            // Confirm there are no filters
             advanceUntilIdle()
-            verify(mastodonApi, times(1)).getContentFiltersV1()
+            assertThat(awaitItem()).isEqualTo(
+                ContentFilters.EMPTY.copy(
+                    version = ContentFilterVersion.V1,
+                ),
+            )
 
-            contentFiltersRepository.createContentFilter(filterWithTwoKeywords)
+            // Create a new filter.
+            val result = contentFiltersRepository.createContentFilter(pachliAccountId, filterWithTwoKeywords)
             advanceUntilIdle()
+            val expected = ContentFilter(
+                id = "2",
+                title = filterWithTwoKeywords.keywords[1].keyword,
+                contexts = filterWithTwoKeywords.contexts,
+                expiresAt = expiresAt,
+                filterAction = filterWithTwoKeywords.filterAction,
+                keywords = listOf(
+                    FilterKeyword(
+                        id = "0",
+                        keyword = filterWithTwoKeywords.keywords[1].keyword,
+                        wholeWord = filterWithTwoKeywords.keywords[1].wholeWord,
+                    ),
+                ),
+            )
+
+            // createContentFilter should return the expected new filter
+            assertThat(result.get()).isEqualTo(expected)
 
             // createFilterV1 should have been called twice, once for each keyword
             filterWithTwoKeywords.keywords.forEach { keyword ->
@@ -181,8 +224,24 @@ class ContentFiltersRepositoryTestCreate : BaseContentFiltersRepositoryTest() {
                 )
             }
 
-            // Filters should have been refreshed
-            verify(mastodonApi, times(2)).getContentFiltersV1()
+            // Database should contain the expected filters.
+            val entity = contentFiltersDao.getByAccount(pachliAccountId)
+            assertThat(entity).isEqualTo(
+                ContentFiltersEntity(
+                    accountId = pachliAccountId,
+                    contentFilters = listOf(expected),
+                    version = ContentFilterVersion.V1,
+                ),
+            )
+
+            // The flow should have emitted a new set of filters that includes the one just added.
+            val filters = awaitItem()
+            assertThat(filters).isEqualTo(
+                ContentFilters(
+                    contentFilters = listOf(expected),
+                    version = ContentFilterVersion.V1,
+                ),
+            )
 
             cancelAndConsumeRemainingEvents()
         }

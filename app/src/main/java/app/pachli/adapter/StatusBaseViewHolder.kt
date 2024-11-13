@@ -584,6 +584,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     protected fun setupButtons(
+        pachliAccountId: Long,
         viewData: T,
         listener: StatusActionListener<T>,
         accountId: String,
@@ -593,7 +594,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         avatar.setOnClickListener(profileButtonClickListener)
         displayName.setOnClickListener(profileButtonClickListener)
         replyButton.setOnClickListener {
-            listener.onReply(viewData)
+            listener.onReply(pachliAccountId, viewData)
         }
         reblogButton?.setEventListener { _: SparkButton?, buttonState: Boolean ->
             // return true to play animation
@@ -744,6 +745,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 listener,
             )
             setupButtons(
+                pachliAccountId,
                 viewData,
                 listener,
                 actionable.account.id,

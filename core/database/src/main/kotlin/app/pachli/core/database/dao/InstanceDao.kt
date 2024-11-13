@@ -20,25 +20,32 @@ package app.pachli.core.database.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.RewriteQueriesToDropUnusedColumns
+import androidx.room.Transaction
 import androidx.room.Upsert
 import app.pachli.core.database.model.EmojisEntity
-import app.pachli.core.database.model.InstanceEntity
 import app.pachli.core.database.model.InstanceInfoEntity
+import app.pachli.core.database.model.ServerEntity
 
 @Dao
 interface InstanceDao {
 
-    @Upsert(entity = InstanceEntity::class)
+    @Upsert
     suspend fun upsert(instance: InstanceInfoEntity)
 
-    @Upsert(entity = InstanceEntity::class)
+    @Upsert
     suspend fun upsert(emojis: EmojisEntity)
 
-    @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM InstanceEntity WHERE instance = :instance LIMIT 1")
+    @Upsert
+    suspend fun upsert(serverEntity: ServerEntity)
+
+    @Transaction
+    @Query("SELECT * FROM InstanceInfoEntity WHERE instance = :instance LIMIT 1")
     suspend fun getInstanceInfo(instance: String): InstanceInfoEntity?
 
+    @Query("SELECT * FROM ServerEntity WHERE accountId = :pachliAccountId")
+    suspend fun getServer(pachliAccountId: Long): ServerEntity?
+
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM InstanceEntity WHERE instance = :instance LIMIT 1")
-    suspend fun getEmojiInfo(instance: String): EmojisEntity?
+    @Query("SELECT * FROM EmojisEntity WHERE accountId = :pachliAccountId")
+    suspend fun getEmojiInfo(pachliAccountId: Long): EmojisEntity?
 }

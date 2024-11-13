@@ -587,7 +587,6 @@
     <string name="notification_update_description">Notificações quando Toots com os quais interagiu são editados</string>
     <string name="notification_listenable_worker_description">Notificações quando Pachli está trabalhando em segundo plano</string>
     <string name="status_filtered_show_anyway">Mostrar mesmo assim</string>
-    <string name="error_list_load">Erro ao carregar as listas</string>
     <string name="ui_error_accept_follow_request">Falha ao aceitar a solicitação de seguir: %s</string>
     <string name="ui_success_rejected_follow_request">Pedido para seguir bloqueado</string>
     <string name="notification_sign_up_format">%s se inscreveu</string>

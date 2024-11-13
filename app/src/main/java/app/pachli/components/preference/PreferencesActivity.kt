@@ -79,20 +79,22 @@ class PreferencesActivity :
             setDisplayShowHomeEnabled(true)
         }
 
-        val preferenceType = PreferencesActivityIntent.getPreferenceType(intent)
+        if (savedInstanceState == null) {
+            val preferenceType = PreferencesActivityIntent.getPreferenceType(intent)
 
-        val fragmentTag = "preference_fragment_$preferenceType"
+            val fragmentTag = "preference_fragment_$preferenceType"
 
-        val fragment: Fragment = supportFragmentManager.findFragmentByTag(fragmentTag)
-            ?: when (preferenceType) {
-                PreferenceScreen.GENERAL -> PreferencesFragment.newInstance()
-                PreferenceScreen.ACCOUNT -> AccountPreferencesFragment.newInstance(intent.pachliAccountId)
-                PreferenceScreen.NOTIFICATION -> NotificationPreferencesFragment.newInstance()
-                else -> throw IllegalArgumentException("preferenceType not known")
+            val fragment: Fragment = supportFragmentManager.findFragmentByTag(fragmentTag)
+                ?: when (preferenceType) {
+                    PreferenceScreen.GENERAL -> PreferencesFragment.newInstance()
+                    PreferenceScreen.ACCOUNT -> AccountPreferencesFragment.newInstance(intent.pachliAccountId)
+                    PreferenceScreen.NOTIFICATION -> NotificationPreferencesFragment.newInstance()
+                    else -> throw IllegalArgumentException("preferenceType not known")
+                }
+
+            supportFragmentManager.commit {
+                replace(R.id.fragment_container, fragment, fragmentTag)
             }
-
-        supportFragmentManager.commit {
-            replace(R.id.fragment_container, fragment, fragmentTag)
         }
 
         onBackPressedDispatcher.addCallback(this, restartActivitiesOnBackPressedCallback)
@@ -148,6 +150,7 @@ class PreferencesActivity :
                 TransitionKind.SLIDE_FROM_END.closeExit,
             )
             replace(R.id.fragment_container, fragment)
+            setReorderingAllowed(true)
             addToBackStack(null)
         }
         return true

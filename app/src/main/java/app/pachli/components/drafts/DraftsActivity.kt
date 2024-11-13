@@ -29,6 +29,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityDraftsBinding
@@ -126,7 +127,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
 
                         bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
 
-                        startActivity(ComposeActivityIntent(context, composeOptions))
+                        startActivity(ComposeActivityIntent(context, intent.pachliAccountId, composeOptions))
                     },
                     { throwable ->
                         bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
@@ -162,7 +163,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
             kind = ComposeOptions.ComposeKind.EDIT_DRAFT,
         )
 
-        startActivity(ComposeActivityIntent(this, composeOptions))
+        startActivity(ComposeActivityIntent(this, intent.pachliAccountId, composeOptions))
     }
 
     override fun onDeleteDraft(draft: DraftEntity) {

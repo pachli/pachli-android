@@ -30,7 +30,7 @@ import app.pachli.appstore.StatusEditedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
@@ -48,8 +48,6 @@ import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.getOrThrow
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -59,6 +57,10 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -69,14 +71,12 @@ class ViewThreadViewModel @Inject constructor(
     private val api: MastodonApi,
     private val timelineCases: TimelineCases,
     eventHub: EventHub,
-    accountManager: AccountManager,
+    private val accountManager: AccountManager,
     private val timelineDao: TimelineDao,
     private val moshi: Moshi,
     private val repository: CachedTimelineRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
-    private val contentFiltersRepository: ContentFiltersRepository,
 ) : ViewModel() {
-
     private val _uiState: MutableStateFlow<ThreadUiState> = MutableStateFlow(ThreadUiState.Loading)
     val uiState: Flow<ThreadUiState>
         get() = _uiState
@@ -89,9 +89,10 @@ class ViewThreadViewModel @Inject constructor(
 
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
-    val activeAccount: AccountEntity = accountManager.activeAccount!!
-    private val alwaysShowSensitiveMedia: Boolean = activeAccount.alwaysShowSensitiveMedia
-    private val alwaysOpenSpoiler: Boolean = activeAccount.alwaysOpenSpoiler
+    val activeAccount: AccountEntity
+        get() {
+            return accountManager.activeAccount!!
+        }
 
     private var contentFilterModel: ContentFilterModel? = null
 
@@ -113,28 +114,27 @@ class ViewThreadViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            contentFiltersRepository.contentFilters.collect { filters ->
-                filters.onSuccess {
-                    contentFilterModel = when (it?.version) {
-                        ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.THREAD)
-                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.THREAD, it.contentFilters)
-                        else -> null
+            accountManager.activePachliAccountFlow
+                .distinctUntilChangedBy { it.contentFilters }
+                .collect { account ->
+                    contentFilterModel = when (account.contentFilters.version) {
+                        ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.NOTIFICATIONS)
+                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.NOTIFICATIONS, account.contentFilters.contentFilters)
                     }
                     updateStatuses()
                 }
-                    .onFailure {
-                        // TODO: Deliberately don't emit to _errors here -- at the moment
-                        // ViewThreadFragment shows a generic error to the user, and that
-                        // would confuse them when the rest of the thread is loading OK.
-                    }
-            }
         }
     }
 
     fun loadThread(id: String) {
-        _uiState.value = ThreadUiState.Loading
-
         viewModelScope.launch {
+            _uiState.value = ThreadUiState.Loading
+
+            val account = accountManager.activeAccountFlow
+                .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+                .filter { it.data != null }
+                .first().data!!
+
             Timber.d("Finding status with: %s", id)
             val contextCall = async { api.statusContext(id) }
             val timelineStatusWithAccount = timelineDao.getStatus(id)
@@ -150,8 +150,8 @@ class ViewThreadViewModel @Inject constructor(
                 if (status.actionableId == id) {
                     StatusViewData.from(
                         status = status.actionableStatus,
-                        isExpanded = timelineStatusWithAccount.viewData?.expanded ?: alwaysOpenSpoiler,
-                        isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                        isExpanded = timelineStatusWithAccount.viewData?.expanded ?: account.alwaysOpenSpoiler,
+                        isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                         isDetailed = true,
                         translationState = timelineStatusWithAccount.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
@@ -161,8 +161,8 @@ class ViewThreadViewModel @Inject constructor(
                     StatusViewData.from(
                         timelineStatusWithAccount,
                         moshi,
-                        isExpanded = alwaysOpenSpoiler,
-                        isShowingContent = (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                        isExpanded = account.alwaysOpenSpoiler,
+                        isShowingContent = (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isDetailed = true,
                         translationState = TranslationState.SHOW_ORIGINAL,
                     )
@@ -173,7 +173,7 @@ class ViewThreadViewModel @Inject constructor(
                     _uiState.value = ThreadUiState.Error(exception)
                     return@launch
                 }
-                StatusViewData.fromStatusAndUiState(result, isDetailed = true)
+                StatusViewData.fromStatusAndUiState(account, result, isDetailed = true)
             }
 
             _uiState.value = ThreadUiState.LoadingThread(
@@ -210,8 +210,8 @@ class ViewThreadViewModel @Inject constructor(
                         val svd = cachedViewData[status.id]
                         StatusViewData.from(
                             status,
-                            isShowingContent = svd?.contentShowing ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
-                            isExpanded = svd?.expanded ?: alwaysOpenSpoiler,
+                            isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                            isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
                             isCollapsed = svd?.contentCollapsed ?: true,
                             isDetailed = false,
                             translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
@@ -222,8 +222,8 @@ class ViewThreadViewModel @Inject constructor(
                         val svd = cachedViewData[status.id]
                         StatusViewData.from(
                             status,
-                            isShowingContent = svd?.contentShowing ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
-                            isExpanded = svd?.expanded ?: alwaysOpenSpoiler,
+                            isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                            isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
                             isCollapsed = svd?.contentCollapsed ?: true,
                             isDetailed = false,
                             translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
@@ -403,7 +403,7 @@ class ViewThreadViewModel @Inject constructor(
             if (detailedIndex != -1 && repliedIndex >= detailedIndex) {
                 // there is a new reply to the detailed status or below -> display it
                 val newStatuses = statuses.subList(0, repliedIndex + 1) +
-                    StatusViewData.fromStatusAndUiState(eventStatus) +
+                    StatusViewData.fromStatusAndUiState(activeAccount, eventStatus) +
                     statuses.subList(repliedIndex + 1, statuses.size)
                 uiState.copy(statusViewData = newStatuses)
             } else {
@@ -417,7 +417,7 @@ class ViewThreadViewModel @Inject constructor(
             uiState.copy(
                 statusViewData = uiState.statusViewData.map { status ->
                     if (status.actionableId == event.originalId) {
-                        StatusViewData.fromStatusAndUiState(event.status)
+                        StatusViewData.fromStatusAndUiState(activeAccount, event.status)
                     } else {
                         status
                     }
@@ -562,12 +562,12 @@ class ViewThreadViewModel @Inject constructor(
      * Creates a [StatusViewData] from `status`, copying over the viewdata state from the same
      * status in _uiState (if that status exists).
      */
-    private fun StatusViewData.Companion.fromStatusAndUiState(status: Status, isDetailed: Boolean = false): StatusViewData {
+    private fun StatusViewData.Companion.fromStatusAndUiState(account: AccountEntity, status: Status, isDetailed: Boolean = false): StatusViewData {
         val oldStatus = (_uiState.value as? ThreadUiState.Success)?.statusViewData?.find { it.id == status.id }
         return from(
             status,
-            isShowingContent = oldStatus?.isShowingContent ?: (alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
-            isExpanded = oldStatus?.isExpanded ?: alwaysOpenSpoiler,
+            isShowingContent = oldStatus?.isShowingContent ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+            isExpanded = oldStatus?.isExpanded ?: account.alwaysOpenSpoiler,
             isCollapsed = oldStatus?.isCollapsed ?: !isDetailed,
             isDetailed = oldStatus?.isDetailed ?: isDetailed,
         )

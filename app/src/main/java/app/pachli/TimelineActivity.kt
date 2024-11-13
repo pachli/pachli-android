@@ -26,13 +26,13 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import app.pachli.appstore.EventHub
-import app.pachli.appstore.MainTabsChangedEvent
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.ContentFilterEdit
-import app.pachli.core.data.repository.ContentFiltersError
 import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.canFilterV1
+import app.pachli.core.data.repository.canFilterV2
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -53,6 +53,8 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -116,7 +118,14 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         }
 
         viewData.composeIntent?.let { intent ->
-            binding.composeButton.setOnClickListener { startActivity(intent(this@TimelineActivity)) }
+            binding.composeButton.setOnClickListener {
+                startActivity(
+                    intent(
+                        this@TimelineActivity,
+                        this.intent.pachliAccountId,
+                    ),
+                )
+            }
             binding.composeButton.show()
         } ?: binding.composeButton.hide()
     }
@@ -185,9 +194,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
     private fun addToTab() {
         accountManager.activeAccount?.let {
             lifecycleScope.launch(Dispatchers.IO) {
-                it.tabPreferences += timeline
-                accountManager.saveAccount(it)
-                eventHub.dispatch(MainTabsChangedEvent(it.tabPreferences))
+                accountManager.setTabPreferences(it.id, it.tabPreferences + timeline)
             }
         }
     }
@@ -243,23 +250,23 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         unmuteTagItem?.isVisible = false
 
         lifecycleScope.launch {
-            contentFiltersRepository.contentFilters.collect { result ->
-                result.onSuccess { filters ->
-                    mutedContentFilter = filters?.contentFilters?.firstOrNull { filter ->
-                        filter.contexts.contains(FilterContext.HOME) &&
-                            filter.keywords.any { it.keyword == tagWithHash }
-                    }
-                    updateTagMuteState(mutedContentFilter != null)
-                }
-                result.onFailure { error ->
-                    // If the server can't filter then it's impossible to mute hashtags,
-                    // so disable the functionality.
-                    if (error is ContentFiltersError.ServerDoesNotFilter) {
+            accountManager.getPachliAccountFlow(intent.pachliAccountId)
+                .filterNotNull()
+                .distinctUntilChangedBy { it.contentFilters }
+                .collect { account ->
+                    if (account.server.canFilterV2() || account.server.canFilterV1()) {
+                        mutedContentFilter = account.contentFilters.contentFilters.firstOrNull { filter ->
+                            filter.contexts.contains(FilterContext.HOME) &&
+                                filter.keywords.any { it.keyword == tagWithHash }
+                        }
+                        updateTagMuteState(mutedContentFilter != null)
+                    } else {
+                        // If the server can't filter then it's impossible to mute hashtags,
+                        // so disable the functionality.
                         muteTagItem?.isVisible = false
                         unmuteTagItem?.isVisible = false
                     }
                 }
-            }
         }
     }
 
@@ -292,7 +299,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
                 ),
             )
 
-            contentFiltersRepository.createContentFilter(newContentFilter)
+            contentFiltersRepository.createContentFilter(intent.pachliAccountId, newContentFilter)
                 .onSuccess {
                     mutedContentFilter = it
                     updateTagMuteState(true)
@@ -312,9 +319,9 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
             val result = mutedContentFilter?.let { filter ->
                 val newContexts = filter.contexts.filter { it != FilterContext.HOME }
                 if (newContexts.isEmpty()) {
-                    contentFiltersRepository.deleteContentFilter(filter.id)
+                    contentFiltersRepository.deleteContentFilter(intent.pachliAccountId, filter.id)
                 } else {
-                    contentFiltersRepository.updateContentFilter(filter, ContentFilterEdit(filter.id, contexts = newContexts))
+                    contentFiltersRepository.updateContentFilter(intent.pachliAccountId, filter, ContentFilterEdit(filter.id, contexts = newContexts))
                 }
             }
 

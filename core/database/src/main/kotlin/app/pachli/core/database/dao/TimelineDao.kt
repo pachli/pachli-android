@@ -23,6 +23,7 @@ import androidx.room.Insert
 import androidx.room.MapColumn
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Upsert
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
@@ -188,7 +189,8 @@ AND serverId = :statusId""",
      * @param accountId id of the account for which to clean tables
      * @param limit how many statuses to keep
      */
-    suspend fun cleanup(accountId: Long, limit: Int) {
+    @Transaction
+    open suspend fun cleanup(accountId: Long, limit: Int) {
         cleanupStatuses(accountId, limit)
         cleanupAccounts(accountId)
         cleanupStatusViewData(accountId, limit)

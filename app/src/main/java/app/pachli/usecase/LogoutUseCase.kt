@@ -1,19 +1,22 @@
 package app.pachli.usecase
 
 import android.content.Context
+import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.deleteNotificationChannelsForAccount
 import app.pachli.components.notifications.disablePushNotificationsForAccount
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.LogoutError
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.util.removeShortcut
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import timber.log.Timber
 
 class LogoutUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -25,51 +28,39 @@ class LogoutUseCase @Inject constructor(
     private val draftHelper: DraftHelper,
 ) {
     /**
-     * Logs the current account out and clears all caches associated with it
+     * Logs the current account out and clears all caches associated with it. The next
+     * account is automatically made active.
      *
-     * @return The [AccountEntity] that should be logged in next, null if there are no
-     * other accounts to log in to.
+     * @return [Result] of the [AccountEntity] that is now active, null if there are no
+     * other accounts to log in to. Or the error that occurred during logout.
      */
-    suspend operator fun invoke(): AccountEntity? {
-        accountManager.activeAccount?.let { activeAccount ->
+    suspend operator fun invoke(account: AccountEntity): Result<AccountEntity?, LogoutError> {
+        disablePushNotificationsForAccount(context, api, accountManager, account)
 
-            // invalidate the oauth token, if we have the client id & secret
-            // (could be missing if user logged in with a previous version of the app)
-            val clientId = activeAccount.clientId
-            val clientSecret = activeAccount.clientSecret
-            if (clientId != null && clientSecret != null) {
-                try {
-                    api.revokeOAuthToken(
-                        clientId = clientId,
-                        clientSecret = clientSecret,
-                        token = activeAccount.accessToken,
-                    )
-                } catch (e: Exception) {
-                    Timber.e(e, "Could not revoke OAuth token, continuing")
-                }
-            }
+        api.revokeOAuthToken(
+            clientId = account.clientId,
+            clientSecret = account.clientSecret,
+            token = account.accessToken,
+        )
+            .onFailure { return Err(LogoutError.Api(it)) }
 
-            // disable push notifications
-            disablePushNotificationsForAccount(context, api, accountManager, activeAccount)
+        // clear notification channels
+        deleteNotificationChannelsForAccount(account, context)
 
-            // clear notification channels
-            deleteNotificationChannelsForAccount(activeAccount, context)
+        val nextAccount = accountManager.logActiveAccountOut()
+            .onFailure { return Err(it) }
 
-            // remove account from local AccountManager
-            val nextAccount = accountManager.logActiveAccountOut()
+        // Clear the database.
+        // TODO: This should be handled with foreign key constraints.
+        timelineDao.removeAll(account.id)
+        timelineDao.removeAllStatusViewData(account.id)
+        remoteKeyDao.delete(account.id)
+        conversationsDao.deleteForAccount(account.id)
+        draftHelper.deleteAllDraftsAndAttachmentsForAccount(account.id)
 
-            // clear the database - this could trigger network calls so do it last when all tokens are gone
-            timelineDao.removeAll(activeAccount.id)
-            timelineDao.removeAllStatusViewData(activeAccount.id)
-            remoteKeyDao.delete(activeAccount.id)
-            conversationsDao.deleteForAccount(activeAccount.id)
-            draftHelper.deleteAllDraftsAndAttachmentsForAccount(activeAccount.id)
+        // remove shortcut associated with the account
+        ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(account.id.toString()))
 
-            // remove shortcut associated with the account
-            removeShortcut(context, activeAccount)
-
-            return nextAccount
-        }
-        return null
+        return nextAccount
     }
 }

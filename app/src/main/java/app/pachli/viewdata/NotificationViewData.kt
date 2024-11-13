@@ -34,6 +34,16 @@ import app.pachli.core.network.model.TimelineAccount
  * about boosting a status, the boosted status is also shown). However, not all
  * notifications are related to statuses (e.g., a "Someone has followed you"
  * notification) so `statusViewData` is nullable.
+ *
+ * @param type
+ * @param id
+ * @param account
+ * @param statusViewData
+ * @param report
+ * @param relationshipSeveranceEvent
+ * @param isAboutSelf True if this notification relates to something the user
+ * posted (e.g., it's a boost, favourite, or poll ending), false otherwise
+ * (e.g., it's a mention).
  */
 data class NotificationViewData(
     val type: Notification.Type,
@@ -42,6 +52,7 @@ data class NotificationViewData(
     var statusViewData: StatusViewData?,
     val report: Report?,
     val relationshipSeveranceEvent: RelationshipSeveranceEvent?,
+    val isAboutSelf: Boolean,
 ) : IStatusViewData {
     companion object {
         fun from(
@@ -50,6 +61,7 @@ data class NotificationViewData(
             isExpanded: Boolean,
             isCollapsed: Boolean,
             filterAction: FilterAction,
+            isAboutSelf: Boolean,
         ) = NotificationViewData(
             notification.type,
             notification.id,
@@ -65,6 +77,7 @@ data class NotificationViewData(
             },
             notification.report,
             notification.relationshipSeveranceEvent,
+            isAboutSelf,
         )
     }
 

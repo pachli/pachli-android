@@ -18,46 +18,35 @@
 package app.pachli.components.notifications
 
 import app.cash.turbine.test
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.model.Notification
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import org.mockito.kotlin.argumentCaptor
-import org.mockito.kotlin.verify
 
 /**
  * Verify that [ApplyFilter] is handled correctly on receipt:
- *
- * - Is the [UiState] updated correctly?
- * - Are the correct [AccountManager] functions called, with the correct arguments?
  */
+@HiltAndroidTest
 class NotificationsViewModelTestContentFilter : NotificationsViewModelTestBase() {
-
-    @Test
-    fun `should load initial filter from active account`() = runTest {
-        viewModel.uiState.test {
-            assertThat(awaitItem().activeFilter)
-                .containsExactlyElementsIn(setOf(Notification.Type.FOLLOW))
-        }
-    }
 
     @Test
     fun `should save filter to active account && update state`() = runTest {
         viewModel.uiState.test {
+            // Given
+            // - Initial filter is from the active account
+            // (skip the first item, the default state)
+            awaitItem()
+            assertThat(awaitItem().activeFilter)
+                .containsExactlyElementsIn(setOf(Notification.Type.FOLLOW))
+
             // When
-            viewModel.accept(InfallibleUiAction.ApplyFilter(setOf(Notification.Type.REBLOG)))
+            // - Updating the filter
+            viewModel.accept(InfallibleUiAction.ApplyFilter(pachliAccountId, setOf(Notification.Type.REBLOG)))
 
             // Then
-            // - filter saved to active account
-            argumentCaptor<AccountEntity>().apply {
-                verify(accountManager).saveAccount(capture())
-                assertThat(this.lastValue.notificationsFilter)
-                    .isEqualTo("[\"reblog\"]")
-            }
-
             // - filter updated in uiState
-            assertThat(expectMostRecentItem().activeFilter)
+            assertThat(awaitItem().activeFilter)
                 .containsExactlyElementsIn(setOf(Notification.Type.REBLOG))
         }
     }

@@ -18,7 +18,7 @@ package app.pachli.components.trending.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.model.FilterContext
 import app.pachli.core.network.model.TrendingTag
 import app.pachli.core.network.model.end
@@ -26,19 +26,24 @@ import app.pachli.core.network.model.start
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.viewdata.TrendingViewData
 import at.connyduck.calladapter.networkresult.fold
-import com.github.michaelbull.result.get
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.IOException
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @HiltViewModel
 class TrendingTagsViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val contentFiltersRepository: ContentFiltersRepository,
+    private val accountManager: AccountManager,
 ) : ViewModel() {
     enum class LoadingState {
         INITIAL,
@@ -57,9 +62,18 @@ class TrendingTagsViewModel @Inject constructor(
     val uiState: Flow<TrendingTagsUiState> get() = _uiState
     private val _uiState = MutableStateFlow(TrendingTagsUiState(listOf(), LoadingState.INITIAL))
 
+    private val contentFilters = flow {
+        accountManager.activePachliAccountFlow.filterNotNull()
+            .distinctUntilChangedBy { it.contentFilters }
+            .map { it.contentFilters }
+            .collect(::emit)
+    }
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
+
     init {
-        invalidate()
-        viewModelScope.launch { contentFiltersRepository.contentFilters.collect { invalidate() } }
+        viewModelScope.launch {
+            contentFilters.collect { invalidate() }
+        }
     }
 
     /**
@@ -74,21 +88,22 @@ class TrendingTagsViewModel @Inject constructor(
             _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.LOADING)
         }
 
+        val contentFilters = contentFilters.replayCache.last()
+
         mastodonApi.trendingTags(limit = LIMIT_TRENDING_HASHTAGS).fold(
             { tagResponse ->
-
                 val firstTag = tagResponse.firstOrNull()
                 _uiState.value = if (firstTag == null) {
                     TrendingTagsUiState(emptyList(), LoadingState.LOADED)
                 } else {
-                    val homeFilters = contentFiltersRepository.contentFilters.value.get()?.contentFilters?.filter { filter ->
+                    val homeFilters = contentFilters.contentFilters.filter { filter ->
                         filter.contexts.contains(FilterContext.HOME)
                     }
                     val tags = tagResponse
                         .filter { tag ->
-                            homeFilters?.none { filter ->
+                            homeFilters.none { filter ->
                                 filter.keywords.any { keyword -> keyword.keyword.equals(tag.name, ignoreCase = true) }
-                            } ?: false
+                            }
                         }
                         .sortedByDescending { tag -> tag.history.sumOf { it.uses.toLongOrNull() ?: 0 } }
                         .toTrendingViewDataTag()

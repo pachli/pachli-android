@@ -39,8 +39,8 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.lazyActivityScenarioRule
+import app.pachli.core.testing.success
 import app.pachli.db.DraftsAlert
-import at.connyduck.calladapter.networkresult.NetworkResult
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -48,6 +48,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -112,22 +113,21 @@ class MainActivityTest {
     val draftsAlert: DraftsAlert = mock()
 
     @Before
-    fun setup() {
+    fun setup() = runTest {
         hilt.inject()
 
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { accountVerifyCredentials() } doReturn NetworkResult.success(account)
-            onBlocking { listAnnouncements(false) } doReturn NetworkResult.success(emptyList())
+            onBlocking { accountVerifyCredentials() } doReturn success(account)
+            onBlocking { listAnnouncements(false) } doReturn success(emptyList())
         }
 
-        accountManager.addAccount(
+        accountManager.verifyAndAddAccount(
             accessToken = "token",
             domain = "domain.example",
             clientId = "id",
             clientSecret = "secret",
             oauthScopes = "scopes",
-            newAccount = account,
         )
 
         WorkManagerTestInitHelper.initializeTestWorkManager(
@@ -152,7 +152,7 @@ class MainActivityTest {
             Notification.Type.FOLLOW,
         )
         rule.launch(intent)
-        rule.getScenario().onActivity {
+        rule.scenario.onActivity {
             val currentTab = it.findViewById<ViewPager2>(R.id.viewPager).currentItem
             val notificationTab = defaultTabs().indexOfFirst { it is Timeline.Notifications }
             assertEquals(currentTab, notificationTab)
@@ -169,7 +169,7 @@ class MainActivityTest {
         )
 
         rule.launch(intent)
-        rule.getScenario().onActivity {
+        rule.scenario.onActivity {
             val nextActivity = shadowOf(it).peekNextStartedActivity()
             assertNotNull(nextActivity)
             assertEquals(

@@ -30,6 +30,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.model)
     api(projects.core.network)
 
     implementation(libs.hilt.android.testing)

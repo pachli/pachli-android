@@ -435,7 +435,13 @@ class MediaUploader @Inject constructor(
                 MultipartBody.Part.createFormData("focus", "${it.x},${it.y}")
             }
 
-            val uploadResult = mediaUploadApi.uploadMedia(body, description, focus)
+            val uploadResult = mediaUploadApi.uploadMediaWithAuth(
+                media.account.authHeader,
+                media.account.domain,
+                body,
+                description,
+                focus,
+            )
                 .mapEither(
                     {
                         if (it.code == 200) {

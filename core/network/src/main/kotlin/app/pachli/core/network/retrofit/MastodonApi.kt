@@ -90,13 +90,13 @@ interface MastodonApi {
     }
 
     @GET("/api/v1/custom_emojis")
-    suspend fun getCustomEmojis(): NetworkResult<List<Emoji>>
+    suspend fun getCustomEmojis(): ApiResult<List<Emoji>>
 
     @GET("api/v1/instance")
-    suspend fun getInstanceV1(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV1>
+    suspend fun getInstanceV1(@Header(DOMAIN_HEADER) domain: String? = null): ApiResult<InstanceV1>
 
     @GET("api/v2/instance")
-    suspend fun getInstanceV2(@Header(DOMAIN_HEADER) domain: String? = null): NetworkResult<InstanceV2>
+    suspend fun getInstanceV2(@Header(DOMAIN_HEADER) domain: String? = null): ApiResult<InstanceV2>
 
     @GET("api/v1/filters")
     suspend fun getContentFiltersV1(): ApiResult<List<FilterV1>>
@@ -342,7 +342,7 @@ interface MastodonApi {
     suspend fun accountVerifyCredentials(
         @Header(DOMAIN_HEADER) domain: String? = null,
         @Header("Authorization") auth: String? = null,
-    ): NetworkResult<Account>
+    ): ApiResult<Account>
 
     @FormUrlEncoded
     @PATCH("api/v1/accounts/update_credentials")
@@ -556,7 +556,7 @@ interface MastodonApi {
         @Field("client_id") clientId: String,
         @Field("client_secret") clientSecret: String,
         @Field("token") token: String,
-    ): NetworkResult<Unit>
+    ): ApiResult<Unit>
 
     @GET("/api/v1/lists")
     suspend fun getLists(): ApiResult<List<MastoList>>
@@ -701,12 +701,12 @@ interface MastodonApi {
     @GET("api/v1/announcements")
     suspend fun listAnnouncements(
         @Query("with_dismissed") withDismissed: Boolean = true,
-    ): NetworkResult<List<Announcement>>
+    ): ApiResult<List<Announcement>>
 
     @POST("api/v1/announcements/{id}/dismiss")
     suspend fun dismissAnnouncement(
         @Path("id") announcementId: String,
-    ): NetworkResult<ResponseBody>
+    ): ApiResult<ResponseBody>
 
     @PUT("api/v1/announcements/{id}/reactions/{name}")
     suspend fun addAnnouncementReaction(

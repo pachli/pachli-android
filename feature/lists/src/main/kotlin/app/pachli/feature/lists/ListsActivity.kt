@@ -43,20 +43,15 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.data.repository.Lists
-import app.pachli.core.data.repository.ListsError
+import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.network.model.MastoList
 import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.await
 import app.pachli.feature.lists.databinding.ActivityListsBinding
 import app.pachli.feature.lists.databinding.DialogListBinding
-import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -65,6 +60,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -73,7 +69,13 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class ListsActivity : BaseActivity(), MenuProvider {
-    private val viewModel: ListsViewModel by viewModels()
+    private val viewModel: ListsViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<ListsViewModel.Factory> { factory ->
+                factory.create(intent.pachliAccountId)
+            }
+        },
+    )
 
     private val binding by viewBinding(ActivityListsBinding::inflate)
 
@@ -145,7 +147,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
         viewModel.refresh()
     }
 
-    private suspend fun showListNameDialog(list: MastoList?) {
+    private suspend fun showListNameDialog(list: MastodonList?) {
         val builder = AlertDialog.Builder(this)
         val binding = DialogListBinding.inflate(LayoutInflater.from(builder.context))
         val dialog = builder.setView(binding.root).create()
@@ -181,51 +183,32 @@ class ListsActivity : BaseActivity(), MenuProvider {
         if (result == AlertDialog.BUTTON_POSITIVE) {
             onPickedDialogName(
                 binding.nameText.text.toString(),
-                list?.id,
+                list?.listId,
                 binding.exclusiveCheckbox.isChecked,
-                UserListRepliesPolicy.Companion.from(binding.repliesPolicyGroup.checkedRadioButtonId),
+                UserListRepliesPolicy.from(binding.repliesPolicyGroup.checkedRadioButtonId),
             )
         }
     }
 
-    private suspend fun showListDeleteDialog(list: MastoList) {
+    private suspend fun showListDeleteDialog(list: MastodonList) {
         val result = AlertDialog.Builder(this)
             .setMessage(getString(R.string.dialog_delete_list_warning, list.title))
             .create()
             .await(R.string.action_delete_list, android.R.string.cancel)
 
-        if (result == AlertDialog.BUTTON_POSITIVE) viewModel.deleteList(list.id, list.title)
+        if (result == AlertDialog.BUTTON_POSITIVE) viewModel.deleteList(list)
     }
 
-    private fun bind(state: Result<Lists, ListsError>) {
-        state.onFailure {
+    private fun bind(lists: List<MastodonList>) {
+        adapter.submitList(lists.sortedWith(compareByListTitle))
+        binding.swipeRefreshLayout.isRefreshing = false
+        if (lists.isEmpty()) {
             binding.listsRecycler.hide()
             binding.messageView.show()
-            binding.swipeRefreshLayout.isRefreshing = false
-
-            binding.messageView.setup(it) { viewModel.refresh() }
-        }
-
-        state.onSuccess { lists ->
-            when (lists) {
-                is Lists.Loaded -> {
-                    adapter.submitList(lists.lists.sortedWith(compareByListTitle))
-                    binding.swipeRefreshLayout.isRefreshing = false
-                    if (lists.lists.isEmpty()) {
-                        binding.listsRecycler.hide()
-                        binding.messageView.show()
-                        binding.messageView.setup(BackgroundMessage.Empty())
-                    } else {
-                        binding.listsRecycler.show()
-                        binding.messageView.hide()
-                    }
-                }
-
-                Lists.Loading -> {
-                    binding.messageView.hide()
-                    binding.swipeRefreshLayout.isRefreshing = true
-                }
-            }
+            binding.messageView.setup(BackgroundMessage.Empty())
+        } else {
+            binding.listsRecycler.show()
+            binding.messageView.hide()
         }
     }
 
@@ -243,11 +226,15 @@ class ListsActivity : BaseActivity(), MenuProvider {
         )
     }
 
-    private fun openListSettings(list: MastoList) {
-        AccountsInListFragment.newInstance(list.id, list.title).show(supportFragmentManager, null)
+    private fun openListSettings(list: MastodonList) {
+        AccountsInListFragment.newInstance(
+            intent.pachliAccountId,
+            list.listId,
+            list.title,
+        ).show(supportFragmentManager, null)
     }
 
-    private fun onMore(list: MastoList, view: View) {
+    private fun onMore(list: MastodonList, view: View) {
         PopupMenu(view.context, view).apply {
             inflate(R.menu.list_actions)
             setOnMenuItemClickListener { item ->
@@ -263,18 +250,18 @@ class ListsActivity : BaseActivity(), MenuProvider {
         }
     }
 
-    private object ListsDiffer : DiffUtil.ItemCallback<MastoList>() {
-        override fun areItemsTheSame(oldItem: MastoList, newItem: MastoList): Boolean {
-            return oldItem.id == newItem.id
+    private object ListsDiffer : DiffUtil.ItemCallback<MastodonList>() {
+        override fun areItemsTheSame(oldItem: MastodonList, newItem: MastodonList): Boolean {
+            return oldItem.listId == newItem.listId
         }
 
-        override fun areContentsTheSame(oldItem: MastoList, newItem: MastoList): Boolean {
+        override fun areContentsTheSame(oldItem: MastodonList, newItem: MastodonList): Boolean {
             return oldItem == newItem
         }
     }
 
     private inner class ListsAdapter :
-        ListAdapter<MastoList, ListsAdapter.ListViewHolder>(ListsDiffer) {
+        ListAdapter<MastodonList, ListsAdapter.ListViewHolder>(ListsDiffer) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
             return LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
@@ -309,7 +296,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
             override fun onClick(v: View) {
                 if (v == itemView) {
                     val list = getItem(bindingAdapterPosition)
-                    onListSelected(list.id, list.title)
+                    onListSelected(list.listId, list.title)
                 } else {
                     onMore(getItem(bindingAdapterPosition), v)
                 }

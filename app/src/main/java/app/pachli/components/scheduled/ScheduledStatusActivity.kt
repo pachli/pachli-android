@@ -35,6 +35,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.ScheduledStatus
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityScheduledStatusBinding
@@ -155,6 +156,7 @@ class ScheduledStatusActivity :
     override fun edit(item: ScheduledStatus) {
         val intent = ComposeActivityIntent(
             this,
+            intent.pachliAccountId,
             ComposeOptions(
                 scheduledTootId = item.id,
                 content = item.params.text,

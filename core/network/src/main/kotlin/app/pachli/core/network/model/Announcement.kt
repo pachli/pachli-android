@@ -24,8 +24,8 @@ import java.util.Date
 data class Announcement(
     val id: String,
     val content: String,
-    @Json(name = "starts_at") val startsAt: Date?,
-    @Json(name = "ends_at") val endsAt: Date?,
+    @Json(name = "starts_at") val startsAt: Date? = null,
+    @Json(name = "ends_at") val endsAt: Date? = null,
     @Json(name = "all_day") val allDay: Boolean,
     @Json(name = "published_at") val publishedAt: Date,
     @Json(name = "updated_at") val updatedAt: Date,
