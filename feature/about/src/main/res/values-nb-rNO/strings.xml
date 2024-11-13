@@ -10,7 +10,7 @@
     <string name="about_pachli_account">Pachli sin profil</string>
     <string name="title_licenses">Lisenser</string>
     <string name="license_description">Pachli inneholder programkode og elementer fra følgende åpen kildekode-prosjekter:</string>
-    <string name="notification_details_notifications_enabled_help">Varslinger er ikke slått på for noen av kontoene dine. Du kan lett forandre dette ved å gå til Kontoinnstillinger &gt; Varsler. Helt til du gjør dette, skal varslinger ikke sendes.</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Varslinger er ikke slått på for noen av kontoene dine. Du kan lett forandre dette ved å gå til Kontoinnstillinger > Varsler. Helt til du gjør dette, skal varslinger ikke sendes.]]></string>
     <string name="notification_details_unifiedpush_available">Er UnifiedPush tilgjengelig?</string>
     <string name="notification_details_accounts_unified_push_url_help">Én eller flere kontoer har ikke en URL med UnifiedPush og som følge er varslinger for disse kontoene avslåtte.</string>
     <string name="notification_details_accounts_unified_push_subscription_help">Én eller flere kontoer klarte ikke oppdatere UnifiedPush-abonnementen sin og som følge skal ikke ta imot varslinger.</string>
