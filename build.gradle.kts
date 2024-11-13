@@ -13,22 +13,22 @@ plugins {
 }
 
 allprojects {
-    apply plugin: libs.plugins.ktlint.get().pluginId
-
-    plugins.withType(JavaBasePlugin).configureEach {
-        java {
-            toolchain.languageVersion = JavaLanguageVersion.of(17)
-        }
-    }
+    apply(
+        plugin =
+            rootProject.libs.plugins.ktlint
+                .get()
+                .pluginId,
+    )
 }
 
 // GitHub action runners can timeout resulting in occasional test flakiness.
 // Re-run tests on CI to work around this, while disallowing failing tests
 // when developing locally.
 subprojects {
-    ext.isCI = System.getenv("CI") != null
-    if (isCI) {
-        tasks.named("test", Test) {
+    val isCiBuild = providers.environmentVariable("CI").isPresent
+
+    if (isCiBuild) {
+        tasks.withType<Test>().configureEach {
             develocity.testRetry {
                 maxRetries = 4
                 maxFailures = 5
@@ -38,6 +38,6 @@ subprojects {
     }
 }
 
-tasks.register('clean') {
-    delete layout.buildDirectory
+tasks.register<Delete>("clean") {
+    delete(layout.buildDirectory)
 }
