@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="post_lookup_error_format">Det oppstod ein feil under henting av innlegg %s</string>
+    <string name="action_open_as">Opn som %s</string>
+    <string name="performing_lookup_title">Søkjer…</string>
+</resources>
