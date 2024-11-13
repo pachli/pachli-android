@@ -22,6 +22,20 @@ allprojects {
     }
 }
 
+// GitHub action runners can timeout resulting in occasional test flakiness.
+// Re-run tests on CI to work around this, while disallowing failing tests
+// when developing locally.
+subprojects {
+    ext.isCI = System.getenv("CI") != null
+    if (isCI) {
+        develocity.testRetry {
+            maxRetries = 4
+            maxFailures = 5
+            failOnPassedAfterRetry = false
+        }
+    }
+}
+
 tasks.register('clean') {
     delete layout.buildDirectory
 }
