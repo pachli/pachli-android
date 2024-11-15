@@ -781,4 +781,17 @@
     <string name="conversation_0_recipients">Ningún participante más</string>
     <string name="pref_title_confirm_status_language">Revisar idioma de la publicación antes de publicar</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Publicar como está (%1$s) y no volver a preguntar</string>
+    <string name="upload_failed_msg_fmt">Se intentará subir nuevamente cuando envíes la publicación. Si vuelve a fallar, la publicación se guardará en tus borradores.\n\nEl error fue: %1$s</string>
+    <string name="item_copied">Texto copiado</string>
+    <string name="action_copy_item">Copiar ítem</string>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="one">%1$s seguidor eliminado</item>
+        <item quantity="many">%1$s seguidores eliminados</item>
+        <item quantity="other">%1$s seguidores eliminados</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="one">Se eliminó %1$s cuenta que seguías</item>
+        <item quantity="many">Se eliminaron %1$s cuentas que seguías</item>
+        <item quantity="other">Se eliminaron %1$s cuentas que seguías</item>
+    </plurals>
 </resources>
