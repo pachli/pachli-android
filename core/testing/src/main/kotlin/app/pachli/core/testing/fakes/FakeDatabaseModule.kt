@@ -82,4 +82,7 @@ object FakeDatabaseModule {
 
     @Provides
     fun providesAnnouncementsDao(appDatabase: AppDatabase) = appDatabase.announcementsDao()
+
+    @Provides
+    fun providesFollowingAccountDao(appDatabase: AppDatabase) = appDatabase.followingAccountDao()
 }

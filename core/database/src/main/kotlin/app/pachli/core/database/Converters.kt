@@ -175,6 +175,16 @@ class Converters @Inject constructor(
     }
 
     @TypeConverter
+    fun instantToEpochMilli(instant: Instant?): Long? {
+        return instant?.toEpochMilli()
+    }
+
+    @TypeConverter
+    fun epochMilliToInstant(epochMilli: Long?): Instant? {
+        return epochMilli?.let { Instant.ofEpochMilli(it) }
+    }
+
+    @TypeConverter
     fun pollToJson(poll: Poll?): String? {
         return moshi.adapter<Poll?>().toJson(poll)
     }

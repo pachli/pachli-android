@@ -58,6 +58,8 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
     fun onShowFavs(statusId: String) {}
     fun onVoteInPoll(viewData: T, poll: Poll, choices: List<Int>)
     fun onShowEdits(statusId: String) {}
+
+    /** Remove the content filter from the status. */
     fun clearContentFilter(pachliAccountId: Long, viewData: T)
 
     /** Edit the filter that matched this status. */

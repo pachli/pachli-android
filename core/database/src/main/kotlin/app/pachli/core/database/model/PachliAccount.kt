@@ -63,4 +63,10 @@ data class PachliAccount(
         entityColumn = "accountId",
     )
     val announcements: List<AnnouncementEntity>?,
+
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "pachliAccountId",
+    )
+    val following: List<FollowingAccountEntity>,
 )

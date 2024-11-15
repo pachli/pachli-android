@@ -28,6 +28,7 @@ import app.pachli.core.network.json.EnumConstantConverterFactory
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.HasDefault
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
+import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
@@ -50,6 +51,7 @@ import dagger.hilt.components.SingletonComponent
 import java.net.IDN
 import java.net.InetSocketAddress
 import java.net.Proxy
+import java.time.Instant
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -70,6 +72,7 @@ object NetworkModule {
     @Singleton
     fun providesMoshi(): Moshi = Moshi.Builder()
         .add(Date::class.java, LenientRfc3339DateJsonAdapter())
+        .add(Instant::class.java, InstantJsonAdapter())
         .add(VersionAdapter())
         .add(Guarded.Factory())
         .add(HasDefault.Factory())

@@ -55,9 +55,12 @@ data class ContentFilter(
     companion object
 }
 
-/** A filter choice, either content filter or account filter. */
 // The @Json annotations are used when this is serialized by NewContentFilterConverterFactory.
+/** A filter choice, either content filter or account filter. */
 enum class FilterAction {
+    // Enums are listed in severity order, when comparing multiple filter actions
+    // the one with the highest order should be chosen.
+
     /** No filtering, show item as normal. */
     @Json(name = "none")
     NONE,

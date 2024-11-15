@@ -20,18 +20,21 @@ import app.pachli.util.Resource
 import app.pachli.util.Success
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-@HiltViewModel
-class AccountViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = AccountViewModel.Factory::class)
+class AccountViewModel @AssistedInject constructor(
+    @Assisted private val pachliAccountId: Long,
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
-    accountManager: AccountManager,
+    private val accountManager: AccountManager,
 ) : ViewModel() {
 
     val accountData = MutableLiveData<Resource<Account>>()
@@ -266,7 +269,11 @@ class AccountViewModel @Inject constructor(
                 relationshipData.postValue(Success(response.body))
 
                 when (relationshipAction) {
-                    RelationShipAction.UNFOLLOW -> eventHub.dispatch(UnfollowEvent(accountId))
+                    RelationShipAction.FOLLOW -> accountManager.followAccount(pachliAccountId, accountId)
+                    RelationShipAction.UNFOLLOW -> {
+                        accountManager.unfollowAccount(pachliAccountId, accountId)
+                        eventHub.dispatch(UnfollowEvent(accountId))
+                    }
                     RelationShipAction.BLOCK -> eventHub.dispatch(BlockEvent(accountId))
                     RelationShipAction.MUTE -> eventHub.dispatch(MuteEvent(accountId))
                     else -> { }
@@ -326,5 +333,11 @@ class AccountViewModel @Inject constructor(
         UNMUTE,
         SUBSCRIBE,
         UNSUBSCRIBE,
+    }
+
+    @AssistedFactory
+    interface Factory {
+        /** Creates [AccountViewModel] with [pachliAccountId] as the active account. */
+        fun create(pachliAccountId: Long): AccountViewModel
     }
 }

@@ -34,6 +34,7 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
+import java.time.Instant
 import java.util.Date
 
 /**
@@ -137,9 +138,26 @@ data class TimelineStatusEntity(
     }
 }
 
+/**
+ * An account associated with a status on a timeline or similar (e.g., an
+ * account the user is following).
+ *
+ * @param serverId
+ * @param timelineUserId The pachliAccountId for the logged-in account related
+ * to this account.
+ * @param localUsername
+ * @param username
+ * @param displayName
+ * @param url
+ * @param avatar
+ * @param emojis
+ * @param bot
+ * @param createdAt
+ */
 @Entity(
     primaryKeys = ["serverId", "timelineUserId"],
 )
+@TypeConverters(Converters::class)
 data class TimelineAccountEntity(
     val serverId: String,
     val timelineUserId: Long,
@@ -150,6 +168,7 @@ data class TimelineAccountEntity(
     val avatar: String,
     val emojis: String,
     val bot: Boolean,
+    val createdAt: Instant?,
 ) {
     @OptIn(ExperimentalStdlibApi::class)
     fun toTimelineAccount(moshi: Moshi): TimelineAccount {
@@ -163,6 +182,7 @@ data class TimelineAccountEntity(
             avatar = avatar,
             bot = bot,
             emojis = moshi.adapter<List<Emoji>>().fromJson(emojis),
+            createdAt = createdAt,
         )
     }
 
@@ -178,6 +198,7 @@ data class TimelineAccountEntity(
             avatar = timelineAccount.avatar,
             emojis = moshi.adapter<List<Emoji>>().toJson(timelineAccount.emojis),
             bot = timelineAccount.bot,
+            createdAt = timelineAccount.createdAt,
         )
     }
 }

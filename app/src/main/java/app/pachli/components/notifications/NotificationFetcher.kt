@@ -24,6 +24,7 @@ import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker
 import app.pachli.core.network.model.Notification
@@ -61,27 +62,32 @@ class NotificationFetcher @Inject constructor(
     suspend fun fetchAndShow(pachliAccountId: Long) {
         Timber.d("NotificationFetcher.fetchAndShow(%d) started", pachliAccountId)
 
-        val accounts = buildList {
+        val pachliAccounts = buildList {
             if (pachliAccountId == NotificationWorker.ALL_ACCOUNTS) {
-                addAll(accountManager.accountsOrderedByActiveFlow.take(1).first())
+                addAll(accountManager.pachliAccountsFlow.take(1).first())
             } else {
-                accountManager.getAccountById(pachliAccountId)?.let { add(it) }
+                accountManager.getPachliAccountFlow(pachliAccountId).take(1).first()?.let { add(it) }
             }
         }
 
-        for (account in accounts) {
+        for (pachliAccount in pachliAccounts) {
+            val entity = pachliAccount.entity
             Timber.d(
                 "Checking %s, notificationsEnabled = %s",
-                account.fullName,
-                account.notificationsEnabled,
+                entity.fullName,
+                entity.notificationsEnabled,
             )
-            if (account.notificationsEnabled) {
+            if (entity.notificationsEnabled) {
                 try {
                     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
                     // Create sorted list of new notifications
-                    val notifications = fetchNewNotifications(account)
-                        .filter { filterNotification(notificationManager, account, it.type) }
+                    val notifications = fetchNewNotifications(entity)
+                        .filter { filterNotification(notificationManager, entity, it.type) }
+                        .filter {
+                            val decision = filterNotificationByAccount(pachliAccount, it)
+                            decision == null || decision.action == FilterAction.NONE
+                        }
                         .sortedWith(compareBy({ it.id.length }, { it.id })) // oldest notifications first
                         .toMutableList()
 
@@ -118,10 +124,10 @@ class NotificationFetcher @Inject constructor(
                             context,
                             notificationManager,
                             notification,
-                            account,
+                            entity,
                             index == 0,
                         )
-                        notificationManager.notify(notification.id, account.id.toInt(), androidNotification)
+                        notificationManager.notify(notification.id, entity.id.toInt(), androidNotification)
                         // Android will rate limit / drop notifications if they're posted too
                         // quickly. There is no indication to the user that this happened.
                         // See https://github.com/tuskyapp/Tusky/pull/3626#discussion_r1192963664
@@ -131,7 +137,7 @@ class NotificationFetcher @Inject constructor(
                     updateSummaryNotifications(
                         context,
                         notificationManager,
-                        account,
+                        entity,
                     )
                 } catch (e: Exception) {
                     Timber.e(e, "Error while fetching notifications")

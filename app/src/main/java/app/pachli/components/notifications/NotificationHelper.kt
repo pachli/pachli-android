@@ -45,8 +45,10 @@ import app.pachli.MainActivity
 import app.pachli.R
 import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.FilterAction
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.model.Notification
@@ -58,6 +60,7 @@ import app.pachli.viewdata.calculatePercent
 import app.pachli.worker.NotificationWorker
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import java.time.Duration
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
 import timber.log.Timber
@@ -646,6 +649,103 @@ fun filterNotification(
         Notification.Type.SEVERED_RELATIONSHIPS -> account.notificationsSeveredRelationships
         Notification.Type.UNKNOWN -> false
     }
+}
+
+/** Reasons an account may be filtered. */
+enum class AccountFilterReason {
+    /** Not following this account. */
+    NOT_FOLLOWING,
+
+    /** Account is younger than 30d. */
+    YOUNGER_30D,
+
+    /** Account is limited by the server. */
+    LIMITED_BY_SERVER,
+}
+
+/**
+ * Records an account filtering decision.
+ *
+ * @param action The [FilterAction] to perform.
+ * @param reason The [AccountFilterReason] for the decision.
+ */
+data class AccountFilterDecision(
+    val action: FilterAction,
+    val reason: AccountFilterReason,
+)
+
+/**
+ * Returns the [AccountFilterDecision] for [notification] based on the notification
+ * filters in [accountWithFilters].
+ *
+ * @return The decision, or null if the notification should not be filtered.
+ */
+fun filterNotificationByAccount(accountWithFilters: PachliAccount, notification: Notification): AccountFilterDecision? {
+    // Some notifications are never filtered, irrespective of the account that
+    // sent them.
+    when (notification.type) {
+        // Poll we interacted with has ended.
+        Notification.Type.POLL -> return null
+        // Status we interacted with has been updated.
+        Notification.Type.UPDATE -> return null
+        // A new moderation report.
+        Notification.Type.REPORT -> return null
+        // Moderation has resulted in severed relationships.
+        Notification.Type.SEVERED_RELATIONSHIPS -> return null
+        // We explicitly asked to be notified about this user.
+        Notification.Type.STATUS -> return null
+        // Admin signup notifications should not be filtered.
+        Notification.Type.SIGN_UP -> return null
+        else -> {
+            /* fall through */
+        }
+    }
+
+    // The account that generated the notification.
+    val accountToTest = notification.account
+
+    // Any notifications from our own activity are not filtered.
+    if (accountWithFilters.entity.accountId == accountToTest.id) return null
+
+    val reasons = buildList {
+        // Check the following relationship.
+        if (accountWithFilters.entity.notificationAccountFilterNotFollowed != FilterAction.NONE) {
+            if (accountWithFilters.following.none { it.serverId == accountToTest.id }) {
+                add(
+                    AccountFilterDecision(
+                        action = accountWithFilters.entity.notificationAccountFilterNotFollowed,
+                        reason = AccountFilterReason.NOT_FOLLOWING,
+                    ),
+                )
+            }
+        }
+
+        // Check the age of the account relative to the notification.
+        accountToTest.createdAt?.let { createdAt ->
+            if (accountWithFilters.entity.notificationAccountFilterYounger30d != FilterAction.NONE) {
+                if (Duration.between(createdAt, notification.createdAt.toInstant()) < Duration.ofDays(30)) {
+                    add(
+                        AccountFilterDecision(
+                            action = accountWithFilters.entity.notificationAccountFilterYounger30d,
+                            reason = AccountFilterReason.YOUNGER_30D,
+                        ),
+                    )
+                }
+            }
+        }
+
+        // Check limited status.
+        if (accountToTest.limited && accountWithFilters.entity.notificationAccountFilterLimitedByServer != FilterAction.NONE) {
+            add(
+                AccountFilterDecision(
+                    action = accountWithFilters.entity.notificationAccountFilterLimitedByServer,
+                    reason = AccountFilterReason.LIMITED_BY_SERVER,
+                ),
+            )
+        }
+    }
+
+    return reasons.maxByOrNull { it.action }
 }
 
 private fun getChannelId(account: AccountEntity, notification: Notification): String? {

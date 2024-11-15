@@ -213,6 +213,15 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                         if (it.isEnabled) "" else context.getString(R.string.pref_summary_content_filters)
                     }
                 }
+
+                preference {
+                    setTitle(R.string.pref_title_account_notification_filters)
+                    setOnPreferenceClickListener {
+                        AccountNotificationFiltersPreferencesDialogFragment.newInstance(pachliAccountId)
+                            .show(parentFragmentManager, null)
+                        return@setOnPreferenceClickListener true
+                    }
+                }
             }
 
             preferenceCategory(R.string.pref_publishing) {

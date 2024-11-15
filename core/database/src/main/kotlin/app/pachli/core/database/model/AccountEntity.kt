@@ -23,6 +23,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
@@ -111,9 +112,21 @@ data class AccountEntity(
      */
     val lastVisibleHomeTimelineStatusId: String? = null,
 
-    /** true if the connected Mastodon account is locked (has to manually approve all follow requests **/
+    /** True if the connected Mastodon account is locked (has to manually approve all follow requests **/
     @ColumnInfo(defaultValue = "0")
     val locked: Boolean = false,
+
+    /** [FilterAction] for notifications from accounts this account does not follow. */
+    @ColumnInfo(defaultValue = "NONE")
+    var notificationAccountFilterNotFollowed: FilterAction = FilterAction.NONE,
+
+    /** [FilterAction] for notifications from accounts younger than 30 days. */
+    @ColumnInfo(defaultValue = "NONE")
+    var notificationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
+
+    /** [FilterAction] for notifications from account limited by the server. */
+    @ColumnInfo(defaultValue = "NONE")
+    var notificationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
 ) {
 
     val identifier: String

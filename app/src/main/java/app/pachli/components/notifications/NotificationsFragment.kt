@@ -47,6 +47,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.components.preference.AccountNotificationFiltersPreferencesDialogFragment
 import app.pachli.components.timeline.TimelineLoadStateAdapter
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
@@ -92,6 +93,7 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -137,15 +139,6 @@ class NotificationsFragment :
         super.onCreate(savedInstanceState)
 
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
-
-        adapter = NotificationsPagingAdapter(
-            notificationDiffCallback,
-            pachliAccountId,
-            statusActionListener = this@NotificationsFragment,
-            notificationActionListener = this@NotificationsFragment,
-            accountActionListener = this@NotificationsFragment,
-            statusDisplayOptions = viewModel.statusDisplayOptions.value,
-        )
     }
 
     override fun onCreateView(
@@ -176,33 +169,9 @@ class NotificationsFragment :
         binding.recyclerView.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.setAccessibilityDelegateCompat(
-            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this) { pos: Int ->
-                if (pos in 0 until adapter.itemCount) {
-                    adapter.peek(pos)
-                } else {
-                    null
-                }
-            },
-        )
         binding.recyclerView.addItemDecoration(
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
-
-        val saveIdListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState != SCROLL_STATE_IDLE) return
-
-                // Save the ID of the first notification visible in the list, so the user's
-                // reading position is always restorable.
-                layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
-                    adapter.snapshot().getOrNull(position)?.id?.let { id ->
-                        viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = id))
-                    }
-                }
-            }
-        }
-        binding.recyclerView.addOnScrollListener(saveIdListener)
 
         (activity as? ActionButtonActivity)?.actionButton?.let { actionButton ->
             actionButton.show()
@@ -219,15 +188,54 @@ class NotificationsFragment :
             }
         }
 
-        binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
-            header = TimelineLoadStateAdapter { adapter.retry() },
-            footer = TimelineLoadStateAdapter { adapter.retry() },
-        )
-
         (binding.recyclerView.itemAnimator as SimpleItemAnimator?)!!.supportsChangeAnimations =
             false
 
         viewLifecycleOwner.lifecycleScope.launch {
+            // The adapter needs to know the domain of the logged in account,
+            // the rest of the setup happens after this is known.
+            viewModel.accountFlow.take(1).collect { account ->
+                adapter = NotificationsPagingAdapter(
+                    notificationDiffCallback,
+                    pachliAccountId,
+                    account.entity.domain,
+                    statusActionListener = this@NotificationsFragment,
+                    notificationActionListener = this@NotificationsFragment,
+                    accountActionListener = this@NotificationsFragment,
+                    statusDisplayOptions = viewModel.statusDisplayOptions.value,
+                )
+
+                binding.recyclerView.setAccessibilityDelegateCompat(
+                    ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment) { pos: Int ->
+                        if (pos in 0 until adapter.itemCount) {
+                            adapter.peek(pos)
+                        } else {
+                            null
+                        }
+                    },
+                )
+
+                val saveIdListener = object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        if (newState != SCROLL_STATE_IDLE) return
+
+                        // Save the ID of the first notification visible in the list, so the user's
+                        // reading position is always restorable.
+                        layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
+                            adapter.snapshot().getOrNull(position)?.id?.let { id ->
+                                viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = id))
+                            }
+                        }
+                    }
+                }
+                binding.recyclerView.addOnScrollListener(saveIdListener)
+
+                binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
+                    header = TimelineLoadStateAdapter { adapter.retry() },
+                    footer = TimelineLoadStateAdapter { adapter.retry() },
+                )
+            }
+
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.pagingData.collectLatest { pagingData ->
@@ -640,6 +648,19 @@ class NotificationsFragment :
                 )
                 adapter.notifyItemChanged(it.index)
             }
+    }
+
+    override fun clearAccountFilter(viewData: NotificationViewData) {
+        adapter.snapshot().withIndex().filter { it.value?.id == viewData.id }
+            .map {
+                it.value?.accountFilterDecision = null
+                adapter.notifyItemChanged(it.index)
+            }
+    }
+
+    override fun editAccountNotificationFilter() {
+        AccountNotificationFiltersPreferencesDialogFragment.newInstance(pachliAccountId)
+            .show(parentFragmentManager, null)
     }
 
     private fun clearNotifications() {
