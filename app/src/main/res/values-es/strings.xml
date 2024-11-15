@@ -794,4 +794,5 @@
         <item quantity="many">Se eliminaron %1$s cuentas que seguías</item>
         <item quantity="other">Se eliminaron %1$s cuentas que seguías</item>
     </plurals>
+    <string name="upload_failed_modify_attachment">Modificar adjunto</string>
 </resources>
