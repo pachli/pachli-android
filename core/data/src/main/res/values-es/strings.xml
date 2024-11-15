@@ -7,4 +7,7 @@
     <string name="server_repository_error_get_instance_info">fallo al obtener /api/v1/instance: %1$s</string>
     <string name="server_repository_error_capabilities">fallo al analizar las capacidades del servidor: %1$s</string>
     <string name="error_filter_server_does_not_filter">El servidor no es compatible con filtros</string>
+    <string name="account_manager_error_no_active_account">Ninguna cuenta está marcada como activa</string>
+    <string name="account_manager_error_unexpected">error inesperado: %1$s</string>
+    <string name="account_manager_error_account_does_not_exist">La cuenta no existe en la base de datos local. Esto no debería ocurrir. Si ves este mensaje, por favor, envía un reporte de error.</string>
 </resources>
