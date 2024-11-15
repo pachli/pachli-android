@@ -22,6 +22,7 @@ import androidx.room.Room
 import androidx.room.withTransaction
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
+import app.pachli.core.database.MIGRATE_8_9
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,6 +42,7 @@ object DatabaseModule {
         return Room.databaseBuilder(appContext, AppDatabase::class.java, "pachliDB")
             .addTypeConverter(converters)
             .allowMainThreadQueries()
+            .addMigrations(MIGRATE_8_9)
             .build()
     }
 
