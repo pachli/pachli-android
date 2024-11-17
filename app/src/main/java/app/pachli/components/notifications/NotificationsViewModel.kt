@@ -537,11 +537,11 @@ class NotificationsViewModel @AssistedInject constructor(
                             !(notification.status?.actionableStatus?.sensitive ?: false),
                         isExpanded = statusDisplayOptions.value.openSpoiler,
                         isCollapsed = true,
-                        filterAction = filterAction,
+                        contentFilterAction = filterAction,
                         isAboutSelf = notification.account.id == accountId,
                     )
                 }.filter {
-                    it.statusViewData?.filterAction != FilterAction.HIDE
+                    it.statusViewData?.contentFilterAction != FilterAction.HIDE
                 }
             }
     }

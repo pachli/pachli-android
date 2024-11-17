@@ -50,7 +50,7 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
         status: T,
         listener: StatusActionListener<T>,
     ) {
-        if (status.filterAction !== FilterAction.WARN) {
+        if (status.contentFilterAction !== FilterAction.WARN) {
             matchedFilter = null
             setPlaceholderVisibility(false)
             return

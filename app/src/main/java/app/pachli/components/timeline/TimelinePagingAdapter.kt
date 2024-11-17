@@ -80,7 +80,7 @@ class TimelinePagingAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val viewData = getItem(position) ?: return VIEW_TYPE_PLACEHOLDER
-        return if (viewData.filterAction == FilterAction.WARN) {
+        return if (viewData.contentFilterAction == FilterAction.WARN) {
             VIEW_TYPE_STATUS_FILTERED
         } else {
             VIEW_TYPE_STATUS

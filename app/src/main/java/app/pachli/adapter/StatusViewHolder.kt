@@ -52,7 +52,7 @@ open class StatusViewHolder<T : IStatusViewData>(
             val expanded = viewData.isExpanded
             setupCollapsedState(pachliAccountId, viewData, sensitive, expanded, listener)
             val reblogging = viewData.rebloggingStatus
-            if (reblogging == null || viewData.filterAction === FilterAction.WARN) {
+            if (reblogging == null || viewData.contentFilterAction === FilterAction.WARN) {
                 statusInfo.hide()
             } else {
                 val rebloggedByDisplayName = reblogging.account.name

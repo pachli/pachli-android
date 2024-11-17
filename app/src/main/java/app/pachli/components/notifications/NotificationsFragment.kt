@@ -636,7 +636,7 @@ class NotificationsFragment :
         adapter.snapshot().withIndex().filter { it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId }
             .map {
                 it.value?.statusViewData = it.value?.statusViewData?.copy(
-                    filterAction = FilterAction.NONE,
+                    contentFilterAction = FilterAction.NONE,
                 )
                 adapter.notifyItemChanged(it.index)
             }

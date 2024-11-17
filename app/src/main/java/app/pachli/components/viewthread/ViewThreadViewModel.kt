@@ -552,8 +552,8 @@ class ViewThreadViewModel @Inject constructor(
             if (status.isDetailed) {
                 true
             } else {
-                status.filterAction = contentFilterModel?.filterActionFor(status.status) ?: FilterAction.NONE
-                status.filterAction != FilterAction.HIDE
+                status.contentFilterAction = contentFilterModel?.filterActionFor(status.status) ?: FilterAction.NONE
+                status.contentFilterAction != FilterAction.HIDE
             }
         }
     }
