@@ -26,49 +26,49 @@
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:resources; not included in Android: `javax.xml.stream`. Referenced from `org.robolectric.res.NodeHandler`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/resources/4.13/3f89df602a7bbc4532f678a18e697f0456256d0d/resources-4.13.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/resources/4.14/42ac93c155e281af8e90f633a2c7623dd6d59aee/resources-4.14.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `java.awt.geom`. Referenced from `org.robolectric.shadows.CachedPathIteratorFactory`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.13/f37f6a20295b6b21164998b610a221dbb2bb7c81/shadows-framework-4.13.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.14/ac47e2985efc81266a794dafd89a09621cac749d/shadows-framework-4.14.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `java.awt.image`. Referenced from `org.robolectric.shadows.AutoValue_ImageUtil_RobolectricBufferedImage`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.13/f37f6a20295b6b21164998b610a221dbb2bb7c81/shadows-framework-4.13.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.14/ac47e2985efc81266a794dafd89a09621cac749d/shadows-framework-4.14.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `java.awt`. Referenced from `org.robolectric.shadows.ImageUtil`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.13/f37f6a20295b6b21164998b610a221dbb2bb7c81/shadows-framework-4.13.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.14/ac47e2985efc81266a794dafd89a09621cac749d/shadows-framework-4.14.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `javax.imageio.stream`. Referenced from `org.robolectric.shadows.ImageUtil`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.13/f37f6a20295b6b21164998b610a221dbb2bb7c81/shadows-framework-4.13.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.14/ac47e2985efc81266a794dafd89a09621cac749d/shadows-framework-4.14.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:shadows-framework; not included in Android: `javax.imageio`. Referenced from `org.robolectric.shadows.ImageUtil`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.13/f37f6a20295b6b21164998b610a221dbb2bb7c81/shadows-framework-4.13.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/shadows-framework/4.14/ac47e2985efc81266a794dafd89a09621cac749d/shadows-framework-4.14.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.robolectric:utils; not included in Android: `javax.inject`. Referenced from `org.robolectric.util.inject.Injector`.">
         <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/utils/4.13/47f61b1a3cf0b5646f68d3c4961ccf11c2f31463/utils-4.13.jar"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.robolectric/utils/4.14/f3583c0bfc30a3b1e6f1f8f2b1012892988aa313/utils-4.14.jar"/>
     </issue>
 
 </issues>
