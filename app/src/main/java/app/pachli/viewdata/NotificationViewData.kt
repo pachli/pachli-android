@@ -60,7 +60,7 @@ data class NotificationViewData(
             isShowingContent: Boolean,
             isExpanded: Boolean,
             isCollapsed: Boolean,
-            filterAction: FilterAction,
+            contentFilterAction: FilterAction,
             isAboutSelf: Boolean,
         ) = NotificationViewData(
             notification.type,
@@ -72,7 +72,7 @@ data class NotificationViewData(
                     isShowingContent,
                     isExpanded,
                     isCollapsed,
-                    filterAction = filterAction,
+                    contentFilterAction = contentFilterAction,
                 )
             },
             notification.report,
@@ -116,10 +116,10 @@ data class NotificationViewData(
         get() = statusViewData?.actionableId ?: throw IllegalStateException()
     override val rebloggingStatus: Status?
         get() = statusViewData?.rebloggingStatus
-    override var filterAction: FilterAction
-        get() = statusViewData?.filterAction ?: throw IllegalStateException()
+    override var contentFilterAction: FilterAction
+        get() = statusViewData?.contentFilterAction ?: throw IllegalStateException()
         set(value) {
-            statusViewData?.filterAction = value
+            statusViewData?.contentFilterAction = value
         }
     override val translationState: TranslationState
         get() = statusViewData?.translationState ?: throw IllegalStateException()

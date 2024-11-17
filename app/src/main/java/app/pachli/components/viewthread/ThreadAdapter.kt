@@ -63,7 +63,7 @@ class ThreadAdapter(
         val viewData = getItem(position)
         return if (viewData.isDetailed) {
             VIEW_TYPE_STATUS_DETAILED
-        } else if (viewData.filterAction == FilterAction.WARN) {
+        } else if (viewData.contentFilterAction == FilterAction.WARN) {
             VIEW_TYPE_STATUS_FILTERED
         } else {
             VIEW_TYPE_STATUS

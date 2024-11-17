@@ -552,8 +552,8 @@ abstract class TimelineViewModel(
         ) {
             return FilterAction.HIDE
         } else {
-            statusViewData.filterAction = contentFilterModel?.filterActionFor(status.actionableStatus) ?: FilterAction.NONE
-            statusViewData.filterAction
+            statusViewData.contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus) ?: FilterAction.NONE
+            statusViewData.contentFilterAction
         }
     }
 
