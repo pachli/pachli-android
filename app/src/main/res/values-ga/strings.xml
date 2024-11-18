@@ -792,4 +792,21 @@
     <string name="search_operator_from_dialog_other_account">Poist ón gcuntas seo amháin</string>
     <string name="search_operator_date_dialog_last_7_days">Le 7 lá anuas</string>
     <string name="search_operator_date_dialog_last_30_days">Le 30 lá anuas</string>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="one">Baineadh an cuntas %1$s a leanann tú</item>
+        <item quantity="two">Baineadh %1$s cuntas a leanann tú</item>
+        <item quantity="few">Baineadh %1$s cuntas a leanann tú</item>
+        <item quantity="many">Baineadh %1$s cuntas a leanann tú</item>
+        <item quantity="other">Baineadh %1$s cuntas a leanann tú</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="one">%1$s leantóir bainte</item>
+        <item quantity="two">%1$s leantóir bainte</item>
+        <item quantity="few">%1$s leantóir bainte</item>
+        <item quantity="many">%1$s leantóir bainte</item>
+        <item quantity="other">%1$s leantóir bainte</item>
+    </plurals>
+    <string name="main_viewmodel_error_set_active_account">Theip ar an iarracht logáil isteach leis an earráid seo a leanas:\n\n%1$s</string>
+    <string name="action_relogin">Ath-logáil isteach</string>
+    <string name="main_viewmodel_error_refresh_account">Theip ar athnuachan an chuntais leis an earráid seo a leanas:\n\n%1$s\n\nIs féidir leat leanúint ar aghaidh, ach seans go mbeidh do liostaí agus do scagairí neamhiomlán.</string>
 </resources>
