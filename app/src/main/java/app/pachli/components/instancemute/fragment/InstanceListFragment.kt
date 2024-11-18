@@ -17,7 +17,8 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentInstanceListBinding
 import app.pachli.view.EndlessOnScrollListener
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,22 +69,22 @@ class InstanceListFragment :
     override fun mute(mute: Boolean, instance: String, position: Int) {
         viewLifecycleOwner.lifecycleScope.launch {
             if (mute) {
-                api.blockDomain(instance).fold({
-                    adapter.addItem(instance)
-                }, { e ->
-                    Timber.e(e, "Error muting domain %s", instance)
-                })
+                api.blockDomain(instance)
+                    .onSuccess { adapter.addItem(instance) }
+                    .onFailure { Timber.e(it.throwable, "Error muting domain %s", instance) }
             } else {
-                api.unblockDomain(instance).fold({
-                    adapter.removeItem(position)
-                    Snackbar.make(binding.recyclerView, getString(R.string.confirmation_domain_unmuted, instance), Snackbar.LENGTH_LONG)
-                        .setAction(R.string.action_undo) {
-                            mute(true, instance, position)
-                        }
-                        .show()
-                }, { e ->
-                    Timber.e(e, "Error unmuting domain %s", instance)
-                })
+                api.unblockDomain(instance)
+                    .onSuccess {
+                        adapter.removeItem(position)
+                        Snackbar.make(binding.recyclerView, getString(R.string.confirmation_domain_unmuted, instance), Snackbar.LENGTH_LONG)
+                            .setAction(R.string.action_undo) {
+                                mute(true, instance, position)
+                            }
+                            .show()
+                    }
+                    .onFailure { e ->
+                        Timber.e(e.throwable, "Error unmuting domain %s", instance)
+                    }
             }
         }
     }
