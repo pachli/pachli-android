@@ -39,6 +39,8 @@ import app.pachli.util.Resource
 import app.pachli.util.Success
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.BufferOverflow
@@ -135,14 +137,9 @@ class ReportViewModel @Inject constructor(
         muteStateMutable.value = Loading()
         blockStateMutable.value = Loading()
         viewModelScope.launch {
-            mastodonApi.relationships(ids).fold(
-                { data ->
-                    updateRelationship(data.getOrNull(0))
-                },
-                {
-                    updateRelationship(null)
-                },
-            )
+            mastodonApi.relationships(ids)
+                .onSuccess { updateRelationship(it.body.firstOrNull()) }
+                .onFailure { updateRelationship(null) }
         }
     }
 
@@ -163,18 +160,18 @@ class ReportViewModel @Inject constructor(
                 mastodonApi.unmuteAccount(accountId)
             } else {
                 mastodonApi.muteAccount(accountId)
-            }.fold(
-                { relationship ->
+            }
+                .onSuccess { response ->
+                    val relationship = response.body
                     val muting = relationship.muting
                     muteStateMutable.value = Success(muting)
                     if (muting) {
                         eventHub.dispatch(MuteEvent(accountId))
                     }
-                },
-                { t ->
-                    muteStateMutable.value = Error(false, t.message)
-                },
-            )
+                }
+                .onFailure { t ->
+                    muteStateMutable.value = Error(false, t.throwable.message)
+                }
         }
 
         muteStateMutable.value = Loading()
@@ -187,15 +184,18 @@ class ReportViewModel @Inject constructor(
                 mastodonApi.unblockAccount(accountId)
             } else {
                 mastodonApi.blockAccount(accountId)
-            }.fold({ relationship ->
-                val blocking = relationship.blocking
-                blockStateMutable.value = Success(blocking)
-                if (blocking) {
-                    eventHub.dispatch(BlockEvent(accountId))
+            }
+                .onSuccess { response ->
+                    val relationship = response.body
+                    val blocking = relationship.blocking
+                    blockStateMutable.value = Success(blocking)
+                    if (blocking) {
+                        eventHub.dispatch(BlockEvent(accountId))
+                    }
                 }
-            }, { t ->
-                blockStateMutable.value = Error(false, t.message)
-            })
+                .onFailure { t ->
+                    blockStateMutable.value = Error(false, t.throwable.message)
+                }
         }
         blockStateMutable.value = Loading()
     }

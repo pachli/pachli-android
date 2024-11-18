@@ -63,6 +63,8 @@ import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.view.EndlessOnScrollListener
 import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -229,11 +231,9 @@ class AccountListFragment :
                 api.blockAccount(id)
             } else {
                 api.unblockAccount(id)
-            }.fold({
-                onBlockSuccess(block, id, position)
-            }, {
-                onBlockFailure(block, id, it)
-            })
+            }
+                .onSuccess { onBlockSuccess(block, id, position) }
+                .onFailure { onBlockFailure(block, id, it.throwable) }
         }
     }
 
@@ -379,8 +379,9 @@ class AccountListFragment :
     private fun fetchRelationships(ids: List<String>) {
         lifecycleScope.launch {
             api.relationships(ids)
-                .fold(::onFetchRelationshipsSuccess) { throwable ->
-                    Timber.e(throwable, "Fetch failure for relationships of accounts: %s", ids)
+                .onSuccess { onFetchRelationshipsSuccess(it.body) }
+                .onFailure { throwable ->
+                    Timber.e("Fetch failure for relationships of accounts: %s: %s", ids, throwable)
                 }
         }
     }
