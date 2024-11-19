@@ -14,4 +14,6 @@
     <string name="action_hashtags">Aihetunnisteet</string>
     <string name="title_links_dialog">Linkit</string>
     <string name="title_hashtags_dialog">Aihetunnisteet</string>
+    <string name="item_copied">Teksti kopioitu</string>
+    <string name="action_copy_item">Kopioi kohde</string>
 </resources>

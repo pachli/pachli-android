@@ -31,10 +31,10 @@
         android:id="@android:id/text1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:focusable="true"
         tools:ignore="SelectableText"
         tools:text="#TestHashTag" />
 

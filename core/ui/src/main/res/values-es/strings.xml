@@ -14,4 +14,6 @@
     <string name="action_hashtags">Etiquetas</string>
     <string name="title_links_dialog">Enlaces</string>
     <string name="title_hashtags_dialog">Etiquetas</string>
+    <string name="item_copied">Texto copiado</string>
+    <string name="action_copy_item">Copiar ítem</string>
 </resources>

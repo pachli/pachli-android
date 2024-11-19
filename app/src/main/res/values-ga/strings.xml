@@ -527,8 +527,6 @@
     <string name="search_operator_where_all">Gach post ▾</string>
     <string name="search_operator_where_library">Do leabharlann</string>
     <string name="search_operator_where_dialog_all_hint">Poist i do leabharlann agus i do phoist phoiblí</string>
-    <string name="action_copy_item">Cóipeáil mír</string>
-    <string name="item_copied">Cóipeáladh téacs</string>
     <string name="upload_failed_msg_fmt">Déanfar an t-uaslódáil a aisghabháil nuair a sheolann tú an post. Má theipeann air arís sábhálfar an post i do dhréachtaí.\n\nEarráid a bhí ann: %1$s</string>
     <string name="upload_failed_modify_attachment">Mionathraigh iatán</string>
     <string name="duration_30_days">laethanta 30</string>
