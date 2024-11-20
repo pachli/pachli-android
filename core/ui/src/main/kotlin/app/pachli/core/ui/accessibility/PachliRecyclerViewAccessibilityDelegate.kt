@@ -47,6 +47,10 @@ abstract class PachliRecyclerViewAccessibilityDelegate(
      * for assistive technologies to copy the item.
      *
      * Focus is set to the list after showing the dialog.
+     *
+     * @param title String resource to use as the dialog's title.
+     * @param items Items to show in the dialog.
+     * @param listener Callback, called with the position of the clicked item.
      */
     fun showA11yDialogWithCopyButton(@StringRes title: Int, items: List<CharSequence>, listener: ArrayAdapterWithCopyButton.OnClickListener) {
         AlertDialog.Builder(context)
