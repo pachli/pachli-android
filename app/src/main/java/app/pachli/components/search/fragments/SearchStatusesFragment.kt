@@ -17,9 +17,6 @@
 package app.pachli.components.search.fragments
 
 import android.Manifest
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -55,6 +52,7 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.Status.Mention
+import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.view.showMuteAccountDialog
 import app.pachli.viewdata.StatusViewData
@@ -74,6 +72,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     @Inject
     lateinit var downloadUrlUseCase: DownloadUrlUseCase
+
+    @Inject
+    lateinit var clipboard: ClipboardUseCase
 
     override val data: Flow<PagingData<StatusViewData>>
         get() = viewModel.statusesFlow
@@ -281,8 +282,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_copy_link -> {
-                    val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    clipboard.setPrimaryClip(ClipData.newPlainText(null, statusUrl))
+                    statusUrl?.let { clipboard.copyTextTo(it) }
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_open_as -> {

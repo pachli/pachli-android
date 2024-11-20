@@ -17,8 +17,6 @@
 
 package app.pachli.feature.about
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
@@ -28,9 +26,7 @@ import android.text.style.URLSpan
 import android.text.util.Linkify
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -39,13 +35,18 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.versionName
+import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.NoUnderlineURLSpan
 import app.pachli.feature.about.databinding.FragmentAboutBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AboutFragment : Fragment(R.layout.fragment_about) {
+    @Inject
+    lateinit var clipboard: ClipboardUseCase
+
     private val viewModel: AboutFragmentViewModel by viewModels()
 
     private val binding by viewBinding(FragmentAboutBinding::bind)
@@ -100,16 +101,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
 
         binding.copyDeviceInfo.setOnClickListener {
             val text = "$version\n\nDevice:\n\n$deviceInfo\n\nAccount:\n\n${binding.accountInfo.text}"
-            val clipboard = getSystemService(requireContext(), ClipboardManager::class.java) as ClipboardManager
-            val clip = ClipData.newPlainText("Pachli version information", text)
-            clipboard.setPrimaryClip(clip)
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.about_copied),
-                    Toast.LENGTH_SHORT,
-                ).show()
-            }
+            clipboard.copyTextTo(text, R.string.about_copied, "Pachli version information")
         }
     }
 

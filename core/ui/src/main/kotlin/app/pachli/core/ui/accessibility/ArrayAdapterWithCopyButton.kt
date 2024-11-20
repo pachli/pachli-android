@@ -17,18 +17,15 @@
 
 package app.pachli.core.ui.accessibility
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import app.pachli.core.ui.R
 import app.pachli.core.ui.databinding.SimpleListItem1CopyButtonBinding
+import app.pachli.core.ui.di.UseCaseEntryPoint
+import dagger.hilt.android.EntryPointAccessors
 
 /**
  * An [ArrayAdapter] that shows a "copy" button next to each item.
@@ -49,27 +46,16 @@ class ArrayAdapterWithCopyButton<T : CharSequence>(
         fun onClick(position: Int)
     }
 
+    private val useCaseEntryPoint = EntryPointAccessors.fromApplication<UseCaseEntryPoint>(context.applicationContext)
+    private val clipboard = useCaseEntryPoint.clipboardUseCase
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding = if (convertView == null) {
             SimpleListItem1CopyButtonBinding.inflate(LayoutInflater.from(context), parent, false).apply {
                 text1.setOnClickListener { listener.onClick(position) }
 
                 copy.setOnClickListener {
-                    getItem(position)?.let { text ->
-                        val clipboard = ContextCompat.getSystemService(
-                            context,
-                            ClipboardManager::class.java,
-                        ) as ClipboardManager
-                        val clip = ClipData.newPlainText("", text)
-                        clipboard.setPrimaryClip(clip)
-                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.item_copied),
-                                Toast.LENGTH_SHORT,
-                            ).show()
-                        }
-                    }
+                    getItem(position)?.let { clipboard.copyTextTo(it) }
                 }
             }
         } else {

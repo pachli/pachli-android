@@ -17,21 +17,18 @@
 
 package app.pachli.components.trending
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
+import app.pachli.core.ui.di.UseCaseEntryPoint
 import app.pachli.view.PreviewCardView
 import app.pachli.view.PreviewCardView.Target
+import dagger.hilt.android.EntryPointAccessors
 
 /**
  * Accessbility delete for [TrendingLinkViewHolder].
@@ -44,6 +41,9 @@ internal class TrendingLinksAccessibilityDelegate(
     private val recyclerView: RecyclerView,
     val listener: PreviewCardView.OnClickListener,
 ) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {
+    private val useCaseEntryPoint = EntryPointAccessors.fromApplication<UseCaseEntryPoint>(context.applicationContext)
+    val clipboard = useCaseEntryPoint.clipboardUseCase
+
     private val openLinkAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_open_link,
         context.getString(R.string.action_open_link),
@@ -85,19 +85,7 @@ internal class TrendingLinksAccessibilityDelegate(
                     true
                 }
                 app.pachli.core.ui.R.id.action_copy_item -> {
-                    val clipboard = ContextCompat.getSystemService(
-                        context,
-                        ClipboardManager::class.java,
-                    ) as ClipboardManager
-                    val clip = ClipData.newPlainText("", viewHolder.link.url)
-                    clipboard.setPrimaryClip(clip)
-                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                        Toast.makeText(
-                            context,
-                            context.getString(app.pachli.core.ui.R.string.item_copied),
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    }
+                    clipboard.copyTextTo(viewHolder.link.url)
                     true
                 }
                 app.pachli.core.ui.R.id.action_open_byline_account -> {
