@@ -59,6 +59,8 @@ import dagger.hilt.android.EntryPointAccessors.fromApplication
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 import kotlin.properties.Delegates
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -229,47 +231,55 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         bar.show()
     }
 
+    /**
+     * Displays a dialog allowing the user to choose from the available accounts.
+     *
+     * @param dialogTitle
+     * @parma showActiveAccount True if the active account should be included in
+     * the list of accounts.
+     * @parma listener
+     */
     fun showAccountChooserDialog(
         dialogTitle: CharSequence?,
         showActiveAccount: Boolean,
         listener: AccountSelectionListener,
     ) {
-        val accounts = accountManager.accountsOrderedByActive.toMutableList()
-        val activeAccount = accounts.first()
-        when (accounts.size) {
-            1 -> {
-                listener.onAccountSelected(activeAccount)
-                return
-            }
+        lifecycleScope.launch {
+            val accounts = accountManager.accountsOrderedByActiveFlow.take(1).first().toMutableList()
+            val activeAccount = accounts.first()
+            when (accounts.size) {
+                1 -> {
+                    listener.onAccountSelected(activeAccount)
+                    return@launch
+                }
 
-            2 -> {
-                if (!showActiveAccount) {
-                    for (account in accounts) {
-                        if (activeAccount !== account) {
-                            listener.onAccountSelected(account)
-                            return
+                2 -> {
+                    if (!showActiveAccount) {
+                        for (account in accounts) {
+                            if (activeAccount !== account) {
+                                listener.onAccountSelected(account)
+                                return@launch
+                            }
                         }
                     }
                 }
             }
-        }
-        if (!showActiveAccount) {
-            accounts.remove(activeAccount)
-        }
-        val adapter = AccountSelectionAdapter(
-            this,
-            sharedPreferencesRepository.animateAvatars,
-            sharedPreferencesRepository.animateEmojis,
-        )
-        adapter.addAll(accounts)
-        AlertDialog.Builder(this)
-            .setTitle(dialogTitle)
-            .setAdapter(adapter) { _: DialogInterface?, index: Int ->
-                listener.onAccountSelected(
-                    accounts[index],
-                )
+            if (!showActiveAccount) {
+                accounts.remove(activeAccount)
             }
-            .show()
+            val adapter = AccountSelectionAdapter(
+                this@BaseActivity,
+                sharedPreferencesRepository.animateAvatars,
+                sharedPreferencesRepository.animateEmojis,
+            )
+            adapter.addAll(accounts)
+            AlertDialog.Builder(this@BaseActivity)
+                .setTitle(dialogTitle)
+                .setAdapter(adapter) { _: DialogInterface?, index: Int ->
+                    listener.onAccountSelected(accounts[index])
+                }
+                .show()
+        }
     }
 
     val openAsText: String?

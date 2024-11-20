@@ -68,6 +68,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -190,11 +191,11 @@ class AccountManager @Inject constructor(
     val accounts: List<AccountEntity>
         get() = accountsFlow.value
 
-    private val accountsOrderedByActiveFlow = accountDao.getAccountsOrderedByActive()
-        .stateIn(externalScope, SharingStarted.Eagerly, emptyList())
+    val accountsOrderedByActiveFlow = accountDao.getAccountsOrderedByActive()
+        .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
 
     val accountsOrderedByActive: List<AccountEntity>
-        get() = accountsOrderedByActiveFlow.value
+        get() = accountsOrderedByActiveFlow.replayCache.first()
 
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activePachliAccountFlow = accountDao.getActivePachliAccountFlow()
