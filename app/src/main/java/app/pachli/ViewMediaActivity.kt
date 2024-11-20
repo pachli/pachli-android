@@ -21,9 +21,6 @@ import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.DownloadManager
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
@@ -53,6 +50,7 @@ import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.databinding.ActivityViewMediaBinding
 import app.pachli.fragment.MediaActionsListener
 import app.pachli.pager.ImagePagerAdapter
@@ -82,6 +80,9 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
 
     @Inject
     lateinit var downloadUrlUseCase: DownloadUrlUseCase
+
+    @Inject
+    lateinit var clipboard: ClipboardUseCase
 
     private val viewModel: ViewMediaViewModel by viewModels()
 
@@ -260,8 +261,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
 
     private fun copyLink() {
         val url = imageUrl ?: attachmentViewData!![binding.viewPager.currentItem].attachment.url
-        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        clipboard.setPrimaryClip(ClipData.newPlainText(null, url))
+        clipboard.copyTextTo(url)
     }
 
     private fun shareMedia() {

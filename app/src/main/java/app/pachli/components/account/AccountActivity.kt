@@ -17,9 +17,6 @@
 package app.pachli.components.account
 
 import android.animation.ArgbEvaluator
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.content.res.Configuration
@@ -83,6 +80,7 @@ import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.getDomain
@@ -128,6 +126,9 @@ class AccountActivity :
     LinkListener {
     @Inject
     lateinit var draftsAlert: DraftsAlert
+
+    @Inject
+    lateinit var clipboard: ClipboardUseCase
 
     private val viewModel: AccountViewModel by viewModels()
 
@@ -498,10 +499,7 @@ class AccountActivity :
             view.setOnLongClickListener {
                 loadedAccount?.let { loadedAccount ->
                     val fullUsername = getFullUsername(loadedAccount)
-                    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    clipboard.setPrimaryClip(ClipData.newPlainText(null, fullUsername))
-                    Snackbar.make(binding.root, getString(R.string.account_username_copied), Snackbar.LENGTH_SHORT)
-                        .show()
+                    clipboard.copyTextTo(fullUsername, R.string.account_username_copied)
                 }
                 true
             }

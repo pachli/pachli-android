@@ -16,8 +16,6 @@
 package app.pachli.fragment
 
 import android.Manifest
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -60,6 +58,7 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.usecase.TimelineCases
@@ -94,6 +93,9 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     @Inject
     lateinit var downloadUrlUseCase: DownloadUrlUseCase
+
+    @Inject
+    lateinit var clipboard: ClipboardUseCase
 
     private var serverCanTranslate = false
 
@@ -296,9 +298,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_copy_link -> {
-                    (requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).apply {
-                        setPrimaryClip(ClipData.newPlainText(null, statusUrl))
-                    }
+                    statusUrl?.let { clipboard.copyTextTo(it) }
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_open_as -> {
