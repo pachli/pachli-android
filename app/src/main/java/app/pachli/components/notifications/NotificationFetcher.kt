@@ -40,6 +40,8 @@ import kotlin.collections.set
 import kotlin.math.min
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.take
 import timber.log.Timber
 
 /**
@@ -57,11 +59,11 @@ class NotificationFetcher @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
     suspend fun fetchAndShow(pachliAccountId: Long) {
-        Timber.d("NotificationFetcher.fetchAndShow() started")
+        Timber.d("NotificationFetcher.fetchAndShow(%d) started", pachliAccountId)
 
         val accounts = buildList {
             if (pachliAccountId == NotificationWorker.ALL_ACCOUNTS) {
-                addAll(accountManager.accountsOrderedByActive)
+                addAll(accountManager.accountsOrderedByActiveFlow.take(1).first())
             } else {
                 accountManager.getAccountById(pachliAccountId)?.let { add(it) }
             }
@@ -69,7 +71,7 @@ class NotificationFetcher @Inject constructor(
 
         for (account in accounts) {
             Timber.d(
-                "Checking %s$, notificationsEnabled = %s",
+                "Checking %s, notificationsEnabled = %s",
                 account.fullName,
                 account.notificationsEnabled,
             )

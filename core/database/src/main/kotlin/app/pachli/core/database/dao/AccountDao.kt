@@ -86,7 +86,7 @@ interface AccountDao {
         """
         SELECT *
          FROM AccountEntity
-        ORDER BY isActive, id ASC
+        ORDER BY isActive DESC, id ASC
         """,
     )
     fun getAccountsOrderedByActive(): Flow<List<AccountEntity>>
