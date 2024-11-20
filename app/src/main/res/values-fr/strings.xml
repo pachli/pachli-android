@@ -92,7 +92,6 @@
     <string name="action_open_reblogger">Afficher l’auteur·rice du partage</string>
     <string name="action_open_reblogged_by">Afficher les partages</string>
     <string name="action_open_faved_by">Montrer les favoris</string>
-    <string name="title_mentions_dialog">Mentions</string>
     <string name="action_open_media_n">Ouvrir le média #%d</string>
     <string name="download_image">Téléchargement de %1$s</string>
     <string name="action_copy_link">Copier le lien</string>

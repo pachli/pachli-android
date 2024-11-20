@@ -412,7 +412,6 @@
     <string name="action_copy_link">Copiar ligazón</string>
     <string name="download_image">Descargando %1$s</string>
     <string name="action_open_media_n">Abrir multimedia #%d</string>
-    <string name="title_mentions_dialog">Mencións</string>
     <string name="action_open_faved_by">Mostrar favoritos</string>
     <string name="action_open_reblogged_by">Mostrar promocións</string>
     <string name="action_open_reblogger">Abrir autor da promoción</string>

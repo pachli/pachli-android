@@ -12,4 +12,5 @@
     <string name="action_hashtags">হ্যাশট্যাগ</string>
     <string name="title_links_dialog">লিংকসমূহ</string>
     <string name="title_hashtags_dialog">হ্যাশট্যাগ</string>
+    <string name="title_mentions_dialog">উল্লেখসমূহ</string>
 </resources>

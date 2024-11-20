@@ -13,4 +13,5 @@
     <string name="action_hashtags">Kradvortoj</string>
     <string name="title_links_dialog">Ligiloj</string>
     <string name="title_hashtags_dialog">Kradvortoj</string>
+    <string name="title_mentions_dialog">Mencioj</string>
 </resources>

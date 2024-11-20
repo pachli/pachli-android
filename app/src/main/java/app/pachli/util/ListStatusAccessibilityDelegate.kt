@@ -1,24 +1,17 @@
 package app.pachli.util
 
-import android.content.Context
 import android.os.Bundle
-import android.text.Spannable
-import android.text.style.URLSpan
 import android.view.View
-import android.view.accessibility.AccessibilityEvent
-import android.view.accessibility.AccessibilityManager
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
 import app.pachli.R
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.activity.openLink
 import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
-import app.pachli.core.ui.ArrayAdapterWithCopyButton
+import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.IStatusViewData
 import app.pachli.viewdata.NotificationViewData
@@ -34,13 +27,8 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val recyclerView: RecyclerView,
     private val statusActionListener: StatusActionListener<T>,
     private val statusProvider: StatusProvider<T>,
-) : RecyclerViewAccessibilityDelegate(recyclerView) {
-    private val a11yManager = context.getSystemService(Context.ACCESSIBILITY_SERVICE)
-        as AccessibilityManager
-
+) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {
     override fun getItemDelegate(): AccessibilityDelegateCompat = itemDelegate
-
-    private val context: Context get() = recyclerView.context
 
     private val itemDelegate = object : ItemDelegate(this) {
         override fun onInitializeAccessibilityNodeInfo(
@@ -96,12 +84,12 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             }
 
             info.addAction(openProfileAction)
-            if (getLinks(status).any()) info.addAction(linksAction)
+            if (status.content.getLinks().any()) info.addAction(linksAction)
 
             val mentions = actionable.mentions
             if (mentions.isNotEmpty()) info.addAction(mentionsAction)
 
-            if (getHashtags(status).any()) info.addAction(hashtagsAction)
+            if (status.content.getHashtags().any()) info.addAction(hashtagsAction)
             if (!status.status.reblog?.account?.username.isNullOrEmpty()) {
                 info.addAction(openRebloggerAction)
             }
@@ -167,9 +155,31 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                     statusActionListener.onExpandedChange(pachliAccountId, status, false)
                     interrupt()
                 }
-                app.pachli.core.ui.R.id.action_links -> showLinksDialog(host)
-                app.pachli.core.ui.R.id.action_mentions -> showMentionsDialog(host)
-                app.pachli.core.ui.R.id.action_hashtags -> showHashtagsDialog(host)
+
+                app.pachli.core.ui.R.id.action_links -> {
+                    val links = status.content.getLinks()
+                    showA11yDialogWithCopyButton(
+                        app.pachli.core.ui.R.string.title_links_dialog,
+                        links.map { it.url },
+                    ) { context.openLink(links[it].url) }
+                }
+
+                app.pachli.core.ui.R.id.action_mentions -> {
+                    val mentions = status.actionable.mentions
+                    showA11yDialogWithCopyButton(
+                        app.pachli.core.ui.R.string.title_mentions_dialog,
+                        mentions.map { "@${it.username}" },
+                    ) { statusActionListener.onViewAccount(mentions[it].id) }
+                }
+
+                app.pachli.core.ui.R.id.action_hashtags -> {
+                    val hashtags = status.content.getHashtags()
+                    showA11yDialogWithCopyButton(
+                        app.pachli.core.ui.R.string.title_hashtags_dialog,
+                        hashtags.map { "#$it" },
+                    ) { statusActionListener.onViewTag(hashtags[it].toString()) }
+                }
+
                 app.pachli.core.ui.R.id.action_open_reblogger -> {
                     interrupt()
                     statusActionListener.onOpenReblog(status.status)
@@ -204,107 +214,10 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             return true
         }
 
-        private fun showLinksDialog(host: View) {
-            val status = getStatus(host) as? IStatusViewData ?: return
-            val links = getLinks(status).toList()
-            val textLinks = links.map { item -> item.link }
-            AlertDialog.Builder(host.context)
-                .setTitle(app.pachli.core.ui.R.string.title_links_dialog)
-                .setAdapter(
-                    ArrayAdapterWithCopyButton(
-                        host.context,
-                        textLinks,
-                    ) { position -> host.context.openLink(links[position].link) },
-                    null,
-                )
-                .show()
-                .let { forceFocus(it.listView) }
-        }
-
-        private fun showMentionsDialog(host: View) {
-            val status = getStatus(host) as? IStatusViewData ?: return
-            val mentions = status.actionable.mentions
-
-            // Ensure mentions have the leading "@" to make them more useful when
-            // copied.
-            val stringMentions = mentions.map { "@${it.username}" }
-            AlertDialog.Builder(host.context)
-                .setTitle(R.string.title_mentions_dialog)
-                .setAdapter(
-                    ArrayAdapterWithCopyButton(
-                        host.context,
-                        stringMentions,
-                    ) { position ->
-                        statusActionListener.onViewAccount(mentions[position].id)
-                    },
-                    null,
-                )
-                .show()
-                .let { forceFocus(it.listView) }
-        }
-
-        private fun showHashtagsDialog(host: View) {
-            val status = getStatus(host) as? IStatusViewData ?: return
-            val tags = getHashtags(status)
-            AlertDialog.Builder(host.context)
-                .setTitle(app.pachli.core.ui.R.string.title_hashtags_dialog)
-                .setAdapter(
-                    ArrayAdapterWithCopyButton(
-                        host.context,
-                        tags,
-                    ) { position ->
-                        statusActionListener.onViewTag(tags[position].toString())
-                    },
-                    null,
-                )
-                .show()
-                .let { forceFocus(it.listView) }
-        }
-
         private fun getStatus(childView: View): T {
             return statusProvider.getStatus(recyclerView.getChildAdapterPosition(childView))!!
         }
     }
-
-    private fun getLinks(status: IStatusViewData): Sequence<LinkSpanInfo> {
-        val content = status.content
-        return if (content is Spannable) {
-            content.getSpans(0, content.length, URLSpan::class.java)
-                .asSequence()
-                .map { span ->
-                    val text = content.subSequence(
-                        content.getSpanStart(span),
-                        content.getSpanEnd(span),
-                    )
-                    if (isHashtag(text)) null else LinkSpanInfo(text.toString(), span.url)
-                }
-                .filterNotNull()
-        } else {
-            emptySequence()
-        }
-    }
-
-    private fun getHashtags(status: IStatusViewData): List<CharSequence> {
-        val content = status.content
-        return content.getSpans(0, content.length, Object::class.java)
-            .map { span ->
-                content.subSequence(content.getSpanStart(span), content.getSpanEnd(span)).toString()
-            }
-            .filter(this::isHashtag)
-    }
-
-    private fun forceFocus(host: View) {
-        interrupt()
-        host.post {
-            host.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED)
-        }
-    }
-
-    private fun interrupt() {
-        a11yManager.interrupt()
-    }
-
-    private fun isHashtag(text: CharSequence) = text.startsWith("#")
 
     private val collapseCwAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collapse_cw,
@@ -405,6 +318,4 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
         app.pachli.core.ui.R.id.action_edit_filter,
         context.getString(R.string.filter_edit_title),
     )
-
-    private data class LinkSpanInfo(val text: String, val link: String)
 }

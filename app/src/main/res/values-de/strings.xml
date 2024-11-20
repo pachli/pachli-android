@@ -92,7 +92,6 @@
     <string name="action_add_tab">Tab hinzufügen</string>
     <string name="action_open_reblogged_by">Geteilte Beiträge anzeigen</string>
     <string name="action_open_faved_by">Favoriten anzeigen</string>
-    <string name="title_mentions_dialog">Erwähnungen</string>
     <string name="action_open_media_n">Datei #%d öffnen</string>
     <string name="download_image">%1$s heruntergeladen</string>
     <string name="action_copy_link">Link kopieren</string>

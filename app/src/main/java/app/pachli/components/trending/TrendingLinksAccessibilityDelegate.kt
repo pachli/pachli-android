@@ -17,16 +17,19 @@
 
 package app.pachli.components.trending
 
-import android.content.Context
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.accessibility.AccessibilityManager
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
 import app.pachli.R
+import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 import app.pachli.view.PreviewCardView
 import app.pachli.view.PreviewCardView.Target
 
@@ -40,15 +43,15 @@ import app.pachli.view.PreviewCardView.Target
 internal class TrendingLinksAccessibilityDelegate(
     private val recyclerView: RecyclerView,
     val listener: PreviewCardView.OnClickListener,
-) : RecyclerViewAccessibilityDelegate(recyclerView) {
-    private val context = recyclerView.context
-
-    private val a11yManager = context.getSystemService(Context.ACCESSIBILITY_SERVICE)
-        as AccessibilityManager
-
+) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {
     private val openLinkAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_open_link,
         context.getString(R.string.action_open_link),
+    )
+
+    private val copyLinkAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_copy_item,
+        context.getString(R.string.action_copy_link),
     )
 
     private val openBylineAccountAction = AccessibilityActionCompat(
@@ -64,6 +67,7 @@ internal class TrendingLinksAccessibilityDelegate(
                 as TrendingLinkViewHolder
 
             info.addAction(openLinkAction)
+            info.addAction(copyLinkAction)
 
             viewHolder.link.authors?.firstOrNull()?.account?.let {
                 info.addAction(openBylineAccountAction)
@@ -80,6 +84,22 @@ internal class TrendingLinksAccessibilityDelegate(
                     listener.onClick(viewHolder.link, Target.CARD)
                     true
                 }
+                app.pachli.core.ui.R.id.action_copy_item -> {
+                    val clipboard = ContextCompat.getSystemService(
+                        context,
+                        ClipboardManager::class.java,
+                    ) as ClipboardManager
+                    val clip = ClipData.newPlainText("", viewHolder.link.url)
+                    clipboard.setPrimaryClip(clip)
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+                        Toast.makeText(
+                            context,
+                            context.getString(app.pachli.core.ui.R.string.item_copied),
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    }
+                    true
+                }
                 app.pachli.core.ui.R.id.action_open_byline_account -> {
                     interrupt()
                     listener.onClick(viewHolder.link, Target.BYLINE)
@@ -89,8 +109,6 @@ internal class TrendingLinksAccessibilityDelegate(
             }
         }
     }
-
-    private fun interrupt() = a11yManager.interrupt()
 
     override fun getItemDelegate(): AccessibilityDelegateCompat = delegate
 }

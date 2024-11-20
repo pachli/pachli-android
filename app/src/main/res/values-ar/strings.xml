@@ -91,7 +91,6 @@
     <string name="action_add_tab">إضافة لسان</string>
     <string name="action_open_reblogged_by">اعرض المشاركات</string>
     <string name="action_open_faved_by">اعرض المفضلات</string>
-    <string name="title_mentions_dialog">الإشارات</string>
     <string name="download_image">تنزيل %1$s</string>
     <string name="action_copy_link">إنسخ الرابط</string>
     <string name="action_share_as">شاركه كـ…</string>

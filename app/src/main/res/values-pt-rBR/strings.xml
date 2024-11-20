@@ -87,7 +87,6 @@
     <string name="action_add_tab">Adicionar aba</string>
     <string name="action_open_reblogged_by">Mostrar Boosts</string>
     <string name="action_open_faved_by">Mostrar favoritos</string>
-    <string name="title_mentions_dialog">Menções</string>
     <string name="download_image">Baixando %1$s</string>
     <string name="action_copy_link">Copiar URL</string>
     <string name="action_share_as">Compartilhar como…</string>

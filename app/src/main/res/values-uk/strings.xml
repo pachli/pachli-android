@@ -38,7 +38,6 @@
     <string name="action_share_as">Поділитися як …</string>
     <string name="action_copy_link">Копіювати посилання</string>
     <string name="download_image">Завантаження %1$s</string>
-    <string name="title_mentions_dialog">Згадки</string>
     <string name="action_open_faved_by">Показати, хто вподобав</string>
     <string name="action_content_warning">Попередження про вміст</string>
     <string name="action_access_scheduled_posts">Заплановані дописи</string>

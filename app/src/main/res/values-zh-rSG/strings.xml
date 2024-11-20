@@ -93,7 +93,6 @@
     <string name="action_open_reblogger">打开转嘟用户主页</string>
     <string name="action_open_reblogged_by">显示转嘟</string>
     <string name="action_open_faved_by">显示喜欢</string>
-    <string name="title_mentions_dialog">提及</string>
     <string name="action_open_media_n">打开媒体文件 #%d</string>
     <string name="download_image">正在下载 %1$s…</string>
     <string name="action_copy_link">复制链接</string>

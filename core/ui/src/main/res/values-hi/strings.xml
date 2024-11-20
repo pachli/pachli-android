@@ -11,4 +11,5 @@
     <string name="action_hashtags">हैशटैग</string>
     <string name="title_links_dialog">लिंक</string>
     <string name="title_hashtags_dialog">हैशटैग</string>
+    <string name="title_mentions_dialog">ज़िक्र</string>
 </resources>

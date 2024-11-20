@@ -329,7 +329,6 @@
     <string name="report_description_remote_instance">Hesap başka bir sunucudan. Raporun anonim bir kopyasını da oraya gönderilsin mi\?</string>
     <string name="action_open_reblogger">Gönderi yazanını aç</string>
     <string name="action_open_reblogged_by">Yeniden paylaşımları göster</string>
-    <string name="title_mentions_dialog">Bahsedenler</string>
     <string name="action_open_media_n">#%d medyayı aç</string>
     <string name="title_bookmarks">Yer imleri</string>
     <string name="title_scheduled_posts">Zamanlanmış yayınlar</string>

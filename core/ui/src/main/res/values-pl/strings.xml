@@ -14,4 +14,5 @@
     <string name="action_hashtags">Hashtagi</string>
     <string name="title_links_dialog">Linki</string>
     <string name="title_hashtags_dialog">Hashtagi</string>
+    <string name="title_mentions_dialog">Wzmianki</string>
 </resources>

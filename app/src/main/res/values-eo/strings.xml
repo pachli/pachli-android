@@ -92,7 +92,6 @@
     <string name="action_open_reblogger">Montri la aŭtoron de la diskonigo</string>
     <string name="action_open_reblogged_by">Montri diskonigojn</string>
     <string name="action_open_faved_by">Montri stelumojn</string>
-    <string name="title_mentions_dialog">Mencioj</string>
     <string name="action_open_media_n">Malfermi aŭdovidaĵon #%d</string>
     <string name="download_image">Elŝutado de %1$s</string>
     <string name="action_copy_link">Kopii la ligilon</string>

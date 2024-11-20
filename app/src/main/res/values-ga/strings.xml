@@ -205,7 +205,6 @@
     <string name="pref_title_bot_overlay">Taispeáin táscaire do róbónna</string>
     <string name="pref_title_language">Teanga</string>
     <string name="label_avatar">Abhatár</string>
-    <string name="title_mentions_dialog">Tráchtanna</string>
     <string name="action_reblog">Athchraol</string>
     <string name="action_unreblog">Cealaigh athchraoladh</string>
     <string name="action_reply">Freagra</string>

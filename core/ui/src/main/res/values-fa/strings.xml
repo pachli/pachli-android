@@ -14,4 +14,5 @@
     <string name="action_hashtags">برچسب‌ها</string>
     <string name="title_links_dialog">پیوندها</string>
     <string name="title_hashtags_dialog">برچسب‌ها</string>
+    <string name="title_mentions_dialog">اشاره‌ها</string>
 </resources>

@@ -92,7 +92,6 @@
     <string name="action_open_reblogger">Auteur van deze boost openen</string>
     <string name="action_open_reblogged_by">Boosts tonen</string>
     <string name="action_open_faved_by">Favorieten tonen</string>
-    <string name="title_mentions_dialog">Vermeldingen</string>
     <string name="action_open_media_n">Media #%d openen</string>
     <string name="download_image">%1$s aan het downloaden</string>
     <string name="action_copy_link">Link kopiëren</string>

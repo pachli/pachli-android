@@ -13,4 +13,5 @@
     <string name="title_links_dialog">連結</string>
     <string name="title_hashtags_dialog">話題</string>
     <string name="action_refresh">重新整理</string>
+    <string name="title_mentions_dialog">提及</string>
 </resources>

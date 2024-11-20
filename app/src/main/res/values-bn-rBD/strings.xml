@@ -164,7 +164,6 @@
     <string name="action_copy_link">লিঙ্ক অনুলিপি করুন</string>
     <string name="download_image">\'%1$s ডাউনলোড হচ্ছে\'</string>
     <string name="action_open_media_n">মিডিয়া খুলুন #%d</string>
-    <string name="title_mentions_dialog">উল্লেখসমূহ</string>
     <string name="action_open_faved_by">প্রিয়গুলি দেখান</string>
     <string name="action_open_reblogged_by">সমর্থন দেখান</string>
     <string name="action_open_reblogger">সমর্থক লেখক খুলুন</string>

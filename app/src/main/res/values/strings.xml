@@ -186,7 +186,6 @@
     <string name="action_suggestions">Suggested accounts</string>
     <string name="action_translate">Translate</string>
     <string name="action_translate_undo">Undo translate</string>
-    <string name="title_mentions_dialog">Mentions</string>
     <string name="action_open_media_n">Open media #%d</string>
     <string name="download_image">Downloading %1$s</string>
     <string name="action_copy_link">Copy the link</string>

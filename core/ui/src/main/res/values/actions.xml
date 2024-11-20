@@ -42,8 +42,12 @@
 
     <!-- Open the account on a preview card's byline -->
     <item name="action_open_byline_account" type="id" />
+
     <!-- Open the link in a preview card -->
     <item name="action_open_link" type="id" />
+
+    <!-- Copy the item -->
+    <item name="action_copy_item" type="id" />
 
     <item name="action_more" type="id" />
 

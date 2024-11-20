@@ -64,7 +64,6 @@
     <string name="action_add_tab">Pievienot cilni</string>
     <string name="action_reset_schedule">Atiestatīt</string>
     <string name="download_image">Lejupielādē %1$s</string>
-    <string name="title_mentions_dialog">Pieminējumi</string>
     <string name="confirmation_reported">Nosūtīts!</string>
     <string name="action_copy_link">Nokopēt saiti</string>
     <string name="confirmation_unblocked">Lietotājs atbloķēts</string>

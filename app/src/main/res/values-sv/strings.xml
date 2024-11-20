@@ -92,7 +92,6 @@
     <string name="action_open_reblogger">Öppna knuff författare</string>
     <string name="action_open_reblogged_by">Visa knuffar</string>
     <string name="action_open_faved_by">Visa favoriter</string>
-    <string name="title_mentions_dialog">Omnämnanden</string>
     <string name="action_open_media_n">Öppna media #%d</string>
     <string name="download_image">Laddar ned %1$s</string>
     <string name="action_copy_link">Kopiera länk</string>

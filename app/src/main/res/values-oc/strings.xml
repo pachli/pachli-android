@@ -231,7 +231,6 @@
     <string name="action_open_reblogger">Dobrir l’autor del partatge</string>
     <string name="action_open_reblogged_by">Mostrar los retuts</string>
     <string name="action_open_faved_by">Mostrar los favorits</string>
-    <string name="title_mentions_dialog">Mencions</string>
     <string name="action_open_media_n">Dobrir lo mèdia #%d</string>
     <string name="action_share_as">Partejar coma…</string>
     <string name="download_media">Telecargar lo mèdia</string>
