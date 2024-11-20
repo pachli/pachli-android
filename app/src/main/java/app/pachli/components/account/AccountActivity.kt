@@ -51,7 +51,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.R
-import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.emojify
@@ -64,7 +63,6 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
@@ -997,15 +995,9 @@ class AccountActivity :
             }
             R.id.action_open_as -> {
                 loadedAccount?.let { loadedAccount ->
-                    showAccountChooserDialog(
-                        item.title,
-                        false,
-                        object : AccountSelectionListener {
-                            override fun onAccountSelected(account: AccountEntity) {
-                                openAsAccount(loadedAccount.url, account)
-                            }
-                        },
-                    )
+                    showAccountChooserDialog(item.title, false) { account ->
+                        openAsAccount(loadedAccount.url, account)
+                    }
                 }
             }
             R.id.action_share_account_link -> {
