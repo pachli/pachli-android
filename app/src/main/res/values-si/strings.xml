@@ -99,7 +99,6 @@
     <string name="downloading_media">මාධ්‍ය බාගත වෙමින්</string>
     <string name="pref_title_show_media_preview">මාධ්‍ය පෙරදසුන් බාගන්න</string>
     <string name="dialog_download_image">බාගන්න</string>
-    <string name="title_mentions_dialog">සඳැහුම්</string>
     <string name="action_reply">පිළිතුර</string>
     <string name="pref_title_edit_notification_settings">දැනුම්දීම්</string>
     <string name="confirmation_unblocked">පරිශීලක අනවහිර කෙරිණි</string>

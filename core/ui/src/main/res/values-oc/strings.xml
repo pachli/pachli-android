@@ -14,4 +14,5 @@
     <string name="action_hashtags">Etiquetas</string>
     <string name="title_links_dialog">Ligams</string>
     <string name="title_hashtags_dialog">Etiquetas</string>
+    <string name="title_mentions_dialog">Mencions</string>
 </resources>

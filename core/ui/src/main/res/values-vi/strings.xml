@@ -14,4 +14,5 @@
     <string name="action_hashtags">Hashtag</string>
     <string name="title_links_dialog">Links</string>
     <string name="title_hashtags_dialog">Hashtag</string>
+    <string name="title_mentions_dialog">Lượt nhắc tới</string>
 </resources>

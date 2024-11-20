@@ -291,7 +291,6 @@
     <string name="notification_poll_description">投票の集計が完了したときの通知</string>
     <string name="pref_title_thread_filter_keywords">スレッド</string>
     <string name="action_add_poll">投票</string>
-    <string name="title_mentions_dialog">返信</string>
     <string name="dialog_redraft_post_warning">この投稿を削除し、下書きに戻しますか？</string>
     <string name="filter_dialog_remove_button">削除</string>
     <string name="filter_dialog_update_button">更新</string>

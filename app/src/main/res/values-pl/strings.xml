@@ -228,7 +228,6 @@
     <string name="action_delete_and_redraft">Usuń i przeredaguj</string>
     <string name="action_view_account_preferences">Ustawienia konta</string>
     <string name="action_open_faved_by">Pokaż ulubione</string>
-    <string name="title_mentions_dialog">Wzmianki</string>
     <string name="action_share_as">Udostępnij jako …</string>
     <string name="title_tab_preferences">Zakładki</string>
     <string name="title_domain_mutes">Ukryte domeny</string>

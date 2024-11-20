@@ -107,7 +107,6 @@
     <string name="download_media">मीडिया डाउनलोड करें</string>
     <string name="action_copy_link">लिंक कॉपी करें</string>
     <string name="action_open_media_n">मीडिया खोलें #%d</string>
-    <string name="title_mentions_dialog">ज़िक्र</string>
     <string name="action_open_faved_by">पसंदीदा दिखाएँ</string>
     <string name="action_add_tab">ऐड टैब</string>
     <string name="action_schedule_post">अनुसूची टूट</string>

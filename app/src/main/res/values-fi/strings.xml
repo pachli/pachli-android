@@ -102,7 +102,6 @@
     <string name="label_quick_reply">Vastaa…</string>
     <string name="hint_search">Hae…</string>
     <string name="hint_note">Kuvaus</string>
-    <string name="title_mentions_dialog">Maininnat</string>
     <string name="action_reset_schedule">Nollaa</string>
     <string name="action_access_drafts">Luonnokset</string>
     <string name="action_search">Hae</string>

@@ -8,4 +8,5 @@
     <string name="action_links">සබැඳි</string>
     <string name="action_mentions">සඳැහුම්</string>
     <string name="title_links_dialog">සබැඳි</string>
+    <string name="title_mentions_dialog">සඳැහුම්</string>
 </resources>

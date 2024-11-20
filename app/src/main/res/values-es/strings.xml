@@ -259,7 +259,6 @@
     <string name="conversation_2_recipients">%1$s y %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s y %3$d más</string>
     <string name="action_open_faved_by">Mostrar favoritos</string>
-    <string name="title_mentions_dialog">Menciones</string>
     <string name="download_media">Descargar multimedia</string>
     <string name="pref_title_language">Idioma</string>
     <string name="action_unreblog">Dejar de impulsar</string>

@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.ui
+package app.pachli.core.ui.accessibility
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -27,6 +27,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import app.pachli.core.ui.R
 import app.pachli.core.ui.databinding.SimpleListItem1CopyButtonBinding
 
 /**

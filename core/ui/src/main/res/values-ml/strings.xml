@@ -9,4 +9,5 @@
     <string name="action_links">ലിങ്കുകൾ</string>
     <string name="action_mentions">സൂചനകൾ</string>
     <string name="title_links_dialog">ലിങ്കുകൾ</string>
+    <string name="title_mentions_dialog">സൂചനകൾ</string>
 </resources>

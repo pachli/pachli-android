@@ -305,7 +305,6 @@
     <string name="error_image_edit_failed">Methu golygu\'r ddelwedd.</string>
     <string name="description_post_favourited">Hoffwyd</string>
     <string name="saving_draft">Yn cadw drafft…</string>
-    <string name="title_mentions_dialog">Crybwylliadau</string>
     <string name="action_open_media_n">Agor cyfryngau #%d</string>
     <string name="action_share_as">Rhannu fel …</string>
     <string name="downloading_media">Yn llwytho cyfryngau</string>

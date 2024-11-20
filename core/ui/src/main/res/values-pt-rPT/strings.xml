@@ -13,4 +13,5 @@
     <string name="action_hashtags">Hashtags</string>
     <string name="title_links_dialog">Hiperligações</string>
     <string name="title_hashtags_dialog">Hashtags</string>
+    <string name="title_mentions_dialog">Menções</string>
 </resources>

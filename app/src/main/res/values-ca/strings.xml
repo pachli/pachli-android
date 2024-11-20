@@ -176,7 +176,6 @@
     <string name="action_content_warning">Contingut sensible</string>
     <string name="action_add_tab">Afegir una pestanya</string>
     <string name="action_open_faved_by">Mostra els favorits</string>
-    <string name="title_mentions_dialog">Mencions</string>
     <string name="action_share_as">Comparteix com a…</string>
     <string name="download_media">Baixa el fitxer</string>
     <string name="send_media_to">Compartir la imatge a …</string>

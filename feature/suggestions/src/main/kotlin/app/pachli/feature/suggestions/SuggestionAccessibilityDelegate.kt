@@ -17,19 +17,16 @@
 
 package app.pachli.feature.suggestions
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Spannable
+import android.text.Spanned
 import android.text.style.URLSpan
 import android.view.View
-import android.view.accessibility.AccessibilityEvent
-import android.view.accessibility.AccessibilityManager
-import android.widget.ArrayAdapter
-import androidx.appcompat.app.AlertDialog
+import androidx.core.text.getSpans
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
+import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 
 /**
  * Accessibility delegate for items in [SuggestionViewHolder].
@@ -40,18 +37,13 @@ import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
  * - Dismiss the suggestion
  * - Follow the account
  *
- * If the account's bio includes any links or hashtags then actions to show those
- * in a dialog allowing the user to activate one are also included.
+ * If the account's bio includes any links, mentions, or hashtags then actions to
+ * show those in a dialog allowing the user to copy/activate one are also included.
  */
 internal class SuggestionAccessibilityDelegate(
     private val recyclerView: RecyclerView,
     private val accept: (UiAction) -> Unit,
-) : RecyclerViewAccessibilityDelegate(recyclerView) {
-    private val context = recyclerView.context
-
-    private val a11yManager = context.getSystemService(Context.ACCESSIBILITY_SERVICE)
-        as AccessibilityManager
-
+) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {
     private val openProfileAction = AccessibilityNodeInfoCompat.AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_open_profile,
         context.getString(app.pachli.core.ui.R.string.action_view_profile),
@@ -72,10 +64,17 @@ internal class SuggestionAccessibilityDelegate(
         context.getString(app.pachli.core.ui.R.string.action_links),
     )
 
+    private val mentionsAction = AccessibilityNodeInfoCompat.AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_mentions,
+        context.getString(app.pachli.core.ui.R.string.action_mentions),
+    )
+
     private val hashtagsAction = AccessibilityNodeInfoCompat.AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_hashtags,
         context.getString(app.pachli.core.ui.R.string.action_hashtags),
     )
+
+    override fun getItemDelegate(): AccessibilityDelegateCompat = delegate
 
     private val delegate = object : ItemDelegate(this) {
         override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
@@ -89,22 +88,17 @@ internal class SuggestionAccessibilityDelegate(
             info.addAction(deleteSuggestionAction)
             info.addAction(followAccountAction)
 
-            val links = getLinks(viewHolder)
+            val text = viewHolder.binding.accountNote.text as Spannable
 
-            // Listed in the same order as ListStatusAccessibilityDelegate to
-            // ensure consistent order (links, mentions, hashtags).
-            if (links.containsKey(LinkType.Link)) info.addAction(linksAction)
-
-            // Disabling support for mentions at the moment, as the API response
-            // doesn't break them out (https://github.com/mastodon/mastodon/issues/27745).
-            // if (links.containsKey(LinkType.Mention)) info.addAction(mentionsAction)
-
-            if (links.containsKey(LinkType.HashTag)) info.addAction(hashtagsAction)
+            if (text.getLinks().any()) info.addAction(linksAction)
+            if (text.getUrlMentions().any()) info.addAction(mentionsAction)
+            if (text.getHashtags().any()) info.addAction(hashtagsAction)
         }
 
         override fun performAccessibilityAction(host: View, action: Int, args: Bundle?): Boolean {
             val viewHolder = recyclerView.findContainingViewHolder(host) as? SuggestionViewHolder ?: return false
             val viewData = viewHolder.viewData
+            val text = viewHolder.binding.accountNote.text as Spannable
 
             if (!viewData.isEnabled) return false
 
@@ -128,79 +122,44 @@ internal class SuggestionAccessibilityDelegate(
                 }
 
                 app.pachli.core.ui.R.id.action_links -> {
-                    val links = getLinks(viewHolder)[LinkType.Link] ?: return true
-                    showLinksDialog(host.context, links)
+                    val links = (viewHolder.binding.accountNote.text as Spannable).getLinks()
+                    showA11yDialogWithCopyButton(
+                        app.pachli.core.ui.R.string.title_links_dialog,
+                        links.map { it.url },
+                    ) { accept(UiAction.NavigationAction.ViewUrl(links[it].url)) }
+                    true
+                }
+
+                app.pachli.core.ui.R.id.action_mentions -> {
+                    val mentions = text.getUrlMentions()
+                    showA11yDialogWithCopyButton(
+                        app.pachli.core.ui.R.string.title_mentions_dialog,
+                        mentions.map { text.subSequence(it).toString() },
+                    ) { accept(UiAction.NavigationAction.ViewUrl(mentions[it].url)) }
                     true
                 }
 
                 app.pachli.core.ui.R.id.action_hashtags -> {
-                    val hashtags = getLinks(viewHolder)[LinkType.HashTag] ?: return true
-                    showHashTagsDialog(host.context, hashtags)
+                    val hashtags = text.getHashtags()
+                    showA11yDialogWithCopyButton(
+                        app.pachli.core.ui.R.string.title_hashtags_dialog,
+                        hashtags.map { "#$it" },
+                    ) { accept(UiAction.NavigationAction.ViewHashtag(hashtags[it].toString())) }
                     true
                 }
 
                 else -> super.performAccessibilityAction(host, action, args)
             }
         }
-
-        private fun showLinksDialog(context: Context, links: List<LinkSpanInfo>) = AlertDialog.Builder(context)
-            .setTitle(app.pachli.core.ui.R.string.title_links_dialog)
-            .setAdapter(
-                ArrayAdapter(
-                    context,
-                    android.R.layout.simple_list_item_1,
-                    links.map { it.link },
-                ),
-            ) { _, which -> accept(UiAction.NavigationAction.ViewUrl(links[which].link)) }
-            .show()
-            .let { forceFocus(it.listView) }
-
-        private fun showHashTagsDialog(context: Context, hashtags: List<LinkSpanInfo>) = AlertDialog.Builder(context)
-            .setTitle(app.pachli.core.ui.R.string.title_hashtags_dialog)
-            .setAdapter(
-                ArrayAdapter(
-                    context,
-                    android.R.layout.simple_list_item_1,
-                    hashtags.map { it.text.subSequence(1, it.text.length) },
-                ),
-            ) { _, which -> accept(UiAction.NavigationAction.ViewHashtag(hashtags[which].text)) }
-            .show()
-            .let { forceFocus(it.listView) }
     }
 
-    private fun forceFocus(view: View) {
-        interrupt()
-        view.post {
-            view.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED)
-        }
+    companion object {
+        // This is required because account notes don't break mentions out in to
+        // a separate `mentions` property or similar. See
+        // https://github.com/mastodon/mastodon/issues/27745 for the feature request.
+        /** @return [URLSpan]s that have anchor text that looks like an at-mention. */
+        @JvmStatic
+        fun Spanned.getUrlMentions(): List<URLSpan> = getSpans<URLSpan>(0, length)
+            .filter { subSequence(it).isMention() }
     }
-
-    private fun interrupt() = a11yManager.interrupt()
-
-    override fun getItemDelegate(): AccessibilityDelegateCompat = delegate
-
-    enum class LinkType {
-        Mention,
-        HashTag,
-        Link,
-    }
-
-    private fun getLinks(viewHolder: SuggestionViewHolder): Map<LinkType, List<LinkSpanInfo>> {
-        val note = viewHolder.binding.accountNote.text
-        if (note !is Spannable) return emptyMap()
-
-        return note.getSpans(0, note.length, URLSpan::class.java)
-            .map {
-                LinkSpanInfo(note.subSequence(note.getSpanStart(it), note.getSpanEnd(it)).toString(), it.url)
-            }
-            .groupBy {
-                when {
-                    it.text.startsWith("@") -> LinkType.Mention
-                    it.text.startsWith("#") -> LinkType.HashTag
-                    else -> LinkType.Link
-                }
-            }
-    }
-
-    private data class LinkSpanInfo(val text: String, val link: String)
 }

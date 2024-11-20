@@ -243,7 +243,6 @@
     <string name="action_open_reblogger">گشودن تقویت‌کنندهٔ بوق</string>
     <string name="action_open_reblogged_by">نمایش تقویت‌ها</string>
     <string name="action_open_faved_by">نمایش برگزیده‌ها</string>
-    <string name="title_mentions_dialog">اشاره‌ها</string>
     <string name="action_open_media_n">گشودن رسانه #%d</string>
     <string name="action_share_as">هم‌رسانی به عنوان …</string>
     <string name="download_media">بارگیری رسانه</string>

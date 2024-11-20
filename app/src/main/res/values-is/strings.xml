@@ -105,7 +105,6 @@
     <string name="action_open_reblogger">Opna höfund endurbirtingar</string>
     <string name="action_open_reblogged_by">Sýna endurbirtingar</string>
     <string name="action_open_faved_by">Birta eftirlæti</string>
-    <string name="title_mentions_dialog">Tilvísanir</string>
     <string name="action_open_media_n">Opna myndefni #%d</string>
     <string name="download_image">Sæki %1$s</string>
     <string name="action_copy_link">Afrita tengilinn</string>

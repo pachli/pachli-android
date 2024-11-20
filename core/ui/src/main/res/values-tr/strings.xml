@@ -14,4 +14,5 @@
     <string name="action_hashtags">Etiketler</string>
     <string name="title_links_dialog">Bağlantılar</string>
     <string name="title_hashtags_dialog">Etiketler</string>
+    <string name="title_mentions_dialog">Bahsedenler</string>
 </resources>

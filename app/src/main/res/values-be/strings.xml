@@ -81,7 +81,6 @@
     <string name="action_open_reblogger">Адкрыць аўтара пашырэння</string>
     <string name="action_open_reblogged_by">Паказаць пашырэнні</string>
     <string name="action_open_faved_by">Паказаць абраныя</string>
-    <string name="title_mentions_dialog">Згадкі</string>
     <string name="action_open_media_n">Адкрыць медыя #%d</string>
     <string name="action_add_reaction">дадаць рэакцыю</string>
     <string name="download_image">Спампоўка %1$s</string>

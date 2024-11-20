@@ -241,7 +241,6 @@
     <string name="action_copy_link">Копиране на връзката</string>
     <string name="download_image">Изтегляне на %1$s</string>
     <string name="action_open_media_n">Отваряне на мултимедия #%d</string>
-    <string name="title_mentions_dialog">Споменавания</string>
     <string name="action_open_faved_by">Показване на любими</string>
     <string name="action_open_reblogged_by">Показване на споделяния</string>
     <string name="action_open_reblogger">Отваряне на споделилия автор</string>

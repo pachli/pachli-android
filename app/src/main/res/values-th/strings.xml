@@ -254,7 +254,6 @@
     <string name="action_copy_link">คัดลอกลิงก์</string>
     <string name="download_image">กำลังดาวน์โหลด %1$s</string>
     <string name="action_open_media_n">เปิดสื่อ #%d</string>
-    <string name="title_mentions_dialog">โต้ตอบ</string>
     <string name="action_open_faved_by">ดูชื่นชอบ</string>
     <string name="action_open_reblogged_by">ดูบสต์</string>
     <string name="action_open_reblogger">ดูต้นตอบูสต์</string>

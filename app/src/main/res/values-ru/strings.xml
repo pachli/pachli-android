@@ -93,7 +93,6 @@
     <string name="action_open_reblogger">Перейти к автору</string>
     <string name="action_open_reblogged_by">Показывать продвижения</string>
     <string name="action_open_faved_by">Показать избранное</string>
-    <string name="title_mentions_dialog">Упоминания</string>
     <string name="action_open_media_n">Открыть медиафайл #%d</string>
     <string name="download_image">Загрузка %1$s</string>
     <string name="action_copy_link">Копировать ссылку</string>

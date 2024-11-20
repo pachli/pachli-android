@@ -12,4 +12,5 @@
     <string name="action_hashtags">هاشتاگ</string>
     <string name="title_links_dialog">بەستەرەکان</string>
     <string name="title_hashtags_dialog">هاشتاگی</string>
+    <string name="title_mentions_dialog">ئاماژەکان</string>
 </resources>

@@ -11,4 +11,5 @@
     <string name="action_hashtags">话题</string>
     <string name="title_links_dialog">链接</string>
     <string name="title_hashtags_dialog">话题</string>
+    <string name="title_mentions_dialog">提及</string>
 </resources>

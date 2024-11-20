@@ -369,7 +369,6 @@
     <string name="action_copy_link">Dèan lethbhreac dhen cheangal</string>
     <string name="download_image">A’ luchdadh a-nuas %1$s</string>
     <string name="action_open_media_n">Fosgail meadhan #%d</string>
-    <string name="title_mentions_dialog">Iomraidhean</string>
     <string name="action_open_faved_by">Seall na h-annsachdan</string>
     <string name="action_open_reblogger">Fosgail ùghdar a’ bhrosnachaidh</string>
     <string name="action_add_tab">Cuir taba ris</string>

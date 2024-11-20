@@ -14,4 +14,5 @@
     <string name="action_hashtags">Hashtagek</string>
     <string name="title_links_dialog">Linkek</string>
     <string name="title_hashtags_dialog">Hashtagek</string>
+    <string name="title_mentions_dialog">Említések</string>
 </resources>

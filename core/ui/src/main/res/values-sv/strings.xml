@@ -14,4 +14,5 @@
     <string name="action_hashtags">Hashtaggar</string>
     <string name="title_links_dialog">Länkar</string>
     <string name="title_hashtags_dialog">Hashtaggar</string>
+    <string name="title_mentions_dialog">Omnämnanden</string>
 </resources>

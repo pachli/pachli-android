@@ -16,4 +16,5 @@
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="item_copied">Text copied</string>
     <string name="action_copy_item">Copy item</string>
+    <string name="title_mentions_dialog">Mentions</string>
 </resources>

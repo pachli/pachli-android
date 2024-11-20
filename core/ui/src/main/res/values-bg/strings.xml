@@ -12,4 +12,5 @@
     <string name="action_hashtags">Хаштагове</string>
     <string name="title_links_dialog">Връзки</string>
     <string name="title_hashtags_dialog">Хаштагове</string>
+    <string name="title_mentions_dialog">Споменавания</string>
 </resources>

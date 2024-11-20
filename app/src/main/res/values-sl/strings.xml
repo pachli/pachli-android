@@ -89,7 +89,6 @@
     <string name="action_open_reblogger">Odpri spodbujenega avtorja</string>
     <string name="action_open_reblogged_by">Prikaži spodbude</string>
     <string name="action_open_faved_by">Prikaži priljubljene</string>
-    <string name="title_mentions_dialog">Omembe</string>
     <string name="action_open_media_n">Odpri medij #%d</string>
     <string name="download_image">Prejemanje %1$s</string>
     <string name="action_copy_link">Kopiraj povezavo</string>

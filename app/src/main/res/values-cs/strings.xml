@@ -92,7 +92,6 @@
     <string name="action_open_reblogger">Otevřít autora boostu</string>
     <string name="action_open_reblogged_by">Zobrazit boosty</string>
     <string name="action_open_faved_by">Zobrazit oblíbení</string>
-    <string name="title_mentions_dialog">Zmínky</string>
     <string name="action_open_media_n">Otevřít médium #%d</string>
     <string name="download_image">Stahuji %1$s</string>
     <string name="action_copy_link">Zkopírovat odkaz</string>

@@ -16,4 +16,5 @@
     <string name="url_domain_notifier">" (🔗 %s)"</string>
     <string name="item_copied">Cóipeáladh téacs</string>
     <string name="action_copy_item">Cóipeáil mír</string>
+    <string name="title_mentions_dialog">Tráchtanna</string>
 </resources>

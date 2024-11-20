@@ -240,7 +240,6 @@
     <string name="action_send_public">TOOT!</string>
     <string name="action_translate">Terjemah</string>
     <string name="action_translate_undo">Batalkan terjemahan</string>
-    <string name="title_mentions_dialog">Menyebutkan</string>
     <string name="send_account_link_to">Bagikan URL akun ke…</string>
     <string name="send_account_username_to">Bagikan nama pengguna akun ke…</string>
     <string name="label_image">Gambar</string>

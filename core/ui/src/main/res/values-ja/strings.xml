@@ -14,4 +14,5 @@
     <string name="action_hashtags">ハッシュタグ</string>
     <string name="title_links_dialog">リンク</string>
     <string name="title_hashtags_dialog">ハッシュタグ</string>
+    <string name="title_mentions_dialog">返信</string>
 </resources>
