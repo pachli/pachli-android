@@ -36,7 +36,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
-import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
@@ -538,15 +537,9 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         }
 
         (activity as BaseActivity).apply {
-            showAccountChooserDialog(
-                dialogTitle,
-                false,
-                object : AccountSelectionListener {
-                    override fun onAccountSelected(account: AccountEntity) {
-                        openAsAccount(statusUrl, account)
-                    }
-                },
-            )
+            showAccountChooserDialog(dialogTitle, false) { account ->
+                openAsAccount(statusUrl, account)
+            }
         }
     }
 

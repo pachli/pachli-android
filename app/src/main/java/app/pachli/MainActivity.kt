@@ -63,7 +63,6 @@ import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.domain.EnableAllNotificationsUseCase
-import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.ReselectableFragment
@@ -269,16 +268,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             when (val payload = MainActivityIntent.payload(intent)) {
                 is Payload.QuickTile -> {
-                    showAccountChooserDialog(
-                        getString(R.string.action_share_as),
-                        true,
-                        object : AccountSelectionListener {
-                            override fun onAccountSelected(account: AccountEntity) {
-                                val requestedId = account.id
-                                launchComposeActivityAndExit(requestedId)
-                            }
-                        },
-                    )
+                    showAccountChooserDialog(getString(R.string.action_share_as), true) { account ->
+                        val requestedId = account.id
+                        launchComposeActivityAndExit(requestedId)
+                    }
                     return
                 }
 
@@ -330,16 +323,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     // and start the composer.
                     if (canHandleMimeType(intent.type)) {
                         // Determine the account to use.
-                        showAccountChooserDialog(
-                            getString(R.string.action_share_as),
-                            true,
-                            object : AccountSelectionListener {
-                                override fun onAccountSelected(account: AccountEntity) {
-                                    val requestedId = account.id
-                                    forwardToComposeActivityAndExit(requestedId, intent)
-                                }
-                            },
-                        )
+                        showAccountChooserDialog(getString(R.string.action_share_as), true) { account ->
+                            val requestedId = account.id
+                            forwardToComposeActivityAndExit(requestedId, intent)
+                        }
                     }
                 }
             }

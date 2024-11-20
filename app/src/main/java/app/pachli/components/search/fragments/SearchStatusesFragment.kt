@@ -33,7 +33,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.components.search.adapter.SearchStatusesAdapter
-import app.pachli.core.activity.AccountSelectionListener
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
@@ -363,15 +362,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     private fun showOpenAsDialog(statusUrl: String, dialogTitle: CharSequence?) {
-        bottomSheetActivity?.showAccountChooserDialog(
-            dialogTitle,
-            false,
-            object : AccountSelectionListener {
-                override fun onAccountSelected(account: AccountEntity) {
-                    bottomSheetActivity?.openAsAccount(statusUrl, account)
-                }
-            },
-        )
+        bottomSheetActivity?.showAccountChooserDialog(dialogTitle, false) { account ->
+            bottomSheetActivity?.openAsAccount(statusUrl, account)
+        }
     }
 
     private fun downloadAllMedia(status: Status) {
