@@ -22,9 +22,9 @@ import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
+import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import java.io.IOException
 import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -63,7 +63,7 @@ class CachedTimelineRemoteMediatorTest {
     private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>
 
     private val moshi: Moshi = Moshi.Builder()
-        .add(Date::class.java, Rfc3339DateJsonAdapter())
+        .add(Date::class.java, LenientRfc3339DateJsonAdapter())
         .add(Guarded.Factory())
         .add(DefaultIfNull.Factory())
         .add(BooleanIfNull.Factory())

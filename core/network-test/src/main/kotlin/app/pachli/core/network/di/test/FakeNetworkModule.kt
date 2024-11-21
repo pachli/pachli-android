@@ -20,9 +20,9 @@ package app.pachli.core.network.di.test
 import app.pachli.core.model.VersionAdapter
 import app.pachli.core.network.di.NetworkModule
 import app.pachli.core.network.json.Guarded
+import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.model.MediaUploadApi
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -42,7 +42,7 @@ object FakeNetworkModule {
     @Singleton
     fun providesMoshi(): Moshi = Moshi.Builder()
         .add(VersionAdapter())
-        .add(Date::class.java, Rfc3339DateJsonAdapter())
+        .add(Date::class.java, LenientRfc3339DateJsonAdapter())
         .add(Guarded.Factory())
         .build()
 
