@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_empty">Dettee kan ikke være tom.</string>
+    <string name="error_empty">Dette kan ikke være tom.</string>
     <string name="error_no_web_browser_found">Fant ingen nettleser som kunne brukes.</string>
     <string name="error_compose_character_limit">Innlegget er for langt!</string>
     <string name="error_media_upload_type">Den filtypen kan ikke lastes opp.</string>
     <string name="error_media_upload_opening">Den filen kunne ikke åpnes.</string>
-    <string name="error_media_upload_permission">Pachli tenger tillatelse for å lese media.</string>
+    <string name="error_media_upload_permission">Pachli trenger tillatelse for å lese media.</string>
     <string name="error_media_download_permission">Pachli trenger tillatelse for å lagre media.</string>
     <string name="error_media_upload_image_or_video">Bilder og videoer kan ikke legges til i samme innlegg.</string>
     <string name="error_media_upload_sending">Mislyktes ved opplasting.</string>
@@ -26,7 +26,7 @@
     <string name="title_mutes">Dempede brukere</string>
     <string name="title_blocks">Blokkerte brukere</string>
     <string name="title_follow_requests">Følgeforespørsler</string>
-    <string name="title_edit_profile">Endre profilen din</string>
+    <string name="title_edit_profile">Redigere profilen din</string>
     <string name="title_drafts">Utkast</string>
     <string name="post_boosted_format">%s delte</string>
     <string name="post_sensitive_media_title">Sensitivt innhold</string>
@@ -78,8 +78,8 @@
     <string name="action_hide_media">Skjul media</string>
     <string name="action_open_drawer">Åpne skuff</string>
     <string name="action_save">Lagre</string>
-    <string name="action_edit_profile">Endre profil</string>
-    <string name="action_edit_own_profile">Endre</string>
+    <string name="action_edit_profile">Rediger profil</string>
+    <string name="action_edit_own_profile">Rediger</string>
     <string name="action_undo">Angre</string>
     <string name="action_accept">Aksepter</string>
     <string name="action_reject">Avvis</string>
@@ -195,7 +195,7 @@
     <string name="pref_title_public_filter_keywords">Offentlige tidslinjer</string>
     <string name="pref_title_thread_filter_keywords">Samtaler</string>
     <string name="filter_addition_title">Legg til filter</string>
-    <string name="filter_edit_title">Endre filter</string>
+    <string name="filter_edit_title">Rediger filter</string>
     <string name="filter_dialog_remove_button">Fjern</string>
     <string name="filter_dialog_update_button">Oppdater</string>
     <string name="filter_add_description">Filtrer frase</string>
@@ -349,7 +349,7 @@
     <string name="add_poll_choice">Legg til valg</string>
     <string name="poll_allow_multiple_choices">Flere valg</string>
     <string name="poll_new_choice_hint">Valg %d</string>
-    <string name="edit_poll">Endre</string>
+    <string name="edit_poll">Rediger</string>
     <string name="title_scheduled_posts">Planlagte innlegg</string>
     <string name="action_edit">Rediger</string>
     <string name="action_access_scheduled_posts">Planlagte innlegg</string>
@@ -494,15 +494,15 @@
     <string name="notification_notification_worker">Henter varsler…</string>
     <string name="notification_prune_cache">Cache-vedlikehold…</string>
     <string name="mute_notifications_switch">Demp varsler</string>
-    <string name="title_edits">Endringer</string>
+    <string name="title_edits">Redigeringer</string>
     <string name="status_created_info">Skapt: %1$s</string>
-    <string name="status_edit_info">Endret: %1$s</string>
+    <string name="status_edit_info">Redigert: %1$s</string>
     <string name="hint_media_description_missing">Media bør ha en beskrivelse.</string>
     <string name="hint_description">Beskrivelse</string>
     <string name="post_media_image">Bilde</string>
     <string name="ui_error_bookmark_fmt">Å bokmerke innlegget misslyktes: %1$s</string>
     <string name="hint_filter_title">Mitt filter</string>
-    <string name="filter_edit_keyword_title">Endre nøkkelord</string>
+    <string name="filter_edit_keyword_title">Rediger nøkkelord</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="pref_title_http_proxy_port_message">Portnummer burde være mellom %d og %d</string>
     <string name="action_post_failed">Opplastningen mislyktes</string>
@@ -517,8 +517,8 @@
     <string name="ui_error_clear_notifications">Sletting av vasler feilet: %s</string>
     <string name="ui_error_reject_follow_request">Avvisning av følgeforespørselen misslyktes: %s</string>
     <string name="ui_error_accept_follow_request">Godtagelse av følgeforespørsel mislykktes: %s</string>
-    <string name="error_muting_hashtag_format">Klarte ikke dempe #%s</string>
-    <string name="error_unmuting_hashtag_format">Klarte ikke oppheve dempingen av #%s</string>
+    <string name="error_muting_hashtag_format">Klarte ikke å dempe #%s</string>
+    <string name="error_unmuting_hashtag_format">Klarte ikke å oppheve dempingen av #%s</string>
     <string name="description_browser_login">Kan støtte flere autentiseringsmetoder, men trenger en støttet nettleser.</string>
     <string name="description_login">Virker som oftest. Ingen informasjon deles med andre apper.</string>
     <string name="action_post_failed_detail">Opplasting av innlegget ditt mislyktes og innlegget ditt har blitt lagret som et utkast.
@@ -537,7 +537,7 @@
     <string name="label_filter_action">Filterhandling</string>
     <string name="filter_action_hide">Gjem</string>
     <string name="filter_description_warn">Gjem med et varsel</string>
-    <string name="action_share_account_link">Del link til profil</string>
+    <string name="action_share_account_link">Del lenken til kontoen</string>
     <string name="action_share_account_username">Del brukernavnet til kontoen</string>
     <string name="send_account_link_to">Del konto-URL med…</string>
     <string name="send_account_username_to">Del kontoens brukernavn med…</string>
@@ -558,9 +558,7 @@
     <string name="pref_title_show_stat_inline">Vis poststatistikk i tidslinjen</string>
     <string name="load_newest_notifications">Last de nyeste varslene</string>
     <string name="compose_delete_draft">Del utkast\?</string>
-    <string name="error_missing_edits">Serveren din vet at denne posten ble endret, men har ingen kopi av entringene så de kann ikke vises.
-\n
-\nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon issue #25398</a>.</string>
+    <string name="error_missing_edits">Serveren din vet at denne posten ble redigert, men har ingen kopi av entringene så de kann ikke vises. \n \nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon issue #25398</a>.</string>
     <string name="pref_title_show_self_boosts">Vis egne delinger</string>
     <string name="pref_title_show_self_boosts_description">Noen som deler sitt eget innlegg</string>
     <string name="translation_provider_fmt">%1$s</string>
