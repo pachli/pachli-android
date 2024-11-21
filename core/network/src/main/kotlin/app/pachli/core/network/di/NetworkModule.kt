@@ -27,6 +27,7 @@ import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.EnumConstantConverterFactory
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.HasDefault
+import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
@@ -41,7 +42,6 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.getNonNullString
 import at.connyduck.calladapter.networkresult.NetworkResultCallAdapterFactory
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -69,7 +69,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesMoshi(): Moshi = Moshi.Builder()
-        .add(Date::class.java, Rfc3339DateJsonAdapter())
+        .add(Date::class.java, LenientRfc3339DateJsonAdapter())
         .add(VersionAdapter())
         .add(Guarded.Factory())
         .add(HasDefault.Factory())

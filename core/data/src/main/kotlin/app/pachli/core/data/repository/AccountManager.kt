@@ -501,7 +501,12 @@ class AccountManager @Inject constructor(
             .bind()
 
         externalScope.async { contentFiltersRepository.refresh(account.id) }.await()
-            .mapError { RefreshAccountError.General(it) }.bind()
+            .orElse {
+                when (it) {
+                    ContentFiltersError.ServerDoesNotFilter -> Ok(Unit)
+                    else -> Err(RefreshAccountError.General(it))
+                }
+            }.bind()
 
         deferEmojis.await().bind()
 
