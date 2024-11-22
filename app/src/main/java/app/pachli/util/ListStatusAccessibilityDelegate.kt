@@ -201,7 +201,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 app.pachli.core.ui.R.id.action_more -> {
                     statusActionListener.onMore(host, status)
                 }
-                app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearWarningAction(pachliAccountId, status)
+                app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearContentFilter(pachliAccountId, status)
                 app.pachli.core.ui.R.id.action_edit_filter -> {
                     (recyclerView.findContainingViewHolder(host) as? FilterableStatusViewHolder<*>)?.matchedFilter?.let {
                         statusActionListener.onEditFilterById(pachliAccountId, it.id)

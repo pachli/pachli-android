@@ -356,7 +356,7 @@ class ConversationsFragment :
         viewModel.voteInPoll(choices, viewData.lastStatus.actionableId, poll.id)
     }
 
-    override fun clearWarningAction(pachliAccountId: Long, viewData: ConversationViewData) {
+    override fun clearContentFilter(pachliAccountId: Long, viewData: ConversationViewData) {
     }
 
     // Filters don't apply in conversations
