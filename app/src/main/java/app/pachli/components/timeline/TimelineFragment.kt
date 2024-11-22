@@ -650,7 +650,7 @@ class TimelineFragment :
         viewModel.accept(StatusAction.VoteInPoll(poll, choices, viewData))
     }
 
-    override fun clearWarningAction(pachliAccountId: Long, viewData: StatusViewData) {
+    override fun clearContentFilter(pachliAccountId: Long, viewData: StatusViewData) {
         viewModel.clearWarning(pachliAccountId, viewData)
     }
 

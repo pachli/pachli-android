@@ -160,7 +160,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         viewModel.voteInPoll(viewData, poll, choices)
     }
 
-    override fun clearWarningAction(pachliAccountId: Long, viewData: StatusViewData) {}
+    override fun clearContentFilter(pachliAccountId: Long, viewData: StatusViewData) {}
 
     override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
         viewModel.reblog(viewData, reblog)

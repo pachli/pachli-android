@@ -397,7 +397,7 @@ class ViewThreadFragment :
         }
     }
 
-    override fun clearWarningAction(pachliAccountId: Long, viewData: StatusViewData) {
+    override fun clearContentFilter(pachliAccountId: Long, viewData: StatusViewData) {
         viewModel.clearWarning(viewData)
     }
 

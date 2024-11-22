@@ -632,7 +632,7 @@ class NotificationsFragment :
         onContentCollapsedChange(pachliAccountId, viewData, isCollapsed)
     }
 
-    override fun clearWarningAction(pachliAccountId: Long, viewData: NotificationViewData) {
+    override fun clearContentFilter(pachliAccountId: Long, viewData: NotificationViewData) {
         adapter.snapshot().withIndex().filter { it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId }
             .map {
                 it.value?.statusViewData = it.value?.statusViewData?.copy(

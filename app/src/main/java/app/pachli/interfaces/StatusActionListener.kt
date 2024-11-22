@@ -58,7 +58,7 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
     fun onShowFavs(statusId: String) {}
     fun onVoteInPoll(viewData: T, poll: Poll, choices: List<Int>)
     fun onShowEdits(statusId: String) {}
-    fun clearWarningAction(pachliAccountId: Long, viewData: T)
+    fun clearContentFilter(pachliAccountId: Long, viewData: T)
 
     /** Edit the filter that matched this status. */
     fun onEditFilterById(pachliAccountId: Long, filterId: String)
