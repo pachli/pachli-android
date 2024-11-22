@@ -85,6 +85,10 @@
         <item name="snackbarTextViewStyle">@style/snackbar_text</item>
 
         <item name="linearProgressIndicatorStyle">@style/Pachli.Widget.Material3.LinearProgressIndicator</item>
+
+        <!-- TODO: Change this to pachli_orange, but also need a lighter version for the
+             sparkbutton effect first. -->
+        <item name="favoriteIconColor">@color/tusky_orange</item>
     </style>
 
     <style name="AppTheme" parent="Theme.Pachli" />
