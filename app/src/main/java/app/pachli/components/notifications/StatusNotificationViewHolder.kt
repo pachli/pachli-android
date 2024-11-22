@@ -249,26 +249,21 @@ internal class StatusNotificationViewHolder(
         val type = viewData.type
         val context = binding.notificationTopText.context
         val format: String
-        val icon: Drawable?
+        val icon = type.icon(context)
         when (type) {
             Notification.Type.FAVOURITE -> {
-                icon = getIconWithColor(context, R.drawable.ic_star_24dp, DR.color.tusky_orange)
                 format = context.getString(R.string.notification_favourite_format)
             }
             Notification.Type.REBLOG -> {
-                icon = getIconWithColor(context, R.drawable.ic_repeat_24dp, DR.color.tusky_blue)
                 format = context.getString(R.string.notification_reblog_format)
             }
             Notification.Type.STATUS -> {
-                icon = getIconWithColor(context, R.drawable.ic_home_24dp, DR.color.tusky_blue)
                 format = context.getString(R.string.notification_subscription_format)
             }
             Notification.Type.UPDATE -> {
-                icon = getIconWithColor(context, R.drawable.ic_edit_24dp, DR.color.tusky_blue)
                 format = context.getString(R.string.notification_update_format)
             }
             else -> {
-                icon = getIconWithColor(context, R.drawable.ic_star_24dp, DR.color.tusky_orange)
                 format = context.getString(R.string.notification_favourite_format)
             }
         }

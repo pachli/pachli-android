@@ -28,4 +28,8 @@
     <!-- Height of a toolbar that contains a title and a subtitle -->
     <!-- Some custom fonts require this to be larger than the default -->
     <attr name="actionBarSizeWithSubtitle" format="dimension|reference" />
+
+    <!-- Colour to use for the "favourite" icon. Also displayed next to
+         favourite notifications. -->
+    <attr name="favoriteIconColor" format="color" />
 </resources>
