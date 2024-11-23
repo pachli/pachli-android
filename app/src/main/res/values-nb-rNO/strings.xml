@@ -114,7 +114,7 @@
     <string name="search_no_results">Ingen resultater</string>
     <string name="label_quick_reply">Svar…</string>
     <string name="label_avatar">Avatar</string>
-    <string name="label_header">Overskrift</string>
+    <string name="label_header">Bakgrunnsbilde</string>
     <string name="dialog_title_finishing_media_upload">Opplasting av media er ferdig</string>
     <string name="dialog_message_uploading_media">Laster opp…</string>
     <string name="dialog_download_image">Last ned</string>
@@ -151,7 +151,7 @@
     <string name="pref_title_show_media_preview">Last ned forhåndsvisning av media</string>
     <string name="pref_title_proxy_settings">Proxy</string>
     <string name="pref_title_http_proxy_settings">HTTP-proxy</string>
-    <string name="pref_title_http_proxy_enable">Skru på HTTP-proxy</string>
+    <string name="pref_title_http_proxy_enable">Aktiver HTTP-proxy</string>
     <string name="pref_title_http_proxy_server">HTTP-proxyserver</string>
     <string name="pref_title_http_proxy_port">HTTP-proxyport</string>
     <string name="pref_default_media_sensitivity">Marker alltid media som sensitivt</string>
@@ -180,18 +180,18 @@
     <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Forespørsel sendt</string>
     <string name="abbreviated_in_days">om %dd</string>
-    <string name="abbreviated_in_hours">om %dh</string>
+    <string name="abbreviated_in_hours">om %dt</string>
     <string name="abbreviated_in_minutes">om %dm</string>
     <string name="abbreviated_in_seconds">om %ds</string>
-    <string name="abbreviated_years_ago">%dy</string>
+    <string name="abbreviated_years_ago">%då</string>
     <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
+    <string name="abbreviated_hours_ago">%dt</string>
     <string name="abbreviated_minutes_ago">%dm</string>
     <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">Følger deg</string>
     <string name="pref_title_alway_show_sensitive_media">Vis alltid sensitivt innhold</string>
     <string name="title_media">Media</string>
-    <string name="replying_to">Svarer til @%s</string>
+    <string name="replying_to">Svarer på @%s</string>
     <string name="pref_title_public_filter_keywords">Offentlige tidslinjer</string>
     <string name="pref_title_thread_filter_keywords">Samtaler</string>
     <string name="filter_addition_title">Legg til filter</string>
@@ -204,7 +204,7 @@
     <string name="pref_default_post_privacy">Standardinnstilling for innlegg</string>
     <string name="notification_mention_name">Nye nevnelser</string>
     <string name="notification_mention_descriptions">Varsler om nye nevnelser</string>
-    <string name="abbreviated_in_years">om %dy</string>
+    <string name="abbreviated_in_years">om %då</string>
     <string name="compose_active_account_description">Poster som %1$s</string>
     <plurals name="hint_describe_for_visually_impaired">
         <item quantity="one">Beskriv innhold for de med nedsatt synsevne
@@ -332,7 +332,7 @@
     <string name="confirmation_domain_unmuted">%s er ikke lenger skjult</string>
     <string name="mute_domain_warning">Er du sikker på at du vil blokkere alt fra %s\? Du kommer ikke til å se innhold fra domenet i noen offentlige tidslinjer, eller i varslene dine. Kontoer som følger deg fra dette domenet vil bli fjernet.</string>
     <string name="mute_domain_warning_dialog_ok">Skjul hele domenet</string>
-    <string name="filter_dialog_whole_word">Helt ord</string>
+    <string name="filter_dialog_whole_word">Helord</string>
     <string name="filter_dialog_whole_word_description">Når nøkkelordet eller frasen kun inneholder bokstaver og tall, vil det bare brukes dersom det stemmer overens med hele ordet</string>
     <string name="title_accounts">Kontoer</string>
     <string name="failed_search">Klarte ikke å søke</string>
@@ -366,7 +366,7 @@
     <string name="warning_scheduling_interval">Mastodon har et minimums planleggingsinterval på 5 minutter.</string>
     <string name="pref_title_show_cards_in_timelines">Vis forhåndsvisning av linker i tidslinjer</string>
     <string name="pref_title_confirm_reblogs">Vis bekreftelser før deling</string>
-    <string name="pref_title_enable_swipe_for_tabs">Skru på sveiping for å bytte mellom faner</string>
+    <string name="pref_title_enable_swipe_for_tabs">Aktiver sveiping for å bytte mellom faner</string>
     <plurals name="poll_info_people">
         <item quantity="one">%s person</item>
         <item quantity="other">%s personer</item>
@@ -760,4 +760,21 @@
     <string name="search_operator_where_dialog_all">Alle innlegg</string>
     <string name="search_operator_where_dialog_library_hint">Dine egne innlegg, fremhevinger, favoritmerker, bokmerker, og innlegg som @nevner deg</string>
     <string name="search_operator_where_dialog_public">Fødererte innlegg</string>
+    <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du sender innlegget. Dersom det mislykkes igjen, skal innlegget lagres i utkastene dine.\n\nFeilen var: %1$s</string>
+    <string name="upload_failed_modify_attachment">Vedlegg ble modifisert</string>
+    <string name="pref_title_confirm_status_language">Sjekk innleggets språkinnstilling før innlegget publiseres</string>
+    <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Tut slik som det er (på %1$s) og ikke spør igjen</string>
+    <string name="main_viewmodel_error_set_active_account">Å prøve å logge inn mislyktes med den følgende feilen:\n\n%1$s</string>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="one">%1$s følger ble fjernet</item>
+        <item quantity="other">%1$s følgere ble fjernet</item>
+    </plurals>
+    <string name="pref_title_content_filters">Innholdsfiltere</string>
+    <string name="conversation_0_recipients">Ingen andre deltakere</string>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="one">%1$s konto du følger ble fjernet</item>
+        <item quantity="other">%1$s kontoer du følger ble fjernet</item>
+    </plurals>
+    <string name="main_viewmodel_error_refresh_account">Å gjenoppfriske kontoen mislyktes med den følgende feilen:\n\n%1$s\n\nDu kan fortsette, men det kan hende at dine lister og filtere kan være ufullstendige.</string>
+    <string name="action_relogin">Logg inn på nytt</string>
 </resources>
