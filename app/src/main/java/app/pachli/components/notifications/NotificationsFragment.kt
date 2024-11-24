@@ -194,6 +194,14 @@ class NotificationsFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             // The adapter needs to know the domain of the logged in account,
             // the rest of the setup happens after this is known.
+            //
+            // TODO: This isn't great, as it opens up the potential for crashes
+            // if other code tries to access `adapter` before it's assigned here.
+            // This is because NotificationViewData embeds a TimelineAccount, which
+            // is the network representation. It would be better NotificationViewData
+            // used a core.model class that represented an account, and when that
+            // core.model class is created the domain is explicitly set. Then the
+            // domain (account.entity.domain) wouldn't need to be passed here.
             viewModel.accountFlow.take(1).collect { account ->
                 adapter = NotificationsPagingAdapter(
                     notificationDiffCallback,
@@ -542,11 +550,13 @@ class NotificationsFragment :
     override fun onResume() {
         super.onResume()
 
-        val a11yManager = ContextCompat.getSystemService(requireContext(), AccessibilityManager::class.java)
-        val wasEnabled = talkBackWasEnabled
-        talkBackWasEnabled = a11yManager?.isEnabled == true
-        if (talkBackWasEnabled && !wasEnabled) {
-            adapter.notifyItemRangeChanged(0, adapter.itemCount)
+        if (::adapter.isInitialized) {
+            val a11yManager = ContextCompat.getSystemService(requireContext(), AccessibilityManager::class.java)
+            val wasEnabled = talkBackWasEnabled
+            talkBackWasEnabled = a11yManager?.isEnabled == true
+            if (talkBackWasEnabled && !wasEnabled) {
+                adapter.notifyItemRangeChanged(0, adapter.itemCount)
+            }
         }
 
         clearNotificationsForAccount(requireContext(), pachliAccountId)
