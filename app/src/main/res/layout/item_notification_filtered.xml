@@ -25,7 +25,8 @@
         app:drawableStartCompat="@drawable/ic_person_add_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="A user @example.com followed you" />
+        tools:text="A user @example.com followed you"
+        tools:ignore="RtlSymmetry,SelectableText" />
 
     <TextView
         android:id="@+id/account_filter_reason"
@@ -38,7 +39,8 @@
         android:textSize="?attr/status_text_medium"
         android:textAlignment="center"
         android:textIsSelectable="false"
-        tools:text="Warning because account is younger than 28d" />
+        tools:text="Warning because account is younger than 28d"
+        tools:ignore="RtlSymmetry" />
 
     <Button
         android:id="@+id/account_filter_edit_filter"
