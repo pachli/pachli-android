@@ -18,7 +18,6 @@
 package app.pachli.components.notifications
 
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.text.InputFilter
 import android.text.SpannableStringBuilder
 import android.text.Spanned

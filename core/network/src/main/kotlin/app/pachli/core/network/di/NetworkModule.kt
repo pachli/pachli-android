@@ -27,8 +27,8 @@ import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.EnumConstantConverterFactory
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.HasDefault
-import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.json.InstantJsonAdapter
+import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
