@@ -138,6 +138,7 @@ abstract class CachedTimelineViewModelTestBase {
             onBlocking { getContentFilters() } doReturn success(emptyList())
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
             onBlocking { getContentFiltersV1() } doReturn success(emptyList())
+            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)

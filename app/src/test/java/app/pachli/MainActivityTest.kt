@@ -196,6 +196,7 @@ class MainActivityTest {
                 Notification(
                     type = type,
                     id = "id",
+                    createdAt = Date(),
                     account = TimelineAccount(
                         id = "1",
                         localUsername = "connyduck",
@@ -204,6 +205,7 @@ class MainActivityTest {
                         note = "This is their bio",
                         url = "https://mastodon.example/@ConnyDuck",
                         avatar = "https://mastodon.example/system/accounts/avatars/000/150/486/original/ab27d7ddd18a10ea.jpg",
+                        createdAt = Instant.now(),
                     ),
                     status = null,
                     report = null,

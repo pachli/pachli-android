@@ -22,10 +22,12 @@ import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
+import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.Moshi
 import java.io.IOException
+import java.time.Instant
 import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -64,6 +66,7 @@ class CachedTimelineRemoteMediatorTest {
 
     private val moshi: Moshi = Moshi.Builder()
         .add(Date::class.java, LenientRfc3339DateJsonAdapter())
+        .add(Instant::class.java, InstantJsonAdapter())
         .add(Guarded.Factory())
         .add(DefaultIfNull.Factory())
         .add(BooleanIfNull.Factory())

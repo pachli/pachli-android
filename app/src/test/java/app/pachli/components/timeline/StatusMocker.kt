@@ -8,11 +8,13 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
+import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.viewdata.StatusViewData
 import com.squareup.moshi.Moshi
+import java.time.Instant
 import java.util.Date
 
 private val fixedDate = Date(1638889052000)
@@ -36,6 +38,7 @@ fun mockStatus(
         note = "This is their bio",
         url = "https://mastodon.example/@ConnyDuck",
         avatar = "https://mastodon.example/system/accounts/avatars/000/150/486/original/ab27d7ddd18a10ea.jpg",
+        createdAt = null,
     ),
     inReplyToId = inReplyToId,
     inReplyToAccountId = inReplyToAccountId,
@@ -102,6 +105,7 @@ fun mockStatusEntityWithAccount(
     val mockedStatus = mockStatus(id)
     val moshi = Moshi.Builder()
         .add(Date::class.java, LenientRfc3339DateJsonAdapter())
+        .add(Instant::class.java, InstantJsonAdapter())
         .add(Guarded.Factory())
         .add(DefaultIfNull.Factory())
         .add(BooleanIfNull.Factory())

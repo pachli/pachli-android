@@ -139,6 +139,7 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
             onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
             onBlocking { getContentFilters() } doReturn success(networkFilters)
+            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         networkFilters.clear()
@@ -207,6 +208,7 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
             onBlocking { getCustomEmojis() } doReturn success(emptyList())
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
             onBlocking { getContentFiltersV1() } doReturn success(networkFiltersV1)
+            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)

@@ -24,6 +24,7 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.MainCoroutineRule
 import at.connyduck.calladapter.networkresult.NetworkResult
+import java.time.Instant
 import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -68,6 +69,7 @@ class BottomSheetActivityTest {
         note = "This is their bio",
         url = "http://mastodon.foo.bar/@User",
         avatar = "",
+        createdAt = Instant.now(),
     )
     private val accountResponse = NetworkResult.success(
         SearchResult(listOf(account), emptyList(), emptyList()),
