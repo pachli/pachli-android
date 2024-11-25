@@ -35,8 +35,6 @@ class NotificationsViewModelTestContentFilter : NotificationsViewModelTestBase()
         viewModel.uiState.test {
             // Given
             // - Initial filter is from the active account
-            // (skip the first item, the default state)
-            awaitItem()
             assertThat(awaitItem().activeFilter)
                 .containsExactlyElementsIn(setOf(Notification.Type.FOLLOW))
 
