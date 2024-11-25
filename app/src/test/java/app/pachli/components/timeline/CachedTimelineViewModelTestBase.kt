@@ -178,7 +178,6 @@ abstract class CachedTimelineViewModelTestBase {
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
-            moshi,
         )
     }
 }

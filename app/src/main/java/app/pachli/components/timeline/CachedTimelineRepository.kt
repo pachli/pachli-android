@@ -39,7 +39,6 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
-import com.squareup.moshi.Moshi
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -63,7 +62,6 @@ class CachedTimelineRepository @Inject constructor(
     val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val translatedStatusDao: TranslatedStatusDao,
-    private val moshi: Moshi,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
@@ -109,7 +107,6 @@ class CachedTimelineRepository @Inject constructor(
                 transactionProvider,
                 timelineDao,
                 remoteKeyDao,
-                moshi,
             ),
             pagingSourceFactory = factory!!,
         ).flow

@@ -163,7 +163,6 @@ class ViewThreadViewModelTest {
             eventHub,
             accountManager,
             timelineDao,
-            moshi,
             cachedTimelineRepository,
             statusDisplayOptionsRepository,
         )

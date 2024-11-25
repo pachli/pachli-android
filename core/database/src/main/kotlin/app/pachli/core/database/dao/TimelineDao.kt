@@ -24,13 +24,17 @@ import androidx.room.MapColumn
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.TypeConverters
 import androidx.room.Upsert
+import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.network.model.Poll
 
 @Dao
+@TypeConverters(Converters::class)
 abstract class TimelineDao {
 
     @Insert(onConflict = REPLACE)
@@ -255,7 +259,7 @@ AND serverId = :statusId""",
         """UPDATE TimelineStatusEntity SET poll = :poll
 WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
     )
-    abstract suspend fun setVoted(accountId: Long, statusId: String, poll: String)
+    abstract suspend fun setVoted(accountId: Long, statusId: String, poll: Poll)
 
     @Upsert
     abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)

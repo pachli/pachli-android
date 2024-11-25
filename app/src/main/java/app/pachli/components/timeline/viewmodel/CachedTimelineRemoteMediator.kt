@@ -35,7 +35,6 @@ import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.Headers
@@ -52,7 +51,6 @@ class CachedTimelineRemoteMediator(
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
-    private val moshi: Moshi,
 ) : RemoteMediator<Int, TimelineStatusWithAccount>() {
     override suspend fun load(
         loadType: LoadType,
@@ -247,9 +245,9 @@ class CachedTimelineRemoteMediator(
     @Transaction
     private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
         for (status in statuses) {
-            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, pachliAccountId, moshi))
+            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, pachliAccountId))
             status.reblog?.account?.let {
-                val account = TimelineAccountEntity.from(it, pachliAccountId, moshi)
+                val account = TimelineAccountEntity.from(it, pachliAccountId)
                 timelineDao.insertAccount(account)
             }
 
@@ -257,7 +255,6 @@ class CachedTimelineRemoteMediator(
                 TimelineStatusEntity.from(
                     status,
                     timelineUserId = pachliAccountId,
-                    moshi = moshi,
                 ),
             )
         }
