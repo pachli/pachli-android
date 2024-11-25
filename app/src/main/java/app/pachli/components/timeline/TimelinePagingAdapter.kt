@@ -79,7 +79,16 @@ class TimelinePagingAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        val viewData = getItem(position) ?: return VIEW_TYPE_PLACEHOLDER
+        // The getItem() call here can occasionally trigger a bug in androidx.paging
+        // where androidx.paging.PageStore.checkIndex(PageStore.kt:56) throws an
+        // IndexOutOfBoundsException. Fall back to returning a placeholder in that
+        // case.
+        val viewData = try {
+            getItem(position) ?: return VIEW_TYPE_PLACEHOLDER
+        } catch (e: IndexOutOfBoundsException) {
+            return VIEW_TYPE_PLACEHOLDER
+        }
+
         return if (viewData.contentFilterAction == FilterAction.WARN) {
             VIEW_TYPE_STATUS_FILTERED
         } else {
