@@ -39,6 +39,7 @@ import app.pachli.core.database.dao.FollowingAccountDao
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.ListsDao
 import app.pachli.core.database.dao.LogEntryDao
+import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
@@ -52,6 +53,8 @@ import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.database.model.MastodonListEntity
+import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusViewDataEntity
@@ -82,8 +85,10 @@ import java.util.TimeZone
         ContentFiltersEntity::class,
         AnnouncementEntity::class,
         FollowingAccountEntity::class,
+        NotificationEntity::class,
+        NotificationReportEntity::class,
     ],
-    version = 10,
+    version = 11,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -93,6 +98,7 @@ import java.util.TimeZone
         AutoMigration(from = 6, to = 7, spec = AppDatabase.MIGRATE_6_7::class),
         AutoMigration(from = 7, to = 8, spec = AppDatabase.MIGRATE_7_8::class),
         AutoMigration(from = 9, to = 10),
+        AutoMigration(from = 10, to = 11),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -108,6 +114,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun listsDao(): ListsDao
     abstract fun announcementsDao(): AnnouncementsDao
     abstract fun followingAccountDao(): FollowingAccountDao
+    abstract fun notificationDao(): NotificationDao
 
     @DeleteColumn("TimelineStatusEntity", "expanded")
     @DeleteColumn("TimelineStatusEntity", "contentCollapsed")

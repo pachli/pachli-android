@@ -297,4 +297,10 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToCard(s: String?) = s?.let { moshi.adapter<Card>().fromJson(it) }
+    
+    @TypeConverter
+    fun listStringToJson(l: List<String>): String = moshi.adapter<List<String>>().toJson(l)
+
+    @TypeConverter
+    fun stringToListString(s: String?) = s?.let { moshi.adapter<List<String>>().fromJson(it) }
 }

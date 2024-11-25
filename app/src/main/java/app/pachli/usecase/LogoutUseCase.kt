@@ -5,6 +5,7 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.deleteNotificationChannelsForAccount
 import app.pachli.components.notifications.disablePushNotificationsForAccount
+import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.LogoutError
 import app.pachli.core.database.dao.ConversationsDao
@@ -54,7 +55,7 @@ class LogoutUseCase @Inject constructor(
         // TODO: This should be handled with foreign key constraints.
         timelineDao.removeAll(account.id)
         timelineDao.removeAllStatusViewData(account.id)
-        remoteKeyDao.delete(account.id)
+        remoteKeyDao.delete(account.id, CachedTimelineRemoteMediator.TIMELINE_ID)
         conversationsDao.deleteForAccount(account.id)
         draftHelper.deleteAllDraftsAndAttachmentsForAccount(account.id)
 

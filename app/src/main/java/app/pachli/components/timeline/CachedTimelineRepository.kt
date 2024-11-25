@@ -174,7 +174,7 @@ class CachedTimelineRepository @Inject constructor(
 
     suspend fun clearAndReloadFromNewest(pachliAccountId: Long) = externalScope.launch {
         timelineDao.removeAll(pachliAccountId)
-        remoteKeyDao.delete(pachliAccountId)
+        remoteKeyDao.delete(pachliAccountId, CachedTimelineRemoteMediator.TIMELINE_ID)
         invalidate(pachliAccountId)
     }
 
