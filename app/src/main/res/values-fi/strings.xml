@@ -764,4 +764,33 @@
     <string name="conversation_0_recipients">Ei muita osanottajia</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Julkaise muutoksetta (%1$s) äläkä kysy uudelleen</string>
     <string name="pref_title_confirm_status_language">Tarkasta julkaisun kieli ennen julkaisemista</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Käyttäjä @<b>%1s</b> merkitsi julkaisusi suosikiksi</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Käyttäjä @<b>%1s</b> mainitsi sinut</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Käyttäjä @<b>%1s</b> pyytää seuraamista</string>
+    <string name="filter_action_none">Näytä</string>
+    <string name="filter_description_none">Näytä kuten tavallisesti</string>
+    <string name="pref_title_account_notification_filters">Ilmoitusten suodattimet</string>
+    <string name="pref_account_notification_filters_subtitle">Mitä tulisi tapahtua ilmoituksille tileiltä…</string>
+    <string name="pref_account_notification_filters_label_not_followed">… joita et seuraa</string>
+    <string name="pref_account_notification_filters_label_younger_30d">… on luotu viimeisten 30 päivän aikana</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">… jotka moderaattorisi on rajoittanut</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Käyttäjä @<b>%1s</b> seurasi sinua</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Käyttäjä @<b>%1s</b> tehosti julkaisuasi</string>
+    <string name="account_filter_placeholder_label_domain">Käyttäjältä @<b>%1s</b></string>
+    <string name="account_filter_placeholder_label_not_following">Suodatettu koska: <b>et seuraa käyttäjää</b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Suodatettu koska: <b>luotu viimeisten 30 päivän aikana</b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Suodatettu koska: <b>moderaattorisi rajoittama</b></string>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="one">%1$s seuraaja poistettu</item>
+        <item quantity="other">%1$s seuraajaa poistettu</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="one">%1$s seuraamasi tili poistettu</item>
+        <item quantity="other">%1$s seuraamaasi tiilä poistettu</item>
+    </plurals>
+    <string name="upload_failed_msg_fmt">Latausta yritetään uudestaan kun lähetät julkaisun. Jos se epäonnistuu jälleen, julkaisu tallennetaan luonnoksiisi.\n\nVirhe oli: %1$s</string>
+    <string name="main_viewmodel_error_set_active_account">Kirjautuminen epäonnistui, virhe oli:\n\n%1$s</string>
+    <string name="main_viewmodel_error_refresh_account">Tilin päivittäminen epäonnistui, virhe oli:\n\n%1$s\n\nVoit jatkaa, mutta listasi ja suodattimesi saattavat olla eivät ehkä ole ajan tasalla.</string>
+    <string name="action_relogin">Kirjaudu uudestaan</string>
+    <string name="upload_failed_modify_attachment">Muokkaa liitettä</string>
 </resources>
