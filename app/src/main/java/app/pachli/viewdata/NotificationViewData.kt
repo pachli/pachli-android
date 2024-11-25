@@ -19,10 +19,11 @@ package app.pachli.viewdata
 
 import android.text.Spanned
 import app.pachli.components.notifications.AccountFilterDecision
+import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationType
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report
 import app.pachli.core.network.model.Status
@@ -49,7 +50,7 @@ import app.pachli.core.network.model.TimelineAccount
  * because of the account that sent it, and why.
  */
 data class NotificationViewData(
-    val type: Notification.Type,
+    val type: NotificationType,
     val id: String,
     val account: TimelineAccount,
     var statusViewData: StatusViewData?,
@@ -59,8 +60,35 @@ data class NotificationViewData(
     var accountFilterDecision: AccountFilterDecision?,
 ) : IStatusViewData {
     companion object {
+//        fun from(
+//            notification: Notification,
+//            isShowingContent: Boolean,
+//            isExpanded: Boolean,
+//            isCollapsed: Boolean,
+//            contentFilterAction: FilterAction,
+//            accountFilterDecision: AccountFilterDecision?,
+//            isAboutSelf: Boolean,
+//        ) = NotificationViewData(
+//            NotificationType.from(notification.type),
+//            notification.id,
+//            notification.account,
+//            notification.status?.let { status ->
+//                StatusViewData.from(
+//                    status,
+//                    isShowingContent,
+//                    isExpanded,
+//                    isCollapsed,
+//                    contentFilterAction = contentFilterAction,
+//                )
+//            },
+//            notification.report,
+//            notification.relationshipSeveranceEvent,
+//            isAboutSelf,
+//            accountFilterDecision = accountFilterDecision,
+//        )
+
         fun from(
-            notification: Notification,
+            entity: NotificationEntity,
             isShowingContent: Boolean,
             isExpanded: Boolean,
             isCollapsed: Boolean,
@@ -68,21 +96,20 @@ data class NotificationViewData(
             accountFilterDecision: AccountFilterDecision?,
             isAboutSelf: Boolean,
         ) = NotificationViewData(
-            notification.type,
-            notification.id,
-            notification.account,
-            notification.status?.let { status ->
+            type = entity.type,
+            id = entity.serverId,
+            account = entity.account.toTimelineAccount(),
+            statusViewData = entity.status?.let {
                 StatusViewData.from(
-                    status,
-                    isShowingContent,
-                    isExpanded,
-                    isCollapsed,
-                    contentFilterAction = contentFilterAction,
+                    it,
+                    isExpanded = isExpanded,
+                    isShowingContent = isCollapsed,
+                    isDetailed = false,
                 )
             },
-            notification.report,
-            notification.relationshipSeveranceEvent,
-            isAboutSelf,
+            report = null,
+            relationshipSeveranceEvent = null,
+            isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
         )
     }

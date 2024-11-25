@@ -30,10 +30,13 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.notifications.NotificationRepository
+import app.pachli.core.data.notifications.from
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.NotificationType
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -315,7 +318,7 @@ sealed interface UiError {
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel(assistedFactory = NotificationsViewModel.Factory::class)
 class NotificationsViewModel @AssistedInject constructor(
-    private val repository: NotificationsRepository,
+    private val repository: NotificationRepository,
     private val accountManager: AccountManager,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,
@@ -535,27 +538,30 @@ class NotificationsViewModel @AssistedInject constructor(
         filters: Set<Notification.Type>,
         initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
-        Timber.d("getNotifications: %s", initialKey)
-        return repository.getNotificationsStream(filter = filters, initialKey = initialKey)
+//        Timber.d("getNotifications: %s", initialKey)
+        val activeFilters = filters.map { NotificationType.from(it) }
+        return repository.notifications(pachliAccountId) // filter = filters, initialKey = initialKey)
             .map { pagingData ->
-                pagingData.map { notification ->
-                    val contentFilterAction = notification.status?.actionableStatus?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
-                    val isAboutSelf = notification.account.id == account.entity.accountId
-                    val accountFilterDecision = filterNotificationByAccount(account, notification)
+                pagingData
+                    .filter { activeFilters.contains(it.type) }
+                    .map { notification ->
+                        val contentFilterAction = notification.status?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
+                        val isAboutSelf = notification.account.serverId == account.entity.accountId
+                        val accountFilterDecision = filterNotificationByAccount(account, notification)
 
-                    NotificationViewData.from(
-                        notification,
-                        isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
-                            !(notification.status?.actionableStatus?.sensitive ?: false),
-                        isExpanded = statusDisplayOptions.value.openSpoiler,
-                        isCollapsed = true,
-                        contentFilterAction = contentFilterAction,
-                        accountFilterDecision = accountFilterDecision,
-                        isAboutSelf = isAboutSelf,
-                    )
-                }.filter {
-                    it.statusViewData?.contentFilterAction != FilterAction.HIDE
-                }
+                        NotificationViewData.from(
+                            notification,
+                            isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
+                                !(notification.status?.sensitive ?: false),
+                            isExpanded = statusDisplayOptions.value.openSpoiler,
+                            isCollapsed = true,
+                            contentFilterAction = contentFilterAction,
+                            accountFilterDecision = accountFilterDecision,
+                            isAboutSelf = isAboutSelf,
+                        )
+                    }.filter {
+                        it.statusViewData?.contentFilterAction != FilterAction.HIDE
+                    }
             }
     }
 

@@ -166,6 +166,8 @@ data class TimelineAccountEntity(
     val emojis: List<Emoji>,
     val bot: Boolean,
     val createdAt: Instant?,
+    @ColumnInfo(defaultValue = "false")
+    val limited: Boolean = false,
 ) {
     fun toTimelineAccount(): TimelineAccount {
         return TimelineAccount(
@@ -179,6 +181,7 @@ data class TimelineAccountEntity(
             bot = bot,
             emojis = emojis,
             createdAt = createdAt,
+            limited = limited,
         )
     }
 
@@ -194,6 +197,7 @@ data class TimelineAccountEntity(
             emojis = timelineAccount.emojis.orEmpty(),
             bot = timelineAccount.bot,
             createdAt = timelineAccount.createdAt,
+            limited = timelineAccount.limited,
         )
     }
 }

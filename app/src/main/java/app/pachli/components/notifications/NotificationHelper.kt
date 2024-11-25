@@ -47,6 +47,8 @@ import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.NotificationData
+import app.pachli.core.database.model.NotificationType
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.FilterAction
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -675,42 +677,43 @@ data class AccountFilterDecision(
 )
 
 /**
- * Returns the [AccountFilterDecision] for [notification] based on the notification
+ * Returns the [AccountFilterDecision] for [notificationData] based on the notification
  * filters in [accountWithFilters].
  *
  * @return The decision, or null if the notification should not be filtered.
  */
-fun filterNotificationByAccount(accountWithFilters: PachliAccount, notification: Notification): AccountFilterDecision? {
+fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationData: NotificationData): AccountFilterDecision? {
+    val notification = notificationData.notification
     // Some notifications are never filtered, irrespective of the account that
     // sent them.
     when (notification.type) {
         // Poll we interacted with has ended.
-        Notification.Type.POLL -> return null
+        NotificationType.POLL -> return null
         // Status we interacted with has been updated.
-        Notification.Type.UPDATE -> return null
+        NotificationType.UPDATE -> return null
         // A new moderation report.
-        Notification.Type.REPORT -> return null
+        NotificationType.REPORT -> return null
         // Moderation has resulted in severed relationships.
-        Notification.Type.SEVERED_RELATIONSHIPS -> return null
+        NotificationType.SEVERED_RELATIONSHIPS -> return null
         // We explicitly asked to be notified about this user.
-        Notification.Type.STATUS -> return null
+        NotificationType.STATUS -> return null
         // Admin signup notifications should not be filtered.
-        Notification.Type.SIGN_UP -> return null
+        NotificationType.SIGN_UP -> return null
         else -> {
             /* fall through */
         }
     }
 
     // The account that generated the notification.
-    val accountToTest = notification.account
+    val accountToTest = notificationData.account
 
     // Any notifications from our own activity are not filtered.
-    if (accountWithFilters.entity.accountId == accountToTest.id) return null
+    if (accountWithFilters.entity.accountId == accountToTest.serverId) return null
 
     val reasons = buildList {
         // Check the following relationship.
         if (accountWithFilters.entity.notificationAccountFilterNotFollowed != FilterAction.NONE) {
-            if (accountWithFilters.following.none { it.serverId == accountToTest.id }) {
+            if (accountWithFilters.following.none { it.serverId == accountToTest.serverId }) {
                 add(
                     AccountFilterDecision(
                         action = accountWithFilters.entity.notificationAccountFilterNotFollowed,
@@ -723,7 +726,7 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notification:
         // Check the age of the account relative to the notification.
         accountToTest.createdAt?.let { createdAt ->
             if (accountWithFilters.entity.notificationAccountFilterYounger30d != FilterAction.NONE) {
-                if (Duration.between(createdAt, notification.createdAt.toInstant()) < Duration.ofDays(30)) {
+                if (Duration.between(createdAt, notification.createdAt) < Duration.ofDays(30)) {
                     add(
                         AccountFilterDecision(
                             action = accountWithFilters.entity.notificationAccountFilterYounger30d,

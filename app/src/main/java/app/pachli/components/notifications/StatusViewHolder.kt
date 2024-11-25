@@ -20,7 +20,7 @@ package app.pachli.components.notifications
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.Notification
+import app.pachli.core.database.model.NotificationType
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
@@ -54,7 +54,7 @@ internal class StatusViewHolder(
                 payloads?.firstOrNull(),
             )
         }
-        if (viewData.type == Notification.Type.POLL) {
+        if (viewData.type == NotificationType.POLL) {
             setPollInfo(viewData.isAboutSelf)
         } else {
             hideStatusInfo()
@@ -90,7 +90,7 @@ class FilterableStatusViewHolder(
                 payloads?.firstOrNull(),
             )
         }
-        if (viewData.type == Notification.Type.POLL) {
+        if (viewData.type == NotificationType.POLL) {
             setPollInfo(viewData.isAboutSelf)
         } else {
             hideStatusInfo()

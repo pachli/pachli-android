@@ -33,9 +33,9 @@ import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.database.model.NotificationType
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.Notification
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemStatusNotificationBinding
@@ -92,8 +92,8 @@ internal class StatusNotificationViewHolder(
                 setDisplayName(account.name, account.emojis, statusDisplayOptions.animateEmojis)
                 setUsername(account.username)
                 setCreatedAt(createdAt, statusDisplayOptions.useAbsoluteTime)
-                if (viewData.type == Notification.Type.STATUS ||
-                    viewData.type == Notification.Type.UPDATE
+                if (viewData.type == NotificationType.STATUS ||
+                    viewData.type == NotificationType.UPDATE
                 ) {
                     setAvatar(
                         account.avatar,
@@ -235,16 +235,19 @@ internal class StatusNotificationViewHolder(
         val format: String
         val icon = type.icon(context)
         when (type) {
-            Notification.Type.FAVOURITE -> {
+            NotificationType.FAVOURITE -> {
                 format = context.getString(R.string.notification_favourite_format)
             }
-            Notification.Type.REBLOG -> {
+
+            NotificationType.REBLOG -> {
                 format = context.getString(R.string.notification_reblog_format)
             }
-            Notification.Type.STATUS -> {
+
+            NotificationType.STATUS -> {
                 format = context.getString(R.string.notification_subscription_format)
             }
-            Notification.Type.UPDATE -> {
+
+            NotificationType.UPDATE -> {
                 format = context.getString(R.string.notification_update_format)
             }
             else -> {

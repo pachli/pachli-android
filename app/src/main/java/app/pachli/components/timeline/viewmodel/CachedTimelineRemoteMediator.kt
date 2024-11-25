@@ -22,7 +22,6 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.Transaction
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
@@ -241,7 +240,6 @@ class CachedTimelineRemoteMediator(
     /**
      * Inserts `statuses` and the accounts referenced by those statuses in to the cache.
      */
-    @Transaction
     private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
         for (status in statuses) {
             timelineDao.insertAccount(TimelineAccountEntity.from(status.account, pachliAccountId))

@@ -27,8 +27,8 @@ import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.adapter.ReportNotificationViewHolder
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.database.model.NotificationType
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
@@ -72,18 +72,20 @@ enum class NotificationViewKind {
     ;
 
     companion object {
-        fun from(kind: Notification.Type?): NotificationViewKind {
+        fun from(kind: NotificationType?): NotificationViewKind {
             return when (kind) {
                 Notification.Type.MENTION,
                 Notification.Type.POLL,
                 -> STATUS
-                Notification.Type.FAVOURITE,
-                Notification.Type.REBLOG,
-                Notification.Type.STATUS,
-                Notification.Type.UPDATE,
+
+                NotificationType.FAVOURITE,
+                NotificationType.REBLOG,
+                NotificationType.STATUS,
+                NotificationType.UPDATE,
                 -> NOTIFICATION
-                Notification.Type.FOLLOW,
-                Notification.Type.SIGN_UP,
+
+                NotificationType.FOLLOW,
+                NotificationType.SIGN_UP,
                 -> FOLLOW
                 Notification.Type.FOLLOW_REQUEST -> FOLLOW_REQUEST
                 Notification.Type.REPORT -> REPORT

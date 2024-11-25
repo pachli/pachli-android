@@ -22,8 +22,10 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.isLessThan
+import app.pachli.core.data.notifications.from
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.NotificationData
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker
@@ -85,7 +87,7 @@ class NotificationFetcher @Inject constructor(
                     val notifications = fetchNewNotifications(entity)
                         .filter { filterNotification(notificationManager, entity, it.type) }
                         .filter {
-                            val decision = filterNotificationByAccount(pachliAccount, it)
+                            val decision = filterNotificationByAccount(pachliAccount, NotificationData.from(pachliAccountId, it))
                             decision == null || decision.action == FilterAction.NONE
                         }
                         .sortedWith(compareBy({ it.id.length }, { it.id })) // oldest notifications first

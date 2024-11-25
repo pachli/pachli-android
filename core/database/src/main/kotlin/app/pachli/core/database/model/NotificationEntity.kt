@@ -19,6 +19,7 @@ package app.pachli.core.database.model
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import java.time.Instant
@@ -42,8 +43,36 @@ enum class NotificationType {
     companion object
 }
 
+//
+// 1:1 TimelineAccountEntity -> NotificationEntity
+// 1:1
+
+data class NotificationData(
+    @Embedded val notification: NotificationEntity,
+    @Embedded(prefix = "a_") val account: TimelineAccountEntity,
+//    @Embedded val status: TimelineStatusWithAccount?,
+) {
+    companion object
+}
+
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
+    foreignKeys = (
+        [
+            ForeignKey(
+                entity = TimelineAccountEntity::class,
+                parentColumns = ["timelineUserId", "serverId"],
+                childColumns = ["pachliAccountId", "accountServerId"],
+                deferred = true,
+            ),
+//            ForeignKey(
+//                entity = TimelineStatusWithAccount::class,
+//                parentColumns = ["pachliAccountId", "statusServerId"],
+//                childColumns = ["timelineUserId", "serverId"],
+//                deferred = true,
+//            ),
+        ]
+        ),
 )
 @TypeConverters(Converters::class)
 class NotificationEntity(
@@ -51,9 +80,12 @@ class NotificationEntity(
     val serverId: String,
     val type: NotificationType,
     val createdAt: Instant,
-    @Embedded(prefix = "source_") val account: TimelineAccountEntity,
-    @Embedded(prefix = "status_") val status: TimelineStatusEntity?,
-    @Embedded(prefix = "report_") val report: NotificationReportEntity?,
+    val accountServerId: String,
+    val statusServerId: String?,
+
+//    @Embedded(prefix = "source_") val account: TimelineAccountEntity,
+//    @Embedded(prefix = "status_") val status: TimelineStatusWithAccount?,
+//    @Embedded(prefix = "report_") val report: NotificationReportEntity?,
     // TODO:
     // RelationshipSeveranceEvent
     // AccountWarning

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "0012a4112c4d7b8ec44897a66d165507",
+    "identityHash": "c102dd7ebe56a03b84037f957a275496",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -799,7 +799,7 @@
       },
       {
         "tableName": "TimelineAccountEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `localUsername` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `url` TEXT NOT NULL, `avatar` TEXT NOT NULL, `emojis` TEXT NOT NULL, `bot` INTEGER NOT NULL, `createdAt` INTEGER, PRIMARY KEY(`serverId`, `timelineUserId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `localUsername` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `url` TEXT NOT NULL, `avatar` TEXT NOT NULL, `emojis` TEXT NOT NULL, `bot` INTEGER NOT NULL, `createdAt` INTEGER, `limited` INTEGER NOT NULL DEFAULT false, PRIMARY KEY(`serverId`, `timelineUserId`))",
         "fields": [
           {
             "fieldPath": "serverId",
@@ -860,6 +860,13 @@
             "columnName": "createdAt",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "limited",
+            "columnName": "limited",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "false"
           }
         ],
         "primaryKey": {
@@ -1484,7 +1491,7 @@
       },
       {
         "tableName": "NotificationEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `source_serverId` TEXT NOT NULL, `source_timelineUserId` INTEGER NOT NULL, `source_localUsername` TEXT NOT NULL, `source_username` TEXT NOT NULL, `source_displayName` TEXT NOT NULL, `source_url` TEXT NOT NULL, `source_avatar` TEXT NOT NULL, `source_emojis` TEXT NOT NULL, `source_bot` INTEGER NOT NULL, `source_createdAt` INTEGER, `status_serverId` TEXT, `status_url` TEXT, `status_timelineUserId` INTEGER, `status_authorServerId` TEXT, `status_inReplyToId` TEXT, `status_inReplyToAccountId` TEXT, `status_content` TEXT, `status_createdAt` INTEGER, `status_editedAt` INTEGER, `status_emojis` TEXT, `status_reblogsCount` INTEGER, `status_favouritesCount` INTEGER, `status_repliesCount` INTEGER, `status_reblogged` INTEGER, `status_bookmarked` INTEGER, `status_favourited` INTEGER, `status_sensitive` INTEGER, `status_spoilerText` TEXT, `status_visibility` INTEGER, `status_attachments` TEXT, `status_mentions` TEXT, `status_tags` TEXT, `status_application` TEXT, `status_reblogServerId` TEXT, `status_reblogAccountId` TEXT, `status_poll` TEXT, `status_muted` INTEGER, `status_pinned` INTEGER, `status_card` TEXT, `status_language` TEXT, `status_filtered` TEXT, `report_pachliAccountId` INTEGER, `report_serverId` TEXT, `report_actionTaken` INTEGER, `report_actionTakenAt` INTEGER, `report_category` TEXT, `report_comment` TEXT, `report_forwarded` INTEGER, `report_createdAt` INTEGER, `report_statusIds` TEXT, `report_ruleIds` TEXT, `report_target_serverId` TEXT, `report_target_timelineUserId` INTEGER, `report_target_localUsername` TEXT, `report_target_username` TEXT, `report_target_displayName` TEXT, `report_target_url` TEXT, `report_target_avatar` TEXT, `report_target_emojis` TEXT, `report_target_bot` INTEGER, `report_target_createdAt` INTEGER, PRIMARY KEY(`pachliAccountId`, `serverId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`, `accountServerId`) REFERENCES `TimelineAccountEntity`(`timelineUserId`, `serverId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1511,369 +1518,15 @@
             "notNull": true
           },
           {
-            "fieldPath": "account.serverId",
-            "columnName": "source_serverId",
+            "fieldPath": "accountServerId",
+            "columnName": "accountServerId",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "account.timelineUserId",
-            "columnName": "source_timelineUserId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "account.localUsername",
-            "columnName": "source_localUsername",
+            "fieldPath": "statusServerId",
+            "columnName": "statusServerId",
             "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "account.username",
-            "columnName": "source_username",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "account.displayName",
-            "columnName": "source_displayName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "account.url",
-            "columnName": "source_url",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "account.avatar",
-            "columnName": "source_avatar",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "account.emojis",
-            "columnName": "source_emojis",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "account.bot",
-            "columnName": "source_bot",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "account.createdAt",
-            "columnName": "source_createdAt",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.serverId",
-            "columnName": "status_serverId",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.url",
-            "columnName": "status_url",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.timelineUserId",
-            "columnName": "status_timelineUserId",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.authorServerId",
-            "columnName": "status_authorServerId",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.inReplyToId",
-            "columnName": "status_inReplyToId",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.inReplyToAccountId",
-            "columnName": "status_inReplyToAccountId",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.content",
-            "columnName": "status_content",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.createdAt",
-            "columnName": "status_createdAt",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.editedAt",
-            "columnName": "status_editedAt",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.emojis",
-            "columnName": "status_emojis",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.reblogsCount",
-            "columnName": "status_reblogsCount",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.favouritesCount",
-            "columnName": "status_favouritesCount",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.repliesCount",
-            "columnName": "status_repliesCount",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.reblogged",
-            "columnName": "status_reblogged",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.bookmarked",
-            "columnName": "status_bookmarked",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.favourited",
-            "columnName": "status_favourited",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.sensitive",
-            "columnName": "status_sensitive",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.spoilerText",
-            "columnName": "status_spoilerText",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.visibility",
-            "columnName": "status_visibility",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.attachments",
-            "columnName": "status_attachments",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.mentions",
-            "columnName": "status_mentions",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.tags",
-            "columnName": "status_tags",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.application",
-            "columnName": "status_application",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.reblogServerId",
-            "columnName": "status_reblogServerId",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.reblogAccountId",
-            "columnName": "status_reblogAccountId",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.poll",
-            "columnName": "status_poll",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.muted",
-            "columnName": "status_muted",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.pinned",
-            "columnName": "status_pinned",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.card",
-            "columnName": "status_card",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.language",
-            "columnName": "status_language",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "status.filtered",
-            "columnName": "status_filtered",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.pachliAccountId",
-            "columnName": "report_pachliAccountId",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.serverId",
-            "columnName": "report_serverId",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.actionTaken",
-            "columnName": "report_actionTaken",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.actionTakenAt",
-            "columnName": "report_actionTakenAt",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.category",
-            "columnName": "report_category",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.comment",
-            "columnName": "report_comment",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.forwarded",
-            "columnName": "report_forwarded",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.createdAt",
-            "columnName": "report_createdAt",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.statusIds",
-            "columnName": "report_statusIds",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.ruleIds",
-            "columnName": "report_ruleIds",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.targetAccount.serverId",
-            "columnName": "report_target_serverId",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.targetAccount.timelineUserId",
-            "columnName": "report_target_timelineUserId",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.targetAccount.localUsername",
-            "columnName": "report_target_localUsername",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.targetAccount.username",
-            "columnName": "report_target_username",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.targetAccount.displayName",
-            "columnName": "report_target_displayName",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.targetAccount.url",
-            "columnName": "report_target_url",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.targetAccount.avatar",
-            "columnName": "report_target_avatar",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.targetAccount.emojis",
-            "columnName": "report_target_emojis",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.targetAccount.bot",
-            "columnName": "report_target_bot",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "report.targetAccount.createdAt",
-            "columnName": "report_target_createdAt",
-            "affinity": "INTEGER",
             "notNull": false
           }
         ],
@@ -1885,11 +1538,25 @@
           ]
         },
         "indices": [],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "TimelineAccountEntity",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pachliAccountId",
+              "accountServerId"
+            ],
+            "referencedColumns": [
+              "timelineUserId",
+              "serverId"
+            ]
+          }
+        ]
       },
       {
         "tableName": "NotificationReportEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `actionTaken` INTEGER NOT NULL, `actionTakenAt` INTEGER, `category` TEXT NOT NULL, `comment` TEXT NOT NULL, `forwarded` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `statusIds` TEXT, `ruleIds` TEXT, `target_serverId` TEXT NOT NULL, `target_timelineUserId` INTEGER NOT NULL, `target_localUsername` TEXT NOT NULL, `target_username` TEXT NOT NULL, `target_displayName` TEXT NOT NULL, `target_url` TEXT NOT NULL, `target_avatar` TEXT NOT NULL, `target_emojis` TEXT NOT NULL, `target_bot` INTEGER NOT NULL, `target_createdAt` INTEGER, PRIMARY KEY(`pachliAccountId`, `serverId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `actionTaken` INTEGER NOT NULL, `actionTakenAt` INTEGER, `category` TEXT NOT NULL, `comment` TEXT NOT NULL, `forwarded` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `statusIds` TEXT, `ruleIds` TEXT, `target_serverId` TEXT NOT NULL, `target_timelineUserId` INTEGER NOT NULL, `target_localUsername` TEXT NOT NULL, `target_username` TEXT NOT NULL, `target_displayName` TEXT NOT NULL, `target_url` TEXT NOT NULL, `target_avatar` TEXT NOT NULL, `target_emojis` TEXT NOT NULL, `target_bot` INTEGER NOT NULL, `target_createdAt` INTEGER, `target_limited` INTEGER NOT NULL DEFAULT false, PRIMARY KEY(`pachliAccountId`, `serverId`))",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -2010,6 +1677,13 @@
             "columnName": "target_createdAt",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "targetAccount.limited",
+            "columnName": "target_limited",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "false"
           }
         ],
         "primaryKey": {
@@ -2026,7 +1700,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0012a4112c4d7b8ec44897a66d165507')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c102dd7ebe56a03b84037f957a275496')"
     ]
   }
 }

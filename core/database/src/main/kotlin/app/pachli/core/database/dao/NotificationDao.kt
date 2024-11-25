@@ -23,6 +23,7 @@ import androidx.room.Query
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
+import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 
 @Dao
@@ -31,14 +32,33 @@ interface NotificationDao {
     @Upsert
     suspend fun insertAll(notifications: List<NotificationEntity>)
 
+    //    @Transaction
+//    @Query(
+//        """
+//        SELECT *
+//          FROM NotificationEntity
+//         WHERE pachliAccountId = :pachliAccountId
+//    """,
+//    )
+//    fun pagingSource(pachliAccountId: Long): PagingSource<Int, NotificationData>
     @Query(
         """
-        SELECT *
-          FROM NotificationEntity
-         WHERE pachliAccountId = :pachliAccountId
-    """,
+            SELECT n.pachliAccountId,
+                   n.serverId,
+                   n.type,
+                   n.createdAt,
+                   n.accountServerId,
+                   n.statusServerId,
+                   a.serverId as 'a_serverId', a.timelineUserId as 'a_timelineUserId',
+a.localUsername as 'a_localUsername', a.username as 'a_username',
+a.displayName as 'a_displayName', a.url as 'a_url', a.avatar as 'a_avatar',
+a.emojis as 'a_emojis', a.bot as 'a_bot', a.createdAt as 'a_createdAt', a.limited as 'a_limited'
+              FROM NotificationEntity n
+              LEFT JOIN TimelineAccountEntity a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
+             WHERE n.pachliAccountId = :pachliAccountId
+        """,
     )
-    fun pagingSource(pachliAccountId: Long): PagingSource<Int, NotificationEntity>
+    fun pagingSource(pachliAccountId: Long): PagingSource<Int, NotificationData>
 
     @Query("DELETE FROM NotificationEntity WHERE pachliAccountId = :pachliAccountId")
     fun clearAll(pachliAccountId: Long)

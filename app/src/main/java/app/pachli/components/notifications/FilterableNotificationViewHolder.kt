@@ -21,7 +21,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.Notification
+import app.pachli.core.database.model.NotificationType
 import app.pachli.databinding.ItemNotificationFilteredBinding
 import app.pachli.viewdata.NotificationViewData
 
@@ -76,11 +76,11 @@ class FilterableNotificationViewHolder(
 
         // Labels for different notification types filtered by account.
         val label = when (viewData.type) {
-            Notification.Type.MENTION -> R.string.account_filter_placeholder_type_mention_fmt
-            Notification.Type.REBLOG -> R.string.account_filter_placeholder_type_reblog_fmt
-            Notification.Type.FAVOURITE -> R.string.account_filter_placeholder_type_favourite_fmt
-            Notification.Type.FOLLOW -> R.string.account_filter_placeholder_type_follow_fmt
-            Notification.Type.FOLLOW_REQUEST -> R.string.account_filter_placeholder_type_follow_request_fmt
+            NotificationType.MENTION -> R.string.account_filter_placeholder_type_mention_fmt
+            NotificationType.REBLOG -> R.string.account_filter_placeholder_type_reblog_fmt
+            NotificationType.FAVOURITE -> R.string.account_filter_placeholder_type_favourite_fmt
+            NotificationType.FOLLOW -> R.string.account_filter_placeholder_type_follow_fmt
+            NotificationType.FOLLOW_REQUEST -> R.string.account_filter_placeholder_type_follow_request_fmt
             else -> R.string.account_filter_placeholder_label_domain
         }
 
